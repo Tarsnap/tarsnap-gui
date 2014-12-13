@@ -75,7 +75,7 @@ border-radius: 2px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <property name="styleSheet">
@@ -267,7 +267,7 @@ background: transparent;
             <x>0</x>
             <y>0</y>
             <width>710</width>
-            <height>357</height>
+            <height>330</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -348,10 +348,19 @@ background: #E3EBEC;
            </item>
            <item>
             <widget class="QTreeWidget" name="treeWidget">
+             <property name="tabKeyNavigation">
+              <bool>true</bool>
+             </property>
              <property name="alternatingRowColors">
               <bool>true</bool>
              </property>
              <property name="rootIsDecorated">
+              <bool>true</bool>
+             </property>
+             <property name="uniformRowHeights">
+              <bool>false</bool>
+             </property>
+             <property name="headerHidden">
               <bool>true</bool>
              </property>
              <column>
@@ -361,7 +370,7 @@ background: #E3EBEC;
              </column>
              <item>
               <property name="text">
-               <string>home/</string>
+               <string>/home/</string>
               </property>
               <item>
                <property name="text">
@@ -384,6 +393,16 @@ background: #E3EBEC;
                </property>
               </item>
              </item>
+             <item>
+              <property name="text">
+               <string>/home_ext/*</string>
+              </property>
+              <item>
+               <property name="text">
+                <string/>
+               </property>
+              </item>
+             </item>
             </widget>
            </item>
           </layout>
@@ -399,6 +418,11 @@ background: #E3EBEC;
           </property>
           <attribute name="label">
            <string>Stage Server</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="page_4">
+          <attribute name="label">
+           <string>Media</string>
           </attribute>
          </widget>
          <widget class="QWidget" name="page_3">
@@ -558,13 +582,64 @@ background: #E3EBEC;
             <property name="title">
              <string>Settings</string>
             </property>
-            <layout class="QFormLayout" name="formLayout_4">
-             <item row="0" column="0">
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="1" column="0" colspan="3">
               <widget class="QCheckBox" name="checkBox">
                <property name="text">
                 <string>Store local Jobs and Settings on the remote for backup purposes? (they are backed up just as usual backups)</string>
                </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
               </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="checkBox_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Skip files largen than</string>
+               </property>
+               <property name="tristate">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="spinBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="suffix">
+                <string>GB</string>
+               </property>
+               <property name="value">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2" colspan="2">
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Minimum</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>

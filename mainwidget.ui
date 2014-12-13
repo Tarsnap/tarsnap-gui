@@ -6,98 +6,123 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>520</width>
-    <height>453</height>
+    <width>728</width>
+    <height>509</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWidget</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#MainWidget {
+	background-image: url(&quot;:/resources/light_toast.png&quot;);
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QWidget" name="widget" native="true">
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0" colspan="2">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Machine Summary</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>66 GB</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Actual usage</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>25 TB</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>999</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>No. of archives</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Raw usage</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>Account status</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>Normal</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="styleSheet">
+      <string notr="true">QTabBar::tab {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #E9F1F1, stop: 1.0 #E3EBEC);
+    border: 1px solid darkgrey;
+    border-bottom-color: #E9F1F1;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 3px;
+    min-width: 75px;
+    min-height: 25px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+QTabWidget::pane { /* The tab widget frame */
+    border-top: none;
+}
+
+QTabWidget::tab-bar {
+    left: 5px; /* move to the right by 5px */
+}
+
+QTabWidget::tab {
+border-radius: 2px;
+}
+
+QTabWidget
+{
+border-radius: 2px;
+}
+</string>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
+      <property name="styleSheet">
+       <string notr="true">#tab {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #E3EBEC, stop: 1.0 #DBDEE6);
+
+}</string>
+      </property>
       <attribute name="title">
        <string>Backup</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>5</number>
+       </property>
        <item>
         <widget class="QListWidget" name="listWidget">
+         <property name="styleSheet">
+          <string notr="true">#listWidget::item
+{
+min-height: 35px;
+}
+</string>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::MultiSelection</enum>
+         </property>
+         <property name="verticalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
+         <property name="horizontalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
          <item>
           <property name="text">
            <string>/home/shinnok/</string>
@@ -128,13 +153,185 @@
            <string>/home/bob/student_grades.xslt</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>                               Drag and drop files and directories here to back up now. Alternatively you can browse for a path.</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+         </item>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>Backup</string>
+        <widget class="QWidget" name="widget_2" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLineEdit" name="lineEdit">
+            <property name="text">
+             <string>my_ondemand_backup_10.12.2014</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Backup</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Jobs</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QToolBox" name="toolBox">
+         <property name="currentIndex">
+          <number>0</number>
          </property>
+         <widget class="QWidget" name="page">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>710</width>
+            <height>377</height>
+           </rect>
+          </property>
+          <attribute name="label">
+           <string>Users</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QWidget" name="widget_3" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QLabel" name="label_10">
+                <property name="text">
+                 <string>Last backup was on 02.12.2014.</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_3">
+                <property name="text">
+                 <string>Show previous versions</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTreeWidget" name="treeWidget">
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="rootIsDecorated">
+              <bool>true</bool>
+             </property>
+             <column>
+              <property name="text">
+               <string>/</string>
+              </property>
+             </column>
+             <item>
+              <property name="text">
+               <string>home</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>shinnok</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>bob</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>john</string>
+               </property>
+              </item>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>Backup now</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>692</width>
+            <height>359</height>
+           </rect>
+          </property>
+          <attribute name="label">
+           <string>Stage Server</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="page_3">
+          <attribute name="label">
+           <string>+ Add new job</string>
+          </attribute>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -143,11 +340,232 @@
       <attribute name="title">
        <string>Settings</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QWidget" name="widget" native="true">
+         <layout class="QFormLayout" name="formLayout">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+          </property>
+          <property name="labelAlignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+          <property name="formAlignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <item row="1" column="1">
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>Summary</string>
+            </property>
+            <layout class="QFormLayout" name="formLayout_2">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Raw usage:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>25 TB</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Actual usage:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>66 GB</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>No. of archives:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>999</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Account status:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Normal</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>Account</string>
+            </property>
+            <layout class="QFormLayout" name="formLayout_3">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>User:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEdit_2">
+               <property name="text">
+                <string>user@box.com</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>Machine key</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="lineEdit_3">
+               <property name="text">
+                <string>/home/shinnok/tarsnap.key</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_12">
+               <property name="text">
+                <string>Tarsnap cache</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="lineEdit_4">
+               <property name="text">
+                <string>/var/local/tarsnapcache</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="title">
+             <string>Settings</string>
+            </property>
+            <layout class="QFormLayout" name="formLayout_4">
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="checkBox">
+               <property name="text">
+                <string>Store local Jobs and Settings on the remote for backup purposes? (they are backed up just as usual backups)</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
        <string>Help</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string>General help</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <widget class="QTextBrowser" name="textBrowser_2">
+            <property name="html">
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;How Tarsnap archives work&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Unlike many backup systems, Tarsnap works with a concept of&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;immutable archives&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;. Similar to backups stored on &lt;/span&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Write_once_read_many&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;WORM drives&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;, once a Tarsnap archive has been created, it cannot be modified; each archive is &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/crypto.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;cryptographically signed&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; to ensure that it cannot be silently modified. For obvious reasons, this also means that archives cannot be &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;overwritten&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;; each archive must be created with a new name.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap also makes creating new archives very fast: Because Tarsnap&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/efficiency.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;deduplicates&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; archives against data stored in previous archives, if you have an archive already stored with a previous version of the data you're placing into a new archive, Tarsnap will automatically recognize the duplicated data and only upload the new blocks. Similarly, when you delete an archive, Tarsnap figures out which data was &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;only&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; in that archive, and deletes it, while leaving behind any data which is still needed by other archives.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;In short, to use Tarsnap you should start by forgetting everything you know about managing backups. If you want a backup of your data every day, then just ask Tarsnap to create a backup of your data every day.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:37px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap command line&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;The examples here assume that you are using a Tarsnap configuration file including&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;keyfile&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;cachedir&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; directives. The sample configuration file provided with Tarsnap specifies these (the default keyfile location is &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;/root/tarsnap.key&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;, and the default cache directory location is &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;/usr/local/tarsnap-cache&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;).&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:8px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;Create an archive named &amp;quot;mybackup&amp;quot; containing &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;/usr/home&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;/other/stuff&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -c -f mybackup /usr/home /other/stuff&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:7px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;Create another archive a day later from the same directories; this will be much faster because Tarsnap will recognize and avoid uploading data which was stored previously:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -c -f anotherbackup /usr/home /other/stuff&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:7px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;List all the archives which have been stored:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap --list-archives&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:7px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;Delete the first archive, leaving the second archive intact:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -d -f mybackup&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:7px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;List the files in the &amp;quot;anotherbackup&amp;quot; archive&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -tv -f anotherbackup&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:7px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;Restore two users' home directories&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:8px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:37px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap cache directory&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;The&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -c&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -d&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; (archive creating and deleting) operations use a &amp;quot;cache directory&amp;quot; which allows Tarsnap to identify which blocks of data have been previously stored; this directory is specified via the &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;cachedir&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; directive in the Tarsnap configuration file or via the &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;--cachedir&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; option to Tarsnap. If the cache directory is lost or out of date, the &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -c&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -d&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; operations will exit with an error message instructing you to run &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap --fsck&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; to regenerate the cache directory.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_5">
+            <property name="title">
+             <string>Command log</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item>
+              <widget class="QPlainTextEdit" name="plainTextEdit">
+               <property name="plainText">
+                <string>tarsnap -c -f mybackup /usr/home /other/stuff
+
+tarsnap -c -f anotherbackup /usr/home /other/stuff
+
+tarsnap -c -f anotherbackup /usr/home /other/stuff
+
+tarsnap -c -f anotherbackup /usr/home /other/stuff
+
+tarsnap -c -f anotherbackup /usr/home /other/stuff
+
+tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
+
+</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

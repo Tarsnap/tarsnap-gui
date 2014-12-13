@@ -18,3 +18,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwidget.h
 
 FORMS    += mainwidget.ui
+
+RESOURCES += \
+    resources.qrc

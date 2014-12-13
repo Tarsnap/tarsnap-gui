@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/light_toast.png</file>
+    </qresource>
+</RCC>

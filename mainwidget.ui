@@ -41,7 +41,7 @@
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #E9F1F1, stop: 1.0 #B7CBCD);
     border: 1px solid darkgrey;
-    border-bottom-color: grey;
+    border-bottom-color: darkgrey;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     padding: 3px;
@@ -75,12 +75,13 @@ border-radius: 2px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <property name="styleSheet">
        <string notr="true">#tab {
     background: rgba(198, 214, 215, 50);
+    border-top: 1px solid darkgrey;
 }</string>
       </property>
       <attribute name="title">
@@ -170,6 +171,11 @@ min-height: 35px;
           <property name="text">
            <string>                               Drag and drop files and directories here to back up now. Alternatively you can browse for a path.</string>
           </property>
+          <property name="font">
+           <font>
+            <italic>true</italic>
+           </font>
+          </property>
           <property name="background">
            <brush brushstyle="NoBrush">
             <color alpha="255">
@@ -221,6 +227,7 @@ min-height: 35px;
       <property name="styleSheet">
        <string notr="true">#tab_4 {
     background: rgba(198, 214, 215, 50);
+    border-top: 1px solid darkgrey;
 
 }</string>
       </property>
@@ -256,16 +263,40 @@ background: #E3EBEC;
            <string>Users</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_5">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QWidget" name="widget_3" native="true">
              <property name="styleSheet">
               <string notr="true"/>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item>
-               <widget class="QLabel" name="label_10">
+               <widget class="QPushButton" name="pushButton_2">
                 <property name="text">
-                 <string>Last backup was on 02.12.2014.</string>
+                 <string>Backup now</string>
                 </property>
                </widget>
               </item>
@@ -281,6 +312,13 @@ background: #E3EBEC;
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_10">
+                <property name="text">
+                 <string>Last backup was on 02.12.2014.</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_3">
@@ -311,27 +349,25 @@ background: #E3EBEC;
               </property>
               <item>
                <property name="text">
-                <string>shinnok/</string>
+                <string>shinnok/*</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>bob/work/</string>
+                <string>bob/</string>
                </property>
+               <item>
+                <property name="text">
+                 <string>work/*.cpp</string>
+                </property>
+               </item>
               </item>
               <item>
                <property name="text">
-                <string>john/</string>
+                <string>john/*</string>
                </property>
               </item>
              </item>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="text">
-              <string>Backup now</string>
-             </property>
             </widget>
            </item>
           </layout>
@@ -362,6 +398,7 @@ background: #E3EBEC;
       <property name="styleSheet">
        <string notr="true">#tab_2 {
     background: rgba(198, 214, 215, 50);
+    border-top: 1px solid darkgrey;
 
 }</string>
       </property>
@@ -525,6 +562,8 @@ background: #E3EBEC;
       <property name="styleSheet">
        <string notr="true">#tab_3 {
     background: rgba(198, 214, 215, 50);
+    border-top: 1px solid darkgrey;
+
 }</string>
       </property>
       <attribute name="title">

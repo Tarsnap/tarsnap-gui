@@ -127,6 +127,12 @@ min-height: 35px;
          <property name="horizontalScrollMode">
           <enum>QAbstractItemView::ScrollPerPixel</enum>
          </property>
+         <property name="resizeMode">
+          <enum>QListView::Adjust</enum>
+         </property>
+         <property name="viewMode">
+          <enum>QListView::ListMode</enum>
+         </property>
          <item>
           <property name="text">
            <string>/home/shinnok/</string>

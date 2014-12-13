@@ -2,6 +2,7 @@
 #define MAINWIDGET_H
 
 #include <QWidget>
+#include <QLabel>
 
 namespace Ui {
 class MainWidget;
@@ -20,6 +21,7 @@ protected:
 
 private:
     Ui::MainWidget *ui;
+    QLabel *m_tarsnapLogo;
 };
 
 #endif // MAINWIDGET_H

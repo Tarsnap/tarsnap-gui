@@ -39,16 +39,21 @@
      <property name="styleSheet">
       <string notr="true">QTabBar::tab {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #E9F1F1, stop: 1.0 #E3EBEC);
+                                stop: 0 #E9F1F1, stop: 1.0 #B7CBCD);
     border: 1px solid darkgrey;
-    border-bottom-color: #E9F1F1;
+    border-bottom-color: grey;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     padding: 3px;
     min-width: 75px;
-    min-height: 25px;
+    min-height: 20px;
+    font-size: 10pt;
     font-weight: bold;
     margin-left: 5px;
+}
+
+QTabBar::tab:selected {
+  border-bottom: none;
 }
 
 QTabWidget::pane { /* The tab widget frame */
@@ -70,14 +75,12 @@ border-radius: 2px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <property name="styleSheet">
        <string notr="true">#tab {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #E3EBEC, stop: 1.0 #DBDEE6);
-
+    background: rgba(198, 214, 215, 50);
 }</string>
       </property>
       <attribute name="title">
@@ -215,12 +218,23 @@ min-height: 35px;
       </layout>
      </widget>
      <widget class="QWidget" name="tab_4">
+      <property name="styleSheet">
+       <string notr="true">#tab_4 {
+    background: rgba(198, 214, 215, 50);
+
+}</string>
+      </property>
       <attribute name="title">
        <string>Jobs</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
         <widget class="QToolBox" name="toolBox">
+         <property name="styleSheet">
+          <string notr="true">#toolBox{
+background: transparent;
+}</string>
+         </property>
          <property name="currentIndex">
           <number>0</number>
          </property>
@@ -230,8 +244,13 @@ min-height: 35px;
             <x>0</x>
             <y>0</y>
             <width>710</width>
-            <height>377</height>
+            <height>382</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">#page {
+background: #E3EBEC;
+}</string>
           </property>
           <attribute name="label">
            <string>Users</string>
@@ -239,6 +258,9 @@ min-height: 35px;
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
             <widget class="QWidget" name="widget_3" native="true">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
                <widget class="QLabel" name="label_10">
@@ -285,21 +307,21 @@ min-height: 35px;
              </column>
              <item>
               <property name="text">
-               <string>home</string>
+               <string>home/</string>
               </property>
               <item>
                <property name="text">
-                <string>shinnok</string>
+                <string>shinnok/</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>bob</string>
+                <string>bob/work/</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>john</string>
+                <string>john/</string>
                </property>
               </item>
              </item>
@@ -319,8 +341,8 @@ min-height: 35px;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>692</width>
-            <height>359</height>
+            <width>710</width>
+            <height>377</height>
            </rect>
           </property>
           <attribute name="label">
@@ -337,6 +359,12 @@ min-height: 35px;
       </layout>
      </widget>
      <widget class="QWidget" name="tab_2">
+      <property name="styleSheet">
+       <string notr="true">#tab_2 {
+    background: rgba(198, 214, 215, 50);
+
+}</string>
+      </property>
       <attribute name="title">
        <string>Settings</string>
       </attribute>
@@ -494,6 +522,11 @@ min-height: 35px;
       </layout>
      </widget>
      <widget class="QWidget" name="tab_3">
+      <property name="styleSheet">
+       <string notr="true">#tab_3 {
+    background: rgba(198, 214, 215, 50);
+}</string>
+      </property>
       <attribute name="title">
        <string>Help</string>
       </attribute>
@@ -534,16 +567,19 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="title">
+          <string>Command log</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
-           <widget class="QGroupBox" name="groupBox_5">
-            <property name="title">
-             <string>Command log</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_8">
-             <item>
-              <widget class="QPlainTextEdit" name="plainTextEdit">
-               <property name="plainText">
-                <string>tarsnap -c -f mybackup /usr/home /other/stuff
+           <widget class="QPlainTextEdit" name="plainTextEdit">
+            <property name="plainText">
+             <string>tarsnap -c -f mybackup /usr/home /other/stuff
 
 tarsnap -c -f anotherbackup /usr/home /other/stuff
 
@@ -556,10 +592,7 @@ tarsnap -c -f anotherbackup /usr/home /other/stuff
 tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
 
 </string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            </property>
            </widget>
           </item>
          </layout>

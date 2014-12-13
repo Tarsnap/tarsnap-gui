@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/light_toast.png</file>
+        <file>resources/tarsnap.png</file>
     </qresource>
 </RCC>

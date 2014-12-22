@@ -2,5 +2,14 @@
     <qresource prefix="/">
         <file>resources/light_toast.png</file>
         <file>resources/tarsnap.png</file>
+        <file>resources/light_toast_@2X.png</file>
+        <file>resources/file-2x.png</file>
+        <file>resources/file-4x.png</file>
+        <file>resources/action-undo-2x.png</file>
+        <file>resources/action-undo-4x.png</file>
+        <file>resources/data-transfer-download-2x.png</file>
+        <file>resources/data-transfer-download-4x.png</file>
+        <file>resources/trash-2x.png</file>
+        <file>resources/trash-4x.png</file>
     </qresource>
 </RCC>

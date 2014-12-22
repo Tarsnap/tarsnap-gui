@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>728</width>
-    <height>509</height>
+    <width>869</width>
+    <height>549</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWidget</string>
+   <string>Tarsnappy</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#MainWidget {
-	background-image: url(&quot;:/resources/light_toast.png&quot;);
+background-image: url(&quot;:/resources/light_toast.png&quot;);
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -24,9 +24,6 @@
    </property>
    <property name="leftMargin">
     <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>10</number>
    </property>
    <property name="rightMargin">
     <number>0</number>
@@ -38,22 +35,25 @@
     <widget class="QTabWidget" name="tabWidget">
      <property name="styleSheet">
       <string notr="true">QTabBar::tab {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #E9F1F1, stop: 1.0 #B7CBCD);
-    border: 1px solid darkgrey;
-    border-bottom-color: darkgrey;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding: 3px;
-    min-width: 75px;
-    min-height: 20px;
-    font-size: 10pt;
-    font-weight: bold;
-    margin-left: 5px;
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #E9EDF1, stop: 1.0 #8A98AD);
+border: 1px solid darkgrey;
+border-bottom-color: darkgrey;
+border-top-left-radius: 4px;
+border-top-right-radius: 4px;
+padding: 4px;
+min-width: 75px;
+min-height: 20px;
+font-size: 12pt;
+font-weight: bold;
+margin-left: 3px;
+color: #00264D;
 }
 
 QTabBar::tab:selected {
-  border-bottom: none;
+border-bottom: none;
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #E9EDF1, stop: 1.0 #B7BFCD);
 }
 
 QTabWidget::pane { /* The tab widget frame */
@@ -75,7 +75,7 @@ border-radius: 2px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <property name="styleSheet">
@@ -109,6 +109,7 @@ border-radius: 2px;
           <string notr="true">#listWidget::item
 {
 min-height: 35px;
+selection-background-color: #E5E9FF;
 }
 </string>
          </property>
@@ -126,9 +127,6 @@ min-height: 35px;
          </property>
          <property name="horizontalScrollMode">
           <enum>QAbstractItemView::ScrollPerPixel</enum>
-         </property>
-         <property name="resizeMode">
-          <enum>QListView::Adjust</enum>
          </property>
          <property name="viewMode">
           <enum>QListView::ListMode</enum>
@@ -219,6 +217,9 @@ min-height: 35px;
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::MinimumExpanding</enum>
+            </property>
             <property name="sizeHint" stdset="0">
              <size>
               <width>40</width>
@@ -259,15 +260,15 @@ background: transparent;
 }</string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="page">
           <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>710</width>
-            <height>330</height>
+            <width>829</width>
+            <height>323</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -279,6 +280,9 @@ background: #E3EBEC;
            <string>Users</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_5">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -332,14 +336,14 @@ background: #E3EBEC;
               <item>
                <widget class="QLabel" name="label_10">
                 <property name="text">
-                 <string>Last backup was on 02.12.2014.</string>
+                 <string>Last backup was on 02.12.2014</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_3">
                 <property name="text">
-                 <string>Show previous versions</string>
+                 <string>Show previous archives</string>
                 </property>
                </widget>
               </item>
@@ -412,20 +416,128 @@ background: #E3EBEC;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>710</width>
-            <height>377</height>
+            <width>829</width>
+            <height>322</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">#page_2 {
+background: #E3EBEC;
+}</string>
           </property>
           <attribute name="label">
            <string>Stage Server</string>
           </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QWidget" name="widget_5" native="true">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="pushButton_4">
+                <property name="text">
+                 <string>Cancel</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_18">
+                <property name="text">
+                 <string>Last backup was on 02.12.2014</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_5">
+                <property name="text">
+                 <string>Restore latest archive</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="backupRestoreListWidget">
+             <property name="styleSheet">
+              <string notr="true">#backupRestoreListWidget::item
+{
+min-height: 35px;
+selection-background-color: #E5E9FF;
+}
+</string>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="page_4">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>829</width>
+            <height>323</height>
+           </rect>
+          </property>
           <attribute name="label">
            <string>Media</string>
           </attribute>
          </widget>
          <widget class="QWidget" name="page_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>829</width>
+            <height>323</height>
+           </rect>
+          </property>
           <attribute name="label">
            <string>+ Add new job</string>
           </attribute>
@@ -464,6 +576,12 @@ background: #E3EBEC;
              <string>Summary</string>
             </property>
             <layout class="QFormLayout" name="formLayout_2">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+             </property>
+             <property name="formAlignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
              <item row="0" column="0">
               <widget class="QLabel" name="label_2">
                <property name="text">
@@ -506,17 +624,31 @@ background: #E3EBEC;
                </property>
               </widget>
              </item>
-             <item row="3" column="0">
+             <item row="4" column="0">
               <widget class="QLabel" name="label_8">
                <property name="text">
                 <string>Account status:</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1">
+             <item row="4" column="1">
               <widget class="QLabel" name="label_9">
                <property name="text">
                 <string>Normal</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_16">
+               <property name="text">
+                <string>Credit left:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="label_17">
+               <property name="text">
+                <string>10$ out of 50$</string>
                </property>
               </widget>
              </item>
@@ -549,7 +681,7 @@ background: #E3EBEC;
              <item row="2" column="0">
               <widget class="QLabel" name="label_11">
                <property name="text">
-                <string>Machine key</string>
+                <string>Machine key:</string>
                </property>
               </widget>
              </item>
@@ -563,7 +695,7 @@ background: #E3EBEC;
              <item row="3" column="0">
               <widget class="QLabel" name="label_12">
                <property name="text">
-                <string>Tarsnap cache</string>
+                <string>Tarsnap cache:</string>
                </property>
               </widget>
              </item>
@@ -583,33 +715,14 @@ background: #E3EBEC;
              <string>Settings</string>
             </property>
             <layout class="QGridLayout" name="gridLayout">
-             <item row="1" column="0" colspan="3">
-              <widget class="QCheckBox" name="checkBox">
-               <property name="text">
-                <string>Store local Jobs and Settings on the remote for backup purposes? (they are backed up just as usual backups)</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QCheckBox" name="checkBox_3">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_14">
                <property name="text">
                 <string>Skip files largen than</string>
                </property>
-               <property name="tristate">
-                <bool>false</bool>
-               </property>
               </widget>
              </item>
-             <item row="0" column="1">
+             <item row="0" column="2">
               <widget class="QSpinBox" name="spinBox">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -625,7 +738,33 @@ background: #E3EBEC;
                </property>
               </widget>
              </item>
-             <item row="0" column="2" colspan="2">
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="checkBox">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="checkBox_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="tristate">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3" colspan="2">
               <spacer name="horizontalSpacer_3">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -640,6 +779,16 @@ background: #E3EBEC;
                 </size>
                </property>
               </spacer>
+             </item>
+             <item row="1" column="1" colspan="3">
+              <widget class="QLabel" name="label_13">
+               <property name="text">
+                <string>Store local Jobs and Settings on the remote for backup purposes?(they are backed up just as usual backups)</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -673,7 +822,7 @@ background: #E3EBEC;
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.Helvetica Neue DeskInterface'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:18px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;How Tarsnap archives work&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Unlike many backup systems, Tarsnap works with a concept of&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;immutable archives&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;. Similar to backups stored on &lt;/span&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Write_once_read_many&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;WORM drives&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;, once a Tarsnap archive has been created, it cannot be modified; each archive is &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/crypto.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;cryptographically signed&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; to ensure that it cannot be silently modified. For obvious reasons, this also means that archives cannot be &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;overwritten&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;; each archive must be created with a new name.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap also makes creating new archives very fast: Because Tarsnap&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/efficiency.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;deduplicates&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; archives against data stored in previous archives, if you have an archive already stored with a previous version of the data you're placing into a new archive, Tarsnap will automatically recognize the duplicated data and only upload the new blocks. Similarly, when you delete an archive, Tarsnap figures out which data was &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;only&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; in that archive, and deletes it, while leaving behind any data which is still needed by other archives.&lt;/span&gt;&lt;/p&gt;
@@ -733,34 +882,28 @@ tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
     </widget>
    </item>
    <item>
-    <widget class="QProgressBar" name="progressBar">
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>15</height>
-      </size>
-     </property>
-     <property name="value">
-      <number>34</number>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="textVisible">
-      <bool>true</bool>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="invertedAppearance">
-      <bool>false</bool>
-     </property>
-     <property name="textDirection">
-      <enum>QProgressBar::TopToBottom</enum>
-     </property>
-     <property name="format">
-      <string>%p% Uploading backup</string>
-     </property>
+    <widget class="QWidget" name="widget_4" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_9">
+      <property name="leftMargin">
+       <number>12</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>1</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_15">
+        <property name="text">
+         <string>Uploading backup...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

@@ -104,14 +104,13 @@ border-radius: 2px;
         <number>5</number>
        </property>
        <item>
-        <widget class="QListWidget" name="listWidget">
+        <widget class="QListWidget" name="onDemandBackupListWidget">
          <property name="styleSheet">
-          <string notr="true">#listWidget::item
+          <string notr="true">#onDemandBackupListWidget::item
 {
 min-height: 35px;
 selection-background-color: #E5E9FF;
-}
-</string>
+}</string>
          </property>
          <property name="dragEnabled">
           <bool>true</bool>
@@ -131,65 +130,30 @@ selection-background-color: #E5E9FF;
          <property name="viewMode">
           <enum>QListView::ListMode</enum>
          </property>
-         <item>
-          <property name="text">
-           <string>/home/shinnok/</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>/usr/local/</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>/srv/stage/</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>/etc/</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>/var/mail/</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>/home/bob/student_grades.xslt</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string/>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string/>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>                               Drag and drop files and directories here to back up now. Alternatively you can browse for a path.</string>
-          </property>
-          <property name="font">
-           <font>
-            <italic>true</italic>
-           </font>
-          </property>
-          <property name="background">
-           <brush brushstyle="SolidPattern">
-            <color alpha="255">
-             <red>178</red>
-             <green>190</green>
-             <blue>255</blue>
-            </color>
-           </brush>
-          </property>
-         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_20">
+         <property name="font">
+          <font>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+color: gray;
+background-color: rgb(178,190,255);
+}</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag and drop files and directories back up now. Alternatively you can &lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;browse&lt;/span&gt;&lt;/a&gt; for a path.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::RichText</enum>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -227,6 +191,18 @@ selection-background-color: #E5E9FF;
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_19">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+color: gray;
+}</string>
+            </property>
+            <property name="text">
+             <string>~850 MB</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="pushButton">
@@ -268,7 +244,7 @@ background: transparent;
             <x>0</x>
             <y>0</y>
             <width>829</width>
-            <height>323</height>
+            <height>322</height>
            </rect>
           </property>
           <property name="styleSheet">

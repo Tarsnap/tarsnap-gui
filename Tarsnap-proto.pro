@@ -18,7 +18,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwidget.h
 
 FORMS    += mainwidget.ui \
-    restoreitemwidget.ui
+    restoreitemwidget.ui \
+    backupitemwidget.ui
 
 RESOURCES += \
     resources.qrc

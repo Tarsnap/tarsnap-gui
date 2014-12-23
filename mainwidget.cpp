@@ -11,11 +11,13 @@ MainWidget::MainWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    m_tarsnapLogo = new QLabel(this);
-    m_tarsnapLogo->setText("Tarsnappy");
-    m_tarsnapLogo->resize(150, 30);
-    m_tarsnapLogo->setStyleSheet("font: italic \"Lucida\"; font-size: 22pt ;");
-    m_tarsnapLogo->show();
+    _tarsnapLogo = new QLabel(this);
+    QPixmap logo(":/resources/tarsnap.png");
+    _tarsnapLogo->setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio));
+    _tarsnapLogo->adjustSize();
+//    m_tarsnapLogo->setText("Tarsnappy");
+//    m_tarsnapLogo->setStyleSheet("font: italic \"Lucida Grande\"; font-size: 22pt ;");
+    _tarsnapLogo->show();
 
     Ui::RestoreItemWidget restoreItemUi;
     for(int i = 0; i < 10; i++)
@@ -36,9 +38,9 @@ MainWidget::MainWidget(QWidget *parent) :
         QListWidgetItem *item = new QListWidgetItem;
         QWidget *widget = new QWidget;
         backupItemUi.setupUi(widget);
-        backupItemUi.path->setText(path);
-        ui->onDemandBackupListWidget->insertItem(0, item);
-        ui->onDemandBackupListWidget->setItemWidget(item, widget);
+        backupItemUi.pathLabel->setText(path);
+        ui->backupListWidget->insertItem(0, item);
+        ui->backupListWidget->setItemWidget(item, widget);
     }
 }
 
@@ -55,5 +57,29 @@ void MainWidget::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
-    m_tarsnapLogo->move(this->width()-m_tarsnapLogo->width(),3);
+    _tarsnapLogo->move(this->width()-_tarsnapLogo->width(),3);
+}
+
+void MainWidget::mousePressEvent(QMouseEvent *event)
+{
+    if (event->buttons() & Qt::LeftButton) {
+        _windowDragPos = event->pos();
+    }
+}
+
+void MainWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    if (event->buttons() & Qt::LeftButton) {
+        QPoint diff = event->pos() - _windowDragPos;
+        QPoint newpos = this->pos() + diff;
+        this->move(newpos);
+    }
+}
+
+void MainWidget::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    if(isMaximized())
+        this->showNormal();
+    else
+        this->showMaximized();
 }

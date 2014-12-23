@@ -27,7 +27,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="iconLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -55,21 +55,21 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="path">
+    <widget class="QLabel" name="pathLabel">
      <property name="text">
       <string>Path</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="detailsLabel">
      <property name="styleSheet">
       <string notr="true">QLabel {
 color: grey;
 }</string>
      </property>
      <property name="text">
-      <string>~281 MB</string>
+      <string>101 files ~281 MB</string>
      </property>
     </widget>
    </item>
@@ -80,14 +80,14 @@ color: grey;
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>244</width>
+       <width>189</width>
        <height>20</height>
       </size>
      </property>
     </spacer>
    </item>
    <item>
-    <widget class="QToolButton" name="toolButton_3">
+    <widget class="QToolButton" name="browseButton">
      <property name="text">
       <string>...</string>
      </property>
@@ -98,7 +98,7 @@ color: grey;
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="toolButton_2">
+    <widget class="QToolButton" name="deleteButton">
      <property name="text">
       <string>...</string>
      </property>

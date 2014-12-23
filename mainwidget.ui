@@ -6,9 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>869</width>
-    <height>549</height>
+    <width>674</width>
+    <height>526</height>
    </rect>
+  </property>
+  <property name="acceptDrops">
+   <bool>false</bool>
   </property>
   <property name="windowTitle">
    <string>Tarsnappy</string>
@@ -32,7 +35,10 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
     <number>0</number>
    </property>
    <item>
-    <widget class="QTabWidget" name="tabWidget">
+    <widget class="QTabWidget" name="mainTabWidget">
+     <property name="acceptDrops">
+      <bool>false</bool>
+     </property>
      <property name="styleSheet">
       <string notr="true">QTabBar::tab {
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
@@ -77,9 +83,12 @@ border-radius: 2px;
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="backupTab">
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
       <property name="styleSheet">
-       <string notr="true">#tab {
+       <string notr="true">#backupTab {
     background: rgba(198, 214, 215, 50);
     border-top: 1px solid darkgrey;
 }</string>
@@ -104,13 +113,19 @@ border-radius: 2px;
         <number>5</number>
        </property>
        <item>
-        <widget class="QListWidget" name="onDemandBackupListWidget">
+        <widget class="BackupListWidget" name="backupListWidget">
+         <property name="acceptDrops">
+          <bool>true</bool>
+         </property>
          <property name="styleSheet">
-          <string notr="true">#onDemandBackupListWidget::item
+          <string notr="true">#backupListWidget::item
 {
 min-height: 35px;
 selection-background-color: #E5E9FF;
 }</string>
+         </property>
+         <property name="tabKeyNavigation">
+          <bool>true</bool>
          </property>
          <property name="dragEnabled">
           <bool>true</bool>
@@ -119,7 +134,7 @@ selection-background-color: #E5E9FF;
           <bool>true</bool>
          </property>
          <property name="selectionMode">
-          <enum>QAbstractItemView::MultiSelection</enum>
+          <enum>QAbstractItemView::SingleSelection</enum>
          </property>
          <property name="verticalScrollMode">
           <enum>QAbstractItemView::ScrollPerPixel</enum>
@@ -133,7 +148,7 @@ selection-background-color: #E5E9FF;
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_20">
+        <widget class="QLabel" name="infoLabel">
          <property name="font">
           <font>
            <italic>true</italic>
@@ -146,7 +161,7 @@ background-color: rgb(178,190,255);
 }</string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag and drop files and directories back up now. Alternatively you can &lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;browse&lt;/span&gt;&lt;/a&gt; for a path.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag and drop files and directories to back up now. Alternatively you can &lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;browse&lt;/span&gt;&lt;/a&gt; for a path.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>
@@ -157,17 +172,17 @@ background-color: rgb(178,190,255);
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="widget_2" native="true">
+        <widget class="QWidget" name="backupActionWidget" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="backupNameLineEdit">
             <property name="text">
              <string>my_ondemand_backup_10.12.2014</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBox_2">
+           <widget class="QCheckBox" name="appendTimestampCheckBox">
             <property name="text">
              <string>Append timestamp</string>
             </property>
@@ -193,7 +208,7 @@ background-color: rgb(178,190,255);
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label_19">
+           <widget class="QLabel" name="backupSizeLabel">
             <property name="styleSheet">
              <string notr="true">QLabel {
 color: gray;
@@ -205,7 +220,7 @@ color: gray;
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="backupButton">
             <property name="text">
              <string>Backup</string>
             </property>
@@ -216,7 +231,7 @@ color: gray;
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_4">
+     <widget class="QWidget" name="jobsTab">
       <property name="styleSheet">
        <string notr="true">#tab_4 {
     background: rgba(198, 214, 215, 50);
@@ -243,8 +258,8 @@ background: transparent;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>829</width>
-            <height>322</height>
+            <width>530</width>
+            <height>111</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -392,8 +407,8 @@ background: #E3EBEC;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>829</width>
-            <height>322</height>
+            <width>634</width>
+            <height>300</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -497,8 +512,8 @@ selection-background-color: #E5E9FF;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>829</width>
-            <height>323</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -510,8 +525,8 @@ selection-background-color: #E5E9FF;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>829</width>
-            <height>323</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -522,7 +537,7 @@ selection-background-color: #E5E9FF;
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="settingsTab">
       <property name="styleSheet">
        <string notr="true">#tab_2 {
     background: rgba(198, 214, 215, 50);
@@ -774,7 +789,7 @@ selection-background-color: #E5E9FF;
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_3">
+     <widget class="QWidget" name="helpTab">
       <property name="styleSheet">
        <string notr="true">#tab_3 {
     background: rgba(198, 214, 215, 50);
@@ -858,7 +873,7 @@ tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="widget_4" native="true">
+    <widget class="QWidget" name="statusBarWidget" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_9">
       <property name="leftMargin">
        <number>12</number>
@@ -873,7 +888,12 @@ tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
        <number>1</number>
       </property>
       <item>
-       <widget class="QLabel" name="label_15">
+       <widget class="QLabel" name="statusBarLabel">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Uploading backup...</string>
         </property>
@@ -885,6 +905,13 @@ tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>BackupListWidget</class>
+   <extends>QListWidget</extends>
+   <header>backuplistwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

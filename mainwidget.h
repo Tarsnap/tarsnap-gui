@@ -18,10 +18,14 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseDoubleClickEvent(QMouseEvent * event);
 
 private:
     Ui::MainWidget *ui;
-    QLabel *m_tarsnapLogo;
+    QLabel *_tarsnapLogo;
+    QPoint  _windowDragPos;
 };
 
 #endif // MAINWIDGET_H

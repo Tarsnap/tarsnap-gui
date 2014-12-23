@@ -13,9 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwidget.cpp
+        mainwidget.cpp \
+    backuplistwidget.cpp
 
-HEADERS  += mainwidget.h
+HEADERS  += mainwidget.h \
+    backuplistwidget.h
 
 FORMS    += mainwidget.ui \
     restoreitemwidget.ui \

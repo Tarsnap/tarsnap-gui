@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>674</width>
-    <height>526</height>
+    <width>579</width>
+    <height>554</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -47,9 +47,8 @@ border: 1px solid darkgrey;
 border-bottom-color: darkgrey;
 border-top-left-radius: 4px;
 border-top-right-radius: 4px;
-padding: 4px;
-min-width: 75px;
-min-height: 20px;
+padding: 5px;
+width: 75px;
 font-size: 12pt;
 font-weight: bold;
 margin-left: 3px;
@@ -233,10 +232,9 @@ color: gray;
      </widget>
      <widget class="QWidget" name="jobsTab">
       <property name="styleSheet">
-       <string notr="true">#tab_4 {
+       <string notr="true">#jobsTab {
     background: rgba(198, 214, 215, 50);
     border-top: 1px solid darkgrey;
-
 }</string>
       </property>
       <attribute name="title">
@@ -251,15 +249,15 @@ background: transparent;
 }</string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page">
           <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>530</width>
-            <height>111</height>
+            <width>539</width>
+            <height>330</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -407,8 +405,8 @@ background: #E3EBEC;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>634</width>
-            <height>300</height>
+            <width>539</width>
+            <height>328</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -512,8 +510,8 @@ selection-background-color: #E5E9FF;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>100</width>
-            <height>30</height>
+            <width>539</width>
+            <height>328</height>
            </rect>
           </property>
           <attribute name="label">
@@ -539,7 +537,7 @@ selection-background-color: #E5E9FF;
      </widget>
      <widget class="QWidget" name="settingsTab">
       <property name="styleSheet">
-       <string notr="true">#tab_2 {
+       <string notr="true">#settingsTab {
     background: rgba(198, 214, 215, 50);
     border-top: 1px solid darkgrey;
 
@@ -549,6 +547,18 @@ selection-background-color: #E5E9FF;
        <string>Settings</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>5</number>
+       </property>
        <item>
         <widget class="QWidget" name="widget" native="true">
          <layout class="QFormLayout" name="formLayout">
@@ -697,6 +707,20 @@ selection-background-color: #E5E9FF;
                </property>
               </widget>
              </item>
+             <item row="4" column="1">
+              <widget class="QPushButton" name="pushButton_6">
+               <property name="text">
+                <string>Clear cache</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>Purge archives</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
@@ -706,39 +730,12 @@ selection-background-color: #E5E9FF;
              <string>Settings</string>
             </property>
             <layout class="QGridLayout" name="gridLayout">
-             <item row="0" column="1">
-              <widget class="QLabel" name="label_14">
-               <property name="text">
-                <string>Skip files largen than</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2">
-              <widget class="QSpinBox" name="spinBox">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="suffix">
-                <string>GB</string>
-               </property>
-               <property name="value">
-                <number>2</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QCheckBox" name="checkBox">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
+             <property name="horizontalSpacing">
+              <number>-1</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>4</number>
+             </property>
              <item row="0" column="0">
               <widget class="QCheckBox" name="checkBox_3">
                <property name="sizePolicy">
@@ -771,10 +768,43 @@ selection-background-color: #E5E9FF;
                </property>
               </spacer>
              </item>
-             <item row="1" column="1" colspan="3">
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="checkBox">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QSpinBox" name="spinBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="suffix">
+                <string>GB</string>
+               </property>
+               <property name="value">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_14">
+               <property name="text">
+                <string>Skip files largen than</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" colspan="4">
               <widget class="QLabel" name="label_13">
                <property name="text">
-                <string>Store local Jobs and Settings on the remote for backup purposes?(they are backed up just as usual backups)</string>
+                <string>Store local Jobs and app Settings on the remote for backup purposes?(they are backed up just as usual backups)</string>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
@@ -791,7 +821,7 @@ selection-background-color: #E5E9FF;
      </widget>
      <widget class="QWidget" name="helpTab">
       <property name="styleSheet">
-       <string notr="true">#tab_3 {
+       <string notr="true">#helpTab {
     background: rgba(198, 214, 215, 50);
     border-top: 1px solid darkgrey;
 

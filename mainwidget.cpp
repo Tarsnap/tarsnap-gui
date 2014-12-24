@@ -13,7 +13,7 @@ MainWidget::MainWidget(QWidget *parent) :
 
     _tarsnapLogo = new QLabel(this);
     QPixmap logo(":/resources/tarsnap.png");
-    _tarsnapLogo->setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio));
+    _tarsnapLogo->setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     _tarsnapLogo->adjustSize();
 //    m_tarsnapLogo->setText("Tarsnappy");
 //    m_tarsnapLogo->setStyleSheet("font: italic \"Lucida Grande\"; font-size: 22pt ;");
@@ -57,7 +57,7 @@ void MainWidget::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
-    _tarsnapLogo->move(this->width()-_tarsnapLogo->width(),3);
+    _tarsnapLogo->move(this->width()-_tarsnapLogo->width()-10,3);
 }
 
 void MainWidget::mousePressEvent(QMouseEvent *event)

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>579</width>
-    <height>554</height>
+    <width>637</width>
+    <height>687</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -256,8 +256,8 @@ background: transparent;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>539</width>
-            <height>330</height>
+            <width>597</width>
+            <height>463</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -405,8 +405,8 @@ background: #E3EBEC;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>539</width>
-            <height>328</height>
+            <width>480</width>
+            <height>110</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -510,8 +510,8 @@ selection-background-color: #E5E9FF;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>539</width>
-            <height>328</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -571,91 +571,6 @@ selection-background-color: #E5E9FF;
           <property name="formAlignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
           </property>
-          <item row="1" column="1">
-           <widget class="QGroupBox" name="groupBox">
-            <property name="title">
-             <string>Summary</string>
-            </property>
-            <layout class="QFormLayout" name="formLayout_2">
-             <property name="fieldGrowthPolicy">
-              <enum>QFormLayout::FieldsStayAtSizeHint</enum>
-             </property>
-             <property name="formAlignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-             </property>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Raw usage:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>25 TB</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>Actual usage:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="label_5">
-               <property name="text">
-                <string>66 GB</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>No. of archives:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLabel" name="label_7">
-               <property name="text">
-                <string>999</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="label_8">
-               <property name="text">
-                <string>Account status:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1">
-              <widget class="QLabel" name="label_9">
-               <property name="text">
-                <string>Normal</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_16">
-               <property name="text">
-                <string>Credit left:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLabel" name="label_17">
-               <property name="text">
-                <string>10$ out of 50$</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
           <item row="2" column="1">
            <widget class="QGroupBox" name="groupBox_2">
             <property name="title">
@@ -668,7 +583,7 @@ selection-background-color: #E5E9FF;
              <item row="0" column="0">
               <widget class="QLabel" name="label">
                <property name="text">
-                <string>User:</string>
+                <string>Tarsnap user:</string>
                </property>
               </widget>
              </item>
@@ -679,10 +594,24 @@ selection-background-color: #E5E9FF;
                </property>
               </widget>
              </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_19">
+               <property name="text">
+                <string>Host name:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="lineEdit">
+               <property name="text">
+                <string>machine</string>
+               </property>
+              </widget>
+             </item>
              <item row="2" column="0">
               <widget class="QLabel" name="label_11">
                <property name="text">
-                <string>Machine key:</string>
+                <string>Host key:</string>
                </property>
               </widget>
              </item>
@@ -690,34 +619,6 @@ selection-background-color: #E5E9FF;
               <widget class="QLineEdit" name="lineEdit_3">
                <property name="text">
                 <string>/home/shinnok/tarsnap.key</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_12">
-               <property name="text">
-                <string>Tarsnap cache:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLineEdit" name="lineEdit_4">
-               <property name="text">
-                <string>/var/local/tarsnapcache</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1">
-              <widget class="QPushButton" name="pushButton_6">
-               <property name="text">
-                <string>Clear cache</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="1">
-              <widget class="QPushButton" name="pushButton">
-               <property name="text">
-                <string>Purge archives</string>
                </property>
               </widget>
              </item>
@@ -736,6 +637,56 @@ selection-background-color: #E5E9FF;
              <property name="verticalSpacing">
               <number>4</number>
              </property>
+             <item row="1" column="1" colspan="2">
+              <widget class="QLabel" name="label_15">
+               <property name="text">
+                <string>Traverse mounted points</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="checkBox_2">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_14">
+               <property name="text">
+                <string>Skip files largen than</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QSpinBox" name="spinBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="suffix">
+                <string>GB</string>
+               </property>
+               <property name="value">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1" colspan="4">
+              <widget class="QLabel" name="label_13">
+               <property name="toolTip">
+                <string>(they are backed up just as usual backups)</string>
+               </property>
+               <property name="text">
+                <string>Backup app jobs and settings on Tarsnap so that they can be restored?</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
              <item row="0" column="0">
               <widget class="QCheckBox" name="checkBox_3">
                <property name="sizePolicy">
@@ -768,7 +719,7 @@ selection-background-color: #E5E9FF;
                </property>
               </spacer>
              </item>
-             <item row="1" column="0">
+             <item row="2" column="0">
               <widget class="QCheckBox" name="checkBox">
                <property name="text">
                 <string/>
@@ -778,36 +729,161 @@ selection-background-color: #E5E9FF;
                </property>
               </widget>
              </item>
-             <item row="0" column="2">
-              <widget class="QSpinBox" name="spinBox">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
+             <item row="3" column="0" colspan="5">
+              <widget class="QPushButton" name="pushButton_8">
+               <property name="text">
+                <string>Show/hide advanced settings</string>
                </property>
-               <property name="suffix">
-                <string>GB</string>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QGroupBox" name="groupBox_6">
+            <property name="title">
+             <string>Advanced</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_20">
+               <property name="text">
+                <string>Tarsnap CLI path:</string>
                </property>
-               <property name="value">
-                <number>2</number>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_12">
+               <property name="text">
+                <string>Tarsnap cache:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0" colspan="3">
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>Purge archives</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0" colspan="3">
+              <widget class="QPushButton" name="pushButton_6">
+               <property name="text">
+                <string>Clear cache</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1" colspan="2">
+              <widget class="QLineEdit" name="lineEdit_4">
+               <property name="text">
+                <string>/var/local/tarsnapcache/</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="lineEdit_5">
+               <property name="text">
+                <string>/usr/local/bin/</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0" colspan="3">
+              <widget class="QPushButton" name="pushButton_7">
+               <property name="text">
+                <string>Reset app settings</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>Summary</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="2" column="1">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>66 GB</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Actual usage:</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QLabel" name="label_14">
+              <widget class="QLabel" name="label_9">
                <property name="text">
-                <string>Skip files largen than</string>
+                <string>Normal</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" colspan="4">
-              <widget class="QLabel" name="label_13">
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_2">
                <property name="text">
-                <string>Store local Jobs and app Settings on the remote for backup purposes?(they are backed up just as usual backups)</string>
+                <string>Raw usage:</string>
                </property>
-               <property name="wordWrap">
-                <bool>true</bool>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QLabel" name="label_17">
+               <property name="text">
+                <string>10$ out of 50$</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>25 TB</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Account status:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="label_16">
+               <property name="text">
+                <string>Credit left:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>No. of archives:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>999</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLabel" name="label_21">
+               <property name="text">
+                <string>Storage saved:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
+              <widget class="QLabel" name="label_22">
+               <property name="text">
+                <string>999 GB</string>
                </property>
               </widget>
              </item>

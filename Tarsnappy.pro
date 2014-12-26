@@ -14,14 +14,17 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwidget.cpp \
-    backuplistwidget.cpp
+    backuplistwidget.cpp \
+    setupdialog.cpp
 
 HEADERS  += mainwidget.h \
-    backuplistwidget.h
+    backuplistwidget.h \
+    setupdialog.h
 
 FORMS    += mainwidget.ui \
     restoreitemwidget.ui \
-    backupitemwidget.ui
+    backupitemwidget.ui \
+    setupdialog.ui
 
 RESOURCES += \
     resources.qrc

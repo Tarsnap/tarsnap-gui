@@ -2,9 +2,9 @@
 #include "ui_mainwidget.h"
 #include "ui_restoreitemwidget.h"
 #include "ui_backupitemwidget.h"
-#include "setupdialog.h"
 
 #include <QPainter>
+#include <QDebug>
 
 MainWidget::MainWidget(QWidget *parent) :
     QWidget(parent),
@@ -43,9 +43,6 @@ MainWidget::MainWidget(QWidget *parent) :
         ui->backupListWidget->insertItem(0, item);
         ui->backupListWidget->setItemWidget(item, widget);
     }
-
-    SetupDialog *dialog = new SetupDialog(this);
-    dialog->show();
 }
 
 MainWidget::~MainWidget()

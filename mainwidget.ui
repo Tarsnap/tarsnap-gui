@@ -175,6 +175,18 @@ background-color: rgb(178,190,255);
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLineEdit" name="backupNameLineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
              <string>my_ondemand_backup_10.12.2014</string>
             </property>
@@ -182,6 +194,12 @@ background-color: rgb(178,190,255);
           </item>
           <item>
            <widget class="QCheckBox" name="appendTimestampCheckBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>Append timestamp</string>
             </property>
@@ -196,7 +214,7 @@ background-color: rgb(178,190,255);
              <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
+             <enum>QSizePolicy::Maximum</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -208,6 +226,12 @@ background-color: rgb(178,190,255);
           </item>
           <item>
            <widget class="QLabel" name="backupSizeLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="styleSheet">
              <string notr="true">QLabel {
 color: gray;
@@ -220,6 +244,12 @@ color: gray;
           </item>
           <item>
            <widget class="QPushButton" name="backupButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>Backup</string>
             </property>

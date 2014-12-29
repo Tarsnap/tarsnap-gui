@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>547</width>
-    <height>372</height>
+    <width>523</width>
+    <height>370</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,16 +26,16 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
     <number>0</number>
    </property>
    <property name="leftMargin">
-    <number>24</number>
+    <number>0</number>
    </property>
    <property name="topMargin">
     <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>24</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>12</number>
+    <number>6</number>
    </property>
    <item>
     <widget class="QWidget" name="wizardNavigateWidget" native="true">
@@ -137,21 +137,34 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
      </layout>
     </widget>
    </item>
+   <item alignment="Qt::AlignHCenter">
+    <widget class="QLabel" name="iconLabel_2">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="resources.qrc">:/resources/tarsnap.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QStackedWidget" name="wizardPagesStackedWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="welcomePage">
       <layout class="QGridLayout" name="gridLayout">
        <property name="leftMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="topMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="rightMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="bottomMargin">
         <number>0</number>
@@ -226,21 +239,8 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
          </layout>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="resources.qrc">:/resources/tarsnap.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="0" colspan="2">
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="infoLabel">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
@@ -262,33 +262,17 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
      <widget class="QWidget" name="restorePage">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="leftMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="topMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="rightMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="resources.qrc">:/resources/tarsnap.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QLabel" name="label_3">
          <property name="font">
@@ -382,33 +366,17 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
      <widget class="QWidget" name="tarsnapPathPage">
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <property name="leftMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="topMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="rightMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item>
-        <widget class="QLabel" name="iconLabel">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="resources.qrc">:/resources/tarsnap.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QLabel" name="textLabel">
          <property name="font">
@@ -521,33 +489,17 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
      <widget class="QWidget" name="newAccountPage">
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <property name="leftMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="topMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="rightMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item>
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="resources.qrc">:/resources/tarsnap.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QLabel" name="label_6">
          <property name="font">
@@ -694,33 +646,17 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
      <widget class="QWidget" name="donePage">
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <property name="leftMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="topMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="rightMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item>
-        <widget class="QLabel" name="label_12">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="resources.qrc">:/resources/tarsnap.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QLabel" name="label_13">
          <property name="font">

@@ -15,11 +15,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwidget.cpp \
     backuplistwidget.cpp \
-    setupdialog.cpp
+    setupdialog.cpp \
+    tarsnapcli.cpp \
+    jobmanager.cpp \
+    coreapplication.cpp
 
 HEADERS  += mainwidget.h \
     backuplistwidget.h \
-    setupdialog.h
+    setupdialog.h \
+    tarsnapcli.h \
+    jobmanager.h \
+    coreapplication.h
 
 FORMS    += mainwidget.ui \
     restoreitemwidget.ui \

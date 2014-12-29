@@ -1,11 +1,7 @@
-#include "mainwidget.h"
-#include <QApplication>
+#include "coreapplication.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWidget w;
-    w.show();
-
-    return a.exec();
+    CoreApplication app(argc, argv);
+    return app.exec();
 }

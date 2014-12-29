@@ -28,3 +28,8 @@ FORMS    += mainwidget.ui \
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    COPYING \
+    README \
+    INSTALL

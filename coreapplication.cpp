@@ -18,7 +18,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     QCoreApplication::setApplicationName(tr("Tarsnappy"));
 
 
-    if(!_settings.contains("application\\initialized"))
+    if(!_settings.contains("application/initialized"))
     {
         // Show the first time setup dialog
         SetupDialog *dialog = new SetupDialog();

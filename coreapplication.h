@@ -1,7 +1,7 @@
 #ifndef COREAPPLICATION_H
 #define COREAPPLICATION_H
 
-#include "mainwidget.h"
+#include "mainwindow.h"
 
 #include <QObject>
 #include <QApplication>
@@ -18,8 +18,9 @@ public:
     void quitApplication(int returnCode);
 
 private:
-    MainWidget *_mainWindow;
+    MainWindow *_mainWindow;
     QSettings   _settings;
+
 };
 
 #endif // COREAPPLICATION_H

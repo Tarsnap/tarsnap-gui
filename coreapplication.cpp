@@ -26,7 +26,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     }
 
     // Show the main window
-    _mainWindow = new MainWidget();
+    _mainWindow = new MainWindow();
     if(!_mainWindow)
     {
         qDebug() << tr("Can't instantiate the MainWidget. Quitting.");

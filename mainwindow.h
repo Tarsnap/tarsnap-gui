@@ -1,20 +1,20 @@
-#ifndef MAINWIDGET_H
-#define MAINWIDGET_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <QWidget>
 #include <QLabel>
 
 namespace Ui {
-class MainWidget;
+class MainWindow;
 }
 
-class MainWidget : public QWidget
+class MainWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit MainWidget(QWidget *parent = 0);
-    ~MainWidget();
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -23,9 +23,9 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent * event);
 
 private:
-    Ui::MainWidget *ui;
+    Ui::MainWindow *ui;
     QLabel *_tarsnapLogo;
     QPoint  _windowDragPos;
 };
 
-#endif // MAINWIDGET_H
+#endif // MAINWINDOW_H

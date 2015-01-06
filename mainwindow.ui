@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWidget</class>
- <widget class="QWidget" name="MainWidget">
+ <class>MainWindow</class>
+ <widget class="QWidget" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -286,8 +286,8 @@ background: transparent;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>597</width>
-            <height>463</height>
+            <width>530</width>
+            <height>110</height>
            </rect>
           </property>
           <property name="styleSheet">

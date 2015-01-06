@@ -11,26 +11,29 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Tarsnappy
 TEMPLATE = app
 
+CONFIG += c++11
 
 SOURCES += main.cpp\
-        mainwidget.cpp \
     backuplistwidget.cpp \
     setupdialog.cpp \
     tarsnapcli.cpp \
     jobmanager.cpp \
-    coreapplication.cpp
+    coreapplication.cpp \
+    mainwindow.cpp
 
-HEADERS  += mainwidget.h \
+HEADERS  += \
     backuplistwidget.h \
     setupdialog.h \
     tarsnapcli.h \
     jobmanager.h \
-    coreapplication.h
+    coreapplication.h \
+    mainwindow.h
 
-FORMS    += mainwidget.ui \
+FORMS    += \
     restoreitemwidget.ui \
     backupitemwidget.ui \
-    setupdialog.ui
+    setupdialog.ui \
+    mainwindow.ui
 
 RESOURCES += \
     resources.qrc

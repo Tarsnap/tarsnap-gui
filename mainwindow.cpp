@@ -1,14 +1,14 @@
-#include "mainwidget.h"
-#include "ui_mainwidget.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include "ui_restoreitemwidget.h"
 #include "ui_backupitemwidget.h"
 
 #include <QPainter>
 #include <QDebug>
 
-MainWidget::MainWidget(QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::MainWidget)
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -45,13 +45,13 @@ MainWidget::MainWidget(QWidget *parent) :
     }
 }
 
-MainWidget::~MainWidget()
+MainWindow::~MainWindow()
 {
     delete ui;
 }
 
 
-void MainWidget::paintEvent(QPaintEvent *)
+void MainWindow::paintEvent(QPaintEvent *)
 {
     QStyleOption opt;
     opt.init(this);
@@ -61,14 +61,14 @@ void MainWidget::paintEvent(QPaintEvent *)
     _tarsnapLogo->move(this->width()-_tarsnapLogo->width()-10,3);
 }
 
-void MainWidget::mousePressEvent(QMouseEvent *event)
+void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     if (event->buttons() & Qt::LeftButton) {
         _windowDragPos = event->pos();
     }
 }
 
-void MainWidget::mouseMoveEvent(QMouseEvent *event)
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->buttons() & Qt::LeftButton) {
         QPoint diff = event->pos() - _windowDragPos;
@@ -77,8 +77,9 @@ void MainWidget::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void MainWidget::mouseDoubleClickEvent(QMouseEvent *event)
+void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
+    Q_UNUSED(event);
     if(isMaximized())
         this->showNormal();
     else

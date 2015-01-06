@@ -151,12 +151,12 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
     </widget>
    </item>
    <item>
-    <widget class="QStackedWidget" name="wizardPagesStackedWidget">
+    <widget class="QStackedWidget" name="wizardStackedWidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
      <widget class="QWidget" name="welcomePage">
-      <layout class="QGridLayout" name="gridLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_6">
        <property name="leftMargin">
         <number>12</number>
        </property>
@@ -169,7 +169,61 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item row="3" column="0" colspan="2" alignment="Qt::AlignBottom">
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="infoLabel">
+         <property name="font">
+          <font>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>This guide will help you set up Tarsnap and get started with the basics. Alternatively you can Cancel now and set everything up from the Settings pane in the application whenever you wish so.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item alignment="Qt::AlignBottom">
+        <widget class="QCheckBox" name="advancedSettingsCheckBox">
+         <property name="text">
+          <string>Advanced setup</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignBottom">
         <widget class="QWidget" name="buttonBox" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <property name="leftMargin">
@@ -201,7 +255,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="welcomePageCancelButton">
             <property name="text">
              <string>Cancel</string>
             </property>
@@ -211,9 +265,12 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="welcomePageProceedButton">
             <property name="text">
              <string>Proceed</string>
+            </property>
+            <property name="autoDefault">
+             <bool>true</bool>
             </property>
             <property name="default">
              <bool>true</bool>
@@ -239,24 +296,6 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
          </layout>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QLabel" name="infoLabel">
-         <property name="font">
-          <font>
-           <pointsize>13</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>This guide will help you set up Tarsnap and get started with the basics. Alternatively you can Cancel now and set everything up from the Settings pane in the application whenever you wish so.</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tarsnapPathPage">
@@ -274,19 +313,22 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
         <number>0</number>
        </property>
        <item>
-        <widget class="QLabel" name="textLabel">
+        <widget class="QLabel" name="advancedInfoLabel">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>The Tarsnap Command Line Interface(CLI) backend hasn't been found on this system. The app doesn't work without Tarsnap CLI installed. Please point me to the path where the tarsnap CLI command resides. Information on installing Tarsnap CLI can be found &lt;here&gt;.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Tarsnap Command Line Interface(CLI) backend hasn't been found on this system. This app doesn't work without Tarsnap CLI installed. Please point me to the path where the Tarsnap CLI program resides. Information on installing Tarsnap CLI can be found &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
          <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="openExternalLinks">
           <bool>true</bool>
          </property>
         </widget>
@@ -295,19 +337,22 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
         <widget class="QWidget" name="actionContainerWidget" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QPushButton" name="pushButton_6">
+           <widget class="QPushButton" name="tarsnapPathBrowseButton">
             <property name="text">
              <string>Browse</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="tarsnapPathLineEdit">
             <property name="text">
-             <string>/usr/local/bin</string>
+             <string/>
             </property>
             <property name="dragEnabled">
              <bool>true</bool>
+            </property>
+            <property name="placeholderText">
+             <string>Tarsnap client location</string>
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
@@ -349,12 +394,12 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_5">
+           <widget class="QPushButton" name="tarsnapPathProceedButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
             <property name="text">
-             <string>Ok</string>
+             <string>Proceed</string>
             </property>
             <property name="default">
              <bool>true</bool>
@@ -446,7 +491,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="restoreNoButton">
             <property name="text">
              <string>No</string>
             </property>
@@ -456,7 +501,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_4">
+           <widget class="QPushButton" name="restoreYesButton">
             <property name="text">
              <string>Yes</string>
             </property>
@@ -508,9 +553,15 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
           </font>
          </property>
          <property name="text">
-          <string>Please use your Tarsnap account credentials. Don't have an account, create an account &lt;here&gt;.</string>
+          <string>Please use your Tarsnap account credentials. Don't have an account? Register one &lt;a href=&quot;http://tarsnap.com&quot;&gt;here&lt;/a&gt;.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
          <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="openExternalLinks">
           <bool>true</bool>
          </property>
         </widget>
@@ -521,7 +572,10 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
           <item row="2" column="0">
            <widget class="QLabel" name="label_9">
             <property name="text">
-             <string>Hostname:</string>
+             <string>Host name:</string>
+            </property>
+            <property name="buddy">
+             <cstring>hostnameLineEdit</cstring>
             </property>
            </widget>
           </item>
@@ -530,31 +584,54 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
             <property name="text">
              <string>Tarsnap password:</string>
             </property>
+            <property name="buddy">
+             <cstring>tarsnapPasswordLineEdit</cstring>
+            </property>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_4">
+           <widget class="QLineEdit" name="hostnameLineEdit">
             <property name="text">
-             <string>hostname</string>
+             <string/>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit_2"/>
+           <widget class="QLineEdit" name="tarsnapUserLineEdit">
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_3"/>
+           <widget class="QLineEdit" name="tarsnapPasswordLineEdit">
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_10">
             <property name="text">
              <string>Host key:</string>
             </property>
+            <property name="buddy">
+             <cstring>hostKeyLineEdit</cstring>
+            </property>
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="lineEdit_5">
+           <widget class="QLineEdit" name="hostKeyLineEdit">
             <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
              <string>generate new</string>
             </property>
            </widget>
@@ -563,6 +640,9 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            <widget class="QLabel" name="label_7">
             <property name="text">
              <string>Tarsnap user:</string>
+            </property>
+            <property name="buddy">
+             <cstring>tarsnapUserLineEdit</cstring>
             </property>
            </widget>
           </item>
@@ -574,7 +654,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
              </font>
             </property>
             <property name="text">
-             <string>Already have a key? Click &lt;here&gt; to browse for it.</string>
+             <string>Already have a key? Click &lt;a href=&quot;&quot;&gt;here&lt;/a&gt; to browse for it.</string>
             </property>
            </widget>
           </item>
@@ -613,7 +693,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_8">
+           <widget class="QPushButton" name="registerMachineButton">
             <property name="text">
              <string>Register machine</string>
             </property>
@@ -718,7 +798,7 @@ p, li { white-space: pre-wrap; }
           <item>
            <widget class="QPushButton" name="pushButton_7">
             <property name="text">
-             <string>Start using the app</string>
+             <string>Start using Tarsnap</string>
             </property>
             <property name="default">
              <bool>true</bool>
@@ -750,6 +830,27 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>restoreNoButton</tabstop>
+  <tabstop>tarsnapPathPageRadioButton</tabstop>
+  <tabstop>restorePageRadioButton</tabstop>
+  <tabstop>newAccountPageRadioButton</tabstop>
+  <tabstop>donePageRadioButton</tabstop>
+  <tabstop>tarsnapUserLineEdit</tabstop>
+  <tabstop>tarsnapPasswordLineEdit</tabstop>
+  <tabstop>hostnameLineEdit</tabstop>
+  <tabstop>hostKeyLineEdit</tabstop>
+  <tabstop>registerMachineButton</tabstop>
+  <tabstop>welcomePageProceedButton</tabstop>
+  <tabstop>welcomePageCancelButton</tabstop>
+  <tabstop>welcomePageRadioButton</tabstop>
+  <tabstop>restoreYesButton</tabstop>
+  <tabstop>tarsnapPathBrowseButton</tabstop>
+  <tabstop>tarsnapPathLineEdit</tabstop>
+  <tabstop>tarsnapPathProceedButton</tabstop>
+  <tabstop>textBrowser</tabstop>
+  <tabstop>pushButton_7</tabstop>
+ </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>

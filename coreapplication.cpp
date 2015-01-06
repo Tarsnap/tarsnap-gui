@@ -13,12 +13,12 @@ CoreApplication::CoreApplication(int &argc, char **argv):
 
     qDebug() << "Debug test.";
 
-    QCoreApplication::setOrganizationName(tr("Tarsnap Inc."));
+    QCoreApplication::setOrganizationName(tr("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));
     QCoreApplication::setApplicationName(tr("Tarsnappy"));
 
 
-    if(!_settings.contains("application/initialized"))
+    if(!_settings.contains("application/configured"))
     {
         // Show the first time setup dialog
         SetupDialog *dialog = new SetupDialog();

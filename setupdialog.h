@@ -2,6 +2,7 @@
 #define SETUPDIALOG_H
 
 #include <QDialog>
+#include <QMouseEvent>
 
 namespace Ui {
 class SetupDialog;
@@ -16,10 +17,29 @@ public:
     ~SetupDialog();
 
 public slots:
-    void setCurrentPage();
+    void wizardPageChanged(int);
+    void skipToPage();
+    void setNextPage();
+    void showTarsnapPathBrowse();
+    bool validateTarsnapPath(QString path);
+
+protected:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+
+private:
+    void findTarsnapInPath();
+    void commitSettings();
 
 private:
     Ui::SetupDialog *ui;
+    QPoint  _windowDragPos;
+
+    QString _tarsnapCLIDir;
+    QString _tarsnapUser;
+    QString _tarsnapPassword;
+    QString _tarsnapCacheDir;
+    QString _tarsnapKeysDir;
 };
 
 #endif // SETUPDIALOG_H

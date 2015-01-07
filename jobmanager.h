@@ -2,6 +2,7 @@
 #define JOBMANAGER_H
 
 #include <QObject>
+#include <QThread>
 
 class JobManager : public QObject
 {
@@ -13,6 +14,9 @@ public:
 signals:
 
 public slots:
+
+private:
+    QThread _managerThread; // manager runs on a separate thread
 };
 
 #endif // JOBMANAGER_H

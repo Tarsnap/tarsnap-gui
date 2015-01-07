@@ -11,8 +11,6 @@ CoreApplication::CoreApplication(int &argc, char **argv):
 {
     qSetMessagePattern("%{file}(%{line}): %{message}");
 
-    qDebug() << "Debug test.";
-
     QCoreApplication::setOrganizationName(tr("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));
     QCoreApplication::setApplicationName(tr("Tarsnappy"));

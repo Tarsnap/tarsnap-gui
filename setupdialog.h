@@ -19,9 +19,16 @@ public:
 public slots:
     void wizardPageChanged(int);
     void skipToPage();
+    void showAdvancedSetup(bool display);
     void setNextPage();
     void showTarsnapPathBrowse();
+    void showTarsnapCacheBrowse();
+    bool validateAdvancedSetupPage();
     bool validateTarsnapPath(QString path);
+    bool validateTarsnapCache(QString path);
+    void validateRegisterPage();
+    void registerHaveKeyBrowse(QString url);
+    void registerMachine();
 
 protected:
     void mousePressEvent(QMouseEvent *event);

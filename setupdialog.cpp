@@ -6,6 +6,8 @@
 #include <QFileDialog>
 #include <QHostInfo>
 #include <QStandardPaths>
+#include <QDateTime>
+#include <QDir>
 
 SetupDialog::SetupDialog(QWidget *parent) :
     QDialog(parent),
@@ -14,6 +16,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
     ui->setupUi(this);
 
     showAdvancedSetup(false);
+    ui->errorLabel->hide();
 
     connect(ui->welcomePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
     connect(ui->restorePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
@@ -25,7 +28,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
 
     // Welcome page
     connect(ui->advancedSetupCheckBox, SIGNAL(toggled(bool)), this, SLOT(showAdvancedSetup(bool)));
-    connect(ui->welcomePageCancelButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(ui->welcomePageCancelButton, SIGNAL(clicked()), this, SLOT(reject()));
     connect(ui->welcomePageProceedButton, SIGNAL(clicked()), this, SLOT(setNextPage()));
 
     // Advanced setup page
@@ -46,6 +49,9 @@ SetupDialog::SetupDialog(QWidget *parent) :
     connect(ui->hostKeyLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
     connect(ui->haveKeyLabel, SIGNAL(linkActivated(QString)), this, SLOT(registerHaveKeyBrowse(QString)));
     connect(ui->registerMachineButton, SIGNAL(clicked()), this, SLOT(registerMachine()));
+
+    // Done page
+    connect(ui->doneButton, SIGNAL(clicked()), this, SLOT(accept()));
 
     _tarsnapKeysDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
     QDir keysDir(_tarsnapKeysDir);
@@ -150,15 +156,17 @@ void SetupDialog::setNextPage()
             ui->wizardStackedWidget->setCurrentWidget(ui->restorePage);
         }
     }
-    else
-    if(ui->wizardStackedWidget->currentWidget() == ui->advancedPage)
+    else if(ui->wizardStackedWidget->currentWidget() == ui->advancedPage)
     {
         ui->wizardStackedWidget->setCurrentWidget(ui->restorePage);
     }
-    else
-    if(ui->wizardStackedWidget->currentWidget() == ui->restorePage)
+    else if(ui->wizardStackedWidget->currentWidget() == ui->restorePage)
     {
         ui->wizardStackedWidget->setCurrentWidget(ui->newAccountPage);
+    }
+    else if(ui->wizardStackedWidget->currentWidget() == ui->newAccountPage)
+    {
+        ui->wizardStackedWidget->setCurrentWidget(ui->donePage);
     }
 }
 
@@ -256,6 +264,26 @@ void SetupDialog::registerMachine()
     qDebug() << _tarsnapCLIDir;
     qDebug() << _tarsnapKeysDir;
     qDebug() << _tarsnapCacheDir;
+
+    _tarsnapKeyFile = ui->hostNameLineEdit->text() + "_" + QString::number(QDateTime::currentMSecsSinceEpoch());
+
+    emit registerMachine(ui->tarsnapUserLineEdit->text(), ui->tarsnapPasswordLineEdit->text()
+                         , ui->hostNameLineEdit->text(), _tarsnapKeysDir + QDir::separator()
+                         + _tarsnapKeyFile);
+}
+
+void SetupDialog::registerMachineStatus(JobManager::JobStatus status, QString reason)
+{
+    switch(status)
+    {
+        case JobManager::Completed:
+            setNextPage();
+            break;
+        case JobManager::Failed:
+            ui->errorLabel->setText(reason);
+            ui->errorLabel->show();
+            break;
+    }
 }
 
 void SetupDialog::findTarsnapInPath()
@@ -277,5 +305,5 @@ void SetupDialog::findTarsnapInPath()
 
 void SetupDialog::commitSettings()
 {
-
+    ui->doneButton->setEnabled(true);
 }

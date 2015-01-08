@@ -42,8 +42,8 @@ void JobManager::clientFinished(int exitStatus, QString message, QString output)
 {
     QObject::sender()->deleteLater();
     if(exitStatus == 0)
-        emit registerMachineStatus(JobStatus::Completed, message);
+        emit registerMachineStatus(JobStatus::Completed, output);
     else
-        emit registerMachineStatus(JobStatus::Failed, message);
+        emit registerMachineStatus(JobStatus::Failed, output);
 }
 

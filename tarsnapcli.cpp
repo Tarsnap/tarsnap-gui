@@ -46,6 +46,11 @@ void TarsnapCLI::runClient()
     _process.setProgram(_command);
     _process.setArguments(_arguments);
     _process.start();
+    if(_requiresPassword)
+    {
+        QByteArray password( _password.toUtf8() + "\n" );
+        _process.write( password.data(), password.size() );
+    }
 }
 
 void TarsnapCLI::killClient()
@@ -77,7 +82,7 @@ void TarsnapCLI::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     qDebug() << QString::fromStdString(_processOutput.toStdString());
     qDebug() << "Tarsnap process finished with return code " << exitCode << ".";
-    emit clientFinished(exitCode, "Command succesfull.", QString(_processOutput));
+    emit clientFinished(exitCode, "", QString(_processOutput));
 }
 
 void TarsnapCLI::processError(QProcess::ProcessError error)

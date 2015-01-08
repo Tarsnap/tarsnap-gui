@@ -156,7 +156,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
    <item>
     <widget class="QStackedWidget" name="wizardStackedWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="welcomePage">
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -640,6 +640,15 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
        <item>
         <widget class="QWidget" name="actionCenterWidget" native="true">
          <layout class="QGridLayout" name="gridLayout_2">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>-1</number>
+          </property>
           <item row="2" column="0">
            <widget class="QLabel" name="label_9">
             <property name="text">
@@ -733,6 +742,32 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="errorLabel">
+         <property name="font">
+          <font>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#errorLabel {
+color: darkred;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="openExternalLinks">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item alignment="Qt::AlignBottom">
@@ -876,7 +911,10 @@ p, li { white-space: pre-wrap; }
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_7">
+           <widget class="QPushButton" name="doneButton">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Start using Tarsnap</string>
             </property>
@@ -929,7 +967,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>tarsnapPathLineEdit</tabstop>
   <tabstop>advancedPageProceedButton</tabstop>
   <tabstop>textBrowser</tabstop>
-  <tabstop>pushButton_7</tabstop>
+  <tabstop>doneButton</tabstop>
  </tabstops>
  <resources>
   <include location="resources.qrc"/>

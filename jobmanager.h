@@ -10,14 +10,14 @@ class JobManager : public QObject
 {
     Q_OBJECT
 
+public:
     enum JobStatus { Running, Completed, Failed, Paused };
 
-public:
     explicit JobManager(QObject *parent = 0);
     ~JobManager();
 
 signals:
-    void registerMachineStatus(JobStatus status, QString reason);
+    void registerMachineStatus(JobManager::JobStatus status, QString reason);
 
 public slots:
     void testCall();

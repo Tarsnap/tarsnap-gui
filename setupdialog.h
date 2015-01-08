@@ -1,6 +1,8 @@
 #ifndef SETUPDIALOG_H
 #define SETUPDIALOG_H
 
+#include <jobmanager.h>
+
 #include <QDialog>
 #include <QMouseEvent>
 
@@ -30,6 +32,12 @@ public slots:
     void registerHaveKeyBrowse(QString url);
     void registerMachine();
 
+    // JobManager responses
+    void registerMachineStatus(JobManager::JobStatus status, QString reason);
+
+signals:
+    void registerMachine(QString user, QString password, QString machine, QString key);
+
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
@@ -47,6 +55,7 @@ private:
     QString _tarsnapPassword;
     QString _tarsnapCacheDir;
     QString _tarsnapKeysDir;
+    QString _tarsnapKeyFile;
 };
 
 #endif // SETUPDIALOG_H

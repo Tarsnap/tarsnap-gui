@@ -2,6 +2,7 @@
 #define COREAPPLICATION_H
 
 #include "mainwindow.h"
+#include "jobmanager.h"
 
 #include <QObject>
 #include <QApplication>
@@ -20,7 +21,7 @@ public:
 private:
     MainWindow *_mainWindow;
     QSettings   _settings;
-
+    JobManager  _jobManager;
 };
 
 #endif // COREAPPLICATION_H

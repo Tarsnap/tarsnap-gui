@@ -4,7 +4,10 @@
 #include <QThread>
 #include <QProcess>
 
-class TarsnapCLI : public QThread
+#define CMD_TARSNAP "tarsnap"
+#define CMD_TARSNAPKEYGEN "tarsnap-keygen"
+
+class TarsnapCLI : public QObject
 {
     Q_OBJECT
 public:
@@ -17,20 +20,34 @@ public:
     QStringList arguments() const;
     void setArguments(const QStringList &arguments);
 
-    void runCommand();
+    void killClient();
+    QProcess::ProcessState statusClient();
 
-protected:
-    void run() Q_DECL_OVERRIDE;
+    bool waitForClient();
+
+    QString password() const;
+    void setPassword(const QString &password);
+
+    bool requiresPassword() const;
+    void setRequiresPassword(bool requiresPassword);
 
 signals:
-    void commandFinished(int exitStatus, QString message, QString stdOut, QString stdErr);
+    void clientFinished(int exitStatus, QString message, QString output);
 
 public slots:
+    void runClient();
+    void readProcessOutput();
+    void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void processError(QProcess::ProcessError error);
 
 private:
-    QString         _command;
-    QStringList     _arguments;
-    QProcess        _process;
+    QProcess         _process;
+    QByteArray       _processOutput;
+    QString          _command;
+    QStringList      _arguments;
+    QString          _password;
+    bool             _requiresPassword;
+    QThread          _thread;
 };
 
 #endif // TARSNAPCLI_H

@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>523</width>
-    <height>376</height>
+    <width>500</width>
+    <height>400</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>400</height>
+   </size>
   </property>
   <property name="acceptDrops">
    <bool>true</bool>
@@ -89,6 +95,9 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
       </item>
       <item>
        <widget class="QRadioButton" name="advancedPageRadioButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -96,13 +105,19 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
       </item>
       <item>
        <widget class="QRadioButton" name="restorePageRadioButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string/>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="newAccountPageRadioButton">
+       <widget class="QRadioButton" name="registerAccountPageRadioButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -110,6 +125,9 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
       </item>
       <item>
        <widget class="QRadioButton" name="donePageRadioButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
@@ -189,7 +207,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="infoLabel">
+        <widget class="QLabel" name="welcomePageInfoLabel">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
@@ -199,7 +217,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
           <string>This guide will help you set up Tarsnap and get started with the basics. Alternatively you can Cancel now and set everything up from the Settings pane in the application whenever you wish so.</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+          <set>Qt::AlignCenter</set>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -523,7 +541,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
           <string>Have you used Tarsnap on this machine already and have a key? Tarsnap can attempt to restore its previous configuration.</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+          <set>Qt::AlignCenter</set>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -602,8 +620,11 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="newAccountPage">
+     <widget class="QWidget" name="registerAccountPage">
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <property name="leftMargin">
         <number>12</number>
        </property>
@@ -617,7 +638,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
         <number>0</number>
        </property>
        <item>
-        <widget class="QLabel" name="label_6">
+        <widget class="QLabel" name="registerPageInfoLabel">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
@@ -639,43 +660,29 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
        </item>
        <item>
         <widget class="QWidget" name="actionCenterWidget" native="true">
-         <layout class="QGridLayout" name="gridLayout_2">
+         <layout class="QFormLayout" name="registerPageActionCenterLayout">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::ExpandingFieldsGrow</enum>
+          </property>
+          <property name="horizontalSpacing">
+           <number>-1</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>-1</number>
+          </property>
           <property name="topMargin">
-           <number>0</number>
+           <number>12</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <property name="spacing">
-           <number>-1</number>
-          </property>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_9">
+          <item row="0" column="0">
+           <widget class="QLabel" name="tarsnapUserLabel">
             <property name="text">
-             <string>Host name:</string>
+             <string>Tarsnap user:</string>
             </property>
             <property name="buddy">
-             <cstring>hostNameLineEdit</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>Tarsnap password:</string>
-            </property>
-            <property name="buddy">
-             <cstring>tarsnapPasswordLineEdit</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="hostNameLineEdit">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="clearButtonEnabled">
-             <bool>true</bool>
+             <cstring>tarsnapUserLineEdit</cstring>
             </property>
            </widget>
           </item>
@@ -683,6 +690,16 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            <widget class="QLineEdit" name="tarsnapUserLineEdit">
             <property name="clearButtonEnabled">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="tarsnapPasswordLabel">
+            <property name="text">
+             <string>Tarsnap password:</string>
+            </property>
+            <property name="buddy">
+             <cstring>tarsnapPasswordLineEdit</cstring>
             </property>
            </widget>
           </item>
@@ -696,8 +713,28 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
             </property>
            </widget>
           </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>Host name:</string>
+            </property>
+            <property name="buddy">
+             <cstring>hostNameLineEdit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="hostNameLineEdit">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="label_10">
+           <widget class="QLabel" name="hostKeyLabel">
             <property name="text">
              <string>Host key:</string>
             </property>
@@ -712,62 +749,52 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
              <string/>
             </property>
             <property name="placeholderText">
-             <string>generate new</string>
+             <string>path to your existing keyfile</string>
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string>Tarsnap user:</string>
-            </property>
-            <property name="buddy">
-             <cstring>tarsnapUserLineEdit</cstring>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="1">
-           <widget class="QLabel" name="haveKeyLabel">
+           <widget class="QLabel" name="hostHaveKeyLabel">
             <property name="font">
              <font>
               <italic>true</italic>
              </font>
             </property>
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Already have a key? Click &lt;a href=&quot;/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt; to browse for it.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Locate&lt;/span&gt;&lt;/a&gt; your machine key.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" colspan="2">
+           <widget class="QLabel" name="errorLabel">
+            <property name="font">
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#errorLabel {
+color: darkred;
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <property name="openExternalLinks">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
          </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="errorLabel">
-         <property name="font">
-          <font>
-           <italic>true</italic>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">#errorLabel {
-color: darkred;
-}</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-         <property name="openExternalLinks">
-          <bool>true</bool>
-         </property>
         </widget>
        </item>
        <item alignment="Qt::AlignBottom">
@@ -874,7 +901,8 @@ color: darkred;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.Helvetica Neue DeskInterface'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;* Store a backup of the machine key somewhere safe. If you lose the Tarsnap key file for this machine, you will not be able to recover any of the archived that using that key.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;* The machine key file has been saved to &amp;lt;url&amp;gt;. Store a backup of the machine key somewhere safe. If you lose the Tarsnap key file for this machine, you will not be able to recover any of the archived data using that key.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;* The application doesn't store your Tarsnap credentials for safety reasons.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;* If you have multiple machines, you almost certainly want to create a separate key file for each machine.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
@@ -952,7 +980,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>restoreNoButton</tabstop>
   <tabstop>advancedPageRadioButton</tabstop>
   <tabstop>restorePageRadioButton</tabstop>
-  <tabstop>newAccountPageRadioButton</tabstop>
+  <tabstop>registerAccountPageRadioButton</tabstop>
   <tabstop>donePageRadioButton</tabstop>
   <tabstop>tarsnapUserLineEdit</tabstop>
   <tabstop>tarsnapPasswordLineEdit</tabstop>

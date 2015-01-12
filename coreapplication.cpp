@@ -17,8 +17,8 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));
     QCoreApplication::setApplicationName(tr("Tarsnappy"));
 
-
-    if(!_settings.contains("application/configured"))
+    QSettings  settings;
+    if(false == settings.value("application/wizardComplete", false).toBool())
     {
         // Show the first time setup dialog
         SetupDialog *dialog = new SetupDialog();

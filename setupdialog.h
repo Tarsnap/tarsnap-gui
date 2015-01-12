@@ -28,9 +28,12 @@ public slots:
     bool validateAdvancedSetupPage();
     bool validateTarsnapPath(QString path);
     bool validateTarsnapCache(QString path);
+    void restoreNo();
+    void restoreYes();
     void validateRegisterPage();
     void registerHaveKeyBrowse(QString url);
     void registerMachine();
+    void commitSettings();
 
     // JobManager responses
     void registerMachineStatus(JobManager::JobStatus status, QString reason);
@@ -44,7 +47,6 @@ protected:
 
 private:
     void findTarsnapInPath();
-    void commitSettings();
 
 private:
     Ui::SetupDialog *ui;
@@ -56,6 +58,7 @@ private:
     QString _tarsnapCacheDir;
     QString _tarsnapKeysDir;
     QString _tarsnapKeyFile;
+    bool    _haveKey;
 };
 
 #endif // SETUPDIALOG_H

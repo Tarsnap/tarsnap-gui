@@ -20,7 +20,6 @@ public:
 
 private:
     MainWindow *_mainWindow;
-    QSettings   _settings;
     JobManager  _jobManager;
 };
 

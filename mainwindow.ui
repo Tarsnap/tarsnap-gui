@@ -133,7 +133,7 @@ selection-background-color: #E5E9FF;
           <bool>true</bool>
          </property>
          <property name="selectionMode">
-          <enum>QAbstractItemView::SingleSelection</enum>
+          <enum>QAbstractItemView::ExtendedSelection</enum>
          </property>
          <property name="verticalScrollMode">
           <enum>QAbstractItemView::ScrollPerPixel</enum>
@@ -144,10 +144,13 @@ selection-background-color: #E5E9FF;
          <property name="viewMode">
           <enum>QListView::ListMode</enum>
          </property>
+         <property name="selectionRectVisible">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="infoLabel">
+        <widget class="QLabel" name="backupListInfoLabel">
          <property name="font">
           <font>
            <italic>true</italic>
@@ -188,7 +191,10 @@ background-color: rgb(178,190,255);
              </size>
             </property>
             <property name="text">
-             <string>my_ondemand_backup_10.12.2014</string>
+             <string>backup</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -204,7 +210,7 @@ background-color: rgb(178,190,255);
              <string>Append timestamp</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>

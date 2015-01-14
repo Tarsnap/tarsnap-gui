@@ -42,3 +42,8 @@ DISTFILES += \
     COPYING \
     README \
     INSTALL
+
+osx {
+    OBJECTIVE_SOURCES += platform_osx.mm
+    LIBS += -framework Foundation
+}

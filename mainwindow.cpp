@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <QSettings>
+#include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
@@ -31,19 +32,19 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->backupRestoreListWidget->setItemWidget(item, widget);
     }
 
-    Ui::BackupItemWidget backupItemUi;
-    QStringList paths;
-    paths << "/home/shinnok/" << "/srv/backups/backup_27.12.2015.tgz"
-          << "/home/bill/.vimrc" << "/home/bob/student_grades.xslt";
-    foreach(QString path, paths)
-    {
-        QListWidgetItem *item = new QListWidgetItem;
-        QWidget *widget = new QWidget;
-        backupItemUi.setupUi(widget);
-        backupItemUi.pathLabel->setText(path);
-        ui->backupListWidget->insertItem(0, item);
-        ui->backupListWidget->setItemWidget(item, widget);
-    }
+//    Ui::BackupItemWidget backupItemUi;
+//    QStringList paths;
+//    paths << "/home/shinnok/" << "/srv/backups/backup_27.12.2015.tgz"
+//          << "/home/bill/.vimrc" << "/home/bob/student_grades.xslt";
+//    foreach(QString path, paths)
+//    {
+//        QListWidgetItem *item = new QListWidgetItem;
+//        QWidget *widget = new QWidget;
+//        backupItemUi.setupUi(widget);
+//        backupItemUi.pathLabel->setText(path);
+//        ui->backupListWidget->insertItem(0, item);
+//        ui->backupListWidget->setItemWidget(item, widget);
+//    }
 }
 
 MainWindow::~MainWindow()
@@ -95,4 +96,16 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
         this->showNormal();
     else
         this->showMaximized();
+}
+
+void MainWindow::on_appendTimestampCheckBox_toggled(bool checked)
+{
+    if(checked)
+    {
+        QString text = ui->backupNameLineEdit->text();
+        text.append("_");
+        text.append(QDateTime::currentDateTime().toString("dd.MM.yyyy_HH:mm:ss"));
+        ui->backupNameLineEdit->setText(text);
+        ui->backupNameLineEdit->setCursorPosition(0);
+    }
 }

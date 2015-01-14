@@ -18,9 +18,6 @@ public:
 
     void quitApplication(int returnCode);
 
-private slots:
-    void setupWizardDone(int result);
-
 private:
     MainWindow *_mainWindow;
     JobManager  _jobManager;

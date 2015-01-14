@@ -15,5 +15,7 @@
         <file>resources/circle-x-4x.png</file>
         <file>resources/magnifying-glass-2x.png</file>
         <file>resources/magnifying-glass-4x.png</file>
+        <file>resources/folder-2x.png</file>
+        <file>resources/folder-4x.png</file>
     </qresource>
 </RCC>

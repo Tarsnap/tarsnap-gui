@@ -24,6 +24,9 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent * event);
 
+private slots:
+    void on_appendTimestampCheckBox_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     QLabel *_tarsnapLogo;

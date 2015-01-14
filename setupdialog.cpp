@@ -362,10 +362,12 @@ void SetupDialog::commitSettings()
 {
     QSettings settings;
 
+    settings.setValue("app/appdata", _tarsnapKeysDir);
     settings.setValue("tarsnap/path", _tarsnapCLIDir);
     settings.setValue("tarsnap/cache", _tarsnapCacheDir);
     settings.setValue("tarsnap/key", _tarsnapKeyFile);
-    settings.setValue("application/wizardComplete", true);
+    settings.setValue("tarsnap/user", ui->tarsnapUserLineEdit->text());
+    settings.setValue("tarsnap/machine", ui->hostNameLineEdit->text());
     settings.sync();
     qDebug() << settings.fileName();
     accept();

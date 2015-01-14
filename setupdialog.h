@@ -53,8 +53,8 @@ private:
     QPoint  _windowDragPos;
 
     QString _tarsnapCLIDir;
-    QString _tarsnapUser;
-    QString _tarsnapPassword;
+//    QString _tarsnapUser;
+//    QString _tarsnapPassword;
     QString _tarsnapCacheDir;
     QString _tarsnapKeysDir;
     QString _tarsnapKeyFile;

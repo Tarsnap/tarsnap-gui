@@ -618,9 +618,9 @@ selection-background-color: #E5E9FF;
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit_2">
+              <widget class="QLineEdit" name="tarsnapUserLineEdit">
                <property name="text">
-                <string>user@box.com</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -632,9 +632,9 @@ selection-background-color: #E5E9FF;
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QLineEdit" name="lineEdit">
+              <widget class="QLineEdit" name="tarsnapMachineLineEdit">
                <property name="text">
-                <string>machine</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -646,9 +646,9 @@ selection-background-color: #E5E9FF;
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QLineEdit" name="lineEdit_3">
+              <widget class="QLineEdit" name="tarsnapKeyLineEdit">
                <property name="text">
-                <string>/home/shinnok/tarsnap.key</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -775,52 +775,64 @@ selection-background-color: #E5E9FF;
              <string>Advanced</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
-             <item row="1" column="0">
+             <item row="3" column="0" colspan="6">
+              <widget class="QPushButton" name="pushButton_7">
+               <property name="text">
+                <string>Reset app settings</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
               <widget class="QLabel" name="label_20">
                <property name="text">
                 <string>Tarsnap CLI path:</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="0">
+             <item row="1" column="0">
               <widget class="QLabel" name="label_12">
                <property name="text">
                 <string>Tarsnap cache:</string>
                </property>
               </widget>
              </item>
-             <item row="5" column="0" colspan="3">
+             <item row="4" column="0" colspan="6">
               <widget class="QPushButton" name="pushButton">
                <property name="text">
                 <string>Purge archives</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="0" colspan="3">
+             <item row="2" column="0" colspan="6">
               <widget class="QPushButton" name="pushButton_6">
                <property name="text">
                 <string>Clear cache</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1" colspan="2">
-              <widget class="QLineEdit" name="lineEdit_4">
+             <item row="0" column="1" colspan="5">
+              <widget class="QLineEdit" name="tarsnapPathLineEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
-                <string>/var/local/tarsnapcache/</string>
+                <string/>
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="lineEdit_5">
-               <property name="text">
-                <string>/usr/local/bin/</string>
+             <item row="1" column="1" colspan="5">
+              <widget class="QLineEdit" name="tarsnapCacheLineEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-              </widget>
-             </item>
-             <item row="4" column="0" colspan="3">
-              <widget class="QPushButton" name="pushButton_7">
                <property name="text">
-                <string>Reset app settings</string>
+                <string/>
                </property>
               </widget>
              </item>

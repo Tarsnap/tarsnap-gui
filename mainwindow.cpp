@@ -5,6 +5,7 @@
 
 #include <QPainter>
 #include <QDebug>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
@@ -16,9 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QPixmap logo(":/resources/tarsnap.png");
     _tarsnapLogo->setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     _tarsnapLogo->adjustSize();
-//    m_tarsnapLogo->setText("Tarsnappy");
-//    m_tarsnapLogo->setStyleSheet("font: italic \"Lucida Grande\"; font-size: 22pt ;");
     _tarsnapLogo->show();
+
+    readSettings();
 
     Ui::RestoreItemWidget restoreItemUi;
     for(int i = 0; i < 10; i++)
@@ -32,8 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     Ui::BackupItemWidget backupItemUi;
     QStringList paths;
-    paths << "/home/shinnok/" << "/srv/backups/backup_27.12.2015.tgz" << "/home/bill/.vimrc"
-          << "/home/bob/student_grades.xslt";
+    paths << "/home/shinnok/" << "/srv/backups/backup_27.12.2015.tgz"
+          << "/home/bill/.vimrc" << "/home/bob/student_grades.xslt";
     foreach(QString path, paths)
     {
         QListWidgetItem *item = new QListWidgetItem;
@@ -48,6 +49,16 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::readSettings()
+{
+    QSettings settings;
+    ui->tarsnapUserLineEdit->setText(settings.value("tarsnap/user", "").toString());
+    ui->tarsnapKeyLineEdit->setText(settings.value("tarsnap/key", "").toString());
+    ui->tarsnapMachineLineEdit->setText(settings.value("tarsnap/machine", "").toString());
+    ui->tarsnapPathLineEdit->setText(settings.value("tarsnap/path", "").toString());
+    ui->tarsnapCacheLineEdit->setText(settings.value("tarsnap/cache", "").toString());
 }
 
 

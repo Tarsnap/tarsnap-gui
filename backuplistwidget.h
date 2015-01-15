@@ -4,15 +4,17 @@
 #include <QWidget>
 #include <QListWidget>
 #include <QUrl>
-#include <QDir>
 
 class BackupListWidget : public QListWidget
 {
+    Q_OBJECT
+
 public:
-    BackupListWidget(QWidget *parent);
+    explicit BackupListWidget(QWidget *parent = 0);
     ~BackupListWidget();
 
-    void addUrl(QUrl url);
+public slots:
+    void removeItem();
 
 protected:
     void dragMoveEvent(QDragMoveEvent* event);
@@ -20,10 +22,7 @@ protected:
     void dropEvent(QDropEvent * event);
 
 private:
-    qint64 getDirSize(QDir dir);
-    qint64 getDirCount(QDir dir);
-private:
-    QWidget *_parent;
+    void addItemWithUrl(QUrl url);
 };
 
 #endif // BACKUPLISTWIDGET_H

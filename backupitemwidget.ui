@@ -62,7 +62,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="detailsLabel">
+    <widget class="QLabel" name="detailLabel">
      <property name="styleSheet">
       <string notr="true">QLabel {
 color: grey;

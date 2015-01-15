@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     tarsnapcli.cpp \
     jobmanager.cpp \
     coreapplication.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    backuplistitem.cpp
 
 HEADERS  += \
     backuplistwidget.h \
@@ -27,7 +28,8 @@ HEADERS  += \
     tarsnapcli.h \
     jobmanager.h \
     coreapplication.h \
-    mainwindow.h
+    mainwindow.h \
+    backuplistitem.h
 
 FORMS    += \
     restoreitemwidget.ui \

@@ -1,5 +1,5 @@
 #include "backuplistwidget.h"
-#include "ui_backupitemwidget.h"
+#include "backuplistitem.h"
 
 #include <QDebug>
 #include <QDropEvent>
@@ -17,17 +17,15 @@ extern QUrl osxRefToUrl(const QUrl &url);
 #endif
 
 BackupListWidget::BackupListWidget(QWidget *parent):
-    _parent(parent)
+    QListWidget(parent)
 {
-
 }
 
 BackupListWidget::~BackupListWidget()
 {
-
 }
 
-void BackupListWidget::addUrl(QUrl url)
+void BackupListWidget::addItemWithUrl(QUrl url)
 {
     if(!url.isEmpty())
     {
@@ -37,35 +35,21 @@ void BackupListWidget::addUrl(QUrl url)
         QFileInfo file(fileUrl);
         if(!file.exists())
             return;
-        Ui::BackupItemWidget itemUi;
-        QListWidgetItem *item = new QListWidgetItem;
-        QWidget *widget = new QWidget;
-        itemUi.setupUi(widget);
-        itemUi.pathLabel->setText(fileUrl);
-        if(file.isDir())
-        {
-            QPixmap icon(":/resources/folder-2x.png");
-            itemUi.iconLabel->setPixmap(icon);
-            QString detail;
-            QDir dir(file.absoluteFilePath());
-            detail = QString::number(getDirCount(dir)) + " items totaling "
-                   + QString::number(getDirSize(dir)) + " bytes";
-            itemUi.detailsLabel->setText(detail);
-        }
-        else if(file.isFile())
-        {
-            QPixmap icon(":/resources/file-2x.png");
-            itemUi.iconLabel->setPixmap(icon);
-            itemUi.detailsLabel->setText(QString::number(file.size()) + " bytes");
-        }
-        else
-        {
-            // could be a device file, fifo or whatever, thus ignore
-            return;
-        }
+        BackupListItem *item = new BackupListItem(url);
+        connect(item, SIGNAL(requestDelete()), this, SLOT(removeItem()));
         this->insertItem(this->count(), item);
-        this->setItemWidget(item, widget);
+        this->setItemWidget(item, item->widget());
     }
+}
+
+void BackupListWidget::removeItem()
+{
+//    QWidget *widget = this->itemWidget(qobject_cast<BackupListItem*>(sender()));
+    QListWidgetItem *item = this->takeItem(this->row(qobject_cast<BackupListItem*>(sender())));
+    Q_UNUSED(item)
+    BackupListItem *backupItem = qobject_cast<BackupListItem*>(sender());
+    backupItem->cleanup();
+    delete backupItem;
 }
 
 void BackupListWidget::dragMoveEvent( QDragMoveEvent* event )
@@ -95,53 +79,9 @@ void BackupListWidget::dropEvent(QDropEvent *event)
 /*FIXME: Remove after QTBUG-40449 is fixed in Qt5*/
     url = Utils::Platform::osxRefToUrl(url);
 #endif
-        addUrl(url);
+        addItemWithUrl(url);
     }
 
     event->acceptProposedAction();
 }
-
-qint64 BackupListWidget::getDirSize(QDir dir)
-{
-    qint64 result = 0;
-    if(dir.exists())
-    {
-        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
-
-        QFileInfoList list = dir.entryInfoList();
-        for (int i = 0; i < list.size(); ++i) {
-            QFileInfo fileInfo = list.at(i);
-            if(fileInfo.isDir())
-            {
-                qDebug() << "Traversing " << fileInfo.absoluteFilePath();
-                result += getDirSize(QDir(fileInfo.absoluteFilePath()));
-            }
-            else
-                result += fileInfo.size();
-        }
-    }
-    return result;
-}
-
-qint64 BackupListWidget::getDirCount(QDir dir)
-{
-    qint64 count = 0;
-    if(dir.exists())
-    {
-        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
-
-        QFileInfoList list = dir.entryInfoList();
-        for (int i = 0; i < list.size(); ++i) {
-            QFileInfo fileInfo = list.at(i);
-            if(fileInfo.isDir())
-            {
-                qDebug() << "Traversing " << fileInfo.absoluteFilePath();
-                count += getDirCount(QDir(fileInfo.absoluteFilePath()));
-            }
-            ++count;
-        }
-    }
-    return count;
-}
-
 

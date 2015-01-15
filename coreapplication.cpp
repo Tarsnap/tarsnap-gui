@@ -22,13 +22,13 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     {
         // Show the first time setup dialog
         SetupDialog wizard;
-        connect(&wizard, SIGNAL(finished(int)), this, SLOT(setupWizardDone(int)));
         connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString))
                 ,&_jobManager, SLOT(registerMachine(QString,QString,QString,QString)));
         connect(&_jobManager, SIGNAL(registerMachineStatus(JobManager::JobStatus,QString))
                 , &wizard, SLOT(registerMachineStatus(JobManager::JobStatus, QString)));
         wizard.exec();
         settings.setValue("application/wizardDone", true);
+        settings.sync();
     }
 
     // Show the main window

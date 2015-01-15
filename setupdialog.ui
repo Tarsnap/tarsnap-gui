@@ -174,7 +174,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
    <item>
     <widget class="QStackedWidget" name="wizardStackedWidget">
      <property name="currentIndex">
-      <number>4</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="welcomePage">
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -716,15 +716,15 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
           <item row="2" column="0">
            <widget class="QLabel" name="label_9">
             <property name="text">
-             <string>Host name:</string>
+             <string>Machine name:</string>
             </property>
             <property name="buddy">
-             <cstring>hostNameLineEdit</cstring>
+             <cstring>machineNameLineEdit</cstring>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="hostNameLineEdit">
+           <widget class="QLineEdit" name="machineNameLineEdit">
             <property name="text">
              <string/>
             </property>
@@ -734,17 +734,17 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="hostKeyLabel">
+           <widget class="QLabel" name="machineKeyLabel">
             <property name="text">
-             <string>Host key:</string>
+             <string>Machine key:</string>
             </property>
             <property name="buddy">
-             <cstring>hostKeyLineEdit</cstring>
+             <cstring>machineKeyLineEdit</cstring>
             </property>
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="hostKeyLineEdit">
+           <widget class="QLineEdit" name="machineKeyLineEdit">
             <property name="text">
              <string/>
             </property>
@@ -757,7 +757,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QLabel" name="hostHaveKeyLabel">
+           <widget class="QLabel" name="locateMachineKeyLabel">
             <property name="font">
              <font>
               <italic>true</italic>
@@ -984,8 +984,8 @@ p, li { white-space: pre-wrap; }
   <tabstop>donePageRadioButton</tabstop>
   <tabstop>tarsnapUserLineEdit</tabstop>
   <tabstop>tarsnapPasswordLineEdit</tabstop>
-  <tabstop>hostNameLineEdit</tabstop>
-  <tabstop>hostKeyLineEdit</tabstop>
+  <tabstop>machineNameLineEdit</tabstop>
+  <tabstop>machineKeyLineEdit</tabstop>
   <tabstop>registerMachineButton</tabstop>
   <tabstop>welcomePageProceedButton</tabstop>
   <tabstop>welcomePageCancelButton</tabstop>

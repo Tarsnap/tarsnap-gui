@@ -19,9 +19,9 @@ SetupDialog::SetupDialog(QWidget *parent) :
 
     showAdvancedSetup(false);
     ui->errorLabel->hide();
-    ui->hostKeyLabel->hide();
-    ui->hostKeyLineEdit->hide();
-    ui->hostHaveKeyLabel->hide();
+    ui->machineKeyLabel->hide();
+    ui->machineKeyLineEdit->hide();
+    ui->locateMachineKeyLabel->hide();
 
     connect(ui->welcomePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
     connect(ui->restorePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
@@ -50,9 +50,9 @@ SetupDialog::SetupDialog(QWidget *parent) :
     // Register page
     connect(ui->tarsnapUserLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
     connect(ui->tarsnapPasswordLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
-    connect(ui->hostNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
-    connect(ui->hostKeyLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
-    connect(ui->hostHaveKeyLabel, SIGNAL(linkActivated(QString)), this, SLOT(registerHaveKeyBrowse(QString)));
+    connect(ui->machineNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
+    connect(ui->machineKeyLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
+    connect(ui->locateMachineKeyLabel, SIGNAL(linkActivated(QString)), this, SLOT(registerHaveKeyBrowse(QString)));
     connect(ui->registerMachineButton, SIGNAL(clicked()), this, SLOT(registerMachine()));
 
     // Done page
@@ -73,7 +73,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
 
     findTarsnapInPath();
 
-    ui->hostNameLineEdit->setText(QHostInfo::localHostName());
+    ui->machineNameLineEdit->setText(QHostInfo::localHostName());
 
     ui->wizardStackedWidget->setCurrentWidget(ui->welcomePage);
 }
@@ -244,9 +244,9 @@ bool SetupDialog::validateTarsnapCache(QString path)
 void SetupDialog::restoreNo()
 {
     _haveKey = false;
-    ui->hostKeyLabel->hide();
-    ui->hostKeyLineEdit->hide();
-    ui->hostHaveKeyLabel->hide();
+    ui->machineKeyLabel->hide();
+    ui->machineKeyLineEdit->hide();
+    ui->locateMachineKeyLabel->hide();
     ui->tarsnapUserLabel->show();
     ui->tarsnapUserLineEdit->show();
     ui->tarsnapPasswordLabel->show();
@@ -263,9 +263,9 @@ void SetupDialog::restoreYes()
     ui->tarsnapUserLineEdit->hide();
     ui->tarsnapPasswordLabel->hide();
     ui->tarsnapPasswordLineEdit->hide();
-    ui->hostKeyLabel->show();
-    ui->hostKeyLineEdit->show();
-    ui->hostHaveKeyLabel->show();
+    ui->machineKeyLabel->show();
+    ui->machineKeyLineEdit->show();
+    ui->locateMachineKeyLabel->show();
     ui->registerPageInfoLabel->setText(tr("Please use your existing machine key."));
     ui->errorLabel->clear();
     setNextPage();
@@ -277,16 +277,16 @@ void SetupDialog::validateRegisterPage()
     if(_haveKey)
     {
         // user specified key
-        QFileInfo hostKeyFile(ui->hostKeyLineEdit->text());
-        if(!ui->hostNameLineEdit->text().isEmpty()
-           && hostKeyFile.exists() && hostKeyFile.isFile() && hostKeyFile.isReadable())
+        QFileInfo machineKeyFile(ui->machineKeyLineEdit->text());
+        if(!ui->machineNameLineEdit->text().isEmpty()
+           && machineKeyFile.exists() && machineKeyFile.isFile() && machineKeyFile.isReadable())
             result = true;
     }
     else
     {
         if(!ui->tarsnapUserLineEdit->text().isEmpty()
            && !ui->tarsnapPasswordLineEdit->text().isEmpty()
-           && !ui->hostNameLineEdit->text().isEmpty())
+           && !ui->machineNameLineEdit->text().isEmpty())
         {
             result = true;
         }
@@ -300,7 +300,7 @@ void SetupDialog::registerHaveKeyBrowse(QString url)
     Q_UNUSED(url);
     QString existingMachineKey = QFileDialog::getOpenFileName(this
                                                               ,tr("Browse for existing machine key"));
-    ui->hostKeyLineEdit->setText(existingMachineKey);
+    ui->machineKeyLineEdit->setText(existingMachineKey);
 }
 
 void SetupDialog::registerMachine()
@@ -308,11 +308,11 @@ void SetupDialog::registerMachine()
     ui->errorLabel->clear();
     if(_haveKey)
     {
-        _tarsnapKeyFile = ui->hostKeyLineEdit->text();
+        _tarsnapKeyFile = ui->machineKeyLineEdit->text();
     }
     else
     {
-        _tarsnapKeyFile = _tarsnapKeysDir + QDir::separator() + ui->hostNameLineEdit->text()
+        _tarsnapKeyFile = _tarsnapKeysDir + QDir::separator() + ui->machineNameLineEdit->text()
                           + "_" + QString::number(QDateTime::currentMSecsSinceEpoch());
     }
 
@@ -321,7 +321,7 @@ void SetupDialog::registerMachine()
              << _tarsnapCacheDir;
 
     emit registerMachine(ui->tarsnapUserLineEdit->text(), ui->tarsnapPasswordLineEdit->text()
-                         , ui->hostNameLineEdit->text(), _tarsnapKeyFile);
+                         , ui->machineNameLineEdit->text(), _tarsnapKeyFile);
 }
 
 void SetupDialog::registerMachineStatus(JobManager::JobStatus status, QString reason)
@@ -367,7 +367,7 @@ void SetupDialog::commitSettings()
     settings.setValue("tarsnap/cache", _tarsnapCacheDir);
     settings.setValue("tarsnap/key", _tarsnapKeyFile);
     settings.setValue("tarsnap/user", ui->tarsnapUserLineEdit->text());
-    settings.setValue("tarsnap/machine", ui->hostNameLineEdit->text());
+    settings.setValue("tarsnap/machine", ui->machineNameLineEdit->text());
     settings.sync();
     qDebug() << settings.fileName();
     accept();

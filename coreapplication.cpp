@@ -12,6 +12,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     qSetMessagePattern("%{file}(%{line}): %{message}");
 
     qRegisterMetaType<JobManager::JobStatus>("JobManager::JobStatus");
+    qRegisterMetaType< QList<QUrl> >("QList<QUrl>");
 
     QCoreApplication::setOrganizationName(tr("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));

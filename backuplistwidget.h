@@ -15,6 +15,8 @@ public:
     ~BackupListWidget();
 
 public slots:
+    void addItemWithUrl(QUrl url);
+    void addItemsWithUrls(QList<QUrl> urls);
     void removeItem();
     void removeSelectedItems();
 
@@ -26,8 +28,6 @@ protected:
 
 private:
     QAction _actionRemoveItems;
-
-    void addItemWithUrl(QUrl url);
 };
 
 #endif // BACKUPLISTWIDGET_H

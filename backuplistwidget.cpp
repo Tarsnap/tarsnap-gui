@@ -46,6 +46,17 @@ void BackupListWidget::addItemWithUrl(QUrl url)
     }
 }
 
+void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
+{
+    foreach (QUrl url, urls) {
+#ifdef Q_OS_OSX
+/*FIXME: Remove after QTBUG-40449 is fixed in Qt5*/
+        url = Utils::Platform::osxRefToUrl(url);
+#endif
+        addItemWithUrl(url);
+    }
+}
+
 void BackupListWidget::removeItem()
 {
 //    QWidget *widget = this->itemWidget(qobject_cast<BackupListItem*>(sender()));
@@ -89,16 +100,8 @@ void BackupListWidget::dragEnterEvent(QDragEnterEvent *event)
 void BackupListWidget::dropEvent(QDropEvent *event)
 {
     QList<QUrl> urls = event->mimeData()->urls();
-    if (urls.isEmpty())
-        return;
-
-    foreach (QUrl url, urls) {
-#ifdef Q_OS_OSX
-/*FIXME: Remove after QTBUG-40449 is fixed in Qt5*/
-    url = Utils::Platform::osxRefToUrl(url);
-#endif
-        addItemWithUrl(url);
-    }
+    if (!urls.isEmpty())
+        addItemsWithUrls(urls);
 
     event->acceptProposedAction();
 }

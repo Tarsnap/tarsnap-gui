@@ -27,8 +27,10 @@ protected:
 private slots:
     void on_appendTimestampCheckBox_toggled(bool checked);
 
+    void on_backupListInfoLabel_linkActivated(const QString &link);
+
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow *_ui;
     QLabel *_tarsnapLogo;
     QPoint  _windowDragPos;
 };

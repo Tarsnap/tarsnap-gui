@@ -123,7 +123,7 @@ border-radius: 2px;
           <string notr="true">#backupListWidget::item
 {
 min-height: 35px;
-selection-background-color: #E5E9FF;
+selection-background-color: rgba(179, 190, 255, 80);
 }</string>
          </property>
          <property name="tabKeyNavigation">

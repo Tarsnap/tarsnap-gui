@@ -7,7 +7,7 @@
 BackupListItem::BackupListItem(QUrl url): _widget(new QWidget())
 {
     _ui.setupUi(_widget);
-    connect(_ui.deleteButton, SIGNAL(clicked()), this, SIGNAL(requestDelete()));
+    connect(_ui.removeButton, SIGNAL(clicked()), this, SIGNAL(requestDelete()));
     connect(_ui.browseButton, SIGNAL(clicked()), this, SLOT(browseUrl()));
     setUrl(url);
 }

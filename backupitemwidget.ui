@@ -98,7 +98,7 @@ color: grey;
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="deleteButton">
+    <widget class="QToolButton" name="removeButton">
      <property name="text">
       <string>...</string>
      </property>

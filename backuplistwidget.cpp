@@ -17,8 +17,12 @@ extern QUrl osxRefToUrl(const QUrl &url);
 #endif
 
 BackupListWidget::BackupListWidget(QWidget *parent):
-    QListWidget(parent)
+    QListWidget(parent), _actionRemoveItems(this)
 {
+    _actionRemoveItems.setText(tr("Remove"));
+    _actionRemoveItems.setToolTip(tr("Remove selected items"));
+    addAction(&_actionRemoveItems);
+    connect(&_actionRemoveItems, SIGNAL(triggered()), this, SLOT(removeSelectedItems()));
 }
 
 BackupListWidget::~BackupListWidget()
@@ -52,6 +56,20 @@ void BackupListWidget::removeItem()
     delete backupItem;
 }
 
+void BackupListWidget::removeSelectedItems()
+{
+    foreach (QListWidgetItem *item, this->selectedItems())
+    {
+        if(item->isSelected())
+        {
+            QListWidgetItem *takenItem = this->takeItem(this->row(item));
+            BackupListItem *backupItem = dynamic_cast<BackupListItem*>(takenItem);
+            backupItem->cleanup();
+            delete backupItem;
+        }
+    }
+}
+
 void BackupListWidget::dragMoveEvent( QDragMoveEvent* event )
 {
     if ( !event->mimeData()->hasUrls() )
@@ -83,5 +101,17 @@ void BackupListWidget::dropEvent(QDropEvent *event)
     }
 
     event->acceptProposedAction();
+}
+
+void BackupListWidget::keyReleaseEvent(QKeyEvent *event)
+{
+    if((event->key() == Qt::Key_Delete) || (event->key() == Qt::Key_Backspace))
+    {
+        removeSelectedItems();
+    }
+    else
+    {
+        QListWidget::keyReleaseEvent(event);
+    }
 }
 

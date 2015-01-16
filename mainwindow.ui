@@ -113,6 +113,9 @@ border-radius: 2px;
        </property>
        <item>
         <widget class="BackupListWidget" name="backupListWidget">
+         <property name="contextMenuPolicy">
+          <enum>Qt::ActionsContextMenu</enum>
+         </property>
          <property name="acceptDrops">
           <bool>true</bool>
          </property>
@@ -442,7 +445,7 @@ background: #E3EBEC;
             <x>0</x>
             <y>0</y>
             <width>480</width>
-            <height>110</height>
+            <height>111</height>
            </rect>
           </property>
           <property name="styleSheet">

@@ -47,7 +47,7 @@ void BackupListItem::setUrl(const QUrl &url)
             _ui.iconLabel->setPixmap(icon);
             QString detail;
             QDir dir(file.absoluteFilePath());
-            detail = QString::number(getDirCount(dir)) + " items totaling "
+            detail = QString::number(getDirCount(dir)) + " items totalling "
                    + QString::number(getDirSize(dir)) + " bytes";
             _ui.detailLabel->setText(detail);
         }

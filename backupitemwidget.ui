@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>465</width>
+    <width>384</width>
     <height>30</height>
    </rect>
   </property>
@@ -55,14 +55,44 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="pathLabel">
+    <widget class="TextLabel" name="pathLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="elide" stdset="0">
+      <string>Qt::ElideMiddle</string>
      </property>
     </widget>
    </item>
    <item>
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Preferred</enum>
+     </property>
+    </spacer>
+   </item>
+   <item>
     <widget class="QLabel" name="detailLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">QLabel {
 color: grey;
@@ -72,19 +102,6 @@ color: grey;
       <string/>
      </property>
     </widget>
-   </item>
-   <item>
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>189</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item>
     <widget class="QToolButton" name="browseButton">
@@ -110,6 +127,13 @@ color: grey;
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TextLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">textlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>

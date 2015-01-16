@@ -108,12 +108,16 @@ void BackupListWidget::dropEvent(QDropEvent *event)
 
 void BackupListWidget::keyReleaseEvent(QKeyEvent *event)
 {
-    if((event->key() == Qt::Key_Delete) || (event->key() == Qt::Key_Backspace))
+    switch(event->key())
     {
+    case Qt::Key_Delete:
+    case Qt::Key_Backspace:
         removeSelectedItems();
-    }
-    else
-    {
+        break;
+    case Qt::Key_Escape:
+        clearSelection();
+        break;
+    default:
         QListWidget::keyReleaseEvent(event);
     }
 }

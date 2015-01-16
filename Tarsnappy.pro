@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     jobmanager.cpp \
     coreapplication.cpp \
     mainwindow.cpp \
-    backuplistitem.cpp
+    backuplistitem.cpp \
+    textlabel.cpp
 
 HEADERS  += \
     backuplistwidget.h \
@@ -29,7 +30,8 @@ HEADERS  += \
     jobmanager.h \
     coreapplication.h \
     mainwindow.h \
-    backuplistitem.h
+    backuplistitem.h \
+    textlabel.h
 
 FORMS    += \
     restoreitemwidget.ui \

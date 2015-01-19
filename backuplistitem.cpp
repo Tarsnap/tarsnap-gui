@@ -1,8 +1,10 @@
 #include "backuplistitem.h"
+#include "utils.h"
 
 #include <QDebug>
 #include <QFileInfo>
 #include <QDesktopServices>
+#include <QThreadPool>
 
 BackupListItem::BackupListItem(QUrl url): _widget(new QWidget())
 {
@@ -45,11 +47,12 @@ void BackupListItem::setUrl(const QUrl &url)
         {
             QPixmap icon(":/resources/folder-2x.png");
             _ui.iconLabel->setPixmap(icon);
-            QString detail;
             QDir dir(file.absoluteFilePath());
-            detail = QString::number(getDirCount(dir)) + " items totalling "
-                   + QString::number(getDirSize(dir)) + " bytes";
-            _ui.detailLabel->setText(detail);
+            QThreadPool *threadPool = QThreadPool::globalInstance();
+            Utils::GetDirInfoTask *task = new Utils::GetDirInfoTask(dir);
+            task->setAutoDelete(true);
+            connect(task, SIGNAL(result(qint64, qint64)), this, SLOT(updateDirDetail(qint64, qint64)), Qt::QueuedConnection);
+            threadPool->start(task);
         }
         else if(file.isFile())
         {
@@ -76,48 +79,8 @@ void BackupListItem::browseUrl()
     QDesktopServices::openUrl(_url);
 }
 
-qint64 BackupListItem::getDirSize(QDir dir)
+void BackupListItem::updateDirDetail(qint64 size, qint64 count)
 {
-    qint64 result = 0;
-    if(dir.exists())
-    {
-        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
-
-        QFileInfoList list = dir.entryInfoList();
-        for (int i = 0; i < list.size(); ++i) {
-            QFileInfo fileInfo = list.at(i);
-            if(fileInfo.isDir())
-            {
-                qDebug() << "Traversing " << fileInfo.absoluteFilePath();
-                result += getDirSize(QDir(fileInfo.absoluteFilePath()));
-            }
-            else
-                result += fileInfo.size();
-        }
-    }
-    return result;
+    _ui.detailLabel->setText(QString::number(count) + " items totalling "
+                             + QString::number(size) + " bytes");
 }
-
-qint64 BackupListItem::getDirCount(QDir dir)
-{
-    qint64 count = 0;
-    if(dir.exists())
-    {
-        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
-
-        QFileInfoList list = dir.entryInfoList();
-        for (int i = 0; i < list.size(); ++i) {
-            QFileInfo fileInfo = list.at(i);
-            if(fileInfo.isDir())
-            {
-                qDebug() << "Traversing " << fileInfo.absoluteFilePath();
-                count += getDirCount(QDir(fileInfo.absoluteFilePath()));
-            }
-            ++count;
-        }
-    }
-    return count;
-}
-
-
-

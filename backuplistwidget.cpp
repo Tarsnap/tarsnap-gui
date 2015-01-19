@@ -9,11 +9,9 @@
 /*FIXME: Remove after QTBUG-40449 is fixed in Qt5*/
 #ifdef Q_OS_OSX
 // for file drops from Finder, working around QTBUG-40449
-namespace Utils {
 namespace Platform {
 extern QUrl osxRefToUrl(const QUrl &url);
 } // Platform
-} // Utils
 #endif
 
 BackupListWidget::BackupListWidget(QWidget *parent):
@@ -51,7 +49,7 @@ void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
     foreach (QUrl url, urls) {
 #ifdef Q_OS_OSX
 /*FIXME: Remove after QTBUG-40449 is fixed in Qt5*/
-        url = Utils::Platform::osxRefToUrl(url);
+        url = Platform::osxRefToUrl(url);
 #endif
         addItemWithUrl(url);
     }

@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QListWidgetItem>
 #include <QUrl>
-#include <QDir>
 
 #include "ui_backupitemwidget.h"
 
@@ -32,14 +31,12 @@ signals:
 
 public slots:
     void browseUrl();
+    void updateDirDetail(qint64 size, qint64 count);
 
 private:
     Ui::BackupItemWidget _ui;
     QWidget              *_widget;
     QUrl                 _url;
-
-    qint64 getDirSize(QDir dir);
-    qint64 getDirCount(QDir dir);
 };
 
 #endif // BACKUPLISTITEM_H

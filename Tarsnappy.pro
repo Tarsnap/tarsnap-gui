@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     coreapplication.cpp \
     mainwindow.cpp \
     backuplistitem.cpp \
-    textlabel.cpp
+    textlabel.cpp \
+    utils.cpp
 
 HEADERS  += \
     backuplistwidget.h \
@@ -31,7 +32,8 @@ HEADERS  += \
     coreapplication.h \
     mainwindow.h \
     backuplistitem.h \
-    textlabel.h
+    textlabel.h \
+    utils.h
 
 FORMS    += \
     restoreitemwidget.ui \

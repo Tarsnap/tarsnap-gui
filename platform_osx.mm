@@ -4,7 +4,6 @@
 #include <Foundation/NSURL.h>
 #include <Foundation/NSString.h>
 
-namespace Utils {
 namespace Platform {
 
 /* Workaround file drops from Finder, QTBUG-40449 */
@@ -19,5 +18,4 @@ QUrl osxRefToUrl(const QUrl &url)
     return ret;
 }
 
-} // Internal
-} // Utils
+} // Platform

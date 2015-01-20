@@ -6,7 +6,7 @@
 #include <QDesktopServices>
 #include <QThreadPool>
 
-BackupListItem::BackupListItem(QUrl url): _widget(new QWidget())
+BackupListItem::BackupListItem(QUrl url): _widget(new QWidget()), _count(0), _size(0)
 {
     _ui.setupUi(_widget);
     connect(_ui.removeButton, SIGNAL(clicked()), this, SIGNAL(requestDelete()));
@@ -58,7 +58,9 @@ void BackupListItem::setUrl(const QUrl &url)
         {
             QPixmap icon(":/resources/file-2x.png");
             _ui.iconLabel->setPixmap(icon);
-            _ui.detailLabel->setText(QString::number(file.size()) + " bytes");
+            _count = 1;
+            _size  = file.size();
+            _ui.detailLabel->setText(QString::number(_size) + " bytes");
         }
         else
         {
@@ -81,6 +83,29 @@ void BackupListItem::browseUrl()
 
 void BackupListItem::updateDirDetail(qint64 size, qint64 count)
 {
-    _ui.detailLabel->setText(QString::number(count) + " items totalling "
-                             + QString::number(size) + " bytes");
+    _size = size;
+    _count = count;
+    _ui.detailLabel->setText(QString::number(_count) + " items totalling "
+                             + QString::number(_size) + " bytes");
+    emit requestUpdate();
 }
+qint64 BackupListItem::size() const
+{
+    return _size;
+}
+
+void BackupListItem::setSize(const qint64 &size)
+{
+    _size = size;
+}
+
+qint64 BackupListItem::count() const
+{
+    return _count;
+}
+
+void BackupListItem::setCount(const qint64 &count)
+{
+    _count = count;
+}
+

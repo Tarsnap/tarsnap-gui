@@ -129,9 +129,6 @@ selection-background-color: rgba(179, 190, 255, 80);
          <property name="tabKeyNavigation">
           <bool>true</bool>
          </property>
-         <property name="dragEnabled">
-          <bool>true</bool>
-         </property>
          <property name="alternatingRowColors">
           <bool>true</bool>
          </property>
@@ -162,7 +159,8 @@ selection-background-color: rgba(179, 190, 255, 80);
          <property name="styleSheet">
           <string notr="true">QLabel {
 color: gray;
-background-color: rgb(178,190,255);
+background-color: rgba(178,190,255, 85);
+border-radius: 3px;
 }</string>
          </property>
          <property name="text">
@@ -234,12 +232,17 @@ background-color: rgb(178,190,255);
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="backupSizeLabel">
+           <widget class="QLabel" name="backupDetailLabel">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
             </property>
             <property name="styleSheet">
              <string notr="true">QLabel {
@@ -247,7 +250,7 @@ color: gray;
 }</string>
             </property>
             <property name="text">
-             <string>~850 MB</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -445,7 +448,7 @@ background: #E3EBEC;
             <x>0</x>
             <y>0</y>
             <width>480</width>
-            <height>111</height>
+            <height>110</height>
            </rect>
           </property>
           <property name="styleSheet">

@@ -39,6 +39,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
             return;
         BackupListItem *item = new BackupListItem(url);
         connect(item, SIGNAL(requestDelete()), this, SLOT(removeItem()));
+        connect(item, SIGNAL(requestUpdate()), this, SLOT(recomputeListTotals()));
         this->insertItem(this->count(), item);
         this->setItemWidget(item, item->widget());
     }
@@ -53,6 +54,7 @@ void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
 #endif
         addItemWithUrl(url);
     }
+    recomputeListTotals();
 }
 
 void BackupListWidget::removeItem()
@@ -63,6 +65,7 @@ void BackupListWidget::removeItem()
     BackupListItem *backupItem = qobject_cast<BackupListItem*>(sender());
     backupItem->cleanup();
     delete backupItem;
+    recomputeListTotals();
 }
 
 void BackupListWidget::removeSelectedItems()
@@ -77,6 +80,29 @@ void BackupListWidget::removeSelectedItems()
             delete backupItem;
         }
     }
+    recomputeListTotals();
+}
+
+void BackupListWidget::recomputeListTotals()
+{
+    qint64 count = 0;
+    qint64 size = 0;
+    for(int i = 0; i < this->count(); ++i)
+    {
+        BackupListItem *backupItem = dynamic_cast<BackupListItem*>(item(i));
+        if(backupItem && (backupItem->count() != 0))
+        {
+            count += backupItem->count();
+            size  += backupItem->size();
+        }
+    }
+    emit itemTotals(count, size);
+}
+
+void BackupListWidget::clear()
+{
+// not used yet
+    qDebug() << "method not implemented";
 }
 
 void BackupListWidget::dragMoveEvent( QDragMoveEvent* event )

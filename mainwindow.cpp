@@ -36,19 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
         _ui->backupRestoreListWidget->setItemWidget(item, widget);
     }
 
-//    Ui::BackupItemWidget backupItemUi;
-//    QStringList paths;
-//    paths << "/home/shinnok/" << "/srv/backups/backup_27.12.2015.tgz"
-//          << "/home/bill/.vimrc" << "/home/bob/student_grades.xslt";
-//    foreach(QString path, paths)
-//    {
-//        QListWidgetItem *item = new QListWidgetItem;
-//        QWidget *widget = new QWidget;
-//        backupItemUi.setupUi(widget);
-//        backupItemUi.pathLabel->setText(path);
-//        ui->backupListWidget->insertItem(0, item);
-//        ui->backupListWidget->setItemWidget(item, widget);
-//    }
+    connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this, SLOT(updateBackupItemTotals(qint64, qint64)));
 }
 
 MainWindow::~MainWindow()
@@ -100,6 +88,14 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
         this->showNormal();
     else
         this->showMaximized();
+}
+
+void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
+{
+    if(count != 0)
+        _ui->backupDetailLabel->setText(tr("%1 items totalling %2 bytes").arg(count).arg(size));
+    else
+        _ui->backupDetailLabel->clear();
 }
 
 void MainWindow::on_appendTimestampCheckBox_toggled(bool checked)

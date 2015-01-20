@@ -26,8 +26,15 @@ public:
 
     void cleanup();
 
+    qint64 count() const;
+    void setCount(const qint64 &count);
+
+    qint64 size() const;
+    void setSize(const qint64 &size);
+
 signals:
     void requestDelete();
+    void requestUpdate();
 
 public slots:
     void browseUrl();
@@ -37,6 +44,8 @@ private:
     Ui::BackupItemWidget _ui;
     QWidget              *_widget;
     QUrl                 _url;
+    qint64               _count;
+    qint64               _size;
 };
 
 #endif // BACKUPLISTITEM_H

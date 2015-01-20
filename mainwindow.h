@@ -25,8 +25,9 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent * event);
 
 private slots:
-    void on_appendTimestampCheckBox_toggled(bool checked);
+    void updateBackupItemTotals(qint64 count, qint64 size);
 
+    void on_appendTimestampCheckBox_toggled(bool checked);
     void on_backupListInfoLabel_linkActivated(const QString &link);
 
 private:

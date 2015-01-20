@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "jobmanager.h"
+
 #include <QWidget>
 #include <QLabel>
 
@@ -18,6 +20,9 @@ public:
 
     void readSettings();
 
+signals:
+    void backupNow(BackupJob job);
+
 protected:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
@@ -29,6 +34,8 @@ private slots:
 
     void on_appendTimestampCheckBox_toggled(bool checked);
     void on_backupListInfoLabel_linkActivated(const QString &link);
+
+    void on_backupButton_clicked();
 
 private:
     Ui::MainWindow *_ui;

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "ui_restoreitemwidget.h"
 #include "ui_backupitemwidget.h"
+#include "backuplistitem.h"
 
 #include <QPainter>
 #include <QDebug>
@@ -93,9 +94,15 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
 {
     if(count != 0)
+    {
         _ui->backupDetailLabel->setText(tr("%1 items totalling %2 bytes").arg(count).arg(size));
+        _ui->backupButton->setEnabled(true);
+    }
     else
+    {
         _ui->backupDetailLabel->clear();
+        _ui->backupButton->setEnabled(false);
+    }
 }
 
 void MainWindow::on_appendTimestampCheckBox_toggled(bool checked)
@@ -112,6 +119,7 @@ void MainWindow::on_appendTimestampCheckBox_toggled(bool checked)
 
 void MainWindow::on_backupListInfoLabel_linkActivated(const QString &link)
 {
+    Q_UNUSED(link)
     // Can't select multiple directories and files at the same time using the Native dialog
     // Thus instead of being able to select only dirs or files, we'll be using a custom
     // Qt dialog for now
@@ -132,4 +140,20 @@ void MainWindow::on_backupListInfoLabel_linkActivated(const QString &link)
     if(dialog.exec())
         QMetaObject::invokeMethod(_ui->backupListWidget, "addItemsWithUrls", Qt::QueuedConnection, Q_ARG(QList<QUrl>, dialog.selectedUrls()));
 //    qDebug() << dialog.selectedUrls();
+}
+
+void MainWindow::on_backupButton_clicked()
+{
+    QList<QUrl> urls;
+
+    for(int i = 0; i < _ui->backupListWidget->count(); ++i)
+    {
+        urls << dynamic_cast<BackupListItem*>(_ui->backupListWidget->item(i))->url();
+    }
+
+    BackupJob job;
+    job.name = _ui->backupNameLineEdit->text();
+    job.urls = urls;
+
+    emit backupNow(job);
 }

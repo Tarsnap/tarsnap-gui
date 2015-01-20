@@ -13,6 +13,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
 
     qRegisterMetaType<JobManager::JobStatus>("JobManager::JobStatus");
     qRegisterMetaType< QList<QUrl> >("QList<QUrl>");
+    qRegisterMetaType<BackupJob>("BackupJob");
 
     QCoreApplication::setOrganizationName(tr("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));
@@ -39,6 +40,9 @@ CoreApplication::CoreApplication(int &argc, char **argv):
         qDebug() << tr("Can't instantiate the MainWidget. Quitting.");
         quitApplication(FAILURE);
     }
+
+    connect(_mainWindow, SIGNAL(backupNow(BackupJob)), &_jobManager, SLOT(backupNow(BackupJob)), Qt::QueuedConnection);
+
     _mainWindow->show();
 }
 

@@ -5,6 +5,13 @@
 
 #include <QObject>
 #include <QThread>
+#include <QUrl>
+
+struct BackupJob
+{
+    QList<QUrl> urls;
+    QString     name;
+};
 
 class JobManager : public QObject
 {
@@ -22,9 +29,12 @@ signals:
 public slots:
     void testCall();
     void registerMachine(QString user, QString password, QString machine, QString key);
+    void backupNow(BackupJob job);
 
 private slots:
-    void clientFinished(int exitStatus, QString message, QString output);
+    void jobClientFinished(int exitStatus, QString message, QString output);
+    void registerClientFinished(int exitStatus, QString message, QString output);
+
 
 private:
     QThread _managerThread; // manager runs on a separate thread

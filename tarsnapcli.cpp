@@ -45,6 +45,7 @@ void TarsnapCLI::runClient()
 {
     _process.setProgram(_command);
     _process.setArguments(_arguments);
+    qDebug().noquote() << "Running command: " << _process.program() << _process.arguments();
     _process.start();
     if(_requiresPassword)
     {

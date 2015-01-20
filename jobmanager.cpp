@@ -49,11 +49,34 @@ void JobManager::registerMachine(QString user, QString password, QString machine
         tarClient->setPassword(password);
         tarClient->setRequiresPassword(true);
     }
-    connect(tarClient, SIGNAL(clientFinished(int,QString,QString)), this, SLOT(clientFinished(int,QString,QString)));
+    connect(tarClient, SIGNAL(clientFinished(int,QString,QString)), this, SLOT(registerClientFinished(int,QString,QString)));
     QMetaObject::invokeMethod(tarClient, "runClient", Qt::QueuedConnection);
 }
 
-void JobManager::clientFinished(int exitStatus, QString message, QString output)
+void JobManager::backupNow(BackupJob job)
+{
+    TarsnapCLI *tarClient = new TarsnapCLI();
+    QStringList args;
+    args << "-c" << "-f" << job.name;
+    foreach (QUrl url, job.urls) {
+        args << url.toLocalFile();
+    }
+    tarClient->setCommand(CMD_TARSNAP);
+    tarClient->setArguments(args);
+    connect(tarClient, SIGNAL(clientFinished(int,QString,QString)), this, SLOT(jobClientFinished(int,QString,QString)));
+    QMetaObject::invokeMethod(tarClient, "runClient", Qt::QueuedConnection);
+}
+
+void JobManager::jobClientFinished(int exitStatus, QString message, QString output)
+{
+    delete static_cast<TarsnapCLI*>(QObject::sender());
+//    if(exitStatus == 0)
+//        emit registerMachineStatus(JobStatus::Completed, output);
+//    else
+//        emit registerMachineStatus(JobStatus::Failed, output);
+}
+
+void JobManager::registerClientFinished(int exitStatus, QString message, QString output)
 {
     delete static_cast<TarsnapCLI*>(QObject::sender());
     if(exitStatus == 0)

@@ -256,6 +256,9 @@ color: gray;
           </item>
           <item>
            <widget class="QPushButton" name="backupButton">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1055,7 +1058,7 @@ tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
          </font>
         </property>
         <property name="text">
-         <string>Uploading backup...</string>
+         <string>Idle..</string>
         </property>
        </widget>
       </item>

@@ -41,24 +41,23 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
      </property>
      <property name="styleSheet">
       <string notr="true">QTabBar::tab {
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #E9EDF1, stop: 1.0 #8A98AD);
-border: 1px solid darkgrey;
-border-bottom-color: darkgrey;
-border-top-left-radius: 4px;
-border-top-right-radius: 4px;
+background: #2980B9;
+border: 1px solid #ECF0F1;
+border-bottom: none;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
 padding: 5px;
-width: 75px;
-font-size: 12pt;
-font-weight: bold;
+width: 70px;
+font-size: 13pt;
 margin-left: 3px;
-color: #00264D;
+color: white;
+
 }
 
 QTabBar::tab:selected {
+background: #2e8ece;
+border: 1px solid white;
 border-bottom: none;
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                stop: 0 #E9EDF1, stop: 1.0 #B7BFCD);
 }
 
 QTabWidget::pane { /* The tab widget frame */
@@ -88,7 +87,6 @@ border-radius: 2px;
       </property>
       <property name="styleSheet">
        <string notr="true">#backupTab {
-    background: rgba(198, 214, 215, 50);
     border-top: 1px solid darkgrey;
 }</string>
       </property>
@@ -160,7 +158,6 @@ selection-background-color: rgba(179, 190, 255, 80);
           <string notr="true">QLabel {
 color: gray;
 background-color: rgba(178,190,255, 85);
-border-radius: 3px;
 }</string>
          </property>
          <property name="text">
@@ -283,7 +280,6 @@ color: gray;
      <widget class="QWidget" name="jobsTab">
       <property name="styleSheet">
        <string notr="true">#jobsTab {
-    background: rgba(198, 214, 215, 50);
     border-top: 1px solid darkgrey;
 }</string>
       </property>
@@ -307,7 +303,7 @@ background: transparent;
             <x>0</x>
             <y>0</y>
             <width>597</width>
-            <height>458</height>
+            <height>462</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -588,9 +584,7 @@ selection-background-color: #E5E9FF;
      <widget class="QWidget" name="settingsTab">
       <property name="styleSheet">
        <string notr="true">#settingsTab {
-    background: rgba(198, 214, 215, 50);
     border-top: 1px solid darkgrey;
-
 }</string>
       </property>
       <attribute name="title">
@@ -960,9 +954,7 @@ selection-background-color: #E5E9FF;
      <widget class="QWidget" name="helpTab">
       <property name="styleSheet">
        <string notr="true">#helpTab {
-    background: rgba(198, 214, 215, 50);
     border-top: 1px solid darkgrey;
-
 }</string>
       </property>
       <attribute name="title">

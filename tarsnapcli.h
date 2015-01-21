@@ -3,6 +3,7 @@
 
 #include <QThread>
 #include <QProcess>
+#include <QUuid>
 
 #define CMD_TARSNAP "tarsnap"
 #define CMD_TARSNAPKEYGEN "tarsnap-keygen"
@@ -11,7 +12,7 @@ class TarsnapCLI : public QObject
 {
     Q_OBJECT
 public:
-    explicit TarsnapCLI(QObject *parent = 0);
+    explicit TarsnapCLI(QUuid uuid = QUuid::createUuid(), QObject *parent = 0);
     ~TarsnapCLI();
 
     QString command() const;
@@ -31,16 +32,23 @@ public:
     bool requiresPassword() const;
     void setRequiresPassword(bool requiresPassword);
 
+    QUuid uuid() const;
+    void setUuid(const QUuid &uuid);
+
 signals:
-    void clientFinished(int exitStatus, QString message, QString output);
+    void clientFinished(int exitCode, QString message, QString output);
+    void clientStarted();
 
 public slots:
     void runClient();
+
+private slots:
     void readProcessOutput();
     void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
     void processError(QProcess::ProcessError error);
 
 private:
+    QUuid            _uuid;
     QProcess         _process;
     QByteArray       _processOutput;
     QString          _command;

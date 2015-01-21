@@ -36,7 +36,7 @@ public slots:
     void commitSettings();
 
     // JobManager responses
-    void registerMachineStatus(JobManager::JobStatus status, QString reason);
+    void registerMachineStatus(JobStatus status, QString reason);
 
 signals:
     void registerMachine(QString user, QString password, QString machine, QString key);

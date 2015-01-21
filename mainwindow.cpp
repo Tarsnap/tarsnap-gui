@@ -10,6 +10,7 @@
 #include <QDateTime>
 #include <QFileDialog>
 #include <QDir>
+#include <QSharedPointer>
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
@@ -91,11 +92,39 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
         this->showMaximized();
 }
 
+void MainWindow::jobUpdate(QSharedPointer<BackupJob> job)
+{
+    switch (job->status) {
+    case JobStatus::Completed:
+        _ui->statusBarLabel->setText(tr("Job <i>%1</i> completed.").arg(job->name));
+        _ui->statusBarLabel->setToolTip(_ui->statusBarLabel->text());
+        break;
+    case JobStatus::Started:
+        _ui->statusBarLabel->setText(tr("Job <i>%1</i> created.").arg(job->name));
+        _ui->statusBarLabel->setToolTip(_ui->statusBarLabel->text());
+        break;
+    case JobStatus::Running:
+        _ui->statusBarLabel->setText(tr("Job <i>%1</i> is running.").arg(job->name));
+        _ui->statusBarLabel->setToolTip(_ui->statusBarLabel->text());
+        break;
+    case JobStatus::Failed:
+        _ui->statusBarLabel->setText(tr("Job <i>%1</i> failed: %2").arg(job->name).arg(job->output.simplified()));
+        _ui->statusBarLabel->setToolTip(tr("%1\n%2").arg(job->reason).arg(job->output));
+        break;
+    case JobStatus::Paused:
+        _ui->statusBarLabel->setText(tr("Job <i>%1</i> paused.").arg(job->name));
+        _ui->statusBarLabel->setToolTip(_ui->statusBarLabel->text());
+        break;
+    default:
+        break;
+    }
+}
+
 void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
 {
     if(count != 0)
     {
-        _ui->backupDetailLabel->setText(tr("%1 items totalling %2 bytes").arg(count).arg(size));
+        _ui->backupDetailLabel->setText(tr("%1 items (%2 bytes)").arg(count).arg(size));
         _ui->backupButton->setEnabled(true);
     }
     else
@@ -112,8 +141,7 @@ void MainWindow::on_appendTimestampCheckBox_toggled(bool checked)
         QString text = _ui->backupNameLineEdit->text();
         _lastTimestamp.clear();
         _lastTimestamp.append("_");
-        // with hours and seconds: dd.MM.yyyy_HH:mm:ss
-        _lastTimestamp.append(QDateTime::currentDateTime().toString("dd.MM.yyyy"));
+        _lastTimestamp.append(QDateTime::currentDateTime().toString("dd.MM.yyyy_HH:mm"));
         text.append(_lastTimestamp);
         _ui->backupNameLineEdit->setText(text);
         _ui->backupNameLineEdit->setCursorPosition(0);
@@ -167,9 +195,9 @@ void MainWindow::on_backupButton_clicked()
         urls << dynamic_cast<BackupListItem*>(_ui->backupListWidget->item(i))->url();
     }
 
-    BackupJob job;
-    job.name = _ui->backupNameLineEdit->text();
-    job.urls = urls;
+    QSharedPointer<BackupJob> job(new BackupJob);
+    job->name = _ui->backupNameLineEdit->text();
+    job->urls = urls;
 
     emit backupNow(job);
 }

@@ -32,7 +32,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
     <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <item>
     <widget class="QTabWidget" name="mainTabWidget">
@@ -307,7 +307,7 @@ background: transparent;
             <x>0</x>
             <y>0</y>
             <width>597</width>
-            <height>463</height>
+            <height>458</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -1050,20 +1050,23 @@ tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
        <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>0</number>
+       <number>12</number>
       </property>
       <property name="bottomMargin">
-       <number>1</number>
+       <number>0</number>
       </property>
       <item>
-       <widget class="QLabel" name="statusBarLabel">
+       <widget class="TextLabel" name="statusBarLabel">
         <property name="font">
          <font>
           <pointsize>12</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Idle..</string>
+         <string/>
+        </property>
+        <property name="elide" stdset="0">
+         <string>Qt::ElideRight</string>
         </property>
        </widget>
       </item>
@@ -1074,6 +1077,11 @@ tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
+  <customwidget>
+   <class>TextLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">textlabel.h</header>
+  </customwidget>
   <customwidget>
    <class>BackupListWidget</class>
    <extends>QListWidget</extends>

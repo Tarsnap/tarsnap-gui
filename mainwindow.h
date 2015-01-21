@@ -21,13 +21,16 @@ public:
     void readSettings();
 
 signals:
-    void backupNow(BackupJob job);
+    void backupNow(QSharedPointer<BackupJob> job);
 
 protected:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent * event);
+
+public slots:
+    void jobUpdate(QSharedPointer<BackupJob> job);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);

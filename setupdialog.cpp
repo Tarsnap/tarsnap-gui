@@ -324,19 +324,21 @@ void SetupDialog::registerMachine()
                          , ui->machineNameLineEdit->text(), _tarsnapKeyFile);
 }
 
-void SetupDialog::registerMachineStatus(JobManager::JobStatus status, QString reason)
+void SetupDialog::registerMachineStatus(JobStatus status, QString reason)
 {
     switch(status)
     {
-        case JobManager::Completed:
+        case JobStatus::Completed:
             ui->errorLabel->clear();
             ui->doneButton->setEnabled(true);
             setNextPage();
             break;
-        case JobManager::Failed:
+        case JobStatus::Failed:
             ui->errorLabel->setText(reason);
             ui->errorLabel->show();
             resize(sizeHint());
+            break;
+        default:
             break;
     }
 }

@@ -17,6 +17,7 @@ public:
 
     Qt::TextElideMode elide() const;
     void setElide(const Qt::TextElideMode &elide);
+    QString text(); // returns original text
 
 public slots:
     void setText(const QString &text);

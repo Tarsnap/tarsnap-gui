@@ -22,6 +22,11 @@ void TextLabel::setElide(const Qt::TextElideMode &elide)
     emit elideChanged(_elide);
 }
 
+QString TextLabel::text()
+{
+    return _origText;
+}
+
 void TextLabel::setText(const QString &text)
 {
     _origText = text;

@@ -11,9 +11,10 @@ CoreApplication::CoreApplication(int &argc, char **argv):
 {
     qSetMessagePattern("%{file}(%{line}): %{message}");
 
-    qRegisterMetaType<JobManager::JobStatus>("JobManager::JobStatus");
+    qRegisterMetaType<JobStatus>("JobStatus");
     qRegisterMetaType< QList<QUrl> >("QList<QUrl>");
     qRegisterMetaType<BackupJob>("BackupJob");
+    qRegisterMetaType< QSharedPointer<BackupJob> >("QSharedPointer<BackupJob>");
 
     QCoreApplication::setOrganizationName(tr("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));
@@ -26,8 +27,8 @@ CoreApplication::CoreApplication(int &argc, char **argv):
         SetupDialog wizard;
         connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString))
                 ,&_jobManager, SLOT(registerMachine(QString,QString,QString,QString)));
-        connect(&_jobManager, SIGNAL(registerMachineStatus(JobManager::JobStatus,QString))
-                , &wizard, SLOT(registerMachineStatus(JobManager::JobStatus, QString)));
+        connect(&_jobManager, SIGNAL(registerMachineStatus(JobStatus,QString))
+                , &wizard, SLOT(registerMachineStatus(JobStatus, QString)));
         wizard.exec();
         settings.setValue("application/wizardDone", true);
         settings.sync();
@@ -41,7 +42,10 @@ CoreApplication::CoreApplication(int &argc, char **argv):
         quitApplication(FAILURE);
     }
 
-    connect(_mainWindow, SIGNAL(backupNow(BackupJob)), &_jobManager, SLOT(backupNow(BackupJob)), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(backupNow(QSharedPointer<BackupJob>)), &_jobManager
+            , SLOT(backupNow(QSharedPointer<BackupJob>)), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(jobUpdate(QSharedPointer<BackupJob>))
+            , _mainWindow, SLOT(jobUpdate(QSharedPointer<BackupJob>)));
 
     _mainWindow->show();
 }

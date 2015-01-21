@@ -41,6 +41,7 @@ private:
     Ui::MainWindow *_ui;
     QLabel *_tarsnapLogo;
     QPoint  _windowDragPos;
+    QString _lastTimestamp;
 };
 
 #endif // MAINWINDOW_H

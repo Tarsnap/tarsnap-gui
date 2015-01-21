@@ -110,10 +110,26 @@ void MainWindow::on_appendTimestampCheckBox_toggled(bool checked)
     if(checked)
     {
         QString text = _ui->backupNameLineEdit->text();
-        text.append("_");
-        text.append(QDateTime::currentDateTime().toString("dd.MM.yyyy_HH:mm:ss"));
+        _lastTimestamp.clear();
+        _lastTimestamp.append("_");
+        // with hours and seconds: dd.MM.yyyy_HH:mm:ss
+        _lastTimestamp.append(QDateTime::currentDateTime().toString("dd.MM.yyyy"));
+        text.append(_lastTimestamp);
         _ui->backupNameLineEdit->setText(text);
         _ui->backupNameLineEdit->setCursorPosition(0);
+    }
+    else
+    {
+        QString text = _ui->backupNameLineEdit->text();
+        if(!_lastTimestamp.isEmpty() && !text.isEmpty())
+        {
+            int index = text.indexOf(_lastTimestamp, -(_lastTimestamp.count()));
+            if(index != -1)
+            {
+                text.truncate(index);
+                _ui->backupNameLineEdit->setText(text);
+            }
+        }
     }
 }
 

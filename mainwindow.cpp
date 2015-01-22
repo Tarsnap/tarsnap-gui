@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ui_restoreitemwidget.h"
+#include "ui_archiveitemwidget.h"
 #include "ui_backupitemwidget.h"
 #include "backuplistitem.h"
 
@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->setupUi(this);
 
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+    _ui->browseListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     _tarsnapLogo = new QLabel(this);
     QPixmap logo(":/resources/tarsnap.png");
@@ -28,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     readSettings();
 
-    Ui::RestoreItemWidget restoreItemUi;
+    Ui::ArchiveItemWidget restoreItemUi;
     for(int i = 0; i < 10; i++)
     {
         QListWidgetItem *item = new QListWidgetItem;

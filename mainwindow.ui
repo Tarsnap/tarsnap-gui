@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>637</width>
-    <height>687</height>
+    <width>579</width>
+    <height>686</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -79,7 +79,7 @@ border-radius: 2px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="backupTab">
       <property name="acceptDrops">
@@ -138,12 +138,6 @@ selection-background-color: rgba(179, 190, 255, 80);
          </property>
          <property name="horizontalScrollMode">
           <enum>QAbstractItemView::ScrollPerPixel</enum>
-         </property>
-         <property name="viewMode">
-          <enum>QListView::ListMode</enum>
-         </property>
-         <property name="selectionRectVisible">
-          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -277,6 +271,59 @@ color: gray;
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="browseTab">
+      <property name="styleSheet">
+       <string notr="true">#browseTab {
+    border-top: 1px solid darkgrey;
+}</string>
+      </property>
+      <attribute name="title">
+       <string>Browse</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_11">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="BrowseListWidget" name="browseListWidget">
+         <property name="contextMenuPolicy">
+          <enum>Qt::ActionsContextMenu</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#browseListWidget::item
+{
+min-height: 35px;
+selection-background-color: rgba(179, 190, 255, 80);
+}</string>
+         </property>
+         <property name="tabKeyNavigation">
+          <bool>true</bool>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
+         <property name="verticalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
+         <property name="horizontalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="jobsTab">
       <property name="styleSheet">
        <string notr="true">#jobsTab {
@@ -287,6 +334,18 @@ color: gray;
        <string>Jobs</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>5</number>
+       </property>
        <item>
         <widget class="QToolBox" name="toolBox">
          <property name="styleSheet">
@@ -295,15 +354,15 @@ background: transparent;
 }</string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="page">
           <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>597</width>
-            <height>462</height>
+            <width>530</width>
+            <height>110</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -451,8 +510,8 @@ background: #E3EBEC;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>480</width>
-            <height>110</height>
+            <width>569</width>
+            <height>483</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -961,6 +1020,18 @@ selection-background-color: #E5E9FF;
        <string>Help</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_6">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>5</number>
+       </property>
        <item>
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
@@ -1078,6 +1149,11 @@ tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
    <class>BackupListWidget</class>
    <extends>QListWidget</extends>
    <header>backuplistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>BrowseListWidget</class>
+   <extends>QListWidget</extends>
+   <header>browselistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

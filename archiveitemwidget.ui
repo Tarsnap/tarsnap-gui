@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>RestoreItemWidget</class>
- <widget class="QWidget" name="RestoreItemWidget">
+ <class>ArchiveItemWidget</class>
+ <widget class="QWidget" name="ArchiveItemWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>447</width>
+    <width>465</width>
     <height>30</height>
    </rect>
   </property>
@@ -30,7 +30,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="iconLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -58,14 +58,29 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_2">
+    <widget class="TextLabel" name="nameLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
-      <string>Stage_Server_Backup</string>
+      <string>Archive_name</string>
+     </property>
+     <property name="elide" stdset="0">
+      <string>Qt::ElideRight</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="detaiLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="styleSheet">
       <string notr="true">QLabel {
 color: grey;
@@ -83,14 +98,14 @@ color: grey;
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>40</width>
+       <width>20</width>
        <height>20</height>
       </size>
      </property>
     </spacer>
    </item>
    <item>
-    <widget class="QToolButton" name="toolButton_3">
+    <widget class="QToolButton" name="restoreButton">
      <property name="text">
       <string>...</string>
      </property>
@@ -101,7 +116,7 @@ color: grey;
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="toolButton">
+    <widget class="QToolButton" name="downloadButton">
      <property name="text">
       <string>...</string>
      </property>
@@ -112,7 +127,7 @@ color: grey;
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="toolButton_2">
+    <widget class="QToolButton" name="deleteButton">
      <property name="text">
       <string>...</string>
      </property>
@@ -124,6 +139,13 @@ color: grey;
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TextLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">textlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>

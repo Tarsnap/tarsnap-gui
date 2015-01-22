@@ -22,6 +22,7 @@ public:
 
 signals:
     void backupNow(QSharedPointer<BackupJob> job);
+    void getArchivesList();
 
 protected:
     void paintEvent(QPaintEvent *);

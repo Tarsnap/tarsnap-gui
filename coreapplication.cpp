@@ -46,6 +46,8 @@ CoreApplication::CoreApplication(int &argc, char **argv):
             , SLOT(backupNow(QSharedPointer<BackupJob>)), Qt::QueuedConnection);
     connect(&_jobManager, SIGNAL(jobUpdate(QSharedPointer<BackupJob>))
             , _mainWindow, SLOT(jobUpdate(QSharedPointer<BackupJob>)));
+    connect(_mainWindow, SIGNAL(getArchivesList()), &_jobManager
+            , SLOT(getArchivesList()), Qt::QueuedConnection);
 
     _mainWindow->show();
 }

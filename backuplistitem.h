@@ -1,11 +1,11 @@
 #ifndef BACKUPLISTITEM_H
 #define BACKUPLISTITEM_H
 
+#include "ui_backupitemwidget.h"
+
 #include <QObject>
 #include <QListWidgetItem>
 #include <QUrl>
-
-#include "ui_backupitemwidget.h"
 
 namespace Ui {
 class BackupItemWidget;

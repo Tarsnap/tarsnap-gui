@@ -9,6 +9,7 @@
 #include <QUuid>
 #include <QMap>
 #include <QSharedPointer>
+#include <QDateTime>
 
 class JobManager;
 
@@ -28,6 +29,19 @@ public:
     BackupJob():uuid(QUuid::createUuid()),status(JobStatus::Unknown){}
 };
 
+class Archive
+{
+public:
+    QString     name;
+    QDateTime   timestamp;
+    qint64      sizeTotal;
+    qint64      sizeCompressed;
+    qint64      sizeUniqueTotal;
+    qint64      sizeUniqueCompressed;
+    QString     command;
+    QStringList contents;
+};
+
 class JobManager : public QObject
 {
     Q_OBJECT
@@ -43,6 +57,7 @@ signals:
 public slots:
     void registerMachine(QString user, QString password, QString machine, QString key);
     void backupNow(QSharedPointer<BackupJob> job);
+    void getArchivesList();
 
 private slots:
     void jobClientFinished(int exitCode, QString message, QString output);

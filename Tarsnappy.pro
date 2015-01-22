@@ -22,7 +22,9 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     backuplistitem.cpp \
     textlabel.cpp \
-    utils.cpp
+    utils.cpp \
+    browselistwidget.cpp \
+    archivelistitem.cpp
 
 HEADERS  += \
     backuplistwidget.h \
@@ -33,13 +35,15 @@ HEADERS  += \
     mainwindow.h \
     backuplistitem.h \
     textlabel.h \
-    utils.h
+    utils.h \
+    browselistwidget.h \
+    archivelistitem.h
 
 FORMS    += \
-    restoreitemwidget.ui \
     backupitemwidget.ui \
     setupdialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    archiveitemwidget.ui
 
 RESOURCES += \
     resources.qrc

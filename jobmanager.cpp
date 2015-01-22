@@ -60,6 +60,11 @@ void JobManager::backupNow(QSharedPointer<BackupJob> job)
     emit jobUpdate(job);
 }
 
+void JobManager::getArchivesList()
+{
+
+}
+
 void JobManager::jobClientFinished(int exitCode, QString message, QString output)
 {
     TarsnapCLI *tarClient =static_cast<TarsnapCLI*>(QObject::sender());

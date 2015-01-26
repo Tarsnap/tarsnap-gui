@@ -17,5 +17,7 @@
         <file>resources/magnifying-glass-4x.png</file>
         <file>resources/folder-2x.png</file>
         <file>resources/folder-4x.png</file>
+        <file>resources/info-2x.png</file>
+        <file>resources/info-4x.png</file>
     </qresource>
 </RCC>

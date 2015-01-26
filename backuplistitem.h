@@ -24,8 +24,6 @@ public:
     QUrl url() const;
     void setUrl(const QUrl &url);
 
-    void cleanup();
-
     qint64 count() const;
     void setCount(const qint64 &count);
 
@@ -42,7 +40,7 @@ public slots:
 
 private:
     Ui::BackupItemWidget _ui;
-    QWidget              *_widget;
+    QWidget              _widget;
     QUrl                 _url;
     qint64               _count;
     qint64               _size;

@@ -40,6 +40,8 @@ public:
     qint64      sizeUniqueCompressed;
     QString     command;
     QStringList contents;
+
+    Archive():sizeTotal(0),sizeCompressed(0),sizeUniqueTotal(0),sizeUniqueCompressed(0){}
 };
 
 class JobManager : public QObject
@@ -53,6 +55,7 @@ public:
 signals:
     void registerMachineStatus(JobStatus status, QString reason);
     void jobUpdate(QSharedPointer<BackupJob> job);
+    void archivesList(QList<QSharedPointer<Archive>> archives);
 
 public slots:
     void registerMachine(QString user, QString password, QString machine, QString key);
@@ -63,7 +66,7 @@ private slots:
     void jobClientFinished(int exitCode, QString message, QString output);
     void jobClientStarted();
     void registerClientFinished(int exitCode, QString message, QString output);
-
+    void listArchivesFinished(int exitCode, QString message, QString output);
 
 private:
     QThread                   _managerThread; // manager runs on a separate thread

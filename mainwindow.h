@@ -23,6 +23,7 @@ public:
 signals:
     void backupNow(QSharedPointer<BackupJob> job);
     void getArchivesList();
+    void archivesList(QList<QSharedPointer<Archive>> archives);
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -42,10 +43,10 @@ private slots:
     void on_backupButton_clicked();
 
 private:
-    Ui::MainWindow *_ui;
-    QLabel *_tarsnapLogo;
-    QPoint  _windowDragPos;
-    QString _lastTimestamp;
+    Ui::MainWindow  *_ui;
+    QLabel          *_tarsnapLogo;
+    QPoint           _windowDragPos;
+    QString          _lastTimestamp;
 };
 
 #endif // MAINWINDOW_H

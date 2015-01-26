@@ -1,5 +1,6 @@
 #include "jobmanager.h"
 
+#include <QDebug>
 #include <QFileInfo>
 
 
@@ -62,7 +63,13 @@ void JobManager::backupNow(QSharedPointer<BackupJob> job)
 
 void JobManager::getArchivesList()
 {
-
+    TarsnapCLI *tarClient = new TarsnapCLI();
+    QStringList args;
+    args << "--list-archives" << "-vv";
+    tarClient->setCommand(CMD_TARSNAP);
+    tarClient->setArguments(args);
+    connect(tarClient, SIGNAL(clientFinished(int,QString,QString)), this, SLOT(listArchivesFinished(int,QString,QString)));
+    QMetaObject::invokeMethod(tarClient, "runClient", Qt::QueuedConnection);
 }
 
 void JobManager::jobClientFinished(int exitCode, QString message, QString output)
@@ -99,5 +106,31 @@ void JobManager::registerClientFinished(int exitCode, QString message, QString o
         emit registerMachineStatus(JobStatus::Completed, output);
     else
         emit registerMachineStatus(JobStatus::Failed, output);
+}
+
+void JobManager::listArchivesFinished(int exitCode, QString message, QString output)
+{
+    Q_UNUSED(message)
+
+    QList<QSharedPointer<Archive>> archives;
+    if(exitCode == 0)
+    {
+        QStringList lines = output.trimmed().split('\n');
+        foreach (QString line, lines) {
+            QRegExp archiveDetailsRX("^(\\S+)\\s+(\\S+\\s+\\S+)\\s+(.+)$");
+            if(-1 != archiveDetailsRX.indexIn(line))
+            {
+                QStringList archiveDetails = archiveDetailsRX.capturedTexts();
+                archiveDetails.removeFirst();
+                qDebug() << archiveDetails;
+                QSharedPointer<Archive> archive(new Archive);
+                archive->name = archiveDetails[0];
+                archive->timestamp = QDateTime::fromString(archiveDetails[1], Qt::ISODate);
+                archive->command = archiveDetails[2];
+                archives.append(archive);
+            }
+        }
+        emit archivesList(archives);
+    }
 }
 

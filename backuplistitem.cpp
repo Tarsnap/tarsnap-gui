@@ -6,9 +6,9 @@
 #include <QDesktopServices>
 #include <QThreadPool>
 
-BackupListItem::BackupListItem(QUrl url): _widget(new QWidget()), _count(0), _size(0)
+BackupListItem::BackupListItem(QUrl url):_count(0), _size(0)
 {
-    _ui.setupUi(_widget);
+    _ui.setupUi(&_widget);
     connect(_ui.removeButton, SIGNAL(clicked()), this, SIGNAL(requestDelete()));
     connect(_ui.browseButton, SIGNAL(clicked()), this, SLOT(browseUrl()));
     setUrl(url);
@@ -23,7 +23,7 @@ BackupListItem::~BackupListItem()
 
 QWidget* BackupListItem::widget()
 {
-    return _widget;
+    return &_widget;
 }
 QUrl BackupListItem::url() const
 {
@@ -68,12 +68,6 @@ void BackupListItem::setUrl(const QUrl &url)
             return;
         }
     }
-}
-
-void BackupListItem::cleanup()
-{
-    qDebug() << "CLEANUP";
-    delete _widget;
 }
 
 void BackupListItem::browseUrl()

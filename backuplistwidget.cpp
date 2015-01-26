@@ -25,6 +25,7 @@ BackupListWidget::BackupListWidget(QWidget *parent):
 
 BackupListWidget::~BackupListWidget()
 {
+    clear();
 }
 
 void BackupListWidget::addItemWithUrl(QUrl url)
@@ -59,12 +60,9 @@ void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
 
 void BackupListWidget::removeItem()
 {
-//    QWidget *widget = this->itemWidget(qobject_cast<BackupListItem*>(sender()));
     QListWidgetItem *item = this->takeItem(this->row(qobject_cast<BackupListItem*>(sender())));
-    Q_UNUSED(item)
-    BackupListItem *backupItem = qobject_cast<BackupListItem*>(sender());
-    backupItem->cleanup();
-    delete backupItem;
+    if(item)
+        delete item;
     recomputeListTotals();
 }
 
@@ -75,9 +73,8 @@ void BackupListWidget::removeSelectedItems()
         if(item->isSelected())
         {
             QListWidgetItem *takenItem = this->takeItem(this->row(item));
-            BackupListItem *backupItem = dynamic_cast<BackupListItem*>(takenItem);
-            backupItem->cleanup();
-            delete backupItem;
+            if(takenItem)
+                delete takenItem;
         }
     }
     recomputeListTotals();
@@ -97,12 +94,6 @@ void BackupListWidget::recomputeListTotals()
         }
     }
     emit itemTotals(count, size);
-}
-
-void BackupListWidget::clear()
-{
-// not used yet
-    qDebug() << "method not implemented";
 }
 
 void BackupListWidget::dragMoveEvent( QDragMoveEvent* event )

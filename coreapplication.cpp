@@ -15,6 +15,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     qRegisterMetaType< QList<QUrl> >("QList<QUrl>");
     qRegisterMetaType<BackupJob>("BackupJob");
     qRegisterMetaType< QSharedPointer<BackupJob> >("QSharedPointer<BackupJob>");
+    qRegisterMetaType< QList<QSharedPointer<Archive>> >("QList<QSharedPointer<Archive> >");
 
     QCoreApplication::setOrganizationName(tr("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));
@@ -48,6 +49,10 @@ CoreApplication::CoreApplication(int &argc, char **argv):
             , _mainWindow, SLOT(jobUpdate(QSharedPointer<BackupJob>)));
     connect(_mainWindow, SIGNAL(getArchivesList()), &_jobManager
             , SLOT(getArchivesList()), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(archivesList(QList<QSharedPointer<Archive>>))
+            , _mainWindow, SIGNAL(archivesList(QList<QSharedPointer<Archive>>)));
+
+    QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 
     _mainWindow->show();
 }

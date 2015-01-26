@@ -20,7 +20,6 @@ public slots:
     void removeItem();
     void removeSelectedItems();
     void recomputeListTotals();
-    void clear();
 
 signals:
     void itemTotals(qint64 count, qint64 size);

@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QPixmap logo(":/resources/tarsnap.png");
     _tarsnapLogo->setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     _tarsnapLogo->adjustSize();
+    _tarsnapLogo->lower();
     _tarsnapLogo->show();
 
     readSettings();
@@ -39,7 +40,11 @@ MainWindow::MainWindow(QWidget *parent) :
         _ui->backupRestoreListWidget->setItemWidget(item, widget);
     }
 
-    connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this, SLOT(updateBackupItemTotals(qint64, qint64)));
+    connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
+            , SLOT(updateBackupItemTotals(qint64, qint64)));
+    connect(_ui->browseListWidget, SIGNAL(getArchivesList()), this, SIGNAL(getArchivesList()));
+    connect(this, SIGNAL(archivesList(QList<QSharedPointer<Archive> >))
+            , _ui->browseListWidget, SLOT(addArchives(QList<QSharedPointer<Archive> >)));
 }
 
 MainWindow::~MainWindow()

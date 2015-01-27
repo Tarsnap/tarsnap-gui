@@ -19,9 +19,9 @@ enum JobStatus { Started, Running, Completed, Failed, Paused, Unknown };
 class BackupJob
 {
 public:
+    QUuid                 uuid;
     QList<QUrl>           urls;
     QString               name;
-    QUuid                 uuid;
     JobStatus             status;
     int                   exitCode;
     QString               reason;
@@ -33,6 +33,7 @@ public:
 class Archive
 {
 public:
+    QUuid       uuid;
     QString     name;
     QDateTime   timestamp;
     qint64      sizeTotal;
@@ -42,7 +43,7 @@ public:
     QString     command;
     QStringList contents;
 
-    Archive():sizeTotal(0),sizeCompressed(0),sizeUniqueTotal(0),sizeUniqueCompressed(0){}
+    Archive():uuid(QUuid::createUuid()),sizeTotal(0),sizeCompressed(0),sizeUniqueTotal(0),sizeUniqueCompressed(0){}
 };
 
 class JobManager : public QObject
@@ -62,16 +63,20 @@ public slots:
     void registerMachine(QString user, QString password, QString machine, QString key);
     void backupNow(QSharedPointer<BackupJob> job);
     void getArchivesList();
+    void getArchiveDetails(QSharedPointer<Archive> archive);
 
 private slots:
-    void jobClientFinished(QUuid uuid, int exitCode, QString output);
-    void jobClientStarted(QUuid uuid);
-    void registerClientFinished(QUuid uuid, int exitCode, QString output);
-    void listArchivesFinished(QUuid uuid, int exitCode, QString output);
+    void jobFinished(QUuid uuid, int exitCode, QString output);
+    void jobStarted(QUuid uuid);
+    void registerMachineFinished(QUuid uuid, int exitCode, QString output);
+    void getArchivesFinished(QUuid uuid, int exitCode, QString output);
+    void getArchiveStatsFinished(QUuid uuid, int exitCode, QString output);
+    void getArchiveContentsFinished(QUuid uuid, int exitCode, QString output);
 
 private:
     QThread                                   _managerThread; // manager runs on a separate thread
     QMap<QUuid, QSharedPointer<BackupJob>>    _jobMap;
+    QMap<QUuid, QSharedPointer<Archive>>      _archiveMap;
     QThreadPool                              *_threadPool;
 };
 

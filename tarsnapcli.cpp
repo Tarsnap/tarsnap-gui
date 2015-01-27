@@ -12,7 +12,6 @@ TarsnapCLI::TarsnapCLI(QUuid uuid) : QObject(), _uuid(uuid), _process(NULL), _re
 
 TarsnapCLI::~TarsnapCLI()
 {
-    killClient();
 }
 QString TarsnapCLI::command() const
 {

@@ -4,16 +4,20 @@
 #include <QThread>
 #include <QProcess>
 #include <QUuid>
+#include <QRunnable>
 
 #define CMD_TARSNAP "tarsnap"
 #define CMD_TARSNAPKEYGEN "tarsnap-keygen"
 
-class TarsnapCLI : public QObject
+class TarsnapCLI : public QObject, public QRunnable
 {
     Q_OBJECT
+
 public:
-    explicit TarsnapCLI(QUuid uuid = QUuid::createUuid(), QObject *parent = 0);
+    explicit TarsnapCLI(QUuid uuid = QUuid::createUuid());
     ~TarsnapCLI();
+
+    void run();
 
     QString command() const;
     void setCommand(const QString &command);
@@ -36,26 +40,22 @@ public:
     void setUuid(const QUuid &uuid);
 
 signals:
-    void clientFinished(int exitCode, QString message, QString output);
-    void clientStarted();
-
-public slots:
-    void runClient();
+    void clientFinished(QUuid uuid, int exitCode, QString output);
+    void clientStarted(QUuid uuid);
 
 private slots:
     void readProcessOutput();
-    void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
-    void processError(QProcess::ProcessError error);
+    void processFinished();
+    void processError();
 
 private:
     QUuid            _uuid;
-    QProcess         _process;
+    QProcess         *_process;
     QByteArray       _processOutput;
     QString          _command;
     QStringList      _arguments;
     QString          _password;
     bool             _requiresPassword;
-    QThread          _thread;
 };
 
 #endif // TARSNAPCLI_H

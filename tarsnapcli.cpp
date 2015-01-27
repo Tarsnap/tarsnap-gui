@@ -1,28 +1,18 @@
 #include "tarsnapcli.h"
 
 #include <QDebug>
+#include <QEventLoop>
 
-TarsnapCLI::TarsnapCLI(QUuid uuid, QObject *parent) : QObject(), _uuid(uuid), _process(NULL), _requiresPassword(false)
+#define DEFAULT_TIMEOUT_MS 10000
+
+TarsnapCLI::TarsnapCLI(QUuid uuid) : QObject(), _uuid(uuid), _process(NULL), _requiresPassword(false)
 {
-    Q_UNUSED(parent)
-    _thread.start();
-    moveToThread(&_thread);
-    _process.moveToThread(&_thread);
-
-    _process.setProcessChannelMode( QProcess::MergedChannels );
-    connect(&_process, SIGNAL(started()), this, SIGNAL(clientStarted()));
-    connect(&_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcessOutput()));
-    connect(&_process, SIGNAL(finished(int, QProcess::ExitStatus)), this,
-             SLOT(processFinished(int, QProcess::ExitStatus)));
-    connect(&_process, SIGNAL(error(QProcess::ProcessError)), this,
-             SLOT(processError(QProcess::ProcessError)));
+    setAutoDelete(true);
 }
 
 TarsnapCLI::~TarsnapCLI()
 {
     killClient();
-    _thread.quit();
-    _thread.wait();
 }
 QString TarsnapCLI::command() const
 {
@@ -43,62 +33,94 @@ void TarsnapCLI::setArguments(const QStringList &arguments)
     _arguments = arguments;
 }
 
-void TarsnapCLI::runClient()
+void TarsnapCLI::run()
 {
-    _process.setProgram(_command);
-    _process.setArguments(_arguments);
-    qDebug().noquote() << "Running command: " << _process.program() << _process.arguments();
-    _process.start();
+    bool result = false;
+    _process = new QProcess();
+    _process->setProcessChannelMode( QProcess::MergedChannels );
+//    connect(_process, SIGNAL(started()), this, SIGNAL(clientStarted()), Qt::QueuedConnection);
+//    connect(_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcessOutput()), Qt::QueuedConnection);
+//    connect(_process, SIGNAL(finished(int, QProcess::ExitStatus)), this,
+//            SLOT(processFinished(int, QProcess::ExitStatus)), Qt::QueuedConnection);
+//    connect(_process, SIGNAL(error(QProcess::ProcessError)), this,
+//             SLOT(processError(QProcess::ProcessError)), Qt::QueuedConnection);
+
+    _process->setProgram(_command);
+    _process->setArguments(_arguments);
+    qDebug().noquote() << "Running command: " << _process->program() << _process->arguments();
+    _process->start();
+    result = _process->waitForStarted(DEFAULT_TIMEOUT_MS);
+    if(result)
+    {
+        emit clientStarted(_uuid);
+    }
+    else
+    {
+        processError();
+        goto end;
+    }
     if(_requiresPassword)
     {
         QByteArray password( _password.toUtf8() + "\n" );
-        _process.write( password.data(), password.size() );
+        _process->write( password.data(), password.size() );
     }
+    result = _process->waitForFinished(-1);
+    if(result)
+    {
+        readProcessOutput();
+        processFinished();
+    }
+    else
+    {
+        processError();
+        goto end;
+    }
+end:    delete _process;
 }
 
 void TarsnapCLI::killClient()
 {
-    if(_process.state() == QProcess::Running)
+    if(_process->state() == QProcess::Running)
     {
-        _process.terminate();
-        if(false == _process.waitForFinished(1000))
-            _process.kill();
+        _process->terminate();
+        if(false == _process->waitForFinished(1000))
+            _process->kill();
     }
 }
 
 QProcess::ProcessState TarsnapCLI::statusClient()
 {
-    return _process.state();
+    return _process->state();
 }
 
 bool TarsnapCLI::waitForClient()
 {
-    return _process.waitForFinished(-1);
+    return _process->waitForFinished(-1);
 }
 
 void TarsnapCLI::readProcessOutput()
 {
-    _processOutput.append(_process.readAll());
+    _processOutput.append(_process->readAll());
 }
 
-void TarsnapCLI::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void TarsnapCLI::processFinished()
 {
     qDebug() << QString::fromStdString(_processOutput.toStdString());
-    qDebug() << "Tarsnap process finished with return code " << exitCode << ".";
-    QString message;
-    switch (exitStatus) {
+    qDebug() << "Tarsnap process finished with return code " << _process->exitCode() << ".";
+    switch (_process->exitStatus()) {
     case QProcess::NormalExit:
+        emit clientFinished(_uuid, _process->exitCode(), QString(_processOutput));
         break;
     case QProcess::CrashExit:
-        message = tr("Tarsnap CLI process crashed.");
+        processError();
         break;
     }
-    emit clientFinished(exitCode, message, QString(_processOutput));
 }
 
-void TarsnapCLI::processError(QProcess::ProcessError error)
+void TarsnapCLI::processError()
 {
-    qDebug() << "Tarsnap process error " << error << " occured.";
+    qDebug() << "Tarsnap process error " << _process->error() << " occured: "
+             << _process->errorString();
 }
 QUuid TarsnapCLI::uuid() const
 {

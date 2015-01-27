@@ -10,6 +10,7 @@
 #include <QMap>
 #include <QSharedPointer>
 #include <QDateTime>
+#include <QThreadPool>
 
 class JobManager;
 
@@ -63,14 +64,15 @@ public slots:
     void getArchivesList();
 
 private slots:
-    void jobClientFinished(int exitCode, QString message, QString output);
-    void jobClientStarted();
-    void registerClientFinished(int exitCode, QString message, QString output);
-    void listArchivesFinished(int exitCode, QString message, QString output);
+    void jobClientFinished(QUuid uuid, int exitCode, QString output);
+    void jobClientStarted(QUuid uuid);
+    void registerClientFinished(QUuid uuid, int exitCode, QString output);
+    void listArchivesFinished(QUuid uuid, int exitCode, QString output);
 
 private:
-    QThread                   _managerThread; // manager runs on a separate thread
+    QThread                                   _managerThread; // manager runs on a separate thread
     QMap<QUuid, QSharedPointer<BackupJob>>    _jobMap;
+    QThreadPool                              *_threadPool;
 };
 
 #endif // JOBMANAGER_H

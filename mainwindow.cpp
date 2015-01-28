@@ -43,8 +43,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
             , SLOT(updateBackupItemTotals(qint64, qint64)));
     connect(_ui->browseListWidget, SIGNAL(getArchivesList()), this, SIGNAL(getArchivesList()));
-    connect(this, SIGNAL(archivesList(QList<QSharedPointer<Archive> >))
-            , _ui->browseListWidget, SLOT(addArchives(QList<QSharedPointer<Archive> >)));
+    connect(this, SIGNAL(archivesList(QList<ArchivePtr >))
+            , _ui->browseListWidget, SLOT(addArchives(QList<ArchivePtr >)));
 }
 
 MainWindow::~MainWindow()
@@ -98,7 +98,7 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
         this->showMaximized();
 }
 
-void MainWindow::jobUpdate(QSharedPointer<BackupJob> job)
+void MainWindow::jobUpdate(BackupJobPtr job)
 {
     switch (job->status) {
     case JobStatus::Completed:
@@ -201,7 +201,7 @@ void MainWindow::on_backupButton_clicked()
         urls << dynamic_cast<BackupListItem*>(_ui->backupListWidget->item(i))->url();
     }
 
-    QSharedPointer<BackupJob> job(new BackupJob);
+    BackupJobPtr job(new BackupJob);
     job->name = _ui->backupNameLineEdit->text();
     job->urls = urls;
 

@@ -21,9 +21,9 @@ public:
     void readSettings();
 
 signals:
-    void backupNow(QSharedPointer<BackupJob> job);
+    void backupNow(BackupJobPtr job);
     void getArchivesList();
-    void archivesList(QList<QSharedPointer<Archive>> archives);
+    void archivesList(QList<ArchivePtr> archives);
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -32,7 +32,7 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent * event);
 
 public slots:
-    void jobUpdate(QSharedPointer<BackupJob> job);
+    void jobUpdate(BackupJobPtr job);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);

@@ -43,7 +43,7 @@ void JobManager::registerMachine(QString user, QString password, QString machine
     _threadPool->start(tarClient);
 }
 
-void JobManager::backupNow(QSharedPointer<BackupJob> job)
+void JobManager::backupNow(BackupJobPtr job)
 {
     _jobMap[job->uuid] = job;
     TarsnapCLI *tarClient = new TarsnapCLI(job->uuid);
@@ -72,7 +72,7 @@ void JobManager::getArchivesList()
     _threadPool->start(tarClient);
 }
 
-void JobManager::getArchiveDetails(QSharedPointer<Archive> archive)
+void JobManager::getArchiveDetails(ArchivePtr archive)
 {
     if(!_archiveMap.contains(archive->uuid))
         _archiveMap[archive->uuid] = archive;
@@ -95,7 +95,7 @@ void JobManager::getArchiveDetails(QSharedPointer<Archive> archive)
 
 void JobManager::jobFinished(QUuid uuid, int exitCode, QString output)
 {
-    QSharedPointer<BackupJob> job = _jobMap[uuid];
+    BackupJobPtr job = _jobMap[uuid];
     job->exitCode = exitCode;
     job->output = output;
 //    job->reason = message;
@@ -109,7 +109,7 @@ void JobManager::jobFinished(QUuid uuid, int exitCode, QString output)
 
 void JobManager::jobStarted(QUuid uuid)
 {
-    QSharedPointer<BackupJob> job = _jobMap[uuid];
+    BackupJobPtr job = _jobMap[uuid];
     job->status = JobStatus::Running;
     emit jobUpdate(job);
 }
@@ -127,7 +127,7 @@ void JobManager::getArchivesFinished(QUuid uuid, int exitCode, QString output)
 {
     Q_UNUSED(uuid)
     _archiveMap.clear();
-    QList<QSharedPointer<Archive>> archives;
+    QList<ArchivePtr> archives;
     if(exitCode == 0)
     {
         QStringList lines = output.trimmed().split('\n');
@@ -137,8 +137,7 @@ void JobManager::getArchivesFinished(QUuid uuid, int exitCode, QString output)
             {
                 QStringList archiveDetails = archiveDetailsRX.capturedTexts();
                 archiveDetails.removeFirst();
-                qDebug() << archiveDetails;
-                QSharedPointer<Archive> archive(new Archive);
+                ArchivePtr archive(new Archive);
                 archive->name = archiveDetails[0];
                 archive->timestamp = QDateTime::fromString(archiveDetails[1], Qt::ISODate);
                 archive->command = archiveDetails[2];
@@ -153,7 +152,7 @@ void JobManager::getArchivesFinished(QUuid uuid, int exitCode, QString output)
 
 void JobManager::getArchiveStatsFinished(QUuid uuid, int exitCode, QString output)
 {
-    QSharedPointer<Archive> archive = _archiveMap[uuid];
+    ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
         qDebug() << "uuid not found in _archiveMap.";
@@ -175,7 +174,8 @@ void JobManager::getArchiveStatsFinished(QUuid uuid, int exitCode, QString outpu
         {
             QStringList captured = sizeRX.capturedTexts();
             captured.removeFirst();
-            qDebug() << captured;
+            archive->sizeTotal = captured[0].toLongLong();
+            archive->sizeCompressed = captured[1].toLongLong();
         }
         else
         {
@@ -186,19 +186,21 @@ void JobManager::getArchiveStatsFinished(QUuid uuid, int exitCode, QString outpu
         {
             QStringList captured = uniqueSizeRX.capturedTexts();
             captured.removeFirst();
-            qDebug() << captured;
+            archive->sizeUniqueTotal = captured[0].toLongLong();
+            archive->sizeUniqueCompressed = captured[1].toLongLong();
         }
         else
         {
             qDebug() << "Malformed output from tarsnap cli: " << ::endl << output;
             return;
         }
+        archive->notifyChanged();
     }
 }
 
 void JobManager::getArchiveContentsFinished(QUuid uuid, int exitCode, QString output)
 {
-    QSharedPointer<Archive> archive = _archiveMap[uuid];
+    ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
         qDebug() << "uuid not found in _archiveMap.";
@@ -207,6 +209,7 @@ void JobManager::getArchiveContentsFinished(QUuid uuid, int exitCode, QString ou
     if(exitCode == 0)
     {
         archive->contents = output.trimmed().split('\n', QString::SkipEmptyParts);
+        archive->notifyChanged();
     }
 }
 

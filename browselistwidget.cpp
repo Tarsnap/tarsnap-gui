@@ -15,10 +15,10 @@ BrowseListWidget::~BrowseListWidget()
     clear();
 }
 
-void BrowseListWidget::addArchives(QList<QSharedPointer<Archive> > archives)
+void BrowseListWidget::addArchives(QList<ArchivePtr > archives)
 {
     clear();
-    foreach (QSharedPointer<Archive> archive, archives) {
+    foreach (ArchivePtr archive, archives) {
         ArchiveListItem *item = new ArchiveListItem(archive);
         connect(item, SIGNAL(requestDelete()), this, SLOT(removeItem()));
         connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));

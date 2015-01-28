@@ -15,7 +15,7 @@ public:
     ~BrowseListWidget();
 
 public slots:
-    void addArchives(QList<QSharedPointer<Archive>> archives);
+    void addArchives(QList<ArchivePtr> archives);
     void removeItem();
     void inspectItem();
     void restoreItem();
@@ -23,13 +23,13 @@ public slots:
 
 signals:
     void getArchivesList();
-    void deleteArchive(QSharedPointer<Archive> archive);
+    void deleteArchive(ArchivePtr archive);
 
 protected:
     void keyReleaseEvent(QKeyEvent *event);
 
 private:
-//    QList<QSharedPointer<Archive>> _archives;
+//    QList<ArchivePtr> _archives;
 };
 
 #endif // BROWSELISTWIDGET_H

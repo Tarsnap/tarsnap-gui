@@ -1,6 +1,6 @@
 #include "archivelistitem.h"
 
-ArchiveListItem::ArchiveListItem(QSharedPointer<Archive> archive, QObject *parent):
+ArchiveListItem::ArchiveListItem(ArchivePtr archive, QObject *parent):
     QObject(parent)
 {
     _ui.setupUi(&_widget);
@@ -19,22 +19,29 @@ QWidget *ArchiveListItem::widget()
 {
     return &_widget;
 }
-QSharedPointer<Archive> ArchiveListItem::archive() const
+ArchivePtr ArchiveListItem::archive() const
 {
     return _archive;
 }
 
-void ArchiveListItem::setArchive(QSharedPointer<Archive> archive)
+void ArchiveListItem::setArchive(ArchivePtr archive)
 {
     _archive = archive;
 
+    connect(_archive.data(), SIGNAL(changed()), this, SLOT(update()), Qt::QueuedConnection);
+
     _ui.nameLabel->setText(_archive->name);
     QString detail(_archive->timestamp.toString());
-    if(archive->sizeTotal != 0)
+    if(archive->sizeUniqueCompressed != 0)
     {
         detail.prepend(tr("%1 bytes  ").arg(_archive->sizeUniqueCompressed));
     }
     _ui.detaiLabel->setText(detail);
+}
+
+void ArchiveListItem::update()
+{
+    setArchive(_archive);
 }
 
 

@@ -30,8 +30,12 @@ public:
     BackupJob():uuid(QUuid::createUuid()),status(JobStatus::Unknown){}
 };
 
-class Archive
+typedef QSharedPointer<BackupJob> BackupJobPtr;
+
+class Archive: public QObject
 {
+    Q_OBJECT
+
 public:
     QUuid       uuid;
     QString     name;
@@ -44,7 +48,13 @@ public:
     QStringList contents;
 
     Archive():uuid(QUuid::createUuid()),sizeTotal(0),sizeCompressed(0),sizeUniqueTotal(0),sizeUniqueCompressed(0){}
+
+    void notifyChanged() { emit changed(); }
+signals:
+    void changed();
 };
+
+typedef QSharedPointer<Archive> ArchivePtr;
 
 class JobManager : public QObject
 {
@@ -56,14 +66,14 @@ public:
 
 signals:
     void registerMachineStatus(JobStatus status, QString reason);
-    void jobUpdate(QSharedPointer<BackupJob> job);
-    void archivesList(QList<QSharedPointer<Archive>> archives);
+    void jobUpdate(BackupJobPtr job);
+    void archivesList(QList<ArchivePtr> archives);
 
 public slots:
     void registerMachine(QString user, QString password, QString machine, QString key);
-    void backupNow(QSharedPointer<BackupJob> job);
+    void backupNow(BackupJobPtr job);
     void getArchivesList();
-    void getArchiveDetails(QSharedPointer<Archive> archive);
+    void getArchiveDetails(ArchivePtr archive);
 
 private slots:
     void jobFinished(QUuid uuid, int exitCode, QString output);
@@ -75,8 +85,8 @@ private slots:
 
 private:
     QThread                                   _managerThread; // manager runs on a separate thread
-    QMap<QUuid, QSharedPointer<BackupJob>>    _jobMap;
-    QMap<QUuid, QSharedPointer<Archive>>      _archiveMap;
+    QMap<QUuid, BackupJobPtr>    _jobMap;
+    QMap<QUuid, ArchivePtr>      _archiveMap;
     QThreadPool                              *_threadPool;
 };
 

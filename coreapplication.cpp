@@ -14,8 +14,8 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     qRegisterMetaType<JobStatus>("JobStatus");
     qRegisterMetaType< QList<QUrl> >("QList<QUrl>");
     qRegisterMetaType<BackupJob>("BackupJob");
-    qRegisterMetaType< QSharedPointer<BackupJob> >("QSharedPointer<BackupJob>");
-    qRegisterMetaType< QList<QSharedPointer<Archive>> >("QList<QSharedPointer<Archive> >");
+    qRegisterMetaType< BackupJobPtr >("BackupJobPtr");
+    qRegisterMetaType< QList<ArchivePtr> >("QList<ArchivePtr >");
 
     QCoreApplication::setOrganizationName(tr("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));
@@ -43,14 +43,14 @@ CoreApplication::CoreApplication(int &argc, char **argv):
         quitApplication(FAILURE);
     }
 
-    connect(_mainWindow, SIGNAL(backupNow(QSharedPointer<BackupJob>)), &_jobManager
-            , SLOT(backupNow(QSharedPointer<BackupJob>)), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(jobUpdate(QSharedPointer<BackupJob>))
-            , _mainWindow, SLOT(jobUpdate(QSharedPointer<BackupJob>)));
+    connect(_mainWindow, SIGNAL(backupNow(BackupJobPtr)), &_jobManager
+            , SLOT(backupNow(BackupJobPtr)), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(jobUpdate(BackupJobPtr))
+            , _mainWindow, SLOT(jobUpdate(BackupJobPtr)));
     connect(_mainWindow, SIGNAL(getArchivesList()), &_jobManager
             , SLOT(getArchivesList()), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(archivesList(QList<QSharedPointer<Archive>>))
-            , _mainWindow, SIGNAL(archivesList(QList<QSharedPointer<Archive>>)));
+    connect(&_jobManager, SIGNAL(archivesList(QList<ArchivePtr>))
+            , _mainWindow, SIGNAL(archivesList(QList<ArchivePtr>)));
 
     QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 

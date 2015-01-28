@@ -17,15 +17,16 @@ class ArchiveListItem : public QObject, public QListWidgetItem
     Q_OBJECT
 
 public:
-    explicit ArchiveListItem(QSharedPointer<Archive> archive, QObject *parent = 0);
+    explicit ArchiveListItem(ArchivePtr archive, QObject *parent = 0);
     ~ArchiveListItem();
 
     QWidget *widget();
 
-    QSharedPointer<Archive> archive() const;
-    void setArchive(QSharedPointer<Archive> archive);
+    ArchivePtr archive() const;
+    void setArchive(ArchivePtr archive);
 
 public slots:
+    void update();
 
 signals:
     void requestDelete();
@@ -35,7 +36,7 @@ signals:
 private:
     Ui::ArchiveItemWidget    _ui;
     QWidget                  _widget;
-    QSharedPointer<Archive>  _archive;
+    ArchivePtr  _archive;
 };
 
 #endif // ARCHIVELISTITEM_H

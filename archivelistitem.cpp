@@ -3,6 +3,7 @@
 ArchiveListItem::ArchiveListItem(ArchivePtr archive, QObject *parent):
     QObject(parent)
 {
+    _widget.installEventFilter(this);
     _ui.setupUi(&_widget);
     connect(_ui.deleteButton, SIGNAL(clicked()), this, SIGNAL(requestDelete()));
     connect(_ui.inspectButton, SIGNAL(clicked()), this, SIGNAL(requestInspect()));
@@ -42,6 +43,17 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
 void ArchiveListItem::update()
 {
     setArchive(_archive);
+}
+
+bool ArchiveListItem::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::MouseButtonDblClick) {
+        emit requestInspect();
+        return true;
+    } else {
+        // standard event processing
+        return _widget.eventFilter(obj, event);
+    }
 }
 
 

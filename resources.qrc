@@ -19,5 +19,6 @@
         <file>resources/folder-4x.png</file>
         <file>resources/info-2x.png</file>
         <file>resources/info-4x.png</file>
+        <file>resources/file-8x.png</file>
     </qresource>
 </RCC>

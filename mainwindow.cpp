@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _tarsnapLogo->lower();
     _tarsnapLogo->show();
 
+    _ui->archiveDetailsWidget->hide();
+
     readSettings();
 
     Ui::ArchiveItemWidget restoreItemUi;
@@ -45,6 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->browseListWidget, SIGNAL(getArchivesList()), this, SIGNAL(getArchivesList()));
     connect(this, SIGNAL(archivesList(QList<ArchivePtr >))
             , _ui->browseListWidget, SLOT(addArchives(QList<ArchivePtr >)));
+    connect(_ui->browseListWidget, SIGNAL(inspectArchive(ArchivePtr)), this
+            ,SLOT(displayInspectArchive(ArchivePtr)));
 }
 
 MainWindow::~MainWindow()
@@ -98,6 +102,20 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
         this->showMaximized();
 }
 
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    switch(event->key())
+    {
+    case Qt::Key_Escape:
+        if((_ui->mainTabWidget->currentWidget() == _ui->browseTab)
+           &&(_ui->archiveDetailsWidget->isVisible()))
+            _ui->archiveDetailsWidget->hide();
+        break;
+    default:
+        QWidget::keyReleaseEvent(event);
+    }
+}
+
 void MainWindow::jobUpdate(BackupJobPtr job)
 {
     switch (job->status) {
@@ -138,6 +156,22 @@ void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
         _ui->backupDetailLabel->clear();
         _ui->backupButton->setEnabled(false);
     }
+}
+
+void MainWindow::displayInspectArchive(ArchivePtr archive)
+{
+    if(_currentArchiveDetail)
+        disconnect(_currentArchiveDetail.data(), SIGNAL(changed()), this, SLOT(updateInspectArchive()));
+
+    _currentArchiveDetail = archive;
+
+    if(_currentArchiveDetail)
+        connect(_currentArchiveDetail.data(), SIGNAL(changed()), this, SLOT(updateInspectArchive()));
+
+    updateInspectArchive();
+
+    if(!_ui->archiveDetailsWidget->isVisible())
+        _ui->archiveDetailsWidget->show();
 }
 
 void MainWindow::on_appendTimestampCheckBox_toggled(bool checked)
@@ -206,4 +240,17 @@ void MainWindow::on_backupButton_clicked()
     job->urls = urls;
 
     emit backupNow(job);
+}
+
+void MainWindow::updateInspectArchive()
+{
+    if(_currentArchiveDetail)
+    {
+        _ui->archiveNameLabel->setText(_currentArchiveDetail->name);
+        _ui->archiveTotalSizeLabel->setText(QString::number(_currentArchiveDetail->sizeTotal));
+        _ui->archiveTarsnapSizeLabel->setText(QString::number(_currentArchiveDetail->sizeUniqueCompressed));
+        _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp.toString());
+        _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg(_currentArchiveDetail->contents.count()));
+        _ui->archiveContentsTextBrowser->setText(_currentArchiveDetail->contents.join('\n')); // this has a slight performance drawback
+    }
 }

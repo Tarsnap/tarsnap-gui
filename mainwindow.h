@@ -30,12 +30,15 @@ protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent * event);
+    void keyReleaseEvent(QKeyEvent *event);
 
 public slots:
     void jobUpdate(BackupJobPtr job);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);
+    void displayInspectArchive(ArchivePtr archive);
+    void updateInspectArchive();
 
     void on_appendTimestampCheckBox_toggled(bool checked);
     void on_backupListInfoLabel_linkActivated(const QString &link);
@@ -47,6 +50,7 @@ private:
     QLabel          *_tarsnapLogo;
     QPoint           _windowDragPos;
     QString          _lastTimestamp;
+    ArchivePtr       _currentArchiveDetail;
 };
 
 #endif // MAINWINDOW_H

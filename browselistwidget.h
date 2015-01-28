@@ -24,6 +24,7 @@ public slots:
 signals:
     void getArchivesList();
     void deleteArchive(ArchivePtr archive);
+    void inspectArchive(ArchivePtr archive);
 
 protected:
     void keyReleaseEvent(QKeyEvent *event);

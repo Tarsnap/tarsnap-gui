@@ -42,7 +42,11 @@ void BrowseListWidget::removeItem()
 
 void BrowseListWidget::inspectItem()
 {
-
+    ArchiveListItem* archiveItem = qobject_cast<ArchiveListItem*>(sender());
+    if(archiveItem)
+    {
+        emit inspectArchive(archiveItem->archive());
+    }
 }
 
 void BrowseListWidget::restoreItem()

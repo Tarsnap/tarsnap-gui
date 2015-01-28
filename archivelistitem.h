@@ -33,6 +33,9 @@ signals:
     void requestInspect();
     void requestRestore();
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
+
 private:
     Ui::ArchiveItemWidget    _ui;
     QWidget                  _widget;

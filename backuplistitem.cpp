@@ -9,16 +9,17 @@
 BackupListItem::BackupListItem(QUrl url):_count(0), _size(0)
 {
     _ui.setupUi(&_widget);
-    connect(_ui.removeButton, SIGNAL(clicked()), this, SIGNAL(requestDelete()));
-    connect(_ui.browseButton, SIGNAL(clicked()), this, SLOT(browseUrl()));
+    _widget.addAction(_ui.actionOpen);
+    _widget.addAction(_ui.actionRemove);
+    _ui.browseButton->setDefaultAction(_ui.actionOpen);
+    _ui.removeButton->setDefaultAction(_ui.actionRemove);
+    connect(_ui.actionRemove, SIGNAL(triggered()), this, SIGNAL(requestDelete()), Qt::QueuedConnection);
+    connect(_ui.actionOpen, SIGNAL(triggered()), this, SLOT(browseUrl()), Qt::QueuedConnection);
     setUrl(url);
 }
 
 BackupListItem::~BackupListItem()
 {
-    // we specifically don't delete _widget here since QListWidget::clear()
-    // does that on its own, thus resulting in a double free
-    // use cleanup() instead if deleted manually
 }
 
 QWidget* BackupListItem::widget()

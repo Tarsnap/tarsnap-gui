@@ -15,12 +15,8 @@ extern QUrl osxRefToUrl(const QUrl &url);
 #endif
 
 BackupListWidget::BackupListWidget(QWidget *parent):
-    QListWidget(parent), _actionRemoveItems(this)
+    QListWidget(parent)
 {
-    _actionRemoveItems.setText(tr("Remove"));
-    _actionRemoveItems.setToolTip(tr("Remove selected items"));
-    addAction(&_actionRemoveItems);
-    connect(&_actionRemoveItems, SIGNAL(triggered()), this, SLOT(removeSelectedItems()));
 }
 
 BackupListWidget::~BackupListWidget()
@@ -39,7 +35,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
         if(!file.exists())
             return;
         BackupListItem *item = new BackupListItem(url);
-        connect(item, SIGNAL(requestDelete()), this, SLOT(removeItem()));
+        connect(item, SIGNAL(requestDelete()), this, SLOT(removeItems()));
         connect(item, SIGNAL(requestUpdate()), this, SLOT(recomputeListTotals()));
         this->insertItem(this->count(), item);
         this->setItemWidget(item, item->widget());
@@ -58,23 +54,29 @@ void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
     recomputeListTotals();
 }
 
-void BackupListWidget::removeItem()
+void BackupListWidget::removeItems()
 {
-    QListWidgetItem *item = this->takeItem(this->row(qobject_cast<BackupListItem*>(sender())));
-    if(item)
-        delete item;
-    recomputeListTotals();
-}
-
-void BackupListWidget::removeSelectedItems()
-{
-    foreach (QListWidgetItem *item, this->selectedItems())
+    if(this->selectedItems().count() == 0)
     {
-        if(item->isSelected())
+        // attempt to remove the sender
+        BackupListItem* backupItem = qobject_cast<BackupListItem*>(sender());
+        if(backupItem)
         {
-            QListWidgetItem *takenItem = this->takeItem(this->row(item));
-            if(takenItem)
-                delete takenItem;
+            QListWidgetItem *item = this->takeItem(this->row(backupItem));
+            if(item)
+                delete item;
+        }
+    }
+    else
+    {
+        foreach (QListWidgetItem *item, this->selectedItems())
+        {
+            if(item->isSelected())
+            {
+                QListWidgetItem *takenItem = this->takeItem(this->row(item));
+                if(takenItem)
+                    delete takenItem;
+            }
         }
     }
     recomputeListTotals();
@@ -127,7 +129,7 @@ void BackupListWidget::keyReleaseEvent(QKeyEvent *event)
     {
     case Qt::Key_Delete:
     case Qt::Key_Backspace:
-        removeSelectedItems();
+        removeItems();
         break;
     case Qt::Key_Escape:
         clearSelection();

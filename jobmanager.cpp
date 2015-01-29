@@ -244,6 +244,7 @@ void JobManager::getArchiveContentsFinished(QUuid uuid, int exitCode, QString ou
 
 void JobManager::deleteArchiveFinished(QUuid uuid, int exitCode, QString output)
 {
+    Q_UNUSED(output)
     if(exitCode == 0)
     {
         ArchivePtr archive = _archiveMap.take(uuid);

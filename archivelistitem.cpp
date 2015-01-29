@@ -5,9 +5,16 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive, QObject *parent):
 {
     _widget.installEventFilter(this);
     _ui.setupUi(&_widget);
-    connect(_ui.deleteButton, SIGNAL(clicked()), this, SIGNAL(requestDelete()));
-    connect(_ui.inspectButton, SIGNAL(clicked()), this, SIGNAL(requestInspect()));
-    connect(_ui.restoreButton, SIGNAL(clicked()), this, SIGNAL(requestRestore()));
+    _widget.addAction(_ui.actionDelete);
+    _widget.addAction(_ui.actionInspect);
+    _widget.addAction(_ui.actionRestore);
+    _ui.deleteButton->setDefaultAction(_ui.actionDelete);
+    _ui.inspectButton->setDefaultAction(_ui.actionInspect);
+    _ui.restoreButton->setDefaultAction(_ui.actionRestore);
+    connect(_ui.actionDelete, SIGNAL(triggered()), this, SIGNAL(requestDelete()), Qt::QueuedConnection);
+    connect(_ui.actionInspect, SIGNAL(triggered()), this, SIGNAL(requestInspect()), Qt::QueuedConnection);
+    connect(_ui.actionRestore, SIGNAL(triggered()), this, SIGNAL(requestRestore()), Qt::QueuedConnection);
+
     setArchive(archive);
 }
 
@@ -20,6 +27,7 @@ QWidget *ArchiveListItem::widget()
 {
     return &_widget;
 }
+
 ArchivePtr ArchiveListItem::archive() const
 {
     return _archive;

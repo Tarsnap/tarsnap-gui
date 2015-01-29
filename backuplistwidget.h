@@ -17,8 +17,7 @@ public:
 public slots:
     void addItemWithUrl(QUrl url);
     void addItemsWithUrls(QList<QUrl> urls);
-    void removeItem();
-    void removeSelectedItems();
+    void removeItems();
     void recomputeListTotals();
 
 signals:
@@ -31,7 +30,6 @@ protected:
     void keyReleaseEvent(QKeyEvent *event);
 
 private:
-    QAction _actionRemoveItems;
 };
 
 #endif // BACKUPLISTWIDGET_H

@@ -104,11 +104,14 @@ void TarsnapCLI::readProcessOutput()
 
 void TarsnapCLI::processFinished()
 {
-    qDebug() << QString::fromStdString(_processOutput.toStdString());
-    qDebug() << "Tarsnap process finished with return code " << _process->exitCode() << ".";
+    QString output(_processOutput);
+//    output = output.trimmed();
+    qDebug().noquote() << "Command \"" << _command << _arguments
+             << "\" finished with return code " << _process->exitCode() << ":"
+             << ::endl << output;
     switch (_process->exitStatus()) {
     case QProcess::NormalExit:
-        emit clientFinished(_uuid, _process->exitCode(), QString(_processOutput));
+        emit clientFinished(_uuid, _process->exitCode(), output);
         break;
     case QProcess::CrashExit:
         processError();

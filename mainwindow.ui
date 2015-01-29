@@ -79,7 +79,7 @@ border-radius: 2px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="backupTab">
       <property name="acceptDrops">
@@ -1352,25 +1352,16 @@ p, li { white-space: pre-wrap; }
        <item>
         <widget class="QGroupBox" name="groupBox_5">
          <property name="title">
-          <string>Command log</string>
+          <string>Console log</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
-           <widget class="QPlainTextEdit" name="plainTextEdit">
+           <widget class="QPlainTextEdit" name="consoleLogPlainTextEdit">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
             <property name="plainText">
-             <string>tarsnap -c -f mybackup /usr/home /other/stuff
-
-tarsnap -c -f anotherbackup /usr/home /other/stuff
-
-tarsnap -c -f anotherbackup /usr/home /other/stuff
-
-tarsnap -c -f anotherbackup /usr/home /other/stuff
-
-tarsnap -c -f anotherbackup /usr/home /other/stuff
-
-tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
-
-</string>
+             <string/>
             </property>
            </widget>
           </item>

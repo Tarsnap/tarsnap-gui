@@ -45,6 +45,11 @@ void JobManager::registerMachine(QString user, QString password, QString machine
 
 void JobManager::backupNow(BackupJobPtr job)
 {
+    if(job.isNull())
+    {
+        qDebug() << "Null BackupJobPtr passed.";
+        return;
+    }
     _jobMap[job->uuid] = job;
     TarsnapCLI *tarClient = new TarsnapCLI(job->uuid);
     QStringList args;
@@ -74,8 +79,15 @@ void JobManager::getArchivesList()
 
 void JobManager::getArchiveDetails(ArchivePtr archive)
 {
+    if(archive.isNull())
+    {
+        qDebug() << "Null ArchivePtr passed.";
+        return;
+    }
+
     if(!_archiveMap.contains(archive->uuid))
         _archiveMap[archive->uuid] = archive;
+
     TarsnapCLI *statsClient = new TarsnapCLI(archive->uuid);
     QStringList args;
     args << "--print-stats" << "-f" << archive->name;
@@ -91,6 +103,23 @@ void JobManager::getArchiveDetails(ArchivePtr archive)
     contentsClient->setArguments(args);
     connect(contentsClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(getArchiveContentsFinished(QUuid,int,QString)));
     _threadPool->start(contentsClient);
+}
+
+void JobManager::deleteArchive(ArchivePtr archive)
+{
+    if(archive.isNull())
+    {
+        qDebug() << "Null ArchivePtr passed.";
+        return;
+    }
+
+    TarsnapCLI *delArchive = new TarsnapCLI(archive->uuid);
+    QStringList args;
+    args << "-d" << "-f" << archive->name;
+    delArchive->setCommand(CMD_TARSNAP);
+    delArchive->setArguments(args);
+    connect(delArchive, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(deleteArchiveFinished(QUuid,int,QString)));
+    _threadPool->start(delArchive);
 }
 
 void JobManager::jobFinished(QUuid uuid, int exitCode, QString output)
@@ -210,6 +239,15 @@ void JobManager::getArchiveContentsFinished(QUuid uuid, int exitCode, QString ou
     {
         archive->contents = output.trimmed().split('\n', QString::SkipEmptyParts);
         archive->notifyChanged();
+    }
+}
+
+void JobManager::deleteArchiveFinished(QUuid uuid, int exitCode, QString output)
+{
+    if(exitCode == 0)
+    {
+        ArchivePtr archive = _archiveMap.take(uuid);
+        emit archiveDeleted(archive);
     }
 }
 

@@ -68,12 +68,14 @@ signals:
     void registerMachineStatus(JobStatus status, QString reason);
     void jobUpdate(BackupJobPtr job);
     void archivesList(QList<ArchivePtr> archives);
+    void archiveDeleted(ArchivePtr archive);
 
 public slots:
     void registerMachine(QString user, QString password, QString machine, QString key);
     void backupNow(BackupJobPtr job);
     void getArchivesList();
     void getArchiveDetails(ArchivePtr archive);
+    void deleteArchive(ArchivePtr archive);
 
 private slots:
     void jobFinished(QUuid uuid, int exitCode, QString output);
@@ -82,6 +84,7 @@ private slots:
     void getArchivesFinished(QUuid uuid, int exitCode, QString output);
     void getArchiveStatsFinished(QUuid uuid, int exitCode, QString output);
     void getArchiveContentsFinished(QUuid uuid, int exitCode, QString output);
+    void deleteArchiveFinished(QUuid uuid, int exitCode, QString output);
 
 private:
     QThread                                   _managerThread; // manager runs on a separate thread

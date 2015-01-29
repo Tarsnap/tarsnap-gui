@@ -24,6 +24,7 @@ signals:
     void backupNow(BackupJobPtr job);
     void getArchivesList();
     void archivesList(QList<ArchivePtr> archives);
+    void deleteArchive(ArchivePtr archive);
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -34,6 +35,7 @@ protected:
 
 public slots:
     void jobUpdate(BackupJobPtr job);
+    void archiveDeleted(ArchivePtr archive);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);

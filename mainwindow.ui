@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>579</width>
+    <width>603</width>
     <height>686</height>
    </rect>
   </property>
@@ -581,9 +581,15 @@ selection-background-color: rgba(179, 190, 255, 80);
                </widget>
               </item>
               <item>
-               <widget class="QTextBrowser" name="archiveContentsTextBrowser">
+               <widget class="QPlainTextEdit" name="archiveContentsPlainTextEdit">
                 <property name="styleSheet">
                  <string notr="true"/>
+                </property>
+                <property name="documentTitle">
+                 <string>test</string>
+                </property>
+                <property name="readOnly">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -782,7 +788,7 @@ background: #E3EBEC;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
+            <width>593</width>
             <height>483</height>
            </rect>
           </property>

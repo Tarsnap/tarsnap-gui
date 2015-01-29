@@ -48,7 +48,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, SIGNAL(archivesList(QList<ArchivePtr >))
             , _ui->browseListWidget, SLOT(addArchives(QList<ArchivePtr >)));
     connect(_ui->browseListWidget, SIGNAL(inspectArchive(ArchivePtr)), this
-            ,SLOT(displayInspectArchive(ArchivePtr)));
+            , SLOT(displayInspectArchive(ArchivePtr)));
+    connect(_ui->browseListWidget, SIGNAL(deleteArchive(ArchivePtr)), this
+            , SIGNAL(deleteArchive(ArchivePtr)));
 }
 
 MainWindow::~MainWindow()
@@ -142,6 +144,11 @@ void MainWindow::jobUpdate(BackupJobPtr job)
     default:
         break;
     }
+}
+
+void MainWindow::archiveDeleted(ArchivePtr archive)
+{
+    _ui->statusBarLabel->setText(tr("Archive <i>%1</i> deleted.").arg(archive->name));
 }
 
 void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
@@ -251,6 +258,6 @@ void MainWindow::updateInspectArchive()
         _ui->archiveTarsnapSizeLabel->setText(QString::number(_currentArchiveDetail->sizeUniqueCompressed));
         _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp.toString());
         _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg(_currentArchiveDetail->contents.count()));
-        _ui->archiveContentsTextBrowser->setText(_currentArchiveDetail->contents.join('\n')); // this has a slight performance drawback
+        _ui->archiveContentsPlainTextEdit->setPlainText(_currentArchiveDetail->contents.join('\n')); // this has a slight performance drawback
     }
 }

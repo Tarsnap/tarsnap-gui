@@ -74,7 +74,8 @@ public slots:
     void registerMachine(QString user, QString password, QString machine, QString key);
     void backupNow(BackupJobPtr job);
     void getArchivesList();
-    void getArchiveDetails(ArchivePtr archive);
+    void getArchiveStats(ArchivePtr archive);
+    void getArchiveContents(ArchivePtr archive);
     void deleteArchive(ArchivePtr archive);
 
 private slots:

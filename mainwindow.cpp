@@ -179,6 +179,12 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
     if(_currentArchiveDetail)
         connect(_currentArchiveDetail.data(), SIGNAL(changed()), this, SLOT(updateInspectArchive()));
 
+    if(archive->sizeTotal == 0)
+        emit loadArchiveStats(archive);
+
+    if(archive->contents.count() == 0)
+        emit loadArchiveContents(archive);
+
     updateInspectArchive();
 
     if(!_ui->archiveDetailsWidget->isVisible())
@@ -262,6 +268,6 @@ void MainWindow::updateInspectArchive()
         _ui->archiveTarsnapSizeLabel->setText(QString::number(_currentArchiveDetail->sizeUniqueCompressed));
         _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp.toString());
         _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg(_currentArchiveDetail->contents.count()));
-        _ui->archiveContentsPlainTextEdit->setPlainText(_currentArchiveDetail->contents.join('\n')); // this has a slight performance drawback
+        _ui->archiveContentsPlainTextEdit->setPlainText(_currentArchiveDetail->contents.join('\n'));
     }
 }

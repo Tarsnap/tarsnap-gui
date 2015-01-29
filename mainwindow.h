@@ -25,6 +25,8 @@ signals:
     void getArchivesList();
     void archivesList(QList<ArchivePtr> archives);
     void deleteArchive(ArchivePtr archive);
+    void loadArchiveStats(ArchivePtr archive);
+    void loadArchiveContents(ArchivePtr archive);
 
 protected:
     void paintEvent(QPaintEvent *);

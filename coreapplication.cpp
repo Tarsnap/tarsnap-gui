@@ -56,6 +56,10 @@ CoreApplication::CoreApplication(int &argc, char **argv):
             SLOT(deleteArchive(ArchivePtr)), Qt::QueuedConnection);
     connect(&_jobManager, SIGNAL(archiveDeleted(ArchivePtr)), _mainWindow
             , SLOT(archiveDeleted(ArchivePtr)), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(loadArchiveStats(ArchivePtr)), &_jobManager
+            ,SLOT(getArchiveStats(ArchivePtr)), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(loadArchiveContents(ArchivePtr)), &_jobManager
+            ,SLOT(getArchiveContents(ArchivePtr)), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 

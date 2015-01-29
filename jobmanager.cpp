@@ -77,7 +77,7 @@ void JobManager::getArchivesList()
     _threadPool->start(tarClient);
 }
 
-void JobManager::getArchiveDetails(ArchivePtr archive)
+void JobManager::getArchiveStats(ArchivePtr archive)
 {
     if(archive.isNull())
     {
@@ -95,9 +95,21 @@ void JobManager::getArchiveDetails(ArchivePtr archive)
     statsClient->setArguments(args);
     connect(statsClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(getArchiveStatsFinished(QUuid,int,QString)));
     _threadPool->start(statsClient);
+}
+
+void JobManager::getArchiveContents(ArchivePtr archive)
+{
+    if(archive.isNull())
+    {
+        qDebug() << "Null ArchivePtr passed.";
+        return;
+    }
+
+    if(!_archiveMap.contains(archive->uuid))
+        _archiveMap[archive->uuid] = archive;
 
     TarsnapCLI *contentsClient = new TarsnapCLI(archive->uuid);
-    args.clear();
+    QStringList args;
     args << "-t" << "-f" << archive->name;
     contentsClient->setCommand(CMD_TARSNAP);
     contentsClient->setArguments(args);
@@ -172,7 +184,7 @@ void JobManager::getArchivesFinished(QUuid uuid, int exitCode, QString output)
                 archive->command = archiveDetails[2];
                 archives.append(archive);
                 _archiveMap[archive->uuid] = archive;
-                getArchiveDetails(archive);
+                getArchiveStats(archive);
             }
         }
         emit archivesList(archives);

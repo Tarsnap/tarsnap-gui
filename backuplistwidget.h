@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QListWidget>
 #include <QUrl>
-#include <QAction>
 
 class BackupListWidget : public QListWidget
 {

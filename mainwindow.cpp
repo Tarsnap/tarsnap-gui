@@ -42,6 +42,10 @@ MainWindow::MainWindow(QWidget *parent) :
         _ui->backupRestoreListWidget->setItemWidget(item, widget);
     }
 
+    _ui->browseListWidget->addAction(_ui->actionRefresh);
+    connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->browseListWidget
+            ,SIGNAL(getArchivesList()), Qt::QueuedConnection);
+
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
             , SLOT(updateBackupItemTotals(qint64, qint64)));
     connect(_ui->browseListWidget, SIGNAL(getArchivesList()), this, SIGNAL(getArchivesList()));

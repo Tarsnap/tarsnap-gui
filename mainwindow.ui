@@ -79,7 +79,7 @@ border-radius: 2px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="backupTab">
       <property name="acceptDrops">
@@ -121,7 +121,7 @@ border-radius: 2px;
           <string notr="true">#backupListWidget::item
 {
 min-height: 35px;
-selection-background-color: rgba(179, 190, 255, 80);
+selection-background-color: rgba(179, 190, 255, 120);
 }</string>
          </property>
          <property name="tabKeyNavigation">
@@ -327,7 +327,7 @@ color: gray;
               <string notr="true">#browseListWidget::item
 {
 min-height: 35px;
-selection-background-color: rgba(179, 190, 255, 80);
+selection-background-color: rgba(179, 190, 255, 120);
 }</string>
              </property>
              <property name="tabKeyNavigation">
@@ -640,7 +640,7 @@ background: transparent;
             <x>0</x>
             <y>0</y>
             <width>530</width>
-            <height>110</height>
+            <height>111</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -1415,6 +1415,17 @@ tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser
     </widget>
    </item>
   </layout>
+  <action name="actionRefresh">
+   <property name="text">
+    <string>Refresh</string>
+   </property>
+   <property name="toolTip">
+    <string>Reload list from Tarsnap</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

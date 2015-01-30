@@ -39,7 +39,8 @@ public slots:
     void registerMachineStatus(JobStatus status, QString reason);
 
 signals:
-    void registerMachine(QString user, QString password, QString machine, QString key);
+    void registerMachine(QString user, QString password, QString machine
+                         ,QString key, QString tarsnapPath, QString cachePath);
 
 protected:
     void mousePressEvent(QMouseEvent *event);

@@ -2,6 +2,8 @@
 #include "setupdialog.h"
 
 #include <QDebug>
+#include <QMessageBox>
+#include <QDialog>
 
 #define SUCCESS 0
 #define FAILURE 1
@@ -27,14 +29,28 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     {
         // Show the first time setup dialog
         SetupDialog wizard;
-        connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString))
-                ,&_jobManager, SLOT(registerMachine(QString,QString,QString,QString)));
+        connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString,QString,QString))
+                ,&_jobManager, SLOT(registerMachine(QString,QString,QString,QString,QString,QString)));
         connect(&_jobManager, SIGNAL(registerMachineStatus(JobStatus,QString))
                 , &wizard, SLOT(registerMachineStatus(JobStatus, QString)));
-        wizard.exec();
-        settings.setValue("application/wizardDone", true);
-        settings.sync();
+        bool wizardDone = true;
+        int returnCode = wizard.exec();
+        if(returnCode == QDialog::Rejected)
+        {
+            QMessageBox::StandardButton confirm = QMessageBox::question(&wizard, tr("Confirm action")
+                                                                        ,tr("Display the wizard next time when Tarsnap is started?")
+                                                                        ,( QMessageBox::Yes | QMessageBox::No ), QMessageBox::Yes);
+            if(confirm == QMessageBox::Yes)
+                wizardDone = false;
+        }
+        if(wizardDone)
+        {
+            settings.setValue("application/wizardDone", true);
+            settings.sync();
+        }
     }
+
+    QMetaObject::invokeMethod(&_jobManager, "reloadSettings", Qt::QueuedConnection);
 
     // Show the main window
     _mainWindow = new MainWindow();

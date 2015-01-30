@@ -2,7 +2,7 @@
 
 #include <QDebug>
 #include <QFileInfo>
-
+#include <QSettings>
 
 JobManager::JobManager(QObject *parent) : QObject(), _threadPool(QThreadPool::globalInstance())
 {
@@ -18,7 +18,15 @@ JobManager::~JobManager()
     _managerThread.wait();
 }
 
-void JobManager::registerMachine(QString user, QString password, QString machine, QString key)
+void JobManager::reloadSettings()
+{
+    QSettings settings;
+    _tarsnapDir      = settings.value("tarsnap/path").toString();
+    _tarsnapCacheDir = settings.value("tarsnap/cache").toString();
+    _tarsnapKeyFile  = settings.value("tarsnap/key").toString();
+}
+
+void JobManager::registerMachine(QString user, QString password, QString machine, QString key, QString tarsnapPath, QString cachePath)
 {
     TarsnapCLI *tarClient = new TarsnapCLI();
     QStringList args;
@@ -26,15 +34,15 @@ void JobManager::registerMachine(QString user, QString password, QString machine
     if(keyFile.exists())
     {
         // existing key, just check with a tarsnap --print-stats command
-        args << "--print-stats"<< "--keyfile"<< key;
-        tarClient->setCommand(CMD_TARSNAP);
+        args << "--fsck"<< "--keyfile"<< key << "--cachedir" << cachePath;
+        tarClient->setCommand(tarsnapPath + CMD_TARSNAP);
         tarClient->setArguments(args);
     }
     else
     {
         // register machine with tarsnap-keygen
         args << "--user" << user << "--machine" << machine << "--keyfile"<< key;
-        tarClient->setCommand(CMD_TARSNAPKEYGEN);
+        tarClient->setCommand(tarsnapPath + CMD_TARSNAPKEYGEN);
         tarClient->setArguments(args);
         tarClient->setPassword(password);
         tarClient->setRequiresPassword(true);
@@ -54,10 +62,14 @@ void JobManager::backupNow(BackupJobPtr job)
     TarsnapCLI *tarClient = new TarsnapCLI(job->uuid);
     QStringList args;
     args << "-c" << "-f" << job->name;
+    if(!_tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << _tarsnapKeyFile;
+    if(!_tarsnapCacheDir.isEmpty())
+        args << "--cachedir" << _tarsnapCacheDir;
     foreach (QUrl url, job->urls) {
         args << url.toLocalFile();
     }
-    tarClient->setCommand(CMD_TARSNAP);
+    tarClient->setCommand(_tarsnapDir + CMD_TARSNAP);
     tarClient->setArguments(args);
     connect(tarClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(jobFinished(QUuid,int,QString)));
     connect(tarClient, SIGNAL(clientStarted(QUuid)), this, SLOT(jobStarted(QUuid)));
@@ -71,7 +83,9 @@ void JobManager::getArchivesList()
     TarsnapCLI *tarClient = new TarsnapCLI();
     QStringList args;
     args << "--list-archives" << "-vv";
-    tarClient->setCommand(CMD_TARSNAP);
+    if(!_tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << _tarsnapKeyFile;
+    tarClient->setCommand(_tarsnapDir + CMD_TARSNAP);
     tarClient->setArguments(args);
     connect(tarClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(getArchivesFinished(QUuid,int,QString)));
     _threadPool->start(tarClient);
@@ -91,7 +105,11 @@ void JobManager::getArchiveStats(ArchivePtr archive)
     TarsnapCLI *statsClient = new TarsnapCLI(archive->uuid);
     QStringList args;
     args << "--print-stats" << "-f" << archive->name;
-    statsClient->setCommand(CMD_TARSNAP);
+    if(!_tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << _tarsnapKeyFile;
+    if(!_tarsnapCacheDir.isEmpty())
+        args << "--cachedir" << _tarsnapCacheDir;
+    statsClient->setCommand(_tarsnapDir + CMD_TARSNAP);
     statsClient->setArguments(args);
     connect(statsClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(getArchiveStatsFinished(QUuid,int,QString)));
     _threadPool->start(statsClient);
@@ -111,7 +129,9 @@ void JobManager::getArchiveContents(ArchivePtr archive)
     TarsnapCLI *contentsClient = new TarsnapCLI(archive->uuid);
     QStringList args;
     args << "-t" << "-f" << archive->name;
-    contentsClient->setCommand(CMD_TARSNAP);
+    if(!_tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << _tarsnapKeyFile;
+    contentsClient->setCommand(_tarsnapDir + CMD_TARSNAP);
     contentsClient->setArguments(args);
     connect(contentsClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(getArchiveContentsFinished(QUuid,int,QString)));
     _threadPool->start(contentsClient);
@@ -128,7 +148,11 @@ void JobManager::deleteArchive(ArchivePtr archive)
     TarsnapCLI *delArchive = new TarsnapCLI(archive->uuid);
     QStringList args;
     args << "-d" << "-f" << archive->name;
-    delArchive->setCommand(CMD_TARSNAP);
+    if(!_tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << _tarsnapKeyFile;
+    if(!_tarsnapCacheDir.isEmpty())
+        args << "--cachedir" << _tarsnapCacheDir;
+    delArchive->setCommand(_tarsnapDir + CMD_TARSNAP);
     delArchive->setArguments(args);
     connect(delArchive, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(deleteArchiveFinished(QUuid,int,QString)));
     _threadPool->start(delArchive);

@@ -174,7 +174,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
    <item>
     <widget class="QStackedWidget" name="wizardStackedWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="welcomePage">
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -832,6 +832,9 @@ color: darkred;
            <widget class="QPushButton" name="registerMachineButton">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>This may take a while, please be patient.</string>
             </property>
             <property name="text">
              <string>Register machine</string>

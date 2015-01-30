@@ -266,7 +266,7 @@ void SetupDialog::restoreYes()
     _ui->machineKeyLabel->show();
     _ui->machineKeyLineEdit->show();
     _ui->locateMachineKeyLabel->show();
-    _ui->registerPageInfoLabel->setText(tr("Please use your existing machine key."));
+    _ui->registerPageInfoLabel->setText(tr("Please use your existing machine key and a machine name of your liking. The registration might take a bit to verify archive consistency and integrity using the cache, thus please be patient."));
     _ui->errorLabel->clear();
     setNextPage();
 }
@@ -305,6 +305,7 @@ void SetupDialog::registerHaveKeyBrowse(QString url)
 
 void SetupDialog::registerMachine()
 {
+    _ui->registerMachineButton->setEnabled(false);
     _ui->errorLabel->clear();
     if(_haveKey)
     {
@@ -321,7 +322,7 @@ void SetupDialog::registerMachine()
              << _tarsnapCacheDir;
 
     emit registerMachine(_ui->tarsnapUserLineEdit->text(), _ui->tarsnapPasswordLineEdit->text()
-                         , _ui->machineNameLineEdit->text(), _tarsnapKeyFile);
+                         , _ui->machineNameLineEdit->text(), _tarsnapKeyFile, _tarsnapCLIDir, _tarsnapCacheDir);
 }
 
 void SetupDialog::registerMachineStatus(JobStatus status, QString reason)
@@ -336,6 +337,7 @@ void SetupDialog::registerMachineStatus(JobStatus status, QString reason)
         case JobStatus::Failed:
             _ui->errorLabel->setText(reason);
             _ui->errorLabel->show();
+            _ui->registerMachineButton->setEnabled(true);
             resize(sizeHint());
             break;
         default:
@@ -347,7 +349,7 @@ void SetupDialog::findTarsnapInPath()
 {
     // Maybe use QStandardPaths::​findExecutable instead of manual PATH search
     QStringList path = QString::fromUtf8(::getenv("PATH")).split(':', QString::SkipEmptyParts);
-    qDebug() << path;
+    qDebug() << "Will look for tarsnap in PATH: " << path;
     auto dir = path.begin();
     while (dir != path.end())
     {

@@ -71,7 +71,10 @@ signals:
     void archiveDeleted(ArchivePtr archive);
 
 public slots:
-    void registerMachine(QString user, QString password, QString machine, QString key);
+    void reloadSettings();
+
+    void registerMachine(QString user, QString password, QString machine
+                         ,QString key, QString tarsnapPath, QString cachePath);
     void backupNow(BackupJobPtr job);
     void getArchivesList();
     void getArchiveStats(ArchivePtr archive);
@@ -88,10 +91,13 @@ private slots:
     void deleteArchiveFinished(QUuid uuid, int exitCode, QString output);
 
 private:
-    QThread                                   _managerThread; // manager runs on a separate thread
+    QString                      _tarsnapDir;
+    QString                      _tarsnapCacheDir;
+    QString                      _tarsnapKeyFile;
+    QThread                      _managerThread; // manager runs on a separate thread
     QMap<QUuid, BackupJobPtr>    _jobMap;
     QMap<QUuid, ArchivePtr>      _archiveMap;
-    QThreadPool                              *_threadPool;
+    QThreadPool                  *_threadPool;
 };
 
 #endif // JOBMANAGER_H

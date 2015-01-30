@@ -14,7 +14,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
-    _ui(new Ui::MainWindow)
+    _ui(new Ui::MainWindow),
+    _loadingAnimation(":/resources/loading.gif")
 {
     _ui->setupUi(this);
 
@@ -27,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _tarsnapLogo->adjustSize();
     _tarsnapLogo->lower();
     _tarsnapLogo->show();
+
+    _ui->loadingIconLabel->setMovie(&_loadingAnimation);
 
     _ui->archiveDetailsWidget->hide();
 
@@ -122,7 +125,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void MainWindow::jobUpdate(BackupJobPtr job)
+void MainWindow::backupJobUpdate(BackupJobPtr job)
 {
     switch (job->status) {
     case JobStatus::Completed:
@@ -153,6 +156,20 @@ void MainWindow::jobUpdate(BackupJobPtr job)
 void MainWindow::archiveDeleted(ArchivePtr archive)
 {
     _ui->statusBarLabel->setText(tr("Archive <i>%1</i> deleted.").arg(archive->name));
+}
+
+void MainWindow::updateLoadingAnimation(bool idle)
+{
+    if(idle)
+    {
+        _loadingAnimation.stop();
+        _ui->loadingIconLabel->hide();
+    }
+    else
+    {
+        _loadingAnimation.start();
+        _ui->loadingIconLabel->show();
+    }
 }
 
 void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)

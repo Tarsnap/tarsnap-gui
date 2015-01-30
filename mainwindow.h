@@ -5,6 +5,7 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QMovie>
 
 namespace Ui {
 class MainWindow;
@@ -36,8 +37,9 @@ protected:
     void keyReleaseEvent(QKeyEvent *event);
 
 public slots:
-    void jobUpdate(BackupJobPtr job);
+    void backupJobUpdate(BackupJobPtr job);
     void archiveDeleted(ArchivePtr archive);
+    void updateLoadingAnimation(bool idle);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);
@@ -55,6 +57,7 @@ private:
     QPoint           _windowDragPos;
     QString          _lastTimestamp;
     ArchivePtr       _currentArchiveDetail;
+    QMovie           _loadingAnimation;
 };
 
 #endif // MAINWINDOW_H

@@ -640,7 +640,7 @@ background: transparent;
             <x>0</x>
             <y>0</y>
             <width>530</width>
-            <height>111</height>
+            <height>110</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -789,7 +789,7 @@ background: #E3EBEC;
             <x>0</x>
             <y>0</y>
             <width>593</width>
-            <height>483</height>
+            <height>482</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -1374,7 +1374,7 @@ p, li { white-space: pre-wrap; }
    </item>
    <item>
     <widget class="QWidget" name="statusBarWidget" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_9">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <property name="leftMargin">
        <number>12</number>
       </property>
@@ -1389,6 +1389,12 @@ p, li { white-space: pre-wrap; }
       </property>
       <item>
        <widget class="TextLabel" name="statusBarLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="font">
          <font>
           <pointsize>12</pointsize>
@@ -1399,6 +1405,19 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="elide" stdset="0">
          <string>Qt::ElideRight</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="loadingIconLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>

@@ -65,8 +65,9 @@ public:
     ~JobManager();
 
 signals:
+    void idle(bool status); // signal if we are working on jobs or not
     void registerMachineStatus(JobStatus status, QString reason);
-    void jobUpdate(BackupJobPtr job);
+    void backupJobUpdate(BackupJobPtr job);
     void archivesList(QList<ArchivePtr> archives);
     void archiveDeleted(ArchivePtr archive);
 
@@ -82,22 +83,26 @@ public slots:
     void deleteArchive(ArchivePtr archive);
 
 private slots:
-    void jobFinished(QUuid uuid, int exitCode, QString output);
-    void jobStarted(QUuid uuid);
+    void backupJobFinished(QUuid uuid, int exitCode, QString output);
+    void backupJobStarted(QUuid uuid);
     void registerMachineFinished(QUuid uuid, int exitCode, QString output);
     void getArchivesFinished(QUuid uuid, int exitCode, QString output);
     void getArchiveStatsFinished(QUuid uuid, int exitCode, QString output);
     void getArchiveContentsFinished(QUuid uuid, int exitCode, QString output);
     void deleteArchiveFinished(QUuid uuid, int exitCode, QString output);
 
+    void queueJob(TarsnapCLI *cli);
+    void dequeueJob(QUuid uuid, int exitCode, QString output);
+
 private:
     QString                      _tarsnapDir;
     QString                      _tarsnapCacheDir;
     QString                      _tarsnapKeyFile;
     QThread                      _managerThread; // manager runs on a separate thread
-    QMap<QUuid, BackupJobPtr>    _jobMap;
+    QMap<QUuid, BackupJobPtr>    _backupJobMap;
     QMap<QUuid, ArchivePtr>      _archiveMap;
-    QThreadPool                  *_threadPool;
+    QMap<QUuid, TarsnapCLI*>     _jobMap;
+    QThreadPool                 *_threadPool;
 };
 
 #endif // JOBMANAGER_H

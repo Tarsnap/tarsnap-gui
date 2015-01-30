@@ -5,6 +5,7 @@
 
 #include <QDialog>
 #include <QMouseEvent>
+#include <QMovie>
 
 namespace Ui {
 class SetupDialog;
@@ -37,6 +38,7 @@ public slots:
 
     // JobManager responses
     void registerMachineStatus(JobStatus status, QString reason);
+    void updateLoadingAnimation(bool idle);
 
 signals:
     void registerMachine(QString user, QString password, QString machine
@@ -52,6 +54,7 @@ private:
 private:
     Ui::SetupDialog *_ui;
     QPoint           _windowDragPos;
+    QMovie           _loadingAnimation;
 
     QString _tarsnapCLIDir;
 //    QString _tarsnapUser;

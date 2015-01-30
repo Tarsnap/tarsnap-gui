@@ -13,10 +13,12 @@
 SetupDialog::SetupDialog(QWidget *parent) :
     QDialog(parent),
     _ui(new Ui::SetupDialog),
+    _loadingAnimation(":/resources/loading.gif"),
     _haveKey(false)
 {
     _ui->setupUi(this);
 
+    _ui->loadingIconLabel->setMovie(&_loadingAnimation);
     showAdvancedSetup(false);
     _ui->errorLabel->hide();
     _ui->machineKeyLabel->hide();
@@ -342,6 +344,20 @@ void SetupDialog::registerMachineStatus(JobStatus status, QString reason)
             break;
         default:
             break;
+    }
+}
+
+void SetupDialog::updateLoadingAnimation(bool idle)
+{
+    if(idle)
+    {
+        _loadingAnimation.stop();
+        _ui->loadingIconLabel->hide();
+    }
+    else
+    {
+        _loadingAnimation.start();
+        _ui->loadingIconLabel->show();
     }
 }
 

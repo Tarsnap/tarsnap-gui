@@ -7,7 +7,6 @@
 
 TarsnapCLI::TarsnapCLI(QUuid uuid) : QObject(), _uuid(uuid), _process(NULL), _requiresPassword(false)
 {
-    setAutoDelete(true);
 }
 
 TarsnapCLI::~TarsnapCLI()

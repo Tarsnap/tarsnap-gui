@@ -33,6 +33,8 @@ CoreApplication::CoreApplication(int &argc, char **argv):
                 ,&_jobManager, SLOT(registerMachine(QString,QString,QString,QString,QString,QString)));
         connect(&_jobManager, SIGNAL(registerMachineStatus(JobStatus,QString))
                 , &wizard, SLOT(registerMachineStatus(JobStatus, QString)));
+        connect(&_jobManager, SIGNAL(idle(bool)), &wizard
+                ,SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
         bool wizardDone = true;
         int returnCode = wizard.exec();
         if(returnCode == QDialog::Rejected)
@@ -62,8 +64,8 @@ CoreApplication::CoreApplication(int &argc, char **argv):
 
     connect(_mainWindow, SIGNAL(backupNow(BackupJobPtr)), &_jobManager
             , SLOT(backupNow(BackupJobPtr)), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(jobUpdate(BackupJobPtr))
-            , _mainWindow, SLOT(jobUpdate(BackupJobPtr)), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(backupJobUpdate(BackupJobPtr))
+            , _mainWindow, SLOT(backupJobUpdate(BackupJobPtr)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(getArchivesList()), &_jobManager
             , SLOT(getArchivesList()), Qt::QueuedConnection);
     connect(&_jobManager, SIGNAL(archivesList(QList<ArchivePtr>))
@@ -76,6 +78,8 @@ CoreApplication::CoreApplication(int &argc, char **argv):
             ,SLOT(getArchiveStats(ArchivePtr)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(loadArchiveContents(ArchivePtr)), &_jobManager
             ,SLOT(getArchiveContents(ArchivePtr)), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(idle(bool)), _mainWindow
+            ,SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 

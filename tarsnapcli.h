@@ -6,8 +6,8 @@
 #include <QUuid>
 #include <QRunnable>
 
-#define CMD_TARSNAP "tarsnap"
-#define CMD_TARSNAPKEYGEN "tarsnap-keygen"
+#define CMD_TARSNAP         "tarsnap"
+#define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
 
 class TarsnapCLI : public QObject, public QRunnable
 {

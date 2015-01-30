@@ -49,8 +49,8 @@ private:
     void findTarsnapInPath();
 
 private:
-    Ui::SetupDialog *ui;
-    QPoint  _windowDragPos;
+    Ui::SetupDialog *_ui;
+    QPoint           _windowDragPos;
 
     QString _tarsnapCLIDir;
 //    QString _tarsnapUser;

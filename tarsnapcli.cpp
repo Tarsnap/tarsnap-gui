@@ -45,7 +45,12 @@ void TarsnapCLI::run()
 
     _process->setProgram(_command);
     _process->setArguments(_arguments);
-    qDebug().noquote() << "Running command: " << _process->program() << _process->arguments().join(' ');
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+    qDebug().noquote() 
+#else
+    qDebug() 
+#endif
+           << "Running command: " << _process->program() << _process->arguments().join(' ');
     _process->start();
     result = _process->waitForStarted(DEFAULT_TIMEOUT_MS);
     if(result)
@@ -104,8 +109,12 @@ void TarsnapCLI::readProcessOutput()
 void TarsnapCLI::processFinished()
 {
     QString output(_processOutput);
-//    output = output.trimmed();
-    qDebug().noquote() << "Command \"" << _command << _arguments.join(' ')
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+    qDebug().noquote()
+#else
+    qDebug()
+#endif
+             << "Command \"" << _command << _arguments.join(' ')
              << "\" finished with return code " << _process->exitCode() << " and combined output:"
              << ::endl << output;
     switch (_process->exitStatus()) {

@@ -60,7 +60,11 @@ SetupDialog::SetupDialog(QWidget *parent) :
     // Done page
     connect(_ui->doneButton, SIGNAL(clicked()), this, SLOT(commitSettings()));
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
     _tarsnapKeysDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+#else
+    _tarsnapKeysDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+#endif
     QDir keysDir(_tarsnapKeysDir);
     if(!keysDir.exists())
         keysDir.mkpath(_tarsnapKeysDir);

@@ -4,5 +4,6 @@ the popular Tarsnap backup service.
 
 This project makes use of the following 3rd party components:
 
-* Icons by "Open Iconic — www.useiconic.com/open" - MIT License
+* Qt SDK from http://www.qt.io/download-open-source/
+* Icons by "Open Iconic www.useiconic.com/open" - MIT License
 * Loading icon from "http://ajaxload.info"

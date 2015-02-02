@@ -46,9 +46,9 @@ void TarsnapCLI::run()
     _process->setProgram(_command);
     _process->setArguments(_arguments);
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
-    qDebug().noquote() 
+    qDebug().noquote()
 #else
-    qDebug() 
+    qDebug()
 #endif
            << "Running command: " << _process->program() << _process->arguments().join(' ');
     _process->start();
@@ -119,7 +119,7 @@ void TarsnapCLI::processFinished()
              << ::endl << output;
     switch (_process->exitStatus()) {
     case QProcess::NormalExit:
-        emit clientFinished(_uuid, _process->exitCode(), output);
+        emit clientFinished(_uuid, _data, _process->exitCode(), output);
         break;
     case QProcess::CrashExit:
         processError();
@@ -132,6 +132,16 @@ void TarsnapCLI::processError()
     qDebug() << "Tarsnap process error " << _process->error() << " occured: "
              << _process->errorString();
 }
+QVariant TarsnapCLI::data() const
+{
+    return _data;
+}
+
+void TarsnapCLI::setData(const QVariant &data)
+{
+    _data = data;
+}
+
 QUuid TarsnapCLI::uuid() const
 {
     return _uuid;

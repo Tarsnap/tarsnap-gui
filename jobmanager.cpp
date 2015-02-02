@@ -6,7 +6,7 @@
 
 JobManager::JobManager(QObject *parent) : QObject(), _threadPool(QThreadPool::globalInstance())
 {
-    Q_UNUSED(parent)
+    Q_UNUSED(parent);
     // Move the operations belonging to the Job manager to a separate thread
     _managerThread.start();
     moveToThread(&_managerThread);
@@ -47,7 +47,7 @@ void JobManager::registerMachine(QString user, QString password, QString machine
         registerClient->setPassword(password);
         registerClient->setRequiresPassword(true);
     }
-    connect(registerClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(registerMachineFinished(QUuid,int,QString)));
+    connect(registerClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(registerMachineFinished(QUuid,QVariant,int,QString)));
     queueJob(registerClient);
 }
 
@@ -61,17 +61,17 @@ void JobManager::backupNow(BackupJobPtr job)
     _backupJobMap[job->uuid] = job;
     TarsnapCLI *backupClient = new TarsnapCLI(job->uuid);
     QStringList args;
-    args << "-c" << "-f" << job->name;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
+    args << "-c" << "-f" << job->name;
     foreach (QUrl url, job->urls) {
         args << url.toLocalFile();
     }
     backupClient->setCommand(_tarsnapDir + CMD_TARSNAP);
     backupClient->setArguments(args);
-    connect(backupClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(backupJobFinished(QUuid,int,QString)));
+    connect(backupClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(backupJobFinished(QUuid,QVariant,int,QString)));
     connect(backupClient, SIGNAL(clientStarted(QUuid)), this, SLOT(backupJobStarted(QUuid)));
     queueJob(backupClient);
     job->status = JobStatus::Started;
@@ -82,12 +82,12 @@ void JobManager::getArchivesList()
 {
     TarsnapCLI *listArchivesClient = new TarsnapCLI();
     QStringList args;
-    args << "--list-archives" << "-vv";
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
+    args << "--list-archives" << "-vv";
     listArchivesClient->setCommand(_tarsnapDir + CMD_TARSNAP);
     listArchivesClient->setArguments(args);
-    connect(listArchivesClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(getArchivesFinished(QUuid,int,QString)));
+    connect(listArchivesClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(getArchivesFinished(QUuid,QVariant,int,QString)));
     queueJob(listArchivesClient);
 }
 
@@ -104,14 +104,14 @@ void JobManager::getArchiveStats(ArchivePtr archive)
 
     TarsnapCLI *statsClient = new TarsnapCLI(archive->uuid);
     QStringList args;
-    args << "--print-stats" << "-f" << archive->name;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
+    args << "--print-stats" << "-f" << archive->name;
     statsClient->setCommand(_tarsnapDir + CMD_TARSNAP);
     statsClient->setArguments(args);
-    connect(statsClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(getArchiveStatsFinished(QUuid,int,QString)));
+    connect(statsClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(getArchiveStatsFinished(QUuid,QVariant,int,QString)));
     queueJob(statsClient);
 }
 
@@ -128,38 +128,43 @@ void JobManager::getArchiveContents(ArchivePtr archive)
 
     TarsnapCLI *contentsClient = new TarsnapCLI(archive->uuid);
     QStringList args;
-    args << "-t" << "-f" << archive->name;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
+    args << "-t" << "-f" << archive->name;
     contentsClient->setCommand(_tarsnapDir + CMD_TARSNAP);
     contentsClient->setArguments(args);
-    connect(contentsClient, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(getArchiveContentsFinished(QUuid,int,QString)));
+    connect(contentsClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(getArchiveContentsFinished(QUuid,QVariant,int,QString)));
     queueJob(contentsClient);
 }
 
-void JobManager::deleteArchive(ArchivePtr archive)
+void JobManager::deleteArchives(QList<ArchivePtr> archives)
 {
-    if(archive.isNull())
+    if(archives.isEmpty())
     {
-        qDebug() << "Null ArchivePtr passed.";
+        qDebug() << "Empty QList<ArchivePtr> passed.";
         return;
     }
 
-    TarsnapCLI *delArchive = new TarsnapCLI(archive->uuid);
+    TarsnapCLI *delArchives = new TarsnapCLI();
     QStringList args;
-    args << "-d" << "-f" << archive->name;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    delArchive->setCommand(_tarsnapDir + CMD_TARSNAP);
-    delArchive->setArguments(args);
-    connect(delArchive, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(deleteArchiveFinished(QUuid,int,QString)));
-    queueJob(delArchive);
+    args << "-d";
+    foreach (ArchivePtr archive, archives) {
+        args << "-f" << archive->name;
+    }
+    delArchives->setCommand(_tarsnapDir + CMD_TARSNAP);
+    delArchives->setArguments(args);
+    delArchives->setData(QVariant::fromValue(archives));
+    connect(delArchives, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(deleteArchiveFinished(QUuid,QVariant,int,QString)));
+    queueJob(delArchives);
 }
 
-void JobManager::backupJobFinished(QUuid uuid, int exitCode, QString output)
+void JobManager::backupJobFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
+    Q_UNUSED(data);
     BackupJobPtr job = _backupJobMap[uuid];
     job->exitCode = exitCode;
     job->output = output;
@@ -179,18 +184,18 @@ void JobManager::backupJobStarted(QUuid uuid)
     emit backupJobUpdate(job);
 }
 
-void JobManager::registerMachineFinished(QUuid uuid, int exitCode, QString output)
+void JobManager::registerMachineFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
-    Q_UNUSED(uuid)
+    Q_UNUSED(uuid); Q_UNUSED(data)
     if(exitCode == 0)
         emit registerMachineStatus(JobStatus::Completed, output);
     else
         emit registerMachineStatus(JobStatus::Failed, output);
 }
 
-void JobManager::getArchivesFinished(QUuid uuid, int exitCode, QString output)
+void JobManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
-    Q_UNUSED(uuid)
+    Q_UNUSED(uuid); Q_UNUSED(data)
     _archiveMap.clear();
     QList<ArchivePtr> archives;
     if(exitCode == 0)
@@ -215,8 +220,9 @@ void JobManager::getArchivesFinished(QUuid uuid, int exitCode, QString output)
     }
 }
 
-void JobManager::getArchiveStatsFinished(QUuid uuid, int exitCode, QString output)
+void JobManager::getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
+    Q_UNUSED(data)
     ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
@@ -263,8 +269,9 @@ void JobManager::getArchiveStatsFinished(QUuid uuid, int exitCode, QString outpu
     }
 }
 
-void JobManager::getArchiveContentsFinished(QUuid uuid, int exitCode, QString output)
+void JobManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
+    Q_UNUSED(data)
     ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
@@ -278,13 +285,19 @@ void JobManager::getArchiveContentsFinished(QUuid uuid, int exitCode, QString ou
     }
 }
 
-void JobManager::deleteArchiveFinished(QUuid uuid, int exitCode, QString output)
+void JobManager::deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
-    Q_UNUSED(output)
+    Q_UNUSED(uuid);Q_UNUSED(output);
     if(exitCode == 0)
     {
-        ArchivePtr archive = _archiveMap.take(uuid);
-        emit archiveDeleted(archive);
+        QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
+        if(!archives.empty())
+        {
+            foreach (ArchivePtr archive, archives) {
+                _archiveMap.remove(archive->uuid);
+            }
+            emit archivesDeleted(archives);
+        }
     }
 }
 
@@ -295,7 +308,7 @@ void JobManager::queueJob(TarsnapCLI *cli)
         qDebug() << "NULL argument";
         return;
     }
-    connect(cli, SIGNAL(clientFinished(QUuid,int,QString)), this, SLOT(dequeueJob(QUuid,int,QString)));
+    connect(cli, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(dequeueJob(QUuid,QVariant,int,QString)));
     _jobMap[cli->uuid()] = cli;
     cli->setAutoDelete(false);
     _threadPool->start(cli);
@@ -303,9 +316,9 @@ void JobManager::queueJob(TarsnapCLI *cli)
         emit idle(false);
 }
 
-void JobManager::dequeueJob(QUuid uuid, int exitCode, QString output)
+void JobManager::dequeueJob(QUuid uuid, QVariant data, int exitCode, QString output)
 {
-    Q_UNUSED(exitCode); Q_UNUSED(output)
+    Q_UNUSED(exitCode); Q_UNUSED(output); Q_UNUSED(data)
     _jobMap.remove(uuid);
     if(_jobMap.count() == 0)
         emit idle(true);

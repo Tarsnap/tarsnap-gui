@@ -40,7 +40,9 @@ void BrowseListWidget::removeItems()
                                                                        , tr("Are you sure you want to delete %1 (this cannot be undone)?").arg(archiveItem->archive()->name));
             if(button == QMessageBox::Yes)
             {
-                emit deleteArchive(archiveItem->archive());
+                QList<ArchivePtr> archiveList;
+                archiveList.append(archiveItem->archive());
+                emit deleteArchives(archiveList);
                 QListWidgetItem *item = this->takeItem(this->row(archiveItem));
                 if(item)
                     delete item;
@@ -53,6 +55,7 @@ void BrowseListWidget::removeItems()
                                                                    , tr("Are you sure you want to delete %1 selected archives (this cannot be undone)?").arg(this->selectedItems().count()));
         if(button == QMessageBox::Yes)
         {
+            QList<ArchivePtr> archiveList;
             foreach (QListWidgetItem *item, this->selectedItems())
             {
                 if(item->isSelected())
@@ -61,11 +64,13 @@ void BrowseListWidget::removeItems()
                     if(takenItem)
                     {
                         ArchiveListItem* archiveItem = dynamic_cast<ArchiveListItem*>(takenItem);
-                        emit deleteArchive(archiveItem->archive());
-                        delete takenItem;
+                        archiveList.append(archiveItem->archive());
+                        delete archiveItem;
                     }
                 }
             }
+            if(!archiveList.isEmpty())
+                emit deleteArchives(archiveList);
         }
     }
 }

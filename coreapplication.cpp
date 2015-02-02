@@ -26,7 +26,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     QCoreApplication::setApplicationName(tr("Tarsnappy"));
 
 #ifdef Q_OS_FREEBSD
-    QFont font; 
+    QFont font;
     font.setFamily("Helvetica");
     font.setHintingPreference(QFont::PreferFullHinting);
     font.setStyleHint(QFont::Helvetica);
@@ -81,10 +81,10 @@ CoreApplication::CoreApplication(int &argc, char **argv):
             , SLOT(getArchivesList()), Qt::QueuedConnection);
     connect(&_jobManager, SIGNAL(archivesList(QList<ArchivePtr>))
             , _mainWindow, SIGNAL(archivesList(QList<ArchivePtr>)), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(deleteArchive(ArchivePtr)), &_jobManager,
-            SLOT(deleteArchive(ArchivePtr)), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(archiveDeleted(ArchivePtr)), _mainWindow
-            , SLOT(archiveDeleted(ArchivePtr)), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(deleteArchives(QList<ArchivePtr>)), &_jobManager,
+            SLOT(deleteArchives(QList<ArchivePtr>)), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(archivesDeleted(QList<ArchivePtr>)), _mainWindow
+            , SLOT(archivesDeleted(QList<ArchivePtr>)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(loadArchiveStats(ArchivePtr)), &_jobManager
             ,SLOT(getArchiveStats(ArchivePtr)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(loadArchiveContents(ArchivePtr)), &_jobManager

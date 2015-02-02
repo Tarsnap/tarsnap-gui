@@ -22,7 +22,7 @@ public slots:
 
 signals:
     void getArchivesList();
-    void deleteArchive(ArchivePtr archive);
+    void deleteArchives(QList<ArchivePtr> archives);
     void inspectArchive(ArchivePtr archive);
 
 protected:

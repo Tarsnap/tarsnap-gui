@@ -5,6 +5,7 @@
 #include <QProcess>
 #include <QUuid>
 #include <QRunnable>
+#include <QVariant>
 
 #define CMD_TARSNAP         "tarsnap"
 #define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
@@ -39,8 +40,11 @@ public:
     QUuid uuid() const;
     void setUuid(const QUuid &uuid);
 
+    QVariant data() const;
+    void setData(const QVariant &data);
+
 signals:
-    void clientFinished(QUuid uuid, int exitCode, QString output);
+    void clientFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void clientStarted(QUuid uuid);
 
 private slots:
@@ -50,6 +54,7 @@ private slots:
 
 private:
     QUuid            _uuid;
+    QVariant         _data; // caller supplied data
     QProcess         *_process;
     QByteArray       _processOutput;
     QString          _command;

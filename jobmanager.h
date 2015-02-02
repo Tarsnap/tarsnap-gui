@@ -56,6 +56,9 @@ signals:
 
 typedef QSharedPointer<Archive> ArchivePtr;
 
+Q_DECLARE_METATYPE(ArchivePtr)
+
+
 class JobManager : public QObject
 {
     Q_OBJECT
@@ -69,7 +72,7 @@ signals:
     void registerMachineStatus(JobStatus status, QString reason);
     void backupJobUpdate(BackupJobPtr job);
     void archivesList(QList<ArchivePtr> archives);
-    void archiveDeleted(ArchivePtr archive);
+    void archivesDeleted(QList<ArchivePtr> archives);
 
 public slots:
     void reloadSettings();
@@ -80,19 +83,19 @@ public slots:
     void getArchivesList();
     void getArchiveStats(ArchivePtr archive);
     void getArchiveContents(ArchivePtr archive);
-    void deleteArchive(ArchivePtr archive);
+    void deleteArchives(QList<ArchivePtr> archives);
 
 private slots:
-    void backupJobFinished(QUuid uuid, int exitCode, QString output);
+    void backupJobFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void backupJobStarted(QUuid uuid);
-    void registerMachineFinished(QUuid uuid, int exitCode, QString output);
-    void getArchivesFinished(QUuid uuid, int exitCode, QString output);
-    void getArchiveStatsFinished(QUuid uuid, int exitCode, QString output);
-    void getArchiveContentsFinished(QUuid uuid, int exitCode, QString output);
-    void deleteArchiveFinished(QUuid uuid, int exitCode, QString output);
+    void registerMachineFinished(QUuid uuid, QVariant data, int exitCode, QString output);
+    void getArchivesFinished(QUuid uuid, QVariant data, int exitCode, QString output);
+    void getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
+    void getArchiveContentsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
+    void deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output);
 
     void queueJob(TarsnapCLI *cli);
-    void dequeueJob(QUuid uuid, int exitCode, QString output);
+    void dequeueJob(QUuid uuid, QVariant data, int exitCode, QString output);
 
 private:
     QString                      _tarsnapDir;

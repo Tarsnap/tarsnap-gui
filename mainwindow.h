@@ -25,7 +25,7 @@ signals:
     void backupNow(BackupJobPtr job);
     void getArchivesList();
     void archivesList(QList<ArchivePtr> archives);
-    void deleteArchive(ArchivePtr archive);
+    void deleteArchives(QList<ArchivePtr> archives);
     void loadArchiveStats(ArchivePtr archive);
     void loadArchiveContents(ArchivePtr archive);
 
@@ -38,7 +38,7 @@ protected:
 
 public slots:
     void backupJobUpdate(BackupJobPtr job);
-    void archiveDeleted(ArchivePtr archive);
+    void archivesDeleted(QList<ArchivePtr> archives);
     void updateLoadingAnimation(bool idle);
 
 private slots:

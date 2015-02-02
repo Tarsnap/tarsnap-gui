@@ -56,8 +56,8 @@ MainWindow::MainWindow(QWidget *parent) :
             , _ui->browseListWidget, SLOT(addArchives(QList<ArchivePtr >)));
     connect(_ui->browseListWidget, SIGNAL(inspectArchive(ArchivePtr)), this
             , SLOT(displayInspectArchive(ArchivePtr)));
-    connect(_ui->browseListWidget, SIGNAL(deleteArchive(ArchivePtr)), this
-            , SIGNAL(deleteArchive(ArchivePtr)));
+    connect(_ui->browseListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this
+            , SIGNAL(deleteArchives(QList<ArchivePtr>)));
 }
 
 MainWindow::~MainWindow()
@@ -153,9 +153,12 @@ void MainWindow::backupJobUpdate(BackupJobPtr job)
     }
 }
 
-void MainWindow::archiveDeleted(ArchivePtr archive)
+void MainWindow::archivesDeleted(QList<ArchivePtr> archives)
 {
-    _ui->statusBarLabel->setText(tr("Archive <i>%1</i> deleted.").arg(archive->name));
+    if(archives.count() > 1)
+        _ui->statusBarLabel->setText(tr("Archive <i>%1</i> and %2 more archives deleted.").arg(archives.first()->name).arg(archives.count()-1));
+    else if(archives.count() == 1)
+        _ui->statusBarLabel->setText(tr("Archive <i>%1</i> deleted.").arg(archives.first()->name));
 }
 
 void MainWindow::updateLoadingAnimation(bool idle)

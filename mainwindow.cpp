@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _ui->browseListWidget->addAction(_ui->actionRefresh);
     connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->browseListWidget
-            ,SIGNAL(getArchivesList()), Qt::QueuedConnection);
+            , SIGNAL(getArchivesList()), Qt::QueuedConnection);
 
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
             , SLOT(updateBackupItemTotals(qint64, qint64)));
@@ -58,6 +58,18 @@ MainWindow::MainWindow(QWidget *parent) :
             , SLOT(displayInspectArchive(ArchivePtr)));
     connect(_ui->browseListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this
             , SIGNAL(deleteArchives(QList<ArchivePtr>)));
+
+    //lambda connects
+    connect(_ui->browseListWidget, &BrowseListWidget::getArchivesList,
+            [=](){updateStatusMessage(tr("Refreshing archives list..."));});
+    connect(this, &MainWindow::archivesList,
+            [=](){updateStatusMessage(tr("Refreshing archives list...done"));});
+    connect(this, &MainWindow::loadArchiveStats,
+            [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching details for archive <i>%1</i>.").arg(archive->name));});
+    connect(this, &MainWindow::loadArchiveContents,
+            [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching contents for archive <i>%1</i>.").arg(archive->name));});
+    connect(_ui->browseListWidget, &BrowseListWidget::deleteArchives,
+            [=](const QList<ArchivePtr> archives){archivesDeleted(archives,false);});
 }
 
 MainWindow::~MainWindow()
@@ -129,36 +141,44 @@ void MainWindow::backupJobUpdate(BackupJobPtr job)
 {
     switch (job->status) {
     case JobStatus::Completed:
-        _ui->statusBarLabel->setText(tr("Job <i>%1</i> completed.").arg(job->name));
-        _ui->statusBarLabel->setToolTip(_ui->statusBarLabel->text());
+        updateStatusMessage(tr("Job <i>%1</i> completed.").arg(job->name));
         break;
     case JobStatus::Started:
-        _ui->statusBarLabel->setText(tr("Job <i>%1</i> created.").arg(job->name));
-        _ui->statusBarLabel->setToolTip(_ui->statusBarLabel->text());
+        updateStatusMessage(tr("Job <i>%1</i> created.").arg(job->name));
         break;
     case JobStatus::Running:
-        _ui->statusBarLabel->setText(tr("Job <i>%1</i> is running.").arg(job->name));
-        _ui->statusBarLabel->setToolTip(_ui->statusBarLabel->text());
+        updateStatusMessage(tr("Job <i>%1</i> is running.").arg(job->name));
         break;
     case JobStatus::Failed:
-        _ui->statusBarLabel->setText(tr("Job <i>%1</i> failed: %2").arg(job->name).arg(job->output.simplified()));
-        _ui->statusBarLabel->setToolTip(tr("%1\n%2").arg(job->reason).arg(job->output));
+        updateStatusMessage(tr("Job <i>%1</i> failed: %2").arg(job->name).arg(job->output.simplified())
+                           ,tr("%1\n%2").arg(job->reason).arg(job->output));
         break;
     case JobStatus::Paused:
-        _ui->statusBarLabel->setText(tr("Job <i>%1</i> paused.").arg(job->name));
-        _ui->statusBarLabel->setToolTip(_ui->statusBarLabel->text());
+        updateStatusMessage(tr("Job <i>%1</i> paused.").arg(job->name));
         break;
     default:
         break;
     }
 }
 
-void MainWindow::archivesDeleted(QList<ArchivePtr> archives)
+void MainWindow::archivesDeleted(QList<ArchivePtr> archives, bool done)
 {
     if(archives.count() > 1)
-        _ui->statusBarLabel->setText(tr("Archive <i>%1</i> and %2 more archives deleted.").arg(archives.first()->name).arg(archives.count()-1));
+    {
+        QString detail(archives[0]->name);
+        for(int i = 1; i < archives.count(); ++i) {
+            ArchivePtr archive = archives.at(i);
+            detail.append(QString::fromLatin1(", ") + archive->name);
+        }
+        updateStatusMessage(tr("Deleting <i>%1</i> and %2 more archives...%3")
+                            .arg(archives.first()->name).arg(archives.count()-1)
+                            .arg(done?"done":""), detail);
+    }
     else if(archives.count() == 1)
-        _ui->statusBarLabel->setText(tr("Archive <i>%1</i> deleted.").arg(archives.first()->name));
+    {
+        updateStatusMessage(tr("Deleting <i>%1</i>...%2").arg(archives.first()->name)
+                            .arg(done?"done":""));
+    }
 }
 
 void MainWindow::updateLoadingAnimation(bool idle)
@@ -287,7 +307,14 @@ void MainWindow::updateInspectArchive()
         _ui->archiveTotalSizeLabel->setText(QString::number(_currentArchiveDetail->sizeTotal));
         _ui->archiveTarsnapSizeLabel->setText(QString::number(_currentArchiveDetail->sizeUniqueCompressed));
         _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp.toString());
-        _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg(_currentArchiveDetail->contents.count()));
+        int count = _currentArchiveDetail->contents.count();
+        _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg((count == 0) ? tr("loading..."):QString::number(count)));
         _ui->archiveContentsPlainTextEdit->setPlainText(_currentArchiveDetail->contents.join('\n'));
     }
+}
+
+void MainWindow::updateStatusMessage(QString message, QString detail)
+{
+    _ui->statusBarLabel->setText(message);
+    _ui->statusBarLabel->setToolTip(detail);
 }

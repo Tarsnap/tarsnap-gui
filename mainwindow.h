@@ -38,13 +38,14 @@ protected:
 
 public slots:
     void backupJobUpdate(BackupJobPtr job);
-    void archivesDeleted(QList<ArchivePtr> archives);
+    void archivesDeleted(QList<ArchivePtr> archives, bool done = true);
     void updateLoadingAnimation(bool idle);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void updateInspectArchive();
+    void updateStatusMessage(QString message, QString detail = "");
 
     void on_appendTimestampCheckBox_toggled(bool checked);
     void on_backupListInfoLabel_linkActivated(const QString &link);

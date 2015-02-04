@@ -44,6 +44,7 @@ void BackupListItem::setUrl(const QUrl &url)
         if(!file.exists())
             return;
         _ui.pathLabel->setText(fileUrl);
+        _ui.pathLabel->setToolTip(fileUrl);
         if(file.isDir())
         {
             QPixmap icon(":/resources/folder-2x.png");

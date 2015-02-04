@@ -70,6 +70,14 @@ MainWindow::MainWindow(QWidget *parent) :
             [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching contents for archive <i>%1</i>.").arg(archive->name));});
     connect(_ui->browseListWidget, &BrowseListWidget::deleteArchives,
             [=](const QList<ArchivePtr> archives){archivesDeleted(archives,false);});
+
+    connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
+            [=](const QString text){
+                if(text.isEmpty())
+                    _ui->backupButton->setEnabled(false);
+                else if(!_ui->backupDetailLabel->text().isEmpty())
+                    _ui->backupButton->setEnabled(true);
+            });
 }
 
 MainWindow::~MainWindow()
@@ -141,7 +149,9 @@ void MainWindow::backupJobUpdate(BackupJobPtr job)
 {
     switch (job->status) {
     case JobStatus::Completed:
-        updateStatusMessage(tr("Job <i>%1</i> completed.").arg(job->name));
+        updateStatusMessage(tr("Job <i>%1</i> completed. (%2 bytes used on Tarsnap)")
+                            .arg(job->name).arg(job->archive->sizeUniqueCompressed)
+                            ,job->archive->archiveStats());
         break;
     case JobStatus::Started:
         updateStatusMessage(tr("Job <i>%1</i> created.").arg(job->name));
@@ -170,13 +180,13 @@ void MainWindow::archivesDeleted(QList<ArchivePtr> archives, bool done)
             ArchivePtr archive = archives.at(i);
             detail.append(QString::fromLatin1(", ") + archive->name);
         }
-        updateStatusMessage(tr("Deleting <i>%1</i> and %2 more archives...%3")
+        updateStatusMessage(tr("Deleting archive <i>%1</i> and %2 more archives...%3")
                             .arg(archives.first()->name).arg(archives.count()-1)
                             .arg(done?"done":""), detail);
     }
     else if(archives.count() == 1)
     {
-        updateStatusMessage(tr("Deleting <i>%1</i>...%2").arg(archives.first()->name)
+        updateStatusMessage(tr("Deleting archive <i>%1</i>...%2").arg(archives.first()->name)
                             .arg(done?"done":""));
     }
 }
@@ -305,7 +315,9 @@ void MainWindow::updateInspectArchive()
     {
         _ui->archiveNameLabel->setText(_currentArchiveDetail->name);
         _ui->archiveTotalSizeLabel->setText(QString::number(_currentArchiveDetail->sizeTotal));
+        _ui->archiveTotalSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
         _ui->archiveTarsnapSizeLabel->setText(QString::number(_currentArchiveDetail->sizeUniqueCompressed));
+        _ui->archiveTarsnapSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
         _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp.toString());
         int count = _currentArchiveDetail->contents.count();
         _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg((count == 0) ? tr("loading..."):QString::number(count)));

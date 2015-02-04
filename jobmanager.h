@@ -12,26 +12,6 @@
 #include <QDateTime>
 #include <QThreadPool>
 
-class JobManager;
-
-enum JobStatus { Started, Running, Completed, Failed, Paused, Unknown };
-
-class BackupJob
-{
-public:
-    QUuid                 uuid;
-    QList<QUrl>           urls;
-    QString               name;
-    JobStatus             status;
-    int                   exitCode;
-    QString               reason;
-    QString               output;
-
-    BackupJob():uuid(QUuid::createUuid()),status(JobStatus::Unknown){}
-};
-
-typedef QSharedPointer<BackupJob> BackupJobPtr;
-
 class Archive: public QObject
 {
     Q_OBJECT
@@ -50,6 +30,17 @@ public:
     Archive():uuid(QUuid::createUuid()),sizeTotal(0),sizeCompressed(0),sizeUniqueTotal(0),sizeUniqueCompressed(0){}
 
     void notifyChanged() { emit changed(); }
+    QString archiveStats() {
+        QString stats;
+        if(sizeTotal == 0 || sizeUniqueCompressed == 0)
+            return stats;
+        stats.append(tr("\t\tTotal size\tCompressed size\n"
+                     "this archive\t%1\t%2\n"
+                     "unique data\t%3\t%4").arg(sizeTotal).arg(sizeCompressed)
+                     .arg(sizeUniqueTotal).arg(sizeUniqueCompressed));
+        return stats;
+    }
+
 signals:
     void changed();
 };
@@ -58,6 +49,24 @@ typedef QSharedPointer<Archive> ArchivePtr;
 
 Q_DECLARE_METATYPE(ArchivePtr)
 
+enum JobStatus { Started, Running, Completed, Failed, Paused, Unknown };
+
+class BackupJob
+{
+public:
+    QUuid                 uuid;
+    QList<QUrl>           urls;
+    QString               name;
+    JobStatus             status;
+    int                   exitCode;
+    QString               reason;
+    QString               output;
+    ArchivePtr            archive;
+
+    BackupJob():uuid(QUuid::createUuid()),status(JobStatus::Unknown){}
+};
+
+typedef QSharedPointer<BackupJob> BackupJobPtr;
 
 class JobManager : public QObject
 {
@@ -96,6 +105,7 @@ private slots:
 
     void queueJob(TarsnapCLI *cli);
     void dequeueJob(QUuid uuid, QVariant data, int exitCode, QString output);
+    void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive);
 
 private:
     QString                      _tarsnapDir;

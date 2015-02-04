@@ -40,12 +40,14 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     connect(_archive.data(), SIGNAL(changed()), this, SLOT(update()), Qt::QueuedConnection);
 
     _ui.nameLabel->setText(_archive->name);
+    _ui.nameLabel->setToolTip(_archive->name);
     QString detail(_archive->timestamp.toString());
-    if(archive->sizeUniqueCompressed != 0)
+    if(_archive->sizeUniqueCompressed != 0)
     {
         detail.prepend(tr("%1 bytes  ").arg(_archive->sizeUniqueCompressed));
     }
     _ui.detaiLabel->setText(detail);
+    _ui.detaiLabel->setToolTip(_archive->archiveStats());
 }
 
 void ArchiveListItem::update()

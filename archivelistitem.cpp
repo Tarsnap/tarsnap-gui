@@ -1,5 +1,7 @@
 #include "archivelistitem.h"
 
+#include "utils.h"
+
 ArchiveListItem::ArchiveListItem(ArchivePtr archive, QObject *parent):
     QObject(parent)
 {
@@ -44,7 +46,7 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     QString detail(_archive->timestamp.toString());
     if(_archive->sizeUniqueCompressed != 0)
     {
-        detail.prepend(tr("%1 bytes  ").arg(_archive->sizeUniqueCompressed));
+        detail.prepend(Utils::humanBytes(_archive->sizeUniqueCompressed) + "  ");
     }
     _ui.detaiLabel->setText(detail);
     _ui.detaiLabel->setToolTip(_archive->archiveStats());

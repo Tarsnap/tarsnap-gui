@@ -3,6 +3,7 @@
 #include "ui_archiveitemwidget.h"
 #include "ui_backupitemwidget.h"
 #include "backuplistitem.h"
+#include "utils.h"
 
 #include <QPainter>
 #include <QDebug>
@@ -149,8 +150,8 @@ void MainWindow::backupJobUpdate(BackupJobPtr job)
 {
     switch (job->status) {
     case JobStatus::Completed:
-        updateStatusMessage(tr("Job <i>%1</i> completed. (%2 bytes used on Tarsnap)")
-                            .arg(job->name).arg(job->archive->sizeUniqueCompressed)
+        updateStatusMessage(tr("Job <i>%1</i> completed. (%2 used on Tarsnap)")
+                            .arg(job->name).arg(Utils::humanBytes(job->archive->sizeUniqueCompressed))
                             ,job->archive->archiveStats());
         break;
     case JobStatus::Started:
@@ -209,7 +210,7 @@ void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
 {
     if(count != 0)
     {
-        _ui->backupDetailLabel->setText(tr("%1 items (%2 bytes)").arg(count).arg(size));
+        _ui->backupDetailLabel->setText(tr("%1 items (%2 bytes)").arg(count).arg(Utils::humanBytes(size)));
         _ui->backupButton->setEnabled(true);
     }
     else
@@ -314,9 +315,9 @@ void MainWindow::updateInspectArchive()
     if(_currentArchiveDetail)
     {
         _ui->archiveNameLabel->setText(_currentArchiveDetail->name);
-        _ui->archiveTotalSizeLabel->setText(QString::number(_currentArchiveDetail->sizeTotal));
+        _ui->archiveTotalSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeTotal));
         _ui->archiveTotalSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
-        _ui->archiveTarsnapSizeLabel->setText(QString::number(_currentArchiveDetail->sizeUniqueCompressed));
+        _ui->archiveTarsnapSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeUniqueCompressed));
         _ui->archiveTarsnapSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
         _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp.toString());
         int count = _currentArchiveDetail->contents.count();

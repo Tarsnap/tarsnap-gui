@@ -1,5 +1,6 @@
 #include "utils.h"
 
+#include <math.h>
 #include <QDebug>
 
 using namespace Utils;
@@ -62,4 +63,13 @@ qint64 GetDirInfoTask::getDirCount(QDir dir)
         }
     }
     return count;
+}
+
+QString Utils::humanBytes(qint64 bytes, bool si)
+{
+    int unit = si ? 1000 : 1024;
+    if (bytes < unit) return QString::number(bytes) + " B";
+    int exp = (int) (log(bytes) / log(unit));
+    QString pre = QString(si ? "kMGTPE" : "KMGTPE").at(exp-1) + QString(si ? "" : "i");
+    return QString("%1 %2B").arg(bytes / pow(unit, exp), 0, 'f', 1).arg(pre);
 }

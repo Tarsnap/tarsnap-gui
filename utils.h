@@ -25,6 +25,9 @@ private:
     qint64 getDirCount(QDir dir);
 };
 
+// Convert an int64 size of bytes to a human readable string using either
+// SI(1000) or binary(1024) units (default is binary)
+QString humanBytes(qint64 bytes, bool si = false);
 
 } // Utils
 

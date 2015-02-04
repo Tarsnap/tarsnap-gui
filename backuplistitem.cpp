@@ -62,7 +62,7 @@ void BackupListItem::setUrl(const QUrl &url)
             _ui.iconLabel->setPixmap(icon);
             _count = 1;
             _size  = file.size();
-            _ui.detailLabel->setText(QString::number(_size) + " bytes");
+            _ui.detailLabel->setText(Utils::humanBytes(_size));
         }
         else
         {
@@ -81,8 +81,8 @@ void BackupListItem::updateDirDetail(qint64 size, qint64 count)
 {
     _size = size;
     _count = count;
-    _ui.detailLabel->setText(QString::number(_count) + " items totalling "
-                             + QString::number(_size) + " bytes");
+    _ui.detailLabel->setText(QString::number(_count) + tr(" items totalling ")
+                             + Utils::humanBytes(_size));
     emit requestUpdate();
 }
 qint64 BackupListItem::size() const

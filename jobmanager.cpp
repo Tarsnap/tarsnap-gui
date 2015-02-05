@@ -162,6 +162,21 @@ void JobManager::deleteArchives(QList<ArchivePtr> archives)
     queueJob(delArchives);
 }
 
+void JobManager::getOverallStats()
+{
+    TarsnapCLI *overallStats = new TarsnapCLI();
+    QStringList args;
+    if(!_tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << _tarsnapKeyFile;
+    if(!_tarsnapCacheDir.isEmpty())
+        args << "--cachedir" << _tarsnapCacheDir;
+    args << "--print-stats";
+    overallStats->setCommand(_tarsnapDir + CMD_TARSNAP);
+    overallStats->setArguments(args);
+    connect(overallStats, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(overallStatsFinished(QUuid,QVariant,int,QString)));
+    queueJob(overallStats);
+}
+
 void JobManager::backupJobFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data);
@@ -275,6 +290,54 @@ void JobManager::deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode, 
             }
             emit archivesDeleted(archives);
         }
+    }
+}
+
+void JobManager::overallStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+{
+    Q_UNUSED(uuid);Q_UNUSED(data);
+
+    qint64      sizeTotal;
+    qint64      sizeCompressed;
+    qint64      sizeUniqueTotal;
+    qint64      sizeUniqueCompressed;
+
+    if(exitCode == 0)
+    {
+        QStringList lines = output.trimmed().split('\n', QString::SkipEmptyParts);
+        if(lines.count() != 3)
+        {
+            qDebug() << "Malformed output from tarsnap CLI:\n" << output;
+            return;
+        }
+        QRegExp sizeRX("^All archives\\s+(\\S+)\\s+(\\S+)$");
+        QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\S+)\\s+(\\S+)$");
+        if(-1 != sizeRX.indexIn(lines[1]))
+        {
+            QStringList captured = sizeRX.capturedTexts();
+            captured.removeFirst();
+            sizeTotal = captured[0].toLongLong();
+            sizeCompressed = captured[1].toLongLong();
+        }
+        else
+        {
+            qDebug() << "Malformed output from tarsnap CLI:\n" << output;
+            return;
+        }
+        if(-1 != uniqueSizeRX.indexIn(lines[2]))
+        {
+            QStringList captured = uniqueSizeRX.capturedTexts();
+            captured.removeFirst();
+            sizeUniqueTotal = captured[0].toLongLong();
+            sizeUniqueCompressed = captured[1].toLongLong();
+        }
+        else
+        {
+            qDebug() << "Malformed output from tarsnap CLI:\n" << output;
+            return;
+        }
+        emit overallStats(sizeTotal, sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed
+                          , _archiveMap.count(), 0.0f, tr("Normal"));
     }
 }
 

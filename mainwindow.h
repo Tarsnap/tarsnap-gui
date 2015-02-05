@@ -28,6 +28,7 @@ signals:
     void deleteArchives(QList<ArchivePtr> archives);
     void loadArchiveStats(ArchivePtr archive);
     void loadArchiveContents(ArchivePtr archive);
+    void getOverallStats();
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -40,16 +41,19 @@ public slots:
     void backupJobUpdate(BackupJobPtr job);
     void archivesDeleted(QList<ArchivePtr> archives, bool done = true);
     void updateLoadingAnimation(bool idle);
+    void updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal
+                               , qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit
+                               , QString accountStatus);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void updateInspectArchive();
     void updateStatusMessage(QString message, QString detail = "");
+    void currentPaneChanged(int index);
 
     void on_appendTimestampCheckBox_toggled(bool checked);
     void on_backupListInfoLabel_linkActivated(const QString &link);
-
     void on_backupButton_clicked();
 
 private:

@@ -788,8 +788,8 @@ background: #E3EBEC;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>480</width>
-            <height>111</height>
+            <width>569</width>
+            <height>389</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -976,6 +976,9 @@ selection-background-color: #E5E9FF;
               <string/>
              </property>
              <layout class="QFormLayout" name="formLayout">
+              <property name="fieldGrowthPolicy">
+               <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+              </property>
               <property name="formAlignment">
                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
               </property>
@@ -1000,8 +1003,14 @@ selection-background-color: #E5E9FF;
               </item>
               <item row="0" column="1">
                <widget class="QLabel" name="accountStatusLabel">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
-                 <string>Normal</string>
+                 <string/>
                 </property>
                 <property name="textInteractionFlags">
                  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -1016,7 +1025,13 @@ selection-background-color: #E5E9FF;
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QLabel" name="totalBackupSizeLabel">
+               <widget class="QLabel" name="accountTotalSizeLabel">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -1033,7 +1048,13 @@ selection-background-color: #E5E9FF;
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QLabel" name="actualBackupSizeLabel">
+               <widget class="QLabel" name="accountActualSizeLabel">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -1043,16 +1064,22 @@ selection-background-color: #E5E9FF;
                </widget>
               </item>
               <item row="3" column="0">
-               <widget class="QLabel" name="label_16">
+               <widget class="QLabel" name="label_21">
                 <property name="text">
-                 <string>Credit</string>
+                 <string>Storage saved</string>
                 </property>
                </widget>
               </item>
               <item row="3" column="1">
-               <widget class="QLabel" name="creditLabel">
+               <widget class="QLabel" name="accountStorageSavedLabel">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
-                 <string>0.000$</string>
+                 <string/>
                 </property>
                 <property name="textInteractionFlags">
                  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -1067,7 +1094,13 @@ selection-background-color: #E5E9FF;
                </widget>
               </item>
               <item row="4" column="1">
-               <widget class="QLabel" name="archivesCountLabel">
+               <widget class="QLabel" name="accountArchivesCountLabel">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -1077,14 +1110,20 @@ selection-background-color: #E5E9FF;
                </widget>
               </item>
               <item row="5" column="0">
-               <widget class="QLabel" name="label_21">
+               <widget class="QLabel" name="label_16">
                 <property name="text">
-                 <string>Storage saved:</string>
+                 <string>Credit</string>
                 </property>
                </widget>
               </item>
               <item row="5" column="1">
-               <widget class="QLabel" name="storageSavedLabel">
+               <widget class="QLabel" name="accountCreditLabel">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
                  <string/>
                 </property>

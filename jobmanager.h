@@ -82,6 +82,9 @@ signals:
     void backupJobUpdate(BackupJobPtr job);
     void archivesList(QList<ArchivePtr> archives);
     void archivesDeleted(QList<ArchivePtr> archives);
+    void overallStats(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal
+                      , qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit
+                      , QString accountStatus);
 
 public slots:
     void reloadSettings();
@@ -93,6 +96,7 @@ public slots:
     void getArchiveStats(ArchivePtr archive);
     void getArchiveContents(ArchivePtr archive);
     void deleteArchives(QList<ArchivePtr> archives);
+    void getOverallStats();
 
 private slots:
     void backupJobFinished(QUuid uuid, QVariant data, int exitCode, QString output);
@@ -102,6 +106,7 @@ private slots:
     void getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void getArchiveContentsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output);
+    void overallStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
 
     void queueJob(TarsnapCLI *cli);
     void dequeueJob(QUuid uuid, QVariant data, int exitCode, QString output);

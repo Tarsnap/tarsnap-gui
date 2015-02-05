@@ -91,6 +91,10 @@ CoreApplication::CoreApplication(int &argc, char **argv):
             ,SLOT(getArchiveContents(ArchivePtr)), Qt::QueuedConnection);
     connect(&_jobManager, SIGNAL(idle(bool)), _mainWindow
             ,SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(getOverallStats()), &_jobManager
+            , SLOT(getOverallStats()), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(overallStats(qint64,qint64,qint64,qint64,qint64,qreal,QString))
+            , _mainWindow,SLOT(updateSettingsSummary(qint64,qint64,qint64,qint64,qint64,qreal,QString)), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 

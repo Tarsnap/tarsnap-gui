@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
             , SLOT(displayInspectArchive(ArchivePtr)));
     connect(_ui->browseListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this
             , SIGNAL(deleteArchives(QList<ArchivePtr>)));
+    connect(_ui->mainTabWidget, SIGNAL(currentChanged(int)), this, SLOT(currentPaneChanged(int)));
 
     //lambda connects
     connect(_ui->browseListWidget, &BrowseListWidget::getArchivesList,
@@ -206,6 +207,23 @@ void MainWindow::updateLoadingAnimation(bool idle)
     }
 }
 
+void MainWindow::updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal, qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit, QString accountStatus)
+{
+    QString tooltip(tr("\t\tTotal size\tCompressed size\n"
+                       "this archive\t%1\t%2\n"
+                       "unique data\t%3\t%4").arg(sizeTotal).arg(sizeCompressed)
+                       .arg(sizeUniqueTotal).arg(sizeUniqueCompressed));
+    _ui->accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal));
+    _ui->accountTotalSizeLabel->setToolTip(tooltip);
+    _ui->accountActualSizeLabel->setText(Utils::humanBytes(sizeUniqueCompressed));
+    _ui->accountActualSizeLabel->setToolTip(tooltip);
+    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(sizeTotal-sizeUniqueCompressed));
+    _ui->accountStorageSavedLabel->setToolTip(tooltip);
+    _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
+    _ui->accountCreditLabel->setText(QString::number(credit, 'f'));
+    _ui->accountStatusLabel->setText(accountStatus);
+}
+
 void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
 {
     if(count != 0)
@@ -330,4 +348,13 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
 {
     _ui->statusBarLabel->setText(message);
     _ui->statusBarLabel->setToolTip(detail);
+}
+
+void MainWindow::currentPaneChanged(int index)
+{
+    Q_UNUSED(index);
+    if(_ui->mainTabWidget->currentWidget() == _ui->settingsTab)
+    {
+        emit getOverallStats();
+    }
 }

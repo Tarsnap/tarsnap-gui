@@ -51,7 +51,7 @@ private slots:
     void updateInspectArchive();
     void updateStatusMessage(QString message, QString detail = "");
     void currentPaneChanged(int index);
-    void validateAndCommitSettings();
+    void commitSettings();
     void validateMachineKeyPath();
     void validateTarsnapPath();
     void validateTarsnapCache();

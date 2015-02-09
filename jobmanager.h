@@ -128,6 +128,7 @@ private:
     QMap<QUuid, ArchivePtr>      _archiveMap;
     QMap<QUuid, TarsnapCLI*>     _jobMap;
     QThreadPool                 *_threadPool;
+    bool                         _aggressiveNetworking;
 };
 
 #endif // JOBMANAGER_H

@@ -5,7 +5,8 @@
 #include <QDir>
 #include <QSettings>
 
-JobManager::JobManager(QObject *parent) : QObject(), _threadPool(QThreadPool::globalInstance())
+JobManager::JobManager(QObject *parent) : QObject()
+  , _threadPool(QThreadPool::globalInstance()), _aggressiveNetworking(false)
 {
     Q_UNUSED(parent);
     // Move the operations belonging to the Job manager to a separate thread
@@ -25,6 +26,7 @@ void JobManager::reloadSettings()
     _tarsnapDir      = settings.value("tarsnap/path").toString();
     _tarsnapCacheDir = settings.value("tarsnap/cache").toString();
     _tarsnapKeyFile  = settings.value("tarsnap/key").toString();
+    _aggressiveNetworking = settings.value("tarsnap/aggressive_networking", false).toBool();
 }
 
 void JobManager::registerMachine(QString user, QString password, QString machine, QString key, QString tarsnapPath, QString cachePath)
@@ -66,7 +68,8 @@ void JobManager::backupNow(BackupJobPtr job)
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--quiet" << "-c" << "--print-stats" << "-f" << job->name;
+    args << "--quiet" << "-c" << "--print-stats"
+         << (_aggressiveNetworking ? "--aggressive-networking" : "") << "-f" << job->name;
     foreach (QUrl url, job->urls) {
         args << url.toLocalFile();
     }

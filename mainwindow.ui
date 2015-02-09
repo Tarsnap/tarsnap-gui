@@ -943,7 +943,7 @@ selection-background-color: #E5E9FF;
        <item>
         <widget class="QToolBox" name="settingsToolbox">
          <property name="currentIndex">
-          <number>3</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="settingsSummaryPage">
           <property name="geometry">
@@ -1328,7 +1328,7 @@ selection-background-color: #E5E9FF;
                </widget>
               </item>
               <item row="0" column="0">
-               <widget class="QCheckBox" name="checkBox_5">
+               <widget class="QCheckBox" name="aggressiveNetworkingCheckbox">
                 <property name="text">
                  <string>Aggressive networking</string>
                 </property>

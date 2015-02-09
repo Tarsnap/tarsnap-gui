@@ -50,11 +50,12 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->browseListWidget->addAction(_ui->actionRefresh);
     connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->browseListWidget
             , SIGNAL(getArchivesList()), Qt::QueuedConnection);
-    connect(_ui->accountUserLineEdit, SIGNAL(editingFinished()), this, SLOT(validateAndCommitSettings()));
-    connect(_ui->accountMachineLineEdit, SIGNAL(editingFinished()), this, SLOT(validateAndCommitSettings()));
-    connect(_ui->accountMachineKeyLineEdit, SIGNAL(editingFinished()), this, SLOT(validateAndCommitSettings()));
-    connect(_ui->tarsnapPathLineEdit, SIGNAL(editingFinished()), this, SLOT(validateAndCommitSettings()));
-    connect(_ui->tarsnapCacheLineEdit, SIGNAL(editingFinished()), this, SLOT(validateAndCommitSettings()));
+    connect(_ui->accountUserLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->accountMachineLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->accountMachineKeyLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->tarsnapPathLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->tarsnapCacheLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->aggressiveNetworkingCheckbox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->accountMachineKeyLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateMachineKeyPath()));
     connect(_ui->tarsnapPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapPath()));
     connect(_ui->tarsnapCacheLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapCache()));
@@ -368,7 +369,7 @@ void MainWindow::currentPaneChanged(int index)
     }
 }
 
-void MainWindow::validateAndCommitSettings()
+void MainWindow::commitSettings()
 {
     qDebug() << "COMMIT SETTINGS";
     QSettings settings;
@@ -377,6 +378,7 @@ void MainWindow::validateAndCommitSettings()
     settings.setValue("tarsnap/key",     _ui->accountMachineKeyLineEdit->text());
     settings.setValue("tarsnap/machine", _ui->accountMachineLineEdit->text());
     settings.setValue("tarsnap/user",    _ui->accountUserLineEdit->text());
+    settings.setValue("tarsnap/aggressive_networking", _ui->aggressiveNetworkingCheckbox->isChecked());
     settings.sync();
 }
 
@@ -408,14 +410,14 @@ void MainWindow::validateTarsnapCache()
 void MainWindow::on_accountMachineUseHostnameButton_clicked()
 {
     _ui->accountMachineLineEdit->setText(QHostInfo::localHostName());
-    validateAndCommitSettings();
+    commitSettings();
 }
 
 void MainWindow::on_accountMachineKeyBrowseButton_clicked()
 {
     QString key = QFileDialog::getOpenFileName(this, tr("Browse for existing machine key"));
     _ui->accountMachineKeyLineEdit->setText(key);
-    validateAndCommitSettings();
+    commitSettings();
 }
 
 void MainWindow::on_tarsnapPathBrowseButton_clicked()
@@ -424,7 +426,7 @@ void MainWindow::on_tarsnapPathBrowseButton_clicked()
                                                             tr("Find Tarsnap client"),
                                                             "");
     _ui->tarsnapPathLineEdit->setText(tarsnapPath);
-    validateAndCommitSettings();
+    commitSettings();
 }
 
 void MainWindow::on_tarsnapCacheBrowseButton_clicked()
@@ -433,5 +435,5 @@ void MainWindow::on_tarsnapCacheBrowseButton_clicked()
                                                             tr("Tarsnap cache location"),
                                                             "");
     _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
-    validateAndCommitSettings();
+    commitSettings();
 }

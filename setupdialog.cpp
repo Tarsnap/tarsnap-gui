@@ -190,8 +190,8 @@ void SetupDialog::setNextPage()
 void SetupDialog::showTarsnapPathBrowse()
 {
     QString tarsnapPath = QFileDialog::getExistingDirectory(this,
-                                                            tr("Find Tarsnap client"),
-                                                            "");
+                                                            tr("Find Tarsnap client")
+                                                            , "");
     _ui->tarsnapPathLineEdit->setText(tarsnapPath);
 }
 

@@ -12,6 +12,10 @@
 #include <QDateTime>
 #include <QThreadPool>
 
+
+#define CMD_TARSNAP         "tarsnap"
+#define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
+
 class Archive: public QObject
 {
     Q_OBJECT
@@ -111,6 +115,9 @@ private slots:
     void queueJob(TarsnapCLI *cli);
     void dequeueJob(QUuid uuid, QVariant data, int exitCode, QString output);
     void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive);
+
+private:
+    QString makeTarsnapCommand(QString cmd);
 
 private:
     QString                      _tarsnapDir;

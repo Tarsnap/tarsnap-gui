@@ -73,3 +73,38 @@ QString Utils::humanBytes(qint64 bytes, bool si)
     QString pre = QString(si ? "kMGTPE" : "KMGTPE").at(exp-1) + QString(si ? "" : "i");
     return QString("%1 %2B").arg(bytes / pow(unit, exp), 0, 'f', 1).arg(pre);
 }
+
+
+QString Utils::validateTarsnapCache(QString path)
+{
+    QString result;
+    if(!path.isEmpty())
+    {
+        QFileInfo candidate(path);
+        if(candidate.exists() && candidate.isDir() && candidate.isWritable())
+        {
+            result = candidate.canonicalFilePath();
+        }
+    }
+    return result;
+}
+
+
+QString Utils::validateTarsnapPath(QString path)
+{
+    QString result;
+    if ( !path.isEmpty() )
+    {
+        QDir dir(path);
+        if(dir.exists())
+        {
+            QFileInfo candidate(dir, "tarsnap");
+            if ( candidate.isFile() && candidate.exists() && candidate.isReadable()
+                 && candidate.isExecutable())
+            {
+                result = dir.canonicalPath();
+            }
+        }
+    }
+    return result;
+}

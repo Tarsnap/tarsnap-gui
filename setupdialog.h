@@ -27,8 +27,6 @@ public slots:
     void showTarsnapPathBrowse();
     void showTarsnapCacheBrowse();
     bool validateAdvancedSetupPage();
-    bool validateTarsnapPath(QString path);
-    bool validateTarsnapCache(QString path);
     void restoreNo();
     void restoreYes();
     void validateRegisterPage();

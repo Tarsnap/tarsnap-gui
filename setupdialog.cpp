@@ -1,5 +1,6 @@
 #include "setupdialog.h"
 #include "ui_setupdialog.h"
+#include "utils.h"
 
 #include <QDebug>
 #include <QFileInfo>
@@ -206,44 +207,26 @@ bool SetupDialog::validateAdvancedSetupPage()
 {
     bool result = false;
 
-    if(validateTarsnapPath(_ui->tarsnapPathLineEdit->text())
-       && validateTarsnapCache(_ui->tarsnapCacheLineEdit->text()))
+    QString tarsnapPath = Utils::validateTarsnapPath(_ui->tarsnapPathLineEdit->text());
+    QString tarsnapCache = Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text());
+
+    if(!tarsnapPath.isEmpty())
+    {
+        _tarsnapCLIDir = tarsnapPath;
         result = true;
+    }
+
+    if(!tarsnapCache.isEmpty())
+    {
+        _tarsnapCacheDir = tarsnapCache;
+        result = result && true;
+    }
+    else
+    {
+        result = false;
+    }
 
     _ui->advancedPageProceedButton->setEnabled(result);
-    return result;
-}
-
-bool SetupDialog::validateTarsnapPath(QString path)
-{
-    bool result = false;
-    if ( !path.isEmpty() )
-    {
-        if ( !path.endsWith( "/" ) )
-            path.append( "/" );
-        QFileInfo candidate( path + "tarsnap" );
-        if ( candidate.isFile() && candidate.exists() && candidate.isReadable()
-             && candidate.isExecutable())
-        {
-            _tarsnapCLIDir = path;
-            result = true;
-        }
-    }
-    return result;
-}
-
-bool SetupDialog::validateTarsnapCache(QString path)
-{
-    bool result = false;
-    if(!path.isEmpty())
-    {
-        QFileInfo candidate(path);
-        if(candidate.exists() && candidate.isDir() && candidate.isWritable())
-        {
-            _tarsnapCacheDir = candidate.absoluteFilePath();
-            result = true;
-        }
-    }
     return result;
 }
 
@@ -373,8 +356,10 @@ void SetupDialog::findTarsnapInPath()
     auto dir = path.begin();
     while (dir != path.end())
     {
-        if(validateTarsnapPath(*dir))
+        QString path = Utils::validateTarsnapPath(*dir);
+        if(!path.isEmpty())
         {
+            _tarsnapCLIDir = path;
             _ui->tarsnapPathLineEdit->setText(_tarsnapCLIDir);
             return;
         }

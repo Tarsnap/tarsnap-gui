@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QFileInfo>
+#include <QDir>
 #include <QSettings>
 
 JobManager::JobManager(QObject *parent) : QObject(), _threadPool(QThreadPool::globalInstance())
@@ -35,14 +36,14 @@ void JobManager::registerMachine(QString user, QString password, QString machine
     {
         // existing key, just check with a tarsnap --print-stats command
         args << "--fsck"<< "--keyfile"<< key << "--cachedir" << cachePath;
-        registerClient->setCommand(tarsnapPath + CMD_TARSNAP);
+        registerClient->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
         registerClient->setArguments(args);
     }
     else
     {
         // register machine with tarsnap-keygen
         args << "--user" << user << "--machine" << machine << "--keyfile"<< key;
-        registerClient->setCommand(tarsnapPath + CMD_TARSNAPKEYGEN);
+        registerClient->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAPKEYGEN);
         registerClient->setArguments(args);
         registerClient->setPassword(password);
         registerClient->setRequiresPassword(true);
@@ -69,7 +70,7 @@ void JobManager::backupNow(BackupJobPtr job)
     foreach (QUrl url, job->urls) {
         args << url.toLocalFile();
     }
-    backupClient->setCommand(_tarsnapDir + CMD_TARSNAP);
+    backupClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     backupClient->setArguments(args);
     connect(backupClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(backupJobFinished(QUuid,QVariant,int,QString)));
     connect(backupClient, SIGNAL(clientStarted(QUuid)), this, SLOT(backupJobStarted(QUuid)));
@@ -85,7 +86,7 @@ void JobManager::getArchivesList()
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     args << "--list-archives" << "-vv";
-    listArchivesClient->setCommand(_tarsnapDir + CMD_TARSNAP);
+    listArchivesClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     listArchivesClient->setArguments(args);
     connect(listArchivesClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(getArchivesFinished(QUuid,QVariant,int,QString)));
     queueJob(listArchivesClient);
@@ -109,7 +110,7 @@ void JobManager::getArchiveStats(ArchivePtr archive)
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
     args << "--print-stats" << "-f" << archive->name;
-    statsClient->setCommand(_tarsnapDir + CMD_TARSNAP);
+    statsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     statsClient->setArguments(args);
     connect(statsClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(getArchiveStatsFinished(QUuid,QVariant,int,QString)));
     queueJob(statsClient);
@@ -131,7 +132,7 @@ void JobManager::getArchiveContents(ArchivePtr archive)
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     args << "-t" << "-f" << archive->name;
-    contentsClient->setCommand(_tarsnapDir + CMD_TARSNAP);
+    contentsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     contentsClient->setArguments(args);
     connect(contentsClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(getArchiveContentsFinished(QUuid,QVariant,int,QString)));
     queueJob(contentsClient);
@@ -155,7 +156,7 @@ void JobManager::deleteArchives(QList<ArchivePtr> archives)
     foreach (ArchivePtr archive, archives) {
         args << "-f" << archive->name;
     }
-    delArchives->setCommand(_tarsnapDir + CMD_TARSNAP);
+    delArchives->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     delArchives->setArguments(args);
     delArchives->setData(QVariant::fromValue(archives));
     connect(delArchives, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(deleteArchiveFinished(QUuid,QVariant,int,QString)));
@@ -171,7 +172,7 @@ void JobManager::getOverallStats()
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
     args << "--print-stats";
-    overallStats->setCommand(_tarsnapDir + CMD_TARSNAP);
+    overallStats->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     overallStats->setArguments(args);
     connect(overallStats, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(overallStatsFinished(QUuid,QVariant,int,QString)));
     queueJob(overallStats);
@@ -411,5 +412,10 @@ void JobManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
         return;
     }
     archive->notifyChanged();
+}
+
+QString JobManager::makeTarsnapCommand(QString cmd)
+{
+    return _tarsnapDir + QDir::separator() + cmd;
 }
 

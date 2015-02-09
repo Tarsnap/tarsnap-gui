@@ -12,6 +12,7 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QSharedPointer>
+#include <QHostInfo>
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
@@ -49,6 +50,14 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->browseListWidget->addAction(_ui->actionRefresh);
     connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->browseListWidget
             , SIGNAL(getArchivesList()), Qt::QueuedConnection);
+    connect(_ui->accountUserLineEdit, SIGNAL(editingFinished()), this, SLOT(validateAndCommitSettings()));
+    connect(_ui->accountMachineLineEdit, SIGNAL(editingFinished()), this, SLOT(validateAndCommitSettings()));
+    connect(_ui->accountMachineKeyLineEdit, SIGNAL(editingFinished()), this, SLOT(validateAndCommitSettings()));
+    connect(_ui->tarsnapPathLineEdit, SIGNAL(editingFinished()), this, SLOT(validateAndCommitSettings()));
+    connect(_ui->tarsnapCacheLineEdit, SIGNAL(editingFinished()), this, SLOT(validateAndCommitSettings()));
+    connect(_ui->accountMachineKeyLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateMachineKeyPath()));
+    connect(_ui->tarsnapPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapPath()));
+    connect(_ui->tarsnapCacheLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapCache()));
 
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
             , SLOT(updateBackupItemTotals(qint64, qint64)));
@@ -90,9 +99,9 @@ MainWindow::~MainWindow()
 void MainWindow::readSettings()
 {
     QSettings settings;
-    _ui->tarsnapUserLineEdit->setText(settings.value("tarsnap/user", "").toString());
-    _ui->tarsnapKeyLineEdit->setText(settings.value("tarsnap/key", "").toString());
-    _ui->tarsnapMachineLineEdit->setText(settings.value("tarsnap/machine", "").toString());
+    _ui->accountUserLineEdit->setText(settings.value("tarsnap/user", "").toString());
+    _ui->accountMachineKeyLineEdit->setText(settings.value("tarsnap/key", "").toString());
+    _ui->accountMachineLineEdit->setText(settings.value("tarsnap/machine", "").toString());
     _ui->tarsnapPathLineEdit->setText(settings.value("tarsnap/path", "").toString());
     _ui->tarsnapCacheLineEdit->setText(settings.value("tarsnap/cache", "").toString());
 }
@@ -357,4 +366,72 @@ void MainWindow::currentPaneChanged(int index)
     {
         emit getOverallStats();
     }
+}
+
+void MainWindow::validateAndCommitSettings()
+{
+    qDebug() << "COMMIT SETTINGS";
+    QSettings settings;
+    settings.setValue("tarsnap/path",    _ui->tarsnapPathLineEdit->text());
+    settings.setValue("tarsnap/cache",   _ui->tarsnapCacheLineEdit->text());
+    settings.setValue("tarsnap/key",     _ui->accountMachineKeyLineEdit->text());
+    settings.setValue("tarsnap/machine", _ui->accountMachineLineEdit->text());
+    settings.setValue("tarsnap/user",    _ui->accountUserLineEdit->text());
+    settings.sync();
+}
+
+void MainWindow::validateMachineKeyPath()
+{
+    QFileInfo machineKeyFile(_ui->accountMachineKeyLineEdit->text());
+    if(machineKeyFile.exists() && machineKeyFile.isFile() && machineKeyFile.isReadable())
+        _ui->accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: black;}");
+    else
+        _ui->accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: red;}");
+}
+
+void MainWindow::validateTarsnapPath()
+{
+    if(Utils::validateTarsnapPath(_ui->tarsnapPathLineEdit->text()).isEmpty())
+        _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
+    else
+        _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: black;}");
+}
+
+void MainWindow::validateTarsnapCache()
+{
+    if(Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text()).isEmpty())
+        _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: red;}");
+    else
+        _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: black;}");
+}
+
+void MainWindow::on_accountMachineUseHostnameButton_clicked()
+{
+    _ui->accountMachineLineEdit->setText(QHostInfo::localHostName());
+    validateAndCommitSettings();
+}
+
+void MainWindow::on_accountMachineKeyBrowseButton_clicked()
+{
+    QString key = QFileDialog::getOpenFileName(this, tr("Browse for existing machine key"));
+    _ui->accountMachineKeyLineEdit->setText(key);
+    validateAndCommitSettings();
+}
+
+void MainWindow::on_tarsnapPathBrowseButton_clicked()
+{
+    QString tarsnapPath = QFileDialog::getExistingDirectory(this,
+                                                            tr("Find Tarsnap client"),
+                                                            "");
+    _ui->tarsnapPathLineEdit->setText(tarsnapPath);
+    validateAndCommitSettings();
+}
+
+void MainWindow::on_tarsnapCacheBrowseButton_clicked()
+{
+    QString tarsnapCacheDir = QFileDialog::getExistingDirectory(this,
+                                                            tr("Tarsnap cache location"),
+                                                            "");
+    _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
+    validateAndCommitSettings();
 }

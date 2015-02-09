@@ -7,9 +7,6 @@
 #include <QRunnable>
 #include <QVariant>
 
-#define CMD_TARSNAP         "tarsnap"
-#define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
-
 class TarsnapCLI : public QObject, public QRunnable
 {
     Q_OBJECT

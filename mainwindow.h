@@ -51,10 +51,22 @@ private slots:
     void updateInspectArchive();
     void updateStatusMessage(QString message, QString detail = "");
     void currentPaneChanged(int index);
+    void validateAndCommitSettings();
+    void validateMachineKeyPath();
+    void validateTarsnapPath();
+    void validateTarsnapCache();
 
     void on_appendTimestampCheckBox_toggled(bool checked);
     void on_backupListInfoLabel_linkActivated(const QString &link);
     void on_backupButton_clicked();
+
+    void on_accountMachineUseHostnameButton_clicked();
+
+    void on_accountMachineKeyBrowseButton_clicked();
+
+    void on_tarsnapPathBrowseButton_clicked();
+
+    void on_tarsnapCacheBrowseButton_clicked();
 
 private:
     Ui::MainWindow  *_ui;

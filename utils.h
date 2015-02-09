@@ -29,6 +29,10 @@ private:
 // SI(1000) or binary(1024) units (default is binary)
 QString humanBytes(qint64 bytes, bool si = false);
 
+// Returns canonical paths if verified, otherwise empty strings
+QString validateTarsnapPath(QString path);
+QString validateTarsnapCache(QString path);
+
 } // Utils
 
 #endif // UTILS_H

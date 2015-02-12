@@ -19,8 +19,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void readSettings();
-
 signals:
     void backupNow(BackupJobPtr job);
     void getArchivesList();
@@ -30,6 +28,7 @@ signals:
     void loadArchiveContents(ArchivePtr archive);
     void getOverallStats();
     void repairCache();
+    void settingsChanged();
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -39,6 +38,7 @@ protected:
     void keyReleaseEvent(QKeyEvent *event);
 
 public slots:
+    void loadSettings();
     void backupJobUpdate(BackupJobPtr job);
     void archivesDeleted(QList<ArchivePtr> archives, bool done = true);
     void updateLoadingAnimation(bool idle);

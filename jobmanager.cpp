@@ -20,7 +20,7 @@ JobManager::~JobManager()
     _managerThread.wait();
 }
 
-void JobManager::reloadSettings()
+void JobManager::loadSettings()
 {
     QSettings settings;
     _tarsnapDir      = settings.value("tarsnap/path").toString();
@@ -68,8 +68,9 @@ void JobManager::backupNow(BackupJobPtr job)
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--quiet" << "-c" << "--print-stats"
-         << (_aggressiveNetworking ? "--aggressive-networking" : "") << "-f" << job->name;
+    if(_aggressiveNetworking)
+        args << "--aggressive-networking";
+    args << "--quiet" << "-c" << "--print-stats" << "-f" << job->name;
     foreach (QUrl url, job->urls) {
         args << url.toLocalFile();
     }

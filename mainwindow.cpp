@@ -36,8 +36,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _ui->archiveDetailsWidget->hide();
 
-    readSettings();
+    loadSettings();
 
+
+    // TODO: REMOVE
     Ui::ArchiveItemWidget restoreItemUi;
     for(int i = 0; i < 10; i++)
     {
@@ -48,12 +50,15 @@ MainWindow::MainWindow(QWidget *parent) :
         _ui->backupRestoreListWidget->setItemWidget(item, widget);
     }
 
+    // Ui actions
     _ui->browseListWidget->addAction(_ui->actionRefresh);
     connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->browseListWidget
             , SIGNAL(getArchivesList()), Qt::QueuedConnection);
     _ui->backupListWidget->addAction(_ui->actionClearList);
     connect(_ui->actionClearList, SIGNAL(triggered()), _ui->backupListWidget
             , SLOT(clear()), Qt::QueuedConnection);
+
+    // Settings page
     connect(_ui->accountUserLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->accountMachineLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->accountMachineKeyLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
@@ -65,6 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->tarsnapCacheLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapCache()));
     connect(_ui->siPrefixesCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
 
+    // Backup and Browse
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
             , SLOT(updateBackupItemTotals(qint64, qint64)));
     connect(_ui->browseListWidget, SIGNAL(getArchivesList()), this, SIGNAL(getArchivesList()));
@@ -76,7 +82,7 @@ MainWindow::MainWindow(QWidget *parent) :
             , SIGNAL(deleteArchives(QList<ArchivePtr>)));
     connect(_ui->mainTabWidget, SIGNAL(currentChanged(int)), this, SLOT(currentPaneChanged(int)));
 
-    //lambda connects
+    //lambda slots to quickly update various UI components
     connect(_ui->browseListWidget, &BrowseListWidget::getArchivesList,
             [=](){updateStatusMessage(tr("Refreshing archives list..."));});
     connect(this, &MainWindow::archivesList,
@@ -87,7 +93,6 @@ MainWindow::MainWindow(QWidget *parent) :
             [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching contents for archive <i>%1</i>.").arg(archive->name));});
     connect(_ui->browseListWidget, &BrowseListWidget::deleteArchives,
             [=](const QList<ArchivePtr> archives){archivesDeleted(archives,false);});
-
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
             [=](const QString text){
                 if(text.isEmpty())
@@ -102,7 +107,7 @@ MainWindow::~MainWindow()
     delete _ui;
 }
 
-void MainWindow::readSettings()
+void MainWindow::loadSettings()
 {
     QSettings settings;
     _ui->accountUserLineEdit->setText(settings.value("tarsnap/user", "").toString());
@@ -402,6 +407,7 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/aggressive_networking", _ui->aggressiveNetworkingCheckBox->isChecked());
     settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
     settings.sync();
+    emit settingsChanged();
 }
 
 void MainWindow::validateMachineKeyPath()

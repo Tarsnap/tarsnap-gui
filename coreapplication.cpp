@@ -63,7 +63,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
         }
     }
 
-    QMetaObject::invokeMethod(&_jobManager, "reloadSettings", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(&_jobManager, "loadSettings", Qt::QueuedConnection);
 
     // Show the main window
     _mainWindow = new MainWindow();
@@ -99,6 +99,10 @@ CoreApplication::CoreApplication(int &argc, char **argv):
             , SLOT(runFsck()), Qt::QueuedConnection);
     connect(&_jobManager, SIGNAL(fsckStatus(JobStatus,QString)), _mainWindow
             ,SLOT(repairCacheStatus(JobStatus,QString)), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(settingsChanged()), &_jobManager
+            ,SLOT(loadSettings()), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(settingsChanged()), _mainWindow
+            ,SLOT(loadSettings()), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 

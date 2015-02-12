@@ -91,7 +91,7 @@ signals:
                       , QString accountStatus);
 
 public slots:
-    void reloadSettings();
+    void loadSettings();
 
     void registerMachine(QString user, QString password, QString machine
                          ,QString key, QString tarsnapPath, QString cachePath);

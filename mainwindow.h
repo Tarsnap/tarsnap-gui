@@ -75,6 +75,7 @@ private:
     QString          _lastTimestamp;
     ArchivePtr       _currentArchiveDetail;
     QMovie           _loadingAnimation;
+    bool             _useSIPrefixes;
 };
 
 #endif // MAINWINDOW_H

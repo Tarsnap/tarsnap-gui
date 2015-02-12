@@ -2,8 +2,10 @@
 
 #include "utils.h"
 
+#include <QSettings>
+
 ArchiveListItem::ArchiveListItem(ArchivePtr archive, QObject *parent):
-    QObject(parent)
+    QObject(parent), _useSIPrefixes(false)
 {
     _widget.installEventFilter(this);
     _ui.setupUi(&_widget);
@@ -16,6 +18,9 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive, QObject *parent):
     connect(_ui.actionDelete, SIGNAL(triggered()), this, SIGNAL(requestDelete()), Qt::QueuedConnection);
     connect(_ui.actionInspect, SIGNAL(triggered()), this, SIGNAL(requestInspect()), Qt::QueuedConnection);
     connect(_ui.actionRestore, SIGNAL(triggered()), this, SIGNAL(requestRestore()), Qt::QueuedConnection);
+
+    QSettings settings;
+    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
 
     setArchive(archive);
 }
@@ -46,7 +51,7 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     QString detail(_archive->timestamp.toString());
     if(_archive->sizeUniqueCompressed != 0)
     {
-        detail.prepend(Utils::humanBytes(_archive->sizeUniqueCompressed) + "  ");
+        detail.prepend(Utils::humanBytes(_archive->sizeUniqueCompressed, _useSIPrefixes) + "  ");
     }
     _ui.detaiLabel->setText(detail);
     _ui.detaiLabel->setToolTip(_archive->archiveStats());

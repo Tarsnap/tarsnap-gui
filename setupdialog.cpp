@@ -240,7 +240,9 @@ void SetupDialog::restoreNo()
     _ui->tarsnapUserLineEdit->show();
     _ui->tarsnapPasswordLabel->show();
     _ui->tarsnapPasswordLineEdit->show();
-    _ui->registerPageInfoLabel->setText(tr("Please use your Tarsnap account credentials. Don't have an account? Register one <a href=\"http://tarsnap.com\">here</a>."));
+    _ui->registerPageInfoLabel->setText(tr("Please use your Tarsnap account "
+                                           "credentials. Don't have an account? "
+                                           "Register one <a href=\"http://tarsnap.com\">here</a>."));
     _ui->errorLabel->clear();
     setNextPage();
 }
@@ -255,7 +257,11 @@ void SetupDialog::restoreYes()
     _ui->machineKeyLabel->show();
     _ui->machineKeyLineEdit->show();
     _ui->locateMachineKeyLabel->show();
-    _ui->registerPageInfoLabel->setText(tr("Please use your existing machine key and a machine name of your liking. The registration might take a bit to verify archive consistency and integrity using the cache, thus please be patient."));
+    _ui->registerPageInfoLabel->setText(tr("Please use your existing machine key "
+                                           "and a machine name of your liking. "
+                                           "The registration might take a bit to "
+                                           "verify archive consistency and integrity "
+                                           "using the cache, thus please be patient."));
     _ui->errorLabel->clear();
     setNextPage();
 }

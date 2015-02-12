@@ -17,7 +17,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     _ui(new Ui::MainWindow),
-    _loadingAnimation(":/resources/loading.gif")
+    _loadingAnimation(":/resources/loading.gif"),
+    _useSIPrefixes(false)
 {
     _ui->setupUi(this);
 
@@ -55,10 +56,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->accountMachineKeyLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->tarsnapPathLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->tarsnapCacheLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
-    connect(_ui->aggressiveNetworkingCheckbox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
+    connect(_ui->aggressiveNetworkingCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->accountMachineKeyLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateMachineKeyPath()));
     connect(_ui->tarsnapPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapPath()));
     connect(_ui->tarsnapCacheLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapCache()));
+    connect(_ui->siPrefixesCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
 
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
             , SLOT(updateBackupItemTotals(qint64, qint64)));
@@ -105,6 +107,9 @@ void MainWindow::readSettings()
     _ui->accountMachineLineEdit->setText(settings.value("tarsnap/machine", "").toString());
     _ui->tarsnapPathLineEdit->setText(settings.value("tarsnap/path", "").toString());
     _ui->tarsnapCacheLineEdit->setText(settings.value("tarsnap/cache", "").toString());
+    _ui->aggressiveNetworkingCheckBox->setChecked(settings.value("tarsnap/aggressive_networking", false).toBool());
+    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
+    _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
 }
 
 
@@ -162,7 +167,7 @@ void MainWindow::backupJobUpdate(BackupJobPtr job)
     switch (job->status) {
     case JobStatus::Completed:
         updateStatusMessage(tr("Job <i>%1</i> completed. (%2 used on Tarsnap)")
-                            .arg(job->name).arg(Utils::humanBytes(job->archive->sizeUniqueCompressed))
+                            .arg(job->name).arg(Utils::humanBytes(job->archive->sizeUniqueCompressed, _useSIPrefixes))
                             ,job->archive->archiveStats());
         break;
     case JobStatus::Started:
@@ -223,11 +228,11 @@ void MainWindow::updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, 
                        "this archive\t%1\t%2\n"
                        "unique data\t%3\t%4").arg(sizeTotal).arg(sizeCompressed)
                        .arg(sizeUniqueTotal).arg(sizeUniqueCompressed));
-    _ui->accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal));
+    _ui->accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal, _useSIPrefixes));
     _ui->accountTotalSizeLabel->setToolTip(tooltip);
-    _ui->accountActualSizeLabel->setText(Utils::humanBytes(sizeUniqueCompressed));
+    _ui->accountActualSizeLabel->setText(Utils::humanBytes(sizeUniqueCompressed, _useSIPrefixes));
     _ui->accountActualSizeLabel->setToolTip(tooltip);
-    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(sizeTotal-sizeUniqueCompressed));
+    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(sizeTotal-sizeUniqueCompressed, _useSIPrefixes));
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
     _ui->accountCreditLabel->setText(QString::number(credit, 'f'));
@@ -238,7 +243,7 @@ void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
 {
     if(count != 0)
     {
-        _ui->backupDetailLabel->setText(tr("%1 items (%2 bytes)").arg(count).arg(Utils::humanBytes(size)));
+        _ui->backupDetailLabel->setText(tr("%1 items (%2 bytes)").arg(count).arg(Utils::humanBytes(size, _useSIPrefixes)));
         _ui->backupButton->setEnabled(true);
     }
     else
@@ -343,9 +348,9 @@ void MainWindow::updateInspectArchive()
     if(_currentArchiveDetail)
     {
         _ui->archiveNameLabel->setText(_currentArchiveDetail->name);
-        _ui->archiveTotalSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeTotal));
+        _ui->archiveTotalSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeTotal, _useSIPrefixes));
         _ui->archiveTotalSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
-        _ui->archiveTarsnapSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeUniqueCompressed));
+        _ui->archiveTarsnapSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeUniqueCompressed, _useSIPrefixes));
         _ui->archiveTarsnapSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
         _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp.toString());
         int count = _currentArchiveDetail->contents.count();
@@ -378,7 +383,8 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/key",     _ui->accountMachineKeyLineEdit->text());
     settings.setValue("tarsnap/machine", _ui->accountMachineLineEdit->text());
     settings.setValue("tarsnap/user",    _ui->accountUserLineEdit->text());
-    settings.setValue("tarsnap/aggressive_networking", _ui->aggressiveNetworkingCheckbox->isChecked());
+    settings.setValue("tarsnap/aggressive_networking", _ui->aggressiveNetworkingCheckBox->isChecked());
+    settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
     settings.sync();
 }
 

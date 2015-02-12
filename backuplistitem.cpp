@@ -5,8 +5,9 @@
 #include <QFileInfo>
 #include <QDesktopServices>
 #include <QThreadPool>
+#include <QSettings>
 
-BackupListItem::BackupListItem(QUrl url):_count(0), _size(0)
+BackupListItem::BackupListItem(QUrl url):_count(0), _size(0), _useSIPrefixes(false)
 {
     _ui.setupUi(&_widget);
     _widget.addAction(_ui.actionOpen);
@@ -15,6 +16,10 @@ BackupListItem::BackupListItem(QUrl url):_count(0), _size(0)
     _ui.removeButton->setDefaultAction(_ui.actionRemove);
     connect(_ui.actionRemove, SIGNAL(triggered()), this, SIGNAL(requestDelete()), Qt::QueuedConnection);
     connect(_ui.actionOpen, SIGNAL(triggered()), this, SLOT(browseUrl()), Qt::QueuedConnection);
+
+    QSettings settings;
+    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
+
     setUrl(url);
 }
 
@@ -62,7 +67,7 @@ void BackupListItem::setUrl(const QUrl &url)
             _ui.iconLabel->setPixmap(icon);
             _count = 1;
             _size  = file.size();
-            _ui.detailLabel->setText(Utils::humanBytes(_size));
+            _ui.detailLabel->setText(Utils::humanBytes(_size, _useSIPrefixes));
         }
         else
         {
@@ -82,7 +87,7 @@ void BackupListItem::updateDirDetail(qint64 size, qint64 count)
     _size = size;
     _count = count;
     _ui.detailLabel->setText(QString::number(_count) + tr(" items totalling ")
-                             + Utils::humanBytes(_size));
+                             + Utils::humanBytes(_size, _useSIPrefixes));
     emit requestUpdate();
 }
 qint64 BackupListItem::size() const

@@ -39,7 +39,8 @@ protected:
 private:
     Ui::ArchiveItemWidget    _ui;
     QWidget                  _widget;
-    ArchivePtr  _archive;
+    ArchivePtr               _archive;
+    bool                     _useSIPrefixes;
 };
 
 #endif // ARCHIVELISTITEM_H

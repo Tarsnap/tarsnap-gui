@@ -29,6 +29,7 @@ signals:
     void loadArchiveStats(ArchivePtr archive);
     void loadArchiveContents(ArchivePtr archive);
     void getOverallStats();
+    void repairCache();
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -44,6 +45,7 @@ public slots:
     void updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal
                                , qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit
                                , QString accountStatus);
+    void repairCacheStatus(JobStatus status, QString reason);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);
@@ -67,6 +69,8 @@ private slots:
     void on_tarsnapPathBrowseButton_clicked();
 
     void on_tarsnapCacheBrowseButton_clicked();
+
+    void on_repairCacheButton_clicked();
 
 private:
     Ui::MainWindow  *_ui;

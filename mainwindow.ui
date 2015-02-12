@@ -943,7 +943,7 @@ selection-background-color: #E5E9FF;
        <item>
         <widget class="QToolBox" name="settingsToolbox">
          <property name="currentIndex">
-          <number>2</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="settingsSummaryPage">
           <property name="geometry">
@@ -1439,7 +1439,7 @@ selection-background-color: #E5E9FF;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>252</width>
+            <width>569</width>
             <height>223</height>
            </rect>
           </property>
@@ -1465,20 +1465,6 @@ selection-background-color: #E5E9FF;
               <string/>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_20">
-                <property name="text">
-                 <string>Tarsnap client path</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_12">
-                <property name="text">
-                 <string>Tarsnap cache path</string>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="1" colspan="3">
                <widget class="QLineEdit" name="tarsnapPathLineEdit">
                 <property name="sizePolicy">
@@ -1489,6 +1475,67 @@ selection-background-color: #E5E9FF;
                 </property>
                 <property name="text">
                  <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_20">
+                <property name="text">
+                 <string>Tarsnap client path</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0" colspan="5">
+               <widget class="QPushButton" name="clearCacheButton">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="toolTip">
+                 <string>Cache size is...</string>
+                </property>
+                <property name="text">
+                 <string>Clear cache</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QPushButton" name="tarsnapPathBrowseButton">
+                <property name="text">
+                 <string>Browse</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_12">
+                <property name="text">
+                 <string>Tarsnap cache path</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="5">
+               <widget class="QPushButton" name="repairCacheButton">
+                <property name="toolTip">
+                 <string>Run tarsnap --fsck</string>
+                </property>
+                <property name="text">
+                 <string>Repair cache</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="4">
+               <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+                <property name="text">
+                 <string>Browse</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0" colspan="5">
+               <widget class="QPushButton" name="pushButton_7">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>Reset app settings</string>
                 </property>
                </widget>
               </item>
@@ -1505,46 +1552,8 @@ selection-background-color: #E5E9FF;
                 </property>
                </widget>
               </item>
-              <item row="0" column="4">
-               <widget class="QPushButton" name="tarsnapPathBrowseButton">
-                <property name="text">
-                 <string>Browse</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="4">
-               <widget class="QPushButton" name="tarsnapCacheBrowseButton">
-                <property name="text">
-                 <string>Browse</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0" colspan="5">
-               <widget class="QPushButton" name="pushButton_8">
-                <property name="text">
-                 <string>Repair cache</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0" colspan="5">
-               <widget class="QPushButton" name="pushButton_6">
-                <property name="text">
-                 <string>Clear cache</string>
-                </property>
-               </widget>
-              </item>
               <item row="4" column="0" colspan="5">
-               <widget class="QPushButton" name="pushButton_7">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="text">
-                 <string>Reset app settings</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="0" colspan="5">
-               <widget class="QPushButton" name="pushButton">
+               <widget class="QPushButton" name="purgeArchivesButton">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>

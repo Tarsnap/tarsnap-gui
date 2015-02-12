@@ -178,7 +178,7 @@ void MainWindow::backupJobUpdate(BackupJobPtr job)
         break;
     case JobStatus::Failed:
         updateStatusMessage(tr("Job <i>%1</i> failed: %2").arg(job->name).arg(job->output.simplified())
-                           ,tr("%1\n%2").arg(job->reason).arg(job->output));
+                           ,tr("%1").arg(job->output));
         break;
     case JobStatus::Paused:
         updateStatusMessage(tr("Job <i>%1</i> paused.").arg(job->name));
@@ -237,6 +237,19 @@ void MainWindow::updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, 
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
     _ui->accountCreditLabel->setText(QString::number(credit, 'f'));
     _ui->accountStatusLabel->setText(accountStatus);
+}
+
+void MainWindow::repairCacheStatus(JobStatus status, QString reason)
+{
+    switch (status) {
+    case JobStatus::Completed:
+        updateStatusMessage(tr("Cache repair succeeded."), reason);
+        break;
+    case JobStatus::Failed:
+    default:
+        updateStatusMessage(tr("Cache repair failed. Hover mouse for details."), reason);
+        break;
+    }
 }
 
 void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
@@ -442,4 +455,9 @@ void MainWindow::on_tarsnapCacheBrowseButton_clicked()
                                                             "");
     _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
     commitSettings();
+}
+
+void MainWindow::on_repairCacheButton_clicked()
+{
+    emit repairCache();
 }

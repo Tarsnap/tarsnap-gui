@@ -63,7 +63,6 @@ public:
     QString               name;
     JobStatus             status;
     int                   exitCode;
-    QString               reason;
     QString               output;
     ArchivePtr            archive;
 
@@ -83,6 +82,7 @@ public:
 signals:
     void idle(bool status); // signal if we are working on jobs or not
     void registerMachineStatus(JobStatus status, QString reason);
+    void fsckStatus(JobStatus status, QString reason);
     void backupJobUpdate(BackupJobPtr job);
     void archivesList(QList<ArchivePtr> archives);
     void archivesDeleted(QList<ArchivePtr> archives);
@@ -101,6 +101,7 @@ public slots:
     void getArchiveContents(ArchivePtr archive);
     void deleteArchives(QList<ArchivePtr> archives);
     void getOverallStats();
+    void runFsck();
 
 private slots:
     void backupJobFinished(QUuid uuid, QVariant data, int exitCode, QString output);
@@ -111,6 +112,7 @@ private slots:
     void getArchiveContentsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void overallStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
+    void fsckFinished(QUuid uuid, QVariant data, int exitCode, QString output);
 
     void queueJob(TarsnapCLI *cli);
     void dequeueJob(QUuid uuid, QVariant data, int exitCode, QString output);

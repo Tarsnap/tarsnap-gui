@@ -95,6 +95,10 @@ CoreApplication::CoreApplication(int &argc, char **argv):
             , SLOT(getOverallStats()), Qt::QueuedConnection);
     connect(&_jobManager, SIGNAL(overallStats(qint64,qint64,qint64,qint64,qint64,qreal,QString))
             , _mainWindow,SLOT(updateSettingsSummary(qint64,qint64,qint64,qint64,qint64,qreal,QString)), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(repairCache()), &_jobManager
+            , SLOT(runFsck()), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(fsckStatus(JobStatus,QString)), _mainWindow
+            ,SLOT(repairCacheStatus(JobStatus,QString)), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 

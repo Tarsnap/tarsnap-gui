@@ -51,6 +51,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->browseListWidget->addAction(_ui->actionRefresh);
     connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->browseListWidget
             , SIGNAL(getArchivesList()), Qt::QueuedConnection);
+    _ui->backupListWidget->addAction(_ui->actionClearList);
+    connect(_ui->actionClearList, SIGNAL(triggered()), _ui->backupListWidget
+            , SLOT(clear()), Qt::QueuedConnection);
     connect(_ui->accountUserLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->accountMachineLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->accountMachineKeyLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
@@ -256,7 +259,7 @@ void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
 {
     if(count != 0)
     {
-        _ui->backupDetailLabel->setText(tr("%1 items (%2 bytes)").arg(count).arg(Utils::humanBytes(size, _useSIPrefixes)));
+        _ui->backupDetailLabel->setText(tr("%1 items (%2)").arg(count).arg(Utils::humanBytes(size, _useSIPrefixes)));
         _ui->backupButton->setEnabled(true);
     }
     else

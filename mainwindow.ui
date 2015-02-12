@@ -79,7 +79,7 @@ border-radius: 2px;
 </string>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="backupTab">
       <property name="acceptDrops">
@@ -1535,7 +1535,7 @@ selection-background-color: #E5E9FF;
                  <bool>false</bool>
                 </property>
                 <property name="text">
-                 <string>Reset app settings</string>
+                 <string>Reset app settings and run Setup Wizard</string>
                 </property>
                </widget>
               </item>
@@ -1733,6 +1733,17 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionClearList">
+   <property name="text">
+    <string>Clear list</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear list</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Backspace</string>
    </property>
   </action>
  </widget>

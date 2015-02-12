@@ -61,11 +61,11 @@ border-bottom: none;
 }
 
 QTabWidget::pane { /* The tab widget frame */
-    border-top: none;
+border-top: none;
 }
 
 QTabWidget::tab-bar {
-    left: 5px; /* move to the right by 5px */
+left: 5px; /* move to the right by 5px */
 }
 
 QTabWidget::tab {
@@ -87,7 +87,7 @@ border-radius: 2px;
       </property>
       <property name="styleSheet">
        <string notr="true">#backupTab {
-    border-top: 1px solid darkgrey;
+    border-top: 1px solid #C1CDD1;
 }</string>
       </property>
       <attribute name="title">
@@ -274,7 +274,7 @@ color: gray;
      <widget class="QWidget" name="browseTab">
       <property name="styleSheet">
        <string notr="true">#browseTab {
-    border-top: 1px solid darkgrey;
+    border-top: 1px solid #C1CDD1;
 }</string>
       </property>
       <attribute name="title">
@@ -605,7 +605,7 @@ selection-background-color: rgba(179, 190, 255, 120);
      <widget class="QWidget" name="jobsTab">
       <property name="styleSheet">
        <string notr="true">#jobsTab {
-    border-top: 1px solid darkgrey;
+    border-top: 1px solid #C1CDD1;
 }</string>
       </property>
       <attribute name="title">
@@ -921,7 +921,7 @@ selection-background-color: #E5E9FF;
      <widget class="QWidget" name="settingsTab">
       <property name="styleSheet">
        <string notr="true">#settingsTab {
-    border-top: 1px solid darkgrey;
+    border-top: 1px solid #C1CDD1;
 }</string>
       </property>
       <attribute name="title">
@@ -942,15 +942,41 @@ selection-background-color: #E5E9FF;
        </property>
        <item>
         <widget class="QToolBox" name="settingsToolbox">
+         <property name="styleSheet">
+          <string notr="true"> QToolBox::tab {
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+					stop: 0 rgba(64,152,212,180), stop: 0.8 rgba(64,152,212,180),
+					stop: 0.9 rgba(41,128,185,180), stop: 1.0 rgba(31,98,142,180));
+/*
+#4098D4
+\#2980B9
+#1F628E
+*/
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+color: white;
+font-size: 14pt;
+padding-left: 6px;
+border: 1px solid rgba(255,255,255,20);
+ }
+
+ QToolBox::tab:selected {
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+					stop: 0 rgba(64,152,212,255), stop: 0.8 rgba(64,152,212,255),
+					stop: 0.9 rgba(41,128,185,255), stop: 1.0 rgba(31,98,142,255));
+color: white;
+border: 1px solid rgba(255,255,255,100);
+ }</string>
+         </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="settingsSummaryPage">
           <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>137</width>
+            <width>569</width>
             <height>167</height>
            </rect>
           </property>
@@ -1281,7 +1307,7 @@ selection-background-color: #E5E9FF;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
+            <width>484</width>
             <height>158</height>
            </rect>
           </property>
@@ -1590,7 +1616,7 @@ selection-background-color: #E5E9FF;
      <widget class="QWidget" name="helpTab">
       <property name="styleSheet">
        <string notr="true">#helpTab {
-    border-top: 1px solid darkgrey;
+    border-top: 1px solid #C1CDD1;
 }</string>
       </property>
       <attribute name="title">

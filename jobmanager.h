@@ -39,8 +39,8 @@ public:
         if(sizeTotal == 0 || sizeUniqueCompressed == 0)
             return stats;
         stats.append(tr("\t\tTotal size\tCompressed size\n"
-                     "this archive\t%1\t%2\n"
-                     "unique data\t%3\t%4").arg(sizeTotal).arg(sizeCompressed)
+                     "this archive\t%1\t\t%2\n"
+                     "unique data\t%3\t\t%4").arg(sizeTotal).arg(sizeCompressed)
                      .arg(sizeUniqueTotal).arg(sizeUniqueCompressed));
         return stats;
     }

@@ -237,8 +237,8 @@ void MainWindow::updateLoadingAnimation(bool idle)
 void MainWindow::updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal, qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit, QString accountStatus)
 {
     QString tooltip(tr("\t\tTotal size\tCompressed size\n"
-                       "this archive\t%1\t%2\n"
-                       "unique data\t%3\t%4").arg(sizeTotal).arg(sizeCompressed)
+                       "all archives\t%1\t\t%2\n"
+                       "unique data\t%3\t\t%4").arg(sizeTotal).arg(sizeCompressed)
                        .arg(sizeUniqueTotal).arg(sizeUniqueCompressed));
     _ui->accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal, _useSIPrefixes));
     _ui->accountTotalSizeLabel->setToolTip(tooltip);

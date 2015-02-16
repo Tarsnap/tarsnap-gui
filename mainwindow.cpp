@@ -526,3 +526,17 @@ void MainWindow::on_purgeArchivesButton_clicked()
         }
     }
 }
+
+void MainWindow::on_runSetupWizard_clicked()
+{
+    QMessageBox::StandardButton confirm = QMessageBox::question(this, tr("Confirm action")
+                                                                ,tr("Reset current settings and run the setup wizard?")
+                                                                ,( QMessageBox::Yes | QMessageBox::No ), QMessageBox::No);
+    if(confirm == QMessageBox::Yes)
+    {
+        QSettings settings;
+        settings.clear();
+        settings.sync();
+        emit runSetupWizard();
+    }
+}

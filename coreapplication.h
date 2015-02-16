@@ -16,6 +16,8 @@ public:
     CoreApplication(int &argc, char **argv);
     ~CoreApplication();
 
+public slots:
+    void runSetupWizard();
     void quitApplication(int returnCode);
 
 private:

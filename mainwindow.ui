@@ -1168,7 +1168,7 @@ border: 1px solid rgba(255,255,255,100);
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>235</width>
+            <width>569</width>
             <height>156</height>
            </rect>
           </property>
@@ -1265,6 +1265,12 @@ border: 1px solid rgba(255,255,255,100);
               </item>
               <item row="2" column="2">
                <widget class="QPushButton" name="accountMachineKeyBrowseButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Browse</string>
                 </property>
@@ -1281,6 +1287,12 @@ border: 1px solid rgba(255,255,255,100);
                <widget class="QPushButton" name="pushButton_11">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <property name="text">
                  <string>Validate</string>
@@ -1307,8 +1319,8 @@ border: 1px solid rgba(255,255,255,100);
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>484</width>
-            <height>158</height>
+            <width>569</width>
+            <height>198</height>
            </rect>
           </property>
           <attribute name="label">
@@ -1493,12 +1505,6 @@ border: 1px solid rgba(255,255,255,100);
              <layout class="QGridLayout" name="gridLayout_2">
               <item row="0" column="1" colspan="2">
                <widget class="QLineEdit" name="tarsnapPathLineEdit">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -1509,10 +1515,19 @@ border: 1px solid rgba(255,255,255,100);
                 <property name="text">
                  <string>Tarsnap client path</string>
                 </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
                </widget>
               </item>
               <item row="0" column="3">
                <widget class="QPushButton" name="tarsnapPathBrowseButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Browse</string>
                 </property>
@@ -1520,8 +1535,17 @@ border: 1px solid rgba(255,255,255,100);
               </item>
               <item row="1" column="0">
                <widget class="QLabel" name="label_12">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Tarsnap cache path</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>
@@ -1537,29 +1561,29 @@ border: 1px solid rgba(255,255,255,100);
               </item>
               <item row="1" column="3">
                <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Browse</string>
                 </property>
                </widget>
               </item>
               <item row="4" column="0" colspan="4">
-               <widget class="QPushButton" name="pushButton_7">
-                <property name="enabled">
-                 <bool>false</bool>
+               <widget class="QPushButton" name="runSetupWizard">
+                <property name="toolTip">
+                 <string>Reset app settings and run Setup Wizard</string>
                 </property>
                 <property name="text">
-                 <string>Reset app settings and run Setup Wizard</string>
+                 <string>Run Setup Wizard</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="1" colspan="2">
                <widget class="QLineEdit" name="tarsnapCacheLineEdit">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
                 <property name="text">
                  <string/>
                 </property>

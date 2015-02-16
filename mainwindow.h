@@ -32,6 +32,8 @@ signals:
     void settingsChanged();
     void purgeArchives();
 
+    void runSetupWizard();
+
 protected:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
@@ -71,6 +73,7 @@ private slots:
     void on_tarsnapCacheBrowseButton_clicked();
     void on_repairCacheButton_clicked();
     void on_purgeArchivesButton_clicked();
+    void on_runSetupWizard_clicked();
 
 private:
     Ui::MainWindow  *_ui;

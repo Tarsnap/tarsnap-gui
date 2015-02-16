@@ -10,7 +10,7 @@
 #define FAILURE 1
 
 CoreApplication::CoreApplication(int &argc, char **argv):
-    QApplication(argc, argv)
+    QApplication(argc, argv), _mainWindow(NULL)
 {
     qSetMessagePattern("%{file}(%{line}): %{message}");
 
@@ -39,28 +39,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     if(!settings.value("application/wizardDone", false).toBool())
     {
         // Show the first time setup dialog
-        SetupDialog wizard;
-        connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString,QString,QString))
-                ,&_jobManager, SLOT(registerMachine(QString,QString,QString,QString,QString,QString)));
-        connect(&_jobManager, SIGNAL(registerMachineStatus(JobStatus,QString))
-                , &wizard, SLOT(registerMachineStatus(JobStatus, QString)));
-        connect(&_jobManager, SIGNAL(idle(bool)), &wizard
-                ,SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
-        bool wizardDone = true;
-        int returnCode = wizard.exec();
-        if(returnCode == QDialog::Rejected)
-        {
-            QMessageBox::StandardButton confirm = QMessageBox::question(&wizard, tr("Confirm action")
-                                                                        ,tr("Display the wizard next time when Tarsnap is started?")
-                                                                        ,( QMessageBox::Yes | QMessageBox::No ), QMessageBox::Yes);
-            if(confirm == QMessageBox::Yes)
-                wizardDone = false;
-        }
-        if(wizardDone)
-        {
-            settings.setValue("application/wizardDone", true);
-            settings.sync();
-        }
+        runSetupWizard();
     }
 
     QMetaObject::invokeMethod(&_jobManager, "loadSettings", Qt::QueuedConnection);
@@ -110,6 +89,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
 
     QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 
+    connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(runSetupWizard()), Qt::QueuedConnection);
     _mainWindow->show();
 }
 
@@ -117,6 +97,35 @@ CoreApplication::~CoreApplication()
 {
     if(_mainWindow)
         delete _mainWindow;
+}
+
+void CoreApplication::runSetupWizard()
+{
+    QSettings settings;
+    SetupDialog wizard;
+    connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString,QString,QString))
+            , &_jobManager, SLOT(registerMachine(QString,QString,QString,QString,QString,QString)));
+    connect(&_jobManager, SIGNAL(registerMachineStatus(JobStatus,QString))
+            , &wizard, SLOT(registerMachineStatus(JobStatus, QString)));
+    connect(&_jobManager, SIGNAL(idle(bool)), &wizard
+            , SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
+    bool wizardDone = true;
+    int returnCode = wizard.exec();
+    if(returnCode == QDialog::Rejected)
+    {
+        QMessageBox::StandardButton confirm = QMessageBox::question(&wizard, tr("Confirm action")
+                                                                    ,tr("Display the wizard next time when Tarsnap is started?")
+                                                                    ,( QMessageBox::Yes | QMessageBox::No ), QMessageBox::Yes);
+        if(confirm == QMessageBox::Yes)
+            wizardDone = false;
+    }
+    if(wizardDone)
+    {
+        settings.setValue("application/wizardDone", true);
+        settings.sync();
+    }
+    if(_mainWindow)
+        QMetaObject::invokeMethod(_mainWindow, "settingsChanged", Qt::QueuedConnection);
 }
 
 void CoreApplication::quitApplication(int returnCode)

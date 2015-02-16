@@ -206,6 +206,7 @@ void JobManager::nukeArchives()
     args << "--nuke";
     nuke->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     nuke->setPassword("No Tomorrow");
+    nuke->setRequiresPassword(true);
     nuke->setArguments(args);
     connect(nuke, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(nukeFinished(QUuid,QVariant,int,QString)));
     queueJob(nuke);
@@ -466,6 +467,9 @@ void JobManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
 
 QString JobManager::makeTarsnapCommand(QString cmd)
 {
-    return _tarsnapDir + QDir::separator() + cmd;
+    if(_tarsnapDir.isEmpty())
+        return cmd;
+    else
+        return _tarsnapDir + QDir::separator() + cmd;
 }
 

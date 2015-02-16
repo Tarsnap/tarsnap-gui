@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QMovie>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +30,7 @@ signals:
     void getOverallStats();
     void repairCache();
     void settingsChanged();
+    void purgeArchives();
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -46,6 +48,7 @@ public slots:
                                , qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit
                                , QString accountStatus);
     void repairCacheStatus(JobStatus status, QString reason);
+    void purgeArchivesStatus(JobStatus status, QString reason);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);
@@ -57,20 +60,17 @@ private slots:
     void validateMachineKeyPath();
     void validateTarsnapPath();
     void validateTarsnapCache();
+    void purgeTimerFired();
 
     void on_appendTimestampCheckBox_toggled(bool checked);
     void on_backupListInfoLabel_linkActivated(const QString &link);
     void on_backupButton_clicked();
-
     void on_accountMachineUseHostnameButton_clicked();
-
     void on_accountMachineKeyBrowseButton_clicked();
-
     void on_tarsnapPathBrowseButton_clicked();
-
     void on_tarsnapCacheBrowseButton_clicked();
-
     void on_repairCacheButton_clicked();
+    void on_purgeArchivesButton_clicked();
 
 private:
     Ui::MainWindow  *_ui;
@@ -80,6 +80,8 @@ private:
     ArchivePtr       _currentArchiveDetail;
     QMovie           _loadingAnimation;
     bool             _useSIPrefixes;
+    QTimer           _purgeTimer;
+    int              _purgeTimerCount;
 };
 
 #endif // MAINWINDOW_H

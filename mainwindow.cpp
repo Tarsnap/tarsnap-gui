@@ -13,12 +13,16 @@
 #include <QDir>
 #include <QSharedPointer>
 #include <QHostInfo>
+#include <QMessageBox>
+
+#define PURGE_SECONDS_DELAY 8
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     _ui(new Ui::MainWindow),
     _loadingAnimation(":/resources/loading.gif"),
-    _useSIPrefixes(false)
+    _useSIPrefixes(false),
+    _purgeTimerCount(0)
 {
     _ui->setupUi(this);
 
@@ -38,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     loadSettings();
 
-
     // TODO: REMOVE
     Ui::ArchiveItemWidget restoreItemUi;
     for(int i = 0; i < 10; i++)
@@ -57,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->backupListWidget->addAction(_ui->actionClearList);
     connect(_ui->actionClearList, SIGNAL(triggered()), _ui->backupListWidget
             , SLOT(clear()), Qt::QueuedConnection);
+    connect(&_purgeTimer, SIGNAL(timeout()), this, SLOT(purgeTimerFired()));
 
     // Settings page
     connect(_ui->accountUserLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
@@ -260,6 +264,19 @@ void MainWindow::repairCacheStatus(JobStatus status, QString reason)
     }
 }
 
+void MainWindow::purgeArchivesStatus(JobStatus status, QString reason)
+{
+    switch (status) {
+    case JobStatus::Completed:
+        updateStatusMessage(tr("All archives purged successfully."), reason);
+        break;
+    case JobStatus::Failed:
+    default:
+        updateStatusMessage(tr("Archives purging failed. Hover mouse for details."), reason);
+        break;
+    }
+}
+
 void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
 {
     if(count != 0)
@@ -435,6 +452,22 @@ void MainWindow::validateTarsnapCache()
         _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: black;}");
 }
 
+void MainWindow::purgeTimerFired()
+{
+    if(_purgeTimerCount <= 1)
+    {
+        _purgeTimer.stop();
+        _ui->purgeArchivesButton->setText(tr("Purge archives"));
+        _ui->purgeArchivesButton->setToolTip(tr("Nukes all archives"));
+        updateStatusMessage(tr("Purging all archives..."));
+        emit purgeArchives();
+    }
+    else
+    {
+        _ui->purgeArchivesButton->setText(tr("Purging all archives in %1 seconds..").arg(--_purgeTimerCount));
+    }
+}
+
 void MainWindow::on_accountMachineUseHostnameButton_clicked()
 {
     _ui->accountMachineLineEdit->setText(QHostInfo::localHostName());
@@ -469,4 +502,27 @@ void MainWindow::on_tarsnapCacheBrowseButton_clicked()
 void MainWindow::on_repairCacheButton_clicked()
 {
     emit repairCache();
+}
+
+void MainWindow::on_purgeArchivesButton_clicked()
+{
+    if(_purgeTimer.isActive())
+    {
+        _purgeTimer.stop();
+        _ui->purgeArchivesButton->setText(tr("Purge archives"));
+        _ui->purgeArchivesButton->setToolTip(tr("Nukes all archives"));
+    }
+    else
+    {
+        QMessageBox::StandardButton confirm = QMessageBox::question(this, tr("Confirm action")
+                                                                    ,tr("Are you sure you want to nuke all archives stored for this key?\nWarning: This action cannot be undone. All archives will be lost forever.")
+                                                                    ,( QMessageBox::Yes | QMessageBox::No ), QMessageBox::No);
+        if(confirm == QMessageBox::Yes)
+        {
+            _purgeTimerCount = PURGE_SECONDS_DELAY;
+            _ui->purgeArchivesButton->setText(tr("Purging all archives in %1 seconds...").arg(_purgeTimerCount));
+            _ui->purgeArchivesButton->setToolTip(tr("Press to Cancel"));
+            _purgeTimer.start(1000);
+        }
+    }
 }

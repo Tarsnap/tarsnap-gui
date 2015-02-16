@@ -103,6 +103,10 @@ CoreApplication::CoreApplication(int &argc, char **argv):
             ,SLOT(loadSettings()), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(settingsChanged()), _mainWindow
             ,SLOT(loadSettings()), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(purgeArchives()), &_jobManager
+            ,SLOT(nukeArchives()), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(nukeStatus(JobStatus,QString)), _mainWindow
+            ,SLOT(purgeArchivesStatus(JobStatus,QString)), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 

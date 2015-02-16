@@ -190,11 +190,25 @@ void JobManager::runFsck()
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--fsck";
+    args << "--fsck-prune";
     fsck->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     fsck->setArguments(args);
     connect(fsck, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(fsckFinished(QUuid,QVariant,int,QString)));
     queueJob(fsck);
+}
+
+void JobManager::nukeArchives()
+{
+    TarsnapCLI *nuke = new TarsnapCLI();
+    QStringList args;
+    if(!_tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << _tarsnapKeyFile;
+    args << "--nuke";
+    nuke->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+    nuke->setPassword("No Tomorrow");
+    nuke->setArguments(args);
+    connect(nuke, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(nukeFinished(QUuid,QVariant,int,QString)));
+    queueJob(nuke);
 }
 
 void JobManager::backupJobFinished(QUuid uuid, QVariant data, int exitCode, QString output)
@@ -367,6 +381,15 @@ void JobManager::fsckFinished(QUuid uuid, QVariant data, int exitCode, QString o
         emit fsckStatus(JobStatus::Completed, output);
     else
         emit fsckStatus(JobStatus::Failed, output);
+}
+
+void JobManager::nukeFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+{
+    Q_UNUSED(uuid); Q_UNUSED(data)
+    if(exitCode == 0)
+        emit nukeStatus(JobStatus::Completed, output);
+    else
+        emit nukeStatus(JobStatus::Failed, output);
 }
 
 void JobManager::queueJob(TarsnapCLI *cli)

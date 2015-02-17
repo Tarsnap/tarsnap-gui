@@ -21,5 +21,9 @@
         <file>resources/info-4x.png</file>
         <file>resources/file-8x.png</file>
         <file>resources/loading.gif</file>
+        <file>resources/caret-bottom-2x.png</file>
+        <file>resources/caret-bottom-4x.png</file>
+        <file>resources/caret-top-2x.png</file>
+        <file>resources/caret-top-4x.png</file>
     </qresource>
 </RCC>

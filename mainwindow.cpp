@@ -36,8 +36,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _tarsnapLogo->lower();
     _tarsnapLogo->show();
 
+    _ui->mainContentSplitter->setCollapsible(0, false);
+    _ui->journalLog->hide();
     _ui->loadingIconLabel->setMovie(&_loadingAnimation);
-
     _ui->archiveDetailsWidget->hide();
 
     loadSettings();
@@ -168,6 +169,8 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         if((_ui->mainTabWidget->currentWidget() == _ui->browseTab)
            &&(_ui->archiveDetailsWidget->isVisible()))
             _ui->archiveDetailsWidget->hide();
+        else if(_ui->journalLog->isVisible())
+            _ui->expandJournalButton->toggle();
         break;
     default:
         QWidget::keyReleaseEvent(event);
@@ -401,6 +404,7 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
 {
     _ui->statusBarLabel->setText(message);
     _ui->statusBarLabel->setToolTip(detail);
+    _ui->journalLog->appendHtml(QString("[%1] %2").arg(QDateTime::currentDateTime().toString("dd-MM-yyyy HH:mm:ss")).arg(message));
 }
 
 void MainWindow::currentPaneChanged(int index)
@@ -539,4 +543,12 @@ void MainWindow::on_runSetupWizard_clicked()
         settings.sync();
         emit runSetupWizard();
     }
+}
+
+void MainWindow::on_expandJournalButton_toggled(bool checked)
+{
+    if(checked)
+        _ui->journalLog->show();
+    else
+        _ui->journalLog->hide();
 }

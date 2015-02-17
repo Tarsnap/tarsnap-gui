@@ -1,0 +1,12 @@
+Version 0.3
+-----------
+Implemented settings pane along with the options and actions that make sense and
+are helpful at the current state.
+
+Version 0.2
+-----------
+Implemented on-demand backup pane and browse archives pane.
+
+Version 0.1
+-----------
+Basic UI mockup and backend controller definition and setup wizard.

@@ -51,7 +51,8 @@ RESOURCES += \
 DISTFILES += \
     COPYING \
     README \
-    INSTALL
+    INSTALL \
+    CHANGELOG
 
 osx {
     OBJECTIVE_SOURCES += platform_osx.mm

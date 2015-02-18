@@ -174,7 +174,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
    <item>
     <widget class="QStackedWidget" name="wizardStackedWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="welcomePage">
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -908,15 +908,19 @@ color: darkred;
         </widget>
        </item>
        <item>
-        <widget class="QTextBrowser" name="textBrowser">
+        <widget class="QTextBrowser" name="doneInfoTextBrowser">
          <property name="html">
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.Helvetica Neue DeskInterface'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;* The machine key file has been saved to &amp;lt;url&amp;gt;. Store a backup of the machine key somewhere safe. If you lose the Tarsnap key file for this machine, you will not be able to recover any of the archived data using that key.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;* The machine key file has been saved to &lt;span style=&quot; font-weight:600;&quot;&gt;%1&lt;/span&gt;. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;* Store a backup of the machine key somewhere safe. If you lose the Tarsnap key file for this machine, you will not be able to recover any of the archived data using that key.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;* The application doesn't store your Tarsnap credentials for safety reasons.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;* If you have multiple machines, you almost certainly want to create a separate key file for each machine.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="openExternalLinks">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -1007,7 +1011,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
   <tabstop>advancedPageProceedButton</tabstop>
-  <tabstop>textBrowser</tabstop>
+  <tabstop>doneInfoTextBrowser</tabstop>
   <tabstop>doneButton</tabstop>
  </tabstops>
  <resources>

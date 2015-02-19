@@ -1,8 +1,8 @@
 #include "setupdialog.h"
 #include "ui_setupdialog.h"
 #include "utils.h"
+#include "debug.h"
 
-#include <QDebug>
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QHostInfo>
@@ -76,7 +76,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
         cacheDir.mkpath(_tarsnapCacheDir);
     _ui->tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
 
-    qDebug() << _tarsnapKeysDir << ::endl << _tarsnapCacheDir;
+    DEBUG << _tarsnapKeysDir << ::endl << _tarsnapCacheDir;
 
     findTarsnapInPath();
 
@@ -311,8 +311,7 @@ void SetupDialog::registerMachine()
         _tarsnapKeyFile = _tarsnapKeysDir + QDir::separator() + _ui->machineNameLineEdit->text()
                           + "_" + QString::number(QDateTime::currentMSecsSinceEpoch());
     }
-
-    qDebug() << "Registration details >>\n " << _tarsnapCLIDir << ::endl
+    DEBUG << "Registration details >>\n " << _tarsnapCLIDir << ::endl
              << _tarsnapKeysDir << ::endl << _tarsnapKeyFile << ::endl
              << _tarsnapCacheDir;
 
@@ -359,7 +358,7 @@ void SetupDialog::findTarsnapInPath()
 {
     // Maybe use QStandardPaths::​findExecutable instead of manual PATH search
     QStringList path = QString::fromUtf8(::getenv("PATH")).split(':', QString::SkipEmptyParts);
-    qDebug() << "Will look for tarsnap in PATH: " << path;
+    DEBUG << "Will look for tarsnap in PATH: " << path;
     auto dir = path.begin();
     while (dir != path.end())
     {
@@ -385,6 +384,6 @@ void SetupDialog::commitSettings()
     settings.setValue("tarsnap/user",   _ui->tarsnapUserLineEdit->text());
     settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
     settings.sync();
-    qDebug() << settings.fileName();
+    DEBUG << settings.fileName();
     accept();
 }

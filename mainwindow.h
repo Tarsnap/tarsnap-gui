@@ -63,6 +63,7 @@ private slots:
     void validateTarsnapPath();
     void validateTarsnapCache();
     void purgeTimerFired();
+    void appendToConsoleLog(QString msg);
 
     void on_appendTimestampCheckBox_toggled(bool checked);
     void on_backupListInfoLabel_linkActivated(const QString &link);
@@ -74,7 +75,6 @@ private slots:
     void on_repairCacheButton_clicked();
     void on_purgeArchivesButton_clicked();
     void on_runSetupWizard_clicked();
-
     void on_expandJournalButton_toggled(bool checked);
 
 private:

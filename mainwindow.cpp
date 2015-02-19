@@ -4,9 +4,9 @@
 #include "ui_backupitemwidget.h"
 #include "backuplistitem.h"
 #include "utils.h"
+#include "debug.h"
 
 #include <QPainter>
-#include <QDebug>
 #include <QSettings>
 #include <QDateTime>
 #include <QFileDialog>
@@ -40,6 +40,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->journalLog->hide();
     _ui->loadingIconLabel->setMovie(&_loadingAnimation);
     _ui->archiveDetailsWidget->hide();
+
+    connect(&Debug::instance(), SIGNAL(message(QString)), this , SLOT(appendToConsoleLog(QString))
+            , Qt::QueuedConnection);
 
     loadSettings();
 
@@ -418,7 +421,7 @@ void MainWindow::currentPaneChanged(int index)
 
 void MainWindow::commitSettings()
 {
-    qDebug() << "COMMIT SETTINGS";
+    DEBUG << "COMMIT SETTINGS";
     QSettings settings;
     settings.setValue("tarsnap/path",    _ui->tarsnapPathLineEdit->text());
     settings.setValue("tarsnap/cache",   _ui->tarsnapCacheLineEdit->text());
@@ -470,6 +473,12 @@ void MainWindow::purgeTimerFired()
     {
         _ui->purgeArchivesButton->setText(tr("Purging all archives in %1 seconds..").arg(--_purgeTimerCount));
     }
+}
+
+void MainWindow::appendToConsoleLog(QString msg)
+{
+    _ui->consoleLogPlainTextEdit->setPlainText(_ui->consoleLogPlainTextEdit->toPlainText() + msg);
+    _ui->consoleLogPlainTextEdit->moveCursor(QTextCursor::End);
 }
 
 void MainWindow::on_accountMachineUseHostnameButton_clicked()

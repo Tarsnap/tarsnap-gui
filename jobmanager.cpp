@@ -1,6 +1,6 @@
 #include "jobmanager.h"
+#include "debug.h"
 
-#include <QDebug>
 #include <QFileInfo>
 #include <QDir>
 #include <QSettings>
@@ -58,7 +58,7 @@ void JobManager::backupNow(BackupJobPtr job)
 {
     if(job.isNull())
     {
-        qDebug() << "Null BackupJobPtr passed.";
+        DEBUG << "Null BackupJobPtr passed.";
         return;
     }
     _backupJobMap[job->uuid] = job;
@@ -100,7 +100,7 @@ void JobManager::getArchiveStats(ArchivePtr archive)
 {
     if(archive.isNull())
     {
-        qDebug() << "Null ArchivePtr passed.";
+        DEBUG << "Null ArchivePtr passed.";
         return;
     }
 
@@ -124,7 +124,7 @@ void JobManager::getArchiveContents(ArchivePtr archive)
 {
     if(archive.isNull())
     {
-        qDebug() << "Null ArchivePtr passed.";
+        DEBUG << "Null ArchivePtr passed.";
         return;
     }
 
@@ -146,7 +146,7 @@ void JobManager::deleteArchives(QList<ArchivePtr> archives)
 {
     if(archives.isEmpty())
     {
-        qDebug() << "Empty QList<ArchivePtr> passed.";
+        DEBUG << "Empty QList<ArchivePtr> passed.";
         return;
     }
 
@@ -286,7 +286,7 @@ void JobManager::getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode
     ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
-        qDebug() << "uuid not found in _archiveMap.";
+        DEBUG << "uuid not found in _archiveMap.";
         return;
     }
     if(exitCode == 0)
@@ -301,7 +301,7 @@ void JobManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exitC
     ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
-        qDebug() << "uuid not found in _archiveMap.";
+        DEBUG << "uuid not found in _archiveMap.";
         return;
     }
     if(exitCode == 0)
@@ -341,7 +341,7 @@ void JobManager::overallStatsFinished(QUuid uuid, QVariant data, int exitCode, Q
         QStringList lines = output.trimmed().split('\n', QString::SkipEmptyParts);
         if(lines.count() != 3)
         {
-            qDebug() << "Malformed output from tarsnap CLI:\n" << output;
+            DEBUG << "Malformed output from tarsnap CLI:\n" << output;
             return;
         }
         QRegExp sizeRX("^All archives\\s+(\\S+)\\s+(\\S+)$");
@@ -355,7 +355,7 @@ void JobManager::overallStatsFinished(QUuid uuid, QVariant data, int exitCode, Q
         }
         else
         {
-            qDebug() << "Malformed output from tarsnap CLI:\n" << output;
+            DEBUG << "Malformed output from tarsnap CLI:\n" << output;
             return;
         }
         if(-1 != uniqueSizeRX.indexIn(lines[2]))
@@ -367,7 +367,7 @@ void JobManager::overallStatsFinished(QUuid uuid, QVariant data, int exitCode, Q
         }
         else
         {
-            qDebug() << "Malformed output from tarsnap CLI:\n" << output;
+            DEBUG << "Malformed output from tarsnap CLI:\n" << output;
             return;
         }
         emit overallStats(sizeTotal, sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed
@@ -397,7 +397,7 @@ void JobManager::queueJob(TarsnapCLI *cli)
 {
     if(cli == NULL)
     {
-        qDebug() << "NULL argument";
+        DEBUG << "NULL argument";
         return;
     }
     connect(cli, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(dequeueJob(QUuid,QVariant,int,QString)));
@@ -421,7 +421,7 @@ void JobManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
     QStringList lines = tarsnapOutput.trimmed().split('\n', QString::SkipEmptyParts);
     if(lines.count() != 5)
     {
-        qDebug() << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
+        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
     }
     QString sizeLine = lines[3];
@@ -447,7 +447,7 @@ void JobManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
     }
     else
     {
-        qDebug() << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
+        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
     }
     if(-1 != uniqueSizeRX.indexIn(uniqueSizeLine))
@@ -459,7 +459,7 @@ void JobManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
     }
     else
     {
-        qDebug() << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
+        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
     }
     archive->notifyChanged();

@@ -1263,7 +1263,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>237</width>
+                <width>569</width>
                 <height>156</height>
                </rect>
               </property>
@@ -1414,8 +1414,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>484</width>
-                <height>158</height>
+                <width>569</width>
+                <height>198</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1572,7 +1572,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>250</width>
+                <width>569</width>
                 <height>185</height>
                </rect>
               </property>
@@ -1743,10 +1743,27 @@ border: 1px solid rgba(255,255,255,100);
            </property>
            <item>
             <widget class="QGroupBox" name="groupBox_4">
+             <property name="styleSheet">
+              <string notr="true">QGroupBox {
+font-size: 13pt;
+}</string>
+             </property>
              <property name="title">
               <string>General help</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_7">
+              <property name="leftMargin">
+               <number>6</number>
+              </property>
+              <property name="topMargin">
+               <number>6</number>
+              </property>
+              <property name="rightMargin">
+               <number>6</number>
+              </property>
+              <property name="bottomMargin">
+               <number>6</number>
+              </property>
               <item>
                <widget class="QTextBrowser" name="textBrowser_2">
                 <property name="html">
@@ -1782,12 +1799,32 @@ p, li { white-space: pre-wrap; }
            </item>
            <item>
             <widget class="QGroupBox" name="groupBox_5">
+             <property name="styleSheet">
+              <string notr="true">QGroupBox {
+font-size: 13pt;
+}</string>
+             </property>
              <property name="title">
               <string>Console log</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
+              <property name="leftMargin">
+               <number>6</number>
+              </property>
+              <property name="topMargin">
+               <number>6</number>
+              </property>
+              <property name="rightMargin">
+               <number>6</number>
+              </property>
+              <property name="bottomMargin">
+               <number>6</number>
+              </property>
               <item>
                <widget class="QPlainTextEdit" name="consoleLogPlainTextEdit">
+                <property name="undoRedoEnabled">
+                 <bool>false</bool>
+                </property>
                 <property name="readOnly">
                  <bool>true</bool>
                 </property>

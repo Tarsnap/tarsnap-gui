@@ -1,6 +1,6 @@
 #include "tarsnapcli.h"
+#include "debug.h"
 
-#include <QDebug>
 #include <QEventLoop>
 
 #define DEFAULT_TIMEOUT_MS 10000
@@ -45,12 +45,7 @@ void TarsnapCLI::run()
 
     _process->setProgram(_command);
     _process->setArguments(_arguments);
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
-    qDebug().noquote()
-#else
-    qDebug()
-#endif
-           << "Running command: " << _process->program() << _process->arguments().join(' ');
+    LOG << "Executing [" << _process->program() << _process->arguments().join(' ') << "]" << ENDL;
     _process->start();
     result = _process->waitForStarted(DEFAULT_TIMEOUT_MS);
     if(result)
@@ -109,14 +104,9 @@ void TarsnapCLI::readProcessOutput()
 void TarsnapCLI::processFinished()
 {
     QString output(_processOutput);
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
-    qDebug().noquote()
-#else
-    qDebug()
-#endif
-             << "Command \"" << _command << _arguments.join(' ')
-             << "\" finished with return code " << _process->exitCode() << " and combined output:"
-             << ::endl << output;
+    LOG   << "[" << _command << _arguments.join(' ')
+          << "] finished with return code " << _process->exitCode()
+          << " and combined output:\n" << output << ENDL;
     switch (_process->exitStatus()) {
     case QProcess::NormalExit:
         emit clientFinished(_uuid, _data, _process->exitCode(), output);
@@ -129,8 +119,8 @@ void TarsnapCLI::processFinished()
 
 void TarsnapCLI::processError()
 {
-    qDebug() << "Tarsnap process error " << _process->error() << " occured: "
-             << _process->errorString();
+    LOG   << "Tarsnap process error " << _process->error() << " occured: \n"
+          << _process->errorString() << ENDL;
 }
 QVariant TarsnapCLI::data() const
 {

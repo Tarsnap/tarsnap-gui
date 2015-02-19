@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     textlabel.cpp \
     utils.cpp \
     browselistwidget.cpp \
-    archivelistitem.cpp
+    archivelistitem.cpp \
+    debug.cpp
 
 HEADERS  += \
     backuplistwidget.h \
@@ -37,7 +38,8 @@ HEADERS  += \
     textlabel.h \
     utils.h \
     browselistwidget.h \
-    archivelistitem.h
+    archivelistitem.h \
+    debug.h
 
 FORMS    += \
     backupitemwidget.ui \

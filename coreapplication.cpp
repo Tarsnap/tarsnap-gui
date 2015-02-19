@@ -1,7 +1,7 @@
 #include "coreapplication.h"
 #include "setupdialog.h"
+#include "debug.h"
 
-#include <QDebug>
 #include <QMessageBox>
 #include <QDialog>
 #include <QFontDatabase>
@@ -12,8 +12,6 @@
 CoreApplication::CoreApplication(int &argc, char **argv):
     QApplication(argc, argv), _mainWindow(NULL)
 {
-    qSetMessagePattern("%{file}(%{line}): %{message}");
-
     qRegisterMetaType<JobStatus>("JobStatus");
     qRegisterMetaType< QList<QUrl> >("QList<QUrl>");
     qRegisterMetaType<BackupJob>("BackupJob");
@@ -48,7 +46,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     _mainWindow = new MainWindow();
     if(!_mainWindow)
     {
-        qDebug() << tr("Can't instantiate the MainWidget. Quitting.");
+        DEBUG << tr("Can't instantiate the MainWidget. Quitting.");
         quitApplication(FAILURE);
     }
 

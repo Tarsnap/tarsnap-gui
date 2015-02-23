@@ -126,6 +126,7 @@ void MainWindow::loadSettings()
     _ui->aggressiveNetworkingCheckBox->setChecked(settings.value("tarsnap/aggressive_networking", false).toBool());
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
     _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
+    _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
 }
 
 
@@ -430,6 +431,7 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/user",    _ui->accountUserLineEdit->text());
     settings.setValue("tarsnap/aggressive_networking", _ui->aggressiveNetworkingCheckBox->isChecked());
     settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
+    settings.setValue("tarsnap/preserve_pathnames", _ui->preservePathsCheckBox->isChecked());
     settings.sync();
     emit settingsChanged();
 }

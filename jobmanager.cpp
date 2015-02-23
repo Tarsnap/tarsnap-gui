@@ -7,6 +7,7 @@
 
 JobManager::JobManager(QObject *parent) : QObject()
   , _threadPool(QThreadPool::globalInstance()), _aggressiveNetworking(false)
+  , _preservePathnames(true)
 {
     Q_UNUSED(parent);
     // Move the operations belonging to the Job manager to a separate thread
@@ -27,6 +28,7 @@ void JobManager::loadSettings()
     _tarsnapCacheDir = settings.value("tarsnap/cache").toString();
     _tarsnapKeyFile  = settings.value("tarsnap/key").toString();
     _aggressiveNetworking = settings.value("tarsnap/aggressive_networking", false).toBool();
+    _preservePathnames = settings.value("tarsnap/preserve_pathnames", true).toBool();
 }
 
 void JobManager::registerMachine(QString user, QString password, QString machine, QString key, QString tarsnapPath, QString cachePath)
@@ -70,6 +72,8 @@ void JobManager::backupNow(BackupJobPtr job)
         args << "--cachedir" << _tarsnapCacheDir;
     if(_aggressiveNetworking)
         args << "--aggressive-networking";
+    if(_preservePathnames)
+        args << "-P";
     args << "--quiet" << "-c" << "--print-stats" << "-f" << job->name;
     foreach (QUrl url, job->urls) {
         args << url.toLocalFile();
@@ -135,6 +139,8 @@ void JobManager::getArchiveContents(ArchivePtr archive)
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
+    if(_preservePathnames)
+        args << "-P";
     args << "-t" << "-f" << archive->name;
     contentsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     contentsClient->setArguments(args);

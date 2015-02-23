@@ -101,7 +101,7 @@ border-radius: 2px;
 </string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>4</number>
          </property>
          <widget class="QWidget" name="backupTab">
           <property name="acceptDrops">
@@ -1263,7 +1263,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>569</width>
+                <width>237</width>
                 <height>156</height>
                </rect>
               </property>
@@ -1414,8 +1414,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>569</width>
-                <height>198</height>
+                <width>484</width>
+                <height>158</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1572,7 +1572,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>569</width>
+                <width>250</width>
                 <height>185</height>
                </rect>
               </property>
@@ -1822,6 +1822,12 @@ font-size: 13pt;
               </property>
               <item>
                <widget class="QPlainTextEdit" name="consoleLogPlainTextEdit">
+                <property name="styleSheet">
+                 <string notr="true">#consoleLogPlainTextEdit
+{
+
+}</string>
+                </property>
                 <property name="undoRedoEnabled">
                  <bool>false</bool>
                 </property>

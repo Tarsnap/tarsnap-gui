@@ -477,8 +477,7 @@ void MainWindow::purgeTimerFired()
 
 void MainWindow::appendToConsoleLog(QString msg)
 {
-    _ui->consoleLogPlainTextEdit->setPlainText(_ui->consoleLogPlainTextEdit->toPlainText() + msg);
-    _ui->consoleLogPlainTextEdit->moveCursor(QTextCursor::End);
+    _ui->consoleLogPlainTextEdit->appendPlainText(msg);
 }
 
 void MainWindow::on_accountMachineUseHostnameButton_clicked()

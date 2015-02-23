@@ -17,24 +17,24 @@ public:
     static Debug& instance() { static Debug instance; return instance; }
     ~Debug(){}
 
-    inline Debug& operator<<(QChar t) { emit message(QString(t) + " "); return *this; }
-    inline Debug& operator<<(bool t) { emit message(QString(t) + " "); return *this; }
-    inline Debug& operator<<(char t) { emit message(QString(t) + " "); return *this; }
-    inline Debug& operator<<(signed short t) { emit message(QString::number(t) + " "); return *this; }
-    inline Debug& operator<<(unsigned short t) { emit message(QString::number(t) + " "); return *this; }
-    inline Debug& operator<<(signed int t) { emit message(QString::number(t) + " "); return *this; }
-    inline Debug& operator<<(unsigned int t) { emit message(QString::number(t) + " "); return *this; }
-    inline Debug& operator<<(signed long t) { emit message(QString::number(t) + " "); return *this; }
-    inline Debug& operator<<(unsigned long t) { emit message(QString::number(t) + " "); return *this; }
-    inline Debug& operator<<(qint64 t) { emit message(QString::number(t) + " "); return *this; }
-    inline Debug& operator<<(quint64 t) { emit message(QString::number(t) + " "); return *this; }
-    inline Debug& operator<<(float t) { emit message(QString::number(t) + " "); return *this; }
-    inline Debug& operator<<(double t) { emit message(QString::number(t) + " "); return *this; }
-    inline Debug& operator<<(const char* t) { emit message(QString::fromUtf8(t) + " "); return *this; }
-    inline Debug& operator<<(const QString& t) { emit message(t + " "); return *this; }
-    inline Debug& operator<<(const QStringRef& t) { emit message(t.toString() + " "); return *this; }
-    inline Debug& operator<<(QLatin1String t) { emit message(QString(t) + " "); return *this; }
-    inline Debug& operator<<(const QByteArray& t) { emit message(QString(t) + " "); return *this; }
+    inline Debug& operator<<(QChar t) { DEBUG << t; emit message(QString(t)); return *this; }
+    inline Debug& operator<<(bool t) { DEBUG << t; emit message(QString(t)); return *this; }
+    inline Debug& operator<<(char t) { DEBUG << t; emit message(QString(t)); return *this; }
+    inline Debug& operator<<(signed short t) { DEBUG << t; emit message(QString::number(t)); return *this; }
+    inline Debug& operator<<(unsigned short t) { DEBUG << t; emit message(QString::number(t)); return *this; }
+    inline Debug& operator<<(signed int t) { DEBUG << t; emit message(QString::number(t)); return *this; }
+    inline Debug& operator<<(unsigned int t) { DEBUG << t; emit message(QString::number(t)); return *this; }
+    inline Debug& operator<<(signed long t) { DEBUG << t; emit message(QString::number(t)); return *this; }
+    inline Debug& operator<<(unsigned long t) { DEBUG << t; emit message(QString::number(t)); return *this; }
+    inline Debug& operator<<(qint64 t) { DEBUG << t; emit message(QString::number(t)); return *this; }
+    inline Debug& operator<<(quint64 t) { DEBUG << t; emit message(QString::number(t)); return *this; }
+    inline Debug& operator<<(float t) { DEBUG << t; emit message(QString::number(t)); return *this; }
+    inline Debug& operator<<(double t) { DEBUG << t; emit message(QString::number(t)); return *this; }
+    inline Debug& operator<<(const char* t) { DEBUG << t; emit message(QString::fromUtf8(t)); return *this; }
+    inline Debug& operator<<(const QString& t) { DEBUG << t; emit message(t); return *this; }
+    inline Debug& operator<<(const QStringRef& t) { DEBUG << t; emit message(t.toString()); return *this; }
+    inline Debug& operator<<(QLatin1String t) { DEBUG << t; emit message(QString(t)); return *this; }
+    inline Debug& operator<<(const QByteArray& t) { DEBUG << t; emit message(QString(t)); return *this; }
 
 signals:
     void message(const QString message);

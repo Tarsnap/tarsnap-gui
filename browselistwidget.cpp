@@ -1,6 +1,7 @@
 #include "browselistwidget.h"
 #include "archivelistitem.h"
 #include "ui_archiveitemwidget.h"
+#include "restoredialog.h"
 
 #include <QDebug>
 #include <QMessageBox>
@@ -86,7 +87,12 @@ void BrowseListWidget::inspectItem()
 
 void BrowseListWidget::restoreItem()
 {
-
+    ArchiveListItem* archiveItem = qobject_cast<ArchiveListItem*>(sender());
+    if(archiveItem)
+    {
+        RestoreDialog restore(this);
+        restore.exec();
+    }
 }
 
 void BrowseListWidget::keyReleaseEvent(QKeyEvent *event)

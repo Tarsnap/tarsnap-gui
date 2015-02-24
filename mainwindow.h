@@ -31,6 +31,7 @@ signals:
     void repairCache();
     void settingsChanged();
     void purgeArchives();
+    void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
 
     void runSetupWizard();
 
@@ -51,6 +52,7 @@ public slots:
                                , QString accountStatus);
     void repairCacheStatus(JobStatus status, QString reason);
     void purgeArchivesStatus(JobStatus status, QString reason);
+    void restoreArchiveStatus(ArchivePtr archive, JobStatus status, QString reason);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);

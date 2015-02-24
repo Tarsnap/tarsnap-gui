@@ -53,6 +53,13 @@ typedef QSharedPointer<Archive> ArchivePtr;
 
 Q_DECLARE_METATYPE(ArchivePtr)
 
+struct ArchiveRestoreOptions
+{
+    bool        preservePaths;
+    bool        overwriteFiles;
+    QString     chdir;
+};
+
 enum JobStatus { Started, Running, Completed, Failed, Paused, Unknown };
 
 class BackupJob
@@ -90,6 +97,7 @@ signals:
     void overallStats(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal
                       , qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit
                       , QString accountStatus);
+    void restoreArchiveStatus(ArchivePtr archive, JobStatus status, QString reason);
 
 public slots:
     void loadSettings();
@@ -104,6 +112,7 @@ public slots:
     void getOverallStats();
     void runFsck();
     void nukeArchives();
+    void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
 
 private slots:
     void backupJobFinished(QUuid uuid, QVariant data, int exitCode, QString output);
@@ -116,6 +125,7 @@ private slots:
     void overallStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void fsckFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void nukeFinished(QUuid uuid, QVariant data, int exitCode, QString output);
+    void restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output);
 
     void queueJob(TarsnapCLI *cli);
     void dequeueJob(QUuid uuid, QVariant data, int exitCode, QString output);

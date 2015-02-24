@@ -218,6 +218,34 @@ void JobManager::nukeArchives()
     queueJob(nuke);
 }
 
+void JobManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options)
+{
+    if(archive.isNull())
+    {
+        DEBUG << "Null ArchivePtr passed.";
+        return;
+    }
+
+    if(!_archiveMap.contains(archive->uuid))
+        _archiveMap[archive->uuid] = archive;
+
+    TarsnapCLI *restore = new TarsnapCLI(archive->uuid);
+    QStringList args;
+    if(!_tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << _tarsnapKeyFile;
+    if(options.preservePaths)
+        args << "-P";
+    if(!options.chdir.isEmpty())
+        args << "-C" << options.chdir;
+    if(!options.overwriteFiles)
+        args << "-k";
+    args << "-x" << "-f" << archive->name;
+    restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+    restore->setArguments(args);
+    connect(restore, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this, SLOT(restoreArchiveFinished(QUuid,QVariant,int,QString)));
+    queueJob(restore);
+}
+
 void JobManager::backupJobFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data);
@@ -292,7 +320,7 @@ void JobManager::getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode
     ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
-        DEBUG << "uuid not found in _archiveMap.";
+        DEBUG << "Job uuid not found in _archiveMap.";
         return;
     }
     if(exitCode == 0)
@@ -307,7 +335,7 @@ void JobManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exitC
     ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
-        DEBUG << "uuid not found in _archiveMap.";
+        DEBUG << "Job uuid not found in _archiveMap.";
         return;
     }
     if(exitCode == 0)
@@ -397,6 +425,21 @@ void JobManager::nukeFinished(QUuid uuid, QVariant data, int exitCode, QString o
         emit nukeStatus(JobStatus::Completed, output);
     else
         emit nukeStatus(JobStatus::Failed, output);
+}
+
+void JobManager::restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+{
+    Q_UNUSED(uuid); Q_UNUSED(data)
+    ArchivePtr archive = _archiveMap[uuid];
+    if(archive.isNull())
+    {
+        DEBUG << "Job uuid not found in _archiveMap.";
+        return;
+    }
+    if(exitCode == 0)
+        emit restoreArchiveStatus(archive, JobStatus::Completed, output);
+    else
+        emit restoreArchiveStatus(archive, JobStatus::Failed, output);
 }
 
 void JobManager::queueJob(TarsnapCLI *cli)

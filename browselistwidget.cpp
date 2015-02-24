@@ -90,8 +90,9 @@ void BrowseListWidget::restoreItem()
     ArchiveListItem* archiveItem = qobject_cast<ArchiveListItem*>(sender());
     if(archiveItem)
     {
-        RestoreDialog restore(this);
-        restore.exec();
+        RestoreDialog restoreDialog(archiveItem->archive(), this);
+        if( QDialog::Accepted == restoreDialog.exec())
+            emit restoreArchive(archiveItem->archive(), restoreDialog.getOptions());
     }
 }
 

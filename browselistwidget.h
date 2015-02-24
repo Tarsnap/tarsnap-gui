@@ -24,6 +24,7 @@ signals:
     void getArchivesList();
     void deleteArchives(QList<ArchivePtr> archives);
     void inspectArchive(ArchivePtr archive);
+    void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
 
 protected:
     void keyReleaseEvent(QKeyEvent *event);

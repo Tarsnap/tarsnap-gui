@@ -18,6 +18,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     qRegisterMetaType< BackupJobPtr >("BackupJobPtr");
     qRegisterMetaType< QList<ArchivePtr> >("QList<ArchivePtr >");
     qRegisterMetaType< ArchivePtr >("ArchivePtr");
+    qRegisterMetaType< ArchiveRestoreOptions >("ArchiveRestoreOptions");
 
     QCoreApplication::setOrganizationName(tr("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));
@@ -84,6 +85,11 @@ CoreApplication::CoreApplication(int &argc, char **argv):
             ,SLOT(nukeArchives()), Qt::QueuedConnection);
     connect(&_jobManager, SIGNAL(nukeStatus(JobStatus,QString)), _mainWindow
             ,SLOT(purgeArchivesStatus(JobStatus,QString)), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions))
+            ,&_jobManager, SLOT(restoreArchive(ArchivePtr,ArchiveRestoreOptions))
+            , Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(restoreArchiveStatus(ArchivePtr,JobStatus,QString)), _mainWindow
+            , SLOT(restoreArchiveStatus(ArchivePtr,JobStatus,QString)), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 

@@ -77,6 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->tarsnapPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapPath()));
     connect(_ui->tarsnapCacheLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapCache()));
     connect(_ui->siPrefixesCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
+    connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
 
     // Backup and Browse
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
@@ -88,6 +89,8 @@ MainWindow::MainWindow(QWidget *parent) :
             , SLOT(displayInspectArchive(ArchivePtr)));
     connect(_ui->browseListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this
             , SIGNAL(deleteArchives(QList<ArchivePtr>)));
+    connect(_ui->browseListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)),
+            this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)));
     connect(_ui->mainTabWidget, SIGNAL(currentChanged(int)), this, SLOT(currentPaneChanged(int)));
 
     //lambda slots to quickly update various UI components
@@ -108,6 +111,8 @@ MainWindow::MainWindow(QWidget *parent) :
                 else if(!_ui->backupDetailLabel->text().isEmpty())
                     _ui->backupButton->setEnabled(true);
             });
+    connect(this, &MainWindow::restoreArchive,
+            [=](const ArchivePtr archive){updateStatusMessage(tr("Restoring archive <i>%1</i>...").arg(archive->name));});
 }
 
 MainWindow::~MainWindow()
@@ -280,6 +285,19 @@ void MainWindow::purgeArchivesStatus(JobStatus status, QString reason)
     case JobStatus::Failed:
     default:
         updateStatusMessage(tr("Archives purging failed. Hover mouse for details."), reason);
+        break;
+    }
+}
+
+void MainWindow::restoreArchiveStatus(ArchivePtr archive, JobStatus status, QString reason)
+{
+    switch (status) {
+    case JobStatus::Completed:
+        updateStatusMessage(tr("Restoring archive <i>%1</i>...done").arg(archive->name), reason);
+        break;
+    case JobStatus::Failed:
+    default:
+        updateStatusMessage(tr("Restoring archive <i>%1</i>...failed. Hover mouse for details.").arg(archive->name), reason);
         break;
     }
 }

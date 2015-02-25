@@ -423,11 +423,12 @@ void MainWindow::updateInspectArchive()
     if(_currentArchiveDetail)
     {
         _ui->archiveNameLabel->setText(_currentArchiveDetail->name);
+        _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp.toString());
         _ui->archiveTotalSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeTotal, _useSIPrefixes));
         _ui->archiveTotalSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
         _ui->archiveTarsnapSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeUniqueCompressed, _useSIPrefixes));
         _ui->archiveTarsnapSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
-        _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp.toString());
+        _ui->archiveCommandLabel->setText(_currentArchiveDetail->command);
         int count = _currentArchiveDetail->contents.count();
         _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg((count == 0) ? tr("loading..."):QString::number(count)));
         _ui->archiveContentsPlainTextEdit->setPlainText(_currentArchiveDetail->contents.join('\n'));

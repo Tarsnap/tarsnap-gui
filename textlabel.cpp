@@ -30,7 +30,8 @@ QString TextLabel::text()
 void TextLabel::setText(const QString &text)
 {
     _origText = text;
-    QLabel::setText(elideText(text));
+    QLabel::setText(elideText(_origText));
+    setToolTip(_origText);
 }
 
 void TextLabel::clear()

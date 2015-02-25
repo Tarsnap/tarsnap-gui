@@ -14,6 +14,7 @@
 #include <QSharedPointer>
 #include <QHostInfo>
 #include <QMessageBox>
+#include <QStandardPaths>
 
 #define PURGE_SECONDS_DELAY 8
 
@@ -78,6 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->tarsnapCacheLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapCache()));
     connect(_ui->siPrefixesCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
+    connect(_ui->downloadsDirLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
 
     // Backup and Browse
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
@@ -113,10 +115,19 @@ MainWindow::MainWindow(QWidget *parent) :
             });
     connect(this, &MainWindow::restoreArchive,
             [=](const ArchivePtr archive){updateStatusMessage(tr("Restoring archive <i>%1</i>...").arg(archive->name));});
+    connect(_ui->downloadsDirLineEdit, &QLineEdit::textChanged,
+            [=](){
+                QFileInfo file(_ui->downloadsDirLineEdit->text());
+                if(file.exists() && file.isDir() && file.isWritable())
+                    _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
+                else
+                    _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
+            });
 }
 
 MainWindow::~MainWindow()
 {
+    commitSettings();
     delete _ui;
 }
 
@@ -132,6 +143,7 @@ void MainWindow::loadSettings()
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
     _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
     _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
+    _ui->downloadsDirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
 }
 
 
@@ -448,8 +460,9 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/machine", _ui->accountMachineLineEdit->text());
     settings.setValue("tarsnap/user",    _ui->accountUserLineEdit->text());
     settings.setValue("tarsnap/aggressive_networking", _ui->aggressiveNetworkingCheckBox->isChecked());
-    settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
     settings.setValue("tarsnap/preserve_pathnames", _ui->preservePathsCheckBox->isChecked());
+    settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
+    settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.sync();
     emit settingsChanged();
 }
@@ -579,4 +592,13 @@ void MainWindow::on_expandJournalButton_toggled(bool checked)
         _ui->journalLog->show();
     else
         _ui->journalLog->hide();
+}
+
+void MainWindow::on_downloadsDirBrowseButton_clicked()
+{
+    QString path = QFileDialog::getExistingDirectory(this,
+                                                     tr("Browse for directory"),
+                                                     QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first());
+    if(!path.isEmpty())
+        _ui->downloadsDirLineEdit->setText(path);
 }

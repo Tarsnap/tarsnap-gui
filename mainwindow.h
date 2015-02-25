@@ -78,6 +78,7 @@ private slots:
     void on_purgeArchivesButton_clicked();
     void on_runSetupWizard_clicked();
     void on_expandJournalButton_toggled(bool checked);
+    void on_downloadsDirBrowseButton_clicked();
 
 private:
     Ui::MainWindow  *_ui;

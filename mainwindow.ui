@@ -662,7 +662,7 @@ background: transparent;
                 <x>0</x>
                 <y>0</y>
                 <width>530</width>
-                <height>111</height>
+                <height>110</height>
                </rect>
               </property>
               <property name="styleSheet">
@@ -811,7 +811,7 @@ background: #E3EBEC;
                 <x>0</x>
                 <y>0</y>
                 <width>569</width>
-                <height>383</height>
+                <height>384</height>
                </rect>
               </property>
               <property name="styleSheet">
@@ -998,8 +998,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>569</width>
-                <height>119</height>
+                <width>268</width>
+                <height>113</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1415,7 +1415,7 @@ border: 1px solid rgba(255,255,255,100);
                 <x>0</x>
                 <y>0</y>
                 <width>569</width>
-                <height>198</height>
+                <height>219</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1439,8 +1439,55 @@ border: 1px solid rgba(255,255,255,100);
                  <property name="title">
                   <string/>
                  </property>
-                 <layout class="QGridLayout" name="gridLayout">
-                  <item row="5" column="0">
+                 <layout class="QVBoxLayout" name="verticalLayout_18">
+                  <item>
+                   <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
+                    <property name="text">
+                     <string>Aggressive networking</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="preservePathsCheckBox">
+                    <property name="text">
+                     <string>Preserve pathnames globally</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="siPrefixesCheckBox">
+                    <property name="text">
+                     <string>Use SI prefixes instead of byte prefixes(IEC) for size display</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_2">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Traverse mounted points</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Backup app jobs and settings on Tarsnap so that they can be restored?</string>
+                    </property>
+                    <property name="checked">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <widget class="QWidget" name="widget" native="true">
                     <layout class="QHBoxLayout" name="horizontalLayout_5">
                      <property name="spacing">
@@ -1496,80 +1543,65 @@ border: 1px solid rgba(255,255,255,100);
                        </property>
                       </widget>
                      </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_6" native="true">
+                    <layout class="QHBoxLayout" name="horizontalLayout_6">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_3">
+                       <property name="text">
+                        <string>Downloads directory</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="downloadsDirLineEdit">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="downloadsDirBrowseButton">
+                       <property name="text">
+                        <string>Browse</string>
+                       </property>
+                      </widget>
+                     </item>
                      <item>
                       <spacer name="horizontalSpacer_3">
                        <property name="orientation">
                         <enum>Qt::Horizontal</enum>
                        </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Preferred</enum>
+                       </property>
                        <property name="sizeHint" stdset="0">
                         <size>
                          <width>0</width>
-                         <height>0</height>
+                         <height>20</height>
                         </size>
                        </property>
                       </spacer>
                      </item>
                     </layout>
-                   </widget>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QCheckBox" name="checkBox_2">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="text">
-                     <string>Traverse mounted points</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0">
-                   <widget class="QCheckBox" name="siPrefixesCheckBox">
-                    <property name="text">
-                     <string>Use SI prefixes instead of byte prefixes(IEC) for size display</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
-                    <property name="text">
-                     <string>Aggressive networking</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="0">
-                   <spacer name="verticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QCheckBox" name="checkBox">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="text">
-                     <string>Backup app jobs and settings on Tarsnap so that they can be restored?</string>
-                    </property>
-                    <property name="checked">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QCheckBox" name="preservePathsCheckBox">
-                    <property name="text">
-                     <string>Preserve pathnames globally</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
                    </widget>
                   </item>
                  </layout>

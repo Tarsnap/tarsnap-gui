@@ -4,6 +4,7 @@
 #include <QStandardPaths>
 #include <QFileDialog>
 #include <QSettings>
+#include <QFileInfo>
 
 RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent) :
     QDialog(parent), _ui(new Ui::RestoreDialog), _archive(archive)
@@ -13,10 +14,10 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent) :
     _ui->infoLabel->setText(tr("Restore archive <b>%1</b> contents to original locations? "
                                "Any existing data will not be replaced, expand <i>Display options</i> to modify the defaults.")
                             .arg(archive->name));
-    _ui->chdirLineEdit->setText(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
+    QSettings settings;
+    _ui->chdirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
     _ui->chdirLineEdit->hide();
     _ui->browseButton->hide();
-    QSettings settings;
     _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
 }
 
@@ -70,4 +71,13 @@ void RestoreDialog::on_browseButton_clicked()
 void RestoreDialog::on_overwriteCheckBox_toggled(bool checked)
 {
     _ui->keepNewerCheckBox->setEnabled(checked);
+}
+
+void RestoreDialog::on_chdirLineEdit_editingFinished()
+{
+    QFileInfo file(_ui->chdirLineEdit->text());
+    if(file.exists() && file.isDir() && file.isWritable())
+        _ui->chdirLineEdit->setStyleSheet("QLineEdit{color:black;}");
+    else
+        _ui->chdirLineEdit->setStyleSheet("QLineEdit{color:red;}");
 }

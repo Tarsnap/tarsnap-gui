@@ -239,6 +239,8 @@ void JobManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions option
         args << "-C" << options.chdir;
     if(!options.overwriteFiles)
         args << "-k";
+    if(options.keepNewerFiles)
+        args << "--keep-newer-files";
     args << "-x" << "-f" << archive->name;
     restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     restore->setArguments(args);

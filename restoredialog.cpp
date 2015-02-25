@@ -28,8 +28,9 @@ RestoreDialog::~RestoreDialog()
 ArchiveRestoreOptions RestoreDialog::getOptions()
 {
     ArchiveRestoreOptions options;
-    options.preservePaths = _ui->preservePathsCheckBox->isChecked();
+    options.preservePaths  = _ui->preservePathsCheckBox->isChecked();
     options.overwriteFiles = _ui->overwriteCheckBox->isChecked();
+    options.keepNewerFiles = _ui->keepNewerCheckBox->isChecked();
     options.chdir = _ui->chdirLineEdit->text();
     return options;
 }
@@ -47,12 +48,14 @@ void RestoreDialog::on_restoreButton_clicked()
 void RestoreDialog::on_displayOptionsCheckBox_toggled(bool checked)
 {
     _ui->optionsGroupBox->setVisible(checked);
+    adjustSize();
 }
 
 void RestoreDialog::on_preservePathsCheckBox_toggled(bool checked)
 {
     _ui->chdirLineEdit->setVisible(!checked);
     _ui->browseButton->setVisible(!checked);
+    adjustSize();
 }
 
 void RestoreDialog::on_browseButton_clicked()
@@ -62,4 +65,9 @@ void RestoreDialog::on_browseButton_clicked()
                                                      QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first());
     if(!path.isEmpty())
         _ui->chdirLineEdit->setText(path);
+}
+
+void RestoreDialog::on_overwriteCheckBox_toggled(bool checked)
+{
+    _ui->keepNewerCheckBox->setEnabled(checked);
 }

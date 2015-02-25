@@ -25,6 +25,7 @@ private slots:
     void on_displayOptionsCheckBox_toggled(bool checked);
     void on_preservePathsCheckBox_toggled(bool checked);
     void on_browseButton_clicked();
+    void on_overwriteCheckBox_toggled(bool checked);
 
 private:
     Ui::RestoreDialog *_ui;

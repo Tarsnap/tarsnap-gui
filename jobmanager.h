@@ -57,6 +57,7 @@ struct ArchiveRestoreOptions
 {
     bool        preservePaths;
     bool        overwriteFiles;
+    bool        keepNewerFiles;
     QString     chdir;
 };
 

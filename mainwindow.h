@@ -32,7 +32,6 @@ signals:
     void settingsChanged();
     void purgeArchives();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
-
     void runSetupWizard();
 
 protected:

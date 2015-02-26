@@ -5,6 +5,7 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include <QFileInfo>
+#include <QSettings>
 
 /*FIXME: Remove after QTBUG-40449 is fixed in Qt5*/
 #ifdef Q_OS_OSX
@@ -17,10 +18,24 @@ extern QUrl osxRefToUrl(const QUrl &url);
 BackupListWidget::BackupListWidget(QWidget *parent):
     QListWidget(parent)
 {
+    QSettings settings;
+    QStringList urls = settings.value("app/backup_list").toStringList();
+    foreach (QString url, urls) {
+        addItemWithUrl(url);
+    }
 }
 
 BackupListWidget::~BackupListWidget()
 {
+    QSettings settings;
+    QStringList urls;
+    for(int i = 0; i < this->count(); ++i)
+    {
+        BackupListItem *backupItem = dynamic_cast<BackupListItem*>(item(i));
+        urls << backupItem->url().toString(QUrl::FullyEncoded);
+    }
+    settings.setValue("app/backup_list", urls);
+
     clear();
 }
 

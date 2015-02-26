@@ -11,6 +11,7 @@
 #include <QSharedPointer>
 #include <QDateTime>
 #include <QThreadPool>
+#include <QQueue>
 
 
 #define CMD_TARSNAP         "tarsnap"
@@ -128,7 +129,8 @@ private slots:
     void nukeFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output);
 
-    void queueJob(TarsnapCLI *cli);
+    void queueJob(TarsnapCLI *cli, bool exclusive = false);
+    void startJob(TarsnapCLI *cli);
     void dequeueJob(QUuid uuid, QVariant data, int exitCode, QString output);
     void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive);
 
@@ -143,6 +145,7 @@ private:
     QMap<QUuid, BackupJobPtr>    _backupJobMap;
     QMap<QUuid, ArchivePtr>      _archiveMap;
     QMap<QUuid, TarsnapCLI*>     _jobMap;
+    QQueue<TarsnapCLI*>          _jobQueue;
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;

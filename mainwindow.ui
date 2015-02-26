@@ -521,7 +521,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                         <enum>Qt::Horizontal</enum>
                        </property>
                        <property name="sizeType">
-                        <enum>QSizePolicy::Minimum</enum>
+                        <enum>QSizePolicy::Expanding</enum>
                        </property>
                        <property name="sizeHint" stdset="0">
                         <size>
@@ -629,7 +629,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                      <item row="4" column="1">
                       <widget class="TextLabel" name="archiveCommandLabel">
                        <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
@@ -867,7 +867,7 @@ background: #E3EBEC;
                 <x>0</x>
                 <y>0</y>
                 <width>569</width>
-                <height>384</height>
+                <height>383</height>
                </rect>
               </property>
               <property name="styleSheet">

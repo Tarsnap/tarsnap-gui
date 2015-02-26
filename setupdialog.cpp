@@ -36,7 +36,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
 
     // Welcome page
     connect(_ui->advancedSetupCheckBox, SIGNAL(toggled(bool)), this, SLOT(showAdvancedSetup(bool)));
-    connect(_ui->welcomePageCancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(_ui->welcomePageSkipButton, &QPushButton::clicked, [=](){commitSettings(true);});
     connect(_ui->welcomePageProceedButton, SIGNAL(clicked()), this, SLOT(setNextPage()));
 
     // Advanced setup page
@@ -373,17 +373,22 @@ void SetupDialog::findTarsnapInPath()
     }
 }
 
-void SetupDialog::commitSettings()
+void SetupDialog::commitSettings(bool skipped)
 {
     QSettings settings;
 
-    settings.setValue("app/appdata",    _tarsnapKeysDir);
-    settings.setValue("tarsnap/path",   _tarsnapCLIDir);
-    settings.setValue("tarsnap/cache",  _tarsnapCacheDir);
-    settings.setValue("tarsnap/key",    _tarsnapKeyFile);
-    settings.setValue("tarsnap/user",   _ui->tarsnapUserLineEdit->text());
-    settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
+    DEBUG << "Settings location is " << settings.fileName();
+
+    settings.setValue("application/wizardDone", true);
+    if(!skipped)
+    {
+        settings.setValue("app/appdata",    _tarsnapKeysDir);
+        settings.setValue("tarsnap/path",   _tarsnapCLIDir);
+        settings.setValue("tarsnap/cache",  _tarsnapCacheDir);
+        settings.setValue("tarsnap/key",    _tarsnapKeyFile);
+        settings.setValue("tarsnap/user",   _ui->tarsnapUserLineEdit->text());
+        settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
+    }
     settings.sync();
-    DEBUG << settings.fileName();
     accept();
 }

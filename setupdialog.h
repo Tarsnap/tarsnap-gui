@@ -32,7 +32,7 @@ public slots:
     void validateRegisterPage();
     void registerHaveKeyBrowse(QString url);
     void registerMachine();
-    void commitSettings();
+    void commitSettings(bool skipped = false);
 
     // JobManager responses
     void registerMachineStatus(JobStatus status, QString reason);

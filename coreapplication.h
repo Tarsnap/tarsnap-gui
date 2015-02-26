@@ -16,9 +16,10 @@ public:
     CoreApplication(int &argc, char **argv);
     ~CoreApplication();
 
+    int initialize();
+
 public slots:
-    void runSetupWizard();
-    void quitApplication(int returnCode);
+    bool runSetupWizard();
 
 private:
     MainWindow *_mainWindow;

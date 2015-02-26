@@ -279,9 +279,9 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="welcomePageCancelButton">
+           <widget class="QPushButton" name="welcomePageSkipButton">
             <property name="text">
-             <string>Cancel</string>
+             <string>Skip Wizard</string>
             </property>
             <property name="default">
              <bool>false</bool>
@@ -1014,7 +1014,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>machineKeyLineEdit</tabstop>
   <tabstop>registerMachineButton</tabstop>
   <tabstop>welcomePageProceedButton</tabstop>
-  <tabstop>welcomePageCancelButton</tabstop>
+  <tabstop>welcomePageSkipButton</tabstop>
   <tabstop>welcomePageRadioButton</tabstop>
   <tabstop>restoreYesButton</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>

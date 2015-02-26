@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>579</width>
-    <height>685</height>
+    <height>711</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -15,6 +15,10 @@
   </property>
   <property name="windowTitle">
    <string>Tarsnappy</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/resources/icon.png</normaloff>:/resources/icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">#MainWindow {
@@ -718,7 +722,7 @@ background: transparent;
                 <x>0</x>
                 <y>0</y>
                 <width>530</width>
-                <height>110</height>
+                <height>111</height>
                </rect>
               </property>
               <property name="styleSheet">
@@ -867,7 +871,7 @@ background: #E3EBEC;
                 <x>0</x>
                 <y>0</y>
                 <width>569</width>
-                <height>383</height>
+                <height>409</height>
                </rect>
               </property>
               <property name="styleSheet">

@@ -25,5 +25,6 @@
         <file>resources/caret-bottom-4x.png</file>
         <file>resources/caret-top-2x.png</file>
         <file>resources/caret-top-4x.png</file>
+        <file>resources/icon.png</file>
     </qresource>
 </RCC>

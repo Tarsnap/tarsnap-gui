@@ -62,4 +62,6 @@ DISTFILES += \
 osx {
     OBJECTIVE_SOURCES += platform_osx.mm
     LIBS += -framework Foundation
+
+    ICON = resources/tarsnap.icns
 }

@@ -35,7 +35,7 @@ BackupListWidget::~BackupListWidget()
         urls << backupItem->url().toString(QUrl::FullyEncoded);
     }
     settings.setValue("app/backup_list", urls);
-
+    settings.sync();
     clear();
 }
 

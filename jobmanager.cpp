@@ -95,6 +95,8 @@ void JobManager::getArchivesList()
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
+    if(!_tarsnapCacheDir.isEmpty())
+        args << "--cachedir" << _tarsnapCacheDir;
     args << "--list-archives" << "-vv";
     listArchivesClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     listArchivesClient->setArguments(args);
@@ -217,6 +219,8 @@ void JobManager::nukeArchives()
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
+    if(!_tarsnapCacheDir.isEmpty())
+        args << "--cachedir" << _tarsnapCacheDir;
     args << "--nuke";
     nuke->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     nuke->setPassword("No Tomorrow");

@@ -1947,7 +1947,7 @@ font-size: 13pt;
           </layout>
          </widget>
         </widget>
-        <widget class="QPlainTextEdit" name="journalLog">
+        <widget class="QTextEdit" name="journalLog">
          <property name="styleSheet">
           <string notr="true">#journalLog
 {
@@ -1957,9 +1957,6 @@ background: transparent;
          </property>
          <property name="readOnly">
           <bool>true</bool>
-         </property>
-         <property name="plainText">
-          <string/>
          </property>
         </widget>
        </widget>

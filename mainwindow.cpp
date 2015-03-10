@@ -419,7 +419,22 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
 {
     _ui->statusBarLabel->setText(message);
     _ui->statusBarLabel->setToolTip(detail);
-    _ui->journalLog->appendHtml(QString("[%1] %2").arg(QDateTime::currentDateTime().toString("dd-MM-yyyy HH:mm:ss")).arg(message));
+
+    QColor bgcolor;
+    int paragraphsCount = _ui->journalLog->toHtml().count("</p>");
+    if ( paragraphsCount%2 )
+        bgcolor = qApp->palette().base().color();
+    else
+        bgcolor = qApp->palette().alternateBase().color();
+    QTextCursor cursor(_ui->journalLog->document());
+    QTextBlockFormat bf = cursor.blockFormat();
+    bf.setBackground(QBrush(bgcolor));
+    cursor.movePosition(QTextCursor::End);
+    cursor.insertBlock(bf);
+    QString log = QString("[%1] %2").arg(QDateTime::currentDateTime().toString("dd-MM-yyyy HH:mm:ss")).arg(message);
+    cursor.insertHtml(log);
+    _ui->journalLog->moveCursor(QTextCursor::End);
+    _ui->journalLog->ensureCursorVisible();
 }
 
 void MainWindow::currentPaneChanged(int index)

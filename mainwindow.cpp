@@ -65,6 +65,11 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->backupListWidget->addAction(_ui->actionClearList);
     connect(_ui->actionClearList, SIGNAL(triggered()), _ui->backupListWidget
             , SLOT(clear()), Qt::QueuedConnection);
+    _ui->backupListWidget->addAction(_ui->actionBrowseItems);
+    connect(_ui->actionBrowseItems, SIGNAL(triggered()), this, SLOT(browseForBackupItems()));
+    connect(_ui->backupListInfoLabel, SIGNAL(linkActivated(QString)), this,
+            SLOT(browseForBackupItems()));
+
     connect(&_purgeTimer, SIGNAL(timeout()), this, SLOT(purgeTimerFired()));
 
     // Settings page
@@ -377,31 +382,6 @@ void MainWindow::on_appendTimestampCheckBox_toggled(bool checked)
     }
 }
 
-void MainWindow::on_backupListInfoLabel_linkActivated(const QString &link)
-{
-    Q_UNUSED(link)
-    // Can't select multiple directories and files at the same time using the Native dialog
-    // Thus instead of being able to select only dirs or files, we'll be using a custom
-    // Qt dialog for now
-    /*
-    QStringList paths = QFileDialog::getOpenFileNames(this,
-                                                      tr("Select files and directories")
-                                                      , QDir::homePath());
-                                                      */
-    QFileDialog dialog;
-    dialog.setFileMode(QFileDialog::Directory);
-    dialog.setOption(QFileDialog::DontUseNativeDialog,true);
-    QListView *l = dialog.findChild<QListView*>("listView");
-    if(l)
-        l->setSelectionMode(QAbstractItemView::MultiSelection);
-    QTreeView *t = dialog.findChild<QTreeView*>();
-    if(t)
-        t->setSelectionMode(QAbstractItemView::MultiSelection);
-    if(dialog.exec())
-        QMetaObject::invokeMethod(_ui->backupListWidget, "addItemsWithUrls", Qt::QueuedConnection, Q_ARG(QList<QUrl>, dialog.selectedUrls()));
-//    qDebug() << dialog.selectedUrls();
-}
-
 void MainWindow::on_backupButton_clicked()
 {
     QList<QUrl> urls;
@@ -512,6 +492,29 @@ void MainWindow::purgeTimerFired()
 void MainWindow::appendToConsoleLog(QString msg)
 {
     _ui->consoleLogPlainTextEdit->appendPlainText(msg);
+}
+
+void MainWindow::browseForBackupItems()
+{
+    // Can't select multiple directories and files at the same time using the Native dialog
+    // Thus instead of being able to select only dirs or files, we'll be using a custom
+    // Qt dialog for now
+    /*
+    QStringList paths = QFileDialog::getOpenFileNames(this,
+                                                      tr("Select files and directories")
+                                                      , QDir::homePath());
+                                                      */
+    QFileDialog dialog;
+    dialog.setFileMode(QFileDialog::Directory);
+    dialog.setOption(QFileDialog::DontUseNativeDialog,true);
+    QListView *l = dialog.findChild<QListView*>("listView");
+    if(l)
+        l->setSelectionMode(QAbstractItemView::MultiSelection);
+    QTreeView *t = dialog.findChild<QTreeView*>();
+    if(t)
+        t->setSelectionMode(QAbstractItemView::MultiSelection);
+    if(dialog.exec())
+        QMetaObject::invokeMethod(_ui->backupListWidget, "addItemsWithUrls", Qt::QueuedConnection, Q_ARG(QList<QUrl>, dialog.selectedUrls()));
 }
 
 void MainWindow::on_accountMachineUseHostnameButton_clicked()

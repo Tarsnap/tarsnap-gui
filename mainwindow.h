@@ -65,9 +65,9 @@ private slots:
     void validateTarsnapCache();
     void purgeTimerFired();
     void appendToConsoleLog(QString msg);
+    void browseForBackupItems();
 
     void on_appendTimestampCheckBox_toggled(bool checked);
-    void on_backupListInfoLabel_linkActivated(const QString &link);
     void on_backupButton_clicked();
     void on_accountMachineUseHostnameButton_clicked();
     void on_accountMachineKeyBrowseButton_clicked();

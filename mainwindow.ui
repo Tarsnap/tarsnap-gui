@@ -105,7 +105,7 @@ border-radius: 2px;
 </string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="backupTab">
           <property name="acceptDrops">
@@ -722,7 +722,7 @@ background: transparent;
                 <x>0</x>
                 <y>0</y>
                 <width>530</width>
-                <height>111</height>
+                <height>110</height>
                </rect>
               </property>
               <property name="styleSheet">
@@ -871,7 +871,7 @@ background: #E3EBEC;
                 <x>0</x>
                 <y>0</y>
                 <width>569</width>
-                <height>409</height>
+                <height>410</height>
                </rect>
               </property>
               <property name="styleSheet">
@@ -2059,6 +2059,10 @@ border: none;
    </item>
   </layout>
   <action name="actionRefresh">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/reload-2x.png</normaloff>:/resources/reload-2x.png</iconset>
+   </property>
    <property name="text">
     <string>Refresh</string>
    </property>
@@ -2070,6 +2074,10 @@ border: none;
    </property>
   </action>
   <action name="actionClearList">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/circle-x-2x.png</normaloff>:/resources/circle-x-2x.png</iconset>
+   </property>
    <property name="text">
     <string>Clear list</string>
    </property>
@@ -2078,6 +2086,21 @@ border: none;
    </property>
    <property name="shortcut">
     <string>Ctrl+Backspace</string>
+   </property>
+  </action>
+  <action name="actionBrowseItems">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/magnifying-glass-2x.png</normaloff>:/resources/magnifying-glass-2x.png</iconset>
+   </property>
+   <property name="text">
+    <string>Browse for items</string>
+   </property>
+   <property name="toolTip">
+    <string>Browse for files and dirs</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
  </widget>

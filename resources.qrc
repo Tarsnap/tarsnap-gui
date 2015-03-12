@@ -28,5 +28,7 @@
         <file>resources/icon.png</file>
         <file>resources/reload-2x.png</file>
         <file>resources/reload-4x.png</file>
+        <file>resources/menu-2x.png</file>
+        <file>resources/menu-4x.png</file>
     </qresource>
 </RCC>

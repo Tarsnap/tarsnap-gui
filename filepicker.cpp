@@ -1,19 +1,31 @@
 #include "filepicker.h"
 #include "debug.h"
 
+#include <QSettings>
 #include <QKeyEvent>
 
-FilePicker::FilePicker(QWidget *parent) :
+FilePicker::FilePicker(QWidget *parent, QString startPath) :
     QDialog(parent),
-    _ui(new Ui::FilePicker)
+    _ui(new Ui::FilePicker),
+    _startPath(startPath)
 {
     _ui->setupUi(this);
     _ui->optionsContainer->hide();
 
     _model.setRootPath(QDir::rootPath());
-//    _model.setNameFilterDisables(false);
+    _model.setNameFilterDisables(false);
     _ui->treeView->setModel(&_model);
-    _ui->treeView->setCurrentIndex(_model.index(QDir::homePath()));
+    if(_startPath.isEmpty())
+    {
+        QString path;
+        QSettings settings;
+        path = settings.value("app/file_browse_last", QDir::homePath()).toString();
+        _ui->treeView->setCurrentIndex(_model.index(path));
+    }
+    else
+    {
+        _ui->treeView->setCurrentIndex(_model.index(_startPath));
+    }
     _completer.setModel(&_model);
     _completer.setCompletionMode(QCompleter::InlineCompletion);
     _ui->filterLineEdit->setCompleter(&_completer);
@@ -58,6 +70,11 @@ FilePicker::FilePicker(QWidget *parent) :
 
 FilePicker::~FilePicker()
 {
+    if(_startPath.isEmpty())
+    {
+        QSettings settings;
+        settings.setValue("app/file_browse_last", _model.filePath(_ui->treeView->currentIndex()));
+    }
     delete _ui;
 }
 

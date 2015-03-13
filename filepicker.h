@@ -16,7 +16,7 @@ class FilePicker : public QDialog
     Q_OBJECT
 
 public:
-    explicit FilePicker(QWidget *parent = 0);
+    explicit FilePicker(QWidget *parent = 0, QString startPath = "");
     ~FilePicker();
 
     QStringList getSelectedUris();
@@ -29,6 +29,7 @@ public slots:
 
 private:
     Ui::FilePicker      *_ui;
+    QString              _startPath;
     QFileSystemModel    _model;
     QCompleter          _completer;
 };

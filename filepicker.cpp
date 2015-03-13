@@ -5,7 +5,7 @@
 #include <QKeyEvent>
 
 FilePicker::FilePicker(QWidget *parent, QString startPath) :
-    QDialog(parent),
+    QWidget(parent),
     _ui(new Ui::FilePicker),
     _startPath(startPath)
 {
@@ -30,6 +30,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     _completer.setCompletionMode(QCompleter::InlineCompletion);
     _ui->filterLineEdit->setCompleter(&_completer);
     _ui->treeView->setColumnWidth(0, 250);
+    _ui->filterLineEdit->setFocus();
 
     connect(_ui->filterLineEdit, SIGNAL(textEdited(QString)), this, SLOT(updateFilter(QString)));
     connect(_ui->showHiddenCheckBox, &QCheckBox::toggled,
@@ -79,18 +80,16 @@ FilePicker::~FilePicker()
     delete _ui;
 }
 
-QStringList FilePicker::getSelectedUris()
+QList<QUrl> FilePicker::getSelectedUrls()
 {
-    QStringList uris;
+    QList<QUrl> urls;
     QModelIndexList indexList = _ui->treeView->selectionModel()->selectedRows();
     foreach(QModelIndex index, indexList)
-    {
-        uris << _model.filePath(index);
-    }
-    return uris;
+        urls << QUrl::fromUserInput(_model.filePath(index));
+    return urls;
 }
 
-void FilePicker::keyReleaseEvent(QKeyEvent *event)
+void FilePicker::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
@@ -101,7 +100,7 @@ void FilePicker::keyReleaseEvent(QKeyEvent *event)
             _ui->filterLineEdit->setFocus();
         break;
     default:
-        QDialog::keyReleaseEvent(event);
+        QWidget::keyPressEvent(event);
     }
 }
 

@@ -3,7 +3,7 @@
 
 #include "ui_filepicker.h"
 
-#include <QDialog>
+#include <QWidget>
 #include <QFileSystemModel>
 #include <QCompleter>
 
@@ -11,7 +11,7 @@ namespace Ui {
 class FilePicker;
 }
 
-class FilePicker : public QDialog
+class FilePicker : public QWidget
 {
     Q_OBJECT
 
@@ -19,10 +19,10 @@ public:
     explicit FilePicker(QWidget *parent = 0, QString startPath = "");
     ~FilePicker();
 
-    QStringList getSelectedUris();
+    QList<QUrl> getSelectedUrls();
 
 protected:
-    void keyReleaseEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
 public slots:
     void updateFilter(QString filter);

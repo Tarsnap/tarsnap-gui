@@ -3,6 +3,7 @@
 #include "ui_archiveitemwidget.h"
 #include "ui_backupitemwidget.h"
 #include "backuplistitem.h"
+#include "filepickerdialog.h"
 #include "utils.h"
 #include "debug.h"
 
@@ -511,25 +512,11 @@ void MainWindow::appendToConsoleLog(QString msg)
 
 void MainWindow::browseForBackupItems()
 {
-    // Can't select multiple directories and files at the same time using the Native dialog
-    // Thus instead of being able to select only dirs or files, we'll be using a custom
-    // Qt dialog for now
-    /*
-    QStringList paths = QFileDialog::getOpenFileNames(this,
-                                                      tr("Select files and directories")
-                                                      , QDir::homePath());
-                                                      */
-    QFileDialog dialog;
-    dialog.setFileMode(QFileDialog::Directory);
-    dialog.setOption(QFileDialog::DontUseNativeDialog,true);
-    QListView *l = dialog.findChild<QListView*>("listView");
-    if(l)
-        l->setSelectionMode(QAbstractItemView::MultiSelection);
-    QTreeView *t = dialog.findChild<QTreeView*>();
-    if(t)
-        t->setSelectionMode(QAbstractItemView::MultiSelection);
-    if(dialog.exec())
-        QMetaObject::invokeMethod(_ui->backupListWidget, "addItemsWithUrls", Qt::QueuedConnection, Q_ARG(QList<QUrl>, dialog.selectedUrls()));
+    FilePickerDialog picker;
+    if(picker.exec())
+        QMetaObject::invokeMethod(_ui->backupListWidget, "addItemsWithUrls"
+                                  , Qt::QueuedConnection, Q_ARG(QList<QUrl>
+                                  , picker.getSelectedUrls()));
 }
 
 void MainWindow::on_accountMachineUseHostnameButton_clicked()

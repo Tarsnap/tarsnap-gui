@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     archivelistitem.cpp \
     debug.cpp \
     restoredialog.cpp \
-    filepicker.cpp
+    filepicker.cpp \
+    filepickerdialog.cpp
 
 HEADERS  += \
     backuplistwidget.h \
@@ -43,7 +44,8 @@ HEADERS  += \
     archivelistitem.h \
     debug.h \
     restoredialog.h \
-    filepicker.h
+    filepicker.h \
+    filepickerdialog.h
 
 FORMS    += \
     backupitemwidget.ui \
@@ -51,7 +53,8 @@ FORMS    += \
     mainwindow.ui \
     archiveitemwidget.ui \
     restoredialog.ui \
-    filepicker.ui
+    filepicker.ui \
+    filepickerdialog.ui
 
 RESOURCES += \
     resources.qrc

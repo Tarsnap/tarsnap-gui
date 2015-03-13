@@ -20,8 +20,14 @@ BackupListWidget::BackupListWidget(QWidget *parent):
 {
     QSettings settings;
     QStringList urls = settings.value("app/backup_list").toStringList();
-    foreach (QString url, urls) {
-        addItemWithUrl(url);
+    if(!urls.isEmpty())
+    {
+        QList<QUrl> urllist;
+        foreach (QString url, urls)
+            urllist << QUrl::fromUserInput(url);
+        if(!urllist.isEmpty())
+            QMetaObject::invokeMethod(this, "addItemsWithUrls"
+                                      , Qt::QueuedConnection, Q_ARG(QList<QUrl>, urllist));
     }
 }
 

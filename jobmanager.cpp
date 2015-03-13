@@ -85,7 +85,7 @@ void JobManager::backupNow(BackupJobPtr job)
             , this, SLOT(backupJobFinished(QUuid,QVariant,int,QString)));
     connect(backupClient, SIGNAL(clientStarted(QUuid)), this, SLOT(backupJobStarted(QUuid)));
     queueJob(backupClient, true);
-    job->status = JobStatus::Started;
+    job->status = JobStatus::Queued;
     emit backupJobUpdate(job);
 }
 

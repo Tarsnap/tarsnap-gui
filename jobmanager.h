@@ -62,7 +62,7 @@ struct ArchiveRestoreOptions
     QString     chdir;
 };
 
-enum JobStatus { Started, Running, Completed, Failed, Paused, Unknown };
+enum JobStatus { Queued, Running, Completed, Failed, Paused, Unknown };
 
 class BackupJob
 {

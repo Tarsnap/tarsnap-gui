@@ -212,8 +212,8 @@ void MainWindow::backupJobUpdate(BackupJobPtr job)
                             .arg(job->name).arg(Utils::humanBytes(job->archive->sizeUniqueCompressed, _useSIPrefixes))
                             ,job->archive->archiveStats());
         break;
-    case JobStatus::Started:
-        updateStatusMessage(tr("Job <i>%1</i> created.").arg(job->name));
+    case JobStatus::Queued:
+        updateStatusMessage(tr("Job <i>%1</i> queued.").arg(job->name));
         break;
     case JobStatus::Running:
         updateStatusMessage(tr("Job <i>%1</i> is running.").arg(job->name));

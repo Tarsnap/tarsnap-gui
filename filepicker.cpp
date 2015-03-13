@@ -14,6 +14,9 @@ FilePicker::FilePicker(QWidget *parent) :
 //    _model.setNameFilterDisables(false);
     _ui->treeView->setModel(&_model);
     _ui->treeView->setCurrentIndex(_model.index(QDir::homePath()));
+    _completer.setModel(&_model);
+    _completer.setCompletionMode(QCompleter::InlineCompletion);
+    _ui->filterLineEdit->setCompleter(&_completer);
 
     connect(_ui->filterLineEdit, SIGNAL(textEdited(QString)), this, SLOT(updateFilter(QString)));
     connect(_ui->showHiddenCheckBox, &QCheckBox::toggled,
@@ -45,6 +48,12 @@ FilePicker::FilePicker(QWidget *parent) :
             {
                 _ui->optionsContainer->setVisible(!_ui->optionsContainer->isVisible());
             });
+    connect(_ui->filterLineEdit, &QLineEdit::returnPressed,
+            [=]()
+            {
+                if(_completer.currentCompletion().isEmpty())
+                    _ui->treeView->setFocus();
+            });
 }
 
 FilePicker::~FilePicker()
@@ -74,7 +83,7 @@ void FilePicker::keyReleaseEvent(QKeyEvent *event)
             _ui->filterLineEdit->setFocus();
         break;
     default:
-        QWidget::keyReleaseEvent(event);
+        QDialog::keyReleaseEvent(event);
     }
 }
 

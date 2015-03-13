@@ -5,6 +5,7 @@
 
 #include <QDialog>
 #include <QFileSystemModel>
+#include <QCompleter>
 
 namespace Ui {
 class FilePicker;
@@ -29,6 +30,7 @@ public slots:
 private:
     Ui::FilePicker      *_ui;
     QFileSystemModel    _model;
+    QCompleter          _completer;
 };
 
 #endif // FILEPICKER_H

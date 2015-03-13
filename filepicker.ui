@@ -55,8 +55,11 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>Quickly navigate directories and filter files using regular expressions</string>
+        </property>
         <property name="placeholderText">
-         <string>navigate and filter</string>
+         <string>navigate directories and filter files</string>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
@@ -124,6 +127,9 @@
       </property>
       <item>
        <widget class="QCheckBox" name="showHiddenCheckBox">
+        <property name="toolTip">
+         <string>List hidden files (on Unix, files starting with a &quot;.&quot;)</string>
+        </property>
         <property name="text">
          <string>Show hidden</string>
         </property>
@@ -131,6 +137,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="showSystemCheckBox">
+        <property name="toolTip">
+         <string>List system files (on Unix, FIFOs, sockets and device files are included; on Windows, .lnk files are included)</string>
+        </property>
         <property name="text">
          <string>Show system</string>
         </property>
@@ -138,8 +147,11 @@
       </item>
       <item>
        <widget class="QCheckBox" name="hideLinksCheckBox">
+        <property name="toolTip">
+         <string>Do not list symbolic links (ignored by operating systems that don't support symbolic links)</string>
+        </property>
         <property name="text">
-         <string>Hide links</string>
+         <string>Hide symbolic links</string>
         </property>
        </widget>
       </item>
@@ -157,9 +169,6 @@
      <property name="animated">
       <bool>true</bool>
      </property>
-     <attribute name="headerDefaultSectionSize">
-      <number>200</number>
-     </attribute>
     </widget>
    </item>
   </layout>

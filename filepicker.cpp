@@ -29,6 +29,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     _completer.setModel(&_model);
     _completer.setCompletionMode(QCompleter::InlineCompletion);
     _ui->filterLineEdit->setCompleter(&_completer);
+    _ui->treeView->setColumnWidth(0, 250);
 
     connect(_ui->filterLineEdit, SIGNAL(textEdited(QString)), this, SLOT(updateFilter(QString)));
     connect(_ui->showHiddenCheckBox, &QCheckBox::toggled,

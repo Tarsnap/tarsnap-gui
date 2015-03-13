@@ -6,6 +6,8 @@
 #include <QDebug>
 #include <QMessageBox>
 
+bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp > b->timestamp); }
+
 BrowseListWidget::BrowseListWidget(QWidget *parent):
     QListWidget(parent)
 {
@@ -19,6 +21,7 @@ BrowseListWidget::~BrowseListWidget()
 void BrowseListWidget::addArchives(QList<ArchivePtr > archives)
 {
     clear();
+    std::sort(archives.begin(), archives.end(), ArchiveCompare);
     foreach (ArchivePtr archive, archives) {
         ArchiveListItem *item = new ArchiveListItem(archive);
         connect(item, SIGNAL(requestDelete()), this, SLOT(removeItems()));

@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/resources/icon.png</normaloff>:/resources/icon.png</iconset>
+    <normaloff>:/resources/tarsnap_icon.png</normaloff>:/resources/tarsnap_icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">#MainWindow {
@@ -105,7 +105,7 @@ border-radius: 2px;
 </string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="backupTab">
           <property name="acceptDrops">
@@ -707,295 +707,30 @@ selection-background-color: rgba(179, 190, 255, 120);
             <number>5</number>
            </property>
            <item>
-            <widget class="QToolBox" name="toolBox">
+            <widget class="QListWidget" name="jobsListWidget">
              <property name="styleSheet">
-              <string notr="true">#toolBox{
-background: transparent;
-}</string>
-             </property>
-             <property name="currentIndex">
-              <number>1</number>
-             </property>
-             <widget class="QWidget" name="page">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>530</width>
-                <height>110</height>
-               </rect>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">#page {
-background: #E3EBEC;
-}</string>
-              </property>
-              <attribute name="label">
-               <string>Users</string>
-              </attribute>
-              <layout class="QVBoxLayout" name="verticalLayout_5">
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QWidget" name="widget_3" native="true">
-                 <property name="styleSheet">
-                  <string notr="true"/>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_2">
-                  <property name="leftMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QPushButton" name="pushButton_2">
-                    <property name="text">
-                     <string>Backup now</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_2">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_10">
-                    <property name="text">
-                     <string>Last backup was on 02.12.2014</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="pushButton_3">
-                    <property name="text">
-                     <string>Show previous archives</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QTreeWidget" name="treeWidget">
-                 <property name="tabKeyNavigation">
-                  <bool>true</bool>
-                 </property>
-                 <property name="alternatingRowColors">
-                  <bool>true</bool>
-                 </property>
-                 <property name="rootIsDecorated">
-                  <bool>true</bool>
-                 </property>
-                 <property name="uniformRowHeights">
-                  <bool>false</bool>
-                 </property>
-                 <property name="headerHidden">
-                  <bool>true</bool>
-                 </property>
-                 <column>
-                  <property name="text">
-                   <string>/</string>
-                  </property>
-                 </column>
-                 <item>
-                  <property name="text">
-                   <string>/home/</string>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>shinnok/*</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>bob/</string>
-                   </property>
-                   <item>
-                    <property name="text">
-                     <string>work/*.cpp</string>
-                    </property>
-                   </item>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>john/*</string>
-                   </property>
-                  </item>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>/home_ext/*</string>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </item>
-                 </item>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-             <widget class="QWidget" name="page_2">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>569</width>
-                <height>410</height>
-               </rect>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">#page_2 {
-background: #E3EBEC;
-}</string>
-              </property>
-              <attribute name="label">
-               <string>Stage Server</string>
-              </attribute>
-              <layout class="QVBoxLayout" name="verticalLayout_10">
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QWidget" name="widget_5" native="true">
-                 <property name="styleSheet">
-                  <string notr="true"/>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_3">
-                  <property name="leftMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QPushButton" name="pushButton_4">
-                    <property name="text">
-                     <string>Cancel</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_4">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_18">
-                    <property name="text">
-                     <string>Last backup was on 02.12.2014</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="pushButton_5">
-                    <property name="text">
-                     <string>Restore latest archive</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QListWidget" name="backupRestoreListWidget">
-                 <property name="styleSheet">
-                  <string notr="true">#backupRestoreListWidget::item
+              <string notr="true">#jobsListWidget::item
 {
 min-height: 35px;
-selection-background-color: #E5E9FF;
-}
-</string>
-                 </property>
-                 <property name="alternatingRowColors">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-             <widget class="QWidget" name="page_4">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>100</width>
-                <height>30</height>
-               </rect>
-              </property>
-              <attribute name="label">
-               <string>Media</string>
-              </attribute>
-             </widget>
-             <widget class="QWidget" name="page_3">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>100</width>
-                <height>30</height>
-               </rect>
-              </property>
-              <attribute name="label">
-               <string>+ Add new job</string>
-              </attribute>
-             </widget>
+selection-background-color: rgba(179, 190, 255, 120);
+}</string>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="verticalScrollMode">
+              <enum>QAbstractItemView::ScrollPerPixel</enum>
+             </property>
+             <property name="horizontalScrollMode">
+              <enum>QAbstractItemView::ScrollPerPixel</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="addJobButton">
+             <property name="text">
+              <string>+ Add new job</string>
+             </property>
             </widget>
            </item>
           </layout>

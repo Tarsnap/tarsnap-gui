@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>200</height>
+    <width>455</width>
+    <height>289</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -59,7 +59,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
       </sizepolicy>
      </property>
      <property name="text">
-      <string/>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Restore archive &lt;span style=&quot; font-weight:600;&quot;&gt;%1&lt;/span&gt; contents to original locations? Any existing data will not be replaced by default. Use the options bellow to modify behaviour.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
@@ -73,13 +73,6 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="displayOptionsCheckBox">
-     <property name="text">
-      <string>Display options</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QGroupBox" name="optionsGroupBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -88,7 +81,7 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
       </sizepolicy>
      </property>
      <property name="title">
-      <string/>
+      <string>Options</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">
@@ -103,7 +96,17 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
       <property name="bottomMargin">
        <number>0</number>
       </property>
-      <item row="1" column="0">
+      <item row="4" column="0" colspan="2">
+       <widget class="QCheckBox" name="overwriteCheckBox">
+        <property name="toolTip">
+         <string>Overwrite existing files if they exist</string>
+        </property>
+        <property name="text">
+         <string>Overwrite existing files</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
        <widget class="QLineEdit" name="chdirLineEdit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
@@ -116,37 +119,43 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="browseButton">
-        <property name="text">
-         <string>Browse</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0" colspan="2">
-       <widget class="QCheckBox" name="preservePathsCheckBox">
+       <widget class="QRadioButton" name="preservePathsRadioButton">
         <property name="toolTip">
-         <string>Will restore to the specified dir if unchecked.</string>
+         <string>This will restore files and dirs to the original locations used when creating the backup, thus effectively achieving a restore.</string>
         </property>
         <property name="text">
-         <string>Preserve pathnames</string>
+         <string>Restore files to original location</string>
         </property>
         <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QCheckBox" name="overwriteCheckBox">
+      <item row="2" column="1">
+       <widget class="QPushButton" name="browseButton">
         <property name="text">
-         <string>Overwrite existing files</string>
+         <string>Browse</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="restoreDirectoryRadioButton">
+        <property name="toolTip">
+         <string>This will extract the archive contents to the specified directory.</string>
+        </property>
+        <property name="text">
+         <string>Restore files to other directory</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
        <widget class="QCheckBox" name="keepNewerCheckBox">
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string>Will skip if existing files are newer on disk than archive contents</string>
         </property>
         <property name="text">
          <string>Keep newer files</string>
@@ -193,6 +202,16 @@ background-image: url(&quot;:/resources/light_toast.png&quot;);
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>preservePathsRadioButton</tabstop>
+  <tabstop>restoreDirectoryRadioButton</tabstop>
+  <tabstop>chdirLineEdit</tabstop>
+  <tabstop>browseButton</tabstop>
+  <tabstop>overwriteCheckBox</tabstop>
+  <tabstop>keepNewerCheckBox</tabstop>
+  <tabstop>cancelButton</tabstop>
+  <tabstop>restoreButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

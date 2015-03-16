@@ -10,15 +10,15 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent) :
     QDialog(parent), _ui(new Ui::RestoreDialog), _archive(archive)
 {
     _ui->setupUi(this);
-    _ui->optionsGroupBox->hide();
-    _ui->infoLabel->setText(tr("Restore archive <b>%1</b> contents to original locations? "
-                               "Any existing data will not be replaced, expand <i>Display options</i> to modify the defaults.")
-                            .arg(archive->name));
+    _ui->infoLabel->setText(_ui->infoLabel->text().arg(archive->name));
     QSettings settings;
     _ui->chdirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
     _ui->chdirLineEdit->hide();
     _ui->browseButton->hide();
-    _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
+    if(settings.value("tarsnap/preserve_pathnames", true).toBool())
+        _ui->preservePathsRadioButton->setChecked(true);
+    else
+        _ui->restoreDirectoryRadioButton->setChecked(true);
 }
 
 RestoreDialog::~RestoreDialog()
@@ -29,7 +29,7 @@ RestoreDialog::~RestoreDialog()
 ArchiveRestoreOptions RestoreDialog::getOptions()
 {
     ArchiveRestoreOptions options;
-    options.preservePaths  = _ui->preservePathsCheckBox->isChecked();
+    options.preservePaths  = _ui->preservePathsRadioButton->isChecked();
     options.overwriteFiles = _ui->overwriteCheckBox->isChecked();
     options.keepNewerFiles = _ui->keepNewerCheckBox->isChecked();
     options.chdir = _ui->chdirLineEdit->text();
@@ -46,16 +46,10 @@ void RestoreDialog::on_restoreButton_clicked()
     accept();
 }
 
-void RestoreDialog::on_displayOptionsCheckBox_toggled(bool checked)
+void RestoreDialog::on_restoreDirectoryRadioButton_toggled(bool checked)
 {
-    _ui->optionsGroupBox->setVisible(checked);
-    adjustSize();
-}
-
-void RestoreDialog::on_preservePathsCheckBox_toggled(bool checked)
-{
-    _ui->chdirLineEdit->setVisible(!checked);
-    _ui->browseButton->setVisible(!checked);
+    _ui->chdirLineEdit->setVisible(checked);
+    _ui->browseButton->setVisible(checked);
     adjustSize();
 }
 

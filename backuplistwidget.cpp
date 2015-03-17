@@ -1,19 +1,11 @@
 #include "backuplistwidget.h"
 #include "backuplistitem.h"
+#include "debug.h"
 
-#include <QDebug>
 #include <QDropEvent>
 #include <QMimeData>
 #include <QFileInfo>
 #include <QSettings>
-
-/*FIXME: Remove after QTBUG-40449 is fixed in Qt5*/
-#ifdef Q_OS_OSX
-// for file drops from Finder, working around QTBUG-40449
-namespace Platform {
-extern QUrl osxRefToUrl(const QUrl &url);
-} // Platform
-#endif
 
 BackupListWidget::BackupListWidget(QWidget *parent):
     QListWidget(parent)
@@ -65,13 +57,8 @@ void BackupListWidget::addItemWithUrl(QUrl url)
 
 void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
 {
-    foreach (QUrl url, urls) {
-#ifdef Q_OS_OSX
-/*FIXME: Remove after QTBUG-40449 is fixed in Qt5*/
-        url = Platform::osxRefToUrl(url);
-#endif
+    foreach (QUrl url, urls)
         addItemWithUrl(url);
-    }
     recomputeListTotals();
 }
 

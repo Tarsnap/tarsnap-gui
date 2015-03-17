@@ -6,7 +6,6 @@
 #include "filepickerdialog.h"
 #include "utils.h"
 #include "debug.h"
-#include "jobwidget.h"
 
 #include <QPainter>
 #include <QSettings>
@@ -119,16 +118,6 @@ MainWindow::MainWindow(QWidget *parent) :
                 else
                     _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
             });
-
-    // TODO: REMOVE
-    for(int i = 0; i < 50; i++)
-    {
-        JobWidget *job = new JobWidget();
-//        _ui->jobsToolBox->insertItem(0, job, QPixmap(":/resources/tarsnap_icon.png"),"testjob");
-        QListWidgetItem *item = new QListWidgetItem();
-        _ui->jobsListWidget->insertItem(_ui->jobsListWidget->count(), item);
-        _ui->jobsListWidget->setItemWidget(item, job);
-    }
 }
 
 MainWindow::~MainWindow()

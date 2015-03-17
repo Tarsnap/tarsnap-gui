@@ -707,7 +707,7 @@ selection-background-color: rgba(179, 190, 255, 120);
             <number>5</number>
            </property>
            <item>
-            <widget class="QListWidget" name="jobsListWidget">
+            <widget class="JobsListWidget" name="jobsListWidget">
              <property name="styleSheet">
               <string notr="true">#jobsListWidget::item
 {
@@ -1852,6 +1852,11 @@ border: none;
    <class>BrowseListWidget</class>
    <extends>QListWidget</extends>
    <header>browselistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>JobsListWidget</class>
+   <extends>QListWidget</extends>
+   <header>jobslistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

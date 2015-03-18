@@ -105,7 +105,7 @@ border-radius: 2px;
 </string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="backupTab">
           <property name="acceptDrops">
@@ -607,28 +607,6 @@ selection-background-color: rgba(179, 190, 255, 120);
                        </property>
                       </widget>
                      </item>
-                     <item row="0" column="3" rowspan="4">
-                      <widget class="QLabel" name="archiveIconLabel">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="pixmap">
-                        <pixmap resource="resources.qrc">:/resources/file-8x.png</pixmap>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                       </property>
-                       <property name="textInteractionFlags">
-                        <set>Qt::NoTextInteraction</set>
-                       </property>
-                      </widget>
-                     </item>
                      <item row="4" column="0">
                       <widget class="QLabel" name="label_5">
                        <property name="toolTip">
@@ -658,6 +636,37 @@ selection-background-color: rgba(179, 190, 255, 120);
                        </property>
                        <property name="elide" stdset="0">
                         <string>Qt::ElideMiddle</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="3" rowspan="5" alignment="Qt::AlignVCenter">
+                      <widget class="QLabel" name="archiveIconLabel">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>100</width>
+                         <height>100</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="pixmap">
+                        <pixmap resource="resources.qrc">:/resources/tarsnap_icon.png</pixmap>
+                       </property>
+                       <property name="scaledContents">
+                        <bool>true</bool>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                       <property name="textInteractionFlags">
+                        <set>Qt::NoTextInteraction</set>
                        </property>
                       </widget>
                      </item>
@@ -1227,7 +1236,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>484</width>
+                <width>569</width>
                 <height>212</height>
                </rect>
               </property>

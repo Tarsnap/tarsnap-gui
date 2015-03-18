@@ -56,7 +56,10 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="resources.qrc">:/resources/file-2x.png</pixmap>
+      <pixmap resource="resources.qrc">:/resources/tarsnap_icon.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

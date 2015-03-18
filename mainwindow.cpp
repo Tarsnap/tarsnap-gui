@@ -59,6 +59,17 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->actionBrowseItems, SIGNAL(triggered()), this, SLOT(browseForBackupItems()));
     connect(_ui->backupListInfoLabel, SIGNAL(linkActivated(QString)), this,
             SLOT(browseForBackupItems()));
+    connect(_ui->backupButton, SIGNAL(clicked()), this, SLOT(backupButtonClicked()));
+    connect(_ui->appendTimestampCheckBox, SIGNAL(toggled(bool)), this, SLOT(appendTimestampCheckBoxToggled(bool)));
+    connect(_ui->accountMachineUseHostnameButton, SIGNAL(clicked()), this, SLOT(accountMachineUseHostnameButtonClicked()));
+    connect(_ui->accountMachineKeyBrowseButton, SIGNAL(clicked()), this, SLOT(accountMachineKeyBrowseButtonClicked()));
+    connect(_ui->tarsnapPathBrowseButton, SIGNAL(clicked()), this, SLOT(tarsnapPathBrowseButtonClicked()));
+    connect(_ui->tarsnapCacheBrowseButton, SIGNAL(clicked()), this, SLOT(tarsnapCacheBrowseButton()));
+    connect(_ui->repairCacheButton, SIGNAL(clicked()), this, SLOT(repairCacheButtonClicked()));
+    connect(_ui->purgeArchivesButton, SIGNAL(clicked()), this, SLOT(purgeArchivesButtonClicked()));
+    connect(_ui->runSetupWizard, SIGNAL(clicked()), this, SLOT(runSetupWizardClicked()));
+    connect(_ui->expandJournalButton, SIGNAL(toggled(bool)), this, SLOT(expandJournalButtonToggled(bool)));
+    connect(_ui->downloadsDirBrowseButton, SIGNAL(clicked()), this, SLOT(downloadsDirBrowseButtonClicked()));
 
     connect(&_purgeTimer, SIGNAL(timeout()), this, SLOT(purgeTimerFired()));
 
@@ -345,7 +356,7 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
         _ui->archiveDetailsWidget->show();
 }
 
-void MainWindow::on_appendTimestampCheckBox_toggled(bool checked)
+void MainWindow::appendTimestampCheckBoxToggled(bool checked)
 {
     if(checked)
     {
@@ -372,13 +383,15 @@ void MainWindow::on_appendTimestampCheckBox_toggled(bool checked)
     }
 }
 
-void MainWindow::on_backupButton_clicked()
+void MainWindow::backupButtonClicked()
 {
     QList<QUrl> urls;
 
+    DEBUG << "HERE";
+
     for(int i = 0; i < _ui->backupListWidget->count(); ++i)
     {
-        urls << dynamic_cast<BackupListItem*>(_ui->backupListWidget->item(i))->url();
+        urls << static_cast<BackupListItem*>(_ui->backupListWidget->item(i))->url();
     }
 
     BackupJobPtr job(new BackupJob);
@@ -508,20 +521,20 @@ void MainWindow::browseForBackupItems()
                                   , picker.getSelectedUrls()));
 }
 
-void MainWindow::on_accountMachineUseHostnameButton_clicked()
+void MainWindow::accountMachineUseHostnameButtonClicked()
 {
     _ui->accountMachineLineEdit->setText(QHostInfo::localHostName());
     commitSettings();
 }
 
-void MainWindow::on_accountMachineKeyBrowseButton_clicked()
+void MainWindow::accountMachineKeyBrowseButtonClicked()
 {
     QString key = QFileDialog::getOpenFileName(this, tr("Browse for existing machine key"));
     _ui->accountMachineKeyLineEdit->setText(key);
     commitSettings();
 }
 
-void MainWindow::on_tarsnapPathBrowseButton_clicked()
+void MainWindow::tarsnapPathBrowseButtonClicked()
 {
     QString tarsnapPath = QFileDialog::getExistingDirectory(this,
                                                             tr("Find Tarsnap client"),
@@ -530,7 +543,7 @@ void MainWindow::on_tarsnapPathBrowseButton_clicked()
     commitSettings();
 }
 
-void MainWindow::on_tarsnapCacheBrowseButton_clicked()
+void MainWindow::tarsnapCacheBrowseButton()
 {
     QString tarsnapCacheDir = QFileDialog::getExistingDirectory(this,
                                                             tr("Tarsnap cache location"),
@@ -539,12 +552,12 @@ void MainWindow::on_tarsnapCacheBrowseButton_clicked()
     commitSettings();
 }
 
-void MainWindow::on_repairCacheButton_clicked()
+void MainWindow::repairCacheButtonClicked()
 {
     emit repairCache();
 }
 
-void MainWindow::on_purgeArchivesButton_clicked()
+void MainWindow::purgeArchivesButtonClicked()
 {
     if(_purgeTimer.isActive())
     {
@@ -567,7 +580,7 @@ void MainWindow::on_purgeArchivesButton_clicked()
     }
 }
 
-void MainWindow::on_runSetupWizard_clicked()
+void MainWindow::runSetupWizardClicked()
 {
     QMessageBox::StandardButton confirm = QMessageBox::question(this, tr("Confirm action")
                                                                 ,tr("Reset current settings and run the setup wizard?")
@@ -581,7 +594,7 @@ void MainWindow::on_runSetupWizard_clicked()
     }
 }
 
-void MainWindow::on_expandJournalButton_toggled(bool checked)
+void MainWindow::expandJournalButtonToggled(bool checked)
 {
     if(checked)
         _ui->journalLog->show();
@@ -589,7 +602,7 @@ void MainWindow::on_expandJournalButton_toggled(bool checked)
         _ui->journalLog->hide();
 }
 
-void MainWindow::on_downloadsDirBrowseButton_clicked()
+void MainWindow::downloadsDirBrowseButtonClicked()
 {
     QString path = QFileDialog::getExistingDirectory(this,
                                                      tr("Browse for directory"),

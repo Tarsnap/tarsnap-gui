@@ -66,18 +66,17 @@ private slots:
     void purgeTimerFired();
     void appendToConsoleLog(QString msg);
     void browseForBackupItems();
-
-    void on_appendTimestampCheckBox_toggled(bool checked);
-    void on_backupButton_clicked();
-    void on_accountMachineUseHostnameButton_clicked();
-    void on_accountMachineKeyBrowseButton_clicked();
-    void on_tarsnapPathBrowseButton_clicked();
-    void on_tarsnapCacheBrowseButton_clicked();
-    void on_repairCacheButton_clicked();
-    void on_purgeArchivesButton_clicked();
-    void on_runSetupWizard_clicked();
-    void on_expandJournalButton_toggled(bool checked);
-    void on_downloadsDirBrowseButton_clicked();
+    void appendTimestampCheckBoxToggled(bool checked);
+    void backupButtonClicked();
+    void accountMachineUseHostnameButtonClicked();
+    void accountMachineKeyBrowseButtonClicked();
+    void tarsnapPathBrowseButtonClicked();
+    void tarsnapCacheBrowseButton();
+    void repairCacheButtonClicked();
+    void purgeArchivesButtonClicked();
+    void runSetupWizardClicked();
+    void expandJournalButtonToggled(bool checked);
+    void downloadsDirBrowseButtonClicked();
 
 private:
     Ui::MainWindow  *_ui;

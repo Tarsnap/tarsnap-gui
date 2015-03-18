@@ -35,7 +35,6 @@ void JobListItem::displayDrawer(bool display)
                 });
         _widget.layout()->addWidget(jobWidget);
         setSizeHint(QSize(sizeHint().width(), _expandedHeight));
-        _widget.adjustSize();
     }
     else if (!display && (_widget.layout()->itemAt(1) != 0))
     {
@@ -44,7 +43,6 @@ void JobListItem::displayDrawer(bool display)
         _widget.layout()->removeWidget(jobWidget);
         delete jobWidget;
         setSizeHint(QSize(sizeHint().width(), _defaultHeight));
-        _widget.adjustSize();
     }
 }
 

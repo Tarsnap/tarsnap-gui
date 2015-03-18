@@ -165,6 +165,9 @@ selection-background-color: rgba(179, 190, 255, 120);
              <property name="horizontalScrollMode">
               <enum>QAbstractItemView::ScrollPerPixel</enum>
              </property>
+             <property name="uniformItemSizes">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -370,6 +373,15 @@ selection-background-color: rgba(179, 190, 255, 120);
                  </property>
                  <property name="horizontalScrollMode">
                   <enum>QAbstractItemView::ScrollPerPixel</enum>
+                 </property>
+                 <property name="layoutMode">
+                  <enum>QListView::Batched</enum>
+                 </property>
+                 <property name="uniformItemSizes">
+                  <bool>true</bool>
+                 </property>
+                 <property name="batchSize">
+                  <number>20</number>
                  </property>
                 </widget>
                 <widget class="QWidget" name="archiveDetailsWidget" native="true">
@@ -724,6 +736,12 @@ selection-background-color: rgba(179, 190, 255, 120);
              <property name="horizontalScrollMode">
               <enum>QAbstractItemView::ScrollPerPixel</enum>
              </property>
+             <property name="layoutMode">
+              <enum>QListView::Batched</enum>
+             </property>
+             <property name="batchSize">
+              <number>20</number>
+             </property>
             </widget>
            </item>
            <item>
@@ -1058,7 +1076,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>237</width>
+                <width>275</width>
                 <height>156</height>
                </rect>
               </property>
@@ -1209,7 +1227,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>569</width>
+                <width>484</width>
                 <height>212</height>
                </rect>
               </property>
@@ -1409,7 +1427,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>250</width>
+                <width>262</width>
                 <height>185</height>
                </rect>
               </property>

@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->browseListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+    _ui->jobsListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     _tarsnapLogo = new QLabel(this);
     QPixmap logo(":/resources/tarsnap.png");

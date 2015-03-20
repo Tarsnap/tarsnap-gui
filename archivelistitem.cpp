@@ -7,7 +7,6 @@
 ArchiveListItem::ArchiveListItem(ArchivePtr archive, QObject *parent):
     QObject(parent), _useSIPrefixes(false)
 {
-    _widget.installEventFilter(this);
     _ui.setupUi(&_widget);
     _widget.addAction(_ui.actionDelete);
     _widget.addAction(_ui.actionInspect);
@@ -60,17 +59,6 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
 void ArchiveListItem::update()
 {
     setArchive(_archive);
-}
-
-bool ArchiveListItem::eventFilter(QObject *obj, QEvent *event)
-{
-    if (event->type() == QEvent::MouseButtonDblClick) {
-        emit requestInspect();
-        return true;
-    } else {
-        // standard event processing
-        return _widget.eventFilter(obj, event);
-    }
 }
 
 

@@ -11,6 +11,8 @@ bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp > b->tim
 BrowseListWidget::BrowseListWidget(QWidget *parent):
     QListWidget(parent)
 {
+
+    connect(this, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(inspectItem()));
 }
 
 BrowseListWidget::~BrowseListWidget()
@@ -81,10 +83,13 @@ void BrowseListWidget::removeItems()
 
 void BrowseListWidget::inspectItem()
 {
-    ArchiveListItem* archiveItem = qobject_cast<ArchiveListItem*>(sender());
-    if(archiveItem)
+    if(sender())
     {
-        emit inspectArchive(archiveItem->archive());
+        emit inspectArchive(qobject_cast<ArchiveListItem*>(sender())->archive());
+    }
+    else if(currentItem())
+    {
+        emit inspectArchive(static_cast<ArchiveListItem*>(currentItem())->archive());
     }
 }
 

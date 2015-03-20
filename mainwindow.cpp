@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->journalLog->hide();
     _ui->loadingIconLabel->setMovie(&_loadingAnimation);
     _ui->archiveDetailsWidget->hide();
+    _ui->jobDetailsWidget->hide();
 
     connect(&Debug::instance(), SIGNAL(message(QString)), this , SLOT(appendToConsoleLog(QString))
             , Qt::QueuedConnection);
@@ -101,6 +102,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->browseListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)),
             this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)));
     connect(_ui->mainTabWidget, SIGNAL(currentChanged(int)), this, SLOT(currentPaneChanged(int)));
+
+    // Jobs
+    connect(_ui->jobsListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)));
 
     //lambda slots to quickly update various UI components
     connect(_ui->browseListWidget, &BrowseListWidget::getArchivesList,
@@ -197,6 +201,9 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         if((_ui->mainTabWidget->currentWidget() == _ui->browseTab)
            &&(_ui->archiveDetailsWidget->isVisible()))
             _ui->archiveDetailsWidget->hide();
+        if((_ui->mainTabWidget->currentWidget() == _ui->jobsTab)
+           &&(_ui->jobDetailsWidget->isVisible()))
+            _ui->jobDetailsWidget->hide();
         else if(_ui->journalLog->isVisible())
             _ui->expandJournalButton->toggle();
         break;
@@ -610,4 +617,12 @@ void MainWindow::downloadsDirBrowseButtonClicked()
                                                      QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first());
     if(!path.isEmpty())
         _ui->downloadsDirLineEdit->setText(path);
+}
+
+void MainWindow::displayJobDetails(JobPtr job)
+{
+    _ui->jobsListWidget->scrollToItem(_ui->jobsListWidget->currentItem(), QAbstractItemView::EnsureVisible);
+    _ui->jobDetailsWidget->setJob(job);
+    if(!_ui->jobDetailsWidget->isVisible())
+        _ui->jobDetailsWidget->show();
 }

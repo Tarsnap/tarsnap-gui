@@ -80,6 +80,14 @@ public:
 
 typedef QSharedPointer<BackupJob> BackupJobPtr;
 
+class Job
+{
+public:
+    QString name;
+};
+
+typedef QSharedPointer<Job> JobPtr;
+
 class JobManager : public QObject
 {
     Q_OBJECT

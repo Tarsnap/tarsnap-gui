@@ -1,6 +1,8 @@
 #ifndef JOBSLISTWIDGET_H
 #define JOBSLISTWIDGET_H
 
+#include "jobmanager.h"
+
 #include <QListWidget>
 
 class JobsListWidget : public QListWidget
@@ -12,6 +14,7 @@ public:
     ~JobsListWidget();
 
 signals:
+    void displayJobDetails(JobPtr job);
 
 public slots:
 

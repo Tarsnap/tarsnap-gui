@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>485</width>
+    <width>506</width>
     <height>35</height>
    </rect>
   </property>
@@ -93,7 +93,7 @@
          </font>
         </property>
         <property name="text">
-         <string>(99 archives)</string>
+         <string>99 archives</string>
         </property>
        </widget>
       </item>

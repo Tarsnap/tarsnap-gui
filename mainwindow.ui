@@ -105,7 +105,7 @@ border-radius: 2px;
 </string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="backupTab">
           <property name="acceptDrops">
@@ -728,35 +728,62 @@ selection-background-color: rgba(179, 190, 255, 120);
             <number>5</number>
            </property>
            <item>
-            <widget class="JobsListWidget" name="jobsListWidget">
-             <property name="styleSheet">
-              <string notr="true">#jobsListWidget::item
+            <widget class="QWidget" name="widget_3" native="true">
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QSplitter" name="splitter_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <widget class="JobsListWidget" name="jobsListWidget">
+                 <property name="styleSheet">
+                  <string notr="true">#jobsListWidget::item
 {
 min-height: 35px;
 selection-background-color: rgba(179, 190, 255, 120);
 }</string>
-             </property>
-             <property name="alternatingRowColors">
-              <bool>true</bool>
-             </property>
-             <property name="verticalScrollMode">
-              <enum>QAbstractItemView::ScrollPerPixel</enum>
-             </property>
-             <property name="horizontalScrollMode">
-              <enum>QAbstractItemView::ScrollPerPixel</enum>
-             </property>
-             <property name="layoutMode">
-              <enum>QListView::Batched</enum>
-             </property>
-             <property name="batchSize">
-              <number>20</number>
-             </property>
+                 </property>
+                 <property name="alternatingRowColors">
+                  <bool>true</bool>
+                 </property>
+                 <property name="verticalScrollMode">
+                  <enum>QAbstractItemView::ScrollPerPixel</enum>
+                 </property>
+                 <property name="horizontalScrollMode">
+                  <enum>QAbstractItemView::ScrollPerPixel</enum>
+                 </property>
+                 <property name="layoutMode">
+                  <enum>QListView::Batched</enum>
+                 </property>
+                 <property name="uniformItemSizes">
+                  <bool>true</bool>
+                 </property>
+                 <property name="batchSize">
+                  <number>20</number>
+                 </property>
+                </widget>
+                <widget class="JobWidget" name="jobDetailsWidget" native="true"/>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="addJobButton">
              <property name="text">
-              <string>+ Add new job</string>
+              <string>+ Add Job</string>
              </property>
             </widget>
            </item>
@@ -1884,6 +1911,12 @@ border: none;
    <class>JobsListWidget</class>
    <extends>QListWidget</extends>
    <header>jobslistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>JobWidget</class>
+   <extends>QWidget</extends>
+   <header>jobwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

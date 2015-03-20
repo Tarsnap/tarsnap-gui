@@ -6,17 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>523</width>
-    <height>261</height>
+    <width>680</width>
+    <height>203</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">#JobWidget {
-background: transparent;
-}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
@@ -48,6 +43,9 @@ background: transparent;
 }</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>3</number>
+       </property>
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -78,21 +76,28 @@ background: transparent;
            <number>6</number>
           </property>
           <property name="leftMargin">
-           <number>0</number>
+           <number>6</number>
           </property>
           <property name="topMargin">
            <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>6</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="browseButton">
+           <widget class="QLabel" name="jobNameLabel">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="text">
-             <string>List archives</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -126,6 +131,13 @@ background: transparent;
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="browseButton">
+            <property name="text">
+             <string>List archives</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -148,6 +160,9 @@ background: transparent;
 }</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>3</number>
+       </property>
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -172,21 +187,21 @@ background: transparent;
            <number>6</number>
           </property>
           <property name="leftMargin">
-           <number>0</number>
+           <number>6</number>
           </property>
           <property name="topMargin">
            <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>6</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="backButton">
+           <widget class="QPushButton" name="restoreLatestArchiveButton">
             <property name="text">
-             <string>Back</string>
+             <string>Restore latest archive</string>
             </property>
            </widget>
           </item>
@@ -204,9 +219,9 @@ background: transparent;
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="restoreLatestArchiveButton">
+           <widget class="QPushButton" name="backButton">
             <property name="text">
-             <string>Restore latest archive</string>
+             <string>Back</string>
             </property>
            </widget>
           </item>

@@ -12,7 +12,14 @@ BrowseListWidget::BrowseListWidget(QWidget *parent):
     QListWidget(parent)
 {
 
-    connect(this, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(inspectItem()));
+    connect(this, &QListWidget::itemActivated,
+            [=](QListWidgetItem* item)
+            {
+                if(item)
+                {
+                    emit inspectArchive(static_cast<ArchiveListItem*>(item)->archive());
+                }
+            });
 }
 
 BrowseListWidget::~BrowseListWidget()
@@ -86,10 +93,6 @@ void BrowseListWidget::inspectItem()
     if(sender())
     {
         emit inspectArchive(qobject_cast<ArchiveListItem*>(sender())->archive());
-    }
-    else if(currentItem())
-    {
-        emit inspectArchive(static_cast<ArchiveListItem*>(currentItem())->archive());
     }
 }
 

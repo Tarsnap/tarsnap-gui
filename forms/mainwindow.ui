@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>579</width>
-    <height>711</height>
+    <height>717</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -713,7 +713,7 @@ selection-background-color: rgba(179, 190, 255, 120);
           <attribute name="title">
            <string>Jobs</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
+          <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0">
            <property name="leftMargin">
             <number>5</number>
            </property>
@@ -747,6 +747,12 @@ selection-background-color: rgba(179, 190, 255, 120);
                  <enum>Qt::Vertical</enum>
                 </property>
                 <widget class="JobsListWidget" name="jobsListWidget">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">#jobsListWidget::item
 {
@@ -1894,7 +1900,7 @@ border: none;
   <customwidget>
    <class>TextLabel</class>
    <extends>QLabel</extends>
-   <header>widgets/textlabel.h</header>
+   <header location="global">../widgets/textlabel.h</header>
   </customwidget>
   <customwidget>
    <class>BackupListWidget</class>

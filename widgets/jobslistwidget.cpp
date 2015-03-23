@@ -7,7 +7,7 @@ JobsListWidget::JobsListWidget(QWidget *parent) : QListWidget(parent)
     for(int i = 0; i < 50; i++)
     {
         JobPtr job(new Job);
-        job->name = QString::number(i);
+        job->name = QString::number(i).prepend("Backup ");
         JobListItem *item = new JobListItem(job);
         insertItem(count(), item);
         setItemWidget(item, item->widget());

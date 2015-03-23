@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     loadSettings();
 
     // Ui actions
+    _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
     _ui->browseListWidget->addAction(_ui->actionRefresh);
     connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->browseListWidget
             , SIGNAL(getArchivesList()), Qt::QueuedConnection);
@@ -59,6 +60,32 @@ MainWindow::MainWindow(QWidget *parent) :
             , SLOT(clear()), Qt::QueuedConnection);
     _ui->backupListWidget->addAction(_ui->actionBrowseItems);
     connect(_ui->actionBrowseItems, SIGNAL(triggered()), this, SLOT(browseForBackupItems()));
+    this->addAction(_ui->actionGoBackup);
+    this->addAction(_ui->actionGoBrowse);
+    this->addAction(_ui->actionGoJobs);
+    this->addAction(_ui->actionGoSettings);
+    this->addAction(_ui->actionGoHelp);
+    connect(_ui->actionGoBackup, &QAction::triggered,
+            [=](){
+                _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
+            });
+    connect(_ui->actionGoBrowse, &QAction::triggered,
+            [=](){
+                _ui->mainTabWidget->setCurrentWidget(_ui->browseTab);
+            });
+    connect(_ui->actionGoJobs, &QAction::triggered,
+            [=](){
+                _ui->mainTabWidget->setCurrentWidget(_ui->jobsTab);
+            });
+    connect(_ui->actionGoSettings, &QAction::triggered,
+            [=](){
+                _ui->mainTabWidget->setCurrentWidget(_ui->settingsTab);
+            });
+    connect(_ui->actionGoHelp, &QAction::triggered,
+            [=](){
+                _ui->mainTabWidget->setCurrentWidget(_ui->helpTab);
+            });
+
     connect(_ui->backupListInfoLabel, SIGNAL(linkActivated(QString)), this,
             SLOT(browseForBackupItems()));
     connect(_ui->backupButton, SIGNAL(clicked()), this, SLOT(backupButtonClicked()));

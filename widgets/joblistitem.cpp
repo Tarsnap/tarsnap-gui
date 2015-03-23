@@ -1,6 +1,6 @@
 #include "joblistitem.h"
 
-JobListItem::JobListItem(JobPtr job, QObject *parent) : _job(job), QObject(parent)
+JobListItem::JobListItem(JobPtr job) : _job(job)
 {
     _ui.setupUi(&_widget);
     _ui.nameLabel->setText(_job->name);

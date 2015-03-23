@@ -15,7 +15,7 @@ class JobListItem : public QObject, public QListWidgetItem
 {
     Q_OBJECT
 public:
-    explicit JobListItem(JobPtr job, QObject *parent = 0);
+    explicit JobListItem(JobPtr job);
     ~JobListItem();
 
     QWidget *widget();

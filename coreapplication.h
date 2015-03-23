@@ -1,7 +1,7 @@
 #ifndef COREAPPLICATION_H
 #define COREAPPLICATION_H
 
-#include "mainwindow.h"
+#include "widgets/mainwindow.h"
 #include "jobmanager.h"
 
 #include <QObject>

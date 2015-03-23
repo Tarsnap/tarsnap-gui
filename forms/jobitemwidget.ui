@@ -65,7 +65,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="resources.qrc">:/resources/tarsnap_icon.png</pixmap>
+         <pixmap resource="../resources.qrc">:/resources/tarsnap_icon.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -139,7 +139,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

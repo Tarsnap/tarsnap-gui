@@ -120,7 +120,7 @@ background: transparent;
              <string>Options</string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
+             <iconset resource="../resources.qrc">
               <normaloff>:/resources/menu-2x.png</normaloff>:/resources/menu-2x.png</iconset>
             </property>
             <property name="iconSize">
@@ -252,7 +252,7 @@ selection-background-color: rgba(179, 190, 255, 120);
   <customwidget>
    <class>BrowseListWidget</class>
    <extends>QListWidget</extends>
-   <header>browselistwidget.h</header>
+   <header>../widgets/browselistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>FilePicker</class>
@@ -262,7 +262,7 @@ selection-background-color: rgba(179, 190, 255, 120);
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -1,5 +1,5 @@
 #include "coreapplication.h"
-#include "setupdialog.h"
+#include "widgets/setupdialog.h"
 #include "debug.h"
 
 #include <QMessageBox>

@@ -17,7 +17,7 @@
    <string>Tarsnappy</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset resource="../resources.qrc">
     <normaloff>:/resources/tarsnap_icon.png</normaloff>:/resources/tarsnap_icon.png</iconset>
   </property>
   <property name="styleSheet">
@@ -657,7 +657,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap resource="resources.qrc">:/resources/tarsnap_icon.png</pixmap>
+                        <pixmap resource="../resources.qrc">:/resources/tarsnap_icon.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>
@@ -1263,7 +1263,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>569</width>
+                <width>484</width>
                 <height>212</height>
                </rect>
               </property>
@@ -1797,7 +1797,7 @@ border: none;
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="resources.qrc">
+         <iconset resource="../resources.qrc">
           <normaloff>:/resources/caret-top-2x.png</normaloff>
           <activeon>:/resources/caret-bottom-2x.png</activeon>:/resources/caret-top-2x.png</iconset>
         </property>
@@ -1846,7 +1846,7 @@ border: none;
   </layout>
   <action name="actionRefresh">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources.qrc">
      <normaloff>:/resources/reload-2x.png</normaloff>:/resources/reload-2x.png</iconset>
    </property>
    <property name="text">
@@ -1861,7 +1861,7 @@ border: none;
   </action>
   <action name="actionClearList">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources.qrc">
      <normaloff>:/resources/circle-x-2x.png</normaloff>:/resources/circle-x-2x.png</iconset>
    </property>
    <property name="text">
@@ -1876,7 +1876,7 @@ border: none;
   </action>
   <action name="actionBrowseItems">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources.qrc">
      <normaloff>:/resources/magnifying-glass-2x.png</normaloff>:/resources/magnifying-glass-2x.png</iconset>
    </property>
    <property name="text">
@@ -1895,32 +1895,32 @@ border: none;
   <customwidget>
    <class>TextLabel</class>
    <extends>QLabel</extends>
-   <header location="global">textlabel.h</header>
+   <header location="global">../widgets/textlabel.h</header>
   </customwidget>
   <customwidget>
    <class>BackupListWidget</class>
    <extends>QListWidget</extends>
-   <header>backuplistwidget.h</header>
+   <header>../widgets/backuplistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>BrowseListWidget</class>
    <extends>QListWidget</extends>
-   <header>browselistwidget.h</header>
+   <header>../widgets/browselistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>JobsListWidget</class>
    <extends>QListWidget</extends>
-   <header>jobslistwidget.h</header>
+   <header>../widgets/jobslistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>JobWidget</class>
    <extends>QWidget</extends>
-   <header>jobwidget.h</header>
+   <header>../widgets/jobwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

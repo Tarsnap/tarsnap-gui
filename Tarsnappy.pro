@@ -13,56 +13,59 @@ TEMPLATE = app
 
 CONFIG += c++11
 
-SOURCES += main.cpp\
-    backuplistwidget.cpp \
-    setupdialog.cpp \
-    tarsnapcli.cpp \
-    jobmanager.cpp \
+SOURCES += \
     coreapplication.cpp \
-    mainwindow.cpp \
-    backuplistitem.cpp \
-    textlabel.cpp \
-    utils.cpp \
-    browselistwidget.cpp \
-    archivelistitem.cpp \
+    jobmanager.cpp \
+    main.cpp \
+    tarsnapcli.cpp \
     debug.cpp \
-    restoredialog.cpp \
-    filepicker.cpp \
-    filepickerdialog.cpp \
-    joblistitem.cpp \
-    jobslistwidget.cpp \
-    jobwidget.cpp
+    utils.cpp \
+    widgets/archivelistitem.cpp \
+    widgets/backuplistitem.cpp \
+    widgets/backuplistwidget.cpp \
+    widgets/browselistwidget.cpp \
+    widgets/filepicker.cpp \
+    widgets/filepickerdialog.cpp \
+    widgets/joblistitem.cpp \
+    widgets/jobslistwidget.cpp \
+    widgets/jobwidget.cpp \
+    widgets/mainwindow.cpp \
+    widgets/restoredialog.cpp \
+    widgets/setupdialog.cpp \
+    widgets/textlabel.cpp
 
 HEADERS  += \
-    backuplistwidget.h \
-    setupdialog.h \
-    tarsnapcli.h \
-    jobmanager.h \
     coreapplication.h \
-    mainwindow.h \
-    backuplistitem.h \
-    textlabel.h \
-    utils.h \
-    browselistwidget.h \
-    archivelistitem.h \
+    jobmanager.h \
     debug.h \
-    restoredialog.h \
-    filepicker.h \
-    filepickerdialog.h \
-    joblistitem.h \
-    jobslistwidget.h \
-    jobwidget.h
+    tarsnapcli.h \
+    utils.h \
+    widgets/archivelistitem.h \
+    widgets/backuplistitem.h \
+    widgets/backuplistwidget.h \
+    widgets/browselistwidget.h \
+    widgets/filepicker.h \
+    widgets/filepickerdialog.h \
+    widgets/joblistitem.h \
+    widgets/jobslistwidget.h \
+    widgets/jobwidget.h \
+    widgets/mainwindow.h \
+    widgets/restoredialog.h \
+    widgets/setupdialog.h \
+    widgets/textlabel.h
+
+INCLUDEPATH += widgets/
 
 FORMS    += \
-    backupitemwidget.ui \
-    setupdialog.ui \
-    mainwindow.ui \
-    archiveitemwidget.ui \
-    restoredialog.ui \
-    filepicker.ui \
-    filepickerdialog.ui \
-    jobitemwidget.ui \
-    jobwidget.ui
+    forms/backupitemwidget.ui \
+    forms/setupdialog.ui \
+    forms/mainwindow.ui \
+    forms/archiveitemwidget.ui \
+    forms/restoredialog.ui \
+    forms/filepicker.ui \
+    forms/filepickerdialog.ui \
+    forms/jobitemwidget.ui \
+    forms/jobwidget.ui
 
 RESOURCES += \
     resources.qrc
@@ -76,6 +79,5 @@ DISTFILES += \
 osx {
     OBJECTIVE_SOURCES += platform_osx.mm
     LIBS += -framework Foundation
-
     ICON = resources/tarsnap.icns
 }

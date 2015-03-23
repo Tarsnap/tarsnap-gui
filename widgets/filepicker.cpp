@@ -3,6 +3,7 @@
 
 #include <QSettings>
 #include <QKeyEvent>
+#include <QPersistentModelIndex>
 
 FilePicker::FilePicker(QWidget *parent, QString startPath) :
     QWidget(parent),
@@ -83,8 +84,8 @@ FilePicker::~FilePicker()
 QList<QUrl> FilePicker::getSelectedUrls()
 {
     QList<QUrl> urls;
-    QModelIndexList indexList = _ui->treeView->selectionModel()->selectedRows();
-    foreach(QModelIndex index, indexList)
+    QList<QPersistentModelIndex> indexList = _model.checkedIndexes();
+    foreach(QPersistentModelIndex index, indexList)
         urls << QUrl::fromUserInput(_model.filePath(index));
     return urls;
 }

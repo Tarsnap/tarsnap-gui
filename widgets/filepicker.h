@@ -2,6 +2,7 @@
 #define FILEPICKER_H
 
 #include "ui_filepicker.h"
+#include "customfilesystemmodel.h"
 
 #include <QWidget>
 #include <QFileSystemModel>
@@ -28,10 +29,10 @@ public slots:
     void updateFilter(QString filter);
 
 private:
-    Ui::FilePicker      *_ui;
-    QString              _startPath;
-    QFileSystemModel    _model;
-    QCompleter          _completer;
+    Ui::FilePicker          *_ui;
+    QString                 _startPath;
+    CustomFileSystemModel    _model;
+    QCompleter              _completer;
 };
 
 #endif // FILEPICKER_H

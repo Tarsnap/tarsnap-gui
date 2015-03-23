@@ -32,7 +32,8 @@ SOURCES += \
     widgets/mainwindow.cpp \
     widgets/restoredialog.cpp \
     widgets/setupdialog.cpp \
-    widgets/textlabel.cpp
+    widgets/textlabel.cpp \
+    customfilesystemmodel.cpp
 
 HEADERS  += \
     coreapplication.h \
@@ -52,7 +53,8 @@ HEADERS  += \
     widgets/mainwindow.h \
     widgets/restoredialog.h \
     widgets/setupdialog.h \
-    widgets/textlabel.h
+    widgets/textlabel.h \
+    customfilesystemmodel.h
 
 INCLUDEPATH += widgets/
 

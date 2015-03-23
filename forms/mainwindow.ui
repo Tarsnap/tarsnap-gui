@@ -22,7 +22,6 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#MainWindow {
-background-image: url(&quot;:/resources/light_toast.png&quot;);
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">

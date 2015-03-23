@@ -1262,7 +1262,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>484</width>
+                <width>569</width>
                 <height>212</height>
                </rect>
               </property>
@@ -1894,27 +1894,27 @@ border: none;
   <customwidget>
    <class>TextLabel</class>
    <extends>QLabel</extends>
-   <header location="global">../widgets/textlabel.h</header>
+   <header>widgets/textlabel.h</header>
   </customwidget>
   <customwidget>
    <class>BackupListWidget</class>
    <extends>QListWidget</extends>
-   <header>../widgets/backuplistwidget.h</header>
+   <header>widgets/backuplistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>BrowseListWidget</class>
    <extends>QListWidget</extends>
-   <header>../widgets/browselistwidget.h</header>
+   <header>widgets/browselistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>JobsListWidget</class>
    <extends>QListWidget</extends>
-   <header>../widgets/jobslistwidget.h</header>
+   <header>widgets/jobslistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>JobWidget</class>
    <extends>QWidget</extends>
-   <header>../widgets/jobwidget.h</header>
+   <header>widgets/jobwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

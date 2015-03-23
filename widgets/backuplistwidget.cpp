@@ -21,6 +21,11 @@ BackupListWidget::BackupListWidget(QWidget *parent):
             QMetaObject::invokeMethod(this, "addItemsWithUrls"
                                       , Qt::QueuedConnection, Q_ARG(QList<QUrl>, urllist));
     }
+    connect(this, &QListWidget::itemActivated,
+            [=](QListWidgetItem *item)
+            {
+                static_cast<BackupListItem*>(item)->browseUrl();
+            });
 }
 
 BackupListWidget::~BackupListWidget()

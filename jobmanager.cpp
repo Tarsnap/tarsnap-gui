@@ -54,18 +54,18 @@ void JobManager::registerMachine(QString user, QString password, QString machine
     }
     connect(registerClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
             , this, SLOT(registerMachineFinished(QUuid,QVariant,int,QString)));
-    queueJob(registerClient);
+    queueTask(registerClient);
 }
 
-void JobManager::backupNow(BackupJobPtr job)
+void JobManager::backupNow(BackupTaskPtr backupTask)
 {
-    if(job.isNull())
+    if(backupTask.isNull())
     {
-        DEBUG << "Null BackupJobPtr passed.";
+        DEBUG << "Null BackupTaskPtr passed.";
         return;
     }
-    _backupJobMap[job->uuid] = job;
-    TarsnapCLI *backupClient = new TarsnapCLI(job->uuid);
+    _backupTaskMap[backupTask->uuid] = backupTask;
+    TarsnapCLI *backupClient = new TarsnapCLI(backupTask->uuid);
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -75,18 +75,18 @@ void JobManager::backupNow(BackupJobPtr job)
         args << "--aggressive-networking";
     if(_preservePathnames)
         args << "-P";
-    args << "--quiet" << "-c" << "--print-stats" << "-f" << job->name;
-    foreach (QUrl url, job->urls) {
+    args << "--quiet" << "-c" << "--print-stats" << "-f" << backupTask->name;
+    foreach (QUrl url, backupTask->urls) {
         args << url.toLocalFile();
     }
     backupClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     backupClient->setArguments(args);
     connect(backupClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
-            , this, SLOT(backupJobFinished(QUuid,QVariant,int,QString)));
-    connect(backupClient, SIGNAL(clientStarted(QUuid)), this, SLOT(backupJobStarted(QUuid)));
-    queueJob(backupClient, true);
-    job->status = JobStatus::Queued;
-    emit backupJobUpdate(job);
+            , this, SLOT(backupTaskFinished(QUuid,QVariant,int,QString)));
+    connect(backupClient, SIGNAL(clientStarted(QUuid)), this, SLOT(backupTaskStarted(QUuid)));
+    queueTask(backupClient, true);
+    backupTask->status = TaskStatus::Queued;
+    emit backupTaskUpdate(backupTask);
 }
 
 void JobManager::getArchivesList()
@@ -102,7 +102,7 @@ void JobManager::getArchivesList()
     listArchivesClient->setArguments(args);
     connect(listArchivesClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
             , this, SLOT(getArchivesFinished(QUuid,QVariant,int,QString)));
-    queueJob(listArchivesClient);
+    queueTask(listArchivesClient);
 }
 
 void JobManager::getArchiveStats(ArchivePtr archive)
@@ -127,7 +127,7 @@ void JobManager::getArchiveStats(ArchivePtr archive)
     statsClient->setArguments(args);
     connect(statsClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this
             , SLOT(getArchiveStatsFinished(QUuid,QVariant,int,QString)));
-    queueJob(statsClient);
+    queueTask(statsClient);
 }
 
 void JobManager::getArchiveContents(ArchivePtr archive)
@@ -152,7 +152,7 @@ void JobManager::getArchiveContents(ArchivePtr archive)
     contentsClient->setArguments(args);
     connect(contentsClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
             , this, SLOT(getArchiveContentsFinished(QUuid,QVariant,int,QString)));
-    queueJob(contentsClient);
+    queueTask(contentsClient);
 }
 
 void JobManager::deleteArchives(QList<ArchivePtr> archives)
@@ -178,7 +178,7 @@ void JobManager::deleteArchives(QList<ArchivePtr> archives)
     delArchives->setData(QVariant::fromValue(archives));
     connect(delArchives, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
             , this, SLOT(deleteArchiveFinished(QUuid,QVariant,int,QString)));
-    queueJob(delArchives, true);
+    queueTask(delArchives, true);
 }
 
 void JobManager::getOverallStats()
@@ -194,7 +194,7 @@ void JobManager::getOverallStats()
     overallStats->setArguments(args);
     connect(overallStats, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
             , this, SLOT(overallStatsFinished(QUuid,QVariant,int,QString)));
-    queueJob(overallStats);
+    queueTask(overallStats);
 }
 
 void JobManager::runFsck()
@@ -210,7 +210,7 @@ void JobManager::runFsck()
     fsck->setArguments(args);
     connect(fsck, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this
             , SLOT(fsckFinished(QUuid,QVariant,int,QString)));
-    queueJob(fsck);
+    queueTask(fsck);
 }
 
 void JobManager::nukeArchives()
@@ -228,7 +228,7 @@ void JobManager::nukeArchives()
     nuke->setArguments(args);
     connect(nuke, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this
             , SLOT(nukeFinished(QUuid,QVariant,int,QString)));
-    queueJob(nuke);
+    queueTask(nuke);
 }
 
 void JobManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options)
@@ -259,48 +259,48 @@ void JobManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions option
     restore->setArguments(args);
     connect(restore, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this
             , SLOT(restoreArchiveFinished(QUuid,QVariant,int,QString)));
-    queueJob(restore);
+    queueTask(restore);
 }
 
-void JobManager::backupJobFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void JobManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data);
-    BackupJobPtr job = _backupJobMap[uuid];
-    job->exitCode = exitCode;
-    job->output = output;
+    BackupTaskPtr backupTask = _backupTaskMap[uuid];
+    backupTask->exitCode = exitCode;
+    backupTask->output = output;
     if(exitCode == 0)
     {
-        job->status = JobStatus::Completed;
+        backupTask->status = TaskStatus::Completed;
         ArchivePtr archive(new Archive);
-        archive->name = job->name;
+        archive->name = backupTask->name;
         archive->timestamp = QDateTime::currentDateTime();
         _archiveMap[archive->uuid] = archive;
         parseArchiveStats(output, true, archive);
-        job->archive = archive;
+        backupTask->archive = archive;
         emit archivesList(_archiveMap.values());
     }
     else
     {
-        job->status = JobStatus::Failed;
+        backupTask->status = TaskStatus::Failed;
     }
-    emit backupJobUpdate(job);
-    _backupJobMap.remove(job->uuid);
+    emit backupTaskUpdate(backupTask);
+    _backupTaskMap.remove(backupTask->uuid);
 }
 
-void JobManager::backupJobStarted(QUuid uuid)
+void JobManager::backupTaskStarted(QUuid uuid)
 {
-    BackupJobPtr job = _backupJobMap[uuid];
-    job->status = JobStatus::Running;
-    emit backupJobUpdate(job);
+    BackupTaskPtr backupTask = _backupTaskMap[uuid];
+    backupTask->status = TaskStatus::Running;
+    emit backupTaskUpdate(backupTask);
 }
 
 void JobManager::registerMachineFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
     if(exitCode == 0)
-        emit registerMachineStatus(JobStatus::Completed, output);
+        emit registerMachineStatus(TaskStatus::Completed, output);
     else
-        emit registerMachineStatus(JobStatus::Failed, output);
+        emit registerMachineStatus(TaskStatus::Failed, output);
 }
 
 void JobManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, QString output)
@@ -336,7 +336,7 @@ void JobManager::getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode
     ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
-        DEBUG << "Job uuid not found in _archiveMap.";
+        DEBUG << "Task uuid not found in _archiveMap.";
         return;
     }
     if(exitCode == 0)
@@ -351,7 +351,7 @@ void JobManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exitC
     ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
-        DEBUG << "Job uuid not found in _archiveMap.";
+        DEBUG << "Task uuid not found in _archiveMap.";
         return;
     }
     if(exitCode == 0)
@@ -429,18 +429,18 @@ void JobManager::fsckFinished(QUuid uuid, QVariant data, int exitCode, QString o
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
     if(exitCode == 0)
-        emit fsckStatus(JobStatus::Completed, output);
+        emit fsckStatus(TaskStatus::Completed, output);
     else
-        emit fsckStatus(JobStatus::Failed, output);
+        emit fsckStatus(TaskStatus::Failed, output);
 }
 
 void JobManager::nukeFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
     if(exitCode == 0)
-        emit nukeStatus(JobStatus::Completed, output);
+        emit nukeStatus(TaskStatus::Completed, output);
     else
-        emit nukeStatus(JobStatus::Failed, output);
+        emit nukeStatus(TaskStatus::Failed, output);
 }
 
 void JobManager::restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)
@@ -449,55 +449,55 @@ void JobManager::restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode,
     ArchivePtr archive = _archiveMap[uuid];
     if(archive.isNull())
     {
-        DEBUG << "Job uuid not found in _archiveMap.";
+        DEBUG << "Task uuid not found in _archiveMap.";
         return;
     }
     if(exitCode == 0)
-        emit restoreArchiveStatus(archive, JobStatus::Completed, output);
+        emit restoreArchiveStatus(archive, TaskStatus::Completed, output);
     else
-        emit restoreArchiveStatus(archive, JobStatus::Failed, output);
+        emit restoreArchiveStatus(archive, TaskStatus::Failed, output);
 }
 
-void JobManager::queueJob(TarsnapCLI *cli, bool exclusive)
+void JobManager::queueTask(TarsnapCLI *cli, bool exclusive)
 {
     if(cli == NULL)
     {
         DEBUG << "NULL argument";
         return;
     }
-    if(exclusive && !_jobMap.isEmpty())
-        _jobQueue.enqueue(cli);
+    if(exclusive && !_taskMap.isEmpty())
+        _taskQueue.enqueue(cli);
     else
-        startJob(cli);
+        startTask(cli);
 }
 
-void JobManager::startJob(TarsnapCLI *cli)
+void JobManager::startTask(TarsnapCLI *cli)
 {
     if(cli == NULL)
     {
-        if(!_jobQueue.isEmpty())
-            cli = _jobQueue.dequeue();
+        if(!_taskQueue.isEmpty())
+            cli = _taskQueue.dequeue();
         else
             return;
     }
     connect(cli, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this
-            , SLOT(dequeueJob(QUuid,QVariant,int,QString)));
-    _jobMap[cli->uuid()] = cli;
+            , SLOT(dequeueTask(QUuid,QVariant,int,QString)));
+    _taskMap[cli->uuid()] = cli;
     cli->setAutoDelete(false);
     _threadPool->start(cli);
     emit idle(false);
 }
 
-void JobManager::dequeueJob(QUuid uuid, QVariant data, int exitCode, QString output)
+void JobManager::dequeueTask(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(exitCode); Q_UNUSED(output); Q_UNUSED(data)
-    _jobMap.remove(uuid);
-    if(_jobMap.count() == 0)
+    _taskMap.remove(uuid);
+    if(_taskMap.count() == 0)
     {
-        if( _jobQueue.isEmpty())
+        if( _taskQueue.isEmpty())
             emit idle(true);
         else
-            startJob(NULL);
+            startTask(NULL);
     }
 }
 

@@ -62,31 +62,23 @@ struct ArchiveRestoreOptions
     QString     chdir;
 };
 
-enum JobStatus { Queued, Running, Completed, Failed, Paused, Unknown };
+enum TaskStatus { Queued, Running, Completed, Failed, Paused, Initialized };
 
-class BackupJob
+class BackupTask
 {
 public:
     QUuid                 uuid;
     QList<QUrl>           urls;
     QString               name;
-    JobStatus             status;
+    TaskStatus            status;
     int                   exitCode;
     QString               output;
     ArchivePtr            archive;
 
-    BackupJob():uuid(QUuid::createUuid()),status(JobStatus::Unknown){}
+    BackupTask():uuid(QUuid::createUuid()),status(TaskStatus::Initialized){}
 };
 
-typedef QSharedPointer<BackupJob> BackupJobPtr;
-
-class Job
-{
-public:
-    QString name;
-};
-
-typedef QSharedPointer<Job> JobPtr;
+typedef QSharedPointer<BackupTask> BackupTaskPtr;
 
 class JobManager : public QObject
 {
@@ -97,24 +89,24 @@ public:
     ~JobManager();
 
 signals:
-    void idle(bool status); // signal if we are working on jobs or not
-    void registerMachineStatus(JobStatus status, QString reason);
-    void fsckStatus(JobStatus status, QString reason);
-    void nukeStatus(JobStatus status, QString reason);
-    void backupJobUpdate(BackupJobPtr job);
+    void idle(bool status); // signal if we are working on tasks or not
+    void registerMachineStatus(TaskStatus status, QString reason);
+    void fsckStatus(TaskStatus status, QString reason);
+    void nukeStatus(TaskStatus status, QString reason);
+    void backupTaskUpdate(BackupTaskPtr backupTask);
     void archivesList(QList<ArchivePtr> archives);
     void archivesDeleted(QList<ArchivePtr> archives);
     void overallStats(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal
                       , qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit
                       , QString accountStatus);
-    void restoreArchiveStatus(ArchivePtr archive, JobStatus status, QString reason);
+    void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
 
 public slots:
     void loadSettings();
 
     void registerMachine(QString user, QString password, QString machine
                          ,QString key, QString tarsnapPath, QString cachePath);
-    void backupNow(BackupJobPtr job);
+    void backupNow(BackupTaskPtr backupTask);
     void getArchivesList();
     void getArchiveStats(ArchivePtr archive);
     void getArchiveContents(ArchivePtr archive);
@@ -125,8 +117,8 @@ public slots:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
 
 private slots:
-    void backupJobFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void backupJobStarted(QUuid uuid);
+    void backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QString output);
+    void backupTaskStarted(QUuid uuid);
     void registerMachineFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void getArchivesFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
@@ -137,9 +129,9 @@ private slots:
     void nukeFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output);
 
-    void queueJob(TarsnapCLI *cli, bool exclusive = false);
-    void startJob(TarsnapCLI *cli);
-    void dequeueJob(QUuid uuid, QVariant data, int exitCode, QString output);
+    void queueTask(TarsnapCLI *cli, bool exclusive = false);
+    void startTask(TarsnapCLI *cli);
+    void dequeueTask(QUuid uuid, QVariant data, int exitCode, QString output);
     void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive);
 
 private:
@@ -150,10 +142,10 @@ private:
     QString                      _tarsnapCacheDir;
     QString                      _tarsnapKeyFile;
     QThread                      _managerThread; // manager runs on a separate thread
-    QMap<QUuid, BackupJobPtr>    _backupJobMap;
+    QMap<QUuid, BackupTaskPtr>   _backupTaskMap;
     QMap<QUuid, ArchivePtr>      _archiveMap;
-    QMap<QUuid, TarsnapCLI*>     _jobMap;
-    QQueue<TarsnapCLI*>          _jobQueue;
+    QMap<QUuid, TarsnapCLI*>     _taskMap;
+    QQueue<TarsnapCLI*>          _taskQueue;
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;

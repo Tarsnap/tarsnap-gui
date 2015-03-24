@@ -35,7 +35,7 @@ public slots:
     void commitSettings(bool skipped = false);
 
     // JobManager responses
-    void registerMachineStatus(JobStatus status, QString reason);
+    void registerMachineStatus(TaskStatus status, QString reason);
     void updateLoadingAnimation(bool idle);
 
 signals:

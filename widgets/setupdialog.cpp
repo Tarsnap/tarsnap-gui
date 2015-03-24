@@ -319,17 +319,17 @@ void SetupDialog::registerMachine()
                          , _ui->machineNameLineEdit->text(), _tarsnapKeyFile, _tarsnapCLIDir, _tarsnapCacheDir);
 }
 
-void SetupDialog::registerMachineStatus(JobStatus status, QString reason)
+void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
 {
     switch(status)
     {
-        case JobStatus::Completed:
+        case TaskStatus::Completed:
             _ui->errorLabel->clear();
             _ui->doneInfoTextBrowser->setHtml(_ui->doneInfoTextBrowser->toHtml().arg(_tarsnapKeyFile).arg(_tarsnapKeyFile));
             _ui->doneButton->setEnabled(true);
             setNextPage();
             break;
-        case JobStatus::Failed:
+        case TaskStatus::Failed:
             _ui->errorLabel->setText(reason);
             _ui->errorLabel->show();
             _ui->registerMachineButton->setEnabled(true);

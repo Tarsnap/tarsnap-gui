@@ -21,7 +21,7 @@ public:
     ~MainWindow();
 
 signals:
-    void backupNow(BackupJobPtr job);
+    void backupNow(BackupTaskPtr backupTask);
     void getArchivesList();
     void archivesList(QList<ArchivePtr> archives);
     void deleteArchives(QList<ArchivePtr> archives);
@@ -43,15 +43,15 @@ protected:
 
 public slots:
     void loadSettings();
-    void backupJobUpdate(BackupJobPtr job);
+    void backupTaskUpdate(BackupTaskPtr backupTask);
     void archivesDeleted(QList<ArchivePtr> archives, bool done = true);
     void updateLoadingAnimation(bool idle);
     void updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal
                                , qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit
                                , QString accountStatus);
-    void repairCacheStatus(JobStatus status, QString reason);
-    void purgeArchivesStatus(JobStatus status, QString reason);
-    void restoreArchiveStatus(ArchivePtr archive, JobStatus status, QString reason);
+    void repairCacheStatus(TaskStatus status, QString reason);
+    void purgeArchivesStatus(TaskStatus status, QString reason);
+    void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
 
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);

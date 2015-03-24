@@ -239,26 +239,26 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void MainWindow::backupJobUpdate(BackupJobPtr job)
+void MainWindow::backupTaskUpdate(BackupTaskPtr backupTask)
 {
-    switch (job->status) {
-    case JobStatus::Completed:
-        updateStatusMessage(tr("Job <i>%1</i> completed. (%2 used on Tarsnap)")
-                            .arg(job->name).arg(Utils::humanBytes(job->archive->sizeUniqueCompressed, _useSIPrefixes))
-                            ,job->archive->archiveStats());
+    switch (backupTask->status) {
+    case TaskStatus::Completed:
+        updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 used on Tarsnap)")
+                            .arg(backupTask->name).arg(Utils::humanBytes(backupTask->archive->sizeUniqueCompressed, _useSIPrefixes))
+                            ,backupTask->archive->archiveStats());
         break;
-    case JobStatus::Queued:
-        updateStatusMessage(tr("Job <i>%1</i> queued.").arg(job->name));
+    case TaskStatus::Queued:
+        updateStatusMessage(tr("Backup <i>%1</i> queued.").arg(backupTask->name));
         break;
-    case JobStatus::Running:
-        updateStatusMessage(tr("Job <i>%1</i> is running.").arg(job->name));
+    case TaskStatus::Running:
+        updateStatusMessage(tr("Backup <i>%1</i> is running.").arg(backupTask->name));
         break;
-    case JobStatus::Failed:
-        updateStatusMessage(tr("Job <i>%1</i> failed: %2").arg(job->name).arg(job->output.simplified())
-                           ,tr("%1").arg(job->output));
+    case TaskStatus::Failed:
+        updateStatusMessage(tr("Backup <i>%1</i> failed: %2").arg(backupTask->name).arg(backupTask->output.simplified())
+                           ,tr("%1").arg(backupTask->output));
         break;
-    case JobStatus::Paused:
-        updateStatusMessage(tr("Job <i>%1</i> paused.").arg(job->name));
+    case TaskStatus::Paused:
+        updateStatusMessage(tr("Backup <i>%1</i> paused.").arg(backupTask->name));
         break;
     default:
         break;
@@ -316,39 +316,39 @@ void MainWindow::updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, 
     _ui->accountStatusLabel->setText(accountStatus);
 }
 
-void MainWindow::repairCacheStatus(JobStatus status, QString reason)
+void MainWindow::repairCacheStatus(TaskStatus status, QString reason)
 {
     switch (status) {
-    case JobStatus::Completed:
+    case TaskStatus::Completed:
         updateStatusMessage(tr("Cache repair succeeded."), reason);
         break;
-    case JobStatus::Failed:
+    case TaskStatus::Failed:
     default:
         updateStatusMessage(tr("Cache repair failed. Hover mouse for details."), reason);
         break;
     }
 }
 
-void MainWindow::purgeArchivesStatus(JobStatus status, QString reason)
+void MainWindow::purgeArchivesStatus(TaskStatus status, QString reason)
 {
     switch (status) {
-    case JobStatus::Completed:
+    case TaskStatus::Completed:
         updateStatusMessage(tr("All archives purged successfully."), reason);
         break;
-    case JobStatus::Failed:
+    case TaskStatus::Failed:
     default:
         updateStatusMessage(tr("Archives purging failed. Hover mouse for details."), reason);
         break;
     }
 }
 
-void MainWindow::restoreArchiveStatus(ArchivePtr archive, JobStatus status, QString reason)
+void MainWindow::restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason)
 {
     switch (status) {
-    case JobStatus::Completed:
+    case TaskStatus::Completed:
         updateStatusMessage(tr("Restoring archive <i>%1</i>...done").arg(archive->name), reason);
         break;
-    case JobStatus::Failed:
+    case TaskStatus::Failed:
     default:
         updateStatusMessage(tr("Restoring archive <i>%1</i>...failed. Hover mouse for details.").arg(archive->name), reason);
         break;
@@ -422,18 +422,16 @@ void MainWindow::backupButtonClicked()
 {
     QList<QUrl> urls;
 
-    DEBUG << "HERE";
-
     for(int i = 0; i < _ui->backupListWidget->count(); ++i)
     {
         urls << static_cast<BackupListItem*>(_ui->backupListWidget->item(i))->url();
     }
 
-    BackupJobPtr job(new BackupJob);
-    job->name = _ui->backupNameLineEdit->text();
-    job->urls = urls;
+    BackupTaskPtr backup(new BackupTask);
+    backup->name = _ui->backupNameLineEdit->text();
+    backup->urls = urls;
 
-    emit backupNow(job);
+    emit backupNow(backup);
 }
 
 void MainWindow::updateInspectArchive()

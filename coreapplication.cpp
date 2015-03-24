@@ -12,11 +12,10 @@
 CoreApplication::CoreApplication(int &argc, char **argv):
     QApplication(argc, argv), _mainWindow(NULL)
 {
-    qRegisterMetaType<JobStatus>("JobStatus");
+    qRegisterMetaType< TaskStatus >("TaskStatus");
     qRegisterMetaType< QList<QUrl> >("QList<QUrl>");
-    qRegisterMetaType<BackupJob>("BackupJob");
-    qRegisterMetaType< BackupJobPtr >("BackupJobPtr");
-    qRegisterMetaType< QList<ArchivePtr> >("QList<ArchivePtr >");
+    qRegisterMetaType< BackupTaskPtr >("BackupTaskPtr");
+    qRegisterMetaType< QList<ArchivePtr > >("QList<ArchivePtr >");
     qRegisterMetaType< ArchivePtr >("ArchivePtr");
     qRegisterMetaType< ArchiveRestoreOptions >("ArchiveRestoreOptions");
 }
@@ -62,10 +61,10 @@ int CoreApplication::initialize()
         return FAILURE;
     }
 
-    connect(_mainWindow, SIGNAL(backupNow(BackupJobPtr)), &_jobManager
-            , SLOT(backupNow(BackupJobPtr)), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(backupJobUpdate(BackupJobPtr))
-            , _mainWindow, SLOT(backupJobUpdate(BackupJobPtr)), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(backupNow(BackupTaskPtr)), &_jobManager
+            , SLOT(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(backupTaskUpdate(BackupTaskPtr))
+            , _mainWindow, SLOT(backupTaskUpdate(BackupTaskPtr)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(getArchivesList()), &_jobManager
             , SLOT(getArchivesList()), Qt::QueuedConnection);
     connect(&_jobManager, SIGNAL(archivesList(QList<ArchivePtr>))
@@ -86,21 +85,21 @@ int CoreApplication::initialize()
             , _mainWindow,SLOT(updateSettingsSummary(qint64,qint64,qint64,qint64,qint64,qreal,QString)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(repairCache()), &_jobManager
             , SLOT(runFsck()), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(fsckStatus(JobStatus,QString)), _mainWindow
-            ,SLOT(repairCacheStatus(JobStatus,QString)), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(fsckStatus(TaskStatus,QString)), _mainWindow
+            ,SLOT(repairCacheStatus(TaskStatus,QString)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(settingsChanged()), &_jobManager
             ,SLOT(loadSettings()), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(settingsChanged()), _mainWindow
             ,SLOT(loadSettings()), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(purgeArchives()), &_jobManager
             ,SLOT(nukeArchives()), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(nukeStatus(JobStatus,QString)), _mainWindow
-            ,SLOT(purgeArchivesStatus(JobStatus,QString)), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(nukeStatus(TaskStatus,QString)), _mainWindow
+            ,SLOT(purgeArchivesStatus(TaskStatus,QString)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions))
             ,&_jobManager, SLOT(restoreArchive(ArchivePtr,ArchiveRestoreOptions))
             , Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(restoreArchiveStatus(ArchivePtr,JobStatus,QString)), _mainWindow
-            , SLOT(restoreArchiveStatus(ArchivePtr,JobStatus,QString)), Qt::QueuedConnection);
+    connect(&_jobManager, SIGNAL(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), _mainWindow
+            , SLOT(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
 
@@ -115,8 +114,8 @@ bool CoreApplication::runSetupWizard()
     SetupDialog wizard;
     connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString,QString,QString))
             , &_jobManager, SLOT(registerMachine(QString,QString,QString,QString,QString,QString)));
-    connect(&_jobManager, SIGNAL(registerMachineStatus(JobStatus,QString))
-            , &wizard, SLOT(registerMachineStatus(JobStatus, QString)));
+    connect(&_jobManager, SIGNAL(registerMachineStatus(TaskStatus,QString))
+            , &wizard, SLOT(registerMachineStatus(TaskStatus, QString)));
     connect(&_jobManager, SIGNAL(idle(bool)), &wizard
             , SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
     if(QDialog::Rejected == wizard.exec())

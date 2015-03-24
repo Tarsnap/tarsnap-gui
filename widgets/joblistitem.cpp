@@ -3,7 +3,7 @@
 JobListItem::JobListItem(JobPtr job) : _job(job)
 {
     _ui.setupUi(&_widget);
-    _ui.nameLabel->setText(_job->name);
+    _ui.nameLabel->setText(_job->name());
 }
 
 JobListItem::~JobListItem()

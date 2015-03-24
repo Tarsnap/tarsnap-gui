@@ -1,7 +1,7 @@
 #ifndef JOBWIDGET_H
 #define JOBWIDGET_H
 
-#include "jobmanager.h"
+#include "job.h"
 
 #include <QWidget>
 

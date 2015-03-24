@@ -33,6 +33,6 @@ void JobWidget::setJob(const JobPtr &job)
 
 void JobWidget::updateDetails()
 {
-    _ui->jobNameLabel->setText(_job->name);
+    _ui->jobNameLabel->setText(_job->name());
 }
 

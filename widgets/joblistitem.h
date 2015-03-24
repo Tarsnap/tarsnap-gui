@@ -2,7 +2,7 @@
 #define JOBLISTITEM_H
 
 #include "ui_jobitemwidget.h"
-#include "jobmanager.h"
+#include "job.h"
 
 #include <QObject>
 #include <QListWidgetItem>

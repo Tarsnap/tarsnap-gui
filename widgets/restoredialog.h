@@ -1,7 +1,7 @@
 #ifndef RESTOREDIALOG_H
 #define RESTOREDIALOG_H
 
-#include "jobmanager.h"
+#include "taskmanager.h"
 
 #include <QDialog>
 

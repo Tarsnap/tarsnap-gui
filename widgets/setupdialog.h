@@ -1,7 +1,7 @@
 #ifndef SETUPDIALOG_H
 #define SETUPDIALOG_H
 
-#include <jobmanager.h>
+#include <taskmanager.h>
 
 #include <QDialog>
 #include <QMouseEvent>
@@ -34,7 +34,7 @@ public slots:
     void registerMachine();
     void commitSettings(bool skipped = false);
 
-    // JobManager responses
+    // TaskManager responses
     void registerMachineStatus(TaskStatus status, QString reason);
     void updateLoadingAnimation(bool idle);
 

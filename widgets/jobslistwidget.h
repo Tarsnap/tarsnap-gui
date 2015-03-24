@@ -1,7 +1,7 @@
 #ifndef JOBSLISTWIDGET_H
 #define JOBSLISTWIDGET_H
 
-#include "jobmanager.h"
+#include "job.h"
 
 #include <QListWidget>
 

@@ -2,7 +2,7 @@
 #define COREAPPLICATION_H
 
 #include "widgets/mainwindow.h"
-#include "jobmanager.h"
+#include "taskmanager.h"
 
 #include <QObject>
 #include <QApplication>
@@ -22,8 +22,8 @@ public slots:
     bool runSetupWizard();
 
 private:
-    MainWindow *_mainWindow;
-    JobManager  _jobManager;
+    MainWindow  *_mainWindow;
+    TaskManager  _taskManager;
 };
 
 #endif // COREAPPLICATION_H

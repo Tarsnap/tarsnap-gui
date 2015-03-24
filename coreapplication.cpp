@@ -51,7 +51,7 @@ int CoreApplication::initialize()
             return FAILURE;
     }
 
-    QMetaObject::invokeMethod(&_jobManager, "loadSettings", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(&_taskManager, "loadSettings", Qt::QueuedConnection);
 
     // Show the main window
     _mainWindow = new MainWindow();
@@ -61,47 +61,47 @@ int CoreApplication::initialize()
         return FAILURE;
     }
 
-    connect(_mainWindow, SIGNAL(backupNow(BackupTaskPtr)), &_jobManager
+    connect(_mainWindow, SIGNAL(backupNow(BackupTaskPtr)), &_taskManager
             , SLOT(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(backupTaskUpdate(BackupTaskPtr))
+    connect(&_taskManager, SIGNAL(backupTaskUpdate(BackupTaskPtr))
             , _mainWindow, SLOT(backupTaskUpdate(BackupTaskPtr)), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(getArchivesList()), &_jobManager
+    connect(_mainWindow, SIGNAL(getArchivesList()), &_taskManager
             , SLOT(getArchivesList()), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(archivesList(QList<ArchivePtr>))
+    connect(&_taskManager, SIGNAL(archivesList(QList<ArchivePtr>))
             , _mainWindow, SIGNAL(archivesList(QList<ArchivePtr>)), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(deleteArchives(QList<ArchivePtr>)), &_jobManager,
+    connect(_mainWindow, SIGNAL(deleteArchives(QList<ArchivePtr>)), &_taskManager,
             SLOT(deleteArchives(QList<ArchivePtr>)), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(archivesDeleted(QList<ArchivePtr>)), _mainWindow
+    connect(&_taskManager, SIGNAL(archivesDeleted(QList<ArchivePtr>)), _mainWindow
             , SLOT(archivesDeleted(QList<ArchivePtr>)), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(loadArchiveStats(ArchivePtr)), &_jobManager
+    connect(_mainWindow, SIGNAL(loadArchiveStats(ArchivePtr)), &_taskManager
             ,SLOT(getArchiveStats(ArchivePtr)), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(loadArchiveContents(ArchivePtr)), &_jobManager
+    connect(_mainWindow, SIGNAL(loadArchiveContents(ArchivePtr)), &_taskManager
             ,SLOT(getArchiveContents(ArchivePtr)), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(idle(bool)), _mainWindow
+    connect(&_taskManager, SIGNAL(idle(bool)), _mainWindow
             ,SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(getOverallStats()), &_jobManager
+    connect(_mainWindow, SIGNAL(getOverallStats()), &_taskManager
             , SLOT(getOverallStats()), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(overallStats(qint64,qint64,qint64,qint64,qint64,qreal,QString))
+    connect(&_taskManager, SIGNAL(overallStats(qint64,qint64,qint64,qint64,qint64,qreal,QString))
             , _mainWindow,SLOT(updateSettingsSummary(qint64,qint64,qint64,qint64,qint64,qreal,QString)), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(repairCache()), &_jobManager
+    connect(_mainWindow, SIGNAL(repairCache()), &_taskManager
             , SLOT(runFsck()), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(fsckStatus(TaskStatus,QString)), _mainWindow
+    connect(&_taskManager, SIGNAL(fsckStatus(TaskStatus,QString)), _mainWindow
             ,SLOT(repairCacheStatus(TaskStatus,QString)), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(settingsChanged()), &_jobManager
+    connect(_mainWindow, SIGNAL(settingsChanged()), &_taskManager
             ,SLOT(loadSettings()), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(settingsChanged()), _mainWindow
             ,SLOT(loadSettings()), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(purgeArchives()), &_jobManager
+    connect(_mainWindow, SIGNAL(purgeArchives()), &_taskManager
             ,SLOT(nukeArchives()), Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(nukeStatus(TaskStatus,QString)), _mainWindow
+    connect(&_taskManager, SIGNAL(nukeStatus(TaskStatus,QString)), _mainWindow
             ,SLOT(purgeArchivesStatus(TaskStatus,QString)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions))
-            ,&_jobManager, SLOT(restoreArchive(ArchivePtr,ArchiveRestoreOptions))
+            ,&_taskManager, SLOT(restoreArchive(ArchivePtr,ArchiveRestoreOptions))
             , Qt::QueuedConnection);
-    connect(&_jobManager, SIGNAL(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), _mainWindow
+    connect(&_taskManager, SIGNAL(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), _mainWindow
             , SLOT(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), Qt::QueuedConnection);
 
-    QMetaObject::invokeMethod(&_jobManager, "getArchivesList", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(&_taskManager, "getArchivesList", Qt::QueuedConnection);
 
     connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(runSetupWizard()), Qt::QueuedConnection);
     _mainWindow->show();
@@ -113,10 +113,10 @@ bool CoreApplication::runSetupWizard()
 {
     SetupDialog wizard;
     connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString,QString,QString))
-            , &_jobManager, SLOT(registerMachine(QString,QString,QString,QString,QString,QString)));
-    connect(&_jobManager, SIGNAL(registerMachineStatus(TaskStatus,QString))
+            , &_taskManager, SLOT(registerMachine(QString,QString,QString,QString,QString,QString)));
+    connect(&_taskManager, SIGNAL(registerMachineStatus(TaskStatus,QString))
             , &wizard, SLOT(registerMachineStatus(TaskStatus, QString)));
-    connect(&_jobManager, SIGNAL(idle(bool)), &wizard
+    connect(&_taskManager, SIGNAL(idle(bool)), &wizard
             , SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
     if(QDialog::Rejected == wizard.exec())
     {

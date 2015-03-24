@@ -1,11 +1,11 @@
-#include "jobmanager.h"
+#include "taskmanager.h"
 #include "debug.h"
 
 #include <QFileInfo>
 #include <QDir>
 #include <QSettings>
 
-JobManager::JobManager(QObject *parent) : QObject()
+TaskManager::TaskManager(QObject *parent) : QObject()
   , _threadPool(QThreadPool::globalInstance()), _aggressiveNetworking(false)
   , _preservePathnames(true)
 {
@@ -15,13 +15,13 @@ JobManager::JobManager(QObject *parent) : QObject()
     moveToThread(&_managerThread);
 }
 
-JobManager::~JobManager()
+TaskManager::~TaskManager()
 {
     _managerThread.quit();
     _managerThread.wait();
 }
 
-void JobManager::loadSettings()
+void TaskManager::loadSettings()
 {
     QSettings settings;
     _tarsnapDir      = settings.value("tarsnap/path").toString();
@@ -31,7 +31,7 @@ void JobManager::loadSettings()
     _preservePathnames = settings.value("tarsnap/preserve_pathnames", true).toBool();
 }
 
-void JobManager::registerMachine(QString user, QString password, QString machine, QString key, QString tarsnapPath, QString cachePath)
+void TaskManager::registerMachine(QString user, QString password, QString machine, QString key, QString tarsnapPath, QString cachePath)
 {
     TarsnapCLI *registerClient = new TarsnapCLI();
     QStringList args;
@@ -57,7 +57,7 @@ void JobManager::registerMachine(QString user, QString password, QString machine
     queueTask(registerClient);
 }
 
-void JobManager::backupNow(BackupTaskPtr backupTask)
+void TaskManager::backupNow(BackupTaskPtr backupTask)
 {
     if(backupTask.isNull())
     {
@@ -89,7 +89,7 @@ void JobManager::backupNow(BackupTaskPtr backupTask)
     emit backupTaskUpdate(backupTask);
 }
 
-void JobManager::getArchivesList()
+void TaskManager::getArchivesList()
 {
     TarsnapCLI *listArchivesClient = new TarsnapCLI();
     QStringList args;
@@ -105,7 +105,7 @@ void JobManager::getArchivesList()
     queueTask(listArchivesClient);
 }
 
-void JobManager::getArchiveStats(ArchivePtr archive)
+void TaskManager::getArchiveStats(ArchivePtr archive)
 {
     if(archive.isNull())
     {
@@ -130,7 +130,7 @@ void JobManager::getArchiveStats(ArchivePtr archive)
     queueTask(statsClient);
 }
 
-void JobManager::getArchiveContents(ArchivePtr archive)
+void TaskManager::getArchiveContents(ArchivePtr archive)
 {
     if(archive.isNull())
     {
@@ -155,7 +155,7 @@ void JobManager::getArchiveContents(ArchivePtr archive)
     queueTask(contentsClient);
 }
 
-void JobManager::deleteArchives(QList<ArchivePtr> archives)
+void TaskManager::deleteArchives(QList<ArchivePtr> archives)
 {
     if(archives.isEmpty())
     {
@@ -181,7 +181,7 @@ void JobManager::deleteArchives(QList<ArchivePtr> archives)
     queueTask(delArchives, true);
 }
 
-void JobManager::getOverallStats()
+void TaskManager::getOverallStats()
 {
     TarsnapCLI *overallStats = new TarsnapCLI();
     QStringList args;
@@ -197,7 +197,7 @@ void JobManager::getOverallStats()
     queueTask(overallStats);
 }
 
-void JobManager::runFsck()
+void TaskManager::runFsck()
 {
     TarsnapCLI *fsck = new TarsnapCLI();
     QStringList args;
@@ -213,7 +213,7 @@ void JobManager::runFsck()
     queueTask(fsck);
 }
 
-void JobManager::nukeArchives()
+void TaskManager::nukeArchives()
 {
     TarsnapCLI *nuke = new TarsnapCLI();
     QStringList args;
@@ -231,7 +231,7 @@ void JobManager::nukeArchives()
     queueTask(nuke);
 }
 
-void JobManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options)
+void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options)
 {
     if(archive.isNull())
     {
@@ -262,7 +262,7 @@ void JobManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions option
     queueTask(restore);
 }
 
-void JobManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data);
     BackupTaskPtr backupTask = _backupTaskMap[uuid];
@@ -287,14 +287,14 @@ void JobManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QSt
     _backupTaskMap.remove(backupTask->uuid);
 }
 
-void JobManager::backupTaskStarted(QUuid uuid)
+void TaskManager::backupTaskStarted(QUuid uuid)
 {
     BackupTaskPtr backupTask = _backupTaskMap[uuid];
     backupTask->status = TaskStatus::Running;
     emit backupTaskUpdate(backupTask);
 }
 
-void JobManager::registerMachineFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::registerMachineFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
     if(exitCode == 0)
@@ -303,7 +303,7 @@ void JobManager::registerMachineFinished(QUuid uuid, QVariant data, int exitCode
         emit registerMachineStatus(TaskStatus::Failed, output);
 }
 
-void JobManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
     _archiveMap.clear();
@@ -330,7 +330,7 @@ void JobManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, QS
     }
 }
 
-void JobManager::getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data)
     ArchivePtr archive = _archiveMap[uuid];
@@ -345,7 +345,7 @@ void JobManager::getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode
     }
 }
 
-void JobManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data)
     ArchivePtr archive = _archiveMap[uuid];
@@ -361,7 +361,7 @@ void JobManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exitC
     }
 }
 
-void JobManager::deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid);Q_UNUSED(output);
     if(exitCode == 0)
@@ -377,7 +377,7 @@ void JobManager::deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode, 
     }
 }
 
-void JobManager::overallStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::overallStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid);Q_UNUSED(data);
 
@@ -425,7 +425,7 @@ void JobManager::overallStatsFinished(QUuid uuid, QVariant data, int exitCode, Q
     }
 }
 
-void JobManager::fsckFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::fsckFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
     if(exitCode == 0)
@@ -434,7 +434,7 @@ void JobManager::fsckFinished(QUuid uuid, QVariant data, int exitCode, QString o
         emit fsckStatus(TaskStatus::Failed, output);
 }
 
-void JobManager::nukeFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::nukeFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
     if(exitCode == 0)
@@ -443,7 +443,7 @@ void JobManager::nukeFinished(QUuid uuid, QVariant data, int exitCode, QString o
         emit nukeStatus(TaskStatus::Failed, output);
 }
 
-void JobManager::restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
     ArchivePtr archive = _archiveMap[uuid];
@@ -458,7 +458,7 @@ void JobManager::restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode,
         emit restoreArchiveStatus(archive, TaskStatus::Failed, output);
 }
 
-void JobManager::queueTask(TarsnapCLI *cli, bool exclusive)
+void TaskManager::queueTask(TarsnapCLI *cli, bool exclusive)
 {
     if(cli == NULL)
     {
@@ -471,7 +471,7 @@ void JobManager::queueTask(TarsnapCLI *cli, bool exclusive)
         startTask(cli);
 }
 
-void JobManager::startTask(TarsnapCLI *cli)
+void TaskManager::startTask(TarsnapCLI *cli)
 {
     if(cli == NULL)
     {
@@ -488,7 +488,7 @@ void JobManager::startTask(TarsnapCLI *cli)
     emit idle(false);
 }
 
-void JobManager::dequeueTask(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::dequeueTask(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(exitCode); Q_UNUSED(output); Q_UNUSED(data)
     _taskMap.remove(uuid);
@@ -501,7 +501,7 @@ void JobManager::dequeueTask(QUuid uuid, QVariant data, int exitCode, QString ou
     }
 }
 
-void JobManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive)
+void TaskManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive)
 {
     QStringList lines = tarsnapOutput.trimmed().split('\n', QString::SkipEmptyParts);
     if(lines.count() != 5)
@@ -550,7 +550,7 @@ void JobManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
     archive->notifyChanged();
 }
 
-QString JobManager::makeTarsnapCommand(QString cmd)
+QString TaskManager::makeTarsnapCommand(QString cmd)
 {
     if(_tarsnapDir.isEmpty())
         return cmd;

@@ -1,7 +1,7 @@
 #ifndef ARCHIVELISTITEM_H
 #define ARCHIVELISTITEM_H
 
-#include "jobmanager.h"
+#include "taskmanager.h"
 #include "ui_archiveitemwidget.h"
 
 #include <QObject>

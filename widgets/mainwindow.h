@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "jobmanager.h"
+#include "taskmanager.h"
 
 #include <QWidget>
 #include <QLabel>

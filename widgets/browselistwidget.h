@@ -1,7 +1,7 @@
 #ifndef BROWSELISTWIDGET_H
 #define BROWSELISTWIDGET_H
 
-#include "jobmanager.h"
+#include "taskmanager.h"
 
 #include <QListWidget>
 #include <QList>

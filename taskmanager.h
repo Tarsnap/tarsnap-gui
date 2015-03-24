@@ -1,5 +1,5 @@
-#ifndef JOBMANAGER_H
-#define JOBMANAGER_H
+#ifndef TASKMANAGER_H
+#define TASKMANAGER_H
 
 #include "tarsnapcli.h"
 
@@ -80,13 +80,13 @@ public:
 
 typedef QSharedPointer<BackupTask> BackupTaskPtr;
 
-class JobManager : public QObject
+class TaskManager : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit JobManager(QObject *parent = 0);
-    ~JobManager();
+    explicit TaskManager(QObject *parent = 0);
+    ~TaskManager();
 
 signals:
     void idle(bool status); // signal if we are working on tasks or not
@@ -151,4 +151,4 @@ private:
     bool                         _preservePathnames;
 };
 
-#endif // JOBMANAGER_H
+#endif // TASKMANAGER_H

@@ -15,7 +15,6 @@ CONFIG += c++11
 
 SOURCES += \
     coreapplication.cpp \
-    jobmanager.cpp \
     main.cpp \
     tarsnapcli.cpp \
     debug.cpp \
@@ -33,11 +32,11 @@ SOURCES += \
     widgets/restoredialog.cpp \
     widgets/setupdialog.cpp \
     widgets/textlabel.cpp \
-    customfilesystemmodel.cpp
+    customfilesystemmodel.cpp \
+    taskmanager.cpp
 
 HEADERS  += \
     coreapplication.h \
-    jobmanager.h \
     debug.h \
     tarsnapcli.h \
     utils.h \
@@ -54,7 +53,8 @@ HEADERS  += \
     widgets/restoredialog.h \
     widgets/setupdialog.h \
     widgets/textlabel.h \
-    customfilesystemmodel.h
+    customfilesystemmodel.h \
+    taskmanager.h
 
 INCLUDEPATH += widgets/
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>514</width>
-    <height>35</height>
+    <width>600</width>
+    <height>32</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -63,7 +63,6 @@
      <property name="font">
       <font>
        <pointsize>12</pointsize>
-       <italic>true</italic>
       </font>
      </property>
      <property name="styleSheet">
@@ -72,7 +71,7 @@ color: grey;
 }</string>
      </property>
      <property name="text">
-      <string>99 archives</string>
+      <string>99 archives totalling ~10GB</string>
      </property>
     </widget>
    </item>

@@ -176,6 +176,9 @@ selection-background-color: rgba(179, 190, 255, 120);
                <italic>true</italic>
               </font>
              </property>
+             <property name="toolTip">
+              <string>Ctrl+o key sequence also open the browse dialog</string>
+             </property>
              <property name="styleSheet">
               <string notr="true">QLabel {
 color: gray;

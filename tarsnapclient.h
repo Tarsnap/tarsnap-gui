@@ -1,5 +1,5 @@
-#ifndef TARSNAPCLI_H
-#define TARSNAPCLI_H
+#ifndef TARSNAPCLIENT_H
+#define TARSNAPCLIENT_H
 
 #include <QThread>
 #include <QProcess>
@@ -7,13 +7,13 @@
 #include <QRunnable>
 #include <QVariant>
 
-class TarsnapCLI : public QObject, public QRunnable
+class TarsnapClient : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
-    explicit TarsnapCLI(QUuid uuid = QUuid::createUuid());
-    ~TarsnapCLI();
+    explicit TarsnapClient(QUuid uuid = QUuid::createUuid());
+    ~TarsnapClient();
 
     void run();
 
@@ -60,4 +60,4 @@ private:
     bool             _requiresPassword;
 };
 
-#endif // TARSNAPCLI_H
+#endif // TARSNAPCLIENT_H

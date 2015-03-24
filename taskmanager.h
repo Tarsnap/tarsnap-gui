@@ -1,7 +1,7 @@
 #ifndef TASKMANAGER_H
 #define TASKMANAGER_H
 
-#include "tarsnapcli.h"
+#include "tarsnapclient.h"
 
 #include <QObject>
 #include <QThread>
@@ -129,8 +129,8 @@ private slots:
     void nukeFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output);
 
-    void queueTask(TarsnapCLI *cli, bool exclusive = false);
-    void startTask(TarsnapCLI *cli);
+    void queueTask(TarsnapClient *cli, bool exclusive = false);
+    void startTask(TarsnapClient *cli);
     void dequeueTask(QUuid uuid, QVariant data, int exitCode, QString output);
     void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive);
 
@@ -144,8 +144,8 @@ private:
     QThread                      _managerThread; // manager runs on a separate thread
     QMap<QUuid, BackupTaskPtr>   _backupTaskMap;
     QMap<QUuid, ArchivePtr>      _archiveMap;
-    QMap<QUuid, TarsnapCLI*>     _taskMap;
-    QQueue<TarsnapCLI*>          _taskQueue;
+    QMap<QUuid, TarsnapClient*>     _taskMap;
+    QQueue<TarsnapClient*>          _taskQueue;
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;

@@ -1,37 +1,37 @@
-#include "tarsnapcli.h"
+#include "tarsnapclient.h"
 #include "debug.h"
 
 #include <QEventLoop>
 
 #define DEFAULT_TIMEOUT_MS 10000
 
-TarsnapCLI::TarsnapCLI(QUuid uuid) : QObject(), _uuid(uuid), _process(NULL), _requiresPassword(false)
+TarsnapClient::TarsnapClient(QUuid uuid) : QObject(), _uuid(uuid), _process(NULL), _requiresPassword(false)
 {
 }
 
-TarsnapCLI::~TarsnapCLI()
+TarsnapClient::~TarsnapClient()
 {
 }
-QString TarsnapCLI::command() const
+QString TarsnapClient::command() const
 {
     return _command;
 }
 
-void TarsnapCLI::setCommand(const QString &command)
+void TarsnapClient::setCommand(const QString &command)
 {
     _command = command;
 }
-QStringList TarsnapCLI::arguments() const
+QStringList TarsnapClient::arguments() const
 {
     return _arguments;
 }
 
-void TarsnapCLI::setArguments(const QStringList &arguments)
+void TarsnapClient::setArguments(const QStringList &arguments)
 {
     _arguments = arguments;
 }
 
-void TarsnapCLI::run()
+void TarsnapClient::run()
 {
     bool result = false;
     _process = new QProcess();
@@ -76,7 +76,7 @@ void TarsnapCLI::run()
 end:    delete _process;
 }
 
-void TarsnapCLI::killClient()
+void TarsnapClient::killClient()
 {
     if(_process->state() == QProcess::Running)
     {
@@ -86,22 +86,22 @@ void TarsnapCLI::killClient()
     }
 }
 
-QProcess::ProcessState TarsnapCLI::statusClient()
+QProcess::ProcessState TarsnapClient::statusClient()
 {
     return _process->state();
 }
 
-bool TarsnapCLI::waitForClient()
+bool TarsnapClient::waitForClient()
 {
     return _process->waitForFinished(-1);
 }
 
-void TarsnapCLI::readProcessOutput()
+void TarsnapClient::readProcessOutput()
 {
     _processOutput.append(_process->readAll());
 }
 
-void TarsnapCLI::processFinished()
+void TarsnapClient::processFinished()
 {
     QString output(_processOutput);
     LOG   << tr("[%1 %2] finished with return code %3 and output:\n%4\n").arg(_command).arg(_arguments.join(' ')).arg(_process->exitCode()).arg(output);
@@ -115,47 +115,47 @@ void TarsnapCLI::processFinished()
     }
 }
 
-void TarsnapCLI::processError()
+void TarsnapClient::processError()
 {
     LOG   << tr("Tarsnap process error %1 (%2) occured:\n%3\n").arg(_process->error()).arg(_process->errorString()).arg(QString(_processOutput));
 }
-QVariant TarsnapCLI::data() const
+QVariant TarsnapClient::data() const
 {
     return _data;
 }
 
-void TarsnapCLI::setData(const QVariant &data)
+void TarsnapClient::setData(const QVariant &data)
 {
     _data = data;
 }
 
-QUuid TarsnapCLI::uuid() const
+QUuid TarsnapClient::uuid() const
 {
     return _uuid;
 }
 
-void TarsnapCLI::setUuid(const QUuid &uuid)
+void TarsnapClient::setUuid(const QUuid &uuid)
 {
     _uuid = uuid;
 }
 
 
-bool TarsnapCLI::requiresPassword() const
+bool TarsnapClient::requiresPassword() const
 {
     return _requiresPassword;
 }
 
-void TarsnapCLI::setRequiresPassword(bool requiresPassword)
+void TarsnapClient::setRequiresPassword(bool requiresPassword)
 {
     _requiresPassword = requiresPassword;
 }
 
-QString TarsnapCLI::password() const
+QString TarsnapClient::password() const
 {
     return _password;
 }
 
-void TarsnapCLI::setPassword(const QString &password)
+void TarsnapClient::setPassword(const QString &password)
 {
     _password = password;
 }

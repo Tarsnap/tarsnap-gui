@@ -33,7 +33,7 @@ void TaskManager::loadSettings()
 
 void TaskManager::registerMachine(QString user, QString password, QString machine, QString key, QString tarsnapPath, QString cachePath)
 {
-    TarsnapCLI *registerClient = new TarsnapCLI();
+    TarsnapClient *registerClient = new TarsnapClient();
     QStringList args;
     QFileInfo keyFile(key);
     if(keyFile.exists())
@@ -65,7 +65,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         return;
     }
     _backupTaskMap[backupTask->uuid] = backupTask;
-    TarsnapCLI *backupClient = new TarsnapCLI(backupTask->uuid);
+    TarsnapClient *backupClient = new TarsnapClient(backupTask->uuid);
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -91,7 +91,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
 
 void TaskManager::getArchivesList()
 {
-    TarsnapCLI *listArchivesClient = new TarsnapCLI();
+    TarsnapClient *listArchivesClient = new TarsnapClient();
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -116,7 +116,7 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
     if(!_archiveMap.contains(archive->uuid))
         _archiveMap[archive->uuid] = archive;
 
-    TarsnapCLI *statsClient = new TarsnapCLI(archive->uuid);
+    TarsnapClient *statsClient = new TarsnapClient(archive->uuid);
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -141,7 +141,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     if(!_archiveMap.contains(archive->uuid))
         _archiveMap[archive->uuid] = archive;
 
-    TarsnapCLI *contentsClient = new TarsnapCLI(archive->uuid);
+    TarsnapClient *contentsClient = new TarsnapClient(archive->uuid);
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -163,7 +163,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
         return;
     }
 
-    TarsnapCLI *delArchives = new TarsnapCLI();
+    TarsnapClient *delArchives = new TarsnapClient();
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -183,7 +183,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
 
 void TaskManager::getOverallStats()
 {
-    TarsnapCLI *overallStats = new TarsnapCLI();
+    TarsnapClient *overallStats = new TarsnapClient();
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -199,7 +199,7 @@ void TaskManager::getOverallStats()
 
 void TaskManager::runFsck()
 {
-    TarsnapCLI *fsck = new TarsnapCLI();
+    TarsnapClient *fsck = new TarsnapClient();
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -215,7 +215,7 @@ void TaskManager::runFsck()
 
 void TaskManager::nukeArchives()
 {
-    TarsnapCLI *nuke = new TarsnapCLI();
+    TarsnapClient *nuke = new TarsnapClient();
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -242,7 +242,7 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     if(!_archiveMap.contains(archive->uuid))
         _archiveMap[archive->uuid] = archive;
 
-    TarsnapCLI *restore = new TarsnapCLI(archive->uuid);
+    TarsnapClient *restore = new TarsnapClient(archive->uuid);
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -458,7 +458,7 @@ void TaskManager::restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode
         emit restoreArchiveStatus(archive, TaskStatus::Failed, output);
 }
 
-void TaskManager::queueTask(TarsnapCLI *cli, bool exclusive)
+void TaskManager::queueTask(TarsnapClient *cli, bool exclusive)
 {
     if(cli == NULL)
     {
@@ -471,7 +471,7 @@ void TaskManager::queueTask(TarsnapCLI *cli, bool exclusive)
         startTask(cli);
 }
 
-void TaskManager::startTask(TarsnapCLI *cli)
+void TaskManager::startTask(TarsnapClient *cli)
 {
     if(cli == NULL)
     {

@@ -21,12 +21,20 @@ public:
     QString name() const;
     void setName(const QString &name);
 
+    QList<QUrl> urls() const;
+    void setUrls(const QList<QUrl> &urls);
+
+    QList<ArchivePtr> archives() const;
+    void setArchives(const QList<ArchivePtr> &archives);
+
+    QUuid uuid() const;
+    void setUuid(const QUuid &uuid);
+
 signals:
 
 public slots:
 
 private:
-
     QUuid               _uuid;
     QString             _name;
     QList<QUrl>         _urls;

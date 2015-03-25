@@ -132,6 +132,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Jobs
     connect(_ui->jobsListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)));
+    connect(_ui->addJobButton, &QPushButton::clicked,
+            [=](){
+                JobPtr job(new Job());
+                displayJobDetails(job);
+            });
 
     //lambda slots to quickly update various UI components
     connect(_ui->browseListWidget, &BrowseListWidget::getArchivesList,

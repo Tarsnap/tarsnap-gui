@@ -104,7 +104,7 @@ border-radius: 2px;
 </string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="backupTab">
           <property name="acceptDrops">
@@ -791,7 +791,7 @@ selection-background-color: rgba(179, 190, 255, 120);
            <item>
             <widget class="QPushButton" name="addJobButton">
              <property name="text">
-              <string>+ Add Job</string>
+              <string>Add job</string>
              </property>
             </widget>
            </item>
@@ -1271,7 +1271,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>569</width>
+                <width>484</width>
                 <height>212</height>
                </rect>
               </property>
@@ -1941,6 +1941,11 @@ border: none;
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
+   <class>BrowseListWidget</class>
+   <extends>QListWidget</extends>
+   <header>widgets/browselistwidget.h</header>
+  </customwidget>
+  <customwidget>
    <class>TextLabel</class>
    <extends>QLabel</extends>
    <header location="global">../widgets/textlabel.h</header>
@@ -1949,11 +1954,6 @@ border: none;
    <class>BackupListWidget</class>
    <extends>QListWidget</extends>
    <header>widgets/backuplistwidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>BrowseListWidget</class>
-   <extends>QListWidget</extends>
-   <header>widgets/browselistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>JobsListWidget</class>

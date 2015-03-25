@@ -6,13 +6,21 @@ JobWidget::JobWidget(QWidget *parent) :
     _ui(new Ui::JobWidget)
 {
     _ui->setupUi(this);
-    connect(_ui->browseButton, &QPushButton::clicked,
+    connect(_ui->listArchivesButton, &QPushButton::clicked,
             [=](){
-                _ui->stackedWidget->setCurrentWidget(_ui->restoreView);
+                _ui->stackedWidget->setCurrentWidget(_ui->jobRestorePage);
             });
-    connect(_ui->backButton, &QPushButton::clicked,
+    connect(_ui->restoreBackButton, &QPushButton::clicked,
             [=](){
-                _ui->stackedWidget->setCurrentWidget(_ui->treeView);
+                _ui->stackedWidget->setCurrentWidget(_ui->jobDetailPage);
+            });
+    connect(_ui->optionsBackButton, &QPushButton::clicked,
+            [=](){
+                _ui->stackedWidget->setCurrentWidget(_ui->jobDetailPage);
+            });
+    connect(_ui->optionsButton, &QPushButton::clicked,
+            [=](){
+                _ui->stackedWidget->setCurrentWidget(_ui->jobOptionsPage);
             });
 }
 
@@ -33,6 +41,15 @@ void JobWidget::setJob(const JobPtr &job)
 
 void JobWidget::updateDetails()
 {
-    _ui->jobNameLabel->setText(_job->name());
+    if(_job->uuid().isNull())
+    {
+        _ui->stackedWidget->setCurrentWidget(_ui->jobNewPage);
+//        _ui->jobNameLineEdit->clear();
+    }
+    else
+    {
+        _ui->stackedWidget->setCurrentWidget(_ui->jobDetailPage);
+        _ui->jobNameLabel->setText(_job->name());
+    }
 }
 

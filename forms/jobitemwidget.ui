@@ -112,14 +112,14 @@ color: grey;
     <widget class="QToolButton" name="restoreButton">
      <property name="minimumSize">
       <size>
-       <width>25</width>
-       <height>25</height>
+       <width>27</width>
+       <height>27</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>25</width>
-       <height>25</height>
+       <width>27</width>
+       <height>27</height>
       </size>
      </property>
      <property name="toolTip">
@@ -153,14 +153,14 @@ padding-left: 2px;
     <widget class="QToolButton" name="inspectButton">
      <property name="minimumSize">
       <size>
-       <width>25</width>
-       <height>25</height>
+       <width>27</width>
+       <height>27</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>25</width>
-       <height>25</height>
+       <width>27</width>
+       <height>27</height>
       </size>
      </property>
      <property name="toolTip">

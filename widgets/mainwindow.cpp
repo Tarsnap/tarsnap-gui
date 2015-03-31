@@ -364,7 +364,7 @@ void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
 {
     if(count != 0)
     {
-        _ui->backupDetailLabel->setText(tr("%1 items (%2)").arg(count).arg(Utils::humanBytes(size, _useSIPrefixes)));
+        _ui->backupDetailLabel->setText(tr("%1 %2 (%3)").arg(count).arg(count == 1? "item":"items").arg(Utils::humanBytes(size, _useSIPrefixes)));
         _ui->backupButton->setEnabled(true);
     }
     else

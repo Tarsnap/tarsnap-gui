@@ -33,16 +33,6 @@ int CoreApplication::initialize()
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));
     QCoreApplication::setApplicationName(tr("Tarsnappy"));
 
-#ifdef Q_OS_FREEBSD
-    QFont font;
-    font.setFamily("Helvetica");
-    font.setHintingPreference(QFont::PreferFullHinting);
-    font.setStyleHint(QFont::Helvetica);
-    font.setStyleStrategy(QFont::PreferAntialias);
-    font.setPointSize(9);
-    setFont(font);
-#endif
-
     QSettings settings;
     if(!settings.value("application/wizardDone", false).toBool())
     {

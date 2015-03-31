@@ -5,7 +5,12 @@
 #include <QString>
 #include <QDebug>
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
 #define DEBUG   qDebug().noquote()
+#else
+#define DEBUG   qDebug()
+#endif
+
 #define LOG     Debug::instance()
 #define ENDL    "\n"
 

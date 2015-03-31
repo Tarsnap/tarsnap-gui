@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>633</width>
-    <height>731</height>
+    <width>579</width>
+    <height>725</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -233,11 +233,6 @@ background-color: rgba(178,190,255, 85);
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
                 <property name="text">
                  <string>Append timestamp</string>
                 </property>
@@ -269,11 +264,6 @@ background-color: rgba(178,190,255, 85);
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">QLabel {
@@ -859,8 +849,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>623</width>
-                <height>132</height>
+                <width>569</width>
+                <height>135</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1124,8 +1114,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>623</width>
-                <height>178</height>
+                <width>275</width>
+                <height>156</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1275,8 +1265,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>623</width>
-                <height>262</height>
+                <width>484</width>
+                <height>212</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1475,8 +1465,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>623</width>
-                <height>215</height>
+                <width>262</width>
+                <height>185</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1678,7 +1668,7 @@ font-size: 13px;
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.Helvetica Neue DeskInterface'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:18px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;How Tarsnap archives work&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Unlike many backup systems, Tarsnap works with a concept of&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;immutable archives&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;. Similar to backups stored on &lt;/span&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Write_once_read_many&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;WORM drives&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;, once a Tarsnap archive has been created, it cannot be modified; each archive is &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/crypto.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;cryptographically signed&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; to ensure that it cannot be silently modified. For obvious reasons, this also means that archives cannot be &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;overwritten&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;; each archive must be created with a new name.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap also makes creating new archives very fast: Because Tarsnap&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/efficiency.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;deduplicates&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; archives against data stored in previous archives, if you have an archive already stored with a previous version of the data you're placing into a new archive, Tarsnap will automatically recognize the duplicated data and only upload the new blocks. Similarly, when you delete an archive, Tarsnap figures out which data was &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;only&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; in that archive, and deletes it, while leaving behind any data which is still needed by other archives.&lt;/span&gt;&lt;/p&gt;
@@ -1835,11 +1825,6 @@ border: none;
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
         </property>
         <property name="text">
          <string/>

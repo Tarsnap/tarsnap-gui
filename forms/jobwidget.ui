@@ -210,7 +210,6 @@ background: transparent;
            <widget class="QLabel" name="jobNameLabel">
             <property name="font">
              <font>
-              <pointsize>14</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -322,7 +321,6 @@ background: transparent;
            <widget class="QLabel" name="jobNameLabel_2">
             <property name="font">
              <font>
-              <pointsize>14</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>

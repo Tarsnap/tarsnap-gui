@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>579</width>
-    <height>717</height>
+    <width>633</width>
+    <height>731</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -31,6 +31,9 @@
    <property name="leftMargin">
     <number>0</number>
    </property>
+   <property name="topMargin">
+    <number>15</number>
+   </property>
    <property name="rightMargin">
     <number>0</number>
    </property>
@@ -41,7 +44,7 @@
     <widget class="QWidget" name="mainContent" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_17">
       <property name="spacing">
-       <number>-1</number>
+       <number>3</number>
       </property>
       <property name="leftMargin">
        <number>0</number>
@@ -73,7 +76,7 @@ border-top-left-radius: 3px;
 border-top-right-radius: 3px;
 padding: 5px;
 width: 60px;
-font-size: 13pt;
+font-size: 13px;
 margin-left: 3px;
 color: white;
 
@@ -104,7 +107,7 @@ border-radius: 2px;
 </string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="backupTab">
           <property name="acceptDrops">
@@ -834,7 +837,7 @@ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
 border-top-left-radius: 3px;
 border-top-right-radius: 3px;
 color: white;
-font-size: 14pt;
+font-size: 14px;
 padding-left: 6px;
 border: 1px solid rgba(255,255,255,20);
  }
@@ -848,15 +851,15 @@ border: 1px solid rgba(255,255,255,100);
  }</string>
              </property>
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="settingsSummaryPage">
               <property name="geometry">
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>268</width>
-                <height>113</height>
+                <width>623</width>
+                <height>132</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1120,8 +1123,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>275</width>
-                <height>156</height>
+                <width>623</width>
+                <height>178</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1271,8 +1274,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>484</width>
-                <height>212</height>
+                <width>623</width>
+                <height>262</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1348,7 +1351,7 @@ border: 1px solid rgba(255,255,255,100);
                    <widget class="QWidget" name="widget" native="true">
                     <layout class="QHBoxLayout" name="horizontalLayout_5">
                      <property name="spacing">
-                      <number>-1</number>
+                      <number>6</number>
                      </property>
                      <property name="leftMargin">
                       <number>0</number>
@@ -1471,8 +1474,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>262</width>
-                <height>185</height>
+                <width>623</width>
+                <height>215</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1642,9 +1645,14 @@ border: 1px solid rgba(255,255,255,100);
            </property>
            <item>
             <widget class="QGroupBox" name="groupBox_4">
+             <property name="font">
+              <font>
+               <pointsize>-1</pointsize>
+              </font>
+             </property>
              <property name="styleSheet">
               <string notr="true">QGroupBox {
-font-size: 13pt;
+font-size: 13px;
 }</string>
              </property>
              <property name="title">
@@ -1669,7 +1677,7 @@ font-size: 13pt;
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.Helvetica Neue DeskInterface'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:18px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;How Tarsnap archives work&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Unlike many backup systems, Tarsnap works with a concept of&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;immutable archives&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;. Similar to backups stored on &lt;/span&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Write_once_read_many&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;WORM drives&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;, once a Tarsnap archive has been created, it cannot be modified; each archive is &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/crypto.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;cryptographically signed&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; to ensure that it cannot be silently modified. For obvious reasons, this also means that archives cannot be &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;overwritten&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;; each archive must be created with a new name.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap also makes creating new archives very fast: Because Tarsnap&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/efficiency.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;deduplicates&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; archives against data stored in previous archives, if you have an archive already stored with a previous version of the data you're placing into a new archive, Tarsnap will automatically recognize the duplicated data and only upload the new blocks. Similarly, when you delete an archive, Tarsnap figures out which data was &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;only&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; in that archive, and deletes it, while leaving behind any data which is still needed by other archives.&lt;/span&gt;&lt;/p&gt;
@@ -1698,9 +1706,14 @@ p, li { white-space: pre-wrap; }
            </item>
            <item>
             <widget class="QGroupBox" name="groupBox_5">
+             <property name="font">
+              <font>
+               <pointsize>-1</pointsize>
+              </font>
+             </property>
              <property name="styleSheet">
               <string notr="true">QGroupBox {
-font-size: 13pt;
+font-size: 13px;
 }</string>
              </property>
              <property name="title">

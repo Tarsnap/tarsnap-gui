@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>32</height>
+    <width>710</width>
+    <height>35</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,11 +62,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="archiveCountLabel">
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
+    <widget class="TextLabel" name="archiveCountLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="styleSheet">
       <string notr="true">QLabel {
@@ -76,12 +77,18 @@ color: grey;
      <property name="text">
       <string>99 archives totalling ~10GB</string>
      </property>
+     <property name="elide" stdset="0">
+      <string>Qt::ElideRight</string>
+     </property>
     </widget>
    </item>
    <item>
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Maximum</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -93,11 +100,6 @@ color: grey;
    </item>
    <item>
     <widget class="QLabel" name="lastBackupLabel">
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
      <property name="styleSheet">
       <string notr="true">QLabel {
 color: grey;
@@ -208,6 +210,13 @@ padding-left: 2px;
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TextLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">../widgets/textlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../resources.qrc"/>
  </resources>

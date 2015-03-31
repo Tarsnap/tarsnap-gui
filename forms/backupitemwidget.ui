@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>384</width>
-    <height>30</height>
+    <height>31</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -99,11 +99,6 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">QLabel {

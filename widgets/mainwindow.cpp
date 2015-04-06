@@ -132,11 +132,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Jobs
     connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)));
-    connect(_ui->addJobButton, &QPushButton::clicked,
-            [=](){
-                JobPtr job(new Job());
-                displayJobDetails(job);
-            });
+    connect(_ui->addJobButton, SIGNAL(clicked()), this, SLOT(addJobClicked()));
+    connect(_ui->jobDetailsWidget, SIGNAL(cancel()), this, SLOT(hideJobDetails()));
 
     //lambda slots to quickly update various UI components
     connect(_ui->browseListWidget, &BrowseListWidget::getArchivesList,
@@ -235,7 +232,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
             _ui->archiveDetailsWidget->hide();
         if((_ui->mainTabWidget->currentWidget() == _ui->jobsTab)
            &&(_ui->jobDetailsWidget->isVisible()))
-            _ui->jobDetailsWidget->hide();
+            hideJobDetails();
         else if(_ui->journalLog->isVisible())
             _ui->expandJournalButton->toggle();
         break;
@@ -655,4 +652,34 @@ void MainWindow::displayJobDetails(JobPtr job)
     _ui->jobDetailsWidget->setJob(job);
     if(!_ui->jobDetailsWidget->isVisible())
         _ui->jobDetailsWidget->show();
+}
+
+void MainWindow::hideJobDetails()
+{
+    _ui->jobDetailsWidget->hide();
+    if(_ui->addJobButton->property("save").toBool())
+    {
+        _ui->addJobButton->setText(tr("Add job"));
+        _ui->addJobButton->setProperty("save", false);
+        _ui->addJobButton->setDefault(false);
+    }
+}
+
+void MainWindow::addJobClicked()
+{
+    if(_ui->addJobButton->property("save").toBool())
+    {
+        _ui->jobDetailsWidget->save();
+        _ui->addJobButton->setText(tr("Add job"));
+        _ui->addJobButton->setProperty("save", false);
+        _ui->addJobButton->setDefault(false);
+    }
+    else
+    {
+        JobPtr job(new Job());
+        displayJobDetails(job);
+        _ui->addJobButton->setText(tr("Save"));
+        _ui->addJobButton->setProperty("save", true);
+        _ui->addJobButton->setDefault(true);
+    }
 }

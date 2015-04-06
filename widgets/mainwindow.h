@@ -79,6 +79,8 @@ private slots:
     void expandJournalButtonToggled(bool checked);
     void downloadsDirBrowseButtonClicked();
     void displayJobDetails(JobPtr job);
+    void hideJobDetails();
+    void addJobClicked();
 
 private:
     Ui::MainWindow  *_ui;

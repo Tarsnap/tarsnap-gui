@@ -787,6 +787,9 @@ selection-background-color: rgba(179, 190, 255, 120);
              <property name="text">
               <string>Add job</string>
              </property>
+             <property name="save" stdset="0">
+              <bool>false</bool>
+             </property>
             </widget>
            </item>
           </layout>

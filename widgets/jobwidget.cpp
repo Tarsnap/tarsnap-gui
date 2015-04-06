@@ -22,6 +22,7 @@ JobWidget::JobWidget(QWidget *parent) :
             [=](){
                 _ui->stackedWidget->setCurrentWidget(_ui->jobOptionsPage);
             });
+    connect(_ui->cancelButton, SIGNAL(clicked()), this, SIGNAL(cancel()));
 }
 
 JobWidget::~JobWidget()
@@ -37,6 +38,11 @@ void JobWidget::setJob(const JobPtr &job)
 {
     _job = job;
     updateDetails();
+}
+
+void JobWidget::save()
+{
+    // save current or new job details
 }
 
 void JobWidget::updateDetails()

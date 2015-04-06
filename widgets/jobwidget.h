@@ -19,6 +19,10 @@ public:
 
     JobPtr job() const;
     void setJob(const JobPtr &job);
+    void save();
+
+signals:
+    void cancel();
 
 private:
     void updateDetails();

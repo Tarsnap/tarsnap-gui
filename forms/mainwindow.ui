@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>579</width>
-    <height>725</height>
+    <width>600</width>
+    <height>715</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="acceptDrops">
    <bool>false</bool>
@@ -69,7 +75,9 @@
          </property>
          <property name="styleSheet">
           <string notr="true">QTabBar::tab {
-background: #2980B9;
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+					stop: 0 rgba(64,152,212,220), stop: 0.8 rgba(64,152,212,220),
+					stop: 0.9 rgba(41,128,185,220), stop: 1.0 rgba(31,98,142,220));
 border: 1px solid #ECF0F1;
 border-bottom: none;
 border-top-left-radius: 3px;
@@ -80,11 +88,12 @@ height: 20px;
 font-size: 13px;
 margin-left: 3px;
 color: white;
-
 }
 
 QTabBar::tab:selected {
-background: #4098D4;
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+					stop: 0 rgba(64,152,212,255), stop: 0.9 rgba(64,152,212,255),
+					stop: 1.0 rgba(41,128,185,255), stop: 1.0 rgba(31,98,142,255));
 border: 1px solid white;
 border-bottom: none;
 }
@@ -108,7 +117,7 @@ border-radius: 2px;
 </string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="backupTab">
           <property name="acceptDrops">
@@ -116,7 +125,7 @@ border-radius: 2px;
           </property>
           <property name="styleSheet">
            <string notr="true">#backupTab {
-    border-top: 1px solid #C1CDD1;
+
 }</string>
           </property>
           <attribute name="title">
@@ -127,16 +136,16 @@ border-radius: 2px;
             <number>0</number>
            </property>
            <property name="leftMargin">
-            <number>5</number>
+            <number>3</number>
            </property>
            <property name="topMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>5</number>
+            <number>3</number>
            </property>
            <property name="bottomMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <item>
             <widget class="BackupListWidget" name="backupListWidget">
@@ -299,24 +308,26 @@ color: gray;
          <widget class="QWidget" name="browseTab">
           <property name="styleSheet">
            <string notr="true">#browseTab {
-    border-top: 1px solid #C1CDD1;
 }</string>
           </property>
           <attribute name="title">
            <string>Browse</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_11">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <property name="leftMargin">
-            <number>5</number>
+            <number>3</number>
            </property>
            <property name="topMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>5</number>
+            <number>3</number>
            </property>
            <property name="bottomMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <item>
             <widget class="QWidget" name="widget_2" native="true">
@@ -704,24 +715,26 @@ selection-background-color: rgba(179, 190, 255, 120);
          <widget class="QWidget" name="jobsTab">
           <property name="styleSheet">
            <string notr="true">#jobsTab {
-    border-top: 1px solid #C1CDD1;
 }</string>
           </property>
           <attribute name="title">
            <string>Jobs</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0">
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <property name="leftMargin">
-            <number>5</number>
+            <number>3</number>
            </property>
            <property name="topMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>5</number>
+            <number>3</number>
            </property>
            <property name="bottomMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <item>
             <widget class="QWidget" name="widget_3" native="true">
@@ -797,24 +810,26 @@ selection-background-color: rgba(179, 190, 255, 120);
          <widget class="QWidget" name="settingsTab">
           <property name="styleSheet">
            <string notr="true">#settingsTab {
-    border-top: 1px solid #C1CDD1;
 }</string>
           </property>
           <attribute name="title">
            <string>Settings</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <property name="leftMargin">
-            <number>5</number>
+            <number>3</number>
            </property>
            <property name="topMargin">
-            <number>5</number>
+            <number>6</number>
            </property>
            <property name="rightMargin">
-            <number>5</number>
+            <number>3</number>
            </property>
            <property name="bottomMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <item>
             <widget class="QToolBox" name="settingsToolbox">
@@ -852,8 +867,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>569</width>
-                <height>135</height>
+                <width>594</width>
+                <height>137</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1618,24 +1633,26 @@ border: 1px solid rgba(255,255,255,100);
          <widget class="QWidget" name="helpTab">
           <property name="styleSheet">
            <string notr="true">#helpTab {
-    border-top: 1px solid #C1CDD1;
 }</string>
           </property>
           <attribute name="title">
            <string>Help</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_6">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <property name="leftMargin">
-            <number>5</number>
+            <number>3</number>
            </property>
            <property name="topMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
-            <number>5</number>
+            <number>3</number>
            </property>
            <property name="bottomMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <item>
             <widget class="QGroupBox" name="groupBox_4">

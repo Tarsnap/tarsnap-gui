@@ -1,7 +1,7 @@
-#include "jobslistwidget.h"
+#include "joblistwidget.h"
 #include "joblistitem.h"
 
-JobsListWidget::JobsListWidget(QWidget *parent) : QListWidget(parent)
+JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {
     // TODO: REMOVE
     for(int i = 0; i < 50; i++)
@@ -23,17 +23,17 @@ JobsListWidget::JobsListWidget(QWidget *parent) : QListWidget(parent)
                 });
 }
 
-JobsListWidget::~JobsListWidget()
+JobListWidget::~JobListWidget()
 {
     clear();
 }
 
-void JobsListWidget::backupItem()
+void JobListWidget::backupItem()
 {
 
 }
 
-void JobsListWidget::inspectItem()
+void JobListWidget::inspectItem()
 {
     if(sender())
     {
@@ -41,7 +41,7 @@ void JobsListWidget::inspectItem()
     }
 }
 
-void JobsListWidget::restoreItem()
+void JobListWidget::restoreItem()
 {
 
 }

@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->browseListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    _ui->jobsListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+    _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     _tarsnapLogo = new QLabel(this);
     QPixmap logo(":/resources/tarsnap.png");
@@ -131,7 +131,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->mainTabWidget, SIGNAL(currentChanged(int)), this, SLOT(currentPaneChanged(int)));
 
     // Jobs
-    connect(_ui->jobsListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)));
+    connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)));
     connect(_ui->addJobButton, &QPushButton::clicked,
             [=](){
                 JobPtr job(new Job());
@@ -651,7 +651,7 @@ void MainWindow::downloadsDirBrowseButtonClicked()
 
 void MainWindow::displayJobDetails(JobPtr job)
 {
-    _ui->jobsListWidget->scrollToItem(_ui->jobsListWidget->currentItem(), QAbstractItemView::EnsureVisible);
+    _ui->jobListWidget->scrollToItem(_ui->jobListWidget->currentItem(), QAbstractItemView::EnsureVisible);
     _ui->jobDetailsWidget->setJob(job);
     if(!_ui->jobDetailsWidget->isVisible())
         _ui->jobDetailsWidget->show();

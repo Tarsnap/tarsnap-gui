@@ -25,7 +25,7 @@ SOURCES += \
     widgets/filepicker.cpp \
     widgets/filepickerdialog.cpp \
     widgets/joblistitem.cpp \
-    widgets/jobslistwidget.cpp \
+    widgets/joblistwidget.cpp \
     widgets/jobwidget.cpp \
     widgets/mainwindow.cpp \
     widgets/restoredialog.cpp \
@@ -47,7 +47,7 @@ HEADERS  += \
     widgets/filepicker.h \
     widgets/filepickerdialog.h \
     widgets/joblistitem.h \
-    widgets/jobslistwidget.h \
+    widgets/joblistwidget.h \
     widgets/jobwidget.h \
     widgets/mainwindow.h \
     widgets/restoredialog.h \

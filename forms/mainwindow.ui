@@ -743,7 +743,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
-                <widget class="JobsListWidget" name="jobsListWidget">
+                <widget class="JobListWidget" name="jobListWidget">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                    <horstretch>0</horstretch>
@@ -751,7 +751,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">#jobsListWidget::item
+                  <string notr="true">#jobListWidget::item
 {
 min-height: 35px;
 selection-background-color: rgba(179, 190, 255, 120);
@@ -1940,14 +1940,14 @@ border: none;
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>BrowseListWidget</class>
-   <extends>QListWidget</extends>
-   <header>widgets/browselistwidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>TextLabel</class>
    <extends>QLabel</extends>
    <header location="global">../widgets/textlabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>BrowseListWidget</class>
+   <extends>QListWidget</extends>
+   <header>widgets/browselistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>BackupListWidget</class>
@@ -1955,9 +1955,9 @@ border: none;
    <header>widgets/backuplistwidget.h</header>
   </customwidget>
   <customwidget>
-   <class>JobsListWidget</class>
+   <class>JobListWidget</class>
    <extends>QListWidget</extends>
-   <header>widgets/jobslistwidget.h</header>
+   <header>widgets/joblistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>JobWidget</class>

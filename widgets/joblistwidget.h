@@ -5,13 +5,13 @@
 
 #include <QListWidget>
 
-class JobsListWidget : public QListWidget
+class JobListWidget : public QListWidget
 {
     Q_OBJECT
 
 public:
-    explicit JobsListWidget(QWidget *parent = 0);
-    ~JobsListWidget();
+    explicit JobListWidget(QWidget *parent = 0);
+    ~JobListWidget();
 
 signals:
     void displayJobDetails(JobPtr job);

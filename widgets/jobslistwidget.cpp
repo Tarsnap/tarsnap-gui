@@ -10,6 +10,9 @@ JobsListWidget::JobsListWidget(QWidget *parent) : QListWidget(parent)
         job->setUuid(QUuid::createUuid());
         job->setName(QString::number(i).prepend("Backup "));
         JobListItem *item = new JobListItem(job);
+        connect(item, SIGNAL(requestBackup()), this, SLOT(backupItem()));
+        connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));
+        connect(item, SIGNAL(requestRestore()), this, SLOT(restoreItem()));
         insertItem(count(), item);
         setItemWidget(item, item->widget());
     }
@@ -23,6 +26,24 @@ JobsListWidget::JobsListWidget(QWidget *parent) : QListWidget(parent)
 JobsListWidget::~JobsListWidget()
 {
     clear();
+}
+
+void JobsListWidget::backupItem()
+{
+
+}
+
+void JobsListWidget::inspectItem()
+{
+    if(sender())
+    {
+        emit displayJobDetails(qobject_cast<JobListItem*>(sender())->job());
+    }
+}
+
+void JobsListWidget::restoreItem()
+{
+
 }
 
 

@@ -17,6 +17,9 @@ signals:
     void displayJobDetails(JobPtr job);
 
 public slots:
+    void backupItem();
+    void inspectItem();
+    void restoreItem();
 
 };
 

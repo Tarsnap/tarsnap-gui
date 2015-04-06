@@ -24,6 +24,9 @@ public:
     void setJob(const JobPtr &job);
 
 signals:
+    void requestBackup();
+    void requestInspect();
+    void requestRestore();
 
 public slots:
 

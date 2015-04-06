@@ -6,9 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>710</width>
-    <height>35</height>
+    <width>641</width>
+    <height>39</height>
    </rect>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::ActionsContextMenu</enum>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -209,6 +212,38 @@ padding-left: 2px;
     </widget>
    </item>
   </layout>
+  <action name="actionRestore">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/resources/action-undo-2x.png</normaloff>:/resources/action-undo-2x.png</iconset>
+   </property>
+   <property name="text">
+    <string>Restore</string>
+   </property>
+   <property name="toolTip">
+    <string>Restore latest backup</string>
+   </property>
+  </action>
+  <action name="actionInspect">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/resources/info-2x.png</normaloff>:/resources/info-2x.png</iconset>
+   </property>
+   <property name="text">
+    <string>Inspect</string>
+   </property>
+   <property name="toolTip">
+    <string>Show job details</string>
+   </property>
+  </action>
+  <action name="actionBackup">
+   <property name="text">
+    <string>Backup</string>
+   </property>
+   <property name="toolTip">
+    <string>Execute backup for this job</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

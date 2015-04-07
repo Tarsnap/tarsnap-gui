@@ -30,5 +30,6 @@
         <file>resources/icons/tarsnap.png</file>
         <file>resources/icons/trash-2x.png</file>
         <file>resources/icons/trash-4x.png</file>
+        <file>resources/dbtemplate.db</file>
     </qresource>
 </RCC>

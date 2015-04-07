@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
+QT       += core gui network sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -34,7 +34,8 @@ SOURCES += \
     customfilesystemmodel.cpp \
     job.cpp \
     taskmanager.cpp \
-    tarsnapclient.cpp
+    tarsnapclient.cpp \
+    persistentstore.cpp
 
 HEADERS  += \
     coreapplication.h \
@@ -56,7 +57,8 @@ HEADERS  += \
     customfilesystemmodel.h \
     job.h \
     taskmanager.h \
-    tarsnapclient.h
+    tarsnapclient.h \
+    persistentstore.h
 
 INCLUDEPATH += widgets/
 

@@ -22,7 +22,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     _ui(new Ui::MainWindow),
-    _loadingAnimation(":/resources/loading.gif"),
+    _loadingAnimation(":/resources/icons/loading.gif"),
     _useSIPrefixes(false),
     _purgeTimerCount(0)
 {
@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     _tarsnapLogo = new QLabel(this);
-    QPixmap logo(":/resources/tarsnap.png");
+    QPixmap logo(":/resources/icons/tarsnap.png");
     _tarsnapLogo->setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     _tarsnapLogo->adjustSize();
     _tarsnapLogo->lower();

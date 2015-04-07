@@ -106,7 +106,7 @@ padding-left: 3px;
             </property>
             <property name="icon">
              <iconset resource="../resources.qrc">
-              <normaloff>:/resources/menu-2x.png</normaloff>:/resources/menu-2x.png</iconset>
+              <normaloff>:/resources/icons/menu-2x.png</normaloff>:/resources/icons/menu-2x.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -237,7 +237,7 @@ background: transparent;
             </property>
             <property name="icon">
              <iconset resource="../resources.qrc">
-              <normaloff>:/resources/menu-2x.png</normaloff>:/resources/menu-2x.png</iconset>
+              <normaloff>:/resources/icons/menu-2x.png</normaloff>:/resources/icons/menu-2x.png</iconset>
             </property>
             <property name="iconSize">
              <size>

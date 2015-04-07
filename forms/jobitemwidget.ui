@@ -50,7 +50,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources.qrc">:/resources/tarsnap_icon.png</pixmap>
+      <pixmap resource="../resources.qrc">:/resources/icons/tarsnap_icon.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -150,7 +150,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources.qrc">
-       <normaloff>:/resources/action-undo-2x.png</normaloff>:/resources/action-undo-2x.png</iconset>
+       <normaloff>:/resources/icons/action-undo-2x.png</normaloff>:/resources/icons/action-undo-2x.png</iconset>
      </property>
     </widget>
    </item>
@@ -191,7 +191,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources.qrc">
-       <normaloff>:/resources/info-2x.png</normaloff>:/resources/info-2x.png</iconset>
+       <normaloff>:/resources/icons/info-2x.png</normaloff>:/resources/icons/info-2x.png</iconset>
      </property>
     </widget>
    </item>
@@ -215,7 +215,7 @@ padding-left: 2px;
   <action name="actionRestore">
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/resources/action-undo-2x.png</normaloff>:/resources/action-undo-2x.png</iconset>
+     <normaloff>:/resources/icons/action-undo-2x.png</normaloff>:/resources/icons/action-undo-2x.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>
@@ -227,7 +227,7 @@ padding-left: 2px;
   <action name="actionInspect">
    <property name="icon">
     <iconset resource="../resources.qrc">
-     <normaloff>:/resources/info-2x.png</normaloff>:/resources/info-2x.png</iconset>
+     <normaloff>:/resources/icons/info-2x.png</normaloff>:/resources/icons/info-2x.png</iconset>
    </property>
    <property name="text">
     <string>Inspect</string>

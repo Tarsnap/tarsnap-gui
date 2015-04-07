@@ -28,7 +28,7 @@
   <property name="styleSheet">
    <string notr="true">#RestoreDialog 
 {
-background-image: url(&quot;:/resources/light_toast.png&quot;);
+background-image: url(&quot;:/resources/icons/light_toast.png&quot;);
 }</string>
   </property>
   <property name="modal">

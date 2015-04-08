@@ -2,6 +2,7 @@
 #define TASKMANAGER_H
 
 #include "tarsnapclient.h"
+#include "persistentmodel/archive.h"
 
 #include <QObject>
 #include <QThread>
@@ -16,43 +17,6 @@
 
 #define CMD_TARSNAP         "tarsnap"
 #define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
-
-class Archive: public QObject
-{
-    Q_OBJECT
-
-public:
-    QUuid       uuid;
-    QString     name;
-    QDateTime   timestamp;
-    qint64      sizeTotal;
-    qint64      sizeCompressed;
-    qint64      sizeUniqueTotal;
-    qint64      sizeUniqueCompressed;
-    QString     command;
-    QStringList contents;
-
-    Archive():uuid(QUuid::createUuid()),sizeTotal(0),sizeCompressed(0),sizeUniqueTotal(0),sizeUniqueCompressed(0){}
-
-    void notifyChanged() { emit changed(); }
-    QString archiveStats() {
-        QString stats;
-        if(sizeTotal == 0 || sizeUniqueCompressed == 0)
-            return stats;
-        stats.append(tr("\t\tTotal size\tCompressed size\n"
-                     "this archive\t%1\t\t%2\n"
-                     "unique data\t%3\t\t%4").arg(sizeTotal).arg(sizeCompressed)
-                     .arg(sizeUniqueTotal).arg(sizeUniqueCompressed));
-        return stats;
-    }
-
-signals:
-    void changed();
-};
-
-typedef QSharedPointer<Archive> ArchivePtr;
-
-Q_DECLARE_METATYPE(ArchivePtr)
 
 struct ArchiveRestoreOptions
 {

@@ -16,7 +16,6 @@ CONFIG += c++11
 SOURCES += \
     coreapplication.cpp \
     main.cpp \
-    debug.cpp \
     utils.cpp \
     widgets/archivelistitem.cpp \
     widgets/backuplistitem.cpp \
@@ -32,10 +31,12 @@ SOURCES += \
     widgets/setupdialog.cpp \
     widgets/textlabel.cpp \
     customfilesystemmodel.cpp \
-    job.cpp \
     taskmanager.cpp \
     tarsnapclient.cpp \
-    persistentstore.cpp
+    persistentmodel/persistentstore.cpp \
+    persistentmodel/persistentobject.cpp \
+    persistentmodel/archive.cpp \
+    persistentmodel/job.cpp
 
 HEADERS  += \
     coreapplication.h \
@@ -55,10 +56,12 @@ HEADERS  += \
     widgets/setupdialog.h \
     widgets/textlabel.h \
     customfilesystemmodel.h \
-    job.h \
     taskmanager.h \
     tarsnapclient.h \
-    persistentstore.h
+    persistentmodel/persistentstore.h \
+    persistentmodel/persistentobject.h \
+    persistentmodel/archive.h \
+    persistentmodel/job.h
 
 INCLUDEPATH += widgets/
 

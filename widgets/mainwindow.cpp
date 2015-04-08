@@ -141,9 +141,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::archivesList,
             [=](){updateStatusMessage(tr("Refreshing archives list...done"));});
     connect(this, &MainWindow::loadArchiveStats,
-            [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching details for archive <i>%1</i>.").arg(archive->name));});
+            [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching details for archive <i>%1</i>.").arg(archive->name()));});
     connect(this, &MainWindow::loadArchiveContents,
-            [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching contents for archive <i>%1</i>.").arg(archive->name));});
+            [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching contents for archive <i>%1</i>.").arg(archive->name()));});
     connect(_ui->browseListWidget, &BrowseListWidget::deleteArchives,
             [=](const QList<ArchivePtr> archives){archivesDeleted(archives,false);});
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
@@ -154,7 +154,7 @@ MainWindow::MainWindow(QWidget *parent) :
                     _ui->backupButton->setEnabled(true);
             });
     connect(this, &MainWindow::restoreArchive,
-            [=](const ArchivePtr archive){updateStatusMessage(tr("Restoring archive <i>%1</i>...").arg(archive->name));});
+            [=](const ArchivePtr archive){updateStatusMessage(tr("Restoring archive <i>%1</i>...").arg(archive->name()));});
     connect(_ui->downloadsDirLineEdit, &QLineEdit::textChanged,
             [=](){
                 QFileInfo file(_ui->downloadsDirLineEdit->text());
@@ -246,7 +246,7 @@ void MainWindow::backupTaskUpdate(BackupTaskPtr backupTask)
     switch (backupTask->status) {
     case TaskStatus::Completed:
         updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 used on Tarsnap)")
-                            .arg(backupTask->name).arg(Utils::humanBytes(backupTask->archive->sizeUniqueCompressed, _useSIPrefixes))
+                            .arg(backupTask->name).arg(Utils::humanBytes(backupTask->archive->sizeUniqueCompressed(), _useSIPrefixes))
                             ,backupTask->archive->archiveStats());
         break;
     case TaskStatus::Queued:
@@ -271,18 +271,18 @@ void MainWindow::archivesDeleted(QList<ArchivePtr> archives, bool done)
 {
     if(archives.count() > 1)
     {
-        QString detail(archives[0]->name);
+        QString detail(archives[0]->name());
         for(int i = 1; i < archives.count(); ++i) {
             ArchivePtr archive = archives.at(i);
-            detail.append(QString::fromLatin1(", ") + archive->name);
+            detail.append(QString::fromLatin1(", ") + archive->name());
         }
         updateStatusMessage(tr("Deleting archive <i>%1</i> and %2 more archives...%3")
-                            .arg(archives.first()->name).arg(archives.count()-1)
+                            .arg(archives.first()->name()).arg(archives.count()-1)
                             .arg(done?"done":""), detail);
     }
     else if(archives.count() == 1)
     {
-        updateStatusMessage(tr("Deleting archive <i>%1</i>...%2").arg(archives.first()->name)
+        updateStatusMessage(tr("Deleting archive <i>%1</i>...%2").arg(archives.first()->name())
                             .arg(done?"done":""));
     }
 }
@@ -348,11 +348,11 @@ void MainWindow::restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QSt
 {
     switch (status) {
     case TaskStatus::Completed:
-        updateStatusMessage(tr("Restoring archive <i>%1</i>...done").arg(archive->name), reason);
+        updateStatusMessage(tr("Restoring archive <i>%1</i>...done").arg(archive->name()), reason);
         break;
     case TaskStatus::Failed:
     default:
-        updateStatusMessage(tr("Restoring archive <i>%1</i>...failed. Hover mouse for details.").arg(archive->name), reason);
+        updateStatusMessage(tr("Restoring archive <i>%1</i>...failed. Hover mouse for details.").arg(archive->name()), reason);
         break;
     }
 }
@@ -381,10 +381,10 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
     if(_currentArchiveDetail)
         connect(_currentArchiveDetail.data(), SIGNAL(changed()), this, SLOT(updateInspectArchive()));
 
-    if(archive->sizeTotal == 0)
+    if(archive->sizeTotal() == 0)
         emit loadArchiveStats(archive);
 
-    if(archive->contents.count() == 0)
+    if(archive->contents().count() == 0)
         emit loadArchiveContents(archive);
 
     updateInspectArchive();
@@ -440,16 +440,16 @@ void MainWindow::updateInspectArchive()
 {
     if(_currentArchiveDetail)
     {
-        _ui->archiveNameLabel->setText(_currentArchiveDetail->name);
-        _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp.toString());
-        _ui->archiveTotalSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeTotal, _useSIPrefixes));
+        _ui->archiveNameLabel->setText(_currentArchiveDetail->name());
+        _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp().toString());
+        _ui->archiveTotalSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeTotal(), _useSIPrefixes));
         _ui->archiveTotalSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
-        _ui->archiveTarsnapSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeUniqueCompressed, _useSIPrefixes));
+        _ui->archiveTarsnapSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeUniqueCompressed(), _useSIPrefixes));
         _ui->archiveTarsnapSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
-        _ui->archiveCommandLabel->setText(_currentArchiveDetail->command);
-        int count = _currentArchiveDetail->contents.count();
+        _ui->archiveCommandLabel->setText(_currentArchiveDetail->command());
+        int count = _currentArchiveDetail->contents().count();
         _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg((count == 0) ? tr("loading..."):QString::number(count)));
-        _ui->archiveContentsPlainTextEdit->setPlainText(_currentArchiveDetail->contents.join('\n'));
+        _ui->archiveContentsPlainTextEdit->setPlainText(_currentArchiveDetail->contents().join('\n'));
     }
 }
 

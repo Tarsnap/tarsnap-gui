@@ -10,7 +10,7 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent) :
     QDialog(parent), _ui(new Ui::RestoreDialog), _archive(archive)
 {
     _ui->setupUi(this);
-    _ui->infoLabel->setText(_ui->infoLabel->text().arg(archive->name));
+    _ui->infoLabel->setText(_ui->infoLabel->text().arg(archive->name()));
     QSettings settings;
     _ui->chdirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
     _ui->chdirLineEdit->hide();

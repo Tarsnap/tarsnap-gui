@@ -45,12 +45,12 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
 
     connect(_archive.data(), SIGNAL(changed()), this, SLOT(update()), Qt::QueuedConnection);
 
-    _ui.nameLabel->setText(_archive->name);
-    _ui.nameLabel->setToolTip(_archive->name);
-    QString detail(_archive->timestamp.toString());
-    if(_archive->sizeUniqueCompressed != 0)
+    _ui.nameLabel->setText(_archive->name());
+    _ui.nameLabel->setToolTip(_archive->name());
+    QString detail(_archive->timestamp().toString());
+    if(_archive->sizeUniqueCompressed() != 0)
     {
-        detail.prepend(Utils::humanBytes(_archive->sizeUniqueCompressed, _useSIPrefixes) + "  ");
+        detail.prepend(Utils::humanBytes(_archive->sizeUniqueCompressed(), _useSIPrefixes) + "  ");
     }
     _ui.detaiLabel->setText(detail);
     _ui.detaiLabel->setToolTip(_archive->archiveStats());

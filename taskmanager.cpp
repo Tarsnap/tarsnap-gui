@@ -113,16 +113,16 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
         return;
     }
 
-    if(!_archiveMap.contains(archive->uuid))
-        _archiveMap[archive->uuid] = archive;
+    if(!_archiveMap.contains(archive->uuid()))
+        _archiveMap[archive->uuid()] = archive;
 
-    TarsnapClient *statsClient = new TarsnapClient(archive->uuid);
+    TarsnapClient *statsClient = new TarsnapClient(archive->uuid());
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--print-stats" << "-f" << archive->name;
+    args << "--print-stats" << "-f" << archive->name();
     statsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     statsClient->setArguments(args);
     connect(statsClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this
@@ -138,16 +138,16 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
         return;
     }
 
-    if(!_archiveMap.contains(archive->uuid))
-        _archiveMap[archive->uuid] = archive;
+    if(!_archiveMap.contains(archive->uuid()))
+        _archiveMap[archive->uuid()] = archive;
 
-    TarsnapClient *contentsClient = new TarsnapClient(archive->uuid);
+    TarsnapClient *contentsClient = new TarsnapClient(archive->uuid());
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(_preservePathnames)
         args << "-P";
-    args << "-t" << "-f" << archive->name;
+    args << "-t" << "-f" << archive->name();
     contentsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     contentsClient->setArguments(args);
     connect(contentsClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
@@ -171,7 +171,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
         args << "--cachedir" << _tarsnapCacheDir;
     args << "-d";
     foreach (ArchivePtr archive, archives) {
-        args << "-f" << archive->name;
+        args << "-f" << archive->name();
     }
     delArchives->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     delArchives->setArguments(args);
@@ -239,10 +239,10 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
         return;
     }
 
-    if(!_archiveMap.contains(archive->uuid))
-        _archiveMap[archive->uuid] = archive;
+    if(!_archiveMap.contains(archive->uuid()))
+        _archiveMap[archive->uuid()] = archive;
 
-    TarsnapClient *restore = new TarsnapClient(archive->uuid);
+    TarsnapClient *restore = new TarsnapClient(archive->uuid());
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -254,7 +254,7 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
         args << "-k";
     if(options.keepNewerFiles)
         args << "--keep-newer-files";
-    args << "-x" << "-f" << archive->name;
+    args << "-x" << "-f" << archive->name();
     restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     restore->setArguments(args);
     connect(restore, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this
@@ -272,9 +272,9 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
     {
         backupTask->status = TaskStatus::Completed;
         ArchivePtr archive(new Archive);
-        archive->name = backupTask->name;
-        archive->timestamp = QDateTime::currentDateTime();
-        _archiveMap[archive->uuid] = archive;
+        archive->setName(backupTask->name);
+        archive->setTimestamp(QDateTime::currentDateTime());
+        _archiveMap[archive->uuid()] = archive;
         parseArchiveStats(output, true, archive);
         backupTask->archive = archive;
         emit archivesList(_archiveMap.values());
@@ -318,11 +318,11 @@ void TaskManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, Q
                 QStringList archiveDetails = archiveDetailsRX.capturedTexts();
                 archiveDetails.removeFirst();
                 ArchivePtr archive(new Archive);
-                archive->name = archiveDetails[0];
-                archive->timestamp = QDateTime::fromString(archiveDetails[1], Qt::ISODate);
-                archive->command = archiveDetails[2];
+                archive->setName(archiveDetails[0]);
+                archive->setTimestamp(QDateTime::fromString(archiveDetails[1], Qt::ISODate));
+                archive->setCommand(archiveDetails[2]);
                 archives.append(archive);
-                _archiveMap[archive->uuid] = archive;
+                _archiveMap[archive->uuid()] = archive;
                 getArchiveStats(archive);
             }
         }
@@ -356,7 +356,7 @@ void TaskManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exit
     }
     if(exitCode == 0)
     {
-        archive->contents = output.trimmed().split('\n', QString::SkipEmptyParts);
+        archive->setContents(output.trimmed().split('\n', QString::SkipEmptyParts));
         archive->notifyChanged();
     }
 }
@@ -370,7 +370,7 @@ void TaskManager::deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode,
         if(!archives.empty())
         {
             foreach (ArchivePtr archive, archives) {
-                _archiveMap.remove(archive->uuid);
+                _archiveMap.remove(archive->uuid());
             }
             emit archivesDeleted(archives);
         }
@@ -527,8 +527,8 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput
     {
         QStringList captured = sizeRX.capturedTexts();
         captured.removeFirst();
-        archive->sizeTotal = captured[0].toLongLong();
-        archive->sizeCompressed = captured[1].toLongLong();
+        archive->setSizeTotal(captured[0].toLongLong());
+        archive->setSizeCompressed(captured[1].toLongLong());
     }
     else
     {
@@ -539,8 +539,8 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput
     {
         QStringList captured = uniqueSizeRX.capturedTexts();
         captured.removeFirst();
-        archive->sizeUniqueTotal = captured[0].toLongLong();
-        archive->sizeUniqueCompressed = captured[1].toLongLong();
+        archive->setSizeUniqueTotal(captured[0].toLongLong());
+        archive->setSizeUniqueCompressed(captured[1].toLongLong());
     }
     else
     {

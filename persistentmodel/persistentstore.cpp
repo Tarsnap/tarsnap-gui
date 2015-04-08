@@ -5,8 +5,14 @@
 #include <QFileInfo>
 #include <QFile>
 
+bool            PersistentStore::_initialized = false;
+QSqlDatabase    PersistentStore::_db          = QSqlDatabase();
+
 PersistentStore::PersistentStore(QObject *parent) : QObject(parent)
-  , _initialized(false)
+{
+}
+
+void PersistentStore::initialize()
 {
     QSettings settings;
     QString appdata = settings.value("app/appdata").toString();
@@ -89,5 +95,7 @@ PersistentStore::PersistentStore(QObject *parent) : QObject(parent)
 PersistentStore::~PersistentStore()
 {
     _db.close();
+    QSqlDatabase::removeDatabase("QSQLITE");
+    _initialized = false;
 }
 

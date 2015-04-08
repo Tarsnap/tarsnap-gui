@@ -1,7 +1,7 @@
 #ifndef JOBWIDGET_H
 #define JOBWIDGET_H
 
-#include "job.h"
+#include "persistentmodel/job.h"
 
 #include <QWidget>
 

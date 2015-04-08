@@ -46,6 +46,21 @@ void Job::setUuid(const QUuid &uuid)
     _uuid = uuid;
 }
 
+void Job::save()
+{
+
+}
+
+void Job::load()
+{
+
+}
+
+void Job::purge()
+{
+
+}
+
 
 
 

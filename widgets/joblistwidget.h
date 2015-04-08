@@ -1,7 +1,7 @@
 #ifndef JOBSLISTWIDGET_H
 #define JOBSLISTWIDGET_H
 
-#include "job.h"
+#include "persistentmodel/job.h"
 
 #include <QListWidget>
 

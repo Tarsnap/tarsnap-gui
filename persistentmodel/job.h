@@ -1,19 +1,21 @@
 #ifndef JOB_H
 #define JOB_H
 
-#include "taskmanager.h"
+#include "persistentmodel/archive.h"
 
 #include <QObject>
 #include <QUuid>
 #include <QUrl>
 
 class Job;
-
 typedef QSharedPointer<Job> JobPtr;
 
-class Job : public QObject
+Q_DECLARE_METATYPE(JobPtr)
+
+class Job : public QObject, public PersistentObject
 {
     Q_OBJECT
+
 public:
     explicit Job(QObject *parent = 0);
     ~Job();
@@ -29,6 +31,11 @@ public:
 
     QUuid uuid() const;
     void setUuid(const QUuid &uuid);
+
+    // From PersistentObject
+    void save();
+    void load();
+    void purge();
 
 signals:
 

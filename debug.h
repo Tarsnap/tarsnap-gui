@@ -18,7 +18,7 @@ class Debug : public QObject
 {
     Q_OBJECT
 public:
-    static void initialize();
+    static void initialize() {qSetMessagePattern("%{file}(%{line}): %{message}");}
     static Debug& instance() { static Debug instance; return instance; }
     ~Debug(){}
 
@@ -47,6 +47,7 @@ signals:
 public slots:
 
 private:
+    // Yes, a singleton
     explicit Debug():QObject(){}
     Debug(Debug const&);
     void operator=(Debug const&);

@@ -46,6 +46,7 @@ public:
     void save();
     void load();
     void purge();
+    bool findObjectWithKey(QString key);
 
 signals:
     void changed();

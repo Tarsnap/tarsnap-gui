@@ -18,6 +18,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     qRegisterMetaType< QList<ArchivePtr > >("QList<ArchivePtr >");
     qRegisterMetaType< ArchivePtr >("ArchivePtr");
     qRegisterMetaType< ArchiveRestoreOptions >("ArchiveRestoreOptions");
+    qRegisterMetaType< QSqlQuery >("QSqlQuery");
 }
 
 CoreApplication::~CoreApplication()

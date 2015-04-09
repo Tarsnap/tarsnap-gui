@@ -5,14 +5,7 @@
 #include <QFileInfo>
 #include <QFile>
 
-bool            PersistentStore::_initialized = false;
-QSqlDatabase    PersistentStore::_db          = QSqlDatabase();
-
-PersistentStore::PersistentStore(QObject *parent) : QObject(parent)
-{
-}
-
-void PersistentStore::initialize()
+PersistentStore::PersistentStore(QObject *parent) : QObject(parent), _initialized(false)
 {
     QSettings settings;
     QString appdata = settings.value("app/appdata").toString();
@@ -78,18 +71,6 @@ void PersistentStore::initialize()
     }
 
     _initialized = true;
-
-    //        QString query(dbTemplate.readAll());
-    //        DEBUG << query;
-    //        QSqlQuery q;
-    //        if (!q.exec(query))
-    //        {
-    //            DEBUG << "Error creating the PersistentStore: " << q.lastError().text();
-    //            return;
-    //        }
-    QSqlQuery q;
-    if (!q.exec(QLatin1String("create table test_table(id integer primary key, name varchar)")))
-        DEBUG << q.lastError();
 }
 
 PersistentStore::~PersistentStore()
@@ -97,5 +78,13 @@ PersistentStore::~PersistentStore()
     _db.close();
     QSqlDatabase::removeDatabase("QSQLITE");
     _initialized = false;
+}
+
+void PersistentStore::runQuery(QSqlQuery query)
+{
+    if(!_initialized)
+        return;
+    if(!query.exec())
+        DEBUG << query.lastError().text();
 }
 

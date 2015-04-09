@@ -108,8 +108,8 @@ private:
     QThread                      _managerThread; // manager runs on a separate thread
     QMap<QUuid, BackupTaskPtr>   _backupTaskMap;
     QMap<QUuid, ArchivePtr>      _archiveMap;
-    QMap<QUuid, TarsnapClient*>     _taskMap;
-    QQueue<TarsnapClient*>          _taskQueue;
+    QMap<QUuid, TarsnapClient*>  _taskMap;
+    QQueue<TarsnapClient*>       _taskQueue;
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;

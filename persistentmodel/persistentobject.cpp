@@ -15,10 +15,7 @@ PersistentStore& PersistentObject::getStore()
 {
     PersistentStore& store = PersistentStore::instance();
     if(!store.initialized())
-    {
-        DEBUG << "PersistentStore was not initialized previously to this call. Please fix.";
-        store.initialize(); // this does not guarantee that the initialization will succeed
-    }
+        DEBUG << "PersistentStore was not initialized properly.";
     return store;
 }
 

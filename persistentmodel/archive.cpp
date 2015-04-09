@@ -1,4 +1,5 @@
 #include "archive.h"
+#include "debug.h"
 
 Archive::Archive(QObject *parent) : QObject(parent), _uuid(QUuid::createUuid()), _sizeTotal(0),
     _sizeCompressed(0), _sizeUniqueTotal(0), _sizeUniqueCompressed(0)
@@ -13,7 +14,34 @@ Archive::~Archive()
 
 void Archive::save()
 {
+    bool exists = findObjectWithKey(_name);
+    QString queryString;
+    if(exists)
+        queryString = QLatin1String("update archives set name=?, timestamp=?, sizeTotal=?, sizeCompressed=?,"
+                                    " sizeUniqueTotal=?, sizeUniqueCompressed=?, command=?, contents=?"
+                                    " where name=?");
+    else
+        queryString = QLatin1String("insert into archives(name, timestamp, sizeTotal, sizeCompressed,"
+                                    " sizeUniqueTotal, sizeUniqueCompressed, command, contents)"
+                                    " values(?, ?, ?, ?, ?, ?, ?, ?)");
+    QSqlQuery query;
+    if(!query.prepare(queryString))
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    query.addBindValue(_name);
+    query.addBindValue(_timestamp.toTime_t());
+    query.addBindValue(_sizeTotal);
+    query.addBindValue(_sizeCompressed);
+    query.addBindValue(_sizeUniqueTotal);
+    query.addBindValue(_sizeUniqueCompressed);
+    query.addBindValue(_command);
+    query.addBindValue(_contents.join('\n'));
+    if(exists)
+        query.addBindValue(_name);
 
+    QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, query));
 }
 
 void Archive::load()
@@ -26,15 +54,51 @@ void Archive::purge()
 
 }
 
+bool Archive::findObjectWithKey(QString key)
+{
+    bool found = false;
+    if(key.isEmpty())
+    {
+        DEBUG << "findObjectWithKey method called with empty args";
+        return found;
+    }
+    QSqlQuery query;
+    if(!query.prepare(QLatin1String("select name from archives where name = ?")))
+    {
+        DEBUG << query.lastError().text();
+        return found;
+    }
+    query.addBindValue(key);
+    // QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, q));
+    // we need to get the result here, thus we can't invoke runQuery like that
+    // this should be safe nonetheless, since this is a READ only operation
+    PersistentStore &store = getStore();
+    if(!store.initialized())
+    {
+        DEBUG << "PersistentStore was not initialized.";
+        return found;
+    }
+    if(!query.exec())
+    {
+        DEBUG << query.lastError().text();
+        return found;
+    }
+    else if(query.next())
+    {
+        found = true;
+    }
+    return found;
+}
+
 QString Archive::archiveStats()
 {
     QString stats;
-    if(_sizeTotal == 0 || _sizeUniqueCompressed == 0)
+    if((_sizeTotal == 0) || (_sizeUniqueCompressed == 0))
         return stats;
     stats.append(tr("\t\tTotal size\tCompressed size\n"
                     "this archive\t%1\t\t%2\n"
-                    "unique data\t%3\t\t%4").arg(_sizeTotal).arg(_sizeCompressed)
-                 .arg(_sizeUniqueTotal).arg(_sizeUniqueCompressed));
+                    "unique data\t%3\t\t%4").arg(_sizeTotal).arg(_sizeCompressed).arg(_sizeUniqueTotal)
+                 .arg(_sizeUniqueCompressed));
     return stats;
 }
 QStringList Archive::contents() const

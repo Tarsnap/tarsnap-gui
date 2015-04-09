@@ -10,14 +10,14 @@ class PersistentStore : public QObject
 {
     Q_OBJECT
 public:
-    static void initialize();
     static PersistentStore& instance() { static PersistentStore instance; return instance; }
-    static bool initialized() { return _initialized; }
+    bool initialized() { return _initialized; }
     ~PersistentStore();
 
 signals:
 
 public slots:
+    void runQuery(QSqlQuery query);
 
 private:
     // Yes, a singleton
@@ -25,8 +25,8 @@ private:
     PersistentStore(PersistentStore const&);
     void operator=(PersistentStore const&);
 
-    static bool            _initialized;
-    static QSqlDatabase    _db;
+    bool            _initialized;
+    QSqlDatabase    _db;
 };
 
 #endif // PERSISTENTSTORE_H

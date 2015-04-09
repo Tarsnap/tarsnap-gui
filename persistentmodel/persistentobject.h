@@ -12,6 +12,8 @@ public:
     virtual void save()  = 0;
     virtual void load()  = 0;
     virtual void purge() = 0;
+    virtual bool findObjectWithKey(QString key) = 0;
+
     PersistentStore& getStore();
 
 private:

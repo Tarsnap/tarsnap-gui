@@ -61,6 +61,11 @@ void Job::purge()
 
 }
 
+bool Job::findObjectWithKey(QString key)
+{
+    return false;
+}
+
 
 
 

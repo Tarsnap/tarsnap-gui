@@ -23,7 +23,7 @@
    <string>Tarsnappy</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../resources.qrc">
     <normaloff>:/resources/icons/tarsnap_icon.png</normaloff>:/resources/icons/tarsnap_icon.png</iconset>
   </property>
   <property name="styleSheet">
@@ -627,25 +627,6 @@ selection-background-color: rgba(179, 190, 255, 120);
                        </property>
                       </widget>
                      </item>
-                     <item row="4" column="1">
-                      <widget class="TextLabel" name="archiveCommandLabel">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="toolTip">
-                        <string>Command used to create the archive</string>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="elide" stdset="0">
-                        <string>Qt::ElideMiddle</string>
-                       </property>
-                      </widget>
-                     </item>
                      <item row="0" column="3" rowspan="5" alignment="Qt::AlignVCenter">
                       <widget class="QLabel" name="archiveIconLabel">
                        <property name="sizePolicy">
@@ -664,7 +645,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap>:/resources/icons/tarsnap_icon.png</pixmap>
+                        <pixmap resource="../resources.qrc">:/resources/icons/tarsnap_icon.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>
@@ -674,6 +655,25 @@ selection-background-color: rgba(179, 190, 255, 120);
                        </property>
                        <property name="textInteractionFlags">
                         <set>Qt::NoTextInteraction</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="4" column="1" colspan="2">
+                      <widget class="TextLabel" name="archiveCommandLabel">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>Command used to create the archive</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="elide" stdset="0">
+                        <string>Qt::ElideMiddle</string>
                        </property>
                       </widget>
                      </item>
@@ -796,13 +796,34 @@ selection-background-color: rgba(179, 190, 255, 120);
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="addJobButton">
-             <property name="text">
-              <string>Add job</string>
-             </property>
-             <property name="save" stdset="0">
-              <bool>false</bool>
-             </property>
+            <widget class="QWidget" name="widget_5" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="addJobButton">
+                <property name="text">
+                 <string>Add job</string>
+                </property>
+                <property name="save" stdset="0">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
           </layout>
@@ -867,8 +888,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>137</height>
+                <width>268</width>
+                <height>113</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1132,7 +1153,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
+                <width>275</width>
                 <height>156</height>
                </rect>
               </property>
@@ -1829,7 +1850,7 @@ border: none;
          <string/>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="../resources.qrc">
           <normaloff>:/resources/icons/caret-top-2x.png</normaloff>
           <activeon>:/resources/icons/caret-bottom-2x.png</activeon>:/resources/icons/caret-top-2x.png</iconset>
         </property>
@@ -1873,7 +1894,7 @@ border: none;
   </layout>
   <action name="actionRefresh">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources.qrc">
      <normaloff>:/resources/icons/reload-2x.png</normaloff>:/resources/icons/reload-2x.png</iconset>
    </property>
    <property name="text">
@@ -1888,7 +1909,7 @@ border: none;
   </action>
   <action name="actionClearList">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources.qrc">
      <normaloff>:/resources/icons/circle-x-2x.png</normaloff>:/resources/icons/circle-x-2x.png</iconset>
    </property>
    <property name="text">
@@ -1903,7 +1924,7 @@ border: none;
   </action>
   <action name="actionBrowseItems">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources.qrc">
      <normaloff>:/resources/icons/magnifying-glass-2x.png</normaloff>:/resources/icons/magnifying-glass-2x.png</iconset>
    </property>
    <property name="text">
@@ -1986,6 +2007,8 @@ border: none;
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

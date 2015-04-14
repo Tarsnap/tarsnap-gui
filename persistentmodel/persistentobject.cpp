@@ -18,4 +18,14 @@ PersistentStore& PersistentObject::getStore()
         DEBUG << "PersistentStore was not initialized properly.";
     return store;
 }
+QString PersistentObject::objectKey() const
+{
+    return _objectKey;
+}
+
+void PersistentObject::setObjectKey(const QString &objectKey)
+{
+    _objectKey = objectKey;
+}
+
 

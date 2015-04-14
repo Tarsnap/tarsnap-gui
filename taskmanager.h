@@ -67,7 +67,6 @@ signals:
 
 public slots:
     void loadSettings();
-
     void registerMachine(QString user, QString password, QString machine
                          ,QString key, QString tarsnapPath, QString cachePath);
     void backupNow(BackupTaskPtr backupTask);
@@ -81,6 +80,7 @@ public slots:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
 
 private slots:
+    // specific tasks management
     void backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void backupTaskStarted(QUuid uuid);
     void registerMachineFinished(QUuid uuid, QVariant data, int exitCode, QString output);
@@ -93,12 +93,13 @@ private slots:
     void nukeFinished(QUuid uuid, QVariant data, int exitCode, QString output);
     void restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output);
 
+    // general task management
     void queueTask(TarsnapClient *cli, bool exclusive = false);
     void startTask(TarsnapClient *cli);
     void dequeueTask(QUuid uuid, QVariant data, int exitCode, QString output);
-    void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive);
 
 private:
+    void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive);
     QString makeTarsnapCommand(QString cmd);
 
 private:

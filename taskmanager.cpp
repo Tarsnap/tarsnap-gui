@@ -29,6 +29,9 @@ void TaskManager::loadSettings()
     _tarsnapKeyFile  = settings.value("tarsnap/key").toString();
     _aggressiveNetworking = settings.value("tarsnap/aggressive_networking", false).toBool();
     _preservePathnames = settings.value("tarsnap/preserve_pathnames", true).toBool();
+
+    // First time init of the Store
+    PersistentStore::instance();
 }
 
 void TaskManager::registerMachine(QString user, QString password, QString machine, QString key, QString tarsnapPath, QString cachePath)
@@ -274,6 +277,7 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
         ArchivePtr archive(new Archive);
         archive->setName(backupTask->name);
         archive->setTimestamp(QDateTime::currentDateTime());
+        archive->save();
         _archiveMap[archive->uuid()] = archive;
         parseArchiveStats(output, true, archive);
         backupTask->archive = archive;
@@ -307,11 +311,11 @@ void TaskManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, Q
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
     _archiveMap.clear();
-    QList<ArchivePtr> archives;
     if(exitCode == 0)
     {
         QStringList lines = output.trimmed().split('\n');
-        foreach (QString line, lines) {
+        foreach (QString line, lines)
+        {
             QRegExp archiveDetailsRX("^(\\S+)\\s+(\\S+\\s+\\S+)\\s+(.+)$");
             if(-1 != archiveDetailsRX.indexIn(line))
             {
@@ -321,12 +325,16 @@ void TaskManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, Q
                 archive->setName(archiveDetails[0]);
                 archive->setTimestamp(QDateTime::fromString(archiveDetails[1], Qt::ISODate));
                 archive->setCommand(archiveDetails[2]);
-                archives.append(archive);
+                archive->load();
+                if(archive->objectKey().isEmpty())
+                {
+                    archive->save();
+                    getArchiveStats(archive);
+                }
                 _archiveMap[archive->uuid()] = archive;
-                getArchiveStats(archive);
             }
         }
-        emit archivesList(archives);
+        emit archivesList(_archiveMap.values());
     }
 }
 
@@ -357,6 +365,7 @@ void TaskManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exit
     if(exitCode == 0)
     {
         archive->setContents(output.trimmed().split('\n', QString::SkipEmptyParts));
+        archive->save();
         archive->notifyChanged();
     }
 }
@@ -371,6 +380,7 @@ void TaskManager::deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode,
         {
             foreach (ArchivePtr archive, archives) {
                 _archiveMap.remove(archive->uuid());
+                archive->purge();
             }
             emit archivesDeleted(archives);
         }
@@ -547,6 +557,7 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput
         DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
     }
+    archive->save();
     archive->notifyChanged();
 }
 

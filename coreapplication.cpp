@@ -91,10 +91,9 @@ int CoreApplication::initialize()
             , Qt::QueuedConnection);
     connect(&_taskManager, SIGNAL(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), _mainWindow
             , SLOT(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(runSetupWizard()), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_taskManager, "getArchivesList", Qt::QueuedConnection);
-
-    connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(runSetupWizard()), Qt::QueuedConnection);
     _mainWindow->show();
 
     return SUCCESS;

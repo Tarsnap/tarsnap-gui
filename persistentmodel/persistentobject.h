@@ -16,6 +16,9 @@ public:
 
     PersistentStore& getStore();
 
+    QString objectKey() const;
+    void setObjectKey(const QString &objectKey);
+
 private:
     QString          _objectKey;
 };

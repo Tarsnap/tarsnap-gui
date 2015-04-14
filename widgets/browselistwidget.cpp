@@ -11,7 +11,6 @@ bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->t
 BrowseListWidget::BrowseListWidget(QWidget *parent):
     QListWidget(parent)
 {
-
     connect(this, &QListWidget::itemActivated,
             [=](QListWidgetItem* item)
             {

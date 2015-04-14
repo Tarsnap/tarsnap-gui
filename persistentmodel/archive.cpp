@@ -4,12 +4,10 @@
 Archive::Archive(QObject *parent) : QObject(parent), _uuid(QUuid::createUuid()), _sizeTotal(0),
     _sizeCompressed(0), _sizeUniqueTotal(0), _sizeUniqueCompressed(0)
 {
-
 }
 
 Archive::~Archive()
 {
-
 }
 
 void Archive::save()
@@ -42,16 +40,73 @@ void Archive::save()
         query.addBindValue(_name);
 
     QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, query));
+    setObjectKey(_name);
 }
 
 void Archive::load()
 {
-
+    if(_name.isEmpty())
+    {
+        DEBUG << "Attempting to load Archive object with empty _name key.";
+        return;
+    }
+    QSqlQuery query;
+    if(!query.prepare(QLatin1String("select * from archives where name = ?")))
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    query.addBindValue(_name);
+    PersistentStore &store = getStore();
+    if(!store.initialized())
+    {
+        DEBUG << "PersistentStore was not initialized.";
+        return;
+    }
+    if(!query.exec())
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    else if(query.next())
+    {
+        _timestamp = QDateTime::fromTime_t(query.value(query.record().indexOf("timestamp")).toUInt());
+        _sizeTotal = query.value(query.record().indexOf("sizeTotal")).toUInt();
+        _sizeCompressed = query.value(query.record().indexOf("sizeCompressed")).toUInt();
+        _sizeUniqueTotal = query.value(query.record().indexOf("sizeUniqueTotal")).toUInt();
+        _sizeUniqueCompressed = query.value(query.record().indexOf("sizeUniqueCompressed")).toUInt();
+        _command = query.value(query.record().indexOf("command")).toString();
+        _contents = query.value(query.record().indexOf("contents")).toString().split('\n', QString::SkipEmptyParts);
+        setObjectKey(_name);
+    }
+    else
+    {
+        DEBUG << "Archive object with key " << _name << " not found.";
+        return;
+    }
 }
 
 void Archive::purge()
 {
-
+    if(_name.isEmpty())
+    {
+        DEBUG << "Attempting to delete Archive object with empty _name key.";
+        return;
+    }
+    if(!findObjectWithKey(_name))
+    {
+        DEBUG << "No Archive object with key " << _name;
+        return;
+    }
+    QSqlQuery query;
+    if(!query.prepare(QLatin1String("delete from archives where name = ?")))
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    query.addBindValue(_name);
+    QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, query));
+    setObjectKey("");
 }
 
 bool Archive::findObjectWithKey(QString key)
@@ -101,6 +156,7 @@ QString Archive::archiveStats()
                  .arg(_sizeUniqueCompressed));
     return stats;
 }
+
 QStringList Archive::contents() const
 {
     return _contents;
@@ -180,7 +236,6 @@ void Archive::setName(const QString &value)
 {
     _name = value;
 }
-
 
 QUuid Archive::uuid() const
 {

@@ -321,13 +321,27 @@ void TaskManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, Q
             {
                 QStringList archiveDetails = archiveDetailsRX.capturedTexts();
                 archiveDetails.removeFirst();
+                QDateTime timestamp = QDateTime::fromString(archiveDetails[1], Qt::ISODate);
                 ArchivePtr archive(new Archive);
+                bool update = false;
                 archive->setName(archiveDetails[0]);
-                archive->setTimestamp(QDateTime::fromString(archiveDetails[1], Qt::ISODate));
-                archive->setCommand(archiveDetails[2]);
                 archive->load();
                 if(archive->objectKey().isEmpty())
                 {
+                    update = true;
+                }
+                else if( !update && (archive->timestamp() != timestamp) )
+                {
+                    archive->purge();
+                    archive.clear();
+                    archive = archive.create();
+                    archive->setName(archiveDetails[0]);
+                    update = true;
+                }
+                if(update)
+                {
+                    archive->setTimestamp(timestamp);
+                    archive->setCommand(archiveDetails[2]);
                     archive->save();
                     getArchiveStats(archive);
                 }

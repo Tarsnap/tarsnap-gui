@@ -43,6 +43,16 @@ void JobWidget::setJob(const JobPtr &job)
 void JobWidget::save()
 {
     // save current or new job details
+    if(_job->objectKey().isEmpty())
+    {
+        _job->setName(_ui->jobNameLineEdit->text());
+        _job->setUrls(_ui->newJobTreeWidget->getSelectedUrls());
+    }
+    else
+    {
+
+    }
+    _job->save();
 }
 
 void JobWidget::updateDetails()

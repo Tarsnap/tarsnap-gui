@@ -4,7 +4,6 @@
 #include "persistentmodel/archive.h"
 
 #include <QObject>
-#include <QUuid>
 #include <QUrl>
 
 class Job;
@@ -29,9 +28,6 @@ public:
     QList<ArchivePtr> archives() const;
     void setArchives(const QList<ArchivePtr> &archives);
 
-    QUuid uuid() const;
-    void setUuid(const QUuid &uuid);
-
     // From PersistentObject
     void save();
     void load();
@@ -43,7 +39,6 @@ signals:
 public slots:
 
 private:
-    QUuid               _uuid;
     QString             _name;
     QList<QUrl>         _urls;
     QList<ArchivePtr>   _archives;

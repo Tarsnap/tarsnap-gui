@@ -21,6 +21,8 @@ public slots:
     void inspectItem();
     void restoreItem();
 
+private:
+    QList<JobPtr> getStoredJobs();
 };
 
 #endif // JOBSLISTWIDGET_H

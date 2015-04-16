@@ -6,7 +6,6 @@
 BEGIN TRANSACTION;
 CREATE TABLE `jobs` (
 	`name`	TEXT NOT NULL,
-	`archiveCount`	INTEGER,
 	`urls`	TEXT,
 	PRIMARY KEY(name)
 );

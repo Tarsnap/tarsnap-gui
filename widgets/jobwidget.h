@@ -19,6 +19,8 @@ public:
 
     JobPtr job() const;
     void setJob(const JobPtr &job);
+
+public slots:
     void save();
 
 signals:

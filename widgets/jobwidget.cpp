@@ -1,5 +1,6 @@
 #include "jobwidget.h"
 #include "ui_jobwidget.h"
+#include "debug.h"
 
 JobWidget::JobWidget(QWidget *parent) :
     QWidget(parent),
@@ -36,12 +37,15 @@ JobPtr JobWidget::job() const
 
 void JobWidget::setJob(const JobPtr &job)
 {
+    if(!_job.isNull() && !_job->objectKey().isEmpty())
+        disconnect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
     _job = job;
     updateDetails();
 }
 
 void JobWidget::save()
 {
+    DEBUG << "SAVE";
     // save current or new job details
     if(_job->objectKey().isEmpty())
     {
@@ -50,22 +54,24 @@ void JobWidget::save()
     }
     else
     {
-
+        _job->setUrls(_ui->detailTreeWidget->getSelectedUrls());
     }
     _job->save();
 }
 
 void JobWidget::updateDetails()
 {
-    if(_job->uuid().isNull())
+    if(_job->objectKey().isEmpty())
     {
         _ui->stackedWidget->setCurrentWidget(_ui->jobNewPage);
-//        _ui->jobNameLineEdit->clear();
     }
     else
     {
         _ui->stackedWidget->setCurrentWidget(_ui->jobDetailPage);
         _ui->jobNameLabel->setText(_job->name());
+        _ui->detailTreeWidget->reset();
+        _ui->detailTreeWidget->setSelectedUrls(_job->urls());
+        connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
     }
 }
 

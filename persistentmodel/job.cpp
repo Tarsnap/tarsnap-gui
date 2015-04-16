@@ -37,15 +37,6 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
 {
     _archives = archives;
 }
-QUuid Job::uuid() const
-{
-    return _uuid;
-}
-
-void Job::setUuid(const QUuid &uuid)
-{
-    _uuid = uuid;
-}
 
 void Job::save()
 {

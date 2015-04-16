@@ -2,7 +2,6 @@
 
 CustomFileSystemModel::CustomFileSystemModel()
 {
-
 }
 
 CustomFileSystemModel::~CustomFileSystemModel()
@@ -35,9 +34,16 @@ bool CustomFileSystemModel::setData(const QModelIndex &index, const QVariant &va
             _checklist.insert(index);
         else
             _checklist.remove(index);
-        emit dataChanged(index, index);
+        QVector<int> roles;
+        roles << Qt::CheckStateRole;
+        emit dataChanged(index, index, roles);
         return true;
     }
     return QFileSystemModel::setData(index, value, role);
+}
+
+void CustomFileSystemModel::reset()
+{
+    _checklist.clear();
 }
 

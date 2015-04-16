@@ -33,6 +33,13 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     _ui->treeView->setColumnWidth(0, 250);
     _ui->filterLineEdit->setFocus();
 
+    connect(&_model, &CustomFileSystemModel::dataChanged,
+            [=](const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+            {
+                Q_UNUSED(topLeft);Q_UNUSED(bottomRight);
+                if(!roles.isEmpty() && roles.first() == Qt::CheckStateRole)
+                    emit selectionChanged();
+            });
     connect(_ui->filterLineEdit, SIGNAL(textEdited(QString)), this, SLOT(updateFilter(QString)));
     connect(_ui->showHiddenCheckBox, &QCheckBox::toggled,
             [=](const bool toggled)
@@ -81,6 +88,12 @@ FilePicker::~FilePicker()
     delete _ui;
 }
 
+void FilePicker::reset()
+{
+    _model.reset();
+    _ui->treeView->reset();
+}
+
 QList<QUrl> FilePicker::getSelectedUrls()
 {
     QList<QUrl> urls;
@@ -88,6 +101,14 @@ QList<QUrl> FilePicker::getSelectedUrls()
     foreach(QPersistentModelIndex index, indexList)
         urls << QUrl::fromUserInput(_model.filePath(index));
     return urls;
+}
+
+void FilePicker::setSelectedUrls(const QList<QUrl> &urls)
+{
+    foreach(const QUrl url, urls)
+    {
+        _model.setData(_model.index(url.toLocalFile()), Qt::Checked, Qt::CheckStateRole);
+    }
 }
 
 void FilePicker::keyPressEvent(QKeyEvent *event)

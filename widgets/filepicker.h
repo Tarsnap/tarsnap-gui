@@ -20,13 +20,18 @@ public:
     explicit FilePicker(QWidget *parent = 0, QString startPath = "");
     ~FilePicker();
 
+    void        reset();
     QList<QUrl> getSelectedUrls();
-
-protected:
-    void keyPressEvent(QKeyEvent *event);
+    void        setSelectedUrls(const QList<QUrl> &urls);
 
 public slots:
     void updateFilter(QString filter);
+
+signals:
+    void selectionChanged();
+
+protected:
+    void keyPressEvent(QKeyEvent *event);
 
 private:
     Ui::FilePicker          *_ui;

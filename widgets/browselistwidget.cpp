@@ -49,7 +49,7 @@ void BrowseListWidget::removeItems()
         if(archiveItem)
         {
             QMessageBox::StandardButton button = QMessageBox::question(this, tr("Confirm action")
-                                                                       , tr("Are you sure you want to delete %1 (this cannot be undone)?").arg(archiveItem->archive()->name()));
+                                                                       , tr("Are you sure you want to delete archive %1 (this cannot be undone)?").arg(archiveItem->archive()->name()));
             if(button == QMessageBox::Yes)
             {
                 QList<ArchivePtr> archiveList;

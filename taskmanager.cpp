@@ -316,7 +316,7 @@ void TaskManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, Q
         QStringList lines = output.trimmed().split('\n');
         foreach (QString line, lines)
         {
-            QRegExp archiveDetailsRX("^(\\S+)\\s+(\\S+\\s+\\S+)\\s+(.+)$");
+            QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");
             if(-1 != archiveDetailsRX.indexIn(line))
             {
                 QStringList archiveDetails = archiveDetailsRX.capturedTexts();
@@ -418,8 +418,8 @@ void TaskManager::overallStatsFinished(QUuid uuid, QVariant data, int exitCode, 
             DEBUG << "Malformed output from tarsnap CLI:\n" << output;
             return;
         }
-        QRegExp sizeRX("^All archives\\s+(\\S+)\\s+(\\S+)$");
-        QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\S+)\\s+(\\S+)$");
+        QRegExp sizeRX("^All archives\\s+(\\d+)\\s+(\\d+)$");
+        QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
         if(-1 != sizeRX.indexIn(lines[1]))
         {
             QStringList captured = sizeRX.capturedTexts();
@@ -539,13 +539,13 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput
     QRegExp uniqueSizeRX;
     if(newArchiveOutput)
     {
-        sizeRX.setPattern("^This archive\\s+(\\S+)\\s+(\\S+)$");
-        uniqueSizeRX.setPattern("^New data\\s+(\\S+)\\s+(\\S+)$");
+        sizeRX.setPattern("^This archive\\s+(\\d+)\\s+(\\d+)$");
+        uniqueSizeRX.setPattern("^New data\\s+(\\d+)\\s+(\\d+)$");
     }
     else
     {
-        sizeRX.setPattern("^\\S+\\s+(\\S+)\\s+(\\S+)$");
-        uniqueSizeRX.setPattern("^\\s+\\(unique data\\)\\s+(\\S+)\\s+(\\S+)$");
+        sizeRX.setPattern(QString("^%1\\s+(\\d+)\\s+(\\d+)$").arg(archive->name()));
+        uniqueSizeRX.setPattern("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
     }
     if(-1 != sizeRX.indexIn(sizeLine))
     {

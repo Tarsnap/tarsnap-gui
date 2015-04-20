@@ -29,6 +29,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     }
     _completer.setModel(&_model);
     _completer.setCompletionMode(QCompleter::InlineCompletion);
+    _completer.setCaseSensitivity(Qt::CaseSensitive);
     _ui->filterLineEdit->setCompleter(&_completer);
     _ui->treeView->setColumnWidth(0, 250);
     _ui->filterLineEdit->setFocus();

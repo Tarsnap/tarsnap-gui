@@ -51,6 +51,7 @@ void JobWidget::save()
     {
         _job->setName(_ui->jobNameLineEdit->text());
         _job->setUrls(_ui->newJobTreeWidget->getSelectedUrls());
+        emit jobAdded(_job);
     }
     else
     {
@@ -64,6 +65,7 @@ void JobWidget::updateDetails()
     if(_job->objectKey().isEmpty())
     {
         _ui->stackedWidget->setCurrentWidget(_ui->jobNewPage);
+        _ui->jobNameLineEdit->setFocus();
     }
     else
     {

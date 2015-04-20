@@ -4,20 +4,12 @@
 
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {
-    foreach(JobPtr job, getStoredJobs())
-    {
-        JobListItem *item = new JobListItem(job);
-        connect(item, SIGNAL(requestBackup()), this, SLOT(backupItem()));
-        connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));
-        connect(item, SIGNAL(requestRestore()), this, SLOT(restoreItem()));
-        insertItem(count(), item);
-        setItemWidget(item, item->widget());
-    }
+    reloadJobs();
     connect(this, &QListWidget::itemActivated,
             [=](QListWidgetItem *item)
                 {
                     emit displayJobDetails(static_cast<JobListItem*>(item)->job());
-                });
+            });
 }
 
 JobListWidget::~JobListWidget()
@@ -41,6 +33,28 @@ void JobListWidget::inspectItem()
 void JobListWidget::restoreItem()
 {
 
+}
+
+void JobListWidget::reloadJobs()
+{
+    clear();
+    foreach(JobPtr job, getStoredJobs())
+    {
+        addJob(job);
+    }
+}
+
+void JobListWidget::addJob(JobPtr job)
+{
+    if(job)
+    {
+        JobListItem *item = new JobListItem(job);
+        connect(item, SIGNAL(requestBackup()), this, SLOT(backupItem()));
+        connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));
+        connect(item, SIGNAL(requestRestore()), this, SLOT(restoreItem()));
+        insertItem(count(), item);
+        setItemWidget(item, item->widget());
+    }
 }
 
 QList<JobPtr> JobListWidget::getStoredJobs()

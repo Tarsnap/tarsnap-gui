@@ -20,6 +20,8 @@ public slots:
     void backupItem();
     void inspectItem();
     void restoreItem();
+    void reloadJobs();
+    void addJob(JobPtr job);
 
 private:
     QList<JobPtr> getStoredJobs();

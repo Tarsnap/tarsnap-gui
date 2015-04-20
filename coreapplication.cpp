@@ -19,6 +19,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     qRegisterMetaType< ArchivePtr >("ArchivePtr");
     qRegisterMetaType< ArchiveRestoreOptions >("ArchiveRestoreOptions");
     qRegisterMetaType< QSqlQuery >("QSqlQuery");
+    qRegisterMetaType< JobPtr >("JobPtr");
 }
 
 CoreApplication::~CoreApplication()

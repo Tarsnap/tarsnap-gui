@@ -131,9 +131,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->mainTabWidget, SIGNAL(currentChanged(int)), this, SLOT(currentPaneChanged(int)));
 
     // Jobs
-    connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)));
-    connect(_ui->addJobButton, SIGNAL(clicked()), this, SLOT(addJobClicked()));
-    connect(_ui->jobDetailsWidget, SIGNAL(cancel()), this, SLOT(hideJobDetails()));
+    connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), Qt::QueuedConnection);
+    connect(_ui->addJobButton, SIGNAL(clicked()), this, SLOT(addJobClicked()), Qt::QueuedConnection);
+    connect(_ui->jobDetailsWidget, SIGNAL(cancel()), this, SLOT(hideJobDetails()), Qt::QueuedConnection);
+    connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(addJob(JobPtr)), Qt::QueuedConnection);
+    connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), Qt::QueuedConnection);
 
     //lambda slots to quickly update various UI components
     connect(_ui->browseListWidget, &BrowseListWidget::getArchivesList,

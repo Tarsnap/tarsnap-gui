@@ -8,9 +8,9 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive, QObject *parent):
     QObject(parent), _useSIPrefixes(false)
 {
     _ui.setupUi(&_widget);
-    _widget.addAction(_ui.actionDelete);
-    _widget.addAction(_ui.actionInspect);
     _widget.addAction(_ui.actionRestore);
+    _widget.addAction(_ui.actionInspect);
+    _widget.addAction(_ui.actionDelete);
     _ui.deleteButton->setDefaultAction(_ui.actionDelete);
     _ui.inspectButton->setDefaultAction(_ui.actionInspect);
     _ui.restoreButton->setDefaultAction(_ui.actionRestore);

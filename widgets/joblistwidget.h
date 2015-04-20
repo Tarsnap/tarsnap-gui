@@ -20,6 +20,7 @@ public slots:
     void backupItem();
     void inspectItem();
     void restoreItem();
+    void deleteItem();
     void reloadJobs();
     void addJob(JobPtr job);
 

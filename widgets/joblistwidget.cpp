@@ -2,6 +2,8 @@
 #include "joblistitem.h"
 #include "debug.h"
 
+#include <QMessageBox>
+
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {
     reloadJobs();
@@ -35,6 +37,23 @@ void JobListWidget::restoreItem()
 
 }
 
+void JobListWidget::deleteItem()
+{
+    JobListItem* jobItem = qobject_cast<JobListItem*>(sender());
+    if(jobItem)
+    {
+        QMessageBox::StandardButton button = QMessageBox::question(this, tr("Confirm action")
+                                                                   , tr("Are you sure you want to delete job %1 (this cannot be undone)?").arg(jobItem->job()->name()));
+        if(button == QMessageBox::Yes)
+        {
+            jobItem->job()->purge();
+            QListWidgetItem *item = this->takeItem(this->row(jobItem));
+            if(item)
+                delete item;
+        }
+    }
+}
+
 void JobListWidget::reloadJobs()
 {
     clear();
@@ -52,6 +71,7 @@ void JobListWidget::addJob(JobPtr job)
         connect(item, SIGNAL(requestBackup()), this, SLOT(backupItem()));
         connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));
         connect(item, SIGNAL(requestRestore()), this, SLOT(restoreItem()));
+        connect(item, SIGNAL(requestDelete()), this, SLOT(deleteItem()));
         insertItem(count(), item);
         setItemWidget(item, item->widget());
     }

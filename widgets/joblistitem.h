@@ -27,6 +27,7 @@ signals:
     void requestBackup();
     void requestInspect();
     void requestRestore();
+    void requestDelete();
 
 public slots:
 

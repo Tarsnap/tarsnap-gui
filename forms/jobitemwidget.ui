@@ -244,6 +244,18 @@ padding-left: 2px;
     <string>Execute backup for this job</string>
    </property>
   </action>
+  <action name="actionDelete">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/resources/icons/trash-2x.png</normaloff>:/resources/icons/trash-2x.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete job</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

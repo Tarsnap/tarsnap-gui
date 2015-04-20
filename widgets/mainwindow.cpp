@@ -52,6 +52,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Ui actions
     _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
+    _ui->settingsToolbox->setCurrentWidget(_ui->settingsSummaryPage);
+
     _ui->browseListWidget->addAction(_ui->actionRefresh);
     connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->browseListWidget
             , SIGNAL(getArchivesList()), Qt::QueuedConnection);

@@ -881,15 +881,15 @@ border: 1px solid rgba(255,255,255,100);
  }</string>
              </property>
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="settingsSummaryPage">
               <property name="geometry">
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>268</width>
-                <height>113</height>
+                <width>594</width>
+                <height>137</height>
                </rect>
               </property>
               <attribute name="label">

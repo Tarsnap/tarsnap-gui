@@ -55,8 +55,6 @@ int CoreApplication::initialize()
 
     connect(_mainWindow, SIGNAL(backupNow(BackupTaskPtr)), &_taskManager
             , SLOT(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
-    connect(&_taskManager, SIGNAL(backupTaskUpdate(BackupTaskPtr))
-            , _mainWindow, SLOT(backupTaskUpdate(BackupTaskPtr)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(getArchivesList()), &_taskManager
             , SLOT(getArchivesList()), Qt::QueuedConnection);
     connect(&_taskManager, SIGNAL(archivesList(QList<ArchivePtr>))

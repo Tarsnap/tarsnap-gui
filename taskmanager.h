@@ -28,21 +28,47 @@ struct ArchiveRestoreOptions
 
 enum TaskStatus { Queued, Running, Completed, Failed, Paused, Initialized };
 
-class BackupTask
+class BackupTask: public QObject
 {
+    Q_OBJECT
 public:
-    QUuid                 uuid;
-    QList<QUrl>           urls;
-    QString               name;
-    TaskStatus            status;
-    int                   exitCode;
-    QString               output;
-    ArchivePtr            archive;
+    BackupTask():_uuid(QUuid::createUuid()), _status(TaskStatus::Initialized){}
 
-    BackupTask():uuid(QUuid::createUuid()),status(TaskStatus::Initialized){}
+    QUuid uuid() const {return _uuid;}
+    void setUuid(const QUuid &uuid) {_uuid = uuid;}
+
+    QList<QUrl> urls() const {return _urls;}
+    void setUrls(const QList<QUrl> &urls) {_urls = urls;}
+
+    QString name() const {return _name;}
+    void setName(const QString &name) {_name = name;}
+
+    TaskStatus status() const {return _status;}
+    void setStatus(const TaskStatus &status) {_status = status; emit statusUpdate();}
+
+    int exitCode() const {return _exitCode;}
+    void setExitCode(int exitCode) {_exitCode = exitCode;}
+
+    QString output() const {return _output;}
+    void setOutput(const QString &output) {_output = output;}
+
+    ArchivePtr archive() const {return _archive;}
+    void setArchive(const ArchivePtr &archive) {_archive = archive;}
+
+signals:
+    void statusUpdate();
+
+private:
+    QUuid                 _uuid;
+    QList<QUrl>           _urls;
+    QString               _name;
+    TaskStatus            _status;
+    int                   _exitCode;
+    QString               _output;
+    ArchivePtr            _archive;
 };
 
-typedef QSharedPointer<BackupTask> BackupTaskPtr;
+typedef BackupTask* BackupTaskPtr;
 
 class TaskManager : public QObject
 {
@@ -57,7 +83,6 @@ signals:
     void registerMachineStatus(TaskStatus status, QString reason);
     void fsckStatus(TaskStatus status, QString reason);
     void nukeStatus(TaskStatus status, QString reason);
-    void backupTaskUpdate(BackupTaskPtr backupTask);
     void archivesList(QList<ArchivePtr> archives);
     void archivesDeleted(QList<ArchivePtr> archives);
     void overallStats(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal
@@ -107,10 +132,10 @@ private:
     QString                      _tarsnapCacheDir;
     QString                      _tarsnapKeyFile;
     QThread                      _managerThread; // manager runs on a separate thread
-    QMap<QUuid, BackupTaskPtr>   _backupTaskMap;
-    QMap<QUuid, ArchivePtr>      _archiveMap;
-    QMap<QUuid, TarsnapClient*>  _taskMap;
-    QQueue<TarsnapClient*>       _taskQueue;
+    QMap<QUuid, BackupTaskPtr>     _backupTaskMap; // keeps track of active backup tasks
+    QMap<QUuid, ArchivePtr>      _archiveMap; // keeps track of archives encountered
+    QMap<QUuid, TarsnapClient*>  _taskMap; // keeps track of currently executing tasks
+    QQueue<TarsnapClient*>       _taskQueue; // keeps track of mutually exclusive tasks pending execution
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;

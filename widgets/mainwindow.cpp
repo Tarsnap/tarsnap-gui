@@ -138,6 +138,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobDetailsWidget, SIGNAL(cancel()), this, SLOT(hideJobDetails()), Qt::QueuedConnection);
     connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(addJob(JobPtr)), Qt::QueuedConnection);
     connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), Qt::QueuedConnection);
+    connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
 
     //lambda slots to quickly update various UI components
     connect(_ui->browseListWidget, &BrowseListWidget::getArchivesList,
@@ -245,26 +246,29 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void MainWindow::backupTaskUpdate(BackupTaskPtr backupTask)
+void MainWindow::backupTaskUpdate()
 {
-    switch (backupTask->status) {
+    BackupTaskPtr backupTask = qobject_cast<BackupTaskPtr>(sender());
+    switch (backupTask->status()) {
     case TaskStatus::Completed:
         updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 used on Tarsnap)")
-                            .arg(backupTask->name).arg(Utils::humanBytes(backupTask->archive->sizeUniqueCompressed(), _useSIPrefixes))
-                            ,backupTask->archive->archiveStats());
+                            .arg(backupTask->name()).arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes))
+                            ,backupTask->archive()->archiveStats());
+        delete backupTask;
         break;
     case TaskStatus::Queued:
-        updateStatusMessage(tr("Backup <i>%1</i> queued.").arg(backupTask->name));
+        updateStatusMessage(tr("Backup <i>%1</i> queued.").arg(backupTask->name()));
         break;
     case TaskStatus::Running:
-        updateStatusMessage(tr("Backup <i>%1</i> is running.").arg(backupTask->name));
+        updateStatusMessage(tr("Backup <i>%1</i> is running.").arg(backupTask->name()));
         break;
     case TaskStatus::Failed:
-        updateStatusMessage(tr("Backup <i>%1</i> failed: %2").arg(backupTask->name).arg(backupTask->output.simplified())
-                           ,tr("%1").arg(backupTask->output));
+        updateStatusMessage(tr("Backup <i>%1</i> failed: %2").arg(backupTask->name()).arg(backupTask->output().simplified())
+                           ,tr("%1").arg(backupTask->output()));
+        delete backupTask;
         break;
     case TaskStatus::Paused:
-        updateStatusMessage(tr("Backup <i>%1</i> paused.").arg(backupTask->name));
+        updateStatusMessage(tr("Backup <i>%1</i> paused.").arg(backupTask->name()));
         break;
     default:
         break;
@@ -427,16 +431,14 @@ void MainWindow::appendTimestampCheckBoxToggled(bool checked)
 void MainWindow::backupButtonClicked()
 {
     QList<QUrl> urls;
-
     for(int i = 0; i < _ui->backupListWidget->count(); ++i)
     {
         urls << static_cast<BackupListItem*>(_ui->backupListWidget->item(i))->url();
     }
-
     BackupTaskPtr backup(new BackupTask);
-    backup->name = _ui->backupNameLineEdit->text();
-    backup->urls = urls;
-
+    backup->setName(_ui->backupNameLineEdit->text());
+    backup->setUrls(urls);
+    connect(backup, SIGNAL(statusUpdate()), this, SLOT(backupTaskUpdate()), Qt::QueuedConnection);
     emit backupNow(backup);
 }
 

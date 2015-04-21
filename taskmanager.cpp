@@ -62,13 +62,13 @@ void TaskManager::registerMachine(QString user, QString password, QString machin
 
 void TaskManager::backupNow(BackupTaskPtr backupTask)
 {
-    if(backupTask.isNull())
+    if(backupTask == 0)
     {
         DEBUG << "Null BackupTaskPtr passed.";
         return;
     }
-    _backupTaskMap[backupTask->uuid] = backupTask;
-    TarsnapClient *backupClient = new TarsnapClient(backupTask->uuid);
+    _backupTaskMap[backupTask->uuid()] = backupTask;
+    TarsnapClient *backupClient = new TarsnapClient(backupTask->uuid());
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -78,8 +78,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--aggressive-networking";
     if(_preservePathnames)
         args << "-P";
-    args << "--quiet" << "-c" << "--print-stats" << "-f" << backupTask->name;
-    foreach (QUrl url, backupTask->urls) {
+    args << "--quiet" << "-c" << "--print-stats" << "-f" << backupTask->name();
+    foreach (QUrl url, backupTask->urls()) {
         args << url.toLocalFile();
     }
     backupClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
@@ -87,9 +87,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     connect(backupClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
             , this, SLOT(backupTaskFinished(QUuid,QVariant,int,QString)));
     connect(backupClient, SIGNAL(clientStarted(QUuid)), this, SLOT(backupTaskStarted(QUuid)));
+    backupTask->setStatus(TaskStatus::Queued);
     queueTask(backupClient, true);
-    backupTask->status = TaskStatus::Queued;
-    emit backupTaskUpdate(backupTask);
 }
 
 void TaskManager::getArchivesList()
@@ -269,33 +268,31 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
 {
     Q_UNUSED(data);
     BackupTaskPtr backupTask = _backupTaskMap[uuid];
-    backupTask->exitCode = exitCode;
-    backupTask->output = output;
+    backupTask->setExitCode(exitCode);
+    backupTask->setOutput(output);
     if(exitCode == 0)
     {
-        backupTask->status = TaskStatus::Completed;
         ArchivePtr archive(new Archive);
-        archive->setName(backupTask->name);
+        archive->setName(backupTask->name());
         archive->setTimestamp(QDateTime::currentDateTime());
         archive->save();
         _archiveMap[archive->uuid()] = archive;
         parseArchiveStats(output, true, archive);
-        backupTask->archive = archive;
+        backupTask->setArchive(archive);
+        backupTask->setStatus(TaskStatus::Completed);
         emit archivesList(_archiveMap.values());
     }
     else
     {
-        backupTask->status = TaskStatus::Failed;
+        backupTask->setStatus(TaskStatus::Failed);
     }
-    emit backupTaskUpdate(backupTask);
-    _backupTaskMap.remove(backupTask->uuid);
+    _backupTaskMap.take(backupTask->uuid());
 }
 
 void TaskManager::backupTaskStarted(QUuid uuid)
 {
     BackupTaskPtr backupTask = _backupTaskMap[uuid];
-    backupTask->status = TaskStatus::Running;
-    emit backupTaskUpdate(backupTask);
+    backupTask->setStatus(TaskStatus::Running);
 }
 
 void TaskManager::registerMachineFinished(QUuid uuid, QVariant data, int exitCode, QString output)
@@ -582,4 +579,3 @@ QString TaskManager::makeTarsnapCommand(QString cmd)
     else
         return _tarsnapDir + QDir::separator() + cmd;
 }
-

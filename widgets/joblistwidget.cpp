@@ -4,6 +4,9 @@
 
 #include <QMessageBox>
 
+#define JOB_NAME_PREFIX    QLatin1String("Job")
+#define JOB_NAME_SEPARATOR QLatin1String("_")
+
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {
     reloadJobs();
@@ -21,7 +24,18 @@ JobListWidget::~JobListWidget()
 
 void JobListWidget::backupItem()
 {
-
+    if(sender())
+    {
+        JobPtr job = qobject_cast<JobListItem*>(sender())->job();
+        if(job)
+        {
+            BackupTaskPtr backup(new BackupTask);
+            backup->setName(JOB_NAME_PREFIX + JOB_NAME_SEPARATOR + job->name() + JOB_NAME_SEPARATOR + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss"));
+            backup->setUrls(job->urls());
+            connect(backup, SIGNAL(statusUpdate()), this, SLOT(backupTaskUpdate()), Qt::QueuedConnection);
+            emit backupJob(backup);
+        }
+    }
 }
 
 void JobListWidget::inspectItem()
@@ -75,6 +89,11 @@ void JobListWidget::addJob(JobPtr job)
         insertItem(count(), item);
         setItemWidget(item, item->widget());
     }
+}
+
+void JobListWidget::backupTaskUpdate()
+{
+
 }
 
 QList<JobPtr> JobListWidget::getStoredJobs()

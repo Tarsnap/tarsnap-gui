@@ -2,6 +2,7 @@
 #define JOBSLISTWIDGET_H
 
 #include "persistentmodel/job.h"
+#include "taskmanager.h"
 
 #include <QListWidget>
 
@@ -15,6 +16,7 @@ public:
 
 signals:
     void displayJobDetails(JobPtr job);
+    void backupJob(BackupTaskPtr backup);
 
 public slots:
     void backupItem();
@@ -23,6 +25,7 @@ public slots:
     void deleteItem();
     void reloadJobs();
     void addJob(JobPtr job);
+    void backupTaskUpdate();
 
 private:
     QList<JobPtr> getStoredJobs();

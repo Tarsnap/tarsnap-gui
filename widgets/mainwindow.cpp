@@ -404,7 +404,7 @@ void MainWindow::appendTimestampCheckBoxToggled(bool checked)
         QString text = _ui->backupNameLineEdit->text();
         _lastTimestamp.clear();
         _lastTimestamp.append("_");
-        _lastTimestamp.append(QDateTime::currentDateTime().toString("dd.MM.yyyy_HH:mm"));
+        _lastTimestamp.append(QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss"));
         text.append(_lastTimestamp);
         _ui->backupNameLineEdit->setText(text);
         _ui->backupNameLineEdit->setCursorPosition(0);
@@ -473,7 +473,7 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
     bf.setBackground(QBrush(bgcolor));
     cursor.movePosition(QTextCursor::End);
     cursor.insertBlock(bf);
-    QString log = QString("[%1] %2").arg(QDateTime::currentDateTime().toString("dd-MM-yyyy HH:mm:ss")).arg(message);
+    QString log = QString("[%1] %2").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")).arg(message);
     cursor.insertHtml(log);
     _ui->journalLog->moveCursor(QTextCursor::End);
     _ui->journalLog->ensureCursorVisible();

@@ -132,10 +132,10 @@ private:
     QString                      _tarsnapCacheDir;
     QString                      _tarsnapKeyFile;
     QThread                      _managerThread; // manager runs on a separate thread
-    QMap<QUuid, BackupTaskPtr>     _backupTaskMap; // keeps track of active backup tasks
+    QMap<QUuid, BackupTaskPtr>   _backupTaskMap; // keeps track of active backup tasks
     QMap<QUuid, ArchivePtr>      _archiveMap; // keeps track of archives encountered
-    QMap<QUuid, TarsnapClient*>  _taskMap; // keeps track of currently executing tasks
-    QQueue<TarsnapClient*>       _taskQueue; // keeps track of mutually exclusive tasks pending execution
+    QMap<QUuid, TarsnapClient*>  _taskMap; // keeps track of currently executing client tasks
+    QQueue<TarsnapClient*>       _taskQueue; // keeps track of mutually exclusive client tasks pending execution
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;

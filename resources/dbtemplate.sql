@@ -19,6 +19,7 @@ CREATE TABLE `archives` (
 	`command`	TEXT,
 	`contents`	TEXT,
 	`jobRef`	TEXT,
-	PRIMARY KEY(name)
+	PRIMARY KEY(name),
+	FOREIGN KEY(jobRef) REFERENCES jobs(name)
 );
 COMMIT;

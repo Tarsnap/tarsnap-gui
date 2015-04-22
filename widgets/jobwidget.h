@@ -26,6 +26,7 @@ public slots:
 signals:
     void cancel();
     void jobAdded(JobPtr job);
+    void inspectJobArchive(ArchivePtr archive);
 
 private:
     void updateDetails();

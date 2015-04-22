@@ -40,6 +40,8 @@ public:
     void setCommand(const QString &value);
     QStringList contents() const;
     void setContents(const QStringList &value);
+    QString jobRef() const;
+    void setJobRef(const QString &jobRef);
 
 
     // From PersistentObject
@@ -65,6 +67,7 @@ private:
     qint64      _sizeUniqueCompressed;
     QString     _command;
     QStringList _contents;
+    QString     _jobRef;
 };
 
 #endif // ARCHIVE_H

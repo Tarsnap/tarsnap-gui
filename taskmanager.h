@@ -3,6 +3,7 @@
 
 #include "tarsnapclient.h"
 #include "persistentmodel/archive.h"
+#include "persistentmodel/job.h"
 
 #include <QObject>
 #include <QThread>
@@ -55,6 +56,9 @@ public:
     ArchivePtr archive() const {return _archive;}
     void setArchive(const ArchivePtr &archive) {_archive = archive;}
 
+    JobPtr job() const {return _job;}
+    void setJob(const JobPtr &job) {_job = job;}
+
 signals:
     void statusUpdate();
 
@@ -66,6 +70,7 @@ private:
     int                   _exitCode;
     QString               _output;
     ArchivePtr            _archive;
+    JobPtr                _job;
 };
 
 typedef BackupTask* BackupTaskPtr;

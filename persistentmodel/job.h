@@ -42,6 +42,8 @@ private:
     QString             _name;
     QList<QUrl>         _urls;
     QList<ArchivePtr>   _archives;
+
+    void loadArchives();
 };
 
 #endif // JOB_H

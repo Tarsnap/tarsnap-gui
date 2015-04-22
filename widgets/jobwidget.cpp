@@ -24,6 +24,7 @@ JobWidget::JobWidget(QWidget *parent) :
                 _ui->stackedWidget->setCurrentWidget(_ui->jobOptionsPage);
             });
     connect(_ui->cancelButton, SIGNAL(clicked()), this, SIGNAL(cancel()));
+    connect(_ui->restoreListWidget, SIGNAL(inspectArchive(ArchivePtr)), this, SIGNAL(inspectJobArchive(ArchivePtr)));
 }
 
 JobWidget::~JobWidget()
@@ -73,6 +74,8 @@ void JobWidget::updateDetails()
         _ui->jobNameLabel->setText(_job->name());
         _ui->detailTreeWidget->reset();
         _ui->detailTreeWidget->setSelectedUrls(_job->urls());
+        _ui->restoreListWidget->clear();
+        _ui->restoreListWidget->addArchives(_job->archives());
         connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
     }
 }

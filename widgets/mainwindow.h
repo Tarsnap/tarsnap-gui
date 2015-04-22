@@ -81,6 +81,7 @@ private slots:
     void displayJobDetails(JobPtr job);
     void hideJobDetails();
     void addJobClicked();
+    void backupJobConnect(BackupTaskPtr backupTask);
 
 private:
     Ui::MainWindow  *_ui;

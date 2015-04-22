@@ -73,6 +73,19 @@ PersistentStore::PersistentStore(QObject *parent) : QObject(parent), _initialize
     _initialized = true;
 }
 
+QSqlQuery PersistentStore::createQuery()
+{
+    if (_initialized)
+    {
+        return QSqlQuery(_db);
+    }
+    else
+    {
+        DEBUG << "PersistentStore not initialized.";
+        return QSqlQuery();
+    }
+}
+
 PersistentStore::~PersistentStore()
 {
     _db.close();

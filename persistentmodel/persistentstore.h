@@ -12,6 +12,8 @@ class PersistentStore : public QObject
 public:
     static PersistentStore& instance() { static PersistentStore instance; return instance; }
     bool initialized() { return _initialized; }
+    QSqlQuery createQuery();
+
     ~PersistentStore();
 
 signals:

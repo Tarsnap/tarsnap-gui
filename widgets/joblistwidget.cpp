@@ -32,7 +32,7 @@ void JobListWidget::backupItem()
             BackupTaskPtr backup(new BackupTask);
             backup->setName(JOB_NAME_PREFIX + JOB_NAME_SEPARATOR + job->name() + JOB_NAME_SEPARATOR + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss"));
             backup->setUrls(job->urls());
-            connect(backup, SIGNAL(statusUpdate()), this, SLOT(backupTaskUpdate()), Qt::QueuedConnection);
+            backup->setJob(job);
             emit backupJob(backup);
         }
     }
@@ -91,29 +91,25 @@ void JobListWidget::addJob(JobPtr job)
     }
 }
 
-void JobListWidget::backupTaskUpdate()
-{
-
-}
-
 QList<JobPtr> JobListWidget::getStoredJobs()
 {
     QList<JobPtr> jobs;
-    QSqlQuery query;
+    PersistentStore& store = PersistentStore::instance();
+    if(!store.initialized())
+    {
+        DEBUG << "PersistentStore was not initialized properly.";
+        return jobs;
+    }
+    QSqlQuery query = store.createQuery();
     if(!query.prepare(QLatin1String("select name from jobs")))
     {
         DEBUG << query.lastError().text();
         return jobs;
     }
-    PersistentStore& store = PersistentStore::instance();
-    if(!store.initialized())
-    {
-        DEBUG << "PersistentStore was not initialized.";
-        return jobs;
-    }
     if(!query.exec())
     {
         DEBUG << query.lastError().text();
+        return jobs;
     }
     else if(query.next())
     {

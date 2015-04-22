@@ -10,6 +10,7 @@ Job::~Job()
 {
 
 }
+
 QString Job::name() const
 {
     return _name;
@@ -19,6 +20,7 @@ void Job::setName(const QString &name)
 {
     _name = name;
 }
+
 QList<QUrl> Job::urls() const
 {
     return _urls;
@@ -28,6 +30,7 @@ void Job::setUrls(const QList<QUrl> &urls)
 {
     _urls = urls;
 }
+
 QList<ArchivePtr> Job::archives() const
 {
     return _archives;
@@ -47,7 +50,8 @@ void Job::save()
     else
         queryString = QLatin1String("insert into jobs(name, urls)"
                                     " values(?, ?)");
-    QSqlQuery query;
+    PersistentStore &store = getStore();
+    QSqlQuery query = store.createQuery();
     if(!query.prepare(queryString))
     {
         DEBUG << query.lastError().text();
@@ -74,19 +78,14 @@ void Job::load()
         DEBUG << "Attempting to load Job object with empty _name key.";
         return;
     }
-    QSqlQuery query;
+    PersistentStore &store = getStore();
+    QSqlQuery query = store.createQuery();
     if(!query.prepare(QLatin1String("select * from jobs where name = ?")))
     {
         DEBUG << query.lastError().text();
         return;
     }
     query.addBindValue(_name);
-    PersistentStore &store = getStore();
-    if(!store.initialized())
-    {
-        DEBUG << "PersistentStore was not initialized.";
-        return;
-    }
     if(!query.exec())
     {
         DEBUG << query.lastError().text();
@@ -96,6 +95,7 @@ void Job::load()
     {
         _urls = QUrl::fromStringList(query.value(query.record().indexOf("urls")).toString().split('\n', QString::SkipEmptyParts));
         setObjectKey(_name);
+        loadArchives();
     }
     else
     {
@@ -116,7 +116,8 @@ void Job::purge()
         DEBUG << "No Job object with key " << _name;
         return;
     }
-    QSqlQuery query;
+    PersistentStore &store = getStore();
+    QSqlQuery query = store.createQuery();
     if(!query.prepare(QLatin1String("delete from jobs where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -135,7 +136,8 @@ bool Job::findObjectWithKey(QString key)
         DEBUG << "findObjectWithKey method called with empty args";
         return found;
     }
-    QSqlQuery query;
+    PersistentStore &store = getStore();
+    QSqlQuery query = store.createQuery();
     if(!query.prepare(QLatin1String("select name from jobs where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -145,12 +147,6 @@ bool Job::findObjectWithKey(QString key)
     // QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, q));
     // we need to get the result here, thus we can't invoke runQuery like that
     // this should be safe nonetheless, since this is a READ only operation
-    PersistentStore &store = getStore();
-    if(!store.initialized())
-    {
-        DEBUG << "PersistentStore was not initialized.";
-        return found;
-    }
     if(!query.exec())
     {
         DEBUG << query.lastError().text();
@@ -161,6 +157,43 @@ bool Job::findObjectWithKey(QString key)
         found = true;
     }
     return found;
+}
+
+void Job::loadArchives()
+{
+    if(objectKey().isEmpty())
+    {
+        DEBUG << "loadArchives method called on Job with no objectKey";
+        return;
+    }
+    PersistentStore &store = getStore();
+    QSqlQuery query = store.createQuery();
+    if(!query.prepare(QLatin1String("select * from archives where jobRef = ?")))
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    query.addBindValue(objectKey());
+    // QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, q));
+    // we need to get the result here, thus we can't invoke runQuery like that
+    // this should be safe nonetheless, since this is a READ only operation
+    if(!query.exec())
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    else if(query.next())
+    {
+        _archives.clear();
+        do
+        {
+            ArchivePtr archive(new Archive);
+            archive->setName(query.value(query.record().indexOf("name")).toString());
+            archive->load();
+            if(!archive->objectKey().isEmpty())
+                _archives << archive;
+        }while(query.next());
+    }
 }
 
 

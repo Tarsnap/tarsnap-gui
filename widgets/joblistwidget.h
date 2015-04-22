@@ -25,7 +25,6 @@ public slots:
     void deleteItem();
     void reloadJobs();
     void addJob(JobPtr job);
-    void backupTaskUpdate();
 
 private:
     QList<JobPtr> getStoredJobs();

@@ -16,13 +16,14 @@ void Archive::save()
     QString queryString;
     if(exists)
         queryString = QLatin1String("update archives set name=?, timestamp=?, sizeTotal=?, sizeCompressed=?,"
-                                    " sizeUniqueTotal=?, sizeUniqueCompressed=?, command=?, contents=?"
+                                    " sizeUniqueTotal=?, sizeUniqueCompressed=?, command=?, contents=?, jobRef=?"
                                     " where name=?");
     else
         queryString = QLatin1String("insert into archives(name, timestamp, sizeTotal, sizeCompressed,"
-                                    " sizeUniqueTotal, sizeUniqueCompressed, command, contents)"
-                                    " values(?, ?, ?, ?, ?, ?, ?, ?)");
-    QSqlQuery query;
+                                    " sizeUniqueTotal, sizeUniqueCompressed, command, contents, jobRef)"
+                                    " values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    PersistentStore &store = getStore();
+    QSqlQuery query = store.createQuery();
     if(!query.prepare(queryString))
     {
         DEBUG << query.lastError().text();
@@ -36,6 +37,7 @@ void Archive::save()
     query.addBindValue(_sizeUniqueCompressed);
     query.addBindValue(_command);
     query.addBindValue(_contents.join('\n'));
+    query.addBindValue(_jobRef);
     if(exists)
         query.addBindValue(_name);
 
@@ -50,19 +52,14 @@ void Archive::load()
         DEBUG << "Attempting to load Archive object with empty _name key.";
         return;
     }
-    QSqlQuery query;
+    PersistentStore &store = getStore();
+    QSqlQuery query = store.createQuery();
     if(!query.prepare(QLatin1String("select * from archives where name = ?")))
     {
         DEBUG << query.lastError().text();
         return;
     }
     query.addBindValue(_name);
-    PersistentStore &store = getStore();
-    if(!store.initialized())
-    {
-        DEBUG << "PersistentStore was not initialized.";
-        return;
-    }
     if(!query.exec())
     {
         DEBUG << query.lastError().text();
@@ -77,6 +74,7 @@ void Archive::load()
         _sizeUniqueCompressed = query.value(query.record().indexOf("sizeUniqueCompressed")).toUInt();
         _command = query.value(query.record().indexOf("command")).toString();
         _contents = query.value(query.record().indexOf("contents")).toString().split('\n', QString::SkipEmptyParts);
+        _jobRef = query.value(query.record().indexOf("jobRef")).toString();
         setObjectKey(_name);
     }
     else
@@ -98,7 +96,8 @@ void Archive::purge()
         DEBUG << "No Archive object with key " << _name;
         return;
     }
-    QSqlQuery query;
+    PersistentStore &store = getStore();
+    QSqlQuery query = store.createQuery();
     if(!query.prepare(QLatin1String("delete from archives where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -117,7 +116,8 @@ bool Archive::findObjectWithKey(QString key)
         DEBUG << "findObjectWithKey method called with empty args";
         return found;
     }
-    QSqlQuery query;
+    PersistentStore &store = getStore();
+    QSqlQuery query = store.createQuery();
     if(!query.prepare(QLatin1String("select name from archives where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -127,12 +127,6 @@ bool Archive::findObjectWithKey(QString key)
     // QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, q));
     // we need to get the result here, thus we can't invoke runQuery like that
     // this should be safe nonetheless, since this is a READ only operation
-    PersistentStore &store = getStore();
-    if(!store.initialized())
-    {
-        DEBUG << "PersistentStore was not initialized.";
-        return found;
-    }
     if(!query.exec())
     {
         DEBUG << query.lastError().text();
@@ -156,6 +150,16 @@ QString Archive::archiveStats()
                  .arg(_sizeUniqueCompressed));
     return stats;
 }
+QString Archive::jobRef() const
+{
+    return _jobRef;
+}
+
+void Archive::setJobRef(const QString &jobRef)
+{
+    _jobRef = jobRef;
+}
+
 
 QStringList Archive::contents() const
 {

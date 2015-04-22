@@ -274,7 +274,10 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
     {
         ArchivePtr archive(new Archive);
         archive->setName(backupTask->name());
+        //TODO: set timestamp to tarsnap timestamp when possible
         archive->setTimestamp(QDateTime::currentDateTime());
+        if(backupTask->job())
+            archive->setJobRef(backupTask->job()->name());
         archive->save();
         _archiveMap[archive->uuid()] = archive;
         parseArchiveStats(output, true, archive);
@@ -329,10 +332,14 @@ void TaskManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, Q
                 }
                 else if( !update && (archive->timestamp() != timestamp) )
                 {
+                    //TODO: Remove jobRef carryon when I have a way of getting a tarsnap timestamp
+                    //precisely after a backup has completed
+                    QString jobRef = archive->jobRef();
                     archive->purge();
                     archive.clear();
                     archive = archive.create();
                     archive->setName(archiveDetails[0]);
+                    archive->setJobRef(jobRef);
                     update = true;
                 }
                 if(update)

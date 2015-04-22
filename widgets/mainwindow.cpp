@@ -139,6 +139,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(addJob(JobPtr)), Qt::QueuedConnection);
     connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
+    connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SLOT(backupJobConnect(BackupTaskPtr)), Qt::QueuedConnection);
+    connect(_ui->jobDetailsWidget, SIGNAL(inspectJobArchive(ArchivePtr)), this, SLOT(displayInspectArchive(ArchivePtr)), Qt::QueuedConnection);
 
     //lambda slots to quickly update various UI components
     connect(_ui->browseListWidget, &BrowseListWidget::getArchivesList,
@@ -399,6 +401,9 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
 
     if(!_ui->archiveDetailsWidget->isVisible())
         _ui->archiveDetailsWidget->show();
+
+    if(_ui->mainTabWidget->currentWidget() != _ui->browseTab)
+        _ui->mainTabWidget->setCurrentWidget(_ui->browseTab);
 }
 
 void MainWindow::appendTimestampCheckBoxToggled(bool checked)
@@ -688,4 +693,9 @@ void MainWindow::addJobClicked()
         _ui->addJobButton->setProperty("save", true);
         _ui->addJobButton->setDefault(true);
     }
+}
+
+void MainWindow::backupJobConnect(BackupTaskPtr backupTask)
+{
+    connect(backupTask, SIGNAL(statusUpdate()), this, SLOT(backupTaskUpdate()), Qt::QueuedConnection);
 }

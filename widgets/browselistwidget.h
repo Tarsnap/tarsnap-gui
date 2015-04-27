@@ -21,7 +21,7 @@ public slots:
     void restoreItem();
 
 signals:
-    void getArchivesList();
+    void getArchiveList();
     void deleteArchives(QList<ArchivePtr> archives);
     void inspectArchive(ArchivePtr archive);
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);

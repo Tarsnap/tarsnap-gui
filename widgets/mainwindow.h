@@ -23,8 +23,8 @@ public:
 
 signals:
     void backupNow(BackupTaskPtr backupTask);
-    void getArchivesList();
-    void archivesList(QList<ArchivePtr> archives);
+    void getArchiveList();
+    void archiveList(QList<ArchivePtr> archives);
     void deleteArchives(QList<ArchivePtr> archives);
     void loadArchiveStats(ArchivePtr archive);
     void loadArchiveContents(ArchivePtr archive);

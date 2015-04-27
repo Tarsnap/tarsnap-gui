@@ -91,7 +91,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     queueTask(backupClient, true);
 }
 
-void TaskManager::getArchivesList()
+void TaskManager::getArchiveList()
 {
     TarsnapClient *listArchivesClient = new TarsnapClient();
     QStringList args;
@@ -103,7 +103,7 @@ void TaskManager::getArchivesList()
     listArchivesClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     listArchivesClient->setArguments(args);
     connect(listArchivesClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
-            , this, SLOT(getArchivesFinished(QUuid,QVariant,int,QString)));
+            , this, SLOT(getArchiveListFinished(QUuid,QVariant,int,QString)));
     queueTask(listArchivesClient);
 }
 
@@ -179,7 +179,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     delArchives->setArguments(args);
     delArchives->setData(QVariant::fromValue(archives));
     connect(delArchives, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
-            , this, SLOT(deleteArchiveFinished(QUuid,QVariant,int,QString)));
+            , this, SLOT(deleteArchivesFinished(QUuid,QVariant,int,QString)));
     queueTask(delArchives, true);
 }
 
@@ -199,7 +199,7 @@ void TaskManager::getOverallStats()
     queueTask(overallStats);
 }
 
-void TaskManager::runFsck()
+void TaskManager::fsck()
 {
     TarsnapClient *fsck = new TarsnapClient();
     QStringList args;
@@ -215,7 +215,7 @@ void TaskManager::runFsck()
     queueTask(fsck);
 }
 
-void TaskManager::nukeArchives()
+void TaskManager::nuke()
 {
     TarsnapClient *nuke = new TarsnapClient();
     QStringList args;
@@ -283,7 +283,7 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
         parseArchiveStats(output, true, archive);
         backupTask->setArchive(archive);
         backupTask->setStatus(TaskStatus::Completed);
-        emit archivesList(_archiveMap.values());
+        emit archiveList(_archiveMap.values());
     }
     else
     {
@@ -307,7 +307,7 @@ void TaskManager::registerMachineFinished(QUuid uuid, QVariant data, int exitCod
         emit registerMachineStatus(TaskStatus::Failed, output);
 }
 
-void TaskManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::getArchiveListFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
     _archiveMap.clear();
@@ -352,7 +352,7 @@ void TaskManager::getArchivesFinished(QUuid uuid, QVariant data, int exitCode, Q
                 _archiveMap[archive->uuid()] = archive;
             }
         }
-        emit archivesList(_archiveMap.values());
+        emit archiveList(_archiveMap.values());
     }
 }
 
@@ -388,7 +388,7 @@ void TaskManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exit
     }
 }
 
-void TaskManager::deleteArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)
+void TaskManager::deleteArchivesFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid);Q_UNUSED(output);
     if(exitCode == 0)

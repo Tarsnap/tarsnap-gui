@@ -56,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _ui->browseListWidget->addAction(_ui->actionRefresh);
     connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->browseListWidget
-            , SIGNAL(getArchivesList()), Qt::QueuedConnection);
+            , SIGNAL(getArchiveList()), Qt::QueuedConnection);
     _ui->backupListWidget->addAction(_ui->actionClearList);
     connect(_ui->actionClearList, SIGNAL(triggered()), _ui->backupListWidget
             , SLOT(clear()), Qt::QueuedConnection);
@@ -121,8 +121,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // Backup and Browse
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
             , SLOT(updateBackupItemTotals(qint64, qint64)));
-    connect(_ui->browseListWidget, SIGNAL(getArchivesList()), this, SIGNAL(getArchivesList()));
-    connect(this, SIGNAL(archivesList(QList<ArchivePtr >))
+    connect(_ui->browseListWidget, SIGNAL(getArchiveList()), this, SIGNAL(getArchiveList()));
+    connect(this, SIGNAL(archiveList(QList<ArchivePtr >))
             , _ui->browseListWidget, SLOT(addArchives(QList<ArchivePtr >)));
     connect(_ui->browseListWidget, SIGNAL(inspectArchive(ArchivePtr)), this
             , SLOT(displayInspectArchive(ArchivePtr)));
@@ -143,9 +143,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobDetailsWidget, SIGNAL(inspectJobArchive(ArchivePtr)), this, SLOT(displayInspectArchive(ArchivePtr)), Qt::QueuedConnection);
 
     //lambda slots to quickly update various UI components
-    connect(_ui->browseListWidget, &BrowseListWidget::getArchivesList,
+    connect(_ui->browseListWidget, &BrowseListWidget::getArchiveList,
             [=](){updateStatusMessage(tr("Refreshing archives list..."));});
-    connect(this, &MainWindow::archivesList,
+    connect(this, &MainWindow::archiveList,
             [=](){updateStatusMessage(tr("Refreshing archives list...done"));});
     connect(this, &MainWindow::loadArchiveStats,
             [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching details for archive <i>%1</i>.").arg(archive->name()));});

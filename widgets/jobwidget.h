@@ -29,7 +29,6 @@ signals:
     void inspectJobArchive(ArchivePtr archive);
 
 protected slots:
-    void jobUpdate();
     void updateDetails();
 
 private:

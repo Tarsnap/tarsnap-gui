@@ -38,7 +38,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
             [=](const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
             {
                 Q_UNUSED(topLeft);Q_UNUSED(bottomRight);
-                if(!roles.isEmpty() && roles.first() == Qt::CheckStateRole)
+                if(!roles.isEmpty() && (roles.first() == Qt::CheckStateRole))
                     emit selectionChanged();
             });
     connect(_ui->filterLineEdit, SIGNAL(textEdited(QString)), this, SLOT(updateFilter(QString)));

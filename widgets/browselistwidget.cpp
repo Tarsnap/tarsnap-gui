@@ -3,7 +3,6 @@
 #include "ui_archiveitemwidget.h"
 #include "restoredialog.h"
 
-#include <QDebug>
 #include <QMessageBox>
 
 bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp()); }
@@ -103,6 +102,25 @@ void BrowseListWidget::restoreItem()
         RestoreDialog restoreDialog(archiveItem->archive(), this);
         if( QDialog::Accepted == restoreDialog.exec())
             emit restoreArchive(archiveItem->archive(), restoreDialog.getOptions());
+    }
+}
+
+void BrowseListWidget::setSelectedArchive(ArchivePtr archive)
+{
+    if(!archive)
+        return;
+
+    ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(this->currentItem());
+    if(!archiveItem || (archiveItem->archive() != archive))
+    {
+        for(int i = 0; i < this->count(); ++i)
+        {
+            ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(this->item(i));
+            if(archiveItem && (archiveItem->archive()->objectKey() == archive->objectKey()))
+            {
+                this->setCurrentItem(archiveItem);
+            }
+        }
     }
 }
 

@@ -7,6 +7,8 @@ JobWidget::JobWidget(QWidget *parent) :
     _ui(new Ui::JobWidget)
 {
     _ui->setupUi(this);
+    _ui->restoreListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+
     connect(_ui->listArchivesButton, &QPushButton::clicked,
             [=](){
                 _ui->stackedWidget->setCurrentWidget(_ui->jobRestorePage);
@@ -41,11 +43,23 @@ void JobWidget::setJob(const JobPtr &job)
     if(_job && !_job->objectKey().isEmpty())
     {
         disconnect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
-        disconnect(_job.data(), SIGNAL(changed()), this, SLOT(jobUpdate()));
+        disconnect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
     }
+
     _job = job;
-    connect(_job.data(), SIGNAL(changed()), this, SLOT(jobUpdate()));
-    updateDetails();
+
+    if(_job->objectKey().isEmpty())
+    {
+        _ui->stackedWidget->setCurrentWidget(_ui->jobNewPage);
+        _ui->jobNameLineEdit->setFocus();
+    }
+    else
+    {
+        _ui->stackedWidget->setCurrentWidget(_ui->jobDetailPage);
+        updateDetails();
+        connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
+        connect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
+    }
 }
 
 void JobWidget::save()
@@ -65,30 +79,17 @@ void JobWidget::save()
     _job->save();
 }
 
-void JobWidget::jobUpdate()
+void JobWidget::updateDetails()
 {
     if(_job)
     {
-        setJob(_job);
-    }
-}
-
-void JobWidget::updateDetails()
-{
-    if(_job->objectKey().isEmpty())
-    {
-        _ui->stackedWidget->setCurrentWidget(_ui->jobNewPage);
-        _ui->jobNameLineEdit->setFocus();
-    }
-    else
-    {
-        _ui->stackedWidget->setCurrentWidget(_ui->jobDetailPage);
         _ui->jobNameLabel->setText(_job->name());
+        disconnect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
         _ui->detailTreeWidget->reset();
         _ui->detailTreeWidget->setSelectedUrls(_job->urls());
+        connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
         _ui->restoreListWidget->clear();
         _ui->restoreListWidget->addArchives(_job->archives());
-        connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
     }
 }
 

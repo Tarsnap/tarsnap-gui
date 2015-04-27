@@ -404,6 +404,8 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
 
     if(_ui->mainTabWidget->currentWidget() != _ui->browseTab)
         _ui->mainTabWidget->setCurrentWidget(_ui->browseTab);
+
+    _ui->browseListWidget->setSelectedArchive(archive);
 }
 
 void MainWindow::appendTimestampCheckBoxToggled(bool checked)

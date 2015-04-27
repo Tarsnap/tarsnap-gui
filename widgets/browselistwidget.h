@@ -19,6 +19,7 @@ public slots:
     void removeItems();
     void inspectItem();
     void restoreItem();
+    void setSelectedArchive(ArchivePtr archive);
 
 signals:
     void getArchiveList();

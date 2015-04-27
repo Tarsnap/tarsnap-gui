@@ -54,7 +54,6 @@ signals:
     void changed();
 
 public slots:
-    void notifyChanged() { emit changed(); }
     QString archiveStats();
 
 private:

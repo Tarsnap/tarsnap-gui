@@ -28,7 +28,8 @@ signals:
     void jobAdded(JobPtr job);
     void inspectJobArchive(ArchivePtr archive);
 
-private:
+protected slots:
+    void jobUpdate();
     void updateDetails();
 
 private:

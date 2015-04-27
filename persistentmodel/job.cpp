@@ -69,6 +69,7 @@ void Job::save()
 
     QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, query));
     setObjectKey(_name);
+    emit changed();
 }
 
 void Job::load()
@@ -193,6 +194,7 @@ void Job::loadArchives()
             if(!archive->objectKey().isEmpty())
                 _archives << archive;
         }while(query.next());
+        emit changed();
     }
 }
 

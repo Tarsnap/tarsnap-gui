@@ -38,9 +38,13 @@ JobPtr JobWidget::job() const
 
 void JobWidget::setJob(const JobPtr &job)
 {
-    if(!_job.isNull() && !_job->objectKey().isEmpty())
+    if(_job && !_job->objectKey().isEmpty())
+    {
         disconnect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
+        disconnect(_job.data(), SIGNAL(changed()), this, SLOT(jobUpdate()));
+    }
     _job = job;
+    connect(_job.data(), SIGNAL(changed()), this, SLOT(jobUpdate()));
     updateDetails();
 }
 
@@ -59,6 +63,14 @@ void JobWidget::save()
         _job->setUrls(_ui->detailTreeWidget->getSelectedUrls());
     }
     _job->save();
+}
+
+void JobWidget::jobUpdate()
+{
+    if(_job)
+    {
+        setJob(_job);
+    }
 }
 
 void JobWidget::updateDetails()

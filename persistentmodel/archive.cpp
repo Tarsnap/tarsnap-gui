@@ -43,6 +43,7 @@ void Archive::save()
 
     QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, query));
     setObjectKey(_name);
+    emit changed();
 }
 
 void Archive::load()

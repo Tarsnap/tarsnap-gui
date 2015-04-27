@@ -10,7 +10,7 @@ TaskManager::TaskManager(QObject *parent) : QObject()
   , _preservePathnames(true)
 {
     Q_UNUSED(parent);
-    // Move the operations belonging to the Job manager to a separate thread
+    // Move the operations belonging to the Task manager to a separate thread
     _managerThread.start();
     moveToThread(&_managerThread);
 }
@@ -284,6 +284,10 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
         backupTask->setArchive(archive);
         backupTask->setStatus(TaskStatus::Completed);
         emit archiveList(_archiveMap.values());
+        // defer this for as long as possible so that archive->save() has a greater chance of having
+        // already taken place
+        if(backupTask->job())
+            QMetaObject::invokeMethod(backupTask->job().data(), "loadArchives", Qt::QueuedConnection);
     }
     else
     {
@@ -384,7 +388,6 @@ void TaskManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exit
     {
         archive->setContents(output.trimmed().split('\n', QString::SkipEmptyParts));
         archive->save();
-        archive->notifyChanged();
     }
 }
 
@@ -576,7 +579,6 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput
         return;
     }
     archive->save();
-    archive->notifyChanged();
 }
 
 QString TaskManager::makeTarsnapCommand(QString cmd)

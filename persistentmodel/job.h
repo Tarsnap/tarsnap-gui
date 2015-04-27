@@ -35,15 +35,15 @@ public:
     bool findObjectWithKey(QString key);
 
 signals:
+    void changed();
 
 public slots:
+    void loadArchives();
 
 private:
     QString             _name;
     QList<QUrl>         _urls;
     QList<ArchivePtr>   _archives;
-
-    void loadArchives();
 };
 
 #endif // JOB_H

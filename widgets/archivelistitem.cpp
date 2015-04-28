@@ -1,12 +1,14 @@
 #include "archivelistitem.h"
-
 #include "utils.h"
 
 #include <QSettings>
 
-ArchiveListItem::ArchiveListItem(ArchivePtr archive, QObject *parent):
-    QObject(parent), _useSIPrefixes(false)
+ArchiveListItem::ArchiveListItem(ArchivePtr archive):
+    _useSIPrefixes(false)
 {
+    QSettings settings;
+    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
+
     _ui.setupUi(&_widget);
     _widget.addAction(_ui.actionRestore);
     _widget.addAction(_ui.actionInspect);
@@ -17,9 +19,6 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive, QObject *parent):
     connect(_ui.actionDelete, SIGNAL(triggered()), this, SIGNAL(requestDelete()), Qt::QueuedConnection);
     connect(_ui.actionInspect, SIGNAL(triggered()), this, SIGNAL(requestInspect()), Qt::QueuedConnection);
     connect(_ui.actionRestore, SIGNAL(triggered()), this, SIGNAL(requestRestore()), Qt::QueuedConnection);
-
-    QSettings settings;
-    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
 
     setArchive(archive);
 }

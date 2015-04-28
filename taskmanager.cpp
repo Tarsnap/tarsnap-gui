@@ -278,11 +278,10 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
         archive->setTimestamp(QDateTime::currentDateTime());
         if(backupTask->job())
             archive->setJobRef(backupTask->job()->name());
-        archive->save();
-        _archiveMap[archive->uuid()] = archive;
         parseArchiveStats(output, true, archive);
         backupTask->setArchive(archive);
         backupTask->setStatus(TaskStatus::Completed);
+        _archiveMap[archive->uuid()] = archive;
         emit archiveList(_archiveMap.values());
         // defer this for as long as possible so that archive->save() has a greater chance of having
         // already taken place

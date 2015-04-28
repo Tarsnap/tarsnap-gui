@@ -5,7 +5,7 @@
 
 #include <QMessageBox>
 
-bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp()); }
+static bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp()); }
 
 BrowseListWidget::BrowseListWidget(QWidget *parent):
     QListWidget(parent)

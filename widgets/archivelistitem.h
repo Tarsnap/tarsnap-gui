@@ -17,7 +17,7 @@ class ArchiveListItem : public QObject, public QListWidgetItem
     Q_OBJECT
 
 public:
-    explicit ArchiveListItem(ArchivePtr archive, QObject *parent = 0);
+    explicit ArchiveListItem(ArchivePtr archive);
     ~ArchiveListItem();
 
     QWidget *widget();

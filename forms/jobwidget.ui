@@ -228,7 +228,7 @@ background: transparent;
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="../resources.qrc">:/resources/icons/tarsnap_icon.png</pixmap>
+             <pixmap resource="../resources.qrc">:/resources/icons/hard-drive-4x.png</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>

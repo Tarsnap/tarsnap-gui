@@ -31,5 +31,7 @@
         <file>resources/icons/trash-2x.png</file>
         <file>resources/icons/trash-4x.png</file>
         <file>resources/dbtemplate.db</file>
+        <file>resources/icons/hard-drive-2x.png</file>
+        <file>resources/icons/hard-drive-4x.png</file>
     </qresource>
 </RCC>

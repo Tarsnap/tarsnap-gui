@@ -30,12 +30,13 @@ signals:
     void requestDelete();
 
 public slots:
-
+    void update();
 
 private:
     Ui::JobItemWidget   _ui;
     QWidget             _widget;
     JobPtr              _job;
+    bool                _useSIPrefixes;
 };
 
 #endif // JOBLISTITEM_H

@@ -58,14 +58,17 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="nameLabel">
+    <widget class="TextLabel" name="nameLabel">
      <property name="text">
-      <string>Server backup</string>
+      <string/>
+     </property>
+     <property name="elide" stdset="0">
+      <string>Qt::ElideRight</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="TextLabel" name="archiveCountLabel">
+    <widget class="TextLabel" name="detailLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -78,7 +81,7 @@ color: grey;
 }</string>
      </property>
      <property name="text">
-      <string>99 archives totalling ~10GB</string>
+      <string/>
      </property>
      <property name="elide" stdset="0">
       <string>Qt::ElideRight</string>
@@ -103,13 +106,16 @@ color: grey;
    </item>
    <item>
     <widget class="QLabel" name="lastBackupLabel">
+     <property name="toolTip">
+      <string>Last backup timestamp</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">QLabel {
 color: grey;
 }</string>
      </property>
      <property name="text">
-      <string>Last backup on 02.12.2014</string>
+      <string/>
      </property>
     </widget>
    </item>

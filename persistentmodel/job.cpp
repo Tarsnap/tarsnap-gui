@@ -1,6 +1,8 @@
 #include "job.h"
 #include "debug.h"
 
+static bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp()); }
+
 Job::Job(QObject *parent) : QObject(parent)
 {
 
@@ -38,7 +40,10 @@ QList<ArchivePtr> Job::archives() const
 
 void Job::setArchives(const QList<ArchivePtr> &archives)
 {
+    _archives.clear();
     _archives = archives;
+
+    std::sort(_archives.begin(), _archives.end(), ArchiveCompare);
 }
 
 void Job::save()
@@ -185,15 +190,16 @@ void Job::loadArchives()
     }
     else if(query.next())
     {
-        _archives.clear();
+        QList<ArchivePtr> archives;
         do
         {
             ArchivePtr archive(new Archive);
             archive->setName(query.value(query.record().indexOf("name")).toString());
             archive->load();
             if(!archive->objectKey().isEmpty())
-                _archives << archive;
+                archives << archive;
         }while(query.next());
+        setArchives(archives);
         emit changed();
     }
 }

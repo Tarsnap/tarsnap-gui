@@ -1,10 +1,13 @@
 #include "joblistitem.h"
+#include "utils.h"
 
-JobListItem::JobListItem(JobPtr job) : _job(job)
+JobListItem::JobListItem(JobPtr job):
+    _useSIPrefixes(false)
 {
-    _ui.setupUi(&_widget);
-    _ui.nameLabel->setText(_job->name());
+    QSettings settings;
+    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
 
+    _ui.setupUi(&_widget);
     _widget.addAction(_ui.actionBackup);
     _widget.addAction(_ui.actionInspect);
     _widget.addAction(_ui.actionRestore);
@@ -16,6 +19,8 @@ JobListItem::JobListItem(JobPtr job) : _job(job)
     connect(_ui.actionInspect, SIGNAL(triggered()), this, SIGNAL(requestInspect()), Qt::QueuedConnection);
     connect(_ui.actionRestore, SIGNAL(triggered()), this, SIGNAL(requestRestore()), Qt::QueuedConnection);
     connect(_ui.actionDelete, SIGNAL(triggered()), this, SIGNAL(requestDelete()), Qt::QueuedConnection);
+
+    setJob(job);
 }
 
 JobListItem::~JobListItem()
@@ -35,5 +40,29 @@ JobPtr JobListItem::job() const
 void JobListItem::setJob(const JobPtr &job)
 {
     _job = job;
+
+    connect(_job.data(), SIGNAL(changed()), this, SLOT(update()), Qt::QueuedConnection);
+
+    _ui.nameLabel->setText(_job->name());
+    if(_job->archives().isEmpty())
+        _ui.lastBackupLabel->setText(tr("No backup done yet"));
+    else
+        _ui.lastBackupLabel->setText(_job->archives().first()->timestamp().toString());
+
+    QString detail;
+    detail.append(tr("%1 %2 totaling ").arg(_job->archives().count())
+                  .arg(_job->archives().count() == 1 ? tr("archive") :tr("archives") ));
+    quint64 totalSize = 0;
+    foreach (ArchivePtr archive, _job->archives()) {
+        totalSize += archive->sizeUniqueCompressed();
+    }
+    detail.append(Utils::humanBytes(totalSize, _useSIPrefixes));
+
+    _ui.detailLabel->setText(detail);
+}
+
+void JobListItem::update()
+{
+    setJob(_job);
 }
 

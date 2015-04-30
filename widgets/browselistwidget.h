@@ -16,10 +16,12 @@ public:
 
 public slots:
     void addArchives(QList<ArchivePtr> archives);
+    void setSelectedArchive(ArchivePtr archive);
+
+private slots:
     void removeItems();
     void inspectItem();
     void restoreItem();
-    void setSelectedArchive(ArchivePtr archive);
 
 signals:
     void getArchiveList();

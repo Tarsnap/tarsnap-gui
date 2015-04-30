@@ -18,7 +18,7 @@ signals:
     void displayJobDetails(JobPtr job);
     void backupJob(BackupTaskPtr backup);
 
-public slots:
+private slots:
     void backupItem();
     void inspectItem();
     void restoreItem();

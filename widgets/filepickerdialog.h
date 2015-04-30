@@ -18,6 +18,9 @@ public:
 
     QList<QUrl> getSelectedUrls();
 
+protected:
+    void keyPressEvent(QKeyEvent *event){Q_UNUSED(event);}
+
 private:
     Ui::FilePickerDialog *_ui;
 };

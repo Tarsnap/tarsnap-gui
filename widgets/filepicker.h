@@ -31,7 +31,7 @@ signals:
     void selectionChanged();
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 
 private:
     Ui::FilePicker          *_ui;

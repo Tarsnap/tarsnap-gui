@@ -313,9 +313,9 @@ void TaskManager::registerMachineFinished(QUuid uuid, QVariant data, int exitCod
 void TaskManager::getArchiveListFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(uuid); Q_UNUSED(data)
-    _archiveMap.clear();
     if(exitCode == 0)
     {
+        _archiveMap.clear();
         QStringList lines = output.trimmed().split('\n');
         foreach (QString line, lines)
         {

@@ -112,18 +112,26 @@ void FilePicker::setSelectedUrls(const QList<QUrl> &urls)
     }
 }
 
-void FilePicker::keyPressEvent(QKeyEvent *event)
+void FilePicker::keyReleaseEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
     case Qt::Key_Escape:
         if(_ui->optionsContainer->isVisible())
+        {
             _ui->optionsContainer->hide();
-        else
+        }
+        else if(!_ui->filterLineEdit->hasFocus())
+        {
             _ui->filterLineEdit->setFocus();
+        }
+        else
+        {
+            QWidget::keyReleaseEvent(event);
+        }
         break;
     default:
-        QWidget::keyPressEvent(event);
+        QWidget::keyReleaseEvent(event);
     }
 }
 

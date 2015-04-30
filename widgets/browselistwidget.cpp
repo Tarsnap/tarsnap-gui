@@ -29,7 +29,8 @@ void BrowseListWidget::addArchives(QList<ArchivePtr > archives)
 {
     clear();
     std::sort(archives.begin(), archives.end(), ArchiveCompare);
-    foreach (ArchivePtr archive, archives) {
+    foreach (ArchivePtr archive, archives)
+    {
         ArchiveListItem *item = new ArchiveListItem(archive);
         connect(item, SIGNAL(requestDelete()), this, SLOT(removeItems()));
         connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));
@@ -41,22 +42,23 @@ void BrowseListWidget::addArchives(QList<ArchivePtr > archives)
 
 void BrowseListWidget::removeItems()
 {
-    if(this->selectedItems().count() == 0)
+    if(this->selectedItems().isEmpty())
     {
         // attempt to remove the sender
         ArchiveListItem* archiveItem = qobject_cast<ArchiveListItem*>(sender());
         if(archiveItem)
         {
+            ArchivePtr archive = archiveItem->archive();
             QMessageBox::StandardButton button = QMessageBox::question(this, tr("Confirm action")
-                                                                       , tr("Are you sure you want to delete archive %1 (this cannot be undone)?").arg(archiveItem->archive()->name()));
+                                                                       , tr("Are you sure you want to delete archive %1 (this cannot be undone)?").arg(archive->name()));
             if(button == QMessageBox::Yes)
             {
                 QList<ArchivePtr> archiveList;
-                archiveList.append(archiveItem->archive());
+                archiveList.append(archive);
                 emit deleteArchives(archiveList);
+                // TODO: maybe delete after backend confirmation
                 QListWidgetItem *item = this->takeItem(this->row(archiveItem));
-                if(item)
-                    delete item;
+                if(item) delete item;
             }
         }
     }
@@ -71,10 +73,11 @@ void BrowseListWidget::removeItems()
             {
                 if(item->isSelected())
                 {
+                    // TODO: maybe delete after backend confirmation
                     QListWidgetItem *takenItem = this->takeItem(this->row(item));
                     if(takenItem)
                     {
-                        ArchiveListItem* archiveItem = dynamic_cast<ArchiveListItem*>(takenItem);
+                        ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(takenItem);
                         archiveList.append(archiveItem->archive());
                         delete archiveItem;
                     }

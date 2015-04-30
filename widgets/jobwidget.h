@@ -27,6 +27,8 @@ signals:
     void cancel();
     void jobAdded(JobPtr job);
     void inspectJobArchive(ArchivePtr archive);
+    void deleteJobArchives(QList<ArchivePtr> archives);
+    void restoreJobArchive(ArchivePtr archive, ArchiveRestoreOptions options);
 
 protected slots:
     void updateDetails();

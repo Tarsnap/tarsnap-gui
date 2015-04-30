@@ -25,8 +25,11 @@ JobWidget::JobWidget(QWidget *parent) :
             [=](){
                 _ui->stackedWidget->setCurrentWidget(_ui->jobOptionsPage);
             });
+
     connect(_ui->cancelButton, SIGNAL(clicked()), this, SIGNAL(cancel()));
     connect(_ui->restoreListWidget, SIGNAL(inspectArchive(ArchivePtr)), this, SIGNAL(inspectJobArchive(ArchivePtr)));
+    connect(_ui->restoreListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreJobArchive(ArchivePtr,ArchiveRestoreOptions)));
+    connect(_ui->restoreListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this, SIGNAL(deleteJobArchives(QList<ArchivePtr>)));
 }
 
 JobWidget::~JobWidget()

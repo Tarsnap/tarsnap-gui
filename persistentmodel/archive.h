@@ -9,6 +9,14 @@
 #include <QStringList>
 #include <QSharedPointer>
 
+struct ArchiveRestoreOptions
+{
+    bool        preservePaths;
+    bool        overwriteFiles;
+    bool        keepNewerFiles;
+    QString     chdir;
+};
+
 class Archive;
 typedef QSharedPointer<Archive> ArchivePtr;
 

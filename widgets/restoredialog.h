@@ -1,7 +1,7 @@
 #ifndef RESTOREDIALOG_H
 #define RESTOREDIALOG_H
 
-#include "taskmanager.h"
+#include "persistentmodel/archive.h"
 
 #include <QDialog>
 

@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include "taskmanager.h"
-#include "persistentmodel/job.h"
 
 #include <QWidget>
 #include <QLabel>

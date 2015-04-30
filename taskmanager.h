@@ -19,14 +19,6 @@
 #define CMD_TARSNAP         "tarsnap"
 #define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
 
-struct ArchiveRestoreOptions
-{
-    bool        preservePaths;
-    bool        overwriteFiles;
-    bool        keepNewerFiles;
-    QString     chdir;
-};
-
 enum TaskStatus { Queued, Running, Completed, Failed, Paused, Initialized };
 
 class BackupTask: public QObject

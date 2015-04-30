@@ -1,5 +1,6 @@
 #include "jobwidget.h"
 #include "ui_jobwidget.h"
+#include "restoredialog.h"
 #include "debug.h"
 
 JobWidget::JobWidget(QWidget *parent) :
@@ -27,6 +28,7 @@ JobWidget::JobWidget(QWidget *parent) :
             });
 
     connect(_ui->cancelButton, SIGNAL(clicked()), this, SIGNAL(cancel()));
+    connect(_ui->restoreLatestArchiveButton, SIGNAL(clicked()), this, SLOT(restoreLatestArchive()));
     connect(_ui->restoreListWidget, SIGNAL(inspectArchive(ArchivePtr)), this, SIGNAL(inspectJobArchive(ArchivePtr)));
     connect(_ui->restoreListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreJobArchive(ArchivePtr,ArchiveRestoreOptions)));
     connect(_ui->restoreListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this, SIGNAL(deleteJobArchives(QList<ArchivePtr>)));
@@ -93,6 +95,17 @@ void JobWidget::updateDetails()
         connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
         _ui->restoreListWidget->clear();
         _ui->restoreListWidget->addArchives(_job->archives());
+    }
+}
+
+void JobWidget::restoreLatestArchive()
+{
+    if(_job && !_job->archives().isEmpty())
+    {
+        ArchivePtr archive = _job->archives().first();
+        RestoreDialog restoreDialog(archive, this);
+        if( QDialog::Accepted == restoreDialog.exec())
+            emit restoreJobArchive(archive, restoreDialog.getOptions());
     }
 }
 

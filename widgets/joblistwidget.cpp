@@ -1,5 +1,6 @@
 #include "joblistwidget.h"
 #include "joblistitem.h"
+#include "restoredialog.h"
 #include "debug.h"
 
 #include <QMessageBox>
@@ -48,7 +49,17 @@ void JobListWidget::inspectItem()
 
 void JobListWidget::restoreItem()
 {
-
+    if(sender())
+    {
+        JobPtr job = qobject_cast<JobListItem*>(sender())->job();
+        if(!job->archives().isEmpty())
+        {
+            ArchivePtr archive = job->archives().first();
+            RestoreDialog restoreDialog(archive, this);
+            if( QDialog::Accepted == restoreDialog.exec())
+                emit restoreArchive(archive, restoreDialog.getOptions());
+        }
+    }
 }
 
 void JobListWidget::deleteItem()

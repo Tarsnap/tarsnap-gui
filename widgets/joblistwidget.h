@@ -17,6 +17,7 @@ public:
 signals:
     void displayJobDetails(JobPtr job);
     void backupJob(BackupTaskPtr backup);
+    void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
 
 private slots:
     void backupItem();

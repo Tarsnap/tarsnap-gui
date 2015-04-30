@@ -32,6 +32,7 @@ signals:
 
 protected slots:
     void updateDetails();
+    void restoreLatestArchive();
 
 private:
     Ui::JobWidget  *_ui;

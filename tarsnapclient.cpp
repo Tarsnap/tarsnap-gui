@@ -104,8 +104,12 @@ void TarsnapClient::readProcessOutput()
 void TarsnapClient::processFinished()
 {
     QString output(_processOutput);
-    LOG   << tr("[%1 %2] finished with return code %3 and output:\n%4\n").arg(_command).arg(_arguments.join(' ')).arg(_process->exitCode()).arg(output);
-    switch (_process->exitStatus()) {
+    if(!output.isEmpty())
+        LOG << tr("[%1 %2] finished with return code %3 and output:\n%4\n").arg(_command).arg(_arguments.join(' ')).arg(_process->exitCode()).arg(output);
+    else
+        LOG << tr("[%1 %2] finished with return code %3 and no output.\n").arg(_command).arg(_arguments.join(' ')).arg(_process->exitCode());
+    switch (_process->exitStatus())
+    {
     case QProcess::NormalExit:
         emit clientFinished(_uuid, _data, _process->exitCode(), output);
         break;
@@ -117,7 +121,7 @@ void TarsnapClient::processFinished()
 
 void TarsnapClient::processError()
 {
-    LOG   << tr("Tarsnap process error %1 (%2) occured:\n%3\n").arg(_process->error()).arg(_process->errorString()).arg(QString(_processOutput));
+    LOG << tr("Tarsnap process error %1 (%2) occured:\n%3\n").arg(_process->error()).arg(_process->errorString()).arg(QString(_processOutput));
 }
 QVariant TarsnapClient::data() const
 {

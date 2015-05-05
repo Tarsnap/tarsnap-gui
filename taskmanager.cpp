@@ -402,6 +402,7 @@ void TaskManager::deleteArchivesFinished(QUuid uuid, QVariant data, int exitCode
                 _archiveMap.remove(archive->uuid());
                 archive->purge();
             }
+            emit archiveList(_archiveMap.values());
             emit archivesDeleted(archives);
         }
     }

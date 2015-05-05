@@ -67,11 +67,19 @@ void JobListWidget::deleteItem()
     JobListItem* jobItem = qobject_cast<JobListItem*>(sender());
     if(jobItem)
     {
-        QMessageBox::StandardButton button = QMessageBox::question(this, tr("Confirm action")
-                                                                   , tr("Are you sure you want to delete job %1 (this cannot be undone)?").arg(jobItem->job()->name()));
-        if(button == QMessageBox::Yes)
+        JobPtr job = jobItem->job();
+        QMessageBox::StandardButton confirmJobDelete = QMessageBox::question(this, tr("Confirm action")
+                                                                   , tr("Are you sure you want to delete job %1 (this cannot be undone)?").arg(job->name()));
+        if(confirmJobDelete == QMessageBox::Yes)
         {
-            jobItem->job()->purge();
+            if(!job->archives().isEmpty())
+            {
+                QMessageBox::StandardButton confirmJobArchivesDelete = QMessageBox::question(this, tr("Confirm action")
+                                                                           , tr("Also delete %1 archives pertaining to this job (this cannot be undone)?").arg(job->archives().count()));
+                if(confirmJobArchivesDelete == QMessageBox::Yes)
+                    emit deleteJobArchives(job->archives());
+            }
+            job->purge();
             QListWidgetItem *item = this->takeItem(this->row(jobItem));
             if(item)
                 delete item;

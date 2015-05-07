@@ -26,6 +26,14 @@ JobWidget::JobWidget(QWidget *parent) :
             [=](){
                 _ui->stackedWidget->setCurrentWidget(_ui->jobOptionsPage);
             });
+    connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
+            [=](){
+                    emit enableSave(canSave());
+            });
+    connect(_ui->newJobTreeWidget, &FilePicker::selectionChanged,
+            [=](){
+                    emit enableSave(canSave());
+            });
 
     connect(_ui->cancelButton, SIGNAL(clicked()), this, SIGNAL(cancel()));
     connect(_ui->restoreLatestArchiveButton, SIGNAL(clicked()), this, SLOT(restoreLatestArchive()));
@@ -107,5 +115,13 @@ void JobWidget::restoreLatestArchive()
         if( QDialog::Accepted == restoreDialog.exec())
             emit restoreJobArchive(archive, restoreDialog.getOptions());
     }
+}
+
+bool JobWidget::canSave()
+{
+    if(!_ui->jobNameLineEdit->text().isEmpty() && !_ui->newJobTreeWidget->getSelectedUrls().isEmpty())
+        return true;
+    else
+        return false;
 }
 

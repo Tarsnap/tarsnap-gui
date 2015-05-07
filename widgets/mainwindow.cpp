@@ -140,6 +140,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobDetailsWidget, SIGNAL(inspectJobArchive(ArchivePtr)), this, SLOT(displayInspectArchive(ArchivePtr)), Qt::QueuedConnection);
     connect(_ui->jobDetailsWidget, SIGNAL(restoreJobArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), Qt::QueuedConnection);
     connect(_ui->jobDetailsWidget, SIGNAL(deleteJobArchives(QList<ArchivePtr>)), this, SIGNAL(deleteArchives(QList<ArchivePtr>)), Qt::QueuedConnection);
+    connect(_ui->jobDetailsWidget, SIGNAL(enableSave(bool)), _ui->addJobButton, SLOT(setEnabled(bool)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SLOT(backupJobConnect(BackupTaskPtr)), Qt::QueuedConnection);
@@ -679,6 +680,7 @@ void MainWindow::hideJobDetails()
         _ui->addJobButton->setText(tr("Add job"));
         _ui->addJobButton->setProperty("save", false);
         _ui->addJobButton->setDefault(false);
+        _ui->addJobButton->setEnabled(true);
     }
 }
 
@@ -690,11 +692,13 @@ void MainWindow::addJobClicked()
         _ui->addJobButton->setText(tr("Add job"));
         _ui->addJobButton->setProperty("save", false);
         _ui->addJobButton->setDefault(false);
+        _ui->addJobButton->setEnabled(true);
     }
     else
     {
         JobPtr job(new Job());
         displayJobDetails(job);
+        _ui->addJobButton->setEnabled(false);
         _ui->addJobButton->setText(tr("Save"));
         _ui->addJobButton->setProperty("save", true);
         _ui->addJobButton->setDefault(true);

@@ -29,10 +29,12 @@ signals:
     void inspectJobArchive(ArchivePtr archive);
     void deleteJobArchives(QList<ArchivePtr> archives);
     void restoreJobArchive(ArchivePtr archive, ArchiveRestoreOptions options);
+    void enableSave(bool enable);
 
 protected slots:
     void updateDetails();
     void restoreLatestArchive();
+    bool canSave();
 
 private:
     Ui::JobWidget  *_ui;

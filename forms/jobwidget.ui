@@ -76,7 +76,7 @@ background: transparent;
            <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>6</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
@@ -122,7 +122,7 @@ padding-left: 3px;
              <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::Maximum</enum>
+             <enum>QSizePolicy::Expanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -395,19 +395,19 @@ background: transparent;
         <widget class="QWidget" name="settingsContainer" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <property name="spacing">
-           <number>6</number>
+           <number>0</number>
           </property>
           <property name="leftMargin">
-           <number>6</number>
+           <number>0</number>
           </property>
           <property name="topMargin">
-           <number>6</number>
+           <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>6</number>
+           <number>0</number>
           </property>
           <property name="bottomMargin">
-           <number>6</number>
+           <number>0</number>
           </property>
           <item>
            <widget class="QGroupBox" name="groupBox">

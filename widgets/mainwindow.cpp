@@ -583,26 +583,35 @@ void MainWindow::accountMachineUseHostnameButtonClicked()
 void MainWindow::accountMachineKeyBrowseButtonClicked()
 {
     QString key = QFileDialog::getOpenFileName(this, tr("Browse for existing machine key"));
-    _ui->accountMachineKeyLineEdit->setText(key);
-    commitSettings();
+    if(!key.isEmpty())
+    {
+        _ui->accountMachineKeyLineEdit->setText(key);
+        commitSettings();
+    }
 }
 
 void MainWindow::tarsnapPathBrowseButtonClicked()
 {
     QString tarsnapPath = QFileDialog::getExistingDirectory(this,
                                                             tr("Find Tarsnap client"),
-                                                            "");
-    _ui->tarsnapPathLineEdit->setText(tarsnapPath);
-    commitSettings();
+                                                            _ui->tarsnapPathLineEdit->text());
+    if(!tarsnapPath.isEmpty())
+    {
+        _ui->tarsnapPathLineEdit->setText(tarsnapPath);
+        commitSettings();
+    }
 }
 
 void MainWindow::tarsnapCacheBrowseButton()
 {
     QString tarsnapCacheDir = QFileDialog::getExistingDirectory(this,
                                                             tr("Tarsnap cache location"),
-                                                            "");
-    _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
-    commitSettings();
+                                                            _ui->tarsnapCacheLineEdit->text());
+    if(!tarsnapCacheDir.isEmpty())
+    {
+        _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
+        commitSettings();
+    }
 }
 
 void MainWindow::repairCacheButtonClicked()
@@ -657,11 +666,14 @@ void MainWindow::expandJournalButtonToggled(bool checked)
 
 void MainWindow::downloadsDirBrowseButtonClicked()
 {
-    QString path = QFileDialog::getExistingDirectory(this,
-                                                     tr("Browse for directory"),
-                                                     QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first());
-    if(!path.isEmpty())
-        _ui->downloadsDirLineEdit->setText(path);
+    QString downDir = QFileDialog::getExistingDirectory(this,
+                                                     tr("Browse for downloads directory"),
+                                                     QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).first());
+    if(!downDir.isEmpty())
+    {
+        _ui->downloadsDirLineEdit->setText(downDir);
+        commitSettings();
+    }
 }
 
 void MainWindow::displayJobDetails(JobPtr job)

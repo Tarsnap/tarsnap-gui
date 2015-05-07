@@ -1275,9 +1275,6 @@ border: 1px solid rgba(255,255,255,100);
                 </widget>
                </item>
               </layout>
-              <zorder>groupBox</zorder>
-              <zorder>groupBox_2</zorder>
-              <zorder>widget_7</zorder>
              </widget>
              <widget class="QWidget" name="settingsAppPage">
               <property name="geometry">
@@ -1319,6 +1316,9 @@ border: 1px solid rgba(255,255,255,100);
                   </item>
                   <item>
                    <widget class="QCheckBox" name="preservePathsCheckBox">
+                    <property name="toolTip">
+                     <string>Preseve absolute pathnames by not removing leading slashes</string>
+                    </property>
                     <property name="text">
                      <string>Preserve pathnames globally</string>
                     </property>
@@ -1497,8 +1497,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>443</height>
+                <width>262</width>
+                <height>199</height>
                </rect>
               </property>
               <attribute name="label">

@@ -25,7 +25,7 @@ class BackupTask: public QObject
 {
     Q_OBJECT
 public:
-    BackupTask():_uuid(QUuid::createUuid()), _status(TaskStatus::Initialized){}
+    BackupTask():_uuid(QUuid::createUuid()), _optionPreservePaths(true), _status(TaskStatus::Initialized){}
 
     QUuid uuid() const {return _uuid;}
     void setUuid(const QUuid &uuid) {_uuid = uuid;}
@@ -51,6 +51,9 @@ public:
     JobPtr job() const {return _job;}
     void setJob(const JobPtr &job) {_job = job;}
 
+    bool optionPreservePaths() const {return _optionPreservePaths;}
+    void setOptionPreservePaths(bool optionPreservePaths) {_optionPreservePaths = optionPreservePaths;}
+
 signals:
     void statusUpdate();
 
@@ -58,6 +61,7 @@ private:
     QUuid                 _uuid;
     QList<QUrl>           _urls;
     QString               _name;
+    bool                  _optionPreservePaths;
     TaskStatus            _status;
     int                   _exitCode;
     QString               _output;

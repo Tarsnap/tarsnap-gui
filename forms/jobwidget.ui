@@ -421,6 +421,21 @@ background: transparent;
             <property name="title">
              <string>Backup</string>
             </property>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QCheckBox" name="preservePathsCheckBox">
+               <property name="toolTip">
+                <string>Preseve absolute pathnames by not removing leading slashes</string>
+               </property>
+               <property name="text">
+                <string>Preserve pathnames</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>

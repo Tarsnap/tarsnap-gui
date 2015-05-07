@@ -28,6 +28,9 @@ public:
     QList<ArchivePtr> archives() const;
     void setArchives(const QList<ArchivePtr> &archives);
 
+    bool optionPreservePaths() const;
+    void setOptionPreservePaths(bool optionPreservePaths);
+
     // From PersistentObject
     void save();
     void load();
@@ -44,6 +47,7 @@ private:
     QString             _name;
     QList<QUrl>         _urls;
     QList<ArchivePtr>   _archives;
+    bool                _optionPreservePaths;
 };
 
 #endif // JOB_H

@@ -7,6 +7,7 @@ BEGIN TRANSACTION;
 CREATE TABLE `jobs` (
 	`name`	TEXT NOT NULL,
 	`urls`	TEXT,
+	`optionPreservePaths`	INTEGER,
 	PRIMARY KEY(name)
 );
 CREATE TABLE `archives` (

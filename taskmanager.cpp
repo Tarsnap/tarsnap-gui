@@ -76,7 +76,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--cachedir" << _tarsnapCacheDir;
     if(_aggressiveNetworking)
         args << "--aggressive-networking";
-    if(_preservePathnames)
+    if(backupTask->optionPreservePaths())
         args << "-P";
     args << "--quiet" << "-c" << "--print-stats" << "-f" << backupTask->name();
     foreach (QUrl url, backupTask->urls()) {

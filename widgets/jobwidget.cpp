@@ -20,6 +20,9 @@ JobWidget::JobWidget(QWidget *parent) :
             });
     connect(_ui->optionsBackButton, &QPushButton::clicked,
             [=](){
+            if(_job->objectKey().isEmpty())
+                _ui->stackedWidget->setCurrentWidget(_ui->jobNewPage);
+            else
                 _ui->stackedWidget->setCurrentWidget(_ui->jobDetailPage);
             });
     connect(_ui->optionsButton, &QPushButton::clicked,
@@ -33,6 +36,10 @@ JobWidget::JobWidget(QWidget *parent) :
     connect(_ui->newJobTreeWidget, &FilePicker::selectionChanged,
             [=](){
                     emit enableSave(canSave());
+            });
+    connect(_ui->newJobOptionsButton, &QPushButton::clicked,
+            [=](){
+                _ui->stackedWidget->setCurrentWidget(_ui->jobOptionsPage);
             });
 
     connect(_ui->cancelButton, SIGNAL(clicked()), this, SIGNAL(cancel()));
@@ -65,6 +72,8 @@ void JobWidget::setJob(const JobPtr &job)
     {
         _ui->stackedWidget->setCurrentWidget(_ui->jobNewPage);
         _ui->jobNameLineEdit->setFocus();
+        QSettings settings;
+        _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
     }
     else
     {
@@ -89,6 +98,7 @@ void JobWidget::save()
     {
         _job->setUrls(_ui->detailTreeWidget->getSelectedUrls());
     }
+    _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
     _job->save();
 }
 
@@ -103,6 +113,7 @@ void JobWidget::updateDetails()
         connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
         _ui->restoreListWidget->clear();
         _ui->restoreListWidget->addArchives(_job->archives());
+        _ui->preservePathsCheckBox->setChecked(_job->optionPreservePaths());
     }
 }
 

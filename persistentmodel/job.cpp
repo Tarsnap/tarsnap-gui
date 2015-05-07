@@ -46,15 +46,25 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
     std::sort(_archives.begin(), _archives.end(), ArchiveCompare);
 }
 
+bool Job::optionPreservePaths() const
+{
+    return _optionPreservePaths;
+}
+
+void Job::setOptionPreservePaths(bool optionPreservePaths)
+{
+    _optionPreservePaths = optionPreservePaths;
+}
+
 void Job::save()
 {
     bool exists = findObjectWithKey(_name);
     QString queryString;
     if(exists)
-        queryString = QLatin1String("update jobs set name=?, urls=? where name=?");
+        queryString = QLatin1String("update jobs set name=?, urls=?, optionPreservePaths=? where name=?");
     else
-        queryString = QLatin1String("insert into jobs(name, urls)"
-                                    " values(?, ?)");
+        queryString = QLatin1String("insert into jobs(name, urls, optionPreservePaths)"
+                                    " values(?, ?, ?)");
     PersistentStore &store = getStore();
     QSqlQuery query = store.createQuery();
     if(!query.prepare(queryString))
@@ -69,6 +79,7 @@ void Job::save()
         urls << url.toString(QUrl::FullyEncoded);
     }
     query.addBindValue(urls.join('\n'));
+    query.addBindValue(_optionPreservePaths);
     if(exists)
         query.addBindValue(_name);
 
@@ -100,6 +111,7 @@ void Job::load()
     else if(query.next())
     {
         _urls = QUrl::fromStringList(query.value(query.record().indexOf("urls")).toString().split('\n', QString::SkipEmptyParts));
+        _optionPreservePaths = query.value(query.record().indexOf("optionPreservePaths")).toBool();
         setObjectKey(_name);
         loadArchives();
     }
@@ -203,8 +215,3 @@ void Job::loadArchives()
         emit changed();
     }
 }
-
-
-
-
-

@@ -450,6 +450,7 @@ void MainWindow::backupButtonClicked()
     BackupTaskPtr backup(new BackupTask);
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
+    backup->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
     connect(backup, SIGNAL(statusUpdate()), this, SLOT(backupTaskUpdate()), Qt::QueuedConnection);
     emit backupNow(backup);
 }

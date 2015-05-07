@@ -1474,6 +1474,19 @@ border: 1px solid rgba(255,255,255,100);
                     </layout>
                    </widget>
                   </item>
+                  <item>
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
                  </layout>
                 </widget>
                </item>
@@ -1510,33 +1523,30 @@ border: 1px solid rgba(255,255,255,100);
                   <string/>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_2">
+                  <item row="3" column="0" colspan="4">
+                   <widget class="QPushButton" name="purgeArchivesButton">
+                    <property name="toolTip">
+                     <string>Nukes all archives</string>
+                    </property>
+                    <property name="text">
+                     <string>Purge archives</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0" colspan="4">
+                   <widget class="QPushButton" name="runSetupWizard">
+                    <property name="toolTip">
+                     <string>Reset app settings and run Setup Wizard</string>
+                    </property>
+                    <property name="text">
+                     <string>Run Setup Wizard</string>
+                    </property>
+                   </widget>
+                  </item>
                   <item row="0" column="1" colspan="2">
                    <widget class="QLineEdit" name="tarsnapPathLineEdit">
                     <property name="text">
                      <string/>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_20">
-                    <property name="text">
-                     <string>Tarsnap client path</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="3">
-                   <widget class="QPushButton" name="tarsnapPathBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>Browse</string>
                     </property>
                    </widget>
                   </item>
@@ -1556,6 +1566,13 @@ border: 1px solid rgba(255,255,255,100);
                     </property>
                    </widget>
                   </item>
+                  <item row="1" column="1" colspan="2">
+                   <widget class="QLineEdit" name="tarsnapCacheLineEdit">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
                   <item row="2" column="0" colspan="4">
                    <widget class="QPushButton" name="repairCacheButton">
                     <property name="toolTip">
@@ -1563,6 +1580,29 @@ border: 1px solid rgba(255,255,255,100);
                     </property>
                     <property name="text">
                      <string>Repair cache</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="3">
+                   <widget class="QPushButton" name="tarsnapPathBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Browse</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_20">
+                    <property name="text">
+                     <string>Tarsnap client path</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1579,32 +1619,18 @@ border: 1px solid rgba(255,255,255,100);
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="0" colspan="4">
-                   <widget class="QPushButton" name="runSetupWizard">
-                    <property name="toolTip">
-                     <string>Reset app settings and run Setup Wizard</string>
+                  <item row="5" column="0">
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
                     </property>
-                    <property name="text">
-                     <string>Run Setup Wizard</string>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
                     </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1" colspan="2">
-                   <widget class="QLineEdit" name="tarsnapCacheLineEdit">
-                    <property name="text">
-                     <string/>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0" colspan="4">
-                   <widget class="QPushButton" name="purgeArchivesButton">
-                    <property name="toolTip">
-                     <string>Nukes all archives</string>
-                    </property>
-                    <property name="text">
-                     <string>Purge archives</string>
-                    </property>
-                   </widget>
+                   </spacer>
                   </item>
                  </layout>
                 </widget>

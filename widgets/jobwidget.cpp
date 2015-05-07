@@ -63,6 +63,7 @@ void JobWidget::setJob(const JobPtr &job)
     if(_job && !_job->objectKey().isEmpty())
     {
         disconnect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
+        disconnect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
         disconnect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
     }
 
@@ -80,6 +81,7 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->stackedWidget->setCurrentWidget(_ui->jobDetailPage);
         updateDetails();
         connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
+        connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
         connect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
     }
 }

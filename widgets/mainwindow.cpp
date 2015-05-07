@@ -680,9 +680,9 @@ void MainWindow::downloadsDirBrowseButtonClicked()
 void MainWindow::displayJobDetails(JobPtr job)
 {
     _ui->jobListWidget->scrollToItem(_ui->jobListWidget->currentItem(), QAbstractItemView::EnsureVisible);
+    hideJobDetails();
     _ui->jobDetailsWidget->setJob(job);
-    if(!_ui->jobDetailsWidget->isVisible())
-        _ui->jobDetailsWidget->show();
+    _ui->jobDetailsWidget->show();
 }
 
 void MainWindow::hideJobDetails()

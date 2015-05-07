@@ -105,9 +105,9 @@ void TarsnapClient::processFinished()
 {
     QString output(_processOutput);
     if(!output.isEmpty())
-        LOG << tr("[%1 %2] finished with return code %3 and output:\n%4\n").arg(_command).arg(_arguments.join(' ')).arg(_process->exitCode()).arg(output);
+        LOG << tr("[%1 %2] finished with exit code %3 and output:\n%4\n").arg(_command).arg(_arguments.join(' ')).arg(_process->exitCode()).arg(output);
     else
-        LOG << tr("[%1 %2] finished with return code %3 and no output.\n").arg(_command).arg(_arguments.join(' ')).arg(_process->exitCode());
+        LOG << tr("[%1 %2] finished with exit code %3 and no output.\n").arg(_command).arg(_arguments.join(' ')).arg(_process->exitCode());
     switch (_process->exitStatus())
     {
     case QProcess::NormalExit:

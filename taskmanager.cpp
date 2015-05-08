@@ -230,7 +230,7 @@ void TaskManager::nuke()
     nuke->setArguments(args);
     connect(nuke, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this
             , SLOT(nukeFinished(QUuid,QVariant,int,QString)));
-    queueTask(nuke);
+    queueTask(nuke, true);
 }
 
 void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options)

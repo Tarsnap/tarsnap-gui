@@ -33,7 +33,6 @@ void TarsnapClient::setArguments(const QStringList &arguments)
 
 void TarsnapClient::run()
 {
-    bool result = false;
     _process = new QProcess();
     _process->setProcessChannelMode( QProcess::MergedChannels );
 //    connect(_process, SIGNAL(started()), this, SIGNAL(clientStarted()), Qt::QueuedConnection);
@@ -47,23 +46,21 @@ void TarsnapClient::run()
     _process->setArguments(_arguments);
     LOG << tr("Executing [%1 %2]\n").arg(_process->program()).arg(_process->arguments().join(' '));
     _process->start();
-    result = _process->waitForStarted(DEFAULT_TIMEOUT_MS);
-    if(result)
+    if(_process->waitForStarted(DEFAULT_TIMEOUT_MS))
     {
         emit clientStarted(_uuid);
     }
     else
     {
         processError();
-        goto end;
+        goto cleanup;
     }
     if(_requiresPassword)
     {
         QByteArray password( _password.toUtf8() + "\n" );
         _process->write( password.data(), password.size() );
     }
-    result = _process->waitForFinished(-1);
-    if(result)
+    if(_process->waitForFinished(-1))
     {
         readProcessOutput();
         processFinished();
@@ -71,9 +68,11 @@ void TarsnapClient::run()
     else
     {
         processError();
-        goto end;
+        goto cleanup;
     }
-end:    delete _process;
+cleanup:
+    delete _process;
+    _process = 0;
 }
 
 void TarsnapClient::killClient()

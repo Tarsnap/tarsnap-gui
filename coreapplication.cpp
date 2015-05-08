@@ -30,7 +30,6 @@ CoreApplication::~CoreApplication()
 
 int CoreApplication::initialize()
 {
-
     QCoreApplication::setOrganizationName(tr("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(tr("tarsnap.com"));
     QCoreApplication::setApplicationName(tr("Tarsnappy"));
@@ -39,8 +38,18 @@ int CoreApplication::initialize()
     if(!settings.value("application/wizardDone", false).toBool())
     {
         // Show the first time setup dialog
-        if(false == runSetupWizard())
-            return FAILURE;
+        SetupDialog wizard;
+        connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString,QString,QString))
+                , &_taskManager, SLOT(registerMachine(QString,QString,QString,QString,QString,QString)));
+        connect(&_taskManager, SIGNAL(registerMachineStatus(TaskStatus,QString)) , &wizard
+                ,SLOT(registerMachineStatus(TaskStatus, QString)));
+        connect(&_taskManager, SIGNAL(idle(bool)), &wizard, SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
+
+        if(QDialog::Rejected == wizard.exec())
+        {
+            quit(); // if we're running in the loop
+            return FAILURE; // if called from main
+        }
     }
 
     QMetaObject::invokeMethod(&_taskManager, "loadSettings", Qt::QueuedConnection);
@@ -79,8 +88,6 @@ int CoreApplication::initialize()
             ,SLOT(repairCacheStatus(TaskStatus,QString)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(settingsChanged()), &_taskManager
             ,SLOT(loadSettings()), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(settingsChanged()), _mainWindow
-            ,SLOT(loadSettings()), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(purgeArchives()), &_taskManager
             ,SLOT(nuke()), Qt::QueuedConnection);
     connect(&_taskManager, SIGNAL(nukeStatus(TaskStatus,QString)), _mainWindow
@@ -90,7 +97,7 @@ int CoreApplication::initialize()
             , Qt::QueuedConnection);
     connect(&_taskManager, SIGNAL(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), _mainWindow
             , SLOT(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(runSetupWizard()), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(reinit()), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_taskManager, "getArchiveList", Qt::QueuedConnection);
     _mainWindow->show();
@@ -98,24 +105,26 @@ int CoreApplication::initialize()
     return SUCCESS;
 }
 
-bool CoreApplication::runSetupWizard()
+bool CoreApplication::reinit()
 {
-    SetupDialog wizard;
-    connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString,QString,QString))
-            , &_taskManager, SLOT(registerMachine(QString,QString,QString,QString,QString,QString)));
-    connect(&_taskManager, SIGNAL(registerMachineStatus(TaskStatus,QString))
-            , &wizard, SLOT(registerMachineStatus(TaskStatus, QString)));
-    connect(&_taskManager, SIGNAL(idle(bool)), &wizard
-            , SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
-    if(QDialog::Rejected == wizard.exec())
+    if(_mainWindow)
     {
-        return false;
+        delete _mainWindow;
+        _mainWindow = 0;
     }
-    else
+
+    // reset existing persistent store and app settings
+    PersistentStore &store = PersistentStore::instance();
+    if(store.initialized())
+        store.purge();
+
+    QSettings settings;
+    if(settings.contains("application/wizardDone"))
     {
-        if(_mainWindow)
-            QMetaObject::invokeMethod(_mainWindow, "settingsChanged", Qt::QueuedConnection);
+        settings.clear();
+        settings.sync();
     }
-    return true;
+
+    return initialize();
 }
 

@@ -19,7 +19,7 @@ public:
     int initialize();
 
 public slots:
-    bool runSetupWizard();
+    bool reinit();
 
 private:
     MainWindow  *_mainWindow;

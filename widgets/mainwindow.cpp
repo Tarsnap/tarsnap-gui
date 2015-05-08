@@ -646,13 +646,10 @@ void MainWindow::purgeArchivesButtonClicked()
 void MainWindow::runSetupWizardClicked()
 {
     QMessageBox::StandardButton confirm = QMessageBox::question(this, tr("Confirm action")
-                                                                ,tr("Reset current settings and run the setup wizard?")
+                                                                ,tr("Reset current app settings, job definitions and run the setup wizard?")
                                                                 ,( QMessageBox::Yes | QMessageBox::No ), QMessageBox::No);
     if(confirm == QMessageBox::Yes)
     {
-        QSettings settings;
-        settings.clear();
-        settings.sync();
         emit runSetupWizard();
     }
 }

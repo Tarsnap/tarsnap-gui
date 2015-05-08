@@ -7,18 +7,23 @@
 
 PersistentStore::PersistentStore(QObject *parent) : QObject(parent), _initialized(false)
 {
+    init();
+}
+
+bool PersistentStore::init()
+{
     QSettings settings;
     QString appdata = settings.value("app/appdata").toString();
     if(appdata.isEmpty())
     {
         DEBUG << "Error creating the PersistentStore: app.appdata not set.";
-        return;
+        return false;
     }
     bool create = false;
     QString dbUrl(appdata + QDir::separator() + DEFAULT_DBNAME);
     QFileInfo dbFileInfo(dbUrl);
 
-    _db = QSqlDatabase::addDatabase("QSQLITE");
+    _db = _db.addDatabase("QSQLITE");
     _db.setConnectOptions("QSQLITE_OPEN_URI");
     _db.setDatabaseName(dbUrl);
 
@@ -29,12 +34,12 @@ PersistentStore::PersistentStore(QObject *parent) : QObject(parent), _initialize
     else if(!dbFileInfo.isFile() || !dbFileInfo.isReadable())
     {
         DEBUG << "Error creating the PersistentStore: db file is not accessible " << dbUrl;
-        return;
+        return false;
     }
     else if (!_db.open())
     {
         DEBUG << "Error opening the PersistentStore db: " << _db.lastError().text();
-        return;
+        return false;
     }
     else
     {
@@ -46,7 +51,7 @@ PersistentStore::PersistentStore(QObject *parent) : QObject(parent), _initialize
             if(!QFile::rename(dbUrl, dbUrl + "." + QString::number(QDateTime::currentMSecsSinceEpoch())))
             {
                 DEBUG << "Failed to rename current invalid PersistentStore db. Please cleanup the dbs found in " << appdata;
-                return;
+                return false;
             }
             create = true;
         }
@@ -58,19 +63,30 @@ PersistentStore::PersistentStore(QObject *parent) : QObject(parent), _initialize
         if(!dbTemplate.copy(dbUrl))
         {
             DEBUG << "Failed to create the PersistentStore db.";
-            return;
+            return false;
         }
         // Work around the fact that QFile::copy from the resource system does not set u+w on the resulted file
         QFile dbFile(dbUrl);
         dbFile.setPermissions(dbFile.permissions()|QFileDevice::WriteOwner);
+        dbFile.close();
         if (!_db.open())
         {
             DEBUG << "Error opening the PersistentStore db: " << _db.lastError().text();
-            return;
+            return false;
         }
     }
+    return _initialized = true;
+}
 
-    _initialized = true;
+void PersistentStore::deinit()
+{
+    if(_initialized)
+    {
+        _db.close();
+        _db = QSqlDatabase();
+        _db.removeDatabase("QSQLITE");
+        _initialized = false;
+    }
 }
 
 QSqlQuery PersistentStore::createQuery()
@@ -88,16 +104,37 @@ QSqlQuery PersistentStore::createQuery()
 
 PersistentStore::~PersistentStore()
 {
-    _db.close();
-    QSqlDatabase::removeDatabase("QSQLITE");
-    _initialized = false;
+    deinit();
+}
+
+void PersistentStore::purge()
+{
+    if(_initialized)
+    {
+        QString dbUrl = _db.databaseName();
+        deinit();
+        QFile dbFile(dbUrl);
+        if(dbFile.exists())
+            dbFile.remove();
+        else
+            DEBUG << "DB file not accessible: " << dbUrl;
+    }
+    else
+    {
+        DEBUG << "DB not initialized.";
+    }
 }
 
 void PersistentStore::runQuery(QSqlQuery query)
 {
-    if(!_initialized)
-        return;
-    if(!query.exec())
-        DEBUG << query.lastError().text();
+    if(_initialized)
+    {
+        if(!query.exec())
+            DEBUG << query.lastError().text();
+    }
+    else
+    {
+        DEBUG << "DB not initialized.";
+    }
 }
 

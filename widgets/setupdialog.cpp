@@ -76,8 +76,6 @@ SetupDialog::SetupDialog(QWidget *parent) :
         cacheDir.mkpath(_tarsnapCacheDir);
     _ui->tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
 
-    DEBUG << _tarsnapKeysDir << ::endl << _tarsnapCacheDir;
-
     findTarsnapInPath();
 
     _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
@@ -311,7 +309,7 @@ void SetupDialog::registerMachine()
         _tarsnapKeyFile = _tarsnapKeysDir + QDir::separator() + _ui->machineNameLineEdit->text()
                           + "_" + QString::number(QDateTime::currentMSecsSinceEpoch());
     }
-    DEBUG << "Registration details >>\n " << _tarsnapCLIDir << ::endl
+    DEBUG << "Registration details >>\n" << _tarsnapCLIDir << ::endl
              << _tarsnapKeysDir << ::endl << _tarsnapKeyFile << ::endl
              << _tarsnapCacheDir;
 
@@ -390,5 +388,6 @@ void SetupDialog::commitSettings(bool skipped)
         settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
     }
     settings.sync();
+
     accept();
 }

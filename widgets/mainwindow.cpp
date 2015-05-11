@@ -161,9 +161,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
             [=](const QString text){
                 if(text.isEmpty())
+                {
                     _ui->backupButton->setEnabled(false);
-                else if(!_ui->backupDetailLabel->text().isEmpty())
+                    _ui->appendTimestampCheckBox->setChecked(false);
+                }
+                else if(_ui->backupListWidget->count())
+                {
                     _ui->backupButton->setEnabled(true);
+                }
             });
     connect(this, &MainWindow::restoreArchive,
             [=](const ArchivePtr archive){updateStatusMessage(tr("Restoring archive <i>%1</i>...").arg(archive->name()));});
@@ -377,7 +382,8 @@ void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
     if(count != 0)
     {
         _ui->backupDetailLabel->setText(tr("%1 %2 (%3)").arg(count).arg(count == 1? "item":"items").arg(Utils::humanBytes(size, _useSIPrefixes)));
-        _ui->backupButton->setEnabled(true);
+        if(!_ui->backupNameLineEdit->text().isEmpty())
+            _ui->backupButton->setEnabled(true);
     }
     else
     {
@@ -453,6 +459,7 @@ void MainWindow::backupButtonClicked()
     backup->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
     connect(backup, SIGNAL(statusUpdate()), this, SLOT(backupTaskUpdate()), Qt::QueuedConnection);
     emit backupNow(backup);
+    _ui->appendTimestampCheckBox->setChecked(false);
 }
 
 void MainWindow::updateInspectArchive()

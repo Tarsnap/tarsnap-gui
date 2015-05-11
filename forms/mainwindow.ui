@@ -76,8 +76,8 @@
          <property name="styleSheet">
           <string notr="true">QTabBar::tab {
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(64,152,212,220), stop: 0.8 rgba(64,152,212,220),
-					stop: 0.9 rgba(41,128,185,220), stop: 1.0 rgba(31,98,142,220));
+					stop: 0 rgba(64,152,212,180), stop: 0.8 rgba(64,152,212,180),
+					stop: 0.9 rgba(41,128,185,180), stop: 1.0 rgba(31,98,142,180));
 border: 1px solid #ECF0F1;
 border-bottom: none;
 border-top-left-radius: 3px;

@@ -97,7 +97,7 @@ void TaskManager::getArchiveList()
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
+    if(!_tarsnapCacheDir.isEmpty()) // We shouldn't need to pass this as per the man page, however Tarsnap CLI seems to require it
         args << "--cachedir" << _tarsnapCacheDir;
     args << "--list-archives" << "-vv";
     listArchivesClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
@@ -147,6 +147,8 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
+    if(!_tarsnapCacheDir.isEmpty()) // We shouldn't need to pass this as per the man page, however Tarsnap CLI seems to require it
+        args << "--cachedir" << _tarsnapCacheDir;
     if(_preservePathnames)
         args << "-P";
     args << "-t" << "-f" << archive->name();

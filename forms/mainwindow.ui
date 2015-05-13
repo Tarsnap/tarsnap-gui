@@ -1802,12 +1802,14 @@ font-size: 13px;
          <property name="styleSheet">
           <string notr="true">#journalLog
 {
-margin-left: 6px;
 background: transparent;
 }</string>
          </property>
          <property name="readOnly">
           <bool>true</bool>
+         </property>
+         <property name="placeholderText">
+          <string>No events yet</string>
          </property>
         </widget>
        </widget>

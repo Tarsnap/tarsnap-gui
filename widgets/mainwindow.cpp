@@ -484,21 +484,7 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
     _ui->statusBarLabel->setText(message);
     _ui->statusBarLabel->setToolTip(detail);
 
-    QColor bgcolor;
-    int paragraphsCount = _ui->journalLog->toHtml().count("</p>");
-    if ( paragraphsCount%2 )
-        bgcolor = qApp->palette().base().color();
-    else
-        bgcolor = qApp->palette().alternateBase().color();
-    QTextCursor cursor(_ui->journalLog->document());
-    QTextBlockFormat bf = cursor.blockFormat();
-    bf.setBackground(QBrush(bgcolor));
-    cursor.movePosition(QTextCursor::End);
-    cursor.insertBlock(bf);
-    QString log = QString("[%1] %2").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")).arg(message);
-    cursor.insertHtml(log);
-    _ui->journalLog->moveCursor(QTextCursor::End);
-    _ui->journalLog->ensureCursorVisible();
+    appendToJournalLog(QString("[%1] %2").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")).arg(message));
 }
 
 void MainWindow::currentPaneChanged(int index)
@@ -566,6 +552,29 @@ void MainWindow::purgeTimerFired()
     {
         _ui->purgeArchivesButton->setText(tr("Purging all archives in %1 seconds..").arg(--_purgeTimerCount));
     }
+}
+
+void MainWindow::appendToJournalLog(QString msg)
+{
+    QTextCursor cursor(_ui->journalLog->document());
+    if(!_ui->journalLog->document()->isEmpty())
+    {
+        cursor.movePosition(QTextCursor::End);
+        cursor.insertBlock();
+        cursor.movePosition(QTextCursor::NextBlock);
+    }
+    QColor bgcolor;
+    int blockCount = _ui->journalLog->document()->blockCount();
+    if (blockCount%2)
+        bgcolor = qApp->palette().base().color();
+    else
+        bgcolor = qApp->palette().alternateBase().color();
+    QTextBlockFormat bf;
+    bf.setBackground(QBrush(bgcolor));
+    cursor.mergeBlockFormat(bf);
+    cursor.insertText(msg);
+    _ui->journalLog->moveCursor(QTextCursor::End);
+    _ui->journalLog->ensureCursorVisible();
 }
 
 void MainWindow::appendToConsoleLog(QString msg)

@@ -227,7 +227,10 @@ background-color: rgba(178,190,255, 85);
                  </size>
                 </property>
                 <property name="text">
-                 <string>backup</string>
+                 <string/>
+                </property>
+                <property name="placeholderText">
+                 <string>backup name</string>
                 </property>
                 <property name="clearButtonEnabled">
                  <bool>true</bool>
@@ -305,13 +308,13 @@ color: gray;
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="browseTab">
+         <widget class="QWidget" name="archivesTab">
           <property name="styleSheet">
            <string notr="true">#browseTab {
 }</string>
           </property>
           <attribute name="title">
-           <string>Browse</string>
+           <string>Archives</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_11">
            <property name="spacing">
@@ -1281,8 +1284,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>443</height>
+                <width>484</width>
+                <height>222</height>
                </rect>
               </property>
               <attribute name="label">

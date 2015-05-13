@@ -73,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
             });
     connect(_ui->actionGoBrowse, &QAction::triggered,
             [=](){
-                _ui->mainTabWidget->setCurrentWidget(_ui->browseTab);
+                _ui->mainTabWidget->setCurrentWidget(_ui->archivesTab);
             });
     connect(_ui->actionGoJobs, &QAction::triggered,
             [=](){
@@ -244,7 +244,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Escape:
-        if((_ui->mainTabWidget->currentWidget() == _ui->browseTab)
+        if((_ui->mainTabWidget->currentWidget() == _ui->archivesTab)
            &&(_ui->archiveDetailsWidget->isVisible()))
             _ui->archiveDetailsWidget->hide();
         if((_ui->mainTabWidget->currentWidget() == _ui->jobsTab)
@@ -413,8 +413,8 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
     if(!_ui->archiveDetailsWidget->isVisible())
         _ui->archiveDetailsWidget->show();
 
-    if(_ui->mainTabWidget->currentWidget() != _ui->browseTab)
-        _ui->mainTabWidget->setCurrentWidget(_ui->browseTab);
+    if(_ui->mainTabWidget->currentWidget() != _ui->archivesTab)
+        _ui->mainTabWidget->setCurrentWidget(_ui->archivesTab);
 
     _ui->browseListWidget->setSelectedArchive(archive);
 }

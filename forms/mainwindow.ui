@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>715</height>
+    <height>703</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1264,18 +1264,21 @@ border: 1px solid rgba(255,255,255,100);
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="0" colspan="3">
-                   <widget class="QPushButton" name="pushButton_9">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="text">
-                     <string>Generate new key</string>
-                    </property>
-                   </widget>
-                  </item>
                  </layout>
                 </widget>
+               </item>
+               <item>
+                <spacer name="verticalSpacer_4">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </widget>
@@ -1284,7 +1287,7 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
+                <width>763</width>
                 <height>443</height>
                </rect>
               </property>
@@ -1360,19 +1363,6 @@ border: 1px solid rgba(255,255,255,100);
                    <widget class="QCheckBox" name="siPrefixesCheckBox">
                     <property name="text">
                      <string>Use SI prefixes instead of byte prefixes(IEC) for size display</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="checkBox">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="text">
-                     <string>Backup app jobs and settings on Tarsnap so that they can be restored?</string>
-                    </property>
-                    <property name="checked">
-                     <bool>false</bool>
                     </property>
                    </widget>
                   </item>
@@ -1535,8 +1525,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>262</width>
-                <height>199</height>
+                <width>594</width>
+                <height>443</height>
                </rect>
               </property>
               <attribute name="label">

@@ -474,6 +474,7 @@ void TaskManager::nukeFinished(QUuid uuid, QVariant data, int exitCode, QString 
         emit nukeStatus(TaskStatus::Completed, output);
     else
         emit nukeStatus(TaskStatus::Failed, output);
+    getArchiveList();
 }
 
 void TaskManager::restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)

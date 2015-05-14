@@ -1988,6 +1988,14 @@ border: none;
     <string>Ctrl+5</string>
    </property>
   </action>
+  <action name="actionAddJob">
+   <property name="text">
+    <string>AddJob</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

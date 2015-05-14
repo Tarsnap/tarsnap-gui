@@ -62,6 +62,8 @@ MainWindow::MainWindow(QWidget *parent) :
             , SLOT(clear()), Qt::QueuedConnection);
     _ui->backupListWidget->addAction(_ui->actionBrowseItems);
     connect(_ui->actionBrowseItems, SIGNAL(triggered()), this, SLOT(browseForBackupItems()));
+    _ui->jobListWidget->addAction(_ui->actionAddJob);
+    connect(_ui->actionAddJob, SIGNAL(triggered()), this, SLOT(addJobClicked()));
     this->addAction(_ui->actionGoBackup);
     this->addAction(_ui->actionGoBrowse);
     this->addAction(_ui->actionGoJobs);
@@ -712,6 +714,9 @@ void MainWindow::hideJobDetails()
 
 void MainWindow::addJobClicked()
 {
+    if(!_ui->addJobButton->isEnabled())
+        return;
+
     if(_ui->addJobButton->property("save").toBool())
     {
         _ui->jobDetailsWidget->save();

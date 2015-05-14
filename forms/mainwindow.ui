@@ -1312,6 +1312,9 @@ border: 1px solid rgba(255,255,255,100);
                  <layout class="QVBoxLayout" name="verticalLayout_18">
                   <item>
                    <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
+                    <property name="toolTip">
+                     <string>Use multiple TCP connections to send data to the Tarsnap server</string>
+                    </property>
                     <property name="text">
                      <string>Aggressive networking</string>
                     </property>
@@ -1331,13 +1334,6 @@ border: 1px solid rgba(255,255,255,100);
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="siPrefixesCheckBox">
-                    <property name="text">
-                     <string>Use SI prefixes instead of byte prefixes(IEC) for size display</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
                    <widget class="QCheckBox" name="traverseMountCheckBox">
                     <property name="toolTip">
                      <string>Cross mount points when creating archives</string>
@@ -1347,6 +1343,23 @@ border: 1px solid rgba(255,255,255,100);
                     </property>
                     <property name="checked">
                      <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="followSymLinksCheckBox">
+                    <property name="toolTip">
+                     <string>If checked all symbolic links will be followed when creating an archive</string>
+                    </property>
+                    <property name="text">
+                     <string>Follow symbolic links</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="siPrefixesCheckBox">
+                    <property name="text">
+                     <string>Use SI prefixes instead of byte prefixes(IEC) for size display</string>
                     </property>
                    </widget>
                   </item>
@@ -1414,10 +1427,26 @@ border: 1px solid rgba(255,255,255,100);
                        <property name="suffix">
                         <string>GB</string>
                        </property>
+                       <property name="maximum">
+                        <number>1024</number>
+                       </property>
                        <property name="value">
                         <number>2</number>
                        </property>
                       </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_4">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
                      </item>
                     </layout>
                    </widget>
@@ -1425,6 +1454,9 @@ border: 1px solid rgba(255,255,255,100);
                   <item>
                    <widget class="QWidget" name="widget_6" native="true">
                     <layout class="QHBoxLayout" name="horizontalLayout_6">
+                     <property name="spacing">
+                      <number>6</number>
+                     </property>
                      <property name="leftMargin">
                       <number>0</number>
                      </property>

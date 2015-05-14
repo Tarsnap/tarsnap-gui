@@ -143,6 +143,7 @@ private:
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;
+    bool                         _traverseMount;
 };
 
 #endif // TASKMANAGER_H

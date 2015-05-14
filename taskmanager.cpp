@@ -7,7 +7,7 @@
 
 TaskManager::TaskManager(QObject *parent) : QObject()
   , _threadPool(QThreadPool::globalInstance()), _aggressiveNetworking(false)
-  , _preservePathnames(true)
+  , _preservePathnames(true), _traverseMount(true)
 {
     Q_UNUSED(parent);
     // Move the operations belonging to the Task manager to a separate thread
@@ -29,6 +29,7 @@ void TaskManager::loadSettings()
     _tarsnapKeyFile  = settings.value("tarsnap/key").toString();
     _aggressiveNetworking = settings.value("tarsnap/aggressive_networking", false).toBool();
     _preservePathnames = settings.value("tarsnap/preserve_pathnames", true).toBool();
+    _traverseMount     = settings.value("tarsnap/traverse_mount", true).toBool();
 
     // First time init of the Store
     PersistentStore::instance();
@@ -78,6 +79,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--aggressive-networking";
     if(backupTask->optionPreservePaths())
         args << "-P";
+    if(!_traverseMount)
+        args << "--one-file-system";
     args << "--quiet" << "-c" << "--print-stats" << "-f" << backupTask->name();
     foreach (QUrl url, backupTask->urls()) {
         args << url.toLocalFile();

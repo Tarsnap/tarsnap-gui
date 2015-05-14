@@ -119,6 +119,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->siPrefixesCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->downloadsDirLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
 
     // Backup and Browse
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
@@ -199,6 +200,7 @@ void MainWindow::loadSettings()
     _ui->tarsnapPathLineEdit->setText(settings.value("tarsnap/path", "").toString());
     _ui->tarsnapCacheLineEdit->setText(settings.value("tarsnap/cache", "").toString());
     _ui->aggressiveNetworkingCheckBox->setChecked(settings.value("tarsnap/aggressive_networking", false).toBool());
+    _ui->traverseMountCheckBox->setChecked(settings.value("tarsnap/traverse_mount", true).toBool());
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
     _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
     _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
@@ -509,6 +511,7 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/user",    _ui->accountUserLineEdit->text());
     settings.setValue("tarsnap/aggressive_networking", _ui->aggressiveNetworkingCheckBox->isChecked());
     settings.setValue("tarsnap/preserve_pathnames", _ui->preservePathsCheckBox->isChecked());
+    settings.setValue("tarsnap/traverse_mount", _ui->traverseMountCheckBox->isChecked());
     settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
     settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.sync();

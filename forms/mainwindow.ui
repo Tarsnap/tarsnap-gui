@@ -1284,8 +1284,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>484</width>
-                <height>222</height>
+                <width>594</width>
+                <height>443</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1338,12 +1338,15 @@ border: 1px solid rgba(255,255,255,100);
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="checkBox_2">
-                    <property name="enabled">
-                     <bool>false</bool>
+                   <widget class="QCheckBox" name="traverseMountCheckBox">
+                    <property name="toolTip">
+                     <string>Cross mount points when creating archives</string>
                     </property>
                     <property name="text">
                      <string>Traverse mounted points</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>

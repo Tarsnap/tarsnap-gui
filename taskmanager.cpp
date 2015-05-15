@@ -24,13 +24,14 @@ TaskManager::~TaskManager()
 void TaskManager::loadSettings()
 {
     QSettings settings;
-    _tarsnapDir      = settings.value("tarsnap/path").toString();
-    _tarsnapCacheDir = settings.value("tarsnap/cache").toString();
-    _tarsnapKeyFile  = settings.value("tarsnap/key").toString();
-    _aggressiveNetworking = settings.value("tarsnap/aggressive_networking", false).toBool();
-    _preservePathnames = settings.value("tarsnap/preserve_pathnames", true).toBool();
-    _traverseMount     = settings.value("tarsnap/traverse_mount", true).toBool();
-    _followSymLinks    = settings.value("tarsnap/follow_symlinks", false).toBool();
+
+    _tarsnapDir             = settings.value("tarsnap/path").toString();
+    _tarsnapCacheDir        = settings.value("tarsnap/cache").toString();
+    _tarsnapKeyFile         = settings.value("tarsnap/key").toString();
+    _aggressiveNetworking   = settings.value("tarsnap/aggressive_networking", false).toBool();
+    _preservePathnames      = settings.value("tarsnap/preserve_pathnames", true).toBool();
+    _traverseMount          = settings.value("tarsnap/traverse_mount", true).toBool();
+    _followSymLinks         = settings.value("tarsnap/follow_symlinks", false).toBool();
 
     // First time init of the Store
     PersistentStore::instance();
@@ -85,6 +86,9 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     if(_followSymLinks)
         args << "-L";
     args << "--quiet" << "-c" << "--print-stats" << "-f" << backupTask->name();
+    foreach (QString exclude, backupTask->getExcludesList()) {
+        args << "--exclude" << exclude;
+    }
     foreach (QUrl url, backupTask->urls()) {
         args << url.toLocalFile();
     }

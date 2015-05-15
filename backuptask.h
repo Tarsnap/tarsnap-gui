@@ -15,6 +15,7 @@ typedef BackupTask* BackupTaskPtr;
 class BackupTask: public QObject
 {
     Q_OBJECT
+
 public:
     BackupTask();
     ~BackupTask();
@@ -46,6 +47,8 @@ public:
     bool optionPreservePaths() const {return _optionPreservePaths;}
     void setOptionPreservePaths(bool optionPreservePaths) {_optionPreservePaths = optionPreservePaths;}
 
+    QStringList getExcludesList();
+
 signals:
     void statusUpdate();
 
@@ -54,6 +57,8 @@ private:
     QList<QUrl>           _urls;
     QString               _name;
     bool                  _optionPreservePaths;
+    qint64                _skipFilesSize;
+
     TaskStatus            _status;
     int                   _exitCode;
     QString               _output;

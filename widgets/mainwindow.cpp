@@ -121,6 +121,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->downloadsDirLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
+    connect(_ui->skipFilesCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
+    connect(_ui->skipFilesSpinBox, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->skipFilesCheckBox, SIGNAL(toggled(bool)), _ui->skipFilesSpinBox, SLOT(setEnabled(bool)));
 
     // Backup and Browse
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
@@ -203,9 +206,13 @@ void MainWindow::loadSettings()
     _ui->aggressiveNetworkingCheckBox->setChecked(settings.value("tarsnap/aggressive_networking", false).toBool());
     _ui->traverseMountCheckBox->setChecked(settings.value("tarsnap/traverse_mount", true).toBool());
     _ui->followSymLinksCheckBox->setChecked(settings.value("tarsnap/follow_symlinks", false).toBool());
+    _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
     _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
-    _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
+    _ui->skipFilesSpinBox->setValue(settings.value("app/skip_files_value", _ui->skipFilesSpinBox->value()).toInt());
+    bool skipFilesEnabled = settings.value("app/skip_files_enabled", false).toBool();
+    _ui->skipFilesCheckBox->setChecked(skipFilesEnabled);
+    _ui->skipFilesSpinBox->setEnabled(skipFilesEnabled);
     _ui->downloadsDirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
 }
 
@@ -516,6 +523,8 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/traverse_mount", _ui->traverseMountCheckBox->isChecked());
     settings.setValue("tarsnap/follow_symlinks", _ui->followSymLinksCheckBox->isChecked());
     settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
+    settings.setValue("app/skip_files_enabled", _ui->skipFilesCheckBox->isChecked());
+    settings.setValue("app/skip_files_value", _ui->skipFilesSpinBox->value());
     settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.sync();
     emit settingsChanged();

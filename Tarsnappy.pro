@@ -36,7 +36,8 @@ SOURCES += \
     persistentmodel/persistentstore.cpp \
     persistentmodel/persistentobject.cpp \
     persistentmodel/archive.cpp \
-    persistentmodel/job.cpp
+    persistentmodel/job.cpp \
+    backuptask.cpp
 
 HEADERS  += \
     coreapplication.h \
@@ -61,7 +62,8 @@ HEADERS  += \
     persistentmodel/persistentstore.h \
     persistentmodel/persistentobject.h \
     persistentmodel/archive.h \
-    persistentmodel/job.h
+    persistentmodel/job.h \
+    backuptask.h
 
 INCLUDEPATH += widgets/
 

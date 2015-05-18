@@ -224,7 +224,7 @@ void TaskManager::fsck()
     fsck->setArguments(args);
     connect(fsck, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this
             , SLOT(fsckFinished(QUuid,QVariant,int,QString)));
-    queueTask(fsck);
+    queueTask(fsck, true);
 }
 
 void TaskManager::nuke()
@@ -484,6 +484,7 @@ void TaskManager::nukeFinished(QUuid uuid, QVariant data, int exitCode, QString 
         emit nukeStatus(TaskStatus::Completed, output);
     else
         emit nukeStatus(TaskStatus::Failed, output);
+    fsck();
     getArchiveList();
 }
 

@@ -87,7 +87,7 @@ private:
     QThread                      _managerThread; // manager runs on a separate thread
     QMap<QUuid, BackupTaskPtr>   _backupTaskMap; // keeps track of active backup tasks
     QMap<QUuid, ArchivePtr>      _archiveMap; // keeps track of archives encountered
-    QMap<QUuid, TarsnapClient*>  _taskMap; // keeps track of currently executing client tasks
+    QMap<QUuid, TarsnapClient*>  _runningTaskMap; // keeps track of currently executing client tasks
     QQueue<TarsnapClient*>       _taskQueue; // keeps track of mutually exclusive client tasks pending execution
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;

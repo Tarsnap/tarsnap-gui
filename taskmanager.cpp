@@ -510,7 +510,7 @@ void TaskManager::queueTask(TarsnapClient *cli, bool exclusive)
         DEBUG << "NULL argument";
         return;
     }
-    if(exclusive && !_taskMap.isEmpty())
+    if(exclusive && !_runningTaskMap.isEmpty())
         _taskQueue.enqueue(cli);
     else
         startTask(cli);
@@ -527,7 +527,7 @@ void TaskManager::startTask(TarsnapClient *cli)
     }
     connect(cli, SIGNAL(clientFinished(QUuid,QVariant,int,QString)), this
             , SLOT(dequeueTask(QUuid,QVariant,int,QString)));
-    _taskMap[cli->uuid()] = cli;
+    _runningTaskMap[cli->uuid()] = cli;
     cli->setAutoDelete(false);
     _threadPool->start(cli);
     emit idle(false);
@@ -536,8 +536,8 @@ void TaskManager::startTask(TarsnapClient *cli)
 void TaskManager::dequeueTask(QUuid uuid, QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(exitCode); Q_UNUSED(output); Q_UNUSED(data)
-    _taskMap.remove(uuid);
-    if(_taskMap.count() == 0)
+    _runningTaskMap.remove(uuid);
+    if(_runningTaskMap.count() == 0)
     {
         if( _taskQueue.isEmpty())
             emit idle(true);

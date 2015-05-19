@@ -2,6 +2,8 @@
 
 #include <QFileInfo>
 
+#define MB 1048576
+
 BackupTask::BackupTask():_uuid(QUuid::createUuid()), _optionPreservePaths(true), _skipFilesSize(0),
     _status(TaskStatus::Initialized)
 {
@@ -24,7 +26,7 @@ QStringList BackupTask::getExcludesList()
     {
         QSettings settings;
         if(settings.value("app/skip_files_enabled", false).toBool())
-            _skipFilesSize = settings.value("app/skip_files_value", 0).toInt();
+            _skipFilesSize = MB * settings.value("app/skip_files_value", 0).toInt();
         else
             _skipFilesSize = 0;
     }
@@ -35,9 +37,9 @@ QStringList BackupTask::getExcludesList()
             QFileInfo file(url.toLocalFile());
             if(file.isFile())
             {
-                if(file.size() >= (_skipFilesSize*1024*1024))
+                if(file.size() >= (_skipFilesSize))
                 {
-                    skipList << url.toLocalFile();
+                    skipList << QRegExp::escape(url.toLocalFile());
                 }
             }
             else if(file.isDir())
@@ -51,8 +53,8 @@ QStringList BackupTask::getExcludesList()
                     foreach (QFileInfo entry, dir.entryInfoList()) {
                         if(entry.isFile())
                         {
-                            if(entry.size() >= (_skipFilesSize*1024*1024))
-                                skipList << entry.absoluteFilePath();
+                            if(entry.size() >= (_skipFilesSize))
+                                skipList << QRegExp::escape(entry.absoluteFilePath());
                         }
                         else if(entry.isDir())
                         {

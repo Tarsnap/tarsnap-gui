@@ -589,7 +589,7 @@ void MainWindow::appendToJournalLog(QString msg)
     QTextBlockFormat bf;
     bf.setBackground(QBrush(bgcolor));
     cursor.mergeBlockFormat(bf);
-    cursor.insertText(msg);
+    cursor.insertText(msg.remove(QRegExp("<[^>]*>"))); // also removes html tags
     _ui->journalLog->moveCursor(QTextCursor::End);
     _ui->journalLog->ensureCursorVisible();
 }

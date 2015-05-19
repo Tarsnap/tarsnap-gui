@@ -149,6 +149,12 @@ border-radius: 2px;
            </property>
            <item>
             <widget class="BackupListWidget" name="backupListWidget">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="contextMenuPolicy">
               <enum>Qt::ActionsContextMenu</enum>
              </property>
@@ -184,6 +190,12 @@ selection-background-color: rgba(179, 190, 255, 120);
            </item>
            <item>
             <widget class="QLabel" name="backupListInfoLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="font">
               <font>
                <italic>true</italic>
@@ -211,6 +223,12 @@ background-color: rgba(178,190,255, 85);
            </item>
            <item>
             <widget class="QWidget" name="backupActionWidget" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
                <widget class="QLineEdit" name="backupNameLineEdit">
@@ -353,12 +371,6 @@ color: gray;
                  <enum>Qt::Vertical</enum>
                 </property>
                 <widget class="BrowseListWidget" name="browseListWidget">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
                  </property>
@@ -760,12 +772,6 @@ selection-background-color: rgba(179, 190, 255, 120);
                  <enum>Qt::Vertical</enum>
                 </property>
                 <widget class="JobListWidget" name="jobListWidget">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
                  <property name="styleSheet">
                   <string notr="true">#jobListWidget::item
 {
@@ -1287,8 +1293,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>443</height>
+                <width>390</width>
+                <height>203</height>
                </rect>
               </property>
               <attribute name="label">

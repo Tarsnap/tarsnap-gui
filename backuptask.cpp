@@ -51,13 +51,8 @@ QStringList BackupTask::getExcludesList()
                     foreach (QFileInfo entry, dir.entryInfoList()) {
                         if(entry.isFile())
                         {
-                            // WARNING: caveat here, we exclude filenames
-                            // if there's multiple files with the same name in multiple directories
-                            // they will all get excluded;
-                            // sadly passing absolute paths doesn't work
-                            // (Tarsnap recurses on its own and thus only checks file names against excludes)
                             if(entry.size() >= (_skipFilesSize*1024*1024))
-                                skipList << entry.fileName();
+                                skipList << entry.absoluteFilePath();
                         }
                         else if(entry.isDir())
                         {

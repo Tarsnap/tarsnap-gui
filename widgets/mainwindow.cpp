@@ -121,9 +121,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->downloadsDirLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
-    connect(_ui->skipFilesCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->skipFilesSpinBox, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
-    connect(_ui->skipFilesCheckBox, SIGNAL(toggled(bool)), _ui->skipFilesSpinBox, SLOT(setEnabled(bool)));
 
     // Backup and Browse
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
@@ -150,7 +148,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobDetailsWidget, SIGNAL(enableSave(bool)), _ui->addJobButton, SLOT(setEnabled(bool)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
-    connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SLOT(backupJobConnect(BackupTaskPtr)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(deleteJobArchives(QList<ArchivePtr>)), this, SIGNAL(deleteArchives(QList<ArchivePtr>)), Qt::QueuedConnection);
 
@@ -209,10 +206,7 @@ void MainWindow::loadSettings()
     _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
     _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
-    _ui->skipFilesSpinBox->setValue(settings.value("app/skip_files_value", _ui->skipFilesSpinBox->value()).toInt());
-    bool skipFilesEnabled = settings.value("app/skip_files_enabled", false).toBool();
-    _ui->skipFilesCheckBox->setChecked(skipFilesEnabled);
-    _ui->skipFilesSpinBox->setEnabled(skipFilesEnabled);
+    _ui->skipFilesSpinBox->setValue(settings.value("app/skip_files_value", 0).toLongLong());
     _ui->downloadsDirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
 }
 
@@ -469,7 +463,6 @@ void MainWindow::backupButtonClicked()
     BackupTaskPtr backup(new BackupTask);
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
-    backup->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
     connect(backup, SIGNAL(statusUpdate()), this, SLOT(backupTaskUpdate()), Qt::QueuedConnection);
     emit backupNow(backup);
     _ui->appendTimestampCheckBox->setChecked(false);
@@ -523,7 +516,6 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/traverse_mount", _ui->traverseMountCheckBox->isChecked());
     settings.setValue("tarsnap/follow_symlinks", _ui->followSymLinksCheckBox->isChecked());
     settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
-    settings.setValue("app/skip_files_enabled", _ui->skipFilesCheckBox->isChecked());
     settings.setValue("app/skip_files_value", _ui->skipFilesSpinBox->value());
     settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.sync();
@@ -751,7 +743,3 @@ void MainWindow::addJobClicked()
     }
 }
 
-void MainWindow::backupJobConnect(BackupTaskPtr backupTask)
-{
-    connect(backupTask, SIGNAL(statusUpdate()), this, SLOT(backupTaskUpdate()), Qt::QueuedConnection);
-}

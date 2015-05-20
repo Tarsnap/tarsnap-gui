@@ -898,7 +898,7 @@ border: 1px solid rgba(255,255,255,100);
                 <x>0</x>
                 <y>0</y>
                 <width>594</width>
-                <height>443</height>
+                <height>354</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1293,8 +1293,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>390</width>
-                <height>203</height>
+                <width>594</width>
+                <height>354</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1341,25 +1341,6 @@ border: 1px solid rgba(255,255,255,100);
                      </size>
                     </property>
                    </spacer>
-                  </item>
-                  <item row="5" column="0">
-                   <widget class="QCheckBox" name="skipFilesCheckBox">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Do not include files of size equal or greater than the specified value in backups</string>
-                    </property>
-                    <property name="text">
-                     <string>Skip files larger than</string>
-                    </property>
-                    <property name="tristate">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
                   </item>
                   <item row="4" column="0" colspan="4">
                    <widget class="QCheckBox" name="siPrefixesCheckBox">
@@ -1417,43 +1398,6 @@ border: 1px solid rgba(255,255,255,100);
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="1">
-                   <widget class="QSpinBox" name="skipFilesSpinBox">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Do not include files of size equal or greater than the specified value in backups</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                    <property name="showGroupSeparator" stdset="0">
-                     <bool>true</bool>
-                    </property>
-                    <property name="suffix">
-                     <string>MiB</string>
-                    </property>
-                    <property name="minimum">
-                     <number>0</number>
-                    </property>
-                    <property name="maximum">
-                     <number>999999999</number>
-                    </property>
-                    <property name="singleStep">
-                     <number>512</number>
-                    </property>
-                    <property name="value">
-                     <number>1024</number>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="1" column="0" colspan="4">
                    <widget class="QCheckBox" name="preservePathsCheckBox">
                     <property name="toolTip">
@@ -1474,6 +1418,53 @@ border: 1px solid rgba(255,255,255,100);
                     </property>
                     <property name="text">
                      <string>Follow symbolic links</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_3">
+                    <property name="text">
+                     <string>Skip files larger than</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QSpinBox" name="skipFilesSpinBox">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Do not include files of size equal or greater than the specified value in backups</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="specialValueText">
+                     <string>disabled</string>
+                    </property>
+                    <property name="showGroupSeparator" stdset="0">
+                     <bool>true</bool>
+                    </property>
+                    <property name="suffix">
+                     <string>MiB</string>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>999999999</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>512</number>
+                    </property>
+                    <property name="value">
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>

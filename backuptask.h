@@ -2,7 +2,6 @@
 #define BACKUPTASK_H
 
 #include <persistentmodel/archive.h>
-#include <persistentmodel/job.h>
 
 #include <QObject>
 
@@ -41,11 +40,20 @@ public:
     ArchivePtr archive() const {return _archive;}
     void setArchive(const ArchivePtr &archive) {_archive = archive;}
 
-    JobPtr job() const {return _job;}
-    void setJob(const JobPtr &job) {_job = job;}
+    QString jobRef() const {return _jobRef;}
+    void setJobRef(const QString &job) {_jobRef = job;}
 
-    bool optionPreservePaths() const {return _optionPreservePaths;}
-    void setOptionPreservePaths(bool optionPreservePaths) {_optionPreservePaths = optionPreservePaths;}
+    bool optionPreservePaths() const;
+    void setOptionPreservePaths(bool optionPreservePaths);
+
+    bool optionTraverseMount() const;
+    void setOptionTraverseMount(bool optionTraverseMount);
+
+    bool optionFollowSymLinks() const;
+    void setOptionFollowSymLinks(bool optionFollowSymLinks);
+
+    qint64 optionSkipFilesSize() const;
+    void setOptionSkipFilesSize(const qint64 &optionSkipFilesSize);
 
     QStringList getExcludesList();
 
@@ -54,16 +62,18 @@ signals:
 
 private:
     QUuid                 _uuid;
+    QString               _jobRef;
     QList<QUrl>           _urls;
     QString               _name;
     bool                  _optionPreservePaths;
-    qint64                _skipFilesSize;
+    bool                  _optionTraverseMount;
+    bool                  _optionFollowSymLinks;
+    qint64                _optionSkipFilesSize;
 
-    TaskStatus            _status;
-    int                   _exitCode;
-    QString               _output;
-    ArchivePtr            _archive;
-    JobPtr                _job;
+    TaskStatus             _status;
+    int                    _exitCode;
+    QString                _output;
+    ArchivePtr             _archive;
 };
 
 #endif // BACKUPTASK_H

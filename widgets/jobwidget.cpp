@@ -64,6 +64,9 @@ void JobWidget::setJob(const JobPtr &job)
     {
         disconnect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
         disconnect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
+        disconnect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
+        disconnect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
+        disconnect(_ui->skipFilesSpinBox, SIGNAL(valueChanged(int)), this, SLOT(save()));
         disconnect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
     }
 
@@ -75,6 +78,9 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->jobNameLineEdit->setFocus();
         QSettings settings;
         _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
+        _ui->traverseMountCheckBox->setChecked(settings.value("tarsnap/traverse_mount", true).toBool());
+        _ui->followSymLinksCheckBox->setChecked(settings.value("tarsnap/follow_symlinks", false).toBool());
+        _ui->skipFilesSpinBox->setValue(settings.value("app/skip_files_value", 0).toLongLong());
     }
     else
     {
@@ -82,6 +88,9 @@ void JobWidget::setJob(const JobPtr &job)
         updateDetails();
         connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
         connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
+        connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
+        connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
+        connect(_ui->skipFilesSpinBox, SIGNAL(valueChanged(int)), this, SLOT(save()));
         connect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
     }
 }
@@ -101,6 +110,9 @@ void JobWidget::save()
         _job->setUrls(_ui->detailTreeWidget->getSelectedUrls());
     }
     _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
+    _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
+    _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
+    _job->setOptionSkipFilesSize(_ui->skipFilesSpinBox->value());
     _job->save();
 }
 
@@ -116,6 +128,9 @@ void JobWidget::updateDetails()
         _ui->restoreListWidget->clear();
         _ui->restoreListWidget->addArchives(_job->archives());
         _ui->preservePathsCheckBox->setChecked(_job->optionPreservePaths());
+        _ui->traverseMountCheckBox->setChecked(_job->optionTraverseMount());
+        _ui->followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());
+        _ui->skipFilesSpinBox->setValue(_job->optionSkipFilesSize());
     }
 }
 

@@ -4,10 +4,14 @@
 
 #define MB 1048576
 
-BackupTask::BackupTask():_uuid(QUuid::createUuid()), _optionPreservePaths(true), _skipFilesSize(0),
-    _status(TaskStatus::Initialized)
+BackupTask::BackupTask():_uuid(QUuid::createUuid()), _optionPreservePaths(true), _optionTraverseMount(true),
+    _optionFollowSymLinks(false), _optionSkipFilesSize(0), _status(TaskStatus::Initialized)
 {
-
+    QSettings settings;
+    _optionPreservePaths          = settings.value("tarsnap/preserve_pathnames", true).toBool();
+    _optionTraverseMount          = settings.value("tarsnap/traverse_mount", true).toBool();
+    _optionFollowSymLinks         = settings.value("tarsnap/follow_symlinks", false).toBool();
+    _optionSkipFilesSize          = MB * settings.value("app/skip_files_value", 0).toLongLong();
 }
 
 BackupTask::~BackupTask()
@@ -15,29 +19,57 @@ BackupTask::~BackupTask()
 
 }
 
+bool BackupTask::optionPreservePaths() const
+{
+    return _optionPreservePaths;
+}
+
+void BackupTask::setOptionPreservePaths(bool optionPreservePaths)
+{
+    _optionPreservePaths = optionPreservePaths;
+}
+
+qint64 BackupTask::optionSkipFilesSize() const
+{
+    return _optionSkipFilesSize;
+}
+
+void BackupTask::setOptionSkipFilesSize(const qint64 &optionSkipFilesSize)
+{
+    _optionSkipFilesSize = MB * optionSkipFilesSize;
+}
+
+bool BackupTask::optionFollowSymLinks() const
+{
+    return _optionFollowSymLinks;
+}
+
+void BackupTask::setOptionFollowSymLinks(bool optionFollowSymLinks)
+{
+    _optionFollowSymLinks = optionFollowSymLinks;
+}
+
+bool BackupTask::optionTraverseMount() const
+{
+    return _optionTraverseMount;
+}
+
+void BackupTask::setOptionTraverseMount(bool optionTraverseMount)
+{
+    _optionTraverseMount = optionTraverseMount;
+}
+
 QStringList BackupTask::getExcludesList()
 {
     QStringList skipList;
-    if(_job)
-    {
-        _skipFilesSize = 0;
-    }
-    else
-    {
-        QSettings settings;
-        if(settings.value("app/skip_files_enabled", false).toBool())
-            _skipFilesSize = MB * settings.value("app/skip_files_value", 0).toInt();
-        else
-            _skipFilesSize = 0;
-    }
 
-    if(_skipFilesSize)
+    if(_optionSkipFilesSize)
     {
         foreach (QUrl url, urls()) {
             QFileInfo file(url.toLocalFile());
             if(file.isFile())
             {
-                if(file.size() >= (_skipFilesSize))
+                if(file.size() >= (_optionSkipFilesSize))
                 {
                     skipList << QRegExp::escape(url.toLocalFile());
                 }
@@ -53,7 +85,7 @@ QStringList BackupTask::getExcludesList()
                     foreach (QFileInfo entry, dir.entryInfoList()) {
                         if(entry.isFile())
                         {
-                            if(entry.size() >= (_skipFilesSize))
+                            if(entry.size() >= (_optionSkipFilesSize))
                                 skipList << QRegExp::escape(entry.absoluteFilePath());
                         }
                         else if(entry.isDir())

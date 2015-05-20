@@ -92,8 +92,6 @@ private:
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;
-    bool                         _traverseMount;
-    bool                         _followSymLinks;
 };
 
 #endif // TASKMANAGER_H

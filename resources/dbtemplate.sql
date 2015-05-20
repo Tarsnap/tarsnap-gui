@@ -8,6 +8,9 @@ CREATE TABLE `jobs` (
 	`name`	TEXT NOT NULL,
 	`urls`	TEXT,
 	`optionPreservePaths`	INTEGER,
+	`optionTraverseMount`	INTEGER,
+	`optionFollowSymLinks`	INTEGER,
+	`optionSkipFilesSize`	INTEGER,
 	PRIMARY KEY(name)
 );
 CREATE TABLE `archives` (

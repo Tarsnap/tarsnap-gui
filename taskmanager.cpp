@@ -7,7 +7,7 @@
 
 TaskManager::TaskManager(QObject *parent) : QObject()
   , _threadPool(QThreadPool::globalInstance()), _aggressiveNetworking(false)
-  , _preservePathnames(true), _traverseMount(true), _followSymLinks(false)
+  , _preservePathnames(true)
 {
     Q_UNUSED(parent);
     // Move the operations belonging to the Task manager to a separate thread
@@ -30,8 +30,6 @@ void TaskManager::loadSettings()
     _tarsnapKeyFile         = settings.value("tarsnap/key").toString();
     _aggressiveNetworking   = settings.value("tarsnap/aggressive_networking", false).toBool();
     _preservePathnames      = settings.value("tarsnap/preserve_pathnames", true).toBool();
-    _traverseMount          = settings.value("tarsnap/traverse_mount", true).toBool();
-    _followSymLinks         = settings.value("tarsnap/follow_symlinks", false).toBool();
 
     // First time init of the Store
     PersistentStore::instance();
@@ -81,13 +79,16 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--aggressive-networking";
     if(backupTask->optionPreservePaths())
         args << "-P";
-    if(!_traverseMount)
+    if(!backupTask->optionTraverseMount())
         args << "--one-file-system";
-    if(_followSymLinks)
+    if(backupTask->optionFollowSymLinks())
         args << "-L";
     args << "--quiet" << "-c" << "--print-stats" << "-f" << backupTask->name();
-    foreach (QString exclude, backupTask->getExcludesList()) {
-        args << "--exclude" << exclude;
+    if(backupTask->optionSkipFilesSize())
+    {
+        foreach (QString exclude, backupTask->getExcludesList()) {
+            args << "--exclude" << exclude;
+        }
     }
     foreach (QUrl url, backupTask->urls()) {
         args << url.toLocalFile();
@@ -288,17 +289,13 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
         archive->setName(backupTask->name());
         //TODO: set timestamp to tarsnap timestamp when possible
         archive->setTimestamp(QDateTime::currentDateTime());
-        if(backupTask->job())
-            archive->setJobRef(backupTask->job()->name());
+        if(!backupTask->jobRef().isEmpty())
+            archive->setJobRef(backupTask->jobRef());
         parseArchiveStats(output, true, archive);
         backupTask->setArchive(archive);
         backupTask->setStatus(TaskStatus::Completed);
         _archiveMap[archive->uuid()] = archive;
         emit archiveList(_archiveMap.values());
-        // defer this for as long as possible so that archive->save() has a greater chance of having
-        // already taken place
-        if(backupTask->job())
-            QMetaObject::invokeMethod(backupTask->job().data(), "loadArchives", Qt::QueuedConnection);
     }
     else
     {

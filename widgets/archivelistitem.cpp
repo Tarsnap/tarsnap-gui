@@ -47,9 +47,9 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     _ui.nameLabel->setText(_archive->name());
     _ui.nameLabel->setToolTip(_archive->name());
     QString detail(_archive->timestamp().toString());
-    if(_archive->sizeUniqueCompressed() != 0)
+    if(_archive->sizeTotal() != 0)
     {
-        detail.prepend(Utils::humanBytes(_archive->sizeUniqueCompressed(), _useSIPrefixes) + "  ");
+        detail.prepend(Utils::humanBytes(_archive->sizeTotal(), _useSIPrefixes) + "  ");
     }
     _ui.detaiLabel->setText(detail);
     _ui.detaiLabel->setToolTip(_archive->archiveStats());

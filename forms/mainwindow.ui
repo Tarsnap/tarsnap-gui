@@ -480,7 +480,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                         <string>Original archive size</string>
                        </property>
                        <property name="text">
-                        <string>Total size:</string>
+                        <string>Archive size:</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -502,7 +502,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                         <string>Actual size occupied on Tarsnap</string>
                        </property>
                        <property name="text">
-                        <string>Tarsnap size:</string>
+                        <string>Unique data:</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -513,7 +513,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                       </widget>
                      </item>
                      <item row="2" column="1">
-                      <widget class="QLabel" name="archiveTotalSizeLabel">
+                      <widget class="QLabel" name="archiveSizeLabel">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                          <horstretch>0</horstretch>
@@ -611,7 +611,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                       </widget>
                      </item>
                      <item row="3" column="1">
-                      <widget class="QLabel" name="archiveTarsnapSizeLabel">
+                      <widget class="QLabel" name="archiveUniqueDataLabel">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                          <horstretch>0</horstretch>
@@ -686,6 +686,9 @@ selection-background-color: rgba(179, 190, 255, 120);
                        </property>
                        <property name="text">
                         <string/>
+                       </property>
+                       <property name="textInteractionFlags">
+                        <set>Qt::TextSelectableByMouse</set>
                        </property>
                        <property name="elide" stdset="0">
                         <string>Qt::ElideMiddle</string>
@@ -897,8 +900,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>285</width>
-                <height>340</height>
+                <width>594</width>
+                <height>357</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1016,6 +1019,9 @@ border: 1px solid rgba(255,255,255,100);
                      </item>
                      <item row="4" column="0">
                       <widget class="QLabel" name="label_4">
+                       <property name="toolTip">
+                        <string>What you're paying for</string>
+                       </property>
                        <property name="text">
                         <string>Actual usage</string>
                        </property>
@@ -1084,6 +1090,9 @@ border: 1px solid rgba(255,255,255,100);
                      </item>
                      <item row="1" column="0">
                       <widget class="QLabel" name="label_16">
+                       <property name="toolTip">
+                        <string>Credit left on Tarsnap</string>
+                       </property>
                        <property name="text">
                         <string>Credit</string>
                        </property>
@@ -1094,8 +1103,11 @@ border: 1px solid rgba(255,255,255,100);
                      </item>
                      <item row="5" column="0">
                       <widget class="QLabel" name="label_21">
+                       <property name="toolTip">
+                        <string>Bytes reduced by deduplication and compression</string>
+                       </property>
                        <property name="text">
-                        <string>Storage saved</string>
+                        <string>Bytes economy</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1104,8 +1116,11 @@ border: 1px solid rgba(255,255,255,100);
                      </item>
                      <item row="3" column="0">
                       <widget class="QLabel" name="label_2">
+                       <property name="toolTip">
+                        <string>Real size of all stored archives</string>
+                       </property>
                        <property name="text">
-                        <string>Total backup</string>
+                        <string>Total backup size</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

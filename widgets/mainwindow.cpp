@@ -270,7 +270,7 @@ void MainWindow::backupTaskUpdate()
     BackupTaskPtr backupTask = qobject_cast<BackupTaskPtr>(sender());
     switch (backupTask->status()) {
     case TaskStatus::Completed:
-        updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 used on Tarsnap)")
+        updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
                             .arg(backupTask->name()).arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes))
                             ,backupTask->archive()->archiveStats());
         delete backupTask;
@@ -474,10 +474,10 @@ void MainWindow::updateInspectArchive()
     {
         _ui->archiveNameLabel->setText(_currentArchiveDetail->name());
         _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp().toString());
-        _ui->archiveTotalSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeTotal(), _useSIPrefixes));
-        _ui->archiveTotalSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
-        _ui->archiveTarsnapSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeUniqueCompressed(), _useSIPrefixes));
-        _ui->archiveTarsnapSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
+        _ui->archiveSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeTotal(), _useSIPrefixes));
+        _ui->archiveSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
+        _ui->archiveUniqueDataLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeUniqueCompressed(), _useSIPrefixes));
+        _ui->archiveUniqueDataLabel->setToolTip(_currentArchiveDetail->archiveStats());
         _ui->archiveCommandLabel->setText(_currentArchiveDetail->command());
         int count = _currentArchiveDetail->contents().count();
         _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg((count == 0) ? tr("loading..."):QString::number(count)));

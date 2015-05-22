@@ -95,6 +95,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     }
     backupClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     backupClient->setArguments(args);
+    backupClient->setData(backupClient->command() + " " + backupClient->arguments().join(" "));
     connect(backupClient, SIGNAL(clientFinished(QUuid,QVariant,int,QString))
             , this, SLOT(backupTaskFinished(QUuid,QVariant,int,QString)));
     connect(backupClient, SIGNAL(clientStarted(QUuid)), this, SLOT(backupTaskStarted(QUuid)));
@@ -279,7 +280,6 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
 
 void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
-    Q_UNUSED(data);
     BackupTaskPtr backupTask = _backupTaskMap[uuid];
     backupTask->setExitCode(exitCode);
     backupTask->setOutput(output);
@@ -287,6 +287,7 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
     {
         ArchivePtr archive(new Archive);
         archive->setName(backupTask->name());
+        archive->setCommand(data.toString());
         //TODO: set timestamp to tarsnap timestamp when possible
         archive->setTimestamp(QDateTime::currentDateTime());
         if(!backupTask->jobRef().isEmpty())

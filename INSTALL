@@ -2,8 +2,8 @@
 General
 =======
 
-Tarsnappy is built using the Qt SDK for cross platform compatibility. In order to build
-Tarsnappy for your system, you must first install the appropriate Qt 5 SDK on your system.
+Tarsnap GUI is built using the Qt SDK for cross platform compatibility. In order to build
+Tarsnap GUI for your system, you must first install the appropriate Qt 5 SDK on your system.
 Latest recommonded version for optimal results and platform support is Qt 5.4.0 or greater.
 
 =======
@@ -15,14 +15,14 @@ KDE Desktop
 Last tested on FreeBSD 10.1 with Qt version Qt 5.3.2 and KDE 4.14.2.
 
 1. $pkg install qt5-core qt5-widgets qt5-qmake qt5-network qt5-buildtools qt5-sql qt5-sqldrivers-sqlite3
-2. $git clone https://shinnok@bitbucket.org/shinnok/tarsnappy.git && cd tarsnappy
+2. $git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
 2' optional: switch to the desired version, e.g. $git checkout "v0.3"
 3. $/usr/local/lib/qt5/bin/qmake
 4. Edit the resulted Makefile and append ",-L,/usr/local/lib" to the LFLAGS line. Somehow
 the clang++ spec of qmake ommits that on FreeBSD. The complete line should look like this:
 LFLAGS        = -pthread -Wl,-rpath,/usr/local/lib,-L,/usr/local/lib
 5. $make
-6. $./Tarsnappy
+6. $./tarsnap-gui
 
 GNOME Desktop
 -------------

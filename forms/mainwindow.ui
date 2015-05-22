@@ -20,7 +20,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>Tarsnappy</string>
+   <string>Tarsnap</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources.qrc">
@@ -897,8 +897,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>354</height>
+                <width>285</width>
+                <height>340</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1293,8 +1293,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>354</height>
+                <width>377</width>
+                <height>203</height>
                </rect>
               </property>
               <attribute name="label">

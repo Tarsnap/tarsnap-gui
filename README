@@ -1,5 +1,9 @@
-Tarsnappy is an open source cross-platform Graphical User Interface frontend to
-the popular Tarsnap backup service.
+The Tarsnap Graphical User Interface application is an open source cross-platform frontend to the
+popular Tarsnap backup service. The application uses and thus requires the tarsnap command line
+client to be installed on your system.
+
+You can acquire the client program from:
+https://www.tarsnap.com
 
 
 This project makes use of the following 3rd party components:

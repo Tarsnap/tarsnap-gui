@@ -54,7 +54,7 @@ signals:
 
 public slots:
     void loadArchives();
-    void backupTaskUpdate();
+    void backupTaskUpdate(const TaskStatus &status);
 
 private:
     QString             _name;

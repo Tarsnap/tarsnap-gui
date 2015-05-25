@@ -43,7 +43,7 @@ protected:
 
 public slots:
     void loadSettings();
-    void backupTaskUpdate();
+    void backupTaskUpdate(const TaskStatus &status);
     void archivesDeleted(QList<ArchivePtr> archives, bool done = true);
     void updateLoadingAnimation(bool idle);
     void updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal

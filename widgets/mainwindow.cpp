@@ -265,14 +265,14 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void MainWindow::backupTaskUpdate()
+void MainWindow::backupTaskUpdate(const TaskStatus& status)
 {
     BackupTaskPtr backupTask = qobject_cast<BackupTaskPtr>(sender());
-    switch (backupTask->status()) {
+    switch (status) {
     case TaskStatus::Completed:
         updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
                             .arg(backupTask->name()).arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes))
-                            ,backupTask->archive()->archiveStats());
+                            , backupTask->archive()->archiveStats());
         delete backupTask;
         break;
     case TaskStatus::Queued:
@@ -463,7 +463,7 @@ void MainWindow::backupButtonClicked()
     BackupTaskPtr backup(new BackupTask);
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
-    connect(backup, SIGNAL(statusUpdate()), this, SLOT(backupTaskUpdate()), Qt::QueuedConnection);
+    connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
     emit backupNow(backup);
     _ui->appendTimestampCheckBox->setChecked(false);
 }

@@ -29,7 +29,7 @@ public:
     void setName(const QString &name) {_name = name;}
 
     TaskStatus status() const {return _status;}
-    void setStatus(const TaskStatus &status) {_status = status; emit statusUpdate();}
+    void setStatus(const TaskStatus &status) {_status = status; emit statusUpdate(_status);}
 
     int exitCode() const {return _exitCode;}
     void setExitCode(int exitCode) {_exitCode = exitCode;}
@@ -58,7 +58,7 @@ public:
     QStringList getExcludesList();
 
 signals:
-    void statusUpdate();
+    void statusUpdate(const TaskStatus &status);
 
 private:
     QUuid                 _uuid;

@@ -82,7 +82,7 @@ BackupTaskPtr Job::createBackupTask()
     backup->setOptionTraverseMount(optionTraverseMount());
     backup->setOptionFollowSymLinks(optionFollowSymLinks());
     backup->setOptionSkipFilesSize(optionSkipFilesSize());
-    connect(backup, SIGNAL(statusUpdate()), this, SLOT(backupTaskUpdate()), Qt::QueuedConnection);
+    connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
     return backup;
 }
 
@@ -276,10 +276,10 @@ void Job::loadArchives()
     }
 }
 
-void Job::backupTaskUpdate()
+void Job::backupTaskUpdate(const TaskStatus& status)
 {
     BackupTaskPtr backupTask = qobject_cast<BackupTaskPtr>(sender());
-    switch (backupTask->status()) {
+    switch (status) {
     case TaskStatus::Completed:
 //        updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 used on Tarsnap)")
 //                            .arg(backupTask->name()).arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes))

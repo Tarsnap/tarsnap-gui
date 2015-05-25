@@ -278,30 +278,6 @@ void Job::loadArchives()
 
 void Job::backupTaskUpdate(const TaskStatus& status)
 {
-    BackupTaskPtr backupTask = qobject_cast<BackupTaskPtr>(sender());
-    switch (status) {
-    case TaskStatus::Completed:
-//        updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 used on Tarsnap)")
-//                            .arg(backupTask->name()).arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes))
-//                            ,backupTask->archive()->archiveStats());
+    if(status == TaskStatus::Completed)
         loadArchives();
-        delete backupTask;
-        break;
-    case TaskStatus::Queued:
-//        updateStatusMessage(tr("Backup <i>%1</i> queued.").arg(backupTask->name()));
-        break;
-    case TaskStatus::Running:
-//        updateStatusMessage(tr("Backup <i>%1</i> is running.").arg(backupTask->name()));
-        break;
-    case TaskStatus::Failed:
-//        updateStatusMessage(tr("Backup <i>%1</i> failed: %2").arg(backupTask->name()).arg(backupTask->output().simplified())
-//                           ,tr("%1").arg(backupTask->output()));
-        delete backupTask;
-        break;
-    case TaskStatus::Paused:
-//        updateStatusMessage(tr("Backup <i>%1</i> paused.").arg(backupTask->name()));
-        break;
-    default:
-        break;
-    }
 }

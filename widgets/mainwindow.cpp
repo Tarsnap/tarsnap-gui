@@ -184,6 +184,10 @@ MainWindow::MainWindow(QWidget *parent) :
                 else
                     _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
             });
+    connect(_ui->jobListWidget, &JobListWidget::backupJob,
+            [=](BackupTaskPtr backup){
+                connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
+            });
 }
 
 MainWindow::~MainWindow()

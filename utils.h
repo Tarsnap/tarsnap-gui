@@ -4,6 +4,9 @@
 #include <QRunnable>
 #include <QDir>
 
+#define CMD_TARSNAP         "tarsnap"
+#define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
+
 namespace Utils
 {
 
@@ -29,10 +32,14 @@ private:
 // SI(1000) or binary(1024) units (default is binary)
 QString humanBytes(qint64 bytes, bool si = false);
 
-// Returns canonical paths if verified, otherwise empty strings
-QString validateTarsnapPath(QString path);
+// if path.isEmpty it will search in $PATH
+// if keygenToo it will search for tarsnap-keygen too
+// returns the directory where tarsnap resides if found, otherwise empty string
+QString findTarsnapClientInPath(QString path, bool keygenToo = false);
+
+// Returns canonical path if verified, otherwise empty string
 QString validateTarsnapCache(QString path);
 
-} // Utils
+} // namespace Utils
 
 #endif // UTILS_H

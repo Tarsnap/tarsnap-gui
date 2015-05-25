@@ -1,7 +1,9 @@
 #include "utils.h"
 
-#include <math.h>
 #include <QDebug>
+#include <QStandardPaths>
+
+#include <math.h>
 
 using namespace Utils;
 
@@ -90,21 +92,21 @@ QString Utils::validateTarsnapCache(QString path)
 }
 
 
-QString Utils::validateTarsnapPath(QString path)
+QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
 {
-    QString result;
-    if ( !path.isEmpty() )
-    {
-        QDir dir(path);
-        if(dir.exists())
-        {
-            QFileInfo candidate(dir, "tarsnap");
-            if ( candidate.isFile() && candidate.exists() && candidate.isReadable()
-                 && candidate.isExecutable())
-            {
-                result = dir.canonicalPath();
-            }
-        }
-    }
-    return result;
+    QStringList paths;
+
+    if(!path.isEmpty())
+        paths << path;
+
+    QString result = QStandardPaths::findExecutable(CMD_TARSNAP, paths);
+    if(!result.isEmpty() && keygenToo)
+        result = QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, paths);
+
+    if(result.isEmpty())
+        return result;
+    else if(path.isEmpty())
+        path = QFileInfo(result).absolutePath();
+
+    return path;
 }

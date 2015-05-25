@@ -16,10 +16,6 @@
 #include <QThreadPool>
 #include <QQueue>
 
-
-#define CMD_TARSNAP         "tarsnap"
-#define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
-
 class TaskManager : public QObject
 {
     Q_OBJECT

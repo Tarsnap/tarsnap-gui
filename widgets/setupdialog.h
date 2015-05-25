@@ -22,7 +22,6 @@ public:
 public slots:
     void wizardPageChanged(int);
     void skipToPage();
-    void showAdvancedSetup(bool display);
     void setNextPage();
     void showTarsnapPathBrowse();
     void showTarsnapCacheBrowse();
@@ -45,9 +44,6 @@ signals:
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
-
-private:
-    void findTarsnapInPath();
 
 private:
     Ui::SetupDialog *_ui;

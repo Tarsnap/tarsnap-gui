@@ -533,7 +533,7 @@ void MainWindow::validateMachineKeyPath()
 
 void MainWindow::validateTarsnapPath()
 {
-    if(Utils::validateTarsnapPath(_ui->tarsnapPathLineEdit->text()).isEmpty())
+    if(Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text()).isEmpty())
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
     else
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: black;}");

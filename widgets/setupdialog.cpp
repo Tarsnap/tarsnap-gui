@@ -20,7 +20,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
     _ui->setupUi(this);
 
     _ui->loadingIconLabel->setMovie(&_loadingAnimation);
-    showAdvancedSetup(false);
+    _ui->advancedPageRadioButton->hide();
     _ui->errorLabel->hide();
     _ui->machineKeyLabel->hide();
     _ui->machineKeyLineEdit->hide();
@@ -35,7 +35,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
     connect(_ui->wizardStackedWidget, SIGNAL(currentChanged(int)), this, SLOT(wizardPageChanged(int)));
 
     // Welcome page
-    connect(_ui->advancedSetupCheckBox, SIGNAL(toggled(bool)), this, SLOT(showAdvancedSetup(bool)));
+    connect(_ui->advancedSetupCheckBox, SIGNAL(toggled(bool)), _ui->advancedPageRadioButton, SLOT(setVisible(bool)));
     connect(_ui->welcomePageSkipButton, &QPushButton::clicked, [=](){commitSettings(true);});
     connect(_ui->welcomePageProceedButton, SIGNAL(clicked()), this, SLOT(setNextPage()));
 
@@ -76,7 +76,8 @@ SetupDialog::SetupDialog(QWidget *parent) :
         cacheDir.mkpath(_tarsnapCacheDir);
     _ui->tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
 
-    findTarsnapInPath();
+    _tarsnapCLIDir = Utils::findTarsnapClientInPath("", true);
+    _ui->tarsnapPathLineEdit->setText(_tarsnapCLIDir);
 
     _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
 
@@ -146,11 +147,6 @@ void SetupDialog::skipToPage()
         _ui->wizardStackedWidget->setCurrentWidget(_ui->donePage);
 }
 
-void SetupDialog::showAdvancedSetup(bool display)
-{
-    _ui->advancedPageRadioButton->setVisible(display);
-}
-
 void SetupDialog::setNextPage()
 {
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
@@ -158,8 +154,8 @@ void SetupDialog::setNextPage()
         if(_ui->advancedSetupCheckBox->isChecked() || _tarsnapCLIDir.isEmpty()
            || _tarsnapCacheDir.isEmpty() || _tarsnapKeysDir.isEmpty())
         {
-            showAdvancedSetup(true);
             _ui->wizardStackedWidget->setCurrentWidget(_ui->advancedPage);
+            _ui->advancedSetupCheckBox->setChecked(true);
             _ui->advancedPageRadioButton->setEnabled(true);
         }
         else
@@ -205,26 +201,19 @@ bool SetupDialog::validateAdvancedSetupPage()
 {
     bool result = false;
 
-    QString tarsnapPath = Utils::validateTarsnapPath(_ui->tarsnapPathLineEdit->text());
-    QString tarsnapCache = Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text());
+    _tarsnapCLIDir = Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text(), true);
+    _tarsnapCacheDir = Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text());
 
-    if(!tarsnapPath.isEmpty())
-    {
-        _tarsnapCLIDir = tarsnapPath;
+    if(!_tarsnapCLIDir.isEmpty())
         result = true;
-    }
 
-    if(!tarsnapCache.isEmpty())
-    {
-        _tarsnapCacheDir = tarsnapCache;
+    if(!_tarsnapCacheDir.isEmpty())
         result = result && true;
-    }
     else
-    {
         result = false;
-    }
 
     _ui->advancedPageProceedButton->setEnabled(result);
+
     return result;
 }
 
@@ -349,25 +338,6 @@ void SetupDialog::updateLoadingAnimation(bool idle)
     {
         _loadingAnimation.start();
         _ui->loadingIconLabel->show();
-    }
-}
-
-void SetupDialog::findTarsnapInPath()
-{
-    // Maybe use QStandardPaths::​findExecutable instead of manual PATH search
-    QStringList path = QString::fromUtf8(::getenv("PATH")).split(':', QString::SkipEmptyParts);
-    DEBUG << "Will look for tarsnap in PATH: " << path;
-    auto dir = path.begin();
-    while (dir != path.end())
-    {
-        QString path = Utils::validateTarsnapPath(*dir);
-        if(!path.isEmpty())
-        {
-            _tarsnapCLIDir = path;
-            _ui->tarsnapPathLineEdit->setText(_tarsnapCLIDir);
-            return;
-        }
-        ++dir;
     }
 }
 

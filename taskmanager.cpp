@@ -1,4 +1,5 @@
 #include "taskmanager.h"
+#include "utils.h"
 #include "debug.h"
 
 #include <QFileInfo>

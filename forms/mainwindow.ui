@@ -901,7 +901,7 @@ border: 1px solid rgba(255,255,255,100);
                 <x>0</x>
                 <y>0</y>
                 <width>594</width>
-                <height>357</height>
+                <height>354</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1147,26 +1147,41 @@ border: 1px solid rgba(255,255,255,100);
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QLabel" name="iconLabel">
-                    <property name="minimumSize">
-                     <size>
-                      <width>128</width>
-                      <height>128</height>
-                     </size>
+                   <widget class="QPushButton" name="loginTarsnapButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
                     </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>128</width>
-                      <height>128</height>
-                     </size>
+                    <property name="toolTip">
+                     <string>Login to tarsnap.com</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton {
+background: none;
+border: none;
+}
+
+QPushButton:pressed {
+margin-left: 6px;
+margin-top: 6px;
+}</string>
                     </property>
                     <property name="text">
                      <string/>
                     </property>
-                    <property name="pixmap">
-                     <pixmap resource="../resources.qrc">:/resources/icons/tarsnap_icon.png</pixmap>
+                    <property name="icon">
+                     <iconset resource="../resources.qrc">
+                      <normaloff>:/resources/icons/tarsnap_icon.png</normaloff>:/resources/icons/tarsnap_icon.png</iconset>
                     </property>
-                    <property name="scaledContents">
+                    <property name="iconSize">
+                     <size>
+                      <width>128</width>
+                      <height>128</height>
+                     </size>
+                    </property>
+                    <property name="flat">
                      <bool>true</bool>
                     </property>
                    </widget>
@@ -1218,13 +1233,10 @@ border: 1px solid rgba(255,255,255,100);
                   </item>
                   <item row="0" column="1">
                    <widget class="QLineEdit" name="accountUserLineEdit">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
                     <property name="text">
                      <string/>
                     </property>
-                    <property name="clearButtonEnabled">
+                    <property name="readOnly">
                      <bool>true</bool>
                     </property>
                    </widget>
@@ -1266,22 +1278,6 @@ border: 1px solid rgba(255,255,255,100);
                    <widget class="QPushButton" name="accountMachineUseHostnameButton">
                     <property name="text">
                      <string>Host name</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="2">
-                   <widget class="QPushButton" name="pushButton_11">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>Validate</string>
                     </property>
                    </widget>
                   </item>
@@ -1706,7 +1702,7 @@ font-size: 13px;
                <number>6</number>
               </property>
               <item>
-               <widget class="QTextBrowser" name="textBrowser_2">
+               <widget class="QTextBrowser" name="helpTextBrowser">
                 <property name="html">
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -1993,14 +1989,14 @@ border: none;
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
+   <class>TextLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">../widgets/textlabel.h</header>
+  </customwidget>
+  <customwidget>
    <class>BrowseListWidget</class>
    <extends>QListWidget</extends>
    <header>widgets/browselistwidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>TextLabel</class>
-   <extends>QLabel</extends>
-   <header location="global">../src/widgets/textlabel.h</header>
   </customwidget>
   <customwidget>
    <class>BackupListWidget</class>

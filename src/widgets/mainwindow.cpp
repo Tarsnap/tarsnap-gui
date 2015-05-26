@@ -16,6 +16,7 @@
 #include <QHostInfo>
 #include <QMessageBox>
 #include <QStandardPaths>
+#include <QDesktopServices>
 
 #define PURGE_SECONDS_DELAY 8
 
@@ -187,6 +188,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobListWidget, &JobListWidget::backupJob,
             [=](BackupTaskPtr backup){
                 connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
+            });
+    connect(_ui->loginTarsnapButton, &QPushButton::clicked,
+            [=](){
+                QDesktopServices::openUrl(QUrl("https://www.tarsnap.com/account.html"));
             });
 }
 

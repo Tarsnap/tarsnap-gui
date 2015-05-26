@@ -92,4 +92,5 @@ osx {
     OBJECTIVE_SOURCES += src/platform_osx.mm
     LIBS += -framework Foundation
     ICON = resources/icons/tarsnap.icns
+    TARGET = Tarsnap
 }

@@ -131,6 +131,9 @@ border-radius: 2px;
           <attribute name="title">
            <string>Backup</string>
           </attribute>
+          <attribute name="toolTip">
+           <string>Ctrl+1 key sequence switches to this tab</string>
+          </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <property name="spacing">
             <number>0</number>
@@ -211,7 +214,7 @@ background-color: rgba(178,190,255, 85);
 }</string>
              </property>
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag and drop files and directories to back up now. Alternatively you can &lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;browse&lt;/span&gt;&lt;/a&gt; for a path.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag and drop files and directories to back up or you can use the &lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;File Browser&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="textFormat">
               <enum>Qt::RichText</enum>
@@ -333,6 +336,9 @@ color: gray;
           </property>
           <attribute name="title">
            <string>Archives</string>
+          </attribute>
+          <attribute name="toolTip">
+           <string>Ctrl+2 key sequence switches to this tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_11">
            <property name="spacing">
@@ -738,6 +744,9 @@ selection-background-color: rgba(179, 190, 255, 120);
           <attribute name="title">
            <string>Jobs</string>
           </attribute>
+          <attribute name="toolTip">
+           <string>Ctrl+3 key sequence switches to this tab</string>
+          </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <property name="spacing">
             <number>0</number>
@@ -847,6 +856,9 @@ selection-background-color: rgba(179, 190, 255, 120);
           </property>
           <attribute name="title">
            <string>Settings</string>
+          </attribute>
+          <attribute name="toolTip">
+           <string>Ctrl+4 key sequence switches to this tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <property name="spacing">
@@ -994,7 +1006,7 @@ border: 1px solid rgba(255,255,255,100);
                      <item row="2" column="0">
                       <widget class="QLabel" name="label_6">
                        <property name="text">
-                        <string>No. of archives</string>
+                        <string>No. of archives:</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1023,7 +1035,7 @@ border: 1px solid rgba(255,255,255,100);
                         <string>What you're paying for</string>
                        </property>
                        <property name="text">
-                        <string>Actual usage</string>
+                        <string>Actual usage:</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1081,7 +1093,7 @@ border: 1px solid rgba(255,255,255,100);
                      <item row="0" column="0">
                       <widget class="QLabel" name="label_8">
                        <property name="text">
-                        <string>Account status</string>
+                        <string>Account status:</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1094,7 +1106,7 @@ border: 1px solid rgba(255,255,255,100);
                         <string>Credit left on Tarsnap</string>
                        </property>
                        <property name="text">
-                        <string>Credit</string>
+                        <string>Credit:</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1107,7 +1119,7 @@ border: 1px solid rgba(255,255,255,100);
                         <string>Bytes reduced by deduplication and compression</string>
                        </property>
                        <property name="text">
-                        <string>Bytes economy</string>
+                        <string>Bytes economy:</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1120,7 +1132,7 @@ border: 1px solid rgba(255,255,255,100);
                         <string>Real size of all stored archives</string>
                        </property>
                        <property name="text">
-                        <string>Total backup size</string>
+                        <string>Total backup size:</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1211,7 +1223,7 @@ margin-top: 6px;
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_19">
                     <property name="text">
-                     <string>Machine name</string>
+                     <string>Machine name:</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -1244,7 +1256,7 @@ margin-top: 6px;
                   <item row="0" column="0">
                    <widget class="QLabel" name="label">
                     <property name="text">
-                     <string>Tarsnap user</string>
+                     <string>Tarsnap user:</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1254,7 +1266,7 @@ margin-top: 6px;
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_11">
                     <property name="text">
-                     <string>Machine key</string>
+                     <string>Machine key:</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1304,8 +1316,8 @@ margin-top: 6px;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>377</width>
-                <height>203</height>
+                <width>594</width>
+                <height>354</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1336,7 +1348,7 @@ margin-top: 6px;
                   <item row="6" column="0">
                    <widget class="QLabel" name="downloadsDirLabel">
                     <property name="text">
-                     <string>Downloads directory</string>
+                     <string>Downloads directory:</string>
                     </property>
                    </widget>
                   </item>
@@ -1435,7 +1447,7 @@ margin-top: 6px;
                   <item row="5" column="0">
                    <widget class="QLabel" name="label_3">
                     <property name="text">
-                     <string>Skip files larger than</string>
+                     <string>Skip files larger than:</string>
                     </property>
                    </widget>
                   </item>
@@ -1489,8 +1501,8 @@ margin-top: 6px;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>262</width>
-                <height>199</height>
+                <width>594</width>
+                <height>354</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1551,7 +1563,7 @@ margin-top: 6px;
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Tarsnap cache path</string>
+                     <string>Tarsnap cache path:</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1591,7 +1603,7 @@ margin-top: 6px;
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_20">
                     <property name="text">
-                     <string>Tarsnap client path</string>
+                     <string>Tarsnap client path:</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1656,6 +1668,9 @@ margin-top: 6px;
           </property>
           <attribute name="title">
            <string>Help</string>
+          </attribute>
+          <attribute name="toolTip">
+           <string>Ctrl+5 key sequence switches to this tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <property name="spacing">

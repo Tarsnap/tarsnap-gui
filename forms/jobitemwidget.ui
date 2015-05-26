@@ -267,7 +267,7 @@ padding-left: 2px;
   <customwidget>
    <class>TextLabel</class>
    <extends>QLabel</extends>
-   <header location="global">../widgets/textlabel.h</header>
+   <header location="global">../src/widgets/textlabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

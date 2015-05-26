@@ -14,58 +14,59 @@ TEMPLATE = app
 CONFIG += c++11
 
 SOURCES += \
-    coreapplication.cpp \
-    main.cpp \
-    utils.cpp \
-    widgets/archivelistitem.cpp \
-    widgets/backuplistitem.cpp \
-    widgets/backuplistwidget.cpp \
-    widgets/browselistwidget.cpp \
-    widgets/filepicker.cpp \
-    widgets/filepickerdialog.cpp \
-    widgets/joblistitem.cpp \
-    widgets/joblistwidget.cpp \
-    widgets/jobwidget.cpp \
-    widgets/mainwindow.cpp \
-    widgets/restoredialog.cpp \
-    widgets/setupdialog.cpp \
-    widgets/textlabel.cpp \
-    customfilesystemmodel.cpp \
-    taskmanager.cpp \
-    tarsnapclient.cpp \
-    persistentmodel/persistentstore.cpp \
-    persistentmodel/persistentobject.cpp \
-    persistentmodel/archive.cpp \
-    persistentmodel/job.cpp \
-    backuptask.cpp
+    src/coreapplication.cpp \
+    src/main.cpp \
+    src/utils.cpp \
+    src/widgets/archivelistitem.cpp \
+    src/widgets/backuplistitem.cpp \
+    src/widgets/backuplistwidget.cpp \
+    src/widgets/browselistwidget.cpp \
+    src/widgets/filepicker.cpp \
+    src/widgets/filepickerdialog.cpp \
+    src/widgets/joblistitem.cpp \
+    src/widgets/joblistwidget.cpp \
+    src/widgets/jobwidget.cpp \
+    src/widgets/mainwindow.cpp \
+    src/widgets/restoredialog.cpp \
+    src/widgets/setupdialog.cpp \
+    src/widgets/textlabel.cpp \
+    src/customfilesystemmodel.cpp \
+    src/taskmanager.cpp \
+    src/tarsnapclient.cpp \
+    src/persistentmodel/persistentstore.cpp \
+    src/persistentmodel/persistentobject.cpp \
+    src/persistentmodel/archive.cpp \
+    src/persistentmodel/job.cpp \
+    src/backuptask.cpp
 
 HEADERS  += \
-    coreapplication.h \
-    debug.h \
-    utils.h \
-    widgets/archivelistitem.h \
-    widgets/backuplistitem.h \
-    widgets/backuplistwidget.h \
-    widgets/browselistwidget.h \
-    widgets/filepicker.h \
-    widgets/filepickerdialog.h \
-    widgets/joblistitem.h \
-    widgets/joblistwidget.h \
-    widgets/jobwidget.h \
-    widgets/mainwindow.h \
-    widgets/restoredialog.h \
-    widgets/setupdialog.h \
-    widgets/textlabel.h \
-    customfilesystemmodel.h \
-    taskmanager.h \
-    tarsnapclient.h \
-    persistentmodel/persistentstore.h \
-    persistentmodel/persistentobject.h \
-    persistentmodel/archive.h \
-    persistentmodel/job.h \
-    backuptask.h
+    src/coreapplication.h \
+    src/debug.h \
+    src/utils.h \
+    src/widgets/archivelistitem.h \
+    src/widgets/backuplistitem.h \
+    src/widgets/backuplistwidget.h \
+    src/widgets/browselistwidget.h \
+    src/widgets/filepicker.h \
+    src/widgets/filepickerdialog.h \
+    src/widgets/joblistitem.h \
+    src/widgets/joblistwidget.h \
+    src/widgets/jobwidget.h \
+    src/widgets/mainwindow.h \
+    src/widgets/restoredialog.h \
+    src/widgets/setupdialog.h \
+    src/widgets/textlabel.h \
+    src/customfilesystemmodel.h \
+    src/taskmanager.h \
+    src/tarsnapclient.h \
+    src/persistentmodel/persistentstore.h \
+    src/persistentmodel/persistentobject.h \
+    src/persistentmodel/archive.h \
+    src/persistentmodel/job.h \
+    src/backuptask.h
 
-INCLUDEPATH += widgets/
+INCLUDEPATH += src/widgets/ \
+            += src/
 
 FORMS    += \
     forms/backupitemwidget.ui \
@@ -88,7 +89,7 @@ DISTFILES += \
     CHANGELOG
 
 osx {
-    OBJECTIVE_SOURCES += platform_osx.mm
+    OBJECTIVE_SOURCES += src/platform_osx.mm
     LIBS += -framework Foundation
     ICON = resources/icons/tarsnap.icns
 }

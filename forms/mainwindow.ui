@@ -76,8 +76,8 @@
          <property name="styleSheet">
           <string notr="true">QTabBar::tab {
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(64,152,212,180), stop: 0.8 rgba(64,152,212,180),
-					stop: 0.9 rgba(41,128,185,180), stop: 1.0 rgba(31,98,142,180));
+					stop: 0 rgba(85,164,216,225), stop: 0.9 rgba(85,164,216,225),
+					stop: 1.0 rgba(46,141,204,255), stop: 1.0 rgba(46,141,204,255));
 border: 1px solid #ECF0F1;
 border-bottom: none;
 border-top-left-radius: 3px;
@@ -92,8 +92,7 @@ color: white;
 
 QTabBar::tab:selected {
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(64,152,212,255), stop: 0.9 rgba(64,152,212,255),
-					stop: 1.0 rgba(41,128,185,255), stop: 1.0 rgba(31,98,142,255));
+					stop: 0 rgba(64,152,212,255), stop: 1 rgba(64,152,212,255));
 border: 1px solid white;
 border-bottom: none;
 }
@@ -881,13 +880,8 @@ selection-background-color: rgba(179, 190, 255, 120);
              <property name="styleSheet">
               <string notr="true"> QToolBox::tab {
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(64,152,212,180), stop: 0.8 rgba(64,152,212,180),
-					stop: 0.9 rgba(41,128,185,180), stop: 1.0 rgba(31,98,142,180));
-/*
-#4098D4
-\#2980B9
-#1F628E
-*/
+					stop: 0 rgba(85,164,216,255), stop: 0.9 rgba(85,164,216,255),
+					stop: 1 rgba(41,128,185,255), stop: 1 rgba(31,98,142,255));
 border-top-left-radius: 3px;
 border-top-right-radius: 3px;
 color: white;
@@ -898,8 +892,7 @@ border: 1px solid rgba(255,255,255,20);
 
  QToolBox::tab:selected {
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(64,152,212,255), stop: 0.8 rgba(64,152,212,255),
-					stop: 0.9 rgba(41,128,185,255), stop: 1.0 rgba(31,98,142,255));
+					stop: 0 rgba(64,152,212,255), stop: 1 rgba(64,152,212,255));
 color: white;
 border: 1px solid rgba(255,255,255,100);
  }</string>
@@ -1316,8 +1309,8 @@ margin-top: 6px;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>381</width>
-                <height>203</height>
+                <width>594</width>
+                <height>357</height>
                </rect>
               </property>
               <attribute name="label">

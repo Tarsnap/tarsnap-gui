@@ -913,7 +913,7 @@ border: 1px solid rgba(255,255,255,100);
                 <x>0</x>
                 <y>0</y>
                 <width>594</width>
-                <height>354</height>
+                <height>357</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1316,8 +1316,8 @@ margin-top: 6px;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>354</height>
+                <width>381</width>
+                <height>203</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1501,8 +1501,8 @@ margin-top: 6px;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>354</height>
+                <width>266</width>
+                <height>199</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1663,7 +1663,8 @@ margin-top: 6px;
          </widget>
          <widget class="QWidget" name="helpTab">
           <property name="styleSheet">
-           <string notr="true">#helpTab {
+           <string notr="true">#helpTab QGroupBox {
+font-size: 13px;
 }</string>
           </property>
           <attribute name="title">
@@ -1696,53 +1697,84 @@ margin-top: 6px;
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">QGroupBox {
-font-size: 13px;
-}</string>
+              <string notr="true"/>
              </property>
              <property name="title">
-              <string>General help</string>
+              <string>Tarsnap help</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_7">
               <property name="leftMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <property name="topMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <property name="rightMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <property name="bottomMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <item>
                <widget class="QTextBrowser" name="helpTextBrowser">
+                <property name="styleSheet">
+                 <string notr="true">QTextBrowser {
+background: rgba(255,255,255,170);
+border-radius: 4px;
+}</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
+                </property>
                 <property name="html">
                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.Helvetica Neue DeskInterface'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;How Tarsnap archives work&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Unlike many backup systems, Tarsnap works with a concept of&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;immutable archives&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;. Similar to backups stored on &lt;/span&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Write_once_read_many&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;WORM drives&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;, once a Tarsnap archive has been created, it cannot be modified; each archive is &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/crypto.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;cryptographically signed&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; to ensure that it cannot be silently modified. For obvious reasons, this also means that archives cannot be &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;overwritten&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;; each archive must be created with a new name.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap also makes creating new archives very fast: Because Tarsnap&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/efficiency.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;deduplicates&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; archives against data stored in previous archives, if you have an archive already stored with a previous version of the data you're placing into a new archive, Tarsnap will automatically recognize the duplicated data and only upload the new blocks. Similarly, when you delete an archive, Tarsnap figures out which data was &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-style:italic; color:#000000;&quot;&gt;only&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; in that archive, and deletes it, while leaving behind any data which is still needed by other archives.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;In short, to use Tarsnap you should start by forgetting everything you know about managing backups. If you want a backup of your data every day, then just ask Tarsnap to create a backup of your data every day.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:37px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap command line&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;The examples here assume that you are using a Tarsnap configuration file including&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;keyfile&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;cachedir&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; directives. The sample configuration file provided with Tarsnap specifies these (the default keyfile location is &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;/root/tarsnap.key&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;, and the default cache directory location is &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;/usr/local/tarsnap-cache&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;).&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:8px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;Create an archive named &amp;quot;mybackup&amp;quot; containing &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;/usr/home&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;/other/stuff&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -c -f mybackup /usr/home /other/stuff&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:7px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;Create another archive a day later from the same directories; this will be much faster because Tarsnap will recognize and avoid uploading data which was stored previously:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -c -f anotherbackup /usr/home /other/stuff&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:7px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;List all the archives which have been stored:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap --list-archives&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:7px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;Delete the first archive, leaving the second archive intact:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -d -f mybackup&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:7px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;List the files in the &amp;quot;anotherbackup&amp;quot; archive&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -tv -f anotherbackup&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:7px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt;Restore two users' home directories&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:8px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -x -f anotherbackup usr/home/auser usr/home/anotheruser&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:37px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap cache directory&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000; background-color:#f7f7ff;&quot;&gt;The&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -c&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -d&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; (archive creating and deleting) operations use a &amp;quot;cache directory&amp;quot; which allows Tarsnap to identify which blocks of data have been previously stored; this directory is specified via the &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;cachedir&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; directive in the Tarsnap configuration file or via the &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;--cachedir&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; option to Tarsnap. If the cache directory is lost or out of date, the &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -c&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap -d&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; operations will exit with an error message instructing you to run &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:8pt; color:#000000;&quot;&gt;tarsnap --fsck&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:8pt; color:#000000;&quot;&gt; to regenerate the cache directory.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:18px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;How Tarsnap archives work&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Unlike many backup systems, Tarsnap works with a concept of&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; font-style:italic; color:#000000;&quot;&gt;immutable archives&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt;. Similar to backups stored on &lt;/span&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Write_once_read_many&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;WORM drives&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt;, once a Tarsnap archive has been created, it cannot be modified; each archive is &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/crypto.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;cryptographically signed&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; to ensure that it cannot be silently modified. For obvious reasons, this also means that archives cannot be &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; font-style:italic; color:#000000;&quot;&gt;overwritten&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt;; each archive must be created with a new name.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap also makes creating new archives very fast: Because Tarsnap&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;a href=&quot;https://www.tarsnap.com/efficiency.html&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;deduplicates&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; archives against data stored in previous archives, if you have an archive already stored with a previous version of the data you're placing into a new archive, Tarsnap will automatically recognize the duplicated data and only upload the new blocks. Similarly, when you delete an archive, Tarsnap figures out which data was &lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; font-style:italic; color:#000000;&quot;&gt;only&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; in that archive, and deletes it, while leaving behind any data which is still needed by other archives.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000; background-color:#f7f7ff;&quot;&gt;In short, to use Tarsnap you should start by forgetting everything you know about managing backups. If you want a backup of your data every day, then just ask Tarsnap to create a backup of your data every day.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:37px; margin-bottom:18px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; font-weight:600; color:#000000; background-color:#f7f7ff;&quot;&gt;Tarsnap cache directory&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000; background-color:#f7f7ff;&quot;&gt;The&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:12pt; color:#000000;&quot;&gt;tarsnap -c&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:12pt; color:#000000;&quot;&gt;tarsnap -d&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; (archive creating and deleting) operations use a &amp;quot;cache directory&amp;quot; which allows Tarsnap to identify which blocks of data have been previously stored; this directory is specified via the &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:12pt; color:#000000;&quot;&gt;cachedir&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; directive in the Tarsnap configuration file or via the &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:12pt; color:#000000;&quot;&gt;--cachedir&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; option to Tarsnap. If the cache directory is lost or out of date, the &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:12pt; color:#000000;&quot;&gt;tarsnap -c&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; and &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:12pt; color:#000000;&quot;&gt;tarsnap -d&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; operations will exit with an error message instructing you to run &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-size:12pt; color:#000000;&quot;&gt;tarsnap --fsck&lt;/span&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt; to regenerate the cache directory.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#f7f7ff;&quot;&gt;&lt;span style=&quot; font-family:'Droid Sans,sans-serif'; font-size:12pt; color:#000000;&quot;&gt;More help at &lt;/span&gt;&lt;a href=&quot;http://www.tarsnap.com/gettingstarted.html&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://www.tarsnap.com/gettingstarted.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="openExternalLinks">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_7">
+             <property name="title">
+              <string>Keyboard shortcuts</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_20">
+              <property name="leftMargin">
+               <number>3</number>
+              </property>
+              <property name="topMargin">
+               <number>3</number>
+              </property>
+              <property name="rightMargin">
+               <number>3</number>
+              </property>
+              <property name="bottomMargin">
+               <number>3</number>
+              </property>
+              <item>
+               <widget class="QTextBrowser" name="keyboardShortcutsTextBrowser_5">
+                <property name="styleSheet">
+                 <string notr="true">QTextBrowser {
+background: rgba(255,255,255,170);
+border-radius: 4px;
+}</string>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
                 </property>
                </widget>
               </item>
@@ -1757,42 +1789,38 @@ p, li { white-space: pre-wrap; }
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">QGroupBox {
-font-size: 13px;
-}</string>
+              <string notr="true"/>
              </property>
              <property name="title">
               <string>Console log</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
               <property name="leftMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <property name="topMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <property name="rightMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <property name="bottomMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <item>
                <widget class="QPlainTextEdit" name="consoleLogPlainTextEdit">
                 <property name="styleSheet">
                  <string notr="true">#consoleLogPlainTextEdit
 {
-
+background: rgba(255,255,255,170);
+border-radius: 4px;
 }</string>
                 </property>
-                <property name="undoRedoEnabled">
-                 <bool>false</bool>
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
                 </property>
-                <property name="readOnly">
-                 <bool>true</bool>
-                </property>
-                <property name="plainText">
-                 <string/>
+                <property name="placeholderText">
+                 <string>No events yet</string>
                 </property>
                </widget>
               </item>

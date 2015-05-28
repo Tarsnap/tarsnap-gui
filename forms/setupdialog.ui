@@ -426,6 +426,9 @@ Check the Advanced option bellow to explicitely specify where the Tarsnap client
             <property name="openExternalLinks">
              <bool>true</bool>
             </property>
+            <property name="textInteractionFlags">
+             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+            </property>
            </widget>
           </item>
           <item row="2" column="0" colspan="2">

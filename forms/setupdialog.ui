@@ -209,9 +209,9 @@ background-image: url(&quot;:/resources/icons/light_toast.png&quot;);
        <item>
         <widget class="QLabel" name="welcomePageInfoLabel">
          <property name="text">
-          <string>This guide will help you set up Tarsnap and get started with the basics. Alternatively you can skip this wizard and set everything up from the Settings pane in the application.
+          <string>This guide will help you set up Tarsnap on your system and get started with the basics. Alternatively you can skip this wizard and set everything up from the Settings pane in the application.
 
-Check the &quot;Advanced setup&quot; option bellow to customize the setup in more detail if you're already familiar with Tarsnap.</string>
+Check the Advanced option bellow to explicitely specify where the Tarsnap client resides or a custom cache location.</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -239,6 +239,9 @@ Check the &quot;Advanced setup&quot; option bellow to customize the setup in mor
        </item>
        <item alignment="Qt::AlignBottom">
         <widget class="QCheckBox" name="advancedSetupCheckBox">
+         <property name="toolTip">
+          <string>Allows you to customize settings such as where the Tarsnap command line client resides or a custom Tarsnap cache location</string>
+         </property>
          <property name="text">
           <string>Advanced setup</string>
          </property>
@@ -975,25 +978,28 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <tabstops>
-  <tabstop>restoreNoButton</tabstop>
+  <tabstop>welcomePageRadioButton</tabstop>
   <tabstop>advancedPageRadioButton</tabstop>
   <tabstop>restorePageRadioButton</tabstop>
   <tabstop>registerAccountPageRadioButton</tabstop>
   <tabstop>donePageRadioButton</tabstop>
-  <tabstop>tarsnapUserLineEdit</tabstop>
-  <tabstop>tarsnapPasswordLineEdit</tabstop>
-  <tabstop>machineNameLineEdit</tabstop>
-  <tabstop>machineKeyLineEdit</tabstop>
-  <tabstop>registerMachineButton</tabstop>
-  <tabstop>welcomePageProceedButton</tabstop>
-  <tabstop>welcomePageSkipButton</tabstop>
-  <tabstop>welcomePageRadioButton</tabstop>
-  <tabstop>restoreYesButton</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
+  <tabstop>tarsnapCacheBrowseButton</tabstop>
+  <tabstop>tarsnapCacheLineEdit</tabstop>
   <tabstop>advancedPageProceedButton</tabstop>
+  <tabstop>welcomePageSkipButton</tabstop>
+  <tabstop>restoreNoButton</tabstop>
+  <tabstop>restoreYesButton</tabstop>
+  <tabstop>machineNameLineEdit</tabstop>
+  <tabstop>tarsnapUserLineEdit</tabstop>
+  <tabstop>welcomePageProceedButton</tabstop>
   <tabstop>doneInfoTextBrowser</tabstop>
   <tabstop>doneButton</tabstop>
+  <tabstop>advancedSetupCheckBox</tabstop>
+  <tabstop>machineKeyLineEdit</tabstop>
+  <tabstop>registerMachineButton</tabstop>
+  <tabstop>tarsnapPasswordLineEdit</tabstop>
  </tabstops>
  <resources>
   <include location="../resources.qrc"/>

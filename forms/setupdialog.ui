@@ -671,6 +671,9 @@ Check the Advanced option bellow to explicitely specify where the Tarsnap client
           </item>
           <item row="0" column="1">
            <widget class="QLineEdit" name="tarsnapUserLineEdit">
+            <property name="placeholderText">
+             <string>typically your e-mail</string>
+            </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
             </property>

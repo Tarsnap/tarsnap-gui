@@ -296,14 +296,15 @@ void SetupDialog::registerMachine()
     else
     {
         _tarsnapKeyFile = _tarsnapKeysDir + QDir::separator() + _ui->machineNameLineEdit->text()
-                          + "_" + QString::number(QDateTime::currentMSecsSinceEpoch());
+                          + "_" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss");
     }
     DEBUG << "Registration details >>\n" << _tarsnapCLIDir << ::endl
              << _tarsnapKeysDir << ::endl << _tarsnapKeyFile << ::endl
              << _tarsnapCacheDir;
 
     emit registerMachine(_ui->tarsnapUserLineEdit->text(), _ui->tarsnapPasswordLineEdit->text()
-                         , _ui->machineNameLineEdit->text(), _tarsnapKeyFile, _tarsnapCLIDir, _tarsnapCacheDir);
+                         , _ui->machineNameLineEdit->text(), _tarsnapKeyFile, _tarsnapCLIDir
+                         , _tarsnapCacheDir);
 }
 
 void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)

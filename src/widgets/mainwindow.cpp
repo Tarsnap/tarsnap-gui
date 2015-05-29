@@ -65,6 +65,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->actionBrowseItems, SIGNAL(triggered()), this, SLOT(browseForBackupItems()));
     _ui->jobListWidget->addAction(_ui->actionAddJob);
     connect(_ui->actionAddJob, SIGNAL(triggered()), this, SLOT(addJobClicked()));
+    _ui->jobListWidget->addAction(_ui->actionJobBackup);
+    connect(_ui->actionJobBackup, SIGNAL(triggered()), _ui->jobListWidget, SLOT(backupSelectedItems()));
+    _ui->settingsTab->addAction(_ui->actionRefreshStats);
+    connect(_ui->actionRefreshStats, SIGNAL(triggered()), this, SIGNAL(getOverallStats()));
     this->addAction(_ui->actionGoBackup);
     this->addAction(_ui->actionGoBrowse);
     this->addAction(_ui->actionGoJobs);

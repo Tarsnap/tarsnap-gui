@@ -20,6 +20,9 @@ signals:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void deleteJobArchives(QList<ArchivePtr> archives);
 
+public slots:
+    void backupSelectedItems();
+
 private slots:
     void backupItem();
     void inspectItem();
@@ -27,6 +30,9 @@ private slots:
     void deleteItem();
     void reloadJobs();
     void addJob(JobPtr job);
+
+protected:
+    void keyReleaseEvent(QKeyEvent *event);
 
 private:
     QList<JobPtr> getStoredJobs();

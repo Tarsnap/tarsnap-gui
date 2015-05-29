@@ -145,7 +145,7 @@ void BackupListWidget::keyReleaseEvent(QKeyEvent *event)
         removeItems();
         break;
     case Qt::Key_Escape:
-        if(this->selectedItems().count() != 0)
+        if(!selectedItems().isEmpty())
             clearSelection();
         else
             QListWidget::keyReleaseEvent(event);

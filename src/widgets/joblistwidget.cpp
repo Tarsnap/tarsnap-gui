@@ -20,6 +20,26 @@ JobListWidget::~JobListWidget()
     clear();
 }
 
+void JobListWidget::backupSelectedItems()
+{
+    if(selectedItems().isEmpty())
+        return;
+
+    QMessageBox::StandardButton button = QMessageBox::question(this, tr("Confirm action")
+                                                               , tr("Initiate backup for the %1 selected job(s)?").arg(selectedItems().count()));
+    if(button == QMessageBox::Yes)
+    {
+        foreach (QListWidgetItem *item, this->selectedItems())
+        {
+            if(item->isSelected())
+            {
+                JobPtr job = static_cast<JobListItem*>(item)->job();
+                emit backupJob(job->createBackupTask());
+            }
+        }
+    }
+}
+
 void JobListWidget::backupItem()
 {
     if(sender())
@@ -62,7 +82,7 @@ void JobListWidget::deleteItem()
     {
         JobPtr job = jobItem->job();
         QMessageBox::StandardButton confirmJobDelete = QMessageBox::question(this, tr("Confirm action")
-                                                                   , tr("Are you sure you want to delete job %1 (this cannot be undone)?").arg(job->name()));
+                                                                   , tr("Are you sure you want to delete job \"%1\" (this cannot be undone)?").arg(job->name()));
         if(confirmJobDelete == QMessageBox::Yes)
         {
             if(!job->archives().isEmpty())
@@ -100,6 +120,21 @@ void JobListWidget::addJob(JobPtr job)
         connect(item, SIGNAL(requestDelete()), this, SLOT(deleteItem()));
         insertItem(count(), item);
         setItemWidget(item, item->widget());
+    }
+}
+
+void JobListWidget::keyReleaseEvent(QKeyEvent *event)
+{
+    switch(event->key())
+    {
+    case Qt::Key_Escape:
+        if(!selectedItems().isEmpty())
+            clearSelection();
+        else
+            QListWidget::keyReleaseEvent(event);
+        break;
+    default:
+        QListWidget::keyReleaseEvent(event);
     }
 }
 

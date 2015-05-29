@@ -131,7 +131,7 @@ border-radius: 2px;
            <string>Backup</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+1 key sequence switches to this tab</string>
+           <string>Ctrl+1 switches to this tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <property name="spacing">
@@ -337,7 +337,7 @@ color: gray;
            <string>Archives</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+2 key sequence switches to this tab</string>
+           <string>Ctrl+2 switches to this tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_11">
            <property name="spacing">
@@ -744,7 +744,7 @@ selection-background-color: rgba(179, 190, 255, 120);
            <string>Jobs</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+3 key sequence switches to this tab</string>
+           <string>Ctrl+3 switches to this tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <property name="spacing">
@@ -793,6 +793,9 @@ selection-background-color: rgba(179, 190, 255, 120);
                  <property name="alternatingRowColors">
                   <bool>true</bool>
                  </property>
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::ExtendedSelection</enum>
+                 </property>
                  <property name="verticalScrollMode">
                   <enum>QAbstractItemView::ScrollPerPixel</enum>
                  </property>
@@ -835,6 +838,9 @@ selection-background-color: rgba(179, 190, 255, 120);
               </property>
               <item>
                <widget class="QPushButton" name="addJobButton">
+                <property name="toolTip">
+                 <string>Add a new job (Ctrl+n)</string>
+                </property>
                 <property name="text">
                  <string>Add job</string>
                 </property>
@@ -857,7 +863,7 @@ selection-background-color: rgba(179, 190, 255, 120);
            <string>Settings</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+4 key sequence switches to this tab</string>
+           <string>Ctrl+4 switches to this tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <property name="spacing">
@@ -906,7 +912,7 @@ border: 1px solid rgba(255,255,255,100);
                 <x>0</x>
                 <y>0</y>
                 <width>594</width>
-                <height>357</height>
+                <height>381</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1309,8 +1315,8 @@ margin-top: 6px;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>357</height>
+                <width>381</width>
+                <height>203</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1664,7 +1670,7 @@ font-size: 13px;
            <string>Help</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+5 key sequence switches to this tab</string>
+           <string>Ctrl+5 switches to this tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <property name="spacing">
@@ -1787,7 +1793,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Jobs tab&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600; text-decoration: underline;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;CTRL+A	&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;- Add new Job&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;CTRL+N	&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;- Add new Job&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;CTRL+B	&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;- Initiate backup on selected Jobs&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Settings tab&lt;/span&gt;&lt;/p&gt;
@@ -2046,10 +2052,35 @@ border: none;
   </action>
   <action name="actionAddJob">
    <property name="text">
-    <string>AddJob</string>
+    <string>Add Job</string>
+   </property>
+   <property name="toolTip">
+    <string>Add a new job</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionRefreshStats">
+   <property name="text">
+    <string>Refresh Stats</string>
+   </property>
+   <property name="toolTip">
+    <string>Refresh Tarsnap stats</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionJobBackup">
+   <property name="text">
+    <string>Backup</string>
+   </property>
+   <property name="toolTip">
+    <string>Initiate backup on selected jobs</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
    </property>
   </action>
  </widget>

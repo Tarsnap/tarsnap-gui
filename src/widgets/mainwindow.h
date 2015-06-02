@@ -53,11 +53,12 @@ public slots:
     void purgeArchivesStatus(TaskStatus status, QString reason);
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
 
+    void updateStatusMessage(QString message, QString detail = "");
+
 private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void updateInspectArchive();
-    void updateStatusMessage(QString message, QString detail = "");
     void currentPaneChanged(int index);
     void commitSettings();
     void validateMachineKeyPath();

@@ -100,6 +100,7 @@ int CoreApplication::initialize()
     connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(reinit()), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_taskManager, "getArchiveList", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(_mainWindow, "updateStatusMessage", Qt::QueuedConnection, Q_ARG(QString, tr("Refreshing archives list...")));
     _mainWindow->show();
 
     return SUCCESS;

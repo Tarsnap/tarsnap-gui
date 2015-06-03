@@ -6,6 +6,11 @@ Tarsnap GUI is built using the Qt SDK for cross platform compatibility. In order
 Tarsnap GUI for your system, you must first install the appropriate Qt 5 SDK on your system.
 Latest recommonded version for optimal results and platform support is Qt 5.4.0 or greater.
 
+First step for all platforms is to install the Tarsnap client:
+https://www.tarsnap.com/download.html
+
+Once you have the Tarsnap client installed on your machine proceed to the following:
+
 =======
 FreeBSD
 =======
@@ -14,23 +19,50 @@ KDE Desktop
 -----------
 Last tested on FreeBSD 10.1 with Qt version Qt 5.3.2 and KDE 4.14.2.
 
-1. $pkg install qt5-core qt5-widgets qt5-qmake qt5-network qt5-buildtools qt5-sql qt5-sqldrivers-sqlite3
-2. $git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
-2' optional: switch to the desired version, e.g. $git checkout "v0.3"
-3. $/usr/local/lib/qt5/bin/qmake
-4. Edit the resulted Makefile and append ",-L,/usr/local/lib" to the LFLAGS line. Somehow
+1) pkg install git qt5-core qt5-widgets qt5-qmake qt5-network qt5-buildtools qt5-sql qt5-sqldrivers-sqlite3
+2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
+3) git checkout v0.5 # switch to the desired version
+4) /usr/local/lib/qt5/bin/qmake
+5) Edit the resulted Makefile and append ",-L,/usr/local/lib" to the LFLAGS line. Somehow
 the clang++ spec of qmake ommits that on FreeBSD. The complete line should look like this:
 LFLAGS        = -pthread -Wl,-rpath,/usr/local/lib,-L,/usr/local/lib
-5. $make
-6. $./tarsnap-gui
+6) make
+7) ./tarsnap-gui
 
 GNOME Desktop
 -------------
 
-====
-OS X
-====
+=============
+OS X Yosemite
+=============
 
-=====
-Linux
-=====
+
+
+====================
+Debian based distros
+====================
+
+These steps apply to all the Debian(included) based flavors and have been tested on these distros
+so far:
+
+* Ubuntu 15.04 Vivid
+* Ubuntu 14.04.2 LTS Trusty
+* Linux Mint 17.1 Cinnamon
+
+All of them seem to include the Qt5 SDK in the official main repos.
+
+1) sudo apt-get install g++ git qtbase5-dev
+2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
+3) git checkout v0.5 # switch to the desired version
+4) export QT_SELECT=qt5
+5) qmake && make -j$(nproc)
+6) ./tarsnap-gui
+
+=====================
+Red Hat based distros
+=====================
+
+No specific testing has been done on Fedora, CentOS and the likes. Though adapting the package
+manager step(to rpm) and looking for the proper Qt5 packages to install should be the only
+difference.
+

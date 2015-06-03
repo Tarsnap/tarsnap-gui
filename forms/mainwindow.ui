@@ -1844,9 +1844,9 @@ p, li { white-space: pre-wrap; }
                <number>2</number>
               </property>
               <item>
-               <widget class="QPlainTextEdit" name="consoleLogPlainTextEdit">
+               <widget class="QTextEdit" name="consoleLogTextEdit">
                 <property name="styleSheet">
-                 <string notr="true">#consoleLogPlainTextEdit
+                 <string notr="true">#consoleLogTextEdit
 {
 background: rgba(255,255,255,170);
 border-radius: 4px;
@@ -1857,6 +1857,9 @@ border-radius: 4px;
                 </property>
                 <property name="readOnly">
                  <bool>true</bool>
+                </property>
+                <property name="acceptRichText">
+                 <bool>false</bool>
                 </property>
                 <property name="placeholderText">
                  <string>No events yet</string>

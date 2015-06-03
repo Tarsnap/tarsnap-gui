@@ -79,6 +79,9 @@ background-image: url(&quot;:/resources/icons/light_toast.png&quot;);
       </item>
       <item>
        <widget class="QRadioButton" name="welcomePageRadioButton">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -98,6 +101,9 @@ background-image: url(&quot;:/resources/icons/light_toast.png&quot;);
         <property name="enabled">
          <bool>false</bool>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -108,6 +114,9 @@ background-image: url(&quot;:/resources/icons/light_toast.png&quot;);
         <property name="enabled">
          <bool>false</bool>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -117,6 +126,9 @@ background-image: url(&quot;:/resources/icons/light_toast.png&quot;);
        <widget class="QRadioButton" name="registerAccountPageRadioButton">
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
         </property>
         <property name="text">
          <string/>
@@ -133,6 +145,9 @@ background-image: url(&quot;:/resources/icons/light_toast.png&quot;);
           <width>16777215</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
         </property>
         <property name="text">
          <string/>
@@ -984,28 +999,23 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <tabstops>
-  <tabstop>welcomePageRadioButton</tabstop>
-  <tabstop>advancedPageRadioButton</tabstop>
-  <tabstop>restorePageRadioButton</tabstop>
-  <tabstop>registerAccountPageRadioButton</tabstop>
-  <tabstop>donePageRadioButton</tabstop>
+  <tabstop>advancedSetupCheckBox</tabstop>
+  <tabstop>welcomePageSkipButton</tabstop>
+  <tabstop>welcomePageProceedButton</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
   <tabstop>tarsnapCacheBrowseButton</tabstop>
   <tabstop>tarsnapCacheLineEdit</tabstop>
   <tabstop>advancedPageProceedButton</tabstop>
-  <tabstop>welcomePageSkipButton</tabstop>
   <tabstop>restoreNoButton</tabstop>
   <tabstop>restoreYesButton</tabstop>
-  <tabstop>machineNameLineEdit</tabstop>
   <tabstop>tarsnapUserLineEdit</tabstop>
-  <tabstop>welcomePageProceedButton</tabstop>
-  <tabstop>doneInfoTextBrowser</tabstop>
-  <tabstop>doneButton</tabstop>
-  <tabstop>advancedSetupCheckBox</tabstop>
+  <tabstop>tarsnapPasswordLineEdit</tabstop>
+  <tabstop>machineNameLineEdit</tabstop>
   <tabstop>machineKeyLineEdit</tabstop>
   <tabstop>registerMachineButton</tabstop>
-  <tabstop>tarsnapPasswordLineEdit</tabstop>
+  <tabstop>doneInfoTextBrowser</tabstop>
+  <tabstop>doneButton</tabstop>
  </tabstops>
  <resources>
   <include location="../resources.qrc"/>

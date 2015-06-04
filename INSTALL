@@ -4,8 +4,8 @@ General
 
 Tarsnap GUI is built using the Qt SDK for cross platform compatibility. In order to build
 Tarsnap GUI for your system, you must first install the appropriate Qt 5 SDK on your system.
-Latest recommended version for optimal results and platform support is Qt 5.4.0 or greater, though
-it is known to behave just fine on at least Qt 5.2.1.
+Latest recommended version for optimal results and platform support is Qt 5.4.0 or greater,
+though it is known to behave just fine on at least Qt 5.2.1.
 
 First step for all platforms is to install the Tarsnap client:
 https://www.tarsnap.com/download.html
@@ -46,9 +46,7 @@ Hint: Homebrew installs the tarsnap binaries in /usr/local/bin, so use that in t
 FreeBSD
 =======
 
-KDE Desktop
------------
-Last tested on FreeBSD 10.1 with Qt version Qt 5.3.2 and KDE 4.14.2.
+Last tested on FreeBSD 10.1 with Qt version 5.3.2 and KDE 4 and GNOME 3.
 
 1) pkg install git qt5-core qt5-widgets qt5-qmake qt5-network qt5-buildtools qt5-sql qt5-sqldrivers-sqlite3
 2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
@@ -57,12 +55,8 @@ Last tested on FreeBSD 10.1 with Qt version Qt 5.3.2 and KDE 4.14.2.
 5) Edit the resulted Makefile and append ",-L,/usr/local/lib" to the LFLAGS line. Somehow
 the clang++ spec of qmake ommits that on FreeBSD. The complete line should look like this:
 LFLAGS        = -pthread -Wl,-rpath,/usr/local/lib,-L,/usr/local/lib
-6) make
+6) make -j$(sysctl -n hw.ncpu)
 7) ./tarsnap-gui
-
-GNOME Desktop
--------------
-
 
 
 ====================

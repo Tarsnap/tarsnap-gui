@@ -44,6 +44,8 @@ SetupDialog::SetupDialog(QWidget *parent) :
     connect(_ui->tarsnapPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateAdvancedSetupPage()));
     connect(_ui->tarsnapCacheBrowseButton, SIGNAL(clicked()), this, SLOT(showTarsnapCacheBrowse()));
     connect(_ui->tarsnapCacheLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateAdvancedSetupPage()));
+    connect(_ui->appDataBrowseButton, SIGNAL(clicked()), this, SLOT(showAppDataBrowse()));
+    connect(_ui->appDataPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateAdvancedSetupPage()));
     connect(_ui->advancedPageProceedButton, SIGNAL(clicked()), this, SLOT(setNextPage()));
 
     // Restore page
@@ -62,13 +64,14 @@ SetupDialog::SetupDialog(QWidget *parent) :
     connect(_ui->doneButton, SIGNAL(clicked()), this, SLOT(commitSettings()));
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
-    _tarsnapKeysDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    _appDataDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 #else
-    _tarsnapKeysDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    _appDataDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #endif
-    QDir keysDir(_tarsnapKeysDir);
+    QDir keysDir(_appDataDir);
     if(!keysDir.exists())
-        keysDir.mkpath(_tarsnapKeysDir);
+        keysDir.mkpath(_appDataDir);
+    _ui->appDataPathLineEdit->setText(_appDataDir);
 
     _tarsnapCacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
     QDir cacheDir(_tarsnapCacheDir);
@@ -78,9 +81,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
 
     _tarsnapCLIDir = Utils::findTarsnapClientInPath("", true);
     _ui->tarsnapPathLineEdit->setText(_tarsnapCLIDir);
-
     _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
-
     _ui->wizardStackedWidget->setCurrentWidget(_ui->welcomePage);
 }
 
@@ -152,7 +153,7 @@ void SetupDialog::setNextPage()
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
     {
         if(_ui->advancedSetupCheckBox->isChecked() || _tarsnapCLIDir.isEmpty()
-           || _tarsnapCacheDir.isEmpty() || _tarsnapKeysDir.isEmpty())
+           || _tarsnapCacheDir.isEmpty() || _appDataDir.isEmpty())
         {
             _ui->wizardStackedWidget->setCurrentWidget(_ui->advancedPage);
             _ui->advancedSetupCheckBox->setChecked(true);
@@ -184,33 +185,40 @@ void SetupDialog::setNextPage()
 void SetupDialog::showTarsnapPathBrowse()
 {
     QString tarsnapPath = QFileDialog::getExistingDirectory(this,
-                                                            tr("Find Tarsnap client")
-                                                            , "");
+                                                            tr("Find Tarsnap client"), "");
     _ui->tarsnapPathLineEdit->setText(tarsnapPath);
 }
 
 void SetupDialog::showTarsnapCacheBrowse()
 {
     QString tarsnapCacheDir = QFileDialog::getExistingDirectory(this,
-                                                            tr("Tarsnap cache location"),
-                                                            _tarsnapCacheDir);
+                                                            tr("Tarsnap cache location"), _tarsnapCacheDir);
     _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
+}
+
+void SetupDialog::showAppDataBrowse()
+{
+    QString appDataDir = QFileDialog::getExistingDirectory(this,
+                                                            tr("App data location"), "");
+    _ui->appDataPathLineEdit->setText(appDataDir);
 }
 
 bool SetupDialog::validateAdvancedSetupPage()
 {
     bool result = false;
 
-    _tarsnapCLIDir = Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text(), true);
+    _tarsnapCLIDir   = Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text(), true);
     _tarsnapCacheDir = Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text());
-
-    if(!_tarsnapCLIDir.isEmpty())
-        result = true;
-
-    if(!_tarsnapCacheDir.isEmpty())
-        result = result && true;
+    QFileInfo appDataDir(_ui->appDataPathLineEdit->text());
+    if(appDataDir.exists() && appDataDir.isDir() && appDataDir.isWritable())
+        _appDataDir = _ui->appDataPathLineEdit->text();
     else
+        _appDataDir.clear();
+
+    if(_tarsnapCLIDir.isEmpty() || _tarsnapCacheDir.isEmpty() || _appDataDir.isEmpty())
         result = false;
+    else
+        result = true;
 
     _ui->advancedPageProceedButton->setEnabled(result);
 
@@ -295,11 +303,11 @@ void SetupDialog::registerMachine()
     }
     else
     {
-        _tarsnapKeyFile = _tarsnapKeysDir + QDir::separator() + _ui->machineNameLineEdit->text()
+        _tarsnapKeyFile = _appDataDir + QDir::separator() + _ui->machineNameLineEdit->text()
                           + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
                           + ".key";
     }
-    DEBUG << "Registration details >>\n" << _tarsnapCLIDir << ::endl << _tarsnapKeysDir << ::endl
+    DEBUG << "Registration details >>\n" << _tarsnapCLIDir << ::endl << _appDataDir << ::endl
           << _tarsnapKeyFile << ::endl << _tarsnapCacheDir;
 
     emit registerMachine(_ui->tarsnapUserLineEdit->text(), _ui->tarsnapPasswordLineEdit->text()
@@ -351,7 +359,7 @@ void SetupDialog::commitSettings(bool skipped)
     settings.setValue("application/wizardDone", true);
     if(!skipped)
     {
-        settings.setValue("app/appdata",    _tarsnapKeysDir);
+        settings.setValue("app/appdata",    _appDataDir);
         settings.setValue("tarsnap/path",   _tarsnapCLIDir);
         settings.setValue("tarsnap/cache",  _tarsnapCacheDir);
         settings.setValue("tarsnap/key",    _tarsnapKeyFile);

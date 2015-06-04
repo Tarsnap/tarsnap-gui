@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>400</height>
+    <height>409</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -378,7 +378,7 @@ Check the Advanced option bellow to explicitely specify where the Tarsnap client
           <item row="1" column="0">
            <widget class="QPushButton" name="tarsnapPathBrowseButton">
             <property name="text">
-             <string>Browse</string>
+             <string>Change</string>
             </property>
             <property name="autoDefault">
              <bool>false</bool>
@@ -404,7 +404,7 @@ Check the Advanced option bellow to explicitely specify where the Tarsnap client
           <item row="3" column="0">
            <widget class="QPushButton" name="tarsnapCacheBrowseButton">
             <property name="text">
-             <string>Browse</string>
+             <string>Change</string>
             </property>
             <property name="autoDefault">
              <bool>false</bool>
@@ -427,7 +427,7 @@ Check the Advanced option bellow to explicitely specify where the Tarsnap client
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The app requires the Tarsnap Command Line Interface(CLI) backend to be installed on this system. Please point to the correct path where the Tarsnap CLI resides. Information on installing Tarsnap CLI can be found &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The app uses the Tarsnap Command Line Interface to communicate with the Tarsnap service. Please point to the path where the Tarsnap CLI is installed on this system. Information on installing Tarsnap CLI can be found &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -449,10 +449,37 @@ Check the Advanced option bellow to explicitely specify where the Tarsnap client
           <item row="2" column="0" colspan="2">
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Tarsnap caches information about what it has uploaded in a local directory.</string>
+             <string>Tarsnap caches information about what it has uploaded in a local directory:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" colspan="2">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>The app data directory is used to store job settings and machine keys:</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QPushButton" name="appDataBrowseButton">
+            <property name="text">
+             <string>Change</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="appDataPathLineEdit">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
+             <string>Application data directory</string>
             </property>
            </widget>
           </item>
@@ -643,7 +670,7 @@ Check the Advanced option bellow to explicitely specify where the Tarsnap client
        <item>
         <widget class="QLabel" name="registerPageInfoLabel">
          <property name="text">
-          <string>Please use your Tarsnap account credentials. Don't have an account? Register one &lt;a href=&quot;http://tarsnap.com&quot;&gt;here&lt;/a&gt;.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please use your Tarsnap account credentials. Don't have an account? Register on &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;tarsnap.com&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -687,7 +714,7 @@ Check the Advanced option bellow to explicitely specify where the Tarsnap client
           <item row="0" column="1">
            <widget class="QLineEdit" name="tarsnapUserLineEdit">
             <property name="placeholderText">
-             <string>typically your e-mail</string>
+             <string>your e-mail</string>
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
@@ -750,7 +777,7 @@ Check the Advanced option bellow to explicitely specify where the Tarsnap client
              <string/>
             </property>
             <property name="placeholderText">
-             <string>path to your existing keyfile</string>
+             <string>path to your machine key file</string>
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>

@@ -25,6 +25,7 @@ public slots:
     void setNextPage();
     void showTarsnapPathBrowse();
     void showTarsnapCacheBrowse();
+    void showAppDataBrowse();
     bool validateAdvancedSetupPage();
     void restoreNo();
     void restoreYes();
@@ -54,7 +55,7 @@ private:
 //    QString _tarsnapUser;
 //    QString _tarsnapPassword;
     QString _tarsnapCacheDir;
-    QString _tarsnapKeysDir;
+    QString _appDataDir;
     QString _tarsnapKeyFile;
     bool    _haveKey;
 };

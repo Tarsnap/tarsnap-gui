@@ -296,7 +296,7 @@ void SetupDialog::registerMachine()
     else
     {
         _tarsnapKeyFile = _tarsnapKeysDir + QDir::separator() + _ui->machineNameLineEdit->text()
-                          + "_" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
+                          + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
                           + ".key";
     }
     DEBUG << "Registration details >>\n" << _tarsnapCLIDir << ::endl << _tarsnapKeysDir << ::endl

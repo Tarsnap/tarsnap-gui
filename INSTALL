@@ -4,12 +4,43 @@ General
 
 Tarsnap GUI is built using the Qt SDK for cross platform compatibility. In order to build
 Tarsnap GUI for your system, you must first install the appropriate Qt 5 SDK on your system.
-Latest recommonded version for optimal results and platform support is Qt 5.4.0 or greater.
+Latest recommended version for optimal results and platform support is Qt 5.4.0 or greater, though
+it is known to behave just fine on at least Qt 5.2.1.
 
 First step for all platforms is to install the Tarsnap client:
 https://www.tarsnap.com/download.html
 
 Once you have the Tarsnap client installed on your machine proceed to the following:
+
+===============
+OS X (Yosemite)
+===============
+
+Assuming that you have already built and installed the Tarsnap command line client, you must have
+already configured your system for development. As a minimum requirement for Qt development you'll
+need to install install Xcode and the Xcode command line tools.
+
+Then you need to install the proper Qt 5 SDK via one of the following means:
+* Via the Qt Online Installer from https://www.qt.io/download-open-source/
+* Via Homebrew from http://brew.sh (You can install Tarsnap CLI via Homebrew too)
+
+Unless you're planning on doing development for the app, I would recommend the Homebrew approach for
+the simple reason that it gets you up and running with the minimum ammount of effort. After you
+install homebrew all you need to do is "brew install tarsnap qt5" to get the requirements in place.
+
+Assuming you survived up until now, let's proceed to the actual steps for building the app for your
+system:
+
+1) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
+2) git checkout v0.5 # switch to the desired version
+3) qmake # /usr/local/opt/qt5/bin/qmake for Homebrew
+4) make -j$(sysctl -n hw.ncpu)
+5) open ./Tarsnap.app
+
+Optionally, if you want to install the app on your system:
+6) cp -r ./Tarsnap.app /Applications/
+
+Hint: Homebrew installs the tarsnap binaries in /usr/local/bin, so use that in the Setup Wizard.
 
 =======
 FreeBSD
@@ -32,10 +63,6 @@ LFLAGS        = -pthread -Wl,-rpath,/usr/local/lib,-L,/usr/local/lib
 GNOME Desktop
 -------------
 
-=============
-OS X Yosemite
-=============
-
 
 
 ====================
@@ -48,6 +75,7 @@ so far:
 * Ubuntu 15.04 Vivid
 * Ubuntu 14.04.2 LTS Trusty
 * Linux Mint 17.1 Cinnamon
+* Debian 8 Jessie
 
 All of them seem to include the Qt5 SDK in the official main repos.
 
@@ -63,6 +91,6 @@ Red Hat based distros
 =====================
 
 No specific testing has been done on Fedora, CentOS and the likes. Though adapting the package
-manager step(to rpm) and looking for the proper Qt5 packages to install should be the only
+manager step(to rpm/yum) and looking for the proper Qt5 packages to install should be the only
 difference.
 

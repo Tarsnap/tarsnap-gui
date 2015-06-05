@@ -1,7 +1,12 @@
+Version 0.4
+-----------
+Implemented the PersistentStore along with the Jobs functionality.
+Basic Archive restore. Many other improvements, fixes.
+
 Version 0.3
 -----------
 Implemented settings pane along with the options and actions that make sense and
-are helpful at the current state.
+are helpful at the current state. Many other improvements, fixes.
 
 Version 0.2
 -----------

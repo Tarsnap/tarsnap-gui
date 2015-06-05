@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Select files and directories</string>
+   <string>File Browser</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">

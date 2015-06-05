@@ -321,7 +321,7 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
     {
         case TaskStatus::Completed:
             _ui->errorLabel->clear();
-            _ui->doneInfoTextBrowser->setHtml(_ui->doneInfoTextBrowser->toHtml().arg(_tarsnapKeyFile).arg(_tarsnapKeyFile));
+            _ui->doneInfoTextBrowser->setHtml(_ui->doneInfoTextBrowser->toHtml().arg(_tarsnapKeyFile));
             _ui->doneButton->setEnabled(true);
             setNextPage();
             break;

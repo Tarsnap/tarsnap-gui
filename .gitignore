@@ -8,4 +8,4 @@ ui_*.h
 moc_*.cpp
 qrc_resources.cpp
 # compiled executable
-Tarsnappy
+tarsnap-gui

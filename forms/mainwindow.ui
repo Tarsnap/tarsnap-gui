@@ -978,6 +978,9 @@ border: 1px solid rgba(255,255,255,100);
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="toolTip">
+                        <string>Not implemented yet</string>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -993,6 +996,9 @@ border: 1px solid rgba(255,255,255,100);
                          <weight>75</weight>
                          <bold>true</bold>
                         </font>
+                       </property>
+                       <property name="toolTip">
+                        <string>Not implemented yet</string>
                        </property>
                        <property name="text">
                         <string/>

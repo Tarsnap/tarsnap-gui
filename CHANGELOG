@@ -1,3 +1,8 @@
+Version 0.5
+-----------
+Improvements and additions to Settings and Help panes. General polishing, fixing
+and preparedness for public release.
+
 Version 0.4
 -----------
 Implemented the PersistentStore along with the Jobs functionality.

@@ -33,7 +33,7 @@ int CoreApplication::initialize()
     QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
     QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
-    QCoreApplication::setApplicationVersion(QLatin1String("v0.4"));
+    QCoreApplication::setApplicationVersion(QLatin1String("0.5"));
 
     QSettings settings;
     if(!settings.value("application/wizardDone", false).toBool())

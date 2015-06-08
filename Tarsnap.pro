@@ -5,13 +5,17 @@
 #-------------------------------------------------
 
 QT       += core gui network sql
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
-TARGET = tarsnap-gui
-TEMPLATE = app
-
 CONFIG += c++11
+
+TEMPLATE = app
+TARGET = tarsnap-gui
+
+VERSION = 0.4
+#QMAKE_TARGET_COMPANY = Tarsnap Backup Inc.
+#QMAKE_TARGET_PRODUCT = Tarsnap
+#QMAKE_TARGET_DESCRIPTION = GUI frontend for Tarsnap
+#QMAKE_TARGET_COPYRIGHT = copyright Tarsnap Backup Inc.
 
 SOURCES += \
     src/coreapplication.cpp \

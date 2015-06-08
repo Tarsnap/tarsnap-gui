@@ -1350,113 +1350,17 @@ margin-top: 6px;
                   <property name="horizontalSpacing">
                    <number>6</number>
                   </property>
-                  <item row="6" column="0">
-                   <widget class="QLabel" name="downloadsDirLabel">
-                    <property name="text">
-                     <string>Downloads directory:</string>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="7" column="0">
-                   <spacer name="verticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="4" column="0" colspan="4">
-                   <widget class="QCheckBox" name="siPrefixesCheckBox">
-                    <property name="toolTip">
-                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is based on base 2</string>
-                    </property>
-                    <property name="text">
-                     <string>Use SI notation instead of IEC byte multipliers</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0" colspan="4">
-                   <widget class="QCheckBox" name="traverseMountCheckBox">
-                    <property name="toolTip">
-                     <string>Cross mount points when creating archives</string>
-                    </property>
-                    <property name="text">
-                     <string>Traverse mounted points</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="2">
-                   <widget class="QPushButton" name="downloadsDirBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>Browse</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0" colspan="4">
-                   <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
-                    <property name="toolTip">
-                     <string>Use multiple TCP connections to send data to the Tarsnap server</string>
-                    </property>
-                    <property name="text">
-                     <string>Aggressive networking</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="1">
-                   <widget class="QLineEdit" name="downloadsDirLineEdit">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0" colspan="4">
-                   <widget class="QCheckBox" name="preservePathsCheckBox">
-                    <property name="toolTip">
-                     <string>Preseve absolute pathnames by not removing leading slashes</string>
-                    </property>
-                    <property name="text">
-                     <string>Preserve pathnames globally</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0" colspan="4">
-                   <widget class="QCheckBox" name="followSymLinksCheckBox">
-                    <property name="toolTip">
-                     <string>If checked all symbolic links will be followed when creating an archive</string>
-                    </property>
-                    <property name="text">
-                     <string>Follow symbolic links</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="0">
                    <widget class="QLabel" name="label_3">
                     <property name="text">
                      <string>Skip files larger than:</string>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
                    </widget>
                   </item>
-                  <item row="5" column="1">
+                  <item row="7" column="1">
                    <widget class="QSpinBox" name="skipFilesSpinBox">
                     <property name="enabled">
                      <bool>true</bool>
@@ -1493,6 +1397,135 @@ margin-top: 6px;
                     </property>
                     <property name="value">
                      <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0" colspan="4">
+                   <widget class="QCheckBox" name="preservePathsCheckBox">
+                    <property name="toolTip">
+                     <string>Preseve absolute pathnames by not removing leading slashes</string>
+                    </property>
+                    <property name="text">
+                     <string>Preserve pathnames globally</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0" colspan="4">
+                   <widget class="QCheckBox" name="followSymLinksCheckBox">
+                    <property name="toolTip">
+                     <string>If checked all symbolic links will be followed when creating an archive</string>
+                    </property>
+                    <property name="text">
+                     <string>Follow symbolic links</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0" colspan="4">
+                   <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
+                    <property name="toolTip">
+                     <string>Use multiple TCP connections to send data to the Tarsnap server</string>
+                    </property>
+                    <property name="text">
+                     <string>Aggressive networking</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="2">
+                   <widget class="QPushButton" name="downloadsDirBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Browse</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="1">
+                   <widget class="QLineEdit" name="downloadsDirLineEdit">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0" colspan="4">
+                   <widget class="QCheckBox" name="siPrefixesCheckBox">
+                    <property name="toolTip">
+                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is based on base 2</string>
+                    </property>
+                    <property name="text">
+                     <string>Use SI notation instead of IEC byte multipliers</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0" colspan="4">
+                   <widget class="QCheckBox" name="traverseMountCheckBox">
+                    <property name="toolTip">
+                     <string>Cross mount points when creating archives</string>
+                    </property>
+                    <property name="text">
+                     <string>Traverse mounted points</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="0">
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="8" column="0">
+                   <widget class="QLabel" name="downloadsDirLabel">
+                    <property name="text">
+                     <string>Downloads directory:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="0">
+                   <widget class="QLabel" name="label_7">
+                    <property name="text">
+                     <string>App version:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="1">
+                   <widget class="QLabel" name="appVersionLabel">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="2">
+                   <widget class="QPushButton" name="checkUpdateButton">
+                    <property name="toolTip">
+                     <string/>
+                    </property>
+                    <property name="text">
+                     <string>Check for update</string>
                     </property>
                    </widget>
                   </item>

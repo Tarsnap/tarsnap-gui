@@ -40,6 +40,12 @@ MainWindow::MainWindow(QWidget *parent) :
     _tarsnapLogo->lower();
     _tarsnapLogo->show();
 
+    _ui->appVersionLabel->setText(QCoreApplication::applicationVersion());
+    connect(_ui->checkUpdateButton, &QPushButton::clicked,
+            [=](){
+                QDesktopServices::openUrl(QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
+            });
+
     _ui->mainContentSplitter->setCollapsible(0, false);
     _ui->journalLog->hide();
     _ui->loadingIconLabel->setMovie(&_loadingAnimation);

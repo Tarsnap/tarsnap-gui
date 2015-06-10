@@ -186,7 +186,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "-d";
+    args << "--print-stats" << "-d";
     foreach (ArchivePtr archive, archives) {
         args << "-f" << archive->name();
     }
@@ -298,6 +298,7 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
         backupTask->setStatus(TaskStatus::Completed);
         _archiveMap[archive->uuid()] = archive;
         emit archiveList(_archiveMap.values());
+        parseGlobalStats(output);
     }
     else
     {
@@ -367,6 +368,7 @@ void TaskManager::getArchiveListFinished(QUuid uuid, QVariant data, int exitCode
             }
         }
         emit archiveList(_archiveMap.values());
+        getOverallStats();
     }
 }
 
@@ -382,6 +384,7 @@ void TaskManager::getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCod
     if(exitCode == 0)
     {
         parseArchiveStats(output, false, archive);
+        parseGlobalStats(output);
     }
 }
 
@@ -403,7 +406,7 @@ void TaskManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exit
 
 void TaskManager::deleteArchivesFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
-    Q_UNUSED(uuid);Q_UNUSED(output);
+    Q_UNUSED(uuid);
     if(exitCode == 0)
     {
         QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
@@ -416,6 +419,7 @@ void TaskManager::deleteArchivesFinished(QUuid uuid, QVariant data, int exitCode
             emit archiveList(_archiveMap.values());
             emit archivesDeleted(archives);
         }
+        parseGlobalStats(output);
     }
 }
 
@@ -423,47 +427,9 @@ void TaskManager::overallStatsFinished(QUuid uuid, QVariant data, int exitCode, 
 {
     Q_UNUSED(uuid);Q_UNUSED(data);
 
-    qint64      sizeTotal;
-    qint64      sizeCompressed;
-    qint64      sizeUniqueTotal;
-    qint64      sizeUniqueCompressed;
-
     if(exitCode == 0)
     {
-        QStringList lines = output.trimmed().split('\n', QString::SkipEmptyParts);
-        if(lines.count() != 3)
-        {
-            DEBUG << "Malformed output from tarsnap CLI:\n" << output;
-            return;
-        }
-        QRegExp sizeRX("^All archives\\s+(\\d+)\\s+(\\d+)$");
-        QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
-        if(-1 != sizeRX.indexIn(lines[1]))
-        {
-            QStringList captured = sizeRX.capturedTexts();
-            captured.removeFirst();
-            sizeTotal = captured[0].toLongLong();
-            sizeCompressed = captured[1].toLongLong();
-        }
-        else
-        {
-            DEBUG << "Malformed output from tarsnap CLI:\n" << output;
-            return;
-        }
-        if(-1 != uniqueSizeRX.indexIn(lines[2]))
-        {
-            QStringList captured = uniqueSizeRX.capturedTexts();
-            captured.removeFirst();
-            sizeUniqueTotal = captured[0].toLongLong();
-            sizeUniqueCompressed = captured[1].toLongLong();
-        }
-        else
-        {
-            DEBUG << "Malformed output from tarsnap CLI:\n" << output;
-            return;
-        }
-        emit overallStats(sizeTotal, sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed
-                          , _archiveMap.count(), 0.0f, tr("Normal"));
+        parseGlobalStats(output);
     }
 }
 
@@ -543,6 +509,49 @@ void TaskManager::dequeueTask(QUuid uuid, QVariant data, int exitCode, QString o
         else
             startTask(NULL);
     }
+}
+
+void TaskManager::parseGlobalStats(QString tarsnapOutput)
+{
+    qint64 sizeTotal;
+    qint64 sizeCompressed;
+    qint64 sizeUniqueTotal;
+    qint64 sizeUniqueCompressed;
+
+    QStringList lines = tarsnapOutput.trimmed().split('\n', QString::SkipEmptyParts);
+    if(lines.count() < 3)
+    {
+        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
+        return;
+    }
+    QRegExp sizeRX("^All archives\\s+(\\d+)\\s+(\\d+)$");
+    QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
+    if(-1 != sizeRX.indexIn(lines[1]))
+    {
+        QStringList captured = sizeRX.capturedTexts();
+        captured.removeFirst();
+        sizeTotal = captured[0].toLongLong();
+        sizeCompressed = captured[1].toLongLong();
+    }
+    else
+    {
+        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
+        return;
+    }
+    if(-1 != uniqueSizeRX.indexIn(lines[2]))
+    {
+        QStringList captured = uniqueSizeRX.capturedTexts();
+        captured.removeFirst();
+        sizeUniqueTotal = captured[0].toLongLong();
+        sizeUniqueCompressed = captured[1].toLongLong();
+    }
+    else
+    {
+        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
+        return;
+    }
+    emit overallStats(sizeTotal, sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed
+                      , _archiveMap.count(), 0.0f, tr("Normal"));
 }
 
 void TaskManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive)

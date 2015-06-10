@@ -73,6 +73,7 @@ private slots:
     void dequeueTask(QUuid uuid, QVariant data, int exitCode, QString output);
 
 private:
+    void parseGlobalStats(QString tarsnapOutput);
     void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive);
     QString makeTarsnapCommand(QString cmd);
 

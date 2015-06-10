@@ -515,10 +515,10 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
 void MainWindow::currentPaneChanged(int index)
 {
     Q_UNUSED(index);
-    if(_ui->mainTabWidget->currentWidget() == _ui->settingsTab)
-    {
-        emit getOverallStats();
-    }
+//    if(_ui->mainTabWidget->currentWidget() == _ui->settingsTab)
+//    {
+//        emit getOverallStats();
+//    }
 }
 
 void MainWindow::commitSettings()

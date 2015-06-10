@@ -1706,7 +1706,7 @@ font-size: 13px;
 }
 #helpTab  QGroupBox::title {
 background: transparent;
-margin: 5px 0px 0px 6px;
+margin: 1px 0px 0px 6px;
 }</string>
           </property>
           <attribute name="title">

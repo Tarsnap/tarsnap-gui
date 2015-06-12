@@ -1287,7 +1287,7 @@ margin-top: 6px;
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Browse</string>
+                     <string>Change</string>
                     </property>
                    </widget>
                   </item>
@@ -1442,7 +1442,7 @@ margin-top: 6px;
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Browse</string>
+                     <string>Change</string>
                     </property>
                    </widget>
                   </item>
@@ -1587,8 +1587,14 @@ margin-top: 6px;
                   </item>
                   <item row="0" column="1" colspan="2">
                    <widget class="QLineEdit" name="tarsnapPathLineEdit">
+                    <property name="toolTip">
+                     <string>Must point to the Tarsnap CLI utilities directory</string>
+                    </property>
                     <property name="text">
                      <string/>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Tarsnap client utilities directory</string>
                     </property>
                    </widget>
                   </item>
@@ -1600,8 +1606,11 @@ margin-top: 6px;
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="toolTip">
+                     <string>Tarsnap caches information about what it has uploaded in a local directory</string>
+                    </property>
                     <property name="text">
-                     <string>Tarsnap cache path:</string>
+                     <string>Tarsnap cache directory:</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1612,6 +1621,9 @@ margin-top: 6px;
                    <widget class="QLineEdit" name="tarsnapCacheLineEdit">
                     <property name="text">
                      <string/>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Tarsnap cache directory</string>
                     </property>
                    </widget>
                   </item>
@@ -1634,14 +1646,17 @@ margin-top: 6px;
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Browse</string>
+                     <string>Change</string>
                     </property>
                    </widget>
                   </item>
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_20">
+                    <property name="toolTip">
+                     <string>The Tarsnap command line interface utilities are used to communicate with the Tarsnap service</string>
+                    </property>
                     <property name="text">
-                     <string>Tarsnap client path:</string>
+                     <string>Tarsnap client directory:</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1657,7 +1672,7 @@ margin-top: 6px;
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Browse</string>
+                     <string>Change</string>
                     </property>
                    </widget>
                   </item>

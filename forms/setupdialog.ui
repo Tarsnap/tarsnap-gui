@@ -377,6 +377,9 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           </property>
           <item row="1" column="0">
            <widget class="QPushButton" name="tarsnapPathBrowseButton">
+            <property name="toolTip">
+             <string>Look for the Tarsnap CLI utilities</string>
+            </property>
             <property name="text">
              <string>Change</string>
             </property>
@@ -387,6 +390,9 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="tarsnapPathLineEdit">
+            <property name="toolTip">
+             <string>Must point to the Tarsnap CLI utilities directory</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -394,7 +400,7 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
              <bool>true</bool>
             </property>
             <property name="placeholderText">
-             <string>Tarsnap client location</string>
+             <string>Tarsnap client utils not found</string>
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
@@ -403,6 +409,9 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           </item>
           <item row="3" column="0">
            <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+            <property name="toolTip">
+             <string>Change Tarsnap cache directory</string>
+            </property>
             <property name="text">
              <string>Change</string>
             </property>
@@ -417,7 +426,7 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
              <bool>true</bool>
             </property>
             <property name="placeholderText">
-             <string>Tarsnap cache location</string>
+             <string>Tarsnap cache directory</string>
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
@@ -427,7 +436,7 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The app uses the Tarsnap Command Line Interface to communicate with the Tarsnap service. Please point to the path where the Tarsnap CLI is installed on this system. Information on installing Tarsnap CLI can be found &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Tarsnap command line interface utilities are used to communicate with the Tarsnap service. Please point to the directory path where the Tarsnap utilities are installed on this system, if they haven't been found already or wish to use a different version. Information on installing Tarsnap CLI utilities can be found &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -459,7 +468,7 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           <item row="4" column="0" colspan="2">
            <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>The app data directory is used to store job settings and machine keys:</string>
+             <string>The app data directory is used to store job settings and new machine keys:</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
@@ -468,6 +477,9 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           </item>
           <item row="5" column="0">
            <widget class="QPushButton" name="appDataBrowseButton">
+            <property name="toolTip">
+             <string>Change application data directory</string>
+            </property>
             <property name="text">
              <string>Change</string>
             </property>

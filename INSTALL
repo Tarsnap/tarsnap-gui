@@ -67,7 +67,7 @@ LFLAGS        = -pthread -Wl,-rpath,/usr/local/lib,-L,/usr/local/lib
 Debian based distros
 ====================
 
-These steps apply to all the Debian(included) based flavors and have been
+These steps apply to all the Debian (included) based flavors and have been
 tested on these distros so far:
 
 * Ubuntu 15.04 Vivid
@@ -88,7 +88,10 @@ All of them seem to include the Qt5 SDK in the official main repos.
 Red Hat based distros
 =====================
 
-No specific testing has been done on Fedora, CentOS and the likes. Though
-adapting the package manager step(to rpm/yum) and looking for the proper Qt5
-packages to install should be the only difference.
+Tested on Fedora 22
 
+1) sudo yum install gcc-c++ git qt5-qtbase-devel
+2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
+3) git checkout v0.5 # switch to the desired version
+4) qmake-qt5 && make -j$(nproc)
+5) ./tarsnap-gui

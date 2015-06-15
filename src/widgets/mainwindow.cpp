@@ -23,6 +23,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     _ui(new Ui::MainWindow),
+    _tarsnapLogo(this),
     _loadingAnimation(":/resources/icons/loading.gif"),
     _useSIPrefixes(false),
     _purgeTimerCount(0)
@@ -33,12 +34,11 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->browseListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    _tarsnapLogo = new QLabel(this);
     QPixmap logo(":/resources/icons/tarsnap.png");
-    _tarsnapLogo->setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    _tarsnapLogo->adjustSize();
-    _tarsnapLogo->lower();
-    _tarsnapLogo->show();
+    _tarsnapLogo.setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    _tarsnapLogo.adjustSize();
+    _tarsnapLogo.lower();
+    _tarsnapLogo.show();
 
     _ui->appVersionLabel->setText(QCoreApplication::applicationVersion());
     connect(_ui->checkUpdateButton, &QPushButton::clicked,
@@ -237,7 +237,7 @@ void MainWindow::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
-    _tarsnapLogo->move(this->width()-_tarsnapLogo->width()-10,3);
+    _tarsnapLogo.move(this->width()-_tarsnapLogo.width()-10,3);
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)

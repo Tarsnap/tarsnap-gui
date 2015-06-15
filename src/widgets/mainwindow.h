@@ -85,7 +85,7 @@ private slots:
 
 private:
     Ui::MainWindow  *_ui;
-    QLabel          *_tarsnapLogo;
+    QLabel           _tarsnapLogo;
     QPoint           _windowDragPos;
     QString          _lastTimestamp;
     ArchivePtr       _currentArchiveDetail;

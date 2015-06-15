@@ -81,7 +81,8 @@ FORMS    += \
     forms/filepicker.ui \
     forms/filepickerdialog.ui \
     forms/jobitemwidget.ui \
-    forms/jobwidget.ui
+    forms/jobwidget.ui \
+    forms/aboutwidget.ui
 
 RESOURCES += \
     resources.qrc

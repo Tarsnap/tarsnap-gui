@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "ui_archiveitemwidget.h"
 #include "ui_backupitemwidget.h"
+#include "ui_aboutwidget.h"
 #include "backuplistitem.h"
 #include "filepickerdialog.h"
 #include "utils.h"
@@ -17,6 +18,7 @@
 #include <QMessageBox>
 #include <QStandardPaths>
 #include <QDesktopServices>
+#include <QMenuBar>
 
 #define PURGE_SECONDS_DELAY 8
 
@@ -40,11 +42,26 @@ MainWindow::MainWindow(QWidget *parent) :
     _tarsnapLogo.lower();
     _tarsnapLogo.show();
 
-    _ui->appVersionLabel->setText(QCoreApplication::applicationVersion());
-    connect(_ui->checkUpdateButton, &QPushButton::clicked,
+    Ui::aboutWidget aboutUi;
+    aboutUi.setupUi(&_aboutWindow);
+    aboutUi.versionLabel->setText(tr("version ") + QCoreApplication::applicationVersion());
+    _aboutWindow.setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint);
+    connect(aboutUi.checkUpdateButton, &QPushButton::clicked,
             [=](){
                 QDesktopServices::openUrl(QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
             });
+
+    QMenuBar *menuBar = new QMenuBar(NULL);
+    if(menuBar->isNativeMenuBar())
+    {
+        QAction *about = new QAction(this);
+        about->setMenuRole(QAction::AboutRole);
+        connect(about, SIGNAL(triggered()), &_aboutWindow, SLOT(show()));
+        QMenu *menu = new QMenu(NULL);
+        menu->addAction(about);
+        menuBar->addMenu(menu);
+    }
+    connect(_ui->aboutButton, SIGNAL(clicked()), &_aboutWindow, SLOT(show()));
 
     _ui->mainContentSplitter->setCollapsible(0, false);
     _ui->journalLog->hide();

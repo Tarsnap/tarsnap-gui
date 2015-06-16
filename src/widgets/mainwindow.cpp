@@ -18,7 +18,6 @@
 #include <QMessageBox>
 #include <QStandardPaths>
 #include <QDesktopServices>
-#include <QMenuBar>
 
 #define PURGE_SECONDS_DELAY 8
 
@@ -26,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     _ui(new Ui::MainWindow),
     _tarsnapLogo(this),
+    _menuBar(NULL),
+    _appMenu(NULL),
+    _actionAbout(this),
     _loadingAnimation(":/resources/icons/loading.gif"),
     _useSIPrefixes(false),
     _purgeTimerCount(0)
@@ -51,15 +53,12 @@ MainWindow::MainWindow(QWidget *parent) :
                 QDesktopServices::openUrl(QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
             });
 
-    QMenuBar *menuBar = new QMenuBar(NULL);
-    if(menuBar->isNativeMenuBar())
+    if(_menuBar.isNativeMenuBar())
     {
-        QAction *about = new QAction(this);
-        about->setMenuRole(QAction::AboutRole);
-        connect(about, SIGNAL(triggered()), &_aboutWindow, SLOT(show()));
-        QMenu *menu = new QMenu(NULL);
-        menu->addAction(about);
-        menuBar->addMenu(menu);
+        _actionAbout.setMenuRole(QAction::AboutRole);
+        connect(&_actionAbout, SIGNAL(triggered()), &_aboutWindow, SLOT(show()));
+        _appMenu.addAction(&_actionAbout);
+        _menuBar.addMenu(&_appMenu);
     }
     connect(_ui->aboutButton, SIGNAL(clicked()), &_aboutWindow, SLOT(show()));
 

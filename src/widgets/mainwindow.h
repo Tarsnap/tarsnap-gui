@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QMovie>
 #include <QTimer>
+#include <QMenuBar>
 
 namespace Ui {
 class MainWindow;
@@ -86,6 +87,9 @@ private slots:
 private:
     Ui::MainWindow  *_ui;
     QLabel           _tarsnapLogo;
+    QMenuBar         _menuBar;
+    QMenu            _appMenu;
+    QAction          _actionAbout;
     QWidget          _aboutWindow;
     QPoint           _windowDragPos;
     QString          _lastTimestamp;

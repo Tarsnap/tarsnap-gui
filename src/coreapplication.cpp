@@ -20,6 +20,11 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     qRegisterMetaType< ArchiveRestoreOptions >("ArchiveRestoreOptions");
     qRegisterMetaType< QSqlQuery >("QSqlQuery");
     qRegisterMetaType< JobPtr >("JobPtr");
+
+    QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
+    QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
+    QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
+    QCoreApplication::setApplicationVersion(QLatin1String("0.5"));
 }
 
 CoreApplication::~CoreApplication()
@@ -28,12 +33,18 @@ CoreApplication::~CoreApplication()
         delete _mainWindow;
 }
 
+void CoreApplication::parseArgs()
+{
+    QCommandLineParser parser;
+    parser.setApplicationDescription(QLatin1String("Tarsnap GUI - Online backups for the truly lazy"));
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.process(*this);
+}
+
 int CoreApplication::initialize()
 {
-    QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
-    QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
-    QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
-    QCoreApplication::setApplicationVersion(QLatin1String("0.5"));
+    parseArgs();
 
     QSettings settings;
     if(!settings.value("application/wizardDone", false).toBool())

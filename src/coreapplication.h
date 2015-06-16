@@ -16,7 +16,8 @@ public:
     CoreApplication(int &argc, char **argv);
     ~CoreApplication();
 
-    int initialize();
+    void parseArgs();
+    int  initialize();
 
 public slots:
     bool reinit();

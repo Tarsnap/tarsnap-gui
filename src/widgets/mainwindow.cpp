@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->setupUi(this);
 
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    _ui->browseListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+    _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     QPixmap logo(":/resources/icons/tarsnap.png");
@@ -77,8 +77,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
     _ui->settingsToolbox->setCurrentWidget(_ui->settingsAccountPage);
 
-    _ui->browseListWidget->addAction(_ui->actionRefresh);
-    connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->browseListWidget
+    _ui->archiveListWidget->addAction(_ui->actionRefresh);
+    connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->archiveListWidget
             , SIGNAL(getArchiveList()), Qt::QueuedConnection);
     _ui->backupListWidget->addAction(_ui->actionClearList);
     connect(_ui->actionClearList, SIGNAL(triggered()), _ui->backupListWidget
@@ -153,14 +153,14 @@ MainWindow::MainWindow(QWidget *parent) :
     // Backup and Browse
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
             , SLOT(updateBackupItemTotals(qint64, qint64)));
-    connect(_ui->browseListWidget, SIGNAL(getArchiveList()), this, SIGNAL(getArchiveList()));
+    connect(_ui->archiveListWidget, SIGNAL(getArchiveList()), this, SIGNAL(getArchiveList()));
     connect(this, SIGNAL(archiveList(QList<ArchivePtr >))
-            , _ui->browseListWidget, SLOT(addArchives(QList<ArchivePtr >)));
-    connect(_ui->browseListWidget, SIGNAL(inspectArchive(ArchivePtr)), this
+            , _ui->archiveListWidget, SLOT(addArchives(QList<ArchivePtr >)));
+    connect(_ui->archiveListWidget, SIGNAL(inspectArchive(ArchivePtr)), this
             , SLOT(displayInspectArchive(ArchivePtr)));
-    connect(_ui->browseListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this
+    connect(_ui->archiveListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this
             , SIGNAL(deleteArchives(QList<ArchivePtr>)));
-    connect(_ui->browseListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)),
+    connect(_ui->archiveListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)),
             this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)));
     connect(_ui->mainTabWidget, SIGNAL(currentChanged(int)), this, SLOT(currentPaneChanged(int)));
 
@@ -179,7 +179,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobListWidget, SIGNAL(deleteJobArchives(QList<ArchivePtr>)), this, SIGNAL(deleteArchives(QList<ArchivePtr>)), Qt::QueuedConnection);
 
     //lambda slots to quickly update various UI components
-    connect(_ui->browseListWidget, &BrowseListWidget::getArchiveList,
+    connect(_ui->archiveListWidget, &ArchiveListWidget::getArchiveList,
             [=](){updateStatusMessage(tr("Refreshing archives list..."));});
     connect(this, &MainWindow::archiveList,
             [=](){updateStatusMessage(tr("Refreshing archives list...done"));});
@@ -187,7 +187,7 @@ MainWindow::MainWindow(QWidget *parent) :
             [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching details for archive <i>%1</i>.").arg(archive->name()));});
     connect(this, &MainWindow::loadArchiveContents,
             [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching contents for archive <i>%1</i>.").arg(archive->name()));});
-    connect(_ui->browseListWidget, &BrowseListWidget::deleteArchives,
+    connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives,
             [=](const QList<ArchivePtr> archives){archivesDeleted(archives,false);});
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
             [=](const QString text){
@@ -458,7 +458,7 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
     if(_ui->mainTabWidget->currentWidget() != _ui->archivesTab)
         _ui->mainTabWidget->setCurrentWidget(_ui->archivesTab);
 
-    _ui->browseListWidget->setSelectedArchive(archive);
+    _ui->archiveListWidget->setSelectedArchive(archive);
 }
 
 void MainWindow::appendTimestampCheckBoxToggled(bool checked)

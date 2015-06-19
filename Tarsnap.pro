@@ -24,7 +24,7 @@ SOURCES += \
     src/widgets/archivelistitem.cpp \
     src/widgets/backuplistitem.cpp \
     src/widgets/backuplistwidget.cpp \
-    src/widgets/browselistwidget.cpp \
+    src/widgets/archivelistwidget.cpp \
     src/widgets/filepicker.cpp \
     src/widgets/filepickerdialog.cpp \
     src/widgets/joblistitem.cpp \
@@ -50,7 +50,7 @@ HEADERS  += \
     src/widgets/archivelistitem.h \
     src/widgets/backuplistitem.h \
     src/widgets/backuplistwidget.h \
-    src/widgets/browselistwidget.h \
+    src/widgets/archivelistwidget.h \
     src/widgets/filepicker.h \
     src/widgets/filepickerdialog.h \
     src/widgets/joblistitem.h \

@@ -1,4 +1,4 @@
-#include "browselistwidget.h"
+#include "archivelistwidget.h"
 #include "archivelistitem.h"
 #include "ui_archiveitemwidget.h"
 #include "restoredialog.h"
@@ -7,7 +7,7 @@
 
 static bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp()); }
 
-BrowseListWidget::BrowseListWidget(QWidget *parent):
+ArchiveListWidget::ArchiveListWidget(QWidget *parent):
     QListWidget(parent)
 {
     connect(this, &QListWidget::itemActivated,
@@ -20,12 +20,12 @@ BrowseListWidget::BrowseListWidget(QWidget *parent):
             });
 }
 
-BrowseListWidget::~BrowseListWidget()
+ArchiveListWidget::~ArchiveListWidget()
 {
     clear();
 }
 
-void BrowseListWidget::addArchives(QList<ArchivePtr > archives)
+void ArchiveListWidget::addArchives(QList<ArchivePtr > archives)
 {
     clear();
     std::sort(archives.begin(), archives.end(), ArchiveCompare);
@@ -40,7 +40,7 @@ void BrowseListWidget::addArchives(QList<ArchivePtr > archives)
     }
 }
 
-void BrowseListWidget::removeItems()
+void ArchiveListWidget::removeItems()
 {
     if(this->selectedItems().isEmpty())
     {
@@ -89,7 +89,7 @@ void BrowseListWidget::removeItems()
     }
 }
 
-void BrowseListWidget::inspectItem()
+void ArchiveListWidget::inspectItem()
 {
     if(sender())
     {
@@ -97,7 +97,7 @@ void BrowseListWidget::inspectItem()
     }
 }
 
-void BrowseListWidget::restoreItem()
+void ArchiveListWidget::restoreItem()
 {
     ArchiveListItem* archiveItem = qobject_cast<ArchiveListItem*>(sender());
     if(archiveItem)
@@ -108,7 +108,7 @@ void BrowseListWidget::restoreItem()
     }
 }
 
-void BrowseListWidget::setSelectedArchive(ArchivePtr archive)
+void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
 {
     if(!archive)
         return;
@@ -127,7 +127,7 @@ void BrowseListWidget::setSelectedArchive(ArchivePtr archive)
     }
 }
 
-void BrowseListWidget::keyReleaseEvent(QKeyEvent *event)
+void ArchiveListWidget::keyReleaseEvent(QKeyEvent *event)
 {
     switch(event->key())
     {

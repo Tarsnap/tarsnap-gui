@@ -1,18 +1,18 @@
-#ifndef BROWSELISTWIDGET_H
-#define BROWSELISTWIDGET_H
+#ifndef ARCHIVELISTWIDGET_H
+#define ARCHIVELISTWIDGET_H
 
 #include "persistentmodel/archive.h"
 
 #include <QListWidget>
 #include <QList>
 
-class BrowseListWidget : public QListWidget
+class ArchiveListWidget : public QListWidget
 {
     Q_OBJECT
 
 public:
-    explicit BrowseListWidget(QWidget *parent = 0);
-    ~BrowseListWidget();
+    explicit ArchiveListWidget(QWidget *parent = 0);
+    ~ArchiveListWidget();
 
 public slots:
     void addArchives(QList<ArchivePtr> archives);
@@ -36,4 +36,4 @@ private:
 //    QList<ArchivePtr> _archives;
 };
 
-#endif // BROWSELISTWIDGET_H
+#endif // ARCHIVELISTWIDGET_H

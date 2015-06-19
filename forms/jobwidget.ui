@@ -613,7 +613,7 @@ background: transparent;
         </widget>
        </item>
        <item>
-        <widget class="BrowseListWidget" name="restoreListWidget">
+        <widget class="ArchiveListWidget" name="restoreListWidget">
          <property name="styleSheet">
           <string notr="true">#restoreListWidget::item
 {
@@ -637,9 +637,9 @@ selection-background-color: rgba(179, 190, 255, 120);
  </widget>
  <customwidgets>
   <customwidget>
-   <class>BrowseListWidget</class>
+   <class>ArchiveListWidget</class>
    <extends>QListWidget</extends>
-   <header>widgets/browselistwidget.h</header>
+   <header>widgets/archivelistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>FilePicker</class>

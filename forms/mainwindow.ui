@@ -375,12 +375,12 @@ color: gray;
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
-                <widget class="BrowseListWidget" name="browseListWidget">
+                <widget class="ArchiveListWidget" name="archiveListWidget">
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">#browseListWidget::item
+                  <string notr="true">#archiveListWidget::item
 {
 min-height: 35px;
 selection-background-color: rgba(179, 190, 255, 120);
@@ -2141,9 +2141,9 @@ border: none;
    <header location="global">../widgets/textlabel.h</header>
   </customwidget>
   <customwidget>
-   <class>BrowseListWidget</class>
+   <class>ArchiveListWidget</class>
    <extends>QListWidget</extends>
-   <header>widgets/browselistwidget.h</header>
+   <header>widgets/archivelistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>BackupListWidget</class>

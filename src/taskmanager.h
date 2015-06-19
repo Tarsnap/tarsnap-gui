@@ -53,6 +53,8 @@ public slots:
     void nuke();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
 
+    void stopTask();
+
 private slots:
     // post Tarsnap task processing
     void backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QString output);
@@ -70,7 +72,7 @@ private slots:
     // general task management
     void queueTask(TarsnapClient *cli, bool exclusive = false);
     void startTask(TarsnapClient *cli);
-    void dequeueTask(QUuid uuid, QVariant data, int exitCode, QString output);
+    void dequeueTask(QUuid uuid);
 
 private:
     void parseGlobalStats(QString tarsnapOutput);

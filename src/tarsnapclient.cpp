@@ -1,7 +1,7 @@
 #include "tarsnapclient.h"
 #include "debug.h"
 
-#define DEFAULT_TIMEOUT_MS 1000
+#define DEFAULT_TIMEOUT_MS 5000
 
 TarsnapClient::TarsnapClient(QUuid uuid) : QObject(), _uuid(uuid), _process(NULL), _requiresPassword(false)
 {
@@ -39,7 +39,7 @@ void TarsnapClient::run()
     _process->start();
     if(_process->waitForStarted(DEFAULT_TIMEOUT_MS))
     {
-        emit clientStarted(_uuid);
+        emit started(_uuid);
     }
     else
     {
@@ -66,12 +66,12 @@ cleanup:
     _process = 0;
 }
 
-void TarsnapClient::killClient()
+void TarsnapClient::stop(bool kill)
 {
     if(_process->state() == QProcess::Running)
     {
         _process->terminate();
-        if(false == _process->waitForFinished(DEFAULT_TIMEOUT_MS))
+        if(kill && (false == _process->waitForFinished(DEFAULT_TIMEOUT_MS)))
             _process->kill();
     }
 }
@@ -103,7 +103,8 @@ void TarsnapClient::processFinished()
     switch (_process->exitStatus())
     {
     case QProcess::NormalExit:
-        emit clientFinished(_uuid, _data, _process->exitCode(), output);
+        emit finished(_uuid, _data, _process->exitCode(), output);
+        emit terminated(_uuid);
         break;
     case QProcess::CrashExit:
         processError();
@@ -115,6 +116,7 @@ void TarsnapClient::processError()
 {
     LOG << tr("Tarsnap process error %1 (%2) occured:\n%3\n").arg(_process->error())
            .arg(_process->errorString()).arg(QString(_processOutput));
+    emit terminated(_uuid);
 }
 QVariant TarsnapClient::data() const
 {

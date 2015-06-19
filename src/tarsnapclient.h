@@ -23,7 +23,7 @@ public:
     QStringList arguments() const;
     void setArguments(const QStringList &arguments);
 
-    void killClient();
+    void stop(bool kill = false);
     QProcess::ProcessState statusClient();
 
     bool waitForClient();
@@ -41,8 +41,9 @@ public:
     void setData(const QVariant &data);
 
 signals:
-    void clientFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void clientStarted(QUuid uuid);
+    void finished(QUuid uuid, QVariant data, int exitCode, QString output);
+    void started(QUuid uuid);
+    void terminated(QUuid uuid);
 
 private slots:
     void readProcessOutput();

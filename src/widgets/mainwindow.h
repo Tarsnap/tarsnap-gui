@@ -33,6 +33,7 @@ signals:
     void purgeArchives();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runSetupWizard();
+    void stopTask();
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -82,6 +83,7 @@ private slots:
     void displayJobDetails(JobPtr job);
     void hideJobDetails();
     void addJobClicked();
+    void cancelOperation();
 
 private:
     Ui::MainWindow  *_ui;

@@ -5,6 +5,8 @@
 
 #include <QMessageBox>
 
+#define DELETE_CONFIRMATION_THRESHOLD 10
+
 static bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp()); }
 
 ArchiveListWidget::ArchiveListWidget(QWidget *parent):
@@ -49,7 +51,7 @@ void ArchiveListWidget::removeItems()
         if(archiveItem)
         {
             ArchivePtr archive = archiveItem->archive();
-            QMessageBox::StandardButton button = QMessageBox::question(this, tr("Confirm action")
+            QMessageBox::StandardButton button = QMessageBox::question(this, tr("Confirm delete")
                                                                        , tr("Are you sure you want to delete archive %1 (this cannot be undone)?").arg(archive->name()));
             if(button == QMessageBox::Yes)
             {
@@ -64,8 +66,33 @@ void ArchiveListWidget::removeItems()
     }
     else
     {
-        QMessageBox::StandardButton button = QMessageBox::question(this, tr("Confirm action")
-                                                                   , tr("Are you sure you want to delete %1 selected archives (this cannot be undone)?").arg(this->selectedItems().count()));
+        int selectedItemsCount = this->selectedItems().count();
+        QMessageBox::StandardButton button =
+                QMessageBox::question(this,
+                tr("Confirm delete"),
+                tr("Are you sure you want to delete %1 selected archives (this cannot be undone)?")
+                .arg(selectedItemsCount));
+        if(button == QMessageBox::Yes)
+        {
+            // Some more deletion confirmation, if count of archives to be removed
+            // is big enough
+            if(selectedItemsCount >= DELETE_CONFIRMATION_THRESHOLD)
+            {
+                // Inform of purge operation if all archives are to be removed
+                if(selectedItemsCount == this->count())
+                {
+                    button = QMessageBox::question(this, tr("Confirm delete"),
+                                                   tr("Are you sure you want to delete all of your archives?\n"
+                                                      "For your information, there's a purge action in Settings -> Advanced page that achieves the same thing but more efficiently."));
+                }
+                else
+                {
+                    button = QMessageBox::question(this, tr("Confirm delete"),
+                                                   tr("This will permanently delete the %1 selected archives. Proceed?").arg(selectedItemsCount));
+                }
+            }
+        }
+
         if(button == QMessageBox::Yes)
         {
             QList<ArchivePtr> archiveList;

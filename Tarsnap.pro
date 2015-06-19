@@ -34,6 +34,7 @@ SOURCES += \
     src/widgets/restoredialog.cpp \
     src/widgets/setupdialog.cpp \
     src/widgets/textlabel.cpp \
+    src/widgets/busywidget.cpp \
     src/customfilesystemmodel.cpp \
     src/taskmanager.cpp \
     src/tarsnapclient.cpp \
@@ -60,6 +61,7 @@ HEADERS  += \
     src/widgets/restoredialog.h \
     src/widgets/setupdialog.h \
     src/widgets/textlabel.h \
+    src/widgets/busywidget.h \
     src/customfilesystemmodel.h \
     src/taskmanager.h \
     src/tarsnapclient.h \

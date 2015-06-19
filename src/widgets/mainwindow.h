@@ -5,7 +5,6 @@
 
 #include <QWidget>
 #include <QLabel>
-#include <QMovie>
 #include <QTimer>
 #include <QMenuBar>
 
@@ -94,7 +93,6 @@ private:
     QPoint           _windowDragPos;
     QString          _lastTimestamp;
     ArchivePtr       _currentArchiveDetail;
-    QMovie           _loadingAnimation;
     bool             _useSIPrefixes;
     QTimer           _purgeTimer;
     int              _purgeTimerCount;

@@ -1998,15 +1998,15 @@ border: none;
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="loadingIconLabel">
+       <widget class="BusyWidget" name="busyWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="text">
-         <string/>
+        <property name="toolTip">
+         <string>Tarsnap is busy running chores. Press to stop the currently running task.</string>
         </property>
        </widget>
       </item>
@@ -2160,6 +2160,11 @@ border: none;
    <extends>QWidget</extends>
    <header>widgets/jobwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BusyWidget</class>
+   <extends>QLabel</extends>
+   <header>../widgets/busywidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

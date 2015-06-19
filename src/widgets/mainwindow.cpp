@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _menuBar(NULL),
     _appMenu(NULL),
     _actionAbout(this),
-    _loadingAnimation(":/resources/icons/loading.gif"),
     _useSIPrefixes(false),
     _purgeTimerCount(0)
 {
@@ -64,7 +63,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _ui->mainContentSplitter->setCollapsible(0, false);
     _ui->journalLog->hide();
-    _ui->loadingIconLabel->setMovie(&_loadingAnimation);
     _ui->archiveDetailsWidget->hide();
     _ui->jobDetailsWidget->hide();
 
@@ -258,14 +256,14 @@ void MainWindow::paintEvent(QPaintEvent *)
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    if (event->buttons() & Qt::LeftButton) {
+    if (event->buttons() & Qt::LeftButton)
         _windowDragPos = event->pos();
-    }
 }
 
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
-    if (event->buttons() & Qt::LeftButton) {
+    if (event->buttons() & Qt::LeftButton)
+    {
         QPoint diff = event->pos() - _windowDragPos;
         QPoint newpos = this->pos() + diff;
         this->move(newpos);
@@ -334,7 +332,8 @@ void MainWindow::archivesDeleted(QList<ArchivePtr> archives, bool done)
     if(archives.count() > 1)
     {
         QString detail(archives[0]->name());
-        for(int i = 1; i < archives.count(); ++i) {
+        for(int i = 1; i < archives.count(); ++i)
+        {
             ArchivePtr archive = archives.at(i);
             detail.append(QString::fromLatin1(", ") + archive->name());
         }
@@ -352,15 +351,9 @@ void MainWindow::archivesDeleted(QList<ArchivePtr> archives, bool done)
 void MainWindow::updateLoadingAnimation(bool idle)
 {
     if(idle)
-    {
-        _loadingAnimation.stop();
-        _ui->loadingIconLabel->hide();
-    }
+        _ui->busyWidget->stop();
     else
-    {
-        _loadingAnimation.start();
-        _ui->loadingIconLabel->show();
-    }
+        _ui->busyWidget->animate();
 }
 
 void MainWindow::updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal, qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit, QString accountStatus)

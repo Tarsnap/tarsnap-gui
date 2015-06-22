@@ -19,7 +19,7 @@
 
 #define LOG     Debug::instance()
 #define ENDL    "\n"
-#define DELIMITER "\n------------------------------------------------------------------------------"
+#define DELIMITER "------------------------------------------------------------------------------"
 
 class Debug : public QObject
 {

@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QTimer>
 #include <QMenuBar>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -84,6 +85,7 @@ private slots:
     void hideJobDetails();
     void addJobClicked();
     void cancelOperation();
+    void stopPurgeCountdown();
 
 private:
     Ui::MainWindow  *_ui;
@@ -98,6 +100,7 @@ private:
     bool             _useSIPrefixes;
     QTimer           _purgeTimer;
     int              _purgeTimerCount;
+    QMessageBox      _purgeCountdownWindow;
 };
 
 #endif // MAINWINDOW_H

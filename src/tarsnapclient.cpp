@@ -10,6 +10,7 @@ TarsnapClient::TarsnapClient(QUuid uuid) : QObject(), _uuid(uuid), _process(NULL
 TarsnapClient::~TarsnapClient()
 {
 }
+
 QString TarsnapClient::command() const
 {
     return _command;
@@ -35,7 +36,7 @@ void TarsnapClient::run()
     _process->setProcessChannelMode(QProcess::MergedChannels);
     _process->setProgram(_command);
     _process->setArguments(_arguments);
-    LOG << tr("Executing [%1 %2]\n").arg(_process->program()).arg(_process->arguments().join(' '));
+    LOG << tr("Executing [%1 %2]").arg(_process->program()).arg(_process->arguments().join(' ')) << DELIMITER;
     _process->start();
     if(_process->waitForStarted(DEFAULT_TIMEOUT_MS))
     {
@@ -94,15 +95,15 @@ void TarsnapClient::readProcessOutput()
 void TarsnapClient::processFinished()
 {
     QString output(_processOutput);
-    if(!output.isEmpty())
-        LOG << tr("[%1 %2] finished with exit code %3 and output:\n%4\n").arg(_command)
-               .arg(_arguments.join(' ')).arg(_process->exitCode()).arg(output);
-    else
-        LOG << tr("[%1 %2] finished with exit code %3 and no output.\n").arg(_command)
-               .arg(_arguments.join(' ')).arg(_process->exitCode());
     switch (_process->exitStatus())
     {
     case QProcess::NormalExit:
+        if(!output.isEmpty())
+            LOG << tr("[%1 %2] finished with exit code %3 and output:\n%4").arg(_command)
+                   .arg(_arguments.join(' ')).arg(_process->exitCode()).arg(output) << DELIMITER;
+        else
+            LOG << tr("[%1 %2] finished with exit code %3 and no output.").arg(_command)
+                   .arg(_arguments.join(' ')).arg(_process->exitCode()) << DELIMITER;
         emit finished(_uuid, _data, _process->exitCode(), output);
         emit terminated(_uuid);
         break;
@@ -114,8 +115,8 @@ void TarsnapClient::processFinished()
 
 void TarsnapClient::processError()
 {
-    LOG << tr("Tarsnap process error %1 (%2) occured:\n%3\n").arg(_process->error())
-           .arg(_process->errorString()).arg(QString(_processOutput));
+    LOG << tr("Tarsnap process error %1 (%2) occured:\n%3").arg(_process->error())
+           .arg(_process->errorString()).arg(QString(_processOutput)) << DELIMITER;
     emit terminated(_uuid);
 }
 QVariant TarsnapClient::data() const

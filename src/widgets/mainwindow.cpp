@@ -29,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _appMenu(NULL),
     _actionAbout(this),
     _useSIPrefixes(false),
-    _purgeTimerCount(0)
+    _purgeTimerCount(0),
+    _purgeCountdownWindow(this)
 {
     _ui->setupUi(this);
 
@@ -219,18 +220,9 @@ MainWindow::MainWindow(QWidget *parent) :
                 QDesktopServices::openUrl(QUrl("https://www.tarsnap.com/account.html"));
             });
 
-    // initialize _purgeCountdownWindow
     _purgeCountdownWindow.setIcon(QMessageBox::Critical);
-    _purgeCountdownWindow.setWindowTitle(tr("Deleting all archives: final countdown"));
-    _purgeCountdownWindow.setParent(this);
-    // there appears to be a bug in Qt concerning the
-    // standard buttons not generating signals.
-    // https://forum.qt.io/topic/20663/problems-with-signal-accept-and-signal-reject-and-qmessagebox
-    // Adding it manually like this works in Qt 5.2.1 on Ubuntu:
-    _purgeCountdownWindow.addButton( "&Cancel", QMessageBox::RejectRole );
-    connect(&_purgeCountdownWindow, SIGNAL(rejected()),
-        this, SLOT(stopPurgeCountdown()));
-    _purgeCountdownWindow.setWindowModality(Qt::ApplicationModal);
+    _purgeCountdownWindow.setWindowTitle(tr("Deleting all archives: press Cancel to abort"));
+    _purgeCountdownWindow.setStandardButtons(QMessageBox::Cancel);
 }
 
 MainWindow::~MainWindow()
@@ -594,8 +586,8 @@ void MainWindow::purgeTimerFired()
     if(_purgeTimerCount <= 1)
     {
         _purgeTimer.stop();
-        _purgeCountdownWindow.hide();
-        updateStatusMessage(tr("Purging all archives..."));
+        _purgeCountdownWindow.accept();
+        updateStatusMessage(tr("Archives purge queued..."));
         emit purgeArchives();
     }
     else
@@ -687,34 +679,29 @@ void MainWindow::repairCacheButtonClicked()
     emit repairCache();
 }
 
-void MainWindow::stopPurgeCountdown()
-{
-    _purgeTimer.stop();
-    updateStatusMessage(tr("Purge cancelled."));
-}
-
 void MainWindow::purgeArchivesButtonClicked()
 {
     const QString confirmationText = tr("No Tomorrow");
     bool ok = false;
     QString userText = QInputDialog::getText(this,
         tr("Purge all archives?"),
-        tr("This action will <b>delete all (%1) archives</b> stored for this key.  To confirm, type '%2'.<br><br>Warning: This action cannot be undone.  All archives will be <b>lost forever</b>.").arg(_ui->accountArchivesCountLabel->text(), confirmationText),
+        tr("This action will <b>delete all (%1) archives</b> stored for this key.<br /><br />To confirm, type '%2' and press OK.<br /><br /><i>Warning: This action cannot be undone. All archives will be <b>lost forever</b></i>.").arg(_ui->accountArchivesCountLabel->text(), confirmationText),
         QLineEdit::Normal,
         "",
         &ok);
     if (ok && confirmationText == userText)
     {
         _purgeTimerCount = PURGE_SECONDS_DELAY;
+
         _purgeCountdownWindow.setText(tr(
             "Purging all archives in %1 seconds...").arg(_purgeTimerCount));
-
-        _purgeCountdownWindow.show();
-
-        updateStatusMessage(tr("Purge confirmation countdown..."));
         _purgeTimer.start(1000);
-    } else {
-        updateStatusMessage(tr("Purge cancelled."));
+
+        if(QMessageBox::Cancel == _purgeCountdownWindow.exec())
+        {
+            _purgeTimer.stop();
+            updateStatusMessage(tr("Purge cancelled."));
+        }
     }
 }
 

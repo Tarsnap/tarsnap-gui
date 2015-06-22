@@ -85,7 +85,6 @@ private slots:
     void hideJobDetails();
     void addJobClicked();
     void cancelOperation();
-    void stopPurgeCountdown();
 
 private:
     Ui::MainWindow  *_ui;

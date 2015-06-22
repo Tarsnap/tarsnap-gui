@@ -2006,7 +2006,7 @@ border: none;
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Tarsnap is busy running chores. Press to stop the currently running task.</string>
+         <string>Tarsnap is busy running chores. Click to stop the currently running tasks.</string>
         </property>
        </widget>
       </item>

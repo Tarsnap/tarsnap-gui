@@ -110,7 +110,7 @@ int CoreApplication::initialize()
     connect(&_taskManager, SIGNAL(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), _mainWindow
             , SLOT(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), Qt::QueuedConnection);
     connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(reinit()), Qt::QueuedConnection);
-    connect(_mainWindow, SIGNAL(stopTask()), &_taskManager, SLOT(stopTask()), Qt::QueuedConnection);
+    connect(_mainWindow, SIGNAL(stopTasks()), &_taskManager, SLOT(stopTasks()), Qt::QueuedConnection);
 
     QMetaObject::invokeMethod(&_taskManager, "getArchiveList", Qt::QueuedConnection);
     QMetaObject::invokeMethod(_mainWindow, "updateStatusMessage", Qt::QueuedConnection, Q_ARG(QString, tr("Refreshing archives list...")));

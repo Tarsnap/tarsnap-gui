@@ -279,9 +279,10 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     queueTask(restore);
 }
 
-void TaskManager::stopTask()
+void TaskManager::stopTasks()
 {
-    foreach (TarsnapClient *client, _runningTaskMap) {
+    foreach (TarsnapClient *client, _runningTaskMap)
+    {
         if(client)
             client->stop();
     }

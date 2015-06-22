@@ -129,7 +129,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->runSetupWizard, SIGNAL(clicked()), this, SLOT(runSetupWizardClicked()));
     connect(_ui->expandJournalButton, SIGNAL(toggled(bool)), this, SLOT(expandJournalButtonToggled(bool)));
     connect(_ui->downloadsDirBrowseButton, SIGNAL(clicked()), this, SLOT(downloadsDirBrowseButtonClicked()));
-    connect(_ui->busyWidget, SIGNAL(clicked()), this, SLOT(cancelOperation()));
+    connect(_ui->busyWidget, SIGNAL(clicked()), this, SLOT(cancelRunningTasks()));
 
     connect(&_purgeTimer, SIGNAL(timeout()), this, SLOT(purgeTimerFired()));
 
@@ -780,13 +780,16 @@ void MainWindow::addJobClicked()
     }
 }
 
-void MainWindow::cancelOperation()
+void MainWindow::cancelRunningTasks()
 {
     QMessageBox::StandardButton confirm =
                                         QMessageBox::question(this,
-                                        tr("Stop task"),
-                                        tr("Stop the currently running task?"));
+                                        tr("Cancel running tasks"),
+                                        tr("Stop the currently running tasks?"));
     if(confirm == QMessageBox::Yes)
-        emit stopTask();
+    {
+        updateStatusMessage("Stopping all running tasks.");
+        emit stopTasks();
+    }
 }
 

@@ -115,8 +115,8 @@ void TarsnapClient::processFinished()
 
 void TarsnapClient::processError()
 {
-    LOG << tr("Tarsnap process error %1 (%2) occured:\n%3").arg(_process->error())
-           .arg(_process->errorString()).arg(QString(_processOutput)) << DELIMITER;
+    LOG << tr("Tarsnap process error %1 (%2) occured (exit code %3):\n%4").arg(_process->error())
+           .arg(_process->errorString()).arg(_process->exitCode()).arg(QString(_processOutput)) << DELIMITER;
     emit terminated(_uuid);
 }
 QVariant TarsnapClient::data() const

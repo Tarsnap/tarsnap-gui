@@ -21,6 +21,7 @@ public:
 
 private:
      QSet<QPersistentModelIndex> _checklist;
+     QSet<QPersistentModelIndex> _partialChecklist;
 };
 
 #endif // CUSTOMFILESYSTEMMODEL_H

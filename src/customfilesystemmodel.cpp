@@ -17,13 +17,22 @@ QList<QPersistentModelIndex> CustomFileSystemModel::checkedIndexes()
 QVariant CustomFileSystemModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::CheckStateRole && index.column() == 0)
-        return _checklist.contains(index) ? Qt::Checked : Qt::Unchecked;
+    {
+        if(_checklist.contains(index) || _checklist.contains(index.parent()))
+            return Qt::Checked;
+        if(_partialChecklist.contains(index))
+            return Qt::PartiallyChecked;
+        return Qt::Unchecked;
+    }
     return QFileSystemModel::data(index, role);
 }
 
 Qt::ItemFlags CustomFileSystemModel::flags(const QModelIndex &index) const
 {
-    return QFileSystemModel::flags(index) | Qt::ItemIsUserCheckable;
+    if(isDir(index))
+        return QFileSystemModel::flags(index) | Qt::ItemIsUserCheckable | Qt::ItemIsTristate;
+    else
+        return QFileSystemModel::flags(index) | Qt::ItemIsUserCheckable;
 }
 
 bool CustomFileSystemModel::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -31,9 +40,66 @@ bool CustomFileSystemModel::setData(const QModelIndex &index, const QVariant &va
     if (role == Qt::CheckStateRole)
     {
         if (value == Qt::Checked)
+        {
+            _partialChecklist.remove(index);
             _checklist.insert(index);
-        else
+            if(index.parent().isValid() && (index.parent().data(Qt::CheckStateRole) == Qt::Unchecked))
+                setData(index.parent(), Qt::PartiallyChecked, Qt::CheckStateRole);
+            if(isDir(index))
+            {
+                for(int i = 0; i < rowCount(index); i++)
+                {
+                    if(index.child(i, index.column()).isValid())
+                        setData(index.child(i, index.column()), Qt::Checked, Qt::CheckStateRole);
+                }
+            }
+        }
+        else if(value == Qt::PartiallyChecked)
+        {
             _checklist.remove(index);
+            _partialChecklist.insert(index);
+            if(index.parent().isValid() && (index.parent().data(Qt::CheckStateRole) == Qt::Unchecked))
+                setData(index.parent(), Qt::PartiallyChecked, Qt::CheckStateRole);
+        }
+        else if (value == Qt::Unchecked)
+        {
+            _checklist.remove(index);
+            _partialChecklist.remove(index);
+
+            if(isDir(index))
+            {
+                for(int i = 0; i < rowCount(index); i++)
+                {
+                    if(index.child(i, index.column()).isValid())
+                        setData(index.child(i, index.column()), Qt::Unchecked, Qt::CheckStateRole);
+                }
+            }
+
+            if(index.parent().isValid())
+            {
+                bool foundOne = false;
+                for(int i = 0; i < rowCount(index.parent()); i++)
+                {
+                    if(index.sibling(i, index.column()).isValid())
+                    {
+                        if(index.sibling(i,index.column()) == index)
+                            continue;
+                        if(data(index.sibling(i, index.column()), Qt::CheckStateRole) != Qt::Unchecked)
+                            foundOne = true;
+                    }
+                }
+                if(foundOne)
+                {
+                    if(index.parent().data(Qt::CheckStateRole) != Qt::PartiallyChecked)
+                        setData(index.parent(), Qt::PartiallyChecked, Qt::CheckStateRole);
+                }
+                else
+                {
+                    if(index.parent().data(Qt::CheckStateRole) != Qt::Unchecked)
+                        setData(index.parent(), Qt::Unchecked, Qt::CheckStateRole);
+                }
+            }
+        }
         QVector<int> roles;
         roles << Qt::CheckStateRole;
         emit dataChanged(index, index, roles);
@@ -45,5 +111,6 @@ bool CustomFileSystemModel::setData(const QModelIndex &index, const QVariant &va
 void CustomFileSystemModel::reset()
 {
     _checklist.clear();
+    _partialChecklist.clear();
 }
 

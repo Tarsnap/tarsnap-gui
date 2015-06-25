@@ -16,6 +16,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     _model.setRootPath(QDir::rootPath());
     _model.setNameFilterDisables(false);
     _ui->treeView->setModel(&_model);
+    _ui->treeView->installEventFilter(this);
     if(_startPath.isEmpty())
     {
         QString path;
@@ -106,6 +107,7 @@ QList<QUrl> FilePicker::getSelectedUrls()
 
 void FilePicker::setSelectedUrls(const QList<QUrl> &urls)
 {
+    _model.reset();
     foreach(const QUrl url, urls)
     {
         _model.setData(_model.index(url.toLocalFile()), Qt::Checked, Qt::CheckStateRole);
@@ -132,6 +134,20 @@ void FilePicker::keyReleaseEvent(QKeyEvent *event)
         break;
     default:
         QWidget::keyReleaseEvent(event);
+    }
+}
+
+bool FilePicker::eventFilter(QObject *obj, QEvent *event)
+{
+    if ((obj == _ui->treeView) && (event->type() == QEvent::FocusOut))
+    {
+        emit focusLost();
+        return false;
+    }
+    else
+    {
+        // standard event processing
+        return QWidget::eventFilter(obj, event);
     }
 }
 

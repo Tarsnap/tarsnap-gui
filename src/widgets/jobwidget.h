@@ -22,6 +22,7 @@ public:
 
 public slots:
     void save();
+    void saveNew();
 
 signals:
     void cancel();
@@ -34,7 +35,7 @@ signals:
 protected slots:
     void updateDetails();
     void restoreLatestArchive();
-    bool canSave();
+    bool canSaveNew();
 
 private:
     Ui::JobWidget  *_ui;

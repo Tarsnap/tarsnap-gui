@@ -14,25 +14,36 @@ QList<QPersistentModelIndex> CustomFileSystemModel::checkedIndexes()
     return _checklist.toList();
 }
 
+Qt::ItemFlags CustomFileSystemModel::flags(const QModelIndex &index) const
+{
+    return QFileSystemModel::flags(index) | Qt::ItemIsUserCheckable;
+}
+
 QVariant CustomFileSystemModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::CheckStateRole && index.column() == 0)
     {
-        if(_checklist.contains(index) || _checklist.contains(index.parent()))
+        if(_checklist.contains(index))
+        {
             return Qt::Checked;
-        if(_partialChecklist.contains(index))
+        }
+        else if(_partialChecklist.contains(index))
+        {
             return Qt::PartiallyChecked;
+        }
+        else
+        {
+            QModelIndex parent = index.parent();
+            while(parent.isValid())
+            {
+                if(_checklist.contains(parent))
+                    return Qt::PartiallyChecked;
+                parent = parent.parent();
+            }
+        }
         return Qt::Unchecked;
     }
     return QFileSystemModel::data(index, role);
-}
-
-Qt::ItemFlags CustomFileSystemModel::flags(const QModelIndex &index) const
-{
-    if(isDir(index))
-        return QFileSystemModel::flags(index) | Qt::ItemIsUserCheckable | Qt::ItemIsTristate;
-    else
-        return QFileSystemModel::flags(index) | Qt::ItemIsUserCheckable;
 }
 
 bool CustomFileSystemModel::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -43,14 +54,30 @@ bool CustomFileSystemModel::setData(const QModelIndex &index, const QVariant &va
         {
             _partialChecklist.remove(index);
             _checklist.insert(index);
-            if(index.parent().isValid() && (index.parent().data(Qt::CheckStateRole) == Qt::Unchecked))
-                setData(index.parent(), Qt::PartiallyChecked, Qt::CheckStateRole);
+            if(index.parent().isValid())
+            {
+                if(index.parent().data(Qt::CheckStateRole) == Qt::Checked)
+                {
+                    for(int i = 0; i < rowCount(index.parent()); i++)
+                    {
+                        if(index.sibling(i, index.column()).isValid())
+                        {
+                            if(index.sibling(i,index.column()) == index)
+                                continue;
+                            if(data(index.sibling(i, index.column()), Qt::CheckStateRole) == Qt::PartiallyChecked)
+                                setData(index.sibling(i, index.column()), Qt::Unchecked, Qt::CheckStateRole);
+                        }
+                    }
+                }
+                if(index.parent().data(Qt::CheckStateRole) != Qt::PartiallyChecked)
+                    setData(index.parent(), Qt::PartiallyChecked, Qt::CheckStateRole);
+            }
             if(isDir(index))
             {
                 for(int i = 0; i < rowCount(index); i++)
                 {
                     if(index.child(i, index.column()).isValid())
-                        setData(index.child(i, index.column()), Qt::Checked, Qt::CheckStateRole);
+                        setData(index.child(i, index.column()), Qt::PartiallyChecked, Qt::CheckStateRole);
                 }
             }
         }

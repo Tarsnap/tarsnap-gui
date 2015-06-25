@@ -31,17 +31,22 @@ JobWidget::JobWidget(QWidget *parent) :
             });
     connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
             [=](){
-                    emit enableSave(canSave());
+                    emit enableSave(canSaveNew());
             });
     connect(_ui->newJobTreeWidget, &FilePicker::selectionChanged,
             [=](){
-                    emit enableSave(canSave());
+                    emit enableSave(canSaveNew());
             });
     connect(_ui->newJobOptionsButton, &QPushButton::clicked,
             [=](){
                 _ui->stackedWidget->setCurrentWidget(_ui->jobOptionsPage);
             });
 
+    connect(_ui->detailTreeWidget, SIGNAL(focusLost()), this, SLOT(save()));
+    connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
+    connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
+    connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
+    connect(_ui->skipFilesSpinBox, SIGNAL(valueChanged(int)), this, SLOT(save()));
     connect(_ui->cancelButton, SIGNAL(clicked()), this, SIGNAL(cancel()));
     connect(_ui->restoreLatestArchiveButton, SIGNAL(clicked()), this, SLOT(restoreLatestArchive()));
     connect(_ui->restoreListWidget, SIGNAL(inspectArchive(ArchivePtr)), this, SIGNAL(inspectJobArchive(ArchivePtr)));
@@ -61,19 +66,13 @@ JobPtr JobWidget::job() const
 void JobWidget::setJob(const JobPtr &job)
 {
     if(_job && !_job->objectKey().isEmpty())
-    {
-        disconnect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
-        disconnect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-        disconnect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-        disconnect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-        disconnect(_ui->skipFilesSpinBox, SIGNAL(valueChanged(int)), this, SLOT(save()));
         disconnect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
-    }
 
     _job = job;
 
     if(_job->objectKey().isEmpty())
     {
+        _ui->newJobTreeWidget->reset();
         _ui->stackedWidget->setCurrentWidget(_ui->jobNewPage);
         _ui->jobNameLineEdit->setFocus();
         QSettings settings;
@@ -86,34 +85,38 @@ void JobWidget::setJob(const JobPtr &job)
     {
         _ui->stackedWidget->setCurrentWidget(_ui->jobDetailPage);
         updateDetails();
-        connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
-        connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-        connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-        connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-        connect(_ui->skipFilesSpinBox, SIGNAL(valueChanged(int)), this, SLOT(save()));
         connect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
     }
 }
 
 void JobWidget::save()
 {
-    DEBUG << "SAVE";
-    // save current or new job details
-    if(_job->objectKey().isEmpty())
+    DEBUG << "SAVE JOB";
+    if(!_job->objectKey().isEmpty())
+    {
+        _job->setUrls(_ui->detailTreeWidget->getSelectedUrls());
+        _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
+        _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
+        _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
+        _job->setOptionSkipFilesSize(_ui->skipFilesSpinBox->value());
+        _job->save();
+    }
+}
+
+void JobWidget::saveNew()
+{
+    DEBUG << "SAVE NEW JOB";
+    if(_job->objectKey().isEmpty() && canSaveNew())
     {
         _job->setName(_ui->jobNameLineEdit->text());
         _job->setUrls(_ui->newJobTreeWidget->getSelectedUrls());
+        _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
+        _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
+        _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
+        _job->setOptionSkipFilesSize(_ui->skipFilesSpinBox->value());
+        _job->save();
         emit jobAdded(_job);
     }
-    else
-    {
-        _job->setUrls(_ui->detailTreeWidget->getSelectedUrls());
-    }
-    _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
-    _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
-    _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
-    _job->setOptionSkipFilesSize(_ui->skipFilesSpinBox->value());
-    _job->save();
 }
 
 void JobWidget::updateDetails()
@@ -121,10 +124,7 @@ void JobWidget::updateDetails()
     if(_job)
     {
         _ui->jobNameLabel->setText(_job->name());
-        disconnect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
-        _ui->detailTreeWidget->reset();
         _ui->detailTreeWidget->setSelectedUrls(_job->urls());
-        connect(_ui->detailTreeWidget, SIGNAL(selectionChanged()), this, SLOT(save()));
         _ui->restoreListWidget->clear();
         _ui->restoreListWidget->addArchives(_job->archives());
         _ui->preservePathsCheckBox->setChecked(_job->optionPreservePaths());
@@ -145,7 +145,7 @@ void JobWidget::restoreLatestArchive()
     }
 }
 
-bool JobWidget::canSave()
+bool JobWidget::canSaveNew()
 {
     if(!_ui->jobNameLineEdit->text().isEmpty() && !_ui->newJobTreeWidget->getSelectedUrls().isEmpty())
         return true;

@@ -29,9 +29,11 @@ public slots:
 
 signals:
     void selectionChanged();
+    void focusLost();
 
 protected:
     void keyReleaseEvent(QKeyEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     Ui::FilePicker          *_ui;

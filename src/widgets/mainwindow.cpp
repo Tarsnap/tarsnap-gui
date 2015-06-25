@@ -763,7 +763,7 @@ void MainWindow::addJobClicked()
 
     if(_ui->addJobButton->property("save").toBool())
     {
-        _ui->jobDetailsWidget->save();
+        _ui->jobDetailsWidget->saveNew();
         _ui->addJobButton->setText(tr("Add job"));
         _ui->addJobButton->setProperty("save", false);
         _ui->addJobButton->setDefault(false);

@@ -57,7 +57,7 @@ public slots:
 private:
     // Yes, a singleton
     inline explicit Debug():QObject(){}
-    Debug(Debug const&){}
+    Debug(Debug const&):QObject(){}
     void operator=(Debug const&){}
 };
 

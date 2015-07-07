@@ -7,10 +7,11 @@ BEGIN TRANSACTION;
 CREATE TABLE `jobs` (
 	`name`	TEXT NOT NULL,
 	`urls`	TEXT,
-	`optionPreservePaths`	INTEGER,
-	`optionTraverseMount`	INTEGER,
-	`optionFollowSymLinks`	INTEGER,
-	`optionSkipFilesSize`	INTEGER,
+	`optionScheduledEnabled`	INTEGER,
+	`optionPreservePaths`		INTEGER,
+	`optionTraverseMount`		INTEGER,
+	`optionFollowSymLinks`		INTEGER,
+	`optionSkipFilesSize`		INTEGER,
 	PRIMARY KEY(name)
 );
 CREATE TABLE `archives` (

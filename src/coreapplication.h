@@ -25,6 +25,7 @@ public slots:
 private:
     MainWindow  *_mainWindow;
     TaskManager  _taskManager;
+    bool         _jobsOption;
 };
 
 #endif // COREAPPLICATION_H

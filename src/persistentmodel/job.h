@@ -29,6 +29,9 @@ public:
     QList<ArchivePtr> archives() const;
     void setArchives(const QList<ArchivePtr> &archives);
 
+    bool optionScheduledEnabled() const;
+    void setOptionScheduledEnabled(bool optionScheduledEnabled);
+
     bool optionPreservePaths() const;
     void setOptionPreservePaths(bool optionPreservePaths);
 
@@ -60,6 +63,7 @@ private:
     QString             _name;
     QList<QUrl>         _urls;
     QList<ArchivePtr>   _archives;
+    bool                _optionScheduledEnabled;
     bool                _optionPreservePaths;
     bool                _optionTraverseMount;
     bool                _optionFollowSymLinks;

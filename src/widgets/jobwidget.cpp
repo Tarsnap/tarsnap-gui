@@ -43,6 +43,7 @@ JobWidget::JobWidget(QWidget *parent) :
             });
 
     connect(_ui->detailTreeWidget, SIGNAL(focusLost()), this, SLOT(save()));
+    connect(_ui->includeScheduledCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
     connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
     connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
     connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
@@ -95,6 +96,7 @@ void JobWidget::save()
     if(!_job->objectKey().isEmpty())
     {
         _job->setUrls(_ui->detailTreeWidget->getSelectedUrls());
+        _job->setOptionScheduledEnabled(_ui->includeScheduledCheckBox->isChecked());
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
@@ -110,6 +112,7 @@ void JobWidget::saveNew()
     {
         _job->setName(_ui->jobNameLineEdit->text());
         _job->setUrls(_ui->newJobTreeWidget->getSelectedUrls());
+        _job->setOptionScheduledEnabled(_ui->includeScheduledCheckBox->isChecked());
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
@@ -127,6 +130,7 @@ void JobWidget::updateDetails()
         _ui->detailTreeWidget->setSelectedUrls(_job->urls());
         _ui->restoreListWidget->clear();
         _ui->restoreListWidget->addArchives(_job->archives());
+        _ui->includeScheduledCheckBox->setChecked(_job->optionScheduledEnabled());
         _ui->preservePathsCheckBox->setChecked(_job->optionPreservePaths());
         _ui->traverseMountCheckBox->setChecked(_job->optionTraverseMount());
         _ui->followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());

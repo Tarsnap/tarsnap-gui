@@ -7,16 +7,15 @@
 
 static bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp()); }
 
-Job::Job(QObject *parent) : QObject(parent), _optionPreservePaths(true), _optionTraverseMount(true),
+Job::Job(QObject *parent) : QObject(parent), _optionScheduledEnabled(false),
+    _optionPreservePaths(true), _optionTraverseMount(true),
     _optionFollowSymLinks(false), _optionSkipFilesSize(0)
 
 {
-
 }
 
 Job::~Job()
 {
-
 }
 
 QString Job::name() const
@@ -50,6 +49,16 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
     _archives = archives;
 
     std::sort(_archives.begin(), _archives.end(), ArchiveCompare);
+}
+
+bool Job::optionScheduledEnabled() const
+{
+    return _optionScheduledEnabled;
+}
+
+void Job::setOptionScheduledEnabled(bool optionScheduledEnabled)
+{
+    _optionScheduledEnabled = optionScheduledEnabled;
 }
 
 bool Job::optionPreservePaths() const
@@ -112,12 +121,12 @@ void Job::save()
 
     QString queryString;
     if(exists)
-        queryString = QLatin1String("update jobs set name=?, urls=?, optionPreservePaths=?, "
+        queryString = QLatin1String("update jobs set name=?, urls=?, optionScheduledEnabled=?, optionPreservePaths=?, "
                                     "optionTraverseMount=?, optionFollowSymLinks=?, optionSkipFilesSize=? "
                                     "where name=?");
     else
-        queryString = QLatin1String("insert into jobs(name, urls, optionPreservePaths, optionTraverseMount, "
-                                    "optionFollowSymLinks, optionSkipFilesSize) values(?, ?, ?, ?, ?, ?)");
+        queryString = QLatin1String("insert into jobs(name, urls, optionScheduledEnabled, optionPreservePaths, optionTraverseMount, "
+                                    "optionFollowSymLinks, optionSkipFilesSize) values(?, ?, ?, ?, ?, ?, ?)");
 
     PersistentStore &store = getStore();
     QSqlQuery query = store.createQuery();
@@ -133,6 +142,7 @@ void Job::save()
         urls << url.toString(QUrl::FullyEncoded);
     }
     query.addBindValue(urls.join('\n'));
+    query.addBindValue(_optionScheduledEnabled);
     query.addBindValue(_optionPreservePaths);
     query.addBindValue(_optionTraverseMount);
     query.addBindValue(_optionFollowSymLinks);
@@ -168,6 +178,7 @@ void Job::load()
     else if(query.next())
     {
         _urls = QUrl::fromStringList(query.value(query.record().indexOf("urls")).toString().split('\n', QString::SkipEmptyParts));
+        _optionScheduledEnabled = query.value(query.record().indexOf("optionScheduledEnabled")).toBool();
         _optionPreservePaths  = query.value(query.record().indexOf("optionPreservePaths")).toBool();
         _optionTraverseMount  = query.value(query.record().indexOf("optionTraverseMount")).toBool();
         _optionFollowSymLinks = query.value(query.record().indexOf("optionFollowSymLinks")).toBool();

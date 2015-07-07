@@ -52,6 +52,7 @@ public slots:
     void fsck();
     void nuke();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
+    void runJobs();
 
     void stopTasks();
 
@@ -91,6 +92,7 @@ private:
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;
+    bool                         _headless;
 };
 
 #endif // TASKMANAGER_H

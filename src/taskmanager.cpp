@@ -8,7 +8,7 @@
 
 TaskManager::TaskManager(QObject *parent) : QObject()
   , _threadPool(QThreadPool::globalInstance()), _aggressiveNetworking(false)
-  , _preservePathnames(true)
+  , _preservePathnames(true), _headless(false)
 {
     Q_UNUSED(parent);
     // Move the operations belonging to the Task manager to a separate thread
@@ -279,6 +279,51 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     queueTask(restore);
 }
 
+void TaskManager::runJobs()
+{
+    QList<JobPtr> jobs;
+    PersistentStore& store = PersistentStore::instance();
+    if(!store.initialized())
+    {
+        DEBUG << "PersistentStore was not initialized properly.";
+        return;
+    }
+    QSqlQuery query = store.createQuery();
+    if(!query.prepare(QLatin1String("select name from jobs")))
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    if(!query.exec())
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    else if(query.next())
+    {
+        do
+        {
+            JobPtr job(new Job);
+            job->setName(query.value(query.record().indexOf("name")).toString());
+            job->load();
+            jobs << job;
+        }while(query.next());
+    }
+    bool nothingToDo = true;
+    foreach(JobPtr job, jobs)
+    {
+        if(job->optionScheduledEnabled())
+        {
+            backupNow(job->createBackupTask());
+            nothingToDo = false;
+        }
+    }
+    if(nothingToDo)
+        qApp->quit();
+    else
+        _headless = true;
+}
+
 void TaskManager::stopTasks()
 {
     foreach (TarsnapClient *client, _runningTaskMap)
@@ -314,6 +359,10 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
         backupTask->setStatus(TaskStatus::Failed);
     }
     _backupTaskMap.take(backupTask->uuid());
+    if(_headless && _backupTaskMap.isEmpty())
+    {
+        qApp->quit();
+    }
 }
 
 void TaskManager::backupTaskStarted(QUuid uuid)

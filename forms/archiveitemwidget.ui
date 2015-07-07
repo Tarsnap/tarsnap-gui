@@ -114,44 +114,6 @@ color: grey;
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="restoreButton">
-     <property name="minimumSize">
-      <size>
-       <width>27</width>
-       <height>27</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>27</width>
-       <height>27</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton {
-border: none;
-border-radius: 4px;
-}
-
-QToolButton:hover {
-background: rgba(179, 190, 255, 120);
-}
-
-QToolButton:pressed {
-padding-top: 2px;
-padding-left: 2px;
-}</string>
-     </property>
-     <property name="text">
-      <string>...</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../resources.qrc">
-       <normaloff>:/resources/icons/action-undo-2x.png</normaloff>:/resources/icons/action-undo-2x.png</iconset>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QToolButton" name="inspectButton">
      <property name="minimumSize">
       <size>
@@ -186,6 +148,44 @@ padding-left: 2px;
      <property name="icon">
       <iconset resource="../resources.qrc">
        <normaloff>:/resources/icons/info-2x.png</normaloff>:/resources/icons/info-2x.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QToolButton" name="restoreButton">
+     <property name="minimumSize">
+      <size>
+       <width>27</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>27</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QToolButton {
+border: none;
+border-radius: 4px;
+}
+
+QToolButton:hover {
+background: rgba(179, 190, 255, 120);
+}
+
+QToolButton:pressed {
+padding-top: 2px;
+padding-left: 2px;
+}</string>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/resources/icons/action-undo-2x.png</normaloff>:/resources/icons/action-undo-2x.png</iconset>
      </property>
     </widget>
    </item>
@@ -269,7 +269,7 @@ padding-left: 2px;
   <customwidget>
    <class>TextLabel</class>
    <extends>QLabel</extends>
-   <header location="global">../src/widgets/textlabel.h</header>
+   <header location="global">../widgets/textlabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

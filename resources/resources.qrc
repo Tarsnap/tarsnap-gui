@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/">
+        <file>dbtemplate.db</file>
+        <file>icons/action-undo-2x.png</file>
+        <file>icons/action-undo-4x.png</file>
+        <file>icons/caret-bottom-2x.png</file>
+        <file>icons/caret-bottom-4x.png</file>
+        <file>icons/caret-top-2x.png</file>
+        <file>icons/caret-top-4x.png</file>
+        <file>icons/circle-x-2x.png</file>
+        <file>icons/circle-x-4x.png</file>
+        <file>icons/data-transfer-download-2x.png</file>
+        <file>icons/data-transfer-download-4x.png</file>
+        <file>icons/file-2x.png</file>
+        <file>icons/file-4x.png</file>
+        <file>icons/file-8x.png</file>
+        <file>icons/folder-2x.png</file>
+        <file>icons/folder-4x.png</file>
+        <file>icons/info-2x.png</file>
+        <file>icons/info-4x.png</file>
+        <file>icons/light_toast_@2X.png</file>
+        <file>icons/light_toast.png</file>
+        <file>icons/loading.gif</file>
+        <file>icons/magnifying-glass-2x.png</file>
+        <file>icons/magnifying-glass-4x.png</file>
+        <file>icons/menu-2x.png</file>
+        <file>icons/menu-4x.png</file>
+        <file>icons/reload-2x.png</file>
+        <file>icons/reload-4x.png</file>
+        <file>icons/tarsnap_icon.png</file>
+        <file>icons/tarsnap.png</file>
+        <file>icons/trash-2x.png</file>
+        <file>icons/trash-4x.png</file>
+        <file>icons/hard-drive-2x.png</file>
+        <file>icons/hard-drive-4x.png</file>
+        <file>icons/tarsnap_icon_small.png</file>
+        <file>icons/tarsnap_icon_medium.png</file>
+    </qresource>
+</RCC>

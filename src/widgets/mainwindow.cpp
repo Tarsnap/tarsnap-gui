@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    QPixmap logo(":/resources/icons/tarsnap.png");
+    QPixmap logo(":/icons/tarsnap.png");
     _tarsnapLogo.setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     _tarsnapLogo.adjustSize();
     _tarsnapLogo.lower();

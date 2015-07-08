@@ -23,8 +23,8 @@
    <string>Tarsnap</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../resources.qrc">
-    <normaloff>:/resources/icons/tarsnap_icon.png</normaloff>:/resources/icons/tarsnap_icon.png</iconset>
+   <iconset resource="../resources/resources.qrc">
+    <normaloff>:/icons/tarsnap_icon.png</normaloff>:/icons/tarsnap_icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">#MainWindow {
@@ -665,7 +665,7 @@ selection-background-color: rgba(179, 190, 255, 120);
                         <string/>
                        </property>
                        <property name="pixmap">
-                        <pixmap resource="../resources.qrc">:/resources/icons/tarsnap_icon.png</pixmap>
+                        <pixmap resource="../resources/resources.qrc">:/icons/tarsnap_icon.png</pixmap>
                        </property>
                        <property name="scaledContents">
                         <bool>true</bool>
@@ -1189,8 +1189,8 @@ margin-top: 6px;
                      <string/>
                     </property>
                     <property name="icon">
-                     <iconset resource="../resources.qrc">
-                      <normaloff>:/resources/icons/tarsnap_icon.png</normaloff>:/resources/icons/tarsnap_icon.png</iconset>
+                     <iconset resource="../resources/resources.qrc">
+                      <normaloff>:/icons/tarsnap_icon.png</normaloff>:/icons/tarsnap_icon.png</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
@@ -1972,9 +1972,9 @@ border: none;
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../resources.qrc">
-          <normaloff>:/resources/icons/caret-top-2x.png</normaloff>
-          <activeon>:/resources/icons/caret-bottom-2x.png</activeon>:/resources/icons/caret-top-2x.png</iconset>
+         <iconset resource="../resources/resources.qrc">
+          <normaloff>:/icons/caret-top-2x.png</normaloff>
+          <activeon>:/icons/caret-bottom-2x.png</activeon>:/icons/caret-top-2x.png</iconset>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -2016,8 +2016,8 @@ border: none;
   </layout>
   <action name="actionRefresh">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/reload-2x.png</normaloff>:/resources/icons/reload-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/reload-2x.png</normaloff>:/icons/reload-2x.png</iconset>
    </property>
    <property name="text">
     <string>Refresh</string>
@@ -2031,8 +2031,8 @@ border: none;
   </action>
   <action name="actionClearList">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/circle-x-2x.png</normaloff>:/resources/icons/circle-x-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/circle-x-2x.png</normaloff>:/icons/circle-x-2x.png</iconset>
    </property>
    <property name="text">
     <string>Clear list</string>
@@ -2046,8 +2046,8 @@ border: none;
   </action>
   <action name="actionBrowseItems">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/magnifying-glass-2x.png</normaloff>:/resources/icons/magnifying-glass-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/magnifying-glass-2x.png</normaloff>:/icons/magnifying-glass-2x.png</iconset>
    </property>
    <property name="text">
     <string>Browse for items</string>
@@ -2168,7 +2168,7 @@ border: none;
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

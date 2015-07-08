@@ -50,7 +50,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources.qrc">:/resources/icons/hard-drive-2x.png</pixmap>
+      <pixmap resource="../resources/resources.qrc">:/icons/hard-drive-2x.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -155,8 +155,8 @@ padding-left: 2px;
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset resource="../resources.qrc">
-       <normaloff>:/resources/icons/info-2x.png</normaloff>:/resources/icons/info-2x.png</iconset>
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/info-2x.png</normaloff>:/icons/info-2x.png</iconset>
      </property>
     </widget>
    </item>
@@ -196,8 +196,8 @@ padding-left: 2px;
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset resource="../resources.qrc">
-       <normaloff>:/resources/icons/action-undo-2x.png</normaloff>:/resources/icons/action-undo-2x.png</iconset>
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/action-undo-2x.png</normaloff>:/icons/action-undo-2x.png</iconset>
      </property>
     </widget>
    </item>
@@ -220,8 +220,8 @@ padding-left: 2px;
   </layout>
   <action name="actionRestore">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/action-undo-2x.png</normaloff>:/resources/icons/action-undo-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/action-undo-2x.png</normaloff>:/icons/action-undo-2x.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>
@@ -232,8 +232,8 @@ padding-left: 2px;
   </action>
   <action name="actionInspect">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/info-2x.png</normaloff>:/resources/icons/info-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/info-2x.png</normaloff>:/icons/info-2x.png</iconset>
    </property>
    <property name="text">
     <string>Inspect</string>
@@ -252,8 +252,8 @@ padding-left: 2px;
   </action>
   <action name="actionDelete">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/trash-2x.png</normaloff>:/resources/icons/trash-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/trash-2x.png</normaloff>:/icons/trash-2x.png</iconset>
    </property>
    <property name="text">
     <string>Delete</string>
@@ -271,7 +271,7 @@ padding-left: 2px;
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

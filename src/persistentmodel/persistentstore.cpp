@@ -59,7 +59,7 @@ bool PersistentStore::init()
 
     if(create)
     {
-        QFile dbTemplate(":/resources/dbtemplate.db");
+        QFile dbTemplate(":/dbtemplate.db");
         if(!dbTemplate.copy(dbUrl))
         {
             DEBUG << "Failed to create the PersistentStore db.";

@@ -56,7 +56,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources.qrc">:/resources/icons/file-2x.png</pixmap>
+      <pixmap resource="../resources/resources.qrc">:/icons/file-2x.png</pixmap>
      </property>
     </widget>
    </item>
@@ -143,8 +143,8 @@ padding-left: 2px;
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset resource="../resources.qrc">
-       <normaloff>:/resources/icons/magnifying-glass-2x.png</normaloff>:/resources/icons/magnifying-glass-2x.png</iconset>
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/magnifying-glass-2x.png</normaloff>:/icons/magnifying-glass-2x.png</iconset>
      </property>
     </widget>
    </item>
@@ -181,16 +181,16 @@ padding-left: 2px;
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset resource="../resources.qrc">
-       <normaloff>:/resources/icons/circle-x-2x.png</normaloff>:/resources/icons/circle-x-2x.png</iconset>
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/circle-x-2x.png</normaloff>:/icons/circle-x-2x.png</iconset>
      </property>
     </widget>
    </item>
   </layout>
   <action name="actionRemove">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/circle-x-2x.png</normaloff>:/resources/icons/circle-x-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/circle-x-2x.png</normaloff>:/icons/circle-x-2x.png</iconset>
    </property>
    <property name="text">
     <string>Remove</string>
@@ -201,8 +201,8 @@ padding-left: 2px;
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/magnifying-glass-2x.png</normaloff>:/resources/icons/magnifying-glass-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/magnifying-glass-2x.png</normaloff>:/icons/magnifying-glass-2x.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -220,7 +220,7 @@ padding-left: 2px;
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

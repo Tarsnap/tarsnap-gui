@@ -56,7 +56,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources.qrc">:/resources/icons/tarsnap_icon_small.png</pixmap>
+      <pixmap resource="../resources/resources.qrc">:/icons/tarsnap_icon_small.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -96,8 +96,8 @@ padding-left: 2px;
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../resources.qrc">
-       <normaloff>:/resources/icons/hard-drive-2x.png</normaloff>:/resources/icons/hard-drive-2x.png</iconset>
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/hard-drive-2x.png</normaloff>:/icons/hard-drive-2x.png</iconset>
      </property>
     </widget>
    </item>
@@ -184,8 +184,8 @@ padding-left: 2px;
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset resource="../resources.qrc">
-       <normaloff>:/resources/icons/info-2x.png</normaloff>:/resources/icons/info-2x.png</iconset>
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/info-2x.png</normaloff>:/icons/info-2x.png</iconset>
      </property>
     </widget>
    </item>
@@ -222,8 +222,8 @@ padding-left: 2px;
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset resource="../resources.qrc">
-       <normaloff>:/resources/icons/action-undo-2x.png</normaloff>:/resources/icons/action-undo-2x.png</iconset>
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/action-undo-2x.png</normaloff>:/icons/action-undo-2x.png</iconset>
      </property>
     </widget>
    </item>
@@ -260,16 +260,16 @@ padding-left: 2px;
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset resource="../resources.qrc">
-       <normaloff>:/resources/icons/trash-2x.png</normaloff>:/resources/icons/trash-2x.png</iconset>
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/trash-2x.png</normaloff>:/icons/trash-2x.png</iconset>
      </property>
     </widget>
    </item>
   </layout>
   <action name="actionDelete">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/trash-2x.png</normaloff>:/resources/icons/trash-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/trash-2x.png</normaloff>:/icons/trash-2x.png</iconset>
    </property>
    <property name="text">
     <string>Delete</string>
@@ -280,8 +280,8 @@ padding-left: 2px;
   </action>
   <action name="actionInspect">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/info-2x.png</normaloff>:/resources/icons/info-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/info-2x.png</normaloff>:/icons/info-2x.png</iconset>
    </property>
    <property name="text">
     <string>Inspect</string>
@@ -292,8 +292,8 @@ padding-left: 2px;
   </action>
   <action name="actionRestore">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/action-undo-2x.png</normaloff>:/resources/icons/action-undo-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/action-undo-2x.png</normaloff>:/icons/action-undo-2x.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>
@@ -304,8 +304,8 @@ padding-left: 2px;
   </action>
   <action name="actionGoToJob">
    <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/resources/icons/hard-drive-2x.png</normaloff>:/resources/icons/hard-drive-2x.png</iconset>
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/hard-drive-2x.png</normaloff>:/icons/hard-drive-2x.png</iconset>
    </property>
    <property name="text">
     <string>Go to Job</string>
@@ -323,7 +323,7 @@ padding-left: 2px;
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

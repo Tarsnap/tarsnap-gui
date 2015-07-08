@@ -4,7 +4,7 @@
 
 BusyWidget::BusyWidget(QWidget *parent):
     QLabel(parent),
-    _animation(":/resources/icons/loading.gif")
+    _animation(":/icons/loading.gif")
 {
     setMovie(&_animation);
 }

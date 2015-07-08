@@ -14,7 +14,7 @@
 SetupDialog::SetupDialog(QWidget *parent) :
     QDialog(parent),
     _ui(new Ui::SetupDialog),
-    _loadingAnimation(":/resources/icons/loading.gif"),
+    _loadingAnimation(":/icons/loading.gif"),
     _haveKey(false)
 {
     _ui->setupUi(this);

@@ -86,8 +86,7 @@ FORMS    += \
     forms/jobwidget.ui \
     forms/aboutwidget.ui
 
-RESOURCES += \
-    resources.qrc
+RESOURCES += resources/resources.qrc
 
 DISTFILES += \
     COPYING \

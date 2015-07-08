@@ -105,8 +105,8 @@ padding-left: 3px;
              <string>Options</string>
             </property>
             <property name="icon">
-             <iconset resource="../resources.qrc">
-              <normaloff>:/resources/icons/menu-2x.png</normaloff>:/resources/icons/menu-2x.png</iconset>
+             <iconset resource="../resources/resources.qrc">
+              <normaloff>:/icons/menu-2x.png</normaloff>:/icons/menu-2x.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -228,7 +228,7 @@ background: transparent;
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="../resources.qrc">:/resources/icons/hard-drive-4x.png</pixmap>
+             <pixmap resource="../resources/resources.qrc">:/icons/hard-drive-4x.png</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -270,8 +270,8 @@ background: transparent;
              <string>Options</string>
             </property>
             <property name="icon">
-             <iconset resource="../resources.qrc">
-              <normaloff>:/resources/icons/menu-2x.png</normaloff>:/resources/icons/menu-2x.png</iconset>
+             <iconset resource="../resources/resources.qrc">
+              <normaloff>:/icons/menu-2x.png</normaloff>:/icons/menu-2x.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -670,7 +670,7 @@ selection-background-color: rgba(179, 190, 255, 120);
   <tabstop>cancelButton</tabstop>
  </tabstops>
  <resources>
-  <include location="../resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

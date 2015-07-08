@@ -24,7 +24,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#SetupDialog {
-background-image: url(&quot;:/resources/icons/light_toast.png&quot;);
+background-image: url(&quot;:/icons/light_toast.png&quot;);
 }</string>
   </property>
   <property name="modal">
@@ -179,7 +179,7 @@ background-image: url(&quot;:/resources/icons/light_toast.png&quot;);
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources.qrc">:/resources/icons/tarsnap.png</pixmap>
+      <pixmap resource="../resources/resources.qrc">:/icons/tarsnap.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>false</bool>
@@ -1057,7 +1057,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>doneButton</tabstop>
  </tabstops>
  <resources>
-  <include location="../resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

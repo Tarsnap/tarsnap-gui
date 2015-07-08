@@ -101,8 +101,8 @@ padding-left: 3px;
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../resources.qrc">
-          <normaloff>:/resources/icons/menu-2x.png</normaloff>:/resources/icons/menu-2x.png</iconset>
+         <iconset resource="../resources/resources.qrc">
+          <normaloff>:/icons/menu-2x.png</normaloff>:/icons/menu-2x.png</iconset>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -182,7 +182,7 @@ padding-left: 3px;
   </layout>
  </widget>
  <resources>
-  <include location="../resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

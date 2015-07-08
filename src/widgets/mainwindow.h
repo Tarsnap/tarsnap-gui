@@ -49,8 +49,8 @@ public slots:
     void backupTaskUpdate(const TaskStatus &status);
     void archivesDeleted(QList<ArchivePtr> archives, bool done = true);
     void updateLoadingAnimation(bool idle);
-    void updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal
-                               , qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit
+    void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal
+                               , quint64 sizeUniqueCompressed, quint64 archiveCount, qreal credit
                                , QString accountStatus);
     void repairCacheStatus(TaskStatus status, QString reason);
     void purgeArchivesStatus(TaskStatus status, QString reason);
@@ -59,7 +59,7 @@ public slots:
     void updateStatusMessage(QString message, QString detail = "");
 
 private slots:
-    void updateBackupItemTotals(qint64 count, qint64 size);
+    void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void updateInspectArchive();
     void commitSettings();

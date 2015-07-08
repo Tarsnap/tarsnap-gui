@@ -20,7 +20,7 @@ public slots:
     void recomputeListTotals();
 
 signals:
-    void itemTotals(qint64 count, qint64 size);
+    void itemTotals(quint64 count, quint64 size);
 
 protected:
     void dragMoveEvent(QDragMoveEvent *event);

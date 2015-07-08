@@ -58,7 +58,7 @@ void BackupListItem::setUrl(const QUrl &url)
             QThreadPool *threadPool = QThreadPool::globalInstance();
             Utils::GetDirInfoTask *task = new Utils::GetDirInfoTask(dir);
             task->setAutoDelete(true);
-            connect(task, SIGNAL(result(qint64, qint64)), this, SLOT(updateDirDetail(qint64, qint64)), Qt::QueuedConnection);
+            connect(task, SIGNAL(result(quint64, quint64)), this, SLOT(updateDirDetail(quint64, quint64)), Qt::QueuedConnection);
             threadPool->start(task);
         }
         else if(file.isFile())
@@ -82,7 +82,7 @@ void BackupListItem::browseUrl()
     QDesktopServices::openUrl(_url);
 }
 
-void BackupListItem::updateDirDetail(qint64 size, qint64 count)
+void BackupListItem::updateDirDetail(quint64 size, quint64 count)
 {
     _size = size;
     _count = count;
@@ -90,22 +90,22 @@ void BackupListItem::updateDirDetail(qint64 size, qint64 count)
                              + Utils::humanBytes(_size, _useSIPrefixes));
     emit requestUpdate();
 }
-qint64 BackupListItem::size() const
+quint64 BackupListItem::size() const
 {
     return _size;
 }
 
-void BackupListItem::setSize(const qint64 &size)
+void BackupListItem::setSize(const quint64 &size)
 {
     _size = size;
 }
 
-qint64 BackupListItem::count() const
+quint64 BackupListItem::count() const
 {
     return _count;
 }
 
-void BackupListItem::setCount(const qint64 &count)
+void BackupListItem::setCount(const quint64 &count)
 {
     _count = count;
 }

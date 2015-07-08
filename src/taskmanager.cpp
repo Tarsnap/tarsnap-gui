@@ -543,10 +543,10 @@ void TaskManager::dequeueTask(QUuid uuid)
 
 void TaskManager::parseGlobalStats(QString tarsnapOutput)
 {
-    qint64 sizeTotal;
-    qint64 sizeCompressed;
-    qint64 sizeUniqueTotal;
-    qint64 sizeUniqueCompressed;
+    quint64 sizeTotal;
+    quint64 sizeCompressed;
+    quint64 sizeUniqueTotal;
+    quint64 sizeUniqueCompressed;
 
     QStringList lines = tarsnapOutput.trimmed().split('\n', QString::SkipEmptyParts);
     if(lines.count() < 3)

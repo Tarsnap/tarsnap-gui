@@ -24,11 +24,11 @@ public:
     QUrl url() const;
     void setUrl(const QUrl &url);
 
-    qint64 count() const;
-    void setCount(const qint64 &count);
+    quint64 count() const;
+    void setCount(const quint64 &count);
 
-    qint64 size() const;
-    void setSize(const qint64 &size);
+    quint64 size() const;
+    void setSize(const quint64 &size);
 
 signals:
     void requestDelete();
@@ -36,14 +36,14 @@ signals:
 
 public slots:
     void browseUrl();
-    void updateDirDetail(qint64 size, qint64 count);
+    void updateDirDetail(quint64 size, quint64 count);
 
 private:
     Ui::BackupItemWidget _ui;
     QWidget              _widget;
     QUrl                 _url;
-    qint64               _count;
-    qint64               _size;
+    quint64               _count;
+    quint64               _size;
     bool                 _useSIPrefixes;
 };
 

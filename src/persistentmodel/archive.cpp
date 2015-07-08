@@ -182,42 +182,42 @@ void Archive::setCommand(const QString &value)
     _command = value;
 }
 
-qint64 Archive::sizeUniqueCompressed() const
+quint64 Archive::sizeUniqueCompressed() const
 {
     return _sizeUniqueCompressed;
 }
 
-void Archive::setSizeUniqueCompressed(const qint64 &value)
+void Archive::setSizeUniqueCompressed(const quint64 &value)
 {
     _sizeUniqueCompressed = value;
 }
 
-qint64 Archive::sizeUniqueTotal() const
+quint64 Archive::sizeUniqueTotal() const
 {
     return _sizeUniqueTotal;
 }
 
-void Archive::setSizeUniqueTotal(const qint64 &value)
+void Archive::setSizeUniqueTotal(const quint64 &value)
 {
     _sizeUniqueTotal = value;
 }
 
-qint64 Archive::sizeCompressed() const
+quint64 Archive::sizeCompressed() const
 {
     return _sizeCompressed;
 }
 
-void Archive::setSizeCompressed(const qint64 &value)
+void Archive::setSizeCompressed(const quint64 &value)
 {
     _sizeCompressed = value;
 }
 
-qint64 Archive::sizeTotal() const
+quint64 Archive::sizeTotal() const
 {
     return _sizeTotal;
 }
 
-void Archive::setSizeTotal(const qint64 &value)
+void Archive::setSizeTotal(const quint64 &value)
 {
     _sizeTotal = value;
 }

@@ -29,12 +29,12 @@ void BackupTask::setOptionPreservePaths(bool optionPreservePaths)
     _optionPreservePaths = optionPreservePaths;
 }
 
-qint64 BackupTask::optionSkipFilesSize() const
+quint64 BackupTask::optionSkipFilesSize() const
 {
     return _optionSkipFilesSize;
 }
 
-void BackupTask::setOptionSkipFilesSize(const qint64 &optionSkipFilesSize)
+void BackupTask::setOptionSkipFilesSize(const quint64 &optionSkipFilesSize)
 {
     _optionSkipFilesSize = MB * optionSkipFilesSize;
 }
@@ -69,7 +69,7 @@ QStringList BackupTask::getExcludesList()
             QFileInfo file(url.toLocalFile());
             if(file.isFile())
             {
-                if(file.size() >= (_optionSkipFilesSize))
+                if(quint64(file.size()) >= _optionSkipFilesSize)
                 {
                     skipList << QRegExp::escape(url.toLocalFile());
                 }
@@ -82,10 +82,11 @@ QStringList BackupTask::getExcludesList()
                 {
                     QDir dir(dirStack.pop());
                     dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
-                    foreach (QFileInfo entry, dir.entryInfoList()) {
+                    foreach (QFileInfo entry, dir.entryInfoList())
+                    {
                         if(entry.isFile())
                         {
-                            if(entry.size() >= (_optionSkipFilesSize))
+                            if(quint64(entry.size()) >= _optionSkipFilesSize)
                                 skipList << QRegExp::escape(entry.absoluteFilePath());
                         }
                         else if(entry.isDir())
@@ -100,4 +101,3 @@ QStringList BackupTask::getExcludesList()
 
     return skipList;
 }
-

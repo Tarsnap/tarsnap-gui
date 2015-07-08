@@ -41,8 +41,8 @@ public:
     bool optionFollowSymLinks() const;
     void setOptionFollowSymLinks(bool optionFollowSymLinks);
 
-    qint64 optionSkipFilesSize() const;
-    void setOptionSkipFilesSize(const qint64 &optionSkipFilesSize);
+    quint64 optionSkipFilesSize() const;
+    void setOptionSkipFilesSize(const quint64 &optionSkipFilesSize);
 
     BackupTaskPtr createBackupTask();
 
@@ -67,7 +67,7 @@ private:
     bool                _optionPreservePaths;
     bool                _optionTraverseMount;
     bool                _optionFollowSymLinks;
-    qint64              _optionSkipFilesSize;
+    quint64              _optionSkipFilesSize;
 };
 
 #endif // JOB_H

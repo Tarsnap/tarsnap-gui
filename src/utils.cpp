@@ -15,8 +15,8 @@ GetDirInfoTask::GetDirInfoTask(QDir dir):
 
 void GetDirInfoTask::run()
 {
-    qint64 size = 0;
-    qint64 count = 0;
+    quint64 size = 0;
+    quint64 count = 0;
 
     size = getDirSize(_dir);
     count = getDirCount(_dir);
@@ -24,9 +24,9 @@ void GetDirInfoTask::run()
     emit result(size, count);
 }
 
-qint64 GetDirInfoTask::getDirSize(QDir dir)
+quint64 GetDirInfoTask::getDirSize(QDir dir)
 {
-    qint64 size = 0;
+    quint64 size = 0;
     if(dir.exists())
     {
         dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
@@ -46,9 +46,9 @@ qint64 GetDirInfoTask::getDirSize(QDir dir)
     return size;
 }
 
-qint64 GetDirInfoTask::getDirCount(QDir dir)
+quint64 GetDirInfoTask::getDirCount(QDir dir)
 {
-    qint64 count = 0;
+    quint64 count = 0;
     if(dir.exists())
     {
         dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
@@ -67,9 +67,9 @@ qint64 GetDirInfoTask::getDirCount(QDir dir)
     return count;
 }
 
-QString Utils::humanBytes(qint64 bytes, bool si)
+QString Utils::humanBytes(quint64 bytes, bool si)
 {
-    int unit = si ? 1000 : 1024;
+    quint64 unit = si ? 1000 : 1024;
     if (bytes < unit) return QString::number(bytes) + " B";
     int exp = (int) (log(bytes) / log(unit));
     QString pre = QString(si ? "kMGTPE" : "KMGTPE").at(exp-1) + QString(si ? "" : "i");

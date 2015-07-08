@@ -32,8 +32,8 @@ signals:
     void nukeStatus(TaskStatus status, QString reason);
     void archiveList(QList<ArchivePtr> archives);
     void archivesDeleted(QList<ArchivePtr> archives);
-    void overallStats(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal
-                      , qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit
+    void overallStats(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal
+                      , quint64 sizeUniqueCompressed, quint64 archiveCount, qreal credit
                       , QString accountStatus);
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
     void jobsList(QMap<QString, JobPtr> jobs);

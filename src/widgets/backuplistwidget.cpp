@@ -97,8 +97,8 @@ void BackupListWidget::removeItems()
 
 void BackupListWidget::recomputeListTotals()
 {
-    qint64 count = 0;
-    qint64 size = 0;
+    quint64 count = 0;
+    quint64 size = 0;
     for(int i = 0; i < this->count(); ++i)
     {
         BackupListItem *backupItem = dynamic_cast<BackupListItem*>(item(i));

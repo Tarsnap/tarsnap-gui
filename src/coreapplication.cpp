@@ -104,8 +104,8 @@ int CoreApplication::initialize()
                 ,SLOT(updateLoadingAnimation(bool)), Qt::QueuedConnection);
         connect(_mainWindow, SIGNAL(getOverallStats()), &_taskManager
                 , SLOT(getOverallStats()), Qt::QueuedConnection);
-        connect(&_taskManager, SIGNAL(overallStats(qint64,qint64,qint64,qint64,qint64,qreal,QString))
-                , _mainWindow,SLOT(updateSettingsSummary(qint64,qint64,qint64,qint64,qint64,qreal,QString)), Qt::QueuedConnection);
+        connect(&_taskManager, SIGNAL(overallStats(quint64,quint64,quint64,quint64,quint64,qreal,QString))
+                , _mainWindow,SLOT(updateSettingsSummary(quint64,quint64,quint64,quint64,quint64,qreal,QString)), Qt::QueuedConnection);
         connect(_mainWindow, SIGNAL(repairCache()), &_taskManager
                 , SLOT(fsck()), Qt::QueuedConnection);
         connect(&_taskManager, SIGNAL(fsckStatus(TaskStatus,QString)), _mainWindow

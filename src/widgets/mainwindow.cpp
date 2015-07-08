@@ -151,8 +151,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->skipFilesSpinBox, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
 
     // Backup and Archives
-    connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
-            , SLOT(updateBackupItemTotals(qint64, qint64)));
+    connect(_ui->backupListWidget, SIGNAL(itemTotals(quint64,quint64)), this
+            , SLOT(updateBackupItemTotals(quint64, quint64)));
     connect(_ui->archiveListWidget, SIGNAL(getArchiveList()), this, SIGNAL(getArchiveList()));
     connect(this, SIGNAL(archiveList(QList<ArchivePtr >))
             , _ui->archiveListWidget, SLOT(addArchives(QList<ArchivePtr >)));
@@ -365,7 +365,7 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui->busyWidget->animate();
 }
 
-void MainWindow::updateSettingsSummary(qint64 sizeTotal, qint64 sizeCompressed, qint64 sizeUniqueTotal, qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit, QString accountStatus)
+void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed, quint64 archiveCount, qreal credit, QString accountStatus)
 {
     QString tooltip(tr("\t\tTotal size\tCompressed size\n"
                        "all archives\t%1\t\t%2\n"
@@ -421,7 +421,7 @@ void MainWindow::restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QSt
     }
 }
 
-void MainWindow::updateBackupItemTotals(qint64 count, qint64 size)
+void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 {
     if(count != 0)
     {

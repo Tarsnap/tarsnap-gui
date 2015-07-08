@@ -71,12 +71,12 @@ void Job::setOptionPreservePaths(bool optionPreservePaths)
     _optionPreservePaths = optionPreservePaths;
 }
 
-qint64 Job::optionSkipFilesSize() const
+quint64 Job::optionSkipFilesSize() const
 {
     return _optionSkipFilesSize;
 }
 
-void Job::setOptionSkipFilesSize(const qint64 &optionSkipFilesSize)
+void Job::setOptionSkipFilesSize(const quint64 &optionSkipFilesSize)
 {
     _optionSkipFilesSize = optionSkipFilesSize;
 }

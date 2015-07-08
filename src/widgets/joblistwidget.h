@@ -1,5 +1,5 @@
-#ifndef JOBSLISTWIDGET_H
-#define JOBSLISTWIDGET_H
+#ifndef JOBLISTWIDGET_H
+#define JOBLISTWIDGET_H
 
 #include "persistentmodel/job.h"
 #include "taskmanager.h"
@@ -21,21 +21,19 @@ signals:
     void deleteJobArchives(QList<ArchivePtr> archives);
 
 public slots:
+    void addJobs(QMap<QString, JobPtr> jobs);
     void backupSelectedItems();
+    void selectJob(QString jobRef);
 
 private slots:
     void backupItem();
     void inspectItem();
     void restoreItem();
     void deleteItem();
-    void reloadJobs();
     void addJob(JobPtr job);
 
 protected:
     void keyReleaseEvent(QKeyEvent *event);
-
-private:
-    QList<JobPtr> getStoredJobs();
 };
 
-#endif // JOBSLISTWIDGET_H
+#endif // JOBLISTWIDGET_H

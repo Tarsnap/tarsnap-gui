@@ -150,7 +150,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->skipFilesSpinBox, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
 
-    // Backup and Browse
+    // Backup and Archives
     connect(_ui->backupListWidget, SIGNAL(itemTotals(qint64,qint64)), this
             , SLOT(updateBackupItemTotals(qint64, qint64)));
     connect(_ui->archiveListWidget, SIGNAL(getArchiveList()), this, SIGNAL(getArchiveList()));
@@ -162,7 +162,8 @@ MainWindow::MainWindow(QWidget *parent) :
             , SIGNAL(deleteArchives(QList<ArchivePtr>)));
     connect(_ui->archiveListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)),
             this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)));
-    connect(_ui->mainTabWidget, SIGNAL(currentChanged(int)), this, SLOT(currentPaneChanged(int)));
+    connect(_ui->archiveListWidget, SIGNAL(displayJobDetails(QString)),
+            _ui->jobListWidget, SLOT(selectJob(QString)));
 
     // Jobs
     connect(_ui->addJobButton, SIGNAL(clicked()), this, SLOT(addJobClicked()), Qt::QueuedConnection);
@@ -177,6 +178,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(deleteJobArchives(QList<ArchivePtr>)), this, SIGNAL(deleteArchives(QList<ArchivePtr>)), Qt::QueuedConnection);
+    connect(this, SIGNAL(jobsList(QMap<QString,JobPtr>))
+            , _ui->jobListWidget, SLOT(addJobs(QMap<QString,JobPtr>)), Qt::QueuedConnection);
 
     //lambda slots to quickly update various UI components
     connect(_ui->archiveListWidget, &ArchiveListWidget::getArchiveList,
@@ -527,15 +530,6 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
     appendToJournalLog(QString("[%1] %2").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")).arg(message));
 }
 
-void MainWindow::currentPaneChanged(int index)
-{
-    Q_UNUSED(index);
-//    if(_ui->mainTabWidget->currentWidget() == _ui->settingsTab)
-//    {
-//        emit getOverallStats();
-//    }
-}
-
 void MainWindow::commitSettings()
 {
     DEBUG << "COMMIT SETTINGS";
@@ -742,6 +736,8 @@ void MainWindow::displayJobDetails(JobPtr job)
     hideJobDetails();
     _ui->jobDetailsWidget->setJob(job);
     _ui->jobDetailsWidget->show();
+    if(_ui->mainTabWidget->currentWidget() != _ui->jobsTab)
+        _ui->mainTabWidget->setCurrentWidget(_ui->jobsTab);
 }
 
 void MainWindow::hideJobDetails()

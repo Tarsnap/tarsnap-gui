@@ -20,6 +20,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     qRegisterMetaType< ArchiveRestoreOptions >("ArchiveRestoreOptions");
     qRegisterMetaType< QSqlQuery >("QSqlQuery");
     qRegisterMetaType< JobPtr >("JobPtr");
+    qRegisterMetaType< QMap<QString, JobPtr> >("QMap<QString, JobPtr>");
 
     QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
@@ -122,7 +123,10 @@ int CoreApplication::initialize()
                 , SLOT(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), Qt::QueuedConnection);
         connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(reinit()), Qt::QueuedConnection);
         connect(_mainWindow, SIGNAL(stopTasks()), &_taskManager, SLOT(stopTasks()), Qt::QueuedConnection);
+        connect(&_taskManager, SIGNAL(jobsList(QMap<QString,JobPtr>))
+                , _mainWindow, SIGNAL(jobsList(QMap<QString,JobPtr>)), Qt::QueuedConnection);
 
+        QMetaObject::invokeMethod(&_taskManager, "loadJobs", Qt::QueuedConnection);
         QMetaObject::invokeMethod(&_taskManager, "getArchiveList", Qt::QueuedConnection);
         QMetaObject::invokeMethod(_mainWindow, "updateStatusMessage", Qt::QueuedConnection, Q_ARG(QString, tr("Refreshing archives list...")));
         _mainWindow->show();

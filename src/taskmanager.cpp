@@ -281,36 +281,9 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
 
 void TaskManager::runJobs()
 {
-    QList<JobPtr> jobs;
-    PersistentStore& store = PersistentStore::instance();
-    if(!store.initialized())
-    {
-        DEBUG << "PersistentStore was not initialized properly.";
-        return;
-    }
-    QSqlQuery query = store.createQuery();
-    if(!query.prepare(QLatin1String("select name from jobs")))
-    {
-        DEBUG << query.lastError().text();
-        return;
-    }
-    if(!query.exec())
-    {
-        DEBUG << query.lastError().text();
-        return;
-    }
-    else if(query.next())
-    {
-        do
-        {
-            JobPtr job(new Job);
-            job->setName(query.value(query.record().indexOf("name")).toString());
-            job->load();
-            jobs << job;
-        }while(query.next());
-    }
+    loadJobs();
     bool nothingToDo = true;
-    foreach(JobPtr job, jobs)
+    foreach(JobPtr job, _jobMap)
     {
         if(job->optionScheduledEnabled())
         {
@@ -666,4 +639,37 @@ QString TaskManager::makeTarsnapCommand(QString cmd)
         return cmd;
     else
         return _tarsnapDir + QDir::separator() + cmd;
+}
+
+void TaskManager::loadJobs()
+{
+    _jobMap.clear();
+    PersistentStore& store = PersistentStore::instance();
+    if(!store.initialized())
+    {
+        DEBUG << "PersistentStore was not initialized properly.";
+        return;
+    }
+    QSqlQuery query = store.createQuery();
+    if(!query.prepare(QLatin1String("select name from jobs")))
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    if(!query.exec())
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    else if(query.next())
+    {
+        do
+        {
+            JobPtr job(new Job);
+            job->setName(query.value(query.record().indexOf("name")).toString());
+            job->load();
+            _jobMap[job->name()] = job;
+        }while(query.next());
+    }
+    emit jobsList(_jobMap);
 }

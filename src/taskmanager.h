@@ -36,6 +36,7 @@ signals:
                       , qint64 sizeUniqueCompressed, qint64 archiveCount, qreal credit
                       , QString accountStatus);
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
+    void jobsList(QMap<QString, JobPtr> jobs);
 
 public slots:
     void loadSettings();
@@ -54,6 +55,7 @@ public slots:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runJobs();
 
+    void loadJobs();
     void stopTasks();
 
 private slots:
@@ -86,13 +88,14 @@ private:
     QString                      _tarsnapKeyFile;
     QThread                      _managerThread; // manager runs on a separate thread
     QMap<QUuid, BackupTaskPtr>   _backupTaskMap; // keeps track of active backup tasks
-    QMap<QUuid, ArchivePtr>      _archiveMap; // keeps track of archives encountered
+    QMap<QUuid, ArchivePtr>      _archiveMap;    // keeps track of archives
     QMap<QUuid, TarsnapClient*>  _runningTaskMap; // keeps track of currently executing client tasks
-    QQueue<TarsnapClient*>       _taskQueue; // keeps track of mutually exclusive client tasks pending execution
+    QQueue<TarsnapClient*>       _taskQueue;     // keeps track of mutually exclusive client tasks pending execution
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;
     bool                         _headless;
+    QMap<QString, JobPtr>          _jobMap;
 };
 
 #endif // TASKMANAGER_H

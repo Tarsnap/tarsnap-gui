@@ -35,6 +35,7 @@ signals:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runSetupWizard();
     void stopTasks();
+    void jobsList(QMap<QString,JobPtr>);
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -61,7 +62,6 @@ private slots:
     void updateBackupItemTotals(qint64 count, qint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void updateInspectArchive();
-    void currentPaneChanged(int index);
     void commitSettings();
     void validateMachineKeyPath();
     void validateTarsnapPath();

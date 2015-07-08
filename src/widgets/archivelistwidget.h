@@ -2,6 +2,7 @@
 #define ARCHIVELISTWIDGET_H
 
 #include "persistentmodel/archive.h"
+#include "persistentmodel/job.h"
 
 #include <QListWidget>
 #include <QList>
@@ -22,12 +23,14 @@ private slots:
     void removeItems();
     void inspectItem();
     void restoreItem();
+    void goToJob();
 
 signals:
     void getArchiveList();
     void deleteArchives(QList<ArchivePtr> archives);
     void inspectArchive(ArchivePtr archive);
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
+    void displayJobDetails(QString jobRef);
 
 protected:
     void keyReleaseEvent(QKeyEvent *event);

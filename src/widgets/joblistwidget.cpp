@@ -7,11 +7,10 @@
 
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {
-    reloadJobs();
     connect(this, &QListWidget::itemActivated,
             [=](QListWidgetItem *item)
-                {
-                    emit displayJobDetails(static_cast<JobListItem*>(item)->job());
+            {
+                emit displayJobDetails(static_cast<JobListItem*>(item)->job());
             });
 }
 
@@ -25,9 +24,9 @@ void JobListWidget::backupSelectedItems()
     if(selectedItems().isEmpty())
         return;
 
-    QMessageBox::StandardButton button = QMessageBox::question(this, tr("Confirm action")
+    QMessageBox::StandardButton confirm = QMessageBox::question(this, tr("Confirm action")
                                                                , tr("Initiate backup for the %1 selected job(s)?").arg(selectedItems().count()));
-    if(button == QMessageBox::Yes)
+    if(confirm == QMessageBox::Yes)
     {
         foreach (QListWidgetItem *item, this->selectedItems())
         {
@@ -36,6 +35,29 @@ void JobListWidget::backupSelectedItems()
                 JobPtr job = static_cast<JobListItem*>(item)->job();
                 emit backupJob(job->createBackupTask());
             }
+        }
+    }
+}
+
+void JobListWidget::selectJob(QString jobRef)
+{
+    if(jobRef.isEmpty())
+        return;
+
+    JobListItem* jobItem = static_cast<JobListItem*>(this->currentItem());
+    if(jobItem && (jobItem->job()->objectKey() == jobRef))
+    {
+        emit displayJobDetails(jobItem->job());
+        return;
+    }
+    for(int i = 0; i < this->count(); ++i)
+    {
+        jobItem = static_cast<JobListItem*>(this->item(i));
+        if(jobItem && (jobItem->job()->objectKey() == jobRef))
+        {
+            this->setCurrentItem(jobItem);
+            emit displayJobDetails(jobItem->job());
+            return;
         }
     }
 }
@@ -81,15 +103,15 @@ void JobListWidget::deleteItem()
     if(jobItem)
     {
         JobPtr job = jobItem->job();
-        QMessageBox::StandardButton confirmJobDelete = QMessageBox::question(this, tr("Confirm action")
+        QMessageBox::StandardButton confirm = QMessageBox::question(this, tr("Confirm action")
                                                                    , tr("Are you sure you want to delete job \"%1\" (this cannot be undone)?").arg(job->name()));
-        if(confirmJobDelete == QMessageBox::Yes)
+        if(confirm == QMessageBox::Yes)
         {
             if(!job->archives().isEmpty())
             {
-                QMessageBox::StandardButton confirmJobArchivesDelete = QMessageBox::question(this, tr("Confirm action")
+                QMessageBox::StandardButton confirmArchives= QMessageBox::question(this, tr("Confirm action")
                                                                            , tr("Also delete %1 archives pertaining to this job (this cannot be undone)?").arg(job->archives().count()));
-                if(confirmJobArchivesDelete == QMessageBox::Yes)
+                if(confirmArchives == QMessageBox::Yes)
                     emit deleteJobArchives(job->archives());
             }
             job->purge();
@@ -100,10 +122,10 @@ void JobListWidget::deleteItem()
     }
 }
 
-void JobListWidget::reloadJobs()
+void JobListWidget::addJobs(QMap<QString, JobPtr> jobs)
 {
     clear();
-    foreach(JobPtr job, getStoredJobs())
+    foreach(JobPtr job, jobs)
     {
         addJob(job);
     }
@@ -137,38 +159,3 @@ void JobListWidget::keyReleaseEvent(QKeyEvent *event)
         QListWidget::keyReleaseEvent(event);
     }
 }
-
-QList<JobPtr> JobListWidget::getStoredJobs()
-{
-    QList<JobPtr> jobs;
-    PersistentStore& store = PersistentStore::instance();
-    if(!store.initialized())
-    {
-        DEBUG << "PersistentStore was not initialized properly.";
-        return jobs;
-    }
-    QSqlQuery query = store.createQuery();
-    if(!query.prepare(QLatin1String("select name from jobs")))
-    {
-        DEBUG << query.lastError().text();
-        return jobs;
-    }
-    if(!query.exec())
-    {
-        DEBUG << query.lastError().text();
-        return jobs;
-    }
-    else if(query.next())
-    {
-        do
-        {
-            JobPtr job(new Job);
-            job->setName(query.value(query.record().indexOf("name")).toString());
-            job->load();
-            jobs << job;
-        }while(query.next());
-    }
-    return jobs;
-}
-
-

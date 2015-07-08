@@ -2136,14 +2136,14 @@ border: none;
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>TextLabel</class>
-   <extends>QLabel</extends>
-   <header location="global">../widgets/textlabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>ArchiveListWidget</class>
    <extends>QListWidget</extends>
    <header>widgets/archivelistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TextLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">../widgets/textlabel.h</header>
   </customwidget>
   <customwidget>
    <class>BackupListWidget</class>

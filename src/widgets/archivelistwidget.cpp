@@ -37,6 +37,7 @@ void ArchiveListWidget::addArchives(QList<ArchivePtr > archives)
         connect(item, SIGNAL(requestDelete()), this, SLOT(removeItems()));
         connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));
         connect(item, SIGNAL(requestRestore()), this, SLOT(restoreItem()));
+        connect(item, SIGNAL(requestGoToJob()), this, SLOT(goToJob()));
         this->insertItem(this->count(), item);
         this->setItemWidget(item, item->widget());
     }
@@ -135,6 +136,14 @@ void ArchiveListWidget::restoreItem()
     }
 }
 
+void ArchiveListWidget::goToJob()
+{
+    if(sender())
+    {
+        emit displayJobDetails(qobject_cast<ArchiveListItem*>(sender())->archive()->jobRef());
+    }
+}
+
 void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
 {
     if(!archive)
@@ -172,4 +181,3 @@ void ArchiveListWidget::keyReleaseEvent(QKeyEvent *event)
         QListWidget::keyReleaseEvent(event);
     }
 }
-

@@ -77,6 +77,7 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->stackedWidget->setCurrentWidget(_ui->jobNewPage);
         _ui->jobNameLineEdit->setFocus();
         QSettings settings;
+        _ui->includeScheduledCheckBox->setChecked(false);
         _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
         _ui->traverseMountCheckBox->setChecked(settings.value("tarsnap/traverse_mount", true).toBool());
         _ui->followSymLinksCheckBox->setChecked(settings.value("tarsnap/follow_symlinks", false).toBool());

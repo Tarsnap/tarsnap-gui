@@ -33,5 +33,7 @@
         <file>resources/dbtemplate.db</file>
         <file>resources/icons/hard-drive-2x.png</file>
         <file>resources/icons/hard-drive-4x.png</file>
+        <file>resources/icons/tarsnap_icon_small.png</file>
+        <file>resources/icons/tarsnap_icon_medium.png</file>
     </qresource>
 </RCC>

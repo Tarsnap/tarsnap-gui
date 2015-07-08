@@ -32,6 +32,7 @@ signals:
     void requestDelete();
     void requestInspect();
     void requestRestore();
+    void requestGoToJob();
 
 private:
     Ui::ArchiveItemWidget    _ui;

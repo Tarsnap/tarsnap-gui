@@ -10,22 +10,24 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive):
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
 
     _ui.setupUi(&_widget);
-    _widget.addAction(_ui.actionRestore);
     _widget.addAction(_ui.actionInspect);
+    _widget.addAction(_ui.actionGoToJob);
+    _widget.addAction(_ui.actionRestore);
     _widget.addAction(_ui.actionDelete);
-    _ui.deleteButton->setDefaultAction(_ui.actionDelete);
     _ui.inspectButton->setDefaultAction(_ui.actionInspect);
+    _ui.jobButton->setDefaultAction(_ui.actionGoToJob);
     _ui.restoreButton->setDefaultAction(_ui.actionRestore);
+    _ui.deleteButton->setDefaultAction(_ui.actionDelete);
     connect(_ui.actionDelete, SIGNAL(triggered()), this, SIGNAL(requestDelete()), Qt::QueuedConnection);
     connect(_ui.actionInspect, SIGNAL(triggered()), this, SIGNAL(requestInspect()), Qt::QueuedConnection);
     connect(_ui.actionRestore, SIGNAL(triggered()), this, SIGNAL(requestRestore()), Qt::QueuedConnection);
+    connect(_ui.actionGoToJob, SIGNAL(triggered()), this, SIGNAL(requestGoToJob()), Qt::QueuedConnection);
 
     setArchive(archive);
 }
 
 ArchiveListItem::~ArchiveListItem()
 {
-
 }
 
 QWidget *ArchiveListItem::widget()
@@ -51,8 +53,21 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     {
         detail.prepend(Utils::humanBytes(_archive->sizeTotal(), _useSIPrefixes) + "  ");
     }
-    _ui.detaiLabel->setText(detail);
-    _ui.detaiLabel->setToolTip(_archive->archiveStats());
+    _ui.detailLabel->setText(detail);
+    _ui.detailLabel->setToolTip(_archive->archiveStats());
+
+    if(_archive->jobRef().isEmpty())
+    {
+        _ui.jobButton->hide();
+        _ui.horizontalLayout->removeWidget(_ui.jobButton);
+        _ui.iconLabel->show();
+    }
+    else
+    {
+        _ui.iconLabel->hide();
+        _ui.horizontalLayout->removeWidget(_ui.iconLabel);
+        _ui.jobButton->show();
+    }
 }
 
 void ArchiveListItem::update()

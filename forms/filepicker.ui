@@ -64,7 +64,7 @@ padding-left: 3px;
 }</string>
         </property>
         <property name="placeholderText">
-         <string>navigate directories and filter files</string>
+         <string>navigate directories and filter file names</string>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
@@ -139,7 +139,7 @@ padding-left: 3px;
          <string>List hidden files (on Unix, files starting with a &quot;.&quot;)</string>
         </property>
         <property name="text">
-         <string>Show hidden</string>
+         <string>show hidden</string>
         </property>
        </widget>
       </item>
@@ -149,7 +149,7 @@ padding-left: 3px;
          <string>List system files (on Unix, FIFOs, sockets and device files are included; on Windows, .lnk files are included)</string>
         </property>
         <property name="text">
-         <string>Show system</string>
+         <string>show system</string>
         </property>
        </widget>
       </item>
@@ -159,7 +159,7 @@ padding-left: 3px;
          <string>Do not list symbolic links (ignored by operating systems that don't support symbolic links)</string>
         </property>
         <property name="text">
-         <string>Hide symbolic links</string>
+         <string>hide symbolic links</string>
         </property>
        </widget>
       </item>

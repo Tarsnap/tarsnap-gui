@@ -207,7 +207,7 @@ void TaskManager::getOverallStats()
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--print-stats";
+    args << "--print-stats" << "--no-humanize-numbers";
     overallStats->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     overallStats->setArguments(args);
     connect(overallStats, SIGNAL(finished(QUuid,QVariant,int,QString))

@@ -14,7 +14,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     _ui->optionsContainer->hide();
 
     _model.setRootPath(QDir::rootPath());
-    _model.setNameFilterDisables(false);
+//    _model.setNameFilterDisables(false);
     _ui->treeView->setModel(&_model);
     _ui->treeView->installEventFilter(this);
     if(_startPath.isEmpty())
@@ -153,13 +153,14 @@ bool FilePicker::eventFilter(QObject *obj, QEvent *event)
 
 void FilePicker::updateFilter(QString filter)
 {
-    if(filter.isEmpty())
-        _model.setNameFilters(QStringList("*"));
-    else if(filter.startsWith('/'))
+    _model.setNameFilters(QStringList("*"));
+    if(filter.startsWith('/'))
     {
         _ui->treeView->setCurrentIndex(_model.index(filter));
         _ui->treeView->scrollTo(_model.index(filter));
     }
-    else
+    else if(!filter.isEmpty())
+    {
         _model.setNameFilters(QStringList(filter));
+    }
 }

@@ -84,14 +84,17 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--one-file-system";
     if(backupTask->optionFollowSymLinks())
         args << "-L";
-    args << "--quiet" << "-c" << "--print-stats" << "-f" << backupTask->name();
+    args << "--quiet" << "-c" << "--print-stats" << "--no-humanize-numbers"
+         << "-f" << backupTask->name();
     if(backupTask->optionSkipFilesSize())
     {
-        foreach (QString exclude, backupTask->getExcludesList()) {
+        foreach (QString exclude, backupTask->getExcludesList())
+        {
             args << "--exclude" << exclude;
         }
     }
-    foreach (QUrl url, backupTask->urls()) {
+    foreach (QUrl url, backupTask->urls())
+    {
         args << url.toLocalFile();
     }
     backupClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
@@ -137,8 +140,7 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--print-stats" << "--no-humanize-numbers"
-         << "-f" << archive->name();
+    args << "--print-stats" << "--no-humanize-numbers" << "-f" << archive->name();
     statsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     statsClient->setArguments(args);
     connect(statsClient, SIGNAL(finished(QUuid,QVariant,int,QString)), this

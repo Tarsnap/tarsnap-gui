@@ -321,8 +321,7 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
         archive->setCommand(data.toString());
         //TODO: set timestamp to tarsnap timestamp when possible
         archive->setTimestamp(QDateTime::currentDateTime());
-        if(!backupTask->jobRef().isEmpty())
-            archive->setJobRef(backupTask->jobRef());
+        archive->setJobRef(backupTask->jobRef());
         parseArchiveStats(output, true, archive);
         backupTask->setArchive(archive);
         backupTask->setStatus(TaskStatus::Completed);

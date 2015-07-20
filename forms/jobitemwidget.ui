@@ -243,6 +243,10 @@ padding-left: 2px;
    </property>
   </action>
   <action name="actionBackup">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/tarsnap_icon_small.png</normaloff>:/icons/tarsnap_icon_small.png</iconset>
+   </property>
    <property name="text">
     <string>Backup</string>
    </property>

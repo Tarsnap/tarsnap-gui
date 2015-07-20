@@ -23,7 +23,8 @@ signals:
 public slots:
     void addJobs(QMap<QString, JobPtr> jobs);
     void backupSelectedItems();
-    void selectJob(QString jobRef);
+    void selectJob(JobPtr job);
+    void selectJobByRef(QString jobRef);
 
 private slots:
     void backupItem();

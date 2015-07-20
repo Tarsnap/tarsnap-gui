@@ -66,9 +66,6 @@ JobPtr JobWidget::job() const
 
 void JobWidget::setJob(const JobPtr &job)
 {
-    if(_job && !_job->objectKey().isEmpty())
-        disconnect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
-
     _job = job;
 
     if(_job->objectKey().isEmpty())

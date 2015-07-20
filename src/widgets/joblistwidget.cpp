@@ -39,10 +39,20 @@ void JobListWidget::backupSelectedItems()
     }
 }
 
-void JobListWidget::selectJob(QString jobRef)
+void JobListWidget::selectJob(JobPtr job)
+{
+    if(job.isNull())
+        return;
+
+    selectJobByRef(job->objectKey());
+}
+
+void JobListWidget::selectJobByRef(QString jobRef)
 {
     if(jobRef.isEmpty())
         return;
+
+    clearSelection();
 
     JobListItem* jobItem = static_cast<JobListItem*>(this->currentItem());
     if(jobItem && (jobItem->job()->objectKey() == jobRef))

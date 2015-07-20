@@ -137,7 +137,8 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--print-stats" << "-f" << archive->name();
+    args << "--print-stats" << "--no-humanize-numbers"
+         << "-f" << archive->name();
     statsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     statsClient->setArguments(args);
     connect(statsClient, SIGNAL(finished(QUuid,QVariant,int,QString)), this
@@ -206,7 +207,7 @@ void TaskManager::getOverallStats()
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--print-stats";
+    args << "--print-stats" << "--no-humanize-numbers";
     overallStats->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     overallStats->setArguments(args);
     connect(overallStats, SIGNAL(finished(QUuid,QVariant,int,QString))

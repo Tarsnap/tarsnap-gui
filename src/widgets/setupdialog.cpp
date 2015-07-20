@@ -29,7 +29,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
     connect(_ui->welcomePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
     connect(_ui->restorePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
     connect(_ui->advancedPageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
-    connect(_ui->registerAccountPageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
+    connect(_ui->registerPageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
     connect(_ui->donePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
 
     connect(_ui->wizardStackedWidget, SIGNAL(currentChanged(int)), this, SLOT(wizardPageChanged(int)));
@@ -123,9 +123,9 @@ void SetupDialog::wizardPageChanged(int)
         _ui->restorePageRadioButton->setChecked(true);
     }
     else
-    if(_ui->wizardStackedWidget->currentWidget() == _ui->registerAccountPage)
+    if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
     {
-        _ui->registerAccountPageRadioButton->setChecked(true);
+        _ui->registerPageRadioButton->setChecked(true);
     }
     else
     if(_ui->wizardStackedWidget->currentWidget() == _ui->donePage)
@@ -142,8 +142,8 @@ void SetupDialog::skipToPage()
         _ui->wizardStackedWidget->setCurrentWidget(_ui->restorePage);
     else if(sender() == _ui->advancedPageRadioButton)
         _ui->wizardStackedWidget->setCurrentWidget(_ui->advancedPage);
-    else if(sender() == _ui->registerAccountPageRadioButton)
-        _ui->wizardStackedWidget->setCurrentWidget(_ui->registerAccountPage);
+    else if(sender() == _ui->registerPageRadioButton)
+        _ui->wizardStackedWidget->setCurrentWidget(_ui->registerPage);
     else if(sender() == _ui->donePageRadioButton)
         _ui->wizardStackedWidget->setCurrentWidget(_ui->donePage);
 }
@@ -172,10 +172,10 @@ void SetupDialog::setNextPage()
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->restorePage)
     {
-        _ui->wizardStackedWidget->setCurrentWidget(_ui->registerAccountPage);
-        _ui->registerAccountPageRadioButton->setEnabled(true);
+        _ui->wizardStackedWidget->setCurrentWidget(_ui->registerPage);
+        _ui->registerPageRadioButton->setEnabled(true);
     }
-    else if(_ui->wizardStackedWidget->currentWidget() == _ui->registerAccountPage)
+    else if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
     {
         _ui->wizardStackedWidget->setCurrentWidget(_ui->donePage);
         _ui->donePageRadioButton->setEnabled(true);

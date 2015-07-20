@@ -123,7 +123,7 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="registerAccountPageRadioButton">
+       <widget class="QRadioButton" name="registerPageRadioButton">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -662,7 +662,7 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="registerAccountPage">
+     <widget class="QWidget" name="registerPage">
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <property name="spacing">
         <number>0</number>
@@ -748,6 +748,9 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
             <property name="echoMode">
              <enum>QLineEdit::Password</enum>
             </property>
+            <property name="placeholderText">
+             <string>your password</string>
+            </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
             </property>
@@ -767,6 +770,9 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
            <widget class="QLineEdit" name="machineNameLineEdit">
             <property name="text">
              <string/>
+            </property>
+            <property name="placeholderText">
+             <string>this machine's name</string>
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
@@ -789,7 +795,7 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
              <string/>
             </property>
             <property name="placeholderText">
-             <string>path to your machine key file</string>
+             <string>key file for this machine</string>
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
@@ -798,11 +804,6 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           </item>
           <item row="4" column="1">
            <widget class="QLabel" name="locateMachineKeyLabel">
-            <property name="font">
-             <font>
-              <italic>true</italic>
-             </font>
-            </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Locate&lt;/span&gt;&lt;/a&gt; your machine key&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>

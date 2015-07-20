@@ -11,7 +11,6 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive):
 
     _ui.setupUi(&_widget);
     _widget.addAction(_ui.actionInspect);
-    _widget.addAction(_ui.actionGoToJob);
     _widget.addAction(_ui.actionRestore);
     _widget.addAction(_ui.actionDelete);
     _ui.inspectButton->setDefaultAction(_ui.actionInspect);
@@ -61,12 +60,14 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
         _ui.jobButton->hide();
         _ui.horizontalLayout->removeWidget(_ui.jobButton);
         _ui.iconLabel->show();
+        _widget.removeAction(_ui.actionGoToJob);
     }
     else
     {
         _ui.iconLabel->hide();
         _ui.horizontalLayout->removeWidget(_ui.iconLabel);
         _ui.jobButton->show();
+        _widget.insertAction(_ui.actionRestore, _ui.actionGoToJob);
     }
 }
 

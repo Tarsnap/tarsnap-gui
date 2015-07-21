@@ -3,23 +3,29 @@
 
 #include <QObject>
 #include <QtSql>
+#include <QMutex>
 
 #define DEFAULT_DBNAME "tarsnap.db"
 
 class PersistentStore : public QObject
 {
     Q_OBJECT
+
 public:
+    ~PersistentStore();
     static PersistentStore& instance() { static PersistentStore instance;  if(!instance.initialized()) instance.init(); return instance; }
     bool initialized() { return _initialized; }
     QSqlQuery createQuery();
-    ~PersistentStore();
     void purge();
+    void lock();
+    void unlock();
+
+    QMutex* mutex();
 
 signals:
 
 public slots:
-    void runQuery(QSqlQuery query);
+    bool runQuery(QSqlQuery query);
 
 private:
     // Yes, a singleton
@@ -31,6 +37,7 @@ private:
 
     bool            _initialized;
     QSqlDatabase    _db;
+    QMutex          _mutex;
 };
 
 #endif // PERSISTENTSTORE_H

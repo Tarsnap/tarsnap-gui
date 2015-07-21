@@ -12,6 +12,8 @@ PersistentStore::PersistentStore(QObject *parent) : QObject(parent), _initialize
 
 bool PersistentStore::init()
 {
+    QMutexLocker locker(&_mutex);
+
     QSettings settings;
     QString appdata = settings.value("app/appdata").toString();
     if(appdata.isEmpty())
@@ -80,6 +82,8 @@ bool PersistentStore::init()
 
 void PersistentStore::deinit()
 {
+    QMutexLocker locker(&_mutex);
+
     if(_initialized)
     {
         _db.close();
@@ -87,6 +91,10 @@ void PersistentStore::deinit()
         _db.removeDatabase("QSQLITE");
         _initialized = false;
     }
+}
+QMutex* PersistentStore::mutex()
+{
+    return &_mutex;
 }
 
 QSqlQuery PersistentStore::createQuery()
@@ -125,16 +133,34 @@ void PersistentStore::purge()
     }
 }
 
-void PersistentStore::runQuery(QSqlQuery query)
+void PersistentStore::lock()
 {
+    _mutex.lock();
+}
+
+void PersistentStore::unlock()
+{
+    _mutex.unlock();
+}
+
+bool PersistentStore::runQuery(QSqlQuery query)
+{
+    QMutexLocker locker(&_mutex);
+
+    bool result = false;
     if(_initialized)
     {
         if(!query.exec())
             DEBUG << query.lastError().text();
+        else
+            result = true;
     }
     else
     {
         DEBUG << "DB not initialized.";
     }
+
+    return result;
 }
+
 

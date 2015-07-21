@@ -41,7 +41,7 @@ void Archive::save()
     if(exists)
         query.addBindValue(_name);
 
-    QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, query));
+    store.runQuery(query);
     setObjectKey(_name);
     emit changed();
 }
@@ -61,12 +61,7 @@ void Archive::load()
         return;
     }
     query.addBindValue(_name);
-    if(!query.exec())
-    {
-        DEBUG << query.lastError().text();
-        return;
-    }
-    else if(query.next())
+    if(store.runQuery(query) && query.next())
     {
         _timestamp = QDateTime::fromTime_t(query.value(query.record().indexOf("timestamp")).toUInt());
         _sizeTotal = query.value(query.record().indexOf("sizeTotal")).toUInt();
@@ -81,7 +76,6 @@ void Archive::load()
     else
     {
         DEBUG << "Archive object with key " << _name << " not found.";
-        return;
     }
 }
 
@@ -105,7 +99,7 @@ void Archive::purge()
         return;
     }
     query.addBindValue(_name);
-    QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, query));
+    store.runQuery(query);
     setObjectKey("");
 }
 
@@ -125,15 +119,7 @@ bool Archive::findObjectWithKey(QString key)
         return found;
     }
     query.addBindValue(key);
-    // QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, q));
-    // we need to get the result here, thus we can't invoke runQuery like that
-    // this should be safe nonetheless, since this is a READ only operation
-    if(!query.exec())
-    {
-        DEBUG << query.lastError().text();
-        return found;
-    }
-    else if(query.next())
+    if(store.runQuery(query) && query.next())
     {
         found = true;
     }

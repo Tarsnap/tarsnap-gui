@@ -150,7 +150,7 @@ void Job::save()
     if(exists)
         query.addBindValue(_name);
 
-    QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, query));
+    store.runQuery(query);
     setObjectKey(_name);
     emit changed();
 }
@@ -170,12 +170,7 @@ void Job::load()
         return;
     }
     query.addBindValue(_name);
-    if(!query.exec())
-    {
-        DEBUG << query.lastError().text();
-        return;
-    }
-    else if(query.next())
+    if(store.runQuery(query) && query.next())
     {
         _urls = QUrl::fromStringList(query.value(query.record().indexOf("urls")).toString().split('\n', QString::SkipEmptyParts));
         _optionScheduledEnabled = query.value(query.record().indexOf("optionScheduledEnabled")).toBool();
@@ -189,7 +184,6 @@ void Job::load()
     else
     {
         DEBUG << "Job object with key " << _name << " not found.";
-        return;
     }
 }
 
@@ -213,7 +207,7 @@ void Job::purge()
         return;
     }
     query.addBindValue(_name);
-    QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, query));
+    store.runQuery(query);
     setObjectKey("");
 }
 
@@ -233,15 +227,7 @@ bool Job::findObjectWithKey(QString key)
         return found;
     }
     query.addBindValue(key);
-    // QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, q));
-    // we need to get the result here, thus we can't invoke runQuery like that
-    // this should be safe nonetheless, since this is a READ only operation
-    if(!query.exec())
-    {
-        DEBUG << query.lastError().text();
-        return found;
-    }
-    else if(query.next())
+    if(store.runQuery(query) && query.next())
     {
         found = true;
     }
@@ -263,15 +249,7 @@ void Job::loadArchives()
         return;
     }
     query.addBindValue(objectKey());
-    // QMetaObject::invokeMethod(&getStore(), "runQuery", Qt::QueuedConnection, Q_ARG(QSqlQuery, q));
-    // we need to get the result here, thus we can't invoke runQuery like that
-    // this should be safe nonetheless, since this is a READ only operation
-    if(!query.exec())
-    {
-        DEBUG << query.lastError().text();
-        return;
-    }
-    else if(query.next())
+    if(store.runQuery(query) && query.next())
     {
         QList<ArchivePtr> archives;
         do

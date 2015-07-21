@@ -145,8 +145,7 @@ bool CoreApplication::reinit()
 
     // reset existing persistent store and app settings
     PersistentStore &store = PersistentStore::instance();
-    if(store.initialized())
-        store.purge();
+    store.purge();
 
     QSettings settings;
     if(settings.contains("application/wizardDone"))

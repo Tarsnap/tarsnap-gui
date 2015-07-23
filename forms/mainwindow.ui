@@ -44,7 +44,7 @@
     <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>3</number>
+    <number>0</number>
    </property>
    <item>
     <widget class="QWidget" name="mainContent" native="true">
@@ -751,7 +751,7 @@ selection-background-color: rgba(179, 190, 255, 120);
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <property name="spacing">
-            <number>0</number>
+            <number>3</number>
            </property>
            <property name="leftMargin">
             <number>3</number>
@@ -763,7 +763,7 @@ selection-background-color: rgba(179, 190, 255, 120);
             <number>3</number>
            </property>
            <property name="bottomMargin">
-            <number>0</number>
+            <number>3</number>
            </property>
            <item>
             <widget class="QWidget" name="widget_3" native="true">
@@ -840,15 +840,69 @@ selection-background-color: rgba(179, 190, 255, 120);
                <number>0</number>
               </property>
               <item>
-               <widget class="QPushButton" name="addJobButton">
+               <widget class="QToolButton" name="addJobButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="toolTip">
                  <string>Add a new job (Ctrl+n)</string>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QToolButton
+{
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+					stop: 0 rgba(64,152,212,255), stop: 1 rgba(64,152,212,255));
+border-top: 1px solid white;
+border-left: 1px solid white;
+border-bottom: 1px solid darkgrey;
+border-right: 1px solid darkgrey;
+border-radius: 3px;
+color: white;
+font-size: 12px;
+padding-right: 24px;
+width: 100px;
+height: 20px;
+}
+
+QToolButton:disabled
+{
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+					stop: 0 rgba(85,164,216,225), stop: 1.0 rgba(85,164,216,225));
+}
+
+QToolButton:pressed
+{
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+					stop: 0 rgba(85,164,216,225), stop: 1.0 rgba(85,164,216,225));
+}
+
+QToolButton:focus
+{
+border: 1px solid white;
+}
+
+QToolButton::menu-button {
+border-left: 1px dotted white;
+width: 16px;
+margin-right: 4px;
+}
+
+QToolButton QMenu
+{
+text-align: center;
+}</string>
                 </property>
                 <property name="text">
                  <string>Add job</string>
                 </property>
-                <property name="save" stdset="0">
-                 <bool>false</bool>
+                <property name="popupMode">
+                 <enum>QToolButton::MenuButtonPopup</enum>
+                </property>
+                <property name="toolButtonStyle">
+                 <enum>Qt::ToolButtonTextOnly</enum>
                 </property>
                </widget>
               </item>
@@ -1941,13 +1995,13 @@ background: transparent;
        <number>12</number>
       </property>
       <property name="topMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="rightMargin">
        <number>12</number>
       </property>
       <property name="bottomMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <item>
        <widget class="QToolButton" name="expandJournalButton">
@@ -1971,6 +2025,9 @@ background: transparent;
         </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>Show/hide message journal</string>
         </property>
         <property name="styleSheet">
          <string notr="true">#expandJournalButton{
@@ -2139,6 +2196,14 @@ border: none;
    </property>
    <property name="shortcut">
     <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionBackupAllJobs">
+   <property name="text">
+    <string>Backup all jobs</string>
+   </property>
+   <property name="toolTip">
+    <string>Backup all jobs</string>
    </property>
   </action>
  </widget>

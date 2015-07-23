@@ -25,6 +25,7 @@ public slots:
     void backupSelectedItems();
     void selectJob(JobPtr job);
     void selectJobByRef(QString jobRef);
+    void backupAllJobs();
 
 private slots:
     void backupItem();

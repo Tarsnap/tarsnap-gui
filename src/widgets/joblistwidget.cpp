@@ -72,6 +72,15 @@ void JobListWidget::selectJobByRef(QString jobRef)
     }
 }
 
+void JobListWidget::backupAllJobs()
+{
+    for(int i = 0; i < this->count(); ++i)
+    {
+        JobPtr job = static_cast<JobListItem*>(this->item(i))->job();
+        emit backupJob(job->createBackupTask());
+    }
+}
+
 void JobListWidget::backupItem()
 {
     if(sender())

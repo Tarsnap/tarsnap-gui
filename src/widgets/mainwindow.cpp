@@ -18,6 +18,7 @@
 #include <QStandardPaths>
 #include <QDesktopServices>
 #include <QInputDialog>
+#include <QMenu>
 
 #define PURGE_SECONDS_DELAY 8
 
@@ -84,10 +85,6 @@ MainWindow::MainWindow(QWidget *parent) :
             , SLOT(clear()), Qt::QueuedConnection);
     _ui->backupListWidget->addAction(_ui->actionBrowseItems);
     connect(_ui->actionBrowseItems, SIGNAL(triggered()), this, SLOT(browseForBackupItems()));
-    _ui->jobListWidget->addAction(_ui->actionAddJob);
-    connect(_ui->actionAddJob, SIGNAL(triggered()), this, SLOT(addJobClicked()));
-    _ui->jobListWidget->addAction(_ui->actionJobBackup);
-    connect(_ui->actionJobBackup, SIGNAL(triggered()), _ui->jobListWidget, SLOT(backupSelectedItems()));
     _ui->settingsTab->addAction(_ui->actionRefreshStats);
     connect(_ui->actionRefreshStats, SIGNAL(triggered()), this, SIGNAL(getOverallStats()));
     this->addAction(_ui->actionGoBackup);
@@ -130,8 +127,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->expandJournalButton, SIGNAL(toggled(bool)), this, SLOT(expandJournalButtonToggled(bool)));
     connect(_ui->downloadsDirBrowseButton, SIGNAL(clicked()), this, SLOT(downloadsDirBrowseButtonClicked()));
     connect(_ui->busyWidget, SIGNAL(clicked()), this, SLOT(cancelRunningTasks()));
-
     connect(&_purgeTimer, SIGNAL(timeout()), this, SLOT(purgeTimerFired()));
+    _purgeCountdownWindow.setIcon(QMessageBox::Critical);
+    _purgeCountdownWindow.setWindowTitle(tr("Deleting all archives: press Cancel to abort"));
+    _purgeCountdownWindow.setStandardButtons(QMessageBox::Cancel);
 
     // Settings page
     connect(_ui->accountUserLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
@@ -178,8 +177,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(deleteJobArchives(QList<ArchivePtr>)), this, SIGNAL(deleteArchives(QList<ArchivePtr>)), Qt::QueuedConnection);
-    connect(this, SIGNAL(jobsList(QMap<QString,JobPtr>))
-            , _ui->jobListWidget, SLOT(addJobs(QMap<QString,JobPtr>)), Qt::QueuedConnection);
+    connect(this, SIGNAL(jobsList(QMap<QString,JobPtr>)), _ui->jobListWidget, SLOT(addJobs(QMap<QString,JobPtr>)), Qt::QueuedConnection);
+
+    _ui->jobListWidget->addAction(_ui->actionAddJob);
+    connect(_ui->actionAddJob, SIGNAL(triggered()), this, SLOT(addJobClicked()));
+    QMenu *addJobMenu = new QMenu(_ui->addJobButton);
+    addJobMenu->addAction(_ui->actionBackupAllJobs);
+    connect(_ui->actionBackupAllJobs, SIGNAL(triggered()), _ui->jobListWidget, SLOT(backupAllJobs()));
+    _ui->addJobButton->setMenu(addJobMenu);
+    _ui->jobListWidget->addAction(_ui->actionJobBackup);
+    connect(_ui->actionJobBackup, SIGNAL(triggered()), _ui->jobListWidget, SLOT(backupSelectedItems()));
 
     //lambda slots to quickly update various UI components
     connect(_ui->archiveListWidget, &ArchiveListWidget::getArchiveList,
@@ -222,10 +229,10 @@ MainWindow::MainWindow(QWidget *parent) :
             [=](){
                 QDesktopServices::openUrl(QUrl("https://www.tarsnap.com/account.html"));
             });
-
-    _purgeCountdownWindow.setIcon(QMessageBox::Critical);
-    _purgeCountdownWindow.setWindowTitle(tr("Deleting all archives: press Cancel to abort"));
-    _purgeCountdownWindow.setStandardButtons(QMessageBox::Cancel);
+    connect(_ui->statusBarLabel, &TextLabel::clicked,
+            [=](){
+                _ui->expandJournalButton->setChecked(!_ui->expandJournalButton->isChecked());
+            });
 }
 
 MainWindow::~MainWindow()
@@ -747,7 +754,6 @@ void MainWindow::hideJobDetails()
     {
         _ui->addJobButton->setText(tr("Add job"));
         _ui->addJobButton->setProperty("save", false);
-        _ui->addJobButton->setDefault(false);
         _ui->addJobButton->setEnabled(true);
     }
 }
@@ -762,7 +768,6 @@ void MainWindow::addJobClicked()
         _ui->jobDetailsWidget->saveNew();
         _ui->addJobButton->setText(tr("Add job"));
         _ui->addJobButton->setProperty("save", false);
-        _ui->addJobButton->setDefault(false);
         _ui->addJobButton->setEnabled(true);
     }
     else
@@ -772,7 +777,6 @@ void MainWindow::addJobClicked()
         _ui->addJobButton->setEnabled(false);
         _ui->addJobButton->setText(tr("Save"));
         _ui->addJobButton->setProperty("save", true);
-        _ui->addJobButton->setDefault(true);
     }
 }
 

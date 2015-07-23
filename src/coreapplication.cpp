@@ -74,7 +74,7 @@ int CoreApplication::initialize()
 
     if(_jobsOption)
     {
-        QMetaObject::invokeMethod(&_taskManager, "runJobs", Qt::QueuedConnection);
+        QMetaObject::invokeMethod(&_taskManager, "runScheduledJobs", Qt::QueuedConnection);
     }
     else
     {

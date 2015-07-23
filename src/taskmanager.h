@@ -53,7 +53,7 @@ public slots:
     void fsck();
     void nuke();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
-    void runJobs();
+    void runScheduledJobs();
 
     void loadJobs();
     void stopTasks();

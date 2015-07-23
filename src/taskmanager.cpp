@@ -282,7 +282,7 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     queueTask(restore);
 }
 
-void TaskManager::runJobs()
+void TaskManager::runScheduledJobs()
 {
     loadJobs();
     bool nothingToDo = true;

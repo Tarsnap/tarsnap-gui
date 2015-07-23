@@ -181,6 +181,13 @@ padding-left: 3px;
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>filterLineEdit</tabstop>
+  <tabstop>showHiddenCheckBox</tabstop>
+  <tabstop>showSystemCheckBox</tabstop>
+  <tabstop>hideLinksCheckBox</tabstop>
+  <tabstop>treeView</tabstop>
+ </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>
  </resources>

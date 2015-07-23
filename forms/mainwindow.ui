@@ -70,6 +70,9 @@
          <enum>Qt::Vertical</enum>
         </property>
         <widget class="QTabWidget" name="mainTabWidget">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="acceptDrops">
           <bool>false</bool>
          </property>
@@ -1910,6 +1913,9 @@ border-radius: 4px;
          </widget>
         </widget>
         <widget class="QTextEdit" name="journalLog">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="styleSheet">
           <string notr="true">#journalLog
 {
@@ -1962,6 +1968,9 @@ background: transparent;
           <width>16</width>
           <height>16</height>
          </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="styleSheet">
          <string notr="true">#expandJournalButton{
@@ -2167,6 +2176,44 @@ border: none;
    <header>../widgets/busywidget.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>loginTarsnapButton</tabstop>
+  <tabstop>accountUserLineEdit</tabstop>
+  <tabstop>accountMachineLineEdit</tabstop>
+  <tabstop>accountMachineUseHostnameButton</tabstop>
+  <tabstop>accountMachineKeyLineEdit</tabstop>
+  <tabstop>accountMachineKeyBrowseButton</tabstop>
+  <tabstop>aggressiveNetworkingCheckBox</tabstop>
+  <tabstop>traverseMountCheckBox</tabstop>
+  <tabstop>preservePathsCheckBox</tabstop>
+  <tabstop>followSymLinksCheckBox</tabstop>
+  <tabstop>siPrefixesCheckBox</tabstop>
+  <tabstop>skipFilesSpinBox</tabstop>
+  <tabstop>downloadsDirLineEdit</tabstop>
+  <tabstop>downloadsDirBrowseButton</tabstop>
+  <tabstop>aboutButton</tabstop>
+  <tabstop>tarsnapPathLineEdit</tabstop>
+  <tabstop>tarsnapPathBrowseButton</tabstop>
+  <tabstop>tarsnapCacheLineEdit</tabstop>
+  <tabstop>tarsnapCacheBrowseButton</tabstop>
+  <tabstop>repairCacheButton</tabstop>
+  <tabstop>purgeArchivesButton</tabstop>
+  <tabstop>runSetupWizard</tabstop>
+  <tabstop>journalLog</tabstop>
+  <tabstop>expandJournalButton</tabstop>
+  <tabstop>backupNameLineEdit</tabstop>
+  <tabstop>appendTimestampCheckBox</tabstop>
+  <tabstop>backupButton</tabstop>
+  <tabstop>backupListWidget</tabstop>
+  <tabstop>mainTabWidget</tabstop>
+  <tabstop>addJobButton</tabstop>
+  <tabstop>jobListWidget</tabstop>
+  <tabstop>archiveListWidget</tabstop>
+  <tabstop>archiveContentsPlainTextEdit</tabstop>
+  <tabstop>helpTextBrowser</tabstop>
+  <tabstop>keyboardShortcutsTextBrowser_5</tabstop>
+  <tabstop>consoleLogTextEdit</tabstop>
+ </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>
  </resources>

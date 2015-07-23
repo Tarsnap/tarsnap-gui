@@ -659,15 +659,20 @@ selection-background-color: rgba(179, 190, 255, 120);
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>restoreBackButton</tabstop>
-  <tabstop>restoreLatestArchiveButton</tabstop>
-  <tabstop>restoreListWidget</tabstop>
+  <tabstop>jobNameLineEdit</tabstop>
+  <tabstop>newJobOptionsButton</tabstop>
+  <tabstop>cancelButton</tabstop>
   <tabstop>optionsButton</tabstop>
   <tabstop>listArchivesButton</tabstop>
   <tabstop>optionsBackButton</tabstop>
-  <tabstop>newJobOptionsButton</tabstop>
-  <tabstop>jobNameLineEdit</tabstop>
-  <tabstop>cancelButton</tabstop>
+  <tabstop>includeScheduledCheckBox</tabstop>
+  <tabstop>preservePathsCheckBox</tabstop>
+  <tabstop>followSymLinksCheckBox</tabstop>
+  <tabstop>traverseMountCheckBox</tabstop>
+  <tabstop>skipFilesSpinBox</tabstop>
+  <tabstop>restoreLatestArchiveButton</tabstop>
+  <tabstop>restoreBackButton</tabstop>
+  <tabstop>restoreListWidget</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

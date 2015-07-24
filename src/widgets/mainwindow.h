@@ -23,8 +23,8 @@ public:
 
 signals:
     void backupNow(BackupTaskPtr backupTask);
-    void getArchiveList();
-    void archiveList(QList<ArchivePtr> archives);
+    void loadArchives();
+    void archiveList(QList<ArchivePtr> archives, bool fromRemote = false);
     void deleteArchives(QList<ArchivePtr> archives);
     void loadArchiveStats(ArchivePtr archive);
     void loadArchiveContents(ArchivePtr archive);
@@ -37,6 +37,7 @@ signals:
     void stopTasks();
     void jobsList(QMap<QString,JobPtr>);
     void deleteJob(JobPtr job, bool purgeArchives);
+    void loadJobs();
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -47,6 +48,7 @@ protected:
 
 public slots:
     void loadSettings();
+    void initialize();
     void backupTaskUpdate(const TaskStatus &status);
     void archivesDeleted(QList<ArchivePtr> archives, bool done = true);
     void updateLoadingAnimation(bool idle);

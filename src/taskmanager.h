@@ -30,7 +30,7 @@ signals:
     void registerMachineStatus(TaskStatus status, QString reason);
     void fsckStatus(TaskStatus status, QString reason);
     void nukeStatus(TaskStatus status, QString reason);
-    void archiveList(QList<ArchivePtr> archives);
+    void archiveList(QList<ArchivePtr> archives, bool fromRemote = false);
     void archivesDeleted(QList<ArchivePtr> archives);
     void overallStats(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal
                       , quint64 sizeUniqueCompressed, quint64 archiveCount, qreal credit
@@ -45,7 +45,7 @@ public slots:
     void registerMachine(QString user, QString password, QString machine
                          ,QString key, QString tarsnapPath, QString cachePath);
     void backupNow(BackupTaskPtr backupTask);
-    void getArchiveList();
+    void loadArchives();
     void getArchiveStats(ArchivePtr archive);
     void getArchiveContents(ArchivePtr archive);
     void deleteArchives(QList<ArchivePtr> archives);

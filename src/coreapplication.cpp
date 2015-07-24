@@ -88,10 +88,10 @@ int CoreApplication::initialize()
 
         connect(_mainWindow, SIGNAL(backupNow(BackupTaskPtr)), &_taskManager
                 , SLOT(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
-        connect(_mainWindow, SIGNAL(getArchiveList()), &_taskManager
-                , SLOT(getArchiveList()), Qt::QueuedConnection);
-        connect(&_taskManager, SIGNAL(archiveList(QList<ArchivePtr>))
-                , _mainWindow, SIGNAL(archiveList(QList<ArchivePtr>)), Qt::QueuedConnection);
+        connect(_mainWindow, SIGNAL(loadArchives()), &_taskManager
+                , SLOT(loadArchives()), Qt::QueuedConnection);
+        connect(&_taskManager, SIGNAL(archiveList(QList<ArchivePtr>, bool))
+                , _mainWindow, SIGNAL(archiveList(QList<ArchivePtr>, bool)), Qt::QueuedConnection);
         connect(_mainWindow, SIGNAL(deleteArchives(QList<ArchivePtr>)), &_taskManager,
                 SLOT(deleteArchives(QList<ArchivePtr>)), Qt::QueuedConnection);
         connect(&_taskManager, SIGNAL(archivesDeleted(QList<ArchivePtr>)), _mainWindow
@@ -123,14 +123,12 @@ int CoreApplication::initialize()
                 , SLOT(restoreArchiveStatus(ArchivePtr,TaskStatus,QString)), Qt::QueuedConnection);
         connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(reinit()), Qt::QueuedConnection);
         connect(_mainWindow, SIGNAL(stopTasks()), &_taskManager, SLOT(stopTasks()), Qt::QueuedConnection);
+        connect(_mainWindow, SIGNAL(loadJobs()), &_taskManager, SLOT(loadJobs()), Qt::QueuedConnection);
         connect(&_taskManager, SIGNAL(jobsList(QMap<QString,JobPtr>))
                 , _mainWindow, SIGNAL(jobsList(QMap<QString,JobPtr>)), Qt::QueuedConnection);
         connect(_mainWindow, SIGNAL(deleteJob(JobPtr,bool)), &_taskManager, SLOT(deleteJob(JobPtr,bool)), Qt::QueuedConnection);
-
-        QMetaObject::invokeMethod(&_taskManager, "loadJobs", Qt::QueuedConnection);
-        QMetaObject::invokeMethod(&_taskManager, "getArchiveList", Qt::QueuedConnection);
-        QMetaObject::invokeMethod(_mainWindow, "updateStatusMessage", Qt::QueuedConnection, Q_ARG(QString, tr("Refreshing archives list...")));
         _mainWindow->show();
+        _mainWindow->initialize();
     }
 
     return SUCCESS;

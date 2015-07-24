@@ -107,8 +107,35 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     queueTask(backupClient, true);
 }
 
-void TaskManager::getArchiveList()
+void TaskManager::loadArchives()
 {
+    // Load from PersistentStore first
+    _archiveMap.clear();
+    PersistentStore& store = PersistentStore::instance();
+    if(!store.initialized())
+    {
+        DEBUG << "PersistentStore was not initialized properly.";
+        return;
+    }
+    QSqlQuery query = store.createQuery();
+    if(!query.prepare(QLatin1String("select name from archives")))
+    {
+        DEBUG << query.lastError().text();
+        return;
+    }
+    if(store.runQuery(query) && query.next())
+    {
+        do
+        {
+            ArchivePtr archive(new Archive);
+            archive->setName(query.value(query.record().indexOf("name")).toString());
+            archive->load();
+            _archiveMap[archive->uuid()] = archive;
+        }while(query.next());
+    }
+    emit archiveList(_archiveMap.values());
+
+    // Issue sync from remote next
     TarsnapClient *listArchivesClient = new TarsnapClient();
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
@@ -400,7 +427,7 @@ void TaskManager::getArchiveListFinished(QUuid uuid, QVariant data, int exitCode
                 _archiveMap[archive->uuid()] = archive;
             }
         }
-        emit archiveList(_archiveMap.values());
+        emit archiveList(_archiveMap.values(), true);
         getOverallStats();
     }
 }
@@ -483,7 +510,7 @@ void TaskManager::nukeFinished(QUuid uuid, QVariant data, int exitCode, QString 
     else
         emit nukeStatus(TaskStatus::Failed, output);
     fsck();
-    getArchiveList();
+    loadArchives();
 }
 
 void TaskManager::restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)
@@ -658,12 +685,7 @@ void TaskManager::loadJobs()
         DEBUG << query.lastError().text();
         return;
     }
-    if(!query.exec())
-    {
-        DEBUG << query.lastError().text();
-        return;
-    }
-    else if(query.next())
+    if(store.runQuery(query) && query.next())
     {
         do
         {

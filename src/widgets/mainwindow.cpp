@@ -78,8 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->settingsToolbox->setCurrentWidget(_ui->settingsAccountPage);
 
     _ui->archiveListWidget->addAction(_ui->actionRefresh);
-    connect(_ui->actionRefresh, SIGNAL(triggered()), _ui->archiveListWidget
-            , SIGNAL(getArchiveList()), Qt::QueuedConnection);
+    connect(_ui->actionRefresh, SIGNAL(triggered()), this , SIGNAL(loadArchives()), Qt::QueuedConnection);
     _ui->backupListWidget->addAction(_ui->actionClearList);
     connect(_ui->actionClearList, SIGNAL(triggered()), _ui->backupListWidget
             , SLOT(clear()), Qt::QueuedConnection);
@@ -152,7 +151,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // Backup and Archives
     connect(_ui->backupListWidget, SIGNAL(itemTotals(quint64,quint64)), this
             , SLOT(updateBackupItemTotals(quint64, quint64)));
-    connect(_ui->archiveListWidget, SIGNAL(getArchiveList()), this, SIGNAL(getArchiveList()));
     connect(this, SIGNAL(archiveList(QList<ArchivePtr >))
             , _ui->archiveListWidget, SLOT(addArchives(QList<ArchivePtr >)));
     connect(_ui->archiveListWidget, SIGNAL(inspectArchive(ArchivePtr)), this
@@ -189,10 +187,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->actionJobBackup, SIGNAL(triggered()), _ui->jobListWidget, SLOT(backupSelectedItems()));
 
     //lambda slots to quickly update various UI components
-    connect(_ui->archiveListWidget, &ArchiveListWidget::getArchiveList,
-            [=](){updateStatusMessage(tr("Refreshing archives list..."));});
+    connect(this, &MainWindow::loadArchives,
+            [=](){updateStatusMessage(tr("Updating archives list from remote..."));});
     connect(this, &MainWindow::archiveList,
-            [=](){updateStatusMessage(tr("Refreshing archives list...done"));});
+            [=](const QList<ArchivePtr> archives, bool fromRemote){
+                Q_UNUSED(archives);
+                if(fromRemote)
+                    updateStatusMessage(tr("Updating archives list from remote...done"));
+            });
     connect(this, &MainWindow::loadArchiveStats,
             [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching details for archive <i>%1</i>.").arg(archive->name()));});
     connect(this, &MainWindow::loadArchiveContents,
@@ -274,6 +276,11 @@ void MainWindow::loadSettings()
     _ui->downloadsDirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
 }
 
+void MainWindow::initialize()
+{
+    emit loadArchives();
+    emit loadJobs();
+}
 
 void MainWindow::paintEvent(QPaintEvent *)
 {

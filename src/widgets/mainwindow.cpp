@@ -533,6 +533,17 @@ void MainWindow::updateInspectArchive()
     {
         _ui->archiveNameLabel->setText(_currentArchiveDetail->name());
         _ui->archiveDateLabel->setText(_currentArchiveDetail->timestamp().toString());
+        if(_currentArchiveDetail->jobRef().isEmpty())
+        {
+            _ui->archiveJobLabel->hide();
+            _ui->archiveJobLabelField->hide();
+        }
+        else
+        {
+            _ui->archiveJobLabel->show();
+            _ui->archiveJobLabelField->show();
+            _ui->archiveJobLabel->setText(_currentArchiveDetail->jobRef());
+        }
         _ui->archiveSizeLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeTotal(), _useSIPrefixes));
         _ui->archiveSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
         _ui->archiveUniqueDataLabel->setText(Utils::humanBytes(_currentArchiveDetail->sizeUniqueCompressed(), _useSIPrefixes));

@@ -621,8 +621,8 @@ void MainWindow::purgeTimerFired()
     {
         _purgeTimer.stop();
         _purgeCountdownWindow.accept();
-        updateStatusMessage(tr("Archives purge queued..."));
         emit purgeArchives();
+        updateStatusMessage(tr("Archives purge initiated..."));
     }
     else
     {

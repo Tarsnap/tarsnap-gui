@@ -125,6 +125,7 @@ int CoreApplication::initialize()
         connect(_mainWindow, SIGNAL(stopTasks()), &_taskManager, SLOT(stopTasks()), Qt::QueuedConnection);
         connect(&_taskManager, SIGNAL(jobsList(QMap<QString,JobPtr>))
                 , _mainWindow, SIGNAL(jobsList(QMap<QString,JobPtr>)), Qt::QueuedConnection);
+        connect(_mainWindow, SIGNAL(deleteJob(JobPtr,bool)), &_taskManager, SLOT(deleteJob(JobPtr,bool)), Qt::QueuedConnection);
 
         QMetaObject::invokeMethod(&_taskManager, "loadJobs", Qt::QueuedConnection);
         QMetaObject::invokeMethod(&_taskManager, "getArchiveList", Qt::QueuedConnection);

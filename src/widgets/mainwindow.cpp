@@ -176,7 +176,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
     connect(_ui->jobListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), Qt::QueuedConnection);
-    connect(_ui->jobListWidget, SIGNAL(deleteJobArchives(QList<ArchivePtr>)), this, SIGNAL(deleteArchives(QList<ArchivePtr>)), Qt::QueuedConnection);
+    connect(_ui->jobListWidget, SIGNAL(deleteJob(JobPtr,bool)), this, SIGNAL(deleteJob(JobPtr,bool)), Qt::QueuedConnection);
     connect(this, SIGNAL(jobsList(QMap<QString,JobPtr>)), _ui->jobListWidget, SLOT(addJobs(QMap<QString,JobPtr>)), Qt::QueuedConnection);
 
     _ui->jobListWidget->addAction(_ui->actionAddJob);
@@ -224,6 +224,21 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobListWidget, &JobListWidget::backupJob,
             [=](BackupTaskPtr backup){
                 connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
+            });
+    connect(_ui->jobListWidget, &JobListWidget::deleteJob,
+            [=](JobPtr job, bool purgeArchives){
+                if(purgeArchives)
+                {
+                    updateStatusMessage(tr("Job <i>%1</i> deleted. Deleting %2 associated archives next...").arg(job->name()).arg(job->archives().count()));
+                }
+                else
+                {
+                    updateStatusMessage(tr("Job <i>%1</i> deleted.").arg(job->name()));
+                }
+            });
+    connect(_ui->jobDetailsWidget, &JobWidget::jobAdded,
+            [=](JobPtr job){
+                updateStatusMessage(tr("Job <i>%1</i> added.").arg(job->name()));
             });
     connect(_ui->loginTarsnapButton, &QPushButton::clicked,
             [=](){

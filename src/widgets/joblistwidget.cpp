@@ -121,6 +121,7 @@ void JobListWidget::deleteItem()
     JobListItem* jobItem = qobject_cast<JobListItem*>(sender());
     if(jobItem)
     {
+        bool purgeArchives = false;
         JobPtr job = jobItem->job();
         QMessageBox::StandardButton confirm = QMessageBox::question(this, tr("Confirm action")
                                                                    , tr("Are you sure you want to delete job \"%1\" (this cannot be undone)?").arg(job->name()));
@@ -131,9 +132,9 @@ void JobListWidget::deleteItem()
                 QMessageBox::StandardButton confirmArchives= QMessageBox::question(this, tr("Confirm action")
                                                                            , tr("Also delete %1 archives pertaining to this job (this cannot be undone)?").arg(job->archives().count()));
                 if(confirmArchives == QMessageBox::Yes)
-                    emit deleteJobArchives(job->archives());
+                    purgeArchives = true;
             }
-            job->purge();
+            emit deleteJob(job, purgeArchives);
             QListWidgetItem *item = this->takeItem(this->row(jobItem));
             if(item)
                 delete item;

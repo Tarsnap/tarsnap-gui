@@ -54,9 +54,9 @@ public slots:
     void nuke();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runScheduledJobs();
-
-    void loadJobs();
     void stopTasks();
+    void loadJobs();
+    void deleteJob(JobPtr job, bool purgeArchives);
 
 private slots:
     // post Tarsnap task processing
@@ -95,7 +95,7 @@ private:
     bool                         _aggressiveNetworking;
     bool                         _preservePathnames;
     bool                         _headless;
-    QMap<QString, JobPtr>          _jobMap;
+    QMap<QString, JobPtr>        _jobMap;
 };
 
 #endif // TASKMANAGER_H

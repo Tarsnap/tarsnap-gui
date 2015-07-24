@@ -675,3 +675,14 @@ void TaskManager::loadJobs()
     }
     emit jobsList(_jobMap);
 }
+
+void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
+{
+    if(job)
+    {
+        if(purgeArchives)
+            deleteArchives(job->archives());
+        job->purge();
+        _jobMap.remove(job->name());
+    }
+}

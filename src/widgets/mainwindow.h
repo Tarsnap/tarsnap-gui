@@ -36,6 +36,7 @@ signals:
     void runSetupWizard();
     void stopTasks();
     void jobsList(QMap<QString,JobPtr>);
+    void deleteJob(JobPtr job, bool purgeArchives);
 
 protected:
     void paintEvent(QPaintEvent *);

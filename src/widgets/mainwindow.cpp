@@ -91,6 +91,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->addAction(_ui->actionGoJobs);
     this->addAction(_ui->actionGoSettings);
     this->addAction(_ui->actionGoHelp);
+    this->addAction(_ui->actionShowJournal);
     connect(_ui->actionGoBackup, &QAction::triggered,
             [=](){
                 _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
@@ -111,7 +112,7 @@ MainWindow::MainWindow(QWidget *parent) :
             [=](){
                 _ui->mainTabWidget->setCurrentWidget(_ui->helpTab);
             });
-
+    connect(_ui->actionShowJournal, SIGNAL(triggered()), _ui->expandJournalButton, SLOT(click()));
     connect(_ui->backupListInfoLabel, SIGNAL(linkActivated(QString)), this,
             SLOT(browseForBackupItems()));
     connect(_ui->backupButton, SIGNAL(clicked()), this, SLOT(backupButtonClicked()));

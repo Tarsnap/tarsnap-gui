@@ -493,6 +493,9 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
             <property name="placeholderText">
              <string>Application data directory</string>
             </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
          </layout>

@@ -11,7 +11,8 @@ CONFIG += c++11
 TEMPLATE = app
 TARGET = tarsnap-gui
 
-VERSION = 0.5
+VERSION = 0.6
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 #QMAKE_TARGET_COMPANY = Tarsnap Backup Inc.
 #QMAKE_TARGET_PRODUCT = Tarsnap
 #QMAKE_TARGET_DESCRIPTION = GUI frontend for Tarsnap

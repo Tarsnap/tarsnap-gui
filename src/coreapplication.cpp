@@ -25,7 +25,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
     QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
-    QCoreApplication::setApplicationVersion(QLatin1String("0.5"));
+    QCoreApplication::setApplicationVersion(APP_VERSION);
 }
 
 CoreApplication::~CoreApplication()

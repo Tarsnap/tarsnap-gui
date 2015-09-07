@@ -298,7 +298,7 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
             <property name="text">
              <string>Skip wizard</string>
             </property>
-            <property name="default">
+            <property name="autoDefault">
              <bool>false</bool>
             </property>
            </widget>

@@ -22,10 +22,12 @@ public:
 
     QMutex* mutex();
 
-signals:
-
 public slots:
     bool runQuery(QSqlQuery query);
+
+protected:
+    bool upgradeVersion0();
+    bool upgradeVersion1();
 
 private:
     // Yes, a singleton

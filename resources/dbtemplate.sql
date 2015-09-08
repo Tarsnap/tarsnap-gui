@@ -3,7 +3,13 @@
 -- thus you need to modify this file to update the db schema, then regenerate
 -- dbtemplate.db which is in turn used by the app.
 
+-- NB: UPDATE the version column below whenever you change this schema
+
 BEGIN TRANSACTION;
+CREATE TABLE `version` (
+	`version`	INTEGER NOT NULL
+);
+INSERT INTO version VALUES (1);
 CREATE TABLE `jobs` (
 	`name`	TEXT NOT NULL,
 	`urls`	TEXT,

@@ -35,12 +35,12 @@ bool PersistentStore::init()
     }
     else if(!dbFileInfo.isFile() || !dbFileInfo.isReadable())
     {
-        DEBUG << "Error creating the PersistentStore: db file is not accessible " << dbUrl;
+        DEBUG << "Error creating the PersistentStore: DB file is not accessible " << dbUrl;
         return false;
     }
     else if (!_db.open())
     {
-        DEBUG << "Error opening the PersistentStore db: " << _db.lastError().text();
+        DEBUG << "Error opening the PersistentStore DB: " << _db.lastError().text();
         return false;
     }
     else
@@ -49,13 +49,38 @@ bool PersistentStore::init()
         if (!tables.contains("archives", Qt::CaseInsensitive))
         {
             _db.close();
-            DEBUG << "Invalid PersistentStore db found. Attempting to recover.";
+            DEBUG << "Invalid PersistentStore DB found. Attempting to recover.";
             if(!QFile::rename(dbUrl, dbUrl + "." + QString::number(QDateTime::currentMSecsSinceEpoch())))
             {
-                DEBUG << "Failed to rename current invalid PersistentStore db. Please cleanup the dbs found in " << appdata;
+                DEBUG << "Failed to rename current invalid PersistentStore DB. Please manually cleanup the DB directory " << appdata;
                 return false;
             }
             create = true;
+        }
+        else
+        {
+            if(!tables.contains("version", Qt::CaseInsensitive))
+            {
+                if(!upgradeVersion0())
+                {
+                    DEBUG << "Failed to upgrade PersistentStore DB. It's best to start from scratch by purging the existing DB in " << appdata;
+                    return false;
+                }
+            }
+            int version = -1;
+            QSqlQuery query(_db);
+            if (query.exec("SELECT version FROM version"))
+            {
+                query.next();
+                version = query.value(0).toInt();
+            }
+            else
+            {
+                DEBUG << "Failed to get current DB version: " << query.lastError().text();
+                return false;
+            }
+            if((version == 0) && upgradeVersion1())
+                DEBUG << "DB upgraded to version 1.";
         }
     }
 
@@ -64,7 +89,7 @@ bool PersistentStore::init()
         QFile dbTemplate(":/dbtemplate.db");
         if(!dbTemplate.copy(dbUrl))
         {
-            DEBUG << "Failed to create the PersistentStore db.";
+            DEBUG << "Failed to create the PersistentStore DB.";
             return false;
         }
         // Work around the fact that QFile::copy from the resource system does not set u+w on the resulted file
@@ -73,7 +98,7 @@ bool PersistentStore::init()
         dbFile.close();
         if (!_db.open())
         {
-            DEBUG << "Error opening the PersistentStore db: " << _db.lastError().text();
+            DEBUG << "Error opening the PersistentStore DB: " << _db.lastError().text();
             return false;
         }
     }
@@ -163,4 +188,39 @@ bool PersistentStore::runQuery(QSqlQuery query)
     return result;
 }
 
+bool PersistentStore::upgradeVersion0()
+{
+    bool result = false;
+    QSqlQuery query(_db);
 
+    if((result = query.exec("CREATE TABLE version (version INTEGER NOT NULL);")))
+        result = query.exec("INSERT INTO version VALUES (0);");
+
+    if (!result)
+    {
+        DEBUG << query.lastError().text();
+        DEBUG << "Failed to upgrade DB to version 0." << _db;
+    }
+    return result;
+}
+
+bool PersistentStore::upgradeVersion1()
+{
+    bool result = false;
+    QSqlQuery query(_db);
+
+    if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionScheduledEnabled INTEGER;")))
+        result = query.exec("UPDATE version SET version = 1;");
+
+    // Handle the special case, since I started versioning DB after two app
+    // releases and this change in between...
+    if(!result && query.lastError().text().contains("duplicate column name"))
+        result = query.exec("UPDATE version SET version = 1;");
+
+    if (!result)
+    {
+        DEBUG << query.lastError().text();
+        DEBUG << "Failed to upgrade DB to version 1." << _db.databaseName();
+    }
+    return result;
+}

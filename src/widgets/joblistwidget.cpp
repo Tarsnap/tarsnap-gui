@@ -41,10 +41,8 @@ void JobListWidget::backupSelectedItems()
 
 void JobListWidget::selectJob(JobPtr job)
 {
-    if(job.isNull())
-        return;
-
-    selectJobByRef(job->objectKey());
+    if(job)
+        selectJobByRef(job->objectKey());
 }
 
 void JobListWidget::selectJobByRef(QString jobRef)

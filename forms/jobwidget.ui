@@ -6,14 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>564</width>
-    <height>183</height>
+    <width>617</width>
+    <height>259</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -27,138 +30,136 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QStackedWidget" name="stackedWidget">
-     <property name="styleSheet">
-      <string notr="true">#stackedWidget {
-}</string>
+    <widget class="QWidget" name="headerWidget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <widget class="QWidget" name="jobNewPage">
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QWidget" name="newJobHeaderWidget" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">#treeViewHeaderWidget {
-background: transparent;
-}</string>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>6</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLineEdit" name="jobNameLineEdit">
-            <property name="styleSheet">
-             <string notr="true">QLineEdit {
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="leftMargin">
+       <number>6</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>6</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="iconLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="../resources/resources.qrc">:/icons/hard-drive-4x.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="jobNameLabel">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="jobNameLineEdit">
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
 padding-left: 3px;
 }</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="placeholderText">
-             <string>Job name</string>
-            </property>
-            <property name="clearButtonEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="newJobOptionsButton">
-            <property name="text">
-             <string>Options</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../resources/resources.qrc">
-              <normaloff>:/icons/menu-2x.png</normaloff>:/icons/menu-2x.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>12</width>
-              <height>12</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Expanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>100</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="cancelButton">
-            <property name="text">
-             <string>Cancel</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="FilePicker" name="newJobTreeWidget" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="jobDetailPage">
-      <property name="styleSheet">
-       <string notr="true">#treeView {
-}</string>
-      </property>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Job name</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="restoreLatestArchiveButton">
+        <property name="text">
+         <string>Restore latest archive</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="cancelButton">
+        <property name="toolTip">
+         <string>Can also press ESC key</string>
+        </property>
+        <property name="text">
+         <string>Hide</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>2</number>
+     </property>
+     <widget class="QWidget" name="jobTreeTab">
+      <attribute name="title">
+       <string>File System</string>
+      </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="spacing">
         <number>0</number>
@@ -176,123 +177,7 @@ padding-left: 3px;
         <number>0</number>
        </property>
        <item>
-        <widget class="QWidget" name="detailHeaderWidget" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">#treeViewHeaderWidget {
-background: transparent;
-}</string>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="leftMargin">
-           <number>6</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>6</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="iconLabel">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="pixmap">
-             <pixmap resource="../resources/resources.qrc">:/icons/hard-drive-4x.png</pixmap>
-            </property>
-            <property name="scaledContents">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="jobNameLabel">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="optionsButton">
-            <property name="text">
-             <string>Options</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../resources/resources.qrc">
-              <normaloff>:/icons/menu-2x.png</normaloff>:/icons/menu-2x.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>12</width>
-              <height>12</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="listArchivesButton">
-            <property name="text">
-             <string>List archives</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="FilePicker" name="detailTreeWidget" native="true">
+        <widget class="FilePicker" name="jobTreeWidget" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
            <horstretch>0</horstretch>
@@ -303,7 +188,10 @@ background: transparent;
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="jobOptionsPage">
+     <widget class="QWidget" name="optionsTab">
+      <attribute name="title">
+       <string>Options</string>
+      </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <property name="spacing">
         <number>0</number>
@@ -320,77 +208,6 @@ background: transparent;
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item>
-        <widget class="QWidget" name="detailHeaderWidget_2" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">#treeViewHeaderWidget {
-background: transparent;
-}</string>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="leftMargin">
-           <number>6</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>6</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="jobNameLabel_2">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="optionsBackButton">
-            <property name="text">
-             <string>Back</string>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>12</width>
-              <height>12</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item>
         <widget class="QWidget" name="settingsContainer" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -545,11 +362,10 @@ background: transparent;
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="jobRestorePage">
-      <property name="styleSheet">
-       <string notr="true">#restoreView {
-}</string>
-      </property>
+     <widget class="QWidget" name="archiveListTab">
+      <attribute name="title">
+       <string>Archives</string>
+      </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <property name="spacing">
         <number>0</number>
@@ -567,63 +383,7 @@ background: transparent;
         <number>0</number>
        </property>
        <item>
-        <widget class="QWidget" name="restoreHeaderWidget" native="true">
-         <property name="styleSheet">
-          <string notr="true">#restoreViewHeaderWidget {
-background: transparent;
-}</string>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="leftMargin">
-           <number>6</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>6</number>
-          </property>
-          <property name="bottomMargin">
-           <number>6</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="restoreLatestArchiveButton">
-            <property name="text">
-             <string>Restore latest archive</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="restoreBackButton">
-            <property name="text">
-             <string>Back</string>
-            </property>
-            <property name="default">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="ArchiveListWidget" name="restoreListWidget">
+        <widget class="ArchiveListWidget" name="archiveListWidget">
          <property name="styleSheet">
           <string notr="true">#restoreListWidget::item
 {
@@ -660,19 +420,15 @@ selection-background-color: rgba(179, 190, 255, 120);
  </customwidgets>
  <tabstops>
   <tabstop>jobNameLineEdit</tabstop>
-  <tabstop>newJobOptionsButton</tabstop>
+  <tabstop>restoreLatestArchiveButton</tabstop>
   <tabstop>cancelButton</tabstop>
-  <tabstop>optionsButton</tabstop>
-  <tabstop>listArchivesButton</tabstop>
-  <tabstop>optionsBackButton</tabstop>
+  <tabstop>tabWidget</tabstop>
   <tabstop>includeScheduledCheckBox</tabstop>
   <tabstop>preservePathsCheckBox</tabstop>
   <tabstop>followSymLinksCheckBox</tabstop>
   <tabstop>traverseMountCheckBox</tabstop>
   <tabstop>skipFilesSpinBox</tabstop>
-  <tabstop>restoreLatestArchiveButton</tabstop>
-  <tabstop>restoreBackButton</tabstop>
-  <tabstop>restoreListWidget</tabstop>
+  <tabstop>archiveListWidget</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

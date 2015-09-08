@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>590</height>
+    <height>598</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -25,10 +25,6 @@
   <property name="windowIcon">
    <iconset resource="../resources/resources.qrc">
     <normaloff>:/icons/tarsnap_icon.png</normaloff>:/icons/tarsnap_icon.png</iconset>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">#MainWindow {
-}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -77,11 +73,16 @@
           <bool>false</bool>
          </property>
          <property name="styleSheet">
-          <string notr="true">QTabBar::tab {
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(85,164,216,225), stop: 0.9 rgba(85,164,216,225),
-					stop: 1.0 rgba(46,141,204,255), stop: 1.0 rgba(46,141,204,255));
+          <string notr="true">#mainTabWidget
+{
+border-radius: 2px;
+}
+
+#mainTabWidget::tab
+{
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgba(85,164,216,225), stop: 0.9 rgba(85,164,216,225), stop: 1.0 rgba(46,141,204,255), stop: 1.0 rgba(46,141,204,255));
 border: 1px solid #ECF0F1;
+border-radius: 2px;
 border-bottom: none;
 border-top-left-radius: 3px;
 border-top-right-radius: 3px;
@@ -93,28 +94,21 @@ margin-left: 3px;
 color: white;
 }
 
-QTabBar::tab:selected {
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(64,152,212,255), stop: 1 rgba(64,152,212,255));
+#mainTabWidget::tab:selected
+{
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgba(64,152,212,255), stop: 1 rgba(64,152,212,255));
 border: 1px solid white;
 border-bottom: none;
 }
 
-QTabWidget::pane { /* The tab widget frame */
+#mainTabWidget::pane
+{
 border-top: none;
 }
 
-QTabWidget::tab-bar {
-left: 5px; /* move to the right by 5px */
-}
-
-QTabWidget::tab {
-border-radius: 2px;
-}
-
-QTabWidget
+#mainTabWidget::tab-bar
 {
-border-radius: 2px;
+left: 5px; /* move to the right by 5px */
 }
 </string>
          </property>
@@ -126,9 +120,7 @@ border-radius: 2px;
            <bool>false</bool>
           </property>
           <property name="styleSheet">
-           <string notr="true">#backupTab {
-
-}</string>
+           <string notr="true"/>
           </property>
           <attribute name="title">
            <string>Backup</string>
@@ -332,10 +324,6 @@ color: gray;
           </layout>
          </widget>
          <widget class="QWidget" name="archivesTab">
-          <property name="styleSheet">
-           <string notr="true">#browseTab {
-}</string>
-          </property>
           <attribute name="title">
            <string>Archives</string>
           </attribute>
@@ -714,10 +702,6 @@ selection-background-color: rgba(179, 190, 255, 120);
           </layout>
          </widget>
          <widget class="QWidget" name="jobsTab">
-          <property name="styleSheet">
-           <string notr="true">#jobsTab {
-}</string>
-          </property>
           <attribute name="title">
            <string>Jobs</string>
           </attribute>
@@ -859,7 +843,8 @@ QToolButton:focus
 border: 1px solid white;
 }
 
-QToolButton::menu-button {
+QToolButton::menu-button
+{
 border-left: 1px dotted white;
 width: 16px;
 margin-right: 4px;
@@ -887,10 +872,6 @@ text-align: center;
           </layout>
          </widget>
          <widget class="QWidget" name="settingsTab">
-          <property name="styleSheet">
-           <string notr="true">#settingsTab {
-}</string>
-          </property>
           <attribute name="title">
            <string>Settings</string>
           </attribute>
@@ -944,7 +925,7 @@ border: 1px solid rgba(255,255,255,100);
                 <x>0</x>
                 <y>0</y>
                 <width>594</width>
-                <height>378</height>
+                <height>346</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1353,8 +1334,8 @@ margin-top: 6px;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>378</height>
+                <width>382</width>
+                <height>241</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1551,8 +1532,8 @@ margin-top: 6px;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>378</height>
+                <width>294</width>
+                <height>199</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1731,7 +1712,7 @@ margin-top: 6px;
            <string notr="true">#helpTab QGroupBox {
 font-size: 13px;
 }
-#helpTab  QGroupBox::title {
+#helpTab QGroupBox::title {
 background: transparent;
 margin: 1px 0px 0px 6px;
 }</string>
@@ -2195,14 +2176,14 @@ border: none;
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>TextLabel</class>
-   <extends>QLabel</extends>
-   <header>textlabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>ArchiveListWidget</class>
    <extends>QListWidget</extends>
    <header>widgets/archivelistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TextLabel</class>
+   <extends>QLabel</extends>
+   <header>textlabel.h</header>
   </customwidget>
   <customwidget>
    <class>BackupListWidget</class>

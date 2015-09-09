@@ -73,14 +73,12 @@
           <height>32</height>
          </size>
         </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="../resources/resources.qrc">:/icons/hard-drive-4x.png</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
+        <property name="styleSheet">
+         <string notr="true">#iconLabel {
+border-image: url(&quot;:/icons/hard-drive@2x.png&quot;);
+max-width: 32px;
+max-height: 32px;
+}</string>
         </property>
        </widget>
       </item>
@@ -154,7 +152,7 @@ padding-left: 3px;
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="jobTreeTab">
       <attribute name="title">
@@ -385,7 +383,7 @@ padding-left: 3px;
        <item>
         <widget class="ArchiveListWidget" name="archiveListWidget">
          <property name="styleSheet">
-          <string notr="true">#restoreListWidget::item
+          <string notr="true">#archiveListWidget::item
 {
 min-height: 35px;
 selection-background-color: rgba(179, 190, 255, 120);
@@ -396,6 +394,12 @@ selection-background-color: rgba(179, 190, 255, 120);
          </property>
          <property name="selectionMode">
           <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
+         <property name="uniformItemSizes">
+          <bool>true</bool>
+         </property>
+         <property name="batchSize">
+          <number>20</number>
          </property>
         </widget>
        </item>
@@ -430,8 +434,6 @@ selection-background-color: rgba(179, 190, 255, 120);
   <tabstop>skipFilesSpinBox</tabstop>
   <tabstop>archiveListWidget</tabstop>
  </tabstops>
- <resources>
-  <include location="../resources/resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

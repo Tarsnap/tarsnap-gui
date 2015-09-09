@@ -52,7 +52,7 @@ void BackupListItem::setUrl(const QUrl &url)
         _ui.pathLabel->setToolTip(fileUrl);
         if(file.isDir())
         {
-            QPixmap icon(":/icons/folder-2x.png");
+            QPixmap icon(":/icons/folder.png");
             _ui.iconLabel->setPixmap(icon);
             QDir dir(file.absoluteFilePath());
             QThreadPool *threadPool = QThreadPool::globalInstance();
@@ -63,7 +63,7 @@ void BackupListItem::setUrl(const QUrl &url)
         }
         else if(file.isFile())
         {
-            QPixmap icon(":/icons/file-2x.png");
+            QPixmap icon(":/icons/file.png");
             _ui.iconLabel->setPixmap(icon);
             _count = 1;
             _size  = file.size();

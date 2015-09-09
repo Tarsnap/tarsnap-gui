@@ -50,7 +50,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/hard-drive-2x.png</pixmap>
+      <pixmap resource="../resources/resources.qrc">:/icons/hard-drive.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -156,7 +156,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/info-2x.png</normaloff>:/icons/info-2x.png</iconset>
+       <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
      </property>
     </widget>
    </item>
@@ -197,7 +197,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/action-undo-2x.png</normaloff>:/icons/action-undo-2x.png</iconset>
+       <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
      </property>
     </widget>
    </item>
@@ -221,7 +221,7 @@ padding-left: 2px;
   <action name="actionRestore">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/action-undo-2x.png</normaloff>:/icons/action-undo-2x.png</iconset>
+     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>
@@ -233,7 +233,7 @@ padding-left: 2px;
   <action name="actionInspect">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/info-2x.png</normaloff>:/icons/info-2x.png</iconset>
+     <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
    </property>
    <property name="text">
     <string>Inspect</string>
@@ -257,7 +257,7 @@ padding-left: 2px;
   <action name="actionDelete">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/trash-2x.png</normaloff>:/icons/trash-2x.png</iconset>
+     <normaloff>:/icons/trash.png</normaloff>:/icons/trash.png</iconset>
    </property>
    <property name="text">
     <string>Delete</string>
@@ -271,7 +271,7 @@ padding-left: 2px;
   <customwidget>
    <class>TextLabel</class>
    <extends>QLabel</extends>
-   <header location="global">../widgets/textlabel.h</header>
+   <header>textlabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

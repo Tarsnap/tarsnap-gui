@@ -102,7 +102,7 @@ padding-left: 3px;
         </property>
         <property name="icon">
          <iconset resource="../resources/resources.qrc">
-          <normaloff>:/icons/menu-2x.png</normaloff>:/icons/menu-2x.png</iconset>
+          <normaloff>:/icons/menu.png</normaloff>:/icons/menu.png</iconset>
         </property>
         <property name="checkable">
          <bool>true</bool>

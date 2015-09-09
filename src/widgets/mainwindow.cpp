@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _purgeTimerCount(0),
     _purgeCountdownWindow(this)
 {
+    qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
+
     _ui->setupUi(this);
 
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);

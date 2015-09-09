@@ -637,29 +637,15 @@ selection-background-color: rgba(179, 190, 255, 120);
                      </item>
                      <item>
                       <widget class="QLabel" name="archiveIconLabel">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>100</width>
-                         <height>100</height>
-                        </size>
+                       <property name="styleSheet">
+                        <string notr="true">#archiveIconLabel {
+border-image: url(:/icons/tarsnap_icon_big.png);
+max-width: 120px;
+max-height: 120px;
+}</string>
                        </property>
                        <property name="text">
                         <string/>
-                       </property>
-                       <property name="pixmap">
-                        <pixmap resource="../resources/resources.qrc">:/icons/tarsnap_icon.png</pixmap>
-                       </property>
-                       <property name="scaledContents">
-                        <bool>true</bool>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                        </property>
                        <property name="textInteractionFlags">
                         <set>Qt::NoTextInteraction</set>
@@ -1203,7 +1189,7 @@ margin-top: 6px;
                     </property>
                     <property name="icon">
                      <iconset resource="../resources/resources.qrc">
-                      <normaloff>:/icons/tarsnap_icon.png</normaloff>:/icons/tarsnap_icon.png</iconset>
+                      <normaloff>:/icons/tarsnap_icon_big.png</normaloff>:/icons/tarsnap_icon_big.png</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
@@ -1997,8 +1983,8 @@ border: none;
         </property>
         <property name="icon">
          <iconset resource="../resources/resources.qrc">
-          <normaloff>:/icons/caret-top-2x.png</normaloff>
-          <activeon>:/icons/caret-bottom-2x.png</activeon>:/icons/caret-top-2x.png</iconset>
+          <normaloff>:/icons/caret-top.png</normaloff>
+          <activeon>:/icons/caret-bottom.png</activeon>:/icons/caret-top.png</iconset>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -2041,7 +2027,7 @@ border: none;
   <action name="actionRefresh">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/reload-2x.png</normaloff>:/icons/reload-2x.png</iconset>
+     <normaloff>:/icons/reload.png</normaloff>:/icons/reload.png</iconset>
    </property>
    <property name="text">
     <string>Refresh</string>
@@ -2056,7 +2042,7 @@ border: none;
   <action name="actionClearList">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/circle-x-2x.png</normaloff>:/icons/circle-x-2x.png</iconset>
+     <normaloff>:/icons/circle-x.png</normaloff>:/icons/circle-x.png</iconset>
    </property>
    <property name="text">
     <string>Clear list</string>
@@ -2071,7 +2057,7 @@ border: none;
   <action name="actionBrowseItems">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/magnifying-glass-2x.png</normaloff>:/icons/magnifying-glass-2x.png</iconset>
+     <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
    </property>
    <property name="text">
     <string>Browse for items</string>

@@ -56,7 +56,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/file-2x.png</pixmap>
+      <pixmap resource="../resources/resources.qrc">:/icons/file.png</pixmap>
      </property>
     </widget>
    </item>
@@ -144,7 +144,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/magnifying-glass-2x.png</normaloff>:/icons/magnifying-glass-2x.png</iconset>
+       <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
      </property>
     </widget>
    </item>
@@ -182,7 +182,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/circle-x-2x.png</normaloff>:/icons/circle-x-2x.png</iconset>
+       <normaloff>:/icons/circle-x.png</normaloff>:/icons/circle-x.png</iconset>
      </property>
     </widget>
    </item>
@@ -190,7 +190,7 @@ padding-left: 2px;
   <action name="actionRemove">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/circle-x-2x.png</normaloff>:/icons/circle-x-2x.png</iconset>
+     <normaloff>:/icons/circle-x.png</normaloff>:/icons/circle-x.png</iconset>
    </property>
    <property name="text">
     <string>Remove</string>
@@ -202,7 +202,7 @@ padding-left: 2px;
   <action name="actionOpen">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/magnifying-glass-2x.png</normaloff>:/icons/magnifying-glass-2x.png</iconset>
+     <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>

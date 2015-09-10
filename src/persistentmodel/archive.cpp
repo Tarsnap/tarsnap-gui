@@ -227,4 +227,3 @@ void Archive::setName(const QString &value)
 {
     _name = value;
 }
-

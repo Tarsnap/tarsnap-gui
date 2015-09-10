@@ -3,7 +3,6 @@
 
 #include <QThread>
 #include <QProcess>
-#include <QUuid>
 #include <QRunnable>
 #include <QVariant>
 
@@ -12,7 +11,7 @@ class TarsnapClient : public QObject, public QRunnable
     Q_OBJECT
 
 public:
-    explicit TarsnapClient(QUuid uuid = QUuid::createUuid());
+    explicit TarsnapClient();
     ~TarsnapClient();
 
     void run();
@@ -34,16 +33,13 @@ public:
     bool requiresPassword() const;
     void setRequiresPassword(bool requiresPassword);
 
-    QUuid uuid() const;
-    void setUuid(const QUuid &uuid);
-
     QVariant data() const;
     void setData(const QVariant &data);
 
 signals:
-    void finished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void started(QUuid uuid);
-    void terminated(QUuid uuid);
+    void finished(QVariant data, int exitCode, QString output);
+    void started(QVariant data);
+    void terminated(QVariant data);
 
 private slots:
     void readProcessOutput();
@@ -51,7 +47,6 @@ private slots:
     void processError();
 
 private:
-    QUuid            _uuid;
     QVariant         _data; // caller supplied data
     QProcess         *_process;
     QByteArray       _processOutput;

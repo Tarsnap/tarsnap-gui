@@ -3,7 +3,7 @@
 
 #define DEFAULT_TIMEOUT_MS 5000
 
-TarsnapClient::TarsnapClient(QUuid uuid) : QObject(), _uuid(uuid), _process(NULL), _requiresPassword(false)
+TarsnapClient::TarsnapClient() : QObject(), _process(NULL), _requiresPassword(false)
 {
 }
 
@@ -40,7 +40,7 @@ void TarsnapClient::run()
     _process->start();
     if(_process->waitForStarted(DEFAULT_TIMEOUT_MS))
     {
-        emit started(_uuid);
+        emit started(_data);
     }
     else
     {
@@ -104,8 +104,8 @@ void TarsnapClient::processFinished()
         else
             LOG << tr("[%1 %2] finished with exit code %3 and no output.").arg(_command)
                    .arg(_arguments.join(' ')).arg(_process->exitCode()) << DELIMITER;
-        emit finished(_uuid, _data, _process->exitCode(), output);
-        emit terminated(_uuid);
+        emit finished(_data, _process->exitCode(), output);
+        emit terminated(_data);
         break;
     case QProcess::CrashExit:
         processError();
@@ -117,7 +117,7 @@ void TarsnapClient::processError()
 {
     LOG << tr("Tarsnap process error %1 (%2) occured (exit code %3):\n%4").arg(_process->error())
            .arg(_process->errorString()).arg(_process->exitCode()).arg(QString(_processOutput)) << DELIMITER;
-    emit terminated(_uuid);
+    emit terminated(_data);
 }
 QVariant TarsnapClient::data() const
 {
@@ -128,17 +128,6 @@ void TarsnapClient::setData(const QVariant &data)
 {
     _data = data;
 }
-
-QUuid TarsnapClient::uuid() const
-{
-    return _uuid;
-}
-
-void TarsnapClient::setUuid(const QUuid &uuid)
-{
-    _uuid = uuid;
-}
-
 
 bool TarsnapClient::requiresPassword() const
 {

@@ -60,22 +60,22 @@ public slots:
 
 private slots:
     // post Tarsnap task processing
-    void backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void backupTaskStarted(QUuid uuid);
-    void registerMachineFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void getArchiveListFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void getArchiveContentsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void deleteArchivesFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void overallStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void fsckFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void nukeFinished(QUuid uuid, QVariant data, int exitCode, QString output);
-    void restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output);
+    void backupTaskFinished(QVariant data, int exitCode, QString output);
+    void backupTaskStarted(QVariant data);
+    void registerMachineFinished(QVariant data, int exitCode, QString output);
+    void getArchiveListFinished(QVariant data, int exitCode, QString output);
+    void getArchiveStatsFinished(QVariant data, int exitCode, QString output);
+    void getArchiveContentsFinished(QVariant data, int exitCode, QString output);
+    void deleteArchivesFinished(QVariant data, int exitCode, QString output);
+    void overallStatsFinished(QVariant data, int exitCode, QString output);
+    void fsckFinished(QVariant data, int exitCode, QString output);
+    void nukeFinished(QVariant data, int exitCode, QString output);
+    void restoreArchiveFinished(QVariant data, int exitCode, QString output);
 
     // general task management
     void queueTask(TarsnapClient *cli, bool exclusive = false);
     void startTask(TarsnapClient *cli);
-    void dequeueTask(QUuid uuid);
+    void dequeueTask();
 
 private:
     void parseGlobalStats(QString tarsnapOutput);
@@ -89,7 +89,7 @@ private:
     QThread                      _managerThread; // manager runs on a separate thread
     QMap<QUuid, BackupTaskPtr>   _backupTaskMap; // keeps track of active backup tasks
     QMap<QString, ArchivePtr>    _archiveMap;    // keeps track of archives
-    QMap<QUuid, TarsnapClient*>  _runningTaskMap; // keeps track of currently executing client tasks
+    QList<TarsnapClient*>        _runningTasks;  // keeps track of currently executing client tasks
     QQueue<TarsnapClient*>       _taskQueue;     // keeps track of mutually exclusive client tasks pending execution
     QThreadPool                 *_threadPool;
     bool                         _aggressiveNetworking;

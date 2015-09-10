@@ -73,16 +73,11 @@
           <bool>false</bool>
          </property>
          <property name="styleSheet">
-          <string notr="true">#mainTabWidget
-{
-border-radius: 2px;
-}
-
-#mainTabWidget::tab
-{
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgba(85,164,216,225), stop: 0.9 rgba(85,164,216,225), stop: 1.0 rgba(46,141,204,255), stop: 1.0 rgba(46,141,204,255));
+          <string notr="true">#mainTabWidget &gt; QTabBar::tab {
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+					stop: 0 rgba(85,164,216,225), stop: 0.9 rgba(85,164,216,225),
+					stop: 1.0 rgba(46,141,204,255), stop: 1.0 rgba(46,141,204,255));
 border: 1px solid #ECF0F1;
-border-radius: 2px;
 border-bottom: none;
 border-top-left-radius: 3px;
 border-top-right-radius: 3px;
@@ -94,21 +89,28 @@ margin-left: 3px;
 color: white;
 }
 
-#mainTabWidget::tab:selected
-{
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgba(64,152,212,255), stop: 1 rgba(64,152,212,255));
+#mainTabWidget &gt; QTabBar::tab:selected {
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+					stop: 0 rgba(64,152,212,255), stop: 1 rgba(64,152,212,255));
 border: 1px solid white;
 border-bottom: none;
 }
 
-#mainTabWidget::pane
-{
+#mainTabWidget::pane { /* The tab widget frame */
 border-top: none;
 }
 
-#mainTabWidget::tab-bar
-{
+#mainTabWidget::tab-bar {
 left: 5px; /* move to the right by 5px */
+}
+
+#mainTabWidget::tab {
+border-radius: 2px;
+}
+
+#mainTabWidget
+{
+border-radius: 2px;
 }
 </string>
          </property>

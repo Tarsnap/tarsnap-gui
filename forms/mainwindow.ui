@@ -639,9 +639,17 @@ selection-background-color: rgba(179, 190, 255, 120);
                      </item>
                      <item>
                       <widget class="QLabel" name="archiveIconLabel">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
                        <property name="styleSheet">
                         <string notr="true">#archiveIconLabel {
 border-image: url(:/icons/tarsnap_icon_big.png);
+min-width: 120px;
+min-height: 120px;
 max-width: 120px;
 max-height: 120px;
 }</string>

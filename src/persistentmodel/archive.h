@@ -30,8 +30,6 @@ public:
     explicit Archive(QObject *parent = 0);
     ~Archive();
 
-    QUuid uuid() const;
-    void setUuid(const QUuid &value);
     QString name() const;
     void setName(const QString &value);
     QDateTime timestamp() const;
@@ -65,13 +63,12 @@ public slots:
     QString archiveStats();
 
 private:
-    QUuid       _uuid;
     QString     _name;
     QDateTime   _timestamp;
-    quint64      _sizeTotal;
-    quint64      _sizeCompressed;
-    quint64      _sizeUniqueTotal;
-    quint64      _sizeUniqueCompressed;
+    quint64     _sizeTotal;
+    quint64     _sizeCompressed;
+    quint64     _sizeUniqueTotal;
+    quint64     _sizeUniqueCompressed;
     QString     _command;
     QStringList _contents;
     QString     _jobRef;

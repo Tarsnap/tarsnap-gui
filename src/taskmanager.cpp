@@ -130,7 +130,7 @@ void TaskManager::loadArchives()
             ArchivePtr archive(new Archive);
             archive->setName(query.value(query.record().indexOf("name")).toString());
             archive->load();
-            _archiveMap[archive->uuid()] = archive;
+            _archiveMap[archive->name()] = archive;
         }while(query.next());
     }
     emit archiveList(_archiveMap.values());
@@ -158,10 +158,9 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
         return;
     }
 
-    if(!_archiveMap.contains(archive->uuid()))
-        _archiveMap[archive->uuid()] = archive;
+    _archiveMap.insert(archive->name(), archive);
 
-    TarsnapClient *statsClient = new TarsnapClient(archive->uuid());
+    TarsnapClient *statsClient = new TarsnapClient();
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -170,6 +169,7 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
     args << "--print-stats" << "--no-humanize-numbers" << "-f" << archive->name();
     statsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     statsClient->setArguments(args);
+    statsClient->setData(archive->name());
     connect(statsClient, SIGNAL(finished(QUuid,QVariant,int,QString)), this
             , SLOT(getArchiveStatsFinished(QUuid,QVariant,int,QString)), Qt::QueuedConnection);
     queueTask(statsClient);
@@ -183,10 +183,9 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
         return;
     }
 
-    if(!_archiveMap.contains(archive->uuid()))
-        _archiveMap[archive->uuid()] = archive;
+    _archiveMap.insert(archive->name(), archive);
 
-    TarsnapClient *contentsClient = new TarsnapClient(archive->uuid());
+    TarsnapClient *contentsClient = new TarsnapClient();
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -197,6 +196,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     args << "-t" << "-f" << archive->name();
     contentsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     contentsClient->setArguments(args);
+    contentsClient->setData(archive->name());
     connect(contentsClient, SIGNAL(finished(QUuid,QVariant,int,QString))
             , this, SLOT(getArchiveContentsFinished(QUuid,QVariant,int,QString)), Qt::QueuedConnection);
     queueTask(contentsClient);
@@ -286,10 +286,9 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
         return;
     }
 
-    if(!_archiveMap.contains(archive->uuid()))
-        _archiveMap[archive->uuid()] = archive;
+    _archiveMap.insert(archive->name(), archive);
 
-    TarsnapClient *restore = new TarsnapClient(archive->uuid());
+    TarsnapClient *restore = new TarsnapClient();
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
@@ -304,6 +303,7 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     args << "-x" << "-f" << archive->name();
     restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     restore->setArguments(args);
+    restore->setData(archive->name());
     connect(restore, SIGNAL(finished(QUuid,QVariant,int,QString)), this
             , SLOT(restoreArchiveFinished(QUuid,QVariant,int,QString)), Qt::QueuedConnection);
     queueTask(restore);
@@ -352,7 +352,7 @@ void TaskManager::backupTaskFinished(QUuid uuid, QVariant data, int exitCode, QS
         parseArchiveStats(output, true, archive);
         backupTask->setArchive(archive);
         backupTask->setStatus(TaskStatus::Completed);
-        _archiveMap[archive->uuid()] = archive;
+        _archiveMap.insert(archive->name(), archive);
         emit archiveList(_archiveMap.values());
         parseGlobalStats(output);
     }
@@ -424,7 +424,7 @@ void TaskManager::getArchiveListFinished(QUuid uuid, QVariant data, int exitCode
                     archive->save();
                     getArchiveStats(archive);
                 }
-                _archiveMap[archive->uuid()] = archive;
+                _archiveMap.insert(archive->name(), archive);
             }
         }
         emit archiveList(_archiveMap.values(), true);
@@ -434,8 +434,8 @@ void TaskManager::getArchiveListFinished(QUuid uuid, QVariant data, int exitCode
 
 void TaskManager::getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
-    Q_UNUSED(data)
-    ArchivePtr archive = _archiveMap[uuid];
+    Q_UNUSED(uuid)
+    ArchivePtr archive = _archiveMap[data.toString()];
     if(archive.isNull())
     {
         DEBUG << "Task uuid not found in _archiveMap.";
@@ -450,8 +450,8 @@ void TaskManager::getArchiveStatsFinished(QUuid uuid, QVariant data, int exitCod
 
 void TaskManager::getArchiveContentsFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
-    Q_UNUSED(data)
-    ArchivePtr archive = _archiveMap[uuid];
+    Q_UNUSED(uuid)
+    ArchivePtr archive = _archiveMap[data.toString()];
     if(archive.isNull())
     {
         DEBUG << "Task uuid not found in _archiveMap.";
@@ -473,7 +473,7 @@ void TaskManager::deleteArchivesFinished(QUuid uuid, QVariant data, int exitCode
         if(!archives.empty())
         {
             foreach (ArchivePtr archive, archives) {
-                _archiveMap.remove(archive->uuid());
+                _archiveMap.remove(archive->name());
                 archive->purge();
             }
             emit archiveList(_archiveMap.values());
@@ -515,8 +515,8 @@ void TaskManager::nukeFinished(QUuid uuid, QVariant data, int exitCode, QString 
 
 void TaskManager::restoreArchiveFinished(QUuid uuid, QVariant data, int exitCode, QString output)
 {
-    Q_UNUSED(uuid); Q_UNUSED(data)
-    ArchivePtr archive = _archiveMap[uuid];
+    Q_UNUSED(uuid);
+    ArchivePtr archive = _archiveMap[data.toString()];
     if(archive.isNull())
     {
         DEBUG << "Task uuid not found in _archiveMap.";

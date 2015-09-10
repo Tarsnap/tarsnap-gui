@@ -67,7 +67,7 @@ private:
     bool                _optionPreservePaths;
     bool                _optionTraverseMount;
     bool                _optionFollowSymLinks;
-    quint64              _optionSkipFilesSize;
+    quint64             _optionSkipFilesSize;
 };
 
 #endif // JOB_H

@@ -68,12 +68,12 @@ private:
     bool                  _optionPreservePaths;
     bool                  _optionTraverseMount;
     bool                  _optionFollowSymLinks;
-    quint64                _optionSkipFilesSize;
+    quint64               _optionSkipFilesSize;
 
-    TaskStatus             _status;
-    int                    _exitCode;
-    QString                _output;
-    ArchivePtr             _archive;
+    TaskStatus            _status;
+    int                   _exitCode;
+    QString               _output;
+    ArchivePtr            _archive;
 };
 
 #endif // BACKUPTASK_H

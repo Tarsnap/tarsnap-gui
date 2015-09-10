@@ -1,7 +1,7 @@
 #include "archive.h"
 #include "debug.h"
 
-Archive::Archive(QObject *parent) : QObject(parent), _uuid(QUuid::createUuid()), _sizeTotal(0),
+Archive::Archive(QObject *parent) : QObject(parent), _sizeTotal(0),
     _sizeCompressed(0), _sizeUniqueTotal(0), _sizeUniqueCompressed(0)
 {
 }
@@ -228,12 +228,3 @@ void Archive::setName(const QString &value)
     _name = value;
 }
 
-QUuid Archive::uuid() const
-{
-    return _uuid;
-}
-
-void Archive::setUuid(const QUuid &value)
-{
-    _uuid = value;
-}

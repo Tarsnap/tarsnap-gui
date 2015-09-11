@@ -47,26 +47,25 @@ void ArchiveListWidget::removeItems()
 {
     if(this->selectedItems().isEmpty())
     {
-        // attempt to remove the sender
+        // remove single item
         ArchiveListItem* archiveItem = qobject_cast<ArchiveListItem*>(sender());
         if(archiveItem)
         {
             ArchivePtr archive = archiveItem->archive();
-            QMessageBox::StandardButton button = QMessageBox::question(this, tr("Confirm delete")
-                                                                       , tr("Are you sure you want to delete archive %1 (this cannot be undone)?").arg(archive->name()));
+            QMessageBox::StandardButton button =
+                QMessageBox::question(this, tr("Confirm delete")
+                , tr("Are you sure you want to delete archive %1 (this cannot be undone)?").arg(archive->name()));
             if(button == QMessageBox::Yes)
             {
                 QList<ArchivePtr> archiveList;
                 archiveList.append(archive);
                 emit deleteArchives(archiveList);
-                // TODO: maybe delete after backend confirmation
-                QListWidgetItem *item = this->takeItem(this->row(archiveItem));
-                if(item) delete item;
             }
         }
     }
     else
     {
+        // remove selected items
         int selectedItemsCount = this->selectedItems().count();
         QMessageBox::StandardButton button =
                 QMessageBox::question(this,
@@ -99,17 +98,8 @@ void ArchiveListWidget::removeItems()
             QList<ArchivePtr> archiveList;
             foreach (QListWidgetItem *item, this->selectedItems())
             {
-                if(item->isSelected())
-                {
-                    // TODO: maybe delete after backend confirmation
-                    QListWidgetItem *takenItem = this->takeItem(this->row(item));
-                    if(takenItem)
-                    {
-                        ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(takenItem);
-                        archiveList.append(archiveItem->archive());
-                        delete archiveItem;
-                    }
-                }
+                ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(item);
+                archiveList.append(archiveItem->archive());
             }
             if(!archiveList.isEmpty())
                 emit deleteArchives(archiveList);

@@ -388,7 +388,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode, QString ou
     Q_UNUSED(data)
     if(exitCode == 0)
     {
-        _archiveMap.clear();
+        QMap<QString, ArchivePtr>   _newArchiveMap;
         QStringList lines = output.trimmed().split('\n');
         foreach (QString line, lines)
         {
@@ -406,7 +406,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode, QString ou
                 {
                     update = true;
                 }
-                else if( !update && (archive->timestamp() != timestamp) )
+                else if(archive->timestamp() != timestamp)
                 {
                     //TODO: Remove jobRef carryon when I have a way of getting a tarsnap timestamp
                     //precisely after a backup has completed
@@ -425,9 +425,17 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode, QString ou
                     archive->save();
                     getArchiveStats(archive);
                 }
-                _archiveMap.insert(archive->name(), archive);
+                _newArchiveMap.insert(archive->name(), archive);
+                _archiveMap.remove(archive->name());
             }
         }
+        // Purge archives left in old _archiveMap (not mirrored by the remote)
+        foreach (ArchivePtr archive, _archiveMap)
+        {
+            archive->purge();
+        }
+        _archiveMap.clear();
+        _archiveMap = _newArchiveMap;
         emit archiveList(_archiveMap.values(), true);
         getOverallStats();
     }

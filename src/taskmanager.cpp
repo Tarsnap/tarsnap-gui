@@ -683,6 +683,7 @@ void TaskManager::loadJobs()
         {
             JobPtr job(new Job);
             job->setName(query.value(query.record().indexOf("name")).toString());
+            connect(job.data(), SIGNAL(loadArchives()), this, SLOT(loadJobArchives()), Qt::QueuedConnection);
             job->load();
             _jobMap[job->name()] = job;
         }while(query.next());
@@ -699,4 +700,18 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
         job->purge();
         _jobMap.remove(job->name());
     }
+}
+
+void TaskManager::loadJobArchives()
+{
+    Job *job = qobject_cast<Job*>(sender());
+    QList<ArchivePtr> archives;
+    foreach (ArchivePtr archive, _archiveMap)
+    {
+        if(archive->jobRef() == job->objectKey())
+        {
+            archives << archive;
+        }
+    }
+    job->setArchives(archives);
 }

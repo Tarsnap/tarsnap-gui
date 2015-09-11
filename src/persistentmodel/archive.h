@@ -57,6 +57,7 @@ public:
 
 signals:
     void changed();
+    void purged();
 
 public slots:
     QString archiveStats();

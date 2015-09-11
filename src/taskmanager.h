@@ -57,6 +57,7 @@ public slots:
     void stopTasks();
     void loadJobs();
     void deleteJob(JobPtr job, bool purgeArchives);
+    void loadJobArchives();
 
 private slots:
     // post Tarsnap task processing

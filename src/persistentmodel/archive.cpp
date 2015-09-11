@@ -101,6 +101,7 @@ void Archive::purge()
     query.addBindValue(_name);
     store.runQuery(query);
     setObjectKey("");
+    emit purged();
 }
 
 bool Archive::findObjectWithKey(QString key)

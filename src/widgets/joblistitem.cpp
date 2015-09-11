@@ -65,4 +65,3 @@ void JobListItem::update()
 {
     setJob(_job);
 }
-

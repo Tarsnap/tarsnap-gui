@@ -54,9 +54,9 @@ public:
 
 signals:
     void changed();
+    void loadArchives();
 
 public slots:
-    void loadArchives();
     void backupTaskUpdate(const TaskStatus &status);
 
 private:

@@ -47,8 +47,11 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
 {
     _archives.clear();
     _archives = archives;
-
     std::sort(_archives.begin(), _archives.end(), ArchiveCompare);
+    foreach (ArchivePtr archive, _archives) {
+        connect(archive.data(), SIGNAL(purged()), this, SIGNAL(loadArchives()), Qt::QueuedConnection);
+    }
+    emit changed();
 }
 
 bool Job::optionScheduledEnabled() const
@@ -179,7 +182,7 @@ void Job::load()
         _optionFollowSymLinks = query.value(query.record().indexOf("optionFollowSymLinks")).toBool();
         _optionSkipFilesSize  = query.value(query.record().indexOf("optionSkipFilesSize")).toLongLong();
         setObjectKey(_name);
-        loadArchives();
+        emit loadArchives();
     }
     else
     {
@@ -234,36 +237,39 @@ bool Job::findObjectWithKey(QString key)
     return found;
 }
 
-void Job::loadArchives()
-{
-    if(objectKey().isEmpty())
-    {
-        DEBUG << "loadArchives method called on Job with no objectKey";
-        return;
-    }
-    PersistentStore &store = getStore();
-    QSqlQuery query = store.createQuery();
-    if(!query.prepare(QLatin1String("select * from archives where jobRef = ?")))
-    {
-        DEBUG << query.lastError().text();
-        return;
-    }
-    query.addBindValue(objectKey());
-    if(store.runQuery(query) && query.next())
-    {
-        QList<ArchivePtr> archives;
-        do
-        {
-            ArchivePtr archive(new Archive);
-            archive->setName(query.value(query.record().indexOf("name")).toString());
-            archive->load();
-            if(!archive->objectKey().isEmpty())
-                archives << archive;
-        }while(query.next());
-        setArchives(archives);
-        emit changed();
-    }
-}
+//void Job::loadArchives()
+//{
+//    if(objectKey().isEmpty())
+//    {
+//        DEBUG << "loadArchives method called on Job with no objectKey";
+//        return;
+//    }
+//    PersistentStore &store = getStore();
+//    QSqlQuery query = store.createQuery();
+//    if(!query.prepare(QLatin1String("select * from archives where jobRef = ?")))
+//    {
+//        DEBUG << query.lastError().text();
+//        return;
+//    }
+//    query.addBindValue(objectKey());
+//    if(store.runQuery(query) && query.next())
+//    {
+//        QList<ArchivePtr> archives;
+//        do
+//        {
+//            ArchivePtr archive(new Archive);
+//            archive->setName(query.value(query.record().indexOf("name")).toString());
+//            archive->load();
+//            if(!archive->objectKey().isEmpty())
+//            {
+//                connect(archive.data(), SIGNAL(purged()), this, SLOT(loadArchives()), Qt::QueuedConnection);
+//                archives << archive;
+//            }
+//        }while(query.next());
+//        setArchives(archives);
+//        emit changed();
+//    }
+//}
 
 void Job::backupTaskUpdate(const TaskStatus& status)
 {

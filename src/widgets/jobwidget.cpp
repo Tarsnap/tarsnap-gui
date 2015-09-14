@@ -2,10 +2,12 @@
 #include "ui_jobwidget.h"
 #include "restoredialog.h"
 #include "debug.h"
+#include "utils.h"
 
 JobWidget::JobWidget(QWidget *parent) :
     QWidget(parent),
-    _ui(new Ui::JobWidget)
+    _ui(new Ui::JobWidget),
+    _saveEnabled(false)
 {
     _ui->setupUi(this);
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -19,24 +21,32 @@ JobWidget::JobWidget(QWidget *parent) :
             [=](){
                     if(_job->objectKey().isEmpty())
                         emit enableSave(canSaveNew());
-            });
-    connect(_ui->jobTreeWidget, &FilePicker::focusLost,
-            [=](){
-                    if(!_job->objectKey().isEmpty())
+                    else
                         save();
             });
+//    connect(_ui->jobTreeWidget, &FilePicker::focusLost,
+//            [=](){
+//                    if(!_job->objectKey().isEmpty())
+//                        save();
+//            });
 
-//    connect(_ui->jobTreeWidget, SIGNAL(focusLost()), this, SLOT(save()));
     connect(_ui->includeScheduledCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
     connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
     connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
     connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-    connect(_ui->skipFilesSpinBox, SIGNAL(editingFinished()), this, SLOT(save()));
+    connect(_ui->skipFilesSizeSpinBox, SIGNAL(editingFinished()), this, SLOT(save()));
+    connect(_ui->skipFilesCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
+    connect(_ui->skipFilesLineEdit, SIGNAL(editingFinished()), this, SLOT(save()));
     connect(_ui->cancelButton, SIGNAL(clicked()), this, SIGNAL(cancel()));
     connect(_ui->restoreLatestArchiveButton, SIGNAL(clicked()), this, SLOT(restoreLatestArchive()));
     connect(_ui->archiveListWidget, SIGNAL(inspectArchive(ArchivePtr)), this, SIGNAL(inspectJobArchive(ArchivePtr)));
     connect(_ui->archiveListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreJobArchive(ArchivePtr,ArchiveRestoreOptions)));
     connect(_ui->archiveListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this, SIGNAL(deleteJobArchives(QList<ArchivePtr>)));
+    connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked,
+            [=](){
+                QSettings settings;
+                _ui->skipFilesLineEdit->setText(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
+            });
 }
 
 JobWidget::~JobWidget()
@@ -69,10 +79,13 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
         _ui->traverseMountCheckBox->setChecked(settings.value("tarsnap/traverse_mount", true).toBool());
         _ui->followSymLinksCheckBox->setChecked(settings.value("tarsnap/follow_symlinks", false).toBool());
-        _ui->skipFilesSpinBox->setValue(settings.value("app/skip_files_value", 0).toLongLong());
+        _ui->skipFilesSizeSpinBox->setValue(settings.value("app/skip_files_size", 0).toLongLong());
+        _ui->skipFilesCheckBox->setChecked(settings.value("app/skip_system_enabled", false).toBool());
+        _ui->skipFilesLineEdit->setText(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
     }
     else
     {
+        _saveEnabled = false;
         _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(_ui->archiveListTab), true);
         _ui->restoreLatestArchiveButton->show();
         _ui->jobNameLabel->show();
@@ -80,36 +93,41 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
         updateDetails();
         connect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
+        _saveEnabled = true;
     }
 }
 
 void JobWidget::save()
 {
-    DEBUG << "SAVE JOB";
-    if(!_job->objectKey().isEmpty())
+    if(_saveEnabled && !_job->objectKey().isEmpty())
     {
+        DEBUG << "SAVE JOB";
         _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
         _job->setOptionScheduledEnabled(_ui->includeScheduledCheckBox->isChecked());
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
-        _job->setOptionSkipFilesSize(_ui->skipFilesSpinBox->value());
+        _job->setOptionSkipFilesSize(_ui->skipFilesSizeSpinBox->value());
+        _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
+        _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
         _job->save();
     }
 }
 
 void JobWidget::saveNew()
 {
-    DEBUG << "SAVE NEW JOB";
     if(canSaveNew())
     {
+        DEBUG << "SAVE NEW JOB";
         _job->setName(_ui->jobNameLineEdit->text());
         _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
         _job->setOptionScheduledEnabled(_ui->includeScheduledCheckBox->isChecked());
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
-        _job->setOptionSkipFilesSize(_ui->skipFilesSpinBox->value());
+        _job->setOptionSkipFilesSize(_ui->skipFilesSizeSpinBox->value());
+        _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
+        _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
         _job->save();
         emit jobAdded(_job);
     }
@@ -129,7 +147,9 @@ void JobWidget::updateDetails()
         _ui->preservePathsCheckBox->setChecked(_job->optionPreservePaths());
         _ui->traverseMountCheckBox->setChecked(_job->optionTraverseMount());
         _ui->followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());
-        _ui->skipFilesSpinBox->setValue(_job->optionSkipFilesSize());
+        _ui->skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
+        _ui->skipFilesCheckBox->setChecked(_job->optionSkipFiles());
+        _ui->skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
     }
 }
 

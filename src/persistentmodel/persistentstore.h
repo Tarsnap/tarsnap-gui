@@ -28,6 +28,7 @@ public slots:
 protected:
     bool upgradeVersion0();
     bool upgradeVersion1();
+    bool upgradeVersion2();
 
 private:
     // Yes, a singleton

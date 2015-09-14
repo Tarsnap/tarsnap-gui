@@ -81,6 +81,8 @@ bool PersistentStore::init()
             }
             if((version == 0) && upgradeVersion1())
                 DEBUG << "DB upgraded to version 1.";
+            if((version == 1) && upgradeVersion2())
+                DEBUG << "DB upgraded to version 2.";
         }
     }
 
@@ -221,6 +223,25 @@ bool PersistentStore::upgradeVersion1()
     {
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 1." << _db.databaseName();
+    }
+    return result;
+}
+
+bool PersistentStore::upgradeVersion2()
+{
+    bool result = false;
+    QSqlQuery query(_db);
+
+    if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipFiles INTEGER;")))
+        result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipFilesPatterns TEXT;");
+
+    if(result)
+        result = query.exec("UPDATE version SET version = 2;");
+
+    if (!result)
+    {
+        DEBUG << query.lastError().text();
+        DEBUG << "Failed to upgrade DB to version 2." << _db.databaseName();
     }
     return result;
 }

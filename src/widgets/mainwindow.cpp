@@ -41,12 +41,17 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
+    loadSettings();
+
+    // MainWindow logo
     QPixmap logo(":/icons/tarsnap.png");
     _tarsnapLogo.setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     _tarsnapLogo.adjustSize();
     _tarsnapLogo.lower();
     _tarsnapLogo.show();
+    // --
 
+    // About action and widget
     Ui::aboutWidget aboutUi;
     aboutUi.setupUi(&_aboutWindow);
     aboutUi.versionLabel->setText(tr("version ") + QCoreApplication::applicationVersion());
@@ -64,21 +69,26 @@ MainWindow::MainWindow(QWidget *parent) :
         _menuBar.addMenu(&_appMenu);
     }
     connect(_ui->aboutButton, SIGNAL(clicked()), &_aboutWindow, SLOT(show()));
+    // --
 
+    _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
+    _ui->settingsToolbox->setCurrentWidget(_ui->settingsAccountPage);
     _ui->mainContentSplitter->setCollapsible(0, false);
     _ui->journalLog->hide();
     _ui->archiveDetailsWidget->hide();
     _ui->jobDetailsWidget->hide();
 
+    // Purge widget setup
+    _purgeCountdownWindow.setIcon(QMessageBox::Critical);
+    _purgeCountdownWindow.setWindowTitle(tr("Deleting all archives: press Cancel to abort"));
+    _purgeCountdownWindow.setStandardButtons(QMessageBox::Cancel);
+    connect(&_purgeTimer, SIGNAL(timeout()), this, SLOT(purgeTimerFired()));
+    // --
+
     connect(&Debug::instance(), SIGNAL(message(QString)), this , SLOT(appendToConsoleLog(QString))
             , Qt::QueuedConnection);
 
-    loadSettings();
-
-    // Ui actions
-    _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
-    _ui->settingsToolbox->setCurrentWidget(_ui->settingsAccountPage);
-
+    // Ui actions setup
     _ui->archiveListWidget->addAction(_ui->actionRefresh);
     connect(_ui->actionRefresh, SIGNAL(triggered()), this , SIGNAL(loadArchives()), Qt::QueuedConnection);
     _ui->backupListWidget->addAction(_ui->actionClearList);
@@ -115,6 +125,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 _ui->mainTabWidget->setCurrentWidget(_ui->helpTab);
             });
     connect(_ui->actionShowJournal, SIGNAL(triggered()), _ui->expandJournalButton, SLOT(click()));
+
     connect(_ui->backupListInfoLabel, SIGNAL(linkActivated(QString)), this,
             SLOT(browseForBackupItems()));
     connect(_ui->backupButton, SIGNAL(clicked()), this, SLOT(backupButtonClicked()));
@@ -129,10 +140,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->expandJournalButton, SIGNAL(toggled(bool)), this, SLOT(expandJournalButtonToggled(bool)));
     connect(_ui->downloadsDirBrowseButton, SIGNAL(clicked()), this, SLOT(downloadsDirBrowseButtonClicked()));
     connect(_ui->busyWidget, SIGNAL(clicked()), this, SLOT(cancelRunningTasks()));
-    connect(&_purgeTimer, SIGNAL(timeout()), this, SLOT(purgeTimerFired()));
-    _purgeCountdownWindow.setIcon(QMessageBox::Critical);
-    _purgeCountdownWindow.setWindowTitle(tr("Deleting all archives: press Cancel to abort"));
-    _purgeCountdownWindow.setStandardButtons(QMessageBox::Cancel);
 
     // Settings page
     connect(_ui->accountUserLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
@@ -149,7 +156,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->downloadsDirLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
-    connect(_ui->skipFilesSpinBox, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->skipFilesSizeSpinBox, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->skipSystemJunkCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
+    connect(_ui->skipSystemLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
+            [=](){
+                _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
+            });
 
     // Backup and Archives
     connect(_ui->backupListWidget, SIGNAL(itemTotals(quint64,quint64)), this
@@ -275,7 +288,11 @@ void MainWindow::loadSettings()
     _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
     _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
-    _ui->skipFilesSpinBox->setValue(settings.value("app/skip_files_value", 0).toLongLong());
+    _ui->skipFilesSizeSpinBox->setValue(settings.value("app/skip_files_size", 0).toLongLong());
+    bool skipSystem = settings.value("app/skip_system_enabled", false).toBool();
+    _ui->skipSystemJunkCheckBox->setChecked(skipSystem);
+    _ui->skipSystemLineEdit->setEnabled(skipSystem);
+    _ui->skipSystemLineEdit->setText(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
     _ui->downloadsDirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
 }
 
@@ -587,7 +604,9 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/traverse_mount", _ui->traverseMountCheckBox->isChecked());
     settings.setValue("tarsnap/follow_symlinks", _ui->followSymLinksCheckBox->isChecked());
     settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
-    settings.setValue("app/skip_files_value", _ui->skipFilesSpinBox->value());
+    settings.setValue("app/skip_files_size", _ui->skipFilesSizeSpinBox->value());
+    settings.setValue("app/skip_system_enabled", _ui->skipSystemJunkCheckBox->isChecked());
+    settings.setValue("app/skip_system_files", _ui->skipSystemLineEdit->text());
     settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.sync();
     emit settingsChanged();

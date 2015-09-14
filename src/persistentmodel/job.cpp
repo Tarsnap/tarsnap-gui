@@ -9,8 +9,8 @@ static bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp()
 
 Job::Job(QObject *parent) : QObject(parent), _optionScheduledEnabled(false),
     _optionPreservePaths(true), _optionTraverseMount(true),
-    _optionFollowSymLinks(false), _optionSkipFilesSize(0)
-
+    _optionFollowSymLinks(false), _optionSkipFilesSize(0), _optionSkipFiles(false),
+    _optionSkipFilesPatterns()
 {
 }
 
@@ -74,30 +74,6 @@ void Job::setOptionPreservePaths(bool optionPreservePaths)
     _optionPreservePaths = optionPreservePaths;
 }
 
-quint64 Job::optionSkipFilesSize() const
-{
-    return _optionSkipFilesSize;
-}
-
-void Job::setOptionSkipFilesSize(const quint64 &optionSkipFilesSize)
-{
-    _optionSkipFilesSize = optionSkipFilesSize;
-}
-
-BackupTaskPtr Job::createBackupTask()
-{
-    BackupTaskPtr backup(new BackupTask);
-    backup->setName(JOB_NAME_PREFIX + JOB_NAME_SEPARATOR + name() + JOB_NAME_SEPARATOR + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss"));
-    backup->setJobRef(objectKey());
-    backup->setUrls(urls());
-    backup->setOptionPreservePaths(optionPreservePaths());
-    backup->setOptionTraverseMount(optionTraverseMount());
-    backup->setOptionFollowSymLinks(optionFollowSymLinks());
-    backup->setOptionSkipFilesSize(optionSkipFilesSize());
-    connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
-    return backup;
-}
-
 bool Job::optionFollowSymLinks() const
 {
     return _optionFollowSymLinks;
@@ -118,6 +94,52 @@ void Job::setOptionTraverseMount(bool optionTraverseMount)
     _optionTraverseMount = optionTraverseMount;
 }
 
+quint64 Job::optionSkipFilesSize() const
+{
+    return _optionSkipFilesSize;
+}
+
+void Job::setOptionSkipFilesSize(const quint64 &optionSkipFilesSize)
+{
+    _optionSkipFilesSize = optionSkipFilesSize;
+}
+
+bool Job::optionSkipFiles() const
+{
+    return _optionSkipFiles;
+}
+
+void Job::setOptionSkipFiles(bool optionSkipFiles)
+{
+    _optionSkipFiles = optionSkipFiles;
+}
+
+QString Job::optionSkipFilesPatterns() const
+{
+    return _optionSkipFilesPatterns;
+}
+
+void Job::setOptionSkipFilesPatterns(const QString &optionSkipFilesPatterns)
+{
+    _optionSkipFilesPatterns = optionSkipFilesPatterns;
+}
+
+BackupTaskPtr Job::createBackupTask()
+{
+    BackupTaskPtr backup(new BackupTask);
+    backup->setName(JOB_NAME_PREFIX + JOB_NAME_SEPARATOR + name() + JOB_NAME_SEPARATOR + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss"));
+    backup->setJobRef(objectKey());
+    backup->setUrls(urls());
+    backup->setOptionPreservePaths(optionPreservePaths());
+    backup->setOptionTraverseMount(optionTraverseMount());
+    backup->setOptionFollowSymLinks(optionFollowSymLinks());
+    backup->setOptionSkipFilesSize(optionSkipFilesSize());
+    backup->setOptionSkipSystem(optionSkipFiles());
+    backup->setOptionSkipSystemFiles(optionSkipFilesPatterns());
+    connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
+    return backup;
+}
+
 void Job::save()
 {
     bool exists = findObjectWithKey(_name);
@@ -125,11 +147,12 @@ void Job::save()
     QString queryString;
     if(exists)
         queryString = QLatin1String("update jobs set name=?, urls=?, optionScheduledEnabled=?, optionPreservePaths=?, "
-                                    "optionTraverseMount=?, optionFollowSymLinks=?, optionSkipFilesSize=? "
+                                    "optionTraverseMount=?, optionFollowSymLinks=?, optionSkipFilesSize=?, "
+                                    "optionSkipFiles=?, optionSkipFilesPatterns=?"
                                     "where name=?");
     else
         queryString = QLatin1String("insert into jobs(name, urls, optionScheduledEnabled, optionPreservePaths, optionTraverseMount, "
-                                    "optionFollowSymLinks, optionSkipFilesSize) values(?, ?, ?, ?, ?, ?, ?)");
+                                    "optionFollowSymLinks, optionSkipFilesSize, optionSkipFiles, optionSkipFilesPatterns) values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     PersistentStore &store = getStore();
     QSqlQuery query = store.createQuery();
@@ -150,6 +173,8 @@ void Job::save()
     query.addBindValue(_optionTraverseMount);
     query.addBindValue(_optionFollowSymLinks);
     query.addBindValue(_optionSkipFilesSize);
+    query.addBindValue(_optionSkipFiles);
+    query.addBindValue(_optionSkipFilesPatterns);
     if(exists)
         query.addBindValue(_name);
 
@@ -176,11 +201,13 @@ void Job::load()
     if(store.runQuery(query) && query.next())
     {
         _urls = QUrl::fromStringList(query.value(query.record().indexOf("urls")).toString().split('\n', QString::SkipEmptyParts));
-        _optionScheduledEnabled = query.value(query.record().indexOf("optionScheduledEnabled")).toBool();
-        _optionPreservePaths  = query.value(query.record().indexOf("optionPreservePaths")).toBool();
-        _optionTraverseMount  = query.value(query.record().indexOf("optionTraverseMount")).toBool();
-        _optionFollowSymLinks = query.value(query.record().indexOf("optionFollowSymLinks")).toBool();
-        _optionSkipFilesSize  = query.value(query.record().indexOf("optionSkipFilesSize")).toLongLong();
+        _optionScheduledEnabled  = query.value(query.record().indexOf("optionScheduledEnabled")).toBool();
+        _optionPreservePaths     = query.value(query.record().indexOf("optionPreservePaths")).toBool();
+        _optionTraverseMount     = query.value(query.record().indexOf("optionTraverseMount")).toBool();
+        _optionFollowSymLinks    = query.value(query.record().indexOf("optionFollowSymLinks")).toBool();
+        _optionSkipFilesSize     = query.value(query.record().indexOf("optionSkipFilesSize")).toLongLong();
+        _optionSkipFiles         = query.value(query.record().indexOf("optionSkipFiles")).toBool();
+        _optionSkipFilesPatterns = query.value(query.record().indexOf("optionSkipFilesPatterns")).toString();
         setObjectKey(_name);
         emit loadArchives();
     }

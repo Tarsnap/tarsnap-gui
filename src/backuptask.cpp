@@ -4,14 +4,18 @@
 
 #define MB 1048576
 
-BackupTask::BackupTask():_uuid(QUuid::createUuid()), _optionPreservePaths(true), _optionTraverseMount(true),
-    _optionFollowSymLinks(false), _optionSkipFilesSize(0), _status(TaskStatus::Initialized)
+BackupTask::BackupTask():_uuid(QUuid::createUuid()), _optionPreservePaths(true),
+    _optionTraverseMount(true), _optionFollowSymLinks(false),
+    _optionSkipFilesSize(0), _optionSkipSystem(false),
+    _optionSkipSystemFiles(),_status(TaskStatus::Initialized)
 {
     QSettings settings;
-    _optionPreservePaths          = settings.value("tarsnap/preserve_pathnames", true).toBool();
-    _optionTraverseMount          = settings.value("tarsnap/traverse_mount", true).toBool();
-    _optionFollowSymLinks         = settings.value("tarsnap/follow_symlinks", false).toBool();
-    _optionSkipFilesSize          = MB * settings.value("app/skip_files_value", 0).toLongLong();
+    setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
+    setOptionTraverseMount(settings.value("tarsnap/traverse_mount", true).toBool());
+    setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", false).toBool());
+    setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toLongLong());
+    setOptionSkipSystem(settings.value("app/skip_system_enabled", false).toBool());
+    setOptionSkipSystemFiles(settings.value("app/skip_system_files", "").toString());
 }
 
 BackupTask::~BackupTask()
@@ -59,9 +63,39 @@ void BackupTask::setOptionTraverseMount(bool optionTraverseMount)
     _optionTraverseMount = optionTraverseMount;
 }
 
+bool BackupTask::optionSkipSystem() const
+{
+    return _optionSkipSystem;
+}
+
+void BackupTask::setOptionSkipSystem(bool optionSkipSystem)
+{
+    _optionSkipSystem = optionSkipSystem;
+}
+
+QStringList BackupTask::optionSkipSystemFiles() const
+{
+    return _optionSkipSystemFiles;
+}
+
+void BackupTask::setOptionSkipSystemFiles(const QStringList &optionSkipSystemFiles)
+{
+    _optionSkipSystemFiles = optionSkipSystemFiles;
+}
+
+void BackupTask::setOptionSkipSystemFiles(const QString string)
+{
+    _optionSkipSystemFiles = string.split(':', QString::SkipEmptyParts);
+}
+
 QStringList BackupTask::getExcludesList()
 {
     QStringList skipList;
+
+    if(_optionSkipSystem)
+    {
+        skipList.append(_optionSkipSystemFiles);
+    }
 
     if(_optionSkipFilesSize)
     {

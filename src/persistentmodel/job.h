@@ -44,6 +44,12 @@ public:
     quint64 optionSkipFilesSize() const;
     void setOptionSkipFilesSize(const quint64 &optionSkipFilesSize);
 
+    bool optionSkipFiles() const;
+    void setOptionSkipFiles(bool optionSkipFiles);
+
+    QString optionSkipFilesPatterns() const;
+    void setOptionSkipFilesPatterns(const QString &optionSkipFilesPatterns);
+
     BackupTaskPtr createBackupTask();
 
     // From PersistentObject
@@ -68,6 +74,8 @@ private:
     bool                _optionTraverseMount;
     bool                _optionFollowSymLinks;
     quint64             _optionSkipFilesSize;
+    bool                _optionSkipFiles;
+    QString             _optionSkipFilesPatterns;
 };
 
 #endif // JOB_H

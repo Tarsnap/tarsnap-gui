@@ -40,6 +40,7 @@ protected slots:
 private:
     Ui::JobWidget  *_ui;
     JobPtr          _job;
+    bool            _saveEnabled;
 };
 
 #endif // JOBWIDGET_H

@@ -55,6 +55,13 @@ public:
     quint64 optionSkipFilesSize() const;
     void setOptionSkipFilesSize(const quint64 &optionSkipFilesSize);
 
+    bool optionSkipSystem() const;
+    void setOptionSkipSystem(bool optionSkipSystem);
+
+    QStringList optionSkipSystemFiles() const;
+    void setOptionSkipSystemFiles(const QStringList &optionSkipSystemFiles);
+    void setOptionSkipSystemFiles(const QString string);
+
     QStringList getExcludesList();
 
 signals:
@@ -69,6 +76,8 @@ private:
     bool                  _optionTraverseMount;
     bool                  _optionFollowSymLinks;
     quint64               _optionSkipFilesSize;
+    bool                  _optionSkipSystem;
+    QStringList           _optionSkipSystemFiles;
 
     TaskStatus            _status;
     int                   _exitCode;

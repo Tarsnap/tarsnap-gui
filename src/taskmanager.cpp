@@ -84,14 +84,11 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--one-file-system";
     if(backupTask->optionFollowSymLinks())
         args << "-L";
-    args << "--quiet" << "-c" << "--print-stats" << "--no-humanize-numbers"
+    args << "--quiet" << "--print-stats" << "--no-humanize-numbers" << "-c"
          << "-f" << backupTask->name();
-    if(backupTask->optionSkipFilesSize())
+    foreach (QString exclude, backupTask->getExcludesList())
     {
-        foreach (QString exclude, backupTask->getExcludesList())
-        {
-            args << "--exclude" << exclude;
-        }
+        args << "--exclude" << exclude;
     }
     foreach (QUrl url, backupTask->urls())
     {

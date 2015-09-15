@@ -134,6 +134,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->accountMachineKeyBrowseButton, SIGNAL(clicked()), this, SLOT(accountMachineKeyBrowseButtonClicked()));
     connect(_ui->tarsnapPathBrowseButton, SIGNAL(clicked()), this, SLOT(tarsnapPathBrowseButtonClicked()));
     connect(_ui->tarsnapCacheBrowseButton, SIGNAL(clicked()), this, SLOT(tarsnapCacheBrowseButton()));
+    connect(_ui->appDataDirBrowseButton, SIGNAL(clicked()), this, SLOT(appDataButtonClicked()));
     connect(_ui->repairCacheButton, SIGNAL(clicked()), this, SLOT(repairCacheButtonClicked()));
     connect(_ui->purgeArchivesButton, SIGNAL(clicked()), this, SLOT(purgeArchivesButtonClicked()));
     connect(_ui->runSetupWizard, SIGNAL(clicked()), this, SLOT(runSetupWizardClicked()));
@@ -294,6 +295,7 @@ void MainWindow::loadSettings()
     _ui->skipSystemLineEdit->setEnabled(skipSystem);
     _ui->skipSystemLineEdit->setText(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
     _ui->downloadsDirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
+    _ui->appDataDirLineEdit->setText(settings.value("app/app_data", "").toString());
 }
 
 void MainWindow::initialize()
@@ -608,6 +610,7 @@ void MainWindow::commitSettings()
     settings.setValue("app/skip_system_enabled", _ui->skipSystemJunkCheckBox->isChecked());
     settings.setValue("app/skip_system_files", _ui->skipSystemLineEdit->text());
     settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
+    settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
     settings.sync();
     emit settingsChanged();
 }
@@ -733,6 +736,18 @@ void MainWindow::tarsnapCacheBrowseButton()
 void MainWindow::repairCacheButtonClicked()
 {
     emit repairCache();
+}
+
+void MainWindow::appDataButtonClicked()
+{
+    QString appDataDir = QFileDialog::getExistingDirectory(this,
+                                                            tr("App data directory location"),
+                                                            _ui->appDataDirLineEdit->text());
+    if(!appDataDir.isEmpty())
+    {
+        _ui->appDataDirLineEdit->setText(appDataDir);
+        commitSettings();
+    }
 }
 
 void MainWindow::purgeArchivesButtonClicked()

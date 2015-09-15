@@ -356,10 +356,21 @@ void SetupDialog::commitSettings(bool skipped)
 
     DEBUG << "Settings location is " << settings.fileName();
 
-    settings.setValue("application/wizardDone", true);
+    settings.setValue("app/wizard_done", true);
+
     if(!skipped)
     {
-        settings.setValue("app/appdata",    _appDataDir);
+        if(_ui->storeIniFormatCheckBox->isChecked())
+        {
+            settings.setValue("app/ini_format", true);
+            settings.setValue("app/app_data", _appDataDir);
+            settings.sync();
+            settings.setPath(QSettings::IniFormat, QSettings::UserScope, _appDataDir);
+            settings.setDefaultFormat(QSettings::IniFormat);
+        }
+
+        QSettings settings;
+        settings.setValue("app/app_data",    _appDataDir);
         settings.setValue("tarsnap/path",   _tarsnapCLIDir);
         settings.setValue("tarsnap/cache",  _tarsnapCacheDir);
         settings.setValue("tarsnap/key",    _tarsnapKeyFile);

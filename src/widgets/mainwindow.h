@@ -80,6 +80,7 @@ private slots:
     void tarsnapPathBrowseButtonClicked();
     void tarsnapCacheBrowseButton();
     void repairCacheButtonClicked();
+    void appDataButtonClicked();
     void purgeArchivesButtonClicked();
     void runSetupWizardClicked();
     void expandJournalButtonToggled(bool checked);

@@ -53,7 +53,8 @@ int CoreApplication::initialize()
     parseArgs();
 
     QSettings settings;
-    if(!settings.value("application/wizardDone", false).toBool())
+    bool wizardDone = settings.value("app/wizard_done", false).toBool();
+    if(!wizardDone)
     {
         // Show the first time setup dialog
         SetupDialog wizard;
@@ -67,6 +68,16 @@ int CoreApplication::initialize()
         {
             quit(); // if we're running in the loop
             return FAILURE; // if called from main
+        }
+    }
+    else
+    {
+        bool iniFormat = settings.value("app/ini_format", false).toBool();
+        if(iniFormat)
+        {
+            QString appData = settings.value("app/app_data", "").toString();
+            settings.setPath(QSettings::IniFormat, QSettings::UserScope, appData);
+            settings.setDefaultFormat(QSettings::IniFormat);
         }
     }
 
@@ -147,7 +158,8 @@ bool CoreApplication::reinit()
     store.purge();
 
     QSettings settings;
-    if(settings.contains("application/wizardDone"))
+    settings.setDefaultFormat(QSettings::NativeFormat);
+    if(settings.contains("app/wizard_done"))
     {
         settings.clear();
         settings.sync();

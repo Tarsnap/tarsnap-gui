@@ -444,9 +444,6 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
             <property name="wordWrap">
              <bool>true</bool>
             </property>
-            <property name="margin">
-             <number>6</number>
-            </property>
             <property name="openExternalLinks">
              <bool>true</bool>
             </property>
@@ -468,7 +465,7 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           <item row="4" column="0" colspan="2">
            <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>The app data directory is used to store job settings and new machine keys:</string>
+             <string>The data directory is used to store app data, settings and new machine keys:</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
@@ -495,6 +492,16 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QCheckBox" name="storeIniFormatCheckBox">
+            <property name="toolTip">
+             <string>Instead of the platform choice, prefs on OS X and registry on Windows.</string>
+            </property>
+            <property name="text">
+             <string>Store settings in .ini format</string>
             </property>
            </widget>
           </item>

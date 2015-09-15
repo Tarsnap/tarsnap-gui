@@ -15,7 +15,7 @@ bool PersistentStore::init()
     QMutexLocker locker(&_mutex);
 
     QSettings settings;
-    QString appdata = settings.value("app/appdata").toString();
+    QString appdata = settings.value("app/app_data").toString();
     if(appdata.isEmpty())
     {
         DEBUG << "Error creating the PersistentStore: app.appdata not set.";

@@ -11,11 +11,11 @@
 #define DEFAULT_SKIP_FILES_WINDOWS "$RECYCLE.BIN:System Volume Information:Thumbs.db"
 #define DEFAULT_SKIP_FILES_LINUX   ".lost+found"
 
-#ifdef Q_OS_OSX
+#if defined Q_OS_OSX
 #define DEFAULT_SKIP_FILES DEFAULT_SKIP_FILES_OSX
-#elif Q_OS_WIN
+#elif defined Q_OS_WIN
 #define DEFAULT_SKIP_FILES DEFAULT_SKIP_FILES_WINDOWS
-#elif Q_OS_LINUX
+#elif defined Q_OS_LINUX
 #define DEFAULT_SKIP_FILES DEFAULT_SKIP_FILES_LINUX
 #else
 #define DEFAULT_SKIP_FILES ""

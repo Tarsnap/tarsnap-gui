@@ -416,7 +416,7 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui->busyWidget->animate();
 }
 
-void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed, quint64 archiveCount, qreal credit, QString accountStatus)
+void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed, quint64 archiveCount, qreal credit)
 {
     QString tooltip(tr("\t\tTotal size\tCompressed size\n"
                        "all archives\t%1\t\t%2\n"
@@ -430,7 +430,6 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
     _ui->accountCreditLabel->setText(QString::number(credit, 'f'));
-    _ui->accountStatusLabel->setText(accountStatus);
 }
 
 void MainWindow::repairCacheStatus(TaskStatus status, QString reason)

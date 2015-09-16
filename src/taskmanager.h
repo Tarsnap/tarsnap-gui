@@ -32,9 +32,9 @@ signals:
     void nukeStatus(TaskStatus status, QString reason);
     void archiveList(QList<ArchivePtr> archives, bool fromRemote = false);
     void archivesDeleted(QList<ArchivePtr> archives);
-    void overallStats(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal
-                      , quint64 sizeUniqueCompressed, quint64 archiveCount, qreal credit
-                      , QString accountStatus);
+    void overallStats(quint64 sizeTotal, quint64 sizeCompressed,
+                      quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed,
+                      quint64 archiveCount, qreal credit);
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
     void jobsList(QMap<QString, JobPtr> jobs);
 

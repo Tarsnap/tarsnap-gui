@@ -329,7 +329,7 @@ padding-left: 3px;
              <item row="1" column="0" colspan="2">
               <widget class="QCheckBox" name="preservePathsCheckBox">
                <property name="toolTip">
-                <string>Preseve absolute pathnames by not removing leading slashes</string>
+                <string>Preserve absolute pathnames by not removing leading slashes</string>
                </property>
                <property name="text">
                 <string>Preserve pathnames</string>

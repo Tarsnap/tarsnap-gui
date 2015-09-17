@@ -159,10 +159,11 @@ bool CoreApplication::reinit()
 
     QSettings settings;
     settings.setDefaultFormat(QSettings::NativeFormat);
-    if(settings.contains("app/wizard_done"))
+    QSettings defaultSettings;
+    if(defaultSettings.contains("app/wizard_done"))
     {
-        settings.clear();
-        settings.sync();
+        defaultSettings.clear();
+        defaultSettings.sync();
     }
 
     return initialize();

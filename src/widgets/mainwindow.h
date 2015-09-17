@@ -89,6 +89,7 @@ private slots:
     void hideJobDetails();
     void addJobClicked();
     void cancelRunningTasks();
+    void getAccountInfo();
 
 private:
     Ui::MainWindow  *_ui;

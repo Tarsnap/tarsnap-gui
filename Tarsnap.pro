@@ -43,7 +43,8 @@ SOURCES += \
     src/persistentmodel/persistentobject.cpp \
     src/persistentmodel/archive.cpp \
     src/persistentmodel/job.cpp \
-    src/backuptask.cpp
+    src/backuptask.cpp \
+    src/tarsnapaccount.cpp
 
 HEADERS  += \
     src/coreapplication.h \
@@ -70,7 +71,8 @@ HEADERS  += \
     src/persistentmodel/persistentobject.h \
     src/persistentmodel/archive.h \
     src/persistentmodel/job.h \
-    src/backuptask.h
+    src/backuptask.h \
+    src/tarsnapaccount.h
 
 INCLUDEPATH += src/widgets/ \
             += src/
@@ -85,7 +87,8 @@ FORMS    += \
     forms/filepickerdialog.ui \
     forms/jobitemwidget.ui \
     forms/jobwidget.ui \
-    forms/aboutwidget.ui
+    forms/aboutwidget.ui \
+    forms/logindialog.ui
 
 RESOURCES += resources/resources.qrc
 

@@ -5,6 +5,7 @@
 #include "ui_aboutwidget.h"
 #include "backuplistitem.h"
 #include "filepickerdialog.h"
+#include "tarsnapaccount.h"
 #include "utils.h"
 #include "debug.h"
 
@@ -160,6 +161,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->skipFilesSizeSpinBox, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->skipSystemJunkCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->skipSystemLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
+    connect(_ui->loginTarsnapButton, SIGNAL(clicked(bool)), this, SLOT(getAccountInfo()));
+    connect(_ui->accountUserLoginButtton, SIGNAL(clicked(bool)), this, SLOT(getAccountInfo()));
     connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
             [=](){
                 _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
@@ -258,10 +261,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobDetailsWidget, &JobWidget::jobAdded,
             [=](JobPtr job){
                 updateStatusMessage(tr("Job <i>%1</i> added.").arg(job->name()));
-            });
-    connect(_ui->loginTarsnapButton, &QPushButton::clicked,
-            [=](){
-                QDesktopServices::openUrl(QUrl("https://www.tarsnap.com/account.html"));
             });
     connect(_ui->statusBarLabel, &TextLabel::clicked,
             [=](){
@@ -862,3 +861,10 @@ void MainWindow::cancelRunningTasks()
     }
 }
 
+void MainWindow::getAccountInfo()
+{
+    TarsnapAccount *account = new TarsnapAccount();
+    account->setUser(_ui->accountUserLineEdit->text());
+//    connect(&account, SIGNAL())
+    account->getAccountInfo();
+}

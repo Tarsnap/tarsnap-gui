@@ -955,7 +955,7 @@ border: 1px solid rgba(255,255,255,100);
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Login to tarsnap.com</string>
+                     <string>Login to tarsnap.com and update Account details.</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">QPushButton {
@@ -987,6 +987,243 @@ margin-top: 6px;
                    </widget>
                   </item>
                   <item>
+                   <layout class="QFormLayout" name="formLayout_3">
+                    <property name="fieldGrowthPolicy">
+                     <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                    </property>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="label_4">
+                      <property name="toolTip">
+                       <string>On the Tarsnap servers. This is what you're paying for.</string>
+                      </property>
+                      <property name="text">
+                       <string>Actual usage:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QLabel" name="accountActualSizeLabel">
+                      <property name="font">
+                       <font>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="textInteractionFlags">
+                       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="label_6">
+                      <property name="toolTip">
+                       <string>Number of Archives stored for this Machine.</string>
+                      </property>
+                      <property name="text">
+                       <string>Archive count</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="accountArchivesCountLabel">
+                      <property name="font">
+                       <font>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="textInteractionFlags">
+                       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="label_21">
+                      <property name="toolTip">
+                       <string>Bytes reduced by deduplication and compression</string>
+                      </property>
+                      <property name="text">
+                       <string>Bytes economy:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QLabel" name="accountStorageSavedLabel">
+                      <property name="font">
+                       <font>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="textInteractionFlags">
+                       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="label_2">
+                      <property name="toolTip">
+                       <string>Real size of all stored archives (before compression and deduplication).</string>
+                      </property>
+                      <property name="text">
+                       <string>Total backup size:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QLabel" name="accountTotalSizeLabel">
+                      <property name="font">
+                       <font>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="textInteractionFlags">
+                       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QLabel" name="label_16">
+                      <property name="toolTip">
+                       <string>Credit left on Tarsnap.</string>
+                      </property>
+                      <property name="text">
+                       <string>Credit:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="1">
+                     <widget class="QLabel" name="accountCreditLabel">
+                      <property name="font">
+                       <font>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="toolTip">
+                       <string>This info is updated on demand. Press the big Tarsnap button above to update.</string>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="textInteractionFlags">
+                       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="0">
+                     <widget class="QLabel" name="label_9">
+                      <property name="toolTip">
+                       <string>Last activity recorded on the Tarsnap website for this Machine</string>
+                      </property>
+                      <property name="text">
+                       <string>Last machine activity:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="1">
+                     <layout class="QHBoxLayout" name="horizontalLayout_10">
+                      <item>
+                       <widget class="TextLabel" name="machineActivityLabel">
+                        <property name="font">
+                         <font>
+                          <weight>75</weight>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="toolTip">
+                         <string>This info is updated on demand. Press the big Tarsnap button above to update.</string>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                        <property name="textInteractionFlags">
+                         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                        </property>
+                        <property name="elide" stdset="0">
+                         <string>ElideRight</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="machineActivityShowButton">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>100</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>100</width>
+                          <height>16777215</height>
+                         </size>
+                        </property>
+                        <property name="toolTip">
+                         <string>Show all account activity for this Machine. Requires Tarsnap login.</string>
+                        </property>
+                        <property name="text">
+                         <string>Show all</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lastAccountUpdateLabel">
+                    <property name="font">
+                     <font>
+                      <italic>true</italic>
+                     </font>
+                    </property>
+                    <property name="toolTip">
+                     <string>Press the big Tarsnap button above to update login and update</string>
+                    </property>
+                    <property name="text">
+                     <string>Credit and machine activity is xx days old. Please login to Tarsnap to update.</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <widget class="QWidget" name="widget_7" native="true">
                     <layout class="QFormLayout" name="formLayout">
                      <property name="fieldGrowthPolicy">
@@ -1011,12 +1248,9 @@ margin-top: 6px;
                       <number>0</number>
                      </property>
                      <item row="0" column="0">
-                      <widget class="QLabel" name="label_16">
-                       <property name="toolTip">
-                        <string>Credit left on Tarsnap</string>
-                       </property>
+                      <widget class="QLabel" name="label">
                        <property name="text">
-                        <string>Credit:</string>
+                        <string>Tarsnap user:</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1024,203 +1258,16 @@ margin-top: 6px;
                       </widget>
                      </item>
                      <item row="0" column="1">
-                      <widget class="QLabel" name="accountCreditLabel">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <weight>75</weight>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="toolTip">
-                        <string>Not implemented yet</string>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="textInteractionFlags">
-                        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_6">
-                       <property name="text">
-                        <string>No. of archives:</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="QLabel" name="accountArchivesCountLabel">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <weight>75</weight>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="textInteractionFlags">
-                        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="0">
-                      <widget class="QLabel" name="label_2">
-                       <property name="toolTip">
-                        <string>Real size of all stored archives</string>
-                       </property>
-                       <property name="text">
-                        <string>Total backup size:</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="1">
-                      <widget class="QLabel" name="accountTotalSizeLabel">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <weight>75</weight>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="textInteractionFlags">
-                        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="3" column="0">
-                      <widget class="QLabel" name="label_4">
-                       <property name="toolTip">
-                        <string>What you're paying for</string>
-                       </property>
-                       <property name="text">
-                        <string>Actual Tarsnap usage:</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="3" column="1">
-                      <widget class="QLabel" name="accountActualSizeLabel">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <weight>75</weight>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="textInteractionFlags">
-                        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="4" column="0">
-                      <widget class="QLabel" name="label_21">
-                       <property name="toolTip">
-                        <string>Bytes reduced by deduplication and compression</string>
-                       </property>
-                       <property name="text">
-                        <string>Bytes economy:</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="4" column="1">
-                      <widget class="QLabel" name="accountStorageSavedLabel">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <weight>75</weight>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="textInteractionFlags">
-                        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="5" column="0">
-                      <widget class="QLabel" name="label_9">
-                       <property name="text">
-                        <string>Last machine activity:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="5" column="1">
-                      <layout class="QHBoxLayout" name="horizontalLayout_10">
+                      <layout class="QHBoxLayout" name="horizontalLayout_11">
                        <item>
-                        <widget class="TextLabel" name="accountMachineActivityLabel">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <weight>75</weight>
-                           <bold>true</bold>
-                          </font>
-                         </property>
+                        <widget class="QLineEdit" name="accountUserLineEdit">
                          <property name="text">
                           <string/>
-                         </property>
-                         <property name="textInteractionFlags">
-                          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                         </property>
-                         <property name="elide" stdset="0">
-                          <string>ElideRight</string>
                          </property>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QPushButton" name="pushButton">
+                        <widget class="QPushButton" name="accountUserLoginButtton">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                            <horstretch>0</horstretch>
@@ -1239,54 +1286,17 @@ margin-top: 6px;
                            <height>16777215</height>
                           </size>
                          </property>
+                         <property name="toolTip">
+                          <string>Login to tarsnap.com and update Account details.</string>
+                         </property>
                          <property name="text">
-                          <string>Show all</string>
+                          <string>Login</string>
                          </property>
                         </widget>
                        </item>
                       </layout>
                      </item>
-                     <item row="6" column="0">
-                      <widget class="QLabel" name="label">
-                       <property name="text">
-                        <string>Tarsnap user:</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="6" column="1">
-                      <layout class="QHBoxLayout" name="horizontalLayout_11">
-                       <item>
-                        <widget class="QLineEdit" name="accountUserLineEdit">
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_2">
-                         <property name="orientation">
-                          <enum>Qt::Horizontal</enum>
-                         </property>
-                         <property name="sizeType">
-                          <enum>QSizePolicy::Fixed</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>100</width>
-                           <height>32</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                      </layout>
-                     </item>
-                     <item row="7" column="0">
+                     <item row="1" column="0">
                       <widget class="QLabel" name="label_19">
                        <property name="text">
                         <string>Machine name:</string>
@@ -1296,7 +1306,7 @@ margin-top: 6px;
                        </property>
                       </widget>
                      </item>
-                     <item row="7" column="1">
+                     <item row="1" column="1">
                       <layout class="QHBoxLayout" name="horizontalLayout_3">
                        <item>
                         <widget class="QLineEdit" name="accountMachineLineEdit">
@@ -1305,9 +1315,6 @@ margin-top: 6px;
                          </property>
                          <property name="placeholderText">
                           <string/>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
                          </property>
                         </widget>
                        </item>
@@ -1338,7 +1345,7 @@ margin-top: 6px;
                        </item>
                       </layout>
                      </item>
-                     <item row="8" column="0">
+                     <item row="2" column="0">
                       <widget class="QLabel" name="label_11">
                        <property name="text">
                         <string>Machine key:</string>
@@ -1348,7 +1355,7 @@ margin-top: 6px;
                        </property>
                       </widget>
                      </item>
-                     <item row="8" column="1">
+                     <item row="2" column="1">
                       <layout class="QHBoxLayout" name="horizontalLayout_9">
                        <item>
                         <widget class="QLineEdit" name="accountMachineKeyLineEdit">
@@ -1357,9 +1364,6 @@ margin-top: 6px;
                          </property>
                          <property name="placeholderText">
                           <string/>
-                         </property>
-                         <property name="clearButtonEnabled">
-                          <bool>true</bool>
                          </property>
                         </widget>
                        </item>

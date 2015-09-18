@@ -1120,25 +1120,6 @@ margin-top: 6px;
                       </property>
                      </widget>
                     </item>
-                    <item row="4" column="1">
-                     <widget class="QLabel" name="accountCreditLabel">
-                      <property name="font">
-                       <font>
-                        <weight>75</weight>
-                        <bold>true</bold>
-                       </font>
-                      </property>
-                      <property name="toolTip">
-                       <string>This info is updated on demand. Press the big Tarsnap button above to update.</string>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="textInteractionFlags">
-                       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="5" column="0">
                      <widget class="QLabel" name="label_9">
                       <property name="toolTip">
@@ -1175,29 +1156,44 @@ margin-top: 6px;
                       </item>
                       <item>
                        <widget class="QPushButton" name="machineActivityShowButton">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="minimumSize">
-                         <size>
-                          <width>100</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>100</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
                         <property name="toolTip">
-                         <string>Show all account activity for this Machine. Requires Tarsnap login.</string>
+                         <string>Show activity for this Machine. Requires Tarsnap login.</string>
                         </property>
                         <property name="text">
-                         <string>Show all</string>
+                         <string>Show activity</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item row="4" column="1">
+                     <layout class="QHBoxLayout" name="horizontalLayout_6">
+                      <item>
+                       <widget class="QLabel" name="accountCreditLabel">
+                        <property name="font">
+                         <font>
+                          <weight>75</weight>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="toolTip">
+                         <string>This info is updated on demand. Press the big Tarsnap button above to update.</string>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                        <property name="textInteractionFlags">
+                         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="accountActivityShowButton">
+                        <property name="toolTip">
+                         <string>Show account activity. Requires Tarsnap login.</string>
+                        </property>
+                        <property name="text">
+                         <string>Show activity</string>
                         </property>
                        </widget>
                       </item>
@@ -1287,7 +1283,7 @@ margin-top: 6px;
                           </size>
                          </property>
                          <property name="toolTip">
-                          <string>Login to tarsnap.com and update Account details.</string>
+                          <string>Login to tarsnap.com and update account info.</string>
                          </property>
                          <property name="text">
                           <string>Login</string>

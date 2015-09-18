@@ -1,16 +1,18 @@
 #ifndef TARSNAPACCOUNT_H
 #define TARSNAPACCOUNT_H
 
-#include <QObject>
+#include "ui_logindialog.h"
+
+#include <QWidget>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
-class TarsnapAccount : public QObject
+class TarsnapAccount : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit TarsnapAccount(QObject *parent = 0);
+    explicit TarsnapAccount(QWidget *parent = 0);
 
     QString user() const;
     void setUser(const QString &user);
@@ -19,18 +21,23 @@ public:
     void setMachine(const QString &machine);
 
 signals:
-    void accountInfo(qreal credit, QString lastActivity);
+    void accountCredit(qreal credit, QDate date);
 
 public slots:
     void getAccountInfo();
-    void displayMachineActivity();
+    void displayAccountActivity(QString csv);
+    void displayMachineActivity(QString csv);
 
 protected slots:
+    QNetworkReply* tarsnapRequest(QString url);
+    void parseCredit(QString csv);
     void readActivityCSV();
+    void readMachineActivityCSV();
     void networkError(QNetworkReply::NetworkError error);
     void sslError(QList<QSslError> errors);
 
 private:
+    Ui::loginDialog       _ui;
     QString               _user;
     QString               _machine;
     QNetworkAccessManager _nam;

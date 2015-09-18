@@ -90,6 +90,7 @@ private slots:
     void addJobClicked();
     void cancelRunningTasks();
     void getAccountInfo();
+    void updateAccountCredit(qreal credit, QDate date);
 
 private:
     Ui::MainWindow  *_ui;

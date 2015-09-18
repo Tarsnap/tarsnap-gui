@@ -863,8 +863,14 @@ void MainWindow::cancelRunningTasks()
 
 void MainWindow::getAccountInfo()
 {
-    TarsnapAccount *account = new TarsnapAccount();
+    TarsnapAccount *account = new TarsnapAccount(this);
     account->setUser(_ui->accountUserLineEdit->text());
-//    connect(&account, SIGNAL())
+    connect(account, SIGNAL(accountCredit(qreal,QDate)), this, SLOT(updateAccountCredit(qreal, QDate)));
     account->getAccountInfo();
+}
+
+void MainWindow::updateAccountCredit(qreal credit, QDate date)
+{
+    _ui->accountCreditLabel->setText(QString::number(credit));
+    _ui->accountCreditLabel->setToolTip(date.toString());
 }

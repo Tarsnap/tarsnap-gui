@@ -1,17 +1,17 @@
 #include "tarsnapaccount.h"
 #include "debug.h"
-#include "ui_logindialog.h"
 
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QTableWidget>
 
 #define URL_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=activity&format=csv"
-#define URL_MACHINE_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=subactivity&mid=0"
+#define URL_MACHINE_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=subactivity&mid=0&format=csv"
 
-TarsnapAccount::TarsnapAccount(QObject *parent) : QObject(parent), _user(),
+TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _user(),
     _nam(this)
 {
-
+    _ui.setupUi(this);
 }
 
 QString TarsnapAccount::user() const
@@ -22,46 +22,142 @@ QString TarsnapAccount::user() const
 void TarsnapAccount::setUser(const QString &user)
 {
     _user = user;
+    _ui.textLabel->setText(_ui.textLabel->text().arg(_user));
 }
 
 void TarsnapAccount::getAccountInfo()
 {
-    QDialog login;
-    Ui::loginDialog loginUi;
-    loginUi.setupUi(&login);
-    loginUi.textLabel->setText(loginUi.textLabel->text().arg(_user));
-    if(login.exec())
+    if(exec())
     {
-        QNetworkRequest activityReq;
-//        QSslConfiguration conf = QSslConfiguration::defaultConfiguration();
-//        conf.setProtocol(QSsl::TlsV1_2);
-//        activityReq.setSslConfiguration(conf);
-        QString url(URL_ACTIVITY);
-        url = url.arg(QString(QUrl::toPercentEncoding(_user)));
-        url = url.arg(QString(QUrl::toPercentEncoding(loginUi.passwordLineEdit->text())));
-        activityReq.setUrl(url);
-        activityReq.setRawHeader("User-Agent", (qApp->applicationName() + " " + qApp->applicationVersion()).toLatin1());
-        QNetworkReply *activityReply = _nam.get(activityReq);
-        connect(activityReply, SIGNAL(finished()), this, SLOT(readActivityCSV()));
-        connect(activityReply, SIGNAL(error(QNetworkReply::NetworkError)),
-                this, SLOT(networkError(QNetworkReply::NetworkError)));
-        connect(activityReply, SIGNAL(sslErrors(QList<QSslError>)),
-                this, SLOT(sslError(QList<QSslError>)));
-        DEBUG << "HERE.";
+        QString activity(URL_ACTIVITY);
+        activity = activity.arg(QString(QUrl::toPercentEncoding(_user)));
+        activity = activity.arg(QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
+        connect(tarsnapRequest(activity), SIGNAL(finished()), this, SLOT(readActivityCSV()));
+        QString machineActivity(URL_MACHINE_ACTIVITY);
+        machineActivity = machineActivity.arg(QString(QUrl::toPercentEncoding(_user)));
+        machineActivity = machineActivity.arg(QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
+        connect(tarsnapRequest(machineActivity), SIGNAL(finished()), this, SLOT(readMachineActivityCSV()));
     }
 }
 
-void TarsnapAccount::displayMachineActivity()
+void TarsnapAccount::displayAccountActivity(QString csv)
 {
+    DEBUG << csv;
+    if(csv.isEmpty())
+        return;
 
+    QStringList lines = csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+    if(lines.count() <= 1)
+        return;
+
+    QStringList columnHeaders = lines.first().split(',', QString::SkipEmptyParts);
+    lines.removeFirst();
+    QTableWidget *table = new QTableWidget(lines.count(), columnHeaders.count());
+    table->setHorizontalHeaderLabels(columnHeaders);
+    table->horizontalHeader()->setStretchLastSection(true);
+
+    qint64 row = 0;
+    qint64 column = 0;
+
+    foreach (QString line, lines)
+    {
+        foreach (QString entry, line.split(',', QString::KeepEmptyParts))
+        {
+            table->setItem(row, column, new QTableWidgetItem(entry));
+            column++;
+        }
+        row++;
+        column = 0;
+    }
+    table->show();
+}
+
+void TarsnapAccount::displayMachineActivity(QString csv)
+{
+    DEBUG << csv;
+    if(csv.isEmpty())
+        return;
+
+    QStringList lines = csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+    if(lines.count() <= 1)
+        return;
+
+    QStringList columnHeaders = lines.first().split(',', QString::SkipEmptyParts);
+    lines.removeFirst();
+    QTableWidget *table = new QTableWidget(lines.count(), columnHeaders.count());
+    table->setHorizontalHeaderLabels(columnHeaders);
+    table->horizontalHeader()->setStretchLastSection(true);
+
+    qint64 row = 0;
+    qint64 column = 0;
+
+    foreach (QString line, lines)
+    {
+        foreach (QString entry, line.split(',', QString::KeepEmptyParts))
+        {
+            table->setItem(row, column, new QTableWidgetItem(entry));
+            column++;
+        }
+        row++;
+        column = 0;
+    }
+    table->show();
+}
+
+QNetworkReply* TarsnapAccount::tarsnapRequest(QString url)
+{
+    QNetworkRequest request;
+    request.setUrl(url);
+    request.setRawHeader("User-Agent",
+                         (qApp->applicationName() + " " + qApp->applicationVersion()).toLatin1());
+    QNetworkReply *reply = _nam.get(request);
+    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
+            this, SLOT(networkError(QNetworkReply::NetworkError)));
+    connect(reply, SIGNAL(sslErrors(QList<QSslError>)),
+            this, SLOT(sslError(QList<QSslError>)));
+    return reply;
+}
+
+void TarsnapAccount::parseCredit(QString csv)
+{
+    if(csv.isEmpty())
+        return;
+    QRegExp lastBalanceRx("^(Balance.+)$", Qt::CaseInsensitive, QRegExp::RegExp2);
+    QString lastBalance;
+    foreach (QString line, csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts))
+    {
+        if(0 == lastBalanceRx.indexIn(line))
+            lastBalance = line;
+    }
+
+    if(!lastBalance.isEmpty())
+    {
+        QStringList fields = lastBalance.split(',', QString::SkipEmptyParts);
+        if(fields.count() != 3)
+        {
+            DEBUG << "Invalid CSV.";
+            return;
+        }
+        emit accountCredit(fields.last().toFloat(), QDate::fromString(fields[1], Qt::ISODate));
+    }
 }
 
 void TarsnapAccount::readActivityCSV()
 {
-    QNetworkReply *activityReply = qobject_cast<QNetworkReply*>(sender());
-    DEBUG << activityReply->readAll();
-    activityReply->close();
-    activityReply->deleteLater();
+    QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
+    QByteArray replyData = reply->readAll();
+    parseCredit(replyData);
+    displayAccountActivity(replyData);
+    reply->close();
+    reply->deleteLater();
+}
+
+void TarsnapAccount::readMachineActivityCSV()
+{
+    QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
+    displayMachineActivity(reply->readAll());
+    reply->close();
+    reply->deleteLater();
 }
 
 void TarsnapAccount::networkError(QNetworkReply::NetworkError error)

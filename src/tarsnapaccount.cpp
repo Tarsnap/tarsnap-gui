@@ -127,7 +127,10 @@ void TarsnapAccount::parseCredit(QString csv)
 
 void TarsnapAccount::parseLastMachineActivity(QString csv)
 {
-
+    if(csv.isEmpty())
+        return;
+    QString lastLine = csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts).last();
+    emit lastMachineActivity(lastLine.split(',', QString::SkipEmptyParts));
 }
 
 void TarsnapAccount::readActivityCSV()

@@ -91,6 +91,7 @@ private slots:
     void addJobClicked();
     void cancelRunningTasks();
     void updateAccountCredit(qreal credit, QDate date);
+    void updateLastMachineActivity(QStringList activityFields);
 
 private:
     Ui::MainWindow  *_ui;

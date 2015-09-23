@@ -166,6 +166,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
             });
     connect(&_tarsnapAccount, SIGNAL(accountCredit(qreal, QDate)), this, SLOT(updateAccountCredit(qreal, QDate)));
+    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));
     connect(_ui->loginTarsnapButton, &QPushButton::clicked,
             [=](){
                 _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
@@ -888,4 +889,11 @@ void MainWindow::updateAccountCredit(qreal credit, QDate date)
 {
     _ui->accountCreditLabel->setText(QString::number(credit));
     _ui->accountCreditLabel->setToolTip(date.toString());
+}
+
+void MainWindow::updateLastMachineActivity(QStringList activityFields)
+{
+    _ui->machineActivityLabel->setText(activityFields.join(' '));
+    _ui->machineActivityLabel->resize(_ui->machineActivityLabel->fontMetrics().width(_ui->machineActivityLabel->text())/2,
+                                      _ui->machineActivityLabel->sizeHint().height());
 }

@@ -22,6 +22,7 @@ public:
 
 signals:
     void accountCredit(qreal credit, QDate date);
+    void lastMachineActivity(QStringList activityFields);
 
 public slots:
     void getAccountInfo(bool displayActivity = false,

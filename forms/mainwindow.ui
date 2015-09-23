@@ -1026,7 +1026,7 @@ margin-top: 6px;
                        <string>Number of Archives stored for this Machine.</string>
                       </property>
                       <property name="text">
-                       <string>Archive count</string>
+                       <string>Archive count:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1144,7 +1144,7 @@ margin-top: 6px;
                          <string>This info is updated on demand. Press the big Tarsnap button above to update.</string>
                         </property>
                         <property name="text">
-                         <string>unknown</string>
+                         <string/>
                         </property>
                         <property name="textInteractionFlags">
                          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>

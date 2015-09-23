@@ -22,25 +22,31 @@ QString TarsnapAccount::user() const
 void TarsnapAccount::setUser(const QString &user)
 {
     _user = user;
-    _ui.textLabel->setText(_ui.textLabel->text().arg(_user));
+    _ui.textLabel->setText(QString("Type password for account %1:").arg(_user));
 }
 
-void TarsnapAccount::getAccountInfo()
+void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineActivity)
 {
     if(exec())
     {
         QString activity(URL_ACTIVITY);
         activity = activity.arg(QString(QUrl::toPercentEncoding(_user)));
         activity = activity.arg(QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
-        connect(tarsnapRequest(activity), SIGNAL(finished()), this, SLOT(readActivityCSV()));
+        if(displayActivity)
+            connect(tarsnapRequest(activity), SIGNAL(finished()), this, SLOT(readActivityCSVAndDisplay()));
+        else
+            connect(tarsnapRequest(activity), SIGNAL(finished()), this, SLOT(readActivityCSV()));
         QString machineActivity(URL_MACHINE_ACTIVITY);
         machineActivity = machineActivity.arg(QString(QUrl::toPercentEncoding(_user)));
         machineActivity = machineActivity.arg(QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
-        connect(tarsnapRequest(machineActivity), SIGNAL(finished()), this, SLOT(readMachineActivityCSV()));
+        if(displayMachineActivity)
+            connect(tarsnapRequest(machineActivity), SIGNAL(finished()), this, SLOT(readMachineActivityCSVAndDisplay()));
+        else
+            connect(tarsnapRequest(machineActivity), SIGNAL(finished()), this, SLOT(readMachineActivityCSV()));
     }
 }
 
-void TarsnapAccount::displayAccountActivity(QString csv)
+void TarsnapAccount::displayCSVTable(QString csv)
 {
     DEBUG << csv;
     if(csv.isEmpty())
@@ -52,9 +58,18 @@ void TarsnapAccount::displayAccountActivity(QString csv)
 
     QStringList columnHeaders = lines.first().split(',', QString::SkipEmptyParts);
     lines.removeFirst();
+
     QTableWidget *table = new QTableWidget(lines.count(), columnHeaders.count());
     table->setHorizontalHeaderLabels(columnHeaders);
     table->horizontalHeader()->setStretchLastSection(true);
+    table->setAlternatingRowColors(true);
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    QDialog *tableDialog = new QDialog(this);
+    tableDialog->setAttribute( Qt::WA_DeleteOnClose, true );
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->addWidget(table);
+    layout->setMargin(0);
+    tableDialog->setLayout(layout);
 
     qint64 row = 0;
     qint64 column = 0;
@@ -69,39 +84,7 @@ void TarsnapAccount::displayAccountActivity(QString csv)
         row++;
         column = 0;
     }
-    table->show();
-}
-
-void TarsnapAccount::displayMachineActivity(QString csv)
-{
-    DEBUG << csv;
-    if(csv.isEmpty())
-        return;
-
-    QStringList lines = csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
-    if(lines.count() <= 1)
-        return;
-
-    QStringList columnHeaders = lines.first().split(',', QString::SkipEmptyParts);
-    lines.removeFirst();
-    QTableWidget *table = new QTableWidget(lines.count(), columnHeaders.count());
-    table->setHorizontalHeaderLabels(columnHeaders);
-    table->horizontalHeader()->setStretchLastSection(true);
-
-    qint64 row = 0;
-    qint64 column = 0;
-
-    foreach (QString line, lines)
-    {
-        foreach (QString entry, line.split(',', QString::KeepEmptyParts))
-        {
-            table->setItem(row, column, new QTableWidgetItem(entry));
-            column++;
-        }
-        row++;
-        column = 0;
-    }
-    table->show();
+    tableDialog->show();
 }
 
 QNetworkReply* TarsnapAccount::tarsnapRequest(QString url)
@@ -142,12 +125,15 @@ void TarsnapAccount::parseCredit(QString csv)
     }
 }
 
+void TarsnapAccount::parseLastMachineActivity(QString csv)
+{
+
+}
+
 void TarsnapAccount::readActivityCSV()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
-    QByteArray replyData = reply->readAll();
-    parseCredit(replyData);
-    displayAccountActivity(replyData);
+    parseCredit(reply->readAll());
     reply->close();
     reply->deleteLater();
 }
@@ -155,7 +141,27 @@ void TarsnapAccount::readActivityCSV()
 void TarsnapAccount::readMachineActivityCSV()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
-    displayMachineActivity(reply->readAll());
+    parseLastMachineActivity(reply->readAll());
+    reply->close();
+    reply->deleteLater();
+}
+
+void TarsnapAccount::readActivityCSVAndDisplay()
+{
+    QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
+    QByteArray replyData = reply->readAll();
+    parseCredit(replyData);
+    displayCSVTable(replyData);
+    reply->close();
+    reply->deleteLater();
+}
+
+void TarsnapAccount::readMachineActivityCSVAndDisplay()
+{
+    QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
+    QByteArray replyData = reply->readAll();
+    parseLastMachineActivity(replyData);
+    displayCSVTable(replyData);
     reply->close();
     reply->deleteLater();
 }

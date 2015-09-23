@@ -1123,7 +1123,7 @@ margin-top: 6px;
                     <item row="5" column="0">
                      <widget class="QLabel" name="label_9">
                       <property name="toolTip">
-                       <string>Last activity recorded on the Tarsnap website for this Machine</string>
+                       <string>Last activity recorded by Tarsnap for this machine</string>
                       </property>
                       <property name="text">
                        <string>Last machine activity:</string>
@@ -1144,7 +1144,7 @@ margin-top: 6px;
                          <string>This info is updated on demand. Press the big Tarsnap button above to update.</string>
                         </property>
                         <property name="text">
-                         <string/>
+                         <string>unknown</string>
                         </property>
                         <property name="textInteractionFlags">
                          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -1156,8 +1156,21 @@ margin-top: 6px;
                       </item>
                       <item>
                        <widget class="QPushButton" name="machineActivityShowButton">
+                        <property name="font">
+                         <font>
+                          <underline>true</underline>
+                         </font>
+                        </property>
                         <property name="toolTip">
-                         <string>Show activity for this Machine. Requires Tarsnap login.</string>
+                         <string>Show machine activity. Requires Tarsnap login.</string>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QPushButton {
+border: 1px;
+}
+QPushButton:hover {
+color: blue;
+}</string>
                         </property>
                         <property name="text">
                          <string>Show activity</string>
@@ -1189,8 +1202,21 @@ margin-top: 6px;
                       </item>
                       <item>
                        <widget class="QPushButton" name="accountActivityShowButton">
+                        <property name="font">
+                         <font>
+                          <underline>true</underline>
+                         </font>
+                        </property>
                         <property name="toolTip">
                          <string>Show account activity. Requires Tarsnap login.</string>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QPushButton {
+border: 1px;
+}
+QPushButton:hover {
+color: blue;
+}</string>
                         </property>
                         <property name="text">
                          <string>Show activity</string>
@@ -1202,7 +1228,7 @@ margin-top: 6px;
                    </layout>
                   </item>
                   <item>
-                   <widget class="QLabel" name="lastAccountUpdateLabel">
+                   <widget class="QLabel" name="accountLastUpdateLabel">
                     <property name="font">
                      <font>
                       <italic>true</italic>

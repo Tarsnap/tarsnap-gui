@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "taskmanager.h"
+#include "tarsnapaccount.h"
 
 #include <QWidget>
 #include <QLabel>
@@ -89,7 +90,6 @@ private slots:
     void hideJobDetails();
     void addJobClicked();
     void cancelRunningTasks();
-    void getAccountInfo();
     void updateAccountCredit(qreal credit, QDate date);
 
 private:
@@ -106,6 +106,7 @@ private:
     QTimer           _purgeTimer;
     int              _purgeTimerCount;
     QMessageBox      _purgeCountdownWindow;
+    TarsnapAccount   _tarsnapAccount;
 };
 
 #endif // MAINWINDOW_H

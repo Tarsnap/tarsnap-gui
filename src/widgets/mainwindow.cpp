@@ -5,7 +5,6 @@
 #include "ui_aboutwidget.h"
 #include "backuplistitem.h"
 #include "filepickerdialog.h"
-#include "tarsnapaccount.h"
 #include "utils.h"
 #include "debug.h"
 
@@ -32,7 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _actionAbout(this),
     _useSIPrefixes(false),
     _purgeTimerCount(0),
-    _purgeCountdownWindow(this)
+    _purgeCountdownWindow(this),
+    _tarsnapAccount(this)
 {
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
 
@@ -160,13 +160,36 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->skipFilesSizeSpinBox, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->skipSystemJunkCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
-    connect(_ui->skipSystemLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
-    connect(_ui->loginTarsnapButton, SIGNAL(clicked(bool)), this, SLOT(getAccountInfo()));
-    connect(_ui->accountUserLoginButtton, SIGNAL(clicked(bool)), this, SLOT(getAccountInfo()));
+    connect(_ui->skipSystemLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));;
     connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
             [=](){
                 _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
             });
+    connect(&_tarsnapAccount, SIGNAL(accountCredit(qreal, QDate)), this, SLOT(updateAccountCredit(qreal, QDate)));
+    connect(_ui->loginTarsnapButton, &QPushButton::clicked,
+            [=](){
+                _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+                _tarsnapAccount.getAccountInfo();
+            }
+            );
+    connect(_ui->accountUserLoginButtton, &QPushButton::clicked,
+            [=](){
+                _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+                _tarsnapAccount.getAccountInfo();
+            }
+            );
+    connect(_ui->accountActivityShowButton, &QPushButton::clicked,
+            [=](){
+                _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+                _tarsnapAccount.getAccountInfo(true, false);
+            }
+            );
+    connect(_ui->machineActivityShowButton, &QPushButton::clicked,
+            [=](){
+                _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+                _tarsnapAccount.getAccountInfo(false, true);
+            }
+            );
 
     // Backup and Archives
     connect(_ui->backupListWidget, SIGNAL(itemTotals(quint64,quint64)), this
@@ -859,14 +882,6 @@ void MainWindow::cancelRunningTasks()
         updateStatusMessage("Stopping all running tasks.");
         emit stopTasks();
     }
-}
-
-void MainWindow::getAccountInfo()
-{
-    TarsnapAccount *account = new TarsnapAccount(this);
-    account->setUser(_ui->accountUserLineEdit->text());
-    connect(account, SIGNAL(accountCredit(qreal,QDate)), this, SLOT(updateAccountCredit(qreal, QDate)));
-    account->getAccountInfo();
 }
 
 void MainWindow::updateAccountCredit(qreal credit, QDate date)

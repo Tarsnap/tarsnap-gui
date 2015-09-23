@@ -30,22 +30,9 @@
     <number>6</number>
    </property>
    <item>
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
     <widget class="QLabel" name="textLabel">
      <property name="text">
-      <string>Type password for Tarsnap account %1:</string>
+      <string>Type password for account %1:</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -66,22 +53,9 @@
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="TextLabel" name="infoLabel">
+    <widget class="QLabel" name="infoLabel">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -92,10 +66,13 @@
       </font>
      </property>
      <property name="text">
-      <string>Info: Login is occuring over https and your password is not stored beyond this instance</string>
+      <string>Info: Authentication is occuring over https and your password is not stored beyond this instance</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
      <property name="elide" stdset="0">
       <string>Qt::ElideRight</string>
@@ -144,13 +121,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>TextLabel</class>
-   <extends>QLabel</extends>
-   <header>../widgets/textlabel.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
   <connection>

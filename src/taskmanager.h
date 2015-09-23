@@ -34,7 +34,7 @@ signals:
     void archivesDeleted(QList<ArchivePtr> archives);
     void overallStats(quint64 sizeTotal, quint64 sizeCompressed,
                       quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed,
-                      quint64 archiveCount, qreal credit);
+                      quint64 archiveCount);
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
     void jobsList(QMap<QString, JobPtr> jobs);
 

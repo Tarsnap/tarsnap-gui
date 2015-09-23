@@ -1228,17 +1228,17 @@ color: blue;
                    </layout>
                   </item>
                   <item>
-                   <widget class="QLabel" name="accountLastUpdateLabel">
+                   <widget class="QLabel" name="outOfDateNoticeLabel">
                     <property name="font">
                      <font>
                       <italic>true</italic>
                      </font>
                     </property>
                     <property name="toolTip">
-                     <string>Press the big Tarsnap button above to update login and update</string>
+                     <string>Press the big Tarsnap button above to update account details</string>
                     </property>
                     <property name="text">
-                     <string>Credit and machine activity is xx days old. Please login to Tarsnap to update.</string>
+                     <string>Credit and machine activity is %1 days old. Click the Tarsnap logo above to update.</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>

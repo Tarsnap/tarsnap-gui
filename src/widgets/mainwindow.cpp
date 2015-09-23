@@ -301,6 +301,20 @@ MainWindow::~MainWindow()
 void MainWindow::loadSettings()
 {
     QSettings settings;
+    _ui->accountCreditLabel->setText(settings.value("tarsnap/credit", "").toString());
+    QDate creditDate = settings.value("tarsnap/credit_date", QDate()).toDate();
+    _ui->accountCreditLabel->setToolTip(creditDate.toString());
+    qint32 daysElapsed = creditDate.daysTo(QDate::currentDate());
+    if( daysElapsed > 10)
+    {
+        _ui->outOfDateNoticeLabel->setText(_ui->outOfDateNoticeLabel->text().arg(daysElapsed));
+        _ui->outOfDateNoticeLabel->show();
+    }
+    else
+    {
+        _ui->outOfDateNoticeLabel->hide();
+    }
+    _ui->machineActivityLabel->setText(settings.value("tarsnap/machine_activity", "").toString());
     _ui->accountUserLineEdit->setText(settings.value("tarsnap/user", "").toString());
     _ui->accountMachineKeyLineEdit->setText(settings.value("tarsnap/key", "").toString());
     _ui->accountMachineLineEdit->setText(settings.value("tarsnap/machine", "").toString());
@@ -439,7 +453,7 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui->busyWidget->animate();
 }
 
-void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed, quint64 archiveCount, qreal credit)
+void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed, quint64 archiveCount)
 {
     QString tooltip(tr("\t\tTotal size\tCompressed size\n"
                        "all archives\t%1\t\t%2\n"
@@ -452,7 +466,6 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
     _ui->accountStorageSavedLabel->setText(Utils::humanBytes(sizeTotal-sizeUniqueCompressed, _useSIPrefixes));
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
-    _ui->accountCreditLabel->setText(QString::number(credit, 'f'));
 }
 
 void MainWindow::repairCacheStatus(TaskStatus status, QString reason)
@@ -887,12 +900,17 @@ void MainWindow::cancelRunningTasks()
 
 void MainWindow::updateAccountCredit(qreal credit, QDate date)
 {
+    QSettings settings;
+    settings.setValue("tarsnap/credit", QString::number(credit));
+    settings.setValue("tarsnap/credit_date", date);
     _ui->accountCreditLabel->setText(QString::number(credit));
     _ui->accountCreditLabel->setToolTip(date.toString());
 }
 
 void MainWindow::updateLastMachineActivity(QStringList activityFields)
 {
+    QSettings settings;
+    settings.setValue("tarsnap/machine_activity", activityFields.join(' '));
     _ui->machineActivityLabel->setText(activityFields.join(' '));
     _ui->machineActivityLabel->resize(_ui->machineActivityLabel->fontMetrics().width(_ui->machineActivityLabel->text())/2,
                                       _ui->machineActivityLabel->sizeHint().height());

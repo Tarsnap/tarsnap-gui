@@ -54,8 +54,7 @@ public slots:
     void archivesDeleted(QList<ArchivePtr> archives, bool done = true);
     void updateLoadingAnimation(bool idle);
     void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal
-                               , quint64 sizeUniqueCompressed, quint64 archiveCount, qreal credit
-                               );
+                               , quint64 sizeUniqueCompressed, quint64 archiveCount);
     void repairCacheStatus(TaskStatus status, QString reason);
     void purgeArchivesStatus(TaskStatus status, QString reason);
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);

@@ -599,7 +599,7 @@ void TaskManager::parseGlobalStats(QString tarsnapOutput)
         return;
     }
     emit overallStats(sizeTotal, sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed
-                      , _archiveMap.count(), 0.0f);
+                      , _archiveMap.count());
 }
 
 void TaskManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive)

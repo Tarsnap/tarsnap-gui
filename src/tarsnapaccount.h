@@ -27,6 +27,7 @@ signals:
 public slots:
     void getAccountInfo(bool displayActivity = false,
                         bool displayMachineActivity = false);
+    void getMachineActivity();
 
 protected slots:
     QNetworkReply* tarsnapRequest(QString url);

@@ -6,7 +6,8 @@
 #include <QTableWidget>
 
 #define URL_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=activity&format=csv"
-#define URL_MACHINE_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=subactivity&mid=0&format=csv"
+#define URL_MACHINE_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=subactivity&mid=%3&format=csv"
+#define URL_LIST_MACHINES "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=subactivity"
 
 TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _user(),
     _nam(this)
@@ -29,21 +30,51 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
 {
     if(exec())
     {
-        QString activity(URL_ACTIVITY);
-        activity = activity.arg(QString(QUrl::toPercentEncoding(_user)));
-        activity = activity.arg(QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
+        QString getActivity(URL_ACTIVITY);
+        getActivity = getActivity.arg(QString(QUrl::toPercentEncoding(_user)),
+                                      QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
         if(displayActivity)
-            connect(tarsnapRequest(activity), SIGNAL(finished()), this, SLOT(readActivityCSVAndDisplay()));
+            connect(tarsnapRequest(getActivity), SIGNAL(finished()), this, SLOT(readActivityCSVAndDisplay()));
         else
-            connect(tarsnapRequest(activity), SIGNAL(finished()), this, SLOT(readActivityCSV()));
-        QString machineActivity(URL_MACHINE_ACTIVITY);
-        machineActivity = machineActivity.arg(QString(QUrl::toPercentEncoding(_user)));
-        machineActivity = machineActivity.arg(QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
+            connect(tarsnapRequest(getActivity), SIGNAL(finished()), this, SLOT(readActivityCSV()));
+        QString getMachineId(URL_LIST_MACHINES);
+        getMachineId = getMachineId.arg(QString(QUrl::toPercentEncoding(_user)),
+                                        QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
         if(displayMachineActivity)
-            connect(tarsnapRequest(machineActivity), SIGNAL(finished()), this, SLOT(readMachineActivityCSVAndDisplay()));
+            connect(tarsnapRequest(getMachineId), SIGNAL(finished()), this, SLOT(getMachineActivity()));
         else
-            connect(tarsnapRequest(machineActivity), SIGNAL(finished()), this, SLOT(readMachineActivityCSV()));
+            connect(tarsnapRequest(getMachineId), SIGNAL(finished()), this, SLOT(getMachineActivity()));
     }
+}
+
+void TarsnapAccount::getMachineActivity()
+{
+    QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
+    QString html = reply->readAll();
+    reply->close();
+    reply->deleteLater();
+
+    if(html.isEmpty())
+        return;
+
+    QString machineId;
+    QRegExp machineIdRx("mid=(\\d+)\">" + QRegExp::escape(_machine) + "</a>", Qt::CaseSensitive, QRegExp::RegExp2);
+
+    if(machineIdRx.lastIndexIn(html))
+    {
+        machineId = machineIdRx.cap(1);
+    }
+    else
+    {
+        DEBUG << "Machine id not found for machine " << _machine;
+        return;
+    }
+
+    QString machineActivity(URL_MACHINE_ACTIVITY);
+    machineActivity = machineActivity.arg(QString(QUrl::toPercentEncoding(_user)),
+                                          QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())),
+                                          QString(QUrl::toPercentEncoding(machineId)));
+    connect(tarsnapRequest(machineActivity), SIGNAL(finished()), this, SLOT(readMachineActivityCSVAndDisplay()));
 }
 
 void TarsnapAccount::displayCSVTable(QString csv)

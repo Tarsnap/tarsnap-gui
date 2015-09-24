@@ -102,6 +102,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->actionRefreshAccount, &QAction::triggered,
             [=](){
                 _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+                _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
                 _tarsnapAccount.getAccountInfo();
             }
             );
@@ -178,12 +179,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->accountActivityShowButton, &QPushButton::clicked,
             [=](){
                 _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+                _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
                 _tarsnapAccount.getAccountInfo(true, false);
             }
             );
     connect(_ui->machineActivityShowButton, &QPushButton::clicked,
             [=](){
                 _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+                _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
                 _tarsnapAccount.getAccountInfo(false, true);
             }
             );

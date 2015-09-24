@@ -97,8 +97,14 @@ MainWindow::MainWindow(QWidget *parent) :
             , SLOT(clear()), Qt::QueuedConnection);
     _ui->backupListWidget->addAction(_ui->actionBrowseItems);
     connect(_ui->actionBrowseItems, SIGNAL(triggered()), this, SLOT(browseForBackupItems()));
-    _ui->settingsTab->addAction(_ui->actionRefreshStats);
-    connect(_ui->actionRefreshStats, SIGNAL(triggered()), this, SIGNAL(getOverallStats()));
+    _ui->settingsTab->addAction(_ui->actionRefreshAccount);
+    connect(_ui->actionRefreshAccount, SIGNAL(triggered()), this, SIGNAL(getOverallStats()));
+    connect(_ui->actionRefreshAccount, &QAction::triggered,
+            [=](){
+                _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+                _tarsnapAccount.getAccountInfo();
+            }
+            );
     this->addAction(_ui->actionGoBackup);
     this->addAction(_ui->actionGoBrowse);
     this->addAction(_ui->actionGoJobs);
@@ -167,18 +173,8 @@ MainWindow::MainWindow(QWidget *parent) :
             });
     connect(&_tarsnapAccount, SIGNAL(accountCredit(qreal, QDate)), this, SLOT(updateAccountCredit(qreal, QDate)));
     connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));
-    connect(_ui->loginTarsnapButton, &QPushButton::clicked,
-            [=](){
-                _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
-                _tarsnapAccount.getAccountInfo();
-            }
-            );
-    connect(_ui->accountUserLoginButtton, &QPushButton::clicked,
-            [=](){
-                _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
-                _tarsnapAccount.getAccountInfo();
-            }
-            );
+    connect(_ui->loginTarsnapButton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
+    connect(_ui->accountUserLoginButtton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
     connect(_ui->accountActivityShowButton, &QPushButton::clicked,
             [=](){
                 _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());

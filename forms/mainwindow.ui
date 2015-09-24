@@ -2031,7 +2031,7 @@ Ctrl+b   - Initiate backup on selected Jobs
 Settings tab
 --------------
 
-Ctrl+r  - Refresh Account Summary
+Ctrl+r  - Refresh Account summary
 
 * Ctrl is Cmd key on OS X</string>
                 </property>
@@ -2305,12 +2305,12 @@ border: none;
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="actionRefreshStats">
+  <action name="actionRefreshAccount">
    <property name="text">
-    <string>Refresh Stats</string>
+    <string>Refresh account</string>
    </property>
    <property name="toolTip">
-    <string>Refresh Tarsnap stats</string>
+    <string>Refresh Tarsnap account details</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>

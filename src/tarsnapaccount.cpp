@@ -185,7 +185,7 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
     if(warn && data.contains("Password is incorrect; please try again."))
     {
         QMessageBox::warning(this, tr("Invalid password"),
-                             QString("Password for account %1 is incorrect; please try again.").arg(_user));
+                             tr("Password for account %1 is incorrect; please try again.").arg(_user));
     }
     reply->close();
     reply->deleteLater();

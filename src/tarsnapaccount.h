@@ -27,17 +27,14 @@ signals:
 public slots:
     void getAccountInfo(bool displayActivity = false,
                         bool displayMachineActivity = false);
-    void getMachineActivity();
 
 protected slots:
-    QNetworkReply* tarsnapRequest(QString url);
-    void displayCSVTable(QString csv);
+    QString parseMachineId(QString html);
     void parseCredit(QString csv);
     void parseLastMachineActivity(QString csv);
-    void readActivityCSV();
-    void readMachineActivityCSV();
-    void readActivityCSVAndDisplay();
-    void readMachineActivityCSVAndDisplay();
+    void displayCSVTable(QString csv);
+    QNetworkReply* tarsnapRequest(QString url);
+    QByteArray readReply(QNetworkReply *reply);
     void networkError(QNetworkReply::NetworkError error);
     void sslError(QList<QSslError> errors);
 

@@ -4,6 +4,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QTableWidget>
+#include <QMessageBox>
 
 #define URL_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=activity&format=csv"
 #define URL_MACHINE_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=subactivity&mid=%3&format=csv"
@@ -46,7 +47,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
         QNetworkReply *activityReply = tarsnapRequest(getActivity);
         connect(activityReply, &QNetworkReply::finished,
         [=]() {
-            QByteArray replyData = readReply(activityReply);
+            QByteArray replyData = readReply(activityReply, true);
             parseCredit(replyData);
             if(displayActivity)
                 displayCSVTable(replyData);
@@ -78,7 +79,7 @@ QString TarsnapAccount::parseMachineId(QString html)
 {
     QString machineId;
 
-    if(html.isEmpty())
+    if(html.isEmpty() || !html.startsWith("<!DOCTYPE html>"))
         return machineId;
 
     QRegExp machineIdRx("mid=(\\d+)\">" + QRegExp::escape(_machine) + "</a>", Qt::CaseSensitive, QRegExp::RegExp2);
@@ -126,7 +127,7 @@ void TarsnapAccount::parseLastMachineActivity(QString csv)
 void TarsnapAccount::displayCSVTable(QString csv)
 {
     DEBUG << csv;
-    if(csv.isEmpty())
+    if(csv.isEmpty() || csv.startsWith("<!DOCTYPE html>"))
         return;
 
     QStringList lines = csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
@@ -178,9 +179,14 @@ QNetworkReply* TarsnapAccount::tarsnapRequest(QString url)
     return reply;
 }
 
-QByteArray TarsnapAccount::readReply(QNetworkReply *reply)
+QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
 {
     QByteArray data = reply->readAll();
+    if(warn && data.contains("Password is incorrect; please try again."))
+    {
+        QMessageBox::warning(this, tr("Invalid password"),
+                             QString("Password for account %1 is incorrect; please try again.").arg(_user));
+    }
     reply->close();
     reply->deleteLater();
     return data;

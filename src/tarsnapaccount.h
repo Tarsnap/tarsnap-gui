@@ -34,7 +34,7 @@ protected slots:
     void parseLastMachineActivity(QString csv);
     void displayCSVTable(QString csv);
     QNetworkReply* tarsnapRequest(QString url);
-    QByteArray readReply(QNetworkReply *reply);
+    QByteArray readReply(QNetworkReply *reply, bool warn = false);
     void networkError(QNetworkReply::NetworkError error);
     void sslError(QList<QSslError> errors);
 

@@ -1694,6 +1694,52 @@ color: blue;
                  </property>
                  <layout class="QGridLayout" name="gridLayout_2">
                   <item row="2" column="1" colspan="2">
+                   <widget class="QLineEdit" name="tarsnapCacheLineEdit">
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Tarsnap cache directory</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="3">
+                   <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Change</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0" colspan="4">
+                   <widget class="QPushButton" name="runSetupWizard">
+                    <property name="toolTip">
+                     <string>Reset app settings and run Setup Wizard</string>
+                    </property>
+                    <property name="text">
+                     <string>Run Setup Wizard</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="3">
+                   <widget class="QPushButton" name="appDataDirBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Change</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1" colspan="2">
                    <widget class="QLineEdit" name="appDataDirLineEdit">
                     <property name="text">
                      <string/>
@@ -1716,7 +1762,7 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="0" colspan="4">
+                  <item row="4" column="0" colspan="4">
                    <widget class="QPushButton" name="repairCacheButton">
                     <property name="toolTip">
                      <string>Run tarsnap --fsck</string>
@@ -1739,26 +1785,16 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="1" colspan="2">
-                   <widget class="QLineEdit" name="tarsnapCacheLineEdit">
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="placeholderText">
-                     <string>Tarsnap cache directory</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="3">
-                   <widget class="QPushButton" name="tarsnapCacheBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_7">
+                    <property name="toolTip">
+                     <string>The app data directory is used to store settings and data</string>
                     </property>
                     <property name="text">
-                     <string>Change</string>
+                     <string>App data directory:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1775,20 +1811,7 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="0" colspan="4">
-                   <spacer name="verticalSpacer_2">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="4" column="0" colspan="4">
+                  <item row="5" column="0" colspan="4">
                    <widget class="QPushButton" name="purgeArchivesButton">
                     <property name="toolTip">
                      <string>Nukes all archives</string>
@@ -1798,7 +1821,7 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="0">
+                  <item row="2" column="0">
                    <widget class="QLabel" name="label_12">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -1817,39 +1840,23 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="0" colspan="4">
-                   <widget class="QPushButton" name="runSetupWizard">
-                    <property name="toolTip">
-                     <string>Reset app settings and run Setup Wizard</string>
+                  <item row="7" column="0" colspan="4">
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
                     </property>
-                    <property name="text">
-                     <string>Run Setup Wizard</string>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
                     </property>
-                   </widget>
+                   </spacer>
                   </item>
-                  <item row="2" column="3">
-                   <widget class="QPushButton" name="appDataDirBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
+                  <item row="1" column="1" colspan="2">
+                   <widget class="QLabel" name="clientVersionLabel">
                     <property name="text">
-                     <string>Change</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="label_7">
-                    <property name="toolTip">
-                     <string>The app data directory is used to store settings and data</string>
-                    </property>
-                    <property name="text">
-                     <string>App data directory:</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     <string/>
                     </property>
                    </widget>
                   </item>

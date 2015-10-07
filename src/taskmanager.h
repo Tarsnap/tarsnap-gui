@@ -27,6 +27,7 @@ public:
 signals:
     // Tarsnap task notifications
     void idle(bool status); // signal if we are working on tasks or not
+    void tarsnapVersion(QString versionString);
     void registerMachineStatus(TaskStatus status, QString reason);
     void fsckStatus(TaskStatus status, QString reason);
     void nukeStatus(TaskStatus status, QString reason);
@@ -42,6 +43,7 @@ public slots:
     void loadSettings();
 
     // Tarsnap tasks
+    void getTarsnapVersion(QString tarsnapPath);
     void registerMachine(QString user, QString password, QString machine
                          ,QString key, QString tarsnapPath, QString cachePath);
     void backupNow(BackupTaskPtr backupTask);
@@ -61,6 +63,7 @@ public slots:
 
 private slots:
     // post Tarsnap task processing
+    void getTarsnapVersionFinished(QVariant data, int exitCode, QString output);
     void backupTaskFinished(QVariant data, int exitCode, QString output);
     void backupTaskStarted(QVariant data);
     void registerMachineFinished(QVariant data, int exitCode, QString output);
@@ -85,6 +88,7 @@ private:
 
 private:
     QString                      _tarsnapDir;
+    QString                      _tarsnapVersion;
     QString                      _tarsnapCacheDir;
     QString                      _tarsnapKeyFile;
     QThread                      _managerThread; // manager runs on a separate thread

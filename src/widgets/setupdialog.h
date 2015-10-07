@@ -36,11 +36,13 @@ public slots:
 
     // TaskManager responses
     void registerMachineStatus(TaskStatus status, QString reason);
+    void setTarsnapVersion(QString versionString);
     void updateLoadingAnimation(bool idle);
 
 signals:
     void registerMachine(QString user, QString password, QString machine
                          ,QString key, QString tarsnapPath, QString cachePath);
+    void getTarsnapVersion(QString tarsnapPath);
 
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -51,9 +53,8 @@ private:
     QPoint           _windowDragPos;
     QMovie           _loadingAnimation;
 
-    QString _tarsnapCLIDir;
-//    QString _tarsnapUser;
-//    QString _tarsnapPassword;
+    QString _tarsnapDir;
+    QString _tarsnapVersion;
     QString _tarsnapCacheDir;
     QString _appDataDir;
     QString _tarsnapKeyFile;

@@ -27,6 +27,7 @@ void TaskManager::loadSettings()
     QSettings settings;
 
     _tarsnapDir             = settings.value("tarsnap/path").toString();
+    _tarsnapVersion         = settings.value("tarsnap/version").toString();
     _tarsnapCacheDir        = settings.value("tarsnap/cache").toString();
     _tarsnapKeyFile         = settings.value("tarsnap/key").toString();
     _aggressiveNetworking   = settings.value("tarsnap/aggressive_networking", false).toBool();
@@ -34,6 +35,17 @@ void TaskManager::loadSettings()
 
     // First time init of the Store
     PersistentStore::instance();
+}
+
+void TaskManager::getTarsnapVersion(QString tarsnapPath)
+{
+    TarsnapClient *tarsnap = new TarsnapClient();
+    tarsnap->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
+    tarsnap->setArguments(QStringList("--version"));
+    connect(tarsnap, SIGNAL(finished(QVariant,int,QString))
+            , this, SLOT(getTarsnapVersionFinished(QVariant,int,QString))
+            , Qt::QueuedConnection);
+    queueTask(tarsnap);
 }
 
 void TaskManager::registerMachine(QString user, QString password, QString machine, QString key, QString tarsnapPath, QString cachePath)
@@ -711,4 +723,15 @@ void TaskManager::loadJobArchives()
         }
     }
     job->setArchives(archives);
+}
+
+void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode, QString output)
+{
+    Q_UNUSED(data)
+    if(exitCode == 0)
+    {
+        QRegExp versionRx("^tarsnap (\\S+)\\s$");
+        if(-1 != versionRx.indexIn(output))
+            emit tarsnapVersion(versionRx.cap(1));
+    }
 }

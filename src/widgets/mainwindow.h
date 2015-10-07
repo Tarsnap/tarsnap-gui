@@ -39,6 +39,7 @@ signals:
     void jobsList(QMap<QString,JobPtr>);
     void deleteJob(JobPtr job, bool purgeArchives);
     void loadJobs();
+    void getTarsnapVersion(QString tarsnapPath);
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -58,10 +59,10 @@ public slots:
     void repairCacheStatus(TaskStatus status, QString reason);
     void purgeArchivesStatus(TaskStatus status, QString reason);
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
-
-    void updateStatusMessage(QString message, QString detail = "");
+    void setTarsnapVersion(QString versionString);
 
 private slots:
+    void updateStatusMessage(QString message, QString detail = "");
     void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void updateInspectArchive();

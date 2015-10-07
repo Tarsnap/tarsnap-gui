@@ -58,6 +58,10 @@ int CoreApplication::initialize()
     {
         // Show the first time setup dialog
         SetupDialog wizard;
+        connect(&wizard, SIGNAL(getTarsnapVersion(QString)) , &_taskManager,
+                SLOT(getTarsnapVersion(QString)));
+        connect(&_taskManager, SIGNAL(tarsnapVersion(QString)), &wizard,
+                SLOT(setTarsnapVersion(QString)));
         connect(&wizard, SIGNAL(registerMachine(QString,QString,QString,QString,QString,QString))
                 , &_taskManager, SLOT(registerMachine(QString,QString,QString,QString,QString,QString)));
         connect(&_taskManager, SIGNAL(registerMachineStatus(TaskStatus,QString)) , &wizard
@@ -97,6 +101,10 @@ int CoreApplication::initialize()
             return FAILURE;
         }
 
+        connect(_mainWindow, SIGNAL(getTarsnapVersion(QString)) , &_taskManager,
+                SLOT(getTarsnapVersion(QString)));
+        connect(&_taskManager, SIGNAL(tarsnapVersion(QString)), _mainWindow,
+                SLOT(setTarsnapVersion(QString)));
         connect(_mainWindow, SIGNAL(backupNow(BackupTaskPtr)), &_taskManager
                 , SLOT(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
         connect(_mainWindow, SIGNAL(loadArchives()), &_taskManager

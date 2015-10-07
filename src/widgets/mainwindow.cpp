@@ -318,6 +318,7 @@ void MainWindow::loadSettings()
     _ui->accountMachineKeyLineEdit->setText(settings.value("tarsnap/key", "").toString());
     _ui->accountMachineLineEdit->setText(settings.value("tarsnap/machine", "").toString());
     _ui->tarsnapPathLineEdit->setText(settings.value("tarsnap/path", "").toString());
+    setTarsnapVersion(settings.value("tarsnap/version", "").toString());
     _ui->tarsnapCacheLineEdit->setText(settings.value("tarsnap/cache", "").toString());
     _ui->aggressiveNetworkingCheckBox->setChecked(settings.value("tarsnap/aggressive_networking", false).toBool());
     _ui->traverseMountCheckBox->setChecked(settings.value("tarsnap/traverse_mount", true).toBool());
@@ -506,6 +507,23 @@ void MainWindow::restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QSt
     }
 }
 
+void MainWindow::setTarsnapVersion(QString versionString)
+{
+    QSettings settings;
+    settings.setValue("tarsnap/version", versionString);
+    settings.sync();
+    if(versionString.isEmpty())
+    {
+        _ui->clientVersionLabel->clear();
+        _ui->clientVersionLabel->hide();
+    }
+    else
+    {
+        _ui->clientVersionLabel->setText(tr("Tarsnap version ") + versionString + tr(" detected"));
+        _ui->clientVersionLabel->show();
+    }
+}
+
 void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 {
     if(count != 0)
@@ -661,9 +679,15 @@ void MainWindow::validateMachineKeyPath()
 void MainWindow::validateTarsnapPath()
 {
     if(Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text()).isEmpty())
+    {
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        setTarsnapVersion("");
+    }
     else
+    {
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        emit getTarsnapVersion(_ui->tarsnapPathLineEdit->text());
+    }
 }
 
 void MainWindow::validateTarsnapCache()

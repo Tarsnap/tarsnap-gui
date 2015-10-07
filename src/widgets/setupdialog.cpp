@@ -21,6 +21,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
 
     _ui->loadingIconLabel->setMovie(&_loadingAnimation);
     _ui->advancedPageRadioButton->hide();
+    _ui->clientVersionLabel->hide();
     _ui->errorLabel->hide();
     _ui->machineKeyLabel->hide();
     _ui->machineKeyLineEdit->hide();
@@ -79,8 +80,8 @@ SetupDialog::SetupDialog(QWidget *parent) :
         cacheDir.mkpath(_tarsnapCacheDir);
     _ui->tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
 
-    _tarsnapCLIDir = Utils::findTarsnapClientInPath("", true);
-    _ui->tarsnapPathLineEdit->setText(_tarsnapCLIDir);
+    _tarsnapDir = Utils::findTarsnapClientInPath("", true);
+    _ui->tarsnapPathLineEdit->setText(_tarsnapDir);
     _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
     _ui->wizardStackedWidget->setCurrentWidget(_ui->welcomePage);
 }
@@ -152,12 +153,13 @@ void SetupDialog::setNextPage()
 {
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
     {
-        if(_ui->advancedSetupCheckBox->isChecked() || _tarsnapCLIDir.isEmpty()
+        if(_ui->advancedSetupCheckBox->isChecked() || _tarsnapDir.isEmpty()
            || _tarsnapCacheDir.isEmpty() || _appDataDir.isEmpty())
         {
             _ui->wizardStackedWidget->setCurrentWidget(_ui->advancedPage);
             _ui->advancedSetupCheckBox->setChecked(true);
             _ui->advancedPageRadioButton->setEnabled(true);
+            validateAdvancedSetupPage();
         }
         else
         {
@@ -207,7 +209,9 @@ bool SetupDialog::validateAdvancedSetupPage()
 {
     bool result = false;
 
-    _tarsnapCLIDir   = Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text(), true);
+    setTarsnapVersion("");
+
+    _tarsnapDir   = Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text(), true);
     _tarsnapCacheDir = Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text());
     QFileInfo appDataDir(_ui->appDataPathLineEdit->text());
     if(appDataDir.exists() && appDataDir.isDir() && appDataDir.isWritable())
@@ -215,10 +219,13 @@ bool SetupDialog::validateAdvancedSetupPage()
     else
         _appDataDir.clear();
 
-    if(_tarsnapCLIDir.isEmpty() || _tarsnapCacheDir.isEmpty() || _appDataDir.isEmpty())
+    if(_tarsnapDir.isEmpty() || _tarsnapCacheDir.isEmpty() || _appDataDir.isEmpty())
         result = false;
     else
         result = true;
+
+    if(result)
+        emit getTarsnapVersion(_tarsnapDir);
 
     _ui->advancedPageProceedButton->setEnabled(result);
 
@@ -307,11 +314,11 @@ void SetupDialog::registerMachine()
                           + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
                           + ".key";
     }
-    DEBUG << "Registration details >>\n" << _tarsnapCLIDir << ::endl << _appDataDir << ::endl
+    DEBUG << "Registration details >>\n" << _tarsnapDir << ::endl << _appDataDir << ::endl
           << _tarsnapKeyFile << ::endl << _tarsnapCacheDir;
 
     emit registerMachine(_ui->tarsnapUserLineEdit->text(), _ui->tarsnapPasswordLineEdit->text()
-                         , _ui->machineNameLineEdit->text(), _tarsnapKeyFile, _tarsnapCLIDir
+                         , _ui->machineNameLineEdit->text(), _tarsnapKeyFile, _tarsnapDir
                          , _tarsnapCacheDir);
 }
 
@@ -350,6 +357,21 @@ void SetupDialog::updateLoadingAnimation(bool idle)
     }
 }
 
+void SetupDialog::setTarsnapVersion(QString versionString)
+{
+    _tarsnapVersion = versionString;
+    if(_tarsnapVersion.isEmpty())
+    {
+        _ui->clientVersionLabel->clear();
+        _ui->clientVersionLabel->hide();
+    }
+    else
+    {
+        _ui->clientVersionLabel->setText(tr("Tarsnap version ") + _tarsnapVersion + tr(" detected"));
+        _ui->clientVersionLabel->show();
+    }
+}
+
 void SetupDialog::commitSettings(bool skipped)
 {
     QSettings settings;
@@ -370,12 +392,13 @@ void SetupDialog::commitSettings(bool skipped)
         }
 
         QSettings settings;
-        settings.setValue("app/app_data",    _appDataDir);
-        settings.setValue("tarsnap/path",   _tarsnapCLIDir);
-        settings.setValue("tarsnap/cache",  _tarsnapCacheDir);
-        settings.setValue("tarsnap/key",    _tarsnapKeyFile);
-        settings.setValue("tarsnap/user",   _ui->tarsnapUserLineEdit->text());
-        settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
+        settings.setValue("app/app_data",       _appDataDir);
+        settings.setValue("tarsnap/path",       _tarsnapDir);
+        settings.setValue("tarsnap/version",    _tarsnapVersion);
+        settings.setValue("tarsnap/cache",      _tarsnapCacheDir);
+        settings.setValue("tarsnap/key",        _tarsnapKeyFile);
+        settings.setValue("tarsnap/user",       _ui->tarsnapUserLineEdit->text());
+        settings.setValue("tarsnap/machine",    _ui->machineNameLineEdit->text());
     }
     settings.sync();
 

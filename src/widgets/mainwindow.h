@@ -108,6 +108,7 @@ private:
     int              _purgeTimerCount;
     QMessageBox      _purgeCountdownWindow;
     TarsnapAccount   _tarsnapAccount;
+    QString          _tarsnapVersion;
 };
 
 #endif // MAINWINDOW_H

@@ -318,7 +318,8 @@ void MainWindow::loadSettings()
     _ui->accountMachineKeyLineEdit->setText(settings.value("tarsnap/key", "").toString());
     _ui->accountMachineLineEdit->setText(settings.value("tarsnap/machine", "").toString());
     _ui->tarsnapPathLineEdit->setText(settings.value("tarsnap/path", "").toString());
-    setTarsnapVersion(settings.value("tarsnap/version", "").toString());
+    _tarsnapVersion = settings.value("tarsnap/version", "").toString();
+    setTarsnapVersion(_tarsnapVersion);
     _ui->tarsnapCacheLineEdit->setText(settings.value("tarsnap/cache", "").toString());
     _ui->aggressiveNetworkingCheckBox->setChecked(settings.value("tarsnap/aggressive_networking", false).toBool());
     _ui->traverseMountCheckBox->setChecked(settings.value("tarsnap/traverse_mount", true).toBool());
@@ -509,17 +510,15 @@ void MainWindow::restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QSt
 
 void MainWindow::setTarsnapVersion(QString versionString)
 {
-    QSettings settings;
-    settings.setValue("tarsnap/version", versionString);
-    settings.sync();
-    if(versionString.isEmpty())
+    _tarsnapVersion = versionString;
+    if(_tarsnapVersion.isEmpty())
     {
         _ui->clientVersionLabel->clear();
         _ui->clientVersionLabel->hide();
     }
     else
     {
-        _ui->clientVersionLabel->setText(tr("Tarsnap version ") + versionString + tr(" detected"));
+        _ui->clientVersionLabel->setText(tr("Tarsnap version ") + _tarsnapVersion + tr(" detected"));
         _ui->clientVersionLabel->show();
     }
 }
@@ -649,6 +648,7 @@ void MainWindow::commitSettings()
     DEBUG << "COMMIT SETTINGS";
     QSettings settings;
     settings.setValue("tarsnap/path",    _ui->tarsnapPathLineEdit->text());
+    settings.setValue("tarsnap/version", _tarsnapVersion);
     settings.setValue("tarsnap/cache",   _ui->tarsnapCacheLineEdit->text());
     settings.setValue("tarsnap/key",     _ui->accountMachineKeyLineEdit->text());
     settings.setValue("tarsnap/machine", _ui->accountMachineLineEdit->text());

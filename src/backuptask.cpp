@@ -4,7 +4,8 @@
 
 #define MB 1048576
 
-BackupTask::BackupTask():_uuid(QUuid::createUuid()), _optionPreservePaths(true),
+BackupTask::BackupTask():_uuid(QUuid::createUuid()),
+    _timestamp(QDateTime::currentDateTime()), _optionPreservePaths(true),
     _optionTraverseMount(true), _optionFollowSymLinks(false),
     _optionSkipFilesSize(0), _optionSkipSystem(false),
     _optionSkipSystemFiles(),_status(TaskStatus::Initialized)
@@ -16,11 +17,6 @@ BackupTask::BackupTask():_uuid(QUuid::createUuid()), _optionPreservePaths(true),
     setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toLongLong());
     setOptionSkipSystem(settings.value("app/skip_system_enabled", false).toBool());
     setOptionSkipSystemFiles(settings.value("app/skip_system_files", "").toString());
-}
-
-BackupTask::~BackupTask()
-{
-
 }
 
 bool BackupTask::optionPreservePaths() const

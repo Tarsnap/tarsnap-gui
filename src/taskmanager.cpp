@@ -96,6 +96,10 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--one-file-system";
     if(backupTask->optionFollowSymLinks())
         args << "-L";
+    QRegExp versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
+    if((-1 != versionRx.indexIn(_tarsnapVersion))
+       && (versionRx.cap(0) >= "1.0.36"))
+        args << "--creationtime" << QString::number(backupTask->timestamp().toTime_t());
     args << "--quiet" << "--print-stats" << "--no-humanize-numbers" << "-c"
          << "-f" << backupTask->name();
     foreach (QString exclude, backupTask->getExcludesList())
@@ -356,8 +360,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
         ArchivePtr archive(new Archive);
         archive->setName(backupTask->name());
         archive->setCommand(qobject_cast<TarsnapClient*>(sender())->command() + " " + qobject_cast<TarsnapClient*>(sender())->arguments().join(" "));
-        //TODO: set timestamp to tarsnap timestamp when possible
-        archive->setTimestamp(QDateTime::currentDateTime());
+        archive->setTimestamp(backupTask->timestamp());
         archive->setJobRef(backupTask->jobRef());
         parseArchiveStats(output, true, archive);
         backupTask->setArchive(archive);
@@ -417,14 +420,11 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode, QString ou
                 }
                 else if(archive->timestamp() != timestamp)
                 {
-                    //TODO: Remove jobRef carryon when I have a way of getting a tarsnap timestamp
-                    //precisely after a backup has completed
-                    QString jobRef = archive->jobRef();
+                    // There is a different archive with the same name on the remote
                     archive->purge();
                     archive.clear();
                     archive = archive.create();
                     archive->setName(archiveDetails[0]);
-                    archive->setJobRef(jobRef);
                     update = true;
                 }
                 if(update)

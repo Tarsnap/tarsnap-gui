@@ -17,10 +17,13 @@ class BackupTask: public QObject
 
 public:
     BackupTask();
-    ~BackupTask();
+    ~BackupTask(){}
 
     QUuid uuid() const {return _uuid;}
     void setUuid(const QUuid &uuid) {_uuid = uuid;}
+
+    QDateTime timestamp() const {return _timestamp;}
+    void updateTimestamp() {_timestamp = QDateTime::currentDateTime();}
 
     QList<QUrl> urls() const {return _urls;}
     void setUrls(const QList<QUrl> &urls) {_urls = urls;}
@@ -69,6 +72,7 @@ signals:
 
 private:
     QUuid                 _uuid;
+    QDateTime             _timestamp;
     QString               _jobRef;
     QList<QUrl>           _urls;
     QString               _name;

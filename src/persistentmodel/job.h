@@ -23,6 +23,8 @@ public:
     QString name() const;
     void setName(const QString &name);
 
+    QString archivePrefix();
+
     QList<QUrl> urls() const;
     void setUrls(const QList<QUrl> &urls);
 

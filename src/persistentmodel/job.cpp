@@ -28,6 +28,11 @@ void Job::setName(const QString &name)
     _name = name;
 }
 
+QString Job::archivePrefix()
+{
+    return JOB_NAME_PREFIX + JOB_NAME_SEPARATOR + name() + JOB_NAME_SEPARATOR;
+}
+
 QList<QUrl> Job::urls() const
 {
     return _urls;

@@ -363,13 +363,14 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
         archive->setTimestamp(backupTask->timestamp());
         archive->setJobRef(backupTask->jobRef());
         parseArchiveStats(output, true, archive);
-        foreach (JobPtr job, _jobMap) {
-            if(job->objectKey() == archive->jobRef())
-                emit job->loadArchives();
-        }
         backupTask->setArchive(archive);
         backupTask->setStatus(TaskStatus::Completed);
         _archiveMap.insert(archive->name(), archive);
+        foreach (JobPtr job, _jobMap)
+        {
+            if(job->objectKey() == archive->jobRef())
+                emit job->loadArchives();
+        }
         emit archiveList(_archiveMap.values());
         parseGlobalStats(output);
     }
@@ -433,9 +434,18 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode, QString ou
                 }
                 if(update)
                 {
+                    // New archive
                     archive->setTimestamp(timestamp);
                     archive->setCommand(archiveDetails[2]);
                     archive->save();
+                    // Automagically set Job ownership
+                    foreach (JobPtr job, _jobMap)
+                    {
+                        if(archive->name().startsWith(job->archivePrefix()))
+                        {
+                            archive->setJobRef(job->objectKey());
+                        }
+                    }
                     getArchiveStats(archive);
                 }
                 _newArchiveMap.insert(archive->name(), archive);
@@ -449,6 +459,10 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode, QString ou
         }
         _archiveMap.clear();
         _archiveMap = _newArchiveMap;
+        foreach (JobPtr job, _jobMap)
+        {
+            emit job->loadArchives();
+        }
         emit archiveList(_archiveMap.values(), true);
         getOverallStats();
     }

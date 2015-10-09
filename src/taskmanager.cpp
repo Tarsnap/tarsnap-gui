@@ -363,6 +363,10 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
         archive->setTimestamp(backupTask->timestamp());
         archive->setJobRef(backupTask->jobRef());
         parseArchiveStats(output, true, archive);
+        foreach (JobPtr job, _jobMap) {
+            if(job->objectKey() == archive->jobRef())
+                emit job->loadArchives();
+        }
         backupTask->setArchive(archive);
         backupTask->setStatus(TaskStatus::Completed);
         _archiveMap.insert(archive->name(), archive);

@@ -204,6 +204,10 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)));
     connect(_ui->archiveListWidget, SIGNAL(displayJobDetails(QString)),
             _ui->jobListWidget, SLOT(selectJobByRef(QString)));
+    connect(_ui->archiveJobLabel, &TextLabel::clicked,
+            [=](){
+                _ui->jobListWidget->selectJobByRef(_currentArchiveDetail->jobRef());
+            });
 
     // Jobs
     connect(_ui->addJobButton, SIGNAL(clicked()), this, SLOT(addJobClicked()), Qt::QueuedConnection);
@@ -867,7 +871,6 @@ void MainWindow::downloadsDirBrowseButtonClicked()
 
 void MainWindow::displayJobDetails(JobPtr job)
 {
-    _ui->jobListWidget->scrollToItem(_ui->jobListWidget->currentItem(), QAbstractItemView::EnsureVisible);
     hideJobDetails();
     _ui->jobDetailsWidget->setJob(job);
     _ui->jobDetailsWidget->show();

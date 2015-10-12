@@ -87,14 +87,14 @@ MainWindow::MainWindow(QWidget *parent) :
     // --
 
     connect(&Debug::instance(), SIGNAL(message(QString)), this , SLOT(appendToConsoleLog(QString))
-            , Qt::QueuedConnection);
+            , QUEUED);
 
     // Ui actions setup
     _ui->archiveListWidget->addAction(_ui->actionRefresh);
-    connect(_ui->actionRefresh, SIGNAL(triggered()), this , SIGNAL(loadArchives()), Qt::QueuedConnection);
+    connect(_ui->actionRefresh, SIGNAL(triggered()), this , SIGNAL(loadArchives()), QUEUED);
     _ui->backupListWidget->addAction(_ui->actionClearList);
     connect(_ui->actionClearList, SIGNAL(triggered()), _ui->backupListWidget
-            , SLOT(clear()), Qt::QueuedConnection);
+            , SLOT(clear()), QUEUED);
     _ui->backupListWidget->addAction(_ui->actionBrowseItems);
     connect(_ui->actionBrowseItems, SIGNAL(triggered()), this, SLOT(browseForBackupItems()));
     _ui->settingsTab->addAction(_ui->actionRefreshAccount);
@@ -210,19 +210,19 @@ MainWindow::MainWindow(QWidget *parent) :
             });
 
     // Jobs
-    connect(_ui->addJobButton, SIGNAL(clicked()), this, SLOT(addJobClicked()), Qt::QueuedConnection);
-    connect(_ui->jobDetailsWidget, SIGNAL(cancel()), this, SLOT(hideJobDetails()), Qt::QueuedConnection);
-    connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(addJob(JobPtr)), Qt::QueuedConnection);
-    connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(selectJob(JobPtr)), Qt::QueuedConnection);
-    connect(_ui->jobDetailsWidget, SIGNAL(inspectJobArchive(ArchivePtr)), this, SLOT(displayInspectArchive(ArchivePtr)), Qt::QueuedConnection);
-    connect(_ui->jobDetailsWidget, SIGNAL(restoreJobArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), Qt::QueuedConnection);
-    connect(_ui->jobDetailsWidget, SIGNAL(deleteJobArchives(QList<ArchivePtr>)), this, SIGNAL(deleteArchives(QList<ArchivePtr>)), Qt::QueuedConnection);
-    connect(_ui->jobDetailsWidget, SIGNAL(enableSave(bool)), _ui->addJobButton, SLOT(setEnabled(bool)), Qt::QueuedConnection);
-    connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), Qt::QueuedConnection);
-    connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), Qt::QueuedConnection);
-    connect(_ui->jobListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), Qt::QueuedConnection);
-    connect(_ui->jobListWidget, SIGNAL(deleteJob(JobPtr,bool)), this, SIGNAL(deleteJob(JobPtr,bool)), Qt::QueuedConnection);
-    connect(this, SIGNAL(jobsList(QMap<QString,JobPtr>)), _ui->jobListWidget, SLOT(addJobs(QMap<QString,JobPtr>)), Qt::QueuedConnection);
+    connect(_ui->addJobButton, SIGNAL(clicked()), this, SLOT(addJobClicked()), QUEUED);
+    connect(_ui->jobDetailsWidget, SIGNAL(cancel()), this, SLOT(hideJobDetails()), QUEUED);
+    connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(addJob(JobPtr)), QUEUED);
+    connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(selectJob(JobPtr)), QUEUED);
+    connect(_ui->jobDetailsWidget, SIGNAL(inspectJobArchive(ArchivePtr)), this, SLOT(displayInspectArchive(ArchivePtr)), QUEUED);
+    connect(_ui->jobDetailsWidget, SIGNAL(restoreJobArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), QUEUED);
+    connect(_ui->jobDetailsWidget, SIGNAL(deleteJobArchives(QList<ArchivePtr>)), this, SIGNAL(deleteArchives(QList<ArchivePtr>)), QUEUED);
+    connect(_ui->jobDetailsWidget, SIGNAL(enableSave(bool)), _ui->addJobButton, SLOT(setEnabled(bool)), QUEUED);
+    connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), QUEUED);
+    connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), QUEUED);
+    connect(_ui->jobListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), QUEUED);
+    connect(_ui->jobListWidget, SIGNAL(deleteJob(JobPtr,bool)), this, SIGNAL(deleteJob(JobPtr,bool)), QUEUED);
+    connect(this, SIGNAL(jobsList(QMap<QString,JobPtr>)), _ui->jobListWidget, SLOT(addJobs(QMap<QString,JobPtr>)), QUEUED);
 
     _ui->jobListWidget->addAction(_ui->actionAddJob);
     connect(_ui->actionAddJob, SIGNAL(triggered()), this, SLOT(addJobClicked()));
@@ -272,7 +272,7 @@ MainWindow::MainWindow(QWidget *parent) :
             });
     connect(_ui->jobListWidget, &JobListWidget::backupJob,
             [=](BackupTaskPtr backup){
-                connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
+                connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
             });
     connect(_ui->jobListWidget, &JobListWidget::deleteJob,
             [=](JobPtr job, bool purgeArchives){
@@ -607,7 +607,7 @@ void MainWindow::backupButtonClicked()
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
     connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this,
-            SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
+            SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
     emit backupNow(backup);
     _ui->appendTimestampCheckBox->setChecked(false);
 }
@@ -752,7 +752,7 @@ void MainWindow::browseForBackupItems()
     FilePickerDialog picker;
     if(picker.exec())
         QMetaObject::invokeMethod(_ui->backupListWidget, "addItemsWithUrls"
-                                  , Qt::QueuedConnection, Q_ARG(QList<QUrl>
+                                  , QUEUED, Q_ARG(QList<QUrl>
                                   , picker.getSelectedUrls()));
 }
 

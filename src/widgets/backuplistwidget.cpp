@@ -1,6 +1,7 @@
 #include "backuplistwidget.h"
 #include "backuplistitem.h"
 #include "debug.h"
+#include "utils.h"
 
 #include <QDropEvent>
 #include <QMimeData>
@@ -19,7 +20,7 @@ BackupListWidget::BackupListWidget(QWidget *parent):
             urllist << QUrl::fromUserInput(url);
         if(!urllist.isEmpty())
             QMetaObject::invokeMethod(this, "addItemsWithUrls"
-                                      , Qt::QueuedConnection, Q_ARG(QList<QUrl>, urllist));
+                                      , QUEUED, Q_ARG(QList<QUrl>, urllist));
     }
     connect(this, &QListWidget::itemActivated,
             [=](QListWidgetItem *item)

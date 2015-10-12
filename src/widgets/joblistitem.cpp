@@ -14,11 +14,11 @@ JobListItem::JobListItem(JobPtr job):
     _widget.addAction(_ui.actionDelete);
     _ui.inspectButton->setDefaultAction(_ui.actionInspect);
     _ui.restoreButton->setDefaultAction(_ui.actionRestore);
-    connect(_ui.backupButton, SIGNAL(clicked()), _ui.actionBackup, SIGNAL(triggered()), Qt::QueuedConnection);
-    connect(_ui.actionBackup, SIGNAL(triggered()), this, SIGNAL(requestBackup()), Qt::QueuedConnection);
-    connect(_ui.actionInspect, SIGNAL(triggered()), this, SIGNAL(requestInspect()), Qt::QueuedConnection);
-    connect(_ui.actionRestore, SIGNAL(triggered()), this, SIGNAL(requestRestore()), Qt::QueuedConnection);
-    connect(_ui.actionDelete, SIGNAL(triggered()), this, SIGNAL(requestDelete()), Qt::QueuedConnection);
+    connect(_ui.backupButton, SIGNAL(clicked()), _ui.actionBackup, SIGNAL(triggered()), QUEUED);
+    connect(_ui.actionBackup, SIGNAL(triggered()), this, SIGNAL(requestBackup()), QUEUED);
+    connect(_ui.actionInspect, SIGNAL(triggered()), this, SIGNAL(requestInspect()), QUEUED);
+    connect(_ui.actionRestore, SIGNAL(triggered()), this, SIGNAL(requestRestore()), QUEUED);
+    connect(_ui.actionDelete, SIGNAL(triggered()), this, SIGNAL(requestDelete()), QUEUED);
 
     setJob(job);
 }
@@ -41,7 +41,7 @@ void JobListItem::setJob(const JobPtr &job)
 {
     _job = job;
 
-    connect(_job.data(), SIGNAL(changed()), this, SLOT(update()), Qt::QueuedConnection);
+    connect(_job.data(), SIGNAL(changed()), this, SLOT(update()), QUEUED);
 
     _ui.nameLabel->setText(_job->name());
     if(_job->archives().isEmpty())

@@ -1,5 +1,6 @@
 #include "job.h"
 #include "debug.h"
+#include "utils.h"
 
 /*TODO: These could be turned into a user setting */
 #define JOB_NAME_PREFIX    QLatin1String("Job")
@@ -55,7 +56,7 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
     std::sort(_archives.begin(), _archives.end(), ArchiveCompare);
     foreach(ArchivePtr archive, _archives)
     {
-        connect(archive.data(), SIGNAL(purged()), this, SIGNAL(loadArchives()), Qt::QueuedConnection);
+        connect(archive.data(), SIGNAL(purged()), this, SIGNAL(loadArchives()), QUEUED);
     }
     emit changed();
 }
@@ -142,7 +143,7 @@ BackupTaskPtr Job::createBackupTask()
     backup->setOptionSkipFilesSize(optionSkipFilesSize());
     backup->setOptionSkipSystem(optionSkipFiles());
     backup->setOptionSkipSystemFiles(optionSkipFilesPatterns());
-    connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
+    connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
     return backup;
 }
 
@@ -295,7 +296,7 @@ bool Job::findObjectWithKey(QString key)
 //            archive->load();
 //            if(!archive->objectKey().isEmpty())
 //            {
-//                connect(archive.data(), SIGNAL(purged()), this, SLOT(loadArchives()), Qt::QueuedConnection);
+//                connect(archive.data(), SIGNAL(purged()), this, SLOT(loadArchives()), QUEUED);
 //                archives << archive;
 //            }
 //        }while(query.next());

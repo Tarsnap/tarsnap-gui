@@ -21,6 +21,7 @@
 #define DEFAULT_SKIP_FILES ""
 #endif
 
+#define QUEUED Qt::QueuedConnection
 
 namespace Utils
 {

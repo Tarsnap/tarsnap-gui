@@ -34,7 +34,7 @@ BackupListWidget::~BackupListWidget()
     QStringList urls;
     for(int i = 0; i < this->count(); ++i)
     {
-        BackupListItem *backupItem = dynamic_cast<BackupListItem*>(item(i));
+        BackupListItem *backupItem = static_cast<BackupListItem*>(item(i));
         urls << backupItem->url().toString(QUrl::FullyEncoded);
     }
     settings.setValue("app/backup_list", urls);
@@ -101,7 +101,7 @@ void BackupListWidget::recomputeListTotals()
     quint64 size = 0;
     for(int i = 0; i < this->count(); ++i)
     {
-        BackupListItem *backupItem = dynamic_cast<BackupListItem*>(item(i));
+        BackupListItem *backupItem = static_cast<BackupListItem*>(item(i));
         if(backupItem && (backupItem->count() != 0))
         {
             count += backupItem->count();

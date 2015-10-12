@@ -65,11 +65,11 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
                                                   QString(QUrl::toPercentEncoding(machineId)));
             QNetworkReply *machineActivityReply = tarsnapRequest(machineActivity);
             connect(machineActivityReply, &QNetworkReply::finished,
-                    [=]() {
-                    QByteArray replyData = readReply(machineActivityReply);
-                    parseLastMachineActivity(replyData);
-                    if(displayMachineActivity)
-                        displayCSVTable(replyData);
+            [=]() {
+                QByteArray replyData = readReply(machineActivityReply);
+                parseLastMachineActivity(replyData);
+                if(displayMachineActivity)
+                    displayCSVTable(replyData);
             });
         });
     }

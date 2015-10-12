@@ -96,7 +96,7 @@ bool PersistentStore::init()
         }
         // Work around the fact that QFile::copy from the resource system does not set u+w on the resulted file
         QFile dbFile(dbUrl);
-        dbFile.setPermissions(dbFile.permissions()|QFileDevice::WriteOwner);
+        dbFile.setPermissions(dbFile.permissions() | QFileDevice::WriteOwner);
         dbFile.close();
         if (!_db.open())
         {

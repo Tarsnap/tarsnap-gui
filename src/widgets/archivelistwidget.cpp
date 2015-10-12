@@ -13,13 +13,13 @@ ArchiveListWidget::ArchiveListWidget(QWidget *parent):
     QListWidget(parent)
 {
     connect(this, &QListWidget::itemActivated,
-            [=](QListWidgetItem* item)
-            {
-                if(item)
-                {
-                    emit inspectArchive(static_cast<ArchiveListItem*>(item)->archive());
-                }
-            });
+    [=](QListWidgetItem * item)
+    {
+        if(item)
+        {
+            emit inspectArchive(static_cast<ArchiveListItem*>(item)->archive());
+        }
+    });
 }
 
 ArchiveListWidget::~ArchiveListWidget()
@@ -53,8 +53,8 @@ void ArchiveListWidget::removeItems()
         {
             ArchivePtr archive = archiveItem->archive();
             auto button = QMessageBox::question(this, tr("Confirm delete"),
-                          tr("Are you sure you want to delete archive %1 (this cannot be undone)?")
-                          .arg(archive->name()));
+                                                tr("Are you sure you want to delete archive %1 (this cannot be undone)?")
+                                                .arg(archive->name()));
             if(button == QMessageBox::Yes)
             {
                 QList<ArchivePtr> archiveList;
@@ -68,8 +68,8 @@ void ArchiveListWidget::removeItems()
         // remove selected items
         int selectedItemsCount = this->selectedItems().count();
         auto button = QMessageBox::question(this, tr("Confirm delete"),
-                      tr("Are you sure you want to delete %1 selected archives (this cannot be undone)?")
-                      .arg(selectedItemsCount));
+                                            tr("Are you sure you want to delete %1 selected archives (this cannot be undone)?")
+                                            .arg(selectedItemsCount));
         if(button == QMessageBox::Yes)
         {
             // Some more deletion confirmation, if count of archives to be removed

@@ -7,8 +7,8 @@
 #include <QSettings>
 
 TaskManager::TaskManager(QObject *parent) : QObject()
-  , _threadPool(QThreadPool::globalInstance()), _aggressiveNetworking(false)
-  , _preservePathnames(true), _headless(false)
+    , _threadPool(QThreadPool::globalInstance()), _aggressiveNetworking(false)
+    , _preservePathnames(true), _headless(false)
 {
     Q_UNUSED(parent);
     // Move the operations belonging to the Task manager to a separate thread
@@ -42,8 +42,8 @@ void TaskManager::getTarsnapVersion(QString tarsnapPath)
     TarsnapClient *tarsnap = new TarsnapClient();
     tarsnap->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
     tarsnap->setArguments(QStringList("--version"));
-    connect(tarsnap, SIGNAL(finished(QVariant,int,QString))
-            , this, SLOT(getTarsnapVersionFinished(QVariant,int,QString))
+    connect(tarsnap, SIGNAL(finished(QVariant, int, QString))
+            , this, SLOT(getTarsnapVersionFinished(QVariant, int, QString))
             , QUEUED);
     queueTask(tarsnap);
 }
@@ -56,21 +56,21 @@ void TaskManager::registerMachine(QString user, QString password, QString machin
     if(keyFile.exists())
     {
         // existing key, just check with a tarsnap --print-stats command
-        args << "--fsck"<< "--keyfile"<< key << "--cachedir" << cachePath;
+        args << "--fsck" << "--keyfile" << key << "--cachedir" << cachePath;
         registerClient->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
         registerClient->setArguments(args);
     }
     else
     {
         // register machine with tarsnap-keygen
-        args << "--user" << user << "--machine" << machine << "--keyfile"<< key;
+        args << "--user" << user << "--machine" << machine << "--keyfile" << key;
         registerClient->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAPKEYGEN);
         registerClient->setArguments(args);
         registerClient->setPassword(password);
         registerClient->setRequiresPassword(true);
     }
-    connect(registerClient, SIGNAL(finished(QVariant,int,QString))
-            , this, SLOT(registerMachineFinished(QVariant,int,QString)), QUEUED);
+    connect(registerClient, SIGNAL(finished(QVariant, int, QString))
+            , this, SLOT(registerMachineFinished(QVariant, int, QString)), QUEUED);
     queueTask(registerClient);
 }
 
@@ -97,8 +97,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     if(backupTask->optionFollowSymLinks())
         args << "-L";
     QRegExp versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
-    if((-1 != versionRx.indexIn(_tarsnapVersion))
-       && (versionRx.cap(0) >= "1.0.36"))
+    if((-1 != versionRx.indexIn(_tarsnapVersion)) && (versionRx.cap(0) >= "1.0.36"))
         args << "--creationtime" << QString::number(backupTask->timestamp().toTime_t());
     args << "--quiet" << "--print-stats" << "--no-humanize-numbers" << "-c"
          << "-f" << backupTask->name();
@@ -113,8 +112,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     backupClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     backupClient->setArguments(args);
     backupClient->setData(backupTask->uuid());
-    connect(backupClient, SIGNAL(finished(QVariant,int,QString)), this,
-            SLOT(backupTaskFinished(QVariant,int,QString)), QUEUED);
+    connect(backupClient, SIGNAL(finished(QVariant, int, QString)), this,
+            SLOT(backupTaskFinished(QVariant, int, QString)), QUEUED);
     connect(backupClient, SIGNAL(started(QVariant)), this,
             SLOT(backupTaskStarted(QVariant)), QUEUED);
     backupTask->setStatus(TaskStatus::Queued);
@@ -145,7 +144,7 @@ void TaskManager::loadArchives()
             archive->setName(query.value(query.record().indexOf("name")).toString());
             archive->load();
             _archiveMap[archive->name()] = archive;
-        }while(query.next());
+        } while(query.next());
     }
     emit archiveList(_archiveMap.values());
 
@@ -159,8 +158,8 @@ void TaskManager::loadArchives()
     args << "--list-archives" << "-vv";
     listArchivesClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     listArchivesClient->setArguments(args);
-    connect(listArchivesClient, SIGNAL(finished(QVariant,int,QString))
-            , this, SLOT(getArchiveListFinished(QVariant,int,QString)), QUEUED);
+    connect(listArchivesClient, SIGNAL(finished(QVariant, int, QString))
+            , this, SLOT(getArchiveListFinished(QVariant, int, QString)), QUEUED);
     queueTask(listArchivesClient);
 }
 
@@ -184,8 +183,8 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
     statsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     statsClient->setArguments(args);
     statsClient->setData(archive->name());
-    connect(statsClient, SIGNAL(finished(QVariant,int,QString)), this
-            , SLOT(getArchiveStatsFinished(QVariant,int,QString)), QUEUED);
+    connect(statsClient, SIGNAL(finished(QVariant, int, QString)), this
+            , SLOT(getArchiveStatsFinished(QVariant, int, QString)), QUEUED);
     queueTask(statsClient);
 }
 
@@ -211,8 +210,8 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     contentsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     contentsClient->setArguments(args);
     contentsClient->setData(archive->name());
-    connect(contentsClient, SIGNAL(finished(QVariant,int,QString))
-            , this, SLOT(getArchiveContentsFinished(QVariant,int,QString)), QUEUED);
+    connect(contentsClient, SIGNAL(finished(QVariant, int, QString))
+            , this, SLOT(getArchiveContentsFinished(QVariant, int, QString)), QUEUED);
     queueTask(contentsClient);
 }
 
@@ -238,8 +237,8 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     delArchives->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     delArchives->setArguments(args);
     delArchives->setData(QVariant::fromValue(archives));
-    connect(delArchives, SIGNAL(finished(QVariant,int,QString))
-            , this, SLOT(deleteArchivesFinished(QVariant,int,QString)), QUEUED);
+    connect(delArchives, SIGNAL(finished(QVariant, int, QString))
+            , this, SLOT(deleteArchivesFinished(QVariant, int, QString)), QUEUED);
     queueTask(delArchives, true);
 }
 
@@ -254,8 +253,8 @@ void TaskManager::getOverallStats()
     args << "--print-stats" << "--no-humanize-numbers";
     overallStats->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     overallStats->setArguments(args);
-    connect(overallStats, SIGNAL(finished(QVariant,int,QString))
-            , this, SLOT(overallStatsFinished(QVariant,int,QString)), QUEUED);
+    connect(overallStats, SIGNAL(finished(QVariant, int, QString))
+            , this, SLOT(overallStatsFinished(QVariant, int, QString)), QUEUED);
     queueTask(overallStats);
 }
 
@@ -270,8 +269,8 @@ void TaskManager::fsck()
     args << "--fsck-prune";
     fsck->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     fsck->setArguments(args);
-    connect(fsck, SIGNAL(finished(QVariant,int,QString)), this
-            , SLOT(fsckFinished(QVariant,int,QString)), QUEUED);
+    connect(fsck, SIGNAL(finished(QVariant, int, QString)), this
+            , SLOT(fsckFinished(QVariant, int, QString)), QUEUED);
     queueTask(fsck, true);
 }
 
@@ -288,8 +287,8 @@ void TaskManager::nuke()
     nuke->setPassword("No Tomorrow");
     nuke->setRequiresPassword(true);
     nuke->setArguments(args);
-    connect(nuke, SIGNAL(finished(QVariant,int,QString)), this
-            , SLOT(nukeFinished(QVariant,int,QString)), QUEUED);
+    connect(nuke, SIGNAL(finished(QVariant, int, QString)), this
+            , SLOT(nukeFinished(QVariant, int, QString)), QUEUED);
     queueTask(nuke, true);
 }
 
@@ -319,8 +318,8 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     restore->setArguments(args);
     restore->setData(archive->name());
-    connect(restore, SIGNAL(finished(QVariant,int,QString)), this
-            , SLOT(restoreArchiveFinished(QVariant,int,QString)), QUEUED);
+    connect(restore, SIGNAL(finished(QVariant, int, QString)), this
+            , SLOT(restoreArchiveFinished(QVariant, int, QString)), QUEUED);
     queueTask(restore);
 }
 
@@ -716,7 +715,7 @@ void TaskManager::loadJobs()
             connect(job.data(), SIGNAL(loadArchives()), this, SLOT(loadJobArchives()), QUEUED);
             job->load();
             _jobMap[job->name()] = job;
-        }while(query.next());
+        } while(query.next());
     }
     emit jobsList(_jobMap);
 }

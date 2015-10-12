@@ -13,17 +13,17 @@ JobWidget::JobWidget(QWidget *parent) :
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
-            [=](){
-                    if(_job->objectKey().isEmpty())
-                        emit enableSave(canSaveNew());
-            });
+    [=]() {
+        if(_job->objectKey().isEmpty())
+            emit enableSave(canSaveNew());
+    });
     connect(_ui->jobTreeWidget, &FilePicker::selectionChanged,
-            [=](){
-                    if(_job->objectKey().isEmpty())
-                        emit enableSave(canSaveNew());
-                    else
-                        save();
-            });
+    [=]() {
+        if(_job->objectKey().isEmpty())
+            emit enableSave(canSaveNew());
+        else
+            save();
+    });
 //    connect(_ui->jobTreeWidget, &FilePicker::focusLost,
 //            [=](){
 //                    if(!_job->objectKey().isEmpty())
@@ -38,15 +38,20 @@ JobWidget::JobWidget(QWidget *parent) :
     connect(_ui->skipFilesCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
     connect(_ui->skipFilesLineEdit, SIGNAL(editingFinished()), this, SLOT(save()));
     connect(_ui->cancelButton, SIGNAL(clicked()), this, SIGNAL(cancel()));
-    connect(_ui->restoreLatestArchiveButton, SIGNAL(clicked()), this, SLOT(restoreLatestArchive()));
-    connect(_ui->archiveListWidget, SIGNAL(inspectArchive(ArchivePtr)), this, SIGNAL(inspectJobArchive(ArchivePtr)));
-    connect(_ui->archiveListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreJobArchive(ArchivePtr,ArchiveRestoreOptions)));
-    connect(_ui->archiveListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this, SIGNAL(deleteJobArchives(QList<ArchivePtr>)));
+    connect(_ui->restoreLatestArchiveButton, SIGNAL(clicked()), this,
+            SLOT(restoreLatestArchive()));
+    connect(_ui->archiveListWidget, SIGNAL(inspectArchive(ArchivePtr)), this,
+            SIGNAL(inspectJobArchive(ArchivePtr)));
+    connect(_ui->archiveListWidget, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions)),
+            this, SIGNAL(restoreJobArchive(ArchivePtr, ArchiveRestoreOptions)));
+    connect(_ui->archiveListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)),
+            this, SIGNAL(deleteJobArchives(QList<ArchivePtr>)));
     connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked,
-            [=](){
-                QSettings settings;
-                _ui->skipFilesLineEdit->setText(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
-            });
+    [=]() {
+        QSettings settings;
+        _ui->skipFilesLineEdit->setText(settings.value("app/skip_system_files",
+                                                       DEFAULT_SKIP_FILES).toString());
+    });
 }
 
 JobWidget::~JobWidget()

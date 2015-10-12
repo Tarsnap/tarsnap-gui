@@ -58,9 +58,9 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutUi.versionLabel->setText(tr("version ") + QCoreApplication::applicationVersion());
     _aboutWindow.setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint);
     connect(aboutUi.checkUpdateButton, &QPushButton::clicked,
-            [=](){
-                QDesktopServices::openUrl(QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
-            });
+    [=]() {
+        QDesktopServices::openUrl(QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
+    });
 
     if(_menuBar.isNativeMenuBar())
     {
@@ -86,8 +86,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&_purgeTimer, SIGNAL(timeout()), this, SLOT(purgeTimerFired()));
     // --
 
-    connect(&Debug::instance(), SIGNAL(message(QString)), this , SLOT(appendToConsoleLog(QString))
-            , QUEUED);
+    connect(&Debug::instance(), SIGNAL(message(QString)), this,
+            SLOT(appendToConsoleLog(QString)), QUEUED);
 
     // Ui actions setup
     _ui->archiveListWidget->addAction(_ui->actionRefresh);
@@ -100,12 +100,11 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->settingsTab->addAction(_ui->actionRefreshAccount);
     connect(_ui->actionRefreshAccount, SIGNAL(triggered()), this, SIGNAL(getOverallStats()));
     connect(_ui->actionRefreshAccount, &QAction::triggered,
-            [=](){
-                _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
-                _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
-                _tarsnapAccount.getAccountInfo();
-            }
-            );
+    [=]() {
+        _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+        _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
+        _tarsnapAccount.getAccountInfo();
+    });
     this->addAction(_ui->actionGoBackup);
     this->addAction(_ui->actionGoBrowse);
     this->addAction(_ui->actionGoJobs);
@@ -113,25 +112,25 @@ MainWindow::MainWindow(QWidget *parent) :
     this->addAction(_ui->actionGoHelp);
     this->addAction(_ui->actionShowJournal);
     connect(_ui->actionGoBackup, &QAction::triggered,
-            [=](){
-                _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
-            });
+    [=]() {
+        _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
+    });
     connect(_ui->actionGoBrowse, &QAction::triggered,
-            [=](){
-                _ui->mainTabWidget->setCurrentWidget(_ui->archivesTab);
-            });
+    [=]() {
+        _ui->mainTabWidget->setCurrentWidget(_ui->archivesTab);
+    });
     connect(_ui->actionGoJobs, &QAction::triggered,
-            [=](){
-                _ui->mainTabWidget->setCurrentWidget(_ui->jobsTab);
-            });
+    [=]() {
+        _ui->mainTabWidget->setCurrentWidget(_ui->jobsTab);
+    });
     connect(_ui->actionGoSettings, &QAction::triggered,
-            [=](){
-                _ui->mainTabWidget->setCurrentWidget(_ui->settingsTab);
-            });
+    [=]() {
+        _ui->mainTabWidget->setCurrentWidget(_ui->settingsTab);
+    });
     connect(_ui->actionGoHelp, &QAction::triggered,
-            [=](){
-                _ui->mainTabWidget->setCurrentWidget(_ui->helpTab);
-            });
+    [=]() {
+        _ui->mainTabWidget->setCurrentWidget(_ui->helpTab);
+    });
     connect(_ui->actionShowJournal, SIGNAL(triggered()), _ui->expandJournalButton, SLOT(click()));
 
     connect(_ui->backupListInfoLabel, SIGNAL(linkActivated(QString)), this,
@@ -169,27 +168,25 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->skipSystemJunkCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->skipSystemLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));;
     connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
-            [=](){
-                _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
-            });
+    [=]() {
+        _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
+    });
     connect(&_tarsnapAccount, SIGNAL(accountCredit(qreal, QDate)), this, SLOT(updateAccountCredit(qreal, QDate)));
     connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));
     connect(_ui->loginTarsnapButton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
     connect(_ui->accountUserLoginButtton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
     connect(_ui->accountActivityShowButton, &QPushButton::clicked,
-            [=](){
-                _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
-                _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
-                _tarsnapAccount.getAccountInfo(true, false);
-            }
-            );
+    [=]() {
+        _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+        _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
+        _tarsnapAccount.getAccountInfo(true, false);
+    });
     connect(_ui->machineActivityShowButton, &QPushButton::clicked,
-            [=](){
-                _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
-                _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
-                _tarsnapAccount.getAccountInfo(false, true);
-            }
-            );
+    [=]() {
+        _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
+        _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
+        _tarsnapAccount.getAccountInfo(false, true);
+    });
 
     // Backup and Archives
     connect(_ui->backupListWidget, SIGNAL(itemTotals(quint64,quint64)), this
@@ -205,9 +202,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->archiveListWidget, SIGNAL(displayJobDetails(QString)),
             _ui->jobListWidget, SLOT(selectJobByRef(QString)));
     connect(_ui->archiveJobLabel, &TextLabel::clicked,
-            [=](){
-                _ui->jobListWidget->selectJobByRef(_currentArchiveDetail->jobRef());
-            });
+    [=]() {
+        _ui->jobListWidget->selectJobByRef(_currentArchiveDetail->jobRef());
+    });
 
     // Jobs
     connect(_ui->addJobButton, SIGNAL(clicked()), this, SLOT(addJobClicked()), QUEUED);
@@ -215,14 +212,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(addJob(JobPtr)), QUEUED);
     connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(selectJob(JobPtr)), QUEUED);
     connect(_ui->jobDetailsWidget, SIGNAL(inspectJobArchive(ArchivePtr)), this, SLOT(displayInspectArchive(ArchivePtr)), QUEUED);
-    connect(_ui->jobDetailsWidget, SIGNAL(restoreJobArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), QUEUED);
+    connect(_ui->jobDetailsWidget, SIGNAL(restoreJobArchive(ArchivePtr, ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions)), QUEUED);
     connect(_ui->jobDetailsWidget, SIGNAL(deleteJobArchives(QList<ArchivePtr>)), this, SIGNAL(deleteArchives(QList<ArchivePtr>)), QUEUED);
     connect(_ui->jobDetailsWidget, SIGNAL(enableSave(bool)), _ui->addJobButton, SLOT(setEnabled(bool)), QUEUED);
     connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), QUEUED);
     connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), QUEUED);
-    connect(_ui->jobListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)), QUEUED);
-    connect(_ui->jobListWidget, SIGNAL(deleteJob(JobPtr,bool)), this, SIGNAL(deleteJob(JobPtr,bool)), QUEUED);
-    connect(this, SIGNAL(jobsList(QMap<QString,JobPtr>)), _ui->jobListWidget, SLOT(addJobs(QMap<QString,JobPtr>)), QUEUED);
+    connect(_ui->jobListWidget, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions)), QUEUED);
+    connect(_ui->jobListWidget, SIGNAL(deleteJob(JobPtr, bool)), this, SIGNAL(deleteJob(JobPtr, bool)), QUEUED);
+    connect(this, SIGNAL(jobsList(QMap<QString, JobPtr>)), _ui->jobListWidget, SLOT(addJobs(QMap<QString, JobPtr>)), QUEUED);
 
     _ui->jobListWidget->addAction(_ui->actionAddJob);
     connect(_ui->actionAddJob, SIGNAL(triggered()), this, SLOT(addJobClicked()));
@@ -235,64 +232,74 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //lambda slots to quickly update various UI components
     connect(this, &MainWindow::loadArchives,
-            [=](){updateStatusMessage(tr("Updating archives list from remote..."));});
+    [=]() {
+        updateStatusMessage(tr("Updating archives list from remote..."));
+    });
     connect(this, &MainWindow::archiveList,
-            [=](const QList<ArchivePtr> archives, bool fromRemote){
-                Q_UNUSED(archives);
-                if(fromRemote)
-                    updateStatusMessage(tr("Updating archives list from remote...done"));
-            });
+    [=](const QList<ArchivePtr> archives, bool fromRemote) {
+        Q_UNUSED(archives);
+        if(fromRemote)
+            updateStatusMessage(tr("Updating archives list from remote...done"));
+    });
     connect(this, &MainWindow::loadArchiveStats,
-            [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching details for archive <i>%1</i>.").arg(archive->name()));});
+    [=](const ArchivePtr archive) {
+        updateStatusMessage(tr("Fetching details for archive <i>%1</i>.").arg(archive->name()));
+    });
     connect(this, &MainWindow::loadArchiveContents,
-            [=](const ArchivePtr archive){updateStatusMessage(tr("Fetching contents for archive <i>%1</i>.").arg(archive->name()));});
+    [=](const ArchivePtr archive) {
+        updateStatusMessage(tr("Fetching contents for archive <i>%1</i>.").arg(archive->name()));
+    });
     connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives,
-            [=](const QList<ArchivePtr> archives){archivesDeleted(archives,false);});
+    [=](const QList<ArchivePtr> archives) {
+        archivesDeleted(archives,false);
+    });
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
-            [=](const QString text){
-                if(text.isEmpty())
-                {
-                    _ui->backupButton->setEnabled(false);
-                    _ui->appendTimestampCheckBox->setChecked(false);
-                }
-                else if(_ui->backupListWidget->count())
-                {
-                    _ui->backupButton->setEnabled(true);
-                }
-            });
+    [=](const QString text) {
+        if(text.isEmpty())
+        {
+            _ui->backupButton->setEnabled(false);
+            _ui->appendTimestampCheckBox->setChecked(false);
+        }
+        else if(_ui->backupListWidget->count())
+        {
+            _ui->backupButton->setEnabled(true);
+        }
+    });
     connect(this, &MainWindow::restoreArchive,
-            [=](const ArchivePtr archive){updateStatusMessage(tr("Restoring archive <i>%1</i>...").arg(archive->name()));});
+    [=](const ArchivePtr archive) {
+        updateStatusMessage(tr("Restoring archive <i>%1</i>...").arg(archive->name()));
+    });
     connect(_ui->downloadsDirLineEdit, &QLineEdit::textChanged,
-            [=](){
-                QFileInfo file(_ui->downloadsDirLineEdit->text());
-                if(file.exists() && file.isDir() && file.isWritable())
-                    _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
-                else
-                    _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
-            });
+    [=]() {
+        QFileInfo file(_ui->downloadsDirLineEdit->text());
+        if(file.exists() && file.isDir() && file.isWritable())
+            _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
+        else
+            _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
+    });
     connect(_ui->jobListWidget, &JobListWidget::backupJob,
-            [=](BackupTaskPtr backup){
-                connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
-            });
+    [=](BackupTaskPtr backup) {
+        connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
+    });
     connect(_ui->jobListWidget, &JobListWidget::deleteJob,
-            [=](JobPtr job, bool purgeArchives){
-                if(purgeArchives)
-                {
-                    updateStatusMessage(tr("Job <i>%1</i> deleted. Deleting %2 associated archives next...").arg(job->name()).arg(job->archives().count()));
-                }
-                else
-                {
-                    updateStatusMessage(tr("Job <i>%1</i> deleted.").arg(job->name()));
-                }
-            });
+    [=](JobPtr job, bool purgeArchives) {
+        if(purgeArchives)
+        {
+            updateStatusMessage(tr("Job <i>%1</i> deleted. Deleting %2 associated archives next...").arg(job->name()).arg(job->archives().count()));
+        }
+        else
+        {
+            updateStatusMessage(tr("Job <i>%1</i> deleted.").arg(job->name()));
+        }
+    });
     connect(_ui->jobDetailsWidget, &JobWidget::jobAdded,
-            [=](JobPtr job){
-                updateStatusMessage(tr("Job <i>%1</i> added.").arg(job->name()));
-            });
+    [=](JobPtr job) {
+        updateStatusMessage(tr("Job <i>%1</i> added.").arg(job->name()));
+    });
     connect(_ui->statusBarLabel, &TextLabel::clicked,
-            [=](){
-                _ui->expandJournalButton->setChecked(!_ui->expandJournalButton->isChecked());
-            });
+    [=]() {
+        _ui->expandJournalButton->setChecked(!_ui->expandJournalButton->isChecked());
+    });
 }
 
 MainWindow::~MainWindow()
@@ -353,7 +360,7 @@ void MainWindow::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
-    _tarsnapLogo.move(this->width()-_tarsnapLogo.width()-10,3);
+    _tarsnapLogo.move(this->width() - _tarsnapLogo.width() - 10, 3);
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
@@ -387,13 +394,19 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     {
     case Qt::Key_Escape:
         if((_ui->mainTabWidget->currentWidget() == _ui->archivesTab)
-           &&(_ui->archiveDetailsWidget->isVisible()))
+           && (_ui->archiveDetailsWidget->isVisible()))
+        {
             _ui->archiveDetailsWidget->hide();
+        }
         if((_ui->mainTabWidget->currentWidget() == _ui->jobsTab)
-           &&(_ui->jobDetailsWidget->isVisible()))
+           && (_ui->jobDetailsWidget->isVisible()))
+        {
             hideJobDetails();
+        }
         else if(_ui->journalLog->isVisible())
+        {
             _ui->expandJournalButton->toggle();
+        }
         break;
     default:
         QWidget::keyReleaseEvent(event);
@@ -406,8 +419,8 @@ void MainWindow::backupTaskUpdate(const TaskStatus& status)
     switch (status) {
     case TaskStatus::Completed:
         updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
-                            .arg(backupTask->name()).arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes))
-                            , backupTask->archive()->archiveStats());
+                            .arg(backupTask->name()).arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes)),
+                            backupTask->archive()->archiveStats());
         delete backupTask;
         break;
     case TaskStatus::Queued:
@@ -417,8 +430,8 @@ void MainWindow::backupTaskUpdate(const TaskStatus& status)
         updateStatusMessage(tr("Backup <i>%1</i> is running.").arg(backupTask->name()));
         break;
     case TaskStatus::Failed:
-        updateStatusMessage(tr("Backup <i>%1</i> failed: %2").arg(backupTask->name()).arg(backupTask->output().simplified())
-                           ,tr("%1").arg(backupTask->output()));
+        updateStatusMessage(tr("Backup <i>%1</i> failed: %2").arg(backupTask->name()).arg(backupTask->output().simplified()),
+                            tr("%1").arg(backupTask->output()));
         delete backupTask;
         break;
     case TaskStatus::Paused:
@@ -440,13 +453,13 @@ void MainWindow::archivesDeleted(QList<ArchivePtr> archives, bool done)
             detail.append(QString::fromLatin1(", ") + archive->name());
         }
         updateStatusMessage(tr("Deleting archive <i>%1</i> and %2 more archives...%3")
-                            .arg(archives.first()->name()).arg(archives.count()-1)
-                            .arg(done?"done":""), detail);
+                            .arg(archives.first()->name()).arg(archives.count() - 1)
+                            .arg(done ? "done" : ""), detail);
     }
     else if(archives.count() == 1)
     {
         updateStatusMessage(tr("Deleting archive <i>%1</i>...%2").arg(archives.first()->name())
-                            .arg(done?"done":""));
+                            .arg(done ? "done" : ""));
     }
 }
 
@@ -463,12 +476,12 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
     QString tooltip(tr("\t\tTotal size\tCompressed size\n"
                        "all archives\t%1\t\t%2\n"
                        "unique data\t%3\t\t%4").arg(sizeTotal).arg(sizeCompressed)
-                       .arg(sizeUniqueTotal).arg(sizeUniqueCompressed));
+                    .arg(sizeUniqueTotal).arg(sizeUniqueCompressed));
     _ui->accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal, _useSIPrefixes));
     _ui->accountTotalSizeLabel->setToolTip(tooltip);
     _ui->accountActualSizeLabel->setText(Utils::humanBytes(sizeUniqueCompressed, _useSIPrefixes));
     _ui->accountActualSizeLabel->setToolTip(tooltip);
-    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(sizeTotal-sizeUniqueCompressed, _useSIPrefixes));
+    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(sizeTotal - sizeUniqueCompressed, _useSIPrefixes));
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
 }
@@ -531,7 +544,7 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 {
     if(count != 0)
     {
-        _ui->backupDetailLabel->setText(tr("%1 %2 (%3)").arg(count).arg(count == 1? "item":"items").arg(Utils::humanBytes(size, _useSIPrefixes)));
+        _ui->backupDetailLabel->setText(tr("%1 %2 (%3)").arg(count).arg(count == 1 ? "item" : "items").arg(Utils::humanBytes(size, _useSIPrefixes)));
         if(!_ui->backupNameLineEdit->text().isEmpty())
             _ui->backupButton->setEnabled(true);
     }
@@ -635,7 +648,7 @@ void MainWindow::updateInspectArchive()
         _ui->archiveUniqueDataLabel->setToolTip(_currentArchiveDetail->archiveStats());
         _ui->archiveCommandLabel->setText(_currentArchiveDetail->command());
         int count = _currentArchiveDetail->contents().count();
-        _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg((count == 0) ? tr("loading..."):QString::number(count)));
+        _ui->archiveContentsLabel->setText(tr("Contents (%1)").arg((count == 0) ? tr("loading...") : QString::number(count)));
         _ui->archiveContentsPlainTextEdit->setPlainText(_currentArchiveDetail->contents().join('\n'));
     }
 }
@@ -730,7 +743,7 @@ void MainWindow::appendToJournalLog(QString msg)
     }
     QColor bgcolor;
     int blockCount = _ui->journalLog->document()->blockCount();
-    if (blockCount%2)
+    if (blockCount % 2)
         bgcolor = qApp->palette().base().color();
     else
         bgcolor = qApp->palette().alternateBase().color();
@@ -751,9 +764,8 @@ void MainWindow::browseForBackupItems()
 {
     FilePickerDialog picker;
     if(picker.exec())
-        QMetaObject::invokeMethod(_ui->backupListWidget, "addItemsWithUrls"
-                                  , QUEUED, Q_ARG(QList<QUrl>
-                                  , picker.getSelectedUrls()));
+        QMetaObject::invokeMethod(_ui->backupListWidget, "addItemsWithUrls",
+                                  QUEUED, Q_ARG(QList<QUrl>, picker.getSelectedUrls()));
 }
 
 void MainWindow::accountMachineUseHostnameButtonClicked()
@@ -818,18 +830,19 @@ void MainWindow::purgeArchivesButtonClicked()
     const QString confirmationText = tr("No Tomorrow");
     bool ok = false;
     QString userText = QInputDialog::getText(this,
-        tr("Purge all archives?"),
-        tr("This action will <b>delete all (%1) archives</b> stored for this key."
-           "<br /><br />To confirm, type '%2' and press OK."
-           "<br /><br /><i>Warning: This action cannot be undone. All archives will be <b>lost forever</b></i>.")
-           .arg(_ui->accountArchivesCountLabel->text(), confirmationText),
-        QLineEdit::Normal, "", &ok);
-    if (ok && confirmationText == userText)
+                       tr("Purge all archives?"),
+                       tr("This action will <b>delete all (%1) archives</b> stored for this key."
+                          "<br /><br />To confirm, type '%2' and press OK."
+                          "<br /><br /><i>Warning: This action cannot be undone. "
+                          "All archives will be <b>lost forever</b></i>.")
+                       .arg(_ui->accountArchivesCountLabel->text(), confirmationText),
+                       QLineEdit::Normal, "", &ok);
+    if (ok && (confirmationText == userText))
     {
         _purgeTimerCount = PURGE_SECONDS_DELAY;
 
-        _purgeCountdownWindow.setText(tr(
-            "Purging all archives in %1 seconds...").arg(_purgeTimerCount));
+        _purgeCountdownWindow.setText(tr( "Purging all archives in %1 seconds...")
+                                      .arg(_purgeTimerCount));
         _purgeTimer.start(1000);
 
         if(QMessageBox::Cancel == _purgeCountdownWindow.exec())
@@ -843,7 +856,7 @@ void MainWindow::purgeArchivesButtonClicked()
 void MainWindow::runSetupWizardClicked()
 {
     auto confirm = QMessageBox::question(this, tr("Confirm action"),
-                   tr("Reset current app settings, job definitions and run the setup wizard?"));
+                                         tr("Reset current app settings, job definitions and run the setup wizard?"));
     if(confirm == QMessageBox::Yes)
     {
         emit runSetupWizard();
@@ -937,6 +950,6 @@ void MainWindow::updateLastMachineActivity(QStringList activityFields)
     QSettings settings;
     settings.setValue("tarsnap/machine_activity", activityFields.join(' '));
     _ui->machineActivityLabel->setText(activityFields.join(' '));
-    _ui->machineActivityLabel->resize(_ui->machineActivityLabel->fontMetrics().width(_ui->machineActivityLabel->text())/2,
+    _ui->machineActivityLabel->resize(_ui->machineActivityLabel->fontMetrics().width(_ui->machineActivityLabel->text()) / 2,
                                       _ui->machineActivityLabel->sizeHint().height());
 }

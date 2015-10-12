@@ -72,7 +72,7 @@ QString Utils::humanBytes(quint64 bytes, bool si)
     quint64 unit = si ? 1000 : 1024;
     if (bytes < unit) return QString::number(bytes) + " B";
     int exp = (int) (log(bytes) / log(unit));
-    QString pre = QString(si ? "kMGTPE" : "KMGTPE").at(exp-1) + QString(si ? "" : "i");
+    QString pre = QString(si ? "kMGTPE" : "KMGTPE").at(exp - 1) + QString(si ? "" : "i");
     return QString("%1 %2B").arg(bytes / pow(unit, exp), 0, 'f', 1).arg(pre);
 }
 

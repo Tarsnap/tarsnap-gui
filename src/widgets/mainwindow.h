@@ -36,7 +36,7 @@ signals:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runSetupWizard();
     void stopTasks();
-    void jobsList(QMap<QString,JobPtr>);
+    void jobsList(QMap<QString, JobPtr>);
     void deleteJob(JobPtr job, bool purgeArchives);
     void loadJobs();
     void getTarsnapVersion(QString tarsnapPath);

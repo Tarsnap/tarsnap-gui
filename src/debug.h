@@ -28,7 +28,7 @@ class Debug : public QObject
 public:
     static void initialize() {qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}");}
     static Debug& instance() { static Debug instance; return instance; }
-    ~Debug(){}
+    ~Debug() {}
 
     inline Debug& operator<<(QChar t) { WARN << t; emit message(QString(t)); return *this; }
     inline Debug& operator<<(bool t) { WARN << t; emit message(QString(t)); return *this; }
@@ -56,9 +56,9 @@ public slots:
 
 private:
     // Yes, a singleton
-    inline explicit Debug():QObject(){}
-    Debug(Debug const&):QObject(){}
-    void operator=(Debug const&){}
+    inline explicit Debug(): QObject() {}
+    Debug(Debug const&): QObject() {}
+    void operator=(Debug const&) {}
 };
 
 #endif // DEBUG_H

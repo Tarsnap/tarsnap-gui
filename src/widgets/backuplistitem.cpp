@@ -7,7 +7,7 @@
 #include <QThreadPool>
 #include <QSettings>
 
-BackupListItem::BackupListItem(QUrl url):_count(0), _size(0), _useSIPrefixes(false)
+BackupListItem::BackupListItem(QUrl url): _count(0), _size(0), _useSIPrefixes(false)
 {
     _ui.setupUi(&_widget);
     _widget.addAction(_ui.actionOpen);

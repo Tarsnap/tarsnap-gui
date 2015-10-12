@@ -45,7 +45,7 @@ public slots:
     // Tarsnap tasks
     void getTarsnapVersion(QString tarsnapPath);
     void registerMachine(QString user, QString password, QString machine
-                         ,QString key, QString tarsnapPath, QString cachePath);
+                         , QString key, QString tarsnapPath, QString cachePath);
     void backupNow(BackupTaskPtr backupTask);
     void loadArchives();
     void getArchiveStats(ArchivePtr archive);

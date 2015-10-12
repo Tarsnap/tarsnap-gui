@@ -20,8 +20,8 @@ public:
     void          reset();
 
 private:
-     QSet<QPersistentModelIndex> _checklist;
-     QSet<QPersistentModelIndex> _partialChecklist;
+    QSet<QPersistentModelIndex> _checklist;
+    QSet<QPersistentModelIndex> _partialChecklist;
 };
 
 #endif // CUSTOMFILESYSTEMMODEL_H

@@ -51,7 +51,7 @@ void JobListItem::setJob(const JobPtr &job)
 
     QString detail;
     detail.append(tr("%1 %2 totaling ").arg(_job->archives().count())
-                  .arg(_job->archives().count() == 1 ? tr("archive") :tr("archives") ));
+                  .arg(_job->archives().count() == 1 ? tr("archive") : tr("archives") ));
     quint64 totalSize = 0;
     foreach(ArchivePtr archive, _job->archives())
     {

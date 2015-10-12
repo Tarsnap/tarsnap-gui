@@ -36,48 +36,48 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     _ui->filterLineEdit->setFocus();
 
     connect(&_model, &CustomFileSystemModel::dataChanged,
-            [=](const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
-            {
-                Q_UNUSED(topLeft);Q_UNUSED(bottomRight);
-                if(!roles.isEmpty() && (roles.first() == Qt::CheckStateRole))
-                    emit selectionChanged();
-            });
+    [=](const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &roles)
+    {
+        Q_UNUSED(topLeft); Q_UNUSED(bottomRight);
+        if(!roles.isEmpty() && (roles.first() == Qt::CheckStateRole))
+            emit selectionChanged();
+    });
     connect(_ui->filterLineEdit, SIGNAL(textEdited(QString)), this, SLOT(updateFilter(QString)));
     connect(_ui->showHiddenCheckBox, &QCheckBox::toggled,
-            [=](const bool toggled)
-            {
-                if(toggled)
-                    _model.setFilter(_model.filter() | QDir::Hidden);
-                else
-                    _model.setFilter(_model.filter() & ~QDir::Hidden);
-            });
+    [=](const bool toggled)
+    {
+        if(toggled)
+            _model.setFilter(_model.filter() | QDir::Hidden);
+        else
+            _model.setFilter(_model.filter() & ~QDir::Hidden);
+    });
     connect(_ui->showSystemCheckBox, &QCheckBox::toggled,
-            [=](const bool toggled)
-            {
-                if(toggled)
-                    _model.setFilter(_model.filter() | QDir::System);
-                else
-                    _model.setFilter(_model.filter() & ~QDir::System);
-            });
+    [=](const bool toggled)
+    {
+        if(toggled)
+            _model.setFilter(_model.filter() | QDir::System);
+        else
+            _model.setFilter(_model.filter() & ~QDir::System);
+    });
     connect(_ui->hideLinksCheckBox, &QCheckBox::toggled,
-            [=](const bool toggled)
-            {
-                if(toggled)
-                    _model.setFilter(_model.filter() | QDir::NoSymLinks);
-                else
-                    _model.setFilter(_model.filter() & ~QDir::NoSymLinks);
-            });
+    [=](const bool toggled)
+    {
+        if(toggled)
+            _model.setFilter(_model.filter() | QDir::NoSymLinks);
+        else
+            _model.setFilter(_model.filter() & ~QDir::NoSymLinks);
+    });
     connect(_ui->showOptionsButton, &QPushButton::clicked,
-            [=]()
-            {
-                _ui->optionsContainer->setVisible(!_ui->optionsContainer->isVisible());
-            });
+    [=]()
+    {
+        _ui->optionsContainer->setVisible(!_ui->optionsContainer->isVisible());
+    });
     connect(_ui->filterLineEdit, &QLineEdit::returnPressed,
-            [=]()
-            {
-                if(_completer.currentCompletion().isEmpty())
-                    _ui->treeView->setFocus();
-            });
+    [=]()
+    {
+        if(_completer.currentCompletion().isEmpty())
+            _ui->treeView->setFocus();
+    });
 }
 
 FilePicker::~FilePicker()

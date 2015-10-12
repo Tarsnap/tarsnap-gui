@@ -17,7 +17,7 @@ class BackupTask: public QObject
 
 public:
     BackupTask();
-    ~BackupTask(){}
+    ~BackupTask() {}
 
     QUuid uuid() const {return _uuid;}
     void setUuid(const QUuid &uuid) {_uuid = uuid;}

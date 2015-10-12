@@ -23,10 +23,10 @@ BackupListWidget::BackupListWidget(QWidget *parent):
                                       , QUEUED, Q_ARG(QList<QUrl>, urllist));
     }
     connect(this, &QListWidget::itemActivated,
-            [=](QListWidgetItem *item)
-            {
-                static_cast<BackupListItem*>(item)->browseUrl();
-            });
+    [=](QListWidgetItem * item)
+    {
+        static_cast<BackupListItem*>(item)->browseUrl();
+    });
 }
 
 BackupListWidget::~BackupListWidget()

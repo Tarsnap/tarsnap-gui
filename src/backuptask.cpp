@@ -4,11 +4,11 @@
 
 #define MB 1048576
 
-BackupTask::BackupTask():_uuid(QUuid::createUuid()),
+BackupTask::BackupTask(): _uuid(QUuid::createUuid()),
     _timestamp(QDateTime::currentDateTime()), _optionPreservePaths(true),
     _optionTraverseMount(true), _optionFollowSymLinks(false),
     _optionSkipFilesSize(0), _optionSkipSystem(false),
-    _optionSkipSystemFiles(),_status(TaskStatus::Initialized)
+    _optionSkipSystemFiles(), _status(TaskStatus::Initialized)
 {
     QSettings settings;
     setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());

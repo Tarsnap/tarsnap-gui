@@ -37,7 +37,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
 
     // Welcome page
     connect(_ui->advancedSetupCheckBox, SIGNAL(toggled(bool)), _ui->advancedPageRadioButton, SLOT(setVisible(bool)));
-    connect(_ui->welcomePageSkipButton, &QPushButton::clicked, [=](){commitSettings(true);});
+    connect(_ui->welcomePageSkipButton, &QPushButton::clicked, [=]() {commitSettings(true);});
     connect(_ui->welcomePageProceedButton, SIGNAL(clicked()), this, SLOT(setNextPage()));
 
     // Advanced setup page
@@ -113,23 +113,19 @@ void SetupDialog::wizardPageChanged(int)
     {
         _ui->welcomePageRadioButton->setChecked(true);
     }
-    else
-    if(_ui->wizardStackedWidget->currentWidget() == _ui->advancedPage)
+    else if(_ui->wizardStackedWidget->currentWidget() == _ui->advancedPage)
     {
         _ui->advancedPageRadioButton->setChecked(true);
     }
-    else
-    if(_ui->wizardStackedWidget->currentWidget() == _ui->restorePage)
+    else if(_ui->wizardStackedWidget->currentWidget() == _ui->restorePage)
     {
         _ui->restorePageRadioButton->setChecked(true);
     }
-    else
-    if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
+    else if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
     {
         _ui->registerPageRadioButton->setChecked(true);
     }
-    else
-    if(_ui->wizardStackedWidget->currentWidget() == _ui->donePage)
+    else if(_ui->wizardStackedWidget->currentWidget() == _ui->donePage)
     {
         _ui->donePageRadioButton->setChecked(true);
     }
@@ -187,21 +183,21 @@ void SetupDialog::setNextPage()
 void SetupDialog::showTarsnapPathBrowse()
 {
     QString tarsnapPath = QFileDialog::getExistingDirectory(this,
-                                                            tr("Find Tarsnap client"), "");
+                          tr("Find Tarsnap client"), "");
     _ui->tarsnapPathLineEdit->setText(tarsnapPath);
 }
 
 void SetupDialog::showTarsnapCacheBrowse()
 {
     QString tarsnapCacheDir = QFileDialog::getExistingDirectory(this,
-                                                            tr("Tarsnap cache location"), _tarsnapCacheDir);
+                              tr("Tarsnap cache location"), _tarsnapCacheDir);
     _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
 }
 
 void SetupDialog::showAppDataBrowse()
 {
     QString appDataDir = QFileDialog::getExistingDirectory(this,
-                                                            tr("App data location"), "");
+                         tr("App data location"), "");
     _ui->appDataPathLineEdit->setText(appDataDir);
 }
 
@@ -276,8 +272,11 @@ void SetupDialog::validateRegisterPage()
         // user specified key
         QFileInfo machineKeyFile(_ui->machineKeyLineEdit->text());
         if(!_ui->machineNameLineEdit->text().isEmpty()
-           && machineKeyFile.exists() && machineKeyFile.isFile() && machineKeyFile.isReadable())
+           && machineKeyFile.exists() && machineKeyFile.isFile()
+           && machineKeyFile.isReadable())
+        {
             result = true;
+        }
     }
     else
     {
@@ -296,7 +295,7 @@ void SetupDialog::registerHaveKeyBrowse(QString url)
 {
     Q_UNUSED(url);
     QString existingMachineKey = QFileDialog::getOpenFileName(this
-                                                              ,tr("Browse for existing machine key"));
+                                 , tr("Browse for existing machine key"));
     _ui->machineKeyLineEdit->setText(existingMachineKey);
 }
 
@@ -326,20 +325,20 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
 {
     switch(status)
     {
-        case TaskStatus::Completed:
-            _ui->errorLabel->clear();
-            _ui->doneInfoTextBrowser->setHtml(_ui->doneInfoTextBrowser->toHtml().arg(_tarsnapKeyFile).arg(_tarsnapKeyFile));
-            _ui->doneButton->setEnabled(true);
-            setNextPage();
-            break;
-        case TaskStatus::Failed:
-            _ui->errorLabel->setText(reason);
-            _ui->errorLabel->show();
-            _ui->registerMachineButton->setEnabled(true);
-            resize(sizeHint());
-            break;
-        default:
-            break;
+    case TaskStatus::Completed:
+        _ui->errorLabel->clear();
+        _ui->doneInfoTextBrowser->setHtml(_ui->doneInfoTextBrowser->toHtml().arg(_tarsnapKeyFile).arg(_tarsnapKeyFile));
+        _ui->doneButton->setEnabled(true);
+        setNextPage();
+        break;
+    case TaskStatus::Failed:
+        _ui->errorLabel->setText(reason);
+        _ui->errorLabel->show();
+        _ui->registerMachineButton->setEnabled(true);
+        resize(sizeHint());
+        break;
+    default:
+        break;
     }
 }
 

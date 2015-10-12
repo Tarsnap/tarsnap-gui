@@ -62,7 +62,7 @@ bool CustomFileSystemModel::setData(const QModelIndex &index, const QVariant &va
                     {
                         if(index.sibling(i, index.column()).isValid())
                         {
-                            if(index.sibling(i,index.column()) == index)
+                            if(index.sibling(i, index.column()) == index)
                                 continue;
                             if(data(index.sibling(i, index.column()), Qt::CheckStateRole) == Qt::PartiallyChecked)
                                 setData(index.sibling(i, index.column()), Qt::Unchecked, Qt::CheckStateRole);
@@ -109,7 +109,7 @@ bool CustomFileSystemModel::setData(const QModelIndex &index, const QVariant &va
                 {
                     if(index.sibling(i, index.column()).isValid())
                     {
-                        if(index.sibling(i,index.column()) == index)
+                        if(index.sibling(i, index.column()) == index)
                             continue;
                         if(data(index.sibling(i, index.column()), Qt::CheckStateRole) != Qt::Unchecked)
                             foundOne = true;

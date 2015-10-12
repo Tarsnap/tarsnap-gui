@@ -12,7 +12,8 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent) :
     _ui->setupUi(this);
     _ui->infoLabel->setText(_ui->infoLabel->text().arg(archive->name()));
     QSettings settings;
-    _ui->chdirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
+    QString downDir = settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString();
+    _ui->chdirLineEdit->setText(downDir);
     _ui->chdirLineEdit->hide();
     _ui->browseButton->hide();
     if(settings.value("tarsnap/preserve_pathnames", true).toBool())
@@ -56,8 +57,8 @@ void RestoreDialog::on_restoreDirectoryRadioButton_toggled(bool checked)
 void RestoreDialog::on_browseButton_clicked()
 {
     QString path = QFileDialog::getExistingDirectory(this,
-                                                     tr("Directory to restore to"),
-                                                     QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first());
+                   tr("Directory to restore to"),
+                   QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first());
     if(!path.isEmpty())
         _ui->chdirLineEdit->setText(path);
 }

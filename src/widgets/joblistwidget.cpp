@@ -24,11 +24,12 @@ void JobListWidget::backupSelectedItems()
     if(selectedItems().isEmpty())
         return;
 
-    QMessageBox::StandardButton confirm = QMessageBox::question(this, tr("Confirm action")
-                                                               , tr("Initiate backup for the %1 selected job(s)?").arg(selectedItems().count()));
+    auto confirm = QMessageBox::question(this, tr("Confirm action"),
+                   tr("Initiate backup for the %1 selected job(s)?")
+                   .arg(selectedItems().count()));
     if(confirm == QMessageBox::Yes)
     {
-        foreach (QListWidgetItem *item, this->selectedItems())
+        foreach(QListWidgetItem *item, this->selectedItems())
         {
             if(item->isSelected())
             {
@@ -122,14 +123,14 @@ void JobListWidget::deleteItem()
     {
         bool purgeArchives = false;
         JobPtr job = jobItem->job();
-        QMessageBox::StandardButton confirm = QMessageBox::question(this, tr("Confirm action")
-                                                                   , tr("Are you sure you want to delete job \"%1\" (this cannot be undone)?").arg(job->name()));
+        auto confirm = QMessageBox::question(this, tr("Confirm action"),
+                       tr("Are you sure you want to delete job \"%1\" (this cannot be undone)?").arg(job->name()));
         if(confirm == QMessageBox::Yes)
         {
             if(!job->archives().isEmpty())
             {
-                QMessageBox::StandardButton confirmArchives= QMessageBox::question(this, tr("Confirm action")
-                                                                           , tr("Also delete %1 archives pertaining to this job (this cannot be undone)?").arg(job->archives().count()));
+                auto confirmArchives= QMessageBox::question(this, tr("Confirm action"),
+                                      tr("Also delete %1 archives pertaining to this job (this cannot be undone)?").arg(job->archives().count()));
                 if(confirmArchives == QMessageBox::Yes)
                     purgeArchives = true;
             }

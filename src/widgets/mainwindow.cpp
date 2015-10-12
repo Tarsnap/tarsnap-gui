@@ -606,7 +606,8 @@ void MainWindow::backupButtonClicked()
     BackupTaskPtr backup(new BackupTask);
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
-    connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
+    connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this,
+            SLOT(backupTaskUpdate(const TaskStatus&)), Qt::QueuedConnection);
     emit backupNow(backup);
     _ui->appendTimestampCheckBox->setChecked(false);
 }
@@ -774,8 +775,8 @@ void MainWindow::accountMachineKeyBrowseButtonClicked()
 void MainWindow::tarsnapPathBrowseButtonClicked()
 {
     QString tarsnapPath = QFileDialog::getExistingDirectory(this,
-                                                            tr("Find Tarsnap client"),
-                                                            _ui->tarsnapPathLineEdit->text());
+                          tr("Find Tarsnap client"),
+                          _ui->tarsnapPathLineEdit->text());
     if(!tarsnapPath.isEmpty())
     {
         _ui->tarsnapPathLineEdit->setText(tarsnapPath);
@@ -786,8 +787,8 @@ void MainWindow::tarsnapPathBrowseButtonClicked()
 void MainWindow::tarsnapCacheBrowseButton()
 {
     QString tarsnapCacheDir = QFileDialog::getExistingDirectory(this,
-                                                            tr("Tarsnap cache location"),
-                                                            _ui->tarsnapCacheLineEdit->text());
+                              tr("Tarsnap cache location"),
+                              _ui->tarsnapCacheLineEdit->text());
     if(!tarsnapCacheDir.isEmpty())
     {
         _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
@@ -803,8 +804,8 @@ void MainWindow::repairCacheButtonClicked()
 void MainWindow::appDataButtonClicked()
 {
     QString appDataDir = QFileDialog::getExistingDirectory(this,
-                                                            tr("App data directory location"),
-                                                            _ui->appDataDirLineEdit->text());
+                         tr("App data directory location"),
+                         _ui->appDataDirLineEdit->text());
     if(!appDataDir.isEmpty())
     {
         _ui->appDataDirLineEdit->setText(appDataDir);
@@ -818,10 +819,11 @@ void MainWindow::purgeArchivesButtonClicked()
     bool ok = false;
     QString userText = QInputDialog::getText(this,
         tr("Purge all archives?"),
-        tr("This action will <b>delete all (%1) archives</b> stored for this key.<br /><br />To confirm, type '%2' and press OK.<br /><br /><i>Warning: This action cannot be undone. All archives will be <b>lost forever</b></i>.").arg(_ui->accountArchivesCountLabel->text(), confirmationText),
-        QLineEdit::Normal,
-        "",
-        &ok);
+        tr("This action will <b>delete all (%1) archives</b> stored for this key."
+           "<br /><br />To confirm, type '%2' and press OK."
+           "<br /><br /><i>Warning: This action cannot be undone. All archives will be <b>lost forever</b></i>.")
+           .arg(_ui->accountArchivesCountLabel->text(), confirmationText),
+        QLineEdit::Normal, "", &ok);
     if (ok && confirmationText == userText)
     {
         _purgeTimerCount = PURGE_SECONDS_DELAY;
@@ -840,9 +842,8 @@ void MainWindow::purgeArchivesButtonClicked()
 
 void MainWindow::runSetupWizardClicked()
 {
-    QMessageBox::StandardButton confirm = QMessageBox::question(this, tr("Confirm action")
-                                                                ,tr("Reset current app settings, job definitions and run the setup wizard?")
-                                                                ,( QMessageBox::Yes | QMessageBox::No ), QMessageBox::No);
+    auto confirm = QMessageBox::question(this, tr("Confirm action"),
+                   tr("Reset current app settings, job definitions and run the setup wizard?"));
     if(confirm == QMessageBox::Yes)
     {
         emit runSetupWizard();
@@ -860,8 +861,8 @@ void MainWindow::expandJournalButtonToggled(bool checked)
 void MainWindow::downloadsDirBrowseButtonClicked()
 {
     QString downDir = QFileDialog::getExistingDirectory(this,
-                                                     tr("Browse for downloads directory"),
-                                                     QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).first());
+                      tr("Browse for downloads directory"),
+                      QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).first());
     if(!downDir.isEmpty())
     {
         _ui->downloadsDirLineEdit->setText(downDir);
@@ -913,10 +914,8 @@ void MainWindow::addJobClicked()
 
 void MainWindow::cancelRunningTasks()
 {
-    QMessageBox::StandardButton confirm =
-                                        QMessageBox::question(this,
-                                        tr("Cancel running tasks"),
-                                        tr("Stop the currently running tasks?"));
+    auto confirm = QMessageBox::question(this, tr("Cancel running tasks"),
+                                         tr("Stop the currently running tasks?"));
     if(confirm == QMessageBox::Yes)
     {
         updateStatusMessage("Stopping all running tasks.");

@@ -53,7 +53,8 @@ void JobListItem::setJob(const JobPtr &job)
     detail.append(tr("%1 %2 totaling ").arg(_job->archives().count())
                   .arg(_job->archives().count() == 1 ? tr("archive") :tr("archives") ));
     quint64 totalSize = 0;
-    foreach (ArchivePtr archive, _job->archives()) {
+    foreach(ArchivePtr archive, _job->archives())
+    {
         totalSize += archive->sizeTotal();
     }
     detail.append(Utils::humanBytes(totalSize, _useSIPrefixes));

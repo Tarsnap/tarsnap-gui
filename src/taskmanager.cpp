@@ -102,11 +102,11 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--creationtime" << QString::number(backupTask->timestamp().toTime_t());
     args << "--quiet" << "--print-stats" << "--no-humanize-numbers" << "-c"
          << "-f" << backupTask->name();
-    foreach (QString exclude, backupTask->getExcludesList())
+    foreach(QString exclude, backupTask->getExcludesList())
     {
         args << "--exclude" << exclude;
     }
-    foreach (QUrl url, backupTask->urls())
+    foreach(QUrl url, backupTask->urls())
     {
         args << url.toLocalFile();
     }
@@ -231,7 +231,8 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
     args << "--print-stats" << "-d";
-    foreach (ArchivePtr archive, archives) {
+    foreach(ArchivePtr archive, archives)
+    {
         args << "-f" << archive->name();
     }
     delArchives->setCommand(makeTarsnapCommand(CMD_TARSNAP));
@@ -343,7 +344,7 @@ void TaskManager::runScheduledJobs()
 
 void TaskManager::stopTasks()
 {
-    foreach (TarsnapClient *client, _runningTasks)
+    foreach(TarsnapClient *client, _runningTasks)
     {
         if(client)
             client->stop();
@@ -352,21 +353,22 @@ void TaskManager::stopTasks()
 
 void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output)
 {
-    BackupTaskPtr backupTask = _backupTaskMap[data.toString()];
+    BackupTaskPtr backupTask = _backupTaskMap[data.toUuid()];
     backupTask->setExitCode(exitCode);
     backupTask->setOutput(output);
     if(exitCode == 0)
     {
+        auto client = qobject_cast<TarsnapClient*>(sender());
         ArchivePtr archive(new Archive);
         archive->setName(backupTask->name());
-        archive->setCommand(qobject_cast<TarsnapClient*>(sender())->command() + " " + qobject_cast<TarsnapClient*>(sender())->arguments().join(" "));
+        archive->setCommand(client->command() + " " + client->arguments().join(" "));
         archive->setTimestamp(backupTask->timestamp());
         archive->setJobRef(backupTask->jobRef());
         parseArchiveStats(output, true, archive);
         backupTask->setArchive(archive);
         backupTask->setStatus(TaskStatus::Completed);
         _archiveMap.insert(archive->name(), archive);
-        foreach (JobPtr job, _jobMap)
+        foreach(JobPtr job, _jobMap)
         {
             if(job->objectKey() == archive->jobRef())
                 emit job->loadArchives();
@@ -407,7 +409,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode, QString ou
     {
         QMap<QString, ArchivePtr>   _newArchiveMap;
         QStringList lines = output.trimmed().split('\n');
-        foreach (QString line, lines)
+        foreach(QString line, lines)
         {
             QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");
             if(-1 != archiveDetailsRX.indexIn(line))
@@ -439,7 +441,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode, QString ou
                     archive->setCommand(archiveDetails[2]);
                     archive->save();
                     // Automagically set Job ownership
-                    foreach (JobPtr job, _jobMap)
+                    foreach(JobPtr job, _jobMap)
                     {
                         if(archive->name().startsWith(job->archivePrefix()))
                         {
@@ -453,13 +455,13 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode, QString ou
             }
         }
         // Purge archives left in old _archiveMap (not mirrored by the remote)
-        foreach (ArchivePtr archive, _archiveMap)
+        foreach(ArchivePtr archive, _archiveMap)
         {
             archive->purge();
         }
         _archiveMap.clear();
         _archiveMap = _newArchiveMap;
-        foreach (JobPtr job, _jobMap)
+        foreach(JobPtr job, _jobMap)
         {
             emit job->loadArchives();
         }
@@ -496,7 +498,8 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode, QString ou
         QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
         if(!archives.empty())
         {
-            foreach (ArchivePtr archive, archives) {
+            foreach(ArchivePtr archive, archives)
+            {
                 _archiveMap.remove(archive->name());
                 archive->purge();
             }
@@ -733,7 +736,7 @@ void TaskManager::loadJobArchives()
 {
     Job *job = qobject_cast<Job*>(sender());
     QList<ArchivePtr> archives;
-    foreach (ArchivePtr archive, _archiveMap)
+    foreach(ArchivePtr archive, _archiveMap)
     {
         if(archive->jobRef() == job->objectKey())
         {

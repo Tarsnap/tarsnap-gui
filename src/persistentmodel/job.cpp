@@ -53,7 +53,8 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
     _archives.clear();
     _archives = archives;
     std::sort(_archives.begin(), _archives.end(), ArchiveCompare);
-    foreach (ArchivePtr archive, _archives) {
+    foreach(ArchivePtr archive, _archives)
+    {
         connect(archive.data(), SIGNAL(purged()), this, SIGNAL(loadArchives()), Qt::QueuedConnection);
     }
     emit changed();

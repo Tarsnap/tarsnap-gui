@@ -95,7 +95,8 @@ QStringList BackupTask::getExcludesList()
 
     if(_optionSkipFilesSize)
     {
-        foreach (QUrl url, urls()) {
+        foreach(QUrl url, urls())
+        {
             QFileInfo file(url.toLocalFile());
             if(file.isFile())
             {
@@ -112,7 +113,7 @@ QStringList BackupTask::getExcludesList()
                 {
                     QDir dir(dirStack.pop());
                     dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
-                    foreach (QFileInfo entry, dir.entryInfoList())
+                    foreach(QFileInfo entry, dir.entryInfoList())
                     {
                         if(entry.isFile())
                         {

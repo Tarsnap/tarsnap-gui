@@ -15,7 +15,7 @@ BackupListWidget::BackupListWidget(QWidget *parent):
     if(!urls.isEmpty())
     {
         QList<QUrl> urllist;
-        foreach (QString url, urls)
+        foreach(QString url, urls)
             urllist << QUrl::fromUserInput(url);
         if(!urllist.isEmpty())
             QMetaObject::invokeMethod(this, "addItemsWithUrls"
@@ -62,7 +62,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
 
 void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
 {
-    foreach (QUrl url, urls)
+    foreach(QUrl url, urls)
         addItemWithUrl(url);
     recomputeListTotals();
 }
@@ -82,7 +82,7 @@ void BackupListWidget::removeItems()
     }
     else
     {
-        foreach (QListWidgetItem *item, this->selectedItems())
+        foreach(QListWidgetItem *item, this->selectedItems())
         {
             if(item->isSelected())
             {

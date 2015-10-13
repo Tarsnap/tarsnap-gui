@@ -21,7 +21,7 @@ class TaskManager : public QObject
     Q_OBJECT
 
 public:
-    explicit TaskManager(QObject *parent = 0);
+    TaskManager();
     ~TaskManager();
 
 signals:

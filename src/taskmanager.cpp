@@ -8,11 +8,9 @@
 
 #define SUCCESS 0
 
-TaskManager::TaskManager(QObject *parent) : QObject()
-    , _threadPool(QThreadPool::globalInstance()), _aggressiveNetworking(false)
-    , _preservePathnames(true), _headless(false)
+TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance()),
+    _aggressiveNetworking(false), _preservePathnames(true), _headless(false)
 {
-    Q_UNUSED(parent);
     // Move the operations belonging to the Task manager to a separate thread
     _managerThread.start();
     moveToThread(&_managerThread);

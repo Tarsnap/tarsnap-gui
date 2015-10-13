@@ -95,7 +95,8 @@ private slots:
 
 private:
     Ui::MainWindow  *_ui;
-    QLabel           _tarsnapLogo;
+    QPixmap          _logo;
+    QIcon            _icon;
     QMenuBar         _menuBar;
     QMenu            _appMenu;
     QAction          _actionAbout;

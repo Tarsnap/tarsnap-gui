@@ -25,7 +25,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     _ui(new Ui::MainWindow),
-    _tarsnapLogo(this),
+    _logo(":/icons/tarsnap-logo.png"),
+    _icon(":/icons/tarsnap-logo.png"),
     _menuBar(NULL),
     _appMenu(NULL),
     _actionAbout(this),
@@ -43,14 +44,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     loadSettings();
-
-    // MainWindow logo
-    QPixmap logo(":/icons/tarsnap.png");
-    _tarsnapLogo.setPixmap(logo.scaled(200, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    _tarsnapLogo.adjustSize();
-    _tarsnapLogo.lower();
-    _tarsnapLogo.show();
-    // --
 
     // About action and widget
     Ui::aboutWidget aboutUi;
@@ -360,7 +353,7 @@ void MainWindow::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
-    _tarsnapLogo.move(this->width() - _tarsnapLogo.width() - 10, 3);
+    _icon.paint(&p, width() - _logo.width() - 5, 2, _logo.width(), _logo.height());
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)

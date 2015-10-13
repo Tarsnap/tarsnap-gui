@@ -35,5 +35,7 @@
         <file>icons/tarsnap.png</file>
         <file>icons/trash.png</file>
         <file>icons/trash@2x.png</file>
+        <file>icons/tarsnap-logo@2x.png</file>
+        <file>icons/tarsnap-logo.png</file>
     </qresource>
 </RCC>

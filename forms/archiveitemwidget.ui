@@ -33,13 +33,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="iconLabel">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
+    <widget class="QToolButton" name="archiveButton">
      <property name="minimumSize">
       <size>
        <width>27</width>
@@ -52,14 +46,18 @@
        <height>27</height>
       </size>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QToolButton {
+border: none;
+border-radius: 4px;
+}</string>
+     </property>
      <property name="text">
       <string/>
      </property>
-     <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/tarsnap_icon.png</pixmap>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+     <property name="icon">
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/tarsnap_icon.png</normaloff>:/icons/tarsnap_icon.png</iconset>
      </property>
     </widget>
    </item>
@@ -319,7 +317,7 @@ padding-left: 2px;
   <customwidget>
    <class>TextLabel</class>
    <extends>QLabel</extends>
-   <header>textlabel.h</header>
+   <header>../widgets/textlabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

@@ -59,13 +59,13 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     {
         _ui.jobButton->hide();
         _ui.horizontalLayout->removeWidget(_ui.jobButton);
-        _ui.iconLabel->show();
+        _ui.archiveButton->show();
         _widget.removeAction(_ui.actionGoToJob);
     }
     else
     {
-        _ui.iconLabel->hide();
-        _ui.horizontalLayout->removeWidget(_ui.iconLabel);
+        _ui.archiveButton->hide();
+        _ui.horizontalLayout->removeWidget(_ui.archiveButton);
         _ui.jobButton->show();
         _widget.insertAction(_ui.actionRestore, _ui.actionGoToJob);
     }
@@ -75,6 +75,3 @@ void ArchiveListItem::update()
 {
     setArchive(_archive);
 }
-
-
-

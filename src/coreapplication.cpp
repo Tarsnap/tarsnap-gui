@@ -147,6 +147,7 @@ int CoreApplication::initialize()
         connect(&_taskManager, SIGNAL(jobsList(QMap<QString, JobPtr>))
                 , _mainWindow, SIGNAL(jobsList(QMap<QString, JobPtr>)), QUEUED);
         connect(_mainWindow, SIGNAL(deleteJob(JobPtr, bool)), &_taskManager, SLOT(deleteJob(JobPtr, bool)), QUEUED);
+        connect(&_taskManager, SIGNAL(message(QString, QString)), _mainWindow, SLOT(updateStatusMessage(QString, QString)), QUEUED);
         _mainWindow->show();
         _mainWindow->initialize();
     }

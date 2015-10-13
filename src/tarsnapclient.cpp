@@ -64,7 +64,7 @@ void TarsnapClient::run()
     }
 cleanup:
     delete _process;
-    _process = 0;
+    _process = NULL;
 }
 
 void TarsnapClient::stop(bool kill)

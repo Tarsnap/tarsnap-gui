@@ -6,6 +6,8 @@
 #include <QDir>
 #include <QSettings>
 
+#define SUCCESS 0
+
 TaskManager::TaskManager(QObject *parent) : QObject()
     , _threadPool(QThreadPool::globalInstance()), _aggressiveNetworking(false)
     , _preservePathnames(true), _headless(false)
@@ -76,11 +78,12 @@ void TaskManager::registerMachine(QString user, QString password, QString machin
 
 void TaskManager::backupNow(BackupTaskPtr backupTask)
 {
-    if(backupTask == 0)
+    if(backupTask == NULL)
     {
         DEBUG << "Null BackupTaskPtr passed.";
         return;
     }
+
     _backupTaskMap[backupTask->uuid()] = backupTask;
     TarsnapClient *backupClient = new TarsnapClient();
     QStringList args;
@@ -355,7 +358,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
     BackupTaskPtr backupTask = _backupTaskMap[data.toUuid()];
     backupTask->setExitCode(exitCode);
     backupTask->setOutput(output);
-    if(exitCode == 0)
+    if(exitCode == SUCCESS)
     {
         auto client = qobject_cast<TarsnapClient*>(sender());
         ArchivePtr archive(new Archive);
@@ -395,7 +398,7 @@ void TaskManager::backupTaskStarted(QVariant data)
 void TaskManager::registerMachineFinished(QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data)
-    if(exitCode == 0)
+    if(exitCode == SUCCESS)
         emit registerMachineStatus(TaskStatus::Completed, output);
     else
         emit registerMachineStatus(TaskStatus::Failed, output);
@@ -404,75 +407,88 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode, QString o
 void TaskManager::getArchiveListFinished(QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data)
-    if(exitCode == 0)
+
+    if(exitCode != SUCCESS)
     {
-        QMap<QString, ArchivePtr>   _newArchiveMap;
-        QStringList lines = output.trimmed().split('\n');
-        foreach(QString line, lines)
-        {
-            QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");
-            if(-1 != archiveDetailsRX.indexIn(line))
-            {
-                QStringList archiveDetails = archiveDetailsRX.capturedTexts();
-                archiveDetails.removeFirst();
-                QDateTime timestamp = QDateTime::fromString(archiveDetails[1], Qt::ISODate);
-                ArchivePtr archive(new Archive);
-                bool update = false;
-                archive->setName(archiveDetails[0]);
-                archive->load();
-                if(archive->objectKey().isEmpty())
-                {
-                    update = true;
-                }
-                else if(archive->timestamp() != timestamp)
-                {
-                    // There is a different archive with the same name on the remote
-                    archive->purge();
-                    archive.clear();
-                    archive = archive.create();
-                    archive->setName(archiveDetails[0]);
-                    update = true;
-                }
-                if(update)
-                {
-                    // New archive
-                    archive->setTimestamp(timestamp);
-                    archive->setCommand(archiveDetails[2]);
-                    archive->save();
-                    // Automagically set Job ownership
-                    foreach(JobPtr job, _jobMap)
-                    {
-                        if(archive->name().startsWith(job->archivePrefix()))
-                        {
-                            archive->setJobRef(job->objectKey());
-                        }
-                    }
-                    getArchiveStats(archive);
-                }
-                _newArchiveMap.insert(archive->name(), archive);
-                _archiveMap.remove(archive->name());
-            }
-        }
-        // Purge archives left in old _archiveMap (not mirrored by the remote)
-        foreach(ArchivePtr archive, _archiveMap)
-        {
-            archive->purge();
-        }
-        _archiveMap.clear();
-        _archiveMap = _newArchiveMap;
-        foreach(JobPtr job, _jobMap)
-        {
-            emit job->loadArchives();
-        }
-        emit archiveList(_archiveMap.values(), true);
-        getOverallStats();
+        emit message(tr("Error: Failed to list archives from remote."),
+                     tr("Tarsnap exited with code %1 and output:\n%2").arg(exitCode).arg(output));
+        return;
     }
+
+    QMap<QString, ArchivePtr>   _newArchiveMap;
+    QStringList lines = output.trimmed().split('\n');
+    foreach(QString line, lines)
+    {
+        QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");
+        if(-1 != archiveDetailsRX.indexIn(line))
+        {
+            QStringList archiveDetails = archiveDetailsRX.capturedTexts();
+            archiveDetails.removeFirst();
+            QDateTime timestamp = QDateTime::fromString(archiveDetails[1], Qt::ISODate);
+            ArchivePtr archive(new Archive);
+            bool update = false;
+            archive->setName(archiveDetails[0]);
+            archive->load();
+            if(archive->objectKey().isEmpty())
+            {
+                update = true;
+            }
+            else if(archive->timestamp() != timestamp)
+            {
+                // There is a different archive with the same name on the remote
+                archive->purge();
+                archive.clear();
+                archive = archive.create();
+                archive->setName(archiveDetails[0]);
+                update = true;
+            }
+            if(update)
+            {
+                // New archive
+                archive->setTimestamp(timestamp);
+                archive->setCommand(archiveDetails[2]);
+                archive->save();
+                // Automagically set Job ownership
+                foreach(JobPtr job, _jobMap)
+                {
+                    if(archive->name().startsWith(job->archivePrefix()))
+                    {
+                        archive->setJobRef(job->objectKey());
+                    }
+                }
+                getArchiveStats(archive);
+            }
+            _newArchiveMap.insert(archive->name(), archive);
+            _archiveMap.remove(archive->name());
+        }
+    }
+    // Purge archives left in old _archiveMap (not mirrored by the remote)
+    foreach(ArchivePtr archive, _archiveMap)
+    {
+        archive->purge();
+    }
+    _archiveMap.clear();
+    _archiveMap = _newArchiveMap;
+    foreach(JobPtr job, _jobMap)
+    {
+        emit job->loadArchives();
+    }
+    emit archiveList(_archiveMap.values(), true);
+    getOverallStats();
 }
 
 void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode, QString output)
 {
     ArchivePtr archive = _archiveMap[data.toString()];
-    if(archive && (exitCode == 0))
+
+    if(exitCode != SUCCESS)
+    {
+        emit message(tr("Error: Failed to get archive stats from remote."),
+                     tr("Tarsnap exited with code %1 and output:\n%2").arg(exitCode).arg(output));
+        return;
+    }
+
+    if(archive)
     {
         parseArchiveStats(output, false, archive);
         parseGlobalStats(output);
@@ -482,7 +498,15 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode, QString o
 void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode, QString output)
 {
     ArchivePtr archive = _archiveMap[data.toString()];
-    if(archive && (exitCode == 0))
+
+    if(exitCode != SUCCESS)
+    {
+        emit message(tr("Error: Failed to get archive contents from remote."),
+                     tr("Tarsnap exited with code %1 and output:\n%2").arg(exitCode).arg(output));
+        return;
+    }
+
+    if(archive)
     {
         archive->setContents(output.trimmed().split('\n', QString::SkipEmptyParts));
         archive->save();
@@ -491,38 +515,45 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode, QStrin
 
 void TaskManager::deleteArchivesFinished(QVariant data, int exitCode, QString output)
 {
-
-    if(exitCode == 0)
+    if(exitCode != SUCCESS)
     {
-        QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
-        if(!archives.empty())
-        {
-            foreach(ArchivePtr archive, archives)
-            {
-                _archiveMap.remove(archive->name());
-                archive->purge();
-            }
-            emit archiveList(_archiveMap.values());
-            emit archivesDeleted(archives);
-        }
-        parseGlobalStats(output);
+        emit message(tr("Error: Failed to delete archive from remote."),
+                     tr("Tarsnap exited with code %1 and output:\n%2").arg(exitCode).arg(output));
+        return;
     }
+
+    QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
+    if(!archives.empty())
+    {
+        foreach(ArchivePtr archive, archives)
+        {
+            _archiveMap.remove(archive->name());
+            archive->purge();
+        }
+        emit archiveList(_archiveMap.values());
+        emit archivesDeleted(archives);
+    }
+    parseGlobalStats(output);
 }
 
 void TaskManager::overallStatsFinished(QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data);
 
-    if(exitCode == 0)
+    if(exitCode != SUCCESS)
     {
-        parseGlobalStats(output);
+        emit message(tr("Error: Failed to get stats from remote."),
+                     tr("Tarsnap exited with code %1 and output:\n%2").arg(exitCode).arg(output));
+        return;
     }
+
+    parseGlobalStats(output);
 }
 
 void TaskManager::fsckFinished(QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data)
-    if(exitCode == 0)
+    if(exitCode == SUCCESS)
         emit fsckStatus(TaskStatus::Completed, output);
     else
         emit fsckStatus(TaskStatus::Failed, output);
@@ -531,7 +562,7 @@ void TaskManager::fsckFinished(QVariant data, int exitCode, QString output)
 void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data)
-    if(exitCode == 0)
+    if(exitCode == SUCCESS)
         emit nukeStatus(TaskStatus::Completed, output);
     else
         emit nukeStatus(TaskStatus::Failed, output);
@@ -541,9 +572,8 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
 
 void TaskManager::restoreArchiveFinished(QVariant data, int exitCode, QString output)
 {
-
     ArchivePtr archive = _archiveMap[data.toString()];
-    if(archive && (exitCode == 0))
+    if(archive && (exitCode == SUCCESS))
         emit restoreArchiveStatus(archive, TaskStatus::Completed, output);
     else
         emit restoreArchiveStatus(archive, TaskStatus::Failed, output);
@@ -582,7 +612,7 @@ void TaskManager::startTask(TarsnapClient *cli)
 void TaskManager::dequeueTask()
 {
     _runningTasks.removeOne(qobject_cast<TarsnapClient*>(sender()));
-    if(_runningTasks.count() == 0)
+    if(_runningTasks.isEmpty())
     {
         if(_taskQueue.isEmpty())
             emit idle(true);
@@ -748,10 +778,15 @@ void TaskManager::loadJobArchives()
 void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data)
-    if(exitCode == 0)
+
+    if(exitCode != SUCCESS)
     {
-        QRegExp versionRx("^tarsnap (\\S+)\\s$");
-        if(-1 != versionRx.indexIn(output))
-            emit tarsnapVersion(versionRx.cap(1));
+        emit message(tr("Error: Failed to get Tarsnap version."),
+                     tr("Tarsnap exited with code %1 and output:\n%2").arg(exitCode).arg(output));
+        return;
     }
+
+    QRegExp versionRx("^tarsnap (\\S+)\\s$");
+    if(-1 != versionRx.indexIn(output))
+        emit tarsnapVersion(versionRx.cap(1));
 }

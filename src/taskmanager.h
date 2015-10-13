@@ -38,6 +38,7 @@ signals:
                       quint64 archiveCount);
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
     void jobsList(QMap<QString, JobPtr> jobs);
+    void message(QString msg, QString detail);
 
 public slots:
     void loadSettings();

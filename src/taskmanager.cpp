@@ -381,10 +381,6 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
         backupTask->setStatus(TaskStatus::Failed);
     }
     _backupTaskMap.take(backupTask->uuid());
-    if(_headless && _backupTaskMap.isEmpty())
-    {
-        qApp->quit();
-    }
 }
 
 void TaskManager::backupTaskStarted(QVariant data)
@@ -613,9 +609,16 @@ void TaskManager::dequeueTask()
     if(_runningTasks.isEmpty())
     {
         if(_taskQueue.isEmpty())
-            emit idle(true);
+        {
+            if(_headless)
+                qApp->quit();
+            else
+                emit idle(true);
+        }
         else
-            startTask(NULL);
+        {
+            startTask(NULL); // start another queued task
+        }
     }
 }
 

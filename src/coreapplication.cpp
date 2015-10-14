@@ -7,9 +7,6 @@
 #include <QDialog>
 #include <QFontDatabase>
 
-#define SUCCESS 0
-#define FAILURE 1
-
 CoreApplication::CoreApplication(int &argc, char **argv):
     QApplication(argc, argv), _mainWindow(NULL), _jobsOption(false)
 {
@@ -49,7 +46,7 @@ void CoreApplication::parseArgs()
     _jobsOption = parser.isSet(jobsOption);
 }
 
-int CoreApplication::initialize()
+bool CoreApplication::initialize()
 {
     parseArgs();
 
@@ -72,87 +69,81 @@ int CoreApplication::initialize()
         if(QDialog::Rejected == wizard.exec())
         {
             quit(); // if we're running in the loop
-            return FAILURE; // if called from main
+            return false; // if called from main
         }
     }
-    else
+
+    bool iniFormat = settings.value("app/ini_format", false).toBool();
+    if(iniFormat)
     {
-        bool iniFormat = settings.value("app/ini_format", false).toBool();
-        if(iniFormat)
-        {
-            QString appData = settings.value("app/app_data", "").toString();
-            settings.setPath(QSettings::IniFormat, QSettings::UserScope, appData);
-            settings.setDefaultFormat(QSettings::IniFormat);
-        }
+        QString appData = settings.value("app/app_data", QStandardPaths::AppLocalDataLocation).toString();
+        settings.setPath(QSettings::IniFormat, QSettings::UserScope, appData);
+        settings.setDefaultFormat(QSettings::IniFormat);
     }
 
     QMetaObject::invokeMethod(&_taskManager, "loadSettings", QUEUED);
 
     if(_jobsOption)
-    {
         QMetaObject::invokeMethod(&_taskManager, "runScheduledJobs", QUEUED);
-    }
     else
-    {
-        // Show the main window
-        _mainWindow = new MainWindow();
-        if(!_mainWindow)
-        {
-            DEBUG << tr("Can't instantiate the MainWidget. Quitting.");
-            return FAILURE;
-        }
+        showMainWindow();
 
-        connect(_mainWindow, SIGNAL(getTarsnapVersion(QString)) , &_taskManager,
-                SLOT(getTarsnapVersion(QString)));
-        connect(&_taskManager, SIGNAL(tarsnapVersion(QString)), _mainWindow,
-                SLOT(setTarsnapVersion(QString)));
-        connect(_mainWindow, SIGNAL(backupNow(BackupTaskPtr)), &_taskManager
-                , SLOT(backupNow(BackupTaskPtr)), QUEUED);
-        connect(_mainWindow, SIGNAL(loadArchives()), &_taskManager
-                , SLOT(loadArchives()), QUEUED);
-        connect(&_taskManager, SIGNAL(archiveList(QList<ArchivePtr>, bool))
-                , _mainWindow, SIGNAL(archiveList(QList<ArchivePtr>, bool)), QUEUED);
-        connect(_mainWindow, SIGNAL(deleteArchives(QList<ArchivePtr>)), &_taskManager,
-                SLOT(deleteArchives(QList<ArchivePtr>)), QUEUED);
-        connect(&_taskManager, SIGNAL(archivesDeleted(QList<ArchivePtr>)), _mainWindow
-                , SLOT(archivesDeleted(QList<ArchivePtr>)), QUEUED);
-        connect(_mainWindow, SIGNAL(loadArchiveStats(ArchivePtr)), &_taskManager
-                , SLOT(getArchiveStats(ArchivePtr)), QUEUED);
-        connect(_mainWindow, SIGNAL(loadArchiveContents(ArchivePtr)), &_taskManager
-                , SLOT(getArchiveContents(ArchivePtr)), QUEUED);
-        connect(&_taskManager, SIGNAL(idle(bool)), _mainWindow
-                , SLOT(updateLoadingAnimation(bool)), QUEUED);
-        connect(_mainWindow, SIGNAL(getOverallStats()), &_taskManager
-                , SLOT(getOverallStats()), QUEUED);
-        connect(&_taskManager, SIGNAL(overallStats(quint64, quint64, quint64, quint64, quint64))
-                , _mainWindow, SLOT(updateSettingsSummary(quint64, quint64, quint64, quint64, quint64)), QUEUED);
-        connect(_mainWindow, SIGNAL(repairCache()), &_taskManager
-                , SLOT(fsck()), QUEUED);
-        connect(&_taskManager, SIGNAL(fsckStatus(TaskStatus, QString)), _mainWindow
-                , SLOT(repairCacheStatus(TaskStatus, QString)), QUEUED);
-        connect(_mainWindow, SIGNAL(settingsChanged()), &_taskManager
-                , SLOT(loadSettings()), QUEUED);
-        connect(_mainWindow, SIGNAL(purgeArchives()), &_taskManager
-                , SLOT(nuke()), QUEUED);
-        connect(&_taskManager, SIGNAL(nukeStatus(TaskStatus, QString)), _mainWindow
-                , SLOT(purgeArchivesStatus(TaskStatus, QString)), QUEUED);
-        connect(_mainWindow, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions))
-                , &_taskManager, SLOT(restoreArchive(ArchivePtr, ArchiveRestoreOptions))
-                , QUEUED);
-        connect(&_taskManager, SIGNAL(restoreArchiveStatus(ArchivePtr, TaskStatus, QString)), _mainWindow
-                , SLOT(restoreArchiveStatus(ArchivePtr, TaskStatus, QString)), QUEUED);
-        connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(reinit()), QUEUED);
-        connect(_mainWindow, SIGNAL(stopTasks()), &_taskManager, SLOT(stopTasks()), QUEUED);
-        connect(_mainWindow, SIGNAL(loadJobs()), &_taskManager, SLOT(loadJobs()), QUEUED);
-        connect(&_taskManager, SIGNAL(jobsList(QMap<QString, JobPtr>))
-                , _mainWindow, SIGNAL(jobsList(QMap<QString, JobPtr>)), QUEUED);
-        connect(_mainWindow, SIGNAL(deleteJob(JobPtr, bool)), &_taskManager, SLOT(deleteJob(JobPtr, bool)), QUEUED);
-        connect(&_taskManager, SIGNAL(message(QString, QString)), _mainWindow, SLOT(updateStatusMessage(QString, QString)), QUEUED);
-        _mainWindow->show();
-        _mainWindow->initialize();
-    }
+    return true;
+}
 
-    return SUCCESS;
+void CoreApplication::showMainWindow()
+{
+    _mainWindow = new MainWindow();
+    Q_ASSERT(_mainWindow != NULL);
+
+    connect(_mainWindow, SIGNAL(getTarsnapVersion(QString)) , &_taskManager,
+            SLOT(getTarsnapVersion(QString)));
+    connect(&_taskManager, SIGNAL(tarsnapVersion(QString)), _mainWindow,
+            SLOT(setTarsnapVersion(QString)));
+    connect(_mainWindow, SIGNAL(backupNow(BackupTaskPtr)), &_taskManager
+            , SLOT(backupNow(BackupTaskPtr)), QUEUED);
+    connect(_mainWindow, SIGNAL(loadArchives()), &_taskManager
+            , SLOT(loadArchives()), QUEUED);
+    connect(&_taskManager, SIGNAL(archiveList(QList<ArchivePtr>, bool))
+            , _mainWindow, SIGNAL(archiveList(QList<ArchivePtr>, bool)), QUEUED);
+    connect(_mainWindow, SIGNAL(deleteArchives(QList<ArchivePtr>)), &_taskManager,
+            SLOT(deleteArchives(QList<ArchivePtr>)), QUEUED);
+    connect(&_taskManager, SIGNAL(archivesDeleted(QList<ArchivePtr>)), _mainWindow
+            , SLOT(archivesDeleted(QList<ArchivePtr>)), QUEUED);
+    connect(_mainWindow, SIGNAL(loadArchiveStats(ArchivePtr)), &_taskManager
+            , SLOT(getArchiveStats(ArchivePtr)), QUEUED);
+    connect(_mainWindow, SIGNAL(loadArchiveContents(ArchivePtr)), &_taskManager
+            , SLOT(getArchiveContents(ArchivePtr)), QUEUED);
+    connect(&_taskManager, SIGNAL(idle(bool)), _mainWindow
+            , SLOT(updateLoadingAnimation(bool)), QUEUED);
+    connect(_mainWindow, SIGNAL(getOverallStats()), &_taskManager
+            , SLOT(getOverallStats()), QUEUED);
+    connect(&_taskManager, SIGNAL(overallStats(quint64, quint64, quint64, quint64, quint64))
+            , _mainWindow, SLOT(updateSettingsSummary(quint64, quint64, quint64, quint64, quint64)), QUEUED);
+    connect(_mainWindow, SIGNAL(repairCache()), &_taskManager
+            , SLOT(fsck()), QUEUED);
+    connect(&_taskManager, SIGNAL(fsckStatus(TaskStatus, QString)), _mainWindow
+            , SLOT(repairCacheStatus(TaskStatus, QString)), QUEUED);
+    connect(_mainWindow, SIGNAL(settingsChanged()), &_taskManager
+            , SLOT(loadSettings()), QUEUED);
+    connect(_mainWindow, SIGNAL(purgeArchives()), &_taskManager
+            , SLOT(nuke()), QUEUED);
+    connect(&_taskManager, SIGNAL(nukeStatus(TaskStatus, QString)), _mainWindow
+            , SLOT(purgeArchivesStatus(TaskStatus, QString)), QUEUED);
+    connect(_mainWindow, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions))
+            , &_taskManager, SLOT(restoreArchive(ArchivePtr, ArchiveRestoreOptions))
+            , QUEUED);
+    connect(&_taskManager, SIGNAL(restoreArchiveStatus(ArchivePtr, TaskStatus, QString)), _mainWindow
+            , SLOT(restoreArchiveStatus(ArchivePtr, TaskStatus, QString)), QUEUED);
+    connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(reinit()), QUEUED);
+    connect(_mainWindow, SIGNAL(stopTasks()), &_taskManager, SLOT(stopTasks()), QUEUED);
+    connect(_mainWindow, SIGNAL(loadJobs()), &_taskManager, SLOT(loadJobs()), QUEUED);
+    connect(&_taskManager, SIGNAL(jobsList(QMap<QString, JobPtr>))
+            , _mainWindow, SIGNAL(jobsList(QMap<QString, JobPtr>)), QUEUED);
+    connect(_mainWindow, SIGNAL(deleteJob(JobPtr, bool)), &_taskManager, SLOT(deleteJob(JobPtr, bool)), QUEUED);
+    connect(&_taskManager, SIGNAL(message(QString, QString)), _mainWindow, SLOT(updateStatusMessage(QString, QString)), QUEUED);
+    _mainWindow->show();
+    _mainWindow->initialize();
 }
 
 bool CoreApplication::reinit()
@@ -160,7 +151,7 @@ bool CoreApplication::reinit()
     if(_mainWindow)
     {
         delete _mainWindow;
-        _mainWindow = 0;
+        _mainWindow = NULL;
     }
 
     // reset existing persistent store and app settings

@@ -17,7 +17,8 @@ public:
     ~CoreApplication();
 
     void parseArgs();
-    int  initialize();
+    bool initialize();
+    void showMainWindow();
 
 public slots:
     bool reinit();

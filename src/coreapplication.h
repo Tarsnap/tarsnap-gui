@@ -27,6 +27,7 @@ private:
     MainWindow  *_mainWindow;
     TaskManager  _taskManager;
     bool         _jobsOption;
+    QString      _appDataDir;
 };
 
 #endif // COREAPPLICATION_H

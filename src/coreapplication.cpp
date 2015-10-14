@@ -41,9 +41,15 @@ void CoreApplication::parseArgs()
     QCommandLineOption jobsOption(QStringList() << "j" << "jobs",
                                   tr("Executes all jobs sequentially that have the \'Include in scheduled backups\' option checked."
                                      " The application runs headless and useful information is printed to standard out and error."));
+    QCommandLineOption appDataOption(QStringList() << "a" << "appdata",
+                                    tr("Use the specified app data directory."
+                                       " Useful for multiple configurations on the same machine (INI format is implied)."),
+                                    tr("directory"));
     parser.addOption(jobsOption);
-    parser.process(*this);
+    parser.addOption(appDataOption);
+    parser.process(arguments());
     _jobsOption = parser.isSet(jobsOption);
+    _appDataDir = parser.value(appDataOption);
 }
 
 bool CoreApplication::initialize()
@@ -51,6 +57,13 @@ bool CoreApplication::initialize()
     parseArgs();
 
     QSettings settings;
+
+    if(!_appDataDir.isEmpty())
+    {
+        settings.setPath(QSettings::IniFormat, QSettings::UserScope, _appDataDir);
+        settings.setDefaultFormat(QSettings::IniFormat);
+    }
+
     bool wizardDone = settings.value("app/wizard_done", false).toBool();
     if(!wizardDone)
     {

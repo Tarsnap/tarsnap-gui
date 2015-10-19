@@ -592,10 +592,9 @@ void MainWindow::appendTimestampCheckBoxToggled(bool checked)
         QString text = _ui->backupNameLineEdit->text();
         if(!_lastTimestamp.isEmpty() && !text.isEmpty())
         {
-            int index = text.indexOf(_lastTimestamp, -(_lastTimestamp.count()));
-            if(index != -1)
+            if(text.endsWith(_lastTimestamp))
             {
-                text.truncate(index);
+                text.chop(_lastTimestamp.length());
                 _ui->backupNameLineEdit->setText(text);
             }
         }

@@ -64,11 +64,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
     // Done page
     connect(_ui->doneButton, SIGNAL(clicked()), this, SLOT(commitSettings()));
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
-    _appDataDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-#else
-    _appDataDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-#endif
+    _appDataDir = QStandardPaths::writableLocation(APPDATA);
     QDir keysDir(_appDataDir);
     if(!keysDir.exists())
         keysDir.mkpath(_appDataDir);

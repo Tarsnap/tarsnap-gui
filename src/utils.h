@@ -23,6 +23,12 @@
 
 #define QUEUED Qt::QueuedConnection
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+#define APPDATA QStandardPaths::AppLocalDataLocation
+#else
+#define APPDATA QStandardPaths::DataLocation
+#endif
+
 namespace Utils
 {
 

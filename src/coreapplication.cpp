@@ -89,7 +89,7 @@ bool CoreApplication::initialize()
     bool iniFormat = settings.value("app/ini_format", false).toBool();
     if(iniFormat)
     {
-        QString appData = settings.value("app/app_data", QStandardPaths::AppLocalDataLocation).toString();
+        QString appData = settings.value("app/app_data", APPDATA).toString();
         settings.setPath(QSettings::IniFormat, QSettings::UserScope, appData);
         settings.setDefaultFormat(QSettings::IniFormat);
     }

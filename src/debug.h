@@ -26,7 +26,7 @@ class Debug : public QObject
     Q_OBJECT
 
 public:
-    static void initialize() {qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}");}
+    static void initialize() { qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}"); }
     static Debug& instance() { static Debug instance; return instance; }
     ~Debug() {}
 

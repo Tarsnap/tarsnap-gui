@@ -25,6 +25,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     _ui(new Ui::MainWindow),
+    _tray(this),
     _logo(":/icons/tarsnap-logo.png"),
     _icon(":/icons/tarsnap-logo.png"),
     _menuBar(NULL),
@@ -44,6 +45,13 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     loadSettings();
+
+    _tray.setIcon(QIcon(":/icons/tarsnap_icon_big.png"));
+    connect(&_tray, &QSystemTrayIcon::activated,
+    [&]() {
+        this->raise();
+        this->activateWindow();
+    });
 
     // About action and widget
     Ui::aboutWidget aboutUi;
@@ -413,7 +421,7 @@ void MainWindow::backupTaskUpdate(const TaskStatus& status)
     case TaskStatus::Completed:
         updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
                             .arg(backupTask->name()).arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes)),
-                            backupTask->archive()->archiveStats());
+                            backupTask->archive()->archiveStats(), true);
         delete backupTask;
         break;
     case TaskStatus::Queued:
@@ -424,7 +432,7 @@ void MainWindow::backupTaskUpdate(const TaskStatus& status)
         break;
     case TaskStatus::Failed:
         updateStatusMessage(tr("Backup <i>%1</i> failed: %2").arg(backupTask->name()).arg(backupTask->output().simplified()),
-                            tr("%1").arg(backupTask->output()));
+                            tr("%1").arg(backupTask->output()), true);
         delete backupTask;
         break;
     case TaskStatus::Paused:
@@ -645,12 +653,18 @@ void MainWindow::updateInspectArchive()
     }
 }
 
-void MainWindow::updateStatusMessage(QString message, QString detail)
+void MainWindow::updateStatusMessage(QString message, QString detail, bool notify)
 {
     _ui->statusBarLabel->setText(message);
     _ui->statusBarLabel->setToolTip(detail);
 
     appendToJournalLog(QString("[%1] %2").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")).arg(message));
+
+    if(notify && _tray.isSystemTrayAvailable())
+    {
+        _tray.show();
+        _tray.showMessage(qApp->applicationName(), message.remove(QRegExp("<[^>]*>")));
+    }
 }
 
 void MainWindow::commitSettings()

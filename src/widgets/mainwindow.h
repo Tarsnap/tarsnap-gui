@@ -9,6 +9,7 @@
 #include <QTimer>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QSystemTrayIcon>
 
 namespace Ui {
 class MainWindow;
@@ -62,7 +63,7 @@ public slots:
     void setTarsnapVersion(QString versionString);
 
 private slots:
-    void updateStatusMessage(QString message, QString detail = "");
+    void updateStatusMessage(QString message, QString detail = "", bool notify = false);
     void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void updateInspectArchive();
@@ -95,6 +96,7 @@ private slots:
 
 private:
     Ui::MainWindow  *_ui;
+    QSystemTrayIcon  _tray;
     QPixmap          _logo;
     QIcon            _icon;
     QMenuBar         _menuBar;

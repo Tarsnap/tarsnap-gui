@@ -339,7 +339,7 @@ void MainWindow::loadSettings()
     _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
     _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
-    _ui->skipFilesSizeSpinBox->setValue(settings.value("app/skip_files_size", 0).toLongLong());
+    _ui->skipFilesSizeSpinBox->setValue(settings.value("app/skip_files_size", 0).toULongLong());
     bool skipSystem = settings.value("app/skip_system_enabled", false).toBool();
     _ui->skipSystemJunkCheckBox->setChecked(skipSystem);
     _ui->skipSystemLineEdit->setEnabled(skipSystem);

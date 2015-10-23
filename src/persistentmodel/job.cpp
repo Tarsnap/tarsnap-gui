@@ -212,7 +212,7 @@ void Job::load()
         _optionPreservePaths     = query.value(query.record().indexOf("optionPreservePaths")).toBool();
         _optionTraverseMount     = query.value(query.record().indexOf("optionTraverseMount")).toBool();
         _optionFollowSymLinks    = query.value(query.record().indexOf("optionFollowSymLinks")).toBool();
-        _optionSkipFilesSize     = query.value(query.record().indexOf("optionSkipFilesSize")).toLongLong();
+        _optionSkipFilesSize     = query.value(query.record().indexOf("optionSkipFilesSize")).toULongLong();
         _optionSkipFiles         = query.value(query.record().indexOf("optionSkipFiles")).toBool();
         _optionSkipFilesPatterns = query.value(query.record().indexOf("optionSkipFilesPatterns")).toString();
         setObjectKey(_name);

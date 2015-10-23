@@ -14,7 +14,7 @@ BackupTask::BackupTask(): _uuid(QUuid::createUuid()),
     setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
     setOptionTraverseMount(settings.value("tarsnap/traverse_mount", true).toBool());
     setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", false).toBool());
-    setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toLongLong());
+    setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toULongLong());
     setOptionSkipSystem(settings.value("app/skip_system_enabled", false).toBool());
     setOptionSkipSystemFiles(settings.value("app/skip_system_files", "").toString());
 }

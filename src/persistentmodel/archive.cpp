@@ -63,11 +63,11 @@ void Archive::load()
     query.addBindValue(_name);
     if(store.runQuery(query) && query.next())
     {
-        _timestamp = QDateTime::fromTime_t(query.value(query.record().indexOf("timestamp")).toUInt());
-        _sizeTotal = query.value(query.record().indexOf("sizeTotal")).toUInt();
-        _sizeCompressed = query.value(query.record().indexOf("sizeCompressed")).toUInt();
-        _sizeUniqueTotal = query.value(query.record().indexOf("sizeUniqueTotal")).toUInt();
-        _sizeUniqueCompressed = query.value(query.record().indexOf("sizeUniqueCompressed")).toUInt();
+        _timestamp = QDateTime::fromTime_t(query.value(query.record().indexOf("timestamp")).toULongLong());
+        _sizeTotal = query.value(query.record().indexOf("sizeTotal")).toULongLong();
+        _sizeCompressed = query.value(query.record().indexOf("sizeCompressed")).toULongLong();
+        _sizeUniqueTotal = query.value(query.record().indexOf("sizeUniqueTotal")).toULongLong();
+        _sizeUniqueCompressed = query.value(query.record().indexOf("sizeUniqueCompressed")).toULongLong();
         _command = query.value(query.record().indexOf("command")).toString();
         _contents = query.value(query.record().indexOf("contents")).toString().split('\n', QString::SkipEmptyParts);
         _jobRef = query.value(query.record().indexOf("jobRef")).toString();

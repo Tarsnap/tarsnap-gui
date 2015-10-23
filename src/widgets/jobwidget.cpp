@@ -84,7 +84,7 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
         _ui->traverseMountCheckBox->setChecked(settings.value("tarsnap/traverse_mount", true).toBool());
         _ui->followSymLinksCheckBox->setChecked(settings.value("tarsnap/follow_symlinks", false).toBool());
-        _ui->skipFilesSizeSpinBox->setValue(settings.value("app/skip_files_size", 0).toLongLong());
+        _ui->skipFilesSizeSpinBox->setValue(settings.value("app/skip_files_size", 0).toULongLong());
         _ui->skipFilesCheckBox->setChecked(settings.value("app/skip_system_enabled", false).toBool());
         _ui->skipFilesLineEdit->setText(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
     }

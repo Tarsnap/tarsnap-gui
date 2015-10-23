@@ -641,8 +641,8 @@ void TaskManager::parseGlobalStats(QString tarsnapOutput)
     {
         QStringList captured = sizeRX.capturedTexts();
         captured.removeFirst();
-        sizeTotal = captured[0].toLongLong();
-        sizeCompressed = captured[1].toLongLong();
+        sizeTotal = captured[0].toULongLong();
+        sizeCompressed = captured[1].toULongLong();
     }
     else
     {
@@ -653,8 +653,8 @@ void TaskManager::parseGlobalStats(QString tarsnapOutput)
     {
         QStringList captured = uniqueSizeRX.capturedTexts();
         captured.removeFirst();
-        sizeUniqueTotal = captured[0].toLongLong();
-        sizeUniqueCompressed = captured[1].toLongLong();
+        sizeUniqueTotal = captured[0].toULongLong();
+        sizeUniqueCompressed = captured[1].toULongLong();
     }
     else
     {
@@ -691,8 +691,8 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput
     {
         QStringList captured = sizeRX.capturedTexts();
         captured.removeFirst();
-        archive->setSizeTotal(captured[0].toLongLong());
-        archive->setSizeCompressed(captured[1].toLongLong());
+        archive->setSizeTotal(captured[0].toULongLong());
+        archive->setSizeCompressed(captured[1].toULongLong());
     }
     else
     {
@@ -703,8 +703,8 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput
     {
         QStringList captured = uniqueSizeRX.capturedTexts();
         captured.removeFirst();
-        archive->setSizeUniqueTotal(captured[0].toLongLong());
-        archive->setSizeUniqueCompressed(captured[1].toLongLong());
+        archive->setSizeUniqueTotal(captured[0].toULongLong());
+        archive->setSizeUniqueCompressed(captured[1].toULongLong());
     }
     else
     {

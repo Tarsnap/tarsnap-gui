@@ -2109,7 +2109,7 @@ border-radius: 4px;
         </widget>
         <widget class="QTextEdit" name="journalLog">
          <property name="focusPolicy">
-          <enum>Qt::NoFocus</enum>
+          <enum>Qt::ClickFocus</enum>
          </property>
          <property name="styleSheet">
           <string notr="true">#journalLog

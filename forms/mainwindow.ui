@@ -1929,9 +1929,6 @@ margin: 1px 0px 0px 6px;
                <pointsize>-1</pointsize>
               </font>
              </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
              <property name="title">
               <string>Tarsnap help</string>
              </property>
@@ -2005,6 +2002,11 @@ p, li { white-space: pre-wrap; }
               </property>
               <item>
                <widget class="QPlainTextEdit" name="keyboardShortcutsPlainTextEdit_5">
+                <property name="font">
+                 <font>
+                  <family>Monaco</family>
+                 </font>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">QPlainTextEdit {
 background: rgba(255,255,255,170);
@@ -2014,38 +2016,42 @@ border-radius: 4px;
                 <property name="frameShape">
                  <enum>QFrame::NoFrame</enum>
                 </property>
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
                 <property name="plainText">
                  <string>General
----------
+-------
 
-Ctrl+[1-5]	- Switch between Backup, Archives.. main tabs
-Ctrl+j	- Toggle the Journal log
+Ctrl+[1-5]  - Switch between Backup, Archives.. main tabs
+Ctrl+j      - Toggle the Journal log
 
 Backup tab
--------------
-
-Ctrl+o		- Open the File Browser
-Ctrl+Backspace	- Clear the Backup list
-Backspace		- Remove only selected items from the Backup list
-
-Archives tab
---------------
-
-Ctrl+r	- Refresh the Archives list
-Backspace	- Delete selected Archives
-
-Jobs tab
 ----------
 
-Ctrl+n   - Add new Job
-Ctrl+b   - Initiate backup on selected Jobs
+Ctrl+o          - Open the File Browser
+Ctrl+Backspace  - Clear the Backup list
+Backspace       - Remove selected items from the Backup list
+
+Archives tab
+------------
+
+Ctrl+r     - Refresh the Archives list
+Backspace  - Delete selected Archives
+
+Jobs tab
+--------
+
+Ctrl+n  - Add new Job
+Ctrl+b  - Initiate backup on selected Jobs
 
 Settings tab
---------------
+------------
 
 Ctrl+r  - Refresh Account summary
 
-* Ctrl is Cmd key on OS X</string>
+* Ctrl is Cmd key on OS X
+</string>
                 </property>
                </widget>
               </item>
@@ -2079,9 +2085,14 @@ Ctrl+r  - Refresh Account summary
                <number>2</number>
               </property>
               <item>
-               <widget class="QTextEdit" name="consoleLogTextEdit">
+               <widget class="QPlainTextEdit" name="consoleLogPlainTextEdit">
+                <property name="font">
+                 <font>
+                  <family>Monaco</family>
+                 </font>
+                </property>
                 <property name="styleSheet">
-                 <string notr="true">#consoleLogTextEdit
+                 <string notr="true">#consoleLogPlainTextEdit
 {
 background: rgba(255,255,255,170);
 border-radius: 4px;
@@ -2092,9 +2103,6 @@ border-radius: 4px;
                 </property>
                 <property name="readOnly">
                  <bool>true</bool>
-                </property>
-                <property name="acceptRichText">
-                 <bool>false</bool>
                 </property>
                 <property name="placeholderText">
                  <string>No events yet</string>
@@ -2107,7 +2115,12 @@ border-radius: 4px;
           </layout>
          </widget>
         </widget>
-        <widget class="QTextEdit" name="journalLog">
+        <widget class="QPlainTextEdit" name="journalLog">
+         <property name="font">
+          <font>
+           <family>Monaco</family>
+          </font>
+         </property>
          <property name="focusPolicy">
           <enum>Qt::ClickFocus</enum>
          </property>
@@ -2116,6 +2129,9 @@ border-radius: 4px;
 {
 background: transparent;
 }</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="readOnly">
           <bool>true</bool>
@@ -2424,7 +2440,7 @@ border: none;
   <tabstop>archiveContentsPlainTextEdit</tabstop>
   <tabstop>helpTextBrowser</tabstop>
   <tabstop>keyboardShortcutsPlainTextEdit_5</tabstop>
-  <tabstop>consoleLogTextEdit</tabstop>
+  <tabstop>consoleLogPlainTextEdit</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

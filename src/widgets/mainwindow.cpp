@@ -763,7 +763,7 @@ void MainWindow::appendToJournalLog(QString msg)
 
 void MainWindow::appendToConsoleLog(QString msg)
 {
-    _ui->consoleLogTextEdit->append(msg);
+    _ui->consoleLogPlainTextEdit->appendPlainText(msg);
 }
 
 void MainWindow::browseForBackupItems()

@@ -39,6 +39,7 @@ signals:
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
     void jobsList(QMap<QString, JobPtr> jobs);
     void message(QString msg, QString detail);
+    void displayNotification(QString message);
 
 public slots:
     void loadSettings();
@@ -76,6 +77,7 @@ private slots:
     void fsckFinished(QVariant data, int exitCode, QString output);
     void nukeFinished(QVariant data, int exitCode, QString output);
     void restoreArchiveFinished(QVariant data, int exitCode, QString output);
+    void notifyBackupTaskUpdate(BackupTaskPtr backupTask);
 
     // general task management
     void queueTask(TarsnapClient *cli, bool exclusive = false);

@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QSettings>
+#include <QTimer>
 
 #define SUCCESS 0
 
@@ -381,12 +382,14 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
         backupTask->setStatus(TaskStatus::Failed);
     }
     _backupTaskMap.take(backupTask->uuid());
+    notifyBackupTaskUpdate(backupTask);
 }
 
 void TaskManager::backupTaskStarted(QVariant data)
 {
     BackupTaskPtr backupTask = _backupTaskMap[data.toString()];
     backupTask->setStatus(TaskStatus::Running);
+    notifyBackupTaskUpdate(backupTask);
 }
 
 void TaskManager::registerMachineFinished(QVariant data, int exitCode, QString output)
@@ -573,6 +576,30 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode, QString ou
         emit restoreArchiveStatus(archive, TaskStatus::Failed, output);
 }
 
+void TaskManager::notifyBackupTaskUpdate(BackupTaskPtr backupTask)
+{
+    if(!_headless)
+        return;
+    switch (backupTask->status())
+    {
+    case TaskStatus::Completed:
+        emit displayNotification(tr("Backup %1 completed. (%2 new data on Tarsnap)")
+                            .arg(backupTask->name())
+                            .arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed())));
+        delete backupTask;
+        break;
+    case TaskStatus::Running:
+        emit displayNotification(tr("Backup %1 is running.").arg(backupTask->name()));
+        break;
+    case TaskStatus::Failed:
+        emit displayNotification(tr("Backup %1 failed: %2").arg(backupTask->name()).arg(backupTask->output().simplified()));
+        delete backupTask;
+        break;
+    default:
+        break;
+    }
+}
+
 void TaskManager::queueTask(TarsnapClient *cli, bool exclusive)
 {
     if(cli == NULL)
@@ -611,7 +638,7 @@ void TaskManager::dequeueTask()
         if(_taskQueue.isEmpty())
         {
             if(_headless)
-                qApp->quit();
+                QTimer::singleShot(500, qApp, SLOT(quit())); // Give a chance for notifications to go through
             else
                 emit idle(true);
         }

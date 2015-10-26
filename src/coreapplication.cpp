@@ -8,7 +8,7 @@
 #include <QFontDatabase>
 
 CoreApplication::CoreApplication(int &argc, char **argv):
-    QApplication(argc, argv), _mainWindow(NULL), _jobsOption(false)
+    QApplication(argc, argv), _mainWindow(NULL), _notification(), _jobsOption(false)
 {
     qRegisterMetaType< TaskStatus >("TaskStatus");
     qRegisterMetaType< QList<QUrl> >("QList<QUrl>");
@@ -19,6 +19,7 @@ CoreApplication::CoreApplication(int &argc, char **argv):
     qRegisterMetaType< QSqlQuery >("QSqlQuery");
     qRegisterMetaType< JobPtr >("JobPtr");
     qRegisterMetaType< QMap<QString, JobPtr> >("QMap<QString, JobPtr>");
+    qRegisterMetaType< QSystemTrayIcon::ActivationReason>("QSystemTrayIcon::ActivationReason");
 
     QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
@@ -95,6 +96,8 @@ bool CoreApplication::initialize()
     }
 
     QMetaObject::invokeMethod(&_taskManager, "loadSettings", QUEUED);
+    connect(&_taskManager, SIGNAL(displayNotification(QString)), &_notification,
+            SLOT(displayNotification(QString)), QUEUED);
 
     if(_jobsOption)
         QMetaObject::invokeMethod(&_taskManager, "runScheduledJobs", QUEUED);
@@ -153,8 +156,15 @@ void CoreApplication::showMainWindow()
     connect(_mainWindow, SIGNAL(loadJobs()), &_taskManager, SLOT(loadJobs()), QUEUED);
     connect(&_taskManager, SIGNAL(jobsList(QMap<QString, JobPtr>))
             , _mainWindow, SIGNAL(jobsList(QMap<QString, JobPtr>)), QUEUED);
-    connect(_mainWindow, SIGNAL(deleteJob(JobPtr, bool)), &_taskManager, SLOT(deleteJob(JobPtr, bool)), QUEUED);
-    connect(&_taskManager, SIGNAL(message(QString, QString)), _mainWindow, SLOT(updateStatusMessage(QString, QString)), QUEUED);
+    connect(_mainWindow, SIGNAL(deleteJob(JobPtr, bool)), &_taskManager,
+            SLOT(deleteJob(JobPtr, bool)), QUEUED);
+    connect(&_taskManager, SIGNAL(message(QString, QString)), _mainWindow,
+            SLOT(updateStatusMessage(QString, QString)), QUEUED);
+    connect(&_notification, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            _mainWindow, SLOT(notificationRaise()), QUEUED);
+    connect(_mainWindow, SIGNAL(displayNotification(QString)), &_notification,
+            SLOT(displayNotification(QString)), QUEUED);
+
     _mainWindow->show();
     _mainWindow->initialize();
 }

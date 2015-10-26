@@ -3,6 +3,7 @@
 
 #include "widgets/mainwindow.h"
 #include "taskmanager.h"
+#include "notification.h"
 
 #include <QObject>
 #include <QApplication>
@@ -25,6 +26,7 @@ public slots:
 
 private:
     MainWindow  *_mainWindow;
+    Notification _notification;
     TaskManager  _taskManager;
     bool         _jobsOption;
     QString      _appDataDir;

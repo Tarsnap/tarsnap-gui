@@ -9,7 +9,6 @@
 #include <QTimer>
 #include <QMenuBar>
 #include <QMessageBox>
-#include <QSystemTrayIcon>
 
 namespace Ui {
 class MainWindow;
@@ -41,6 +40,7 @@ signals:
     void deleteJob(JobPtr job, bool purgeArchives);
     void loadJobs();
     void getTarsnapVersion(QString tarsnapPath);
+    void displayNotification(QString message);
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -61,6 +61,7 @@ public slots:
     void purgeArchivesStatus(TaskStatus status, QString reason);
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
     void setTarsnapVersion(QString versionString);
+    void notificationRaise();
 
 private slots:
     void updateStatusMessage(QString message, QString detail = "", bool notify = false);
@@ -96,7 +97,6 @@ private slots:
 
 private:
     Ui::MainWindow  *_ui;
-    QSystemTrayIcon  _tray;
     QPixmap          _logo;
     QIcon            _icon;
     QMenuBar         _menuBar;

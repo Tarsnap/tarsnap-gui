@@ -25,7 +25,6 @@
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     _ui(new Ui::MainWindow),
-    _tray(this),
     _logo(":/icons/tarsnap-logo.png"),
     _icon(":/icons/tarsnap-logo.png"),
     _menuBar(NULL),
@@ -45,13 +44,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     loadSettings();
-
-    _tray.setIcon(QIcon(":/icons/tarsnap_icon_big.png"));
-    connect(&_tray, &QSystemTrayIcon::activated,
-    [&]() {
-        this->raise();
-        this->activateWindow();
-    });
 
     // About action and widget
     Ui::aboutWidget aboutUi;
@@ -161,6 +153,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->tarsnapPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapPath()));
     connect(_ui->tarsnapCacheLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapCache()));
     connect(_ui->siPrefixesCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
+    connect(_ui->notificationsCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->downloadsDirLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
@@ -346,6 +339,7 @@ void MainWindow::loadSettings()
     _ui->skipSystemLineEdit->setText(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
     _ui->downloadsDirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
     _ui->appDataDirLineEdit->setText(settings.value("app/app_data", "").toString());
+    _ui->notificationsCheckBox->setChecked(settings.value("app/notifications", true).toBool());
 }
 
 void MainWindow::initialize()
@@ -417,7 +411,8 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 void MainWindow::backupTaskUpdate(const TaskStatus& status)
 {
     BackupTaskPtr backupTask = qobject_cast<BackupTaskPtr>(sender());
-    switch (status) {
+    switch (status)
+    {
     case TaskStatus::Completed:
         updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
                             .arg(backupTask->name()).arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes)),
@@ -432,7 +427,7 @@ void MainWindow::backupTaskUpdate(const TaskStatus& status)
         break;
     case TaskStatus::Failed:
         updateStatusMessage(tr("Backup <i>%1</i> failed: %2").arg(backupTask->name()).arg(backupTask->output().simplified()),
-                            tr("%1").arg(backupTask->output()), true);
+                            backupTask->output(), true);
         delete backupTask;
         break;
     case TaskStatus::Paused:
@@ -539,6 +534,12 @@ void MainWindow::setTarsnapVersion(QString versionString)
         _ui->clientVersionLabel->setText(tr("Tarsnap version ") + _tarsnapVersion + tr(" detected"));
         _ui->clientVersionLabel->show();
     }
+}
+
+void MainWindow::notificationRaise()
+{
+    this->raise();
+    this->activateWindow();
 }
 
 void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
@@ -660,11 +661,8 @@ void MainWindow::updateStatusMessage(QString message, QString detail, bool notif
 
     appendToJournalLog(QString("[%1] %2").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")).arg(message));
 
-    if(notify && _tray.isSystemTrayAvailable())
-    {
-        _tray.show();
-        _tray.showMessage(qApp->applicationName(), message.remove(QRegExp("<[^>]*>")));
-    }
+    if(notify)
+        emit displayNotification(message.remove(QRegExp("<[^>]*>")));
 }
 
 void MainWindow::commitSettings()
@@ -687,6 +685,7 @@ void MainWindow::commitSettings()
     settings.setValue("app/skip_system_files", _ui->skipSystemLineEdit->text());
     settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
+    settings.setValue("app/notifications", _ui->notificationsCheckBox->isChecked());
     settings.sync();
     emit settingsChanged();
 }

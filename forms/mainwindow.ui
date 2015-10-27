@@ -2446,37 +2446,45 @@ border: none;
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>backupListWidget</tabstop>
+  <tabstop>backupNameLineEdit</tabstop>
+  <tabstop>appendTimestampCheckBox</tabstop>
+  <tabstop>backupButton</tabstop>
+  <tabstop>archiveListWidget</tabstop>
+  <tabstop>archiveContentsPlainTextEdit</tabstop>
+  <tabstop>jobListWidget</tabstop>
+  <tabstop>addJobButton</tabstop>
+  <tabstop>loginTarsnapButton</tabstop>
+  <tabstop>accountActivityShowButton</tabstop>
+  <tabstop>machineActivityShowButton</tabstop>
+  <tabstop>accountUserLineEdit</tabstop>
+  <tabstop>accountUserLoginButtton</tabstop>
   <tabstop>accountMachineLineEdit</tabstop>
   <tabstop>accountMachineUseHostnameButton</tabstop>
   <tabstop>accountMachineKeyLineEdit</tabstop>
   <tabstop>accountMachineKeyBrowseButton</tabstop>
-  <tabstop>aggressiveNetworkingCheckBox</tabstop>
-  <tabstop>traverseMountCheckBox</tabstop>
-  <tabstop>preservePathsCheckBox</tabstop>
-  <tabstop>followSymLinksCheckBox</tabstop>
+  <tabstop>notificationsCheckBox</tabstop>
   <tabstop>siPrefixesCheckBox</tabstop>
-  <tabstop>skipFilesSizeSpinBox</tabstop>
+  <tabstop>aggressiveNetworkingCheckBox</tabstop>
+  <tabstop>preservePathsCheckBox</tabstop>
+  <tabstop>traverseMountCheckBox</tabstop>
+  <tabstop>followSymLinksCheckBox</tabstop>
   <tabstop>downloadsDirLineEdit</tabstop>
   <tabstop>downloadsDirBrowseButton</tabstop>
+  <tabstop>skipFilesSizeSpinBox</tabstop>
+  <tabstop>skipSystemJunkCheckBox</tabstop>
+  <tabstop>skipSystemLineEdit</tabstop>
+  <tabstop>skipSystemDefaultsButton</tabstop>
   <tabstop>aboutButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapCacheLineEdit</tabstop>
   <tabstop>tarsnapCacheBrowseButton</tabstop>
+  <tabstop>appDataDirLineEdit</tabstop>
+  <tabstop>appDataDirBrowseButton</tabstop>
   <tabstop>repairCacheButton</tabstop>
   <tabstop>purgeArchivesButton</tabstop>
   <tabstop>runSetupWizard</tabstop>
-  <tabstop>journalLog</tabstop>
-  <tabstop>expandJournalButton</tabstop>
-  <tabstop>backupNameLineEdit</tabstop>
-  <tabstop>appendTimestampCheckBox</tabstop>
-  <tabstop>backupButton</tabstop>
-  <tabstop>backupListWidget</tabstop>
-  <tabstop>mainTabWidget</tabstop>
-  <tabstop>addJobButton</tabstop>
-  <tabstop>jobListWidget</tabstop>
-  <tabstop>archiveListWidget</tabstop>
-  <tabstop>archiveContentsPlainTextEdit</tabstop>
   <tabstop>helpTextBrowser</tabstop>
   <tabstop>keyboardShortcutsPlainTextEdit_5</tabstop>
   <tabstop>consoleLogPlainTextEdit</tabstop>

@@ -210,7 +210,7 @@ background-color: rgba(178,190,255, 85);
 }</string>
              </property>
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag and drop files and directories to back up or you can use the &lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;File Browser&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:normal;&quot;&gt;Drag and drop files and directories to back up or you can use the &lt;/span&gt;&lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; font-style:normal; text-decoration: underline; color:#0000ff;&quot;&gt;File browser&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="textFormat">
               <enum>Qt::RichText</enum>

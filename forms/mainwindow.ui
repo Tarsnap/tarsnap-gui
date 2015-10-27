@@ -1317,7 +1317,7 @@ color: blue;
                           <string>Login to tarsnap.com and update account info.</string>
                          </property>
                          <property name="text">
-                          <string>Login</string>
+                          <string>login</string>
                          </property>
                         </widget>
                        </item>
@@ -1366,7 +1366,7 @@ color: blue;
                           </size>
                          </property>
                          <property name="text">
-                          <string>Hostname</string>
+                          <string>hostname</string>
                          </property>
                         </widget>
                        </item>
@@ -1415,7 +1415,7 @@ color: blue;
                           </size>
                          </property>
                          <property name="text">
-                          <string>Change</string>
+                          <string>change</string>
                          </property>
                         </widget>
                        </item>
@@ -1473,27 +1473,17 @@ color: blue;
                   <string/>
                  </property>
                  <layout class="QGridLayout" name="gridLayout">
-                  <item row="8" column="1">
-                   <widget class="QLineEdit" name="skipSystemLineEdit">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
+                  <item row="1" column="0" colspan="5">
+                   <widget class="QCheckBox" name="siPrefixesCheckBox">
                     <property name="toolTip">
-                     <string>Can use shell globbing patterns. The list is colon separated.</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="0">
-                   <widget class="QCheckBox" name="skipSystemJunkCheckBox">
-                    <property name="toolTip">
-                     <string>Tarsnap will skip these files globally for backups</string>
+                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is based on base 2</string>
                     </property>
                     <property name="text">
-                     <string>Skip system junk:</string>
+                     <string>Use SI notation (default is IEC byte multipliers)</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="0" colspan="4">
+                  <item row="4" column="0" colspan="5">
                    <widget class="QCheckBox" name="traverseMountCheckBox">
                     <property name="toolTip">
                      <string>Cross mount points when creating archives</string>
@@ -1506,17 +1496,23 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="9" column="1">
-                   <widget class="QLineEdit" name="downloadsDirLineEdit">
+                  <item row="10" column="0">
+                   <widget class="QCheckBox" name="skipSystemJunkCheckBox">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="toolTip">
+                     <string>Tarsnap will skip these files globally for backups</string>
+                    </property>
+                    <property name="text">
+                     <string>Skip system junk:</string>
+                    </property>
                    </widget>
                   </item>
-                  <item row="2" column="0" colspan="4">
+                  <item row="2" column="0" colspan="5">
                    <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
                     <property name="toolTip">
                      <string>Use multiple TCP connections to send data to the Tarsnap server</string>
@@ -1527,49 +1523,19 @@ color: blue;
                    </widget>
                   </item>
                   <item row="9" column="0">
-                   <widget class="QLabel" name="downloadsDirLabel">
-                    <property name="text">
-                     <string>Downloads directory:</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="9" column="2">
-                   <widget class="QPushButton" name="downloadsDirBrowseButton">
+                   <widget class="QLabel" name="label_3">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Change</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QCheckBox" name="siPrefixesCheckBox">
-                    <property name="toolTip">
-                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is based on base 2</string>
-                    </property>
-                    <property name="text">
-                     <string>Use SI notation (default is IEC byte multipliers)</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="0">
-                   <widget class="QLabel" name="label_3">
-                    <property name="text">
                      <string>Skip files larger than:</string>
                     </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                    </property>
                    </widget>
                   </item>
-                  <item row="11" column="0" colspan="3">
+                  <item row="13" column="0" colspan="4">
                    <spacer name="verticalSpacer">
                     <property name="orientation">
                      <enum>Qt::Vertical</enum>
@@ -1582,7 +1548,7 @@ color: blue;
                     </property>
                    </spacer>
                   </item>
-                  <item row="5" column="0" colspan="4">
+                  <item row="5" column="0" colspan="5">
                    <widget class="QCheckBox" name="followSymLinksCheckBox">
                     <property name="toolTip">
                      <string>If checked all symbolic links will be followed when creating an archive</string>
@@ -1592,13 +1558,85 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="1">
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="downloadsDirLabel">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Downloads directory:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0" colspan="5">
+                   <widget class="QCheckBox" name="preservePathsCheckBox">
+                    <property name="toolTip">
+                     <string>Preseve absolute pathnames by not removing leading slashes</string>
+                    </property>
+                    <property name="text">
+                     <string>Preserve pathnames globally</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QCheckBox" name="notificationsCheckBox">
+                    <property name="text">
+                     <string>Show desktop notifications</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="0" colspan="5">
+                   <widget class="QPushButton" name="aboutButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>About Tarsnap</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1">
+                   <widget class="QLineEdit" name="downloadsDirLineEdit">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="2">
+                   <widget class="QPushButton" name="downloadsDirBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>change</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="1">
                    <widget class="QSpinBox" name="skipFilesSizeSpinBox">
                     <property name="enabled">
                      <bool>true</bool>
                     </property>
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
@@ -1632,43 +1670,35 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="10" column="0" colspan="3">
-                   <widget class="QPushButton" name="aboutButton">
-                    <property name="text">
-                     <string>About Tarsnap</string>
+                  <item row="10" column="1">
+                   <widget class="QLineEdit" name="skipSystemLineEdit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Can use shell globbing patterns. The list is colon separated.</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="2">
+                  <item row="10" column="2">
                    <widget class="QPushButton" name="skipSystemDefaultsButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
                     <property name="toolTip">
                      <string>Fill with default system junk patterns</string>
                     </property>
                     <property name="text">
-                     <string>Defaults</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0" colspan="4">
-                   <widget class="QCheckBox" name="preservePathsCheckBox">
-                    <property name="toolTip">
-                     <string>Preseve absolute pathnames by not removing leading slashes</string>
-                    </property>
-                    <property name="text">
-                     <string>Preserve pathnames globally</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QCheckBox" name="notificationsCheckBox">
-                    <property name="text">
-                     <string>Show desktop notifications</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
+                     <string>defaults</string>
                     </property>
                    </widget>
                   </item>
@@ -1727,7 +1757,7 @@ color: blue;
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Change</string>
+                     <string>change</string>
                     </property>
                    </widget>
                   </item>
@@ -1750,7 +1780,7 @@ color: blue;
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Change</string>
+                     <string>change</string>
                     </property>
                    </widget>
                   </item>
@@ -1796,7 +1826,7 @@ color: blue;
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Change</string>
+                     <string>change</string>
                     </property>
                    </widget>
                   </item>

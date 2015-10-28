@@ -309,7 +309,7 @@ void MainWindow::loadSettings()
     QDate creditDate = settings.value("tarsnap/credit_date", QDate()).toDate();
     _ui->accountCreditLabel->setToolTip(creditDate.toString());
     qint32 daysElapsed = creditDate.daysTo(QDate::currentDate());
-    if( daysElapsed > 10)
+    if(daysElapsed > 10)
     {
         _ui->outOfDateNoticeLabel->setText(_ui->outOfDateNoticeLabel->text().arg(daysElapsed));
         _ui->outOfDateNoticeLabel->show();
@@ -411,7 +411,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 void MainWindow::backupTaskUpdate(const TaskStatus& status)
 {
     BackupTaskPtr backupTask = qobject_cast<BackupTaskPtr>(sender());
-    switch (status)
+    switch(status)
     {
     case TaskStatus::Completed:
         updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
@@ -484,7 +484,8 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
 
 void MainWindow::repairCacheStatus(TaskStatus status, QString reason)
 {
-    switch (status) {
+    switch(status)
+    {
     case TaskStatus::Completed:
         updateStatusMessage(tr("Cache repair succeeded."), reason);
         break;
@@ -497,7 +498,8 @@ void MainWindow::repairCacheStatus(TaskStatus status, QString reason)
 
 void MainWindow::purgeArchivesStatus(TaskStatus status, QString reason)
 {
-    switch (status) {
+    switch(status)
+    {
     case TaskStatus::Completed:
         updateStatusMessage(tr("All archives purged successfully."), reason);
         break;
@@ -510,7 +512,8 @@ void MainWindow::purgeArchivesStatus(TaskStatus status, QString reason)
 
 void MainWindow::restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason)
 {
-    switch (status) {
+    switch(status)
+    {
     case TaskStatus::Completed:
         updateStatusMessage(tr("Restoring archive <i>%1</i>...done").arg(archive->name()), reason);
         break;
@@ -599,13 +602,10 @@ void MainWindow::appendTimestampCheckBoxToggled(bool checked)
     else
     {
         QString text = _ui->backupNameLineEdit->text();
-        if(!_lastTimestamp.isEmpty() && !text.isEmpty())
+        if(!_lastTimestamp.isEmpty() && text.endsWith(_lastTimestamp))
         {
-            if(text.endsWith(_lastTimestamp))
-            {
-                text.chop(_lastTimestamp.length());
-                _ui->backupNameLineEdit->setText(text);
-            }
+            text.chop(_lastTimestamp.length());
+            _ui->backupNameLineEdit->setText(text);
         }
     }
 }
@@ -845,11 +845,9 @@ void MainWindow::purgeArchivesButtonClicked()
     if (ok && (confirmationText == userText))
     {
         _purgeTimerCount = PURGE_SECONDS_DELAY;
-
         _purgeCountdownWindow.setText(tr( "Purging all archives in %1 seconds...")
                                       .arg(_purgeTimerCount));
         _purgeTimer.start(1000);
-
         if(QMessageBox::Cancel == _purgeCountdownWindow.exec())
         {
             _purgeTimer.stop();

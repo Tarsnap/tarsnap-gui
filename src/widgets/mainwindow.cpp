@@ -71,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->journalLog->hide();
     _ui->archiveDetailsWidget->hide();
     _ui->jobDetailsWidget->hide();
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     _ui->consoleLog->setPlaceholderText(tr("No events yet"));
     _ui->journalLog->setPlaceholderText(tr("No events yet"));
 #endif

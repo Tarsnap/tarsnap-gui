@@ -71,6 +71,10 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->journalLog->hide();
     _ui->archiveDetailsWidget->hide();
     _ui->jobDetailsWidget->hide();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 2, 0))
+    _ui->consoleLog->setPlaceholderText(tr("No events yet"));
+    _ui->journalLog->setPlaceholderText(tr("No events yet"));
+#endif
 
     // Purge widget setup
     _purgeCountdownWindow.setIcon(QMessageBox::Critical);
@@ -762,7 +766,7 @@ void MainWindow::appendToJournalLog(QString msg)
 
 void MainWindow::appendToConsoleLog(QString msg)
 {
-    _ui->consoleLogPlainTextEdit->appendPlainText(msg);
+    _ui->consoleLog->appendPlainText(msg);
 }
 
 void MainWindow::browseForBackupItems()

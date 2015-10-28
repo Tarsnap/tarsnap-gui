@@ -32,7 +32,7 @@ protected slots:
     QString parseMachineId(QString html);
     void parseCredit(QString csv);
     void parseLastMachineActivity(QString csv);
-    void displayCSVTable(QString csv);
+    void displayCSVTable(QString csv, QString title);
     QNetworkReply* tarsnapRequest(QString url);
     QByteArray readReply(QNetworkReply *reply, bool warn = false);
     void networkError(QNetworkReply::NetworkError error);

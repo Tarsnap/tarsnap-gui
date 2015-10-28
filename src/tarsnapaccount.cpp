@@ -50,7 +50,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
             QByteArray replyData = readReply(activityReply, true);
             parseCredit(replyData);
             if(displayActivity)
-                displayCSVTable(replyData);
+                displayCSVTable(replyData, tr("Account activity"));
         });
         QString getMachineId(URL_LIST_MACHINES);
         getMachineId = getMachineId.arg(QString(QUrl::toPercentEncoding(_user)),
@@ -69,7 +69,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
                 QByteArray replyData = readReply(machineActivityReply);
                 parseLastMachineActivity(replyData);
                 if(displayMachineActivity)
-                    displayCSVTable(replyData);
+                    displayCSVTable(replyData, tr("Machine activity"));
             });
         });
     }
@@ -124,7 +124,7 @@ void TarsnapAccount::parseLastMachineActivity(QString csv)
     emit lastMachineActivity(lastLine.split(',', QString::SkipEmptyParts));
 }
 
-void TarsnapAccount::displayCSVTable(QString csv)
+void TarsnapAccount::displayCSVTable(QString csv, QString title)
 {
     DEBUG << csv;
     if(csv.isEmpty() || csv.startsWith("<!DOCTYPE html>"))
@@ -143,6 +143,7 @@ void TarsnapAccount::displayCSVTable(QString csv)
     table->setAlternatingRowColors(true);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     QDialog *tableDialog = new QDialog(this);
+    tableDialog->setWindowTitle(title);
     tableDialog->setAttribute( Qt::WA_DeleteOnClose, true );
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(table);

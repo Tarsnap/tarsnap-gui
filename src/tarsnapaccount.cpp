@@ -82,7 +82,7 @@ QString TarsnapAccount::parseMachineId(QString html)
     if(html.isEmpty() || !html.startsWith("<!DOCTYPE html>"))
         return machineId;
 
-    QRegExp machineIdRx("mid=(\\d+)\">" + QRegExp::escape(_machine) + "</a>", Qt::CaseSensitive, QRegExp::RegExp2);
+    QRegExp machineIdRx("mid=([0-9a-fA-F]+)\">" + QRegExp::escape(_machine) + "</a>", Qt::CaseSensitive, QRegExp::RegExp2);
 
     if(machineIdRx.lastIndexIn(html))
         machineId = machineIdRx.cap(1);

@@ -12,8 +12,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>514</width>
-    <height>400</height>
+    <width>500</width>
+    <height>430</height>
    </size>
   </property>
   <property name="acceptDrops">
@@ -229,7 +229,7 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
 Check the Advanced option below to explicitly specify where the Tarsnap client resides or a custom cache location.</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -435,6 +435,12 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           </item>
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The command line interface utilities are used to communicate with the Tarsnap service. Please point to the directory where the Tarsnap utilities are installed on this system. Information on installing Tarsnap CLI utilities can be found &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
@@ -595,17 +601,43 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
         <number>0</number>
        </property>
        <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Have you used Tarsnap on this machine already and have a key? Tarsnap can attempt to restore its previous configuration.</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item alignment="Qt::AlignBottom">
         <widget class="QWidget" name="buttonBox_2" native="true">
@@ -702,7 +734,7 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please use your Tarsnap account credentials. Don't have an account? Register on &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;tarsnap.com&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

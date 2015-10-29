@@ -996,6 +996,9 @@ margin-top: 6px;
                     <property name="fieldGrowthPolicy">
                      <enum>QFormLayout::ExpandingFieldsGrow</enum>
                     </property>
+                    <property name="formAlignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                    </property>
                     <item row="0" column="0">
                      <widget class="QLabel" name="label_4">
                       <property name="toolTip">
@@ -1139,6 +1142,12 @@ margin-top: 6px;
                      <layout class="QHBoxLayout" name="horizontalLayout_10">
                       <item>
                        <widget class="TextLabel" name="machineActivityLabel">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="font">
                          <font>
                           <weight>75</weight>
@@ -1149,7 +1158,10 @@ margin-top: 6px;
                          <string>This info is updated on demand. Press the big Tarsnap button above to update.</string>
                         </property>
                         <property name="text">
-                         <string/>
+                         <string>unknown</string>
+                        </property>
+                        <property name="wordWrap">
+                         <bool>true</bool>
                         </property>
                         <property name="textInteractionFlags">
                          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -1178,9 +1190,22 @@ color: blue;
 }</string>
                         </property>
                         <property name="text">
-                         <string>Show activity</string>
+                         <string>details</string>
                         </property>
                        </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_3">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                      </layout>
                     </item>
@@ -1198,7 +1223,7 @@ color: blue;
                          <string>This info is updated on demand. Press the big Tarsnap button above to update.</string>
                         </property>
                         <property name="text">
-                         <string/>
+                         <string>unknown</string>
                         </property>
                         <property name="textInteractionFlags">
                          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -1224,9 +1249,22 @@ color: blue;
 }</string>
                         </property>
                         <property name="text">
-                         <string>Show activity</string>
+                         <string>details</string>
                         </property>
                        </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_2">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                      </layout>
                     </item>

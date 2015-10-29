@@ -71,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->journalLog->hide();
     _ui->archiveDetailsWidget->hide();
     _ui->jobDetailsWidget->hide();
+    _ui->outOfDateNoticeLabel->hide();
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     _ui->consoleLog->setPlaceholderText(tr("No events yet"));
     _ui->journalLog->setPlaceholderText(tr("No events yet"));
@@ -309,20 +310,27 @@ MainWindow::~MainWindow()
 void MainWindow::loadSettings()
 {
     QSettings settings;
-    _ui->accountCreditLabel->setText(settings.value("tarsnap/credit", "").toString());
+    _ui->accountCreditLabel->setText(settings.value("tarsnap/credit", tr("unknown")).toString());
     QDate creditDate = settings.value("tarsnap/credit_date", QDate()).toDate();
-    _ui->accountCreditLabel->setToolTip(creditDate.toString());
-    qint32 daysElapsed = creditDate.daysTo(QDate::currentDate());
-    if(daysElapsed > 10)
+    if(creditDate.isValid())
     {
-        _ui->outOfDateNoticeLabel->setText(_ui->outOfDateNoticeLabel->text().arg(daysElapsed));
-        _ui->outOfDateNoticeLabel->show();
+        _ui->accountCreditLabel->setToolTip(creditDate.toString());
+        qint32 daysElapsed = creditDate.daysTo(QDate::currentDate());
+        if(daysElapsed > 10)
+        {
+            _ui->outOfDateNoticeLabel->setText(_ui->outOfDateNoticeLabel->text().arg(daysElapsed));
+            _ui->outOfDateNoticeLabel->show();
+        }
+        else
+        {
+            _ui->outOfDateNoticeLabel->hide();
+        }
     }
     else
     {
-        _ui->outOfDateNoticeLabel->hide();
+        _ui->accountCreditLabel->setToolTip(tr("This info is updated on demand. Press the big Tarsnap button above to update."));
     }
-    _ui->machineActivityLabel->setText(settings.value("tarsnap/machine_activity", "").toString());
+    _ui->machineActivityLabel->setText(settings.value("tarsnap/machine_activity", tr("unknown")).toString());
     _ui->accountUserLineEdit->setText(settings.value("tarsnap/user", "").toString());
     _ui->accountMachineKeyLineEdit->setText(settings.value("tarsnap/key", "").toString());
     _ui->accountMachineLineEdit->setText(settings.value("tarsnap/machine", "").toString());

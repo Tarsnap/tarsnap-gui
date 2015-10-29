@@ -18,6 +18,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
     _haveKey(false)
 {
     _ui->setupUi(this);
+    setWindowFlags( (windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
 
     _ui->loadingIconLabel->setMovie(&_loadingAnimation);
     _ui->advancedPageRadioButton->hide();

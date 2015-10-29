@@ -10,6 +10,8 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent) :
     QDialog(parent), _ui(new Ui::RestoreDialog), _archive(archive)
 {
     _ui->setupUi(this);
+    setWindowFlags( (windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
+
     _ui->infoLabel->setText(_ui->infoLabel->text().arg(archive->name()));
     QSettings settings;
     QString downDir = settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString();

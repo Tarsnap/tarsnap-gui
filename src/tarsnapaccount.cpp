@@ -14,6 +14,7 @@ TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _user(),
     _nam(this)
 {
     _ui.setupUi(this);
+    setWindowFlags( (windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
 }
 
 QString TarsnapAccount::user() const

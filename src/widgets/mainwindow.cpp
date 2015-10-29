@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     Ui::aboutWidget aboutUi;
     aboutUi.setupUi(&_aboutWindow);
     aboutUi.versionLabel->setText(tr("version ") + QCoreApplication::applicationVersion());
-    _aboutWindow.setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint);
+    _aboutWindow.setWindowFlags((_aboutWindow.windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
     connect(aboutUi.checkUpdateButton, &QPushButton::clicked,
     [=]() {
         QDesktopServices::openUrl(QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));

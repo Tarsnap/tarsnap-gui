@@ -102,7 +102,7 @@ private:
     QMenuBar         _menuBar;
     QMenu            _appMenu;
     QAction          _actionAbout;
-    QWidget          _aboutWindow;
+    QDialog          _aboutWindow;
     QPoint           _windowDragPos;
     QString          _lastTimestamp;
     ArchivePtr       _currentArchiveDetail;

@@ -80,9 +80,15 @@ bool PersistentStore::init()
                 return false;
             }
             if((version == 0) && upgradeVersion1())
+            {
                 DEBUG << "DB upgraded to version 1.";
+                version = 1;
+            }
             if((version == 1) && upgradeVersion2())
+            {
                 DEBUG << "DB upgraded to version 2.";
+                version = 2;
+            }
         }
     }
 

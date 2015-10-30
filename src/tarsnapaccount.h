@@ -14,12 +14,6 @@ class TarsnapAccount : public QDialog
 public:
     explicit TarsnapAccount(QWidget *parent = 0);
 
-    QString user() const;
-    void setUser(const QString &user);
-
-    QString getMachine() const;
-    void setMachine(const QString &machine);
-
 signals:
     void accountCredit(qreal credit, QDate date);
     void lastMachineActivity(QStringList activityFields);
@@ -40,9 +34,9 @@ protected slots:
 
 private:
     Ui::loginDialog       _ui;
+    QNetworkAccessManager _nam;
     QString               _user;
     QString               _machine;
-    QNetworkAccessManager _nam;
 };
 
 #endif // TARSNAPACCOUNT_H

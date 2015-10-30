@@ -97,12 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->actionBrowseItems, SIGNAL(triggered()), this, SLOT(browseForBackupItems()));
     _ui->settingsTab->addAction(_ui->actionRefreshAccount);
     connect(_ui->actionRefreshAccount, SIGNAL(triggered()), this, SIGNAL(getOverallStats()));
-    connect(_ui->actionRefreshAccount, &QAction::triggered,
-    [=]() {
-        _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
-        _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
-        _tarsnapAccount.getAccountInfo();
-    });
+    connect(_ui->actionRefreshAccount, SIGNAL(triggered()), &_tarsnapAccount, SLOT(getAccountInfo()));
     this->addAction(_ui->actionGoBackup);
     this->addAction(_ui->actionGoBrowse);
     this->addAction(_ui->actionGoJobs);
@@ -176,14 +171,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->accountUserLoginButtton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
     connect(_ui->accountActivityShowButton, &QPushButton::clicked,
     [=]() {
-        _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
-        _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
         _tarsnapAccount.getAccountInfo(true, false);
     });
     connect(_ui->machineActivityShowButton, &QPushButton::clicked,
     [=]() {
-        _tarsnapAccount.setUser(_ui->accountUserLineEdit->text());
-        _tarsnapAccount.setMachine(_ui->accountMachineLineEdit->text());
         _tarsnapAccount.getAccountInfo(false, true);
     });
 

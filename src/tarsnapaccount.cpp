@@ -5,41 +5,29 @@
 #include <QNetworkReply>
 #include <QTableWidget>
 #include <QMessageBox>
+#include <QSettings>
 
 #define URL_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=activity&format=csv"
 #define URL_MACHINE_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=subactivity&mid=%3&format=csv"
 #define URL_LIST_MACHINES "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=subactivity"
 
-TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _user(),
-    _nam(this)
+TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _nam(this)
 {
     _ui.setupUi(this);
     setWindowFlags( (windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
 }
 
-QString TarsnapAccount::user() const
-{
-    return _user;
-}
-
-void TarsnapAccount::setUser(const QString &user)
-{
-    _user = user;
-    _ui.textLabel->setText(QString("Type password for account %1:").arg(_user));
-}
-
-QString TarsnapAccount::getMachine() const
-{
-    return _machine;
-}
-
-void TarsnapAccount::setMachine(const QString &machine)
-{
-    _machine = machine;
-}
-
 void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineActivity)
 {
+    QSettings settings;
+    _user = settings.value("tarsnap/user", "").toString();
+    _machine = settings.value("tarsnap/machine", "").toString();
+    if(_user.isEmpty() || _machine.isEmpty())
+    {
+        QMessageBox::warning(this, tr("Warning"), tr("Tarsnap user and machine name must be set."));
+        return;
+    }
+    _ui.textLabel->setText(tr("Type password for account %1:").arg(_user));
     if(exec())
     {
         QString getActivity(URL_ACTIVITY);

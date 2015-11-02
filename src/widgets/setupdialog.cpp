@@ -25,7 +25,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
     _ui->clientVersionLabel->hide();
     _ui->errorLabel->hide();
     _ui->machineKeyLabel->hide();
-    _ui->machineKeyLineEdit->hide();
+    _ui->machineKeyCombo->hide();
     _ui->locateMachineKeyLabel->hide();
 
     connect(_ui->welcomePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
@@ -58,7 +58,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
     connect(_ui->tarsnapUserLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
     connect(_ui->tarsnapPasswordLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
     connect(_ui->machineNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
-    connect(_ui->machineKeyLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
+    connect(_ui->machineKeyCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(validateRegisterPage()));
     connect(_ui->locateMachineKeyLabel, SIGNAL(linkActivated(QString)), this, SLOT(registerHaveKeyBrowse(QString)));
     connect(_ui->registerMachineButton, SIGNAL(clicked()), this, SLOT(registerMachine()));
 
@@ -229,7 +229,7 @@ void SetupDialog::restoreNo()
 {
     _haveKey = false;
     _ui->machineKeyLabel->hide();
-    _ui->machineKeyLineEdit->hide();
+    _ui->machineKeyCombo->hide();
     _ui->locateMachineKeyLabel->hide();
     _ui->tarsnapUserLabel->show();
     _ui->tarsnapUserLineEdit->show();
@@ -250,7 +250,7 @@ void SetupDialog::restoreYes()
     _ui->tarsnapPasswordLabel->hide();
     _ui->tarsnapPasswordLineEdit->hide();
     _ui->machineKeyLabel->show();
-    _ui->machineKeyLineEdit->show();
+    _ui->machineKeyCombo->show();
     _ui->locateMachineKeyLabel->show();
     _ui->registerPageInfoLabel->setText(tr("Please use your existing machine key "
                                            "and a machine name of your liking. "
@@ -258,6 +258,8 @@ void SetupDialog::restoreYes()
                                            "verify archive consistency and integrity "
                                            "using the cache, thus please be patient."));
     _ui->errorLabel->clear();
+    foreach(QFileInfo file, Utils::findKeysInPath(_appDataDir))
+        _ui->machineKeyCombo->addItem(file.canonicalFilePath());
     setNextPage();
 }
 
@@ -267,7 +269,7 @@ void SetupDialog::validateRegisterPage()
     if(_haveKey)
     {
         // user specified key
-        QFileInfo machineKeyFile(_ui->machineKeyLineEdit->text());
+        QFileInfo machineKeyFile(_ui->machineKeyCombo->currentText());
         if(!_ui->machineNameLineEdit->text().isEmpty()
            && machineKeyFile.exists() && machineKeyFile.isFile()
            && machineKeyFile.isReadable())
@@ -293,7 +295,7 @@ void SetupDialog::registerHaveKeyBrowse(QString url)
     Q_UNUSED(url);
     QString existingMachineKey = QFileDialog::getOpenFileName(this
                                  , tr("Browse for existing machine key"));
-    _ui->machineKeyLineEdit->setText(existingMachineKey);
+    _ui->machineKeyCombo->setCurrentText(existingMachineKey);
 }
 
 void SetupDialog::registerMachine()
@@ -301,15 +303,12 @@ void SetupDialog::registerMachine()
     _ui->registerMachineButton->setEnabled(false);
     _ui->errorLabel->clear();
     if(_haveKey)
-    {
-        _tarsnapKeyFile = _ui->machineKeyLineEdit->text();
-    }
+        _tarsnapKeyFile = _ui->machineKeyCombo->currentText();
     else
-    {
         _tarsnapKeyFile = _appDataDir + QDir::separator() + _ui->machineNameLineEdit->text()
                           + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
                           + ".key";
-    }
+
     DEBUG << "Registration details >>\n" << _tarsnapDir << ::endl << _appDataDir << ::endl
           << _tarsnapKeyFile << ::endl << _tarsnapCacheDir;
 

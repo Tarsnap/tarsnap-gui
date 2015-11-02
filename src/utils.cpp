@@ -110,3 +110,15 @@ QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
 
     return path;
 }
+
+QFileInfoList Utils::findKeysInPath(QString path)
+{
+    QFileInfoList result;
+    QDir dir(path);
+    if(!dir.exists())
+        return result;
+    dir.setFilter(QDir::Files | QDir::Readable);
+    dir.setSorting(QDir::Time);
+    dir.setNameFilters(QStringList("*.key"));
+    return dir.entryInfoList();
+}

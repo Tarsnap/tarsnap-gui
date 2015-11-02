@@ -59,6 +59,10 @@ QString humanBytes(quint64 bytes, bool si = false);
 // returns the directory where tarsnap resides if found, otherwise empty string
 QString findTarsnapClientInPath(QString path, bool keygenToo = false);
 
+
+// Search for valid tarsnap keys in the supplied path
+QFileInfoList findKeysInPath(QString path);
+
 // Returns canonical path if verified, otherwise empty string
 QString validateTarsnapCache(QString path);
 

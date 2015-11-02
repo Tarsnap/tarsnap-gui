@@ -11,7 +11,7 @@ on at least Qt 5.2.1.
 First step for all platforms is to install the Tarsnap client on your system:
 https://www.tarsnap.com/download.html
 
-Once you have the Tarsnap client installed you can proceed to building the app.
+Once you have the Tarsnap client installed you can proceed to building this app.
 
 ===============
 OS X (Yosemite)
@@ -61,7 +61,6 @@ the clang++ spec of qmake ommits that on FreeBSD. The complete line should look 
 LFLAGS        = -pthread -Wl,-rpath,/usr/local/lib,-L,/usr/local/lib
 6) make -j$(sysctl -n hw.ncpu)
 7) ./tarsnap-gui
-
 
 ====================
 Debian based distros

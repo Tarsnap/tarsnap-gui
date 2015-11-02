@@ -6,22 +6,22 @@ Improvements and fixes:
 * Add About widget and menubar entry in conformity with Apple's HID guidelines.
 * Add command line arguments -h and -v; needed for OS X Homebrew consideration.
 * Automatic job backups via the --jobs command argument. Can be used with cron
-  scheduling or otherwise. There's a job specific option 'Include in scheduled
-  backups' that controls which jobs will get executed.
+scheduling or otherwise. There's a job specific option 'Include in scheduled
+backups' that controls which jobs will get executed.
 * Added ability to cancel any running operation by clicking on the busy icon.
-* Tristate checkboxes in the FilePicker file system tree view. Partially checked
-  directories signify a partial selection of child items.
+* Tristate checkboxes in the FilePicker file system tree view. Partially
+checked directories signify a partial selection of child items.
 * Visually indicate archives pertaining to a job in the Archives pane.
 * Upgraded the Add job button looks and functionality. Has a dropdown menu with
-  'Backup all jobs' action.
+'Backup all jobs' action.
 * Display cached archives on startup until the remote sync has completed.
 * Ctrl+j toggles the Journal log widget now.
 * Purge operation now requires typing the 'No Tomorrow'; similar to CLI.
 * Add some extra confirmations as safety checks when deleting archives in bulk.
 * Implement proper access locking to the Sqlite DB. Should fix any concurrent
-  access issues.
+access issues.
 * Various other improvements and fixes, including some based on the feedback
-  following the v0.5 release.
+following the v0.5 release.
 
 Caveats:
 * The Sqlite DB schema has changed. It's best to reset the app settings before
@@ -31,8 +31,8 @@ release will include a DB update method.
 
 Version 0.5
 -----------
-Improvements and additions to Settings and Help panes. General polishing, fixing
-and preparedness for public release.
+Improvements and additions to Settings and Help panes. General polishing,
+fixing and preparedness for public release.
 
 Version 0.4
 -----------
@@ -41,8 +41,8 @@ Basic Archive restore. Many other improvements, fixes.
 
 Version 0.3
 -----------
-Implemented settings pane along with the options and actions that make sense and
-are helpful at the current state. Many other improvements, fixes.
+Implemented settings pane along with the options and actions that make sense
+and are helpful at the current state. Many other improvements, fixes.
 
 Version 0.2
 -----------

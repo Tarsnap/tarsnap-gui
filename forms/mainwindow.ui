@@ -954,18 +954,29 @@ border: 1px solid rgba(255,255,255,100);
                   <item alignment="Qt::AlignHCenter">
                    <widget class="QPushButton" name="loginTarsnapButton">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>128</width>
+                      <height>128</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>128</width>
+                      <height>128</height>
+                     </size>
                     </property>
                     <property name="toolTip">
                      <string>Login to tarsnap.com and update Account details.</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">QPushButton {
-background: none;
-border: none;
+border-image: url(:/icons/tarsnap_icon_big.png)
 }
 
 QPushButton:pressed {
@@ -975,16 +986,6 @@ margin-top: 6px;
                     </property>
                     <property name="text">
                      <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../resources/resources.qrc">
-                      <normaloff>:/icons/tarsnap_icon_big.png</normaloff>:/icons/tarsnap_icon_big.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>128</width>
-                      <height>128</height>
-                     </size>
                     </property>
                     <property name="flat">
                      <bool>true</bool>
@@ -997,7 +998,7 @@ margin-top: 6px;
                      <enum>QFormLayout::ExpandingFieldsGrow</enum>
                     </property>
                     <property name="formAlignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
                     </property>
                     <item row="0" column="0">
                      <widget class="QLabel" name="label_4">
@@ -1128,8 +1129,70 @@ margin-top: 6px;
                       </property>
                      </widget>
                     </item>
+                    <item row="4" column="1">
+                     <layout class="QHBoxLayout" name="horizontalLayout_6">
+                      <item>
+                       <widget class="QLabel" name="accountCreditLabel">
+                        <property name="font">
+                         <font>
+                          <weight>75</weight>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="toolTip">
+                         <string>This info is updated on demand. Press the big Tarsnap button above to update.</string>
+                        </property>
+                        <property name="text">
+                         <string>unknown</string>
+                        </property>
+                        <property name="textInteractionFlags">
+                         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="accountActivityShowButton">
+                        <property name="font">
+                         <font>
+                          <underline>true</underline>
+                         </font>
+                        </property>
+                        <property name="toolTip">
+                         <string>Update credit from Tarsnap website. Requires login.</string>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QPushButton {
+border: 1px;
+}
+QPushButton:hover {
+color: blue;
+}</string>
+                        </property>
+                        <property name="text">
+                         <string>update</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_2">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                         <enum>QSizePolicy::Preferred</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
                     <item row="5" column="0">
-                     <widget class="QLabel" name="label_9">
+                     <widget class="QLabel" name="machineActivityLabel">
                       <property name="toolTip">
                        <string>Last activity recorded by Tarsnap for this machine</string>
                       </property>
@@ -1139,15 +1202,9 @@ margin-top: 6px;
                      </widget>
                     </item>
                     <item row="5" column="1">
-                     <layout class="QHBoxLayout" name="horizontalLayout_10">
+                     <layout class="QHBoxLayout" name="machineActivityHorizontalLayout">
                       <item>
-                       <widget class="TextLabel" name="machineActivityLabel">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
+                       <widget class="TextLabel" name="machineActivity">
                         <property name="font">
                          <font>
                           <weight>75</weight>
@@ -1199,64 +1256,8 @@ color: blue;
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
                         </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </item>
-                    <item row="4" column="1">
-                     <layout class="QHBoxLayout" name="horizontalLayout_6">
-                      <item>
-                       <widget class="QLabel" name="accountCreditLabel">
-                        <property name="font">
-                         <font>
-                          <weight>75</weight>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="toolTip">
-                         <string>This info is updated on demand. Press the big Tarsnap button above to update.</string>
-                        </property>
-                        <property name="text">
-                         <string>unknown</string>
-                        </property>
-                        <property name="textInteractionFlags">
-                         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="accountActivityShowButton">
-                        <property name="font">
-                         <font>
-                          <underline>true</underline>
-                         </font>
-                        </property>
-                        <property name="toolTip">
-                         <string>Show account activity. Requires Tarsnap login.</string>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QPushButton {
-border: 1px;
-}
-QPushButton:hover {
-color: blue;
-}</string>
-                        </property>
-                        <property name="text">
-                         <string>details</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_2">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
+                        <property name="sizeType">
+                         <enum>QSizePolicy::Preferred</enum>
                         </property>
                         <property name="sizeHint" stdset="0">
                          <size>
@@ -1281,7 +1282,7 @@ color: blue;
                      <string>Press the big Tarsnap button above to update account details</string>
                     </property>
                     <property name="text">
-                     <string>Credit and machine activity is %1 days old. Click the Tarsnap logo above to update.</string>
+                     <string>Credit is %1 days old. Click update to fetch latest credit.</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -1332,32 +1333,20 @@ color: blue;
                         </widget>
                        </item>
                        <item>
-                        <widget class="QPushButton" name="accountUserLoginButtton">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
+                        <spacer name="horizontalSpacer_4">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
                          </property>
-                         <property name="minimumSize">
+                         <property name="sizeType">
+                          <enum>QSizePolicy::Fixed</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
                           <size>
                            <width>100</width>
-                           <height>0</height>
+                           <height>20</height>
                           </size>
                          </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>100</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="toolTip">
-                          <string>Login to tarsnap.com and update account info.</string>
-                         </property>
-                         <property name="text">
-                          <string>login</string>
-                         </property>
-                        </widget>
+                        </spacer>
                        </item>
                       </layout>
                      </item>
@@ -2490,7 +2479,6 @@ border: none;
   <tabstop>accountActivityShowButton</tabstop>
   <tabstop>machineActivityShowButton</tabstop>
   <tabstop>accountUserLineEdit</tabstop>
-  <tabstop>accountUserLoginButtton</tabstop>
   <tabstop>accountMachineLineEdit</tabstop>
   <tabstop>accountMachineUseHostnameButton</tabstop>
   <tabstop>accountMachineKeyLineEdit</tabstop>

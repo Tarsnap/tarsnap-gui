@@ -166,17 +166,23 @@ MainWindow::MainWindow(QWidget *parent) :
         _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
     });
     connect(&_tarsnapAccount, SIGNAL(accountCredit(qreal, QDate)), this, SLOT(updateAccountCredit(qreal, QDate)));
-    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));
-    connect(_ui->loginTarsnapButton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
-    connect(_ui->accountUserLoginButtton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
-    connect(_ui->accountActivityShowButton, &QPushButton::clicked,
-    [=]() {
-        _tarsnapAccount.getAccountInfo(true, false);
-    });
-    connect(_ui->machineActivityShowButton, &QPushButton::clicked,
-    [=]() {
-        _tarsnapAccount.getAccountInfo(false, true);
-    });
+//    connect(_ui->loginTarsnapButton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
+    connect(_ui->accountActivityShowButton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
+// Disabled functionality
+//    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));
+//    connect(_ui->accountActivityShowButton, &QPushButton::clicked,
+//    [=]() {
+//        _tarsnapAccount.getAccountInfo(true, false);
+//    });
+//    connect(_ui->machineActivityShowButton, &QPushButton::clicked,
+//    [=]() {
+//        _tarsnapAccount.getAccountInfo(false, true);
+//    });
+    _ui->machineActivity->hide();
+    _ui->machineActivityLabel->hide();
+    _ui->machineActivityShowButton->hide();
+    _ui->formLayout_3->removeItem(_ui->machineActivityHorizontalLayout);
+// ---
 
     // Backup and Archives
     connect(_ui->backupListWidget, SIGNAL(itemTotals(quint64,quint64)), this
@@ -321,7 +327,7 @@ void MainWindow::loadSettings()
     {
         _ui->accountCreditLabel->setToolTip(tr("This info is updated on demand. Press the big Tarsnap button above to update."));
     }
-    _ui->machineActivityLabel->setText(settings.value("tarsnap/machine_activity", tr("unknown")).toString());
+    _ui->machineActivity->setText(settings.value("tarsnap/machine_activity", tr("unknown")).toString());
     _ui->accountUserLineEdit->setText(settings.value("tarsnap/user", "").toString());
     _ui->accountMachineKeyLineEdit->setText(settings.value("tarsnap/key", "").toString());
     _ui->accountMachineLineEdit->setText(settings.value("tarsnap/machine", "").toString());
@@ -955,7 +961,7 @@ void MainWindow::updateLastMachineActivity(QStringList activityFields)
 {
     QSettings settings;
     settings.setValue("tarsnap/machine_activity", activityFields.join(' '));
-    _ui->machineActivityLabel->setText(activityFields.join(' '));
-    _ui->machineActivityLabel->resize(_ui->machineActivityLabel->fontMetrics().width(_ui->machineActivityLabel->text()) / 2,
-                                      _ui->machineActivityLabel->sizeHint().height());
+    _ui->machineActivity->setText(activityFields.join(' '));
+    _ui->machineActivity->resize(_ui->machineActivity->fontMetrics().width(_ui->machineActivity->text()) / 2,
+                                      _ui->machineActivity->sizeHint().height());
 }

@@ -62,6 +62,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
             });
         });
     }
+    _ui.passwordLineEdit->clear();
 }
 
 QString TarsnapAccount::parseMachineId(QString html)

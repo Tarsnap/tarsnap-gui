@@ -1,8 +1,50 @@
+Version 0.7
+-----------
+
+New features:
+* Skip files from backup using shell globbing patterns. This option is
+available as a global setting (for excluding system junk files for example) and
+as a Job specific option.
+* Add system notifications. They are shown in both normal and headless mode.
+They can be disabled in Settings.
+* Add option in wizard advanced page to ensure settings are stored in INI
+format.
+* Add --appdata command line option. Useful for multiple configurations on the
+same machine (INI format is implied).
+* Ability to grab the Tarsnap credit from the website. User and password is
+required and are transmitted over https. Password is used only once and is not
+stored.
+* Detect Tarsnap client version and use it to discriminate features
+availability.
+* Look for existing keys and prompt them to the user when in setup wizard.
+
+Improvements and fixes:
+* Added DB upgrade mechanism. Version updates will go smooth from now on.
+* Redesigned the Job details widget to be more efficient and intuitive.
+* 99% of the UI looks gorgeous in high res/dpi displays now.
+* Archive removal from the UI upon delete is now lazy fashioned.
+* Archive sync between the local store and the remote has been greatly
+improved. You should experience less discrepancies than before.
+* Archives get automagically re/assigned to Jobs based on job prefixes upon
+sync from remote.
+* Fixed various UI update issues between Archives and Jobs tabs when archives
+are being manipulated.
+* Improved error journal and log messages.
+* Many performance and stability concerns have been fixed or improved. A slew
+of UI annoyances and bugs have also been fixed.
+
+Caveats:
+* Some internally used settings keys have been renamed for consistency and upon
+upgrading from an older version the setup wizard dialog will pop up. Follow the
+prompts and select "Yes" when asked if you have used Tarsnap on this machine in
+the past and have a key. Select the previous key if available in the dropdown
+list or locate it manually and proceed. You jobs and settings should remain
+unchanged.
+
 Version 0.6
 -----------
 
 Improvements and fixes:
-
 * Add About widget and menubar entry in conformity with Apple's HID guidelines.
 * Add command line arguments -h and -v; needed for OS X Homebrew consideration.
 * Automatic job backups via the --jobs command argument. Can be used with cron

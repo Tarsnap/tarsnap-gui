@@ -30,7 +30,7 @@ public slots:
     void restoreNo();
     void restoreYes();
     void validateRegisterPage();
-    void registerHaveKeyBrowse(QString url);
+    void registerHaveKeyBrowse();
     void registerMachine();
     void commitSettings(bool skipped = false);
 

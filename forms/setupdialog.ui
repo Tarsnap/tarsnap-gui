@@ -835,10 +835,26 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
             </property>
            </widget>
           </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="machineKeyCombo">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="editable">
+             <bool>true</bool>
+            </property>
+            <property name="currentText">
+             <string>this machine's keyfile</string>
+            </property>
+           </widget>
+          </item>
           <item row="4" column="1">
-           <widget class="QLabel" name="locateMachineKeyLabel">
+           <widget class="QPushButton" name="browseKeyButton">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Locate&lt;/span&gt;&lt;/a&gt; your machine key&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>Browse for key</string>
             </property>
            </widget>
           </item>
@@ -875,22 +891,6 @@ color: darkred;
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QComboBox" name="machineKeyCombo">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-            <property name="currentText">
-             <string>this machine's keyfile</string>
             </property>
            </widget>
           </item>

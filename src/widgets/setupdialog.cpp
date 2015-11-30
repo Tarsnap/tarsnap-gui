@@ -26,7 +26,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
     _ui->errorLabel->hide();
     _ui->machineKeyLabel->hide();
     _ui->machineKeyCombo->hide();
-    _ui->locateMachineKeyLabel->hide();
+    _ui->browseKeyButton->hide();
 
     connect(_ui->welcomePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
     connect(_ui->restorePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
@@ -59,7 +59,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
     connect(_ui->tarsnapPasswordLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
     connect(_ui->machineNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
     connect(_ui->machineKeyCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(validateRegisterPage()));
-    connect(_ui->locateMachineKeyLabel, SIGNAL(linkActivated(QString)), this, SLOT(registerHaveKeyBrowse(QString)));
+    connect(_ui->browseKeyButton, SIGNAL(clicked()), this, SLOT(registerHaveKeyBrowse()));
     connect(_ui->registerMachineButton, SIGNAL(clicked()), this, SLOT(registerMachine()));
 
     // Done page
@@ -230,7 +230,7 @@ void SetupDialog::restoreNo()
     _haveKey = false;
     _ui->machineKeyLabel->hide();
     _ui->machineKeyCombo->hide();
-    _ui->locateMachineKeyLabel->hide();
+    _ui->browseKeyButton->hide();
     _ui->tarsnapUserLabel->show();
     _ui->tarsnapUserLineEdit->show();
     _ui->tarsnapPasswordLabel->show();
@@ -251,7 +251,7 @@ void SetupDialog::restoreYes()
     _ui->tarsnapPasswordLineEdit->hide();
     _ui->machineKeyLabel->show();
     _ui->machineKeyCombo->show();
-    _ui->locateMachineKeyLabel->show();
+    _ui->browseKeyButton->show();
     _ui->registerPageInfoLabel->setText(tr("Please use your existing machine key "
                                            "and a machine name of your liking. "
                                            "The registration might take a bit to "
@@ -290,12 +290,12 @@ void SetupDialog::validateRegisterPage()
     _ui->registerMachineButton->setEnabled(result);
 }
 
-void SetupDialog::registerHaveKeyBrowse(QString url)
+void SetupDialog::registerHaveKeyBrowse()
 {
-    Q_UNUSED(url);
     QString existingMachineKey = QFileDialog::getOpenFileName(this
                                  , tr("Browse for existing machine key"));
-    _ui->machineKeyCombo->setCurrentText(existingMachineKey);
+    if(!existingMachineKey.isEmpty())
+        _ui->machineKeyCombo->setCurrentText(existingMachineKey);
 }
 
 void SetupDialog::registerMachine()

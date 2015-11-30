@@ -78,6 +78,7 @@
      <property name="styleSheet">
       <string notr="true">QLabel {
 color: grey;
+font-family: Monospace, Monaco;
 }</string>
      </property>
      <property name="text">
@@ -112,6 +113,7 @@ color: grey;
      <property name="styleSheet">
       <string notr="true">QLabel {
 color: grey;
+font-family: Monospace, Monaco;
 }</string>
      </property>
      <property name="text">

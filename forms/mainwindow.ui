@@ -2032,15 +2032,11 @@ p, li { white-space: pre-wrap; }
               </property>
               <item>
                <widget class="QPlainTextEdit" name="keyboardShortcuts">
-                <property name="font">
-                 <font>
-                  <family>Monaco</family>
-                 </font>
-                </property>
                 <property name="styleSheet">
-                 <string notr="true">QPlainTextEdit {
+                 <string notr="true">#keyboardShortcuts {
 background: rgba(255,255,255,170);
 border-radius: 4px;
+font-family: Monospace, Monaco;
 }</string>
                 </property>
                 <property name="frameShape">
@@ -2111,16 +2107,12 @@ Ctrl+r  - Refresh Account summary
               </property>
               <item>
                <widget class="QPlainTextEdit" name="consoleLog">
-                <property name="font">
-                 <font>
-                  <family>Monaco</family>
-                 </font>
-                </property>
                 <property name="styleSheet">
-                 <string notr="true">#consoleLogPlainTextEdit
+                 <string notr="true">#consoleLog
 {
 background: rgba(255,255,255,170);
 border-radius: 4px;
+font-family: Monospace, Monaco;
 }</string>
                 </property>
                 <property name="frameShape">
@@ -2138,11 +2130,6 @@ border-radius: 4px;
          </widget>
         </widget>
         <widget class="QPlainTextEdit" name="journalLog">
-         <property name="font">
-          <font>
-           <family>Monaco</family>
-          </font>
-         </property>
          <property name="focusPolicy">
           <enum>Qt::ClickFocus</enum>
          </property>
@@ -2150,6 +2137,7 @@ border-radius: 4px;
           <string notr="true">#journalLog
 {
 background: transparent;
+font-family: Monospace, Monaco;
 }</string>
          </property>
          <property name="frameShape">

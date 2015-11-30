@@ -951,54 +951,13 @@ border: 1px solid rgba(255,255,255,100);
                   <string/>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_10">
-                  <item alignment="Qt::AlignHCenter">
-                   <widget class="QPushButton" name="loginTarsnapButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>128</width>
-                      <height>128</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>128</width>
-                      <height>128</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Login to tarsnap.com and update Account details.</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">QPushButton {
-border-image: url(:/icons/tarsnap_icon_big.png)
-}
-
-QPushButton:pressed {
-margin-left: 6px;
-margin-top: 6px;
-}</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="flat">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
                   <item>
                    <layout class="QFormLayout" name="formLayout_3">
                     <property name="fieldGrowthPolicy">
                      <enum>QFormLayout::ExpandingFieldsGrow</enum>
                     </property>
                     <property name="formAlignment">
-                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                     </property>
                     <item row="0" column="0">
                      <widget class="QLabel" name="label_4">
@@ -2475,7 +2434,6 @@ border: none;
   <tabstop>archiveContentsPlainTextEdit</tabstop>
   <tabstop>jobListWidget</tabstop>
   <tabstop>addJobButton</tabstop>
-  <tabstop>loginTarsnapButton</tabstop>
   <tabstop>accountActivityShowButton</tabstop>
   <tabstop>machineActivityShowButton</tabstop>
   <tabstop>accountUserLineEdit</tabstop>

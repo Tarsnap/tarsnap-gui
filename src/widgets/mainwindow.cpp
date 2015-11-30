@@ -166,7 +166,6 @@ MainWindow::MainWindow(QWidget *parent) :
         _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
     });
     connect(&_tarsnapAccount, SIGNAL(accountCredit(qreal, QDate)), this, SLOT(updateAccountCredit(qreal, QDate)));
-//    connect(_ui->loginTarsnapButton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
     connect(_ui->accountActivityShowButton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
 // Disabled functionality
 //    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));

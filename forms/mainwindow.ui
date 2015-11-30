@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>608</height>
+    <width>650</width>
+    <height>610</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -925,8 +925,8 @@ border: 1px solid rgba(255,255,255,100);
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>346</height>
+                <width>644</width>
+                <height>392</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1433,8 +1433,8 @@ color: blue;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>594</width>
-                <height>346</height>
+                <width>457</width>
+                <height>287</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1698,7 +1698,7 @@ color: blue;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>292</width>
+                <width>290</width>
                 <height>256</height>
                </rect>
               </property>

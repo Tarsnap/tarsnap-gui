@@ -178,6 +178,11 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
         QMessageBox::warning(this, tr("Invalid password"),
                              tr("Password for account %1 is incorrect; please try again.").arg(_user));
     }
+    else if(warn && data.contains("No user exists with the provided email address; please try again."))
+    {
+        QMessageBox::warning(this, tr("Invalid username"),
+                             tr("Account %1 is invalid; please try again.").arg(_user));
+    }
     reply->close();
     reply->deleteLater();
     return data;

@@ -551,8 +551,9 @@ void MainWindow::setTarsnapVersion(QString versionString)
 
 void MainWindow::notificationRaise()
 {
-    this->raise();
-    this->activateWindow();
+    raise();
+    activateWindow();
+    showNormal();
 }
 
 void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)

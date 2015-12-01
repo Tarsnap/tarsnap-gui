@@ -162,6 +162,8 @@ void CoreApplication::showMainWindow()
             SLOT(updateStatusMessage(QString, QString)), QUEUED);
     connect(&_notification, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             _mainWindow, SLOT(notificationRaise()), QUEUED);
+    connect(&_notification, SIGNAL(messageClicked()),
+            _mainWindow, SLOT(notificationRaise()), QUEUED);
     connect(_mainWindow, SIGNAL(displayNotification(QString)), &_notification,
             SLOT(displayNotification(QString)), QUEUED);
 

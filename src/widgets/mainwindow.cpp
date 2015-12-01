@@ -19,6 +19,7 @@
 #include <QDesktopServices>
 #include <QInputDialog>
 #include <QMenu>
+#include <QShortcut>
 
 #define PURGE_SECONDS_DELAY 8
 
@@ -42,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+    new QShortcut(QKeySequence("Ctrl+M"), this, SLOT(showMinimized()));
 
     loadSettings();
 

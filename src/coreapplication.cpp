@@ -96,19 +96,39 @@ bool CoreApplication::initialize()
     }
 
     QMetaObject::invokeMethod(&_taskManager, "loadSettings", QUEUED);
-    connect(&_taskManager, SIGNAL(displayNotification(QString)), &_notification,
-            SLOT(displayNotification(QString)), QUEUED);
 
     if(_jobsOption)
+    {
+        connect(&_taskManager, SIGNAL(displayNotification(QString)),
+                &_notification, SLOT(displayNotification(QString)), QUEUED);
+        connect(&_notification, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+                this, SLOT(showMainWindow()), QUEUED);
+        connect(&_notification, SIGNAL(messageClicked()),
+                this, SLOT(showMainWindow()), QUEUED);
+        _taskManager.setHeadless(true);
         QMetaObject::invokeMethod(&_taskManager, "runScheduledJobs", QUEUED);
+    }
     else
+    {
         showMainWindow();
+    }
 
     return true;
 }
 
 void CoreApplication::showMainWindow()
 {
+    if(_mainWindow != NULL)
+        return;
+
+    _taskManager.setHeadless(false);
+    disconnect(&_taskManager, SIGNAL(displayNotification(QString)),
+               &_notification, SLOT(displayNotification(QString)));
+    disconnect(&_notification, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+               this, SLOT(showMainWindow()));
+    disconnect(&_notification, SIGNAL(messageClicked()),
+               this, SLOT(showMainWindow()));
+
     _mainWindow = new MainWindow();
     Q_ASSERT(_mainWindow != NULL);
 
@@ -167,8 +187,9 @@ void CoreApplication::showMainWindow()
     connect(_mainWindow, SIGNAL(displayNotification(QString)), &_notification,
             SLOT(displayNotification(QString)), QUEUED);
 
+    QMetaObject::invokeMethod(_mainWindow, "loadArchives", QUEUED);
+    QMetaObject::invokeMethod(_mainWindow, "loadJobs", QUEUED);
     _mainWindow->show();
-    _mainWindow->initialize();
 }
 
 bool CoreApplication::reinit()
@@ -194,4 +215,3 @@ bool CoreApplication::reinit()
 
     return initialize();
 }
-

@@ -19,10 +19,10 @@ public:
 
     void parseArgs();
     bool initialize();
-    void showMainWindow();
 
 public slots:
     bool reinit();
+    void showMainWindow();
 
 private:
     MainWindow  *_mainWindow;

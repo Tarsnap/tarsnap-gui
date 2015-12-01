@@ -24,6 +24,9 @@ public:
     TaskManager();
     ~TaskManager();
 
+    bool headless() const;
+    void setHeadless(bool headless);
+
 signals:
     // Tarsnap task notifications
     void idle(bool status); // signal if we are working on tasks or not

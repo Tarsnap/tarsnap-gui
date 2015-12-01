@@ -23,6 +23,16 @@ TaskManager::~TaskManager()
     _managerThread.wait();
 }
 
+bool TaskManager::headless() const
+{
+    return _headless;
+}
+
+void TaskManager::setHeadless(bool headless)
+{
+    _headless = headless;
+}
+
 void TaskManager::loadSettings()
 {
     QSettings settings;
@@ -339,8 +349,6 @@ void TaskManager::runScheduledJobs()
     }
     if(nothingToDo)
         qApp->quit();
-    else
-        _headless = true;
 }
 
 void TaskManager::stopTasks()

@@ -352,12 +352,6 @@ void MainWindow::loadSettings()
     _ui->notificationsCheckBox->setChecked(settings.value("app/notifications", true).toBool());
 }
 
-void MainWindow::initialize()
-{
-    emit loadArchives();
-    emit loadJobs();
-}
-
 void MainWindow::paintEvent(QPaintEvent *)
 {
     QStyleOption opt;

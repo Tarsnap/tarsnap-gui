@@ -4,47 +4,58 @@ General
 
 Tarsnap GUI is built using the Qt SDK for cross platform compatibility. In order
 to build Tarsnap GUI for your system, you must first install the appropriate
-Qt5 SDK on your system. Latest recommended version for optimal results and
+Qt 5 SDK on your system. Latest recommended version for optimal results and
 platform support is Qt 5.4.0 or greater, though it is known to behave just fine
-on at least Qt 5.2.1.
+on at least Qt 5.2.1. Use the Qt Online Installer if your platform doesn't
+provide better means (repositories, homebrew):
+https://www.qt.io/download-open-source/
 
-First step for all platforms is to install the Tarsnap client on your system:
+Next step for all platforms is to install the Tarsnap command line client on
+your system:
 https://www.tarsnap.com/download.html
 
-Once you have the Tarsnap client installed you can proceed to building this app.
+Once you have the Qt SDK setup and Tarsnap client installed you can proceed to
+building this app.
 
 ===============
 OS X (Yosemite)
 ===============
 
+The simple scripted approach via Homebrew (installs all dependencies too):
+
+* Install Homebrew from https://brew.sh
+* Run this command:
+  brew install -v https://raw.githubusercontent.com/Tarsnap/tarsnap-gui/master/util/tarsnap-gui.rb && brew linkapps tarsnap-gui
+* Tarsnap.app bundle has been linked into /Applications and should be available
+  for usage
+
+Hint: Homebrew installs the tarsnap client binaries in /usr/local/bin, so use
+that in the Setup Wizard Advanced page.
+
+The manual approach:
+
 Assuming that you have already built and installed the Tarsnap command line
-client, you must have already configured your system for development. As a
-minimum requirement for Qt development you'll need to install install Xcode
-and the Xcode command line tools.
+client and Qt SDK, you have already configured your system for development.
+As a minimum requirement for building this app you'll need to install the Xcode
+command line tools.
 
-Then you need to install the proper Qt 5 SDK via one of the following means:
-* Via the Qt Online Installer from https://www.qt.io/download-open-source/
-* Via Homebrew from http://brew.sh(You can install Tarsnap CLI via Homebrew too)
-
-Unless you're planning on doing development for the app, I would recommend the
-Homebrew approach for the simple reason that it gets you up and running with
-the minimum ammount of effort. After you install homebrew all you need to do is
-"brew install tarsnap qt5" to get the requirements in place.
+Unless you're planning on doing serious development for the app, I recommend
+installing the dependencies via Homebrew for the simple reason that it gets you
+up and running with the minimum ammount of effort. After you install homebrew
+all you need to do is "brew install tarsnap qt5" to get the requirements in
+place.
 
 Assuming you survived up until now, let's proceed to the actual steps for
 building the app for your system:
 
 1) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
-2) git checkout v0.7 # switch to the desired version
+2) git checkout v0.7 # switch to the desired stable version
 3) qmake # /usr/local/opt/qt5/bin/qmake for Homebrew
 4) make -j$(sysctl -n hw.ncpu)
 5) open ./Tarsnap.app
 
 Optionally, if you want to install the app on your system:
 6) cp -r ./Tarsnap.app /Applications/
-
-Hint: Homebrew installs the tarsnap client binaries in /usr/local/bin, so use
-that in the Setup Wizard Advanced page.
 
 ============
 FreeBSD 10.1

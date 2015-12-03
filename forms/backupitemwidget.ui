@@ -104,6 +104,7 @@
       <string notr="true">QLabel {
 color: grey;
 font-family: Monospace, Monaco;
+font-size: 12px;
 }</string>
      </property>
      <property name="text">

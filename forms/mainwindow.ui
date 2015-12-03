@@ -2037,6 +2037,7 @@ p, li { white-space: pre-wrap; }
 background: rgba(255,255,255,170);
 border-radius: 4px;
 font-family: Monospace, Monaco;
+font-size: 12px;
 }</string>
                 </property>
                 <property name="frameShape">
@@ -2113,6 +2114,7 @@ Ctrl+r  - Refresh Account summary
 background: rgba(255,255,255,170);
 border-radius: 4px;
 font-family: Monospace, Monaco;
+font-size: 12px;
 }</string>
                 </property>
                 <property name="frameShape">
@@ -2138,6 +2140,7 @@ font-family: Monospace, Monaco;
 {
 background: transparent;
 font-family: Monospace, Monaco;
+font-size: 12px;
 }</string>
          </property>
          <property name="frameShape">

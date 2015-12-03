@@ -172,7 +172,7 @@ void CoreApplication::showMainWindow()
     connect(&_taskManager, SIGNAL(restoreArchiveStatus(ArchivePtr, TaskStatus, QString)), _mainWindow
             , SLOT(restoreArchiveStatus(ArchivePtr, TaskStatus, QString)), QUEUED);
     connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(reinit()), QUEUED);
-    connect(_mainWindow, SIGNAL(stopTasks()), &_taskManager, SLOT(stopTasks()), QUEUED);
+    connect(_mainWindow, SIGNAL(stopTasks(bool, bool)), &_taskManager, SLOT(stopTasks(bool, bool)), QUEUED);
     connect(_mainWindow, SIGNAL(loadJobs()), &_taskManager, SLOT(loadJobs()), QUEUED);
     connect(&_taskManager, SIGNAL(jobsList(QMap<QString, JobPtr>))
             , _mainWindow, SIGNAL(jobsList(QMap<QString, JobPtr>)), QUEUED);
@@ -186,6 +186,10 @@ void CoreApplication::showMainWindow()
             _mainWindow, SLOT(notificationRaise()), QUEUED);
     connect(_mainWindow, SIGNAL(displayNotification(QString)), &_notification,
             SLOT(displayNotification(QString)), QUEUED);
+    connect(_mainWindow, SIGNAL(getTaskInfo()), &_taskManager,
+            SLOT(getTaskInfo()), QUEUED);
+    connect(&_taskManager, SIGNAL(taskInfo(int, int)), _mainWindow,
+            SLOT(displayStopTasks(int, int)), QUEUED);
 
     QMetaObject::invokeMethod(_mainWindow, "loadArchives", QUEUED);
     QMetaObject::invokeMethod(_mainWindow, "loadJobs", QUEUED);

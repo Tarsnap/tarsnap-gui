@@ -35,12 +35,13 @@ signals:
     void purgeArchives();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runSetupWizard();
-    void stopTasks();
+    void stopTasks(bool running, bool queued);
     void jobsList(QMap<QString, JobPtr>);
     void deleteJob(JobPtr job, bool purgeArchives);
     void loadJobs();
     void getTarsnapVersion(QString tarsnapPath);
     void displayNotification(QString message);
+    void getTaskInfo();
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -61,6 +62,7 @@ public slots:
     void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
     void setTarsnapVersion(QString versionString);
     void notificationRaise();
+    void displayStopTasks(int runningTasks, int queuedTasks);
 
 private slots:
     void updateStatusMessage(QString message, QString detail = "", bool notify = false);
@@ -90,7 +92,6 @@ private slots:
     void displayJobDetails(JobPtr job);
     void hideJobDetails();
     void addJobClicked();
-    void cancelRunningTasks();
     void updateAccountCredit(qreal credit, QDate date);
     void updateLastMachineActivity(QStringList activityFields);
 

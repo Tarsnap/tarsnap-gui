@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifdef Q_OS_OSX
     new QShortcut(QKeySequence("Ctrl+M"), this, SLOT(showMinimized()));
 #endif
+    new QShortcut(QKeySequence("Ctrl+K"), this, SIGNAL(getTaskInfo()));
 
     loadSettings();
 
@@ -144,7 +145,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->runSetupWizard, SIGNAL(clicked()), this, SLOT(runSetupWizardClicked()));
     connect(_ui->expandJournalButton, SIGNAL(toggled(bool)), this, SLOT(expandJournalButtonToggled(bool)));
     connect(_ui->downloadsDirBrowseButton, SIGNAL(clicked()), this, SLOT(downloadsDirBrowseButtonClicked()));
-    connect(_ui->busyWidget, SIGNAL(clicked()), this, SLOT(cancelRunningTasks()));
+    connect(_ui->busyWidget, SIGNAL(clicked()), this, SIGNAL(getTaskInfo()));
 
     // Settings page
     connect(_ui->accountUserLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
@@ -935,14 +936,31 @@ void MainWindow::addJobClicked()
     }
 }
 
-void MainWindow::cancelRunningTasks()
+void MainWindow::displayStopTasks(int runningTasks, int queuedTasks)
 {
-    auto confirm = QMessageBox::question(this, tr("Cancel running tasks"),
-                                         tr("Stop the currently running tasks?"));
-    if(confirm == QMessageBox::Yes)
+    QMessageBox msgBox;
+    msgBox.setText(tr("There are %1 running tasks and %2 queued.").arg(runningTasks).arg(queuedTasks));
+    msgBox.setInformativeText(tr("What do you want to do?"));
+    QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
+    msgBox.setDefaultButton(cancel);
+    QPushButton *stopQueued = msgBox.addButton(tr("Stop queued"), QMessageBox::ActionRole);
+    QPushButton *stopRunning = msgBox.addButton(tr("Stop running"), QMessageBox::ActionRole);
+    QPushButton *stopAll = msgBox.addButton(tr("Stop all"), QMessageBox::ActionRole);
+    msgBox.exec();
+    if(msgBox.clickedButton() == stopQueued)
     {
-        updateStatusMessage("Stopping all running tasks.");
-        emit stopTasks();
+        emit stopTasks(false, true);
+        updateStatusMessage("Cleared queued tasks.");
+    }
+    else if(msgBox.clickedButton() == stopRunning)
+    {
+        emit stopTasks(true, false);
+        updateStatusMessage("Stopped running tasks.");
+    }
+    else if(msgBox.clickedButton() == stopAll)
+    {
+        emit stopTasks(true, true);
+        updateStatusMessage("Stopped running tasks and cleared queued ones.");
     }
 }
 

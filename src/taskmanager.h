@@ -43,6 +43,7 @@ signals:
     void jobsList(QMap<QString, JobPtr> jobs);
     void message(QString msg, QString detail);
     void displayNotification(QString message);
+    void taskInfo(int runningTasks, int queuedTasks);
 
 public slots:
     void loadSettings();
@@ -61,10 +62,11 @@ public slots:
     void nuke();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runScheduledJobs();
-    void stopTasks();
+    void stopTasks(bool running, bool queued);
     void loadJobs();
     void deleteJob(JobPtr job, bool purgeArchives);
     void loadJobArchives();
+    void getTaskInfo();
 
 private slots:
     // post Tarsnap task processing

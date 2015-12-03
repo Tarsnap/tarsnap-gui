@@ -351,12 +351,18 @@ void TaskManager::runScheduledJobs()
         qApp->quit();
 }
 
-void TaskManager::stopTasks()
+void TaskManager::stopTasks(bool running, bool queued)
 {
-    foreach(TarsnapClient *client, _runningTasks)
+    if(queued) // queued should be cleared first
     {
-        if(client)
-            client->stop();
+        _taskQueue.clear();
+    }
+    if(running)
+    {
+        foreach(TarsnapClient *client, _runningTasks)
+        {
+            if(client) client->stop();
+        }
     }
 }
 
@@ -809,6 +815,11 @@ void TaskManager::loadJobArchives()
         }
     }
     job->setArchives(archives);
+}
+
+void TaskManager::getTaskInfo()
+{
+    emit taskInfo(_runningTasks.count(), _taskQueue.count());
 }
 
 void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode, QString output)

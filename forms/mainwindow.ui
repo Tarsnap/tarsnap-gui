@@ -2049,30 +2049,31 @@ font-size: 12px;
                 <property name="plainText">
                  <string>General
 -------
-Ctrl+[1-5]  - Switch between Backup, Archives.. main tabs
-Ctrl+j      - Toggle the Journal log
+ctrl+[1-5] - switch between Backup, Archives.. main tabs
+ctrl+j     - toggle the Journal log
+ctrl+k     - stop tasks
 
 Backup tab
 ----------
-Ctrl+o          - Open the File Browser
-Ctrl+Backspace  - Clear the Backup list
-Backspace       - Remove selected items from the Backup list
+ctrl+o         - open the File Browser
+ctrl+backspace - clear the Backup list
+backspace      - remove selected items from the Backup list
 
 Archives tab
 ------------
-Ctrl+r     - Refresh the Archives list
-Backspace  - Delete selected Archives
+ctrl+r    - refresh the Archives list
+backspace - delete selected Archives
 
 Jobs tab
 --------
-Ctrl+n  - Add new Job
-Ctrl+b  - Initiate backup on selected Jobs
+ctrl+n - add new Job
+ctrl+b - initiate backup on selected Jobs
 
 Settings tab
 ------------
-Ctrl+r  - Refresh Account summary
+ctrl+r - refresh Account summary
 
-* Ctrl is Cmd key on OS X
+* ctrl is cmd key on OS X
 </string>
                 </property>
                </widget>

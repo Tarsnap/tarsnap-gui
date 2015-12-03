@@ -43,7 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+#ifdef Q_OS_OSX
     new QShortcut(QKeySequence("Ctrl+M"), this, SLOT(showMinimized()));
+#endif
 
     loadSettings();
 

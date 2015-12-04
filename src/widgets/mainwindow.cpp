@@ -166,6 +166,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->skipFilesSizeSpinBox, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
     connect(_ui->skipSystemJunkCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->skipSystemLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));;
+    connect(_ui->simulationCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
     [=]() {
         _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
@@ -284,13 +285,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->jobListWidget, &JobListWidget::deleteJob,
     [=](JobPtr job, bool purgeArchives) {
         if(purgeArchives)
-        {
             updateStatusMessage(tr("Job <i>%1</i> deleted. Deleting %2 associated archives next...").arg(job->name()).arg(job->archives().count()));
-        }
         else
-        {
             updateStatusMessage(tr("Job <i>%1</i> deleted.").arg(job->name()));
-        }
     });
     connect(_ui->jobDetailsWidget, &JobWidget::jobAdded,
     [=](JobPtr job) {
@@ -299,6 +296,18 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->statusBarLabel, &TextLabel::clicked,
     [=]() {
         _ui->expandJournalButton->setChecked(!_ui->expandJournalButton->isChecked());
+    });
+    connect(_ui->simulationCheckBox, &QCheckBox::stateChanged,
+    [=](int state) {
+        if(state == Qt::Unchecked)
+        {
+            emit loadArchives();
+            _ui->simulationIcon->hide();
+        }
+        else
+        {
+            _ui->simulationIcon->show();
+        }
     });
 }
 
@@ -311,6 +320,7 @@ MainWindow::~MainWindow()
 void MainWindow::loadSettings()
 {
     QSettings settings;
+
     _ui->accountCreditLabel->setText(settings.value("tarsnap/credit", tr("unknown")).toString());
     QDate creditDate = settings.value("tarsnap/credit_date", QDate()).toDate();
     if(creditDate.isValid())
@@ -331,6 +341,7 @@ void MainWindow::loadSettings()
     {
         _ui->accountCreditLabel->setToolTip(tr("This info is updated on demand. Press the big Tarsnap button above to update."));
     }
+
     _ui->machineActivity->setText(settings.value("tarsnap/machine_activity", tr("unknown")).toString());
     _ui->accountUserLineEdit->setText(settings.value("tarsnap/user", "").toString());
     _ui->accountMachineKeyLineEdit->setText(settings.value("tarsnap/key", "").toString());
@@ -343,6 +354,9 @@ void MainWindow::loadSettings()
     _ui->traverseMountCheckBox->setChecked(settings.value("tarsnap/traverse_mount", true).toBool());
     _ui->followSymLinksCheckBox->setChecked(settings.value("tarsnap/follow_symlinks", false).toBool());
     _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
+    _ui->simulationCheckBox->setChecked(settings.value("tarsnap/dry_run", false).toBool());
+    _ui->simulationIcon->setVisible(_ui->simulationCheckBox->isChecked());
+
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
     _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
     _ui->skipFilesSizeSpinBox->setValue(settings.value("app/skip_files_size", 0).toULongLong());
@@ -628,6 +642,7 @@ void MainWindow::backupButtonClicked()
     BackupTaskPtr backup(new BackupTask);
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
+    backup->setOptionDryRun(_ui->simulationCheckBox->isChecked());
     connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this,
             SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
     emit backupNow(backup);
@@ -687,6 +702,7 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/preserve_pathnames", _ui->preservePathsCheckBox->isChecked());
     settings.setValue("tarsnap/traverse_mount", _ui->traverseMountCheckBox->isChecked());
     settings.setValue("tarsnap/follow_symlinks", _ui->followSymLinksCheckBox->isChecked());
+    settings.setValue("tarsnap/dry_run", _ui->simulationCheckBox->isChecked());
     settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
     settings.setValue("app/skip_files_size", _ui->skipFilesSizeSpinBox->value());
     settings.setValue("app/skip_system_enabled", _ui->skipSystemJunkCheckBox->isChecked());

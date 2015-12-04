@@ -67,6 +67,9 @@ public:
 
     QStringList getExcludesList();
 
+    bool optionDryRun() const;
+    void setOptionDryRun(bool optionDryRun);
+
 signals:
     void statusUpdate(const TaskStatus &status);
 
@@ -82,6 +85,7 @@ private:
     quint64               _optionSkipFilesSize;
     bool                  _optionSkipSystem;
     QStringList           _optionSkipSystemFiles;
+    bool                  _optionDryRun;
 
     TaskStatus            _status;
     int                   _exitCode;

@@ -133,6 +133,7 @@ void Job::setOptionSkipFilesPatterns(const QString &optionSkipFilesPatterns)
 
 BackupTaskPtr Job::createBackupTask()
 {
+    QSettings settings;
     BackupTaskPtr backup(new BackupTask);
     backup->setName(JOB_NAME_PREFIX + JOB_NAME_SEPARATOR + name() + JOB_NAME_SEPARATOR + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss"));
     backup->setJobRef(objectKey());
@@ -143,6 +144,7 @@ BackupTaskPtr Job::createBackupTask()
     backup->setOptionSkipFilesSize(optionSkipFilesSize());
     backup->setOptionSkipSystem(optionSkipFiles());
     backup->setOptionSkipSystemFiles(optionSkipFilesPatterns());
+    backup->setOptionDryRun(settings.value("tarsnap/dry_run", false).toBool());
     connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
     return backup;
 }

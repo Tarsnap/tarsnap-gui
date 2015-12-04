@@ -102,6 +102,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--cachedir" << _tarsnapCacheDir;
     if(_aggressiveNetworking)
         args << "--aggressive-networking";
+    if(backupTask->optionDryRun())
+        args << "--dry-run";
     if(backupTask->optionPreservePaths())
         args << "-P";
     if(!backupTask->optionTraverseMount())

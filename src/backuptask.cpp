@@ -132,3 +132,13 @@ QStringList BackupTask::getExcludesList()
 
     return skipList;
 }
+
+bool BackupTask::optionDryRun() const
+{
+    return _optionDryRun;
+}
+
+void BackupTask::setOptionDryRun(bool optionDryRun)
+{
+    _optionDryRun = optionDryRun;
+}

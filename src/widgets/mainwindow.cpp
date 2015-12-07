@@ -56,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutUi.versionLabel->setText(tr("version ") + QCoreApplication::applicationVersion());
     _aboutWindow.setWindowFlags((_aboutWindow.windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
     connect(aboutUi.checkUpdateButton, &QPushButton::clicked,
-    [=]() {
+    [&]() {
         QDesktopServices::openUrl(QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
     });
 
@@ -110,23 +110,23 @@ MainWindow::MainWindow(QWidget *parent) :
     this->addAction(_ui->actionGoHelp);
     this->addAction(_ui->actionShowJournal);
     connect(_ui->actionGoBackup, &QAction::triggered,
-    [=]() {
+    [&]() {
         _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
     });
     connect(_ui->actionGoBrowse, &QAction::triggered,
-    [=]() {
+    [&]() {
         _ui->mainTabWidget->setCurrentWidget(_ui->archivesTab);
     });
     connect(_ui->actionGoJobs, &QAction::triggered,
-    [=]() {
+    [&]() {
         _ui->mainTabWidget->setCurrentWidget(_ui->jobsTab);
     });
     connect(_ui->actionGoSettings, &QAction::triggered,
-    [=]() {
+    [&]() {
         _ui->mainTabWidget->setCurrentWidget(_ui->settingsTab);
     });
     connect(_ui->actionGoHelp, &QAction::triggered,
-    [=]() {
+    [&]() {
         _ui->mainTabWidget->setCurrentWidget(_ui->helpTab);
     });
     connect(_ui->actionShowJournal, SIGNAL(triggered()), _ui->expandJournalButton, SLOT(click()));
@@ -168,7 +168,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->skipSystemLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));;
     connect(_ui->simulationCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
     connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
-    [=]() {
+    [&]() {
         _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
     });
     connect(&_tarsnapAccount, SIGNAL(accountCredit(qreal, QDate)), this, SLOT(updateAccountCredit(qreal, QDate)));
@@ -176,11 +176,11 @@ MainWindow::MainWindow(QWidget *parent) :
 // Disabled functionality
 //    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));
 //    connect(_ui->accountActivityShowButton, &QPushButton::clicked,
-//    [=]() {
+//    [&]() {
 //        _tarsnapAccount.getAccountInfo(true, false);
 //    });
 //    connect(_ui->machineActivityShowButton, &QPushButton::clicked,
-//    [=]() {
+//    [&]() {
 //        _tarsnapAccount.getAccountInfo(false, true);
 //    });
     _ui->machineActivity->hide();
@@ -203,7 +203,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->archiveListWidget, SIGNAL(displayJobDetails(QString)),
             _ui->jobListWidget, SLOT(selectJobByRef(QString)));
     connect(_ui->archiveJobLabel, &TextLabel::clicked,
-    [=]() {
+    [&]() {
         _ui->jobListWidget->selectJobByRef(_currentArchiveDetail->jobRef());
     });
 
@@ -233,29 +233,29 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //lambda slots to quickly update various UI components
     connect(this, &MainWindow::loadArchives,
-    [=]() {
+    [&]() {
         updateStatusMessage(tr("Updating archives list from remote..."));
     });
     connect(this, &MainWindow::archiveList,
-    [=](const QList<ArchivePtr> archives, bool fromRemote) {
+    [&](const QList<ArchivePtr> archives, bool fromRemote) {
         Q_UNUSED(archives);
         if(fromRemote)
             updateStatusMessage(tr("Updating archives list from remote...done"));
     });
     connect(this, &MainWindow::loadArchiveStats,
-    [=](const ArchivePtr archive) {
+    [&](const ArchivePtr archive) {
         updateStatusMessage(tr("Fetching details for archive <i>%1</i>.").arg(archive->name()));
     });
     connect(this, &MainWindow::loadArchiveContents,
-    [=](const ArchivePtr archive) {
+    [&](const ArchivePtr archive) {
         updateStatusMessage(tr("Fetching contents for archive <i>%1</i>.").arg(archive->name()));
     });
     connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives,
-    [=](const QList<ArchivePtr> archives) {
+    [&](const QList<ArchivePtr> archives) {
         archivesDeleted(archives,false);
     });
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
-    [=](const QString text) {
+    [&](const QString text) {
         if(text.isEmpty())
         {
             _ui->backupButton->setEnabled(false);
@@ -267,11 +267,11 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     });
     connect(this, &MainWindow::restoreArchive,
-    [=](const ArchivePtr archive) {
+    [&](const ArchivePtr archive) {
         updateStatusMessage(tr("Restoring archive <i>%1</i>...").arg(archive->name()));
     });
     connect(_ui->downloadsDirLineEdit, &QLineEdit::textChanged,
-    [=]() {
+    [&]() {
         QFileInfo file(_ui->downloadsDirLineEdit->text());
         if(file.exists() && file.isDir() && file.isWritable())
             _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
@@ -279,26 +279,26 @@ MainWindow::MainWindow(QWidget *parent) :
             _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
     });
     connect(_ui->jobListWidget, &JobListWidget::backupJob,
-    [=](BackupTaskPtr backup) {
+    [&](BackupTaskPtr backup) {
         connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
     });
     connect(_ui->jobListWidget, &JobListWidget::deleteJob,
-    [=](JobPtr job, bool purgeArchives) {
+    [&](JobPtr job, bool purgeArchives) {
         if(purgeArchives)
             updateStatusMessage(tr("Job <i>%1</i> deleted. Deleting %2 associated archives next...").arg(job->name()).arg(job->archives().count()));
         else
             updateStatusMessage(tr("Job <i>%1</i> deleted.").arg(job->name()));
     });
     connect(_ui->jobDetailsWidget, &JobWidget::jobAdded,
-    [=](JobPtr job) {
+    [&](JobPtr job) {
         updateStatusMessage(tr("Job <i>%1</i> added.").arg(job->name()));
     });
     connect(_ui->statusBarLabel, &TextLabel::clicked,
-    [=]() {
+    [&]() {
         _ui->expandJournalButton->setChecked(!_ui->expandJournalButton->isChecked());
     });
     connect(_ui->simulationCheckBox, &QCheckBox::stateChanged,
-    [=](int state) {
+    [&](int state) {
         if(state == Qt::Unchecked)
         {
             emit loadArchives();

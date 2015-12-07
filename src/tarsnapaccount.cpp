@@ -35,7 +35,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
                                       QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
         QNetworkReply *activityReply = tarsnapRequest(getActivity);
         connect(activityReply, &QNetworkReply::finished,
-        [=]() {
+        [&]() {
             QByteArray replyData = readReply(activityReply, true);
             parseCredit(replyData);
             if(displayActivity)
@@ -46,7 +46,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
                                         QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
         QNetworkReply *machineIdReply = tarsnapRequest(getMachineId);
         connect(machineIdReply, &QNetworkReply::finished,
-        [=]() {
+        [&]() {
             QString machineId = parseMachineId(readReply(machineIdReply));
             QString machineActivity(URL_MACHINE_ACTIVITY);
             machineActivity = machineActivity.arg(QString(QUrl::toPercentEncoding(_user)),
@@ -54,7 +54,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
                                                   QString(QUrl::toPercentEncoding(machineId)));
             QNetworkReply *machineActivityReply = tarsnapRequest(machineActivity);
             connect(machineActivityReply, &QNetworkReply::finished,
-            [=]() {
+            [&]() {
                 QByteArray replyData = readReply(machineActivityReply);
                 parseLastMachineActivity(replyData);
                 if(displayMachineActivity)

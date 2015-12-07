@@ -8,7 +8,7 @@
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {
     connect(this, &QListWidget::itemActivated,
-    [=](QListWidgetItem * item)
+    [&](QListWidgetItem * item)
     {
         emit displayJobDetails(static_cast<JobListItem*>(item)->job());
     });

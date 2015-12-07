@@ -13,19 +13,19 @@ JobWidget::JobWidget(QWidget *parent) :
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
-    [=]() {
+    [&]() {
         if(_job->objectKey().isEmpty())
             emit enableSave(canSaveNew());
     });
     connect(_ui->jobTreeWidget, &FilePicker::selectionChanged,
-    [=]() {
+    [&]() {
         if(_job->objectKey().isEmpty())
             emit enableSave(canSaveNew());
         else
             save();
     });
 //    connect(_ui->jobTreeWidget, &FilePicker::focusLost,
-//            [=](){
+//            [&](){
 //                    if(!_job->objectKey().isEmpty())
 //                        save();
 //            });
@@ -47,7 +47,7 @@ JobWidget::JobWidget(QWidget *parent) :
     connect(_ui->archiveListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)),
             this, SIGNAL(deleteJobArchives(QList<ArchivePtr>)));
     connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked,
-    [=]() {
+    [&]() {
         QSettings settings;
         _ui->skipFilesLineEdit->setText(settings.value("app/skip_system_files",
                                                        DEFAULT_SKIP_FILES).toString());

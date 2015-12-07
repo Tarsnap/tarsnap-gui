@@ -13,7 +13,7 @@ ArchiveListWidget::ArchiveListWidget(QWidget *parent):
     QListWidget(parent)
 {
     connect(this, &QListWidget::itemActivated,
-    [=](QListWidgetItem * item)
+    [&](QListWidgetItem * item)
     {
         if(item)
         {

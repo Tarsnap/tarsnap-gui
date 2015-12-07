@@ -38,7 +38,7 @@ SetupDialog::SetupDialog(QWidget *parent) :
 
     // Welcome page
     connect(_ui->advancedSetupCheckBox, SIGNAL(toggled(bool)), _ui->advancedPageRadioButton, SLOT(setVisible(bool)));
-    connect(_ui->welcomePageSkipButton, &QPushButton::clicked, [=]() {commitSettings(true);});
+    connect(_ui->welcomePageSkipButton, &QPushButton::clicked, [&]() {commitSettings(true);});
     connect(_ui->welcomePageProceedButton, SIGNAL(clicked()), this, SLOT(setNextPage()));
 
     // Advanced setup page

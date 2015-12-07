@@ -36,7 +36,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     _ui->filterLineEdit->setFocus();
 
     connect(&_model, &CustomFileSystemModel::dataChanged,
-    [=](const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &roles)
+    [&](const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &roles)
     {
         Q_UNUSED(topLeft); Q_UNUSED(bottomRight);
         if(!roles.isEmpty() && (roles.first() == Qt::CheckStateRole))
@@ -44,7 +44,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     });
     connect(_ui->filterLineEdit, SIGNAL(textEdited(QString)), this, SLOT(updateFilter(QString)));
     connect(_ui->showHiddenCheckBox, &QCheckBox::toggled,
-    [=](const bool toggled)
+    [&](const bool toggled)
     {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::Hidden);
@@ -52,7 +52,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
             _model.setFilter(_model.filter() & ~QDir::Hidden);
     });
     connect(_ui->showSystemCheckBox, &QCheckBox::toggled,
-    [=](const bool toggled)
+    [&](const bool toggled)
     {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::System);
@@ -60,7 +60,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
             _model.setFilter(_model.filter() & ~QDir::System);
     });
     connect(_ui->hideLinksCheckBox, &QCheckBox::toggled,
-    [=](const bool toggled)
+    [&](const bool toggled)
     {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::NoSymLinks);
@@ -68,12 +68,12 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
             _model.setFilter(_model.filter() & ~QDir::NoSymLinks);
     });
     connect(_ui->showOptionsButton, &QPushButton::clicked,
-    [=]()
+    [&]()
     {
         _ui->optionsContainer->setVisible(!_ui->optionsContainer->isVisible());
     });
     connect(_ui->filterLineEdit, &QLineEdit::returnPressed,
-    [=]()
+    [&]()
     {
         if(_completer.currentCompletion().isEmpty())
             _ui->treeView->setFocus();

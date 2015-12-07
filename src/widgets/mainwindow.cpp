@@ -28,9 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui(new Ui::MainWindow),
     _logo(":/icons/tarsnap-logo.png"),
     _icon(":/icons/tarsnap-logo.png"),
-    _menuBar(NULL),
-    _appMenu(NULL),
-    _actionAbout(this),
     _useSIPrefixes(false),
     _purgeTimerCount(0),
     _purgeCountdownWindow(this),
@@ -50,22 +47,25 @@ MainWindow::MainWindow(QWidget *parent) :
 
     loadSettings();
 
-    // About action and widget
+    // About menu action and widget initialization
     Ui::aboutWidget aboutUi;
     aboutUi.setupUi(&_aboutWindow);
     aboutUi.versionLabel->setText(tr("version ") + QCoreApplication::applicationVersion());
     _aboutWindow.setWindowFlags((_aboutWindow.windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
     connect(aboutUi.checkUpdateButton, &QPushButton::clicked,
-    [&]() {
+    []() {
         QDesktopServices::openUrl(QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
     });
 
-    if(_menuBar.isNativeMenuBar())
+    QMenuBar menuBar;
+    if(menuBar.isNativeMenuBar())
     {
-        _actionAbout.setMenuRole(QAction::AboutRole);
-        connect(&_actionAbout, SIGNAL(triggered()), &_aboutWindow, SLOT(show()));
-        _appMenu.addAction(&_actionAbout);
-        _menuBar.addMenu(&_appMenu);
+        QAction *actionAbout = new QAction(this);
+        actionAbout->setMenuRole(QAction::AboutRole);
+        connect(actionAbout, SIGNAL(triggered()), &_aboutWindow, SLOT(show()));
+        QMenu *appMenu = new QMenu(this);
+        appMenu->addAction(actionAbout);
+        menuBar.addMenu(appMenu);
     }
     connect(_ui->aboutButton, SIGNAL(clicked()), &_aboutWindow, SLOT(show()));
     // --

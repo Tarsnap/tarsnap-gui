@@ -99,9 +99,6 @@ private:
     Ui::MainWindow  *_ui;
     QPixmap          _logo;
     QIcon            _icon;
-    QMenuBar         _menuBar;
-    QMenu            _appMenu;
-    QAction          _actionAbout;
     QDialog          _aboutWindow;
     QPoint           _windowDragPos;
     QString          _lastTimestamp;

@@ -37,14 +37,13 @@
        <height>128</height>
       </size>
      </property>
+     <property name="styleSheet">
+      <string notr="true">#tarsnapLogo {
+border-image:url(:/icons/tarsnap_icon_big.png);
+}</string>
+     </property>
      <property name="text">
       <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/tarsnap_icon_big.png</pixmap>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -137,8 +136,6 @@ Built with the help of the following 3rd party components:</string>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../resources/resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

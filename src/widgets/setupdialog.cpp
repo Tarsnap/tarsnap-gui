@@ -312,7 +312,7 @@ void SetupDialog::registerMachine()
     DEBUG << "Registration details >>\n" << _tarsnapDir << ::endl << _appDataDir << ::endl
           << _tarsnapKeyFile << ::endl << _tarsnapCacheDir;
 
-    emit registerMachine(_ui->tarsnapUserLineEdit->text(), _ui->tarsnapPasswordLineEdit->text()
+    emit requestRegisterMachine(_ui->tarsnapUserLineEdit->text(), _ui->tarsnapPasswordLineEdit->text()
                          , _ui->machineNameLineEdit->text(), _tarsnapKeyFile, _tarsnapDir
                          , _tarsnapCacheDir);
 }

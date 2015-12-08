@@ -40,8 +40,8 @@ public slots:
     void updateLoadingAnimation(bool idle);
 
 signals:
-    void registerMachine(QString user, QString password, QString machine
-                         , QString key, QString tarsnapPath, QString cachePath);
+    void requestRegisterMachine(QString user, QString password, QString machine,
+                                QString key, QString tarsnapPath, QString cachePath);
     void getTarsnapVersion(QString tarsnapPath);
 
 protected:

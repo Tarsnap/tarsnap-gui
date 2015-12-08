@@ -19,6 +19,7 @@ signals:
     void lastMachineActivity(QStringList activityFields);
 
 public slots:
+    void getAccountCredit();
     void getAccountInfo(bool displayActivity = false,
                         bool displayMachineActivity = false);
 

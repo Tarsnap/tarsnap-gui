@@ -33,10 +33,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _purgeCountdownWindow(this),
     _tarsnapAccount(this)
 {
+    connect(&Debug::instance(), &Debug::message, this, &MainWindow::appendToConsoleLog, QUEUED);
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
-
     _ui->setupUi(this);
-
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -62,12 +61,12 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         QAction *actionAbout = new QAction(this);
         actionAbout->setMenuRole(QAction::AboutRole);
-        connect(actionAbout, SIGNAL(triggered()), &_aboutWindow, SLOT(show()));
+        connect(actionAbout, &QAction::triggered, &_aboutWindow, &QDialog::show);
         QMenu *appMenu = new QMenu(this);
         appMenu->addAction(actionAbout);
         menuBar.addMenu(appMenu);
     }
-    connect(_ui->aboutButton, SIGNAL(clicked()), &_aboutWindow, SLOT(show()));
+    connect(_ui->aboutButton, &QPushButton::clicked, &_aboutWindow, &QDialog::show);
     // --
 
     _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
@@ -86,23 +85,19 @@ MainWindow::MainWindow(QWidget *parent) :
     _purgeCountdownWindow.setIcon(QMessageBox::Critical);
     _purgeCountdownWindow.setWindowTitle(tr("Deleting all archives: press Cancel to abort"));
     _purgeCountdownWindow.setStandardButtons(QMessageBox::Cancel);
-    connect(&_purgeTimer, SIGNAL(timeout()), this, SLOT(purgeTimerFired()));
+    connect(&_purgeTimer, &QTimer::timeout, this, &MainWindow::purgeTimerFired);
     // --
-
-    connect(&Debug::instance(), SIGNAL(message(QString)), this,
-            SLOT(appendToConsoleLog(QString)), QUEUED);
 
     // Ui actions setup
     _ui->archiveListWidget->addAction(_ui->actionRefresh);
-    connect(_ui->actionRefresh, SIGNAL(triggered()), this , SIGNAL(loadArchives()), QUEUED);
+    connect(_ui->actionRefresh, &QAction::triggered, this , &MainWindow::loadArchives);
     _ui->backupListWidget->addAction(_ui->actionClearList);
-    connect(_ui->actionClearList, SIGNAL(triggered()), _ui->backupListWidget
-            , SLOT(clear()), QUEUED);
+    connect(_ui->actionClearList, &QAction::triggered, _ui->backupListWidget, &BackupListWidget::clear);
     _ui->backupListWidget->addAction(_ui->actionBrowseItems);
-    connect(_ui->actionBrowseItems, SIGNAL(triggered()), this, SLOT(browseForBackupItems()));
+    connect(_ui->actionBrowseItems, &QAction::triggered, this, &MainWindow::browseForBackupItems);
     _ui->settingsTab->addAction(_ui->actionRefreshAccount);
-    connect(_ui->actionRefreshAccount, SIGNAL(triggered()), this, SIGNAL(getOverallStats()));
-    connect(_ui->actionRefreshAccount, SIGNAL(triggered()), &_tarsnapAccount, SLOT(getAccountInfo()));
+    connect(_ui->actionRefreshAccount, &QAction::triggered, this, &MainWindow::getOverallStats);
+    connect(_ui->actionRefreshAccount, &QAction::triggered, &_tarsnapAccount, &TarsnapAccount::getAccountCredit);
     this->addAction(_ui->actionGoBackup);
     this->addAction(_ui->actionGoBrowse);
     this->addAction(_ui->actionGoJobs);
@@ -129,50 +124,48 @@ MainWindow::MainWindow(QWidget *parent) :
     [&]() {
         _ui->mainTabWidget->setCurrentWidget(_ui->helpTab);
     });
-    connect(_ui->actionShowJournal, SIGNAL(triggered()), _ui->expandJournalButton, SLOT(click()));
-
-    connect(_ui->backupListInfoLabel, SIGNAL(linkActivated(QString)), this,
-            SLOT(browseForBackupItems()));
-    connect(_ui->backupButton, SIGNAL(clicked()), this, SLOT(backupButtonClicked()));
-    connect(_ui->appendTimestampCheckBox, SIGNAL(toggled(bool)), this, SLOT(appendTimestampCheckBoxToggled(bool)));
-    connect(_ui->accountMachineUseHostnameButton, SIGNAL(clicked()), this, SLOT(accountMachineUseHostnameButtonClicked()));
-    connect(_ui->accountMachineKeyBrowseButton, SIGNAL(clicked()), this, SLOT(accountMachineKeyBrowseButtonClicked()));
-    connect(_ui->tarsnapPathBrowseButton, SIGNAL(clicked()), this, SLOT(tarsnapPathBrowseButtonClicked()));
-    connect(_ui->tarsnapCacheBrowseButton, SIGNAL(clicked()), this, SLOT(tarsnapCacheBrowseButton()));
-    connect(_ui->appDataDirBrowseButton, SIGNAL(clicked()), this, SLOT(appDataButtonClicked()));
-    connect(_ui->repairCacheButton, SIGNAL(clicked()), this, SLOT(repairCacheButtonClicked()));
-    connect(_ui->purgeArchivesButton, SIGNAL(clicked()), this, SLOT(purgeArchivesButtonClicked()));
-    connect(_ui->runSetupWizard, SIGNAL(clicked()), this, SLOT(runSetupWizardClicked()));
-    connect(_ui->expandJournalButton, SIGNAL(toggled(bool)), this, SLOT(expandJournalButtonToggled(bool)));
-    connect(_ui->downloadsDirBrowseButton, SIGNAL(clicked()), this, SLOT(downloadsDirBrowseButtonClicked()));
-    connect(_ui->busyWidget, SIGNAL(clicked()), this, SIGNAL(getTaskInfo()));
+    connect(_ui->actionShowJournal, &QAction::triggered, _ui->expandJournalButton, &QToolButton::click);
+    connect(_ui->backupListInfoLabel, &QLabel::linkActivated, this, &MainWindow::browseForBackupItems);
+    connect(_ui->backupButton, &QPushButton::clicked, this, &MainWindow::backupButtonClicked);
+    connect(_ui->appendTimestampCheckBox, &QCheckBox::toggled, this, &MainWindow::appendTimestampCheckBoxToggled);
+    connect(_ui->accountMachineUseHostnameButton, &QPushButton::clicked, this, &MainWindow::accountMachineUseHostnameButtonClicked);
+    connect(_ui->accountMachineKeyBrowseButton, &QPushButton::clicked, this, &MainWindow::accountMachineKeyBrowseButtonClicked);
+    connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this, &MainWindow::tarsnapPathBrowseButtonClicked);
+    connect(_ui->tarsnapCacheBrowseButton, &QPushButton::clicked, this, &MainWindow::tarsnapCacheBrowseButton);
+    connect(_ui->appDataDirBrowseButton, &QPushButton::clicked, this, &MainWindow::appDataButtonClicked);
+    connect(_ui->repairCacheButton, &QPushButton::clicked, this, &MainWindow::repairCacheButtonClicked);
+    connect(_ui->purgeArchivesButton, &QPushButton::clicked, this, &MainWindow::purgeArchivesButtonClicked);
+    connect(_ui->runSetupWizard, &QPushButton::clicked, this, &MainWindow::runSetupWizardClicked);
+    connect(_ui->expandJournalButton, &QToolButton::toggled, this, &MainWindow::expandJournalButtonToggled);
+    connect(_ui->downloadsDirBrowseButton, &QPushButton::clicked, this, &MainWindow::downloadsDirBrowseButtonClicked);
+    connect(_ui->busyWidget, &BusyWidget::clicked, this, &MainWindow::getTaskInfo);
 
     // Settings page
-    connect(_ui->accountUserLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
-    connect(_ui->accountMachineLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
-    connect(_ui->accountMachineKeyLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
-    connect(_ui->tarsnapPathLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
-    connect(_ui->tarsnapCacheLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
-    connect(_ui->aggressiveNetworkingCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
-    connect(_ui->accountMachineKeyLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateMachineKeyPath()));
-    connect(_ui->tarsnapPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapPath()));
-    connect(_ui->tarsnapCacheLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateTarsnapCache()));
-    connect(_ui->siPrefixesCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
-    connect(_ui->notificationsCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
-    connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
-    connect(_ui->downloadsDirLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
-    connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
-    connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
-    connect(_ui->skipFilesSizeSpinBox, SIGNAL(editingFinished()), this, SLOT(commitSettings()));
-    connect(_ui->skipSystemJunkCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
-    connect(_ui->skipSystemLineEdit, SIGNAL(editingFinished()), this, SLOT(commitSettings()));;
-    connect(_ui->simulationCheckBox, SIGNAL(toggled(bool)), this, SLOT(commitSettings()));
+    connect(_ui->accountUserLineEdit, &QLineEdit::editingFinished, this, &MainWindow::commitSettings);
+    connect(_ui->accountMachineLineEdit, &QLineEdit::editingFinished, this, &MainWindow::commitSettings);
+    connect(_ui->accountMachineKeyLineEdit, &QLineEdit::editingFinished, this, &MainWindow::commitSettings);
+    connect(_ui->tarsnapPathLineEdit, &QLineEdit::editingFinished, this, &MainWindow::commitSettings);
+    connect(_ui->tarsnapCacheLineEdit, &QLineEdit::editingFinished, this, &MainWindow::commitSettings);
+    connect(_ui->aggressiveNetworkingCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
+    connect(_ui->accountMachineKeyLineEdit, &QLineEdit::textChanged, this, &MainWindow::validateMachineKeyPath);
+    connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this, &MainWindow::validateTarsnapPath);
+    connect(_ui->tarsnapCacheLineEdit, &QLineEdit::textChanged, this, &MainWindow::validateTarsnapCache);
+    connect(_ui->siPrefixesCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
+    connect(_ui->notificationsCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
+    connect(_ui->preservePathsCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
+    connect(_ui->downloadsDirLineEdit, &QLineEdit::editingFinished, this, &MainWindow::commitSettings);
+    connect(_ui->traverseMountCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
+    connect(_ui->followSymLinksCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
+    connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this, &MainWindow::commitSettings);
+    connect(_ui->skipSystemJunkCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
+    connect(_ui->skipSystemLineEdit, &QLineEdit::editingFinished, this, &MainWindow::commitSettings);;
+    connect(_ui->simulationCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
     connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
     [&]() {
         _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES);
     });
-    connect(&_tarsnapAccount, SIGNAL(accountCredit(qreal, QDate)), this, SLOT(updateAccountCredit(qreal, QDate)));
-    connect(_ui->accountActivityShowButton, SIGNAL(clicked(bool)), _ui->actionRefreshAccount, SLOT(trigger()));
+    connect(&_tarsnapAccount, &TarsnapAccount::accountCredit, this, &MainWindow::updateAccountCredit);
+    connect(_ui->updateCreditButton, &QPushButton::clicked, _ui->actionRefreshAccount, &QAction::trigger);
 // Disabled functionality
 //    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));
 //    connect(_ui->accountActivityShowButton, &QPushButton::clicked,
@@ -190,46 +183,41 @@ MainWindow::MainWindow(QWidget *parent) :
 // ---
 
     // Backup and Archives
-    connect(_ui->backupListWidget, SIGNAL(itemTotals(quint64,quint64)), this
-            , SLOT(updateBackupItemTotals(quint64, quint64)));
-    connect(this, SIGNAL(archiveList(QList<ArchivePtr >))
-            , _ui->archiveListWidget, SLOT(addArchives(QList<ArchivePtr >)));
-    connect(_ui->archiveListWidget, SIGNAL(inspectArchive(ArchivePtr)), this
-            , SLOT(displayInspectArchive(ArchivePtr)));
-    connect(_ui->archiveListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)), this
-            , SIGNAL(deleteArchives(QList<ArchivePtr>)));
-    connect(_ui->archiveListWidget, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)),
-            this, SIGNAL(restoreArchive(ArchivePtr,ArchiveRestoreOptions)));
-    connect(_ui->archiveListWidget, SIGNAL(displayJobDetails(QString)),
-            _ui->jobListWidget, SLOT(selectJobByRef(QString)));
+    connect(_ui->backupListWidget, &BackupListWidget::itemTotals, this
+            , &MainWindow::updateBackupItemTotals);
+    connect(this, &MainWindow::archiveList, _ui->archiveListWidget, &ArchiveListWidget::addArchives);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this , &MainWindow::displayInspectArchive);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives, this , &MainWindow::deleteArchives);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this, &MainWindow::restoreArchive);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails, _ui->jobListWidget, &JobListWidget::selectJobByRef);
     connect(_ui->archiveJobLabel, &TextLabel::clicked,
     [&]() {
         _ui->jobListWidget->selectJobByRef(_currentArchiveDetail->jobRef());
     });
 
     // Jobs
-    connect(_ui->addJobButton, SIGNAL(clicked()), this, SLOT(addJobClicked()), QUEUED);
-    connect(_ui->jobDetailsWidget, SIGNAL(cancel()), this, SLOT(hideJobDetails()), QUEUED);
-    connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(addJob(JobPtr)), QUEUED);
-    connect(_ui->jobDetailsWidget, SIGNAL(jobAdded(JobPtr)), _ui->jobListWidget, SLOT(selectJob(JobPtr)), QUEUED);
-    connect(_ui->jobDetailsWidget, SIGNAL(inspectJobArchive(ArchivePtr)), this, SLOT(displayInspectArchive(ArchivePtr)), QUEUED);
-    connect(_ui->jobDetailsWidget, SIGNAL(restoreJobArchive(ArchivePtr, ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions)), QUEUED);
-    connect(_ui->jobDetailsWidget, SIGNAL(deleteJobArchives(QList<ArchivePtr>)), this, SIGNAL(deleteArchives(QList<ArchivePtr>)), QUEUED);
-    connect(_ui->jobDetailsWidget, SIGNAL(enableSave(bool)), _ui->addJobButton, SLOT(setEnabled(bool)), QUEUED);
-    connect(_ui->jobListWidget, SIGNAL(displayJobDetails(JobPtr)), this, SLOT(displayJobDetails(JobPtr)), QUEUED);
-    connect(_ui->jobListWidget, SIGNAL(backupJob(BackupTaskPtr)), this, SIGNAL(backupNow(BackupTaskPtr)), QUEUED);
-    connect(_ui->jobListWidget, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions)), this, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions)), QUEUED);
-    connect(_ui->jobListWidget, SIGNAL(deleteJob(JobPtr, bool)), this, SIGNAL(deleteJob(JobPtr, bool)), QUEUED);
-    connect(this, SIGNAL(jobsList(QMap<QString, JobPtr>)), _ui->jobListWidget, SLOT(addJobs(QMap<QString, JobPtr>)), QUEUED);
+    connect(_ui->addJobButton, &QToolButton::clicked, this, &MainWindow::addJobClicked);
+    connect(_ui->jobDetailsWidget, &JobWidget::cancel, this, &MainWindow::hideJobDetails);
+    connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, _ui->jobListWidget, &JobListWidget::addJob);
+    connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, _ui->jobListWidget, &JobListWidget::selectJob);
+    connect(_ui->jobDetailsWidget, &JobWidget::inspectJobArchive, this, &MainWindow::displayInspectArchive);
+    connect(_ui->jobDetailsWidget, &JobWidget::restoreJobArchive, this, &MainWindow::restoreArchive);
+    connect(_ui->jobDetailsWidget, &JobWidget::deleteJobArchives, this, &MainWindow::deleteArchives);
+    connect(_ui->jobDetailsWidget, &JobWidget::enableSave, _ui->addJobButton, &QToolButton::setEnabled);
+    connect(_ui->jobListWidget, &JobListWidget::displayJobDetails, this, &MainWindow::displayJobDetails);
+    connect(_ui->jobListWidget, &JobListWidget::backupJob, this, &MainWindow::backupNow);
+    connect(_ui->jobListWidget, &JobListWidget::restoreArchive, this, &MainWindow::restoreArchive);
+    connect(_ui->jobListWidget, &JobListWidget::deleteJob, this, &MainWindow::deleteJob);
+    connect(this, &MainWindow::jobsList, _ui->jobListWidget, &JobListWidget::addJobs);
 
     _ui->jobListWidget->addAction(_ui->actionAddJob);
-    connect(_ui->actionAddJob, SIGNAL(triggered()), this, SLOT(addJobClicked()));
+    connect(_ui->actionAddJob, &QAction::triggered, this, &MainWindow::addJobClicked);
     QMenu *addJobMenu = new QMenu(_ui->addJobButton);
     addJobMenu->addAction(_ui->actionBackupAllJobs);
-    connect(_ui->actionBackupAllJobs, SIGNAL(triggered()), _ui->jobListWidget, SLOT(backupAllJobs()));
+    connect(_ui->actionBackupAllJobs, &QAction::triggered, _ui->jobListWidget, &JobListWidget::backupAllJobs);
     _ui->addJobButton->setMenu(addJobMenu);
     _ui->jobListWidget->addAction(_ui->actionJobBackup);
-    connect(_ui->actionJobBackup, SIGNAL(triggered()), _ui->jobListWidget, SLOT(backupSelectedItems()));
+    connect(_ui->actionJobBackup, &QAction::triggered, _ui->jobListWidget, &JobListWidget::backupSelectedItems);
 
     //lambda slots to quickly update various UI components
     connect(this, &MainWindow::loadArchives,
@@ -252,7 +240,7 @@ MainWindow::MainWindow(QWidget *parent) :
     });
     connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives,
     [&](const QList<ArchivePtr> archives) {
-        archivesDeleted(archives,false);
+        notifyArchivesDeleted(archives, false);
     });
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
     [&](const QString text) {
@@ -280,7 +268,7 @@ MainWindow::MainWindow(QWidget *parent) :
     });
     connect(_ui->jobListWidget, &JobListWidget::backupJob,
     [&](BackupTaskPtr backup) {
-        connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
+        connect(backup, &BackupTask::statusUpdate, this, &MainWindow::backupTaskUpdate, QUEUED);
     });
     connect(_ui->jobListWidget, &JobListWidget::deleteJob,
     [&](JobPtr job, bool purgeArchives) {
@@ -435,11 +423,15 @@ void MainWindow::backupTaskUpdate(const TaskStatus& status)
     switch(status)
     {
     case TaskStatus::Completed:
-        updateStatusMessage(tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
-                            .arg(backupTask->name()).arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes)),
-                            backupTask->archive()->archiveStats(), true);
+    {
+        QString msg = tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
+                      .arg(backupTask->name())
+                      .arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(), _useSIPrefixes));
+        updateStatusMessage(msg, backupTask->archive()->archiveStats());
+        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
         delete backupTask;
         break;
+    }
     case TaskStatus::Queued:
         updateStatusMessage(tr("Backup <i>%1</i> queued.").arg(backupTask->name()));
         break;
@@ -447,10 +439,15 @@ void MainWindow::backupTaskUpdate(const TaskStatus& status)
         updateStatusMessage(tr("Backup <i>%1</i> is running.").arg(backupTask->name()));
         break;
     case TaskStatus::Failed:
-        updateStatusMessage(tr("Backup <i>%1</i> failed: %2").arg(backupTask->name()).arg(backupTask->output().simplified()),
-                            backupTask->output(), true);
+    {
+        QString msg = tr("Backup <i>%1</i> failed: %2")
+                      .arg(backupTask->name())
+                      .arg(backupTask->output().simplified());
+        updateStatusMessage(msg, backupTask->output());
+        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
         delete backupTask;
         break;
+    }
     case TaskStatus::Paused:
         updateStatusMessage(tr("Backup <i>%1</i> paused.").arg(backupTask->name()));
         break;
@@ -459,7 +456,7 @@ void MainWindow::backupTaskUpdate(const TaskStatus& status)
     }
 }
 
-void MainWindow::archivesDeleted(QList<ArchivePtr> archives, bool done)
+void MainWindow::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
 {
     if(archives.count() > 1)
     {
@@ -478,6 +475,11 @@ void MainWindow::archivesDeleted(QList<ArchivePtr> archives, bool done)
         updateStatusMessage(tr("Deleting archive <i>%1</i>...%2").arg(archives.first()->name())
                             .arg(done ? "done" : ""));
     }
+}
+
+void MainWindow::archivesDeleted(QList<ArchivePtr> archives)
+{
+    notifyArchivesDeleted(archives, true);
 }
 
 void MainWindow::updateLoadingAnimation(bool idle)
@@ -585,12 +587,12 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 void MainWindow::displayInspectArchive(ArchivePtr archive)
 {
     if(_currentArchiveDetail)
-        disconnect(_currentArchiveDetail.data(), SIGNAL(changed()), this, SLOT(updateInspectArchive()));
+        disconnect(_currentArchiveDetail.data(), &Archive::changed, this, &MainWindow::updateInspectArchive);
 
     _currentArchiveDetail = archive;
 
     if(_currentArchiveDetail)
-        connect(_currentArchiveDetail.data(), SIGNAL(changed()), this, SLOT(updateInspectArchive()));
+        connect(_currentArchiveDetail.data(), &Archive::changed, this, &MainWindow::updateInspectArchive, QUEUED);
 
     if(archive->sizeTotal() == 0)
         emit loadArchiveStats(archive);
@@ -643,8 +645,7 @@ void MainWindow::backupButtonClicked()
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
     backup->setOptionDryRun(_ui->simulationCheckBox->isChecked());
-    connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this,
-            SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
+    connect(backup, &BackupTask::statusUpdate, this, &MainWindow::backupTaskUpdate, QUEUED);
     emit backupNow(backup);
     _ui->appendTimestampCheckBox->setChecked(false);
 }
@@ -677,15 +678,12 @@ void MainWindow::updateInspectArchive()
     }
 }
 
-void MainWindow::updateStatusMessage(QString message, QString detail, bool notify)
+void MainWindow::updateStatusMessage(QString message, QString detail)
 {
     _ui->statusBarLabel->setText(message);
     _ui->statusBarLabel->setToolTip(detail);
 
     appendToJournalLog(QString("[%1] %2").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")).arg(message));
-
-    if(notify)
-        emit displayNotification(message.remove(QRegExp("<[^>]*>")));
 }
 
 void MainWindow::commitSettings()

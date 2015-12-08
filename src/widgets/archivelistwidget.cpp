@@ -28,7 +28,7 @@ ArchiveListWidget::~ArchiveListWidget()
 void ArchiveListWidget::addArchives(QList<ArchivePtr > archives)
 {
     std::sort(archives.begin(), archives.end(), [](ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp());});
-    this->setUpdatesEnabled(false);
+    setUpdatesEnabled(false);
     clear();
     foreach(ArchivePtr archive, archives)
     {
@@ -37,15 +37,15 @@ void ArchiveListWidget::addArchives(QList<ArchivePtr > archives)
         connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));
         connect(item, SIGNAL(requestRestore()), this, SLOT(restoreItem()));
         connect(item, SIGNAL(requestGoToJob()), this, SLOT(goToJob()));
-        this->insertItem(this->count(), item);
-        this->setItemWidget(item, item->widget());
+        insertItem(count(), item);
+        setItemWidget(item, item->widget());
     }
-    this->setUpdatesEnabled(true);
+    setUpdatesEnabled(true);
 }
 
 void ArchiveListWidget::removeItems()
 {
-    if(this->selectedItems().isEmpty())
+    if(selectedItems().isEmpty())
     {
         // remove single item
         ArchiveListItem* archiveItem = qobject_cast<ArchiveListItem*>(sender());
@@ -66,7 +66,7 @@ void ArchiveListWidget::removeItems()
     else
     {
         // remove selected items
-        int selectedItemsCount = this->selectedItems().count();
+        int selectedItemsCount = selectedItems().count();
         auto button = QMessageBox::question(this, tr("Confirm delete"),
                                             tr("Are you sure you want to delete %1 selected archives (this cannot be undone)?")
                                             .arg(selectedItemsCount));
@@ -77,7 +77,7 @@ void ArchiveListWidget::removeItems()
             if(selectedItemsCount >= DELETE_CONFIRMATION_THRESHOLD)
             {
                 // Inform of purge operation if all archives are to be removed
-                if(selectedItemsCount == this->count())
+                if(selectedItemsCount == count())
                 {
                     button = QMessageBox::question(this, tr("Confirm delete"),
                                                    tr("Are you sure you want to delete all of your archives?\n"
@@ -95,7 +95,7 @@ void ArchiveListWidget::removeItems()
         if(button == QMessageBox::Yes)
         {
             QList<ArchivePtr> archiveList;
-            foreach(QListWidgetItem *item, this->selectedItems())
+            foreach(QListWidgetItem *item, selectedItems())
             {
                 ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(item);
                 archiveList.append(archiveItem->archive());
@@ -138,15 +138,15 @@ void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
     if(!archive)
         return;
 
-    ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(this->currentItem());
+    ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(currentItem());
     if(!archiveItem || (archiveItem->archive() != archive))
     {
-        for(int i = 0; i < this->count(); ++i)
+        for(int i = 0; i < count(); ++i)
         {
-            ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(this->item(i));
+            ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(item(i));
             if(archiveItem && (archiveItem->archive()->objectKey() == archive->objectKey()))
             {
-                this->setCurrentItem(archiveItem);
+                setCurrentItem(archiveItem);
             }
         }
     }

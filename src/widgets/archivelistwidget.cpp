@@ -7,8 +7,6 @@
 
 #define DELETE_CONFIRMATION_THRESHOLD 10
 
-static bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp()); }
-
 ArchiveListWidget::ArchiveListWidget(QWidget *parent):
     QListWidget(parent)
 {
@@ -30,7 +28,7 @@ ArchiveListWidget::~ArchiveListWidget()
 void ArchiveListWidget::addArchives(QList<ArchivePtr > archives)
 {
     clear();
-    std::sort(archives.begin(), archives.end(), ArchiveCompare);
+    std::sort(archives.begin(), archives.end(), [](ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp());});
     foreach(ArchivePtr archive, archives)
     {
         ArchiveListItem *item = new ArchiveListItem(archive);

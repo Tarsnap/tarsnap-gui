@@ -258,6 +258,7 @@ void SetupDialog::restoreYes()
                                            "verify archive consistency and integrity "
                                            "using the cache, thus please be patient."));
     _ui->errorLabel->clear();
+    _ui->machineKeyCombo->clear();
     foreach(QFileInfo file, Utils::findKeysInPath(_appDataDir))
         _ui->machineKeyCombo->addItem(file.canonicalFilePath());
     setNextPage();

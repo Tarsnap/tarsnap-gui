@@ -30,22 +30,18 @@ JobWidget::JobWidget(QWidget *parent) :
 //                        save();
 //            });
 
-    connect(_ui->includeScheduledCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-    connect(_ui->preservePathsCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-    connect(_ui->traverseMountCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-    connect(_ui->followSymLinksCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-    connect(_ui->skipFilesSizeSpinBox, SIGNAL(editingFinished()), this, SLOT(save()));
-    connect(_ui->skipFilesCheckBox, SIGNAL(toggled(bool)), this, SLOT(save()));
-    connect(_ui->skipFilesLineEdit, SIGNAL(editingFinished()), this, SLOT(save()));
-    connect(_ui->cancelButton, SIGNAL(clicked()), this, SIGNAL(cancel()));
-    connect(_ui->restoreLatestArchiveButton, SIGNAL(clicked()), this,
-            SLOT(restoreLatestArchive()));
-    connect(_ui->archiveListWidget, SIGNAL(inspectArchive(ArchivePtr)), this,
-            SIGNAL(inspectJobArchive(ArchivePtr)));
-    connect(_ui->archiveListWidget, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions)),
-            this, SIGNAL(restoreJobArchive(ArchivePtr, ArchiveRestoreOptions)));
-    connect(_ui->archiveListWidget, SIGNAL(deleteArchives(QList<ArchivePtr>)),
-            this, SIGNAL(deleteJobArchives(QList<ArchivePtr>)));
+    connect(_ui->includeScheduledCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
+    connect(_ui->preservePathsCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
+    connect(_ui->traverseMountCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
+    connect(_ui->followSymLinksCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
+    connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this, &JobWidget::save);
+    connect(_ui->skipFilesCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
+    connect(_ui->skipFilesLineEdit, &QLineEdit::editingFinished, this, &JobWidget::save);
+    connect(_ui->cancelButton, &QPushButton::clicked, this, &JobWidget::cancel);
+    connect(_ui->restoreLatestArchiveButton, &QPushButton::clicked, this, &JobWidget::restoreLatestArchive);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this, &JobWidget::inspectJobArchive);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this, &JobWidget::restoreJobArchive);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives, this, &JobWidget::deleteJobArchives);
     connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked,
     [&]() {
         QSettings settings;
@@ -97,7 +93,7 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->jobNameLineEdit->hide();
         _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
         updateDetails();
-        connect(_job.data(), SIGNAL(changed()), this, SLOT(updateDetails()));
+        connect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
         _saveEnabled = true;
     }
 }

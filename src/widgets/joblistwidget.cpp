@@ -156,10 +156,10 @@ void JobListWidget::addJob(JobPtr job)
     if(job)
     {
         JobListItem *item = new JobListItem(job);
-        connect(item, SIGNAL(requestBackup()), this, SLOT(backupItem()));
-        connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));
-        connect(item, SIGNAL(requestRestore()), this, SLOT(restoreItem()));
-        connect(item, SIGNAL(requestDelete()), this, SLOT(deleteItem()));
+        connect(item, &JobListItem::requestBackup, this, &JobListWidget::backupItem);
+        connect(item, &JobListItem::requestInspect, this, &JobListWidget::inspectItem);
+        connect(item, &JobListItem::requestRestore, this, &JobListWidget::restoreItem);
+        connect(item, &JobListItem::requestDelete, this, &JobListWidget::deleteItem);
         insertItem(count(), item);
         setItemWidget(item, item->widget());
     }

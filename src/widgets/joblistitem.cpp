@@ -14,11 +14,11 @@ JobListItem::JobListItem(JobPtr job):
     _widget.addAction(_ui.actionDelete);
     _ui.inspectButton->setDefaultAction(_ui.actionInspect);
     _ui.restoreButton->setDefaultAction(_ui.actionRestore);
-    connect(_ui.backupButton, SIGNAL(clicked()), _ui.actionBackup, SIGNAL(triggered()), QUEUED);
-    connect(_ui.actionBackup, SIGNAL(triggered()), this, SIGNAL(requestBackup()), QUEUED);
-    connect(_ui.actionInspect, SIGNAL(triggered()), this, SIGNAL(requestInspect()), QUEUED);
-    connect(_ui.actionRestore, SIGNAL(triggered()), this, SIGNAL(requestRestore()), QUEUED);
-    connect(_ui.actionDelete, SIGNAL(triggered()), this, SIGNAL(requestDelete()), QUEUED);
+    connect(_ui.backupButton, &QPushButton::clicked, _ui.actionBackup, &QAction::triggered);
+    connect(_ui.actionBackup, &QAction::triggered, this, &JobListItem::requestBackup);
+    connect(_ui.actionInspect, &QAction::triggered, this, &JobListItem::requestInspect);
+    connect(_ui.actionRestore, &QAction::triggered, this, &JobListItem::requestRestore);
+    connect(_ui.actionDelete, &QAction::triggered, this, &JobListItem::requestDelete);
 
     setJob(job);
 }
@@ -41,7 +41,7 @@ void JobListItem::setJob(const JobPtr &job)
 {
     _job = job;
 
-    connect(_job.data(), SIGNAL(changed()), this, SLOT(update()), QUEUED);
+    connect(_job.data(), &Job::changed, this, &JobListItem::update, QUEUED);
 
     _ui.nameLabel->setText(_job->name());
     if(_job->archives().isEmpty())

@@ -54,8 +54,8 @@ void BackupListWidget::addItemWithUrl(QUrl url)
         if(!file.exists())
             return;
         BackupListItem *item = new BackupListItem(url);
-        connect(item, SIGNAL(requestDelete()), this, SLOT(removeItems()));
-        connect(item, SIGNAL(requestUpdate()), this, SLOT(recomputeListTotals()));
+        connect(item, &BackupListItem::requestDelete, this, &BackupListWidget::removeItems);
+        connect(item, &BackupListItem::requestUpdate, this, &BackupListWidget::recomputeListTotals);
         this->insertItem(this->count(), item);
         this->setItemWidget(item, item->widget());
     }

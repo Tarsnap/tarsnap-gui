@@ -17,10 +17,10 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive):
     _ui.jobButton->setDefaultAction(_ui.actionGoToJob);
     _ui.restoreButton->setDefaultAction(_ui.actionRestore);
     _ui.deleteButton->setDefaultAction(_ui.actionDelete);
-    connect(_ui.actionDelete, SIGNAL(triggered()), this, SIGNAL(requestDelete()), QUEUED);
-    connect(_ui.actionInspect, SIGNAL(triggered()), this, SIGNAL(requestInspect()), QUEUED);
-    connect(_ui.actionRestore, SIGNAL(triggered()), this, SIGNAL(requestRestore()), QUEUED);
-    connect(_ui.actionGoToJob, SIGNAL(triggered()), this, SIGNAL(requestGoToJob()), QUEUED);
+    connect(_ui.actionDelete, &QAction::triggered, this, &ArchiveListItem::requestDelete);
+    connect(_ui.actionInspect, &QAction::triggered, this, &ArchiveListItem::requestInspect);
+    connect(_ui.actionRestore, &QAction::triggered, this, &ArchiveListItem::requestRestore);
+    connect(_ui.actionGoToJob, &QAction::triggered, this, &ArchiveListItem::requestGoToJob);
 
     setArchive(archive);
 }
@@ -43,7 +43,7 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
 {
     _archive = archive;
 
-    connect(_archive.data(), SIGNAL(changed()), this, SLOT(update()), QUEUED);
+    connect(_archive.data(), &Archive::changed, this, &ArchiveListItem::update, QUEUED);
 
     _ui.nameLabel->setText(_archive->name());
     _ui.nameLabel->setToolTip(_archive->name());

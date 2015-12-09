@@ -42,7 +42,7 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
         if(!roles.isEmpty() && (roles.first() == Qt::CheckStateRole))
             emit selectionChanged();
     });
-    connect(_ui->filterLineEdit, SIGNAL(textEdited(QString)), this, SLOT(updateFilter(QString)));
+    connect(_ui->filterLineEdit, &QLineEdit::textEdited, this, &FilePicker::updateFilter);
     connect(_ui->showHiddenCheckBox, &QCheckBox::toggled,
     [&](const bool toggled)
     {
@@ -139,7 +139,7 @@ void FilePicker::keyReleaseEvent(QKeyEvent *event)
 
 bool FilePicker::eventFilter(QObject *obj, QEvent *event)
 {
-    if ((obj == _ui->treeView) && (event->type() == QEvent::FocusOut))
+    if((obj == _ui->treeView) && (event->type() == QEvent::FocusOut))
     {
         emit focusLost();
         return false;

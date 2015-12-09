@@ -14,8 +14,8 @@ BackupListItem::BackupListItem(QUrl url): _count(0), _size(0), _useSIPrefixes(fa
     _widget.addAction(_ui.actionRemove);
     _ui.browseButton->setDefaultAction(_ui.actionOpen);
     _ui.removeButton->setDefaultAction(_ui.actionRemove);
-    connect(_ui.actionRemove, SIGNAL(triggered()), this, SIGNAL(requestDelete()), QUEUED);
-    connect(_ui.actionOpen, SIGNAL(triggered()), this, SLOT(browseUrl()), QUEUED);
+    connect(_ui.actionRemove, &QAction::triggered, this, &BackupListItem::requestDelete);
+    connect(_ui.actionOpen, &QAction::triggered, this, &BackupListItem::browseUrl);
 
     QSettings settings;
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
@@ -58,7 +58,7 @@ void BackupListItem::setUrl(const QUrl &url)
             QThreadPool *threadPool = QThreadPool::globalInstance();
             Utils::GetDirInfoTask *task = new Utils::GetDirInfoTask(dir);
             task->setAutoDelete(true);
-            connect(task, SIGNAL(result(quint64, quint64)), this, SLOT(updateDirDetail(quint64, quint64)), QUEUED);
+            connect(task, &Utils::GetDirInfoTask::result, this, &BackupListItem::updateDirDetail, QUEUED);
             threadPool->start(task);
         }
         else if(file.isFile())

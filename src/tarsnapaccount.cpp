@@ -170,10 +170,9 @@ QNetworkReply* TarsnapAccount::tarsnapRequest(QString url)
     request.setRawHeader("User-Agent",
                          (qApp->applicationName() + " " + qApp->applicationVersion()).toLatin1());
     QNetworkReply *reply = _nam.get(request);
-    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
-            this, SLOT(networkError(QNetworkReply::NetworkError)));
-    connect(reply, SIGNAL(sslErrors(QList<QSslError>)),
-            this, SLOT(sslError(QList<QSslError>)));
+    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
+            SLOT(networkError(QNetworkReply::NetworkError)));
+    connect(reply, &QNetworkReply::sslErrors, this, &TarsnapAccount::sslError);
     return reply;
 }
 

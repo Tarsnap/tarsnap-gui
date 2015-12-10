@@ -47,6 +47,13 @@ signals:
 
 public slots:
     void loadSettings();
+    void runScheduledJobs();
+    void stopTasks(bool running, bool queued);
+    void loadJobs();
+    void deleteJob(JobPtr job, bool purgeArchives);
+    void loadJobArchives();
+    void getTaskInfo();
+    void addJob(JobPtr job);
 
     // Tarsnap tasks
     void getTarsnapVersion(QString tarsnapPath);
@@ -61,12 +68,6 @@ public slots:
     void fsck();
     void nuke();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
-    void runScheduledJobs();
-    void stopTasks(bool running, bool queued);
-    void loadJobs();
-    void deleteJob(JobPtr job, bool purgeArchives);
-    void loadJobArchives();
-    void getTaskInfo();
 
 private slots:
     // post Tarsnap task processing

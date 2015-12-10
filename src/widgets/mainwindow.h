@@ -42,6 +42,7 @@ signals:
     void getTarsnapVersion(QString tarsnapPath);
     void displayNotification(QString message);
     void getTaskInfo();
+    void jobAdded(JobPtr job);
 
 protected:
     void paintEvent(QPaintEvent *);

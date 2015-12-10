@@ -190,6 +190,8 @@ void CoreApplication::showMainWindow()
             SLOT(getTaskInfo()), QUEUED);
     connect(&_taskManager, SIGNAL(taskInfo(int, int)), _mainWindow,
             SLOT(displayStopTasks(int, int)), QUEUED);
+    connect(_mainWindow, &MainWindow::jobAdded, &_taskManager,
+            &TaskManager::addJob, QUEUED);
 
     QMetaObject::invokeMethod(_mainWindow, "loadArchives", QUEUED);
     QMetaObject::invokeMethod(_mainWindow, "loadJobs", QUEUED);

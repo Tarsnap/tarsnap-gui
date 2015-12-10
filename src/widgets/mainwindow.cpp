@@ -291,6 +291,7 @@ MainWindow::MainWindow(QWidget *parent) :
     });
     connect(_ui->jobDetailsWidget, &JobWidget::jobAdded,
     [&](JobPtr job) {
+        emit jobAdded(job);
         updateStatusMessage(tr("Job <i>%1</i> added.").arg(job->name()));
     });
     connect(_ui->statusBarLabel, &TextLabel::clicked,

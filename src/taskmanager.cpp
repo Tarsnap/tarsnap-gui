@@ -824,6 +824,12 @@ void TaskManager::getTaskInfo()
     emit taskInfo(_runningTasks.count(), _taskQueue.count());
 }
 
+void TaskManager::addJob(JobPtr job)
+{
+    _jobMap[job->name()] = job;
+    connect(job.data(), &Job::loadArchives, this, &TaskManager::loadJobArchives, QUEUED);
+}
+
 void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data)

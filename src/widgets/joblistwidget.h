@@ -26,13 +26,13 @@ public slots:
     void selectJob(JobPtr job);
     void selectJobByRef(QString jobRef);
     void backupAllJobs();
+    void addJob(JobPtr job);
 
 private slots:
     void backupItem();
     void inspectItem();
     void restoreItem();
     void deleteItem();
-    void addJob(JobPtr job);
 
 protected:
     void keyReleaseEvent(QKeyEvent *event);

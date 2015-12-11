@@ -1110,7 +1110,7 @@ border: 1px solid rgba(255,255,255,100);
                        </widget>
                       </item>
                       <item>
-                       <widget class="QPushButton" name="accountActivityShowButton">
+                       <widget class="QPushButton" name="updateCreditButton">
                         <property name="font">
                          <font>
                           <underline>true</underline>
@@ -2467,7 +2467,7 @@ border: none;
   <tabstop>archiveContentsPlainTextEdit</tabstop>
   <tabstop>jobListWidget</tabstop>
   <tabstop>addJobButton</tabstop>
-  <tabstop>accountActivityShowButton</tabstop>
+  <tabstop>updateCreditButton</tabstop>
   <tabstop>machineActivityShowButton</tabstop>
   <tabstop>accountUserLineEdit</tabstop>
   <tabstop>accountMachineLineEdit</tabstop>

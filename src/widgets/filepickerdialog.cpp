@@ -6,8 +6,8 @@ FilePickerDialog::FilePickerDialog(QWidget *parent) :
     _ui(new Ui::FilePickerDialog)
 {
     _ui->setupUi(this);
-    connect(_ui->cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-    connect(_ui->selectButton, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(_ui->cancelButton, &QPushButton::clicked, this, &FilePickerDialog::reject);
+    connect(_ui->selectButton, &QPushButton::clicked, this, &FilePickerDialog::accept);
 }
 
 FilePickerDialog::~FilePickerDialog()

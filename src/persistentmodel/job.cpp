@@ -56,7 +56,7 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
     std::sort(_archives.begin(), _archives.end(), ArchiveCompare);
     foreach(ArchivePtr archive, _archives)
     {
-        connect(archive.data(), SIGNAL(purged()), this, SIGNAL(loadArchives()), QUEUED);
+        connect(archive.data(), &Archive::purged, this, &Job::loadArchives, QUEUED);
     }
     emit changed();
 }
@@ -145,7 +145,7 @@ BackupTaskPtr Job::createBackupTask()
     backup->setOptionSkipSystem(optionSkipFiles());
     backup->setOptionSkipSystemFiles(optionSkipFilesPatterns());
     backup->setOptionDryRun(settings.value("tarsnap/dry_run", false).toBool());
-    connect(backup, SIGNAL(statusUpdate(const TaskStatus&)), this, SLOT(backupTaskUpdate(const TaskStatus&)), QUEUED);
+    connect(backup, &BackupTask::statusUpdate, this, &Job::backupTaskUpdate, QUEUED);
     return backup;
 }
 

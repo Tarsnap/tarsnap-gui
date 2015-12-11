@@ -33,10 +33,10 @@ void ArchiveListWidget::addArchives(QList<ArchivePtr > archives)
     foreach(ArchivePtr archive, archives)
     {
         ArchiveListItem *item = new ArchiveListItem(archive);
-        connect(item, SIGNAL(requestDelete()), this, SLOT(removeItems()));
-        connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));
-        connect(item, SIGNAL(requestRestore()), this, SLOT(restoreItem()));
-        connect(item, SIGNAL(requestGoToJob()), this, SLOT(goToJob()));
+        connect(item, &ArchiveListItem::requestDelete, this, &ArchiveListWidget::removeItems);
+        connect(item, &ArchiveListItem::requestInspect, this, &ArchiveListWidget::inspectItem);
+        connect(item, &ArchiveListItem::requestRestore, this, &ArchiveListWidget::restoreItem);
+        connect(item, &ArchiveListItem::requestGoToJob, this, &ArchiveListWidget::goToJob);
         insertItem(count(), item);
         setItemWidget(item, item->widget());
     }
@@ -109,9 +109,7 @@ void ArchiveListWidget::removeItems()
 void ArchiveListWidget::inspectItem()
 {
     if(sender())
-    {
         emit inspectArchive(qobject_cast<ArchiveListItem*>(sender())->archive());
-    }
 }
 
 void ArchiveListWidget::restoreItem()
@@ -120,7 +118,7 @@ void ArchiveListWidget::restoreItem()
     if(archiveItem)
     {
         RestoreDialog restoreDialog(archiveItem->archive(), this);
-        if( QDialog::Accepted == restoreDialog.exec())
+        if(QDialog::Accepted == restoreDialog.exec())
             emit restoreArchive(archiveItem->archive(), restoreDialog.getOptions());
     }
 }
@@ -128,9 +126,7 @@ void ArchiveListWidget::restoreItem()
 void ArchiveListWidget::goToJob()
 {
     if(sender())
-    {
         emit displayJobDetails(qobject_cast<ArchiveListItem*>(sender())->archive()->jobRef());
-    }
 }
 
 void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)

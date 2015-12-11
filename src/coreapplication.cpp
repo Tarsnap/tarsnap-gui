@@ -70,15 +70,11 @@ bool CoreApplication::initialize()
     {
         // Show the first time setup dialog
         SetupDialog wizard;
-        connect(&wizard, SIGNAL(getTarsnapVersion(QString)) , &_taskManager,
-                SLOT(getTarsnapVersion(QString)));
-        connect(&_taskManager, SIGNAL(tarsnapVersion(QString)), &wizard,
-                SLOT(setTarsnapVersion(QString)));
-        connect(&wizard, SIGNAL(registerMachine(QString, QString, QString, QString, QString, QString))
-                , &_taskManager, SLOT(registerMachine(QString, QString, QString, QString, QString, QString)));
-        connect(&_taskManager, SIGNAL(registerMachineStatus(TaskStatus, QString)) , &wizard
-                , SLOT(registerMachineStatus(TaskStatus, QString)));
-        connect(&_taskManager, SIGNAL(idle(bool)), &wizard, SLOT(updateLoadingAnimation(bool)), QUEUED);
+        connect(&wizard, &SetupDialog::getTarsnapVersion , &_taskManager, &TaskManager::getTarsnapVersion);
+        connect(&_taskManager, &TaskManager::tarsnapVersion, &wizard, &SetupDialog::setTarsnapVersion);
+        connect(&wizard, &SetupDialog::requestRegisterMachine, &_taskManager, &TaskManager::registerMachine);
+        connect(&_taskManager, &TaskManager::registerMachineStatus , &wizard , &SetupDialog::registerMachineStatus);
+        connect(&_taskManager, &TaskManager::idle, &wizard, &SetupDialog::updateLoadingAnimation);
 
         if(QDialog::Rejected == wizard.exec())
         {
@@ -99,12 +95,12 @@ bool CoreApplication::initialize()
 
     if(_jobsOption)
     {
-        connect(&_taskManager, SIGNAL(displayNotification(QString)),
-                &_notification, SLOT(displayNotification(QString)), QUEUED);
-        connect(&_notification, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-                this, SLOT(showMainWindow()), QUEUED);
-        connect(&_notification, SIGNAL(messageClicked()),
-                this, SLOT(showMainWindow()), QUEUED);
+        connect(&_taskManager, &TaskManager::displayNotification,
+                &_notification, &Notification::displayNotification, QUEUED);
+        connect(&_notification, &Notification::activated,
+                this, &CoreApplication::showMainWindow, QUEUED);
+        connect(&_notification, &Notification::messageClicked,
+                this, &CoreApplication::showMainWindow, QUEUED);
         _taskManager.setHeadless(true);
         QMetaObject::invokeMethod(&_taskManager, "runScheduledJobs", QUEUED);
     }
@@ -122,74 +118,72 @@ void CoreApplication::showMainWindow()
         return;
 
     _taskManager.setHeadless(false);
-    disconnect(&_taskManager, SIGNAL(displayNotification(QString)),
-               &_notification, SLOT(displayNotification(QString)));
-    disconnect(&_notification, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-               this, SLOT(showMainWindow()));
-    disconnect(&_notification, SIGNAL(messageClicked()),
-               this, SLOT(showMainWindow()));
+    disconnect(&_taskManager, &TaskManager::displayNotification, &_notification,
+               &Notification::displayNotification);
+    disconnect(&_notification, &Notification::activated, this,
+               &CoreApplication::showMainWindow);
+    disconnect(&_notification, &Notification::messageClicked,
+               this, &CoreApplication::showMainWindow);
 
     _mainWindow = new MainWindow();
     Q_ASSERT(_mainWindow != NULL);
 
-    connect(_mainWindow, SIGNAL(getTarsnapVersion(QString)) , &_taskManager,
-            SLOT(getTarsnapVersion(QString)));
-    connect(&_taskManager, SIGNAL(tarsnapVersion(QString)), _mainWindow,
-            SLOT(setTarsnapVersion(QString)));
-    connect(_mainWindow, SIGNAL(backupNow(BackupTaskPtr)), &_taskManager
-            , SLOT(backupNow(BackupTaskPtr)), QUEUED);
-    connect(_mainWindow, SIGNAL(loadArchives()), &_taskManager
-            , SLOT(loadArchives()), QUEUED);
-    connect(&_taskManager, SIGNAL(archiveList(QList<ArchivePtr>, bool))
-            , _mainWindow, SIGNAL(archiveList(QList<ArchivePtr>, bool)), QUEUED);
-    connect(_mainWindow, SIGNAL(deleteArchives(QList<ArchivePtr>)), &_taskManager,
-            SLOT(deleteArchives(QList<ArchivePtr>)), QUEUED);
-    connect(&_taskManager, SIGNAL(archivesDeleted(QList<ArchivePtr>)), _mainWindow
-            , SLOT(archivesDeleted(QList<ArchivePtr>)), QUEUED);
-    connect(_mainWindow, SIGNAL(loadArchiveStats(ArchivePtr)), &_taskManager
-            , SLOT(getArchiveStats(ArchivePtr)), QUEUED);
-    connect(_mainWindow, SIGNAL(loadArchiveContents(ArchivePtr)), &_taskManager
-            , SLOT(getArchiveContents(ArchivePtr)), QUEUED);
-    connect(&_taskManager, SIGNAL(idle(bool)), _mainWindow
-            , SLOT(updateLoadingAnimation(bool)), QUEUED);
-    connect(_mainWindow, SIGNAL(getOverallStats()), &_taskManager
-            , SLOT(getOverallStats()), QUEUED);
-    connect(&_taskManager, SIGNAL(overallStats(quint64, quint64, quint64, quint64, quint64))
-            , _mainWindow, SLOT(updateSettingsSummary(quint64, quint64, quint64, quint64, quint64)), QUEUED);
-    connect(_mainWindow, SIGNAL(repairCache()), &_taskManager
-            , SLOT(fsck()), QUEUED);
-    connect(&_taskManager, SIGNAL(fsckStatus(TaskStatus, QString)), _mainWindow
-            , SLOT(repairCacheStatus(TaskStatus, QString)), QUEUED);
-    connect(_mainWindow, SIGNAL(settingsChanged()), &_taskManager
-            , SLOT(loadSettings()), QUEUED);
-    connect(_mainWindow, SIGNAL(purgeArchives()), &_taskManager
-            , SLOT(nuke()), QUEUED);
-    connect(&_taskManager, SIGNAL(nukeStatus(TaskStatus, QString)), _mainWindow
-            , SLOT(purgeArchivesStatus(TaskStatus, QString)), QUEUED);
-    connect(_mainWindow, SIGNAL(restoreArchive(ArchivePtr, ArchiveRestoreOptions))
-            , &_taskManager, SLOT(restoreArchive(ArchivePtr, ArchiveRestoreOptions))
-            , QUEUED);
-    connect(&_taskManager, SIGNAL(restoreArchiveStatus(ArchivePtr, TaskStatus, QString)), _mainWindow
-            , SLOT(restoreArchiveStatus(ArchivePtr, TaskStatus, QString)), QUEUED);
-    connect(_mainWindow, SIGNAL(runSetupWizard()), this, SLOT(reinit()), QUEUED);
-    connect(_mainWindow, SIGNAL(stopTasks(bool, bool)), &_taskManager, SLOT(stopTasks(bool, bool)), QUEUED);
-    connect(_mainWindow, SIGNAL(loadJobs()), &_taskManager, SLOT(loadJobs()), QUEUED);
-    connect(&_taskManager, SIGNAL(jobsList(QMap<QString, JobPtr>))
-            , _mainWindow, SIGNAL(jobsList(QMap<QString, JobPtr>)), QUEUED);
-    connect(_mainWindow, SIGNAL(deleteJob(JobPtr, bool)), &_taskManager,
-            SLOT(deleteJob(JobPtr, bool)), QUEUED);
-    connect(&_taskManager, SIGNAL(message(QString, QString)), _mainWindow,
-            SLOT(updateStatusMessage(QString, QString)), QUEUED);
-    connect(&_notification, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-            _mainWindow, SLOT(notificationRaise()), QUEUED);
-    connect(&_notification, SIGNAL(messageClicked()),
-            _mainWindow, SLOT(notificationRaise()), QUEUED);
-    connect(_mainWindow, SIGNAL(displayNotification(QString)), &_notification,
-            SLOT(displayNotification(QString)), QUEUED);
-    connect(_mainWindow, SIGNAL(getTaskInfo()), &_taskManager,
-            SLOT(getTaskInfo()), QUEUED);
-    connect(&_taskManager, SIGNAL(taskInfo(int, int)), _mainWindow,
-            SLOT(displayStopTasks(int, int)), QUEUED);
+    connect(_mainWindow, &MainWindow::getTarsnapVersion , &_taskManager,
+            &TaskManager::getTarsnapVersion, QUEUED);
+    connect(&_taskManager, &TaskManager::tarsnapVersion, _mainWindow,
+            &MainWindow::setTarsnapVersion, QUEUED);
+    connect(_mainWindow, &MainWindow::backupNow, &_taskManager , &TaskManager::backupNow, QUEUED);
+    connect(_mainWindow, &MainWindow::loadArchives, &_taskManager
+            , &TaskManager::loadArchives, QUEUED);
+    connect(&_taskManager, &TaskManager::archiveList
+            , _mainWindow, &MainWindow::archiveList, QUEUED);
+    connect(_mainWindow, &MainWindow::deleteArchives, &_taskManager,
+            &TaskManager::deleteArchives, QUEUED);
+    connect(&_taskManager, &TaskManager::archivesDeleted, _mainWindow
+            , &MainWindow::archivesDeleted, QUEUED);
+    connect(_mainWindow, &MainWindow::loadArchiveStats, &_taskManager
+            , &TaskManager::getArchiveStats, QUEUED);
+    connect(_mainWindow, &MainWindow::loadArchiveContents, &_taskManager
+            , &TaskManager::getArchiveContents, QUEUED);
+    connect(&_taskManager, &TaskManager::idle, _mainWindow
+            , &MainWindow::updateLoadingAnimation, QUEUED);
+    connect(_mainWindow, &MainWindow::getOverallStats, &_taskManager
+            , &TaskManager::getOverallStats, QUEUED);
+    connect(&_taskManager, &TaskManager::overallStats
+            , _mainWindow, &MainWindow::updateSettingsSummary, QUEUED);
+    connect(_mainWindow, &MainWindow::repairCache, &_taskManager
+            , &TaskManager::fsck, QUEUED);
+    connect(&_taskManager, &TaskManager::fsckStatus, _mainWindow
+            , &MainWindow::repairCacheStatus, QUEUED);
+    connect(_mainWindow, &MainWindow::settingsChanged, &_taskManager
+            , &TaskManager::loadSettings, QUEUED);
+    connect(_mainWindow, &MainWindow::purgeArchives, &_taskManager
+            , &TaskManager::nuke, QUEUED);
+    connect(&_taskManager, &TaskManager::nukeStatus, _mainWindow
+            , &MainWindow::purgeArchivesStatus, QUEUED);
+    connect(_mainWindow, &MainWindow::restoreArchive, &_taskManager,
+            &TaskManager::restoreArchive , QUEUED);
+    connect(&_taskManager, &TaskManager::restoreArchiveStatus, _mainWindow
+            , &MainWindow::restoreArchiveStatus, QUEUED);
+    connect(_mainWindow, &MainWindow::runSetupWizard, this, &CoreApplication::reinit, QUEUED);
+    connect(_mainWindow, &MainWindow::stopTasks, &_taskManager, &TaskManager::stopTasks, QUEUED);
+    connect(_mainWindow, &MainWindow::loadJobs, &_taskManager, &TaskManager::loadJobs, QUEUED);
+    connect(&_taskManager, &TaskManager::jobsList, _mainWindow,
+            &MainWindow::jobsList, QUEUED);
+    connect(_mainWindow, &MainWindow::deleteJob, &_taskManager,
+            &TaskManager::deleteJob, QUEUED);
+    connect(&_taskManager, &TaskManager::message, _mainWindow,
+            &MainWindow::updateStatusMessage, QUEUED);
+    connect(&_notification, &Notification::activated, _mainWindow,
+            &MainWindow::notificationRaise, QUEUED);
+    connect(&_notification, &Notification::messageClicked,
+            _mainWindow, &MainWindow::notificationRaise, QUEUED);
+    connect(_mainWindow, &MainWindow::displayNotification, &_notification,
+            &Notification::displayNotification, QUEUED);
+    connect(_mainWindow, &MainWindow::getTaskInfo, &_taskManager,
+            &TaskManager::getTaskInfo, QUEUED);
+    connect(&_taskManager, &TaskManager::taskInfo, _mainWindow,
+            &MainWindow::displayStopTasks, QUEUED);
     connect(_mainWindow, &MainWindow::jobAdded, &_taskManager,
             &TaskManager::addJob, QUEUED);
 

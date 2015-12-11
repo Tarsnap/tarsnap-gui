@@ -33,7 +33,7 @@ BackupListWidget::~BackupListWidget()
 {
     QSettings settings;
     QStringList urls;
-    for(int i = 0; i < this->count(); ++i)
+    for(int i = 0; i < count(); ++i)
     {
         BackupListItem *backupItem = static_cast<BackupListItem*>(item(i));
         urls << backupItem->url().toString(QUrl::FullyEncoded);
@@ -54,10 +54,10 @@ void BackupListWidget::addItemWithUrl(QUrl url)
         if(!file.exists())
             return;
         BackupListItem *item = new BackupListItem(url);
-        connect(item, SIGNAL(requestDelete()), this, SLOT(removeItems()));
-        connect(item, SIGNAL(requestUpdate()), this, SLOT(recomputeListTotals()));
-        this->insertItem(this->count(), item);
-        this->setItemWidget(item, item->widget());
+        connect(item, &BackupListItem::requestDelete, this, &BackupListWidget::removeItems);
+        connect(item, &BackupListItem::requestUpdate, this, &BackupListWidget::recomputeListTotals);
+        insertItem(count(), item);
+        setItemWidget(item, item->widget());
     }
 }
 
@@ -70,27 +70,18 @@ void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
 
 void BackupListWidget::removeItems()
 {
-    if(this->selectedItems().count() == 0)
+    if(selectedItems().count() == 0)
     {
         // attempt to remove the sender
         BackupListItem* backupItem = qobject_cast<BackupListItem*>(sender());
-        if(backupItem)
-        {
-            QListWidgetItem *item = this->takeItem(this->row(backupItem));
-            if(item)
-                delete item;
-        }
+        if(backupItem) delete backupItem;
     }
     else
     {
-        foreach(QListWidgetItem *item, this->selectedItems())
+        foreach(QListWidgetItem *item, selectedItems())
         {
-            if(item->isSelected())
-            {
-                QListWidgetItem *takenItem = this->takeItem(this->row(item));
-                if(takenItem)
-                    delete takenItem;
-            }
+            if(item && item->isSelected())
+                delete item;
         }
     }
     recomputeListTotals();
@@ -98,18 +89,18 @@ void BackupListWidget::removeItems()
 
 void BackupListWidget::recomputeListTotals()
 {
-    quint64 count = 0;
+    quint64 items = 0;
     quint64 size = 0;
-    for(int i = 0; i < this->count(); ++i)
+    for(int i = 0; i < count(); ++i)
     {
         BackupListItem *backupItem = static_cast<BackupListItem*>(item(i));
         if(backupItem && (backupItem->count() != 0))
         {
-            count += backupItem->count();
+            items += backupItem->count();
             size  += backupItem->size();
         }
     }
-    emit itemTotals(count, size);
+    emit itemTotals(items, size);
 }
 
 void BackupListWidget::dragMoveEvent( QDragMoveEvent* event )

@@ -28,42 +28,42 @@ SetupDialog::SetupDialog(QWidget *parent) :
     _ui->machineKeyCombo->hide();
     _ui->browseKeyButton->hide();
 
-    connect(_ui->welcomePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
-    connect(_ui->restorePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
-    connect(_ui->advancedPageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
-    connect(_ui->registerPageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
-    connect(_ui->donePageRadioButton, SIGNAL(clicked()), this, SLOT(skipToPage()));
+    connect(_ui->welcomePageRadioButton, &QRadioButton::clicked, this, &SetupDialog::skipToPage);
+    connect(_ui->restorePageRadioButton, &QRadioButton::clicked, this, &SetupDialog::skipToPage);
+    connect(_ui->advancedPageRadioButton, &QRadioButton::clicked, this, &SetupDialog::skipToPage);
+    connect(_ui->registerPageRadioButton, &QRadioButton::clicked, this, &SetupDialog::skipToPage);
+    connect(_ui->donePageRadioButton, &QRadioButton::clicked, this, &SetupDialog::skipToPage);
 
-    connect(_ui->wizardStackedWidget, SIGNAL(currentChanged(int)), this, SLOT(wizardPageChanged(int)));
+    connect(_ui->wizardStackedWidget, &QStackedWidget::currentChanged, this, &SetupDialog::wizardPageChanged);
 
     // Welcome page
-    connect(_ui->advancedSetupCheckBox, SIGNAL(toggled(bool)), _ui->advancedPageRadioButton, SLOT(setVisible(bool)));
+    connect(_ui->advancedSetupCheckBox, &QCheckBox::toggled, _ui->advancedPageRadioButton, &QRadioButton::setVisible);
     connect(_ui->welcomePageSkipButton, &QPushButton::clicked, [&]() {commitSettings(true);});
-    connect(_ui->welcomePageProceedButton, SIGNAL(clicked()), this, SLOT(setNextPage()));
+    connect(_ui->welcomePageProceedButton, &QPushButton::clicked, this, &SetupDialog::setNextPage);
 
     // Advanced setup page
-    connect(_ui->tarsnapPathBrowseButton, SIGNAL(clicked()), this, SLOT(showTarsnapPathBrowse()));
-    connect(_ui->tarsnapPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateAdvancedSetupPage()));
-    connect(_ui->tarsnapCacheBrowseButton, SIGNAL(clicked()), this, SLOT(showTarsnapCacheBrowse()));
-    connect(_ui->tarsnapCacheLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateAdvancedSetupPage()));
-    connect(_ui->appDataBrowseButton, SIGNAL(clicked()), this, SLOT(showAppDataBrowse()));
-    connect(_ui->appDataPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateAdvancedSetupPage()));
-    connect(_ui->advancedPageProceedButton, SIGNAL(clicked()), this, SLOT(setNextPage()));
+    connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this, &SetupDialog::showTarsnapPathBrowse);
+    connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this, &SetupDialog::validateAdvancedSetupPage);
+    connect(_ui->tarsnapCacheBrowseButton, &QPushButton::clicked, this, &SetupDialog::showTarsnapCacheBrowse);
+    connect(_ui->tarsnapCacheLineEdit, &QLineEdit::textChanged, this, &SetupDialog::validateAdvancedSetupPage);
+    connect(_ui->appDataBrowseButton, &QPushButton::clicked, this, &SetupDialog::showAppDataBrowse);
+    connect(_ui->appDataPathLineEdit, &QLineEdit::textChanged, this, &SetupDialog::validateAdvancedSetupPage);
+    connect(_ui->advancedPageProceedButton, &QPushButton::clicked, this, &SetupDialog::setNextPage);
 
     // Restore page
-    connect(_ui->restoreNoButton, SIGNAL(clicked()), this, SLOT(restoreNo()));
-    connect(_ui->restoreYesButton, SIGNAL(clicked()), this, SLOT(restoreYes()));
+    connect(_ui->restoreNoButton, &QPushButton::clicked, this, &SetupDialog::restoreNo);
+    connect(_ui->restoreYesButton, &QPushButton::clicked, this, &SetupDialog::restoreYes);
 
     // Register page
-    connect(_ui->tarsnapUserLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
-    connect(_ui->tarsnapPasswordLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
-    connect(_ui->machineNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(validateRegisterPage()));
-    connect(_ui->machineKeyCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(validateRegisterPage()));
-    connect(_ui->browseKeyButton, SIGNAL(clicked()), this, SLOT(registerHaveKeyBrowse()));
-    connect(_ui->registerMachineButton, SIGNAL(clicked()), this, SLOT(registerMachine()));
+    connect(_ui->tarsnapUserLineEdit, &QLineEdit::textChanged, this, &SetupDialog::validateRegisterPage);
+    connect(_ui->tarsnapPasswordLineEdit, &QLineEdit::textChanged, this, &SetupDialog::validateRegisterPage);
+    connect(_ui->machineNameLineEdit, &QLineEdit::textChanged, this, &SetupDialog::validateRegisterPage);
+    connect(_ui->machineKeyCombo, &QComboBox::currentTextChanged, this, &SetupDialog::validateRegisterPage);
+    connect(_ui->browseKeyButton, &QPushButton::clicked, this, &SetupDialog::registerHaveKeyBrowse);
+    connect(_ui->registerMachineButton, &QPushButton::clicked, this, &SetupDialog::registerMachine);
 
     // Done page
-    connect(_ui->doneButton, SIGNAL(clicked()), this, SLOT(commitSettings()));
+    connect(_ui->doneButton, &QPushButton::clicked, this, &SetupDialog::commitSettings);
 
     _appDataDir = QStandardPaths::writableLocation(APPDATA);
     QDir keysDir(_appDataDir);
@@ -313,7 +313,7 @@ void SetupDialog::registerMachine()
     DEBUG << "Registration details >>\n" << _tarsnapDir << ::endl << _appDataDir << ::endl
           << _tarsnapKeyFile << ::endl << _tarsnapCacheDir;
 
-    emit registerMachine(_ui->tarsnapUserLineEdit->text(), _ui->tarsnapPasswordLineEdit->text()
+    emit requestRegisterMachine(_ui->tarsnapUserLineEdit->text(), _ui->tarsnapPasswordLineEdit->text()
                          , _ui->machineNameLineEdit->text(), _tarsnapKeyFile, _tarsnapDir
                          , _tarsnapCacheDir);
 }

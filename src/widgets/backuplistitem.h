@@ -39,12 +39,12 @@ public slots:
     void updateDirDetail(quint64 size, quint64 count);
 
 private:
-    Ui::BackupItemWidget _ui;
-    QWidget              _widget;
-    QUrl                 _url;
+    Ui::BackupItemWidget  _ui;
+    QWidget              *_widget;
+    QUrl                  _url;
     quint64               _count;
     quint64               _size;
-    bool                 _useSIPrefixes;
+    bool                  _useSIPrefixes;
 };
 
 #endif // BACKUPLISTITEM_H

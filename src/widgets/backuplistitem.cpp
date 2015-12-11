@@ -7,15 +7,16 @@
 #include <QThreadPool>
 #include <QSettings>
 
-BackupListItem::BackupListItem(QUrl url): _count(0), _size(0), _useSIPrefixes(false)
+BackupListItem::BackupListItem(QUrl url): _widget(new QWidget), _count(0),
+    _size(0), _useSIPrefixes(false)
 {
-    _ui.setupUi(&_widget);
-    _widget.addAction(_ui.actionOpen);
-    _widget.addAction(_ui.actionRemove);
+    _ui.setupUi(_widget);
+    _widget->addAction(_ui.actionOpen);
+    _widget->addAction(_ui.actionRemove);
     _ui.browseButton->setDefaultAction(_ui.actionOpen);
     _ui.removeButton->setDefaultAction(_ui.actionRemove);
-    connect(_ui.actionRemove, SIGNAL(triggered()), this, SIGNAL(requestDelete()), QUEUED);
-    connect(_ui.actionOpen, SIGNAL(triggered()), this, SLOT(browseUrl()), QUEUED);
+    connect(_ui.actionRemove, &QAction::triggered, this, &BackupListItem::requestDelete);
+    connect(_ui.actionOpen, &QAction::triggered, this, &BackupListItem::browseUrl);
 
     QSettings settings;
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
@@ -29,7 +30,7 @@ BackupListItem::~BackupListItem()
 
 QWidget* BackupListItem::widget()
 {
-    return &_widget;
+    return _widget;
 }
 QUrl BackupListItem::url() const
 {
@@ -58,7 +59,7 @@ void BackupListItem::setUrl(const QUrl &url)
             QThreadPool *threadPool = QThreadPool::globalInstance();
             Utils::GetDirInfoTask *task = new Utils::GetDirInfoTask(dir);
             task->setAutoDelete(true);
-            connect(task, SIGNAL(result(quint64, quint64)), this, SLOT(updateDirDetail(quint64, quint64)), QUEUED);
+            connect(task, &Utils::GetDirInfoTask::result, this, &BackupListItem::updateDirDetail, QUEUED);
             threadPool->start(task);
         }
         else if(file.isFile())

@@ -14,6 +14,7 @@ class JobItemWidget;
 class JobListItem : public QObject, public QListWidgetItem
 {
     Q_OBJECT
+
 public:
     explicit JobListItem(JobPtr job);
     ~JobListItem();
@@ -34,7 +35,7 @@ public slots:
 
 private:
     Ui::JobItemWidget   _ui;
-    QWidget             _widget;
+    QWidget            *_widget;
     JobPtr              _job;
     bool                _useSIPrefixes;
 };

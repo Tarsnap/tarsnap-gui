@@ -29,7 +29,7 @@ void JobListWidget::backupSelectedItems()
                                          .arg(selectedItems().count()));
     if(confirm == QMessageBox::Yes)
     {
-        foreach(QListWidgetItem *item, this->selectedItems())
+        foreach(QListWidgetItem *item, selectedItems())
         {
             if(item->isSelected())
             {
@@ -51,19 +51,19 @@ void JobListWidget::selectJobByRef(QString jobRef)
     if(jobRef.isEmpty())
         return;
 
-    JobListItem* jobItem = static_cast<JobListItem*>(this->currentItem());
+    JobListItem* jobItem = static_cast<JobListItem*>(currentItem());
     if(jobItem && (jobItem->job()->objectKey() == jobRef))
     {
         emit displayJobDetails(jobItem->job());
     }
     else
     {
-        for(int i = 0; i < this->count(); ++i)
+        for(int i = 0; i < count(); ++i)
         {
-            jobItem = static_cast<JobListItem*>(this->item(i));
+            jobItem = static_cast<JobListItem*>(item(i));
             if(jobItem && (jobItem->job()->objectKey() == jobRef))
             {
-                this->setCurrentItem(jobItem);
+                setCurrentItem(jobItem);
                 emit displayJobDetails(jobItem->job());
                 break;
             }
@@ -74,9 +74,9 @@ void JobListWidget::selectJobByRef(QString jobRef)
 
 void JobListWidget::backupAllJobs()
 {
-    for(int i = 0; i < this->count(); ++i)
+    for(int i = 0; i < count(); ++i)
     {
-        JobPtr job = static_cast<JobListItem*>(this->item(i))->job();
+        JobPtr job = static_cast<JobListItem*>(item(i))->job();
         emit backupJob(job->createBackupTask());
     }
 }
@@ -135,9 +135,7 @@ void JobListWidget::deleteItem()
                     purgeArchives = true;
             }
             emit deleteJob(job, purgeArchives);
-            QListWidgetItem *item = this->takeItem(this->row(jobItem));
-            if(item)
-                delete item;
+            delete jobItem;
         }
     }
 }
@@ -156,10 +154,10 @@ void JobListWidget::addJob(JobPtr job)
     if(job)
     {
         JobListItem *item = new JobListItem(job);
-        connect(item, SIGNAL(requestBackup()), this, SLOT(backupItem()));
-        connect(item, SIGNAL(requestInspect()), this, SLOT(inspectItem()));
-        connect(item, SIGNAL(requestRestore()), this, SLOT(restoreItem()));
-        connect(item, SIGNAL(requestDelete()), this, SLOT(deleteItem()));
+        connect(item, &JobListItem::requestBackup, this, &JobListWidget::backupItem);
+        connect(item, &JobListItem::requestInspect, this, &JobListWidget::inspectItem);
+        connect(item, &JobListItem::requestRestore, this, &JobListWidget::restoreItem);
+        connect(item, &JobListItem::requestDelete, this, &JobListWidget::deleteItem);
         insertItem(count(), item);
         setItemWidget(item, item->widget());
     }

@@ -53,8 +53,9 @@ protected:
 
 public slots:
     void loadSettings();
+    void updateStatusMessage(QString message, QString detail = "");
     void backupTaskUpdate(const TaskStatus &status);
-    void archivesDeleted(QList<ArchivePtr> archives, bool done = true);
+    void archivesDeleted(QList<ArchivePtr> archives);
     void updateLoadingAnimation(bool idle);
     void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal
                                , quint64 sizeUniqueCompressed, quint64 archiveCount);
@@ -66,7 +67,7 @@ public slots:
     void displayStopTasks(int runningTasks, int queuedTasks);
 
 private slots:
-    void updateStatusMessage(QString message, QString detail = "", bool notify = false);
+    void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
     void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void updateInspectArchive();

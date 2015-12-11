@@ -135,9 +135,7 @@ void JobListWidget::deleteItem()
                     purgeArchives = true;
             }
             emit deleteJob(job, purgeArchives);
-            QListWidgetItem *item = this->takeItem(this->row(jobItem));
-            if(item)
-                delete item;
+            delete jobItem;
         }
     }
 }

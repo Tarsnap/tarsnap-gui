@@ -4,15 +4,16 @@
 #include <QSettings>
 
 ArchiveListItem::ArchiveListItem(ArchivePtr archive):
+    _widget(new QWidget),
     _useSIPrefixes(false)
 {
     QSettings settings;
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
 
-    _ui.setupUi(&_widget);
-    _widget.addAction(_ui.actionInspect);
-    _widget.addAction(_ui.actionRestore);
-    _widget.addAction(_ui.actionDelete);
+    _ui.setupUi(_widget);
+    _widget->addAction(_ui.actionInspect);
+    _widget->addAction(_ui.actionRestore);
+    _widget->addAction(_ui.actionDelete);
     _ui.inspectButton->setDefaultAction(_ui.actionInspect);
     _ui.jobButton->setDefaultAction(_ui.actionGoToJob);
     _ui.restoreButton->setDefaultAction(_ui.actionRestore);
@@ -31,7 +32,7 @@ ArchiveListItem::~ArchiveListItem()
 
 QWidget *ArchiveListItem::widget()
 {
-    return &_widget;
+    return _widget;
 }
 
 ArchivePtr ArchiveListItem::archive() const
@@ -60,14 +61,14 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
         _ui.jobButton->hide();
         _ui.horizontalLayout->removeWidget(_ui.jobButton);
         _ui.archiveButton->show();
-        _widget.removeAction(_ui.actionGoToJob);
+        _widget->removeAction(_ui.actionGoToJob);
     }
     else
     {
         _ui.archiveButton->hide();
         _ui.horizontalLayout->removeWidget(_ui.archiveButton);
         _ui.jobButton->show();
-        _widget.insertAction(_ui.actionRestore, _ui.actionGoToJob);
+        _widget->insertAction(_ui.actionRestore, _ui.actionGoToJob);
     }
 }
 

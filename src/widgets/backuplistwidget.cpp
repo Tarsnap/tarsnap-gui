@@ -74,23 +74,14 @@ void BackupListWidget::removeItems()
     {
         // attempt to remove the sender
         BackupListItem* backupItem = qobject_cast<BackupListItem*>(sender());
-        if(backupItem)
-        {
-            QListWidgetItem *item = this->takeItem(this->row(backupItem));
-            if(item)
-                delete item;
-        }
+        if(backupItem) delete backupItem;
     }
     else
     {
         foreach(QListWidgetItem *item, this->selectedItems())
         {
-            if(item->isSelected())
-            {
-                QListWidgetItem *takenItem = this->takeItem(this->row(item));
-                if(takenItem)
-                    delete takenItem;
-            }
+            if(item && item->isSelected())
+                delete item;
         }
     }
     recomputeListTotals();

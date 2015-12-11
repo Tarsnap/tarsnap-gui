@@ -7,11 +7,12 @@
 #include <QThreadPool>
 #include <QSettings>
 
-BackupListItem::BackupListItem(QUrl url): _count(0), _size(0), _useSIPrefixes(false)
+BackupListItem::BackupListItem(QUrl url): _widget(new QWidget), _count(0),
+    _size(0), _useSIPrefixes(false)
 {
-    _ui.setupUi(&_widget);
-    _widget.addAction(_ui.actionOpen);
-    _widget.addAction(_ui.actionRemove);
+    _ui.setupUi(_widget);
+    _widget->addAction(_ui.actionOpen);
+    _widget->addAction(_ui.actionRemove);
     _ui.browseButton->setDefaultAction(_ui.actionOpen);
     _ui.removeButton->setDefaultAction(_ui.actionRemove);
     connect(_ui.actionRemove, &QAction::triggered, this, &BackupListItem::requestDelete);
@@ -29,7 +30,7 @@ BackupListItem::~BackupListItem()
 
 QWidget* BackupListItem::widget()
 {
-    return &_widget;
+    return _widget;
 }
 QUrl BackupListItem::url() const
 {

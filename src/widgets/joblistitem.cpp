@@ -2,16 +2,17 @@
 #include "utils.h"
 
 JobListItem::JobListItem(JobPtr job):
+    _widget(new QWidget),
     _useSIPrefixes(false)
 {
     QSettings settings;
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
 
-    _ui.setupUi(&_widget);
-    _widget.addAction(_ui.actionBackup);
-    _widget.addAction(_ui.actionInspect);
-    _widget.addAction(_ui.actionRestore);
-    _widget.addAction(_ui.actionDelete);
+    _ui.setupUi(_widget);
+    _widget->addAction(_ui.actionBackup);
+    _widget->addAction(_ui.actionInspect);
+    _widget->addAction(_ui.actionRestore);
+    _widget->addAction(_ui.actionDelete);
     _ui.inspectButton->setDefaultAction(_ui.actionInspect);
     _ui.restoreButton->setDefaultAction(_ui.actionRestore);
     connect(_ui.backupButton, &QPushButton::clicked, _ui.actionBackup, &QAction::triggered);
@@ -25,12 +26,11 @@ JobListItem::JobListItem(JobPtr job):
 
 JobListItem::~JobListItem()
 {
-
 }
 
 QWidget *JobListItem::widget()
 {
-    return &_widget;
+    return _widget;
 }
 JobPtr JobListItem::job() const
 {

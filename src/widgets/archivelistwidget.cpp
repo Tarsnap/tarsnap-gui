@@ -109,9 +109,7 @@ void ArchiveListWidget::removeItems()
 void ArchiveListWidget::inspectItem()
 {
     if(sender())
-    {
         emit inspectArchive(qobject_cast<ArchiveListItem*>(sender())->archive());
-    }
 }
 
 void ArchiveListWidget::restoreItem()
@@ -120,7 +118,7 @@ void ArchiveListWidget::restoreItem()
     if(archiveItem)
     {
         RestoreDialog restoreDialog(archiveItem->archive(), this);
-        if( QDialog::Accepted == restoreDialog.exec())
+        if(QDialog::Accepted == restoreDialog.exec())
             emit restoreArchive(archiveItem->archive(), restoreDialog.getOptions());
     }
 }
@@ -128,9 +126,7 @@ void ArchiveListWidget::restoreItem()
 void ArchiveListWidget::goToJob()
 {
     if(sender())
-    {
         emit displayJobDetails(qobject_cast<ArchiveListItem*>(sender())->archive()->jobRef());
-    }
 }
 
 void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)

@@ -142,3 +142,13 @@ void BackupTask::setOptionDryRun(bool optionDryRun)
 {
     _optionDryRun = optionDryRun;
 }
+
+bool BackupTask::optionNoDump() const
+{
+    return _optionNoDump;
+}
+
+void BackupTask::setOptionNoDump(bool optionNoDump)
+{
+    _optionNoDump = optionNoDump;
+}

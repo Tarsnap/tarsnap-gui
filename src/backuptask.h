@@ -70,6 +70,9 @@ public:
     bool optionDryRun() const;
     void setOptionDryRun(bool optionDryRun);
 
+    bool optionNoDump() const;
+    void setOptionNoDump(bool optionNoDump);
+
 signals:
     void statusUpdate(const TaskStatus &status);
 
@@ -86,6 +89,7 @@ private:
     bool                  _optionSkipSystem;
     QStringList           _optionSkipSystemFiles;
     bool                  _optionDryRun;
+    bool                  _optionNoDump;
 
     TaskStatus            _status;
     int                   _exitCode;

@@ -1458,119 +1458,8 @@ color: blue;
                  <property name="title">
                   <string/>
                  </property>
-                 <layout class="QGridLayout" name="gridLayout">
-                  <item row="6" column="0" colspan="5">
-                   <widget class="QCheckBox" name="traverseMountCheckBox">
-                    <property name="toolTip">
-                     <string>Cross mount points when creating archives</string>
-                    </property>
-                    <property name="text">
-                     <string>Traverse mounted points</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="12" column="0">
-                   <widget class="QCheckBox" name="skipSystemJunkCheckBox">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Tarsnap will skip these files globally for backups</string>
-                    </property>
-                    <property name="text">
-                     <string>Skip system junk:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0" colspan="5">
-                   <widget class="QCheckBox" name="siPrefixesCheckBox">
-                    <property name="toolTip">
-                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is based on base 2</string>
-                    </property>
-                    <property name="text">
-                     <string>Use SI notation (default is IEC byte multipliers)</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="12" column="2">
-                   <widget class="QPushButton" name="skipSystemDefaultsButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Fill with default system junk patterns</string>
-                    </property>
-                    <property name="text">
-                     <string>defaults</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="1">
-                   <widget class="QSpinBox" name="skipFilesSizeSpinBox">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Do not include files of size equal or greater than the specified value in backups</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                    <property name="specialValueText">
-                     <string>disabled</string>
-                    </property>
-                    <property name="showGroupSeparator" stdset="0">
-                     <bool>true</bool>
-                    </property>
-                    <property name="suffix">
-                     <string>MiB</string>
-                    </property>
-                    <property name="minimum">
-                     <number>0</number>
-                    </property>
-                    <property name="maximum">
-                     <number>999999999</number>
-                    </property>
-                    <property name="singleStep">
-                     <number>512</number>
-                    </property>
-                    <property name="value">
-                     <number>0</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="12" column="1">
-                   <widget class="QLineEdit" name="skipSystemLineEdit">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Can use shell globbing patterns. The list is colon separated.</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
+                 <layout class="QVBoxLayout" name="verticalLayout_14">
+                  <item>
                    <widget class="QCheckBox" name="notificationsCheckBox">
                     <property name="text">
                      <string>Show desktop notifications</string>
@@ -1580,56 +1469,27 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="14" column="0" colspan="5">
-                   <widget class="QPushButton" name="aboutButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
+                  <item>
+                   <widget class="QCheckBox" name="siPrefixesCheckBox">
+                    <property name="toolTip">
+                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is based on base 2</string>
                     </property>
                     <property name="text">
-                     <string>About Tarsnap</string>
+                     <string>Use SI notation (default is IEC byte multipliers)</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="2">
-                   <widget class="QPushButton" name="downloadsDirBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
+                  <item>
+                   <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
+                    <property name="toolTip">
+                     <string>Use multiple TCP connections to send data to the Tarsnap server</string>
                     </property>
                     <property name="text">
-                     <string>change</string>
+                     <string>Aggressive networking</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="1">
-                   <widget class="QLineEdit" name="downloadsDirLineEdit">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="0">
-                   <widget class="QLabel" name="downloadsDirLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>Downloads directory:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="0" colspan="5">
+                  <item>
                    <widget class="QCheckBox" name="preservePathsCheckBox">
                     <property name="toolTip">
                      <string>Preseve absolute pathnames by not removing leading slashes</string>
@@ -1642,7 +1502,20 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="0" colspan="5">
+                  <item>
+                   <widget class="QCheckBox" name="traverseMountCheckBox">
+                    <property name="toolTip">
+                     <string>Cross mount points when creating archives</string>
+                    </property>
+                    <property name="text">
+                     <string>Traverse mounted points</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <widget class="QCheckBox" name="followSymLinksCheckBox">
                     <property name="toolTip">
                      <string>If checked all symbolic links will be followed when creating an archive</string>
@@ -1652,7 +1525,165 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="15" column="0" colspan="4">
+                  <item>
+                   <widget class="QCheckBox" name="skipNoDumpCheckBox">
+                    <property name="toolTip">
+                     <string>Some filesystems support this</string>
+                    </property>
+                    <property name="text">
+                     <string>Skip files flagged with nodump attribute</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <layout class="QFormLayout" name="formLayout_4">
+                    <property name="fieldGrowthPolicy">
+                     <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                    </property>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="downloadsDirLabel">
+                      <property name="text">
+                       <string>Downloads directory:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <layout class="QHBoxLayout" name="horizontalLayout_10">
+                      <item>
+                       <widget class="QLineEdit" name="downloadsDirLineEdit">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="downloadsDirBrowseButton">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="text">
+                         <string>change</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="label_3">
+                      <property name="text">
+                       <string>Skip files larger than:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QSpinBox" name="skipFilesSizeSpinBox">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="toolTip">
+                       <string>Do not include files of size equal or greater than the specified value in backups</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                      <property name="specialValueText">
+                       <string>disabled</string>
+                      </property>
+                      <property name="showGroupSeparator" stdset="0">
+                       <bool>true</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>MiB</string>
+                      </property>
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>999999999</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>512</number>
+                      </property>
+                      <property name="value">
+                       <number>0</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <layout class="QHBoxLayout" name="horizontalLayout_13">
+                      <item>
+                       <widget class="QLineEdit" name="skipSystemLineEdit">
+                        <property name="enabled">
+                         <bool>false</bool>
+                        </property>
+                        <property name="toolTip">
+                         <string>Can use shell globbing patterns. The list is colon separated.</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="skipSystemDefaultsButton">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>Fill with default system junk patterns</string>
+                        </property>
+                        <property name="text">
+                         <string>defaults</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item row="3" column="0" colspan="2">
+                     <widget class="QPushButton" name="aboutButton">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="text">
+                       <string>About Tarsnap</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QCheckBox" name="skipSystemJunkCheckBox">
+                      <property name="toolTip">
+                       <string>Tarsnap will skip these files globally for backups</string>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">#skipSystemJunkCheckBox
+{
+margin-top: 6px;
+border: 0;
+}</string>
+                      </property>
+                      <property name="text">
+                       <string>Skip system junk:</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
                    <spacer name="verticalSpacer">
                     <property name="orientation">
                      <enum>Qt::Vertical</enum>
@@ -1665,29 +1696,6 @@ color: blue;
                     </property>
                    </spacer>
                   </item>
-                  <item row="4" column="0" colspan="5">
-                   <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
-                    <property name="toolTip">
-                     <string>Use multiple TCP connections to send data to the Tarsnap server</string>
-                    </property>
-                    <property name="text">
-                     <string>Aggressive networking</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="0">
-                   <widget class="QLabel" name="label_3">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>Skip files larger than:</string>
-                    </property>
-                   </widget>
-                  </item>
                  </layout>
                 </widget>
                </item>
@@ -1698,8 +1706,8 @@ color: blue;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>290</width>
-                <height>256</height>
+                <width>644</width>
+                <height>347</height>
                </rect>
               </property>
               <attribute name="label">

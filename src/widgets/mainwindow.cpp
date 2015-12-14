@@ -159,6 +159,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this, &MainWindow::commitSettings);
     connect(_ui->skipSystemJunkCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
     connect(_ui->skipSystemLineEdit, &QLineEdit::editingFinished, this, &MainWindow::commitSettings);;
+    connect(_ui->skipNoDumpCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
     connect(_ui->simulationCheckBox, &QCheckBox::toggled, this, &MainWindow::commitSettings);
     connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
     [&]() {
@@ -349,10 +350,10 @@ void MainWindow::loadSettings()
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
     _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
     _ui->skipFilesSizeSpinBox->setValue(settings.value("app/skip_files_size", 0).toULongLong());
-    bool skipSystem = settings.value("app/skip_system_enabled", false).toBool();
-    _ui->skipSystemJunkCheckBox->setChecked(skipSystem);
-    _ui->skipSystemLineEdit->setEnabled(skipSystem);
+    _ui->skipSystemJunkCheckBox->setChecked(settings.value("app/skip_system_enabled", false).toBool());
+    _ui->skipSystemLineEdit->setEnabled(_ui->skipSystemJunkCheckBox->isChecked());
     _ui->skipSystemLineEdit->setText(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
+    _ui->skipNoDumpCheckBox->setChecked(settings.value("app/skip_nodump", false).toBool());
     _ui->downloadsDirLineEdit->setText(settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString());
     _ui->appDataDirLineEdit->setText(settings.value("app/app_data", "").toString());
     _ui->notificationsCheckBox->setChecked(settings.value("app/notifications", true).toBool());
@@ -646,6 +647,7 @@ void MainWindow::backupButtonClicked()
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
     backup->setOptionDryRun(_ui->simulationCheckBox->isChecked());
+    backup->setOptionNoDump(_ui->skipNoDumpCheckBox->isChecked());
     connect(backup, &BackupTask::statusUpdate, this, &MainWindow::backupTaskUpdate, QUEUED);
     emit backupNow(backup);
     _ui->appendTimestampCheckBox->setChecked(false);
@@ -706,6 +708,7 @@ void MainWindow::commitSettings()
     settings.setValue("app/skip_files_size", _ui->skipFilesSizeSpinBox->value());
     settings.setValue("app/skip_system_enabled", _ui->skipSystemJunkCheckBox->isChecked());
     settings.setValue("app/skip_system_files", _ui->skipSystemLineEdit->text());
+    settings.setValue("app/skip_nodump", _ui->skipNoDumpCheckBox->isChecked());
     settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
     settings.setValue("app/notifications", _ui->notificationsCheckBox->isChecked());

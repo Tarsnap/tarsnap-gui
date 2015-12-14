@@ -103,6 +103,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--aggressive-networking";
     if(backupTask->optionDryRun())
         args << "--dry-run";
+    if(backupTask->optionNoDump())
+        args << "--nodump";
     if(backupTask->optionPreservePaths())
         args << "-P";
     if(!backupTask->optionTraverseMount())

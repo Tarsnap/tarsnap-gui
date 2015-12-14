@@ -34,6 +34,7 @@ JobWidget::JobWidget(QWidget *parent) :
     connect(_ui->preservePathsCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
     connect(_ui->traverseMountCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
     connect(_ui->followSymLinksCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
+    connect(_ui->skipNoDumpCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
     connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this, &JobWidget::save);
     connect(_ui->skipFilesCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
     connect(_ui->skipFilesLineEdit, &QLineEdit::editingFinished, this, &JobWidget::save);
@@ -80,6 +81,7 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->preservePathsCheckBox->setChecked(settings.value("tarsnap/preserve_pathnames", true).toBool());
         _ui->traverseMountCheckBox->setChecked(settings.value("tarsnap/traverse_mount", true).toBool());
         _ui->followSymLinksCheckBox->setChecked(settings.value("tarsnap/follow_symlinks", false).toBool());
+        _ui->skipNoDumpCheckBox->setChecked(settings.value("app/skip_nodump", false).toBool());
         _ui->skipFilesSizeSpinBox->setValue(settings.value("app/skip_files_size", 0).toULongLong());
         _ui->skipFilesCheckBox->setChecked(settings.value("app/skip_system_enabled", false).toBool());
         _ui->skipFilesLineEdit->setText(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
@@ -108,6 +110,7 @@ void JobWidget::save()
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
+        _job->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
         _job->setOptionSkipFilesSize(_ui->skipFilesSizeSpinBox->value());
         _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
         _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
@@ -126,6 +129,7 @@ void JobWidget::saveNew()
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
+        _job->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
         _job->setOptionSkipFilesSize(_ui->skipFilesSizeSpinBox->value());
         _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
         _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
@@ -148,6 +152,7 @@ void JobWidget::updateDetails()
         _ui->preservePathsCheckBox->setChecked(_job->optionPreservePaths());
         _ui->traverseMountCheckBox->setChecked(_job->optionTraverseMount());
         _ui->followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());
+        _ui->skipNoDumpCheckBox->setChecked(_job->optionSkipNoDump());
         _ui->skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
         _ui->skipFilesCheckBox->setChecked(_job->optionSkipFiles());
         _ui->skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());

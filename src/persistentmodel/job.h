@@ -52,6 +52,9 @@ public:
     QString optionSkipFilesPatterns() const;
     void setOptionSkipFilesPatterns(const QString &optionSkipFilesPatterns);
 
+    bool optionSkipNoDump() const;
+    void setOptionSkipNoDump(bool optionSkipNoDump);
+
     BackupTaskPtr createBackupTask();
 
     // From PersistentObject
@@ -78,6 +81,7 @@ private:
     quint64             _optionSkipFilesSize;
     bool                _optionSkipFiles;
     QString             _optionSkipFilesPatterns;
+    bool                _optionSkipNoDump;
 };
 
 #endif // JOB_H

@@ -233,7 +233,7 @@ padding-left: 3px;
              <property name="spacing">
               <number>6</number>
              </property>
-             <item row="4" column="1">
+             <item row="5" column="1">
               <widget class="QSpinBox" name="skipFilesSizeSpinBox">
                <property name="enabled">
                 <bool>true</bool>
@@ -283,7 +283,7 @@ padding-left: 3px;
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
+             <item row="5" column="0">
               <widget class="QLabel" name="label">
                <property name="text">
                 <string>Skip files larger than:</string>
@@ -303,7 +303,7 @@ padding-left: 3px;
                </property>
               </widget>
              </item>
-             <item row="6" column="0">
+             <item row="7" column="0">
               <spacer name="verticalSpacer">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
@@ -339,7 +339,7 @@ padding-left: 3px;
                </property>
               </widget>
              </item>
-             <item row="5" column="0">
+             <item row="6" column="0">
               <widget class="QCheckBox" name="skipFilesCheckBox">
                <property name="toolTip">
                 <string>Tarsnap will skip these file patterns for this Job</string>
@@ -349,7 +349,7 @@ padding-left: 3px;
                </property>
               </widget>
              </item>
-             <item row="5" column="1">
+             <item row="6" column="1">
               <widget class="QLineEdit" name="skipFilesLineEdit">
                <property name="enabled">
                 <bool>false</bool>
@@ -359,13 +359,23 @@ padding-left: 3px;
                </property>
               </widget>
              </item>
-             <item row="5" column="2">
+             <item row="6" column="2">
               <widget class="QPushButton" name="skipFilesDefaultsButton">
                <property name="toolTip">
                 <string>Fill with global settings value</string>
                </property>
                <property name="text">
                 <string>Defaults</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QCheckBox" name="skipNoDumpCheckBox">
+               <property name="toolTip">
+                <string>Some filesystems support this</string>
+               </property>
+               <property name="text">
+                <string>Skip files flagged with nodump attribute</string>
                </property>
               </widget>
              </item>

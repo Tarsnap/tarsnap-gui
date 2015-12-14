@@ -643,7 +643,7 @@ void MainWindow::backupButtonClicked()
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
     backup->setOptionDryRun(_ui->simulationCheckBox->isChecked());
-    backup->setOptionNoDump(_ui->skipNoDumpCheckBox->isChecked());
+    backup->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
     connect(backup, &BackupTask::statusUpdate, this, &MainWindow::backupTaskUpdate, QUEUED);
     emit backupNow(backup);
     _ui->appendTimestampCheckBox->setChecked(false);

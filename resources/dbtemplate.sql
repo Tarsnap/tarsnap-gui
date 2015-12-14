@@ -9,7 +9,7 @@ BEGIN TRANSACTION;
 CREATE TABLE `version` (
 	`version`	INTEGER NOT NULL
 );
-INSERT INTO version VALUES (2);
+INSERT INTO version VALUES (3);
 CREATE TABLE `jobs` (
 	`name`	TEXT NOT NULL,
 	`urls`	TEXT,
@@ -17,6 +17,7 @@ CREATE TABLE `jobs` (
 	`optionPreservePaths`		INTEGER,
 	`optionTraverseMount`		INTEGER,
 	`optionFollowSymLinks`		INTEGER,
+	`optionSkipNoDump`		    INTEGER,
 	`optionSkipFilesSize`		INTEGER,
 	`optionSkipFiles`			INTEGER,
 	`optionSkipFilesPatterns`	TEXT,

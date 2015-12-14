@@ -89,6 +89,11 @@ bool PersistentStore::init()
                 DEBUG << "DB upgraded to version 2.";
                 version = 2;
             }
+            if((version == 2) && upgradeVersion3())
+            {
+                DEBUG << "DB upgraded to version 3.";
+                version = 3;
+            }
         }
     }
 
@@ -248,6 +253,22 @@ bool PersistentStore::upgradeVersion2()
     {
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 2." << _db.databaseName();
+    }
+    return result;
+}
+
+bool PersistentStore::upgradeVersion3()
+{
+    bool result = false;
+    QSqlQuery query(_db);
+
+    if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipNoDump INTEGER;")))
+        result = query.exec("UPDATE version SET version = 3;");
+
+    if (!result)
+    {
+        DEBUG << query.lastError().text();
+        DEBUG << "Failed to upgrade DB to version 3." << _db.databaseName();
     }
     return result;
 }

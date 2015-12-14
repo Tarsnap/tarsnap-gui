@@ -131,6 +131,16 @@ void Job::setOptionSkipFilesPatterns(const QString &optionSkipFilesPatterns)
     _optionSkipFilesPatterns = optionSkipFilesPatterns;
 }
 
+bool Job::optionSkipNoDump() const
+{
+    return _optionSkipNoDump;
+}
+
+void Job::setOptionSkipNoDump(bool optionSkipNoDump)
+{
+    _optionSkipNoDump = optionSkipNoDump;
+}
+
 BackupTaskPtr Job::createBackupTask()
 {
     QSettings settings;
@@ -144,6 +154,7 @@ BackupTaskPtr Job::createBackupTask()
     backup->setOptionSkipFilesSize(optionSkipFilesSize());
     backup->setOptionSkipSystem(optionSkipFiles());
     backup->setOptionSkipSystemFiles(optionSkipFilesPatterns());
+    backup->setOptionSkipNoDump(optionSkipNoDump());
     backup->setOptionDryRun(settings.value("tarsnap/dry_run", false).toBool());
     connect(backup, &BackupTask::statusUpdate, this, &Job::backupTaskUpdate, QUEUED);
     return backup;
@@ -157,11 +168,11 @@ void Job::save()
     if(exists)
         queryString = QLatin1String("update jobs set name=?, urls=?, optionScheduledEnabled=?, optionPreservePaths=?, "
                                     "optionTraverseMount=?, optionFollowSymLinks=?, optionSkipFilesSize=?, "
-                                    "optionSkipFiles=?, optionSkipFilesPatterns=?"
+                                    "optionSkipFiles=?, optionSkipFilesPatterns=?, optionSkipNoDump=?"
                                     "where name=?");
     else
         queryString = QLatin1String("insert into jobs(name, urls, optionScheduledEnabled, optionPreservePaths, optionTraverseMount, "
-                                    "optionFollowSymLinks, optionSkipFilesSize, optionSkipFiles, optionSkipFilesPatterns) values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                    "optionFollowSymLinks, optionSkipFilesSize, optionSkipFiles, optionSkipFilesPatterns, optionSkipNoDump) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     PersistentStore &store = getStore();
     QSqlQuery query = store.createQuery();
@@ -173,9 +184,7 @@ void Job::save()
     query.addBindValue(_name);
     QStringList urls;
     foreach(QUrl url, _urls)
-    {
         urls << url.toString(QUrl::FullyEncoded);
-    }
     query.addBindValue(urls.join('\n'));
     query.addBindValue(_optionScheduledEnabled);
     query.addBindValue(_optionPreservePaths);
@@ -184,6 +193,7 @@ void Job::save()
     query.addBindValue(_optionSkipFilesSize);
     query.addBindValue(_optionSkipFiles);
     query.addBindValue(_optionSkipFilesPatterns);
+    query.addBindValue(_optionSkipNoDump);
     if(exists)
         query.addBindValue(_name);
 
@@ -217,6 +227,7 @@ void Job::load()
         _optionSkipFilesSize     = query.value(query.record().indexOf("optionSkipFilesSize")).toULongLong();
         _optionSkipFiles         = query.value(query.record().indexOf("optionSkipFiles")).toBool();
         _optionSkipFilesPatterns = query.value(query.record().indexOf("optionSkipFilesPatterns")).toString();
+        _optionSkipNoDump        = query.value(query.record().indexOf("optionSkipNoDump")).toBool();
         setObjectKey(_name);
         emit loadArchives();
     }

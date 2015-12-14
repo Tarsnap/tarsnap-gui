@@ -29,6 +29,7 @@ protected:
     bool upgradeVersion0();
     bool upgradeVersion1();
     bool upgradeVersion2();
+    bool upgradeVersion3();
 
 private:
     // Yes, a singleton

@@ -191,10 +191,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives, this , &MainWindow::deleteArchives);
     connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this, &MainWindow::restoreArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails, _ui->jobListWidget, &JobListWidget::selectJobByRef);
-    connect(_ui->archiveJobLabel, &TextLabel::clicked,
-    [&]() {
-        _ui->jobListWidget->selectJobByRef(_currentArchiveDetail->jobRef());
-    });
+    connect(_ui->archiveJobLabel, &TextLabel::clicked, [&]() { _ui->jobListWidget->selectJobByRef(_currentArchiveDetail->jobRef()); });
 
     // Jobs
     connect(_ui->addJobButton, &QToolButton::clicked, this, &MainWindow::addJobClicked);
@@ -640,9 +637,8 @@ void MainWindow::backupButtonClicked()
 {
     QList<QUrl> urls;
     for(int i = 0; i < _ui->backupListWidget->count(); ++i)
-    {
         urls << static_cast<BackupListItem*>(_ui->backupListWidget->item(i))->url();
-    }
+
     BackupTaskPtr backup(new BackupTask);
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
@@ -887,9 +883,7 @@ void MainWindow::runSetupWizardClicked()
     auto confirm = QMessageBox::question(this, tr("Confirm action"),
                                          tr("Reset current app settings, job definitions and run the setup wizard?"));
     if(confirm == QMessageBox::Yes)
-    {
         emit runSetupWizard();
-    }
 }
 
 void MainWindow::expandJournalButtonToggled(bool checked)
@@ -997,5 +991,5 @@ void MainWindow::updateLastMachineActivity(QStringList activityFields)
     settings.setValue("tarsnap/machine_activity", activityFields.join(' '));
     _ui->machineActivity->setText(activityFields.join(' '));
     _ui->machineActivity->resize(_ui->machineActivity->fontMetrics().width(_ui->machineActivity->text()) / 2,
-                                      _ui->machineActivity->sizeHint().height());
+                                 _ui->machineActivity->sizeHint().height());
 }

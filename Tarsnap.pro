@@ -100,6 +100,8 @@ DISTFILES += \
     INSTALL \
     CHANGELOG
 
+DISTFILES += .astylerc
+
 osx {
     OBJECTIVE_SOURCES += src/platform_osx.mm
     LIBS += -framework Foundation

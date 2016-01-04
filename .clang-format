@@ -4,8 +4,10 @@ IndentWidth: 4
 BreakBeforeBraces: Allman
 AllowShortIfStatementsOnASingleLine: false
 IndentCaseLabels: false
-ColumnLimit: 90
+ColumnLimit: 80
 SpaceBeforeParens: Never
 AllowShortFunctionsOnASingleLine: Inline
 AccessModifierOffset: -4
-#AlignConsecutiveDeclarations: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveAssignments: true

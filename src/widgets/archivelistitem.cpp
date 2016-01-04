@@ -3,6 +3,8 @@
 
 #include <QSettings>
 
+#define FIELD_WIDTH 6
+
 ArchiveListItem::ArchiveListItem(ArchivePtr archive):
     _widget(new QWidget),
     _useSIPrefixes(false)
@@ -50,9 +52,7 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     _ui.nameLabel->setToolTip(_archive->name());
     QString detail(_archive->timestamp().toString());
     if(_archive->sizeTotal() != 0)
-    {
-        detail.prepend(Utils::humanBytes(_archive->sizeTotal(), _useSIPrefixes) + "  ");
-    }
+        detail.prepend(Utils::humanBytes(_archive->sizeTotal(), _useSIPrefixes, FIELD_WIDTH) + "  ");
     _ui.detailLabel->setText(detail);
     _ui.detailLabel->setToolTip(_archive->archiveStats());
 

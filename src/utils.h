@@ -52,7 +52,7 @@ private:
 
 // Convert an int64 size of bytes to a human readable string using either
 // SI(1000) or binary(1024) units (default is binary)
-QString humanBytes(quint64 bytes, bool si = false);
+QString humanBytes(quint64 bytes, bool si = false, int fieldWidth = 0);
 
 // if path.isEmpty it will search in $PATH
 // if keygenToo it will search for tarsnap-keygen too

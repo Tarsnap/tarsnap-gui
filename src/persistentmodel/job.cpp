@@ -6,7 +6,6 @@
 #define JOB_NAME_PREFIX    QLatin1String("Job")
 #define JOB_NAME_SEPARATOR QLatin1String("_")
 
-static bool ArchiveCompare (ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp()); }
 
 Job::Job(QObject *parent) : QObject(parent), _optionScheduledEnabled(false),
     _optionPreservePaths(true), _optionTraverseMount(true),
@@ -53,7 +52,8 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
 {
     _archives.clear();
     _archives = archives;
-    std::sort(_archives.begin(), _archives.end(), ArchiveCompare);
+    std::sort(_archives.begin(), _archives.end(), [](const ArchivePtr &a, const ArchivePtr &b)
+              { return (a->timestamp() > b->timestamp()); });
     foreach(ArchivePtr archive, _archives)
     {
         connect(archive.data(), &Archive::purged, this, &Job::loadArchives, QUEUED);

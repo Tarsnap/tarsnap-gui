@@ -27,7 +27,8 @@ ArchiveListWidget::~ArchiveListWidget()
 
 void ArchiveListWidget::addArchives(QList<ArchivePtr > archives)
 {
-    std::sort(archives.begin(), archives.end(), [](ArchivePtr a, ArchivePtr b) { return (a->timestamp() > b->timestamp());});
+    std::sort(archives.begin(), archives.end(), [](const ArchivePtr &a, const ArchivePtr &b)
+              { return (a->timestamp() > b->timestamp()); });
     setUpdatesEnabled(false);
     clear();
     foreach(ArchivePtr archive, archives)

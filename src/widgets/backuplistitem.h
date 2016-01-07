@@ -3,11 +3,12 @@
 
 #include "ui_backupitemwidget.h"
 
-#include <QObject>
 #include <QListWidgetItem>
+#include <QObject>
 #include <QUrl>
 
-namespace Ui {
+namespace Ui
+{
 class BackupItemWidget;
 }
 
@@ -39,12 +40,12 @@ public slots:
     void updateDirDetail(quint64 size, quint64 count);
 
 private:
-    Ui::BackupItemWidget  _ui;
-    QWidget              *_widget;
-    QUrl                  _url;
-    quint64               _count;
-    quint64               _size;
-    bool                  _useSIPrefixes;
+    Ui::BackupItemWidget _ui;
+    QWidget             *_widget;
+    QUrl                 _url;
+    quint64              _count;
+    quint64              _size;
+    bool                 _useSIPrefixes;
 };
 
 #endif // BACKUPLISTITEM_H

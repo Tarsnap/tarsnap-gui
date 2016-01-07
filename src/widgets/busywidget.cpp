@@ -2,9 +2,8 @@
 
 #include "debug.h"
 
-BusyWidget::BusyWidget(QWidget *parent):
-    QLabel(parent),
-    _animation(":/icons/loading.gif")
+BusyWidget::BusyWidget(QWidget *parent)
+    : QLabel(parent), _animation(":/icons/loading.gif")
 {
     setMovie(&_animation);
 }
@@ -27,7 +26,6 @@ void BusyWidget::stop()
 
 void BusyWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton)
+    if(event->button() == Qt::LeftButton)
         emit clicked();
 }
-

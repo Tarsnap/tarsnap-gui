@@ -1,8 +1,8 @@
 #ifndef JOB_H
 #define JOB_H
 
-#include "persistentmodel/archive.h"
 #include "backuptask.h"
+#include "persistentmodel/archive.h"
 
 #include <QObject>
 #include <QUrl>
@@ -71,17 +71,17 @@ public slots:
     void backupTaskUpdate(const TaskStatus &status);
 
 private:
-    QString             _name;
-    QList<QUrl>         _urls;
-    QList<ArchivePtr>   _archives;
-    bool                _optionScheduledEnabled;
-    bool                _optionPreservePaths;
-    bool                _optionTraverseMount;
-    bool                _optionFollowSymLinks;
-    quint64             _optionSkipFilesSize;
-    bool                _optionSkipFiles;
-    QString             _optionSkipFilesPatterns;
-    bool                _optionSkipNoDump;
+    QString           _name;
+    QList<QUrl>       _urls;
+    QList<ArchivePtr> _archives;
+    bool              _optionScheduledEnabled;
+    bool              _optionPreservePaths;
+    bool              _optionTraverseMount;
+    bool              _optionFollowSymLinks;
+    quint64           _optionSkipFilesSize;
+    bool              _optionSkipFiles;
+    QString           _optionSkipFilesPatterns;
+    bool              _optionSkipNoDump;
 };
 
 #endif // JOB_H

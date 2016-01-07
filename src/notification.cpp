@@ -11,8 +11,8 @@ Notification::Notification(QSystemTrayIcon *parent) : QSystemTrayIcon(parent)
 void Notification::displayNotification(QString message)
 {
     QSettings settings;
-    if(settings.value("app/notifications", true).toBool()
-       && isSystemTrayAvailable())
+    if(settings.value("app/notifications", true).toBool() &&
+       isSystemTrayAvailable())
     {
         show();
         showMessage(QCoreApplication::instance()->applicationName(), message);

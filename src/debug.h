@@ -1,24 +1,24 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
+#include <QDebug>
 #include <QObject>
 #include <QString>
-#include <QDebug>
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
-#define DEBUG   qDebug().noquote()
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+#define DEBUG qDebug().noquote()
 #else
-#define DEBUG   qDebug()
+#define DEBUG qDebug()
 #endif
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
-#define WARN   qWarning().noquote()
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+#define WARN qWarning().noquote()
 #else
-#define WARN   qWarning()
+#define WARN qWarning()
 #endif
 
-#define LOG     Debug::instance()
-#define ENDL    "\n"
+#define LOG Debug::instance()
+#define ENDL "\n"
 #define DELIMITER "--------------------------------------------------------------------------------"
 
 class Debug : public QObject
@@ -27,7 +27,7 @@ class Debug : public QObject
 
 public:
     static void initialize() { qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}"); }
-    static Debug& instance() { static Debug instance; return instance; }
+    static Debug &instance() { static Debug instance; return instance; }
     ~Debug() {}
 
     inline Debug& operator<<(QChar t) { WARN << t; emit message(QString(t)); return *this; }
@@ -56,9 +56,9 @@ public slots:
 
 private:
     // Yes, a singleton
-    inline explicit Debug(): QObject() {}
-    Debug(Debug const&): QObject() {}
-    void operator=(Debug const&) {}
+    inline explicit Debug() : QObject() {}
+    Debug(Debug const &) : QObject() {}
+    void operator=(Debug const &) {}
 };
 
 #endif // DEBUG_H

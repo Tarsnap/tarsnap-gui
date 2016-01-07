@@ -7,18 +7,16 @@
 
 using namespace Utils;
 
-GetDirInfoTask::GetDirInfoTask(QDir dir):
-    _dir(dir)
+GetDirInfoTask::GetDirInfoTask(QDir dir) : _dir(dir)
 {
-
 }
 
 void GetDirInfoTask::run()
 {
-    quint64 size = 0;
+    quint64 size  = 0;
     quint64 count = 0;
 
-    size = getDirSize(_dir);
+    size  = getDirSize(_dir);
     count = getDirCount(_dir);
 
     emit result(size, count);
@@ -29,10 +27,12 @@ quint64 GetDirInfoTask::getDirSize(QDir dir)
     quint64 size = 0;
     if(dir.exists())
     {
-        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
+        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot |
+                      QDir::Hidden | QDir::NoSymLinks);
 
         QFileInfoList list = dir.entryInfoList();
-        for (int i = 0; i < list.size(); ++i) {
+        for(int i = 0; i < list.size(); ++i)
+        {
             QFileInfo fileInfo = list.at(i);
             if(fileInfo.isDir())
             {
@@ -51,10 +51,12 @@ quint64 GetDirInfoTask::getDirCount(QDir dir)
     quint64 count = 0;
     if(dir.exists())
     {
-        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
+        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot |
+                      QDir::Hidden | QDir::NoSymLinks);
 
         QFileInfoList list = dir.entryInfoList();
-        for (int i = 0; i < list.size(); ++i) {
+        for(int i = 0; i < list.size(); ++i)
+        {
             QFileInfo fileInfo = list.at(i);
             if(fileInfo.isDir())
             {
@@ -70,12 +72,13 @@ quint64 GetDirInfoTask::getDirCount(QDir dir)
 QString Utils::humanBytes(quint64 bytes, bool si, int fieldWidth)
 {
     quint64 unit = si ? 1000 : 1024;
-    if (bytes < unit) return QString::number(bytes) + " B";
-    int exp = (int) (log(bytes) / log(unit));
-    QString pre = QString(si ? "kMGTPE" : "KMGTPE").at(exp - 1) + QString(si ? "" : "i");
+    if(bytes < unit)
+        return QString::number(bytes) + " B";
+    int     exp = (int)(log(bytes) / log(unit));
+    QString pre =
+        QString(si ? "kMGTPE" : "KMGTPE").at(exp - 1) + QString(si ? "" : "i");
     return QString("%1 %2B").arg(bytes / pow(unit, exp), fieldWidth, 'f', 2).arg(pre);
 }
-
 
 QString Utils::validateTarsnapCache(QString path)
 {
@@ -88,7 +91,6 @@ QString Utils::validateTarsnapCache(QString path)
     }
     return result;
 }
-
 
 QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
 {
@@ -112,7 +114,7 @@ QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
 QFileInfoList Utils::findKeysInPath(QString path)
 {
     QFileInfoList result;
-    QDir dir(path);
+    QDir          dir(path);
     if(!dir.exists())
         return result;
     dir.setFilter(QDir::Files | QDir::Readable);

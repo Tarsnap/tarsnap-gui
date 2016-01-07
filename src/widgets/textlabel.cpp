@@ -1,15 +1,11 @@
 #include "textlabel.h"
 
-TextLabel::TextLabel(QWidget *parent):
-    QLabel(parent),
-    _elide(Qt::ElideNone)
+TextLabel::TextLabel(QWidget *parent) : QLabel(parent), _elide(Qt::ElideNone)
 {
-
 }
 
 TextLabel::~TextLabel()
 {
-
 }
 Qt::TextElideMode TextLabel::elide() const
 {
@@ -50,14 +46,14 @@ void TextLabel::resizeEvent(QResizeEvent *event)
 
 void TextLabel::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (event->buttons() ^ Qt::LeftButton)
+    if(event->buttons() ^ Qt::LeftButton)
         emit clicked();
     event->ignore();
 }
 
 void TextLabel::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    if (event->buttons() & Qt::LeftButton)
+    if(event->buttons() & Qt::LeftButton)
         emit doubleClicked();
     event->ignore();
 }
@@ -67,5 +63,3 @@ QString TextLabel::elideText(const QString &text)
     QFontMetrics metrics(this->font());
     return metrics.elidedText(text, _elide, this->width());
 }
-
-

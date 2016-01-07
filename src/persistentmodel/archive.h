@@ -3,17 +3,17 @@
 
 #include "persistentobject.h"
 
-#include <QObject>
 #include <QDateTime>
-#include <QStringList>
+#include <QObject>
 #include <QSharedPointer>
+#include <QStringList>
 
 struct ArchiveRestoreOptions
 {
-    bool        preservePaths;
-    bool        overwriteFiles;
-    bool        keepNewerFiles;
-    QString     chdir;
+    bool    preservePaths;
+    bool    overwriteFiles;
+    bool    keepNewerFiles;
+    QString chdir;
 };
 
 class Archive;
@@ -47,7 +47,6 @@ public:
     void setContents(const QStringList &value);
     QString jobRef() const;
     void setJobRef(const QString &jobRef);
-
 
     // From PersistentObject
     void save();

@@ -3,9 +3,9 @@
 
 #include "ui_logindialog.h"
 
-#include <QWidget>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QWidget>
 
 class TarsnapAccount : public QDialog
 {
@@ -20,7 +20,7 @@ signals:
 
 public slots:
     void getAccountCredit();
-    void getAccountInfo(bool displayActivity = false,
+    void getAccountInfo(bool displayActivity        = false,
                         bool displayMachineActivity = false);
 
 protected slots:
@@ -28,7 +28,7 @@ protected slots:
     void parseCredit(QString csv);
     void parseLastMachineActivity(QString csv);
     void displayCSVTable(QString csv, QString title);
-    QNetworkReply* tarsnapRequest(QString url);
+    QNetworkReply *tarsnapRequest(QString url);
     QByteArray readReply(QNetworkReply *reply, bool warn = false);
     void networkError(QNetworkReply::NetworkError error);
     void sslError(QList<QSslError> errors);

@@ -1,13 +1,14 @@
 #ifndef JOBLISTITEM_H
 #define JOBLISTITEM_H
 
-#include "ui_jobitemwidget.h"
 #include "persistentmodel/job.h"
+#include "ui_jobitemwidget.h"
 
-#include <QObject>
 #include <QListWidgetItem>
+#include <QObject>
 
-namespace Ui {
+namespace Ui
+{
 class JobItemWidget;
 }
 
@@ -34,10 +35,10 @@ public slots:
     void update();
 
 private:
-    Ui::JobItemWidget   _ui;
-    QWidget            *_widget;
-    JobPtr              _job;
-    bool                _useSIPrefixes;
+    Ui::JobItemWidget _ui;
+    QWidget          *_widget;
+    JobPtr            _job;
+    bool              _useSIPrefixes;
 };
 
 #endif // JOBLISTITEM_H

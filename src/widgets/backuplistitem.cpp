@@ -2,21 +2,23 @@
 #include "utils.h"
 
 #include <QDebug>
-#include <QFileInfo>
 #include <QDesktopServices>
-#include <QThreadPool>
+#include <QFileInfo>
 #include <QSettings>
+#include <QThreadPool>
 
-BackupListItem::BackupListItem(QUrl url): _widget(new QWidget), _count(0),
-    _size(0), _useSIPrefixes(false)
+BackupListItem::BackupListItem(QUrl url)
+    : _widget(new QWidget), _count(0), _size(0), _useSIPrefixes(false)
 {
     _ui.setupUi(_widget);
     _widget->addAction(_ui.actionOpen);
     _widget->addAction(_ui.actionRemove);
     _ui.browseButton->setDefaultAction(_ui.actionOpen);
     _ui.removeButton->setDefaultAction(_ui.actionRemove);
-    connect(_ui.actionRemove, &QAction::triggered, this, &BackupListItem::requestDelete);
-    connect(_ui.actionOpen, &QAction::triggered, this, &BackupListItem::browseUrl);
+    connect(_ui.actionRemove, &QAction::triggered, this,
+            &BackupListItem::requestDelete);
+    connect(_ui.actionOpen, &QAction::triggered, this,
+            &BackupListItem::browseUrl);
 
     QSettings settings;
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
@@ -28,7 +30,7 @@ BackupListItem::~BackupListItem()
 {
 }
 
-QWidget* BackupListItem::widget()
+QWidget *BackupListItem::widget()
 {
     return _widget;
 }
@@ -59,7 +61,8 @@ void BackupListItem::setUrl(const QUrl &url)
             QThreadPool *threadPool = QThreadPool::globalInstance();
             Utils::GetDirInfoTask *task = new Utils::GetDirInfoTask(dir);
             task->setAutoDelete(true);
-            connect(task, &Utils::GetDirInfoTask::result, this, &BackupListItem::updateDirDetail, QUEUED);
+            connect(task, &Utils::GetDirInfoTask::result, this,
+                    &BackupListItem::updateDirDetail, QUEUED);
             threadPool->start(task);
         }
         else if(file.isFile())
@@ -85,10 +88,10 @@ void BackupListItem::browseUrl()
 
 void BackupListItem::updateDirDetail(quint64 size, quint64 count)
 {
-    _size = size;
+    _size  = size;
     _count = count;
-    _ui.detailLabel->setText(QString::number(_count) + tr(" items totalling ")
-                             + Utils::humanBytes(_size, _useSIPrefixes));
+    _ui.detailLabel->setText(QString::number(_count) + tr(" items totalling ") +
+                             Utils::humanBytes(_size, _useSIPrefixes));
     emit requestUpdate();
 }
 quint64 BackupListItem::size() const
@@ -110,4 +113,3 @@ void BackupListItem::setCount(const quint64 &count)
 {
     _count = count;
 }
-

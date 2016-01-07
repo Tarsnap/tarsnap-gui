@@ -1,22 +1,17 @@
 #include "archivelistwidget.h"
 #include "archivelistitem.h"
-#include "ui_archiveitemwidget.h"
 #include "restoredialog.h"
+#include "ui_archiveitemwidget.h"
 
 #include <QMessageBox>
 
 #define DELETE_CONFIRMATION_THRESHOLD 10
 
-ArchiveListWidget::ArchiveListWidget(QWidget *parent):
-    QListWidget(parent)
+ArchiveListWidget::ArchiveListWidget(QWidget *parent) : QListWidget(parent)
 {
-    connect(this, &QListWidget::itemActivated,
-    [&](QListWidgetItem * item)
-    {
+    connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
         if(item)
-        {
-            emit inspectArchive(static_cast<ArchiveListItem*>(item)->archive());
-        }
+            emit inspectArchive(static_cast<ArchiveListItem *>(item)->archive());
     });
 }
 
@@ -25,7 +20,7 @@ ArchiveListWidget::~ArchiveListWidget()
     clear();
 }
 
-void ArchiveListWidget::addArchives(QList<ArchivePtr > archives)
+void ArchiveListWidget::addArchives(QList<ArchivePtr> archives)
 {
     std::sort(archives.begin(), archives.end(), [](const ArchivePtr &a, const ArchivePtr &b)
               { return (a->timestamp() > b->timestamp()); });
@@ -34,10 +29,14 @@ void ArchiveListWidget::addArchives(QList<ArchivePtr > archives)
     foreach(ArchivePtr archive, archives)
     {
         ArchiveListItem *item = new ArchiveListItem(archive);
-        connect(item, &ArchiveListItem::requestDelete, this, &ArchiveListWidget::removeItems);
-        connect(item, &ArchiveListItem::requestInspect, this, &ArchiveListWidget::inspectItem);
-        connect(item, &ArchiveListItem::requestRestore, this, &ArchiveListWidget::restoreItem);
-        connect(item, &ArchiveListItem::requestGoToJob, this, &ArchiveListWidget::goToJob);
+        connect(item, &ArchiveListItem::requestDelete, this,
+                &ArchiveListWidget::removeItems);
+        connect(item, &ArchiveListItem::requestInspect, this,
+                &ArchiveListWidget::inspectItem);
+        connect(item, &ArchiveListItem::requestRestore, this,
+                &ArchiveListWidget::restoreItem);
+        connect(item, &ArchiveListItem::requestGoToJob, this,
+                &ArchiveListWidget::goToJob);
         insertItem(count(), item);
         setItemWidget(item, item->widget());
     }
@@ -49,13 +48,14 @@ void ArchiveListWidget::removeItems()
     if(selectedItems().isEmpty())
     {
         // remove single item
-        ArchiveListItem* archiveItem = qobject_cast<ArchiveListItem*>(sender());
+        ArchiveListItem *archiveItem = qobject_cast<ArchiveListItem *>(sender());
         if(archiveItem)
         {
             ArchivePtr archive = archiveItem->archive();
             auto button = QMessageBox::question(this, tr("Confirm delete"),
-                                                tr("Are you sure you want to delete archive %1 (this cannot be undone)?")
-                                                .arg(archive->name()));
+                                                tr("Are you sure you want to delete "
+                                                   "archive %1 (this cannot be undone)?")
+                                                    .arg(archive->name()));
             if(button == QMessageBox::Yes)
             {
                 QList<ArchivePtr> archiveList;
@@ -67,13 +67,16 @@ void ArchiveListWidget::removeItems()
     else
     {
         // remove selected items
-        int selectedItemsCount = selectedItems().count();
+        int  selectedItemsCount = selectedItems().count();
         auto button = QMessageBox::question(this, tr("Confirm delete"),
-                                            tr("Are you sure you want to delete %1 selected archives (this cannot be undone)?")
-                                            .arg(selectedItemsCount));
+                                            tr("Are you sure you want to "
+                                               "delete %1 selected archives "
+                                               "(this cannot be undone)?")
+                                                .arg(selectedItemsCount));
         if(button == QMessageBox::Yes)
         {
-            // Some more deletion confirmation, if count of archives to be removed
+            // Some more deletion confirmation, if count of archives to be
+            // removed
             // is big enough
             if(selectedItemsCount >= DELETE_CONFIRMATION_THRESHOLD)
             {
@@ -81,14 +84,19 @@ void ArchiveListWidget::removeItems()
                 if(selectedItemsCount == count())
                 {
                     button = QMessageBox::question(this, tr("Confirm delete"),
-                                                   tr("Are you sure you want to delete all of your archives?\n"
-                                                      "For your information, there's a purge action in Settings -> Advanced page that achieves the same thing but more efficiently."));
+                        tr("Are you sure you want to delete all of your "
+                           "archives?\n"
+                           "For your information, there's a purge action in "
+                           "Settings -> Advanced page that achieves the same "
+                           "thing but more efficiently."));
                 }
                 else
                 {
                     button = QMessageBox::question(this, tr("Confirm delete"),
-                                                   tr("This will permanently delete the %1 selected archives. Proceed?")
-                                                   .arg(selectedItemsCount));
+                                                   tr("This will permanently "
+                                                      "delete the %1 selected "
+                                                      "archives. Proceed?")
+                                                       .arg(selectedItemsCount));
                 }
             }
         }
@@ -98,7 +106,8 @@ void ArchiveListWidget::removeItems()
             QList<ArchivePtr> archiveList;
             foreach(QListWidgetItem *item, selectedItems())
             {
-                ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(item);
+                ArchiveListItem *archiveItem =
+                    static_cast<ArchiveListItem *>(item);
                 archiveList.append(archiveItem->archive());
             }
             if(!archiveList.isEmpty())
@@ -110,24 +119,26 @@ void ArchiveListWidget::removeItems()
 void ArchiveListWidget::inspectItem()
 {
     if(sender())
-        emit inspectArchive(qobject_cast<ArchiveListItem*>(sender())->archive());
+        emit inspectArchive(qobject_cast<ArchiveListItem *>(sender())->archive());
 }
 
 void ArchiveListWidget::restoreItem()
 {
-    ArchiveListItem* archiveItem = qobject_cast<ArchiveListItem*>(sender());
+    ArchiveListItem *archiveItem = qobject_cast<ArchiveListItem *>(sender());
     if(archiveItem)
     {
         RestoreDialog restoreDialog(archiveItem->archive(), this);
         if(QDialog::Accepted == restoreDialog.exec())
-            emit restoreArchive(archiveItem->archive(), restoreDialog.getOptions());
+            emit restoreArchive(archiveItem->archive(),
+                                restoreDialog.getOptions());
     }
 }
 
 void ArchiveListWidget::goToJob()
 {
     if(sender())
-        emit displayJobDetails(qobject_cast<ArchiveListItem*>(sender())->archive()->jobRef());
+        emit displayJobDetails(
+            qobject_cast<ArchiveListItem *>(sender())->archive()->jobRef());
 }
 
 void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
@@ -135,13 +146,15 @@ void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
     if(!archive)
         return;
 
-    ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(currentItem());
+    ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(currentItem());
     if(!archiveItem || (archiveItem->archive() != archive))
     {
         for(int i = 0; i < count(); ++i)
         {
-            ArchiveListItem* archiveItem = static_cast<ArchiveListItem*>(item(i));
-            if(archiveItem && (archiveItem->archive()->objectKey() == archive->objectKey()))
+            ArchiveListItem *archiveItem =
+                static_cast<ArchiveListItem *>(item(i));
+            if(archiveItem &&
+               (archiveItem->archive()->objectKey() == archive->objectKey()))
             {
                 setCurrentItem(archiveItem);
             }

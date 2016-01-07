@@ -5,9 +5,8 @@
 
 #define FIELD_WIDTH 6
 
-ArchiveListItem::ArchiveListItem(ArchivePtr archive):
-    _widget(new QWidget),
-    _useSIPrefixes(false)
+ArchiveListItem::ArchiveListItem(ArchivePtr archive)
+    : _widget(new QWidget), _useSIPrefixes(false)
 {
     QSettings settings;
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
@@ -20,10 +19,14 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive):
     _ui.jobButton->setDefaultAction(_ui.actionGoToJob);
     _ui.restoreButton->setDefaultAction(_ui.actionRestore);
     _ui.deleteButton->setDefaultAction(_ui.actionDelete);
-    connect(_ui.actionDelete, &QAction::triggered, this, &ArchiveListItem::requestDelete);
-    connect(_ui.actionInspect, &QAction::triggered, this, &ArchiveListItem::requestInspect);
-    connect(_ui.actionRestore, &QAction::triggered, this, &ArchiveListItem::requestRestore);
-    connect(_ui.actionGoToJob, &QAction::triggered, this, &ArchiveListItem::requestGoToJob);
+    connect(_ui.actionDelete, &QAction::triggered, this,
+            &ArchiveListItem::requestDelete);
+    connect(_ui.actionInspect, &QAction::triggered, this,
+            &ArchiveListItem::requestInspect);
+    connect(_ui.actionRestore, &QAction::triggered, this,
+            &ArchiveListItem::requestRestore);
+    connect(_ui.actionGoToJob, &QAction::triggered, this,
+            &ArchiveListItem::requestGoToJob);
 
     setArchive(archive);
 }
@@ -46,13 +49,18 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
 {
     _archive = archive;
 
-    connect(_archive.data(), &Archive::changed, this, &ArchiveListItem::update, QUEUED);
+    connect(_archive.data(), &Archive::changed, this, &ArchiveListItem::update,
+            QUEUED);
 
     _ui.nameLabel->setText(_archive->name());
     _ui.nameLabel->setToolTip(_archive->name());
     QString detail(_archive->timestamp().toString());
     if(_archive->sizeTotal() != 0)
-        detail.prepend(Utils::humanBytes(_archive->sizeTotal(), _useSIPrefixes, FIELD_WIDTH) + "  ");
+    {
+        QString size = Utils::humanBytes(_archive->sizeTotal(), _useSIPrefixes,
+                                         FIELD_WIDTH);
+        detail.prepend(size + "  ");
+    }
     _ui.detailLabel->setText(detail);
     _ui.detailLabel->setToolTip(_archive->archiveStats());
 

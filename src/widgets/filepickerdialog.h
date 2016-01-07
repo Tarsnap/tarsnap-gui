@@ -4,7 +4,8 @@
 #include <QDialog>
 #include <QUrl>
 
-namespace Ui {
+namespace Ui
+{
 class FilePickerDialog;
 }
 
@@ -19,7 +20,7 @@ public:
     QList<QUrl> getSelectedUrls();
 
 protected:
-    void keyPressEvent(QKeyEvent *event) {Q_UNUSED(event);}
+    void keyPressEvent(QKeyEvent *event) { Q_UNUSED(event); }
 
 private:
     Ui::FilePickerDialog *_ui;

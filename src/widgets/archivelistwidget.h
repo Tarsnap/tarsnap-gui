@@ -4,8 +4,8 @@
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 
-#include <QListWidget>
 #include <QList>
+#include <QListWidget>
 
 class ArchiveListWidget : public QListWidget
 {

@@ -1,11 +1,11 @@
 #include "tarsnapaccount.h"
 #include "debug.h"
 
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QTableWidget>
 #include <QMessageBox>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 #include <QSettings>
+#include <QTableWidget>
 
 #define URL_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=activity&format=csv"
 #define URL_MACHINE_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=subactivity&mid=%3&format=csv"
@@ -14,7 +14,8 @@
 TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _nam(this)
 {
     _ui.setupUi(this);
-    setWindowFlags( (windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
+    setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) &
+                   ~Qt::WindowMaximizeButtonHint);
 }
 
 void TarsnapAccount::getAccountCredit()
@@ -22,14 +23,16 @@ void TarsnapAccount::getAccountCredit()
     getAccountInfo(false, false);
 }
 
-void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineActivity)
+void TarsnapAccount::getAccountInfo(bool displayActivity,
+                                    bool displayMachineActivity)
 {
     QSettings settings;
-    _user = settings.value("tarsnap/user", "").toString();
+    _user    = settings.value("tarsnap/user", "").toString();
     _machine = settings.value("tarsnap/machine", "").toString();
     if(_user.isEmpty() || _machine.isEmpty())
     {
-        QMessageBox::warning(this, tr("Warning"), tr("Tarsnap user and machine name must be set."));
+        QMessageBox::warning(this, tr("Warning"),
+                             tr("Tarsnap user and machine name must be set."));
         return;
     }
     _ui.textLabel->setText(tr("Type password for account %1:").arg(_user));
@@ -37,10 +40,10 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
         return;
     QString getActivity(URL_ACTIVITY);
     getActivity = getActivity.arg(QString(QUrl::toPercentEncoding(_user)),
-                                  QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
+                                  QString(QUrl::toPercentEncoding(
+                                      _ui.passwordLineEdit->text())));
     QNetworkReply *activityReply = tarsnapRequest(getActivity);
-    connect(activityReply, &QNetworkReply::finished,
-    [=]() {
+    connect(activityReply, &QNetworkReply::finished, [=]() {
         QByteArray replyData = readReply(activityReply, true);
         parseCredit(replyData);
         if(displayActivity)
@@ -50,18 +53,18 @@ void TarsnapAccount::getAccountInfo(bool displayActivity, bool displayMachineAct
     {
         QString getMachineId(URL_LIST_MACHINES);
         getMachineId = getMachineId.arg(QString(QUrl::toPercentEncoding(_user)),
-                                        QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())));
+                                        QString(QUrl::toPercentEncoding(
+                                            _ui.passwordLineEdit->text())));
         QNetworkReply *machineIdReply = tarsnapRequest(getMachineId);
-        connect(machineIdReply, &QNetworkReply::finished,
-        [=]() {
+        connect(machineIdReply, &QNetworkReply::finished, [=]() {
             QString machineId = parseMachineId(readReply(machineIdReply));
             QString machineActivity(URL_MACHINE_ACTIVITY);
-            machineActivity = machineActivity.arg(QString(QUrl::toPercentEncoding(_user)),
-                                                  QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())),
-                                                  QString(QUrl::toPercentEncoding(machineId)));
+            machineActivity = machineActivity.arg(
+                QString(QUrl::toPercentEncoding(_user)),
+                QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())),
+                QString(QUrl::toPercentEncoding(machineId)));
             QNetworkReply *machineActivityReply = tarsnapRequest(machineActivity);
-            connect(machineActivityReply, &QNetworkReply::finished,
-            [=]() {
+            connect(machineActivityReply, &QNetworkReply::finished, [=]() {
                 QByteArray replyData = readReply(machineActivityReply);
                 parseLastMachineActivity(replyData);
                 if(displayMachineActivity)
@@ -79,7 +82,8 @@ QString TarsnapAccount::parseMachineId(QString html)
     if(html.isEmpty() || !html.startsWith("<!DOCTYPE html>"))
         return machineId;
 
-    QRegExp machineIdRx("mid=([0-9a-fA-F]+)\">" + QRegExp::escape(_machine) + "</a>", Qt::CaseSensitive, QRegExp::RegExp2);
+    QRegExp machineIdRx("mid=([0-9a-fA-F]+)\">" + QRegExp::escape(_machine) + "</a>",
+                        Qt::CaseSensitive, QRegExp::RegExp2);
 
     if(machineIdRx.lastIndexIn(html))
         machineId = machineIdRx.cap(1);
@@ -109,7 +113,8 @@ void TarsnapAccount::parseCredit(QString csv)
             DEBUG << "Invalid CSV.";
             return;
         }
-        emit accountCredit(fields.last().toFloat(), QDate::fromString(fields[1], Qt::ISODate));
+        emit accountCredit(fields.last().toFloat(),
+                           QDate::fromString(fields[1], Qt::ISODate));
     }
 }
 
@@ -117,7 +122,8 @@ void TarsnapAccount::parseLastMachineActivity(QString csv)
 {
     if(csv.isEmpty() || !csv.startsWith("DATE"))
         return;
-    QString lastLine = csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts).last();
+    QString lastLine =
+        csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts).last();
     emit lastMachineActivity(lastLine.split(',', QString::SkipEmptyParts));
 }
 
@@ -141,13 +147,13 @@ void TarsnapAccount::displayCSVTable(QString csv, QString title)
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     QDialog *tableDialog = new QDialog(this);
     tableDialog->setWindowTitle(title);
-    tableDialog->setAttribute( Qt::WA_DeleteOnClose, true );
+    tableDialog->setAttribute(Qt::WA_DeleteOnClose, true);
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(table);
     layout->setMargin(0);
     tableDialog->setLayout(layout);
 
-    qint64 row = 0;
+    qint64 row    = 0;
     qint64 column = 0;
 
     foreach(QString line, lines)
@@ -163,12 +169,13 @@ void TarsnapAccount::displayCSVTable(QString csv, QString title)
     tableDialog->show();
 }
 
-QNetworkReply* TarsnapAccount::tarsnapRequest(QString url)
+QNetworkReply *TarsnapAccount::tarsnapRequest(QString url)
 {
     QNetworkRequest request;
     request.setUrl(url);
-    request.setRawHeader("User-Agent",
-                         (qApp->applicationName() + " " + qApp->applicationVersion()).toLatin1());
+    request.setRawHeader(
+        "User-Agent",
+        (qApp->applicationName() + " " + qApp->applicationVersion()).toLatin1());
     QNetworkReply *reply = _nam.get(request);
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
             SLOT(networkError(QNetworkReply::NetworkError)));
@@ -181,13 +188,16 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
     QByteArray data = reply->readAll();
     if(warn && data.contains("Password is incorrect; please try again."))
     {
-        QMessageBox::warning(this, tr("Invalid password"),
-                             tr("Password for account %1 is incorrect; please try again.").arg(_user));
+        QMessageBox::warning(
+            this, tr("Invalid password"),
+            tr("Password for account %1 is incorrect; please try again.").arg(_user));
     }
-    else if(warn && data.contains("No user exists with the provided email address; please try again."))
+    else if(warn && data.contains("No user exists with the provided email "
+                                  "address; please try again."))
     {
-        QMessageBox::warning(this, tr("Invalid username"),
-                             tr("Account %1 is invalid; please try again.").arg(_user));
+        QMessageBox::warning(
+            this, tr("Invalid username"),
+            tr("Account %1 is invalid; please try again.").arg(_user));
     }
     reply->close();
     reply->deleteLater();
@@ -197,7 +207,7 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
 void TarsnapAccount::networkError(QNetworkReply::NetworkError error)
 {
     Q_UNUSED(error)
-    QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
+    QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
     DEBUG << reply->errorString();
 }
 

@@ -1,9 +1,9 @@
 #ifndef BACKUPLISTWIDGET_H
 #define BACKUPLISTWIDGET_H
 
-#include <QWidget>
 #include <QListWidget>
 #include <QUrl>
+#include <QWidget>
 
 class BackupListWidget : public QListWidget
 {

@@ -5,7 +5,8 @@
 
 #include <QWidget>
 
-namespace Ui {
+namespace Ui
+{
 class JobWidget;
 }
 
@@ -38,9 +39,9 @@ protected slots:
     bool canSaveNew();
 
 private:
-    Ui::JobWidget  *_ui;
-    JobPtr          _job;
-    bool            _saveEnabled;
+    Ui::JobWidget *_ui;
+    JobPtr         _job;
+    bool           _saveEnabled;
 };
 
 #endif // JOBWIDGET_H

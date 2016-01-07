@@ -1,20 +1,20 @@
 #ifndef TASKMANAGER_H
 #define TASKMANAGER_H
 
-#include "tarsnapclient.h"
 #include "backuptask.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
+#include "tarsnapclient.h"
 
+#include <QDateTime>
+#include <QMap>
 #include <QObject>
+#include <QQueue>
+#include <QSharedPointer>
 #include <QThread>
+#include <QThreadPool>
 #include <QUrl>
 #include <QUuid>
-#include <QMap>
-#include <QSharedPointer>
-#include <QDateTime>
-#include <QThreadPool>
-#include <QQueue>
 
 class TaskManager : public QObject
 {
@@ -39,7 +39,8 @@ signals:
     void overallStats(quint64 sizeTotal, quint64 sizeCompressed,
                       quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed,
                       quint64 archiveCount);
-    void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
+    void restoreArchiveStatus(ArchivePtr archive, TaskStatus status,
+                              QString reason);
     void jobsList(QMap<QString, JobPtr> jobs);
     void message(QString msg, QString detail);
     void displayNotification(QString message);
@@ -92,24 +93,25 @@ private slots:
 
 private:
     void parseGlobalStats(QString tarsnapOutput);
-    void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput, ArchivePtr archive);
+    void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
+                           ArchivePtr archive);
     QString makeTarsnapCommand(QString cmd);
 
 private:
-    QString                      _tarsnapDir;
-    QString                      _tarsnapVersion;
-    QString                      _tarsnapCacheDir;
-    QString                      _tarsnapKeyFile;
-    QThread                      _managerThread; // manager runs on a separate thread
-    QMap<QUuid, BackupTaskPtr>   _backupTaskMap; // keeps track of active backup tasks
-    QMap<QString, ArchivePtr>    _archiveMap;    // keeps track of archives
-    QList<TarsnapClient*>        _runningTasks;  // keeps track of currently executing client tasks
-    QQueue<TarsnapClient*>       _taskQueue;     // keeps track of mutually exclusive client tasks pending execution
-    QThreadPool                 *_threadPool;
-    bool                         _aggressiveNetworking;
-    bool                         _preservePathnames;
-    bool                         _headless;
-    QMap<QString, JobPtr>        _jobMap;
+    QString _tarsnapDir;
+    QString _tarsnapVersion;
+    QString _tarsnapCacheDir;
+    QString _tarsnapKeyFile;
+    QThread _managerThread;
+    QMap<QUuid, BackupTaskPtr> _backupTaskMap;
+    QMap<QString, ArchivePtr>  _archiveMap;
+    QList<TarsnapClient *>     _runningTasks;
+    QQueue<TarsnapClient *>    _taskQueue; // mutually exclusive tasks
+    QThreadPool               *_threadPool;
+    bool                       _aggressiveNetworking;
+    bool                       _preservePathnames;
+    bool                       _headless;
+    QMap<QString, JobPtr>      _jobMap;
 };
 
 #endif // TASKMANAGER_H

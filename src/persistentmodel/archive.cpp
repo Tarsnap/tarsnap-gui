@@ -1,8 +1,12 @@
 #include "archive.h"
 #include "debug.h"
 
-Archive::Archive(QObject *parent) : QObject(parent), _sizeTotal(0),
-    _sizeCompressed(0), _sizeUniqueTotal(0), _sizeUniqueCompressed(0)
+Archive::Archive(QObject *parent)
+    : QObject(parent),
+      _sizeTotal(0),
+      _sizeCompressed(0),
+      _sizeUniqueTotal(0),
+      _sizeUniqueCompressed(0)
 {
 }
 
@@ -12,18 +16,22 @@ Archive::~Archive()
 
 void Archive::save()
 {
-    bool exists = findObjectWithKey(_name);
+    bool    exists = findObjectWithKey(_name);
     QString queryString;
     if(exists)
-        queryString = QLatin1String("update archives set name=?, timestamp=?, sizeTotal=?, sizeCompressed=?,"
-                                    " sizeUniqueTotal=?, sizeUniqueCompressed=?, command=?, contents=?, jobRef=?"
-                                    " where name=?");
+        queryString =
+            QLatin1String("update archives set name=?, timestamp=?, "
+                          "sizeTotal=?, sizeCompressed=?,"
+                          " sizeUniqueTotal=?, sizeUniqueCompressed=?, "
+                          "command=?, contents=?, jobRef=?"
+                          " where name=?");
     else
-        queryString = QLatin1String("insert into archives(name, timestamp, sizeTotal, sizeCompressed,"
-                                    " sizeUniqueTotal, sizeUniqueCompressed, command, contents, jobRef)"
-                                    " values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        queryString = QLatin1String(
+            "insert into archives(name, timestamp, sizeTotal, sizeCompressed,"
+            " sizeUniqueTotal, sizeUniqueCompressed, command, contents, jobRef)"
+            " values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
     PersistentStore &store = getStore();
-    QSqlQuery query = store.createQuery();
+    QSqlQuery        query = store.createQuery();
     if(!query.prepare(queryString))
     {
         DEBUG << query.lastError().text();
@@ -54,7 +62,7 @@ void Archive::load()
         return;
     }
     PersistentStore &store = getStore();
-    QSqlQuery query = store.createQuery();
+    QSqlQuery        query = store.createQuery();
     if(!query.prepare(QLatin1String("select * from archives where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -63,13 +71,20 @@ void Archive::load()
     query.addBindValue(_name);
     if(store.runQuery(query) && query.next())
     {
-        _timestamp = QDateTime::fromTime_t(query.value(query.record().indexOf("timestamp")).toULongLong());
-        _sizeTotal = query.value(query.record().indexOf("sizeTotal")).toULongLong();
-        _sizeCompressed = query.value(query.record().indexOf("sizeCompressed")).toULongLong();
-        _sizeUniqueTotal = query.value(query.record().indexOf("sizeUniqueTotal")).toULongLong();
-        _sizeUniqueCompressed = query.value(query.record().indexOf("sizeUniqueCompressed")).toULongLong();
-        _command = query.value(query.record().indexOf("command")).toString();
-        _contents = query.value(query.record().indexOf("contents")).toString().split('\n', QString::SkipEmptyParts);
+        _timestamp = QDateTime::fromTime_t(
+            query.value(query.record().indexOf("timestamp")).toULongLong());
+        _sizeTotal =
+            query.value(query.record().indexOf("sizeTotal")).toULongLong();
+        _sizeCompressed =
+            query.value(query.record().indexOf("sizeCompressed")).toULongLong();
+        _sizeUniqueTotal =
+            query.value(query.record().indexOf("sizeUniqueTotal")).toULongLong();
+        _sizeUniqueCompressed =
+            query.value(query.record().indexOf("sizeUniqueCompressed")).toULongLong();
+        _command  = query.value(query.record().indexOf("command")).toString();
+        _contents = query.value(query.record().indexOf("contents"))
+                        .toString()
+                        .split('\n', QString::SkipEmptyParts);
         _jobRef = query.value(query.record().indexOf("jobRef")).toString();
         setObjectKey(_name);
     }
@@ -92,7 +107,7 @@ void Archive::purge()
         return;
     }
     PersistentStore &store = getStore();
-    QSqlQuery query = store.createQuery();
+    QSqlQuery        query = store.createQuery();
     if(!query.prepare(QLatin1String("delete from archives where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -113,8 +128,9 @@ bool Archive::findObjectWithKey(QString key)
         return found;
     }
     PersistentStore &store = getStore();
-    QSqlQuery query = store.createQuery();
-    if(!query.prepare(QLatin1String("select name from archives where name = ?")))
+    QSqlQuery        query = store.createQuery();
+    if(!query.prepare(
+           QLatin1String("select name from archives where name = ?")))
     {
         DEBUG << query.lastError().text();
         return found;
@@ -134,8 +150,11 @@ QString Archive::archiveStats()
         return stats;
     stats.append(tr("\t\tTotal size\tCompressed size\n"
                     "this archive\t%1\t\t%2\n"
-                    "unique data\t%3\t\t%4").arg(_sizeTotal).arg(_sizeCompressed).arg(_sizeUniqueTotal)
-                 .arg(_sizeUniqueCompressed));
+                    "unique data\t%3\t\t%4")
+                     .arg(_sizeTotal)
+                     .arg(_sizeCompressed)
+                     .arg(_sizeUniqueTotal)
+                     .arg(_sizeUniqueCompressed));
     return stats;
 }
 QString Archive::jobRef() const
@@ -147,7 +166,6 @@ void Archive::setJobRef(const QString &jobRef)
 {
     _jobRef = jobRef;
 }
-
 
 QStringList Archive::contents() const
 {

@@ -1,11 +1,12 @@
 #include "persistentstore.h"
 #include "debug.h"
 
-#include <QSettings>
-#include <QFileInfo>
 #include <QFile>
+#include <QFileInfo>
+#include <QSettings>
 
-PersistentStore::PersistentStore(QObject *parent) : QObject(parent), _initialized(false)
+PersistentStore::PersistentStore(QObject *parent)
+    : QObject(parent), _initialized(false)
 {
     init();
 }
@@ -15,14 +16,14 @@ bool PersistentStore::init()
     QMutexLocker locker(&_mutex);
 
     QSettings settings;
-    QString appdata = settings.value("app/app_data").toString();
+    QString   appdata = settings.value("app/app_data").toString();
     if(appdata.isEmpty())
     {
         DEBUG << "Error creating the PersistentStore: app.appdata not set.";
         return false;
     }
-    bool create = false;
-    QString dbUrl(appdata + QDir::separator() + DEFAULT_DBNAME);
+    bool      create = false;
+    QString   dbUrl(appdata + QDir::separator() + DEFAULT_DBNAME);
     QFileInfo dbFileInfo(dbUrl);
 
     _db = _db.addDatabase("QSQLITE");
@@ -35,24 +36,30 @@ bool PersistentStore::init()
     }
     else if(!dbFileInfo.isFile() || !dbFileInfo.isReadable())
     {
-        DEBUG << "Error creating the PersistentStore: DB file is not accessible " << dbUrl;
+        DEBUG
+            << "Error creating the PersistentStore: DB file is not accessible "
+            << dbUrl;
         return false;
     }
-    else if (!_db.open())
+    else if(!_db.open())
     {
-        DEBUG << "Error opening the PersistentStore DB: " << _db.lastError().text();
+        DEBUG << "Error opening the PersistentStore DB: "
+              << _db.lastError().text();
         return false;
     }
     else
     {
         QStringList tables = _db.tables();
-        if (!tables.contains("archives", Qt::CaseInsensitive))
+        if(!tables.contains("archives", Qt::CaseInsensitive))
         {
             _db.close();
             DEBUG << "Invalid PersistentStore DB found. Attempting to recover.";
-            if(!QFile::rename(dbUrl, dbUrl + "." + QString::number(QDateTime::currentMSecsSinceEpoch())))
+            QString newName(dbUrl + "." + QString::number(QDateTime::currentMSecsSinceEpoch()));
+            if(!QFile::rename(dbUrl, newName))
             {
-                DEBUG << "Failed to rename current invalid PersistentStore DB. Please manually cleanup the DB directory " << appdata;
+                DEBUG << "Failed to rename current invalid PersistentStore DB. "
+                         "Please manually cleanup the DB directory "
+                      << appdata;
                 return false;
             }
             create = true;
@@ -63,20 +70,24 @@ bool PersistentStore::init()
             {
                 if(!upgradeVersion0())
                 {
-                    DEBUG << "Failed to upgrade PersistentStore DB. It's best to start from scratch by purging the existing DB in " << appdata;
+                    DEBUG << "Failed to upgrade PersistentStore DB. It's best "
+                             "to start from scratch by purging the existing DB "
+                             "in "
+                          << appdata;
                     return false;
                 }
             }
-            int version = -1;
+            int       version = -1;
             QSqlQuery query(_db);
-            if (query.exec("SELECT version FROM version"))
+            if(query.exec("SELECT version FROM version"))
             {
                 query.next();
                 version = query.value(0).toInt();
             }
             else
             {
-                DEBUG << "Failed to get current DB version: " << query.lastError().text();
+                DEBUG << "Failed to get current DB version: "
+                      << query.lastError().text();
                 return false;
             }
             if((version == 0) && upgradeVersion1())
@@ -105,13 +116,15 @@ bool PersistentStore::init()
             DEBUG << "Failed to create the PersistentStore DB.";
             return false;
         }
-        // Work around the fact that QFile::copy from the resource system does not set u+w on the resulted file
+        // Work around the fact that QFile::copy from the resource system does
+        // not set u+w on the resulted file
         QFile dbFile(dbUrl);
         dbFile.setPermissions(dbFile.permissions() | QFileDevice::WriteOwner);
         dbFile.close();
-        if (!_db.open())
+        if(!_db.open())
         {
-            DEBUG << "Error opening the PersistentStore DB: " << _db.lastError().text();
+            DEBUG << "Error opening the PersistentStore DB: "
+                  << _db.lastError().text();
             return false;
         }
     }
@@ -130,14 +143,14 @@ void PersistentStore::deinit()
         _initialized = false;
     }
 }
-QMutex* PersistentStore::mutex()
+QMutex *PersistentStore::mutex()
 {
     return &_mutex;
 }
 
 QSqlQuery PersistentStore::createQuery()
 {
-    if (_initialized)
+    if(_initialized)
     {
         return QSqlQuery(_db);
     }
@@ -203,13 +216,14 @@ bool PersistentStore::runQuery(QSqlQuery query)
 
 bool PersistentStore::upgradeVersion0()
 {
-    bool result = false;
+    bool      result = false;
     QSqlQuery query(_db);
 
-    if((result = query.exec("CREATE TABLE version (version INTEGER NOT NULL);")))
+    if((result =
+            query.exec("CREATE TABLE version (version INTEGER NOT NULL);")))
         result = query.exec("INSERT INTO version VALUES (0);");
 
-    if (!result)
+    if(!result)
     {
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 0." << _db;
@@ -219,10 +233,11 @@ bool PersistentStore::upgradeVersion0()
 
 bool PersistentStore::upgradeVersion1()
 {
-    bool result = false;
+    bool      result = false;
     QSqlQuery query(_db);
 
-    if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionScheduledEnabled INTEGER;")))
+    if((result = query.exec(
+            "ALTER TABLE jobs ADD COLUMN optionScheduledEnabled INTEGER;")))
         result = query.exec("UPDATE version SET version = 1;");
 
     // Handle the special case, since I started versioning DB after two app
@@ -230,7 +245,7 @@ bool PersistentStore::upgradeVersion1()
     if(!result && query.lastError().text().contains("duplicate column name"))
         result = query.exec("UPDATE version SET version = 1;");
 
-    if (!result)
+    if(!result)
     {
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 1." << _db.databaseName();
@@ -240,16 +255,18 @@ bool PersistentStore::upgradeVersion1()
 
 bool PersistentStore::upgradeVersion2()
 {
-    bool result = false;
+    bool      result = false;
     QSqlQuery query(_db);
 
-    if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipFiles INTEGER;")))
-        result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipFilesPatterns TEXT;");
+    if((result =
+            query.exec("ALTER TABLE jobs ADD COLUMN optionSkipFiles INTEGER;")))
+        result = query.exec(
+            "ALTER TABLE jobs ADD COLUMN optionSkipFilesPatterns TEXT;");
 
     if(result)
         result = query.exec("UPDATE version SET version = 2;");
 
-    if (!result)
+    if(!result)
     {
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 2." << _db.databaseName();
@@ -259,13 +276,13 @@ bool PersistentStore::upgradeVersion2()
 
 bool PersistentStore::upgradeVersion3()
 {
-    bool result = false;
+    bool      result = false;
     QSqlQuery query(_db);
 
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipNoDump INTEGER;")))
         result = query.exec("UPDATE version SET version = 3;");
 
-    if (!result)
+    if(!result)
     {
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 3." << _db.databaseName();

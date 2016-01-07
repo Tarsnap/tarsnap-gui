@@ -1,14 +1,15 @@
 #ifndef FILEPICKER_H
 #define FILEPICKER_H
 
-#include "ui_filepicker.h"
 #include "customfilesystemmodel.h"
+#include "ui_filepicker.h"
 
-#include <QWidget>
-#include <QFileSystemModel>
 #include <QCompleter>
+#include <QFileSystemModel>
+#include <QWidget>
 
-namespace Ui {
+namespace Ui
+{
 class FilePicker;
 }
 
@@ -36,10 +37,10 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
-    Ui::FilePicker          *_ui;
-    QString                 _startPath;
-    CustomFileSystemModel    _model;
-    QCompleter              _completer;
+    Ui::FilePicker       *_ui;
+    QString               _startPath;
+    CustomFileSystemModel _model;
+    QCompleter            _completer;
 };
 
 #endif // FILEPICKER_H

@@ -1,13 +1,14 @@
 #include "filepickerdialog.h"
 #include "ui_filepickerdialog.h"
 
-FilePickerDialog::FilePickerDialog(QWidget *parent) :
-    QDialog(parent),
-    _ui(new Ui::FilePickerDialog)
+FilePickerDialog::FilePickerDialog(QWidget *parent)
+    : QDialog(parent), _ui(new Ui::FilePickerDialog)
 {
     _ui->setupUi(this);
-    connect(_ui->cancelButton, &QPushButton::clicked, this, &FilePickerDialog::reject);
-    connect(_ui->selectButton, &QPushButton::clicked, this, &FilePickerDialog::accept);
+    connect(_ui->cancelButton, &QPushButton::clicked, this,
+            &FilePickerDialog::reject);
+    connect(_ui->selectButton, &QPushButton::clicked, this,
+            &FilePickerDialog::accept);
 }
 
 FilePickerDialog::~FilePickerDialog()

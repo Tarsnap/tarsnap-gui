@@ -1,9 +1,9 @@
 #ifndef TARSNAPCLIENT_H
 #define TARSNAPCLIENT_H
 
-#include <QThread>
 #include <QProcess>
 #include <QRunnable>
+#include <QThread>
 #include <QVariant>
 
 class TarsnapClient : public QObject, public QRunnable
@@ -47,13 +47,13 @@ private slots:
     void processError();
 
 private:
-    QVariant         _data; // caller supplied data
-    QProcess         *_process;
-    QByteArray       _processOutput;
-    QString          _command;
-    QStringList      _arguments;
-    QString          _password;
-    bool             _requiresPassword;
+    QVariant    _data; // caller supplied data
+    QProcess *  _process;
+    QByteArray  _processOutput;
+    QString     _command;
+    QStringList _arguments;
+    QString     _password;
+    bool        _requiresPassword;
 };
 
 #endif // TARSNAPCLIENT_H

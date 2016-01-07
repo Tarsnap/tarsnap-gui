@@ -3,17 +3,15 @@
 
 PersistentObject::PersistentObject()
 {
-
 }
 
 PersistentObject::~PersistentObject()
 {
-
 }
 
-PersistentStore& PersistentObject::getStore()
+PersistentStore &PersistentObject::getStore()
 {
-    PersistentStore& store = PersistentStore::instance();
+    PersistentStore &store = PersistentStore::instance();
     if(!store.initialized())
         DEBUG << "PersistentStore was not initialized properly.";
     return store;
@@ -27,5 +25,3 @@ void PersistentObject::setObjectKey(const QString &objectKey)
 {
     _objectKey = objectKey;
 }
-
-

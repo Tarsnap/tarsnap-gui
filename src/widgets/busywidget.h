@@ -2,8 +2,8 @@
 #define BUSYWIDGET_H
 
 #include <QLabel>
-#include <QMovie>
 #include <QMouseEvent>
+#include <QMovie>
 
 class BusyWidget : public QLabel
 {
@@ -24,7 +24,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event);
 
 private:
-    QMovie  _animation;
+    QMovie _animation;
 };
 
 #endif // BUSYWIDGET_H

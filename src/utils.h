@@ -1,8 +1,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <QRunnable>
 #include <QDir>
+#include <QRunnable>
 
 #define CMD_TARSNAP         "tarsnap"
 #define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
@@ -23,7 +23,7 @@
 
 #define QUEUED Qt::QueuedConnection
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
 #define APPDATA QStandardPaths::AppLocalDataLocation
 #else
 #define APPDATA QStandardPaths::DataLocation
@@ -58,7 +58,6 @@ QString humanBytes(quint64 bytes, bool si = false, int fieldWidth = 0);
 // if keygenToo it will search for tarsnap-keygen too
 // returns the directory where tarsnap resides if found, otherwise empty string
 QString findTarsnapClientInPath(QString path, bool keygenToo = false);
-
 
 // Search for valid tarsnap keys in the supplied path
 QFileInfoList findKeysInPath(QString path);

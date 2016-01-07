@@ -1,14 +1,12 @@
 #include "filepicker.h"
 #include "debug.h"
 
-#include <QSettings>
 #include <QKeyEvent>
 #include <QPersistentModelIndex>
+#include <QSettings>
 
-FilePicker::FilePicker(QWidget *parent, QString startPath) :
-    QWidget(parent),
-    _ui(new Ui::FilePicker),
-    _startPath(startPath)
+FilePicker::FilePicker(QWidget *parent, QString startPath)
+    : QWidget(parent), _ui(new Ui::FilePicker), _startPath(startPath)
 {
     _ui->setupUi(this);
     _ui->optionsContainer->hide();
@@ -19,9 +17,10 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     _ui->treeView->installEventFilter(this);
     if(_startPath.isEmpty())
     {
-        QString path;
+        QString   path;
         QSettings settings;
-        path = settings.value("app/file_browse_last", QDir::homePath()).toString();
+        path =
+            settings.value("app/file_browse_last", QDir::homePath()).toString();
         _ui->treeView->setCurrentIndex(_model.index(path));
     }
     else
@@ -36,45 +35,37 @@ FilePicker::FilePicker(QWidget *parent, QString startPath) :
     _ui->filterLineEdit->setFocus();
 
     connect(&_model, &CustomFileSystemModel::dataChanged,
-    [&](const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &roles)
-    {
-        Q_UNUSED(topLeft); Q_UNUSED(bottomRight);
-        if(!roles.isEmpty() && (roles.first() == Qt::CheckStateRole))
-            emit selectionChanged();
-    });
-    connect(_ui->filterLineEdit, &QLineEdit::textEdited, this, &FilePicker::updateFilter);
-    connect(_ui->showHiddenCheckBox, &QCheckBox::toggled,
-    [&](const bool toggled)
-    {
+            [&](const QModelIndex &topLeft, const QModelIndex &bottomRight,
+                const QVector<int> &roles) {
+                Q_UNUSED(topLeft);
+                Q_UNUSED(bottomRight);
+                if(!roles.isEmpty() && (roles.first() == Qt::CheckStateRole))
+                    emit selectionChanged();
+            });
+    connect(_ui->filterLineEdit, &QLineEdit::textEdited, this,
+            &FilePicker::updateFilter);
+    connect(_ui->showHiddenCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::Hidden);
         else
             _model.setFilter(_model.filter() & ~QDir::Hidden);
     });
-    connect(_ui->showSystemCheckBox, &QCheckBox::toggled,
-    [&](const bool toggled)
-    {
+    connect(_ui->showSystemCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::System);
         else
             _model.setFilter(_model.filter() & ~QDir::System);
     });
-    connect(_ui->hideLinksCheckBox, &QCheckBox::toggled,
-    [&](const bool toggled)
-    {
+    connect(_ui->hideLinksCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::NoSymLinks);
         else
             _model.setFilter(_model.filter() & ~QDir::NoSymLinks);
     });
-    connect(_ui->showOptionsButton, &QPushButton::clicked,
-    [&]()
-    {
+    connect(_ui->showOptionsButton, &QPushButton::clicked, [&]() {
         _ui->optionsContainer->setVisible(!_ui->optionsContainer->isVisible());
     });
-    connect(_ui->filterLineEdit, &QLineEdit::returnPressed,
-    [&]()
-    {
+    connect(_ui->filterLineEdit, &QLineEdit::returnPressed, [&]() {
         if(_completer.currentCompletion().isEmpty())
             _ui->treeView->setFocus();
     });
@@ -85,7 +76,8 @@ FilePicker::~FilePicker()
     if(_startPath.isEmpty())
     {
         QSettings settings;
-        settings.setValue("app/file_browse_last", _model.filePath(_ui->treeView->currentIndex()));
+        settings.setValue("app/file_browse_last",
+                          _model.filePath(_ui->treeView->currentIndex()));
     }
     delete _ui;
 }
@@ -110,7 +102,8 @@ void FilePicker::setSelectedUrls(const QList<QUrl> &urls)
     _model.reset();
     foreach(const QUrl url, urls)
     {
-        _model.setData(_model.index(url.toLocalFile()), Qt::Checked, Qt::CheckStateRole);
+        _model.setData(_model.index(url.toLocalFile()), Qt::Checked,
+                       Qt::CheckStateRole);
     }
 }
 

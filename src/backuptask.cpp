@@ -4,11 +4,16 @@
 
 #define MB 1048576
 
-BackupTask::BackupTask(): _uuid(QUuid::createUuid()),
-    _timestamp(QDateTime::currentDateTime()), _optionPreservePaths(true),
-    _optionTraverseMount(true), _optionFollowSymLinks(false),
-    _optionSkipFilesSize(0), _optionSkipSystem(false),
-    _optionSkipSystemFiles(), _status(TaskStatus::Initialized)
+BackupTask::BackupTask()
+    : _uuid(QUuid::createUuid()),
+      _timestamp(QDateTime::currentDateTime()),
+      _optionPreservePaths(true),
+      _optionTraverseMount(true),
+      _optionFollowSymLinks(false),
+      _optionSkipFilesSize(0),
+      _optionSkipSystem(false),
+      _optionSkipSystemFiles(),
+      _status(TaskStatus::Initialized)
 {
     QSettings settings;
     setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
@@ -109,10 +114,11 @@ QStringList BackupTask::getExcludesList()
             {
                 QStack<QDir> dirStack;
                 dirStack.push(QDir(file.absoluteFilePath()));
-                while (!dirStack.isEmpty())
+                while(!dirStack.isEmpty())
                 {
                     QDir dir(dirStack.pop());
-                    dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::NoSymLinks);
+                    dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot |
+                                  QDir::Hidden | QDir::NoSymLinks);
                     foreach(QFileInfo entry, dir.entryInfoList())
                     {
                         if(entry.isFile())

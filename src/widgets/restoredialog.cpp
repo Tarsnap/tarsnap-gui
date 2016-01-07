@@ -1,20 +1,24 @@
 #include "restoredialog.h"
 #include "ui_restoredialog.h"
 
-#include <QStandardPaths>
 #include <QFileDialog>
-#include <QSettings>
 #include <QFileInfo>
+#include <QSettings>
+#include <QStandardPaths>
 
-RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent) :
-    QDialog(parent), _ui(new Ui::RestoreDialog), _archive(archive)
+RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
+    : QDialog(parent), _ui(new Ui::RestoreDialog), _archive(archive)
 {
     _ui->setupUi(this);
-    setWindowFlags( (windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
+    setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) &
+                   ~Qt::WindowMaximizeButtonHint);
 
     _ui->infoLabel->setText(_ui->infoLabel->text().arg(archive->name()));
     QSettings settings;
-    QString downDir = settings.value("app/downloads_dir", QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)).toString();
+    QString   downDir = settings.value("app/downloads_dir",
+                                     QStandardPaths::writableLocation(
+                                         QStandardPaths::DownloadLocation))
+                          .toString();
     _ui->chdirLineEdit->setText(downDir);
     _ui->chdirLineEdit->hide();
     _ui->browseButton->hide();
@@ -35,7 +39,7 @@ ArchiveRestoreOptions RestoreDialog::getOptions()
     options.preservePaths  = _ui->preservePathsRadioButton->isChecked();
     options.overwriteFiles = _ui->overwriteCheckBox->isChecked();
     options.keepNewerFiles = _ui->keepNewerCheckBox->isChecked();
-    options.chdir = _ui->chdirLineEdit->text();
+    options.chdir          = _ui->chdirLineEdit->text();
     return options;
 }
 
@@ -58,9 +62,9 @@ void RestoreDialog::on_restoreDirectoryRadioButton_toggled(bool checked)
 
 void RestoreDialog::on_browseButton_clicked()
 {
-    QString path = QFileDialog::getExistingDirectory(this,
-                   tr("Directory to restore to"),
-                   QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first());
+    QString path = QFileDialog::getExistingDirectory(
+        this, tr("Directory to restore to"),
+        QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first());
     if(!path.isEmpty())
         _ui->chdirLineEdit->setText(path);
 }

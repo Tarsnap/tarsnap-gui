@@ -1,9 +1,8 @@
 #include "joblistitem.h"
 #include "utils.h"
 
-JobListItem::JobListItem(JobPtr job):
-    _widget(new QWidget),
-    _useSIPrefixes(false)
+JobListItem::JobListItem(JobPtr job)
+    : _widget(new QWidget), _useSIPrefixes(false)
 {
     QSettings settings;
     _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
@@ -15,11 +14,16 @@ JobListItem::JobListItem(JobPtr job):
     _widget->addAction(_ui.actionDelete);
     _ui.inspectButton->setDefaultAction(_ui.actionInspect);
     _ui.restoreButton->setDefaultAction(_ui.actionRestore);
-    connect(_ui.backupButton, &QPushButton::clicked, _ui.actionBackup, &QAction::triggered);
-    connect(_ui.actionBackup, &QAction::triggered, this, &JobListItem::requestBackup);
-    connect(_ui.actionInspect, &QAction::triggered, this, &JobListItem::requestInspect);
-    connect(_ui.actionRestore, &QAction::triggered, this, &JobListItem::requestRestore);
-    connect(_ui.actionDelete, &QAction::triggered, this, &JobListItem::requestDelete);
+    connect(_ui.backupButton, &QPushButton::clicked, _ui.actionBackup,
+            &QAction::triggered);
+    connect(_ui.actionBackup, &QAction::triggered, this,
+            &JobListItem::requestBackup);
+    connect(_ui.actionInspect, &QAction::triggered, this,
+            &JobListItem::requestInspect);
+    connect(_ui.actionRestore, &QAction::triggered, this,
+            &JobListItem::requestRestore);
+    connect(_ui.actionDelete, &QAction::triggered, this,
+            &JobListItem::requestDelete);
 
     setJob(job);
 }
@@ -47,11 +51,12 @@ void JobListItem::setJob(const JobPtr &job)
     if(_job->archives().isEmpty())
         _ui.lastBackupLabel->setText(tr("No backup done yet"));
     else
-        _ui.lastBackupLabel->setText(_job->archives().first()->timestamp().toString());
+        _ui.lastBackupLabel->setText(
+            _job->archives().first()->timestamp().toString());
 
     QString detail;
-    detail.append(tr("%1 %2 totaling ").arg(_job->archives().count())
-                  .arg(_job->archives().count() == 1 ? tr("archive") : tr("archives") ));
+    QString str = _job->archives().count() == 1 ? tr("archive") : tr("archives");
+    detail.append(tr("%1 %2 totaling ").arg(_job->archives().count()).arg(str));
     quint64 totalSize = 0;
     foreach(ArchivePtr archive, _job->archives())
     {

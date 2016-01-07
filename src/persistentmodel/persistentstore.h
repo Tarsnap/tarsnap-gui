@@ -1,9 +1,9 @@
 #ifndef PERSISTENTSTORE_H
 #define PERSISTENTSTORE_H
 
+#include <QMutex>
 #include <QObject>
 #include <QtSql>
-#include <QMutex>
 
 #define DEFAULT_DBNAME "tarsnap.db"
 
@@ -13,14 +13,20 @@ class PersistentStore : public QObject
 
 public:
     ~PersistentStore();
-    static PersistentStore& instance() { static PersistentStore instance;  if(!instance.initialized()) instance.init(); return instance; }
-    bool initialized() { return _initialized; }
+    static PersistentStore &instance()
+    {
+        static PersistentStore instance;
+        if(!instance.initialized())
+            instance.init();
+        return instance;
+    }
+    bool      initialized() { return _initialized; }
     QSqlQuery createQuery();
-    void purge();
-    void lock();
-    void unlock();
+    void      purge();
+    void      lock();
+    void      unlock();
 
-    QMutex* mutex();
+    QMutex *mutex();
 
 public slots:
     bool runQuery(QSqlQuery query);
@@ -34,14 +40,14 @@ protected:
 private:
     // Yes, a singleton
     explicit PersistentStore(QObject *parent = 0);
-    PersistentStore(PersistentStore const&);
-    void operator=(PersistentStore const&);
+    PersistentStore(PersistentStore const &);
+    void operator=(PersistentStore const &);
     bool init();
     void deinit();
 
-    bool            _initialized;
-    QSqlDatabase    _db;
-    QMutex          _mutex;
+    bool         _initialized;
+    QSqlDatabase _db;
+    QMutex       _mutex;
 };
 
 #endif // PERSISTENTSTORE_H

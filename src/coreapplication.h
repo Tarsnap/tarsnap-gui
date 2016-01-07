@@ -1,12 +1,12 @@
 #ifndef COREAPPLICATION_H
 #define COREAPPLICATION_H
 
-#include "widgets/mainwindow.h"
-#include "taskmanager.h"
 #include "notification.h"
+#include "taskmanager.h"
+#include "widgets/mainwindow.h"
 
-#include <QObject>
 #include <QApplication>
+#include <QObject>
 #include <QSettings>
 
 class CoreApplication : public QApplication
@@ -25,7 +25,7 @@ public slots:
     void showMainWindow();
 
 private:
-    MainWindow  *_mainWindow;
+    MainWindow * _mainWindow;
     Notification _notification;
     TaskManager  _taskManager;
     bool         _jobsOption;

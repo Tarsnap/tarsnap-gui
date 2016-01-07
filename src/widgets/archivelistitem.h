@@ -4,11 +4,12 @@
 #include "taskmanager.h"
 #include "ui_archiveitemwidget.h"
 
-#include <QObject>
 #include <QListWidgetItem>
+#include <QObject>
 #include <QSharedPointer>
 
-namespace Ui {
+namespace Ui
+{
 class ArchiveItemWidget;
 }
 
@@ -35,10 +36,10 @@ signals:
     void requestGoToJob();
 
 private:
-    Ui::ArchiveItemWidget    _ui;
-    QWidget                 *_widget;
-    ArchivePtr               _archive;
-    bool                     _useSIPrefixes;
+    Ui::ArchiveItemWidget _ui;
+    QWidget              *_widget;
+    ArchivePtr            _archive;
+    bool                  _useSIPrefixes;
 };
 
 #endif // ARCHIVELISTITEM_H

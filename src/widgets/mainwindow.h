@@ -1,16 +1,17 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "taskmanager.h"
 #include "tarsnapaccount.h"
+#include "taskmanager.h"
 
-#include <QWidget>
 #include <QLabel>
-#include <QTimer>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QTimer>
+#include <QWidget>
 
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 
@@ -48,7 +49,7 @@ protected:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
-    void mouseDoubleClickEvent(QMouseEvent * event);
+    void mouseDoubleClickEvent(QMouseEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
 
 public slots:
@@ -57,11 +58,14 @@ public slots:
     void backupTaskUpdate(const TaskStatus &status);
     void archivesDeleted(QList<ArchivePtr> archives);
     void updateLoadingAnimation(bool idle);
-    void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed, quint64 sizeUniqueTotal
-                               , quint64 sizeUniqueCompressed, quint64 archiveCount);
+    void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed,
+                               quint64 sizeUniqueTotal,
+                               quint64 sizeUniqueCompressed,
+                               quint64 archiveCount);
     void repairCacheStatus(TaskStatus status, QString reason);
     void purgeArchivesStatus(TaskStatus status, QString reason);
-    void restoreArchiveStatus(ArchivePtr archive, TaskStatus status, QString reason);
+    void restoreArchiveStatus(ArchivePtr archive, TaskStatus status,
+                              QString reason);
     void setTarsnapVersion(QString versionString);
     void notificationRaise();
     void displayStopTasks(int runningTasks, int queuedTasks);
@@ -98,19 +102,19 @@ private slots:
     void updateLastMachineActivity(QStringList activityFields);
 
 private:
-    Ui::MainWindow  *_ui;
-    QPixmap          _logo;
-    QIcon            _icon;
-    QDialog          _aboutWindow;
-    QPoint           _windowDragPos;
-    QString          _lastTimestamp;
-    ArchivePtr       _currentArchiveDetail;
-    bool             _useSIPrefixes;
-    QTimer           _purgeTimer;
-    int              _purgeTimerCount;
-    QMessageBox      _purgeCountdownWindow;
-    TarsnapAccount   _tarsnapAccount;
-    QString          _tarsnapVersion;
+    Ui::MainWindow *_ui;
+    QPixmap         _logo;
+    QIcon           _icon;
+    QDialog         _aboutWindow;
+    QPoint          _windowDragPos;
+    QString         _lastTimestamp;
+    ArchivePtr      _currentArchiveDetail;
+    bool            _useSIPrefixes;
+    QTimer          _purgeTimer;
+    int             _purgeTimerCount;
+    QMessageBox     _purgeCountdownWindow;
+    TarsnapAccount  _tarsnapAccount;
+    QString         _tarsnapVersion;
 };
 
 #endif // MAINWINDOW_H

@@ -7,7 +7,8 @@
 #include <QMouseEvent>
 #include <QMovie>
 
-namespace Ui {
+namespace Ui
+{
 class SetupDialog;
 }
 
@@ -41,7 +42,8 @@ public slots:
 
 signals:
     void requestRegisterMachine(QString user, QString password, QString machine,
-                                QString key, QString tarsnapPath, QString cachePath);
+                                QString key, QString tarsnapPath,
+                                QString cachePath);
     void getTarsnapVersion(QString tarsnapPath);
 
 protected:

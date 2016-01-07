@@ -4,14 +4,13 @@
 #include "utils.h"
 
 #include <QDropEvent>
-#include <QMimeData>
 #include <QFileInfo>
+#include <QMimeData>
 #include <QSettings>
 
-BackupListWidget::BackupListWidget(QWidget *parent):
-    QListWidget(parent)
+BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
 {
-    QSettings settings;
+    QSettings   settings;
     QStringList urls = settings.value("app/backup_list").toStringList();
     if(!urls.isEmpty())
     {
@@ -19,23 +18,21 @@ BackupListWidget::BackupListWidget(QWidget *parent):
         foreach(QString url, urls)
             urllist << QUrl::fromUserInput(url);
         if(!urllist.isEmpty())
-            QMetaObject::invokeMethod(this, "addItemsWithUrls"
-                                      , QUEUED, Q_ARG(QList<QUrl>, urllist));
+            QMetaObject::invokeMethod(this, "addItemsWithUrls", QUEUED,
+                                      Q_ARG(QList<QUrl>, urllist));
     }
-    connect(this, &QListWidget::itemActivated,
-    [&](QListWidgetItem * item)
-    {
-        static_cast<BackupListItem*>(item)->browseUrl();
+    connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
+        static_cast<BackupListItem *>(item)->browseUrl();
     });
 }
 
 BackupListWidget::~BackupListWidget()
 {
-    QSettings settings;
+    QSettings   settings;
     QStringList urls;
     for(int i = 0; i < count(); ++i)
     {
-        BackupListItem *backupItem = static_cast<BackupListItem*>(item(i));
+        BackupListItem *backupItem = static_cast<BackupListItem *>(item(i));
         urls << backupItem->url().toString(QUrl::FullyEncoded);
     }
     settings.setValue("app/backup_list", urls);
@@ -54,8 +51,10 @@ void BackupListWidget::addItemWithUrl(QUrl url)
         if(!file.exists())
             return;
         BackupListItem *item = new BackupListItem(url);
-        connect(item, &BackupListItem::requestDelete, this, &BackupListWidget::removeItems);
-        connect(item, &BackupListItem::requestUpdate, this, &BackupListWidget::recomputeListTotals);
+        connect(item, &BackupListItem::requestDelete, this,
+                &BackupListWidget::removeItems);
+        connect(item, &BackupListItem::requestUpdate, this,
+                &BackupListWidget::recomputeListTotals);
         insertItem(count(), item);
         setItemWidget(item, item->widget());
     }
@@ -73,8 +72,9 @@ void BackupListWidget::removeItems()
     if(selectedItems().count() == 0)
     {
         // attempt to remove the sender
-        BackupListItem* backupItem = qobject_cast<BackupListItem*>(sender());
-        if(backupItem) delete backupItem;
+        BackupListItem *backupItem = qobject_cast<BackupListItem *>(sender());
+        if(backupItem)
+            delete backupItem;
     }
     else
     {
@@ -90,10 +90,10 @@ void BackupListWidget::removeItems()
 void BackupListWidget::recomputeListTotals()
 {
     quint64 items = 0;
-    quint64 size = 0;
+    quint64 size  = 0;
     for(int i = 0; i < count(); ++i)
     {
-        BackupListItem *backupItem = static_cast<BackupListItem*>(item(i));
+        BackupListItem *backupItem = static_cast<BackupListItem *>(item(i));
         if(backupItem && (backupItem->count() != 0))
         {
             items += backupItem->count();
@@ -103,9 +103,9 @@ void BackupListWidget::recomputeListTotals()
     emit itemTotals(items, size);
 }
 
-void BackupListWidget::dragMoveEvent( QDragMoveEvent* event )
+void BackupListWidget::dragMoveEvent(QDragMoveEvent *event)
 {
-    if ( !event->mimeData()->hasUrls() )
+    if(!event->mimeData()->hasUrls())
     {
         event->ignore();
         return;
@@ -115,14 +115,14 @@ void BackupListWidget::dragMoveEvent( QDragMoveEvent* event )
 
 void BackupListWidget::dragEnterEvent(QDragEnterEvent *event)
 {
-    if (event->mimeData()->hasUrls())
+    if(event->mimeData()->hasUrls())
         event->acceptProposedAction();
 }
 
 void BackupListWidget::dropEvent(QDropEvent *event)
 {
     QList<QUrl> urls = event->mimeData()->urls();
-    if (!urls.isEmpty())
+    if(!urls.isEmpty())
         addItemsWithUrls(urls);
 
     event->acceptProposedAction();
@@ -146,4 +146,3 @@ void BackupListWidget::keyReleaseEvent(QKeyEvent *event)
         QListWidget::keyReleaseEvent(event);
     }
 }
-

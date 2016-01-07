@@ -605,8 +605,10 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
     _ui->accountActualSizeLabel->setText(
         Utils::humanBytes(sizeUniqueCompressed, _useSIPrefixes));
     _ui->accountActualSizeLabel->setToolTip(tooltip);
-    _ui->accountStorageSavedLabel->setText(
-        Utils::humanBytes(sizeTotal - sizeUniqueCompressed, _useSIPrefixes));
+    quint64 storageSaved = sizeTotal >= sizeUniqueCompressed ?
+                           sizeTotal - sizeUniqueCompressed : 0;
+    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(storageSaved,
+                                                             _useSIPrefixes));
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
 }

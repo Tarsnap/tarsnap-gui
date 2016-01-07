@@ -1,6 +1,8 @@
 #include "tarsnapclient.h"
 #include "debug.h"
 
+#include <QSettings>
+
 #define DEFAULT_TIMEOUT_MS 5000
 
 TarsnapClient::TarsnapClient()
@@ -35,6 +37,9 @@ void TarsnapClient::run()
 {
     _process = new QProcess();
     _process->setProcessChannelMode(QProcess::MergedChannels);
+    QSettings settings;
+    if(settings.value("tarsnap/no_default_config", false).toBool())
+        _arguments.prepend("--no-default-config");
     _process->setProgram(_command);
     _process->setArguments(_arguments);
     LOG << tr("Executing [%1 %2]")

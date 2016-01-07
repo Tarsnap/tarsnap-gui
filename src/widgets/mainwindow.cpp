@@ -190,10 +190,11 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::commitSettings);
     connect(_ui->skipSystemLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
-    ;
     connect(_ui->skipNoDumpCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
     connect(_ui->simulationCheckBox, &QCheckBox::toggled, this,
+            &MainWindow::commitSettings);
+    connect(_ui->ignoreConfigCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
     connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
             [&]() { _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES); });
@@ -413,6 +414,8 @@ void MainWindow::loadSettings()
         settings.value("tarsnap/follow_symlinks", false).toBool());
     _ui->preservePathsCheckBox->setChecked(
         settings.value("tarsnap/preserve_pathnames", true).toBool());
+    _ui->ignoreConfigCheckBox->setChecked(
+        settings.value("tarsnap/no_default_config", false).toBool());
     _ui->simulationCheckBox->setChecked(
         settings.value("tarsnap/dry_run", false).toBool());
     _ui->simulationIcon->setVisible(_ui->simulationCheckBox->isChecked());
@@ -823,6 +826,7 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/preserve_pathnames", _ui->preservePathsCheckBox->isChecked());
     settings.setValue("tarsnap/traverse_mount", _ui->traverseMountCheckBox->isChecked());
     settings.setValue("tarsnap/follow_symlinks", _ui->followSymLinksCheckBox->isChecked());
+    settings.setValue("tarsnap/no_default_config", _ui->ignoreConfigCheckBox->isChecked());
     settings.setValue("tarsnap/dry_run", _ui->simulationCheckBox->isChecked());
     settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
     settings.setValue("app/skip_files_size", _ui->skipFilesSizeSpinBox->value());

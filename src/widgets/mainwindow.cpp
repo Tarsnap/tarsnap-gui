@@ -298,6 +298,10 @@ MainWindow::MainWindow(QWidget *parent)
             [&](const QList<ArchivePtr> archives) {
                 notifyArchivesDeleted(archives, false);
             });
+    connect(_ui->jobDetailsWidget, &JobWidget::deleteJobArchives,
+            [&](const QList<ArchivePtr> archives) {
+                notifyArchivesDeleted(archives, false);
+            });
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
             [&](const QString text) {
                 if(text.isEmpty())

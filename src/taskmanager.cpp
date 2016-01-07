@@ -584,7 +584,12 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
         emit archiveList(_archiveMap.values());
         emit archivesDeleted(archives);
     }
-    parseGlobalStats(output);
+    // We are only interested in the output of the last archive deleted
+    QStringList lines = output.split('\n', QString::SkipEmptyParts);
+    QStringList lastFive;
+    for(int i = 0; i <= 5 && i < lines.count(); ++i)
+        lastFive.prepend(lines.takeLast());
+    parseGlobalStats(lastFive.join('\n'));
 }
 
 void TaskManager::overallStatsFinished(QVariant data, int exitCode, QString output)

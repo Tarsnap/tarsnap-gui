@@ -74,7 +74,8 @@ HEADERS  += \
     src/persistentmodel/job.h \
     src/backuptask.h \
     src/tarsnapaccount.h \
-    src/notification.h
+    src/notification.h \
+    src/error.h
 
 INCLUDEPATH += src/widgets/ \
             += src/

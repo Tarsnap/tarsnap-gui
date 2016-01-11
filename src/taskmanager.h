@@ -1,6 +1,7 @@
 #ifndef TASKMANAGER_H
 #define TASKMANAGER_H
 
+#include "error.h"
 #include "backuptask.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
@@ -45,6 +46,7 @@ signals:
     void message(QString msg, QString detail);
     void displayNotification(QString message);
     void taskInfo(int runningTasks, int queuedTasks);
+    void error(TarsnapError error);
 
 public slots:
     void loadSettings();
@@ -66,7 +68,7 @@ public slots:
     void getArchiveContents(ArchivePtr archive);
     void deleteArchives(QList<ArchivePtr> archives);
     void getOverallStats();
-    void fsck();
+    void fsck(bool prune = false);
     void nuke();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
 
@@ -92,6 +94,7 @@ private slots:
     void dequeueTask();
 
 private:
+    void parseError(QString tarsnapOutput);
     void parseGlobalStats(QString tarsnapOutput);
     void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
                            ArchivePtr archive);

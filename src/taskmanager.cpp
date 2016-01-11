@@ -1,4 +1,5 @@
 #include "taskmanager.h"
+
 #include "debug.h"
 #include "utils.h"
 
@@ -73,7 +74,7 @@ void TaskManager::registerMachine(QString user, QString password,
     if(keyFile.exists())
     {
         // existing key, just check with a tarsnap --print-stats command
-        args << "--fsck" << "--keyfile" << key << "--cachedir" << cachePath;
+        args << "--fsck-prune" << "--keyfile" << key << "--cachedir" << cachePath;
         registerClient->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
         registerClient->setArguments(args);
     }
@@ -293,7 +294,7 @@ void TaskManager::getOverallStats()
     queueTask(overallStats);
 }
 
-void TaskManager::fsck()
+void TaskManager::fsck(bool prune)
 {
     TarsnapClient *fsck = new TarsnapClient();
     QStringList args;
@@ -301,7 +302,10 @@ void TaskManager::fsck()
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--fsck-prune";
+    if(prune)
+        args << "--fsck-prune";
+    else
+        args << "--fsck";
     fsck->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     fsck->setArguments(args);
     connect(fsck, &TarsnapClient::finished, this,
@@ -419,6 +423,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
     else
     {
         backupTask->setStatus(TaskStatus::Failed);
+        parseError(output);
     }
     _backupTaskMap.take(backupTask->uuid());
     notifyBackupTaskUpdate(backupTask);
@@ -452,6 +457,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(output));
+        parseError(output);
         return;
     }
 
@@ -529,6 +535,7 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(output));
+        parseError(output);
         return;
     }
 
@@ -550,6 +557,7 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(output));
+        parseError(output);
         return;
     }
 
@@ -570,6 +578,7 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(output));
+        parseError(output);
         return;
     }
 
@@ -587,7 +596,8 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
     // We are only interested in the output of the last archive deleted
     QStringList lines = output.split('\n', QString::SkipEmptyParts);
     QStringList lastFive;
-    for(int i = 0; i <= 5 && i < lines.count(); ++i)
+    int count = lines.count();
+    for(int i = 0; i < std::min(5, count); ++i)
         lastFive.prepend(lines.takeLast());
     parseGlobalStats(lastFive.join('\n'));
 }
@@ -602,6 +612,7 @@ void TaskManager::overallStatsFinished(QVariant data, int exitCode, QString outp
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(output));
+        parseError(output);
         return;
     }
 
@@ -621,11 +632,17 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
+    {
         emit nukeStatus(TaskStatus::Completed, output);
+        fsck();
+        loadArchives();
+    }
     else
+    {
         emit nukeStatus(TaskStatus::Failed, output);
-    fsck();
-    loadArchives();
+        parseError(output);
+        return;
+    }
 }
 
 void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
@@ -633,9 +650,15 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
 {
     ArchivePtr archive = _archiveMap[data.toString()];
     if(archive && (exitCode == SUCCESS))
+    {
         emit restoreArchiveStatus(archive, TaskStatus::Completed, output);
+    }
     else
+    {
         emit restoreArchiveStatus(archive, TaskStatus::Failed, output);
+        parseError(output);
+        return;
+    }
 }
 
 void TaskManager::notifyBackupTaskUpdate(BackupTaskPtr backupTask)
@@ -713,6 +736,14 @@ void TaskManager::dequeueTask()
         {
             startTask(NULL); // start another queued task
         }
+    }
+}
+
+void TaskManager::parseError(QString tarsnapOutput)
+{
+    if(tarsnapOutput.contains("Error reading cache directory"))
+    {
+        emit error(TarsnapError::CacheError);
     }
 }
 

@@ -140,8 +140,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::tarsnapCacheBrowseButton);
     connect(_ui->appDataDirBrowseButton, &QPushButton::clicked, this,
             &MainWindow::appDataButtonClicked);
-    connect(_ui->repairCacheButton, &QPushButton::clicked, this,
-            &MainWindow::repairCacheButtonClicked);
     connect(_ui->purgeArchivesButton, &QPushButton::clicked, this,
             &MainWindow::purgeArchivesButtonClicked);
     connect(_ui->runSetupWizard, &QPushButton::clicked, this,
@@ -359,6 +357,8 @@ MainWindow::MainWindow(QWidget *parent)
             _ui->simulationIcon->show();
         }
     });
+    connect(_ui->repairCacheButton, &QPushButton::clicked, this,
+            [&](){ emit repairCache(true); });
 }
 
 MainWindow::~MainWindow()
@@ -624,6 +624,10 @@ void MainWindow::repairCacheStatus(TaskStatus status, QString reason)
     default:
         updateStatusMessage(tr("Cache repair failed. Hover mouse for details."),
                             reason);
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Cache repair failed. It might be worth trying"
+                                 " the 'Repair cache' button in Settings -> "
+                                 " Advanced."));
         break;
     }
 }
@@ -974,11 +978,6 @@ void MainWindow::tarsnapCacheBrowseButton()
     }
 }
 
-void MainWindow::repairCacheButtonClicked()
-{
-    emit repairCache();
-}
-
 void MainWindow::appDataButtonClicked()
 {
     QString appDataDir =
@@ -1121,6 +1120,22 @@ void MainWindow::displayStopTasks(int runningTasks, int queuedTasks)
     {
         emit stopTasks(true, true);
         updateStatusMessage("Stopped running tasks and cleared queued ones.");
+    }
+}
+
+void MainWindow::tarsnapError(TarsnapError error)
+{
+    switch(error)
+    {
+    case TarsnapError::CacheError:
+        auto confirm = QMessageBox::critical(this, tr("Tarsnap error"),
+                                             tr("The tarsnap cache directory is"
+                                                " either missing or is broken."
+                                                " Run tarsnap fsck to fix this?\n"),
+                                             QMessageBox::Yes | QMessageBox::No);
+        if(confirm == QMessageBox::Yes)
+            emit repairCache(false);
+        break;
     }
 }
 

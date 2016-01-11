@@ -31,7 +31,7 @@ signals:
     void loadArchiveStats(ArchivePtr archive);
     void loadArchiveContents(ArchivePtr archive);
     void getOverallStats();
-    void repairCache();
+    void repairCache(bool prune);
     void settingsChanged();
     void purgeArchives();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
@@ -69,6 +69,7 @@ public slots:
     void setTarsnapVersion(QString versionString);
     void notificationRaise();
     void displayStopTasks(int runningTasks, int queuedTasks);
+    void tarsnapError(TarsnapError error);
 
 private slots:
     void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
@@ -89,7 +90,6 @@ private slots:
     void accountMachineKeyBrowseButtonClicked();
     void tarsnapPathBrowseButtonClicked();
     void tarsnapCacheBrowseButton();
-    void repairCacheButtonClicked();
     void appDataButtonClicked();
     void purgeArchivesButtonClicked();
     void runSetupWizardClicked();

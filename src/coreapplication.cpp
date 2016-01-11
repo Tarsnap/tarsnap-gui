@@ -24,6 +24,7 @@ CoreApplication::CoreApplication(int &argc, char **argv)
     qRegisterMetaType<QMap<QString, JobPtr>>("QMap<QString, JobPtr>");
     qRegisterMetaType<QSystemTrayIcon::ActivationReason>(
         "QSystemTrayIcon::ActivationReason");
+    qRegisterMetaType<TarsnapError>("TarsnapError");
 
     QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
@@ -199,6 +200,8 @@ void CoreApplication::showMainWindow()
             &MainWindow::displayStopTasks, QUEUED);
     connect(_mainWindow, &MainWindow::jobAdded, &_taskManager,
             &TaskManager::addJob, QUEUED);
+    connect(&_taskManager, &TaskManager::error, _mainWindow,
+            &MainWindow::tarsnapError, QUEUED);
 
     QMetaObject::invokeMethod(_mainWindow, "loadArchives", QUEUED);
     QMetaObject::invokeMethod(_mainWindow, "loadJobs", QUEUED);

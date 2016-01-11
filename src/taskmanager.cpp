@@ -741,7 +741,8 @@ void TaskManager::dequeueTask()
 
 void TaskManager::parseError(QString tarsnapOutput)
 {
-    if(tarsnapOutput.contains("Error reading cache directory"))
+    if(tarsnapOutput.contains("Error reading cache directory") ||
+       tarsnapOutput.contains("Sequence number mismatch: Run --fsck"))
     {
         emit error(TarsnapError::CacheError);
     }

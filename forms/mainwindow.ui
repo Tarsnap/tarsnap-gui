@@ -163,7 +163,7 @@ border-radius: 2px;
              <property name="styleSheet">
               <string notr="true">#backupListWidget::item
 {
-min-height: 35px;
+height: 33px;
 selection-background-color: rgba(179, 190, 255, 120);
 }</string>
              </property>
@@ -375,7 +375,7 @@ color: gray;
                  <property name="styleSheet">
                   <string notr="true">#archiveListWidget::item
 {
-min-height: 35px;
+height: 33px;
 selection-background-color: rgba(179, 190, 255, 120);
 }</string>
                  </property>
@@ -753,7 +753,7 @@ font-size: 12px;
                  <property name="styleSheet">
                   <string notr="true">#jobListWidget::item
 {
-min-height: 35px;
+height: 33px;
 selection-background-color: rgba(179, 190, 255, 120);
 }</string>
                  </property>

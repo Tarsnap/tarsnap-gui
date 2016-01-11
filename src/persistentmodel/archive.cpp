@@ -44,7 +44,7 @@ void Archive::save()
     query.addBindValue(_sizeUniqueTotal);
     query.addBindValue(_sizeUniqueCompressed);
     query.addBindValue(_command);
-    query.addBindValue(_contents.join('\n'));
+    query.addBindValue(_contents);
     query.addBindValue(_jobRef);
     if(exists)
         query.addBindValue(_name);
@@ -82,10 +82,8 @@ void Archive::load()
         _sizeUniqueCompressed =
             query.value(query.record().indexOf("sizeUniqueCompressed")).toULongLong();
         _command  = query.value(query.record().indexOf("command")).toString();
-        _contents = query.value(query.record().indexOf("contents"))
-                        .toString()
-                        .split('\n', QString::SkipEmptyParts);
-        _jobRef = query.value(query.record().indexOf("jobRef")).toString();
+        _contents = query.value(query.record().indexOf("contents")).toByteArray();
+        _jobRef   = query.value(query.record().indexOf("jobRef")).toString();
         setObjectKey(_name);
     }
     else
@@ -167,14 +165,14 @@ void Archive::setJobRef(const QString &jobRef)
     _jobRef = jobRef;
 }
 
-QStringList Archive::contents() const
+QString Archive::contents() const
 {
-    return _contents;
+    return qUncompress(_contents);
 }
 
-void Archive::setContents(const QStringList &value)
+void Archive::setContents(const QString &value)
 {
-    _contents = value;
+    _contents = qCompress(value.toLatin1());
 }
 
 QString Archive::command() const

@@ -563,8 +563,7 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
 
     if(archive)
     {
-        archive->setContents(
-            output.trimmed().split('\n', QString::SkipEmptyParts));
+        archive->setContents(output);
         archive->save();
     }
 }

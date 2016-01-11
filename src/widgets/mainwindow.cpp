@@ -489,6 +489,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         if((_ui->mainTabWidget->currentWidget() == _ui->archivesTab) &&
            (_ui->archiveDetailsWidget->isVisible()))
         {
+            _ui->archiveContentsPlainTextEdit->clear(); // reduce memory usage
             _ui->archiveDetailsWidget->hide();
         }
         if((_ui->mainTabWidget->currentWidget() == _ui->jobsTab) &&
@@ -804,11 +805,10 @@ void MainWindow::updateInspectArchive()
         _ui->archiveUniqueDataLabel->setToolTip(
             _currentArchiveDetail->archiveStats());
         _ui->archiveCommandLabel->setText(_currentArchiveDetail->command());
-        int count = _currentArchiveDetail->contents().count();
+        QString contents = _currentArchiveDetail->contents();
         _ui->archiveContentsLabel->setText(tr("Contents (%1)")
-                .arg((count == 0) ? tr("loading...") : QString::number(count)));
-        _ui->archiveContentsPlainTextEdit->setPlainText(
-            _currentArchiveDetail->contents().join('\n'));
+                                           .arg(QString::number(contents.count('\n'))));
+        _ui->archiveContentsPlainTextEdit->setPlainText(contents);
     }
 }
 

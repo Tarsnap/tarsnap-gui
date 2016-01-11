@@ -219,8 +219,7 @@ bool PersistentStore::upgradeVersion0()
     bool      result = false;
     QSqlQuery query(_db);
 
-    if((result =
-            query.exec("CREATE TABLE version (version INTEGER NOT NULL);")))
+    if((result = query.exec("CREATE TABLE version (version INTEGER NOT NULL);")))
         result = query.exec("INSERT INTO version VALUES (0);");
 
     if(!result)
@@ -236,8 +235,7 @@ bool PersistentStore::upgradeVersion1()
     bool      result = false;
     QSqlQuery query(_db);
 
-    if((result = query.exec(
-            "ALTER TABLE jobs ADD COLUMN optionScheduledEnabled INTEGER;")))
+    if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionScheduledEnabled INTEGER;")))
         result = query.exec("UPDATE version SET version = 1;");
 
     // Handle the special case, since I started versioning DB after two app
@@ -258,12 +256,8 @@ bool PersistentStore::upgradeVersion2()
     bool      result = false;
     QSqlQuery query(_db);
 
-    if((result =
-            query.exec("ALTER TABLE jobs ADD COLUMN optionSkipFiles INTEGER;")))
-        result = query.exec(
-            "ALTER TABLE jobs ADD COLUMN optionSkipFilesPatterns TEXT;");
-
-    if(result)
+    if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipFiles INTEGER;")))
+    if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipFilesPatterns TEXT;")))
         result = query.exec("UPDATE version SET version = 2;");
 
     if(!result)
@@ -280,6 +274,7 @@ bool PersistentStore::upgradeVersion3()
     QSqlQuery query(_db);
 
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipNoDump INTEGER;")))
+    if((result = query.exec("UPDATE archives SET contents=\"\";")))
         result = query.exec("UPDATE version SET version = 3;");
 
     if(!result)

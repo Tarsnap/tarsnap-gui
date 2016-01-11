@@ -43,8 +43,8 @@ public:
     void setSizeUniqueCompressed(const quint64 &value);
     QString command() const;
     void setCommand(const QString &value);
-    QStringList contents() const;
-    void setContents(const QStringList &value);
+    QString contents() const;
+    void setContents(const QString &value);
     QString jobRef() const;
     void setJobRef(const QString &jobRef);
 
@@ -69,7 +69,7 @@ private:
     quint64     _sizeUniqueTotal;
     quint64     _sizeUniqueCompressed;
     QString     _command;
-    QStringList _contents;
+    QByteArray  _contents;
     QString     _jobRef;
 };
 

@@ -59,6 +59,11 @@
    </item>
    <item>
     <widget class="TextLabel" name="nameLabel">
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+font-family: Monospace, Monaco;
+}</string>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -79,7 +84,7 @@
       <string notr="true">QLabel {
 color: grey;
 font-family: Monospace, Monaco;
-font-size: 12px;
+font-size: 11px;
 }</string>
      </property>
      <property name="text">
@@ -115,7 +120,7 @@ font-size: 12px;
       <string notr="true">QLabel {
 color: grey;
 font-family: Monospace, Monaco;
-font-size: 12px;
+font-size: 11px;
 }</string>
      </property>
      <property name="text">

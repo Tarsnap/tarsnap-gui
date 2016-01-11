@@ -101,6 +101,11 @@ padding-left: 2px;
    </item>
    <item>
     <widget class="TextLabel" name="nameLabel">
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+font-family: Monospace, Monaco;
+}</string>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -131,7 +136,7 @@ padding-left: 2px;
       <string notr="true">QLabel {
 color: grey;
 font-family: Monospace, Monaco;
-font-size: 12px;
+font-size: 11px;
 }</string>
      </property>
      <property name="text">

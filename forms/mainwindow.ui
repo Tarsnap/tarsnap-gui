@@ -683,7 +683,11 @@ max-height: 120px;
                   <item>
                    <widget class="QPlainTextEdit" name="archiveContentsPlainTextEdit">
                     <property name="styleSheet">
-                     <string notr="true"/>
+                     <string notr="true">#archiveContentsPlainTextEdit
+{
+font-family: Monospace, Monaco;
+font-size: 12px;
+}</string>
                     </property>
                     <property name="documentTitle">
                      <string>test</string>

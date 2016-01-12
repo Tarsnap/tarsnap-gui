@@ -54,7 +54,7 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
 
     _ui.nameLabel->setText(_archive->name());
     _ui.nameLabel->setToolTip(_archive->name());
-    QString detail(_archive->timestamp().toString());
+    QString detail(_archive->timestamp().toString(Qt::DefaultLocaleLongDate));
     if(_archive->sizeTotal() != 0)
     {
         QString size = Utils::humanBytes(_archive->sizeTotal(), _useSIPrefixes,

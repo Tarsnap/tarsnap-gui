@@ -784,7 +784,7 @@ void MainWindow::updateInspectArchive()
     {
         _ui->archiveNameLabel->setText(_currentArchiveDetail->name());
         _ui->archiveDateLabel->setText(
-            _currentArchiveDetail->timestamp().toString());
+            _currentArchiveDetail->timestamp().toString(Qt::DefaultLocaleLongDate));
         if(_currentArchiveDetail->jobRef().isEmpty())
         {
             _ui->archiveJobLabel->hide();

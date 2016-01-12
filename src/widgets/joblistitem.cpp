@@ -52,7 +52,7 @@ void JobListItem::setJob(const JobPtr &job)
         _ui.lastBackupLabel->setText(tr("No backup done yet"));
     else
         _ui.lastBackupLabel->setText(
-            _job->archives().first()->timestamp().toString());
+            _job->archives().first()->timestamp().toString(Qt::DefaultLocaleLongDate));
 
     QString detail;
     QString str = _job->archives().count() == 1 ? tr("archive") : tr("archives");

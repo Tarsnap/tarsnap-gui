@@ -104,6 +104,7 @@ padding-left: 2px;
      <property name="styleSheet">
       <string notr="true">QLabel {
 font-family: Monospace, Monaco;
+font-size: 12px;
 }</string>
      </property>
      <property name="text">

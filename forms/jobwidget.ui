@@ -412,8 +412,8 @@ padding-left: 3px;
          <property name="styleSheet">
           <string notr="true">#archiveListWidget::item
 {
-min-height: 35px;
-selection-background-color: rgba(179, 190, 255, 120);
+height: 33px;
+selection-background-color: rgba(177,214,255, 255);
 }</string>
          </property>
          <property name="alternatingRowColors">

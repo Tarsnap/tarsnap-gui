@@ -45,7 +45,8 @@ SOURCES += \
     src/persistentmodel/job.cpp \
     src/backuptask.cpp \
     src/tarsnapaccount.cpp \
-    src/notification.cpp
+    src/notification.cpp \
+    src/persistentmodel/journal.cpp
 
 HEADERS  += \
     src/coreapplication.h \
@@ -75,7 +76,8 @@ HEADERS  += \
     src/backuptask.h \
     src/tarsnapaccount.h \
     src/notification.h \
-    src/error.h
+    src/error.h \
+    src/persistentmodel/journal.h
 
 INCLUDEPATH += src/widgets/ \
             += src/

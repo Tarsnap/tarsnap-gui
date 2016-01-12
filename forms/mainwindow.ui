@@ -75,8 +75,8 @@
          <property name="styleSheet">
           <string notr="true">#mainTabWidget &gt; QTabBar::tab {
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(85,164,216,225), stop: 0.9 rgba(85,164,216,225),
-					stop: 1.0 rgba(46,141,204,255), stop: 1.0 rgba(46,141,204,255));
+					stop: 0 rgba(85,164,216,225), stop: 0.8 rgba(85,164,216,225),
+					stop: 0.9 rgba(46,141,204,255), stop: 1.0 rgba(46,141,204,255));
 border: 1px solid #ECF0F1;
 border-bottom: none;
 border-top-left-radius: 3px;
@@ -164,7 +164,7 @@ border-radius: 2px;
               <string notr="true">#backupListWidget::item
 {
 height: 33px;
-selection-background-color: rgba(179, 190, 255, 120);
+selection-background-color: rgba(177,214,255, 255);
 }</string>
              </property>
              <property name="tabKeyNavigation">
@@ -206,7 +206,7 @@ selection-background-color: rgba(179, 190, 255, 120);
              <property name="styleSheet">
               <string notr="true">QLabel {
 color: gray;
-background-color: rgba(178,190,255, 85);
+background-color: rgba(237,243,254,255);
 }</string>
              </property>
              <property name="text">
@@ -376,7 +376,7 @@ color: gray;
                   <string notr="true">#archiveListWidget::item
 {
 height: 33px;
-selection-background-color: rgba(179, 190, 255, 120);
+selection-background-color: rgba(177,214,255, 255);
 }</string>
                  </property>
                  <property name="tabKeyNavigation">
@@ -754,7 +754,7 @@ font-size: 12px;
                   <string notr="true">#jobListWidget::item
 {
 height: 33px;
-selection-background-color: rgba(179, 190, 255, 120);
+selection-background-color: rgba(177,214,255, 255);
 }</string>
                  </property>
                  <property name="alternatingRowColors">

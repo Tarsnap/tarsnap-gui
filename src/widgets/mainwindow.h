@@ -82,7 +82,6 @@ private slots:
     void validateTarsnapCache();
     void purgeTimerFired();
     void appendToJournalLog(QString msg);
-    void appendToConsoleLog(QString msg);
     void browseForBackupItems();
     void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();

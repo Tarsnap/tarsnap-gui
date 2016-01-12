@@ -33,8 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
       _purgeCountdownWindow(this),
       _tarsnapAccount(this)
 {
-    connect(&Debug::instance(), &Debug::message, this,
-            &MainWindow::appendToConsoleLog, QUEUED);
+    connect(&Debug::instance(), &Debug::message, this, [&](const QString &msg)
+            {_ui->consoleLog->appendPlainText(msg);});
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
     _ui->setupUi(this);
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -920,11 +920,6 @@ void MainWindow::appendToJournalLog(QString msg)
     cursor.insertText(msg.remove(QRegExp("<[^>]*>"))); // also removes html tags
     _ui->journalLog->moveCursor(QTextCursor::End);
     _ui->journalLog->ensureCursorVisible();
-}
-
-void MainWindow::appendToConsoleLog(QString msg)
-{
-    _ui->consoleLog->appendPlainText(msg);
 }
 
 void MainWindow::browseForBackupItems()

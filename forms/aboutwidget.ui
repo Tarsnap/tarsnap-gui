@@ -92,7 +92,7 @@ border-image:url(:/icons/tarsnap_icon_big.png);
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>© 2014, 2015 Tarsnap Backup Inc. All rights reserved.</string>
+      <string>© 2014-2016 Tarsnap Backup Inc. All rights reserved.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

@@ -30,6 +30,7 @@ CoreApplication::CoreApplication(int &argc, char **argv)
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
     QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
     QCoreApplication::setApplicationVersion(APP_VERSION);
+    _journal.load();
 }
 
 CoreApplication::~CoreApplication()
@@ -202,9 +203,20 @@ void CoreApplication::showMainWindow()
             &TaskManager::addJob, QUEUED);
     connect(&_taskManager, &TaskManager::error, _mainWindow,
             &MainWindow::tarsnapError, QUEUED);
+    connect(&_taskManager, &TaskManager::logMessage, &_journal, &Journal::log,
+            QUEUED);
+    connect(_mainWindow, &MainWindow::logMessage, &_journal, &Journal::log,
+            QUEUED);
+    connect(_mainWindow, &MainWindow::getJournal, &_journal,
+            &Journal::getJournal, QUEUED);
+    connect(&_journal, &Journal::journal, _mainWindow,
+            &MainWindow::setJournal, QUEUED);
+    connect(&_journal, &Journal::logEntry, _mainWindow,
+            &MainWindow::appendToJournalLog, QUEUED);
 
     QMetaObject::invokeMethod(_mainWindow, "loadArchives", QUEUED);
     QMetaObject::invokeMethod(_mainWindow, "loadJobs", QUEUED);
+    QMetaObject::invokeMethod(_mainWindow, "getJournal", QUEUED);
     _mainWindow->show();
 }
 

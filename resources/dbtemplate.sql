@@ -17,7 +17,7 @@ CREATE TABLE `jobs` (
 	`optionPreservePaths`		INTEGER,
 	`optionTraverseMount`		INTEGER,
 	`optionFollowSymLinks`		INTEGER,
-	`optionSkipNoDump`		    INTEGER,
+	`optionSkipNoDump`			INTEGER,
 	`optionSkipFilesSize`		INTEGER,
 	`optionSkipFiles`			INTEGER,
 	`optionSkipFilesPatterns`	TEXT,
@@ -35,5 +35,9 @@ CREATE TABLE `archives` (
 	`jobRef`	TEXT,
 	PRIMARY KEY(name),
 	FOREIGN KEY(jobRef) REFERENCES jobs(name)
+);
+CREATE TABLE `journal` (
+	`timestamp`	INTEGER NOT NULL,
+	`log`	TEXT
 );
 COMMIT;

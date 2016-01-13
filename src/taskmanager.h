@@ -47,6 +47,7 @@ signals:
     void displayNotification(QString message);
     void taskInfo(int runningTasks, int queuedTasks);
     void error(TarsnapError error);
+    void logMessage(QString message);
 
 public slots:
     void loadSettings();

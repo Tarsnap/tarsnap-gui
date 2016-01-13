@@ -26,8 +26,6 @@ public:
     void      lock();
     void      unlock();
 
-    QMutex *mutex();
-
 public slots:
     bool runQuery(QSqlQuery query);
 

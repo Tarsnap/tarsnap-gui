@@ -816,10 +816,7 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
 {
     _ui->statusBarLabel->setText(message);
     _ui->statusBarLabel->setToolTip(detail);
-
-    appendToJournalLog(QString("[%1] %2")
-              .arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss"))
-              .arg(message));
+    emit logMessage(message.remove(QRegExp("<[^>]*>"))); // remove html tags
 }
 
 void MainWindow::commitSettings()
@@ -899,7 +896,7 @@ void MainWindow::purgeTimerFired()
     }
 }
 
-void MainWindow::appendToJournalLog(QString msg)
+void MainWindow::appendToJournalLog(QDateTime timestamp, QString message)
 {
     QTextCursor cursor(_ui->journalLog->document());
     if(!_ui->journalLog->document()->isEmpty())
@@ -917,9 +914,19 @@ void MainWindow::appendToJournalLog(QString msg)
     QTextBlockFormat bf;
     bf.setBackground(QBrush(bgcolor));
     cursor.mergeBlockFormat(bf);
-    cursor.insertText(msg.remove(QRegExp("<[^>]*>"))); // also removes html tags
+    cursor.insertText(QString("[%1] %2").arg(timestamp.toString("yyyy-MM-dd HH:mm:ss")).arg(message));
     _ui->journalLog->moveCursor(QTextCursor::End);
     _ui->journalLog->ensureCursorVisible();
+}
+
+void MainWindow::setJournal(QMap<QDateTime, QString> _log)
+{
+    QMap<QDateTime, QString>::const_iterator i = _log.constBegin();
+    while (i != _log.constEnd())
+    {
+        appendToJournalLog(i.key(), i.value());
+        ++i;
+    }
 }
 
 void MainWindow::browseForBackupItems()

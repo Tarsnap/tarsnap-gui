@@ -44,6 +44,8 @@ signals:
     void displayNotification(QString message);
     void getTaskInfo();
     void jobAdded(JobPtr job);
+    void getJournal();
+    void logMessage(QString message);
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -70,6 +72,8 @@ public slots:
     void notificationRaise();
     void displayStopTasks(int runningTasks, int queuedTasks);
     void tarsnapError(TarsnapError error);
+    void appendToJournalLog(QDateTime timestamp, QString message);
+    void setJournal(QMap<QDateTime, QString> _log);
 
 private slots:
     void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
@@ -81,7 +85,6 @@ private slots:
     void validateTarsnapPath();
     void validateTarsnapCache();
     void purgeTimerFired();
-    void appendToJournalLog(QString msg);
     void browseForBackupItems();
     void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();

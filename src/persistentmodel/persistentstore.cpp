@@ -143,10 +143,6 @@ void PersistentStore::deinit()
         _initialized = false;
     }
 }
-QMutex *PersistentStore::mutex()
-{
-    return &_mutex;
-}
 
 QSqlQuery PersistentStore::createQuery()
 {
@@ -275,6 +271,7 @@ bool PersistentStore::upgradeVersion3()
 
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipNoDump INTEGER;")))
     if((result = query.exec("UPDATE archives SET contents=\"\";")))
+    if((result = query.exec("CREATE TABLE journal (timestamp INTEGER NOT NULL, log TEXT);")))
         result = query.exec("UPDATE version SET version = 3;");
 
     if(!result)

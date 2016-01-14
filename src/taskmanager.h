@@ -34,20 +34,15 @@ signals:
     void tarsnapVersion(QString versionString);
     void registerMachineStatus(TaskStatus status, QString reason);
     void fsckStatus(TaskStatus status, QString reason);
-    void nukeStatus(TaskStatus status, QString reason);
     void archiveList(QList<ArchivePtr> archives, bool fromRemote = false);
-    void archivesDeleted(QList<ArchivePtr> archives);
     void overallStats(quint64 sizeTotal, quint64 sizeCompressed,
                       quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed,
                       quint64 archiveCount);
-    void restoreArchiveStatus(ArchivePtr archive, TaskStatus status,
-                              QString reason);
     void jobsList(QMap<QString, JobPtr> jobs);
-    void message(QString msg, QString detail);
+    void message(QString msg, QString detail = "");
     void displayNotification(QString message);
     void taskInfo(int runningTasks, int queuedTasks);
     void error(TarsnapError error);
-    void logMessage(QString message);
 
 public slots:
     void loadSettings();
@@ -88,6 +83,7 @@ private slots:
     void nukeFinished(QVariant data, int exitCode, QString output);
     void restoreArchiveFinished(QVariant data, int exitCode, QString output);
     void notifyBackupTaskUpdate(BackupTaskPtr backupTask);
+    void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
 
     // general task management
     void queueTask(TarsnapClient *cli, bool exclusive = false);

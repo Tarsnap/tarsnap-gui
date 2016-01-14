@@ -274,32 +274,6 @@ MainWindow::MainWindow(QWidget *parent)
             &JobListWidget::backupSelectedItems);
 
     // lambda slots to quickly update various UI components
-    connect(this, &MainWindow::loadArchives, [&]() {
-        updateStatusMessage(tr("Updating archives list from remote..."));
-    });
-    connect(this, &MainWindow::archiveList,
-            [&](const QList<ArchivePtr> archives, bool fromRemote) {
-                Q_UNUSED(archives);
-                if(fromRemote)
-                    updateStatusMessage(
-                        tr("Updating archives list from remote...done"));
-            });
-    connect(this, &MainWindow::loadArchiveStats, [&](const ArchivePtr archive) {
-        updateStatusMessage(
-            tr("Fetching details for archive <i>%1</i>.").arg(archive->name()));
-    });
-    connect(this, &MainWindow::loadArchiveContents, [&](const ArchivePtr archive) {
-        updateStatusMessage(
-            tr("Fetching contents for archive <i>%1</i>.").arg(archive->name()));
-    });
-    connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives,
-            [&](const QList<ArchivePtr> archives) {
-                notifyArchivesDeleted(archives, false);
-            });
-    connect(_ui->jobDetailsWidget, &JobWidget::deleteJobArchives,
-            [&](const QList<ArchivePtr> archives) {
-                notifyArchivesDeleted(archives, false);
-            });
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
             [&](const QString text) {
                 if(text.isEmpty())
@@ -312,10 +286,6 @@ MainWindow::MainWindow(QWidget *parent)
                     _ui->backupButton->setEnabled(true);
                 }
             });
-    connect(this, &MainWindow::restoreArchive, [&](const ArchivePtr archive) {
-        updateStatusMessage(
-            tr("Restoring archive <i>%1</i>...").arg(archive->name()));
-    });
     connect(_ui->downloadsDirLineEdit, &QLineEdit::textChanged, [&]() {
         QFileInfo file(_ui->downloadsDirLineEdit->text());
         if(file.exists() && file.isDir() && file.isWritable())
@@ -550,36 +520,6 @@ void MainWindow::backupTaskUpdate(const TaskStatus &status)
     }
 }
 
-void MainWindow::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
-{
-    if(archives.count() > 1)
-    {
-        QString detail(archives[0]->name());
-        for(int i = 1; i < archives.count(); ++i)
-        {
-            ArchivePtr archive = archives.at(i);
-            detail.append(QString::fromLatin1(", ") + archive->name());
-        }
-        updateStatusMessage(
-            tr("Deleting archive <i>%1</i> and %2 more archives...%3")
-                .arg(archives.first()->name())
-                .arg(archives.count() - 1)
-                .arg(done ? "done" : ""),
-            detail);
-    }
-    else if(archives.count() == 1)
-    {
-        updateStatusMessage(tr("Deleting archive <i>%1</i>...%2")
-                                .arg(archives.first()->name())
-                                .arg(done ? "done" : ""));
-    }
-}
-
-void MainWindow::archivesDeleted(QList<ArchivePtr> archives)
-{
-    notifyArchivesDeleted(archives, true);
-}
-
 void MainWindow::updateLoadingAnimation(bool idle)
 {
     if(idle)
@@ -612,60 +552,6 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
                                                              _useSIPrefixes));
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
-}
-
-void MainWindow::repairCacheStatus(TaskStatus status, QString reason)
-{
-    switch(status)
-    {
-    case TaskStatus::Completed:
-        updateStatusMessage(tr("Cache repair succeeded."), reason);
-        break;
-    case TaskStatus::Failed:
-    default:
-        updateStatusMessage(tr("Cache repair failed. Hover mouse for details."),
-                            reason);
-        QMessageBox::critical(this, tr("Tarsnap error"),
-                              tr("Cache repair failed. It might be worth trying"
-                                 " the 'Repair cache' button in Settings -> "
-                                 " Advanced."));
-        break;
-    }
-}
-
-void MainWindow::purgeArchivesStatus(TaskStatus status, QString reason)
-{
-    switch(status)
-    {
-    case TaskStatus::Completed:
-        updateStatusMessage(tr("All archives purged successfully."), reason);
-        break;
-    case TaskStatus::Failed:
-    default:
-        updateStatusMessage(
-            tr("Archives purging failed. Hover mouse for details."), reason);
-        break;
-    }
-}
-
-void MainWindow::restoreArchiveStatus(ArchivePtr archive, TaskStatus status,
-                                      QString reason)
-{
-    switch(status)
-    {
-    case TaskStatus::Completed:
-        updateStatusMessage(
-            tr("Restoring archive <i>%1</i>...done").arg(archive->name()),
-            reason);
-        break;
-    case TaskStatus::Failed:
-    default:
-        updateStatusMessage(
-            tr("Restoring archive <i>%1</i>...failed. Hover mouse for details.")
-                .arg(archive->name()),
-            reason);
-        break;
-    }
 }
 
 void MainWindow::setTarsnapVersion(QString versionString)
@@ -886,7 +772,6 @@ void MainWindow::purgeTimerFired()
         _purgeTimer.stop();
         _purgeCountdownWindow.accept();
         emit purgeArchives();
-        updateStatusMessage(tr("Archives purge initiated..."));
     }
     else
     {
@@ -1130,6 +1015,7 @@ void MainWindow::tarsnapError(TarsnapError error)
     switch(error)
     {
     case TarsnapError::CacheError:
+    {
         auto confirm = QMessageBox::critical(this, tr("Tarsnap error"),
                                              tr("The tarsnap cache directory is"
                                                 " either missing or is broken."
@@ -1138,6 +1024,15 @@ void MainWindow::tarsnapError(TarsnapError error)
         if(confirm == QMessageBox::Yes)
             emit repairCache(false);
         break;
+    }
+    case TarsnapError::FsckError:
+    {
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Cache repair failed. It might be worth trying"
+                                 " the 'Repair cache' button in Settings -> "
+                                 " Advanced."));
+        break;
+    }
     }
 }
 

@@ -26,7 +26,7 @@ public:
 signals:
     void backupNow(BackupTaskPtr backupTask);
     void loadArchives();
-    void archiveList(QList<ArchivePtr> archives, bool fromRemote = false);
+    void archiveList(QList<ArchivePtr> archives);
     void deleteArchives(QList<ArchivePtr> archives);
     void loadArchiveStats(ArchivePtr archive);
     void loadArchiveContents(ArchivePtr archive);
@@ -58,16 +58,11 @@ public slots:
     void loadSettings();
     void updateStatusMessage(QString message, QString detail = "");
     void backupTaskUpdate(const TaskStatus &status);
-    void archivesDeleted(QList<ArchivePtr> archives);
     void updateLoadingAnimation(bool idle);
     void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed,
                                quint64 sizeUniqueTotal,
                                quint64 sizeUniqueCompressed,
                                quint64 archiveCount);
-    void repairCacheStatus(TaskStatus status, QString reason);
-    void purgeArchivesStatus(TaskStatus status, QString reason);
-    void restoreArchiveStatus(ArchivePtr archive, TaskStatus status,
-                              QString reason);
     void setTarsnapVersion(QString versionString);
     void notificationRaise();
     void displayStopTasks(int runningTasks, int queuedTasks);
@@ -76,7 +71,6 @@ public slots:
     void setJournal(QMap<QDateTime, QString> _log);
 
 private slots:
-    void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
     void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void updateInspectArchive();

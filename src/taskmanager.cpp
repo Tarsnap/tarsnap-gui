@@ -178,7 +178,7 @@ void TaskManager::loadArchives()
     }
     emit archiveList(_archiveMap.values());
 
-    // Issue sync from remote next
+    // Issue sync with remote next
     TarsnapClient *listArchivesClient = new TarsnapClient();
     QStringList    args;
     if(!_tarsnapKeyFile.isEmpty())
@@ -192,6 +192,8 @@ void TaskManager::loadArchives()
     listArchivesClient->setArguments(args);
     connect(listArchivesClient, &TarsnapClient::finished, this,
             &TaskManager::getArchiveListFinished, QUEUED);
+    connect(listArchivesClient, &TarsnapClient::started, this,[&]()
+            { emit message(tr("Updating archives list from remote...")); }, QUEUED);
     queueTask(listArchivesClient);
 }
 
@@ -219,6 +221,8 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
     statsClient->setData(archive->name());
     connect(statsClient, &TarsnapClient::finished, this,
             &TaskManager::getArchiveStatsFinished, QUEUED);
+    connect(statsClient, &TarsnapClient::started, this, [=]()
+            {emit message(tr("Fetching stats for archive <i>%1</i>...").arg(archive->name()));}, QUEUED);
     queueTask(statsClient);
 }
 
@@ -248,6 +252,8 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     contentsClient->setData(archive->name());
     connect(contentsClient, &TarsnapClient::finished, this,
             &TaskManager::getArchiveContentsFinished, QUEUED);
+    connect(contentsClient, &TarsnapClient::started, this, [=]()
+           {emit message(tr("Fetching contents for archive <i>%1</i>...").arg(archive->name()));}, QUEUED);
     queueTask(contentsClient);
 }
 
@@ -275,6 +281,11 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     delArchives->setData(QVariant::fromValue(archives));
     connect(delArchives, &TarsnapClient::finished, this,
             &TaskManager::deleteArchivesFinished, QUEUED);
+    connect(delArchives, &TarsnapClient::started, this, [=](QVariant data)
+    {
+        QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
+        notifyArchivesDeleted(archives, false);
+    }, QUEUED);
     queueTask(delArchives, true);
 }
 
@@ -328,6 +339,8 @@ void TaskManager::nuke()
     nuke->setArguments(args);
     connect(nuke, &TarsnapClient::finished, this,
             &TaskManager::nukeFinished, QUEUED);
+    connect(nuke, &TarsnapClient::started, this, [=]()
+    {emit message(tr("Archives purge initiated..."));}, QUEUED);
     queueTask(nuke, true);
 }
 
@@ -359,6 +372,8 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     restore->setData(archive->name());
     connect(restore, &TarsnapClient::finished, this,
             &TaskManager::restoreArchiveFinished, QUEUED);
+    connect(restore, &TarsnapClient::started, this, [=]()
+            {emit message(tr("Restoring archive <i>%1</i>...").arg(archive->name()));}, QUEUED);
     queueTask(restore);
 }
 
@@ -451,7 +466,11 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
 {
     Q_UNUSED(data)
 
-    if(exitCode != SUCCESS)
+    if(exitCode == SUCCESS)
+    {
+        emit message(tr("Updating archives list from remote...done"));
+    }
+    else
     {
         emit message(tr("Error: Failed to list archives from remote."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
@@ -529,7 +548,11 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
 {
     ArchivePtr archive = _archiveMap[data.toString()];
 
-    if(exitCode != SUCCESS)
+    if(archive && (exitCode == SUCCESS))
+    {
+        emit message(tr("Fetching stats for archive <i>%1</i>...done").arg(archive->name()));
+    }
+    else
     {
         emit message(tr("Error: Failed to get archive stats from remote."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
@@ -551,7 +574,11 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
 {
     ArchivePtr archive = _archiveMap[data.toString()];
 
-    if(exitCode != SUCCESS)
+    if(archive && (exitCode == SUCCESS))
+    {
+        emit message(tr("Fetching contents for archive <i>%1</i>...done").arg(archive->name()));
+    }
+    else
     {
         emit message(tr("Error: Failed to get archive contents from remote."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
@@ -590,7 +617,7 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
             archive->purge();
         }
         emit archiveList(_archiveMap.values());
-        emit archivesDeleted(archives);
+        notifyArchivesDeleted(archives, true);
     }
     // We are only interested in the output of the last archive deleted
     QStringList lines = output.split('\n', QString::SkipEmptyParts);
@@ -622,9 +649,14 @@ void TaskManager::fsckFinished(QVariant data, int exitCode, QString output)
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
-        emit fsckStatus(TaskStatus::Completed, output);
+    {
+        emit message(tr("Cache repair succeeded."), output);
+    }
     else
-        emit fsckStatus(TaskStatus::Failed, output);
+    {
+        emit message(tr("Cache repair failed. Hover mouse for details."), output);
+        parseError(output);
+    }
 }
 
 void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
@@ -632,13 +664,13 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
     {
-        emit nukeStatus(TaskStatus::Completed, output);
+        emit message(tr("All archives purged successfully."), output);
         fsck();
         loadArchives();
     }
     else
     {
-        emit nukeStatus(TaskStatus::Failed, output);
+        emit message(tr("Archives purging failed. Hover mouse for details."), output);
         parseError(output);
         return;
     }
@@ -650,11 +682,11 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     ArchivePtr archive = _archiveMap[data.toString()];
     if(archive && (exitCode == SUCCESS))
     {
-        emit restoreArchiveStatus(archive, TaskStatus::Completed, output);
+        emit message(tr("Restoring archive <i>%1</i>...done").arg(archive->name()));
     }
     else
     {
-        emit restoreArchiveStatus(archive, TaskStatus::Failed, output);
+        emit message(tr("Restoring archive <i>%1</i> failed. Hover mouse for details.") .arg(archive->name()), output);
         parseError(output);
         return;
     }
@@ -685,6 +717,30 @@ void TaskManager::notifyBackupTaskUpdate(BackupTaskPtr backupTask)
         break;
     default:
         break;
+    }
+}
+
+void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
+{
+    if(archives.count() > 1)
+    {
+        QString detail(archives[0]->name());
+        for(int i = 1; i < archives.count(); ++i)
+        {
+            ArchivePtr archive = archives.at(i);
+            detail.append(QString::fromLatin1(", ") + archive->name());
+        }
+        emit message(tr("Deleting archive <i>%1</i> and %2 more archives...%3")
+                     .arg(archives.first()->name())
+                     .arg(archives.count() - 1)
+                     .arg(done ? "done" : ""),
+                     detail);
+    }
+    else if(archives.count() == 1)
+    {
+        emit message(tr("Deleting archive <i>%1</i>...%2")
+                     .arg(archives.first()->name())
+                     .arg(done ? "done" : ""));
     }
 }
 
@@ -744,6 +800,10 @@ void TaskManager::parseError(QString tarsnapOutput)
        tarsnapOutput.contains("Sequence number mismatch: Run --fsck"))
     {
         emit error(TarsnapError::CacheError);
+    }
+    else if(tarsnapOutput.contains("Error fscking archives"))
+    {
+        emit error(TarsnapError::FsckError);
     }
 }
 

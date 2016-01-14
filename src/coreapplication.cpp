@@ -151,8 +151,6 @@ void CoreApplication::showMainWindow()
             &MainWindow::archiveList, QUEUED);
     connect(_mainWindow, &MainWindow::deleteArchives, &_taskManager,
             &TaskManager::deleteArchives, QUEUED);
-    connect(&_taskManager, &TaskManager::archivesDeleted, _mainWindow,
-            &MainWindow::archivesDeleted, QUEUED);
     connect(_mainWindow, &MainWindow::loadArchiveStats, &_taskManager,
             &TaskManager::getArchiveStats, QUEUED);
     connect(_mainWindow, &MainWindow::loadArchiveContents, &_taskManager,
@@ -165,18 +163,12 @@ void CoreApplication::showMainWindow()
             &MainWindow::updateSettingsSummary, QUEUED);
     connect(_mainWindow, &MainWindow::repairCache, &_taskManager,
             &TaskManager::fsck, QUEUED);
-    connect(&_taskManager, &TaskManager::fsckStatus, _mainWindow,
-            &MainWindow::repairCacheStatus, QUEUED);
     connect(_mainWindow, &MainWindow::settingsChanged, &_taskManager,
             &TaskManager::loadSettings, QUEUED);
     connect(_mainWindow, &MainWindow::purgeArchives, &_taskManager,
             &TaskManager::nuke, QUEUED);
-    connect(&_taskManager, &TaskManager::nukeStatus, _mainWindow,
-            &MainWindow::purgeArchivesStatus, QUEUED);
     connect(_mainWindow, &MainWindow::restoreArchive, &_taskManager,
             &TaskManager::restoreArchive, QUEUED);
-    connect(&_taskManager, &TaskManager::restoreArchiveStatus, _mainWindow,
-            &MainWindow::restoreArchiveStatus, QUEUED);
     connect(_mainWindow, &MainWindow::runSetupWizard, this,
             &CoreApplication::reinit, QUEUED);
     connect(_mainWindow, &MainWindow::stopTasks, &_taskManager,
@@ -203,8 +195,8 @@ void CoreApplication::showMainWindow()
             &TaskManager::addJob, QUEUED);
     connect(&_taskManager, &TaskManager::error, _mainWindow,
             &MainWindow::tarsnapError, QUEUED);
-    connect(&_taskManager, &TaskManager::logMessage, &_journal, &Journal::log,
-            QUEUED);
+//    connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
+//            QUEUED);
     connect(_mainWindow, &MainWindow::logMessage, &_journal, &Journal::log,
             QUEUED);
     connect(_mainWindow, &MainWindow::getJournal, &_journal,

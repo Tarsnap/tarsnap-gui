@@ -102,6 +102,9 @@ bool CoreApplication::initialize()
 
     connect(&_taskManager, &TaskManager::displayNotification,
             &_notification, &Notification::displayNotification, QUEUED);
+    connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
+            QUEUED);
+
     QMetaObject::invokeMethod(&_taskManager, "loadSettings", QUEUED);
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
@@ -184,8 +187,6 @@ void CoreApplication::showMainWindow()
             &TaskManager::addJob, QUEUED);
     connect(&_taskManager, &TaskManager::message, _mainWindow,
             &MainWindow::updateStatusMessage, QUEUED);
-    connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
-            QUEUED);
     connect(&_taskManager, &TaskManager::error, _mainWindow,
             &MainWindow::tarsnapError, QUEUED);
     connect(&_notification, &Notification::activated, _mainWindow,

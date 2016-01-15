@@ -163,8 +163,6 @@ BackupTaskPtr Job::createBackupTask()
     backup->setOptionSkipSystemFiles(optionSkipFilesPatterns());
     backup->setOptionSkipNoDump(optionSkipNoDump());
     backup->setOptionDryRun(settings.value("tarsnap/dry_run", false).toBool());
-    connect(backup, &BackupTask::statusUpdate, this, &Job::backupTaskUpdate,
-            QUEUED);
     return backup;
 }
 

@@ -13,12 +13,6 @@ public:
     explicit Journal(QObject *parent = 0);
     ~Journal();
 
-    // From PersistentObject
-    void save(){}
-    void load();
-    void purge();
-    bool findObjectWithKey(QString key){Q_UNUSED(key); return false;}
-
 signals:
     void logEntry(QDateTime timestamp, QString log);
     void journal(QMap<QDateTime, QString> _log);
@@ -27,6 +21,12 @@ signals:
 public slots:
     void getJournal() { emit journal(_log); }
     void log(QString message);
+
+    // From PersistentObject
+    void save(){}
+    void load();
+    void purge();
+    bool findObjectWithKey(QString key){Q_UNUSED(key); return false;}
 
 private:
     QMap<QDateTime, QString> _log;

@@ -8,7 +8,7 @@ Journal::Journal(QObject *parent) : QObject(parent)
 
 Journal::~Journal()
 {
-    log("Session end");
+    log("==Session end==");
 }
 
 void Journal::load()
@@ -28,7 +28,7 @@ void Journal::load()
             QString log = query.value(query.record().indexOf("log")).toString();
             _log.insertMulti(timestamp, log);
         }
-        log("Session start");
+        log("==Session start==");
     }
     else
     {
@@ -65,7 +65,7 @@ void Journal::log(QString message)
         return;
     }
     query.addBindValue(timestamp.toTime_t());
-    query.addBindValue(message);
+    query.addBindValue(message.remove(QRegExp("<[^>]*>")));
     if(!store.runQuery(query))
         DEBUG << "Failed to add Journal entry.";
 

@@ -81,7 +81,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->outOfDateNoticeLabel->hide();
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     _ui->consoleLog->setPlaceholderText(tr("No events yet"));
-    _ui->journalLog->setPlaceholderText(tr("No events yet"));
+    _ui->journalLog->setPlaceholderText(tr("No messages yet"));
 #endif
 
     // Purge widget setup
@@ -293,11 +293,6 @@ MainWindow::MainWindow(QWidget *parent)
         else
             _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
     });
-    connect(_ui->jobListWidget, &JobListWidget::backupJob,
-            [&](BackupTaskPtr backup) {
-                connect(backup, &BackupTask::statusUpdate, this,
-                        &MainWindow::backupTaskUpdate, QUEUED);
-            });
     connect(_ui->jobListWidget, &JobListWidget::deleteJob,
             [&](JobPtr job, bool purgeArchives) {
                 if(purgeArchives)
@@ -477,49 +472,6 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-void MainWindow::backupTaskUpdate(const TaskStatus &status)
-{
-    BackupTaskPtr backupTask = qobject_cast<BackupTaskPtr>(sender());
-    switch(status)
-    {
-    case TaskStatus::Completed:
-    {
-        QString msg = tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
-                      .arg(backupTask->name())
-                      .arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed(),
-                                             _useSIPrefixes));
-        updateStatusMessage(msg, backupTask->archive()->archiveStats());
-        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
-        delete backupTask;
-        break;
-    }
-    case TaskStatus::Queued:
-        updateStatusMessage(
-            tr("Backup <i>%1</i> queued.").arg(backupTask->name()));
-        break;
-    case TaskStatus::Running:
-        updateStatusMessage(
-            tr("Backup <i>%1</i> is running.").arg(backupTask->name()));
-        break;
-    case TaskStatus::Failed:
-    {
-        QString msg = tr("Backup <i>%1</i> failed: %2")
-                          .arg(backupTask->name())
-                          .arg(backupTask->output().simplified());
-        updateStatusMessage(msg, backupTask->output());
-        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
-        delete backupTask;
-        break;
-    }
-    case TaskStatus::Paused:
-        updateStatusMessage(
-            tr("Backup <i>%1</i> paused.").arg(backupTask->name()));
-        break;
-    default:
-        break;
-    }
-}
-
 void MainWindow::updateLoadingAnimation(bool idle)
 {
     if(idle)
@@ -658,8 +610,6 @@ void MainWindow::backupButtonClicked()
     backup->setUrls(urls);
     backup->setOptionDryRun(_ui->simulationCheckBox->isChecked());
     backup->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
-    connect(backup, &BackupTask::statusUpdate, this,
-            &MainWindow::backupTaskUpdate, QUEUED);
     emit backupNow(backup);
     _ui->appendTimestampCheckBox->setChecked(false);
 }
@@ -702,7 +652,6 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
 {
     _ui->statusBarLabel->setText(message);
     _ui->statusBarLabel->setToolTip(detail);
-    emit logMessage(message.remove(QRegExp("<[^>]*>"))); // remove html tags
 }
 
 void MainWindow::commitSettings()
@@ -799,7 +748,7 @@ void MainWindow::appendToJournalLog(QDateTime timestamp, QString message)
     QTextBlockFormat bf;
     bf.setBackground(QBrush(bgcolor));
     cursor.mergeBlockFormat(bf);
-    cursor.insertText(QString("[%1] %2").arg(timestamp.toString("yyyy-MM-dd HH:mm:ss")).arg(message));
+    cursor.insertText(QString("[%1] %2").arg(timestamp.toString(Qt::DefaultLocaleShortDate)).arg(message));
     _ui->journalLog->moveCursor(QTextCursor::End);
     _ui->journalLog->ensureCursorVisible();
 }

@@ -57,7 +57,6 @@ protected:
 public slots:
     void loadSettings();
     void updateStatusMessage(QString message, QString detail = "");
-    void backupTaskUpdate(const TaskStatus &status);
     void updateLoadingAnimation(bool idle);
     void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed,
                                quint64 sizeUniqueTotal,

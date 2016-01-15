@@ -22,15 +22,13 @@ CoreApplication::CoreApplication(int &argc, char **argv)
     qRegisterMetaType<QSqlQuery>("QSqlQuery");
     qRegisterMetaType<JobPtr>("JobPtr");
     qRegisterMetaType<QMap<QString, JobPtr>>("QMap<QString, JobPtr>");
-    qRegisterMetaType<QSystemTrayIcon::ActivationReason>(
-        "QSystemTrayIcon::ActivationReason");
+    qRegisterMetaType<QSystemTrayIcon::ActivationReason>("QSystemTrayIcon::ActivationReason");
     qRegisterMetaType<TarsnapError>("TarsnapError");
 
     QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
     QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
     QCoreApplication::setApplicationVersion(APP_VERSION);
-    _journal.load();
 }
 
 CoreApplication::~CoreApplication()
@@ -102,12 +100,13 @@ bool CoreApplication::initialize()
         settings.setDefaultFormat(QSettings::IniFormat);
     }
 
+    connect(&_taskManager, &TaskManager::displayNotification,
+            &_notification, &Notification::displayNotification, QUEUED);
     QMetaObject::invokeMethod(&_taskManager, "loadSettings", QUEUED);
+    QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
     if(_jobsOption)
     {
-        connect(&_taskManager, &TaskManager::displayNotification,
-                &_notification, &Notification::displayNotification, QUEUED);
         connect(&_notification, &Notification::activated, this,
                 &CoreApplication::showMainWindow, QUEUED);
         connect(&_notification, &Notification::messageClicked, this,
@@ -129,8 +128,6 @@ void CoreApplication::showMainWindow()
         return;
 
     _taskManager.setHeadless(false);
-    disconnect(&_taskManager, &TaskManager::displayNotification, &_notification,
-               &Notification::displayNotification);
     disconnect(&_notification, &Notification::activated, this,
                &CoreApplication::showMainWindow);
     disconnect(&_notification, &Notification::messageClicked, this,
@@ -179,24 +176,24 @@ void CoreApplication::showMainWindow()
             &MainWindow::jobsList, QUEUED);
     connect(_mainWindow, &MainWindow::deleteJob, &_taskManager,
             &TaskManager::deleteJob, QUEUED);
-    connect(&_taskManager, &TaskManager::message, _mainWindow,
-            &MainWindow::updateStatusMessage, QUEUED);
-    connect(&_notification, &Notification::activated, _mainWindow,
-            &MainWindow::notificationRaise, QUEUED);
-    connect(&_notification, &Notification::messageClicked, _mainWindow,
-            &MainWindow::notificationRaise, QUEUED);
-    connect(_mainWindow, &MainWindow::displayNotification, &_notification,
-            &Notification::displayNotification, QUEUED);
     connect(_mainWindow, &MainWindow::getTaskInfo, &_taskManager,
             &TaskManager::getTaskInfo, QUEUED);
     connect(&_taskManager, &TaskManager::taskInfo, _mainWindow,
             &MainWindow::displayStopTasks, QUEUED);
     connect(_mainWindow, &MainWindow::jobAdded, &_taskManager,
             &TaskManager::addJob, QUEUED);
+    connect(&_taskManager, &TaskManager::message, _mainWindow,
+            &MainWindow::updateStatusMessage, QUEUED);
+    connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
+            QUEUED);
     connect(&_taskManager, &TaskManager::error, _mainWindow,
             &MainWindow::tarsnapError, QUEUED);
-//    connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
-//            QUEUED);
+    connect(&_notification, &Notification::activated, _mainWindow,
+            &MainWindow::notificationRaise, QUEUED);
+    connect(&_notification, &Notification::messageClicked, _mainWindow,
+            &MainWindow::notificationRaise, QUEUED);
+    connect(_mainWindow, &MainWindow::displayNotification, &_notification,
+            &Notification::displayNotification, QUEUED);
     connect(_mainWindow, &MainWindow::logMessage, &_journal, &Journal::log,
             QUEUED);
     connect(_mainWindow, &MainWindow::getJournal, &_journal,

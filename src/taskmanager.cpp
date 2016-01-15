@@ -145,6 +145,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
             &TaskManager::backupTaskFinished, QUEUED);
     connect(backupClient, &TarsnapClient::started, this,
             &TaskManager::backupTaskStarted, QUEUED);
+    connect(backupTask.data(), &BackupTask::statusUpdate, this,
+            &TaskManager::notifyBackupTaskUpdate, QUEUED);
     backupTask->setStatus(TaskStatus::Queued);
     queueTask(backupClient, true);
 }
@@ -440,15 +442,12 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
         backupTask->setStatus(TaskStatus::Failed);
         parseError(output);
     }
-    _backupTaskMap.take(backupTask->uuid());
-    notifyBackupTaskUpdate(backupTask);
 }
 
 void TaskManager::backupTaskStarted(QVariant data)
 {
     BackupTaskPtr backupTask = _backupTaskMap[data.toString()];
     backupTask->setStatus(TaskStatus::Running);
-    notifyBackupTaskUpdate(backupTask);
 }
 
 void TaskManager::registerMachineFinished(QVariant data, int exitCode,
@@ -692,30 +691,53 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     }
 }
 
-void TaskManager::notifyBackupTaskUpdate(BackupTaskPtr backupTask)
+void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
 {
-    if(!_headless)
-        return;
-    switch(backupTask->status())
+    QSettings settings;
+    bool useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
+    BackupTaskPtr backupTask = _backupTaskMap[uuid];
+    if(!backupTask)
     {
+        DEBUG << "Backup task update for invalid task";
+        return;
+    }
+    switch(status)
+    {
+    case TaskStatus::Initialized:
+        DEBUG << "Backup task undefined";
+        break;
     case TaskStatus::Completed:
-        emit displayNotification(
-            tr("Backup %1 completed. (%2 new data on Tarsnap)")
-                .arg(backupTask->name())
-                .arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed())));
-        delete backupTask;
+    {
+        QString msg =  tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
+                       .arg(backupTask->name())
+                       .arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed()
+                                              , useSIPrefixes));
+        emit message(msg, backupTask->archive()->archiveStats());
+        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
+        _backupTaskMap.remove(backupTask->uuid());
+        break;
+    }
+    case TaskStatus::Queued:
+        emit message(tr("Backup <i>%1</i> queued.").arg(backupTask->name()));
         break;
     case TaskStatus::Running:
-        emit displayNotification(
-            tr("Backup %1 is running.").arg(backupTask->name()));
+    {
+        QString msg = tr("Backup <i>%1</i> is running.").arg(backupTask->name());
+        emit message(msg);
+        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
         break;
+    }
     case TaskStatus::Failed:
-        emit displayNotification(tr("Backup %1 failed: %2")
-                                     .arg(backupTask->name())
-                                     .arg(backupTask->output().simplified()));
-        delete backupTask;
+    {
+        QString msg = tr("Backup <i>%1</i> failed: %2").arg(backupTask->name())
+                          .arg(backupTask->output().simplified());
+        emit message(msg, backupTask->output());
+        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
+        _backupTaskMap.remove(backupTask->uuid());
         break;
-    default:
+    }
+    case TaskStatus::Paused:
+        emit message(tr("Backup <i>%1</i> paused.").arg(backupTask->name()));
         break;
     }
 }

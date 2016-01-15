@@ -7,17 +7,17 @@
 
 enum TaskStatus
 {
+    Initialized,
     Queued,
     Running,
     Completed,
     Failed,
-    Paused,
-    Initialized
+    Paused
 };
 
 class BackupTask;
 
-typedef BackupTask *BackupTaskPtr;
+typedef QSharedPointer<BackupTask> BackupTaskPtr;
 
 class BackupTask : public QObject
 {
@@ -43,7 +43,7 @@ public:
     void setStatus(const TaskStatus &status)
     {
         _status = status;
-        emit statusUpdate(_status);
+        emit statusUpdate(_uuid, _status);
     }
 
     int  exitCode() const { return _exitCode; }
@@ -86,7 +86,7 @@ public:
     void setOptionSkipNoDump(bool optionSkipNoDump);
 
 signals:
-    void statusUpdate(const TaskStatus &status);
+    void statusUpdate(QUuid uuid, const TaskStatus &status);
 
 private:
     QUuid       _uuid;

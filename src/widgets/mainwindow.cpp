@@ -733,7 +733,7 @@ void MainWindow::purgeTimerFired()
     }
 }
 
-void MainWindow::appendToJournalLog(QDateTime timestamp, QString message)
+void MainWindow::appendToJournalLog(LogEntry log)
 {
     QTextCursor cursor(_ui->journalLog->document());
     if(!_ui->journalLog->document()->isEmpty())
@@ -751,20 +751,16 @@ void MainWindow::appendToJournalLog(QDateTime timestamp, QString message)
     QTextBlockFormat bf;
     bf.setBackground(QBrush(bgcolor));
     cursor.mergeBlockFormat(bf);
-    cursor.insertText(QString("[%1] %2").arg(timestamp.toString(Qt::DefaultLocaleShortDate)).arg(message));
+    cursor.insertText(QString("[%1] %2").arg(log.timestamp.toString(Qt::DefaultLocaleShortDate)).arg(log.message));
     _ui->journalLog->moveCursor(QTextCursor::End);
     _ui->journalLog->ensureCursorVisible();
 }
 
-void MainWindow::setJournal(QMap<QDateTime, QString> _log)
+void MainWindow::setJournal(QVector<LogEntry> _log)
 {
     _ui->journalLog->clear();
-    QMap<QDateTime, QString>::const_iterator i = _log.constBegin();
-    while (i != _log.constEnd())
-    {
-        appendToJournalLog(i.key(), i.value());
-        ++i;
-    }
+    foreach(LogEntry entry, _log)
+        appendToJournalLog(entry);
 }
 
 void MainWindow::browseForBackupItems()

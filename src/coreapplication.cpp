@@ -24,6 +24,8 @@ CoreApplication::CoreApplication(int &argc, char **argv)
     qRegisterMetaType<QMap<QString, JobPtr>>("QMap<QString, JobPtr>");
     qRegisterMetaType<QSystemTrayIcon::ActivationReason>("QSystemTrayIcon::ActivationReason");
     qRegisterMetaType<TarsnapError>("TarsnapError");
+    qRegisterMetaType<LogEntry>("LogEntry");
+    qRegisterMetaType<QVector<LogEntry>>("QVector<LogEntry>");
 
     QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));

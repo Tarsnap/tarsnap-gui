@@ -5,6 +5,12 @@
 
 #include <QObject>
 
+
+struct LogEntry {
+    QDateTime timestamp;
+    QString   message;
+};
+
 class Journal : public QObject, public PersistentObject
 {
     Q_OBJECT
@@ -14,8 +20,8 @@ public:
     ~Journal();
 
 signals:
-    void logEntry(QDateTime timestamp, QString log);
-    void journal(QMap<QDateTime, QString> _log);
+    void logEntry(LogEntry log);
+    void journal(QVector<LogEntry> _log);
 
 
 public slots:
@@ -29,7 +35,7 @@ public slots:
     bool findObjectWithKey(QString key){Q_UNUSED(key); return false;}
 
 private:
-    QMap<QDateTime, QString> _log;
+    QVector<LogEntry> _log;
 };
 
 #endif // JOURNAL_H

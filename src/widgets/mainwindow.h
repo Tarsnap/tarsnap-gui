@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "persistentmodel/journal.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
 
@@ -67,8 +68,8 @@ public slots:
     void notificationRaise();
     void displayStopTasks(int runningTasks, int queuedTasks);
     void tarsnapError(TarsnapError error);
-    void appendToJournalLog(QDateTime timestamp, QString message);
-    void setJournal(QMap<QDateTime, QString> _log);
+    void appendToJournalLog(LogEntry log);
+    void setJournal(QVector<LogEntry> _log);
 
 private slots:
     void updateBackupItemTotals(quint64 count, quint64 size);

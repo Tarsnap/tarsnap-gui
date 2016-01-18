@@ -26,7 +26,7 @@ void Journal::load()
         {
             QDateTime timestamp = QDateTime::fromTime_t(query.value(query.record().indexOf("timestamp")).toULongLong());
             QString log = query.value(query.record().indexOf("log")).toString();
-            _log.insertMulti(timestamp, log);
+            _log.push_back(LogEntry{timestamp, log});
         }
         log("==Session start==");
     }
@@ -58,8 +58,8 @@ void Journal::purge()
 
 void Journal::log(QString message)
 {
-    QDateTime timestamp(QDateTime::currentDateTime());
-    _log.insertMulti(timestamp, message);
+    LogEntry log{QDateTime::currentDateTime(), message};
+    _log.push_back(log);
 
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
@@ -69,10 +69,10 @@ void Journal::log(QString message)
         DEBUG << query.lastError().text();
         return;
     }
-    query.addBindValue(timestamp.toTime_t());
-    query.addBindValue(message.remove(QRegExp("<[^>]*>")));
+    query.addBindValue(log.timestamp.toTime_t());
+    query.addBindValue(log.message.remove(QRegExp("<[^>]*>")));
     if(!store.runQuery(query))
         DEBUG << "Failed to add Journal entry.";
 
-    emit logEntry(timestamp, message);
+    emit logEntry(log);
 }

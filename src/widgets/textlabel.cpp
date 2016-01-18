@@ -23,6 +23,12 @@ QString TextLabel::text()
     return _origText;
 }
 
+QSize TextLabel::sizeHint() const
+{
+    QFontMetrics metrics(this->font());
+    return metrics.size(Qt::TextSingleLine, _origText);
+}
+
 void TextLabel::setText(const QString &text)
 {
     _origText = text;

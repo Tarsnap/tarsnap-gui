@@ -20,6 +20,8 @@ public:
     void setElide(const Qt::TextElideMode &elide);
     QString text(); // returns original text
 
+    QSize sizeHint() const;
+
 public slots:
     void setText(const QString &text);
     void clear();

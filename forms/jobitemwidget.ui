@@ -59,11 +59,11 @@
    </item>
    <item>
     <widget class="TextLabel" name="nameLabel">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+     <property name="minimumSize">
+      <size>
+       <width>50</width>
+       <height>0</height>
+      </size>
      </property>
      <property name="styleSheet">
       <string notr="true">QLabel {
@@ -81,6 +81,12 @@ font-size: 12px;
    </item>
    <item>
     <widget class="TextLabel" name="detailLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="styleSheet">
       <string notr="true">QLabel {
 color: grey;
@@ -96,23 +102,7 @@ font-size: 11px;
      </property>
     </widget>
    </item>
-   <item>
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Preferred</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
+   <item alignment="Qt::AlignRight">
     <widget class="TextLabel" name="lastBackupLabel">
      <property name="toolTip">
       <string>Last backup timestamp</string>

@@ -194,12 +194,13 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::commitSettings);
     connect(_ui->ignoreConfigCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
-            [&]() { _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES); });
     connect(&_tarsnapAccount, &TarsnapAccount::accountCredit, this,
             &MainWindow::updateAccountCredit);
     connect(_ui->updateCreditButton, &QPushButton::clicked,
             _ui->actionRefreshAccount, &QAction::trigger);
+    connect(_ui->clearJournalButton, &QPushButton::clicked, this,
+            &MainWindow::clearJournalClicked);
+
     _ui->machineActivity->hide();
     _ui->machineActivityLabel->hide();
     _ui->machineActivityShowButton->hide();
@@ -324,6 +325,8 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(_ui->repairCacheButton, &QPushButton::clicked, this,
             [&](){ emit repairCache(true); });
+    connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
+            [&]() { _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES); });
 }
 
 MainWindow::~MainWindow()
@@ -755,6 +758,7 @@ void MainWindow::appendToJournalLog(QDateTime timestamp, QString message)
 
 void MainWindow::setJournal(QMap<QDateTime, QString> _log)
 {
+    _ui->journalLog->clear();
     QMap<QDateTime, QString>::const_iterator i = _log.constBegin();
     while (i != _log.constEnd())
     {
@@ -1002,4 +1006,13 @@ void MainWindow::updateLastMachineActivity(QStringList activityFields)
     _ui->machineActivity->resize(_ui->machineActivity->fontMetrics()
                                        .width(_ui->machineActivity->text()) / 2,
                                  _ui->machineActivity->sizeHint().height());
+}
+
+void MainWindow::clearJournalClicked()
+{
+    auto confirm = QMessageBox::question(this, tr("Confirm action"),
+                                     tr("Clear journal log? All entries will "
+                                        "be deleted forever."));
+    if(confirm == QMessageBox::Yes)
+        emit clearJournal();
 }

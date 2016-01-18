@@ -203,6 +203,8 @@ void CoreApplication::showMainWindow()
             &MainWindow::setJournal, QUEUED);
     connect(&_journal, &Journal::logEntry, _mainWindow,
             &MainWindow::appendToJournalLog, QUEUED);
+    connect(_mainWindow, &MainWindow::clearJournal, &_journal,
+            &Journal::purge, QUEUED);
 
     QMetaObject::invokeMethod(_mainWindow, "loadArchives", QUEUED);
     QMetaObject::invokeMethod(_mainWindow, "loadJobs", QUEUED);

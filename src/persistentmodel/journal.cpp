@@ -46,9 +46,14 @@ void Journal::purge()
         return;
     }
     if(store.runQuery(query))
+    {
         _log.clear();
+        emit journal(_log);
+    }
     else
+    {
         DEBUG << "Failed to purge the Journal from the Persistent Store.";
+    }
 }
 
 void Journal::log(QString message)

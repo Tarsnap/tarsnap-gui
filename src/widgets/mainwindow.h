@@ -45,6 +45,7 @@ signals:
     void getTaskInfo();
     void jobAdded(JobPtr job);
     void getJournal();
+    void clearJournal();
     void logMessage(QString message);
 
 protected:
@@ -95,6 +96,7 @@ private slots:
     void addJobClicked();
     void updateAccountCredit(qreal credit, QDate date);
     void updateLastMachineActivity(QStringList activityFields);
+    void clearJournalClicked();
 
 private:
     Ui::MainWindow *_ui;

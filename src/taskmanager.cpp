@@ -44,9 +44,6 @@ void TaskManager::loadSettings()
         settings.value("tarsnap/aggressive_networking", false).toBool();
     _preservePathnames =
         settings.value("tarsnap/preserve_pathnames", true).toBool();
-
-    // First time init of the Store
-    PersistentStore::instance();
 }
 
 void TaskManager::getTarsnapVersion(QString tarsnapPath)

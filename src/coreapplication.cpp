@@ -102,6 +102,9 @@ bool CoreApplication::initialize()
         settings.setDefaultFormat(QSettings::IniFormat);
     }
 
+    // First time init of the Store
+    PersistentStore::instance();
+
     connect(&_taskManager, &TaskManager::displayNotification,
             &_notification, &Notification::displayNotification, QUEUED);
     connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,

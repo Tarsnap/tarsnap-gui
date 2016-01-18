@@ -102,7 +102,6 @@ private:
     QString _tarsnapVersion;
     QString _tarsnapCacheDir;
     QString _tarsnapKeyFile;
-    QThread _managerThread;
     QMap<QUuid, BackupTaskPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>  _archiveMap;
     QList<TarsnapClient *>     _runningTasks;

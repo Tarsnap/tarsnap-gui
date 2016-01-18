@@ -29,6 +29,7 @@ private:
     MainWindow  *_mainWindow;
     Notification _notification;
     TaskManager  _taskManager;
+    QThread      _managerThread;
     Journal      _journal;
     bool         _jobsOption;
     QString      _appDataDir;

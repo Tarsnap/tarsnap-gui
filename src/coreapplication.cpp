@@ -35,6 +35,8 @@ CoreApplication::~CoreApplication()
 {
     if(_mainWindow)
         delete _mainWindow;
+    _managerThread.quit();
+    _managerThread.wait();
 }
 
 void CoreApplication::parseArgs()

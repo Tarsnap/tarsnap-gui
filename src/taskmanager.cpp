@@ -16,15 +16,10 @@ TaskManager::TaskManager()
       _preservePathnames(true),
       _headless(false)
 {
-    // Move the operations belonging to the Task manager to a separate thread
-    _managerThread.start();
-    moveToThread(&_managerThread);
 }
 
 TaskManager::~TaskManager()
 {
-    _managerThread.quit();
-    _managerThread.wait();
 }
 
 bool TaskManager::headless() const

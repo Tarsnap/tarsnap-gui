@@ -152,8 +152,8 @@ void CoreApplication::showMainWindow()
             &MainWindow::setTarsnapVersion, QUEUED);
     connect(_mainWindow, &MainWindow::backupNow, &_taskManager,
             &TaskManager::backupNow, QUEUED);
-    connect(_mainWindow, &MainWindow::loadArchives, &_taskManager,
-            &TaskManager::loadArchives, QUEUED);
+    connect(_mainWindow, &MainWindow::getArchives, &_taskManager,
+            &TaskManager::getArchives, QUEUED);
     connect(&_taskManager, &TaskManager::archiveList, _mainWindow,
             &MainWindow::archiveList, QUEUED);
     connect(_mainWindow, &MainWindow::deleteArchives, &_taskManager,
@@ -180,8 +180,6 @@ void CoreApplication::showMainWindow()
             &CoreApplication::reinit, QUEUED);
     connect(_mainWindow, &MainWindow::stopTasks, &_taskManager,
             &TaskManager::stopTasks, QUEUED);
-    connect(_mainWindow, &MainWindow::loadJobs, &_taskManager,
-            &TaskManager::loadJobs, QUEUED);
     connect(&_taskManager, &TaskManager::jobsList, _mainWindow,
             &MainWindow::jobsList, QUEUED);
     connect(_mainWindow, &MainWindow::deleteJob, &_taskManager,
@@ -204,8 +202,6 @@ void CoreApplication::showMainWindow()
             &Notification::displayNotification, QUEUED);
     connect(_mainWindow, &MainWindow::logMessage, &_journal, &Journal::log,
             QUEUED);
-    connect(_mainWindow, &MainWindow::getJournal, &_journal,
-            &Journal::getJournal, QUEUED);
     connect(&_journal, &Journal::journal, _mainWindow,
             &MainWindow::setJournal, QUEUED);
     connect(&_journal, &Journal::logEntry, _mainWindow,
@@ -213,9 +209,14 @@ void CoreApplication::showMainWindow()
     connect(_mainWindow, &MainWindow::clearJournal, &_journal,
             &Journal::purge, QUEUED);
 
-    QMetaObject::invokeMethod(_mainWindow, "loadArchives", QUEUED);
-    QMetaObject::invokeMethod(_mainWindow, "loadJobs", QUEUED);
-    QMetaObject::invokeMethod(_mainWindow, "getJournal", QUEUED);
+    QMetaObject::invokeMethod(&_taskManager, "loadArchives", QUEUED);
+    QMetaObject::invokeMethod(&_taskManager, "loadJobs", QUEUED);
+    QMetaObject::invokeMethod(&_journal, "getJournal", QUEUED);
+
+    QSettings settings;
+    if(!settings.value("tarsnap/dry_run", false).toBool())
+        QMetaObject::invokeMethod(_mainWindow, "getArchives", QUEUED);
+
     _mainWindow->show();
 }
 

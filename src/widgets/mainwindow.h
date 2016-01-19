@@ -26,7 +26,7 @@ public:
 
 signals:
     void backupNow(BackupTaskPtr backupTask);
-    void loadArchives();
+    void getArchives();
     void archiveList(QList<ArchivePtr> archives);
     void deleteArchives(QList<ArchivePtr> archives);
     void loadArchiveStats(ArchivePtr archive);
@@ -40,12 +40,10 @@ signals:
     void stopTasks(bool running, bool queued);
     void jobsList(QMap<QString, JobPtr>);
     void deleteJob(JobPtr job, bool purgeArchives);
-    void loadJobs();
     void getTarsnapVersion(QString tarsnapPath);
     void displayNotification(QString message);
     void getTaskInfo();
     void jobAdded(JobPtr job);
-    void getJournal();
     void clearJournal();
     void logMessage(QString message);
 

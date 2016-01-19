@@ -33,9 +33,6 @@ signals:
 
 protected:
     void keyReleaseEvent(QKeyEvent *event);
-
-private:
-//    QList<ArchivePtr> _archives;
 };
 
 #endif // ARCHIVELISTWIDGET_H

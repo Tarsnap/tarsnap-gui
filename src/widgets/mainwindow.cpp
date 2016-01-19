@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Ui actions setup
     _ui->archiveListWidget->addAction(_ui->actionRefresh);
     connect(_ui->actionRefresh, &QAction::triggered, this,
-            &MainWindow::loadArchives);
+            &MainWindow::getArchives);
     _ui->backupListWidget->addAction(_ui->actionClearList);
     connect(_ui->actionClearList, &QAction::triggered, _ui->backupListWidget,
             &BackupListWidget::clear);
@@ -315,7 +315,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->simulationCheckBox, &QCheckBox::stateChanged, [&](int state) {
         if(state == Qt::Unchecked)
         {
-            emit loadArchives();
+            emit getArchives();
             _ui->simulationIcon->hide();
         }
         else

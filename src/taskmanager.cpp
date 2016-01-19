@@ -143,9 +143,28 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     queueTask(backupClient, true);
 }
 
+void TaskManager::getArchives()
+{
+    TarsnapClient *listArchivesClient = new TarsnapClient();
+    QStringList    args;
+    if(!_tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << _tarsnapKeyFile;
+    if(!_tarsnapCacheDir.isEmpty()) // We shouldn't need to pass this as per the
+                                    // man page, however Tarsnap CLI seems to
+                                    // require it
+        args << "--cachedir" << _tarsnapCacheDir;
+    args << "--list-archives" << "-vv";
+    listArchivesClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+    listArchivesClient->setArguments(args);
+    connect(listArchivesClient, &TarsnapClient::finished, this,
+            &TaskManager::getArchiveListFinished, QUEUED);
+    connect(listArchivesClient, &TarsnapClient::started, this,[&]()
+            { emit message(tr("Updating archives list from remote...")); }, QUEUED);
+    queueTask(listArchivesClient);
+}
+
 void TaskManager::loadArchives()
 {
-    // Load from PersistentStore first
     _archiveMap.clear();
     PersistentStore &store = PersistentStore::instance();
     if(!store.initialized())
@@ -171,24 +190,6 @@ void TaskManager::loadArchives()
         } while(query.next());
     }
     emit archiveList(_archiveMap.values());
-
-    // Issue sync with remote next
-    TarsnapClient *listArchivesClient = new TarsnapClient();
-    QStringList    args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty()) // We shouldn't need to pass this as per the
-                                    // man page, however Tarsnap CLI seems to
-                                    // require it
-        args << "--cachedir" << _tarsnapCacheDir;
-    args << "--list-archives" << "-vv";
-    listArchivesClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    listArchivesClient->setArguments(args);
-    connect(listArchivesClient, &TarsnapClient::finished, this,
-            &TaskManager::getArchiveListFinished, QUEUED);
-    connect(listArchivesClient, &TarsnapClient::started, this,[&]()
-            { emit message(tr("Updating archives list from remote...")); }, QUEUED);
-    queueTask(listArchivesClient);
 }
 
 void TaskManager::getArchiveStats(ArchivePtr archive)

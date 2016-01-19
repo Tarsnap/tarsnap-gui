@@ -48,6 +48,7 @@ public slots:
     void loadSettings();
     void runScheduledJobs();
     void stopTasks(bool running, bool queued);
+    void loadArchives();
     void loadJobs();
     void deleteJob(JobPtr job, bool purgeArchives);
     void loadJobArchives();
@@ -59,7 +60,7 @@ public slots:
     void registerMachine(QString user, QString password, QString machine,
                          QString key, QString tarsnapPath, QString cachePath);
     void backupNow(BackupTaskPtr backupTask);
-    void loadArchives();
+    void getArchives();
     void getArchiveStats(ArchivePtr archive);
     void getArchiveContents(ArchivePtr archive);
     void deleteArchives(QList<ArchivePtr> archives);

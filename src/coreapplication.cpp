@@ -3,7 +3,6 @@
 #include "utils.h"
 #include "widgets/setupdialog.h"
 
-#include <QDialog>
 #include <QFontDatabase>
 #include <QMessageBox>
 
@@ -102,6 +101,14 @@ bool CoreApplication::initialize()
         QString appData = settings.value("app/app_data", APPDATA).toString();
         settings.setPath(QSettings::IniFormat, QSettings::UserScope, appData);
         settings.setDefaultFormat(QSettings::IniFormat);
+    }
+
+    if(settings.value("tarsnap/dry_run", false).toBool())
+    {
+        QMessageBox::warning(nullptr, tr("Tarsnap warning"),
+                             tr("Simulation mode is enabled. Archives will not"
+                                " be uploaded to the Tarsnap server. Disable"
+                                " in Settings -> Advanced."));
     }
 
     // First time init of the Store

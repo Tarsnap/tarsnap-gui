@@ -164,7 +164,12 @@ border-radius: 2px;
               <string notr="true">#backupListWidget::item
 {
 height: 33px;
-selection-background-color: rgba(177,214,255, 255);
+selection-background-color: rgba(177,214,255,255);
+}
+
+#backupListWidget::item:selected
+{
+background-color: rgba(177,214,255,255);
 }</string>
              </property>
              <property name="tabKeyNavigation">
@@ -376,7 +381,12 @@ color: gray;
                   <string notr="true">#archiveListWidget::item
 {
 height: 33px;
-selection-background-color: rgba(177,214,255, 255);
+selection-background-color: rgba(177,214,255,255);
+}
+
+#archiveListWidget::item:selected
+{
+background-color: rgba(177,214,255,255);
 }</string>
                  </property>
                  <property name="tabKeyNavigation">
@@ -754,7 +764,12 @@ font-size: 12px;
                   <string notr="true">#jobListWidget::item
 {
 height: 33px;
-selection-background-color: rgba(177,214,255, 255);
+selection-background-color: rgba(177,214,255,255);
+}
+
+#jobListWidget::item:selected
+{
+background-color: rgba(177,214,255,255);
 }</string>
                  </property>
                  <property name="alternatingRowColors">

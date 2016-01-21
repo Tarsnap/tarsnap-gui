@@ -26,7 +26,7 @@ bool PersistentStore::init()
     QString   dbUrl(appdata + QDir::separator() + DEFAULT_DBNAME);
     QFileInfo dbFileInfo(dbUrl);
 
-    _db = _db.addDatabase("QSQLITE");
+    _db = _db.addDatabase("QSQLITE", "tarsnap");
     _db.setConnectOptions("QSQLITE_OPEN_URI");
     _db.setDatabaseName(dbUrl);
 
@@ -139,7 +139,7 @@ void PersistentStore::deinit()
     {
         _db.close();
         _db = QSqlDatabase();
-        _db.removeDatabase("QSQLITE");
+        _db.removeDatabase("tarsnap");
         _initialized = false;
     }
 }

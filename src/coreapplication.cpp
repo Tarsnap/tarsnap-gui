@@ -229,6 +229,10 @@ void CoreApplication::showMainWindow()
 
 bool CoreApplication::reinit()
 {
+    disconnect(&_taskManager, &TaskManager::displayNotification,
+               &_notification, &Notification::displayNotification);
+    disconnect(&_taskManager, &TaskManager::message, &_journal, &Journal::log);
+
     if(_mainWindow)
     {
         delete _mainWindow;

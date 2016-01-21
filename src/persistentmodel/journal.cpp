@@ -13,6 +13,7 @@ Journal::~Journal()
 
 void Journal::load()
 {
+    _log.clear();
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
     if(!query.prepare(QLatin1String("select * from journal")))

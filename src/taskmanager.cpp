@@ -798,9 +798,17 @@ void TaskManager::dequeueTask()
         {
             // Give a chance for notifications to go through and quit
             if(_headless)
+            {
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
                 QTimer::singleShot(500, qApp, &QCoreApplication::quit);
+#else
+                QTimer::singleShot(500, qApp, SLOT(quit()));
+#endif
+            }
             else
+            {
                 emit idle(true);
+            }
         }
         else
         {

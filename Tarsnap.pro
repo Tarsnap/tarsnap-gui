@@ -46,7 +46,8 @@ SOURCES += \
     src/backuptask.cpp \
     src/tarsnapaccount.cpp \
     src/notification.cpp \
-    src/persistentmodel/journal.cpp
+    src/persistentmodel/journal.cpp \
+    src/widgets/archivewidget.cpp
 
 HEADERS  += \
     src/coreapplication.h \
@@ -77,7 +78,8 @@ HEADERS  += \
     src/tarsnapaccount.h \
     src/notification.h \
     src/error.h \
-    src/persistentmodel/journal.h
+    src/persistentmodel/journal.h \
+    src/widgets/archivewidget.h
 
 INCLUDEPATH += src/widgets/ \
             += src/
@@ -93,7 +95,8 @@ FORMS    += \
     forms/jobitemwidget.ui \
     forms/jobwidget.ui \
     forms/aboutwidget.ui \
-    forms/logindialog.ui
+    forms/logindialog.ui \
+    forms/archivewidget.ui
 
 RESOURCES += resources/resources.qrc
 

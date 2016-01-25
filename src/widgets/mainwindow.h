@@ -72,7 +72,6 @@ public slots:
 private slots:
     void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
-    void updateInspectArchive();
     void commitSettings();
     void validateMachineKeyPath();
     void validateTarsnapPath();
@@ -104,7 +103,6 @@ private:
     QDialog         _aboutWindow;
     QPoint          _windowDragPos;
     QString         _lastTimestamp;
-    ArchivePtr      _currentArchiveDetail;
     bool            _useSIPrefixes;
     QTimer          _purgeTimer;
     int             _purgeTimerCount;

@@ -220,9 +220,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::restoreArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails,
             _ui->jobListWidget, &JobListWidget::selectJobByRef);
-    connect(_ui->archiveJobLabel, &TextLabel::clicked, [&]() {
-        _ui->jobListWidget->selectJobByRef(_currentArchiveDetail->jobRef());
-    });
+    connect(_ui->archiveDetailsWidget, &ArchiveWidget::jobClicked,
+            [&](QString jobRef){ _ui->jobListWidget->selectJobByRef(jobRef); });
 
     // Jobs
     connect(_ui->addJobButton, &QToolButton::clicked, this,
@@ -457,8 +456,8 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         if((_ui->mainTabWidget->currentWidget() == _ui->archivesTab) &&
            (_ui->archiveDetailsWidget->isVisible()))
         {
-            _ui->archiveContentsPlainTextEdit->clear(); // reduce memory usage
             _ui->archiveDetailsWidget->hide();
+            _ui->archiveDetailsWidget->setArchive(ArchivePtr());
         }
         if((_ui->mainTabWidget->currentWidget() == _ui->jobsTab) &&
            (_ui->jobDetailsWidget->isVisible()))
@@ -551,23 +550,13 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 
 void MainWindow::displayInspectArchive(ArchivePtr archive)
 {
-    if(_currentArchiveDetail)
-        disconnect(_currentArchiveDetail.data(), &Archive::changed, this,
-                   &MainWindow::updateInspectArchive);
-
-    _currentArchiveDetail = archive;
-
-    if(_currentArchiveDetail)
-        connect(_currentArchiveDetail.data(), &Archive::changed, this,
-                &MainWindow::updateInspectArchive, QUEUED);
-
     if(archive->sizeTotal() == 0)
         emit loadArchiveStats(archive);
 
     if(archive->contents().count() == 0)
         emit loadArchiveContents(archive);
 
-    updateInspectArchive();
+    _ui->archiveDetailsWidget->setArchive(archive);
 
     if(!_ui->archiveDetailsWidget->isVisible())
         _ui->archiveDetailsWidget->show();
@@ -615,40 +604,6 @@ void MainWindow::backupButtonClicked()
     backup->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
     emit backupNow(backup);
     _ui->appendTimestampCheckBox->setChecked(false);
-}
-
-void MainWindow::updateInspectArchive()
-{
-    if(_currentArchiveDetail)
-    {
-        _ui->archiveNameLabel->setText(_currentArchiveDetail->name());
-        _ui->archiveDateLabel->setText(
-            _currentArchiveDetail->timestamp().toString(Qt::DefaultLocaleLongDate));
-        if(_currentArchiveDetail->jobRef().isEmpty())
-        {
-            _ui->archiveJobLabel->hide();
-            _ui->archiveJobLabelField->hide();
-        }
-        else
-        {
-            _ui->archiveJobLabel->show();
-            _ui->archiveJobLabelField->show();
-            _ui->archiveJobLabel->setText(_currentArchiveDetail->jobRef());
-        }
-        _ui->archiveSizeLabel->setText(
-            Utils::humanBytes(_currentArchiveDetail->sizeTotal(), _useSIPrefixes));
-        _ui->archiveSizeLabel->setToolTip(_currentArchiveDetail->archiveStats());
-        _ui->archiveUniqueDataLabel->setText(
-            Utils::humanBytes(_currentArchiveDetail->sizeUniqueCompressed(),
-                              _useSIPrefixes));
-        _ui->archiveUniqueDataLabel->setToolTip(
-            _currentArchiveDetail->archiveStats());
-        _ui->archiveCommandLabel->setText(_currentArchiveDetail->command());
-        QString contents = _currentArchiveDetail->contents();
-        _ui->archiveContentsLabel->setText(tr("Contents (%1)")
-                                           .arg(QString::number(contents.count('\n'))));
-        _ui->archiveContentsPlainTextEdit->setPlainText(contents);
-    }
 }
 
 void MainWindow::updateStatusMessage(QString message, QString detail)

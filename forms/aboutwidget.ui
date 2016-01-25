@@ -19,12 +19,6 @@
    </property>
    <item alignment="Qt::AlignHCenter">
     <widget class="QLabel" name="tarsnapLogo">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
      <property name="minimumSize">
       <size>
        <width>128</width>
@@ -39,11 +33,8 @@
      </property>
      <property name="styleSheet">
       <string notr="true">#tarsnapLogo {
-border-image:url(:/icons/tarsnap_icon_big.png);
+image:url(:/icons/tarsnap_icon_big.png);
 }</string>
-     </property>
-     <property name="text">
-      <string/>
      </property>
     </widget>
    </item>

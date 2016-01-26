@@ -883,19 +883,27 @@ void MainWindow::addJobClicked()
 
 void MainWindow::displayStopTasks(int runningTasks, int queuedTasks)
 {
+    if(!runningTasks && !queuedTasks)
+    {
+        QMessageBox::information(this, tr("Stop Tasks"),
+                                 tr("There are no running or queued tasks."));
+        return;
+    }
     QMessageBox msgBox;
     msgBox.setText(tr("There are %1 running tasks and %2 queued.")
                        .arg(runningTasks)
                        .arg(queuedTasks));
     msgBox.setInformativeText(tr("What do you want to do?"));
-    QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
-    msgBox.setDefaultButton(cancel);
-    QPushButton *stopQueued =
-        msgBox.addButton(tr("Stop queued"), QMessageBox::ActionRole);
     QPushButton *stopRunning =
         msgBox.addButton(tr("Stop running"), QMessageBox::ActionRole);
+    stopRunning->setEnabled(runningTasks);
+    QPushButton *stopQueued =
+        msgBox.addButton(tr("Cancel queued"), QMessageBox::ActionRole);
+    stopQueued->setEnabled(queuedTasks);
     QPushButton *stopAll =
         msgBox.addButton(tr("Stop all"), QMessageBox::ActionRole);
+    QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
+    msgBox.setDefaultButton(cancel);
     msgBox.exec();
     if(msgBox.clickedButton() == stopQueued)
     {

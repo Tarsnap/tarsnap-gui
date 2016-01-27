@@ -1,9 +1,8 @@
 class TarsnapGui < Formula
   desc "Cross platform GUI for the Tarsnap command line client"
   homepage "https://github.com/Tarsnap/tarsnap-gui/wiki/Tarsnap"
-  url "https://github.com/Tarsnap/tarsnap-gui/archive/v0.7.tar.gz"
-  version "0.7"
-  sha256 "fe81970589998b6f584b3630fd2c5bc270f5cf459e08572f23151c5a309d2e33"
+  url "https://github.com/Tarsnap/tarsnap-gui/archive/v0.8.tar.gz"
+  sha256 "a4b5b23b6b75aa7a4af4d124521286c80d42446571cb27a858d03e772b2ff080"
   head "https://github.com/Tarsnap/tarsnap-gui.git"
 
   depends_on "qt5"

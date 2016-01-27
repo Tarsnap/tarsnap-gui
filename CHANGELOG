@@ -1,3 +1,40 @@
+Version 0.8
+-----------
+
+New features:
+* Add Homebrew recipe for easy installation on OS X.
+* The app can now be opened from headless operation, by clicking on
+notification icon or messages.
+* Upgrade the task cancel functionality. Now, one can either clear the queued
+tasks, stop the running ones or both.
+* Implement Simulation mode with the help of --dry-run. No new archives will be
+uploaded to the Tarsnap servers while this mode is on. The option is available
+in Settings -> Advanced. Disabling simulation mode or refreshing the Archives
+list will roll back all new archives and stats. Simulation mode is conveniently
+flagged while active with a bolt icon close to the busy indicator in the status
+bar.
+* Implement nodump global and per job setting. When enabled, files flagged as
+nodump in the file system will be skipped when backing up.
+* Implement ignore default tarsnap configs option (tarsnap.conf and tarsnaprc),
+using tarsnap --no-default-config parameter.
+* The app now features a persistent Journal log. All your tarsnap actions in
+either normal or headless operation are stored and available for later review.
+The Journal can be cleared in Settings -> Advanced.
+
+Improvements and fixes:
+* Use monospaced fixed width fonts for increased readability of Journal and
+Console logs as well other places where it made sense and text align nicely.
+* Upgraded the Qt signal slot connect syntax. For end users, performance is the
+main gain from this.
+* Cache archive contents as compressed (zlib) blobs and only decompress when
+needed for display. This significantly reduces overall memory usage, Sqlite DB
+size on disk and in memory and greatly increases the app's performance overall.
+* Improved error handling for several cases, among them cache errors are now
+gracefully handled.
+* Overall, the app is leaner, better looking and faster due to various
+refactorings and C++11/14 adoption.
+* Many bugs, UI issues and other inconsistencies have now been resolved.
+
 Version 0.7
 -----------
 

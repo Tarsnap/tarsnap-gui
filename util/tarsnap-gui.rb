@@ -1,5 +1,5 @@
 class TarsnapGui < Formula
-  desc "Cross platform GUI for the Tarsnap command line client"
+  desc "Cross platform GUI for the Tarsnap command-line client"
   homepage "https://github.com/Tarsnap/tarsnap-gui/wiki/Tarsnap"
   url "https://github.com/Tarsnap/tarsnap-gui/archive/v0.8.tar.gz"
   sha256 "a4b5b23b6b75aa7a4af4d124521286c80d42446571cb27a858d03e772b2ff080"
@@ -10,8 +10,8 @@ class TarsnapGui < Formula
 
   def install
     system "qmake"
-    system "make -j$(sysctl -n hw.ncpu)"
-    prefix.install 'Tarsnap.app'
+    system "make"
+    prefix.install "Tarsnap.app"
   end
 
   test do

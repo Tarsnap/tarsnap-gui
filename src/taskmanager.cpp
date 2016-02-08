@@ -597,6 +597,7 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
                          .arg(exitCode)
                          .arg(output));
         parseError(output);
+        emit archiveList(_archiveMap.values());
         return;
     }
 

@@ -58,6 +58,7 @@ void ArchiveListWidget::removeItems()
                                                     .arg(archive->name()));
             if(button == QMessageBox::Yes)
             {
+                archiveItem->setDisabled();
                 QList<ArchivePtr> archiveList;
                 archiveList.append(archive);
                 emit deleteArchives(archiveList);
@@ -108,6 +109,7 @@ void ArchiveListWidget::removeItems()
             {
                 ArchiveListItem *archiveItem =
                     static_cast<ArchiveListItem *>(item);
+                archiveItem->setDisabled();
                 archiveList.append(archiveItem->archive());
             }
             if(!archiveList.isEmpty())

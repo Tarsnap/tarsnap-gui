@@ -80,6 +80,12 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     }
 }
 
+void ArchiveListItem::setDisabled()
+{
+    _ui.detailLabel->setText(tr("(scheduled for deletion)"));
+    widget()->setEnabled(false);
+}
+
 void ArchiveListItem::update()
 {
     setArchive(_archive);

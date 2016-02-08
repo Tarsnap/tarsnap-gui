@@ -25,6 +25,7 @@ public:
 
     ArchivePtr archive() const;
     void setArchive(ArchivePtr archive);
+    void setDisabled();
 
 public slots:
     void update();

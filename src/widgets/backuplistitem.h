@@ -45,7 +45,7 @@ private:
     QUrl                 _url;
     quint64              _count;
     quint64              _size;
-    bool                 _useSIPrefixes;
+    bool                 _useIECPrefixes;
 };
 
 #endif // BACKUPLISTITEM_H

@@ -7,7 +7,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent) :
 {
     _ui->setupUi(this);
     QSettings settings;
-    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
+    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
     connect(_ui->archiveJobLabel, &TextLabel::clicked, [&]() {
         emit jobClicked(_archive->jobRef());
@@ -58,11 +58,11 @@ void ArchiveWidget::updateDetails()
             _ui->archiveJobLabel->setText(_archive->jobRef());
         }
         _ui->archiveSizeLabel->setText(
-            Utils::humanBytes(_archive->sizeTotal(), _useSIPrefixes));
+            Utils::humanBytes(_archive->sizeTotal(), _useIECPrefixes));
         _ui->archiveSizeLabel->setToolTip(_archive->archiveStats());
         _ui->archiveUniqueDataLabel->setText(
             Utils::humanBytes(_archive->sizeUniqueCompressed(),
-                              _useSIPrefixes));
+                              _useIECPrefixes));
         _ui->archiveUniqueDataLabel->setToolTip(
             _archive->archiveStats());
         _ui->archiveCommandLineEdit->setText(_archive->command());

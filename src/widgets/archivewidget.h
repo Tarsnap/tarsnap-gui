@@ -27,7 +27,7 @@ signals:
 
 private:
     Ui::ArchiveWidget  *_ui;
-    bool                _useSIPrefixes;
+    bool                _useIECPrefixes;
     ArchivePtr          _archive;
 };
 

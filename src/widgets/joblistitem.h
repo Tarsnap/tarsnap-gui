@@ -38,7 +38,7 @@ private:
     Ui::JobItemWidget _ui;
     QWidget          *_widget;
     JobPtr            _job;
-    bool              _useSIPrefixes;
+    bool              _useIECPrefixes;
 };
 
 #endif // JOBLISTITEM_H

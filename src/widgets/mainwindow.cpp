@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
       _ui(new Ui::MainWindow),
       _logo(":/icons/tarsnap-logo.png"),
       _icon(":/icons/tarsnap-logo.png"),
-      _useSIPrefixes(false),
+      _useIECPrefixes(false),
       _purgeTimerCount(0),
       _purgeCountdownWindow(this),
       _tarsnapAccount(this)
@@ -170,7 +170,7 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::validateTarsnapPath);
     connect(_ui->tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
             &MainWindow::validateTarsnapCache);
-    connect(_ui->siPrefixesCheckBox, &QCheckBox::toggled, this,
+    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
     connect(_ui->notificationsCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
@@ -391,8 +391,8 @@ void MainWindow::loadSettings()
         settings.value("tarsnap/dry_run", false).toBool());
     _ui->simulationIcon->setVisible(_ui->simulationCheckBox->isChecked());
 
-    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
-    _ui->siPrefixesCheckBox->setChecked(_useSIPrefixes);
+    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
+    _ui->iecPrefixesCheckBox->setChecked(_useIECPrefixes);
     _ui->skipFilesSizeSpinBox->setValue(
         settings.value("app/skip_files_size", 0).toULongLong());
     _ui->skipSystemJunkCheckBox->setChecked(
@@ -495,15 +495,15 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
                         .arg(sizeUniqueTotal)
                         .arg(sizeUniqueCompressed));
     _ui->accountTotalSizeLabel->setText(
-        Utils::humanBytes(sizeTotal, _useSIPrefixes));
+        Utils::humanBytes(sizeTotal, _useIECPrefixes));
     _ui->accountTotalSizeLabel->setToolTip(tooltip);
     _ui->accountActualSizeLabel->setText(
-        Utils::humanBytes(sizeUniqueCompressed, _useSIPrefixes));
+        Utils::humanBytes(sizeUniqueCompressed, _useIECPrefixes));
     _ui->accountActualSizeLabel->setToolTip(tooltip);
     quint64 storageSaved = sizeTotal >= sizeUniqueCompressed ?
                            sizeTotal - sizeUniqueCompressed : 0;
     _ui->accountStorageSavedLabel->setText(Utils::humanBytes(storageSaved,
-                                                             _useSIPrefixes));
+                                                             _useIECPrefixes));
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
 }
@@ -537,7 +537,7 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
     {
         _ui->backupDetailLabel->setText(tr("%1 %2 (%3)").arg(count)
                                         .arg(count == 1 ? "item" : "items")
-                                        .arg(Utils::humanBytes(size, _useSIPrefixes)));
+                                        .arg(Utils::humanBytes(size, _useIECPrefixes)));
         if(!_ui->backupNameLineEdit->text().isEmpty())
             _ui->backupButton->setEnabled(true);
     }
@@ -628,7 +628,7 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/follow_symlinks", _ui->followSymLinksCheckBox->isChecked());
     settings.setValue("tarsnap/no_default_config", _ui->ignoreConfigCheckBox->isChecked());
     settings.setValue("tarsnap/dry_run", _ui->simulationCheckBox->isChecked());
-    settings.setValue("app/si_prefixes", _ui->siPrefixesCheckBox->isChecked());
+    settings.setValue("app/iec_prefixes", _ui->iecPrefixesCheckBox->isChecked());
     settings.setValue("app/skip_files_size", _ui->skipFilesSizeSpinBox->value());
     settings.setValue("app/skip_system_enabled", _ui->skipSystemJunkCheckBox->isChecked());
     settings.setValue("app/skip_system_files", _ui->skipSystemLineEdit->text());

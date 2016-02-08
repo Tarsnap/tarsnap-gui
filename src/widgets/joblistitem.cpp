@@ -2,10 +2,10 @@
 #include "utils.h"
 
 JobListItem::JobListItem(JobPtr job)
-    : _widget(new QWidget), _useSIPrefixes(false)
+    : _widget(new QWidget), _useIECPrefixes(false)
 {
     QSettings settings;
-    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
+    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
     _ui.setupUi(_widget);
     _widget->addAction(_ui.actionBackup);
@@ -62,7 +62,7 @@ void JobListItem::setJob(const JobPtr &job)
     {
         totalSize += archive->sizeTotal();
     }
-    detail.append(Utils::humanBytes(totalSize, _useSIPrefixes));
+    detail.append(Utils::humanBytes(totalSize, _useIECPrefixes));
 
     _ui.detailLabel->setText(detail);
 }

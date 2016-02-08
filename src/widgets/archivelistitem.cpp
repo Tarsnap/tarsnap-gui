@@ -6,10 +6,10 @@
 #define FIELD_WIDTH 6
 
 ArchiveListItem::ArchiveListItem(ArchivePtr archive)
-    : _widget(new QWidget), _useSIPrefixes(false)
+    : _widget(new QWidget), _useIECPrefixes(false)
 {
     QSettings settings;
-    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
+    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
     _ui.setupUi(_widget);
     _widget->addAction(_ui.actionInspect);
@@ -57,7 +57,7 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     QString detail(_archive->timestamp().toString(Qt::DefaultLocaleLongDate));
     if(_archive->sizeTotal() != 0)
     {
-        QString size = Utils::humanBytes(_archive->sizeTotal(), _useSIPrefixes,
+        QString size = Utils::humanBytes(_archive->sizeTotal(), _useIECPrefixes,
                                          FIELD_WIDTH);
         detail.prepend(size + "  ");
     }

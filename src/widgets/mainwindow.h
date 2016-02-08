@@ -103,7 +103,7 @@ private:
     QDialog         _aboutWindow;
     QPoint          _windowDragPos;
     QString         _lastTimestamp;
-    bool            _useSIPrefixes;
+    bool            _useIECPrefixes;
     QTimer          _purgeTimer;
     int             _purgeTimerCount;
     QMessageBox     _purgeCountdownWindow;

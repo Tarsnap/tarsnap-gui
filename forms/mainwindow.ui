@@ -1207,12 +1207,12 @@ color: blue;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="siPrefixesCheckBox">
+                   <widget class="QCheckBox" name="iecPrefixesCheckBox">
                     <property name="toolTip">
-                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is based on base 2</string>
+                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</string>
                     </property>
                     <property name="text">
-                     <string>Use SI notation (default is IEC byte multipliers)</string>
+                     <string>Use IEC notation for sizes (default is SI)</string>
                     </property>
                    </widget>
                   </item>
@@ -2228,7 +2228,7 @@ border: none;
   <tabstop>accountMachineKeyLineEdit</tabstop>
   <tabstop>accountMachineKeyBrowseButton</tabstop>
   <tabstop>notificationsCheckBox</tabstop>
-  <tabstop>siPrefixesCheckBox</tabstop>
+  <tabstop>iecPrefixesCheckBox</tabstop>
   <tabstop>aggressiveNetworkingCheckBox</tabstop>
   <tabstop>preservePathsCheckBox</tabstop>
   <tabstop>traverseMountCheckBox</tabstop>

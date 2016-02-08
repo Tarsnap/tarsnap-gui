@@ -8,7 +8,7 @@
 #include <QThreadPool>
 
 BackupListItem::BackupListItem(QUrl url)
-    : _widget(new QWidget), _count(0), _size(0), _useSIPrefixes(false)
+    : _widget(new QWidget), _count(0), _size(0), _useIECPrefixes(false)
 {
     _ui.setupUi(_widget);
     _widget->addAction(_ui.actionOpen);
@@ -21,7 +21,7 @@ BackupListItem::BackupListItem(QUrl url)
             &BackupListItem::browseUrl);
 
     QSettings settings;
-    _useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
+    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
     setUrl(url);
 }
@@ -71,7 +71,7 @@ void BackupListItem::setUrl(const QUrl &url)
             _ui.iconLabel->setPixmap(icon);
             _count = 1;
             _size  = file.size();
-            _ui.detailLabel->setText(Utils::humanBytes(_size, _useSIPrefixes));
+            _ui.detailLabel->setText(Utils::humanBytes(_size, _useIECPrefixes));
         }
         else
         {
@@ -91,7 +91,7 @@ void BackupListItem::updateDirDetail(quint64 size, quint64 count)
     _size  = size;
     _count = count;
     _ui.detailLabel->setText(QString::number(_count) + tr(" items totalling ") +
-                             Utils::humanBytes(_size, _useSIPrefixes));
+                             Utils::humanBytes(_size, _useIECPrefixes));
     emit requestUpdate();
 }
 quint64 BackupListItem::size() const

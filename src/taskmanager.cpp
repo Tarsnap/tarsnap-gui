@@ -687,7 +687,7 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
 void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
 {
     QSettings settings;
-    bool useSIPrefixes = settings.value("app/si_prefixes", false).toBool();
+    bool useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
     BackupTaskPtr backupTask = _backupTaskMap[uuid];
     if(!backupTask)
     {
@@ -704,7 +704,7 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
         QString msg =  tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
                        .arg(backupTask->name())
                        .arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed()
-                                              , useSIPrefixes));
+                                              , useIECPrefixes));
         emit message(msg, backupTask->archive()->archiveStats());
         emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
         _backupTaskMap.remove(backupTask->uuid());

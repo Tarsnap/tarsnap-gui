@@ -69,14 +69,14 @@ quint64 GetDirInfoTask::getDirCount(QDir dir)
     return count;
 }
 
-QString Utils::humanBytes(quint64 bytes, bool si, int fieldWidth)
+QString Utils::humanBytes(quint64 bytes, bool IEC, int fieldWidth)
 {
-    quint64 unit = si ? 1000 : 1024;
+    quint64 unit = IEC ? 1024 : 1000;
     if(bytes < unit)
         return QString::number(bytes) + " B";
     int     exp = (int)(log(bytes) / log(unit));
     QString pre =
-        QString(si ? "kMGTPE" : "KMGTPE").at(exp - 1) + QString(si ? "" : "i");
+        QString(IEC ? "KMGTPE" : "kMGTPE").at(exp - 1) + QString(IEC ? "i" : "");
     return QString("%1 %2B").arg(bytes / pow(unit, exp), fieldWidth, 'f', 2).arg(pre);
 }
 

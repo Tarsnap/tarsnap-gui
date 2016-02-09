@@ -18,7 +18,7 @@ class FilePicker : public QWidget
     Q_OBJECT
 
 public:
-    explicit FilePicker(QWidget *parent = 0, QString startPath = "");
+    explicit FilePicker(QWidget *parent = 0);
     ~FilePicker();
 
     void        reset();
@@ -38,7 +38,6 @@ protected:
 
 private:
     Ui::FilePicker       *_ui;
-    QString               _startPath;
     CustomFileSystemModel _model;
     QCompleter            _completer;
 };

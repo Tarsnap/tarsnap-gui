@@ -5,8 +5,8 @@
 #include <QPersistentModelIndex>
 #include <QSettings>
 
-FilePicker::FilePicker(QWidget *parent, QString startPath)
-    : QWidget(parent), _ui(new Ui::FilePicker), _startPath(startPath)
+FilePicker::FilePicker(QWidget *parent)
+    : QWidget(parent), _ui(new Ui::FilePicker)
 {
     _ui->setupUi(this);
     _ui->optionsContainer->hide();
@@ -15,18 +15,9 @@ FilePicker::FilePicker(QWidget *parent, QString startPath)
 //    _model.setNameFilterDisables(false);
     _ui->treeView->setModel(&_model);
     _ui->treeView->installEventFilter(this);
-    if(_startPath.isEmpty())
-    {
-        QString   path;
-        QSettings settings;
-        path =
-            settings.value("app/file_browse_last", QDir::homePath()).toString();
-        _ui->treeView->setCurrentIndex(_model.index(path));
-    }
-    else
-    {
-        _ui->treeView->setCurrentIndex(_model.index(_startPath));
-    }
+    QSettings settings;
+    _ui->treeView->setCurrentIndex(_model.index(settings.value("app/file_browse_last",
+                                                               QDir::homePath()).toString()));
     _completer.setModel(&_model);
     _completer.setCompletionMode(QCompleter::InlineCompletion);
     _completer.setCaseSensitivity(Qt::CaseSensitive);
@@ -73,12 +64,6 @@ FilePicker::FilePicker(QWidget *parent, QString startPath)
 
 FilePicker::~FilePicker()
 {
-    if(_startPath.isEmpty())
-    {
-        QSettings settings;
-        settings.setValue("app/file_browse_last",
-                          _model.filePath(_ui->treeView->currentIndex()));
-    }
     delete _ui;
 }
 
@@ -86,6 +71,9 @@ void FilePicker::reset()
 {
     _model.reset();
     _ui->treeView->reset();
+    QSettings settings;
+    _ui->treeView->setCurrentIndex(_model.index(settings.value("app/file_browse_last",
+                                                               QDir::homePath()).toString()));
 }
 
 QList<QUrl> FilePicker::getSelectedUrls()
@@ -135,6 +123,9 @@ bool FilePicker::eventFilter(QObject *obj, QEvent *event)
     if((obj == _ui->treeView) && (event->type() == QEvent::FocusOut))
     {
         emit focusLost();
+        QSettings settings;
+        settings.setValue("app/file_browse_last",
+                          _model.filePath(_ui->treeView->currentIndex()));
         return false;
     }
     else

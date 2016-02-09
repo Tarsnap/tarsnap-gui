@@ -48,6 +48,44 @@
        <number>0</number>
       </property>
       <item>
+       <widget class="QPushButton" name="homeButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>Browse to your home directory</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources/resources.qrc">
+          <normaloff>:/icons/home.png</normaloff>:/icons/home.png</iconset>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLineEdit" name="filterLineEdit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -102,7 +140,8 @@ padding-left: 3px;
         </property>
         <property name="icon">
          <iconset resource="../resources/resources.qrc">
-          <normaloff>:/icons/menu.png</normaloff>:/icons/menu.png</iconset>
+          <normaloff>:/icons/caret-bottom.png</normaloff>
+          <normalon>:/icons/caret-top.png</normalon>:/icons/caret-bottom.png</iconset>
         </property>
         <property name="checkable">
          <bool>true</bool>

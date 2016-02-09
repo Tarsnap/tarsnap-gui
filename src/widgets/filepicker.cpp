@@ -16,8 +16,8 @@ FilePicker::FilePicker(QWidget *parent)
     _ui->treeView->setModel(&_model);
     _ui->treeView->installEventFilter(this);
     QSettings settings;
-    _ui->treeView->setCurrentIndex(_model.index(settings.value("app/file_browse_last",
-                                                               QDir::homePath()).toString()));
+    setCurrentPath(settings.value("app/file_browse_last",
+                                  QDir::homePath()).toString());
     _completer.setModel(&_model);
     _completer.setCompletionMode(QCompleter::InlineCompletion);
     _completer.setCaseSensitivity(Qt::CaseSensitive);
@@ -60,6 +60,8 @@ FilePicker::FilePicker(QWidget *parent)
         if(_completer.currentCompletion().isEmpty())
             _ui->treeView->setFocus();
     });
+    connect(_ui->homeButton, &QPushButton::clicked,
+            [&](){setCurrentPath(QDir::homePath());});
 }
 
 FilePicker::~FilePicker()
@@ -72,8 +74,8 @@ void FilePicker::reset()
     _model.reset();
     _ui->treeView->reset();
     QSettings settings;
-    _ui->treeView->setCurrentIndex(_model.index(settings.value("app/file_browse_last",
-                                                               QDir::homePath()).toString()));
+    setCurrentPath(settings.value("app/file_browse_last",
+                                  QDir::homePath()).toString());
 }
 
 QList<QUrl> FilePicker::getSelectedUrls()
@@ -139,12 +141,13 @@ void FilePicker::updateFilter(QString filter)
 {
     _model.setNameFilters(QStringList("*"));
     if(filter.startsWith('/'))
-    {
-        _ui->treeView->setCurrentIndex(_model.index(filter));
-        _ui->treeView->scrollTo(_model.index(filter));
-    }
+        setCurrentPath(filter);
     else if(!filter.isEmpty())
-    {
         _model.setNameFilters(QStringList(filter));
-    }
+}
+
+void FilePicker::setCurrentPath(const QString path)
+{
+    _ui->treeView->setCurrentIndex(_model.index(path));
+    _ui->treeView->scrollTo(_model.index(path));
 }

@@ -27,6 +27,7 @@ public:
 
 public slots:
     void updateFilter(QString filter);
+    void setCurrentPath(const QString path);
 
 signals:
     void selectionChanged();

@@ -12,20 +12,14 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive)
     _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
     _ui.setupUi(_widget);
-    _widget->addAction(_ui.actionInspect);
-    _widget->addAction(_ui.actionRestore);
-    _widget->addAction(_ui.actionDelete);
-    _ui.inspectButton->setDefaultAction(_ui.actionInspect);
-    _ui.jobButton->setDefaultAction(_ui.actionGoToJob);
-    _ui.restoreButton->setDefaultAction(_ui.actionRestore);
-    _ui.deleteButton->setDefaultAction(_ui.actionDelete);
-    connect(_ui.actionDelete, &QAction::triggered, this,
+
+    connect(_ui.deleteButton, &QToolButton::clicked, this,
             &ArchiveListItem::requestDelete);
-    connect(_ui.actionInspect, &QAction::triggered, this,
+    connect(_ui.inspectButton, &QToolButton::clicked, this,
             &ArchiveListItem::requestInspect);
-    connect(_ui.actionRestore, &QAction::triggered, this,
+    connect(_ui.restoreButton, &QToolButton::clicked, this,
             &ArchiveListItem::requestRestore);
-    connect(_ui.actionGoToJob, &QAction::triggered, this,
+    connect(_ui.jobButton, &QToolButton::clicked, this,
             &ArchiveListItem::requestGoToJob);
 
     setArchive(archive);
@@ -69,14 +63,12 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
         _ui.jobButton->hide();
         _ui.horizontalLayout->removeWidget(_ui.jobButton);
         _ui.archiveButton->show();
-        _widget->removeAction(_ui.actionGoToJob);
     }
     else
     {
         _ui.archiveButton->hide();
         _ui.horizontalLayout->removeWidget(_ui.archiveButton);
         _ui.jobButton->show();
-        _widget->insertAction(_ui.actionRestore, _ui.actionGoToJob);
     }
 }
 

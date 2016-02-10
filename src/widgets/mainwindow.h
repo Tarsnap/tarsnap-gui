@@ -95,6 +95,7 @@ private slots:
     void updateAccountCredit(qreal credit, QDate date);
     void updateLastMachineActivity(QStringList activityFields);
     void clearJournalClicked();
+    void showArchiveListMenu(const QPoint& pos);
 
 private:
     Ui::MainWindow *_ui;

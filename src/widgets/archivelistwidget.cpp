@@ -30,7 +30,7 @@ void ArchiveListWidget::addArchives(QList<ArchivePtr> archives)
     {
         ArchiveListItem *item = new ArchiveListItem(archive);
         connect(item, &ArchiveListItem::requestDelete, this,
-                &ArchiveListWidget::removeItems);
+                &ArchiveListWidget::removeItem);
         connect(item, &ArchiveListItem::requestInspect, this,
                 &ArchiveListWidget::inspectItem);
         connect(item, &ArchiveListItem::requestRestore, this,
@@ -43,31 +43,30 @@ void ArchiveListWidget::addArchives(QList<ArchivePtr> archives)
     setUpdatesEnabled(true);
 }
 
-void ArchiveListWidget::removeItems()
+void ArchiveListWidget::removeItem()
 {
-    if(selectedItems().isEmpty())
+    ArchiveListItem *archiveItem = qobject_cast<ArchiveListItem *>(sender());
+    if(archiveItem)
     {
-        // remove single item
-        ArchiveListItem *archiveItem = qobject_cast<ArchiveListItem *>(sender());
-        if(archiveItem)
+        ArchivePtr archive = archiveItem->archive();
+        auto button = QMessageBox::question(this, tr("Confirm delete"),
+                                            tr("Are you sure you want to delete "
+                                               "archive %1 (this cannot be undone)?")
+                                            .arg(archive->name()));
+        if(button == QMessageBox::Yes)
         {
-            ArchivePtr archive = archiveItem->archive();
-            auto button = QMessageBox::question(this, tr("Confirm delete"),
-                                                tr("Are you sure you want to delete "
-                                                   "archive %1 (this cannot be undone)?")
-                                                    .arg(archive->name()));
-            if(button == QMessageBox::Yes)
-            {
-                archiveItem->setDisabled();
-                QList<ArchivePtr> archiveList;
-                archiveList.append(archive);
-                emit deleteArchives(archiveList);
-            }
+            archiveItem->setDisabled();
+            QList<ArchivePtr> archiveList;
+            archiveList.append(archive);
+            emit deleteArchives(archiveList);
         }
     }
-    else
+}
+
+void ArchiveListWidget::removeSelectedItems()
+{
+    if(!selectedItems().isEmpty())
     {
-        // remove selected items
         int  selectedItemsCount = selectedItems().count();
         auto button = QMessageBox::question(this, tr("Confirm delete"),
                                             tr("Are you sure you want to "
@@ -114,6 +113,27 @@ void ArchiveListWidget::removeItems()
             }
             if(!archiveList.isEmpty())
                 emit deleteArchives(archiveList);
+        }
+    }
+}
+
+void ArchiveListWidget::inspectSelectedItem()
+{
+    if(!selectedItems().isEmpty())
+        emit inspectArchive(static_cast<ArchiveListItem *>(selectedItems().first())->archive());
+}
+
+void ArchiveListWidget::restoreSelectedItem()
+{
+    if(!selectedItems().isEmpty())
+    {
+        ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(selectedItems().first());
+        if(archiveItem)
+        {
+            RestoreDialog restoreDialog(archiveItem->archive(), this);
+            if(QDialog::Accepted == restoreDialog.exec())
+                emit restoreArchive(archiveItem->archive(),
+                                    restoreDialog.getOptions());
         }
     }
 }
@@ -170,7 +190,7 @@ void ArchiveListWidget::keyReleaseEvent(QKeyEvent *event)
     {
     case Qt::Key_Delete:
     case Qt::Key_Backspace:
-        removeItems();
+        removeSelectedItems();
         break;
     case Qt::Key_Escape:
         if(!selectedItems().isEmpty())

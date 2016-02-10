@@ -92,9 +92,16 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     // Ui actions setup
-    _ui->archiveListWidget->addAction(_ui->actionRefresh);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
+            this, &MainWindow::showArchiveListMenu);
     connect(_ui->actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
+    connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::removeSelectedItems);
+    connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::restoreSelectedItem);
+    connect(_ui->actionInspect, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::inspectSelectedItem);
     _ui->backupListWidget->addAction(_ui->actionClearList);
     connect(_ui->actionClearList, &QAction::triggered, _ui->backupListWidget,
             &BackupListWidget::clear);
@@ -974,4 +981,21 @@ void MainWindow::clearJournalClicked()
                                         "be deleted forever."));
     if(confirm == QMessageBox::Yes)
         emit clearJournal();
+}
+
+void MainWindow::showArchiveListMenu(const QPoint &pos)
+{
+    QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
+    QMenu archiveListMenu(_ui->archiveListWidget);
+    archiveListMenu.addAction(_ui->actionRefresh);
+    if(!_ui->archiveListWidget->selectedItems().isEmpty())
+    {
+        if(_ui->archiveListWidget->selectedItems().count() == 1)
+        {
+            archiveListMenu.addAction(_ui->actionInspect);
+            archiveListMenu.addAction(_ui->actionRestore);
+        }
+        archiveListMenu.addAction(_ui->actionDelete);
+    }
+    archiveListMenu.exec(globalPos);
 }

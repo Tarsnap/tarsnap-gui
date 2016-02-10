@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="contextMenuPolicy">
-   <enum>Qt::ActionsContextMenu</enum>
+   <enum>Qt::NoContextMenu</enum>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -279,54 +279,6 @@ padding-left: 2px;
     </widget>
    </item>
   </layout>
-  <action name="actionDelete">
-   <property name="icon">
-    <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/trash.png</normaloff>:/icons/trash.png</iconset>
-   </property>
-   <property name="text">
-    <string>Delete</string>
-   </property>
-   <property name="toolTip">
-    <string>Delete archive(s)</string>
-   </property>
-  </action>
-  <action name="actionInspect">
-   <property name="icon">
-    <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
-   </property>
-   <property name="text">
-    <string>Inspect</string>
-   </property>
-   <property name="toolTip">
-    <string>Inspect archive</string>
-   </property>
-  </action>
-  <action name="actionRestore">
-   <property name="icon">
-    <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
-   </property>
-   <property name="text">
-    <string>Restore</string>
-   </property>
-   <property name="toolTip">
-    <string>Restore Archive</string>
-   </property>
-  </action>
-  <action name="actionGoToJob">
-   <property name="icon">
-    <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/hard-drive.png</normaloff>:/icons/hard-drive.png</iconset>
-   </property>
-   <property name="text">
-    <string>Go to Job</string>
-   </property>
-   <property name="toolTip">
-    <string>Go to Job</string>
-   </property>
-  </action>
  </widget>
  <customwidgets>
   <customwidget>

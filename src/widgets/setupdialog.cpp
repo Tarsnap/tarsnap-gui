@@ -115,22 +115,6 @@ SetupDialog::~SetupDialog()
     delete _ui;
 }
 
-void SetupDialog::mousePressEvent(QMouseEvent *event)
-{
-    if(event->buttons() & Qt::LeftButton)
-        _windowDragPos = event->pos();
-}
-
-void SetupDialog::mouseMoveEvent(QMouseEvent *event)
-{
-    if(event->buttons() & Qt::LeftButton)
-    {
-        QPoint diff   = event->pos() - _windowDragPos;
-        QPoint newpos = this->pos() + diff;
-        this->move(newpos);
-    }
-}
-
 void SetupDialog::wizardPageChanged(int)
 {
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)

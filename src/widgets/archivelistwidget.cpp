@@ -70,7 +70,7 @@ void ArchiveListWidget::removeSelectedItems()
         int  selectedItemsCount = selectedItems().count();
         auto button = QMessageBox::question(this, tr("Confirm delete"),
                                             tr("Are you sure you want to "
-                                               "delete %1 selected archives "
+                                               "delete %1 selected archive(s) "
                                                "(this cannot be undone)?")
                                                 .arg(selectedItemsCount));
         if(button == QMessageBox::Yes)

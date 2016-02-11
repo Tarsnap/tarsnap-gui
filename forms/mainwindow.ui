@@ -1808,8 +1808,8 @@ font-size: 12px;
                  <bool>true</bool>
                 </property>
                 <property name="plainText">
-                 <string>General
--------
+                 <string>Global
+------
 ctrl+[1-5] - switch between Backup, Archives.. main tabs
 ctrl+j     - toggle the Journal log
 ctrl+k     - stop tasks
@@ -1823,16 +1823,22 @@ backspace      - remove selected items from the Backup list
 Archives tab
 ------------
 ctrl+r    - refresh the Archives list
-backspace - delete selected Archives
+ctrl+i    - inspect selected Archive
+ctrl+s    - restore selected Archive
+ctrl+d    - delete selected Archive(s)
+backspace - delete selected Archive(s)
 
 Jobs tab
 --------
-ctrl+n - add new Job
-ctrl+b - initiate backup on selected Jobs
+ctrl+n    - define new Job
+ctrl+b    - execute backup for selected Jobs
+ctrl+i    - inspect selected Job
+ctrl+s    - restore selected Job
+ctrl+d    - delete selected Job
 
 Settings tab
 ------------
-ctrl+r - refresh Account summary
+ctrl+r - refresh Account Summary
 
 * ctrl is cmd key on OS X
 </string>
@@ -2178,6 +2184,9 @@ border: none;
    <property name="toolTip">
     <string>Delete archive(s)</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
   </action>
   <action name="actionInspect">
    <property name="icon">
@@ -2189,6 +2198,9 @@ border: none;
    </property>
    <property name="toolTip">
     <string>Inspect archive</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
   <action name="actionRestore">
@@ -2202,6 +2214,9 @@ border: none;
    <property name="toolTip">
     <string>Restore Archive</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionJobRestore">
    <property name="icon">
@@ -2214,6 +2229,9 @@ border: none;
    <property name="toolTip">
     <string>Restore latest backup</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionJobInspect">
    <property name="icon">
@@ -2225,6 +2243,9 @@ border: none;
    </property>
    <property name="toolTip">
     <string>Show job details</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
   <action name="actionJobBackup">
@@ -2252,6 +2273,9 @@ border: none;
    </property>
    <property name="toolTip">
     <string>Delete job</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

@@ -93,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Ui actions setup
 
-    // Backup
+    // Backup pane
     connect(_ui->backupListWidget, &BackupListWidget::itemTotals, this,
             &MainWindow::updateBackupItemTotals);
     _ui->backupListWidget->addAction(_ui->actionClearList);
@@ -210,6 +210,9 @@ MainWindow::MainWindow(QWidget *parent)
     // ---
 
     // Archives
+    _ui->archiveListWidget->addAction(_ui->actionInspect);
+    _ui->archiveListWidget->addAction(_ui->actionDelete);
+    _ui->archiveListWidget->addAction(_ui->actionRestore);
     connect(this, &MainWindow::archiveList, _ui->archiveListWidget,
             &ArchiveListWidget::addArchives);
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
@@ -235,6 +238,10 @@ MainWindow::MainWindow(QWidget *parent)
             &ArchiveListWidget::inspectSelectedItem);
 
     // Jobs
+    _ui->jobListWidget->addAction(_ui->actionJobBackup);
+    _ui->jobListWidget->addAction(_ui->actionJobDelete);
+    _ui->jobListWidget->addAction(_ui->actionJobInspect);
+    _ui->jobListWidget->addAction(_ui->actionJobRestore);
     connect(_ui->addJobButton, &QToolButton::clicked, this,
             &MainWindow::addJobClicked);
     connect(_ui->jobDetailsWidget, &JobWidget::collapse, this,

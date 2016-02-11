@@ -94,7 +94,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Quickly navigate directories and filter files using regular expressions</string>
+         <string>Quickly navigate directories and filter file names using regular expressions</string>
         </property>
         <property name="styleSheet">
          <string notr="true">QLineEdit {
@@ -102,7 +102,7 @@ padding-left: 3px;
 }</string>
         </property>
         <property name="placeholderText">
-         <string>navigate directories and filter file names</string>
+         <string>quickly navigate directories and filter file names</string>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>

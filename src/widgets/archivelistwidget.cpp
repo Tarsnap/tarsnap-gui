@@ -76,8 +76,7 @@ void ArchiveListWidget::removeSelectedItems()
         if(button == QMessageBox::Yes)
         {
             // Some more deletion confirmation, if count of archives to be
-            // removed
-            // is big enough
+            // removed is bigger than threshold
             if(selectedItemsCount >= DELETE_CONFIRMATION_THRESHOLD)
             {
                 // Inform of purge operation if all archives are to be removed

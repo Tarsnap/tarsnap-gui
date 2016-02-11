@@ -96,6 +96,7 @@ private slots:
     void updateLastMachineActivity(QStringList activityFields);
     void clearJournalClicked();
     void showArchiveListMenu(const QPoint& pos);
+    void showJobsListMenu(const QPoint& pos);
 
 private:
     Ui::MainWindow *_ui;

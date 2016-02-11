@@ -92,22 +92,17 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     // Ui actions setup
-    connect(_ui->archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
-            this, &MainWindow::showArchiveListMenu);
-    connect(_ui->actionRefresh, &QAction::triggered, this,
-            &MainWindow::getArchives);
-    connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
-            &ArchiveListWidget::removeSelectedItems);
-    connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
-            &ArchiveListWidget::restoreSelectedItem);
-    connect(_ui->actionInspect, &QAction::triggered, _ui->archiveListWidget,
-            &ArchiveListWidget::inspectSelectedItem);
+
+    // Backup
+    connect(_ui->backupListWidget, &BackupListWidget::itemTotals, this,
+            &MainWindow::updateBackupItemTotals);
     _ui->backupListWidget->addAction(_ui->actionClearList);
     connect(_ui->actionClearList, &QAction::triggered, _ui->backupListWidget,
             &BackupListWidget::clear);
     _ui->backupListWidget->addAction(_ui->actionBrowseItems);
     connect(_ui->actionBrowseItems, &QAction::triggered, this,
             &MainWindow::browseForBackupItems);
+
     _ui->settingsTab->addAction(_ui->actionRefreshAccount);
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
@@ -214,9 +209,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->formLayout_3->removeItem(_ui->machineActivityHorizontalLayout);
     // ---
 
-    // Backup and Archives
-    connect(_ui->backupListWidget, &BackupListWidget::itemTotals, this,
-            &MainWindow::updateBackupItemTotals);
+    // Archives
     connect(this, &MainWindow::archiveList, _ui->archiveListWidget,
             &ArchiveListWidget::addArchives);
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
@@ -229,6 +222,17 @@ MainWindow::MainWindow(QWidget *parent)
             _ui->jobListWidget, &JobListWidget::selectJobByRef);
     connect(_ui->archiveDetailsWidget, &ArchiveWidget::jobClicked,
             [&](QString jobRef){ _ui->jobListWidget->selectJobByRef(jobRef); });
+
+    connect(_ui->archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
+            this, &MainWindow::showArchiveListMenu);
+    connect(_ui->actionRefresh, &QAction::triggered, this,
+            &MainWindow::getArchives);
+    connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::removeSelectedItems);
+    connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::restoreSelectedItem);
+    connect(_ui->actionInspect, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::inspectSelectedItem);
 
     // Jobs
     connect(_ui->addJobButton, &QToolButton::clicked, this,
@@ -268,6 +272,18 @@ MainWindow::MainWindow(QWidget *parent)
 //        _tarsnapAccount.getAccountInfo(false, true);
 //    });
 
+    connect(_ui->jobListWidget, &JobListWidget::customContextMenuRequested,
+            this, &MainWindow::showJobsListMenu);
+    connect(_ui->actionJobBackup, &QAction::triggered, _ui->jobListWidget,
+            &JobListWidget::backupSelectedItems);
+    connect(_ui->actionJobDelete, &QAction::triggered, _ui->jobListWidget,
+            &JobListWidget::deleteSelectedItem);
+    connect(_ui->actionJobRestore, &QAction::triggered, _ui->jobListWidget,
+            &JobListWidget::restoreSelectedItem);
+    connect(_ui->actionJobInspect, &QAction::triggered, _ui->jobListWidget,
+            &JobListWidget::inspectSelectedItem);
+
+    _ui->jobListWidget->addAction(_ui->actionJobBackup);
     _ui->jobListWidget->addAction(_ui->actionAddJob);
     connect(_ui->actionAddJob, &QAction::triggered, this,
             &MainWindow::addJobClicked);
@@ -276,9 +292,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->actionBackupAllJobs, &QAction::triggered, _ui->jobListWidget,
             &JobListWidget::backupAllJobs);
     _ui->addJobButton->setMenu(addJobMenu);
-    _ui->jobListWidget->addAction(_ui->actionJobBackup);
-    connect(_ui->actionJobBackup, &QAction::triggered, _ui->jobListWidget,
-            &JobListWidget::backupSelectedItems);
 
     // lambda slots to quickly update various UI components
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
@@ -998,4 +1011,18 @@ void MainWindow::showArchiveListMenu(const QPoint &pos)
         archiveListMenu.addAction(_ui->actionDelete);
     }
     archiveListMenu.exec(globalPos);
+}
+
+void MainWindow::showJobsListMenu(const QPoint &pos)
+{
+    QPoint globalPos = _ui->jobListWidget->viewport()->mapToGlobal(pos);
+    QMenu jobListMenu(_ui->jobListWidget);
+    if(!_ui->jobListWidget->selectedItems().isEmpty())
+    {
+        jobListMenu.addAction(_ui->actionJobBackup);
+        jobListMenu.addAction(_ui->actionJobInspect);
+        jobListMenu.addAction(_ui->actionJobRestore);
+        jobListMenu.addAction(_ui->actionJobDelete);
+    }
+    jobListMenu.exec(globalPos);
 }

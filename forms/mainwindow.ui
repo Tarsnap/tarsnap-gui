@@ -478,6 +478,9 @@ background-color: rgba(177,214,255,255);
                  <enum>Qt::Vertical</enum>
                 </property>
                 <widget class="JobListWidget" name="jobListWidget">
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::CustomContextMenu</enum>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">#jobListWidget::item
 {
@@ -494,7 +497,7 @@ background-color: rgba(177,214,255,255);
                   <bool>true</bool>
                  </property>
                  <property name="selectionMode">
-                  <enum>QAbstractItemView::SingleSelection</enum>
+                  <enum>QAbstractItemView::ExtendedSelection</enum>
                  </property>
                  <property name="verticalScrollMode">
                   <enum>QAbstractItemView::ScrollPerPixel</enum>
@@ -2144,18 +2147,11 @@ border: none;
     <string>Ctrl+R</string>
    </property>
   </action>
-  <action name="actionJobBackup">
-   <property name="text">
-    <string>Backup</string>
-   </property>
-   <property name="toolTip">
-    <string>Initiate backup on selected jobs</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+B</string>
-   </property>
-  </action>
   <action name="actionBackupAllJobs">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/tarsnap_icon.png</normaloff>:/icons/tarsnap_icon.png</iconset>
+   </property>
    <property name="text">
     <string>Backup all jobs</string>
    </property>
@@ -2205,6 +2201,57 @@ border: none;
    </property>
    <property name="toolTip">
     <string>Restore Archive</string>
+   </property>
+  </action>
+  <action name="actionJobRestore">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Restore</string>
+   </property>
+   <property name="toolTip">
+    <string>Restore latest backup</string>
+   </property>
+  </action>
+  <action name="actionJobInspect">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
+   </property>
+   <property name="text">
+    <string>Inspect</string>
+   </property>
+   <property name="toolTip">
+    <string>Show job details</string>
+   </property>
+  </action>
+  <action name="actionJobBackup">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/tarsnap_icon.png</normaloff>:/icons/tarsnap_icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Backup</string>
+   </property>
+   <property name="toolTip">
+    <string>Execute backup for job(s)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionJobDelete">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/trash.png</normaloff>:/icons/trash.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete job</string>
    </property>
   </action>
  </widget>

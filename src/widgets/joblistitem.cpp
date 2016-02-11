@@ -8,22 +8,13 @@ JobListItem::JobListItem(JobPtr job)
     _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
     _ui.setupUi(_widget);
-    _widget->addAction(_ui.actionBackup);
-    _widget->addAction(_ui.actionInspect);
-    _widget->addAction(_ui.actionRestore);
-    _widget->addAction(_ui.actionDelete);
-    _ui.inspectButton->setDefaultAction(_ui.actionInspect);
-    _ui.restoreButton->setDefaultAction(_ui.actionRestore);
-    connect(_ui.backupButton, &QPushButton::clicked, _ui.actionBackup,
-            &QAction::triggered);
-    connect(_ui.actionBackup, &QAction::triggered, this,
+
+    connect(_ui.backupButton, &QPushButton::clicked, this,
             &JobListItem::requestBackup);
-    connect(_ui.actionInspect, &QAction::triggered, this,
+    connect(_ui.inspectButton, &QToolButton::clicked, this,
             &JobListItem::requestInspect);
-    connect(_ui.actionRestore, &QAction::triggered, this,
+    connect(_ui.restoreButton, &QToolButton::clicked, this,
             &JobListItem::requestRestore);
-    connect(_ui.actionDelete, &QAction::triggered, this,
-            &JobListItem::requestDelete);
 
     setJob(job);
 }

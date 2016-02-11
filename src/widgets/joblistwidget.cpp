@@ -1,6 +1,5 @@
 #include "joblistwidget.h"
 #include "debug.h"
-#include "joblistitem.h"
 #include "restoredialog.h"
 
 #include <QMessageBox>
@@ -117,7 +116,11 @@ void JobListWidget::restoreItem()
 
 void JobListWidget::deleteItem()
 {
-    JobListItem *jobItem = qobject_cast<JobListItem *>(sender());
+    execDeleteJob(qobject_cast<JobListItem *>(sender()));
+}
+
+void JobListWidget::execDeleteJob(JobListItem *jobItem)
+{
     if(jobItem)
     {
         bool   purgeArchives = false;
@@ -171,6 +174,33 @@ void JobListWidget::addJob(JobPtr job)
         insertItem(count(), item);
         setItemWidget(item, item->widget());
     }
+}
+
+void JobListWidget::inspectSelectedItem()
+{
+    if(!selectedItems().isEmpty())
+        emit displayJobDetails(static_cast<JobListItem *>(selectedItems().first())->job());
+}
+
+void JobListWidget::restoreSelectedItem()
+{
+    if(!selectedItems().isEmpty())
+    {
+        JobPtr job = static_cast<JobListItem *>(selectedItems().first())->job();
+        if(!job->archives().isEmpty())
+        {
+            ArchivePtr    archive = job->archives().first();
+            RestoreDialog restoreDialog(archive, this);
+            if(QDialog::Accepted == restoreDialog.exec())
+                emit restoreArchive(archive, restoreDialog.getOptions());
+        }
+    }
+}
+
+void JobListWidget::deleteSelectedItem()
+{
+    if(!selectedItems().isEmpty())
+        execDeleteJob(static_cast<JobListItem *>(selectedItems().first()));
 }
 
 void JobListWidget::keyReleaseEvent(QKeyEvent *event)

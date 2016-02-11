@@ -137,12 +137,37 @@ padding-left: 3px;
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="cancelButton">
+       <widget class="QPushButton" name="hideButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
         <property name="toolTip">
-         <string>Can also press ESC key</string>
+         <string>Hide job details (ESC key)</string>
         </property>
         <property name="text">
-         <string>Hide</string>
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources/resources.qrc">
+          <normaloff>:/icons/collapse-down.png</normaloff>:/icons/collapse-down.png</iconset>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -457,7 +482,7 @@ selection-background-color: rgba(177,214,255, 255);
  <tabstops>
   <tabstop>jobNameLineEdit</tabstop>
   <tabstop>restoreLatestArchiveButton</tabstop>
-  <tabstop>cancelButton</tabstop>
+  <tabstop>hideButton</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>includeScheduledCheckBox</tabstop>
   <tabstop>preservePathsCheckBox</tabstop>
@@ -466,7 +491,9 @@ selection-background-color: rgba(177,214,255, 255);
   <tabstop>skipFilesSizeSpinBox</tabstop>
   <tabstop>archiveListWidget</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>skipFilesCheckBox</sender>

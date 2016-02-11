@@ -9,6 +9,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent) :
     QSettings settings;
     _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
+    connect(_ui->hideButton, &QPushButton::clicked, this, &ArchiveWidget::hide);
     connect(_ui->archiveJobLabel, &TextLabel::clicked, [&]() {
         emit jobClicked(_archive->jobRef());
     });

@@ -40,7 +40,7 @@ JobWidget::JobWidget(QWidget *parent)
     connect(_ui->skipFilesCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
     connect(_ui->skipFilesLineEdit, &QLineEdit::editingFinished, this,
             &JobWidget::save);
-    connect(_ui->cancelButton, &QPushButton::clicked, this, &JobWidget::cancel);
+    connect(_ui->hideButton, &QPushButton::clicked, this, &JobWidget::collapse);
     connect(_ui->restoreLatestArchiveButton, &QPushButton::clicked, this,
             &JobWidget::restoreLatestArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,

@@ -237,7 +237,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Jobs
     connect(_ui->addJobButton, &QToolButton::clicked, this,
             &MainWindow::addJobClicked);
-    connect(_ui->jobDetailsWidget, &JobWidget::cancel, this,
+    connect(_ui->jobDetailsWidget, &JobWidget::collapse, this,
             &MainWindow::hideJobDetails);
     connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, _ui->jobListWidget,
             &JobListWidget::addJob);

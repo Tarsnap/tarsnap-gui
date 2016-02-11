@@ -26,7 +26,7 @@ public slots:
     void saveNew();
 
 signals:
-    void cancel();
+    void collapse();
     void jobAdded(JobPtr job);
     void inspectJobArchive(ArchivePtr archive);
     void deleteJobArchives(QList<ArchivePtr> archives);

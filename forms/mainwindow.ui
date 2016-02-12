@@ -1310,6 +1310,23 @@ color: blue;
                       </property>
                      </widget>
                     </item>
+                    <item row="2" column="0">
+                     <widget class="QCheckBox" name="skipSystemJunkCheckBox">
+                      <property name="toolTip">
+                       <string>Tarsnap will skip these files globally for backups</string>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">#skipSystemJunkCheckBox
+{
+margin-top: 6px;
+border: 0;
+}</string>
+                      </property>
+                      <property name="text">
+                       <string>Skip system junk:</string>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="2" column="1">
                      <layout class="QHBoxLayout" name="horizontalLayout_13">
                       <item>
@@ -1339,36 +1356,6 @@ color: blue;
                        </widget>
                       </item>
                      </layout>
-                    </item>
-                    <item row="3" column="0" colspan="2">
-                     <widget class="QPushButton" name="aboutButton">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="text">
-                       <string>About Tarsnap</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="0">
-                     <widget class="QCheckBox" name="skipSystemJunkCheckBox">
-                      <property name="toolTip">
-                       <string>Tarsnap will skip these files globally for backups</string>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">#skipSystemJunkCheckBox
-{
-margin-top: 6px;
-border: 0;
-}</string>
-                      </property>
-                      <property name="text">
-                       <string>Skip system junk:</string>
-                      </property>
-                     </widget>
                     </item>
                    </layout>
                   </item>
@@ -1716,6 +1703,19 @@ For help regarding Tarsnap GUI please follow this page on &lt;a href=&quot;https
                 </property>
                 <property name="openExternalLinks">
                  <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="aboutButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>About Tarsnap</string>
                 </property>
                </widget>
               </item>
@@ -2295,7 +2295,6 @@ border: none;
   <tabstop>skipSystemJunkCheckBox</tabstop>
   <tabstop>skipSystemLineEdit</tabstop>
   <tabstop>skipSystemDefaultsButton</tabstop>
-  <tabstop>aboutButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapCacheLineEdit</tabstop>

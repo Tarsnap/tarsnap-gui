@@ -106,8 +106,8 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->settingsTab->addAction(_ui->actionRefreshAccount);
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
-    connect(_ui->actionRefreshAccount, &QAction::triggered, &_tarsnapAccount,
-            &TarsnapAccount::getAccountCredit);
+    connect(_ui->actionRefreshAccount, &QAction::triggered, this,
+            [&](){_tarsnapAccount.getAccountInfo();});
     this->addAction(_ui->actionGoBackup);
     this->addAction(_ui->actionGoBrowse);
     this->addAction(_ui->actionGoJobs);
@@ -198,16 +198,21 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::commitSettings);
     connect(&_tarsnapAccount, &TarsnapAccount::accountCredit, this,
             &MainWindow::updateAccountCredit);
-    connect(_ui->updateCreditButton, &QPushButton::clicked,
-            _ui->actionRefreshAccount, &QAction::trigger);
     connect(_ui->clearJournalButton, &QPushButton::clicked, this,
             &MainWindow::clearJournalClicked);
 
-    _ui->machineActivity->hide();
-    _ui->machineActivityLabel->hide();
-    _ui->machineActivityShowButton->hide();
-    _ui->formLayout_3->removeItem(_ui->machineActivityHorizontalLayout);
-    // ---
+    connect(&_tarsnapAccount, &TarsnapAccount::getKeyId, this, &MainWindow::getKeyId);
+    connect(_ui->updateAccountButton, &QPushButton::clicked,
+            _ui->actionRefreshAccount, &QAction::trigger);
+    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));
+    connect(_ui->accountActivityShowButton, &QPushButton::clicked,
+    [&]() {
+        _tarsnapAccount.getAccountInfo(true, false);
+    });
+    connect(_ui->machineActivityShowButton, &QPushButton::clicked,
+    [&]() {
+        _tarsnapAccount.getAccountInfo(false, true);
+    });
 
     // Archives
     _ui->archiveListWidget->addAction(_ui->actionInspect);
@@ -268,17 +273,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::deleteJob);
     connect(this, &MainWindow::jobsList, _ui->jobListWidget,
             &JobListWidget::addJobs);
-// Disabled functionality
-//    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));
-//    connect(_ui->accountActivityShowButton, &QPushButton::clicked,
-//    [&]() {
-//        _tarsnapAccount.getAccountInfo(true, false);
-//    });
-//    connect(_ui->machineActivityShowButton, &QPushButton::clicked,
-//    [&]() {
-//        _tarsnapAccount.getAccountInfo(false, true);
-//    });
-
     connect(_ui->jobListWidget, &JobListWidget::customContextMenuRequested,
             this, &MainWindow::showJobsListMenu);
     connect(_ui->actionJobBackup, &QAction::triggered, _ui->jobListWidget,
@@ -366,7 +360,7 @@ void MainWindow::loadSettings()
     QSettings settings;
 
     _ui->accountCreditLabel->setText(
-        settings.value("tarsnap/credit", tr("unknown")).toString());
+        settings.value("tarsnap/credit", tr("click update button")).toString());
     QDate creditDate = settings.value("tarsnap/credit_date", QDate()).toDate();
     if(creditDate.isValid())
     {
@@ -391,7 +385,7 @@ void MainWindow::loadSettings()
     }
 
     _ui->machineActivity->setText(
-        settings.value("tarsnap/machine_activity", tr("unknown")).toString());
+        settings.value("tarsnap/machine_activity", tr("click update button")).toString());
     _ui->accountUserLineEdit->setText(
         settings.value("tarsnap/user", "").toString());
     _ui->accountMachineKeyLineEdit->setText(
@@ -743,6 +737,16 @@ void MainWindow::setJournal(QVector<LogEntry> _log)
     _ui->journalLog->clear();
     foreach(LogEntry entry, _log)
         appendToJournalLog(entry);
+}
+
+void MainWindow::saveKeyId(QString key, int id)
+{
+    if(key == _ui->accountMachineKeyLineEdit->text())
+    {
+        QSettings settings;
+        settings.setValue("tarsnap/key_id", id);
+        settings.sync();
+    }
 }
 
 void MainWindow::browseForBackupItems()

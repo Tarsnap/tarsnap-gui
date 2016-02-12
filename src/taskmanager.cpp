@@ -372,6 +372,28 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     queueTask(restore);
 }
 
+void TaskManager::getKeyId(QString key)
+{
+    TarsnapClient *keymgmtClient = new TarsnapClient();
+    QStringList    args;
+    QFileInfo      keyFile(key);
+    if(keyFile.exists())
+    {
+        args << "--print-key-id" << key;
+        keymgmtClient->setCommand(makeTarsnapCommand(CMD_TARSNAPKEYMGMT));
+        keymgmtClient->setArguments(args);
+        keymgmtClient->setData(key);
+    }
+    else
+    {
+        DEBUG << "Invalid key path.";
+        return;
+    }
+    connect(keymgmtClient, &TarsnapClient::finished, this,
+            &TaskManager::getKeyIdFinished, QUEUED);
+    queueTask(keymgmtClient);
+}
+
 void TaskManager::runScheduledJobs()
 {
     loadJobs();
@@ -679,7 +701,8 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     }
     else
     {
-        emit message(tr("Restoring archive <i>%1</i> failed. Hover mouse for details.") .arg(archive->name()), output);
+        emit message(tr("Restoring archive <i>%1</i> failed. Hover mouse for details.")
+                     .arg(archive->name()), output);
         parseError(output);
         return;
     }
@@ -757,6 +780,25 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
         emit message(tr("Deleting archive <i>%1</i>...%2")
                      .arg(archives.first()->name())
                      .arg(done ? "done" : ""));
+    }
+}
+
+void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString output)
+{
+    QString key = data.toString();
+    if(exitCode == SUCCESS)
+    {
+        bool ok = false;
+        int id = output.toInt(&ok);
+        if(ok)
+            emit keyId(key, id);
+        else
+            DEBUG << "Invalid output from tarsnap-keymgmt for key " << key;
+    }
+    else
+    {
+        DEBUG << "Failed to get the id for key " << key;
+        parseError(output);
     }
 }
 

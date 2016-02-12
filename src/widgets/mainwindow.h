@@ -46,6 +46,7 @@ signals:
     void jobAdded(JobPtr job);
     void clearJournal();
     void logMessage(QString message);
+    void getKeyId(QString key);
 
 protected:
     void paintEvent(QPaintEvent *);
@@ -68,6 +69,7 @@ public slots:
     void tarsnapError(TarsnapError error);
     void appendToJournalLog(LogEntry log);
     void setJournal(QVector<LogEntry> _log);
+    void saveKeyId(QString key, int id);
 
 private slots:
     void updateBackupItemTotals(quint64 count, quint64 size);

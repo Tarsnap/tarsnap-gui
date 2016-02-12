@@ -43,6 +43,7 @@ signals:
     void displayNotification(QString message);
     void taskInfo(int runningTasks, int queuedTasks);
     void error(TarsnapError error);
+    void keyId(QString key, int id);
 
 public slots:
     void loadSettings();
@@ -68,6 +69,7 @@ public slots:
     void fsck(bool prune = false);
     void nuke();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
+    void getKeyId(QString key);
 
 private slots:
     // post Tarsnap task processing
@@ -85,6 +87,7 @@ private slots:
     void restoreArchiveFinished(QVariant data, int exitCode, QString output);
     void notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status);
     void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
+    void getKeyIdFinished(QVariant data, int exitCode, QString output);
 
     // general task management
     void queueTask(TarsnapClient *cli, bool exclusive = false);

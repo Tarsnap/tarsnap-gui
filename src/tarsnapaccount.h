@@ -17,14 +17,13 @@ public:
 signals:
     void accountCredit(qreal credit, QDate date);
     void lastMachineActivity(QStringList activityFields);
+    void getKeyId(QString key);
 
 public slots:
-    void getAccountCredit();
     void getAccountInfo(bool displayActivity        = false,
                         bool displayMachineActivity = false);
 
 protected slots:
-    QString parseMachineId(QString html);
     void parseCredit(QString csv);
     void parseLastMachineActivity(QString csv);
     void displayCSVTable(QString csv, QString title);
@@ -38,6 +37,7 @@ private:
     QNetworkAccessManager _nam;
     QString               _user;
     QString               _machine;
+    int                   _machineId;
 };
 
 #endif // TARSNAPACCOUNT_H

@@ -197,6 +197,10 @@ void CoreApplication::showMainWindow()
             &MainWindow::displayStopTasks, QUEUED);
     connect(_mainWindow, &MainWindow::jobAdded, &_taskManager,
             &TaskManager::addJob, QUEUED);
+    connect(_mainWindow, &MainWindow::getKeyId, &_taskManager,
+            &TaskManager::getKeyId, QUEUED);
+    connect(&_taskManager, &TaskManager::keyId, _mainWindow,
+            &MainWindow::saveKeyId, QUEUED);
     connect(&_taskManager, &TaskManager::message, _mainWindow,
             &MainWindow::updateStatusMessage, QUEUED);
     connect(&_taskManager, &TaskManager::error, _mainWindow,

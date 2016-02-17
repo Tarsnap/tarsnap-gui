@@ -148,12 +148,6 @@ border-radius: 2px;
            </property>
            <item>
             <widget class="BackupListWidget" name="backupListWidget">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
              <property name="contextMenuPolicy">
               <enum>Qt::ActionsContextMenu</enum>
              </property>
@@ -1849,6 +1843,12 @@ font-size: 12px;
          </widget>
         </widget>
         <widget class="QPlainTextEdit" name="journalLog">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="focusPolicy">
           <enum>Qt::ClickFocus</enum>
          </property>

@@ -4,6 +4,8 @@
 #include "ui_jobwidget.h"
 #include "utils.h"
 
+#include <QMenu>
+
 JobWidget::JobWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::JobWidget), _saveEnabled(false)
 {
@@ -54,6 +56,14 @@ JobWidget::JobWidget(QWidget *parent)
         _ui->skipFilesLineEdit->setText(settings.value("app/skip_system_files",
                                                        DEFAULT_SKIP_FILES).toString());
     });
+    connect(_ui->archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
+            this, &JobWidget::showArchiveListMenu);
+    connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::removeSelectedItems);
+    connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::restoreSelectedItem);
+    connect(_ui->actionInspect, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::inspectSelectedItem);
 }
 
 JobWidget::~JobWidget()
@@ -191,4 +201,20 @@ bool JobWidget::canSaveNew()
         return true;
     else
         return false;
+}
+
+void JobWidget::showArchiveListMenu(const QPoint &pos)
+{
+    QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
+    QMenu archiveListMenu(_ui->archiveListWidget);
+    if(!_ui->archiveListWidget->selectedItems().isEmpty())
+    {
+        if(_ui->archiveListWidget->selectedItems().count() == 1)
+        {
+            archiveListMenu.addAction(_ui->actionInspect);
+            archiveListMenu.addAction(_ui->actionRestore);
+        }
+        archiveListMenu.addAction(_ui->actionDelete);
+    }
+    archiveListMenu.exec(globalPos);
 }

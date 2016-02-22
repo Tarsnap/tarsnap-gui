@@ -37,6 +37,7 @@ protected slots:
     void updateDetails();
     void restoreLatestArchive();
     bool canSaveNew();
+    void showArchiveListMenu(const QPoint& pos);
 
 private:
     Ui::JobWidget *_ui;

@@ -183,6 +183,21 @@ void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
     }
 }
 
+void ArchiveListWidget::disableArchives(QList<ArchivePtr> archives)
+{
+    for(int i = 0; i < count(); ++i)
+    {
+        ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(item(i));
+        if(archiveItem)
+        {
+            foreach (ArchivePtr archive, archives) {
+                if((archiveItem->archive()->objectKey() == archive->objectKey()))
+                    archiveItem->setDisabled();
+            }
+        }
+    }
+}
+
 void ArchiveListWidget::keyReleaseEvent(QKeyEvent *event)
 {
     switch(event->key())

@@ -18,6 +18,7 @@ public:
 public slots:
     void addArchives(QList<ArchivePtr> archives);
     void setSelectedArchive(ArchivePtr archive);
+    void disableArchives(QList<ArchivePtr> archives);
     void removeSelectedItems();
     void inspectSelectedItem();
     void restoreSelectedItem();

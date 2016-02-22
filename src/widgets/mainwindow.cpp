@@ -215,6 +215,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     // Archives
+    _ui->archiveListWidget->addAction(_ui->actionRefresh);
     _ui->archiveListWidget->addAction(_ui->actionInspect);
     _ui->archiveListWidget->addAction(_ui->actionDelete);
     _ui->archiveListWidget->addAction(_ui->actionRestore);

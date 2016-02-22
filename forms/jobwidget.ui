@@ -134,6 +134,10 @@ padding-left: 3px;
         <property name="text">
          <string>Restore latest archive</string>
         </property>
+        <property name="icon">
+         <iconset resource="../resources/resources.qrc">
+          <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+        </property>
        </widget>
       </item>
       <item>

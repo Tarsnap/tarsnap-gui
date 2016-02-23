@@ -1689,7 +1689,7 @@ padding: 3px;
 }</string>
                 </property>
                 <property name="text">
-                 <string>Gettings started with Tarsnap is as easy as following the steps outlined &lt;a href=&quot;https://www.tarsnap.com/gettingstarted.html&quot;&gt;here&lt;/a&gt;.
+                 <string>Getting started with Tarsnap is as easy as following the steps outlined &lt;a href=&quot;https://www.tarsnap.com/gettingstarted.html&quot;&gt;here&lt;/a&gt;.
 For help regarding Tarsnap GUI please follow this page on &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-gui/wiki/Tarsnap&quot;&gt;Github&lt;/a&gt;.</string>
                 </property>
                 <property name="wordWrap">

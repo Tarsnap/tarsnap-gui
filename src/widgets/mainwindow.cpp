@@ -356,6 +356,9 @@ MainWindow::MainWindow(QWidget *parent)
         if(purgeArchives)
             _ui->archiveListWidget->disableArchives(job->archives());
     });
+    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]()
+    {QMessageBox::information(this, QApplication::applicationName(),
+                              tr("The new size notation will take effect on application restart."));});
 }
 
 MainWindow::~MainWindow()

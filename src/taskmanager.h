@@ -41,14 +41,14 @@ signals:
     void jobsList(QMap<QString, JobPtr> jobs);
     void message(QString msg, QString detail = "");
     void displayNotification(QString message);
-    void taskInfo(int runningTasks, int queuedTasks);
+    void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
     void error(TarsnapError error);
     void keyId(QString key, int id);
 
 public slots:
     void loadSettings();
     void runScheduledJobs();
-    void stopTasks(bool running, bool queued);
+    void stopTasks(bool interrupt, bool running, bool queued);
     void loadArchives();
     void loadJobs();
     void deleteJob(JobPtr job, bool purgeArchives);

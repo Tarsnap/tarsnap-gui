@@ -410,9 +410,14 @@ void TaskManager::runScheduledJobs()
         qApp->quit();
 }
 
-void TaskManager::stopTasks(bool running, bool queued)
+void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
 {
-    if(queued) // queued should be cleared first
+    if(interrupt)
+    {
+        if(!_runningTasks.isEmpty())
+            _runningTasks.first()->interrupt();
+    }
+    if(queued) // queued should be cleared first to avoid race
     {
         _taskQueue.clear();
     }
@@ -1032,7 +1037,19 @@ void TaskManager::loadJobArchives()
 
 void TaskManager::getTaskInfo()
 {
-    emit taskInfo(_runningTasks.count(), _taskQueue.count());
+    bool backupTaskRunning = false;
+    if(!_runningTasks.isEmpty() && !_backupTaskMap.isEmpty())
+    {
+        foreach (TarsnapClient *client, _runningTasks)
+        {
+            if(client && _backupTaskMap.contains(client->data().toUuid()))
+            {
+                backupTaskRunning = true;
+                break;
+            }
+        }
+    }
+    emit taskInfo(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
 }
 
 void TaskManager::addJob(JobPtr job)

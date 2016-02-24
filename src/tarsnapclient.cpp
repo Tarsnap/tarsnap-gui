@@ -3,6 +3,10 @@
 
 #include <QSettings>
 
+#if defined Q_OS_UNIX
+#include <signal.h>
+#endif
+
 #define DEFAULT_TIMEOUT_MS 5000
 
 TarsnapClient::TarsnapClient()
@@ -84,6 +88,13 @@ void TarsnapClient::stop(bool kill)
         if(kill && (false == _process->waitForFinished(DEFAULT_TIMEOUT_MS)))
             _process->kill();
     }
+}
+
+void TarsnapClient::interrupt()
+{
+#if defined Q_OS_UNIX
+    kill(_process->pid(), SIGQUIT);
+#endif
 }
 
 QProcess::ProcessState TarsnapClient::statusClient()

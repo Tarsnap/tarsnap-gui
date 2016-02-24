@@ -924,7 +924,7 @@ void MainWindow::addJobClicked()
     }
 }
 
-void MainWindow::displayStopTasks(int runningTasks, int queuedTasks)
+void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks, int queuedTasks)
 {
     if(!runningTasks && !queuedTasks)
     {
@@ -937,30 +937,39 @@ void MainWindow::displayStopTasks(int runningTasks, int queuedTasks)
                        .arg(runningTasks)
                        .arg(queuedTasks));
     msgBox.setInformativeText(tr("What do you want to do?"));
-    QPushButton *stopRunning =
-        msgBox.addButton(tr("Stop running"), QMessageBox::ActionRole);
-    stopRunning->setEnabled(runningTasks);
-    QPushButton *stopQueued =
-        msgBox.addButton(tr("Cancel queued"), QMessageBox::ActionRole);
-    stopQueued->setEnabled(queuedTasks);
-    QPushButton *stopAll =
-        msgBox.addButton(tr("Stop all"), QMessageBox::ActionRole);
+    QPushButton *interruptBackup = nullptr;
+    if(backupTaskRunning)
+        interruptBackup = msgBox.addButton(tr("Interrupt backup"), QMessageBox::ActionRole);
+    QPushButton *stopRunning = nullptr;
+    if(runningTasks)
+        stopRunning = msgBox.addButton(tr("Stop running"), QMessageBox::ActionRole);
+    QPushButton *stopQueued = nullptr;
+    if(queuedTasks)
+        stopQueued = msgBox.addButton(tr("Cancel queued"), QMessageBox::ActionRole);
+    QPushButton *stopAll = nullptr;
+    if(runningTasks && queuedTasks)
+        stopAll = msgBox.addButton(tr("Stop all"), QMessageBox::ActionRole);
     QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
     msgBox.setDefaultButton(cancel);
     msgBox.exec();
+    if(msgBox.clickedButton() == interruptBackup)
+    {
+        emit stopTasks(true, false, false);
+        updateStatusMessage("Interrupting current backup.");
+    }
     if(msgBox.clickedButton() == stopQueued)
     {
-        emit stopTasks(false, true);
+        emit stopTasks(false, false, true);
         updateStatusMessage("Cleared queued tasks.");
     }
     else if(msgBox.clickedButton() == stopRunning)
     {
-        emit stopTasks(true, false);
+        emit stopTasks(false, true, false);
         updateStatusMessage("Stopped running tasks.");
     }
     else if(msgBox.clickedButton() == stopAll)
     {
-        emit stopTasks(true, true);
+        emit stopTasks(false, true, true);
         updateStatusMessage("Stopped running tasks and cleared queued ones.");
     }
 }

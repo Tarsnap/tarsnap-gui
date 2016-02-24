@@ -37,7 +37,7 @@ signals:
     void purgeArchives();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runSetupWizard();
-    void stopTasks(bool running, bool queued);
+    void stopTasks(bool interrupt, bool running, bool queued);
     void jobsList(QMap<QString, JobPtr>);
     void deleteJob(JobPtr job, bool purgeArchives);
     void getTarsnapVersion(QString tarsnapPath);
@@ -65,7 +65,7 @@ public slots:
                                quint64 archiveCount);
     void setTarsnapVersion(QString versionString);
     void notificationRaise();
-    void displayStopTasks(int runningTasks, int queuedTasks);
+    void displayStopTasks(bool backupTaskRunning, int runningTasks, int queuedTasks);
     void tarsnapError(TarsnapError error);
     void appendToJournalLog(LogEntry log);
     void setJournal(QVector<LogEntry> _log);

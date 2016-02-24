@@ -44,7 +44,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Restore archive &lt;span style=&quot; font-weight:600;&quot;&gt;%1&lt;/span&gt; contents to original locations? Any existing data will not be replaced by default. Use the options below to modify behaviour.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Restore archive &lt;span style=&quot; font-weight:600;&quot;&gt;%1&lt;/span&gt; contents to original locations? Any existing files will not be replaced by default. Use the options below to modify default behavior:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
@@ -63,7 +63,7 @@
       </sizepolicy>
      </property>
      <property name="title">
-      <string>Restore options</string>
+      <string>Options</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">

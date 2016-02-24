@@ -1496,7 +1496,7 @@ border: 0;
                      <string>Reset app settings and run Setup Wizard</string>
                     </property>
                     <property name="text">
-                     <string>Run setup wizard</string>
+                     <string>Reconfigure using setup wizard</string>
                     </property>
                    </widget>
                   </item>
@@ -1595,7 +1595,7 @@ border: 0;
                      <string>Clear Journal log of all entries</string>
                     </property>
                     <property name="text">
-                     <string>Clear Journal log</string>
+                     <string>Clear journal</string>
                     </property>
                    </widget>
                   </item>

@@ -79,8 +79,8 @@ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
 					stop: 0.9 rgba(46,141,204,255), stop: 1.0 rgba(46,141,204,255));
 border: 1px solid #ECF0F1;
 border-bottom: none;
-border-top-left-radius: 3px;
-border-top-right-radius: 3px;
+border-top-left-radius: 2px;
+border-top-right-radius: 2px;
 padding: 5px;
 width: 60px;
 height: 20px;
@@ -90,8 +90,7 @@ color: white;
 }
 
 #mainTabWidget &gt; QTabBar::tab:selected {
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(64,152,212,255), stop: 1 rgba(64,152,212,255));
+background: rgba(64,152,212,255);
 border: 1px solid white;
 border-bottom: none;
 }
@@ -534,11 +533,11 @@ padding: 4px;
 }
 
 QPushButton:hover {
-border: 1px solid black;
+border: 1px solid grey;
 }
 
 QPushButton:pressed {
-border: 1px solid black;
+border: 1px solid grey;
 background: white;
 color: black;
 }</string>
@@ -670,13 +669,12 @@ color: black;
                 <property name="styleSheet">
                  <string notr="true">QToolButton
 {
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(64,152,212,255), stop: 1 rgba(64,152,212,255));
+background: rgba(64,152,212,255);
 border-top: 1px solid white;
 border-left: 1px solid white;
 border-bottom: 1px solid darkgrey;
 border-right: 1px solid darkgrey;
-border-radius: 3px;
+border-radius: 2px;
 color: white;
 font-size: 12px;
 padding-right: 24px;
@@ -686,14 +684,12 @@ height: 20px;
 
 QToolButton:disabled
 {
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(85,164,216,225), stop: 1.0 rgba(85,164,216,225));
+background: rgba(85,164,216,225);
 }
 
 QToolButton:pressed
 {
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(85,164,216,225), stop: 1.0 rgba(85,164,216,225));
+background: rgba(85,164,216,225);
 }
 
 QToolButton:focus
@@ -730,6 +726,14 @@ text-align: center;
           </layout>
          </widget>
          <widget class="QWidget" name="settingsTab">
+          <property name="styleSheet">
+           <string notr="true">#settingsTab
+{
+border-top: 1px solid darkgrey;
+margin-left: 3px;
+margin-right: 3px;
+}</string>
+          </property>
           <attribute name="title">
            <string>Settings</string>
           </attribute>
@@ -757,8 +761,8 @@ text-align: center;
              <property name="styleSheet">
               <string notr="true"> QToolBox::tab {
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(85,164,216,255), stop: 0.9 rgba(85,164,216,255),
-					stop: 1 rgba(41,128,185,255), stop: 1 rgba(31,98,142,255));
+					stop: 0 rgba(85,164,216,255), stop: 0.8 rgba(85,164,216,255),
+					stop: 0.9 rgba(41,128,185,255), stop: 1 rgba(31,98,142,255));
 border-top-left-radius: 3px;
 border-top-right-radius: 3px;
 color: white;
@@ -768,10 +772,9 @@ border: 1px solid rgba(255,255,255,20);
  }
 
  QToolBox::tab:selected {
-background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-					stop: 0 rgba(64,152,212,255), stop: 1 rgba(64,152,212,255));
+background: rgba(64,152,212,255);
 color: white;
-border: 1px solid rgba(255,255,255,100);
+border: 1px solid white;
  }</string>
              </property>
              <property name="currentIndex">
@@ -1749,7 +1752,13 @@ border: 0;
          </widget>
          <widget class="QWidget" name="helpTab">
           <property name="styleSheet">
-           <string notr="true">#helpTab QGroupBox {
+           <string notr="true">#helpTab
+{
+border-top: 1px solid darkgrey;
+margin-left: 3px;
+margin-right: 3px;
+}
+#helpTab QGroupBox {
 font-size: 14px;
 }
 #helpTab QGroupBox::title {

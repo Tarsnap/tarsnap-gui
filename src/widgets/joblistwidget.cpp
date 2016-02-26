@@ -49,6 +49,7 @@ void JobListWidget::selectJobByRef(QString jobRef)
     if(jobRef.isEmpty())
         return;
 
+    clearSelection();
     JobListItem *jobItem = static_cast<JobListItem *>(currentItem());
     if(jobItem && (jobItem->job()->objectKey() == jobRef))
     {

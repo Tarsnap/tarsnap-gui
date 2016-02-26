@@ -11,7 +11,11 @@ ArchiveListWidget::ArchiveListWidget(QWidget *parent) : QListWidget(parent)
 {
     connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
         if(item)
-            emit inspectArchive(static_cast<ArchiveListItem *>(item)->archive());
+        {
+            ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(item);
+            if(archiveItem && !archiveItem->isDisabled())
+                emit inspectArchive(archiveItem->archive());
+        }
     });
 }
 
@@ -65,61 +69,74 @@ void ArchiveListWidget::removeItem()
 
 void ArchiveListWidget::removeSelectedItems()
 {
-    if(!selectedItems().isEmpty())
-    {
-        int  selectedItemsCount = selectedItems().count();
-        auto button = QMessageBox::question(this, tr("Confirm delete"),
-                                            tr("Are you sure you want to "
-                                               "delete %1 selected archive(s) "
-                                               "(this cannot be undone)?")
-                                                .arg(selectedItemsCount));
-        if(button == QMessageBox::Yes)
-        {
-            // Some more deletion confirmation, if count of archives to be
-            // removed is bigger than threshold
-            if(selectedItemsCount >= DELETE_CONFIRMATION_THRESHOLD)
-            {
-                // Inform of purge operation if all archives are to be removed
-                if(selectedItemsCount == count())
-                {
-                    button = QMessageBox::question(this, tr("Confirm delete"),
-                        tr("Are you sure you want to delete all of your "
-                           "archives?\n"
-                           "For your information, there's a purge action in "
-                           "Settings -> Advanced page that achieves the same "
-                           "thing but more efficiently."));
-                }
-                else
-                {
-                    button = QMessageBox::question(this, tr("Confirm delete"),
-                                                   tr("This will permanently "
-                                                      "delete the %1 selected "
-                                                      "archives. Proceed?")
-                                                       .arg(selectedItemsCount));
-                }
-            }
-        }
+    if(selectedItems().isEmpty())
+        return;
 
-        if(button == QMessageBox::Yes)
+    QList<ArchiveListItem*> selectedListItems;
+    // Any archives pending deletion in the selection? if so deny action
+    foreach(QListWidgetItem *item, selectedItems())
+    {
+        ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(item);
+        if(!archiveItem || archiveItem->isDisabled())
+            return;
+        else
+            selectedListItems << archiveItem;
+    }
+
+    int  selectedItemsCount = selectedItems().count();
+    auto button = QMessageBox::question(this, tr("Confirm delete"),
+                                        tr("Are you sure you want to "
+                                           "delete %1 selected archive(s) "
+                                           "(this cannot be undone)?")
+                                        .arg(selectedItemsCount));
+    if(button == QMessageBox::Yes)
+    {
+        // Some more deletion confirmation, if count of archives to be
+        // removed is bigger than threshold
+        if(selectedItemsCount >= DELETE_CONFIRMATION_THRESHOLD)
         {
-            QList<ArchivePtr> archiveList;
-            foreach(QListWidgetItem *item, selectedItems())
+            // Inform of purge operation if all archives are to be removed
+            if(selectedItemsCount == count())
             {
-                ArchiveListItem *archiveItem =
-                    static_cast<ArchiveListItem *>(item);
-                archiveItem->setDisabled();
-                archiveList.append(archiveItem->archive());
+                button = QMessageBox::question(this, tr("Confirm delete"),
+                                               tr("Are you sure you want to delete all of your "
+                                                  "archives?\n"
+                                                  "For your information, there's a purge action in "
+                                                  "Settings -> Advanced page that achieves the same "
+                                                  "thing but more efficiently."));
             }
-            if(!archiveList.isEmpty())
-                emit deleteArchives(archiveList);
+            else
+            {
+                button = QMessageBox::question(this, tr("Confirm delete"),
+                                               tr("This will permanently "
+                                                  "delete the %1 selected "
+                                                  "archives. Proceed?")
+                                               .arg(selectedItemsCount));
+            }
         }
+    }
+
+    if(button == QMessageBox::Yes)
+    {
+        QList<ArchivePtr> archivesToDelete;
+        foreach(ArchiveListItem *archiveItem, selectedListItems)
+        {
+            archiveItem->setDisabled();
+            archivesToDelete.append(archiveItem->archive());
+        }
+        if(!archivesToDelete.isEmpty())
+            emit deleteArchives(archivesToDelete);
     }
 }
 
 void ArchiveListWidget::inspectSelectedItem()
 {
     if(!selectedItems().isEmpty())
-        emit inspectArchive(static_cast<ArchiveListItem *>(selectedItems().first())->archive());
+    {
+        ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(selectedItems().first());
+        if(archiveItem && !archiveItem->isDisabled())
+            emit inspectArchive(archiveItem->archive());
+    }
 }
 
 void ArchiveListWidget::restoreSelectedItem()
@@ -127,7 +144,7 @@ void ArchiveListWidget::restoreSelectedItem()
     if(!selectedItems().isEmpty())
     {
         ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(selectedItems().first());
-        if(archiveItem)
+        if(archiveItem && !archiveItem->isDisabled())
         {
             RestoreDialog restoreDialog(archiveItem->archive(), this);
             if(QDialog::Accepted == restoreDialog.exec())

@@ -78,6 +78,11 @@ void ArchiveListItem::setDisabled()
     widget()->setEnabled(false);
 }
 
+bool ArchiveListItem::isDisabled()
+{
+    return !widget()->isEnabled();
+}
+
 void ArchiveListItem::update()
 {
     setArchive(_archive);

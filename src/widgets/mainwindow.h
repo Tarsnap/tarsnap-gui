@@ -99,6 +99,7 @@ private slots:
     void clearJournalClicked();
     void showArchiveListMenu(const QPoint& pos);
     void showJobsListMenu(const QPoint& pos);
+    void addDefaultJobs();
 
 private:
     Ui::MainWindow *_ui;

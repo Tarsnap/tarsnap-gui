@@ -614,7 +614,7 @@ color: black;
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="okButton">
+                  <widget class="QPushButton" name="sureButton">
                    <property name="minimumSize">
                     <size>
                      <width>100</width>

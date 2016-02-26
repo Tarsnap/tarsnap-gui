@@ -286,6 +286,8 @@ MainWindow::MainWindow(QWidget *parent)
             &JobListWidget::restoreSelectedItem);
     connect(_ui->actionJobInspect, &QAction::triggered, _ui->jobListWidget,
             &JobListWidget::inspectSelectedItem);
+    connect(_ui->sureButton, &QPushButton::clicked, this,
+            &MainWindow::addDefaultJobs);
 
     _ui->jobListWidget->addAction(_ui->actionJobBackup);
     _ui->jobListWidget->addAction(_ui->actionAddJob);
@@ -297,7 +299,7 @@ MainWindow::MainWindow(QWidget *parent)
             &JobListWidget::backupAllJobs);
     _ui->addJobButton->setMenu(addJobMenu);
 
-    // lambda slots to quickly update various UI components
+    // lambda slots for misc UI updates
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
             [&](const QString text) {
                 if(text.isEmpty())
@@ -359,6 +361,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]()
     {QMessageBox::information(this, QApplication::applicationName(),
                               tr("The new size notation will take effect on application restart."));});
+    connect(_ui->dismissButton, &QPushButton::clicked, [&]()
+    {
+        QSettings settings;
+        settings.setValue("app/defaultjobs_dismissed", true);
+        _ui->defaultJobs->hide();
+    });
 }
 
 MainWindow::~MainWindow()
@@ -443,6 +451,11 @@ void MainWindow::loadSettings()
         settings.value("app/app_data", "").toString());
     _ui->notificationsCheckBox->setChecked(
         settings.value("app/notifications", true).toBool());
+
+    if(settings.value("app/defaultjobs_dismissed", false).toBool())
+    {
+        _ui->defaultJobs->hide();
+    }
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
@@ -1057,4 +1070,33 @@ void MainWindow::showJobsListMenu(const QPoint &pos)
         jobListMenu.addAction(_ui->actionJobDelete);
     }
     jobListMenu.exec(globalPos);
+}
+
+void MainWindow::addDefaultJobs()
+{
+    QSettings settings;
+    foreach(QString path, DEFAULT_JOBS)
+    {
+        QDir dir(QDir::home());
+        if(dir.cd(path))
+        {
+            JobPtr job(new Job());
+            job->setName(dir.dirName());
+            QList<QUrl> urls;
+            urls << QUrl::fromUserInput(dir.canonicalPath());
+            job->setUrls(urls);
+            job->setOptionScheduledEnabled(false);
+            job->setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
+            job->setOptionTraverseMount(settings.value("tarsnap/traverse_mount", true).toBool());
+            job->setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", false).toBool());
+            job->setOptionSkipNoDump(settings.value("app/skip_nodump", false).toBool());
+            job->setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toULongLong());
+            job->setOptionSkipFiles(settings.value("app/skip_system_enabled", false).toBool());
+            job->setOptionSkipFilesPatterns(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
+            job->save();
+            _ui->jobDetailsWidget->jobAdded(job);
+        }
+    }
+    settings.setValue("app/defaultjobs_dismissed", true);
+    _ui->defaultJobs->hide();
 }

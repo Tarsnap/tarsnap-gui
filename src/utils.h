@@ -22,6 +22,16 @@
 #define DEFAULT_SKIP_FILES ""
 #endif
 
+const QStringList DEFAULT_JOBS {
+    "Desktop",
+    "Documents",
+    "Pictures",
+    "Movies",
+    "Videos",
+    "Music",
+    "Work"
+};
+
 #define QUEUED Qt::QueuedConnection
 
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))

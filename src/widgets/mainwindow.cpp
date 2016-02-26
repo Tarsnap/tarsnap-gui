@@ -1065,9 +1065,12 @@ void MainWindow::showJobsListMenu(const QPoint &pos)
     if(!_ui->jobListWidget->selectedItems().isEmpty())
     {
         jobListMenu.addAction(_ui->actionJobBackup);
-        jobListMenu.addAction(_ui->actionJobInspect);
-        jobListMenu.addAction(_ui->actionJobRestore);
-        jobListMenu.addAction(_ui->actionJobDelete);
+        if(_ui->jobListWidget->selectedItems().count() == 1)
+        {
+            jobListMenu.addAction(_ui->actionJobInspect);
+            jobListMenu.addAction(_ui->actionJobRestore);
+            jobListMenu.addAction(_ui->actionJobDelete);
+        }
     }
     jobListMenu.exec(globalPos);
 }

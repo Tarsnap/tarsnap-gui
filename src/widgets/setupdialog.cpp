@@ -117,22 +117,27 @@ void SetupDialog::wizardPageChanged(int)
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
     {
         _ui->welcomePageRadioButton->setChecked(true);
+	_ui->stageLabel->setText("Setup wizard");
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->advancedPage)
     {
         _ui->advancedPageRadioButton->setChecked(true);
+	_ui->stageLabel->setText("Command-line utilities");
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->restorePage)
     {
         _ui->restorePageRadioButton->setChecked(true);
+	_ui->stageLabel->setText("Restore old config?");
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
     {
         _ui->registerPageRadioButton->setChecked(true);
+	_ui->stageLabel->setText("Register with server");
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->donePage)
     {
         _ui->donePageRadioButton->setChecked(true);
+	_ui->stageLabel->setText("Complete!");
     }
 }
 

@@ -224,9 +224,7 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
        <item>
         <widget class="QLabel" name="welcomePageInfoLabel">
          <property name="text">
-          <string>This guide will help you set up Tarsnap on your system and get started with the basics. Alternatively you can skip this wizard and set everything up from the Settings pane in the application.
-
-Check the Advanced option below to explicitly specify where the Tarsnap client resides or a custom cache location.</string>
+          <string>This guide will help you set up Tarsnap on your system and get started with the basics. Alternatively you can skip this wizard and set everything up from the Settings pane in the application.</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -251,16 +249,6 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           </size>
          </property>
         </spacer>
-       </item>
-       <item alignment="Qt::AlignBottom">
-        <widget class="QCheckBox" name="advancedSetupCheckBox">
-         <property name="toolTip">
-          <string>Allows you to customize settings such as where the Tarsnap command line client resides or a custom Tarsnap cache location</string>
-         </property>
-         <property name="text">
-          <string>Advanced setup</string>
-         </property>
-        </widget>
        </item>
        <item alignment="Qt::AlignBottom">
         <widget class="QWidget" name="buttonBox" native="true">
@@ -1078,7 +1066,6 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <tabstops>
-  <tabstop>advancedSetupCheckBox</tabstop>
   <tabstop>welcomePageSkipButton</tabstop>
   <tabstop>welcomePageProceedButton</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>

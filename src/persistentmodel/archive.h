@@ -11,9 +11,11 @@
 struct ArchiveRestoreOptions
 {
     bool    preservePaths;
+    bool    chdir;
     bool    overwriteFiles;
     bool    keepNewerFiles;
-    QString chdir;
+    bool    downloadArchive;
+    QString dir;
 };
 
 class Archive;

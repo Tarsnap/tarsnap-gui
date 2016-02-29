@@ -27,6 +27,7 @@ void TarsnapClient::setCommand(const QString &command)
 {
     _command = command;
 }
+
 QStringList TarsnapClient::arguments() const
 {
     return _arguments;

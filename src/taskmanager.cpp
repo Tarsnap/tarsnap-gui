@@ -354,14 +354,18 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(options.preservePaths)
-        args << "-P";
-    if(!options.chdir.isEmpty())
-        args << "-C" << options.chdir;
+        args << "-x" << "-P";
+    if(options.chdir)
+        args << "-x" << "-C" << options.dir;
     if(!options.overwriteFiles)
         args << "-k";
     if(options.keepNewerFiles)
         args << "--keep-newer-files";
-    args << "-x" << "-f" << archive->name();
+    if(options.downloadArchive)
+    {
+        args << "-r";
+    }
+    args << "-f" << archive->name();
     restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     restore->setArguments(args);
     restore->setData(archive->name());

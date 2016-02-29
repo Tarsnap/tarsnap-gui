@@ -78,20 +78,36 @@
       <property name="bottomMargin">
        <number>0</number>
       </property>
-      <item row="4" column="0" colspan="2">
-       <widget class="QCheckBox" name="overwriteCheckBox">
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="chdirRadioButton">
         <property name="toolTip">
-         <string>Overwrite existing files if they exist</string>
+         <string>This will extract the archive contents to the specified directory.</string>
         </property>
         <property name="text">
-         <string>Overwrite existing files</string>
+         <string>Restore files to other base directory</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLineEdit" name="chdirLineEdit">
+      <item row="3" column="1">
+       <widget class="QPushButton" name="browseButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="toolTip">
-         <string>Will restore contents of the archive to the specified directory.</string>
+         <string>Change directory</string>
+        </property>
+        <property name="text">
+         <string>Browse</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLineEdit" name="dirLineEdit">
+        <property name="toolTip">
+         <string>Download directory</string>
         </property>
        </widget>
       </item>
@@ -101,37 +117,24 @@
          <string>This will restore files and dirs to the original locations used when creating the backup, thus effectively achieving a restore.</string>
         </property>
         <property name="text">
-         <string>Restore files to original location</string>
+         <string>Restore files to original locations</string>
         </property>
         <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="browseButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Browse</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QRadioButton" name="restoreDirectoryRadioButton">
+      <item row="5" column="0" colspan="2">
+       <widget class="QCheckBox" name="overwriteCheckBox">
         <property name="toolTip">
-         <string>This will extract the archive contents to the specified directory.</string>
+         <string>Overwrite existing files if they exist</string>
         </property>
         <property name="text">
-         <string>Restore files to other directory</string>
+         <string>Overwrite existing files</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
+      <item row="6" column="0">
        <widget class="QCheckBox" name="keepNewerCheckBox">
         <property name="enabled">
          <bool>false</bool>
@@ -141,6 +144,16 @@
         </property>
         <property name="text">
          <string>Keep newer files</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QRadioButton" name="downloadArchiveRadioButton">
+        <property name="toolTip">
+         <string>This will download an uncompressed tar archive to the specified directory.</string>
+        </property>
+        <property name="text">
+         <string>Download tar archive</string>
         </property>
        </widget>
       </item>
@@ -186,8 +199,8 @@
  </widget>
  <tabstops>
   <tabstop>preservePathsRadioButton</tabstop>
-  <tabstop>restoreDirectoryRadioButton</tabstop>
-  <tabstop>chdirLineEdit</tabstop>
+  <tabstop>chdirRadioButton</tabstop>
+  <tabstop>dirLineEdit</tabstop>
   <tabstop>browseButton</tabstop>
   <tabstop>overwriteCheckBox</tabstop>
   <tabstop>keepNewerCheckBox</tabstop>

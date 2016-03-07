@@ -49,6 +49,8 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::setNextPage);
 
     // Advanced setup page
+    connect(_ui->advancedCLIButton, &QAbstractButton::pressed,
+		    this, &SetupDialog::toggleAdvancedCLI);
     connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this,
             &SetupDialog::showTarsnapPathBrowse);
     connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this,
@@ -229,6 +231,16 @@ bool SetupDialog::validateAdvancedSetupPage()
 
     _ui->advancedPageProceedButton->setEnabled(result);
 
+    if (result) {
+        _ui->advancedCLIFrame->hide();
+        _ui->installLinkLabel->setText("");
+        _ui->foundCLILabel->setText("<font color=\"green\">Found</font>");
+    } else {
+        _ui->advancedCLIFrame->show();
+        _ui->installLinkLabel->setText("<a href=\"http://tarsnap.com\">How can I install the CLI utilities?</a>");
+        _ui->foundCLILabel->setText("<font color=\"red\">Not found</font>");
+    }
+
     return result;
 }
 
@@ -407,4 +419,15 @@ void SetupDialog::commitSettings(bool skipped)
     settings.sync();
 
     accept();
+}
+
+void
+SetupDialog::toggleAdvancedCLI()
+{
+	if (_ui->advancedCLIFrame->isVisible()) {
+		_ui->advancedCLIFrame->hide();
+	} else {
+		_ui->advancedCLIFrame->show();
+	}
+	qDebug("FIXME: we probably want to change the triangle icon as well?");
 }

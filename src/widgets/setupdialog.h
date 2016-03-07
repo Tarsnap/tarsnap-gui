@@ -39,6 +39,7 @@ public slots:
     void registerMachineStatus(TaskStatus status, QString reason);
     void setTarsnapVersion(QString versionString);
     void updateLoadingAnimation(bool idle);
+    void toggleAdvancedCLI();
 
 signals:
     void requestRegisterMachine(QString user, QString password, QString machine,

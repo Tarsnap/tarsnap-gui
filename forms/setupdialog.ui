@@ -393,16 +393,7 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
        </property>
        <item>
         <widget class="QWidget" name="actionContainerWidget" native="true">
-         <layout class="QFormLayout" name="formLayout">
-          <property name="fieldGrowthPolicy">
-           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-          </property>
-          <property name="horizontalSpacing">
-           <number>6</number>
-          </property>
-          <property name="verticalSpacing">
-           <number>6</number>
-          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -415,137 +406,272 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item row="0" column="0" colspan="2">
-           <widget class="QLabel" name="label">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+          <item>
+           <spacer name="verticalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
             </property>
-            <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The command line interface utilities are used to communicate with the Tarsnap service. Please point to the directory where the Tarsnap utilities are installed on this system. Information on installing Tarsnap CLI utilities can be found &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>10</height>
+             </size>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-            <property name="openExternalLinks">
-             <bool>true</bool>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-            </property>
-           </widget>
+           </spacer>
           </item>
-          <item row="2" column="0">
-           <widget class="QPushButton" name="tarsnapPathBrowseButton">
-            <property name="toolTip">
-             <string>Look for the Tarsnap CLI utilities</string>
-            </property>
-            <property name="text">
-             <string>Change</string>
-            </property>
-            <property name="autoDefault">
-             <bool>false</bool>
-            </property>
-           </widget>
+          <item>
+           <layout class="QGridLayout" name="detectCLILayout">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>The Tarsnap command line interface (CLI) utilities are used to communicate with the service.</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="foundCLILabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Not found</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="2">
+             <widget class="QLabel" name="clientVersionLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>(detected 1.0.0)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <widget class="QLabel" name="installLinkLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>&lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;How can I install the CLI utilities?&lt;/span&gt;&lt;/a&gt;</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="tarsnapPathLineEdit">
-            <property name="toolTip">
-             <string>Must point to the Tarsnap CLI utilities directory</string>
+          <item>
+           <spacer name="verticalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
             </property>
-            <property name="text">
-             <string/>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>10</height>
+             </size>
             </property>
-            <property name="dragEnabled">
-             <bool>true</bool>
-            </property>
-            <property name="placeholderText">
-             <string>Tarsnap client utils directory</string>
-            </property>
-            <property name="clearButtonEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
+           </spacer>
           </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="clientVersionLabel">
-            <property name="text">
-             <string/>
+          <item>
+           <widget class="QFrame" name="advancedCLIFrame">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>220</height>
+             </size>
             </property>
-           </widget>
-          </item>
-          <item row="4" column="0" colspan="2">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Tarsnap caches information about what it has uploaded in a local directory:</string>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
             </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QPushButton" name="tarsnapCacheBrowseButton">
-            <property name="toolTip">
-             <string>Change Tarsnap cache directory</string>
-            </property>
-            <property name="text">
-             <string>Change</string>
-            </property>
-            <property name="autoDefault">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="tarsnapCacheLineEdit">
-            <property name="dragEnabled">
-             <bool>true</bool>
-            </property>
-            <property name="placeholderText">
-             <string>Tarsnap cache directory</string>
-            </property>
-            <property name="clearButtonEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0" colspan="2">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>The data directory is used to store app data, settings and new machine keys:</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="0">
-           <widget class="QPushButton" name="appDataBrowseButton">
-            <property name="toolTip">
-             <string>Change application data directory</string>
-            </property>
-            <property name="text">
-             <string>Change</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1">
-           <widget class="QLineEdit" name="appDataPathLineEdit">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="placeholderText">
-             <string>Application data directory</string>
-            </property>
-            <property name="clearButtonEnabled">
-             <bool>true</bool>
-            </property>
+            <layout class="QGridLayout" name="gridLayout">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="tarsnapPathBrowseButton">
+               <property name="toolTip">
+                <string>Look for the Tarsnap CLI utilities</string>
+               </property>
+               <property name="text">
+                <string>Change</string>
+               </property>
+               <property name="autoDefault">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0" colspan="2">
+              <widget class="QLabel" name="label_10">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Config directory:</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+               <property name="toolTip">
+                <string>Change Tarsnap cache directory</string>
+               </property>
+               <property name="text">
+                <string>Change</string>
+               </property>
+               <property name="autoDefault">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLineEdit" name="appDataPathLineEdit">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>Application data directory</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" colspan="2">
+              <widget class="QLabel" name="label_7">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Cache directory:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLineEdit" name="tarsnapCacheLineEdit">
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Tarsnap cache directory</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLineEdit" name="tarsnapPathLineEdit">
+               <property name="toolTip">
+                <string>Must point to the Tarsnap CLI utilities directory</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Tarsnap client utils directory</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="2">
+              <widget class="QPushButton" name="appDataBrowseButton">
+               <property name="toolTip">
+                <string>Change application data directory</string>
+               </property>
+               <property name="text">
+                <string>Change</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" colspan="2">
+              <widget class="QLabel" name="label_6">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Tarsnap command-line utilities:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -554,6 +680,9 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
        <item alignment="Qt::AlignBottom">
         <widget class="QWidget" name="buttonBox_3" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="spacing">
+           <number>6</number>
+          </property>
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -566,6 +695,23 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
           <property name="bottomMargin">
            <number>0</number>
           </property>
+          <item>
+           <widget class="QToolButton" name="advancedCLIButton">
+            <property name="text">
+             <string>advanced</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../resources/resources.qrc">
+              <normaloff>:/icons/caret-top.png</normaloff>:/icons/caret-top.png</iconset>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
+            </property>
+            <property name="autoRaise">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
           <item>
            <spacer name="horizontalSpacer_5">
             <property name="orientation">
@@ -606,6 +752,22 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
             <property name="sizeHint" stdset="0">
              <size>
               <width>153</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <spacer name="advancedSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>92</width>
               <height>20</height>
              </size>
             </property>

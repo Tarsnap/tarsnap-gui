@@ -224,9 +224,7 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
        <item>
         <widget class="QLabel" name="welcomePageInfoLabel">
          <property name="text">
-          <string>This guide will help you set up Tarsnap on your system and get started with the basics. Alternatively you can skip this wizard and set everything up from the Settings pane in the application.
-
-Check the Advanced option below to explicitly specify where the Tarsnap client resides or a custom cache location.</string>
+          <string>This guide will help you set up Tarsnap on your system and get started with the basics. Alternatively you can skip this wizard and set everything up from the Settings pane in the application.</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -251,16 +249,6 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           </size>
          </property>
         </spacer>
-       </item>
-       <item alignment="Qt::AlignBottom">
-        <widget class="QCheckBox" name="advancedSetupCheckBox">
-         <property name="toolTip">
-          <string>Allows you to customize settings such as where the Tarsnap command line client resides or a custom Tarsnap cache location</string>
-         </property>
-         <property name="text">
-          <string>Advanced setup</string>
-         </property>
-        </widget>
        </item>
        <item alignment="Qt::AlignBottom">
         <widget class="QWidget" name="buttonBox" native="true">
@@ -375,6 +363,31 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
           <property name="bottomMargin">
            <number>0</number>
           </property>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLabel" name="label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The command line interface utilities are used to communicate with the Tarsnap service. Please point to the directory where the Tarsnap utilities are installed on this system. Information on installing Tarsnap CLI utilities can be found &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <property name="openExternalLinks">
+             <bool>true</bool>
+            </property>
+            <property name="textInteractionFlags">
+             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+            </property>
+           </widget>
+          </item>
           <item row="2" column="0">
            <widget class="QPushButton" name="tarsnapPathBrowseButton">
             <property name="toolTip">
@@ -407,6 +420,23 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
             </property>
            </widget>
           </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="clientVersionLabel">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" colspan="2">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Tarsnap caches information about what it has uploaded in a local directory:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
           <item row="5" column="0">
            <widget class="QPushButton" name="tarsnapCacheBrowseButton">
             <property name="toolTip">
@@ -430,41 +460,6 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0" colspan="2">
-           <widget class="QLabel" name="label">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The command line interface utilities are used to communicate with the Tarsnap service. Please point to the directory where the Tarsnap utilities are installed on this system. Information on installing Tarsnap CLI utilities can be found &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-            <property name="openExternalLinks">
-             <bool>true</bool>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0" colspan="2">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Tarsnap caches information about what it has uploaded in a local directory:</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignJustify|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -498,23 +493,6 @@ Check the Advanced option below to explicitly specify where the Tarsnap client r
             </property>
             <property name="clearButtonEnabled">
              <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="1">
-           <widget class="QCheckBox" name="storeIniFormatCheckBox">
-            <property name="toolTip">
-             <string>Instead of the platform choice, prefs on OS X and registry on Windows.</string>
-            </property>
-            <property name="text">
-             <string>Store settings in .ini format</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="clientVersionLabel">
-            <property name="text">
-             <string/>
             </property>
            </widget>
           </item>
@@ -1088,7 +1066,6 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <tabstops>
-  <tabstop>advancedSetupCheckBox</tabstop>
   <tabstop>welcomePageSkipButton</tabstop>
   <tabstop>welcomePageProceedButton</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>

@@ -46,10 +46,6 @@ signals:
                                 QString cachePath);
     void getTarsnapVersion(QString tarsnapPath);
 
-protected:
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-
 private:
     Ui::SetupDialog *_ui;
     QPoint           _windowDragPos;

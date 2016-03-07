@@ -22,7 +22,6 @@ SetupDialog::SetupDialog(QWidget *parent)
                    ~Qt::WindowMaximizeButtonHint);
 
     _ui->loadingIconLabel->setMovie(&_loadingAnimation);
-    _ui->advancedPageRadioButton->hide();
     _ui->clientVersionLabel->hide();
     _ui->errorLabel->hide();
     _ui->machineKeyLabel->hide();
@@ -44,8 +43,6 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::wizardPageChanged);
 
     // Welcome page
-    connect(_ui->advancedSetupCheckBox, &QCheckBox::toggled,
-            _ui->advancedPageRadioButton, &QRadioButton::setVisible);
     connect(_ui->welcomePageSkipButton, &QPushButton::clicked,
             [&]() { commitSettings(true); });
     connect(_ui->welcomePageProceedButton, &QPushButton::clicked, this,
@@ -115,22 +112,6 @@ SetupDialog::~SetupDialog()
     delete _ui;
 }
 
-void SetupDialog::mousePressEvent(QMouseEvent *event)
-{
-    if(event->buttons() & Qt::LeftButton)
-        _windowDragPos = event->pos();
-}
-
-void SetupDialog::mouseMoveEvent(QMouseEvent *event)
-{
-    if(event->buttons() & Qt::LeftButton)
-    {
-        QPoint diff   = event->pos() - _windowDragPos;
-        QPoint newpos = this->pos() + diff;
-        this->move(newpos);
-    }
-}
-
 void SetupDialog::wizardPageChanged(int)
 {
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
@@ -173,19 +154,9 @@ void SetupDialog::setNextPage()
 {
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
     {
-        if(_ui->advancedSetupCheckBox->isChecked() || _tarsnapDir.isEmpty() ||
-           _tarsnapCacheDir.isEmpty() || _appDataDir.isEmpty())
-        {
-            _ui->wizardStackedWidget->setCurrentWidget(_ui->advancedPage);
-            _ui->advancedSetupCheckBox->setChecked(true);
-            _ui->advancedPageRadioButton->setEnabled(true);
-            validateAdvancedSetupPage();
-        }
-        else
-        {
-            _ui->wizardStackedWidget->setCurrentWidget(_ui->restorePage);
-            _ui->restorePageRadioButton->setEnabled(true);
-        }
+        _ui->wizardStackedWidget->setCurrentWidget(_ui->advancedPage);
+        _ui->advancedPageRadioButton->setEnabled(true);
+        validateAdvancedSetupPage();
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->advancedPage)
     {
@@ -419,16 +390,6 @@ void SetupDialog::commitSettings(bool skipped)
 
     if(!skipped)
     {
-        if(_ui->storeIniFormatCheckBox->isChecked())
-        {
-            settings.setValue("app/ini_format", true);
-            settings.setValue("app/app_data", _appDataDir);
-            settings.sync();
-            settings.setPath(QSettings::IniFormat, QSettings::UserScope,
-                             _appDataDir);
-            settings.setDefaultFormat(QSettings::IniFormat);
-        }
-
         QSettings settings;
         settings.setValue("app/app_data",    _appDataDir);
         settings.setValue("tarsnap/path",    _tarsnapDir);

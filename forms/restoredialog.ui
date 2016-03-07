@@ -44,7 +44,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Restore archive &lt;span style=&quot; font-weight:600;&quot;&gt;%1&lt;/span&gt; contents to original locations? Any existing files will not be replaced by default. Use the options below to modify default behavior:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Restore archive &lt;span style=&quot; font-weight:600;&quot;&gt;%1&lt;/span&gt; contents to original locations? Any existing files will not be replaced by default. Use the options below to modify this behavior:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
@@ -78,18 +78,18 @@
       <property name="bottomMargin">
        <number>0</number>
       </property>
-      <item row="1" column="0">
-       <widget class="QRadioButton" name="chdirRadioButton">
+      <item row="8" column="0" colspan="2">
+       <widget class="QCheckBox" name="overwriteCheckBox">
         <property name="toolTip">
-         <string>This will extract the archive contents to the specified directory.</string>
+         <string>Overwrite existing files if they exist</string>
         </property>
         <property name="text">
-         <string>Restore files to other base directory</string>
+         <string>Overwrite existing files</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="browseButton">
+      <item row="2" column="1">
+       <widget class="QPushButton" name="changeDirButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -100,14 +100,24 @@
          <string>Change directory</string>
         </property>
         <property name="text">
-         <string>Browse</string>
+         <string>Change</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLineEdit" name="dirLineEdit">
+      <item row="2" column="0">
+       <widget class="QLineEdit" name="baseDirLineEdit">
         <property name="toolTip">
-         <string>Download directory</string>
+         <string>Set base directory to extract archive contents to</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="baseDirRadioButton">
+        <property name="toolTip">
+         <string>This will extract the archive contents to the specified directory</string>
+        </property>
+        <property name="text">
+         <string>Restore files to other base directory</string>
         </property>
        </widget>
       </item>
@@ -124,17 +134,17 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="0" colspan="2">
-       <widget class="QCheckBox" name="overwriteCheckBox">
+      <item row="4" column="0">
+       <widget class="QRadioButton" name="getArchiveRadioButton">
         <property name="toolTip">
-         <string>Overwrite existing files if they exist</string>
+         <string>This will download an uncompressed tar archive to the specified directory.</string>
         </property>
         <property name="text">
-         <string>Overwrite existing files</string>
+         <string>Download tar archive</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="0">
+      <item row="9" column="0">
        <widget class="QCheckBox" name="keepNewerCheckBox">
         <property name="enabled">
          <bool>false</bool>
@@ -147,13 +157,20 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QRadioButton" name="downloadArchiveRadioButton">
+      <item row="5" column="0">
+       <widget class="QLineEdit" name="archiveLineEdit">
         <property name="toolTip">
-         <string>This will download an uncompressed tar archive to the specified directory.</string>
+         <string>Set archive file name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QPushButton" name="changeArchiveButton">
+        <property name="toolTip">
+         <string>Change archive name</string>
         </property>
         <property name="text">
-         <string>Download tar archive</string>
+         <string>Change</string>
         </property>
        </widget>
       </item>
@@ -199,9 +216,7 @@
  </widget>
  <tabstops>
   <tabstop>preservePathsRadioButton</tabstop>
-  <tabstop>chdirRadioButton</tabstop>
-  <tabstop>dirLineEdit</tabstop>
-  <tabstop>browseButton</tabstop>
+  <tabstop>baseDirRadioButton</tabstop>
   <tabstop>overwriteCheckBox</tabstop>
   <tabstop>keepNewerCheckBox</tabstop>
   <tabstop>cancelButton</tabstop>

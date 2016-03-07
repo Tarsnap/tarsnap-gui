@@ -266,10 +266,20 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
        <item>
         <widget class="QLabel" name="welcomePageInfoLabel">
          <property name="text">
-          <string>This guide will help you set up Tarsnap on your system and get started with the basics. Alternatively you can skip this wizard and set everything up from the Settings pane in the application.</string>
+          <string>This guide will help you set up Tarsnap on your system and get started with the basics.</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>(You can also skip this wizard and set up everything inside the application.)</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

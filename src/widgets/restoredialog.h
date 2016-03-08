@@ -21,12 +21,12 @@ public:
     ArchiveRestoreOptions getOptions();
 
 private slots:
-    void baseDirToggled(bool checked);
+    void optionBaseDirToggled(bool checked);
+    void optionDownArchiveToggled(bool checked);
+    void optionRestoreToggled(bool checked);
     void changeDir();
     void changeArchive();
     bool validate();
-    void getArchiveToggled(bool checked);
-    void preservePathsToggled(bool checked);
 
 private:
     Ui::RestoreDialog *_ui;

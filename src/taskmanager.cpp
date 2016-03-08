@@ -353,15 +353,15 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     QStringList args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
-    if(options.preservePaths)
+    if(options.optionRestore)
         args << "-x" << "-P";
-    if(options.baseDir)
+    if(options.optionRestoreDir)
         args << "-x" << "-C" << options.path;
     if(!options.overwriteFiles)
         args << "-k";
     if(options.keepNewerFiles)
         args << "--keep-newer-files";
-    if(options.getArchive)
+    if(options.optionDownArchive)
     {
         args << "-r";
     }

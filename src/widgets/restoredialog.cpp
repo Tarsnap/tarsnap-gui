@@ -1,11 +1,11 @@
 #include "restoredialog.h"
 #include "ui_restoredialog.h"
+#include "utils.h"
 
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QSettings>
-#include <QStandardPaths>
 
 RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
     : QDialog(parent), _ui(new Ui::RestoreDialog), _archive(archive)
@@ -16,9 +16,7 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
 
     _ui->infoLabel->setText(_ui->infoLabel->text().arg(archive->name()));
     QSettings settings;
-    _downDir = settings.value("app/downloads_dir",
-                              QStandardPaths::writableLocation(QStandardPaths::DownloadLocation))
-                             .toString();
+    _downDir = settings.value("app/downloads_dir", DOWNLOADS).toString();
     _ui->baseDirLineEdit->setText(_downDir);
     _ui->baseDirLineEdit->hide();
     _ui->changeDirButton->hide();

@@ -21,16 +21,17 @@ public:
     ArchiveRestoreOptions getOptions();
 
 private slots:
-    void on_cancelButton_clicked();
-    void on_restoreButton_clicked();
-    void on_restoreDirectoryRadioButton_toggled(bool checked);
-    void on_browseButton_clicked();
-    void on_overwriteCheckBox_toggled(bool checked);
-    void on_chdirLineEdit_editingFinished();
+    void optionBaseDirToggled(bool checked);
+    void optionDownArchiveToggled(bool checked);
+    void optionRestoreToggled(bool checked);
+    void changeDir();
+    void changeArchive();
+    bool validate();
 
 private:
     Ui::RestoreDialog *_ui;
     ArchivePtr         _archive;
+    QString            _downDir;
 };
 
 #endif // RESTOREDIALOG_H

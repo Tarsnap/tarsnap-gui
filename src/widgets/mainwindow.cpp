@@ -19,7 +19,6 @@
 #include <QSettings>
 #include <QSharedPointer>
 #include <QShortcut>
-#include <QStandardPaths>
 
 #define PURGE_SECONDS_DELAY 8
 
@@ -444,9 +443,7 @@ void MainWindow::loadSettings()
     _ui->skipNoDumpCheckBox->setChecked(
         settings.value("app/skip_nodump", false).toBool());
     _ui->downloadsDirLineEdit->setText(
-        settings.value("app/downloads_dir",
-                       QStandardPaths::writableLocation(QStandardPaths::DownloadLocation))
-        .toString());
+        settings.value("app/downloads_dir", DOWNLOADS).toString());
     _ui->appDataDirLineEdit->setText(
         settings.value("app/app_data", "").toString());
     _ui->notificationsCheckBox->setChecked(
@@ -885,9 +882,8 @@ void MainWindow::expandJournalButtonToggled(bool checked)
 
 void MainWindow::downloadsDirBrowseButtonClicked()
 {
-    QString downDir = QFileDialog::getExistingDirectory(
-        this, tr("Browse for downloads directory"),
-        QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).first());
+    QString downDir = QFileDialog::getExistingDirectory(this,
+                      tr("Browse for downloads directory"), DOWNLOADS);
     if(!downDir.isEmpty())
     {
         _ui->downloadsDirLineEdit->setText(downDir);

@@ -27,6 +27,7 @@ void TarsnapClient::setCommand(const QString &command)
 {
     _command = command;
 }
+
 QStringList TarsnapClient::arguments() const
 {
     return _arguments;
@@ -40,7 +41,10 @@ void TarsnapClient::setArguments(const QStringList &arguments)
 void TarsnapClient::run()
 {
     _process = new QProcess();
-    _process->setProcessChannelMode(QProcess::MergedChannels);
+    if(_standardOutFile.isEmpty())
+        _process->setProcessChannelMode(QProcess::MergedChannels);
+    else
+        _process->setStandardOutputFile(_standardOutFile);
     QSettings settings;
     if(settings.value("tarsnap/no_default_config", false).toBool())
         _arguments.prepend("--no-default-config");
@@ -109,7 +113,10 @@ bool TarsnapClient::waitForClient()
 
 void TarsnapClient::readProcessOutput()
 {
-    _processOutput.append(_process->readAll());
+    if(_process->processChannelMode() == QProcess::MergedChannels)
+        _processOutput.append(_process->readAll());
+    else
+        _processOutput.append(_process->readAllStandardError());
 }
 
 void TarsnapClient::processFinished()
@@ -168,6 +175,11 @@ bool TarsnapClient::requiresPassword() const
 void TarsnapClient::setRequiresPassword(bool requiresPassword)
 {
     _requiresPassword = requiresPassword;
+}
+
+void TarsnapClient::setStandardOutputFile(const QString &fileName)
+{
+    _standardOutFile = fileName;
 }
 
 QString TarsnapClient::password() const

@@ -40,6 +40,8 @@ const QStringList DEFAULT_JOBS {
 #define APPDATA QStandardPaths::DataLocation
 #endif
 
+#define DOWNLOADS QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
+
 namespace Utils
 {
 

@@ -44,7 +44,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Restore archive &lt;span style=&quot; font-weight:600;&quot;&gt;%1&lt;/span&gt; contents to original locations? Any existing files will not be replaced by default. Use the options below to modify default behavior:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Restore archive &lt;span style=&quot; font-weight:600;&quot;&gt;%1&lt;/span&gt; contents to original locations? Any existing files will not be replaced by default. Use the options below to modify this behavior:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
@@ -78,7 +78,7 @@
       <property name="bottomMargin">
        <number>0</number>
       </property>
-      <item row="4" column="0" colspan="2">
+      <item row="8" column="0" colspan="2">
        <widget class="QCheckBox" name="overwriteCheckBox">
         <property name="toolTip">
          <string>Overwrite existing files if they exist</string>
@@ -88,50 +88,63 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLineEdit" name="chdirLineEdit">
-        <property name="toolTip">
-         <string>Will restore contents of the archive to the specified directory.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="2">
-       <widget class="QRadioButton" name="preservePathsRadioButton">
-        <property name="toolTip">
-         <string>This will restore files and dirs to the original locations used when creating the backup, thus effectively achieving a restore.</string>
-        </property>
-        <property name="text">
-         <string>Restore files to original location</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="1">
-       <widget class="QPushButton" name="browseButton">
+       <widget class="QPushButton" name="changeDirButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>Change directory</string>
+        </property>
         <property name="text">
-         <string>Browse</string>
+         <string>Change</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLineEdit" name="baseDirLineEdit">
+        <property name="toolTip">
+         <string>Set base directory to extract archive contents to</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QRadioButton" name="restoreDirectoryRadioButton">
+       <widget class="QRadioButton" name="optionBaseDirRadio">
         <property name="toolTip">
-         <string>This will extract the archive contents to the specified directory.</string>
+         <string>This will extract the archive contents to the specified directory</string>
         </property>
         <property name="text">
-         <string>Restore files to other directory</string>
+         <string>Restore files to other base directory</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
+      <item row="0" column="0" colspan="2">
+       <widget class="QRadioButton" name="optionRestoreRadio">
+        <property name="toolTip">
+         <string>This will restore files and dirs to the original locations used when creating the backup, thus effectively achieving a restore.</string>
+        </property>
+        <property name="text">
+         <string>Restore files to original locations</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QRadioButton" name="optionDownArchiveRadio">
+        <property name="toolTip">
+         <string>This will download an uncompressed tar archive to the specified directory.</string>
+        </property>
+        <property name="text">
+         <string>Download tar archive</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
        <widget class="QCheckBox" name="keepNewerCheckBox">
         <property name="enabled">
          <bool>false</bool>
@@ -141,6 +154,23 @@
         </property>
         <property name="text">
          <string>Keep newer files</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLineEdit" name="archiveLineEdit">
+        <property name="toolTip">
+         <string>Set archive file name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QPushButton" name="changeArchiveButton">
+        <property name="toolTip">
+         <string>Change archive name</string>
+        </property>
+        <property name="text">
+         <string>Change</string>
         </property>
        </widget>
       </item>
@@ -185,10 +215,8 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>preservePathsRadioButton</tabstop>
-  <tabstop>restoreDirectoryRadioButton</tabstop>
-  <tabstop>chdirLineEdit</tabstop>
-  <tabstop>browseButton</tabstop>
+  <tabstop>optionRestoreRadio</tabstop>
+  <tabstop>optionBaseDirRadio</tabstop>
   <tabstop>overwriteCheckBox</tabstop>
   <tabstop>keepNewerCheckBox</tabstop>
   <tabstop>cancelButton</tabstop>

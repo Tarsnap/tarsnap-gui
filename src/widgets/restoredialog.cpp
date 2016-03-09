@@ -20,7 +20,13 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
     _ui->baseDirLineEdit->setText(_downDir);
     _ui->baseDirLineEdit->hide();
     _ui->changeDirButton->hide();
-    QFileInfo archiveFile(QDir(_downDir), _archive->name() + ".tar");
+    QString fileName(_archive->name() + ".tar");
+    // Replace chars that are problematic on common file systems but are allowed
+    // in tarsnap archive names
+    fileName = fileName.replace(QChar(':'), QChar('-'))
+                       .replace(QChar('/'), QChar('-'))
+                       .replace(QChar('\\'), QChar('-'));
+    QFileInfo archiveFile(QDir(_downDir), fileName);
     archiveFile.makeAbsolute();
     _ui->archiveLineEdit->setText(archiveFile.absoluteFilePath());
     _ui->archiveLineEdit->hide();
@@ -117,10 +123,12 @@ bool RestoreDialog::validate()
         if(dir.exists() && dir.isDir() && dir.isWritable())
         {
             _ui->baseDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
+            _ui->baseDirLineEdit->setToolTip(tr("Set base directory to extract archive contents to"));
         }
         else
         {
             _ui->baseDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
+            _ui->baseDirLineEdit->setToolTip(tr("Invalid base directory. Please choose a different one."));
             valid = false;
         }
     }
@@ -130,11 +138,13 @@ bool RestoreDialog::validate()
         if(archive.exists())
         {
             _ui->archiveLineEdit->setStyleSheet("QLineEdit{color:red;}");
+            _ui->archiveLineEdit->setToolTip(tr("File exists. Please choose a different file name."));
             valid = false;
         }
         else
         {
             _ui->archiveLineEdit->setStyleSheet("QLineEdit{color:black;}");
+            _ui->archiveLineEdit->setToolTip(tr("Set archive file name"));
         }
     }
     return valid;

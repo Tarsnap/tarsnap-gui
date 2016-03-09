@@ -34,6 +34,8 @@ public:
     bool requiresPassword() const;
     void setRequiresPassword(bool requiresPassword);
 
+    void setStandardOutputFile(const QString &fileName);
+
     QVariant data() const;
     void setData(const QVariant &data);
 
@@ -49,12 +51,13 @@ private slots:
 
 private:
     QVariant    _data; // caller supplied data
-    QProcess *  _process;
+    QProcess   *_process;
     QByteArray  _processOutput;
     QString     _command;
     QStringList _arguments;
     QString     _password;
     bool        _requiresPassword;
+    QString     _standardOutFile;
 };
 
 #endif // TARSNAPCLIENT_H

@@ -10,11 +10,11 @@
 
 struct ArchiveRestoreOptions
 {
-    bool    optionRestore;
-    bool    optionRestoreDir;
-    bool    optionDownArchive;
-    bool    overwriteFiles;
-    bool    keepNewerFiles;
+    bool    optionRestore     = false;
+    bool    optionRestoreDir  = false;
+    bool    optionDownArchive = false;
+    bool    overwriteFiles    = false;
+    bool    keepNewerFiles    = true;
     QString path;
 };
 

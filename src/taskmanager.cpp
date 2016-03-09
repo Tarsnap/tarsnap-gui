@@ -357,13 +357,16 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
         args << "-x" << "-P";
     if(options.optionRestoreDir)
         args << "-x" << "-C" << options.path;
-    if(!options.overwriteFiles)
+    if((options.optionRestore || options.optionRestoreDir)
+       && !options.overwriteFiles)
         args << "-k";
-    if(options.keepNewerFiles)
+    if((options.optionRestore || options.optionRestoreDir)
+       && options.keepNewerFiles)
         args << "--keep-newer-files";
     if(options.optionDownArchive)
     {
         args << "-r";
+        restore->setStandardOutputFile(options.path);
     }
     args << "-f" << archive->name();
     restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));

@@ -49,8 +49,8 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::setNextPage);
 
     // Advanced setup page
-    connect(_ui->advancedCLIButton, &QAbstractButton::pressed,
-		    this, &SetupDialog::toggleAdvancedCLI);
+    connect(_ui->advancedCLIButton, &QAbstractButton::pressed, this,
+            &SetupDialog::toggleAdvancedCLI);
     connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this,
             &SetupDialog::showTarsnapPathBrowse);
     connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this,
@@ -119,27 +119,27 @@ void SetupDialog::wizardPageChanged(int)
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
     {
         _ui->welcomePageRadioButton->setChecked(true);
-	_ui->stageLabel->setText("Setup wizard");
+        _ui->stageLabel->setText("Setup wizard");
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->advancedPage)
     {
         _ui->advancedPageRadioButton->setChecked(true);
-	_ui->stageLabel->setText("Command-line utilities");
+        _ui->stageLabel->setText("Command-line utilities");
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->restorePage)
     {
         _ui->restorePageRadioButton->setChecked(true);
-	_ui->stageLabel->setText("Restore old config?");
+        _ui->stageLabel->setText("Restore old config?");
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
     {
         _ui->registerPageRadioButton->setChecked(true);
-	_ui->stageLabel->setText("Register with server");
+        _ui->stageLabel->setText("Register with server");
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->donePage)
     {
         _ui->donePageRadioButton->setChecked(true);
-	_ui->stageLabel->setText("Complete!");
+        _ui->stageLabel->setText("Complete!");
     }
 }
 
@@ -231,13 +231,17 @@ bool SetupDialog::validateAdvancedSetupPage()
 
     _ui->advancedPageProceedButton->setEnabled(result);
 
-    if (result) {
+    if(result)
+    {
         _ui->advancedCLIFrame->hide();
         _ui->installLinkLabel->setText("");
         _ui->foundCLILabel->setText("<font color=\"green\">Found</font>");
-    } else {
+    }
+    else
+    {
         _ui->advancedCLIFrame->show();
-        _ui->installLinkLabel->setText("<a href=\"http://tarsnap.com\">How can I install the CLI utilities?</a>");
+        _ui->installLinkLabel->setText("<a href=\"http://tarsnap.com\">How can "
+                                       "I install the CLI utilities?</a>");
         _ui->foundCLILabel->setText("<font color=\"red\">Not found</font>");
     }
 
@@ -421,13 +425,11 @@ void SetupDialog::commitSettings(bool skipped)
     accept();
 }
 
-void
-SetupDialog::toggleAdvancedCLI()
+void SetupDialog::toggleAdvancedCLI()
 {
-	if (_ui->advancedCLIFrame->isVisible()) {
-		_ui->advancedCLIFrame->hide();
-	} else {
-		_ui->advancedCLIFrame->show();
-	}
-	qDebug("FIXME: we probably want to change the triangle icon as well?");
+    if(_ui->advancedCLIFrame->isVisible())
+        _ui->advancedCLIFrame->hide();
+    else
+        _ui->advancedCLIFrame->show();
+    qDebug("FIXME: we probably want to change the triangle icon as well?");
 }

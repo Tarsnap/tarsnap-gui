@@ -530,14 +530,15 @@ border: 1px solid white;
 background: transparent;
 color: white;
 padding: 4px;
+border-radius: 2px;
 }
 
 QPushButton:hover {
-border: 1px solid grey;
+border: 1px solid darkgrey;
 }
 
 QPushButton:pressed {
-border: 1px solid grey;
+border: 1px solid darkgrey;
 background: white;
 color: black;
 }</string>
@@ -670,10 +671,7 @@ color: black;
                  <string notr="true">QToolButton
 {
 background: rgba(64,152,212,255);
-border-top: 1px solid white;
-border-left: 1px solid white;
-border-bottom: 1px solid darkgrey;
-border-right: 1px solid darkgrey;
+border: 1px solid white;
 border-radius: 2px;
 color: white;
 font-size: 12px;
@@ -681,25 +679,26 @@ padding-right: 24px;
 width: 100px;
 height: 20px;
 }
+QToolButton:hover {
+border: 1px solid darkgrey;
+}
+
+QToolButton:pressed {
+border: 1px solid darkgrey;
+background: white;
+color: black;
+}
 
 QToolButton:disabled
 {
-background: rgba(85,164,216,225);
-}
-
-QToolButton:pressed
-{
-background: rgba(85,164,216,225);
-}
-
-QToolButton:focus
-{
-border: 1px solid white;
+background: darkgrey;
 }
 
 QToolButton::menu-button
 {
-border-left: 1px dotted white;
+border-left: 1px solid white;
+margin-top: 1px;
+margin-bottom: 1px;
 width: 16px;
 margin-right: 4px;
 }

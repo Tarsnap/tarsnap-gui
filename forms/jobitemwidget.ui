@@ -61,7 +61,7 @@
     <widget class="TextLabel" name="nameLabel">
      <property name="minimumSize">
       <size>
-       <width>50</width>
+       <width>100</width>
        <height>0</height>
       </size>
      </property>

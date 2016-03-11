@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QStandardPaths>
+#include <QSettings>
 
 #include <math.h>
 
@@ -121,4 +122,12 @@ QFileInfoList Utils::findKeysInPath(QString path)
     dir.setSorting(QDir::Time);
     dir.setNameFilters(QStringList("*.key"));
     return dir.entryInfoList();
+}
+
+bool Utils::tarsnapVersionMinimum(const QString &minVersion)
+{
+    QSettings settings;
+    QString tarsnapVersion = settings.value("tarsnap/version", "").toString();
+    QRegExp versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
+    return (-1 != versionRx.indexIn(tarsnapVersion)) && (versionRx.cap(0) >= minVersion);
 }

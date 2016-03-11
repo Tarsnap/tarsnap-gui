@@ -37,7 +37,6 @@ void TaskManager::loadSettings()
     QSettings settings;
 
     _tarsnapDir      = settings.value("tarsnap/path").toString();
-    _tarsnapVersion  = settings.value("tarsnap/version").toString();
     _tarsnapCacheDir = settings.value("tarsnap/cache").toString();
     _tarsnapKeyFile  = settings.value("tarsnap/key").toString();
     _aggressiveNetworking =
@@ -112,9 +111,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
         args << "--one-file-system";
     if(backupTask->optionFollowSymLinks())
         args << "-L";
-    QRegExp versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
-    if((-1 != versionRx.indexIn(_tarsnapVersion)) &&
-       (versionRx.cap(0) >= "1.0.36"))
+    if(Utils::tarsnapVersionMinimum("1.0.36"))
         args << "--creationtime"
              << QString::number(backupTask->timestamp().toTime_t());
     args << "--quiet"
@@ -384,7 +381,7 @@ void TaskManager::getKeyId(QString key)
     TarsnapClient *keymgmtClient = new TarsnapClient();
     QStringList    args;
     QFileInfo      keyFile(key);
-    if(keyFile.exists())
+    if(keyFile.exists() && Utils::tarsnapVersionMinimum("1.0.37"))
     {
         args << "--print-key-id" << key;
         keymgmtClient->setCommand(makeTarsnapCommand(CMD_TARSNAPKEYMGMT));
@@ -393,7 +390,7 @@ void TaskManager::getKeyId(QString key)
     }
     else
     {
-        DEBUG << "Invalid key path.";
+        DEBUG << "Invalid key path or tarsnap version lower than 1.0.37.";
         return;
     }
     connect(keymgmtClient, &TarsnapClient::finished, this,

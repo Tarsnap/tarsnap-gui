@@ -78,6 +78,9 @@ QFileInfoList findKeysInPath(QString path);
 // Returns canonical path if verified, otherwise empty string
 QString validateTarsnapCache(QString path);
 
+// Verifies if the current CLI utils version is at least minVersion
+bool tarsnapVersionMinimum(const QString& minVersion);
+
 } // namespace Utils
 
 #endif // UTILS_H

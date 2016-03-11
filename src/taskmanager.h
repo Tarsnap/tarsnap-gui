@@ -103,7 +103,6 @@ private:
 
 private:
     QString _tarsnapDir;
-    QString _tarsnapVersion;
     QString _tarsnapCacheDir;
     QString _tarsnapKeyFile;
     QMap<QUuid, BackupTaskPtr> _backupTaskMap;

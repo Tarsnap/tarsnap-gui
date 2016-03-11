@@ -1,5 +1,6 @@
 #include "tarsnapaccount.h"
 #include "debug.h"
+#include "utils.h"
 
 #include <QMessageBox>
 #include <QNetworkReply>
@@ -23,9 +24,18 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
     QSettings settings;
     _user      = settings.value("tarsnap/user", "").toString();
     _machine   = settings.value("tarsnap/machine", "").toString();
-    _machineId = settings.value("tarsnap/key_id", 0).toInt();
-    if(_machineId == 0)
+    if(Utils::tarsnapVersionMinimum("1.0.37"))
+    {
         emit getKeyId(settings.value("tarsnap/key", "").toString());
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Warning"),
+                             tr("You need Tarsnap CLI utils version 1.0.37 to "
+                                "be able to fetch machine activity. "
+                                "You have version %1.")
+                             .arg(settings.value("tarsnap/version", "").toString()));
+    }
     if(_user.isEmpty() || _machine.isEmpty())
     {
         QMessageBox::warning(this, tr("Warning"),
@@ -47,20 +57,23 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
             displayCSVTable(replyData, tr("Account activity"));
     });
     _machineId = settings.value("tarsnap/key_id", 0).toInt();
-    QString machineActivity(URL_MACHINE_ACTIVITY);
-    QString hexId("%1");
-    hexId = hexId.arg(_machineId, 16, 16, QLatin1Char('0'));
-    machineActivity = machineActivity.arg(
-                QString(QUrl::toPercentEncoding(_user)),
-                QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())),
-                QString(QUrl::toPercentEncoding(hexId)));
-    QNetworkReply *machineActivityReply = tarsnapRequest(machineActivity);
-    connect(machineActivityReply, &QNetworkReply::finished, [=]() {
-        QByteArray replyData = readReply(machineActivityReply);
-        parseLastMachineActivity(replyData);
-        if(displayMachineActivity)
-            displayCSVTable(replyData, tr("Machine activity"));
-    });
+    if(_machineId)
+    {
+        QString machineActivity(URL_MACHINE_ACTIVITY);
+        QString hexId("%1");
+        hexId = hexId.arg(_machineId, 16, 16, QLatin1Char('0'));
+        machineActivity = machineActivity.arg(
+                    QString(QUrl::toPercentEncoding(_user)),
+                    QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())),
+                    QString(QUrl::toPercentEncoding(hexId)));
+        QNetworkReply *machineActivityReply = tarsnapRequest(machineActivity);
+        connect(machineActivityReply, &QNetworkReply::finished, [=]() {
+            QByteArray replyData = readReply(machineActivityReply);
+            parseLastMachineActivity(replyData);
+            if(displayMachineActivity)
+                displayCSVTable(replyData, tr("Machine activity"));
+        });
+    }
     _ui.passwordLineEdit->clear();
 }
 

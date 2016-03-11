@@ -65,7 +65,8 @@ void TaskManager::registerMachine(QString user, QString password,
     if(keyFile.exists())
     {
         // existing key, just check with a tarsnap --print-stats command
-        args << "--fsck-prune" << "--keyfile" << key << "--cachedir" << cachePath;
+        args << "--fsck-prune"
+             << "--keyfile" << key << "--cachedir" << cachePath;
         registerClient->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
         registerClient->setArguments(args);
     }
@@ -150,13 +151,15 @@ void TaskManager::getArchives()
                                     // man page, however Tarsnap CLI seems to
                                     // require it
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--list-archives" << "-vv";
+    args << "--list-archives"
+         << "-vv";
     listArchivesClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     listArchivesClient->setArguments(args);
     connect(listArchivesClient, &TarsnapClient::finished, this,
             &TaskManager::getArchiveListFinished, QUEUED);
-    connect(listArchivesClient, &TarsnapClient::started, this,[&]()
-            { emit message(tr("Updating archives list from remote...")); }, QUEUED);
+    connect(listArchivesClient, &TarsnapClient::started, this,
+            [&]() { emit message(tr("Updating archives list from remote...")); },
+            QUEUED);
     queueTask(listArchivesClient);
 }
 
@@ -213,8 +216,12 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
     statsClient->setData(archive->name());
     connect(statsClient, &TarsnapClient::finished, this,
             &TaskManager::getArchiveStatsFinished, QUEUED);
-    connect(statsClient, &TarsnapClient::started, this, [=]()
-            {emit message(tr("Fetching stats for archive <i>%1</i>...").arg(archive->name()));}, QUEUED);
+    connect(statsClient, &TarsnapClient::started, this,
+            [=]() {
+                emit message(tr("Fetching stats for archive <i>%1</i>...")
+                                 .arg(archive->name()));
+            },
+            QUEUED);
     queueTask(statsClient);
 }
 
@@ -238,14 +245,19 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
         args << "--cachedir" << _tarsnapCacheDir;
     if(_preservePathnames)
         args << "-P";
-    args << "-t" << "-f" << archive->name();
+    args << "-t"
+         << "-f" << archive->name();
     contentsClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     contentsClient->setArguments(args);
     contentsClient->setData(archive->name());
     connect(contentsClient, &TarsnapClient::finished, this,
             &TaskManager::getArchiveContentsFinished, QUEUED);
-    connect(contentsClient, &TarsnapClient::started, this, [=]()
-           {emit message(tr("Fetching contents for archive <i>%1</i>...").arg(archive->name()));}, QUEUED);
+    connect(contentsClient, &TarsnapClient::started, this,
+            [=]() {
+                emit message(tr("Fetching contents for archive <i>%1</i>...")
+                                 .arg(archive->name()));
+            },
+            QUEUED);
     queueTask(contentsClient);
 }
 
@@ -263,7 +275,8 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--print-stats" << "-d";
+    args << "--print-stats"
+         << "-d";
     foreach(ArchivePtr archive, archives)
     {
         args << "-f" << archive->name();
@@ -273,23 +286,25 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     delArchives->setData(QVariant::fromValue(archives));
     connect(delArchives, &TarsnapClient::finished, this,
             &TaskManager::deleteArchivesFinished, QUEUED);
-    connect(delArchives, &TarsnapClient::started, this, [=](QVariant data)
-    {
-        QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
-        notifyArchivesDeleted(archives, false);
-    }, QUEUED);
+    connect(delArchives, &TarsnapClient::started, this,
+            [=](QVariant data) {
+                QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
+                notifyArchivesDeleted(archives, false);
+            },
+            QUEUED);
     queueTask(delArchives, true);
 }
 
 void TaskManager::getOverallStats()
 {
     TarsnapClient *overallStats = new TarsnapClient();
-    QStringList args;
+    QStringList    args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
         args << "--cachedir" << _tarsnapCacheDir;
-    args << "--print-stats" << "--no-humanize-numbers";
+    args << "--print-stats"
+         << "--no-humanize-numbers";
     overallStats->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     overallStats->setArguments(args);
     connect(overallStats, &TarsnapClient::finished, this,
@@ -300,7 +315,7 @@ void TaskManager::getOverallStats()
 void TaskManager::fsck(bool prune)
 {
     TarsnapClient *fsck = new TarsnapClient();
-    QStringList args;
+    QStringList    args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
@@ -311,15 +326,15 @@ void TaskManager::fsck(bool prune)
         args << "--fsck";
     fsck->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     fsck->setArguments(args);
-    connect(fsck, &TarsnapClient::finished, this,
-            &TaskManager::fsckFinished, QUEUED);
+    connect(fsck, &TarsnapClient::finished, this, &TaskManager::fsckFinished,
+            QUEUED);
     queueTask(fsck, true);
 }
 
 void TaskManager::nuke()
 {
     TarsnapClient *nuke = new TarsnapClient();
-    QStringList args;
+    QStringList    args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(!_tarsnapCacheDir.isEmpty())
@@ -329,10 +344,10 @@ void TaskManager::nuke()
     nuke->setPassword("No Tomorrow");
     nuke->setRequiresPassword(true);
     nuke->setArguments(args);
-    connect(nuke, &TarsnapClient::finished, this,
-            &TaskManager::nukeFinished, QUEUED);
-    connect(nuke, &TarsnapClient::started, this, [=]()
-    {emit message(tr("Archives purge initiated..."));}, QUEUED);
+    connect(nuke, &TarsnapClient::finished, this, &TaskManager::nukeFinished,
+            QUEUED);
+    connect(nuke, &TarsnapClient::started, this,
+            [=]() { emit message(tr("Archives purge initiated...")); }, QUEUED);
     queueTask(nuke, true);
 }
 
@@ -347,18 +362,20 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     _archiveMap.insert(archive->name(), archive);
 
     TarsnapClient *restore = new TarsnapClient();
-    QStringList args;
+    QStringList    args;
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(options.optionRestore)
-        args << "-x" << "-P";
+        args << "-x"
+             << "-P";
     if(options.optionRestoreDir)
-        args << "-x" << "-C" << options.path;
-    if((options.optionRestore || options.optionRestoreDir)
-       && !options.overwriteFiles)
+        args << "-x"
+             << "-C" << options.path;
+    if((options.optionRestore || options.optionRestoreDir) &&
+       !options.overwriteFiles)
         args << "-k";
-    if((options.optionRestore || options.optionRestoreDir)
-       && options.keepNewerFiles)
+    if((options.optionRestore || options.optionRestoreDir) &&
+       options.keepNewerFiles)
         args << "--keep-newer-files";
     if(options.optionDownArchive)
     {
@@ -371,8 +388,12 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     restore->setData(archive->name());
     connect(restore, &TarsnapClient::finished, this,
             &TaskManager::restoreArchiveFinished, QUEUED);
-    connect(restore, &TarsnapClient::started, this, [=]()
-            {emit message(tr("Restoring archive <i>%1</i>...").arg(archive->name()));}, QUEUED);
+    connect(restore, &TarsnapClient::started, this,
+            [=]() {
+                emit message(
+                    tr("Restoring archive <i>%1</i>...").arg(archive->name()));
+            },
+            QUEUED);
     queueTask(restore);
 }
 
@@ -573,7 +594,8 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
 
     if(archive && (exitCode == SUCCESS))
     {
-        emit message(tr("Fetching stats for archive <i>%1</i>...done").arg(archive->name()));
+        emit message(
+            tr("Fetching stats for archive <i>%1</i>...done").arg(archive->name()));
     }
     else
     {
@@ -599,7 +621,8 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
 
     if(archive && (exitCode == SUCCESS))
     {
-        emit message(tr("Fetching contents for archive <i>%1</i>...done").arg(archive->name()));
+        emit message(tr("Fetching contents for archive <i>%1</i>...done")
+                         .arg(archive->name()));
     }
     else
     {
@@ -646,7 +669,7 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
     // We are only interested in the output of the last archive deleted
     QStringList lines = output.split('\n', QString::SkipEmptyParts);
     QStringList lastFive;
-    int count = lines.count();
+    int         count = lines.count();
     for(int i = 0; i < std::min(5, count); ++i)
         lastFive.prepend(lines.takeLast());
     parseGlobalStats(lastFive.join('\n'));
@@ -694,7 +717,8 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
     }
     else
     {
-        emit message(tr("Archives purging failed. Hover mouse for details."), output);
+        emit message(tr("Archives purging failed. Hover mouse for details."),
+                     output);
         parseError(output);
         return;
     }
@@ -706,12 +730,15 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     ArchivePtr archive = _archiveMap[data.toString()];
     if(archive && (exitCode == SUCCESS))
     {
-        emit message(tr("Restoring archive <i>%1</i>...done").arg(archive->name()));
+        emit message(
+            tr("Restoring archive <i>%1</i>...done").arg(archive->name()));
     }
     else
     {
-        emit message(tr("Restoring archive <i>%1</i> failed. Hover mouse for details.")
-                     .arg(archive->name()), output);
+        emit message(
+            tr("Restoring archive <i>%1</i> failed. Hover mouse for details.")
+                .arg(archive->name()),
+            output);
         parseError(output);
         return;
     }
@@ -734,10 +761,11 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
         break;
     case TaskStatus::Completed:
     {
-        QString msg =  tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
-                       .arg(backupTask->name())
-                       .arg(Utils::humanBytes(backupTask->archive()->sizeUniqueCompressed()
-                                              , useIECPrefixes));
+        QString msg = tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
+                          .arg(backupTask->name())
+                          .arg(Utils::humanBytes(
+                              backupTask->archive()->sizeUniqueCompressed(),
+                              useIECPrefixes));
         emit message(msg, backupTask->archive()->archiveStats());
         emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
         _backupTaskMap.remove(backupTask->uuid());
@@ -749,13 +777,14 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
     case TaskStatus::Running:
     {
         QString msg = tr("Backup <i>%1</i> is running.").arg(backupTask->name());
-        emit message(msg);
-        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
+        emit    message(msg);
+        emit    displayNotification(msg.remove(QRegExp("<[^>]*>")));
         break;
     }
     case TaskStatus::Failed:
     {
-        QString msg = tr("Backup <i>%1</i> failed: %2").arg(backupTask->name())
+        QString msg = tr("Backup <i>%1</i> failed: %2")
+                          .arg(backupTask->name())
                           .arg(backupTask->output().simplified());
         emit message(msg, backupTask->output());
         emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
@@ -779,16 +808,16 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
             detail.append(QString::fromLatin1(", ") + archive->name());
         }
         emit message(tr("Deleting archive <i>%1</i> and %2 more archives...%3")
-                     .arg(archives.first()->name())
-                     .arg(archives.count() - 1)
-                     .arg(done ? "done" : ""),
+                         .arg(archives.first()->name())
+                         .arg(archives.count() - 1)
+                         .arg(done ? "done" : ""),
                      detail);
     }
     else if(archives.count() == 1)
     {
         emit message(tr("Deleting archive <i>%1</i>...%2")
-                     .arg(archives.first()->name())
-                     .arg(done ? "done" : ""));
+                         .arg(archives.first()->name())
+                         .arg(done ? "done" : ""));
     }
 }
 
@@ -798,7 +827,7 @@ void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString output)
     if(exitCode == SUCCESS)
     {
         bool ok = false;
-        int id = output.toInt(&ok);
+        int  id = output.toInt(&ok);
         if(ok)
             emit keyId(key, id);
         else
@@ -873,7 +902,8 @@ void TaskManager::parseError(QString tarsnapOutput)
 {
     if(tarsnapOutput.contains("Error reading cache directory") ||
        tarsnapOutput.contains("Sequence number mismatch: Run --fsck") ||
-       tarsnapOutput.contains("Directory is not consistent with archive: Run --fsck"))
+       tarsnapOutput.contains(
+           "Directory is not consistent with archive: Run --fsck"))
     {
         emit error(TarsnapError::CacheError);
     }
@@ -948,7 +978,8 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput,
     }
     else
     {
-        sizeRX.setPattern(QString("^%1\\s+(\\d+)\\s+(\\d+)$").arg(archive->name()));
+        sizeRX.setPattern(
+            QString("^%1\\s+(\\d+)\\s+(\\d+)$").arg(archive->name()));
         uniqueSizeRX.setPattern("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
     }
     if(-1 != sizeRX.indexIn(sizeLine))
@@ -1029,7 +1060,7 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
 
 void TaskManager::loadJobArchives()
 {
-    Job *job = qobject_cast<Job *>(sender());
+    Job *             job = qobject_cast<Job *>(sender());
     QList<ArchivePtr> archives;
     foreach(ArchivePtr archive, _archiveMap)
     {
@@ -1044,7 +1075,7 @@ void TaskManager::getTaskInfo()
     bool backupTaskRunning = false;
     if(!_runningTasks.isEmpty() && !_backupTaskMap.isEmpty())
     {
-        foreach (TarsnapClient *client, _runningTasks)
+        foreach(TarsnapClient *client, _runningTasks)
         {
             if(client && _backupTaskMap.contains(client->data().toUuid()))
             {

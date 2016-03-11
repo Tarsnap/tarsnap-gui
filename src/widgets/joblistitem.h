@@ -36,7 +36,7 @@ public slots:
 
 private:
     Ui::JobItemWidget _ui;
-    QWidget          *_widget;
+    QWidget *         _widget;
     JobPtr            _job;
     bool              _useIECPrefixes;
 };

@@ -57,9 +57,9 @@ void BackupListItem::setUrl(const QUrl &url)
         {
             QPixmap icon(":/icons/folder.png");
             _ui.iconLabel->setPixmap(icon);
-            QDir dir(file.absoluteFilePath());
-            QThreadPool *threadPool = QThreadPool::globalInstance();
-            Utils::GetDirInfoTask *task = new Utils::GetDirInfoTask(dir);
+            QDir                   dir(file.absoluteFilePath());
+            QThreadPool *          threadPool = QThreadPool::globalInstance();
+            Utils::GetDirInfoTask *task       = new Utils::GetDirInfoTask(dir);
             task->setAutoDelete(true);
             connect(task, &Utils::GetDirInfoTask::result, this,
                     &BackupListItem::updateDirDetail, QUEUED);

@@ -4,13 +4,15 @@
 #include <QDir>
 #include <QRunnable>
 
-#define CMD_TARSNAP         "tarsnap"
-#define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
-#define CMD_TARSNAPKEYMGMT  "tarsnap-keymgmt"
+#define CMD_TARSNAP "tarsnap"
+#define CMD_TARSNAPKEYGEN "tarsnap-keygen"
+#define CMD_TARSNAPKEYMGMT "tarsnap-keymgmt"
 
-#define DEFAULT_SKIP_FILES_OSX     ".DS_Store:.fseventsd:.Spotlight-V100:._.Trashes:.Trashes"
-#define DEFAULT_SKIP_FILES_WINDOWS "$RECYCLE.BIN:System Volume Information:Thumbs.db"
-#define DEFAULT_SKIP_FILES_LINUX   ".lost+found"
+#define DEFAULT_SKIP_FILES_OSX                                                 \
+    ".DS_Store:.fseventsd:.Spotlight-V100:._.Trashes:.Trashes"
+#define DEFAULT_SKIP_FILES_WINDOWS                                             \
+    "$RECYCLE.BIN:System Volume Information:Thumbs.db"
+#define DEFAULT_SKIP_FILES_LINUX ".lost+found"
 
 #if defined Q_OS_OSX
 #define DEFAULT_SKIP_FILES DEFAULT_SKIP_FILES_OSX
@@ -22,15 +24,8 @@
 #define DEFAULT_SKIP_FILES ""
 #endif
 
-const QStringList DEFAULT_JOBS {
-    "Desktop",
-    "Documents",
-    "Pictures",
-    "Movies",
-    "Videos",
-    "Music",
-    "Work"
-};
+const QStringList DEFAULT_JOBS{"Desktop", "Documents", "Pictures", "Movies",
+                               "Videos",  "Music",     "Work"};
 
 #define QUEUED Qt::QueuedConnection
 
@@ -40,7 +35,8 @@ const QStringList DEFAULT_JOBS {
 #define APPDATA QStandardPaths::DataLocation
 #endif
 
-#define DOWNLOADS QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
+#define DOWNLOADS                                                              \
+    QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
 
 namespace Utils
 {
@@ -79,7 +75,7 @@ QFileInfoList findKeysInPath(QString path);
 QString validateTarsnapCache(QString path);
 
 // Verifies if the current CLI utils version is at least minVersion
-bool tarsnapVersionMinimum(const QString& minVersion);
+bool tarsnapVersionMinimum(const QString &minVersion);
 
 } // namespace Utils
 

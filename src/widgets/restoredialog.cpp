@@ -24,8 +24,8 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
     // Replace chars that are problematic on common file systems but are allowed
     // in tarsnap archive names
     fileName = fileName.replace(QChar(':'), QChar('-'))
-                       .replace(QChar('/'), QChar('-'))
-                       .replace(QChar('\\'), QChar('-'));
+                   .replace(QChar('/'), QChar('-'))
+                   .replace(QChar('\\'), QChar('-'));
     QFileInfo archiveFile(QDir(_downDir), fileName);
     archiveFile.makeAbsolute();
     _ui->archiveLineEdit->setText(archiveFile.absoluteFilePath());
@@ -33,17 +33,28 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
     _ui->changeArchiveButton->hide();
 
     connect(_ui->cancelButton, &QPushButton::clicked, this, &QDialog::reject);
-    connect(_ui->restoreButton, &QPushButton::clicked, this, [&]()
-    { if(validate()) accept();});
-    connect(_ui->changeDirButton, &QPushButton::clicked, this, &RestoreDialog::changeDir);
-    connect(_ui->changeArchiveButton, &QPushButton::clicked, this, &RestoreDialog::changeArchive);
-    connect(_ui->optionRestoreRadio, &QRadioButton::toggled, this, &RestoreDialog::optionRestoreToggled);
-    connect(_ui->optionBaseDirRadio, &QRadioButton::toggled, this, &RestoreDialog::optionBaseDirToggled);
-    connect(_ui->optionDownArchiveRadio, &QRadioButton::toggled, this, &RestoreDialog::optionDownArchiveToggled);
-    connect(_ui->overwriteCheckBox, &QCheckBox::toggled, this, [&](bool checked)
-    {_ui->keepNewerCheckBox->setChecked(checked);_ui->keepNewerCheckBox->setEnabled(checked);});
-    connect(_ui->baseDirLineEdit, &QLineEdit::textChanged, this, &RestoreDialog::validate);
-    connect(_ui->archiveLineEdit, &QLineEdit::textChanged, this, &RestoreDialog::validate);
+    connect(_ui->restoreButton, &QPushButton::clicked, this, [&]() {
+        if(validate())
+            accept();
+    });
+    connect(_ui->changeDirButton, &QPushButton::clicked, this,
+            &RestoreDialog::changeDir);
+    connect(_ui->changeArchiveButton, &QPushButton::clicked, this,
+            &RestoreDialog::changeArchive);
+    connect(_ui->optionRestoreRadio, &QRadioButton::toggled, this,
+            &RestoreDialog::optionRestoreToggled);
+    connect(_ui->optionBaseDirRadio, &QRadioButton::toggled, this,
+            &RestoreDialog::optionBaseDirToggled);
+    connect(_ui->optionDownArchiveRadio, &QRadioButton::toggled, this,
+            &RestoreDialog::optionDownArchiveToggled);
+    connect(_ui->overwriteCheckBox, &QCheckBox::toggled, this, [&](bool checked) {
+        _ui->keepNewerCheckBox->setChecked(checked);
+        _ui->keepNewerCheckBox->setEnabled(checked);
+    });
+    connect(_ui->baseDirLineEdit, &QLineEdit::textChanged, this,
+            &RestoreDialog::validate);
+    connect(_ui->archiveLineEdit, &QLineEdit::textChanged, this,
+            &RestoreDialog::validate);
 
     if(settings.value("tarsnap/preserve_pathnames", true).toBool())
         _ui->optionRestoreRadio->setChecked(true);
@@ -98,18 +109,19 @@ void RestoreDialog::optionRestoreToggled(bool checked)
 
 void RestoreDialog::changeDir()
 {
-    QString path = QFileDialog::getExistingDirectory(this,
-                   tr("Directory to restore to"), _downDir);
+    QString path =
+        QFileDialog::getExistingDirectory(this, tr("Directory to restore to"),
+                                          _downDir);
     if(!path.isEmpty())
         _ui->baseDirLineEdit->setText(path);
 }
 
 void RestoreDialog::changeArchive()
 {
-    QString path = QFileDialog::getSaveFileName(this,
-                                                tr("Select tar archive file"),
-                                                _ui->archiveLineEdit->text(),
-                                                tr("Tar archives (*.tar)"));
+    QString path =
+        QFileDialog::getSaveFileName(this, tr("Select tar archive file"),
+                                     _ui->archiveLineEdit->text(),
+                                     tr("Tar archives (*.tar)"));
     if(!path.isEmpty())
         _ui->archiveLineEdit->setText(path);
 }
@@ -123,12 +135,14 @@ bool RestoreDialog::validate()
         if(dir.exists() && dir.isDir() && dir.isWritable())
         {
             _ui->baseDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
-            _ui->baseDirLineEdit->setToolTip(tr("Set base directory to extract archive contents to"));
+            _ui->baseDirLineEdit->setToolTip(
+                tr("Set base directory to extract archive contents to"));
         }
         else
         {
             _ui->baseDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
-            _ui->baseDirLineEdit->setToolTip(tr("Invalid base directory. Please choose a different one."));
+            _ui->baseDirLineEdit->setToolTip(
+                tr("Invalid base directory. Please choose a different one."));
             valid = false;
         }
     }
@@ -138,7 +152,8 @@ bool RestoreDialog::validate()
         if(archive.exists())
         {
             _ui->archiveLineEdit->setStyleSheet("QLineEdit{color:red;}");
-            _ui->archiveLineEdit->setToolTip(tr("File exists. Please choose a different file name."));
+            _ui->archiveLineEdit->setToolTip(
+                tr("File exists. Please choose a different file name."));
             valid = false;
         }
         else

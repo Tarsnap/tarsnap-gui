@@ -56,8 +56,10 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
 {
     _archives.clear();
     _archives = archives;
-    std::sort(_archives.begin(), _archives.end(), [](const ArchivePtr &a, const ArchivePtr &b)
-              { return (a->timestamp() > b->timestamp()); });
+    std::sort(_archives.begin(), _archives.end(),
+              [](const ArchivePtr &a, const ArchivePtr &b) {
+                  return (a->timestamp() > b->timestamp());
+              });
     foreach(ArchivePtr archive, _archives)
     {
         connect(archive.data(), &Archive::purged, this, &Job::loadArchives,
@@ -307,7 +309,7 @@ bool Job::findObjectWithKey(QString key)
     return found;
 }
 
-//void Job::loadArchives()
+// void Job::loadArchives()
 //{
 //    if(objectKey().isEmpty())
 //    {
@@ -316,7 +318,8 @@ bool Job::findObjectWithKey(QString key)
 //    }
 //    PersistentStore &store = getStore();
 //    QSqlQuery query = store.createQuery();
-//    if(!query.prepare(QLatin1String("select * from archives where jobRef = ?")))
+//    if(!query.prepare(QLatin1String("select * from archives where jobRef =
+//    ?")))
 //    {
 //        DEBUG << query.lastError().text();
 //        return;
@@ -332,7 +335,8 @@ bool Job::findObjectWithKey(QString key)
 //            archive->load();
 //            if(!archive->objectKey().isEmpty())
 //            {
-//                connect(archive.data(), SIGNAL(purged()), this, SLOT(loadArchives()), QUEUED);
+//                connect(archive.data(), SIGNAL(purged()), this,
+//                SLOT(loadArchives()), QUEUED);
 //                archives << archive;
 //            }
 //        }while(query.next());

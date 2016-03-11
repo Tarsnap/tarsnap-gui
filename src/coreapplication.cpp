@@ -21,7 +21,8 @@ CoreApplication::CoreApplication(int &argc, char **argv)
     qRegisterMetaType<QSqlQuery>("QSqlQuery");
     qRegisterMetaType<JobPtr>("JobPtr");
     qRegisterMetaType<QMap<QString, JobPtr>>("QMap<QString, JobPtr>");
-    qRegisterMetaType<QSystemTrayIcon::ActivationReason>("QSystemTrayIcon::ActivationReason");
+    qRegisterMetaType<QSystemTrayIcon::ActivationReason>(
+        "QSystemTrayIcon::ActivationReason");
     qRegisterMetaType<TarsnapError>("TarsnapError");
     qRegisterMetaType<LogEntry>("LogEntry");
     qRegisterMetaType<QVector<LogEntry>>("QVector<LogEntry>");
@@ -43,16 +44,25 @@ CoreApplication::~CoreApplication()
 void CoreApplication::parseArgs()
 {
     QCommandLineParser parser;
-    parser.setApplicationDescription(QLatin1String("Tarsnap GUI - Online backups for the truly lazy"));
+    parser.setApplicationDescription(
+        QLatin1String("Tarsnap GUI - Online backups for the truly lazy"));
     parser.addHelpOption();
     parser.addVersionOption();
-    QCommandLineOption jobsOption(QStringList() << "j" << "jobs",
-                                  tr("Executes all jobs sequentially that have the \'Include in scheduled backups\' option checked."
-                                     " The application runs headless and useful information is printed to standard out and error."));
-    QCommandLineOption appDataOption(QStringList() << "a" << "appdata",
-                                    tr("Use the specified app data directory."
-                                       " Useful for multiple configurations on the same machine (INI format is implied)."),
-                                    tr("directory"));
+    QCommandLineOption jobsOption(QStringList() << "j"
+                                                << "jobs",
+                                  tr("Executes all jobs sequentially that have "
+                                     "the \'Include in scheduled backups\' "
+                                     "option checked."
+                                     " The application runs headless and "
+                                     "useful information is printed to "
+                                     "standard out and error."));
+    QCommandLineOption appDataOption(QStringList() << "a"
+                                                   << "appdata",
+                                     tr("Use the specified app data directory."
+                                        " Useful for multiple configurations "
+                                        "on the same machine (INI format is "
+                                        "implied)."),
+                                     tr("directory"));
     parser.addOption(jobsOption);
     parser.addOption(appDataOption);
     parser.process(arguments());
@@ -106,8 +116,8 @@ bool CoreApplication::initialize()
     // First time init of the Store
     PersistentStore::instance();
 
-    connect(&_taskManager, &TaskManager::displayNotification,
-            &_notification, &Notification::displayNotification, QUEUED);
+    connect(&_taskManager, &TaskManager::displayNotification, &_notification,
+            &Notification::displayNotification, QUEUED);
     connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
             QUEUED);
 
@@ -205,12 +215,12 @@ void CoreApplication::showMainWindow()
             &Notification::displayNotification, QUEUED);
     connect(_mainWindow, &MainWindow::logMessage, &_journal, &Journal::log,
             QUEUED);
-    connect(&_journal, &Journal::journal, _mainWindow,
-            &MainWindow::setJournal, QUEUED);
+    connect(&_journal, &Journal::journal, _mainWindow, &MainWindow::setJournal,
+            QUEUED);
     connect(&_journal, &Journal::logEntry, _mainWindow,
             &MainWindow::appendToJournalLog, QUEUED);
-    connect(_mainWindow, &MainWindow::clearJournal, &_journal,
-            &Journal::purge, QUEUED);
+    connect(_mainWindow, &MainWindow::clearJournal, &_journal, &Journal::purge,
+            QUEUED);
 
     QMetaObject::invokeMethod(&_taskManager, "loadArchives", QUEUED);
     QMetaObject::invokeMethod(&_taskManager, "loadJobs", QUEUED);
@@ -225,8 +235,8 @@ void CoreApplication::showMainWindow()
 
 bool CoreApplication::reinit()
 {
-    disconnect(&_taskManager, &TaskManager::displayNotification,
-               &_notification, &Notification::displayNotification);
+    disconnect(&_taskManager, &TaskManager::displayNotification, &_notification,
+               &Notification::displayNotification);
     disconnect(&_taskManager, &TaskManager::message, &_journal, &Journal::log);
 
     if(_mainWindow)

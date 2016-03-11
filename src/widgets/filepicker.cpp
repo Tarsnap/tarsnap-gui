@@ -12,12 +12,12 @@ FilePicker::FilePicker(QWidget *parent)
     _ui->optionsContainer->hide();
 
     _model.setRootPath(QDir::rootPath());
-//    _model.setNameFilterDisables(false);
+    //    _model.setNameFilterDisables(false);
     _ui->treeView->setModel(&_model);
     _ui->treeView->installEventFilter(this);
     QSettings settings;
-    setCurrentPath(settings.value("app/file_browse_last",
-                                  QDir::homePath()).toString());
+    setCurrentPath(
+        settings.value("app/file_browse_last", QDir::homePath()).toString());
     _completer.setModel(&_model);
     _completer.setCompletionMode(QCompleter::InlineCompletion);
     _completer.setCaseSensitivity(Qt::CaseSensitive);
@@ -61,7 +61,7 @@ FilePicker::FilePicker(QWidget *parent)
             _ui->treeView->setFocus();
     });
     connect(_ui->homeButton, &QPushButton::clicked,
-            [&](){setCurrentPath(QDir::homePath());});
+            [&]() { setCurrentPath(QDir::homePath()); });
 }
 
 FilePicker::~FilePicker()
@@ -74,13 +74,13 @@ void FilePicker::reset()
     _model.reset();
     _ui->treeView->reset();
     QSettings settings;
-    setCurrentPath(settings.value("app/file_browse_last",
-                                  QDir::homePath()).toString());
+    setCurrentPath(
+        settings.value("app/file_browse_last", QDir::homePath()).toString());
 }
 
 QList<QUrl> FilePicker::getSelectedUrls()
 {
-    QList<QUrl> urls;
+    QList<QUrl>                  urls;
     QList<QPersistentModelIndex> indexList = _model.checkedIndexes();
     foreach(QPersistentModelIndex index, indexList)
         urls << QUrl::fromUserInput(_model.filePath(index));
@@ -124,7 +124,7 @@ bool FilePicker::eventFilter(QObject *obj, QEvent *event)
 {
     if((obj == _ui->treeView) && (event->type() == QEvent::FocusOut))
     {
-        emit focusLost();
+        emit      focusLost();
         QSettings settings;
         settings.setValue("app/file_browse_last",
                           _model.filePath(_ui->treeView->currentIndex()));

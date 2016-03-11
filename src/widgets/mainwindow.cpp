@@ -32,8 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
       _purgeCountdownWindow(this),
       _tarsnapAccount(this)
 {
-    connect(&Debug::instance(), &Debug::message, this, [&](const QString &msg)
-            {_ui->consoleLog->appendPlainText(msg);});
+    connect(&Debug::instance(), &Debug::message, this,
+            [&](const QString &msg) { _ui->consoleLog->appendPlainText(msg); });
     qApp->setAttribute(Qt::AA_UseHighDpiPixmaps);
     _ui->setupUi(this);
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -51,10 +51,12 @@ MainWindow::MainWindow(QWidget *parent)
     aboutUi.setupUi(&_aboutWindow);
     aboutUi.versionLabel->setText(tr("version ") +
                                   QCoreApplication::applicationVersion());
-    _aboutWindow.setWindowFlags((_aboutWindow.windowFlags() |
-                                 Qt::CustomizeWindowHint) & ~Qt::WindowMaximizeButtonHint);
+    _aboutWindow.setWindowFlags(
+        (_aboutWindow.windowFlags() | Qt::CustomizeWindowHint) &
+        ~Qt::WindowMaximizeButtonHint);
     connect(aboutUi.checkUpdateButton, &QPushButton::clicked, []() {
-        QDesktopServices::openUrl(QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
+        QDesktopServices::openUrl(
+            QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
     });
 
     QMenuBar menuBar;
@@ -85,7 +87,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Purge widget setup
     _purgeCountdownWindow.setIcon(QMessageBox::Critical);
-    _purgeCountdownWindow.setWindowTitle(tr("Deleting all archives: press Cancel to abort"));
+    _purgeCountdownWindow.setWindowTitle(
+        tr("Deleting all archives: press Cancel to abort"));
     _purgeCountdownWindow.setStandardButtons(QMessageBox::Cancel);
     connect(&_purgeTimer, &QTimer::timeout, this, &MainWindow::purgeTimerFired);
     // --
@@ -106,7 +109,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
-            [&](){_tarsnapAccount.getAccountInfo();});
+            [&]() { _tarsnapAccount.getAccountInfo(); });
     this->addAction(_ui->actionGoBackup);
     this->addAction(_ui->actionGoBrowse);
     this->addAction(_ui->actionGoJobs);
@@ -200,18 +203,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->clearJournalButton, &QPushButton::clicked, this,
             &MainWindow::clearJournalClicked);
 
-    connect(&_tarsnapAccount, &TarsnapAccount::getKeyId, this, &MainWindow::getKeyId);
+    connect(&_tarsnapAccount, &TarsnapAccount::getKeyId, this,
+            &MainWindow::getKeyId);
     connect(_ui->updateAccountButton, &QPushButton::clicked,
             _ui->actionRefreshAccount, &QAction::trigger);
-    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this, SLOT(updateLastMachineActivity(QStringList)));
+    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this,
+            SLOT(updateLastMachineActivity(QStringList)));
     connect(_ui->accountActivityShowButton, &QPushButton::clicked,
-    [&]() {
-        _tarsnapAccount.getAccountInfo(true, false);
-    });
+            [&]() { _tarsnapAccount.getAccountInfo(true, false); });
     connect(_ui->machineActivityShowButton, &QPushButton::clicked,
-    [&]() {
-        _tarsnapAccount.getAccountInfo(false, true);
-    });
+            [&]() { _tarsnapAccount.getAccountInfo(false, true); });
 
     // Archives
     _ui->archiveListWidget->addAction(_ui->actionRefresh);
@@ -229,10 +230,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails,
             _ui->jobListWidget, &JobListWidget::selectJobByRef);
     connect(_ui->archiveDetailsWidget, &ArchiveWidget::jobClicked,
-            [&](QString jobRef){ _ui->jobListWidget->selectJobByRef(jobRef); });
+            [&](QString jobRef) { _ui->jobListWidget->selectJobByRef(jobRef); });
 
-    connect(_ui->archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
-            this, &MainWindow::showArchiveListMenu);
+    connect(_ui->archiveListWidget,
+            &ArchiveListWidget::customContextMenuRequested, this,
+            &MainWindow::showArchiveListMenu);
     connect(_ui->actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
     connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
@@ -261,8 +263,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::restoreArchive);
     connect(_ui->jobDetailsWidget, &JobWidget::deleteJobArchives, this,
             &MainWindow::deleteArchives);
-    connect(_ui->jobDetailsWidget, &JobWidget::deleteJobArchives, _ui->archiveListWidget,
-            &ArchiveListWidget::disableArchives);
+    connect(_ui->jobDetailsWidget, &JobWidget::deleteJobArchives,
+            _ui->archiveListWidget, &ArchiveListWidget::disableArchives);
     connect(_ui->jobDetailsWidget, &JobWidget::enableSave, _ui->addJobButton,
             &QToolButton::setEnabled);
     connect(_ui->jobListWidget, &JobListWidget::displayJobDetails, this,
@@ -334,7 +336,8 @@ MainWindow::MainWindow(QWidget *parent)
         updateStatusMessage(tr("Job <i>%1</i> added.").arg(job->name()));
     });
     connect(_ui->statusBarLabel, &TextLabel::clicked, [&]() {
-        _ui->expandJournalButton->setChecked(!_ui->expandJournalButton->isChecked());
+        _ui->expandJournalButton->setChecked(
+            !_ui->expandJournalButton->isChecked());
     });
     connect(_ui->simulationCheckBox, &QCheckBox::stateChanged, [&](int state) {
         if(state == Qt::Unchecked)
@@ -348,20 +351,22 @@ MainWindow::MainWindow(QWidget *parent)
         }
     });
     connect(_ui->repairCacheButton, &QPushButton::clicked, this,
-            [&](){ emit repairCache(true); });
+            [&]() { emit repairCache(true); });
     connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
             [&]() { _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES); });
-    connect(_ui->jobListWidget, &JobListWidget::deleteJob, this, [&](JobPtr job, bool purgeArchives) {
-        if(_ui->jobDetailsWidget->job() == job)
-            hideJobDetails();
-        if(purgeArchives)
-            _ui->archiveListWidget->disableArchives(job->archives());
+    connect(_ui->jobListWidget, &JobListWidget::deleteJob, this,
+            [&](JobPtr job, bool purgeArchives) {
+                if(_ui->jobDetailsWidget->job() == job)
+                    hideJobDetails();
+                if(purgeArchives)
+                    _ui->archiveListWidget->disableArchives(job->archives());
+            });
+    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
+        QMessageBox::information(this, QApplication::applicationName(),
+                                 tr("The new size notation will take effect on "
+                                    "application restart."));
     });
-    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]()
-    {QMessageBox::information(this, QApplication::applicationName(),
-                              tr("The new size notation will take effect on application restart."));});
-    connect(_ui->dismissButton, &QPushButton::clicked, [&]()
-    {
+    connect(_ui->dismissButton, &QPushButton::clicked, [&]() {
         QSettings settings;
         settings.setValue("app/defaultjobs_dismissed", true);
         _ui->defaultJobs->hide();
@@ -404,7 +409,8 @@ void MainWindow::loadSettings()
     }
 
     _ui->machineActivity->setText(
-        settings.value("tarsnap/machine_activity", tr("click update button")).toString());
+        settings.value("tarsnap/machine_activity", tr("click update button"))
+            .toString());
     _ui->accountUserLineEdit->setText(
         settings.value("tarsnap/user", "").toString());
     _ui->accountMachineKeyLineEdit->setText(
@@ -492,13 +498,13 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-//void MainWindow::mousePressEvent(QMouseEvent *event)
+// void MainWindow::mousePressEvent(QMouseEvent *event)
 //{
 //    if(event->buttons() & Qt::LeftButton)
 //        _windowDragPos = event->pos();
 //}
 
-//void MainWindow::mouseMoveEvent(QMouseEvent *event)
+// void MainWindow::mouseMoveEvent(QMouseEvent *event)
 //{
 //    if(event->buttons() & Qt::LeftButton)
 //    {
@@ -508,7 +514,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 //    }
 //}
 
-//void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
+// void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 //{
 //    Q_UNUSED(event);
 //    if(isMaximized())
@@ -543,10 +549,10 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
     _ui->accountActualSizeLabel->setText(
         Utils::humanBytes(sizeUniqueCompressed, _useIECPrefixes));
     _ui->accountActualSizeLabel->setToolTip(tooltip);
-    quint64 storageSaved = sizeTotal >= sizeUniqueCompressed ?
-                           sizeTotal - sizeUniqueCompressed : 0;
-    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(storageSaved,
-                                                             _useIECPrefixes));
+    quint64 storageSaved =
+        sizeTotal >= sizeUniqueCompressed ? sizeTotal - sizeUniqueCompressed : 0;
+    _ui->accountStorageSavedLabel->setText(
+        Utils::humanBytes(storageSaved, _useIECPrefixes));
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
 }
@@ -578,9 +584,11 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 {
     if(count != 0)
     {
-        _ui->backupDetailLabel->setText(tr("%1 %2 (%3)").arg(count)
-                                        .arg(count == 1 ? "item" : "items")
-                                        .arg(Utils::humanBytes(size, _useIECPrefixes)));
+        _ui->backupDetailLabel->setText(
+            tr("%1 %2 (%3)")
+                .arg(count)
+                .arg(count == 1 ? "item" : "items")
+                .arg(Utils::humanBytes(size, _useIECPrefixes)));
         if(!_ui->backupNameLineEdit->text().isEmpty())
             _ui->backupButton->setEnabled(true);
     }
@@ -659,26 +667,33 @@ void MainWindow::commitSettings()
 {
     DEBUG << "COMMIT SETTINGS";
     QSettings settings;
-    settings.setValue("tarsnap/path",    _ui->tarsnapPathLineEdit->text());
+    settings.setValue("tarsnap/path", _ui->tarsnapPathLineEdit->text());
     settings.setValue("tarsnap/version", _tarsnapVersion);
-    settings.setValue("tarsnap/cache",   _ui->tarsnapCacheLineEdit->text());
-    settings.setValue("tarsnap/key",     _ui->accountMachineKeyLineEdit->text());
+    settings.setValue("tarsnap/cache", _ui->tarsnapCacheLineEdit->text());
+    settings.setValue("tarsnap/key", _ui->accountMachineKeyLineEdit->text());
     settings.setValue("tarsnap/machine", _ui->accountMachineLineEdit->text());
-    settings.setValue("tarsnap/user",    _ui->accountUserLineEdit->text());
-    settings.setValue("tarsnap/aggressive_networking", _ui->aggressiveNetworkingCheckBox->isChecked());
-    settings.setValue("tarsnap/preserve_pathnames", _ui->preservePathsCheckBox->isChecked());
-    settings.setValue("tarsnap/traverse_mount", _ui->traverseMountCheckBox->isChecked());
-    settings.setValue("tarsnap/follow_symlinks", _ui->followSymLinksCheckBox->isChecked());
-    settings.setValue("tarsnap/no_default_config", _ui->ignoreConfigCheckBox->isChecked());
+    settings.setValue("tarsnap/user", _ui->accountUserLineEdit->text());
+    settings.setValue("tarsnap/aggressive_networking",
+                      _ui->aggressiveNetworkingCheckBox->isChecked());
+    settings.setValue("tarsnap/preserve_pathnames",
+                      _ui->preservePathsCheckBox->isChecked());
+    settings.setValue("tarsnap/traverse_mount",
+                      _ui->traverseMountCheckBox->isChecked());
+    settings.setValue("tarsnap/follow_symlinks",
+                      _ui->followSymLinksCheckBox->isChecked());
+    settings.setValue("tarsnap/no_default_config",
+                      _ui->ignoreConfigCheckBox->isChecked());
     settings.setValue("tarsnap/dry_run", _ui->simulationCheckBox->isChecked());
     settings.setValue("app/iec_prefixes", _ui->iecPrefixesCheckBox->isChecked());
     settings.setValue("app/skip_files_size", _ui->skipFilesSizeSpinBox->value());
-    settings.setValue("app/skip_system_enabled", _ui->skipSystemJunkCheckBox->isChecked());
+    settings.setValue("app/skip_system_enabled",
+                      _ui->skipSystemJunkCheckBox->isChecked());
     settings.setValue("app/skip_system_files", _ui->skipSystemLineEdit->text());
     settings.setValue("app/skip_nodump", _ui->skipNoDumpCheckBox->isChecked());
     settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
-    settings.setValue("app/notifications", _ui->notificationsCheckBox->isChecked());
+    settings.setValue("app/notifications",
+                      _ui->notificationsCheckBox->isChecked());
     settings.sync();
     emit settingsChanged();
 }
@@ -688,9 +703,11 @@ void MainWindow::validateMachineKeyPath()
     QFileInfo machineKeyFile(_ui->accountMachineKeyLineEdit->text());
     if(machineKeyFile.exists() && machineKeyFile.isFile() &&
        machineKeyFile.isReadable())
-        _ui->accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        _ui->accountMachineKeyLineEdit->setStyleSheet(
+            "QLineEdit {color: black;}");
     else
-        _ui->accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        _ui->accountMachineKeyLineEdit->setStyleSheet(
+            "QLineEdit {color: red;}");
 }
 
 void MainWindow::validateTarsnapPath()
@@ -749,7 +766,9 @@ void MainWindow::appendToJournalLog(LogEntry log)
     QTextBlockFormat bf;
     bf.setBackground(QBrush(bgcolor));
     cursor.mergeBlockFormat(bf);
-    cursor.insertText(QString("[%1] %2").arg(log.timestamp.toString(Qt::DefaultLocaleShortDate)).arg(log.message));
+    cursor.insertText(QString("[%1] %2")
+                          .arg(log.timestamp.toString(Qt::DefaultLocaleShortDate))
+                          .arg(log.message));
     _ui->journalLog->moveCursor(QTextCursor::End);
     _ui->journalLog->ensureCursorVisible();
 }
@@ -882,8 +901,10 @@ void MainWindow::expandJournalButtonToggled(bool checked)
 
 void MainWindow::downloadsDirBrowseButtonClicked()
 {
-    QString downDir = QFileDialog::getExistingDirectory(this,
-                      tr("Browse for downloads directory"), DOWNLOADS);
+    QString downDir =
+        QFileDialog::getExistingDirectory(this,
+                                          tr("Browse for downloads directory"),
+                                          DOWNLOADS);
     if(!downDir.isEmpty())
     {
         _ui->downloadsDirLineEdit->setText(downDir);
@@ -933,7 +954,8 @@ void MainWindow::addJobClicked()
     }
 }
 
-void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks, int queuedTasks)
+void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
+                                  int queuedTasks)
 {
     if(!runningTasks && !queuedTasks)
     {
@@ -948,13 +970,16 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks, int 
     msgBox.setInformativeText(tr("What do you want to do?"));
     QPushButton *interruptBackup = nullptr;
     if(backupTaskRunning)
-        interruptBackup = msgBox.addButton(tr("Interrupt backup"), QMessageBox::ActionRole);
+        interruptBackup =
+            msgBox.addButton(tr("Interrupt backup"), QMessageBox::ActionRole);
     QPushButton *stopRunning = nullptr;
     if(runningTasks)
-        stopRunning = msgBox.addButton(tr("Stop running"), QMessageBox::ActionRole);
+        stopRunning =
+            msgBox.addButton(tr("Stop running"), QMessageBox::ActionRole);
     QPushButton *stopQueued = nullptr;
     if(queuedTasks)
-        stopQueued = msgBox.addButton(tr("Cancel queued"), QMessageBox::ActionRole);
+        stopQueued =
+            msgBox.addButton(tr("Cancel queued"), QMessageBox::ActionRole);
     QPushButton *stopAll = nullptr;
     if(runningTasks && queuedTasks)
         stopAll = msgBox.addButton(tr("Stop all"), QMessageBox::ActionRole);
@@ -989,11 +1014,12 @@ void MainWindow::tarsnapError(TarsnapError error)
     {
     case TarsnapError::CacheError:
     {
-        auto confirm = QMessageBox::critical(this, tr("Tarsnap error"),
-                                             tr("The tarsnap cache directory is"
-                                                " either missing or is broken."
-                                                " Run tarsnap fsck to fix this?\n"),
-                                             QMessageBox::Yes | QMessageBox::No);
+        auto confirm =
+            QMessageBox::critical(this, tr("Tarsnap error"),
+                                  tr("The tarsnap cache directory is"
+                                     " either missing or is broken."
+                                     " Run tarsnap fsck to fix this?\n"),
+                                  QMessageBox::Yes | QMessageBox::No);
         if(confirm == QMessageBox::Yes)
             emit repairCache(false);
         break;
@@ -1023,16 +1049,18 @@ void MainWindow::updateLastMachineActivity(QStringList activityFields)
     QSettings settings;
     settings.setValue("tarsnap/machine_activity", activityFields.join(' '));
     _ui->machineActivity->setText(activityFields.join(' '));
-    _ui->machineActivity->resize(_ui->machineActivity->fontMetrics()
-                                       .width(_ui->machineActivity->text()) / 2,
+    _ui->machineActivity->resize(_ui->machineActivity->fontMetrics().width(
+                                     _ui->machineActivity->text()) /
+                                     2,
                                  _ui->machineActivity->sizeHint().height());
 }
 
 void MainWindow::clearJournalClicked()
 {
-    auto confirm = QMessageBox::question(this, tr("Confirm action"),
-                                     tr("Clear journal log? All entries will "
-                                        "be deleted forever."));
+    auto confirm =
+        QMessageBox::question(this, tr("Confirm action"),
+                              tr("Clear journal log? All entries will "
+                                 "be deleted forever."));
     if(confirm == QMessageBox::Yes)
         emit clearJournal();
 }
@@ -1040,7 +1068,7 @@ void MainWindow::clearJournalClicked()
 void MainWindow::showArchiveListMenu(const QPoint &pos)
 {
     QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
-    QMenu archiveListMenu(_ui->archiveListWidget);
+    QMenu  archiveListMenu(_ui->archiveListWidget);
     archiveListMenu.addAction(_ui->actionRefresh);
     if(!_ui->archiveListWidget->selectedItems().isEmpty())
     {
@@ -1057,7 +1085,7 @@ void MainWindow::showArchiveListMenu(const QPoint &pos)
 void MainWindow::showJobsListMenu(const QPoint &pos)
 {
     QPoint globalPos = _ui->jobListWidget->viewport()->mapToGlobal(pos);
-    QMenu jobListMenu(_ui->jobListWidget);
+    QMenu  jobListMenu(_ui->jobListWidget);
     if(!_ui->jobListWidget->selectedItems().isEmpty())
     {
         jobListMenu.addAction(_ui->actionJobBackup);
@@ -1085,13 +1113,21 @@ void MainWindow::addDefaultJobs()
             urls << QUrl::fromUserInput(dir.canonicalPath());
             job->setUrls(urls);
             job->setOptionScheduledEnabled(false);
-            job->setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
-            job->setOptionTraverseMount(settings.value("tarsnap/traverse_mount", true).toBool());
-            job->setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", false).toBool());
-            job->setOptionSkipNoDump(settings.value("app/skip_nodump", false).toBool());
-            job->setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toULongLong());
-            job->setOptionSkipFiles(settings.value("app/skip_system_enabled", false).toBool());
-            job->setOptionSkipFilesPatterns(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
+            job->setOptionPreservePaths(
+                settings.value("tarsnap/preserve_pathnames", true).toBool());
+            job->setOptionTraverseMount(
+                settings.value("tarsnap/traverse_mount", true).toBool());
+            job->setOptionFollowSymLinks(
+                settings.value("tarsnap/follow_symlinks", false).toBool());
+            job->setOptionSkipNoDump(
+                settings.value("app/skip_nodump", false).toBool());
+            job->setOptionSkipFilesSize(
+                settings.value("app/skip_files_size", 0).toULongLong());
+            job->setOptionSkipFiles(
+                settings.value("app/skip_system_enabled", false).toBool());
+            job->setOptionSkipFilesPatterns(
+                settings.value("app/skip_system_files", DEFAULT_SKIP_FILES)
+                    .toString());
             job->save();
             _ui->jobDetailsWidget->jobAdded(job);
         }

@@ -42,11 +42,12 @@ void JobListItem::setJob(const JobPtr &job)
     if(_job->archives().isEmpty())
         _ui.lastBackupLabel->setText(tr("No backup done yet"));
     else
-        _ui.lastBackupLabel->setText(
-            _job->archives().first()->timestamp().toString(Qt::DefaultLocaleLongDate));
+        _ui.lastBackupLabel->setText(_job->archives().first()->timestamp().toString(
+            Qt::DefaultLocaleLongDate));
 
     QString detail;
-    QString str = _job->archives().count() == 1 ? tr("archive") : tr("archives");
+    QString str =
+        _job->archives().count() == 1 ? tr("archive") : tr("archives");
     detail.append(tr("%1 %2 totaling ").arg(_job->archives().count()).arg(str));
     quint64 totalSize = 0;
     foreach(ArchivePtr archive, _job->archives())

@@ -16,6 +16,10 @@ TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _nam(this)
     _ui.setupUi(this);
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) &
                    ~Qt::WindowMaximizeButtonHint);
+    connect(_ui.passwordLineEdit, &QLineEdit::textEdited, this, [&]()
+    {
+        _ui.loginButton->setEnabled(!_ui.passwordLineEdit->text().isEmpty());
+    });
 }
 
 void TarsnapAccount::getAccountInfo(bool displayActivity,
@@ -43,6 +47,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
         return;
     }
     _ui.textLabel->setText(tr("Type password for account %1:").arg(_user));
+    _ui.loginButton->setEnabled(false);
     if(exec() == QDialog::Rejected)
         return;
     QString getActivity(URL_ACTIVITY);

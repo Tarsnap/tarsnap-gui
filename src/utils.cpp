@@ -1,8 +1,8 @@
 #include "utils.h"
 
 #include <QDebug>
-#include <QStandardPaths>
 #include <QSettings>
+#include <QStandardPaths>
 
 #include <math.h>
 
@@ -37,7 +37,8 @@ quint64 GetDirInfoTask::getDirSize(QDir dir)
             QFileInfo fileInfo = list.at(i);
             if(fileInfo.isDir())
             {
-//                qDebug() << "Traversing " << fileInfo.absoluteFilePath();
+                //                qDebug() << "Traversing " <<
+                //                fileInfo.absoluteFilePath();
                 size += getDirSize(QDir(fileInfo.absoluteFilePath()));
             }
             else
@@ -61,7 +62,8 @@ quint64 GetDirInfoTask::getDirCount(QDir dir)
             QFileInfo fileInfo = list.at(i);
             if(fileInfo.isDir())
             {
-//                qDebug() << "Traversing " << fileInfo.absoluteFilePath();
+                //                qDebug() << "Traversing " <<
+                //                fileInfo.absoluteFilePath();
                 count += getDirCount(QDir(fileInfo.absoluteFilePath()));
             }
             ++count;
@@ -127,7 +129,8 @@ QFileInfoList Utils::findKeysInPath(QString path)
 bool Utils::tarsnapVersionMinimum(const QString &minVersion)
 {
     QSettings settings;
-    QString tarsnapVersion = settings.value("tarsnap/version", "").toString();
-    QRegExp versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
-    return (-1 != versionRx.indexIn(tarsnapVersion)) && (versionRx.cap(0) >= minVersion);
+    QString   tarsnapVersion = settings.value("tarsnap/version", "").toString();
+    QRegExp   versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
+    return (-1 != versionRx.indexIn(tarsnapVersion)) &&
+           (versionRx.cap(0) >= minVersion);
 }

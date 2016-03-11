@@ -39,7 +39,7 @@ signals:
 
 private:
     Ui::ArchiveItemWidget _ui;
-    QWidget              *_widget;
+    QWidget *             _widget;
     ArchivePtr            _archive;
     bool                  _useIECPrefixes;
 };

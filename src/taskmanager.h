@@ -1,8 +1,8 @@
 #ifndef TASKMANAGER_H
 #define TASKMANAGER_H
 
-#include "error.h"
 #include "backuptask.h"
+#include "error.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "tarsnapclient.h"
@@ -107,13 +107,13 @@ private:
     QString _tarsnapKeyFile;
     QMap<QUuid, BackupTaskPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>  _archiveMap;
-    QList<TarsnapClient *>     _runningTasks;
-    QQueue<TarsnapClient *>    _taskQueue; // mutually exclusive tasks
-    QThreadPool               *_threadPool;
-    bool                       _aggressiveNetworking;
-    bool                       _preservePathnames;
-    bool                       _headless;
-    QMap<QString, JobPtr>      _jobMap;
+    QList<TarsnapClient *>  _runningTasks;
+    QQueue<TarsnapClient *> _taskQueue; // mutually exclusive tasks
+    QThreadPool *           _threadPool;
+    bool                    _aggressiveNetworking;
+    bool                    _preservePathnames;
+    bool                    _headless;
+    QMap<QString, JobPtr> _jobMap;
 };
 
 #endif // TASKMANAGER_H

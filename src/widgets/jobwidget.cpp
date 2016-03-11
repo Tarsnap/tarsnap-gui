@@ -22,11 +22,11 @@ JobWidget::JobWidget(QWidget *parent)
         else
             save();
     });
-//    connect(_ui->jobTreeWidget, &FilePicker::focusLost,
-//            [&](){
-//                    if(!_job->objectKey().isEmpty())
-//                        save();
-//            });
+    //    connect(_ui->jobTreeWidget, &FilePicker::focusLost,
+    //            [&](){
+    //                    if(!_job->objectKey().isEmpty())
+    //                        save();
+    //            });
 
     connect(_ui->includeScheduledCheckBox, &QCheckBox::toggled, this,
             &JobWidget::save);
@@ -53,11 +53,12 @@ JobWidget::JobWidget(QWidget *parent)
             &JobWidget::deleteJobArchives);
     connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked, [&]() {
         QSettings settings;
-        _ui->skipFilesLineEdit->setText(settings.value("app/skip_system_files",
-                                                       DEFAULT_SKIP_FILES).toString());
+        _ui->skipFilesLineEdit->setText(
+            settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
     });
-    connect(_ui->archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
-            this, &JobWidget::showArchiveListMenu);
+    connect(_ui->archiveListWidget,
+            &ArchiveListWidget::customContextMenuRequested, this,
+            &JobWidget::showArchiveListMenu);
     connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::removeSelectedItems);
     connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
@@ -130,7 +131,8 @@ void JobWidget::save()
     {
         DEBUG << "SAVE JOB";
         _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
-        _job->setOptionScheduledEnabled(_ui->includeScheduledCheckBox->isChecked());
+        _job->setOptionScheduledEnabled(
+            _ui->includeScheduledCheckBox->isChecked());
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
@@ -149,7 +151,8 @@ void JobWidget::saveNew()
         DEBUG << "SAVE NEW JOB";
         _job->setName(_ui->jobNameLineEdit->text());
         _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
-        _job->setOptionScheduledEnabled(_ui->includeScheduledCheckBox->isChecked());
+        _job->setOptionScheduledEnabled(
+            _ui->includeScheduledCheckBox->isChecked());
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
@@ -206,7 +209,7 @@ bool JobWidget::canSaveNew()
 void JobWidget::showArchiveListMenu(const QPoint &pos)
 {
     QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
-    QMenu archiveListMenu(_ui->archiveListWidget);
+    QMenu  archiveListMenu(_ui->archiveListWidget);
     if(!_ui->archiveListWidget->selectedItems().isEmpty())
     {
         if(_ui->archiveListWidget->selectedItems().count() == 1)

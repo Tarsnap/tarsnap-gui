@@ -1,7 +1,6 @@
 #ifndef ERROR_H
 #define ERROR_H
 
-
 enum TarsnapError
 {
     CacheError,
@@ -9,4 +8,3 @@ enum TarsnapError
 };
 
 #endif // ERROR_H
-

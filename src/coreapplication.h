@@ -2,8 +2,8 @@
 #define COREAPPLICATION_H
 
 #include "notification.h"
-#include "taskmanager.h"
 #include "persistentmodel/journal.h"
+#include "taskmanager.h"
 #include "widgets/mainwindow.h"
 
 #include <QApplication>
@@ -26,7 +26,7 @@ public slots:
     void showMainWindow();
 
 private:
-    MainWindow  *_mainWindow;
+    MainWindow * _mainWindow;
     Notification _notification;
     TaskManager  _taskManager;
     QThread      _managerThread;

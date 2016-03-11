@@ -23,7 +23,7 @@ public:
     void setArguments(const QStringList &arguments);
 
     void stop(bool kill = false);
-    void interrupt();
+    void                   interrupt();
     QProcess::ProcessState statusClient();
 
     bool waitForClient();
@@ -51,7 +51,7 @@ private slots:
 
 private:
     QVariant    _data; // caller supplied data
-    QProcess   *_process;
+    QProcess *  _process;
     QByteArray  _processOutput;
     QString     _command;
     QStringList _arguments;

@@ -51,9 +51,9 @@ signals:
 protected:
     void paintEvent(QPaintEvent *);
     void keyReleaseEvent(QKeyEvent *event);
-//    void mousePressEvent(QMouseEvent *event);
-//    void mouseMoveEvent(QMouseEvent *event);
-//    void mouseDoubleClickEvent(QMouseEvent *event);
+    //    void mousePressEvent(QMouseEvent *event);
+    //    void mouseMoveEvent(QMouseEvent *event);
+    //    void mouseDoubleClickEvent(QMouseEvent *event);
 
 public slots:
     void loadSettings();
@@ -65,7 +65,8 @@ public slots:
                                quint64 archiveCount);
     void setTarsnapVersion(QString versionString);
     void notificationRaise();
-    void displayStopTasks(bool backupTaskRunning, int runningTasks, int queuedTasks);
+    void displayStopTasks(bool backupTaskRunning, int runningTasks,
+                          int queuedTasks);
     void tarsnapError(TarsnapError error);
     void appendToJournalLog(LogEntry log);
     void setJournal(QVector<LogEntry> _log);
@@ -97,8 +98,8 @@ private slots:
     void updateAccountCredit(qreal credit, QDate date);
     void updateLastMachineActivity(QStringList activityFields);
     void clearJournalClicked();
-    void showArchiveListMenu(const QPoint& pos);
-    void showJobsListMenu(const QPoint& pos);
+    void showArchiveListMenu(const QPoint &pos);
+    void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
 
 private:

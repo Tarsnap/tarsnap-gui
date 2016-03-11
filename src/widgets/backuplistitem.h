@@ -41,7 +41,7 @@ public slots:
 
 private:
     Ui::BackupItemWidget _ui;
-    QWidget             *_widget;
+    QWidget *            _widget;
     QUrl                 _url;
     quint64              _count;
     quint64              _size;

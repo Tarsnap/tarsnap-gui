@@ -23,7 +23,7 @@ public:
 
     void        reset();
     QList<QUrl> getSelectedUrls();
-    void        setSelectedUrls(const QList<QUrl> &urls);
+    void setSelectedUrls(const QList<QUrl> &urls);
 
 public slots:
     void updateFilter(QString filter);
@@ -38,7 +38,7 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
-    Ui::FilePicker       *_ui;
+    Ui::FilePicker *      _ui;
     CustomFileSystemModel _model;
     QCompleter            _completer;
 };

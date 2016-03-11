@@ -316,7 +316,8 @@ void SetupDialog::registerMachine()
             "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss") +
             ".key";
 
-    DEBUG << "Registration details >>\n" << _tarsnapDir << ::endl
+    DEBUG << "Registration details >>\n"
+          << _tarsnapDir << ::endl
           << _appDataDir << ::endl
           << _tarsnapKeyFile << ::endl
           << _tarsnapCacheDir;
@@ -391,12 +392,12 @@ void SetupDialog::commitSettings(bool skipped)
     if(!skipped)
     {
         QSettings settings;
-        settings.setValue("app/app_data",    _appDataDir);
-        settings.setValue("tarsnap/path",    _tarsnapDir);
+        settings.setValue("app/app_data", _appDataDir);
+        settings.setValue("tarsnap/path", _tarsnapDir);
         settings.setValue("tarsnap/version", _tarsnapVersion);
-        settings.setValue("tarsnap/cache",   _tarsnapCacheDir);
-        settings.setValue("tarsnap/key",     _tarsnapKeyFile);
-        settings.setValue("tarsnap/user",    _ui->tarsnapUserLineEdit->text());
+        settings.setValue("tarsnap/cache", _tarsnapCacheDir);
+        settings.setValue("tarsnap/key", _tarsnapKeyFile);
+        settings.setValue("tarsnap/user", _ui->tarsnapUserLineEdit->text());
         settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
     }
     settings.sync();

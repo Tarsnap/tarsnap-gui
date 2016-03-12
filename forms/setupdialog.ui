@@ -47,7 +47,7 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
     <number>6</number>
    </property>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_8">
+    <layout class="QGridLayout" name="headerLayout">
      <property name="leftMargin">
       <number>3</number>
      </property>
@@ -60,8 +60,14 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
      <property name="bottomMargin">
       <number>6</number>
      </property>
-     <item>
-      <widget class="QWidget" name="wizardNavigateWidget" native="true">
+     <property name="horizontalSpacing">
+      <number>6</number>
+     </property>
+     <property name="verticalSpacing">
+      <number>0</number>
+     </property>
+     <item row="0" column="2">
+      <widget class="QWidget" name="wizardNavigateWidget_2" native="true">
        <property name="styleSheet">
         <string notr="true"/>
        </property>
@@ -187,20 +193,7 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
        </layout>
       </widget>
      </item>
-     <item>
-      <widget class="QLabel" name="iconLabel">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../resources/resources.qrc">:/icons/tarsnap.png</pixmap>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
+     <item row="1" column="2">
       <widget class="QLabel" name="titleLabel">
        <property name="font">
         <font>
@@ -211,8 +204,25 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
        <property name="text">
         <string>Setup wizard</string>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+      </widget>
+     </item>
+     <item row="0" column="0" rowspan="2">
+      <widget class="QLabel" name="iconLabel">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="../resources/resources.qrc">:/icons/tarsnap-logo.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" rowspan="2">
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
        </property>
       </widget>
      </item>

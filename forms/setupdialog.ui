@@ -407,6 +407,19 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
            <number>0</number>
           </property>
           <item>
+           <spacer name="verticalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QLabel" name="label">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -479,6 +492,19 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
              <property name="spacing">
               <number>0</number>
              </property>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="tarsnapPathBrowseButton">
+               <property name="toolTip">
+                <string>Look for the Tarsnap CLI utilities</string>
+               </property>
+               <property name="text">
+                <string>Change</string>
+               </property>
+               <property name="autoDefault">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
              <item row="3" column="0">
               <widget class="QLineEdit" name="tarsnapCacheLineEdit">
                <property name="toolTip">
@@ -508,19 +534,6 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
                </property>
                <property name="clearButtonEnabled">
                 <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2">
-              <widget class="QPushButton" name="tarsnapPathBrowseButton">
-               <property name="toolTip">
-                <string>Look for the Tarsnap CLI utilities</string>
-               </property>
-               <property name="text">
-                <string>Change</string>
-               </property>
-               <property name="autoDefault">
-                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -620,24 +633,24 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
                </property>
               </widget>
              </item>
-             <item row="6" column="0" colspan="3">
-              <spacer name="verticalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
             </layout>
            </widget>
           </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item alignment="Qt::AlignBottom">
         <widget class="QWidget" name="buttonBox_3" native="true">

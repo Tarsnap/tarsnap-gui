@@ -382,7 +382,7 @@ void SetupDialog::setTarsnapVersion(QString versionString)
     else
     {
         _ui->clientVersionLabel->setText(tr("Tarsnap CLI version ") +
-                                         _tarsnapVersion + tr(" detected."));
+                                         _tarsnapVersion + tr(" detected.  ✔"));
     }
 }
 

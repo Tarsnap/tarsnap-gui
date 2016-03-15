@@ -1685,7 +1685,7 @@ border: 0;
                    </widget>
                   </item>
                   <item row="3" column="1" colspan="2">
-                   <widget class="QLabel" name="clientVersionLabel">
+                   <widget class="QLabel" name="tarsnapVersionLabel">
                     <property name="text">
                      <string/>
                     </property>

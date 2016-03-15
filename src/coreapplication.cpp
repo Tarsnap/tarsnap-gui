@@ -148,7 +148,7 @@ void CoreApplication::showMainWindow()
     connect(_mainWindow, &MainWindow::getTarsnapVersion, &_taskManager,
             &TaskManager::getTarsnapVersion, QUEUED);
     connect(&_taskManager, &TaskManager::tarsnapVersion, _mainWindow,
-            &MainWindow::setTarsnapVersion, QUEUED);
+            &MainWindow::updateTarsnapVersion, QUEUED);
     connect(_mainWindow, &MainWindow::backupNow, &_taskManager,
             &TaskManager::backupNow, QUEUED);
     connect(_mainWindow, &MainWindow::getArchives, &_taskManager,

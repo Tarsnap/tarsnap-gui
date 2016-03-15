@@ -63,7 +63,7 @@ public slots:
                                quint64 sizeUniqueTotal,
                                quint64 sizeUniqueCompressed,
                                quint64 archiveCount);
-    void setTarsnapVersion(QString versionString);
+    void updateTarsnapVersion(QString versionString);
     void notificationRaise();
     void displayStopTasks(bool backupTaskRunning, int runningTasks, int queuedTasks);
     void tarsnapError(TarsnapError error);
@@ -76,7 +76,7 @@ private slots:
     void displayInspectArchive(ArchivePtr archive);
     void commitSettings();
     void validateMachineKeyPath();
-    void validateTarsnapPath();
+    bool validateTarsnapPath();
     void validateTarsnapCache();
     void purgeTimerFired();
     void browseForBackupItems();
@@ -100,6 +100,7 @@ private slots:
     void showArchiveListMenu(const QPoint& pos);
     void showJobsListMenu(const QPoint& pos);
     void addDefaultJobs();
+    void setTarsnapVersion(QString versionString);
 
 private:
     Ui::MainWindow *_ui;
@@ -113,7 +114,6 @@ private:
     int             _purgeTimerCount;
     QMessageBox     _purgeCountdownWindow;
     TarsnapAccount  _tarsnapAccount;
-    QString         _tarsnapVersion;
 };
 
 #endif // MAINWINDOW_H

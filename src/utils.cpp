@@ -95,19 +95,21 @@ QString Utils::validateTarsnapCache(QString path)
 
 QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
 {
-    QStringList paths;
+    QStringList searchPaths;
 
     if(!path.isEmpty())
-        paths << path;
+        searchPaths << path;
 
-    QString result = QStandardPaths::findExecutable(CMD_TARSNAP, paths);
-    if(!result.isEmpty() && keygenToo)
-        result = QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, paths);
+    QString executable = QStandardPaths::findExecutable(CMD_TARSNAP, searchPaths);
+    if(executable.isEmpty() || !QFileInfo(executable).isReadable() || !QFileInfo(executable).isExecutable())
+        return "";
+    else if(keygenToo)
+        executable = QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, searchPaths);
 
-    if(result.isEmpty())
-        return result;
+    if(executable.isEmpty() || !QFileInfo(executable).isReadable() || !QFileInfo(executable).isExecutable())
+        return "";
     else if(path.isEmpty())
-        path = QFileInfo(result).absolutePath();
+        path = QFileInfo(executable).absolutePath();
 
     return path;
 }

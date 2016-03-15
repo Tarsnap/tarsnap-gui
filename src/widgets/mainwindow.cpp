@@ -413,8 +413,16 @@ void MainWindow::loadSettings()
         settings.value("tarsnap/machine", "").toString());
     _ui->tarsnapPathLineEdit->setText(
         settings.value("tarsnap/path", "").toString());
-    _tarsnapVersion = settings.value("tarsnap/version", "").toString();
-    setTarsnapVersion(_tarsnapVersion);
+    if(!validateTarsnapPath())
+    {
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Tarsnap CLI utilities not found. Go to "
+                                 " Settings -> Advanced page to fix that."));
+    }
+    else
+    {
+        setTarsnapVersion(settings.value("tarsnap/version", "").toString());
+    }
     _ui->tarsnapCacheLineEdit->setText(
         settings.value("tarsnap/cache", "").toString());
     _ui->aggressiveNetworkingCheckBox->setChecked(
@@ -551,19 +559,25 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
 }
 
+void MainWindow::updateTarsnapVersion(QString versionString)
+{
+    setTarsnapVersion(versionString);
+    QSettings settings;
+    settings.setValue("tarsnap/version", versionString);
+}
+
 void MainWindow::setTarsnapVersion(QString versionString)
 {
-    _tarsnapVersion = versionString;
-    if(_tarsnapVersion.isEmpty())
+    if(versionString.isEmpty())
     {
-        _ui->clientVersionLabel->clear();
-        _ui->clientVersionLabel->hide();
+        _ui->tarsnapVersionLabel->clear();
+        _ui->tarsnapVersionLabel->hide();
     }
     else
     {
-        _ui->clientVersionLabel->setText(tr("Tarsnap version ") +
-                                         _tarsnapVersion + tr(" detected"));
-        _ui->clientVersionLabel->show();
+        _ui->tarsnapVersionLabel->setText(tr("Tarsnap version ") +
+                                          versionString + tr(" detected"));
+        _ui->tarsnapVersionLabel->show();
     }
 }
 
@@ -660,7 +674,6 @@ void MainWindow::commitSettings()
     DEBUG << "COMMIT SETTINGS";
     QSettings settings;
     settings.setValue("tarsnap/path",    _ui->tarsnapPathLineEdit->text());
-    settings.setValue("tarsnap/version", _tarsnapVersion);
     settings.setValue("tarsnap/cache",   _ui->tarsnapCacheLineEdit->text());
     settings.setValue("tarsnap/key",     _ui->accountMachineKeyLineEdit->text());
     settings.setValue("tarsnap/machine", _ui->accountMachineLineEdit->text());
@@ -693,17 +706,19 @@ void MainWindow::validateMachineKeyPath()
         _ui->accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: red;}");
 }
 
-void MainWindow::validateTarsnapPath()
+bool MainWindow::validateTarsnapPath()
 {
     if(Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text()).isEmpty())
     {
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
         setTarsnapVersion("");
+        return false;
     }
     else
     {
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: black;}");
         emit getTarsnapVersion(_ui->tarsnapPathLineEdit->text());
+        return true;
     }
 }
 

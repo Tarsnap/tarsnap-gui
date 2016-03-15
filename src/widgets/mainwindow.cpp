@@ -363,7 +363,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->dismissButton, &QPushButton::clicked, [&]()
     {
         QSettings settings;
-        settings.setValue("app/defaultjobs_dismissed", true);
+        settings.setValue("app/default_jobs_dismissed", true);
         _ui->defaultJobs->hide();
     });
 }
@@ -456,11 +456,8 @@ void MainWindow::loadSettings()
         settings.value("app/app_data", "").toString());
     _ui->notificationsCheckBox->setChecked(
         settings.value("app/notifications", true).toBool());
-
-    if(settings.value("app/defaultjobs_dismissed", false).toBool())
-    {
+    if(settings.value("app/default_jobs_dismissed", false).toBool())
         _ui->defaultJobs->hide();
-    }
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
@@ -1111,6 +1108,6 @@ void MainWindow::addDefaultJobs()
             _ui->jobDetailsWidget->jobAdded(job);
         }
     }
-    settings.setValue("app/defaultjobs_dismissed", true);
+    settings.setValue("app/default_jobs_dismissed", true);
     _ui->defaultJobs->hide();
 }

@@ -208,21 +208,10 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
      </item>
      <item row="0" column="0" rowspan="2">
       <widget class="QLabel" name="iconLabel">
-       <property name="minimumSize">
-        <size>
-         <width>200</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>200</width>
-         <height>16777215</height>
-        </size>
-       </property>
        <property name="styleSheet">
         <string notr="true">QLabel {
-border-image: url(:/icons/tarsnap-logo.png)
+image: url(:/icons/tarsnap-logo.png);
+min-width: 200px;
 }</string>
        </property>
       </widget>

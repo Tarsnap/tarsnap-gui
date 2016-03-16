@@ -12,6 +12,8 @@ CoreApplication::CoreApplication(int &argc, char **argv)
       _notification(),
       _jobsOption(false)
 {
+    setAttribute(Qt::AA_UseHighDpiPixmaps);
+
     qRegisterMetaType<TaskStatus>("TaskStatus");
     qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
     qRegisterMetaType<BackupTaskPtr>("BackupTaskPtr");

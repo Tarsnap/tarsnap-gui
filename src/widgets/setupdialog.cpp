@@ -22,11 +22,11 @@ SetupDialog::SetupDialog(QWidget *parent)
                    ~Qt::WindowMaximizeButtonHint);
 
     _ui->loadingIconLabel->setMovie(&_loadingAnimation);
-    _ui->clientVersionLabel->hide();
     _ui->errorLabel->hide();
     _ui->machineKeyLabel->hide();
     _ui->machineKeyCombo->hide();
     _ui->browseKeyButton->hide();
+    _ui->advancedCLIWidget->hide();
 
     connect(_ui->welcomePageRadioButton, &QRadioButton::clicked, this,
             &SetupDialog::skipToPage);
@@ -49,6 +49,8 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::setNextPage);
 
     // Advanced setup page
+    connect(_ui->advancedCLIButton, &QPushButton::toggled, _ui->advancedCLIWidget,
+            &QWidget::setVisible);
     connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this,
             &SetupDialog::showTarsnapPathBrowse);
     connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this,
@@ -117,22 +119,27 @@ void SetupDialog::wizardPageChanged(int)
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
     {
         _ui->welcomePageRadioButton->setChecked(true);
+        _ui->titleLabel->setText(tr("Setup wizard"));
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->advancedPage)
     {
         _ui->advancedPageRadioButton->setChecked(true);
+        _ui->titleLabel->setText(tr("Command-line utilities"));
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->restorePage)
     {
         _ui->restorePageRadioButton->setChecked(true);
+        _ui->titleLabel->setText(tr("Machine key"));
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
     {
         _ui->registerPageRadioButton->setChecked(true);
+        _ui->titleLabel->setText(tr("Register with server"));
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->donePage)
     {
         _ui->donePageRadioButton->setChecked(true);
+        _ui->titleLabel->setText(tr("Setup complete!"));
     }
 }
 
@@ -333,9 +340,8 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
     {
     case TaskStatus::Completed:
         _ui->errorLabel->clear();
-        _ui->doneInfoTextBrowser->setHtml(_ui->doneInfoTextBrowser->toHtml()
-                                              .arg(_tarsnapKeyFile)
-                                              .arg(_tarsnapKeyFile));
+        _ui->doneInfoPlainTextEdit->setPlainText(_ui->doneInfoPlainTextEdit->toPlainText()
+                                                 .arg(_tarsnapKeyFile));
         _ui->doneButton->setEnabled(true);
         setNextPage();
         break;
@@ -369,14 +375,14 @@ void SetupDialog::setTarsnapVersion(QString versionString)
     _tarsnapVersion = versionString;
     if(_tarsnapVersion.isEmpty())
     {
-        _ui->clientVersionLabel->clear();
-        _ui->clientVersionLabel->hide();
+        _ui->clientVersionLabel->setText(tr("Tarsnap utilities not found. Visit "
+                                            "<a href=\"https://tarsnap.com\">tarsnap.com</a> "
+                                            "for help with acquiring them."));
     }
     else
     {
-        _ui->clientVersionLabel->setText(tr("Tarsnap version ") +
-                                         _tarsnapVersion + tr(" detected"));
-        _ui->clientVersionLabel->show();
+        _ui->clientVersionLabel->setText(tr("Tarsnap CLI version ") +
+                                         _tarsnapVersion + tr(" detected.  ✔"));
     }
 }
 

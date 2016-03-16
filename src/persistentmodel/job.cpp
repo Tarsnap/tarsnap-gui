@@ -3,8 +3,7 @@
 #include "utils.h"
 
 /*TODO: These could be turned into a user setting */
-#define JOB_NAME_PREFIX QLatin1String("Job")
-#define JOB_NAME_SEPARATOR QLatin1String("_")
+#define JOB_NAME_PREFIX QLatin1String("Job_")
 
 Job::Job(QObject *parent)
     : QObject(parent),
@@ -34,7 +33,7 @@ void Job::setName(const QString &name)
 
 QString Job::archivePrefix()
 {
-    return JOB_NAME_PREFIX + JOB_NAME_SEPARATOR + name() + JOB_NAME_SEPARATOR;
+    return JOB_NAME_PREFIX + name();
 }
 
 QList<QUrl> Job::urls() const
@@ -150,9 +149,8 @@ BackupTaskPtr Job::createBackupTask()
 {
     QSettings     settings;
     BackupTaskPtr backup(new BackupTask);
-    backup->setName(
-        JOB_NAME_PREFIX + JOB_NAME_SEPARATOR + name() + JOB_NAME_SEPARATOR +
-        QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss"));
+    backup->setName(JOB_NAME_PREFIX + name() +
+                    QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
     backup->setJobRef(objectKey());
     backup->setUrls(urls());
     backup->setOptionPreservePaths(optionPreservePaths());

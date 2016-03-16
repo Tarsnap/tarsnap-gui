@@ -627,9 +627,8 @@ void MainWindow::appendTimestampCheckBoxToggled(bool checked)
     {
         QString text = _ui->backupNameLineEdit->text();
         _lastTimestamp.clear();
-        _lastTimestamp.append("_");
         _lastTimestamp.append(
-            QDateTime::currentDateTime().toString("yyyy-MM-dd-HH:mm:ss"));
+            QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
         text.append(_lastTimestamp);
         _ui->backupNameLineEdit->setText(text);
         _ui->backupNameLineEdit->setCursorPosition(0);

@@ -208,14 +208,22 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
      </item>
      <item row="0" column="0" rowspan="2">
       <widget class="QLabel" name="iconLabel">
-       <property name="text">
-        <string/>
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>0</height>
+        </size>
        </property>
-       <property name="pixmap">
-        <pixmap resource="../resources/resources.qrc">:/icons/tarsnap-logo.png</pixmap>
+       <property name="maximumSize">
+        <size>
+         <width>200</width>
+         <height>16777215</height>
+        </size>
        </property>
-       <property name="scaledContents">
-        <bool>false</bool>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+border-image: url(:/icons/tarsnap-logo.png)
+}</string>
        </property>
       </widget>
      </item>
@@ -266,7 +274,7 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
        <item>
         <widget class="QLabel" name="welcomePageInfoLabel">
          <property name="text">
-          <string>This guide will help you set up Tarsnap on your system and get started with the basics.</string>
+          <string>This guide will help you set up Tarsnap on your system and get started with the basics in no time.</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -278,6 +286,11 @@ background-image: url(&quot;:/icons/light_toast.png&quot;);
        </item>
        <item>
         <widget class="QLabel" name="label_5">
+         <property name="font">
+          <font>
+           <italic>true</italic>
+          </font>
+         </property>
          <property name="text">
           <string>(You can also skip this wizard and set up everything inside the application.)</string>
          </property>
@@ -780,7 +793,7 @@ border: none;
        <item>
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Have you used or are using Tarsnap on this machine already and have a key? If yes you can proceed with the same key.</string>
+          <string>Are you using Tarsnap on this machine already or did so in the past? If yes you can proceed with the same key and rely on the backup data already uploaded to save costs and time.</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -1158,6 +1171,15 @@ color: darkred;
        </item>
        <item>
         <widget class="QPlainTextEdit" name="doneInfoPlainTextEdit">
+         <property name="styleSheet">
+          <string notr="true">QPlainTextEdit {
+background: rgba(255,255,255,120);
+border-radius: 4px;
+}</string>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
          <property name="plainText">
           <string>* Your machine's key file is located at %2.
 * Store a backup of the machine key somewhere safe. If you lose the Tarsnap key file for this machine, you will not be able to recover any of the archived data using that key.

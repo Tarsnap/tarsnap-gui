@@ -6,15 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>450</height>
+    <width>553</width>
+    <height>440</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>500</width>
-    <height>450</height>
-   </size>
   </property>
   <property name="acceptDrops">
    <bool>true</bool>
@@ -337,6 +331,9 @@ min-width: 200px;
           </item>
           <item>
            <widget class="QPushButton" name="welcomePageSkipButton">
+            <property name="toolTip">
+             <string/>
+            </property>
             <property name="text">
              <string>Skip wizard</string>
             </property>
@@ -448,12 +445,6 @@ min-width: 200px;
           </item>
           <item>
            <widget class="QLabel" name="clientVersionLabel">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
             <property name="font">
              <font>
               <italic>true</italic>
@@ -472,12 +463,6 @@ min-width: 200px;
           </item>
           <item>
            <widget class="QWidget" name="advancedCLIWidget" native="true">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>220</height>
-             </size>
-            </property>
             <layout class="QGridLayout" name="gridLayout">
              <property name="leftMargin">
               <number>0</number>
@@ -492,21 +477,8 @@ min-width: 200px;
               <number>0</number>
              </property>
              <property name="spacing">
-              <number>0</number>
+              <number>-1</number>
              </property>
-             <item row="1" column="2">
-              <widget class="QPushButton" name="tarsnapPathBrowseButton">
-               <property name="toolTip">
-                <string>Look for the Tarsnap CLI utilities</string>
-               </property>
-               <property name="text">
-                <string>Change</string>
-               </property>
-               <property name="autoDefault">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
              <item row="3" column="0">
               <widget class="QLineEdit" name="tarsnapCacheLineEdit">
                <property name="toolTip">
@@ -539,83 +511,6 @@ min-width: 200px;
                </property>
               </widget>
              </item>
-             <item row="5" column="2">
-              <widget class="QPushButton" name="appDataBrowseButton">
-               <property name="toolTip">
-                <string>Change application data directory</string>
-               </property>
-               <property name="text">
-                <string>Change</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0" colspan="2">
-              <widget class="QLabel" name="label_10">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Config directory:</string>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0" colspan="2">
-              <widget class="QLabel" name="label_6">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Command-line utilities:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2">
-              <widget class="QPushButton" name="tarsnapCacheBrowseButton">
-               <property name="toolTip">
-                <string>Change Tarsnap cache directory</string>
-               </property>
-               <property name="text">
-                <string>Change</string>
-               </property>
-               <property name="autoDefault">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0" colspan="2">
-              <widget class="QLabel" name="label_7">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Cache directory:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
              <item row="1" column="0">
               <widget class="QLineEdit" name="tarsnapPathLineEdit">
                <property name="toolTip">
@@ -632,6 +527,78 @@ min-width: 200px;
                </property>
                <property name="clearButtonEnabled">
                 <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" colspan="3">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Command-line utilities:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" colspan="3">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Cache directory:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0" colspan="3">
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>Config directory:</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QPushButton" name="appDataBrowseButton">
+               <property name="toolTip">
+                <string>Change application data directory</string>
+               </property>
+               <property name="text">
+                <string>Change</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+               <property name="toolTip">
+                <string>Change Tarsnap cache directory</string>
+               </property>
+               <property name="text">
+                <string>Change</string>
+               </property>
+               <property name="autoDefault">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="tarsnapPathBrowseButton">
+               <property name="toolTip">
+                <string>Look for the Tarsnap CLI utilities</string>
+               </property>
+               <property name="text">
+                <string>Change</string>
+               </property>
+               <property name="autoDefault">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -658,7 +625,7 @@ min-width: 200px;
         <widget class="QWidget" name="buttonBox_3" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <property name="spacing">
-           <number>6</number>
+           <number>0</number>
           </property>
           <property name="leftMargin">
            <number>0</number>
@@ -672,7 +639,7 @@ min-width: 200px;
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item>
+          <item alignment="Qt::AlignLeft">
            <widget class="QPushButton" name="advancedCLIButton">
             <property name="toolTip">
              <string>Show advanced setup options</string>
@@ -695,20 +662,7 @@ border: none;
             </property>
            </widget>
           </item>
-          <item>
-           <spacer name="horizontalSpacer_13">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
+          <item alignment="Qt::AlignLeft">
            <widget class="QPushButton" name="advancedPageProceedButton">
             <property name="enabled">
              <bool>false</bool>
@@ -720,32 +674,6 @@ border: none;
              <bool>true</bool>
             </property>
            </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </widget>
@@ -895,6 +823,19 @@ border: none;
         <number>0</number>
        </property>
        <item>
+        <spacer name="verticalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QLabel" name="registerPageInfoLabel">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please use your Tarsnap account credentials to register this machine with the service and create a local key specific to this machine. Don't have an account? Register on &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;tarsnap.com&lt;/span&gt;&lt;/a&gt; then come back here to fill in the credentials.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1009,6 +950,12 @@ border: none;
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="maximumSize">
+             <size>
+              <width>450</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="editable">
              <bool>true</bool>
             </property>
@@ -1062,6 +1009,19 @@ color: darkred;
           </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item alignment="Qt::AlignBottom">
         <widget class="QWidget" name="buttonBox_4" native="true">
@@ -1162,7 +1122,7 @@ color: darkred;
         <widget class="QPlainTextEdit" name="doneInfoPlainTextEdit">
          <property name="styleSheet">
           <string notr="true">QPlainTextEdit {
-background: rgba(255,255,255,120);
+background: rgba(255,255,255,130);
 border-radius: 4px;
 }</string>
          </property>
@@ -1170,10 +1130,10 @@ border-radius: 4px;
           <bool>true</bool>
          </property>
          <property name="plainText">
-          <string>* Your machine's key file is located at %2.
-* Store a backup of the machine key somewhere safe. If you lose the Tarsnap key file for this machine, you will not be able to recover any of the archived data using that key.
-* The application doesn't store your Tarsnap credentials for safety reasons.
-* If you have multiple machines, you almost certainly want to create a separate key file for each machine.</string>
+          <string>• Your machine's key file is located at %2.
+• Store a backup of the machine key somewhere safe. If you lose the Tarsnap key file for this machine, you will not be able to recover any of the archived data using that key.
+• The application doesn't store your Tarsnap credentials for safety reasons.
+• If you have multiple machines, you almost certainly want to create a separate key file for each machine.</string>
          </property>
         </widget>
        </item>
@@ -1250,13 +1210,9 @@ border-radius: 4px;
   <tabstop>welcomePageSkipButton</tabstop>
   <tabstop>welcomePageProceedButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
-  <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapCacheLineEdit</tabstop>
-  <tabstop>tarsnapCacheBrowseButton</tabstop>
   <tabstop>appDataPathLineEdit</tabstop>
-  <tabstop>appDataBrowseButton</tabstop>
   <tabstop>advancedCLIButton</tabstop>
-  <tabstop>advancedPageProceedButton</tabstop>
   <tabstop>restoreNoButton</tabstop>
   <tabstop>restoreYesButton</tabstop>
   <tabstop>tarsnapUserLineEdit</tabstop>

@@ -1249,16 +1249,21 @@ border-radius: 4px;
  <tabstops>
   <tabstop>welcomePageSkipButton</tabstop>
   <tabstop>welcomePageProceedButton</tabstop>
-  <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
-  <tabstop>tarsnapCacheBrowseButton</tabstop>
+  <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapCacheLineEdit</tabstop>
+  <tabstop>tarsnapCacheBrowseButton</tabstop>
+  <tabstop>appDataPathLineEdit</tabstop>
+  <tabstop>appDataBrowseButton</tabstop>
+  <tabstop>advancedCLIButton</tabstop>
   <tabstop>advancedPageProceedButton</tabstop>
   <tabstop>restoreNoButton</tabstop>
   <tabstop>restoreYesButton</tabstop>
   <tabstop>tarsnapUserLineEdit</tabstop>
   <tabstop>tarsnapPasswordLineEdit</tabstop>
   <tabstop>machineNameLineEdit</tabstop>
+  <tabstop>machineKeyCombo</tabstop>
+  <tabstop>browseKeyButton</tabstop>
   <tabstop>registerMachineButton</tabstop>
   <tabstop>doneInfoPlainTextEdit</tabstop>
   <tabstop>doneButton</tabstop>

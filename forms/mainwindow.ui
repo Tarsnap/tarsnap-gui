@@ -1620,7 +1620,7 @@ border: 0;
                      <string>Reset app settings and run Setup Wizard</string>
                     </property>
                     <property name="text">
-                     <string>Reconfigure using setup wizard</string>
+                     <string>Run setup wizard</string>
                     </property>
                    </widget>
                   </item>

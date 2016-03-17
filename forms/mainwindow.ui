@@ -2091,6 +2091,9 @@ border: none;
           <height>16</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="toolTip">
          <string>Simulation mode is ON. No new archives will be uploaded to the Tarsnap servers. Disable this in Settings for normal operation.</string>
         </property>
@@ -2405,10 +2408,13 @@ border: none;
   <tabstop>backupButton</tabstop>
   <tabstop>archiveListWidget</tabstop>
   <tabstop>jobListWidget</tabstop>
+  <tabstop>dismissButton</tabstop>
+  <tabstop>sureButton</tabstop>
   <tabstop>addJobButton</tabstop>
   <tabstop>accountActivityShowButton</tabstop>
   <tabstop>machineActivityShowButton</tabstop>
   <tabstop>accountUserLineEdit</tabstop>
+  <tabstop>updateAccountButton</tabstop>
   <tabstop>accountMachineLineEdit</tabstop>
   <tabstop>accountMachineUseHostnameButton</tabstop>
   <tabstop>accountMachineKeyLineEdit</tabstop>
@@ -2419,12 +2425,15 @@ border: none;
   <tabstop>preservePathsCheckBox</tabstop>
   <tabstop>traverseMountCheckBox</tabstop>
   <tabstop>followSymLinksCheckBox</tabstop>
+  <tabstop>skipNoDumpCheckBox</tabstop>
   <tabstop>downloadsDirLineEdit</tabstop>
   <tabstop>downloadsDirBrowseButton</tabstop>
   <tabstop>skipFilesSizeSpinBox</tabstop>
   <tabstop>skipSystemJunkCheckBox</tabstop>
   <tabstop>skipSystemLineEdit</tabstop>
   <tabstop>skipSystemDefaultsButton</tabstop>
+  <tabstop>simulationCheckBox</tabstop>
+  <tabstop>ignoreConfigCheckBox</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapCacheLineEdit</tabstop>
@@ -2433,9 +2442,12 @@ border: none;
   <tabstop>appDataDirBrowseButton</tabstop>
   <tabstop>repairCacheButton</tabstop>
   <tabstop>purgeArchivesButton</tabstop>
+  <tabstop>clearJournalButton</tabstop>
   <tabstop>runSetupWizard</tabstop>
+  <tabstop>aboutButton</tabstop>
   <tabstop>keyboardShortcuts</tabstop>
   <tabstop>consoleLog</tabstop>
+  <tabstop>simulationIcon</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

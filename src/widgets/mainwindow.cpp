@@ -32,8 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
       _purgeCountdownWindow(this),
       _tarsnapAccount(this)
 {
-    connect(&Debug::instance(), &Debug::message, this, [&](const QString &msg)
-            {_ui->consoleLog->appendPlainText(msg);});
+    connect(&Debug::instance(), &Debug::message, this,
+            &MainWindow::appendToConsoleLog);
     _ui->setupUi(this);
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -762,6 +762,27 @@ void MainWindow::appendToJournalLog(LogEntry log)
     cursor.insertText(QString("[%1] %2").arg(log.timestamp.toString(Qt::DefaultLocaleShortDate)).arg(log.message));
     _ui->journalLog->moveCursor(QTextCursor::End);
     _ui->journalLog->ensureCursorVisible();
+}
+
+void MainWindow::appendToConsoleLog(const QString &log)
+{
+    QTextCursor cursor(_ui->consoleLog->document());
+    if(!_ui->consoleLog->document()->isEmpty())
+    {
+        cursor.movePosition(QTextCursor::End);
+        cursor.insertBlock();
+        cursor.movePosition(QTextCursor::NextBlock);
+    }
+    QTextBlockFormat bf;
+    if(cursor.blockFormat().background().color() == qApp->palette().base().color())
+        bf.setBackground(QBrush(qApp->palette().alternateBase().color()));
+    else
+        bf.setBackground(QBrush(qApp->palette().base().color()));
+    cursor.mergeBlockFormat(bf);
+    cursor.insertText(QString("[%1] %2\n").arg(QDateTime::currentDateTime().toString(Qt::DefaultLocaleShortDate)).arg(log));
+    cursor.insertText(QLatin1String("--------------------------------------------------------------------------------"));
+    _ui->consoleLog->moveCursor(QTextCursor::End);
+    _ui->consoleLog->ensureCursorVisible();
 }
 
 void MainWindow::setJournal(QVector<LogEntry> _log)

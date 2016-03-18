@@ -50,10 +50,9 @@ void TarsnapClient::run()
         _arguments.prepend("--no-default-config");
     _process->setProgram(_command);
     _process->setArguments(_arguments);
-    LOG << tr("Executing [%1 %2]")
+    LOG << tr("Executing command:\n[%1 %2]")
                .arg(_process->program())
-               .arg(_process->arguments().join(' '))
-        << DELIMITER;
+               .arg(_process->arguments().join(' '));
     _process->start();
     if(_process->waitForStarted(DEFAULT_TIMEOUT_MS))
     {
@@ -126,18 +125,16 @@ void TarsnapClient::processFinished()
     {
     case QProcess::NormalExit:
         if(!output.isEmpty())
-            LOG << tr("[%1 %2] finished with exit code %3 and output:\n%4")
+            LOG << tr("Command finished with exit code %3 and output:\n[%1 %2]\n%4")
                        .arg(_command)
                        .arg(_arguments.join(' '))
                        .arg(_process->exitCode())
-                       .arg(output)
-                << DELIMITER;
+                       .arg(output);
         else
-            LOG << tr("[%1 %2] finished with exit code %3 and no output.")
+            LOG << tr("Command finished with exit code %3 and no output:\n[%1 %2]")
                        .arg(_command)
                        .arg(_arguments.join(' '))
-                       .arg(_process->exitCode())
-                << DELIMITER;
+                       .arg(_process->exitCode());
         emit finished(_data, _process->exitCode(), output);
         emit terminated(_data);
         break;
@@ -153,8 +150,7 @@ void TarsnapClient::processError()
                .arg(_process->error())
                .arg(_process->errorString())
                .arg(_process->exitCode())
-               .arg(QString(_processOutput))
-        << DELIMITER;
+               .arg(QString(_processOutput));
     emit terminated(_data);
 }
 QVariant TarsnapClient::data() const

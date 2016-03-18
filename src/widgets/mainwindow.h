@@ -68,6 +68,7 @@ public slots:
     void displayStopTasks(bool backupTaskRunning, int runningTasks, int queuedTasks);
     void tarsnapError(TarsnapError error);
     void appendToJournalLog(LogEntry log);
+    void appendToConsoleLog(const QString& log);
     void setJournal(QVector<LogEntry> _log);
     void saveKeyId(QString key, int id);
 

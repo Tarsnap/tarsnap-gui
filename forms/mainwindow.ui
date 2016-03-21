@@ -1475,6 +1475,79 @@ border: 0;
                       </item>
                      </layout>
                     </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="label_9">
+                      <property name="text">
+                       <string>Limit upload bandwidth:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QLabel" name="label_10">
+                      <property name="text">
+                       <string>Limit download bandwidth:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QSpinBox" name="limitUploadSpinBox">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="toolTip">
+                       <string>Limit upload bandwidth rate to kilobits per second.</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                      <property name="specialValueText">
+                       <string>disabled</string>
+                      </property>
+                      <property name="suffix">
+                       <string>kbps</string>
+                      </property>
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>2147483647</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>1024</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="1">
+                     <widget class="QSpinBox" name="limitDownloadSpinBox">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="toolTip">
+                       <string>Limit download bandwidth rate to kilobits per second.</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                      <property name="specialValueText">
+                       <string>disabled</string>
+                      </property>
+                      <property name="suffix">
+                       <string>kbps</string>
+                      </property>
+                      <property name="maximum">
+                       <number>2147483647</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>1024</number>
+                      </property>
+                     </widget>
+                    </item>
                    </layout>
                   </item>
                   <item>

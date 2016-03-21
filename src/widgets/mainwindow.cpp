@@ -194,11 +194,13 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::commitSettings);
     connect(_ui->ignoreConfigCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
+    connect(_ui->limitUploadSpinBox, &QSpinBox::editingFinished, this,
+            &MainWindow::commitSettings);
+    connect(_ui->limitDownloadSpinBox, &QSpinBox::editingFinished, this,
+            &MainWindow::commitSettings);
+
     connect(&_tarsnapAccount, &TarsnapAccount::accountCredit, this,
             &MainWindow::updateAccountCredit);
-    connect(_ui->clearJournalButton, &QPushButton::clicked, this,
-            &MainWindow::clearJournalClicked);
-
     connect(&_tarsnapAccount, &TarsnapAccount::getKeyId, this, &MainWindow::getKeyId);
     connect(_ui->updateAccountButton, &QPushButton::clicked,
             _ui->actionRefreshAccount, &QAction::trigger);
@@ -211,6 +213,9 @@ MainWindow::MainWindow(QWidget *parent)
     [&]() {
         _tarsnapAccount.getAccountInfo(false, true);
     });
+
+    connect(_ui->clearJournalButton, &QPushButton::clicked, this,
+            &MainWindow::clearJournalClicked);
 
     // Archives
     _ui->archiveListWidget->addAction(_ui->actionRefresh);
@@ -457,6 +462,10 @@ void MainWindow::loadSettings()
         settings.value("app/notifications", true).toBool());
     if(settings.value("app/default_jobs_dismissed", false).toBool())
         _ui->defaultJobs->hide();
+    _ui->limitUploadSpinBox->setValue(
+        settings.value("app/limit_upload", 0).toInt());
+    _ui->limitDownloadSpinBox->setValue(
+        settings.value("app/limit_download", 0).toInt());
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
@@ -687,6 +696,8 @@ void MainWindow::commitSettings()
     settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
     settings.setValue("app/notifications", _ui->notificationsCheckBox->isChecked());
+    settings.setValue("app/limit_upload", _ui->limitUploadSpinBox->value());
+    settings.setValue("app/limit_download", _ui->limitDownloadSpinBox->value());
     settings.sync();
     emit settingsChanged();
 }

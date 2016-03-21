@@ -383,7 +383,7 @@ void MainWindow::loadSettings()
     if(creditDate.isValid())
     {
         _ui->accountCreditLabel->setToolTip(creditDate.toString());
-        qint32 daysElapsed = creditDate.daysTo(QDate::currentDate());
+        qint64 daysElapsed = creditDate.daysTo(QDate::currentDate());
         if(daysElapsed > 10)
         {
             _ui->outOfDateNoticeLabel->setText(
@@ -441,7 +441,7 @@ void MainWindow::loadSettings()
     _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
     _ui->iecPrefixesCheckBox->setChecked(_useIECPrefixes);
     _ui->skipFilesSizeSpinBox->setValue(
-        settings.value("app/skip_files_size", 0).toULongLong());
+        settings.value("app/skip_files_size", 0).toInt());
     _ui->skipSystemJunkCheckBox->setChecked(
         settings.value("app/skip_system_enabled", false).toBool());
     _ui->skipSystemLineEdit->setEnabled(_ui->skipSystemJunkCheckBox->isChecked());

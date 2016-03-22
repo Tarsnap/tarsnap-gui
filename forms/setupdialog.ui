@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>440</height>
+    <width>500</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -221,6 +221,12 @@ min-width: 200px;
    </item>
    <item>
     <widget class="QStackedWidget" name="wizardStackedWidget">
+     <property name="maximumSize">
+      <size>
+       <width>500</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -477,7 +483,7 @@ min-width: 200px;
               <number>0</number>
              </property>
              <property name="spacing">
-              <number>-1</number>
+              <number>6</number>
              </property>
              <item row="3" column="0">
               <widget class="QLineEdit" name="tarsnapCacheLineEdit">

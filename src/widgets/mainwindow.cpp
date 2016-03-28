@@ -91,16 +91,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Ui actions setup
 
-    // Backup pane
-    connect(_ui->backupListWidget, &BackupListWidget::itemTotals, this,
-            &MainWindow::updateBackupItemTotals);
-    _ui->backupListWidget->addAction(_ui->actionClearList);
-    connect(_ui->actionClearList, &QAction::triggered, _ui->backupListWidget,
-            &BackupListWidget::clear);
-    _ui->backupListWidget->addAction(_ui->actionBrowseItems);
-    connect(_ui->actionBrowseItems, &QAction::triggered, this,
-            &MainWindow::browseForBackupItems);
-
     _ui->settingsTab->addAction(_ui->actionRefreshAccount);
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
@@ -124,32 +114,25 @@ MainWindow::MainWindow(QWidget *parent)
             [&]() { _ui->mainTabWidget->setCurrentWidget(_ui->helpTab); });
     connect(_ui->actionShowJournal, &QAction::triggered,
             _ui->expandJournalButton, &QToolButton::click);
+
+    // Backup pane
+    _ui->backupButton->addAction(_ui->actionCreateJob);
+    connect(_ui->actionCreateJob, &QAction::triggered, this,
+            &MainWindow::createJobClicked);
+    connect(_ui->backupListWidget, &BackupListWidget::itemTotals, this,
+            &MainWindow::updateBackupItemTotals);
+    _ui->backupListWidget->addAction(_ui->actionClearList);
+    connect(_ui->actionClearList, &QAction::triggered, _ui->backupListWidget,
+            &BackupListWidget::clear);
+    _ui->backupListWidget->addAction(_ui->actionBrowseItems);
+    connect(_ui->actionBrowseItems, &QAction::triggered, this,
+            &MainWindow::browseForBackupItems);
     connect(_ui->backupListInfoLabel, &QLabel::linkActivated, this,
             &MainWindow::browseForBackupItems);
     connect(_ui->backupButton, &QPushButton::clicked, this,
             &MainWindow::backupButtonClicked);
     connect(_ui->appendTimestampCheckBox, &QCheckBox::toggled, this,
             &MainWindow::appendTimestampCheckBoxToggled);
-    connect(_ui->accountMachineUseHostnameButton, &QPushButton::clicked, this,
-            &MainWindow::accountMachineUseHostnameButtonClicked);
-    connect(_ui->accountMachineKeyBrowseButton, &QPushButton::clicked, this,
-            &MainWindow::accountMachineKeyBrowseButtonClicked);
-    connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this,
-            &MainWindow::tarsnapPathBrowseButtonClicked);
-    connect(_ui->tarsnapCacheBrowseButton, &QPushButton::clicked, this,
-            &MainWindow::tarsnapCacheBrowseButton);
-    connect(_ui->appDataDirBrowseButton, &QPushButton::clicked, this,
-            &MainWindow::appDataButtonClicked);
-    connect(_ui->purgeArchivesButton, &QPushButton::clicked, this,
-            &MainWindow::purgeArchivesButtonClicked);
-    connect(_ui->runSetupWizard, &QPushButton::clicked, this,
-            &MainWindow::runSetupWizardClicked);
-    connect(_ui->expandJournalButton, &QToolButton::toggled, this,
-            &MainWindow::expandJournalButtonToggled);
-    connect(_ui->downloadsDirBrowseButton, &QPushButton::clicked, this,
-            &MainWindow::downloadsDirBrowseButtonClicked);
-    connect(_ui->busyWidget, &BusyWidget::clicked, this,
-            &MainWindow::getTaskInfo);
 
     // Settings page
     connect(_ui->accountUserLineEdit, &QLineEdit::editingFinished, this,
@@ -199,6 +182,26 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->limitDownloadSpinBox, &QSpinBox::editingFinished, this,
             &MainWindow::commitSettings);
 
+    connect(_ui->accountMachineUseHostnameButton, &QPushButton::clicked, this,
+            &MainWindow::accountMachineUseHostnameButtonClicked);
+    connect(_ui->accountMachineKeyBrowseButton, &QPushButton::clicked, this,
+            &MainWindow::accountMachineKeyBrowseButtonClicked);
+    connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this,
+            &MainWindow::tarsnapPathBrowseButtonClicked);
+    connect(_ui->tarsnapCacheBrowseButton, &QPushButton::clicked, this,
+            &MainWindow::tarsnapCacheBrowseButton);
+    connect(_ui->appDataDirBrowseButton, &QPushButton::clicked, this,
+            &MainWindow::appDataButtonClicked);
+    connect(_ui->purgeArchivesButton, &QPushButton::clicked, this,
+            &MainWindow::purgeArchivesButtonClicked);
+    connect(_ui->runSetupWizard, &QPushButton::clicked, this,
+            &MainWindow::runSetupWizardClicked);
+    connect(_ui->expandJournalButton, &QToolButton::toggled, this,
+            &MainWindow::expandJournalButtonToggled);
+    connect(_ui->downloadsDirBrowseButton, &QPushButton::clicked, this,
+            &MainWindow::downloadsDirBrowseButtonClicked);
+    connect(_ui->busyWidget, &BusyWidget::clicked, this,
+            &MainWindow::getTaskInfo);
     connect(&_tarsnapAccount, &TarsnapAccount::accountCredit, this,
             &MainWindow::updateAccountCredit);
     connect(&_tarsnapAccount, &TarsnapAccount::getKeyId, this, &MainWindow::getKeyId);
@@ -584,6 +587,17 @@ void MainWindow::setTarsnapVersion(QString versionString)
                                           versionString + tr(" detected"));
         _ui->tarsnapVersionLabel->show();
     }
+}
+
+void MainWindow::createJobClicked()
+{
+    JobPtr job(new Job());
+    job->setUrls(_ui->backupListWidget->itemUrls());
+    job->setName(_ui->backupNameLineEdit->text());
+    displayJobDetails(job);
+    _ui->addJobButton->setEnabled(true);
+    _ui->addJobButton->setText(tr("Save"));
+    _ui->addJobButton->setProperty("save", true);
 }
 
 void MainWindow::notificationRaise()

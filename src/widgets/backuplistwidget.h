@@ -16,6 +16,7 @@ public:
 public slots:
     void addItemWithUrl(QUrl url);
     void addItemsWithUrls(QList<QUrl> urls);
+    QList<QUrl> itemUrls();
     void removeItems();
     void recomputeListTotals();
 

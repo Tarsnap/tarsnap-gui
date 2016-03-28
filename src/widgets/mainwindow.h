@@ -102,6 +102,7 @@ private slots:
     void showJobsListMenu(const QPoint& pos);
     void addDefaultJobs();
     void setTarsnapVersion(QString versionString);
+    void createJobClicked();
 
 private:
     Ui::MainWindow *_ui;

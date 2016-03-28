@@ -67,6 +67,17 @@ void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
     recomputeListTotals();
 }
 
+QList<QUrl> BackupListWidget::itemUrls()
+{
+    QList<QUrl> urls;
+    for(int i = 0; i < count(); ++i)
+    {
+        BackupListItem *backupItem = static_cast<BackupListItem *>(item(i));
+        urls << backupItem->url().toString(QUrl::FullyEncoded);
+    }
+    return urls;
+}
+
 void BackupListWidget::removeItems()
 {
     if(selectedItems().count() == 0)

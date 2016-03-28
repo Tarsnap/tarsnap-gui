@@ -87,9 +87,6 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->restoreLatestArchiveButton->hide();
         _ui->jobNameLabel->hide();
         _ui->jobNameLineEdit->show();
-        _ui->jobTreeWidget->blockSignals(true);
-        _ui->jobTreeWidget->reset();
-        _ui->jobTreeWidget->blockSignals(false);
         _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
         _ui->jobNameLineEdit->setFocus();
         QSettings settings;
@@ -118,10 +115,10 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->jobNameLabel->show();
         _ui->jobNameLineEdit->hide();
         _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
-        updateDetails();
         connect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
         _saveEnabled = true;
     }
+    updateDetails();
 }
 
 void JobWidget::save()
@@ -166,6 +163,7 @@ void JobWidget::updateDetails()
 {
     if(_job)
     {
+        _ui->jobNameLineEdit->setText(_job->name());
         _ui->jobNameLabel->setText(_job->name());
         _ui->jobTreeWidget->blockSignals(true);
         _ui->jobTreeWidget->setSelectedUrls(_job->urls());

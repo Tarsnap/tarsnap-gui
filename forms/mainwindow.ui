@@ -303,7 +303,7 @@ color: gray;
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="backupButton">
+               <widget class="QToolButton" name="backupButton">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
@@ -313,8 +313,61 @@ color: gray;
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">QToolButton
+{
+background: rgba(64,152,212,255);
+border: 1px solid white;
+border-radius: 2px;
+color: white;
+font-size: 12px;
+padding-right: 24px;
+width: 75px;
+height: 20px;
+}
+QToolButton:hover {
+border: 1px solid grey;
+}
+
+QToolButton:pressed {
+border: 1px solid grey;
+background: white;
+color: black;
+padding-left: 2px;
+padding-top: 2px;
+}
+
+QToolButton:disabled
+{
+background: darkgrey;
+}
+
+QToolButton:focus
+{
+border: 1px solid grey;
+background: white;
+color: black;
+}
+
+QToolButton::menu-button
+{
+border-left: 1px solid white;
+margin-top: 1px;
+margin-bottom: 1px;
+width: 16px;
+margin-right: 4px;
+}
+
+QToolButton QMenu
+{
+text-align: center;
+}</string>
+                </property>
                 <property name="text">
                  <string>Backup</string>
+                </property>
+                <property name="popupMode">
+                 <enum>QToolButton::MenuButtonPopup</enum>
                 </property>
                </widget>
               </item>
@@ -534,11 +587,11 @@ border-radius: 2px;
 }
 
 QPushButton:hover {
-border: 1px solid darkgrey;
+border: 1px solid grey;
 }
 
 QPushButton:pressed {
-border: 1px solid darkgrey;
+border: 1px solid grey;
 background: white;
 color: black;
 }</string>
@@ -680,18 +733,27 @@ width: 100px;
 height: 20px;
 }
 QToolButton:hover {
-border: 1px solid darkgrey;
+border: 1px solid grey;
 }
 
 QToolButton:pressed {
-border: 1px solid darkgrey;
+border: 1px solid grey;
 background: white;
 color: black;
+padding-left: 2px;
+padding-top: 2px;
 }
 
 QToolButton:disabled
 {
 background: darkgrey;
+}
+
+QToolButton:focus
+{
+border: 1px solid grey;
+background: white;
+color: black;
 }
 
 QToolButton::menu-button
@@ -2431,6 +2493,18 @@ border: none;
    </property>
    <property name="shortcut">
     <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionCreateJob">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/hard-drive.png</normaloff>:/icons/hard-drive.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create job</string>
+   </property>
+   <property name="toolTip">
+    <string>Create Job from current backup list</string>
    </property>
   </action>
  </widget>

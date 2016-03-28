@@ -305,40 +305,6 @@ bool Job::findObjectWithKey(QString key)
     return found;
 }
 
-//void Job::loadArchives()
-//{
-//    if(objectKey().isEmpty())
-//    {
-//        DEBUG << "loadArchives method called on Job with no objectKey";
-//        return;
-//    }
-//    PersistentStore &store = getStore();
-//    QSqlQuery query = store.createQuery();
-//    if(!query.prepare(QLatin1String("select * from archives where jobRef = ?")))
-//    {
-//        DEBUG << query.lastError().text();
-//        return;
-//    }
-//    query.addBindValue(objectKey());
-//    if(store.runQuery(query) && query.next())
-//    {
-//        QList<ArchivePtr> archives;
-//        do
-//        {
-//            ArchivePtr archive(new Archive);
-//            archive->setName(query.value(query.record().indexOf("name")).toString());
-//            archive->load();
-//            if(!archive->objectKey().isEmpty())
-//            {
-//                connect(archive.data(), SIGNAL(purged()), this, SLOT(loadArchives()), QUEUED);
-//                archives << archive;
-//            }
-//        }while(query.next());
-//        setArchives(archives);
-//        emit changed();
-//    }
-//}
-
 void Job::backupTaskUpdate(const TaskStatus &status)
 {
     if(status == TaskStatus::Completed)

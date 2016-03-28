@@ -37,7 +37,6 @@ quint64 GetDirInfoTask::getDirSize(QDir dir)
             QFileInfo fileInfo = list.at(i);
             if(fileInfo.isDir())
             {
-//                qDebug() << "Traversing " << fileInfo.absoluteFilePath();
                 size += getDirSize(QDir(fileInfo.absoluteFilePath()));
             }
             else
@@ -61,7 +60,6 @@ quint64 GetDirInfoTask::getDirCount(QDir dir)
             QFileInfo fileInfo = list.at(i);
             if(fileInfo.isDir())
             {
-//                qDebug() << "Traversing " << fileInfo.absoluteFilePath();
                 count += getDirCount(QDir(fileInfo.absoluteFilePath()));
             }
             ++count;

@@ -51,9 +51,6 @@ signals:
 protected:
     void paintEvent(QPaintEvent *);
     void keyReleaseEvent(QKeyEvent *event);
-//    void mousePressEvent(QMouseEvent *event);
-//    void mouseMoveEvent(QMouseEvent *event);
-//    void mouseDoubleClickEvent(QMouseEvent *event);
 
 public slots:
     void loadSettings();

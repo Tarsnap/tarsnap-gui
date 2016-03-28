@@ -508,31 +508,6 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-//void MainWindow::mousePressEvent(QMouseEvent *event)
-//{
-//    if(event->buttons() & Qt::LeftButton)
-//        _windowDragPos = event->pos();
-//}
-
-//void MainWindow::mouseMoveEvent(QMouseEvent *event)
-//{
-//    if(event->buttons() & Qt::LeftButton)
-//    {
-//        QPoint diff   = event->pos() - _windowDragPos;
-//        QPoint newpos = this->pos() + diff;
-//        this->move(newpos);
-//    }
-//}
-
-//void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
-//{
-//    Q_UNUSED(event);
-//    if(isMaximized())
-//        this->showNormal();
-//    else
-//        this->showMaximized();
-//}
-
 void MainWindow::updateLoadingAnimation(bool idle)
 {
     if(idle)

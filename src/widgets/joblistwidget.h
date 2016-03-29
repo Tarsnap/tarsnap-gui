@@ -25,7 +25,7 @@ public slots:
     void addJobs(QMap<QString, JobPtr> jobs);
     void backupSelectedItems();
     void selectJob(JobPtr job);
-    void selectJobByRef(QString jobRef);
+    void inspectJobByRef(QString jobRef);
     void backupAllJobs();
     void addJob(JobPtr job);
     void inspectSelectedItem();

@@ -234,9 +234,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails,
-            _ui->jobListWidget, &JobListWidget::selectJobByRef);
+            _ui->jobListWidget, &JobListWidget::inspectJobByRef);
     connect(_ui->archiveDetailsWidget, &ArchiveWidget::jobClicked,
-            [&](QString jobRef){ _ui->jobListWidget->selectJobByRef(jobRef); });
+            _ui->jobListWidget, &JobListWidget::inspectJobByRef);
 
     connect(_ui->archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
             this, &MainWindow::showArchiveListMenu);
@@ -260,8 +260,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::hideJobDetails);
     connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, _ui->jobListWidget,
             &JobListWidget::addJob);
-    connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, _ui->jobListWidget,
-            &JobListWidget::selectJob);
+    connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, this,
+            &MainWindow::displayJobDetails);
     connect(_ui->jobDetailsWidget, &JobWidget::inspectJobArchive, this,
             &MainWindow::displayInspectArchive);
     connect(_ui->jobDetailsWidget, &JobWidget::restoreJobArchive, this,
@@ -923,6 +923,10 @@ void MainWindow::downloadsDirBrowseButtonClicked()
 
 void MainWindow::displayJobDetails(JobPtr job)
 {
+    if(!job)
+        return;
+
+    _ui->jobListWidget->selectJob(job);
     hideJobDetails();
     _ui->jobDetailsWidget->setJob(job);
     _ui->jobDetailsWidget->show();

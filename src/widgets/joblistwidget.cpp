@@ -41,32 +41,32 @@ void JobListWidget::backupSelectedItems()
 void JobListWidget::selectJob(JobPtr job)
 {
     if(job)
-        selectJobByRef(job->objectKey());
+    {
+        JobListItem *jobItem = nullptr;
+        for(int i = 0; i < count(); ++i)
+        {
+            jobItem = static_cast<JobListItem *>(item(i));
+            if(jobItem && (jobItem->job()->objectKey() == job->objectKey()))
+            {
+                clearSelection();
+                setCurrentItem(jobItem);
+                scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
+            }
+        }
+    }
 }
 
-void JobListWidget::selectJobByRef(QString jobRef)
+void JobListWidget::inspectJobByRef(QString jobRef)
 {
-    if(jobRef.isEmpty())
-        return;
-
-    JobListItem *jobItem = static_cast<JobListItem *>(currentItem());
-    if(!(jobItem && (jobItem->job()->objectKey() == jobRef)))
+    if(!jobRef.isEmpty())
     {
-        jobItem = nullptr;
+        JobListItem *jobItem = nullptr;
         for(int i = 0; i < count(); ++i)
         {
             jobItem = static_cast<JobListItem *>(item(i));
             if(jobItem && (jobItem->job()->objectKey() == jobRef))
-                break;
-            jobItem = nullptr;
+                emit displayJobDetails(jobItem->job());
         }
-    }
-    if(jobItem)
-    {
-        clearSelection();
-        setCurrentItem(jobItem);
-        emit displayJobDetails(jobItem->job());
-        scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
     }
 }
 

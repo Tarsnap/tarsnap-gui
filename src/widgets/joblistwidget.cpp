@@ -49,26 +49,25 @@ void JobListWidget::selectJobByRef(QString jobRef)
     if(jobRef.isEmpty())
         return;
 
-    clearSelection();
     JobListItem *jobItem = static_cast<JobListItem *>(currentItem());
-    if(jobItem && (jobItem->job()->objectKey() == jobRef))
+    if(!(jobItem && (jobItem->job()->objectKey() == jobRef)))
     {
-        emit displayJobDetails(jobItem->job());
-    }
-    else
-    {
+        jobItem = nullptr;
         for(int i = 0; i < count(); ++i)
         {
             jobItem = static_cast<JobListItem *>(item(i));
             if(jobItem && (jobItem->job()->objectKey() == jobRef))
-            {
-                setCurrentItem(jobItem);
-                emit displayJobDetails(jobItem->job());
                 break;
-            }
+            jobItem = nullptr;
         }
     }
-    scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
+    if(jobItem)
+    {
+        clearSelection();
+        setCurrentItem(jobItem);
+        emit displayJobDetails(jobItem->job());
+        scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
+    }
 }
 
 void JobListWidget::backupAllJobs()

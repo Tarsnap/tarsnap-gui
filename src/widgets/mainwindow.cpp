@@ -607,15 +607,14 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
     if(archive->contents().count() == 0)
         emit loadArchiveContents(archive);
 
-    _ui->archiveDetailsWidget->setArchive(archive);
+    _ui->archiveListWidget->setSelectedArchive(archive);
 
+    _ui->archiveDetailsWidget->setArchive(archive);
     if(!_ui->archiveDetailsWidget->isVisible())
         _ui->archiveDetailsWidget->show();
 
     if(_ui->mainTabWidget->currentWidget() != _ui->archivesTab)
         _ui->mainTabWidget->setCurrentWidget(_ui->archivesTab);
-
-    _ui->archiveListWidget->setSelectedArchive(archive);
 }
 
 void MainWindow::appendTimestampCheckBoxToggled(bool checked)

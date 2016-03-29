@@ -155,6 +155,10 @@ font-size: 12px;
           <property name="styleSheet">
            <string notr="true">#archiveJobLabel {
 text-decoration: underline;
+}
+
+#archiveJobLabel:hover {
+color: blue;
 }</string>
           </property>
           <property name="text">

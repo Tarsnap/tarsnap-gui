@@ -434,7 +434,7 @@ alignment: center;
           <string notr="true">#archiveListWidget::item
 {
 height: 33px;
-selection-background-color: rgba(177,214,255, 255);
+selection-background-color: rgba(177,214,255, 150);
 }</string>
          </property>
          <property name="alternatingRowColors">

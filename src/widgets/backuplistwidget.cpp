@@ -5,6 +5,7 @@
 
 #include <QDropEvent>
 #include <QFileInfo>
+#include <QMessageBox>
 #include <QMimeData>
 #include <QSettings>
 
@@ -42,22 +43,53 @@ BackupListWidget::~BackupListWidget()
 
 void BackupListWidget::addItemWithUrl(QUrl url)
 {
-    if(!url.isEmpty())
+    if(url.isEmpty())
+        return;
+
+    QString fileUrl = url.toLocalFile();
+    if(fileUrl.isEmpty())
+        return;
+    QFileInfo file(fileUrl);
+    if(!file.exists())
+        return;
+
+    QList<QUrl> urls = itemUrls();
+    bool matches = false;
+    foreach(QUrl existingUrl, urls)
     {
-        QString fileUrl = url.toLocalFile();
-        if(fileUrl.isEmpty())
-            return;
-        QFileInfo file(fileUrl);
-        if(!file.exists())
-            return;
-        BackupListItem *item = new BackupListItem(url);
-        connect(item, &BackupListItem::requestDelete, this,
-                &BackupListWidget::removeItems);
-        connect(item, &BackupListItem::requestUpdate, this,
-                &BackupListWidget::recomputeListTotals);
-        insertItem(count(), item);
-        setItemWidget(item, item->widget());
+        if(url == existingUrl)
+        {
+            matches = true;
+            break;
+        }
+        QFileInfo existingFile(existingUrl.toLocalFile());
+        if(existingFile.isDir()
+           && fileUrl.startsWith(existingFile.absoluteFilePath()))
+        {
+            matches = true;
+            break;
+        }
     }
+
+    if(matches)
+    {
+        auto confirm =
+                QMessageBox::question(this, tr("Confirm action"),
+                                      tr("Adding the same files and directories"
+                                         " to the backup list multiple times"
+                                         " won't make your data safer. :-)"
+                                         "\nProceed with action?" ));
+        if(confirm == QMessageBox::No)
+            return;
+    }
+
+    BackupListItem *item = new BackupListItem(url);
+    connect(item, &BackupListItem::requestDelete, this,
+            &BackupListWidget::removeItems);
+    connect(item, &BackupListItem::requestUpdate, this,
+            &BackupListWidget::recomputeListTotals);
+    insertItem(count(), item);
+    setItemWidget(item, item->widget());
 }
 
 void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)

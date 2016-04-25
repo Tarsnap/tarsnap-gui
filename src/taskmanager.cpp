@@ -401,6 +401,25 @@ void TaskManager::getKeyId(QString key)
     queueTask(keymgmtClient);
 }
 
+void TaskManager::initializeCache()
+{
+    TarsnapClient *initClient = new TarsnapClient();
+    QStringList    args;
+    if(Utils::tarsnapVersionMinimum("1.0.38"))
+    {
+        args << "--initialize-cachedir";
+        initClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+        initClient->setArguments(args);
+    }
+    else
+    {
+        DEBUG << "Tarsnap CLI version 1.0.38 or higher required to use "
+                 "--initialize-cachedir.";
+        return;
+    }
+    queueTask(initClient);
+}
+
 void TaskManager::runScheduledJobs()
 {
     loadJobs();

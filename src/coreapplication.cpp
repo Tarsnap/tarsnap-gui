@@ -114,6 +114,7 @@ bool CoreApplication::initialize()
             QUEUED);
 
     QMetaObject::invokeMethod(&_taskManager, "loadSettings", QUEUED);
+    QMetaObject::invokeMethod(&_taskManager, "initializeCache", QUEUED);
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
     if(_jobsOption)

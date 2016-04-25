@@ -70,6 +70,7 @@ public slots:
     void nuke();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void getKeyId(QString key);
+    void initializeCache();
 
 private slots:
     // post Tarsnap task processing

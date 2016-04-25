@@ -1293,7 +1293,7 @@ color: blue;
                </rect>
               </property>
               <attribute name="label">
-               <string>App</string>
+               <string>Application</string>
               </attribute>
               <layout class="QVBoxLayout" name="verticalLayout_15">
                <property name="leftMargin">

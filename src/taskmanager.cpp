@@ -48,7 +48,10 @@ void TaskManager::loadSettings()
 void TaskManager::getTarsnapVersion(QString tarsnapPath)
 {
     TarsnapClient *tarsnap = new TarsnapClient();
-    tarsnap->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
+    if(tarsnapPath.isEmpty())
+        tarsnap->setCommand(CMD_TARSNAP);
+    else
+        tarsnap->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
     tarsnap->setArguments(QStringList("--version"));
     connect(tarsnap, &TarsnapClient::finished, this,
             &TaskManager::getTarsnapVersionFinished, QUEUED);

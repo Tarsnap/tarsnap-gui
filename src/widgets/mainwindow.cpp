@@ -424,10 +424,6 @@ void MainWindow::loadSettings()
                               tr("Tarsnap CLI utilities not found. Go to "
                                  " Settings -> Advanced page to fix that."));
     }
-    else
-    {
-        setTarsnapVersion(settings.value("tarsnap/version", "").toString());
-    }
     _ui->tarsnapCacheLineEdit->setText(
         settings.value("tarsnap/cache", "").toString());
     _ui->aggressiveNetworkingCheckBox->setChecked(

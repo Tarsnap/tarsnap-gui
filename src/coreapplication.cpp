@@ -8,7 +8,7 @@
 
 CoreApplication::CoreApplication(int &argc, char **argv)
     : QApplication(argc, argv),
-      _mainWindow(NULL),
+      _mainWindow(nullptr),
       _notification(),
       _jobsOption(false)
 {
@@ -136,7 +136,7 @@ bool CoreApplication::initialize()
 
 void CoreApplication::showMainWindow()
 {
-    if(_mainWindow != NULL)
+    if(_mainWindow != nullptr)
         return;
 
     _taskManager.setHeadless(false);
@@ -146,7 +146,7 @@ void CoreApplication::showMainWindow()
                &CoreApplication::showMainWindow);
 
     _mainWindow = new MainWindow();
-    Q_ASSERT(_mainWindow != NULL);
+    Q_ASSERT(_mainWindow != nullptr);
 
     connect(_mainWindow, &MainWindow::getTarsnapVersion, &_taskManager,
             &TaskManager::getTarsnapVersion, QUEUED);
@@ -236,7 +236,7 @@ bool CoreApplication::reinit()
     if(_mainWindow)
     {
         delete _mainWindow;
-        _mainWindow = NULL;
+        _mainWindow = nullptr;
     }
 
     // reset existing persistent store and app settings

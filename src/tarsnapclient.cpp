@@ -10,7 +10,7 @@
 #define DEFAULT_TIMEOUT_MS 5000
 
 TarsnapClient::TarsnapClient()
-    : QObject(), _process(NULL), _requiresPassword(false)
+    : QObject(), _process(nullptr), _requiresPassword(false)
 {
 }
 
@@ -92,7 +92,7 @@ void TarsnapClient::run()
     }
 cleanup:
     delete _process;
-    _process = NULL;
+    _process = nullptr;
 }
 
 void TarsnapClient::stop(bool kill)

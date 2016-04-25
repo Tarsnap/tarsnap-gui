@@ -89,7 +89,7 @@ void TaskManager::registerMachine(QString user, QString password,
 
 void TaskManager::backupNow(BackupTaskPtr backupTask)
 {
-    if(backupTask == NULL)
+    if(backupTask == nullptr)
     {
         DEBUG << "Null BackupTaskPtr passed.";
         return;
@@ -835,7 +835,7 @@ void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString output)
 
 void TaskManager::queueTask(TarsnapClient *cli, bool exclusive)
 {
-    if(cli == NULL)
+    if(cli == nullptr)
     {
         DEBUG << "NULL argument";
         return;
@@ -848,7 +848,7 @@ void TaskManager::queueTask(TarsnapClient *cli, bool exclusive)
 
 void TaskManager::startTask(TarsnapClient *cli)
 {
-    if(cli == NULL)
+    if(cli == nullptr)
     {
         if(!_taskQueue.isEmpty())
             cli = _taskQueue.dequeue();
@@ -886,7 +886,7 @@ void TaskManager::dequeueTask()
         }
         else
         {
-            startTask(NULL); // start another queued task
+            startTask(nullptr); // start another queued task
         }
     }
 }

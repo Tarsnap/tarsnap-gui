@@ -132,6 +132,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     }
     backupClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     backupClient->setArguments(args);
+    backupTask->setCommand(backupClient->command() + " " +
+                           backupClient->arguments().join(" "));
     backupClient->setData(backupTask->uuid());
     connect(backupClient, &TarsnapClient::finished, this,
             &TaskManager::backupTaskFinished, QUEUED);
@@ -464,11 +466,9 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
     backupTask->setOutput(output);
     if(exitCode == SUCCESS)
     {
-        auto       client = qobject_cast<TarsnapClient *>(sender());
         ArchivePtr archive(new Archive);
         archive->setName(backupTask->name());
-        archive->setCommand(client->command() + " " +
-                            client->arguments().join(" "));
+        archive->setCommand(backupTask->command());
         archive->setTimestamp(backupTask->timestamp());
         archive->setJobRef(backupTask->jobRef());
         parseArchiveStats(output, true, archive);
@@ -865,7 +865,11 @@ void TaskManager::startTask(TarsnapClient *cli)
 
 void TaskManager::dequeueTask()
 {
-    _runningTasks.removeOne(qobject_cast<TarsnapClient *>(sender()));
+    TarsnapClient *task = qobject_cast<TarsnapClient *>(sender());
+    if(task == nullptr)
+        return;
+    _runningTasks.removeOne(task);
+    delete task;
     if(_runningTasks.isEmpty())
     {
         if(_taskQueue.isEmpty())

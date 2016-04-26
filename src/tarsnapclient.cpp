@@ -148,7 +148,7 @@ void TarsnapClient::processFinished()
                        .arg(_arguments.join(' '))
                        .arg(_process->exitCode());
         emit finished(_data, _process->exitCode(), output);
-        emit terminated(_data);
+        emit terminated();
         break;
     case QProcess::CrashExit:
         processError();
@@ -163,7 +163,7 @@ void TarsnapClient::processError()
                .arg(_process->errorString())
                .arg(_process->exitCode())
                .arg(QString(_processOutput));
-    emit terminated(_data);
+    emit terminated();
 }
 QVariant TarsnapClient::data() const
 {

@@ -158,3 +158,13 @@ void BackupTask::setOptionSkipNoDump(bool optionSkipNoDump)
 {
     _optionSkipNoDump = optionSkipNoDump;
 }
+
+QString BackupTask::command() const
+{
+    return _command;
+}
+
+void BackupTask::setCommand(const QString &command)
+{
+    _command = command;
+}

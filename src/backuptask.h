@@ -85,6 +85,9 @@ public:
     bool optionSkipNoDump() const;
     void setOptionSkipNoDump(bool optionSkipNoDump);
 
+    QString command() const;
+    void setCommand(const QString &command);
+
 signals:
     void statusUpdate(QUuid uuid, const TaskStatus &status);
 
@@ -107,6 +110,7 @@ private:
     int        _exitCode;
     QString    _output;
     ArchivePtr _archive;
+    QString    _command;
 };
 
 #endif // BACKUPTASK_H

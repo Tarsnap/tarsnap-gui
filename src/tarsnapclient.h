@@ -42,7 +42,7 @@ public:
 signals:
     void finished(QVariant data, int exitCode, QString output);
     void started(QVariant data);
-    void terminated(QVariant data);
+    void terminated();
 
 private slots:
     void readProcessOutput();

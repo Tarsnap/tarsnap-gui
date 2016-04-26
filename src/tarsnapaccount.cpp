@@ -142,8 +142,8 @@ void TarsnapAccount::displayCSVTable(QString csv, QString title)
     layout->setMargin(0);
     tableDialog->setLayout(layout);
 
-    qint64 row    = 0;
-    qint64 column = 0;
+    int row    = 0;
+    int column = 0;
 
     foreach(QString line, lines)
     {

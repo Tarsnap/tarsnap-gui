@@ -129,18 +129,18 @@ void TarsnapAccount::displayCSVTable(QString csv, QString title)
     QStringList columnHeaders = lines.first().split(',', QString::SkipEmptyParts);
     lines.removeFirst();
 
-    QTableWidget *table = new QTableWidget(lines.count(), columnHeaders.count());
+    QDialog *csvDialog = new QDialog(this);
+    csvDialog->setWindowTitle(title);
+    csvDialog->setAttribute(Qt::WA_DeleteOnClose, true);
+    QTableWidget *table = new QTableWidget(lines.count(), columnHeaders.count(), csvDialog);
     table->setHorizontalHeaderLabels(columnHeaders);
     table->horizontalHeader()->setStretchLastSection(true);
     table->setAlternatingRowColors(true);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    QDialog *tableDialog = new QDialog(this);
-    tableDialog->setWindowTitle(title);
-    tableDialog->setAttribute(Qt::WA_DeleteOnClose, true);
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(table);
     layout->setMargin(0);
-    tableDialog->setLayout(layout);
+    csvDialog->setLayout(layout);
 
     int row    = 0;
     int column = 0;
@@ -155,7 +155,7 @@ void TarsnapAccount::displayCSVTable(QString csv, QString title)
         row++;
         column = 0;
     }
-    tableDialog->show();
+    csvDialog->show();
 }
 
 QNetworkReply *TarsnapAccount::tarsnapRequest(QString url)

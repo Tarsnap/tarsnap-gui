@@ -383,21 +383,18 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
 
 void TaskManager::getKeyId(QString key)
 {
-    TarsnapClient *keymgmtClient = new TarsnapClient();
-    QStringList    args;
-    QFileInfo      keyFile(key);
-    if(keyFile.exists() && Utils::tarsnapVersionMinimum("1.0.37"))
-    {
-        args << "--print-key-id" << key;
-        keymgmtClient->setCommand(makeTarsnapCommand(CMD_TARSNAPKEYMGMT));
-        keymgmtClient->setArguments(args);
-        keymgmtClient->setData(key);
-    }
-    else
+    QFileInfo keyFile(key);
+    if(!keyFile.exists() || !Utils::tarsnapVersionMinimum("1.0.37"))
     {
         DEBUG << "Invalid key path or tarsnap version lower than 1.0.37.";
         return;
     }
+    TarsnapClient *keymgmtClient = new TarsnapClient();
+    QStringList    args;
+    args << "--print-key-id" << key;
+    keymgmtClient->setCommand(makeTarsnapCommand(CMD_TARSNAPKEYMGMT));
+    keymgmtClient->setArguments(args);
+    keymgmtClient->setData(key);
     connect(keymgmtClient, &TarsnapClient::finished, this,
             &TaskManager::getKeyIdFinished, QUEUED);
     queueTask(keymgmtClient);
@@ -405,20 +402,17 @@ void TaskManager::getKeyId(QString key)
 
 void TaskManager::initializeCache()
 {
-    TarsnapClient *initClient = new TarsnapClient();
-    QStringList    args;
-    if(Utils::tarsnapVersionMinimum("1.0.38"))
-    {
-        args << "--initialize-cachedir";
-        initClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-        initClient->setArguments(args);
-    }
-    else
+    if(!Utils::tarsnapVersionMinimum("1.0.38"))
     {
         DEBUG << "Tarsnap CLI version 1.0.38 or higher required to use "
                  "--initialize-cachedir.";
         return;
     }
+    TarsnapClient *initClient = new TarsnapClient();
+    QStringList    args;
+    args << "--initialize-cachedir";
+    initClient->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+    initClient->setArguments(args);
     queueTask(initClient);
 }
 

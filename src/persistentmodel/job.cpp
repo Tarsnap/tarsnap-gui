@@ -55,8 +55,10 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
 {
     _archives.clear();
     _archives = archives;
-    std::sort(_archives.begin(), _archives.end(), [](const ArchivePtr &a, const ArchivePtr &b)
-              { return (a->timestamp() > b->timestamp()); });
+    std::sort(_archives.begin(), _archives.end(),
+              [](const ArchivePtr &a, const ArchivePtr &b) {
+                  return (a->timestamp() > b->timestamp());
+              });
     foreach(ArchivePtr archive, _archives)
     {
         connect(archive.data(), &Archive::purged, this, &Job::loadArchives,

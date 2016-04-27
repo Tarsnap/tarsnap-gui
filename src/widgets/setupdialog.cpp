@@ -49,8 +49,8 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::setNextPage);
 
     // Advanced setup page
-    connect(_ui->advancedCLIButton, &QPushButton::toggled, _ui->advancedCLIWidget,
-            &QWidget::setVisible);
+    connect(_ui->advancedCLIButton, &QPushButton::toggled,
+            _ui->advancedCLIWidget, &QWidget::setVisible);
     connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this,
             &SetupDialog::showTarsnapPathBrowse);
     connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this,
@@ -340,8 +340,8 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
     {
     case TaskStatus::Completed:
         _ui->errorLabel->clear();
-        _ui->doneInfoPlainTextEdit->setPlainText(_ui->doneInfoPlainTextEdit->toPlainText()
-                                                 .arg(_tarsnapKeyFile));
+        _ui->doneInfoPlainTextEdit->setPlainText(
+            _ui->doneInfoPlainTextEdit->toPlainText().arg(_tarsnapKeyFile));
         _ui->doneButton->setEnabled(true);
         setNextPage();
         break;
@@ -375,9 +375,10 @@ void SetupDialog::setTarsnapVersion(QString versionString)
     _tarsnapVersion = versionString;
     if(_tarsnapVersion.isEmpty())
     {
-        _ui->clientVersionLabel->setText(tr("Tarsnap utilities not found. Visit "
-                                            "<a href=\"https://tarsnap.com\">tarsnap.com</a> "
-                                            "for help with acquiring them."));
+        _ui->clientVersionLabel->setText(
+            tr("Tarsnap utilities not found. Visit "
+               "<a href=\"https://tarsnap.com\">tarsnap.com</a> "
+               "for help with acquiring them."));
     }
     else
     {

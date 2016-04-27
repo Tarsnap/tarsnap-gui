@@ -1,8 +1,8 @@
 #ifndef TASKMANAGER_H
 #define TASKMANAGER_H
 
-#include "error.h"
 #include "backuptask.h"
+#include "error.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "tarsnaptask.h"

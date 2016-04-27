@@ -108,8 +108,8 @@ bool CoreApplication::initialize()
     // First time init of the Store
     PersistentStore::instance();
 
-    connect(&_taskManager, &TaskManager::displayNotification,
-            &_notification, &Notification::displayNotification, QUEUED);
+    connect(&_taskManager, &TaskManager::displayNotification, &_notification,
+            &Notification::displayNotification, QUEUED);
     connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
             QUEUED);
 
@@ -208,12 +208,12 @@ void CoreApplication::showMainWindow()
             &Notification::displayNotification, QUEUED);
     connect(_mainWindow, &MainWindow::logMessage, &_journal, &Journal::log,
             QUEUED);
-    connect(&_journal, &Journal::journal, _mainWindow,
-            &MainWindow::setJournal, QUEUED);
+    connect(&_journal, &Journal::journal, _mainWindow, &MainWindow::setJournal,
+            QUEUED);
     connect(&_journal, &Journal::logEntry, _mainWindow,
             &MainWindow::appendToJournalLog, QUEUED);
-    connect(_mainWindow, &MainWindow::clearJournal, &_journal,
-            &Journal::purge, QUEUED);
+    connect(_mainWindow, &MainWindow::clearJournal, &_journal, &Journal::purge,
+            QUEUED);
 
     QMetaObject::invokeMethod(_mainWindow, "loadSettings", QUEUED);
     QMetaObject::invokeMethod(&_taskManager, "loadArchives", QUEUED);
@@ -229,8 +229,8 @@ void CoreApplication::showMainWindow()
 
 bool CoreApplication::reinit()
 {
-    disconnect(&_taskManager, &TaskManager::displayNotification,
-               &_notification, &Notification::displayNotification);
+    disconnect(&_taskManager, &TaskManager::displayNotification, &_notification,
+               &Notification::displayNotification);
     disconnect(&_taskManager, &TaskManager::message, &_journal, &Journal::log);
 
     if(_mainWindow)

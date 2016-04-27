@@ -23,7 +23,7 @@ public:
     void setArguments(const QStringList &arguments);
 
     void stop(bool kill = false);
-    void interrupt();
+    void                   interrupt();
     QProcess::ProcessState taskStatus();
 
     bool waitForTask();

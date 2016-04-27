@@ -15,3 +15,5 @@ PenaltyExcessCharacter: 10
 PenaltyBreakBeforeFirstCallParameter: 100
 PenaltyBreakFirstLessLess: 100
 PenaltyBreakString: 100
+DerivePointerAlignment: false
+PointerAlignment: Right

@@ -16,12 +16,16 @@ BackupTask::BackupTask()
       _status(TaskStatus::Initialized)
 {
     QSettings settings;
-    setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
-    setOptionTraverseMount(settings.value("tarsnap/traverse_mount", true).toBool());
-    setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", false).toBool());
+    setOptionPreservePaths(
+        settings.value("tarsnap/preserve_pathnames", true).toBool());
+    setOptionTraverseMount(
+        settings.value("tarsnap/traverse_mount", true).toBool());
+    setOptionFollowSymLinks(
+        settings.value("tarsnap/follow_symlinks", false).toBool());
     setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toULongLong());
     setOptionSkipSystem(settings.value("app/skip_system_enabled", false).toBool());
-    setOptionSkipSystemFiles(settings.value("app/skip_system_files", "").toString());
+    setOptionSkipSystemFiles(
+        settings.value("app/skip_system_files", "").toString());
 }
 
 bool BackupTask::optionPreservePaths() const
@@ -124,7 +128,8 @@ QStringList BackupTask::getExcludesList()
                         if(entry.isFile())
                         {
                             if(quint64(entry.size()) >= _optionSkipFilesSize)
-                                skipList << QRegExp::escape(entry.absoluteFilePath());
+                                skipList
+                                    << QRegExp::escape(entry.absoluteFilePath());
                         }
                         else if(entry.isDir())
                         {

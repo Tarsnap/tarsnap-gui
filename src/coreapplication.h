@@ -2,8 +2,8 @@
 #define COREAPPLICATION_H
 
 #include "notification.h"
-#include "taskmanager.h"
 #include "persistentmodel/journal.h"
+#include "taskmanager.h"
 #include "widgets/mainwindow.h"
 
 #include <QApplication>

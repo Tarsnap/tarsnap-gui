@@ -53,8 +53,8 @@ void BackupListWidget::addItemWithUrl(QUrl url)
     if(!file.exists())
         return;
 
-    QList<QUrl> urls = itemUrls();
-    bool matches = false;
+    QList<QUrl> urls    = itemUrls();
+    bool        matches = false;
     foreach(QUrl existingUrl, urls)
     {
         if(url == existingUrl)
@@ -63,8 +63,8 @@ void BackupListWidget::addItemWithUrl(QUrl url)
             break;
         }
         QFileInfo existingFile(existingUrl.toLocalFile());
-        if(existingFile.isDir()
-           && fileUrl.startsWith(existingFile.absoluteFilePath()))
+        if(existingFile.isDir() &&
+           fileUrl.startsWith(existingFile.absoluteFilePath()))
         {
             matches = true;
             break;
@@ -74,11 +74,11 @@ void BackupListWidget::addItemWithUrl(QUrl url)
     if(matches)
     {
         auto confirm =
-                QMessageBox::question(this, tr("Confirm action"),
-                                      tr("Adding the same files and directories"
-                                         " to the backup list multiple times"
-                                         " won't make your data safer. :-)"
-                                         "\nProceed with action?" ));
+            QMessageBox::question(this, tr("Confirm action"),
+                                  tr("Adding the same files and directories"
+                                     " to the backup list multiple times"
+                                     " won't make your data safer. :-)"
+                                     "\nProceed with action?"));
         if(confirm == QMessageBox::No)
             return;
     }

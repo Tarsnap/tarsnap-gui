@@ -1,12 +1,13 @@
 #ifndef ARCHIVEWIDGET_H
 #define ARCHIVEWIDGET_H
 
-#include "utils.h"
 #include "persistentmodel/archive.h"
+#include "utils.h"
 
 #include <QWidget>
 
-namespace Ui {
+namespace Ui
+{
 class ArchiveWidget;
 }
 
@@ -26,9 +27,9 @@ signals:
     void jobClicked(QString jobRef);
 
 private:
-    Ui::ArchiveWidget  *_ui;
-    bool                _useIECPrefixes;
-    ArchivePtr          _archive;
+    Ui::ArchiveWidget *_ui;
+    bool               _useIECPrefixes;
+    ArchivePtr         _archive;
 };
 
 #endif // ARCHIVEWIDGET_H

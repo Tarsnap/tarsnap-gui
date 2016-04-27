@@ -8,16 +8,19 @@
 #include <QSettings>
 #include <QTableWidget>
 
-#define URL_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=activity&format=csv"
-#define URL_MACHINE_ACTIVITY "https://www.tarsnap.com/manage.cgi?address=%1&password=%2&action=subactivity&mid=%3&format=csv"
+#define URL_ACTIVITY                                                           \
+    "https://www.tarsnap.com/"                                                 \
+    "manage.cgi?address=%1&password=%2&action=activity&format=csv"
+#define URL_MACHINE_ACTIVITY                                                   \
+    "https://www.tarsnap.com/"                                                 \
+    "manage.cgi?address=%1&password=%2&action=subactivity&mid=%3&format=csv"
 
 TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _nam(this)
 {
     _ui.setupUi(this);
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) &
                    ~Qt::WindowMaximizeButtonHint);
-    connect(_ui.passwordLineEdit, &QLineEdit::textEdited, this, [&]()
-    {
+    connect(_ui.passwordLineEdit, &QLineEdit::textEdited, this, [&]() {
         _ui.loginButton->setEnabled(!_ui.passwordLineEdit->text().isEmpty());
     });
 }
@@ -26,19 +29,20 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
                                     bool displayMachineActivity)
 {
     QSettings settings;
-    _user      = settings.value("tarsnap/user", "").toString();
-    _machine   = settings.value("tarsnap/machine", "").toString();
+    _user    = settings.value("tarsnap/user", "").toString();
+    _machine = settings.value("tarsnap/machine", "").toString();
     if(Utils::tarsnapVersionMinimum("1.0.37"))
     {
         emit getKeyId(settings.value("tarsnap/key", "").toString());
     }
     else
     {
-        QMessageBox::warning(this, tr("Warning"),
-                             tr("You need Tarsnap CLI utils version 1.0.37 to "
-                                "be able to fetch machine activity. "
-                                "You have version %1.")
-                             .arg(settings.value("tarsnap/version", "").toString()));
+        QMessageBox::warning(
+            this, tr("Warning"),
+            tr("You need Tarsnap CLI utils version 1.0.37 to "
+               "be able to fetch machine activity. "
+               "You have version %1.")
+                .arg(settings.value("tarsnap/version", "").toString()));
     }
     if(_user.isEmpty() || _machine.isEmpty())
     {
@@ -132,7 +136,8 @@ void TarsnapAccount::displayCSVTable(QString csv, QString title)
     QDialog *csvDialog = new QDialog(this);
     csvDialog->setWindowTitle(title);
     csvDialog->setAttribute(Qt::WA_DeleteOnClose, true);
-    QTableWidget *table = new QTableWidget(lines.count(), columnHeaders.count(), csvDialog);
+    QTableWidget *table =
+        new QTableWidget(lines.count(), columnHeaders.count(), csvDialog);
     table->setHorizontalHeaderLabels(columnHeaders);
     table->horizontalHeader()->setStretchLastSection(true);
     table->setAlternatingRowColors(true);
@@ -177,13 +182,16 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
     QByteArray data = reply->readAll();
     if(warn && data.contains("Password is incorrect; please try again."))
     {
-        QMessageBox::warning(this, tr("Invalid password"),
+        QMessageBox::warning(
+            this, tr("Invalid password"),
             tr("Password for account %1 is incorrect; please try again.").arg(_user));
     }
-    else if(warn && data.contains("No user exists with the provided email "
-                                  "address; please try again."))
+    else if(warn &&
+            data.contains("No user exists with the provided email "
+                          "address; please try again."))
     {
-        QMessageBox::warning(this, tr("Invalid username"),
+        QMessageBox::warning(
+            this, tr("Invalid username"),
             tr("Account %1 is invalid; please try again.").arg(_user));
     }
     reply->close();

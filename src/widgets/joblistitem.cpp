@@ -46,7 +46,8 @@ void JobListItem::setJob(const JobPtr &job)
             _job->archives().first()->timestamp().toString(Qt::DefaultLocaleLongDate));
 
     QString detail;
-    QString str = _job->archives().count() == 1 ? tr("archive") : tr("archives");
+    QString str =
+        _job->archives().count() == 1 ? tr("archive") : tr("archives");
     detail.append(tr("%1 %2 totaling ").arg(_job->archives().count()).arg(str));
     quint64 totalSize = 0;
     foreach(ArchivePtr archive, _job->archives())

@@ -15,6 +15,7 @@ void Notification::displayNotification(QString message)
        isSystemTrayAvailable())
     {
         show();
-        showMessage(QCoreApplication::instance()->applicationName(), message.remove(QRegExp("<[^>]*>")));
+        showMessage(QCoreApplication::instance()->applicationName(),
+                    message.remove(QRegExp("<[^>]*>")));
     }
 }

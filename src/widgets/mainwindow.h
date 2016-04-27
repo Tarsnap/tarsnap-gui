@@ -62,10 +62,11 @@ public slots:
                                quint64 archiveCount);
     void updateTarsnapVersion(QString versionString);
     void notificationRaise();
-    void displayStopTasks(bool backupTaskRunning, int runningTasks, int queuedTasks);
+    void displayStopTasks(bool backupTaskRunning, int runningTasks,
+                          int queuedTasks);
     void tarsnapError(TarsnapError error);
     void appendToJournalLog(LogEntry log);
-    void appendToConsoleLog(const QString& log);
+    void appendToConsoleLog(const QString &log);
     void setJournal(QVector<LogEntry> _log);
     void saveKeyId(QString key, int id);
 
@@ -95,8 +96,8 @@ private slots:
     void updateAccountCredit(qreal credit, QDate date);
     void updateLastMachineActivity(QStringList activityFields);
     void clearJournalClicked();
-    void showArchiveListMenu(const QPoint& pos);
-    void showJobsListMenu(const QPoint& pos);
+    void showArchiveListMenu(const QPoint &pos);
+    void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
     void setTarsnapVersion(QString versionString);
     void createJobClicked();

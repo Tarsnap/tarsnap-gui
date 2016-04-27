@@ -53,11 +53,12 @@ JobWidget::JobWidget(QWidget *parent)
             &JobWidget::deleteJobArchives);
     connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked, [&]() {
         QSettings settings;
-        _ui->skipFilesLineEdit->setText(settings.value("app/skip_system_files",
-                                                       DEFAULT_SKIP_FILES).toString());
+        _ui->skipFilesLineEdit->setText(
+            settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
     });
-    connect(_ui->archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
-            this, &JobWidget::showArchiveListMenu);
+    connect(_ui->archiveListWidget,
+            &ArchiveListWidget::customContextMenuRequested, this,
+            &JobWidget::showArchiveListMenu);
     connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::removeSelectedItems);
     connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
@@ -127,12 +128,14 @@ void JobWidget::save()
     {
         DEBUG << "SAVE JOB";
         _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
-        _job->setOptionScheduledEnabled(_ui->includeScheduledCheckBox->isChecked());
+        _job->setOptionScheduledEnabled(
+            _ui->includeScheduledCheckBox->isChecked());
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
         _job->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
-        _job->setOptionSkipFilesSize(static_cast<quint64>(_ui->skipFilesSizeSpinBox->value()));
+        _job->setOptionSkipFilesSize(
+            static_cast<quint64>(_ui->skipFilesSizeSpinBox->value()));
         _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
         _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
         _job->save();
@@ -146,12 +149,14 @@ void JobWidget::saveNew()
         DEBUG << "SAVE NEW JOB";
         _job->setName(_ui->jobNameLineEdit->text());
         _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
-        _job->setOptionScheduledEnabled(_ui->includeScheduledCheckBox->isChecked());
+        _job->setOptionScheduledEnabled(
+            _ui->includeScheduledCheckBox->isChecked());
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
         _job->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
-        _job->setOptionSkipFilesSize(static_cast<quint64>(_ui->skipFilesSizeSpinBox->value()));
+        _job->setOptionSkipFilesSize(
+            static_cast<quint64>(_ui->skipFilesSizeSpinBox->value()));
         _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
         _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
         _job->save();
@@ -175,7 +180,8 @@ void JobWidget::updateDetails()
         _ui->traverseMountCheckBox->setChecked(_job->optionTraverseMount());
         _ui->followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());
         _ui->skipNoDumpCheckBox->setChecked(_job->optionSkipNoDump());
-        _ui->skipFilesSizeSpinBox->setValue(static_cast<int>(_job->optionSkipFilesSize()));
+        _ui->skipFilesSizeSpinBox->setValue(
+            static_cast<int>(_job->optionSkipFilesSize()));
         _ui->skipFilesCheckBox->setChecked(_job->optionSkipFiles());
         _ui->skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
     }
@@ -204,7 +210,7 @@ bool JobWidget::canSaveNew()
 void JobWidget::showArchiveListMenu(const QPoint &pos)
 {
     QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
-    QMenu archiveListMenu(_ui->archiveListWidget);
+    QMenu  archiveListMenu(_ui->archiveListWidget);
     if(!_ui->archiveListWidget->selectedItems().isEmpty())
     {
         if(_ui->archiveListWidget->selectedItems().count() == 1)

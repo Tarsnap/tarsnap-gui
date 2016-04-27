@@ -66,15 +66,15 @@ public slots:
     QString archiveStats();
 
 private:
-    QString     _name;
-    QDateTime   _timestamp;
-    quint64     _sizeTotal;
-    quint64     _sizeCompressed;
-    quint64     _sizeUniqueTotal;
-    quint64     _sizeUniqueCompressed;
-    QString     _command;
-    QByteArray  _contents;
-    QString     _jobRef;
+    QString    _name;
+    QDateTime  _timestamp;
+    quint64    _sizeTotal;
+    quint64    _sizeCompressed;
+    quint64    _sizeUniqueTotal;
+    quint64    _sizeUniqueCompressed;
+    QString    _command;
+    QByteArray _contents;
+    QString    _jobRef;
 };
 
 #endif // ARCHIVE_H

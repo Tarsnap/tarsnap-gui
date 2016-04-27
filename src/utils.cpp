@@ -1,8 +1,8 @@
 #include "utils.h"
 
 #include <QDebug>
-#include <QStandardPaths>
 #include <QSettings>
+#include <QStandardPaths>
 
 #include <math.h>
 
@@ -99,12 +99,15 @@ QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
         searchPaths << path;
 
     QString executable = QStandardPaths::findExecutable(CMD_TARSNAP, searchPaths);
-    if(executable.isEmpty() || !QFileInfo(executable).isReadable() || !QFileInfo(executable).isExecutable())
+    if(executable.isEmpty() || !QFileInfo(executable).isReadable() ||
+       !QFileInfo(executable).isExecutable())
         return "";
     else if(keygenToo)
-        executable = QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, searchPaths);
+        executable =
+            QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, searchPaths);
 
-    if(executable.isEmpty() || !QFileInfo(executable).isReadable() || !QFileInfo(executable).isExecutable())
+    if(executable.isEmpty() || !QFileInfo(executable).isReadable() ||
+       !QFileInfo(executable).isExecutable())
         return "";
     else if(path.isEmpty())
         path = QFileInfo(executable).absolutePath();
@@ -127,7 +130,8 @@ QFileInfoList Utils::findKeysInPath(QString path)
 bool Utils::tarsnapVersionMinimum(const QString &minVersion)
 {
     QSettings settings;
-    QString tarsnapVersion = settings.value("tarsnap/version", "").toString();
-    QRegExp versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
-    return (-1 != versionRx.indexIn(tarsnapVersion)) && (versionRx.cap(0) >= minVersion);
+    QString   tarsnapVersion = settings.value("tarsnap/version", "").toString();
+    QRegExp   versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
+    return (-1 != versionRx.indexIn(tarsnapVersion)) &&
+           (versionRx.cap(0) >= minVersion);
 }

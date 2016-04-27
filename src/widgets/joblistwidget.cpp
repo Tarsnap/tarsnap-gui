@@ -124,7 +124,7 @@ void JobListWidget::execDeleteJob(JobListItem *jobItem)
     if(jobItem)
     {
         bool   purgeArchives = false;
-        JobPtr job     = jobItem->job();
+        JobPtr job           = jobItem->job();
         auto   confirm =
             QMessageBox::question(this, tr("Confirm action"),
                                   tr("Are you sure you want to delete job "
@@ -179,7 +179,8 @@ void JobListWidget::addJob(JobPtr job)
 void JobListWidget::inspectSelectedItem()
 {
     if(!selectedItems().isEmpty())
-        emit displayJobDetails(static_cast<JobListItem *>(selectedItems().first())->job());
+        emit displayJobDetails(
+            static_cast<JobListItem *>(selectedItems().first())->job());
 }
 
 void JobListWidget::restoreSelectedItem()

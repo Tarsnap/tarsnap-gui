@@ -1,4 +1,4 @@
-#include "tarsnapclient.h"
+#include "tarsnaptask.h"
 #include "debug.h"
 
 #include <QSettings>
@@ -9,36 +9,36 @@
 
 #define DEFAULT_TIMEOUT_MS 5000
 
-TarsnapClient::TarsnapClient()
+TarsnapTask::TarsnapTask()
     : QObject(), _process(nullptr), _requiresPassword(false)
 {
 }
 
-TarsnapClient::~TarsnapClient()
+TarsnapTask::~TarsnapTask()
 {
 }
 
-QString TarsnapClient::command() const
+QString TarsnapTask::command() const
 {
     return _command;
 }
 
-void TarsnapClient::setCommand(const QString &command)
+void TarsnapTask::setCommand(const QString &command)
 {
     _command = command;
 }
 
-QStringList TarsnapClient::arguments() const
+QStringList TarsnapTask::arguments() const
 {
     return _arguments;
 }
 
-void TarsnapClient::setArguments(const QStringList &arguments)
+void TarsnapTask::setArguments(const QStringList &arguments)
 {
     _arguments = arguments;
 }
 
-void TarsnapClient::run()
+void TarsnapTask::run()
 {
     _process = new QProcess();
     if(_standardOutFile.isEmpty())
@@ -95,7 +95,7 @@ cleanup:
     _process = nullptr;
 }
 
-void TarsnapClient::stop(bool kill)
+void TarsnapTask::stop(bool kill)
 {
     if(_process->state() == QProcess::Running)
     {
@@ -105,24 +105,24 @@ void TarsnapClient::stop(bool kill)
     }
 }
 
-void TarsnapClient::interrupt()
+void TarsnapTask::interrupt()
 {
 #if defined Q_OS_UNIX
     kill(_process->pid(), SIGQUIT);
 #endif
 }
 
-QProcess::ProcessState TarsnapClient::statusClient()
+QProcess::ProcessState TarsnapTask::taskStatus()
 {
     return _process->state();
 }
 
-bool TarsnapClient::waitForClient()
+bool TarsnapTask::waitForTask()
 {
     return _process->waitForFinished(-1);
 }
 
-void TarsnapClient::readProcessOutput()
+void TarsnapTask::readProcessOutput()
 {
     if(_process->processChannelMode() == QProcess::MergedChannels)
         _processOutput.append(_process->readAll());
@@ -130,7 +130,7 @@ void TarsnapClient::readProcessOutput()
         _processOutput.append(_process->readAllStandardError());
 }
 
-void TarsnapClient::processFinished()
+void TarsnapTask::processFinished()
 {
     QString output(_processOutput);
     switch(_process->exitStatus())
@@ -156,7 +156,7 @@ void TarsnapClient::processFinished()
     }
 }
 
-void TarsnapClient::processError()
+void TarsnapTask::processError()
 {
     LOG << tr("Tarsnap process error %1 (%2) occured (exit code %3):\n%4")
                .arg(_process->error())
@@ -165,37 +165,37 @@ void TarsnapClient::processError()
                .arg(QString(_processOutput));
     emit terminated();
 }
-QVariant TarsnapClient::data() const
+QVariant TarsnapTask::data() const
 {
     return _data;
 }
 
-void TarsnapClient::setData(const QVariant &data)
+void TarsnapTask::setData(const QVariant &data)
 {
     _data = data;
 }
 
-bool TarsnapClient::requiresPassword() const
+bool TarsnapTask::requiresPassword() const
 {
     return _requiresPassword;
 }
 
-void TarsnapClient::setRequiresPassword(bool requiresPassword)
+void TarsnapTask::setRequiresPassword(bool requiresPassword)
 {
     _requiresPassword = requiresPassword;
 }
 
-void TarsnapClient::setStandardOutputFile(const QString &fileName)
+void TarsnapTask::setStandardOutputFile(const QString &fileName)
 {
     _standardOutFile = fileName;
 }
 
-QString TarsnapClient::password() const
+QString TarsnapTask::password() const
 {
     return _password;
 }
 
-void TarsnapClient::setPassword(const QString &password)
+void TarsnapTask::setPassword(const QString &password)
 {
     _password = password;
 }

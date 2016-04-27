@@ -1,18 +1,18 @@
-#ifndef TARSNAPCLIENT_H
-#define TARSNAPCLIENT_H
+#ifndef TARSNAPTASK_H
+#define TARSNAPTASK_H
 
 #include <QProcess>
 #include <QRunnable>
 #include <QThread>
 #include <QVariant>
 
-class TarsnapClient : public QObject, public QRunnable
+class TarsnapTask : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
-    explicit TarsnapClient();
-    ~TarsnapClient();
+    explicit TarsnapTask();
+    ~TarsnapTask();
 
     void run();
 
@@ -24,9 +24,9 @@ public:
 
     void stop(bool kill = false);
     void interrupt();
-    QProcess::ProcessState statusClient();
+    QProcess::ProcessState taskStatus();
 
-    bool waitForClient();
+    bool waitForTask();
 
     QString password() const;
     void setPassword(const QString &password);
@@ -60,4 +60,4 @@ private:
     QString     _standardOutFile;
 };
 
-#endif // TARSNAPCLIENT_H
+#endif // TARSNAPTASK_H

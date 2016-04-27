@@ -5,7 +5,7 @@
 #include "backuptask.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-#include "tarsnapclient.h"
+#include "tarsnaptask.h"
 
 #include <QDateTime>
 #include <QMap>
@@ -91,8 +91,8 @@ private slots:
     void getKeyIdFinished(QVariant data, int exitCode, QString output);
 
     // general task management
-    void queueTask(TarsnapClient *cli, bool exclusive = false);
-    void startTask(TarsnapClient *cli);
+    void queueTask(TarsnapTask *task, bool exclusive = false);
+    void startTask(TarsnapTask *task);
     void dequeueTask();
 
 private:
@@ -108,8 +108,8 @@ private:
     QString _tarsnapKeyFile;
     QMap<QUuid, BackupTaskPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>  _archiveMap;
-    QList<TarsnapClient *>     _runningTasks;
-    QQueue<TarsnapClient *>    _taskQueue; // mutually exclusive tasks
+    QList<TarsnapTask *>       _runningTasks;
+    QQueue<TarsnapTask *>      _taskQueue; // mutually exclusive tasks
     QThreadPool               *_threadPool;
     bool                       _aggressiveNetworking;
     bool                       _preservePathnames;

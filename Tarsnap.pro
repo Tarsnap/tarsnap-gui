@@ -32,7 +32,7 @@ SOURCES += \
     src/widgets/busywidget.cpp \
     src/customfilesystemmodel.cpp \
     src/taskmanager.cpp \
-    src/tarsnapclient.cpp \
+    src/tarsnaptask.cpp \
     src/persistentmodel/persistentstore.cpp \
     src/persistentmodel/persistentobject.cpp \
     src/persistentmodel/archive.cpp \
@@ -63,7 +63,7 @@ HEADERS  += \
     src/widgets/busywidget.h \
     src/customfilesystemmodel.h \
     src/taskmanager.h \
-    src/tarsnapclient.h \
+    src/tarsnaptask.h \
     src/persistentmodel/persistentstore.h \
     src/persistentmodel/persistentobject.h \
     src/persistentmodel/archive.h \

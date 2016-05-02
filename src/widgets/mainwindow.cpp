@@ -43,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent)
 #endif
     new QShortcut(QKeySequence("Ctrl+K"), this, SIGNAL(getTaskInfo()));
 
+    loadSettings();
+
     // About menu action and widget initialization
     Ui::aboutWidget aboutUi;
     aboutUi.setupUi(&_aboutWindow);

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
-    <height>610</height>
+    <width>600</width>
+    <height>579</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -831,8 +831,8 @@ border: 1px solid white;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>644</width>
-                <height>392</height>
+                <width>579</width>
+                <height>393</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1288,8 +1288,8 @@ color: blue;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>457</width>
-                <height>287</height>
+                <width>339</width>
+                <height>370</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1621,8 +1621,8 @@ border: 0;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>644</width>
-                <height>347</height>
+                <width>450</width>
+                <height>334</height>
                </rect>
               </property>
               <attribute name="label">
@@ -2358,7 +2358,7 @@ border: none;
   </action>
   <action name="actionBackupAllJobs">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
    </property>
    <property name="text">
@@ -2453,7 +2453,7 @@ border: none;
   </action>
   <action name="actionJobBackup">
    <property name="icon">
-    <iconset>
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
    </property>
    <property name="text">

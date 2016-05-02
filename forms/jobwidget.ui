@@ -524,7 +524,11 @@ selection-background-color: rgba(177,214,255, 150);
   <tabstop>preservePathsCheckBox</tabstop>
   <tabstop>followSymLinksCheckBox</tabstop>
   <tabstop>traverseMountCheckBox</tabstop>
+  <tabstop>skipNoDumpCheckBox</tabstop>
   <tabstop>skipFilesSizeSpinBox</tabstop>
+  <tabstop>skipFilesCheckBox</tabstop>
+  <tabstop>skipFilesLineEdit</tabstop>
+  <tabstop>skipFilesDefaultsButton</tabstop>
   <tabstop>archiveListWidget</tabstop>
  </tabstops>
  <resources>

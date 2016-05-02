@@ -2565,6 +2565,8 @@ border: none;
   <tabstop>skipSystemJunkCheckBox</tabstop>
   <tabstop>skipSystemLineEdit</tabstop>
   <tabstop>skipSystemDefaultsButton</tabstop>
+  <tabstop>limitUploadSpinBox</tabstop>
+  <tabstop>limitDownloadSpinBox</tabstop>
   <tabstop>simulationCheckBox</tabstop>
   <tabstop>ignoreConfigCheckBox</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
@@ -2580,7 +2582,6 @@ border: none;
   <tabstop>aboutButton</tabstop>
   <tabstop>keyboardShortcuts</tabstop>
   <tabstop>consoleLog</tabstop>
-  <tabstop>simulationIcon</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

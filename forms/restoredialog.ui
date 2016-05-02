@@ -217,6 +217,11 @@
  <tabstops>
   <tabstop>optionRestoreRadio</tabstop>
   <tabstop>optionBaseDirRadio</tabstop>
+  <tabstop>baseDirLineEdit</tabstop>
+  <tabstop>changeDirButton</tabstop>
+  <tabstop>optionDownArchiveRadio</tabstop>
+  <tabstop>archiveLineEdit</tabstop>
+  <tabstop>changeArchiveButton</tabstop>
   <tabstop>overwriteCheckBox</tabstop>
   <tabstop>keepNewerCheckBox</tabstop>
   <tabstop>cancelButton</tabstop>

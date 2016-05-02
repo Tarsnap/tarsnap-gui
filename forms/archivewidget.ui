@@ -341,6 +341,11 @@ image: url(:/icons/tarsnap-icon-big.png);
    <header>../widgets/textlabel.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>hideButton</tabstop>
+  <tabstop>archiveCommandLineEdit</tabstop>
+  <tabstop>archiveContentsPlainTextEdit</tabstop>
+ </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>
  </resources>

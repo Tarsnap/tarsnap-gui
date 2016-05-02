@@ -18,7 +18,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#SetupDialog {
-background-image: url(&quot;:/icons/light_toast.png&quot;);
+background-image: url(&quot;:/icons/light-toast.png&quot;);
 }</string>
   </property>
   <property name="modal">

@@ -27,9 +27,9 @@
         <file>icons/magnifying-glass@2x.png</file>
         <file>icons/reload.png</file>
         <file>icons/reload@2x.png</file>
-        <file>icons/tarsnap_icon_big.png</file>
-        <file>icons/tarsnap_icon.png</file>
-        <file>icons/tarsnap_icon@2x.png</file>
+        <file>icons/tarsnap-icon-big.png</file>
+        <file>icons/tarsnap-icon.png</file>
+        <file>icons/tarsnap-icon@2x.png</file>
         <file>icons/trash.png</file>
         <file>icons/trash@2x.png</file>
         <file>icons/tarsnap-logo@2x.png</file>

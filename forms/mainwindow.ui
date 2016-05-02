@@ -24,7 +24,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../resources/resources.qrc">
-    <normaloff>:/icons/tarsnap_icon.png</normaloff>:/icons/tarsnap_icon.png</iconset>
+    <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -34,7 +34,7 @@
     <number>0</number>
    </property>
    <property name="topMargin">
-    <number>16</number>
+    <number>19</number>
    </property>
    <property name="rightMargin">
     <number>0</number>
@@ -2358,8 +2358,8 @@ border: none;
   </action>
   <action name="actionBackupAllJobs">
    <property name="icon">
-    <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/tarsnap_icon.png</normaloff>:/icons/tarsnap_icon.png</iconset>
+    <iconset>
+     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
    </property>
    <property name="text">
     <string>Backup all jobs</string>
@@ -2453,8 +2453,8 @@ border: none;
   </action>
   <action name="actionJobBackup">
    <property name="icon">
-    <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/tarsnap_icon.png</normaloff>:/icons/tarsnap_icon.png</iconset>
+    <iconset>
+     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
    </property>
    <property name="text">
     <string>Backup</string>

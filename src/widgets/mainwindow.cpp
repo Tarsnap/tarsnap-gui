@@ -209,8 +209,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::getKeyId);
     connect(_ui->updateAccountButton, &QPushButton::clicked,
             _ui->actionRefreshAccount, &QAction::trigger);
-    connect(&_tarsnapAccount, SIGNAL(lastMachineActivity(QStringList)), this,
-            SLOT(updateLastMachineActivity(QStringList)));
+    connect(&_tarsnapAccount, &TarsnapAccount::lastMachineActivity, this,
+            &MainWindow::updateLastMachineActivity);
     connect(_ui->accountActivityShowButton, &QPushButton::clicked,
             [&]() { _tarsnapAccount.getAccountInfo(true, false); });
     connect(_ui->machineActivityShowButton, &QPushButton::clicked,

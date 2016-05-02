@@ -105,7 +105,7 @@ bool CoreApplication::initialize()
                                 " in Settings -> Advanced."));
     }
 
-    // First time init of the Store
+    // Initialize the PersistentStore early
     PersistentStore::instance();
 
     connect(&_taskManager, &TaskManager::displayNotification, &_notification,
@@ -114,7 +114,8 @@ bool CoreApplication::initialize()
             QUEUED);
 
     QMetaObject::invokeMethod(&_taskManager, "loadSettings", QUEUED);
-    QMetaObject::invokeMethod(&_taskManager, "initializeCache", QUEUED);
+    if(!wizardDone)
+        QMetaObject::invokeMethod(&_taskManager, "initializeCache", QUEUED);
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
     if(_jobsOption)

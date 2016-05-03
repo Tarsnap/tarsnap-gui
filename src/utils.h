@@ -53,7 +53,7 @@ class GetDirInfoTask : public QObject, public QRunnable
     Q_OBJECT
 
 public:
-    GetDirInfoTask(QDir dir);
+    explicit GetDirInfoTask(QDir dir);
     void run();
 
 signals:

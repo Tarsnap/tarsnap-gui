@@ -13,7 +13,7 @@ class TextLabel : public QLabel
     Q_ENUMS(Qt::TextElideMode)
 
 public:
-    TextLabel(QWidget *parent = 0);
+    explicit TextLabel(QWidget *parent = 0);
     ~TextLabel();
 
     Qt::TextElideMode elide() const;

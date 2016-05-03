@@ -42,10 +42,9 @@ void JobListWidget::selectJob(JobPtr job)
 {
     if(job)
     {
-        JobListItem *jobItem = nullptr;
         for(int i = 0; i < count(); ++i)
         {
-            jobItem = static_cast<JobListItem *>(item(i));
+            JobListItem *jobItem = static_cast<JobListItem *>(item(i));
             if(jobItem && (jobItem->job()->objectKey() == job->objectKey()))
             {
                 clearSelection();
@@ -60,10 +59,9 @@ void JobListWidget::inspectJobByRef(QString jobRef)
 {
     if(!jobRef.isEmpty())
     {
-        JobListItem *jobItem = nullptr;
         for(int i = 0; i < count(); ++i)
         {
-            jobItem = static_cast<JobListItem *>(item(i));
+            JobListItem *jobItem = static_cast<JobListItem *>(item(i));
             if(jobItem && (jobItem->job()->objectKey() == jobRef))
                 emit displayJobDetails(jobItem->job());
         }
@@ -123,7 +121,6 @@ void JobListWidget::execDeleteJob(JobListItem *jobItem)
 {
     if(jobItem)
     {
-        bool   purgeArchives = false;
         JobPtr job           = jobItem->job();
         auto   confirm =
             QMessageBox::question(this, tr("Confirm action"),
@@ -132,6 +129,7 @@ void JobListWidget::execDeleteJob(JobListItem *jobItem)
                                       .arg(job->name()));
         if(confirm == QMessageBox::Yes)
         {
+            bool purgeArchives = false;
             if(!job->archives().isEmpty())
             {
                 auto confirmArchives =

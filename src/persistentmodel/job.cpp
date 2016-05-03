@@ -13,7 +13,8 @@ Job::Job(QObject *parent)
       _optionFollowSymLinks(false),
       _optionSkipFilesSize(0),
       _optionSkipFiles(false),
-      _optionSkipFilesPatterns()
+      _optionSkipFilesPatterns(),
+      _optionSkipNoDump(false)
 {
 }
 
@@ -305,10 +306,4 @@ bool Job::findObjectWithKey(QString key)
         found = true;
     }
     return found;
-}
-
-void Job::backupTaskUpdate(const TaskStatus &status)
-{
-    if(status == TaskStatus::Completed)
-        loadArchives();
 }

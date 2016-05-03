@@ -10,7 +10,7 @@ class BusyWidget : public QLabel
     Q_OBJECT
 
 public:
-    BusyWidget(QWidget *parent = NULL);
+    explicit BusyWidget(QWidget *parent = NULL);
     ~BusyWidget();
 
 public slots:

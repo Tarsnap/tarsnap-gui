@@ -56,7 +56,7 @@ private:
     // Yes, a singleton
     inline explicit Debug() : QObject() {}
     Debug(Debug const &) : QObject() {}
-    void operator=(Debug const &) {}
+    Debug& operator=(Debug const &);
 };
 
 #endif // DEBUG_H

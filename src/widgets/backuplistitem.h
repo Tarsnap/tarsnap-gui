@@ -17,7 +17,7 @@ class BackupListItem : public QObject, public QListWidgetItem
     Q_OBJECT
 
 public:
-    BackupListItem(QUrl url);
+    explicit BackupListItem(QUrl url);
     ~BackupListItem();
 
     QWidget *widget();

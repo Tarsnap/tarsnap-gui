@@ -67,9 +67,6 @@ signals:
     void changed();
     void loadArchives();
 
-public slots:
-    void backupTaskUpdate(const TaskStatus &status);
-
 private:
     QString           _name;
     QList<QUrl>       _urls;

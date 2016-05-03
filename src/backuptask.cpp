@@ -13,7 +13,10 @@ BackupTask::BackupTask()
       _optionSkipFilesSize(0),
       _optionSkipSystem(false),
       _optionSkipSystemFiles(),
-      _status(TaskStatus::Initialized)
+      _optionDryRun(false),
+      _optionSkipNoDump(false),
+      _status(TaskStatus::Initialized),
+      _exitCode(0)
 {
     QSettings settings;
     setOptionPreservePaths(

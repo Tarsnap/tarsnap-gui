@@ -12,7 +12,7 @@ class JobListWidget : public QListWidget
     Q_OBJECT
 
 public:
-    explicit JobListWidget(QWidget *parent = 0);
+    explicit JobListWidget(QWidget *parent = nullptr);
     ~JobListWidget();
 
 signals:

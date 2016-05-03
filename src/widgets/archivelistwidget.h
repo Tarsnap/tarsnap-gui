@@ -12,7 +12,7 @@ class ArchiveListWidget : public QListWidget
     Q_OBJECT
 
 public:
-    explicit ArchiveListWidget(QWidget *parent = 0);
+    explicit ArchiveListWidget(QWidget *parent = nullptr);
     ~ArchiveListWidget();
 
 public slots:

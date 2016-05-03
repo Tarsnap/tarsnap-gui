@@ -30,7 +30,7 @@ class Archive : public QObject, public PersistentObject
     Q_OBJECT
 
 public:
-    explicit Archive(QObject *parent = 0);
+    explicit Archive(QObject *parent = nullptr);
     ~Archive();
 
     QString name() const;

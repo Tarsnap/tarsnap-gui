@@ -16,7 +16,7 @@ class Journal : public QObject, public PersistentObject
     Q_OBJECT
 
 public:
-    explicit Journal(QObject *parent = 0);
+    explicit Journal(QObject *parent = nullptr);
     ~Journal();
 
 signals:

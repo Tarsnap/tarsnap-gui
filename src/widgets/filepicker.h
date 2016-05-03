@@ -18,7 +18,7 @@ class FilePicker : public QWidget
     Q_OBJECT
 
 public:
-    explicit FilePicker(QWidget *parent = 0);
+    explicit FilePicker(QWidget *parent = nullptr);
     ~FilePicker();
 
     void        reset();

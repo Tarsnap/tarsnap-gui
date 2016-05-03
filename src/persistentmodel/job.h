@@ -17,7 +17,7 @@ class Job : public QObject, public PersistentObject
     Q_OBJECT
 
 public:
-    explicit Job(QObject *parent = 0);
+    explicit Job(QObject *parent = nullptr);
     ~Job();
 
     QString name() const;

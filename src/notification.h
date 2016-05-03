@@ -8,7 +8,7 @@ class Notification : public QSystemTrayIcon
 {
     Q_OBJECT
 public:
-    explicit Notification(QSystemTrayIcon *parent = 0);
+    explicit Notification(QSystemTrayIcon *parent = nullptr);
 
 signals:
 

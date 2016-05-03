@@ -10,7 +10,7 @@ class BackupListWidget : public QListWidget
     Q_OBJECT
 
 public:
-    explicit BackupListWidget(QWidget *parent = 0);
+    explicit BackupListWidget(QWidget *parent = nullptr);
     ~BackupListWidget();
 
 public slots:

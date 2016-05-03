@@ -15,7 +15,7 @@ class RestoreDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit RestoreDialog(ArchivePtr archive, QWidget *parent = 0);
+    explicit RestoreDialog(ArchivePtr archive, QWidget *parent = nullptr);
     ~RestoreDialog();
 
     ArchiveRestoreOptions getOptions();

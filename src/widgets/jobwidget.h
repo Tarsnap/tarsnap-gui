@@ -15,7 +15,7 @@ class JobWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit JobWidget(QWidget *parent = 0);
+    explicit JobWidget(QWidget *parent = nullptr);
     ~JobWidget();
 
     JobPtr job() const;

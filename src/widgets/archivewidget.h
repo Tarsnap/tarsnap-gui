@@ -16,7 +16,7 @@ class ArchiveWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ArchiveWidget(QWidget *parent = 0);
+    explicit ArchiveWidget(QWidget *parent = nullptr);
     ~ArchiveWidget();
 
 public slots:

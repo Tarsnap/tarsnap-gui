@@ -14,7 +14,7 @@ class FilePickerDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit FilePickerDialog(QWidget *parent = 0);
+    explicit FilePickerDialog(QWidget *parent = nullptr);
     ~FilePickerDialog();
 
     QList<QUrl> getSelectedUrls();

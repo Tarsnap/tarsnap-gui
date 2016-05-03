@@ -17,7 +17,7 @@ class SetupDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SetupDialog(QWidget *parent = 0);
+    explicit SetupDialog(QWidget *parent = nullptr);
     ~SetupDialog();
 
 public slots:

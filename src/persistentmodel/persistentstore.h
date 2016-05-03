@@ -37,7 +37,7 @@ protected:
 
 private:
     // Yes, a singleton
-    explicit PersistentStore(QObject *parent = 0);
+    explicit PersistentStore(QObject *parent = nullptr);
     PersistentStore(PersistentStore const &);
     void operator=(PersistentStore const &);
     bool init();

@@ -1,3 +1,48 @@
+Version 0.9
+-----------
+
+New features:
+
+* Added ability to download an archive as a tar file. This option is available
+in the restore dialog window.
+* You can now review your account and machine activity logs via the Settings ->
+Account page. Tarsnap login is required just like with credit. I recommend you
+upgrade Tarsnap CLI to 1.0.37 for optimal results.
+* Added ability to gracefully interrupt running backups from stop tasks dialog,
+by sending SIGQUIT to Tarsnap CLI. The current archive creation will be
+truncated and '.part' is appended to the archive name.
+* On vanilla configuration the app now offers to add default Jobs for common
+home directories like Desktop, Pictures and Documents.
+* You can now quickly create a Job from the current Backup list using the
+Backup button dropdown.
+* Added bandwidth limiting settings for upload and download rates in
+Settings -> Application.
+* Added Home button to the File Browser that when clicked quickly jumps the
+browse tree to the users's home directory.
+* Homebrew is now the preffered installation method for OS X. Port and pkg's are 
+available for FreeBSD too. See INSTALL dist file. 
+
+Improvements and fixes:
+* Made SI notation default in the UI with option to switch to IEC.
+* Added more useful keyboard shortcuts for the actions available in the Archives
+and Jobs lists.
+* Beautified the restore dialog widget. Improvements for the Restore
+functionality.
+* Archives that are queued for deletion are now disabled in the Archive lists
+until the operation has concluded.
+* Significant improvements to the Setup Wizard. The dialog should now be even
+easier to follow, with one step removed.
+* Made Console Log easier to read.
+* Improvements to CLI version detection.
+* Support for highres/density displays is now 99% complete.
+* Overall, the app is leaner, better looking and faster due to various
+refactorings and improvements.
+* Many bugs, leaks, UI issues and other inconsistencies have now been resolved.
+The app is now more robust than ever.
+
+I've also written a tutorial on getting started with Tarsnap GUI for OS X
+available at http://shinnok.com/rants/2016/02/19/using-tarsnap-gui-on-os-x/.
+
 Version 0.8
 -----------
 

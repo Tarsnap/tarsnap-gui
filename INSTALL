@@ -1,37 +1,57 @@
-========
-Overview
-========
+=================
+Easy installation
+=================
 
-Tarsnap GUI is built using the Qt SDK for cross-platform compatibility. In order
-to build Tarsnap GUI for your system, you must first install the appropriate
-Qt 5 SDK on your system. Latest recommended version for optimal results and
-platform support is Qt 5.4.0 or greater, though it is known to behave just fine
-on at least Qt 5.2.1. Use the Qt Online Installer if your platform doesn't
-provide better means (repositories, homebrew):
-https://www.qt.io/download-open-source/
+Package installation is available for some OS'es while others are pending.
 
-Next step for all platforms is to install the Tarsnap command-line client on
-your system:
-https://www.tarsnap.com/download.html
+----
+OS X
+----
 
-Once you have the Qt SDK setup and Tarsnap client installed you can proceed to
-building this app.
-
-===============
-OS X (Yosemite)
-===============
-
-The simple way via Homebrew:
+Tarsnap GUI can be easily installed on OS X via the Homebrew package manager:
 
 1) Install Homebrew from https://brew.sh
-2) To install tarsnap-gui (installs all dependencies too):
+2) To install tarsnap-gui (including all dependencies) run this in Terminal:
 $brew install tarsnap-gui && brew linkapps tarsnap-gui
 3) Tarsnap.app bundle has been linked into /Applications
 
 Hint: Homebrew installs the tarsnap client binaries in /usr/local/bin, so use
 that in the Setup Wizard Advanced page.
 
-The manual approach:
+-------
+FreeBSD
+-------
+
+Tarsnap GUI is part of the pkg/ports collection of FreeBSD. To install using
+pkg is as simple as:
+$ pkg install tarsnap tarsnap-gui 
+
+===================
+Source installation
+===================
+
+If there aren't any packages for your OS or you plan on doing development,
+want the latest version or just like building from source, this section is for
+you.
+
+Tarsnap GUI is built using the Qt SDK for cross-platform support. In order
+to build Tarsnap GUI for your system, you must first install the appropriate
+Qt 5 SDK on your system. Minimum recommended version for optimal results and
+platform support is Qt 5.4.0 or greater, though it is known to behave just fine
+on at least Qt 5.2.1. Use the Qt Online Installer if your platform doesn't
+provide better means (repositories, homebrew) for installing the SDK:
+https://www.qt.io/download-open-source/
+
+Next step for all platforms is to install the Tarsnap command-line client on
+your system using the steps at:
+https://www.tarsnap.com/download.html
+
+Once you have the Qt SDK setup and Tarsnap client installed you can proceed to
+building this Tarsnap GUI.
+
+--------------------
+OS X Yosemite and up
+--------------------
 
 Assuming that you have already built and installed the Tarsnap command-line
 client and Qt SDK, you have already configured your system for development.
@@ -40,7 +60,7 @@ command-line tools.
 
 Unless you're planning on doing serious development for the app, I recommend
 installing the dependencies via Homebrew for the simple reason that it gets you
-up and running with the minimum ammount of effort. After you install homebrew
+up and running with the minimum amount of effort. After you install homebrew
 all you need to do is "brew install tarsnap qt5" to get the requirements in
 place.
 
@@ -48,7 +68,7 @@ Assuming you survived up until now, let's proceed to the actual steps for
 building the app for your system:
 
 1) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
-2) git checkout v0.8 # switch to the desired stable version
+2) git checkout v0.9 # switch to the desired stable version
 3) qmake # /usr/local/opt/qt5/bin/qmake for Homebrew
 4) make -j$(sysctl -n hw.ncpu)
 5) open ./Tarsnap.app
@@ -56,29 +76,31 @@ building the app for your system:
 Optionally, if you want to install the app on your system:
 6) cp -r ./Tarsnap.app /Applications/
 
-============
-FreeBSD 10.1
-============
+-------------------
+FreeBSD 10.1 and up
+-------------------
 
 Last tested on FreeBSD 10.1 with Qt 5.3.2 and KDE 4/GNOME 3.
 
 1) pkg install git qt5-core qt5-widgets qt5-qmake qt5-network qt5-buildtools qt5-sql qt5-sqldrivers-sqlite3
 2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
-3) git checkout v0.8 # switch to the desired version
+3) git checkout v0.9 # switch to the desired version
 4) /usr/local/lib/qt5/bin/qmake
-5) Edit the resulted Makefile and append ",-L,/usr/local/lib" to the LFLAGS line. Somehow
+5') (This seems to have been fixed with Qmake 3.0/Qt5.5.1/FreeBSD10.3)
+Edit the resulted Makefile and append ",-L,/usr/local/lib" to the LFLAGS line. Somehow
 the clang++ spec of qmake ommits that on FreeBSD. The complete line should look like this:
 LFLAGS        = -pthread -Wl,-rpath,/usr/local/lib,-L,/usr/local/lib
 6) make -j$(sysctl -n hw.ncpu)
 7) ./tarsnap-gui
 
-====================
+--------------------
 Debian based distros
-====================
+--------------------
 
-These steps apply to all the Debian (included) based flavors and have been
+These steps apply to all the Debian based flavors and have been
 tested on these distros so far:
 
+* Ubuntu 16.04 LTS
 * Ubuntu 15.04 Vivid
 * Ubuntu 14.04.2 LTS Trusty
 * Linux Mint 17.1 Cinnamon
@@ -88,18 +110,18 @@ All of them seem to include the Qt5 SDK in the official main repos.
 
 1) sudo apt-get install g++ git qtbase5-dev
 2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
-3) git checkout v0.8 # switch to the desired version
+3) git checkout v0.9 # switch to the desired version
 4) export QT_SELECT=qt5 qmake && make -j$(nproc)
 5) ./tarsnap-gui
 
-=====================
+---------------------
 Red Hat based distros
-=====================
+---------------------
 
 Tested on Fedora 22
 
 1) sudo yum install gcc-c++ git qt5-qtbase-devel
 2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
-3) git checkout v0.8 # switch to the desired version
+3) git checkout v0.9 # switch to the desired version
 4) qmake-qt5 && make -j$(nproc)
 5) ./tarsnap-gui

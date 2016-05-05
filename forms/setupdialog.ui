@@ -1161,7 +1161,6 @@ color: darkred;
 &lt;p&gt;Tarsnap has been configured. Please note: &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;For your safety, the application does not store your Tarsnap password.&lt;/li&gt;
-&lt;li&gt;If you have multiple machines, you almost certainly want to create a separate key file for each machine.&lt;/li&gt;
 &lt;li&gt;Store your key file somewhere safe.  Your key file is:&lt;/li&gt;
 &lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>

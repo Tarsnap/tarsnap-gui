@@ -1218,21 +1218,6 @@ color: darkred;
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="doneKeyFileWarningLabelAside">
-         <property name="font">
-          <font>
-           <italic>true</italic>
-          </font>
-         </property>
-         <property name="text">
-          <string>The same encryption which ensures your data security also means that there is no way for anybody (including Tarsnap Backup Inc.) to restore your data without this key.</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
         <spacer name="verticalSpacer_9">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

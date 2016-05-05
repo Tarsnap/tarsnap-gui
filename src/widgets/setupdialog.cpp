@@ -246,8 +246,12 @@ void SetupDialog::restoreNo()
     _ui->tarsnapPasswordLineEdit->show();
     _ui->registerPageInfoLabel->setText(
         tr("Please use your Tarsnap account "
-           "credentials. Don't have an account? "
-           "Register one <a href=\"http://tarsnap.com\">here</a>."));
+           "credentials to register this machine with the service "
+	   "and create a local key for this machine."));
+    _ui->registerPageInfoLabelAside->setText(
+        tr("(Don't have an account? Register on "
+	    "<a href=\"http://tarsnap.com\">tarsnap.com</a>, "
+	    "then come back.)"));
     _ui->errorLabel->clear();
     setNextPage();
 }
@@ -264,10 +268,11 @@ void SetupDialog::restoreYes()
     _ui->browseKeyButton->show();
     _ui->registerPageInfoLabel->setText(
         tr("Please use your existing machine key "
-           "and a machine name of your liking. "
-           "The registration might take a bit to "
-           "verify archive consistency and integrity "
-           "using the cache, thus please be patient."));
+           "and choose a machine name. "));
+    _ui->registerPageInfoLabelAside->setText(
+        tr("(The registration will also "
+           "verify the archive integrity and consistency, "
+           "so please be patient.)"));
     _ui->errorLabel->clear();
     _ui->machineKeyCombo->clear();
     foreach(QFileInfo file, Utils::findKeysInPath(_appDataDir))

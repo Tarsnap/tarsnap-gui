@@ -16,13 +16,13 @@ JobWidget::JobWidget(QWidget *parent)
         if(_job->objectKey().isEmpty())
             emit enableSave(canSaveNew());
     });
-    connect(_ui->jobTreeWidget, &FilePicker::selectionChanged, [&]() {
+    connect(_ui->jobTreeWidget, &FilePickerWidget::selectionChanged, [&]() {
         if(_job->objectKey().isEmpty())
             emit enableSave(canSaveNew());
         else
             save();
     });
-//    connect(_ui->jobTreeWidget, &FilePicker::focusLost,
+//    connect(_ui->jobTreeWidget, &FilePickerWidget::focusLost,
 //            [&](){
 //                    if(!_job->objectKey().isEmpty())
 //                        save();

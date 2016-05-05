@@ -193,7 +193,7 @@ alignment: center;
         <number>0</number>
        </property>
        <item>
-        <widget class="FilePicker" name="jobTreeWidget" native="true">
+        <widget class="FilePickerWidget" name="jobTreeWidget" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
            <horstretch>0</horstretch>
@@ -509,9 +509,9 @@ selection-background-color: rgba(177,214,255, 150);
    <header>widgets/archivelistwidget.h</header>
   </customwidget>
   <customwidget>
-   <class>FilePicker</class>
+   <class>FilePickerWidget</class>
    <extends>QWidget</extends>
-   <header>filepicker.h</header>
+   <header>filepickerwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

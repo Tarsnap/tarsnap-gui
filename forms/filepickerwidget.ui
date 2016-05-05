@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FilePicker</class>
- <widget class="QWidget" name="FilePicker">
+ <class>FilePickerWidget</class>
+ <widget class="QWidget" name="FilePickerWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

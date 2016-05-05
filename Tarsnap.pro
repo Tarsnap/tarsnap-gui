@@ -20,8 +20,8 @@ SOURCES += \
     src/widgets/backuplistitem.cpp \
     src/widgets/backuplistwidget.cpp \
     src/widgets/archivelistwidget.cpp \
-    src/widgets/filepicker.cpp \
     src/widgets/filepickerdialog.cpp \
+    src/widgets/filepickerwidget.cpp \
     src/widgets/joblistitem.cpp \
     src/widgets/joblistwidget.cpp \
     src/widgets/jobwidget.cpp \
@@ -51,8 +51,8 @@ HEADERS  += \
     src/widgets/backuplistitem.h \
     src/widgets/backuplistwidget.h \
     src/widgets/archivelistwidget.h \
-    src/widgets/filepicker.h \
     src/widgets/filepickerdialog.h \
+    src/widgets/filepickerwidget.h \
     src/widgets/joblistitem.h \
     src/widgets/joblistwidget.h \
     src/widgets/jobwidget.h \
@@ -84,8 +84,8 @@ FORMS    += \
     forms/mainwindow.ui \
     forms/archiveitemwidget.ui \
     forms/restoredialog.ui \
-    forms/filepicker.ui \
     forms/filepickerdialog.ui \
+    forms/filepickerwidget.ui \
     forms/jobitemwidget.ui \
     forms/jobwidget.ui \
     forms/aboutwidget.ui \

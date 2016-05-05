@@ -35,7 +35,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Select files and directories to add to the backup list</string>
+      <string>Select files and directories for the backup list</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -61,7 +61,7 @@
       <bool>false</bool>
      </property>
      <property name="text">
-      <string>Add selected</string>
+      <string>Use selected</string>
      </property>
      <property name="default">
       <bool>true</bool>

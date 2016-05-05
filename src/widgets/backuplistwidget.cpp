@@ -99,6 +99,12 @@ void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
     recomputeListTotals();
 }
 
+void BackupListWidget::setItemsWithUrls(QList<QUrl> urls)
+{
+    clear();
+    addItemsWithUrls(urls);
+}
+
 QList<QUrl> BackupListWidget::itemUrls()
 {
     QList<QUrl> urls;

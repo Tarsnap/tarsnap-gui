@@ -19,6 +19,7 @@ public slots:
     QList<QUrl> itemUrls();
     void        removeItems();
     void        recomputeListTotals();
+    void        setItemsWithUrls(QList<QUrl> urls);
 
 signals:
     void itemTotals(quint64 count, quint64 size);

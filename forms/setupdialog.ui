@@ -263,7 +263,7 @@ min-width: 200px;
        <item>
         <widget class="QLabel" name="welcomePageInfoLabel">
          <property name="text">
-          <string>This guide will help you set up Tarsnap on your system and get started with the basics in no time.</string>
+          <string>This guide will help you set up Tarsnap on your system.</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -274,7 +274,7 @@ min-width: 200px;
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_5">
+        <widget class="QLabel" name="welcomePageInfoLabelAside">
          <property name="font">
           <font>
            <italic>true</italic>
@@ -425,7 +425,7 @@ min-width: 200px;
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label">
+           <widget class="QLabel" name="cliInfoLabel">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -714,12 +714,27 @@ border: none;
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="restorePageLabel">
          <property name="text">
-          <string>Are you using Tarsnap on this machine already or did so in the past? If yes you can proceed with the same key and rely on the backup data already uploaded to save costs and time.</string>
+          <string>Are you using Tarsnap on this machine already, or did so in the past?</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="restorePageLabelAside">
+         <property name="font">
+          <font>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>(If so, you can save time and money by using the same machine key, which allows Tarsnap to access the previously uploaded data.)</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -844,7 +859,7 @@ border: none;
        <item>
         <widget class="QLabel" name="registerPageInfoLabel">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please use your Tarsnap account credentials to register this machine with the service and create a local key specific to this machine. Don't have an account? Register on &lt;a href=&quot;http://tarsnap.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;tarsnap.com&lt;/span&gt;&lt;/a&gt; then come back here to fill in the credentials.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>Please use your Tarsnap account credentials to register this machine with the service and create a local key for this machine.</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -853,6 +868,21 @@ border: none;
           <bool>true</bool>
          </property>
          <property name="openExternalLinks">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="registerPageInfoLabelAside">
+         <property name="font">
+          <font>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>(Don't have an account? Register on &lt;a href=&quot;http://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt;, then come back.)</string>
+         </property>
+         <property name="wordWrap">
           <bool>true</bool>
          </property>
         </widget>
@@ -1114,7 +1144,7 @@ color: darkred;
        <item>
         <widget class="QLabel" name="label_13">
          <property name="text">
-          <string>Tarsnap has been configured. You can go ahead and start backing up your files. Here are some useful guidelines and good practices when working with Tarsnap:</string>
+          <string>Tarsnap has been configured.  Please note:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>

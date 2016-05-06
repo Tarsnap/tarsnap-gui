@@ -14,12 +14,12 @@ truncated and '.part' is appended to the archive name.
 * On vanilla configuration the app now offers to add default Jobs for common
 home directories like Desktop, Pictures and Documents.
 * You can now quickly create a Job from the current Backup list using the
-Backup button dropdown.
+Backup button drop-down.
 * Added bandwidth limiting settings for upload and download rates in
 Settings -> Application.
 * Added Home button to the File Browser that when clicked quickly jumps the
-browse tree to the users's home directory.
-* Homebrew is now the preffered installation method for OS X. Port and pkg's are 
+browse tree to the user's home directory.
+* Homebrew is now the preferred installation method for OS X. Port and pkg's are 
 available for FreeBSD too. See INSTALL dist file. 
 
 Improvements and fixes:

@@ -75,10 +75,10 @@ void BackupListWidget::addItemWithUrl(QUrl url)
     {
         auto confirm =
             QMessageBox::question(this, tr("Confirm action"),
-                                  tr("Adding the same files and directories"
-                                     " to the backup list multiple times"
-                                     " won't make your data safer. :-)"
-                                     "\nProceed with action?"));
+                                  tr("This file or directory was already"
+                                     " in the backup list; adding it again"
+                                     " will have no effect."
+                                     "\n\nProceed anyway?"));
         if(confirm == QMessageBox::No)
             return;
     }

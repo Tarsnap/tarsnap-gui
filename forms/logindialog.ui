@@ -69,7 +69,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Info: Authentication is occuring over https and your password is not stored beyond this instance</string>
+      <string>Authentication will occur over https, and your password will not be stored beyond this instance.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

@@ -204,7 +204,7 @@ background-color: rgba(237,243,254,255);
 }</string>
              </property>
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:normal;&quot;&gt;Drag and drop files and directories to back up or you can use the &lt;/span&gt;&lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; font-style:normal; text-decoration: underline; color:#0000ff;&quot;&gt;File browser&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:normal;&quot;&gt;Drag and drop files or directories to back up, or use the &lt;/span&gt;&lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; font-style:normal; text-decoration: underline; color:#0000ff;&quot;&gt;File browser&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="textFormat">
               <enum>Qt::RichText</enum>
@@ -598,7 +598,7 @@ color: black;
               <item>
                <widget class="QLabel" name="label_8">
                 <property name="text">
-                 <string>Whoa, it's lonely in here. How about I help you with a handful of predefined Jobs for commonly used directories like Desktop, Documents and Pictures?</string>
+                 <string>Would you like to automatically create a handful of predefined Jobs for commonly-used directories such as Desktop, Documents, and Pictures?</string>
                 </property>
                 <property name="wordWrap">
                  <bool>true</bool>
@@ -624,7 +624,7 @@ color: black;
                   <widget class="QPushButton" name="dismissButton">
                    <property name="minimumSize">
                     <size>
-                     <width>100</width>
+                     <width>120</width>
                      <height>0</height>
                     </size>
                    </property>
@@ -656,7 +656,7 @@ color: black;
                   <widget class="QPushButton" name="sureButton">
                    <property name="minimumSize">
                     <size>
-                     <width>100</width>
+                     <width>120</width>
                      <height>0</height>
                     </size>
                    </property>
@@ -667,7 +667,7 @@ color: black;
                     </size>
                    </property>
                    <property name="text">
-                    <string>Yeah, sure!</string>
+                    <string>Yes, create them</string>
                    </property>
                   </widget>
                  </item>
@@ -1940,8 +1940,8 @@ padding: 3px;
 }</string>
                 </property>
                 <property name="text">
-                 <string>Getting started with Tarsnap is as easy as following the steps outlined &lt;a href=&quot;https://www.tarsnap.com/gettingstarted.html&quot;&gt;here&lt;/a&gt;.
-For help regarding Tarsnap GUI please follow this page on &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-gui/wiki/Tarsnap&quot;&gt;Github&lt;/a&gt;.</string>
+                 <string>Getting started with Tarsnap is as easy as following &lt;a href=&quot;https://www.tarsnap.com/gettingstarted.html&quot;&gt;these steps&lt;/a&gt;.
+For help regarding Tarsnap GUI, please visit the &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-gui/wiki/Tarsnap-GUI&quot;&gt;Github page&lt;/a&gt;.</string>
                 </property>
                 <property name="wordWrap">
                  <bool>true</bool>

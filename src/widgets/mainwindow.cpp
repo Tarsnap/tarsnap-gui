@@ -784,7 +784,7 @@ void MainWindow::appendToConsoleLog(const QString &log)
         bf.setBackground(QBrush(qApp->palette().base().color()));
     cursor.mergeBlockFormat(bf);
     cursor.insertText(QString("[%1] %2\n").arg(QDateTime::currentDateTime().toString(Qt::DefaultLocaleShortDate)).arg(log));
-    cursor.insertText(QLatin1String("--------------------------------------------------------------------------------"));
+    cursor.insertText(QLatin1String("----------------------------------------------------------------------------"));
     _ui->consoleLog->moveCursor(QTextCursor::End);
     _ui->consoleLog->ensureCursorVisible();
 }

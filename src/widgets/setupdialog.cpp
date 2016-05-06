@@ -249,9 +249,9 @@ void SetupDialog::restoreNo()
            "credentials to register this machine with the service "
 	   "and create a local key for this machine."));
     _ui->registerPageInfoLabelAside->setText(
-        tr("(Don't have an account? Register on "
+        tr("Don't have an account? Register on "
 	    "<a href=\"http://tarsnap.com\">tarsnap.com</a>, "
-	    "then come back.)"));
+	    "then come back."));
     _ui->errorLabel->clear();
     setNextPage();
 }
@@ -270,9 +270,9 @@ void SetupDialog::restoreYes()
         tr("Please use your existing machine key "
            "and choose a machine name. "));
     _ui->registerPageInfoLabelAside->setText(
-        tr("(The registration will also "
+        tr("The registration will also "
            "verify the archive integrity and consistency, "
-           "so please be patient.)"));
+           "so please be patient."));
     _ui->errorLabel->clear();
     _ui->machineKeyCombo->clear();
     foreach(QFileInfo file, Utils::findKeysInPath(_appDataDir))

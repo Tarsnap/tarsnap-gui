@@ -5,7 +5,7 @@ FilePickerDialog::FilePickerDialog(QWidget *parent)
     : QDialog(parent), _ui(new Ui::FilePickerDialog)
 {
     _ui->setupUi(this);
-    connect(_ui->filePickerWidget, &FilePicker::selectionChanged, [&]()
+    connect(_ui->filePickerWidget, &FilePickerWidget::selectionChanged, [&]()
     {
         _ui->selectButton->setEnabled(!_ui->filePickerWidget->getSelectedUrls().isEmpty());
     });

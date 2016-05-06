@@ -1,12 +1,12 @@
-#include "filepicker.h"
+#include "filepickerwidget.h"
 #include "debug.h"
 
 #include <QKeyEvent>
 #include <QPersistentModelIndex>
 #include <QSettings>
 
-FilePicker::FilePicker(QWidget *parent)
-    : QWidget(parent), _ui(new Ui::FilePicker)
+FilePickerWidget::FilePickerWidget(QWidget *parent)
+    : QWidget(parent), _ui(new Ui::FilePickerWidget)
 {
     _ui->setupUi(this);
     _ui->optionsContainer->hide();
@@ -34,7 +34,7 @@ FilePicker::FilePicker(QWidget *parent)
                     emit selectionChanged();
             });
     connect(_ui->filterLineEdit, &QLineEdit::textEdited, this,
-            &FilePicker::updateFilter);
+            &FilePickerWidget::updateFilter);
     connect(_ui->showHiddenCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::Hidden);
@@ -64,12 +64,12 @@ FilePicker::FilePicker(QWidget *parent)
             [&]() { setCurrentPath(QDir::homePath()); });
 }
 
-FilePicker::~FilePicker()
+FilePickerWidget::~FilePickerWidget()
 {
     delete _ui;
 }
 
-void FilePicker::reset()
+void FilePickerWidget::reset()
 {
     _model.reset();
     _ui->treeView->reset();
@@ -78,7 +78,7 @@ void FilePicker::reset()
         settings.value("app/file_browse_last", QDir::homePath()).toString());
 }
 
-QList<QUrl> FilePicker::getSelectedUrls()
+QList<QUrl> FilePickerWidget::getSelectedUrls()
 {
     QList<QUrl> urls;
     QList<QPersistentModelIndex> indexList = _model.checkedIndexes();
@@ -87,7 +87,7 @@ QList<QUrl> FilePicker::getSelectedUrls()
     return urls;
 }
 
-void FilePicker::setSelectedUrls(const QList<QUrl> &urls)
+void FilePickerWidget::setSelectedUrls(const QList<QUrl> &urls)
 {
     _model.reset();
     foreach(const QUrl url, urls)
@@ -97,7 +97,7 @@ void FilePicker::setSelectedUrls(const QList<QUrl> &urls)
     }
 }
 
-void FilePicker::keyReleaseEvent(QKeyEvent *event)
+void FilePickerWidget::keyReleaseEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
@@ -120,7 +120,7 @@ void FilePicker::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-bool FilePicker::eventFilter(QObject *obj, QEvent *event)
+bool FilePickerWidget::eventFilter(QObject *obj, QEvent *event)
 {
     if((obj == _ui->treeView) && (event->type() == QEvent::FocusOut))
     {
@@ -137,7 +137,7 @@ bool FilePicker::eventFilter(QObject *obj, QEvent *event)
     }
 }
 
-void FilePicker::updateFilter(QString filter)
+void FilePickerWidget::updateFilter(QString filter)
 {
     _model.setNameFilters(QStringList("*"));
     if(filter.startsWith('/'))
@@ -146,7 +146,7 @@ void FilePicker::updateFilter(QString filter)
         _model.setNameFilters(QStringList(filter));
 }
 
-void FilePicker::setCurrentPath(const QString path)
+void FilePickerWidget::setCurrentPath(const QString path)
 {
     _ui->treeView->setCurrentIndex(_model.index(path));
     _ui->treeView->scrollTo(_model.index(path));

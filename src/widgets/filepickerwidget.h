@@ -2,7 +2,7 @@
 #define FILEPICKER_H
 
 #include "customfilesystemmodel.h"
-#include "ui_filepicker.h"
+#include "ui_filepickerwidget.h"
 
 #include <QCompleter>
 #include <QFileSystemModel>
@@ -10,16 +10,16 @@
 
 namespace Ui
 {
-class FilePicker;
+class FilePickerWidget;
 }
 
-class FilePicker : public QWidget
+class FilePickerWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit FilePicker(QWidget *parent = nullptr);
-    ~FilePicker();
+    explicit FilePickerWidget(QWidget *parent = nullptr);
+    ~FilePickerWidget();
 
     void        reset();
     QList<QUrl> getSelectedUrls();
@@ -38,7 +38,7 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
-    Ui::FilePicker       *_ui;
+    Ui::FilePickerWidget       *_ui;
     CustomFileSystemModel _model;
     QCompleter            _completer;
 };

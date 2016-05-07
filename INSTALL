@@ -11,12 +11,14 @@ OS X
 Tarsnap GUI can be easily installed on OS X via the Homebrew package manager:
 
 1) Install Homebrew from https://brew.sh
-2) To install tarsnap-gui (including all dependencies) run this in Terminal:
+2) Tap Homebrew-gui repo:
+$brew tap homebrew/gui
+3) To install tarsnap-gui (including all dependencies) run this in Terminal:
 $brew install tarsnap-gui && brew linkapps tarsnap-gui
-3) Tarsnap.app bundle has been linked into /Applications
 
-Hint: Homebrew installs the tarsnap client binaries in /usr/local/bin, so use
-that in the Setup Wizard Advanced page.
+Tarsnap.app bundle has been linked into /Applications. Homebrew installs the
+tarsnap cli programs in /usr/local/bin, so use that in the Setup Wizard
+Advanced page.
 
 -------
 FreeBSD

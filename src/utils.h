@@ -9,7 +9,7 @@
 #define CMD_TARSNAPKEYMGMT  "tarsnap-keymgmt"
 
 #define DEFAULT_SKIP_FILES_OSX                                                 \
-    ".DS_Store:.fseventsd:.Spotlight-V100:._.Trashes:.Trashes"
+    ".DS_Store:.localized:.fseventsd:.Spotlight-V100:._.Trashes:.Trashes"
 #define DEFAULT_SKIP_FILES_WINDOWS                                             \
     "$RECYCLE.BIN:System Volume Information:Thumbs.db"
 #define DEFAULT_SKIP_FILES_LINUX ".lost+found"

@@ -347,7 +347,7 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
         _ui->errorLabel->clear();
         _ui->doneKeyFileNameLabel->setText(
                     QString("<a href=\"%1\">%2</a>")
-                           .arg(QUrl::fromLocalFile(_tarsnapKeyFile).toString())
+                           .arg(QUrl::fromLocalFile(QFileInfo(_tarsnapKeyFile).absolutePath()).toString())
                            .arg(_tarsnapKeyFile));
         _ui->doneButton->setEnabled(true);
         setNextPage();

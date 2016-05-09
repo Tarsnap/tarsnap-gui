@@ -283,11 +283,6 @@ min-width: 200px;
            <italic>true</italic>
           </font>
          </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-	margin-left: 1em;
-}</string>
-         </property>
          <property name="text">
           <string>You can also skip this wizard and set up everything inside the application.</string>
          </property>
@@ -741,11 +736,6 @@ border: none;
            <italic>true</italic>
           </font>
          </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-	margin-left: 1em;
-}</string>
-         </property>
          <property name="text">
           <string>If so, you can save time and money by using the same machine key, which allows Tarsnap to access the previously uploaded data.</string>
          </property>
@@ -891,11 +881,6 @@ border: none;
           <font>
            <italic>true</italic>
           </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-	margin-left: 1em;
-}</string>
          </property>
          <property name="text">
           <string>Don't have an account? Register on &lt;a href=&quot;http://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt;, then come back.</string>

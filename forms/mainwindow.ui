@@ -7,14 +7,8 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>579</height>
+    <height>600</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>600</width>
-    <height>0</height>
-   </size>
   </property>
   <property name="acceptDrops">
    <bool>false</bool>
@@ -34,7 +28,7 @@
     <number>0</number>
    </property>
    <property name="topMargin">
-    <number>19</number>
+    <number>21</number>
    </property>
    <property name="rightMargin">
     <number>0</number>
@@ -831,7 +825,7 @@ border: 1px solid white;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>579</width>
+                <width>580</width>
                 <height>393</height>
                </rect>
               </property>

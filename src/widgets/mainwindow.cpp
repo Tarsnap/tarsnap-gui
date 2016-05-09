@@ -25,8 +25,6 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::MainWindow),
-      _logo(":/icons/tarsnap-logo.png"),
-      _icon(":/icons/tarsnap-logo.png"),
       _useIECPrefixes(false),
       _purgeTimerCount(0),
       _purgeCountdownWindow(this),
@@ -479,8 +477,20 @@ void MainWindow::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
-    _icon.paint(&p, width() - _logo.width() - 5, 2, _logo.width(),
-                _logo.height());
+    if(width() < 600)
+    {
+        QPixmap pixmap(":/icons/tarsnap-logo-icon.png");
+        QIcon icon;
+        icon.addFile(":/icons/tarsnap-logo-icon.png");
+        icon.paint(&p, width() - pixmap.width() - 5, 2, pixmap.width(), pixmap.height());
+    }
+    else
+    {
+        QPixmap pixmap(":/icons/tarsnap-logo.png");
+        QIcon icon;
+        icon.addFile(":/icons/tarsnap-logo.png");
+        icon.paint(&p, width() - pixmap.width() - 5, 2, pixmap.width(), pixmap.height());
+    }
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event)

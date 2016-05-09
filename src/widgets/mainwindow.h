@@ -104,8 +104,6 @@ private slots:
 
 private:
     Ui::MainWindow *_ui;
-    QPixmap         _logo;
-    QIcon           _icon;
     QDialog         _aboutWindow;
     QPoint          _windowDragPos;
     QString         _lastTimestamp;

@@ -247,11 +247,11 @@ void SetupDialog::restoreNo()
     _ui->registerPageInfoLabel->setText(
         tr("Please use your Tarsnap account "
            "credentials to register this machine with the service "
-	   "and create a local key for this machine."));
+           "and create a local key for this machine."));
     _ui->registerPageInfoLabelAside->setText(
         tr("Don't have an account? Register on "
-	    "<a href=\"http://tarsnap.com\">tarsnap.com</a>, "
-	    "then come back."));
+        "<a href=\"http://tarsnap.com\">tarsnap.com</a>, "
+        "then come back."));
     _ui->errorLabel->clear();
     setNextPage();
 }
@@ -345,10 +345,10 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
     {
     case TaskStatus::Completed:
         _ui->errorLabel->clear();
-	_ui->doneKeyFileNameLabel->setText(
-	    QString("<a href=\"%1\">%2</a>")
-	    .arg(QUrl::fromLocalFile(_tarsnapKeyFile).toString())
-	    .arg(_tarsnapKeyFile));
+        _ui->doneKeyFileNameLabel->setText(
+                    QString("<a href=\"%1\">%2</a>")
+                           .arg(QUrl::fromLocalFile(_tarsnapKeyFile).toString())
+                           .arg(_tarsnapKeyFile));
         _ui->doneButton->setEnabled(true);
         setNextPage();
         break;

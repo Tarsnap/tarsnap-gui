@@ -113,7 +113,7 @@ All of them seem to include the Qt5 SDK in the official main repos.
 1) sudo apt-get install g++ git qtbase5-dev
 2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
 3) git checkout v0.9 # switch to the desired version
-4) export QT_SELECT=qt5 qmake && make -j$(nproc)
+4) QT_SELECT=qt5 qmake && make -j$(nproc)
 5) ./tarsnap-gui
 
 ---------------------

@@ -198,6 +198,9 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
        <property name="text">
         <string>Setup wizard</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="0" column="0" rowspan="2">
@@ -1192,7 +1195,7 @@ color: darkred;
 }</string>
          </property>
          <property name="text">
-          <string>/home/me/example/keyfile</string>
+          <string/>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

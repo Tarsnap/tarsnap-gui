@@ -345,8 +345,10 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
     {
     case TaskStatus::Completed:
         _ui->errorLabel->clear();
-        _ui->doneInfoPlainTextEdit->setPlainText(
-            _ui->doneInfoPlainTextEdit->toPlainText().arg(_tarsnapKeyFile));
+	_ui->doneKeyFileNameLabel->setText(
+	    QString("<a href=\"%1\">%2</a>")
+	    .arg(QUrl::fromLocalFile(_tarsnapKeyFile).toString())
+	    .arg(_tarsnapKeyFile));
         _ui->doneButton->setEnabled(true);
         setNextPage();
         break;

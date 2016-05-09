@@ -1157,12 +1157,27 @@ color: darkred;
         <number>0</number>
        </property>
        <item>
-        <widget class="QLabel" name="label_13">
-         <property name="text">
-          <string>Tarsnap has been configured.  Please note:</string>
+        <spacer name="verticalSpacer_10">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="doneInfo">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
+&lt;p&gt;Tarsnap has been configured. Please note: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For your safety, the application does not store your Tarsnap password.&lt;/li&gt;
+&lt;li&gt;Store your key file somewhere safe.  Your key file is:&lt;/li&gt;
+&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -1170,23 +1185,64 @@ color: darkred;
         </widget>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="doneInfoPlainTextEdit">
+        <widget class="QLabel" name="doneKeyFileNameLabel">
          <property name="styleSheet">
-          <string notr="true">QPlainTextEdit {
-background: rgba(255,255,255,130);
-border-radius: 4px;
+          <string notr="true">QLabel {
+	margin-left: 2em;
 }</string>
          </property>
-         <property name="readOnly">
+         <property name="text">
+          <string>/home/me/example/keyfile</string>
+         </property>
+         <property name="wordWrap">
           <bool>true</bool>
          </property>
-         <property name="plainText">
-          <string>• Your machine's key file is located at %2.
-• Store a backup of the machine key somewhere safe. If you lose the Tarsnap key file for this machine, you will not be able to recover any of the archived data using that key.
-• The application doesn't store your Tarsnap credentials for safety reasons.
-• If you have multiple machines, you almost certainly want to create a separate key file for each machine.</string>
+         <property name="openExternalLinks">
+          <bool>true</bool>
          </property>
         </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="doneKeyFileWarningLabel">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+	background-color: #ffc6c6;
+	margin: 0.125em 1em;
+	padding: 0.125em;
+}</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="text">
+          <string>If you lose the key file for this machine, you will not be able to access your archived data!</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_9">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item alignment="Qt::AlignBottom">
         <widget class="QWidget" name="buttonBox_5" native="true">
@@ -1276,7 +1332,6 @@ border-radius: 4px;
   <tabstop>machineKeyCombo</tabstop>
   <tabstop>browseKeyButton</tabstop>
   <tabstop>registerMachineButton</tabstop>
-  <tabstop>doneInfoPlainTextEdit</tabstop>
   <tabstop>doneButton</tabstop>
  </tabstops>
  <resources>

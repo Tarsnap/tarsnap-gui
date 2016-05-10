@@ -13,9 +13,17 @@ Job::Job(QObject *parent)
       _optionFollowSymLinks(false),
       _optionSkipFilesSize(0),
       _optionSkipFiles(false),
-      _optionSkipFilesPatterns(),
+      _optionSkipFilesPatterns(DEFAULT_SKIP_FILES),
       _optionSkipNoDump(false)
 {
+    QSettings settings;
+    setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
+    setOptionTraverseMount(settings.value("tarsnap/traverse_mount", true).toBool());
+    setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", false).toBool());
+    setOptionSkipNoDump(settings.value("app/skip_nodump", false).toBool());
+    setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toInt());
+    setOptionSkipFiles(settings.value("app/skip_system_enabled", false).toBool());
+    setOptionSkipFilesPatterns(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
 }
 
 Job::~Job()

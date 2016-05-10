@@ -43,8 +43,8 @@ public:
     bool optionFollowSymLinks() const;
     void setOptionFollowSymLinks(bool optionFollowSymLinks);
 
-    quint64 optionSkipFilesSize() const;
-    void setOptionSkipFilesSize(const quint64 &optionSkipFilesSize);
+    int optionSkipFilesSize() const;
+    void setOptionSkipFilesSize(const int &optionSkipFilesSize);
 
     bool optionSkipFiles() const;
     void setOptionSkipFiles(bool optionSkipFiles);
@@ -75,7 +75,7 @@ private:
     bool              _optionPreservePaths;
     bool              _optionTraverseMount;
     bool              _optionFollowSymLinks;
-    quint64           _optionSkipFilesSize;
+    int               _optionSkipFilesSize;
     bool              _optionSkipFiles;
     QString           _optionSkipFilesPatterns;
     bool              _optionSkipNoDump;

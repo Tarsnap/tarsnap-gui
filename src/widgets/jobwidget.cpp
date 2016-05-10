@@ -134,8 +134,7 @@ void JobWidget::save()
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
         _job->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
-        _job->setOptionSkipFilesSize(
-            static_cast<quint64>(_ui->skipFilesSizeSpinBox->value()));
+        _job->setOptionSkipFilesSize(_ui->skipFilesSizeSpinBox->value());
         _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
         _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
         _job->save();
@@ -155,8 +154,7 @@ void JobWidget::saveNew()
         _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
         _job->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
-        _job->setOptionSkipFilesSize(
-            static_cast<quint64>(_ui->skipFilesSizeSpinBox->value()));
+        _job->setOptionSkipFilesSize(_ui->skipFilesSizeSpinBox->value());
         _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
         _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
         _job->save();
@@ -180,8 +178,7 @@ void JobWidget::updateDetails()
         _ui->traverseMountCheckBox->setChecked(_job->optionTraverseMount());
         _ui->followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());
         _ui->skipNoDumpCheckBox->setChecked(_job->optionSkipNoDump());
-        _ui->skipFilesSizeSpinBox->setValue(
-            static_cast<int>(_job->optionSkipFilesSize()));
+        _ui->skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
         _ui->skipFilesCheckBox->setChecked(_job->optionSkipFiles());
         _ui->skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
     }

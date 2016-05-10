@@ -108,12 +108,12 @@ void Job::setOptionTraverseMount(bool optionTraverseMount)
     _optionTraverseMount = optionTraverseMount;
 }
 
-quint64 Job::optionSkipFilesSize() const
+int Job::optionSkipFilesSize() const
 {
     return _optionSkipFilesSize;
 }
 
-void Job::setOptionSkipFilesSize(const quint64 &optionSkipFilesSize)
+void Job::setOptionSkipFilesSize(const int &optionSkipFilesSize)
 {
     _optionSkipFilesSize = optionSkipFilesSize;
 }

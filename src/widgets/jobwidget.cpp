@@ -80,6 +80,7 @@ void JobWidget::setJob(const JobPtr &job)
 {
     _job = job;
 
+    _saveEnabled = false;
     // Creating a new job?
     if(_job->objectKey().isEmpty())
     {
@@ -88,22 +89,20 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->restoreLatestArchiveButton->hide();
         _ui->jobNameLabel->hide();
         _ui->jobNameLineEdit->show();
-        _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
         _ui->jobNameLineEdit->setFocus();
     }
     else
     {
-        _saveEnabled = false;
         _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(_ui->archiveListTab),
                                       true);
         _ui->restoreLatestArchiveButton->show();
         _ui->jobNameLabel->show();
         _ui->jobNameLineEdit->hide();
-        _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
         connect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
-        _saveEnabled = true;
     }
+    _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
     updateDetails();
+    _saveEnabled = true;
 }
 
 void JobWidget::save()

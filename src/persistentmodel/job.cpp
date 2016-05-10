@@ -253,7 +253,7 @@ void Job::load()
         _optionFollowSymLinks =
             query.value(query.record().indexOf("optionFollowSymLinks")).toBool();
         _optionSkipFilesSize =
-            query.value(query.record().indexOf("optionSkipFilesSize")).toULongLong();
+            query.value(query.record().indexOf("optionSkipFilesSize")).toInt();
         _optionSkipFiles =
             query.value(query.record().indexOf("optionSkipFiles")).toBool();
         _optionSkipFilesPatterns =

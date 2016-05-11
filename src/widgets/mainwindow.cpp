@@ -819,12 +819,9 @@ void MainWindow::saveKeyId(QString key, int id)
 void MainWindow::browseForBackupItems()
 {
     FilePickerDialog picker;
-    QList<QUrl> urls = _ui->backupListWidget->itemUrls();
-    picker.setSelectedUrls(urls);
+    picker.setSelectedUrls(_ui->backupListWidget->itemUrls());
     if(picker.exec())
-        QMetaObject::invokeMethod(_ui->backupListWidget, "setItemsWithUrls",
-                                  QUEUED,
-                                  Q_ARG(QList<QUrl>, picker.getSelectedUrls()));
+        _ui->backupListWidget->setItemsWithUrls(picker.getSelectedUrls());
 }
 
 void MainWindow::accountMachineUseHostnameButtonClicked()

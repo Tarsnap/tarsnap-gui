@@ -75,9 +75,9 @@ void BackupListWidget::addItemWithUrl(QUrl url)
     {
         auto confirm =
             QMessageBox::question(this, tr("Confirm action"),
-                                  tr("This file or directory was already"
-                                     " in the backup list; adding it again"
-                                     " will have no effect:\n%1\n"
+                                  tr("The file or directory:\n    %1\n"
+                                     "was already in the backup list;"
+                                     " adding it again will have no effect.\n"
                                      "Add anyway?").arg(url.toLocalFile()));
         if(confirm == QMessageBox::No)
             return;

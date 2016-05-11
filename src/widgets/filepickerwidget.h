@@ -24,6 +24,7 @@ public:
     void        reset();
     QList<QUrl> getSelectedUrls();
     void        setSelectedUrls(const QList<QUrl> &urls);
+    void        selectUrl(QUrl url);
 
 public slots:
     void updateFilter(QString filter);

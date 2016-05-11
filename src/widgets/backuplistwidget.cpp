@@ -90,6 +90,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
             &BackupListWidget::recomputeListTotals);
     insertItem(count(), item);
     setItemWidget(item, item->widget());
+    emit itemWithUrlAdded(url);
 }
 
 void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)

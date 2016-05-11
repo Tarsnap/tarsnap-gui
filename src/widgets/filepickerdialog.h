@@ -19,6 +19,7 @@ public:
 
     QList<QUrl> getSelectedUrls();
     void setSelectedUrls(QList<QUrl> urls);
+    void selectUrl(QUrl url);
 
 private:
     Ui::FilePickerDialog *_ui;

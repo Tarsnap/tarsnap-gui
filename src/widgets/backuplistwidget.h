@@ -23,6 +23,7 @@ public slots:
 
 signals:
     void itemTotals(quint64 count, quint64 size);
+    void itemWithUrlAdded(QUrl url);
 
 protected:
     void dragMoveEvent(QDragMoveEvent *event);

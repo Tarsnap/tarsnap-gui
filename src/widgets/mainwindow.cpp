@@ -819,6 +819,8 @@ void MainWindow::saveKeyId(QString key, int id)
 void MainWindow::browseForBackupItems()
 {
     FilePickerDialog picker;
+    connect(_ui->backupListWidget, &BackupListWidget::itemWithUrlAdded,
+            &picker, &FilePickerDialog::selectUrl);
     picker.setSelectedUrls(_ui->backupListWidget->itemUrls());
     if(picker.exec())
         _ui->backupListWidget->setItemsWithUrls(picker.getSelectedUrls());

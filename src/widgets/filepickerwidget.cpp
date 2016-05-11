@@ -97,6 +97,12 @@ void FilePickerWidget::setSelectedUrls(const QList<QUrl> &urls)
     }
 }
 
+void FilePickerWidget::selectUrl(QUrl url)
+{
+    _model.setData(_model.index(url.toLocalFile()), Qt::Checked,
+                   Qt::CheckStateRole);
+}
+
 void FilePickerWidget::keyReleaseEvent(QKeyEvent *event)
 {
     switch(event->key())

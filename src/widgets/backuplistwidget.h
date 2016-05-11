@@ -14,14 +14,16 @@ public:
     ~BackupListWidget();
 
 public slots:
-    void addItemWithUrl(QUrl url);
-    void addItemsWithUrls(QList<QUrl> urls);
+    void        addItemWithUrl(QUrl url);
+    void        addItemsWithUrls(QList<QUrl> urls);
     QList<QUrl> itemUrls();
     void        removeItems();
     void        recomputeListTotals();
+    void        setItemsWithUrls(QList<QUrl> urls);
 
 signals:
     void itemTotals(quint64 count, quint64 size);
+    void itemWithUrlAdded(QUrl url);
 
 protected:
     void dragMoveEvent(QDragMoveEvent *event);

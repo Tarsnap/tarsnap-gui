@@ -75,10 +75,10 @@ void BackupListWidget::addItemWithUrl(QUrl url)
     {
         auto confirm =
             QMessageBox::question(this, tr("Confirm action"),
-                                  tr("This file or directory was already"
-                                     " in the backup list; adding it again"
-                                     " will have no effect."
-                                     "\n\nProceed anyway?"));
+                                  tr("The file or directory:\n    %1\n"
+                                     "was already in the backup list;"
+                                     " adding it again will have no effect.\n"
+                                     "Add anyway?").arg(url.toLocalFile()));
         if(confirm == QMessageBox::No)
             return;
     }
@@ -90,6 +90,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
             &BackupListWidget::recomputeListTotals);
     insertItem(count(), item);
     setItemWidget(item, item->widget());
+    emit itemWithUrlAdded(url);
 }
 
 void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
@@ -97,6 +98,12 @@ void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
     foreach(QUrl url, urls)
         addItemWithUrl(url);
     recomputeListTotals();
+}
+
+void BackupListWidget::setItemsWithUrls(QList<QUrl> urls)
+{
+    clear();
+    addItemsWithUrls(urls);
 }
 
 QList<QUrl> BackupListWidget::itemUrls()

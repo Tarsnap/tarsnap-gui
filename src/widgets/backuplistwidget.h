@@ -14,8 +14,8 @@ public:
     ~BackupListWidget();
 
 public slots:
-    void addItemWithUrl(QUrl url);
-    void addItemsWithUrls(QList<QUrl> urls);
+    void        addItemWithUrl(QUrl url);
+    void        addItemsWithUrls(QList<QUrl> urls);
     QList<QUrl> itemUrls();
     void        removeItems();
     void        recomputeListTotals();

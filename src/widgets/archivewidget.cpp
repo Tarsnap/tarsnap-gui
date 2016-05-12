@@ -49,12 +49,14 @@ void ArchiveWidget::updateDetails()
         {
             _ui->archiveJobLabel->hide();
             _ui->archiveJobLabelField->hide();
+            _ui->archiveIconLabel->setStyleSheet("image: url(:/icons/tarsnap-icon-big.png)");
         }
         else
         {
             _ui->archiveJobLabel->show();
             _ui->archiveJobLabelField->show();
             _ui->archiveJobLabel->setText(_archive->jobRef());
+            _ui->archiveIconLabel->setStyleSheet("image: url(:/icons/hard-drive-big.png)");
         }
         _ui->archiveSizeLabel->setText(
             Utils::humanBytes(_archive->sizeTotal(), _useIECPrefixes));

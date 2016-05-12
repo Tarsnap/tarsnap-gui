@@ -42,5 +42,6 @@
         <file>icons/collapse-down@2x.png</file>
         <file>icons/tarsnap-logo-icon.png</file>
         <file>icons/tarsnap-logo-icon@2x.png</file>
+        <file>icons/hard-drive-big.png</file>
     </qresource>
 </RCC>

@@ -2,7 +2,6 @@
 #include "debug.h"
 #include "utils.h"
 
-/*TODO: These could be turned into a user setting */
 #define JOB_NAME_PREFIX QLatin1String("Job_")
 
 Job::Job(QObject *parent)

@@ -68,7 +68,7 @@ public:
     void setOptionFollowSymLinks(bool optionFollowSymLinks);
 
     quint64 optionSkipFilesSize() const;
-    void setOptionSkipFilesSize(const quint64 &optionSkipFilesSize);
+    void setOptionSkipFilesSize(const int &optionSkipFilesSize);
 
     bool optionSkipSystem() const;
     void setOptionSkipSystem(bool optionSkipSystem);

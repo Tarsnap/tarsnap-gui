@@ -2,7 +2,7 @@
 
 #include <QFileInfo>
 
-#define MB 1048576
+#define MB 1048576ULL
 
 BackupTask::BackupTask()
     : _uuid(QUuid::createUuid()),
@@ -25,7 +25,7 @@ BackupTask::BackupTask()
         settings.value("tarsnap/traverse_mount", true).toBool());
     setOptionFollowSymLinks(
         settings.value("tarsnap/follow_symlinks", false).toBool());
-    setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toULongLong());
+    setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toInt());
     setOptionSkipSystem(settings.value("app/skip_system_enabled", false).toBool());
     setOptionSkipSystemFiles(
         settings.value("app/skip_system_files", "").toString());
@@ -46,9 +46,9 @@ quint64 BackupTask::optionSkipFilesSize() const
     return _optionSkipFilesSize;
 }
 
-void BackupTask::setOptionSkipFilesSize(const quint64 &optionSkipFilesSize)
+void BackupTask::setOptionSkipFilesSize(const int &optionSkipFilesSize)
 {
-    _optionSkipFilesSize = MB * optionSkipFilesSize;
+    _optionSkipFilesSize = MB * static_cast<quint64>(optionSkipFilesSize);
 }
 
 bool BackupTask::optionFollowSymLinks() const

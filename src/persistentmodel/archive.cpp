@@ -155,6 +155,7 @@ QString Archive::archiveStats()
                      .arg(_sizeUniqueCompressed));
     return stats;
 }
+
 QString Archive::jobRef() const
 {
     return _jobRef;

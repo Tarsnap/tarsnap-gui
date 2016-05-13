@@ -7,6 +7,8 @@
 #include <QObject>
 #include <QUrl>
 
+#define JOB_NAME_PREFIX QLatin1String("Job_")
+
 class Job;
 typedef QSharedPointer<Job> JobPtr;
 

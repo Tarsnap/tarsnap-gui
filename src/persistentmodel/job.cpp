@@ -2,8 +2,6 @@
 #include "debug.h"
 #include "utils.h"
 
-#define JOB_NAME_PREFIX QLatin1String("Job_")
-
 Job::Job(QObject *parent)
     : QObject(parent),
       _optionScheduledEnabled(false),

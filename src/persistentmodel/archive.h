@@ -8,7 +8,7 @@
 #include <QSharedPointer>
 #include <QStringList>
 
-#define ARCHIVE_TIMESTAMP_FORMAT "_yyyy-MM-dd_HH-mm-ss"
+#define ARCHIVE_TIMESTAMP_FORMAT QLatin1String("_yyyy-MM-dd_HH-mm-ss")
 
 struct ArchiveRestoreOptions
 {

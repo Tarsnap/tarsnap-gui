@@ -46,7 +46,26 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     connect(_archive.data(), &Archive::changed, this, &ArchiveListItem::update,
             QUEUED);
 
-    _ui.nameLabel->setText(_archive->name());
+    QString displayName;
+    QString baseName = _archive->name();
+    if(!_archive->jobRef().isEmpty()
+       && _archive->name().startsWith(JOB_NAME_PREFIX))
+    {
+        displayName = QString("<font color=\"grey\">%1</font>").arg(JOB_NAME_PREFIX);
+        baseName.remove(0, JOB_NAME_PREFIX.size());
+    }
+    if(baseName.size() > ARCHIVE_TIMESTAMP_FORMAT.size())
+    {
+        QString timestamp = baseName.right(ARCHIVE_TIMESTAMP_FORMAT.size());
+        QDateTime validate = QDateTime::fromString(timestamp, ARCHIVE_TIMESTAMP_FORMAT);
+        if(validate.isValid())
+        {
+            baseName.chop(timestamp.size());
+            baseName += QString("<font color=\"grey\">%1</font>").arg(timestamp);
+        }
+    }
+    displayName += baseName;
+    _ui.nameLabel->setText(displayName);
     _ui.nameLabel->setToolTip(_archive->name());
     QString detail(_archive->timestamp().toString(Qt::DefaultLocaleLongDate));
     if(_archive->sizeTotal() != 0)

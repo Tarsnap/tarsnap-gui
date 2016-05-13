@@ -1079,11 +1079,15 @@ void MainWindow::updateAccountCredit(qreal credit, QDate date)
 
 void MainWindow::updateLastMachineActivity(QStringList activityFields)
 {
+    if(activityFields.size() < 2)
+        return;
+    QString machineActivity = activityFields[0] + ' ' + activityFields[1];
     QSettings settings;
-    settings.setValue("tarsnap/machine_activity", activityFields.join(' '));
-    _ui->machineActivity->setText(activityFields.join(' '));
+    settings.setValue("tarsnap/machine_activity", machineActivity);
+    _ui->machineActivity->setText(machineActivity);
+    _ui->machineActivity->setToolTip(activityFields.join(' '));
     _ui->machineActivity->resize(_ui->machineActivity->fontMetrics()
-                                       .width(_ui->machineActivity->text()) / 2,
+                                 .width(_ui->machineActivity->text()),
                                  _ui->machineActivity->sizeHint().height());
 }
 

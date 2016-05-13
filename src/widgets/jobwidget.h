@@ -31,11 +31,13 @@ signals:
     void inspectJobArchive(ArchivePtr archive);
     void deleteJobArchives(QList<ArchivePtr> archives);
     void restoreJobArchive(ArchivePtr archive, ArchiveRestoreOptions options);
+    void backupJob(BackupTaskPtr jobBackup);
     void enableSave(bool enable);
 
 protected slots:
     void updateDetails();
-    void restoreLatestArchive();
+    void restoreButtonClicked();
+    void backupButtonClicked();
     bool canSaveNew();
     void showArchiveListMenu(const QPoint &pos);
 

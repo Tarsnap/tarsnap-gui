@@ -43,8 +43,10 @@ JobWidget::JobWidget(QWidget *parent)
     connect(_ui->skipFilesLineEdit, &QLineEdit::editingFinished, this,
             &JobWidget::save);
     connect(_ui->hideButton, &QPushButton::clicked, this, &JobWidget::collapse);
-    connect(_ui->restoreLatestArchiveButton, &QPushButton::clicked, this,
-            &JobWidget::restoreLatestArchive);
+    connect(_ui->restoreButton, &QPushButton::clicked, this,
+            &JobWidget::restoreButtonClicked);
+    connect(_ui->backupButton, &QPushButton::clicked, this,
+            &JobWidget::backupButtonClicked);
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &JobWidget::inspectJobArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this,
@@ -86,7 +88,8 @@ void JobWidget::setJob(const JobPtr &job)
     {
         _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(_ui->archiveListTab),
                                       false);
-        _ui->restoreLatestArchiveButton->hide();
+        _ui->restoreButton->hide();
+        _ui->backupButton->hide();
         _ui->jobNameLabel->hide();
         _ui->jobNameLineEdit->show();
         _ui->jobNameLineEdit->setFocus();
@@ -95,7 +98,8 @@ void JobWidget::setJob(const JobPtr &job)
     {
         _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(_ui->archiveListTab),
                                       true);
-        _ui->restoreLatestArchiveButton->show();
+        _ui->restoreButton->show();
+        _ui->backupButton->show();
         _ui->jobNameLabel->show();
         _ui->jobNameLineEdit->hide();
         connect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
@@ -167,7 +171,7 @@ void JobWidget::updateDetails()
     }
 }
 
-void JobWidget::restoreLatestArchive()
+void JobWidget::restoreButtonClicked()
 {
     if(_job && !_job->archives().isEmpty())
     {
@@ -176,6 +180,12 @@ void JobWidget::restoreLatestArchive()
         if(QDialog::Accepted == restoreDialog.exec())
             emit restoreJobArchive(archive, restoreDialog.getOptions());
     }
+}
+
+void JobWidget::backupButtonClicked()
+{
+    if(_job)
+        emit backupJob(_job->createBackupTask());
 }
 
 bool JobWidget::canSaveNew()

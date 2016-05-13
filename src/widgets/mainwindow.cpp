@@ -272,6 +272,8 @@ MainWindow::MainWindow(QWidget *parent)
             _ui->archiveListWidget, &ArchiveListWidget::disableArchives);
     connect(_ui->jobDetailsWidget, &JobWidget::enableSave, _ui->addJobButton,
             &QToolButton::setEnabled);
+    connect(_ui->jobDetailsWidget, &JobWidget::backupJob, this,
+            &MainWindow::backupNow);
     connect(_ui->jobListWidget, &JobListWidget::displayJobDetails, this,
             &MainWindow::displayJobDetails);
     connect(_ui->jobListWidget, &JobListWidget::backupJob, this,

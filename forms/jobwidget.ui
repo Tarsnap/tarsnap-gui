@@ -114,9 +114,26 @@ padding-left: 3px;
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="restoreLatestArchiveButton">
+       <widget class="QPushButton" name="backupButton">
+        <property name="toolTip">
+         <string>Initiate a backup now</string>
+        </property>
         <property name="text">
+         <string>Backup</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources/resources.qrc">
+          <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="restoreButton">
+        <property name="toolTip">
          <string>Restore latest archive</string>
+        </property>
+        <property name="text">
+         <string>Restore</string>
         </property>
         <property name="icon">
          <iconset resource="../resources/resources.qrc">
@@ -517,7 +534,7 @@ selection-background-color: rgba(177,214,255, 150);
  </customwidgets>
  <tabstops>
   <tabstop>jobNameLineEdit</tabstop>
-  <tabstop>restoreLatestArchiveButton</tabstop>
+  <tabstop>restoreButton</tabstop>
   <tabstop>hideButton</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>includeScheduledCheckBox</tabstop>

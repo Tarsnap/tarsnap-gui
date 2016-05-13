@@ -178,7 +178,7 @@ padding-left: 2px;
       </size>
      </property>
      <property name="toolTip">
-      <string>Restore archive</string>
+      <string>Restore latest archive</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
@@ -217,6 +217,10 @@ padding-left: 2px;
      </property>
      <property name="text">
       <string>Backup</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
      </property>
     </widget>
    </item>

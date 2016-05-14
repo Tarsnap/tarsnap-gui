@@ -292,7 +292,6 @@ min-width: 200px;
 	border-width: 0 0 0 0.1em;
 	border-style: solid;
 	border-color: &quot;#999&quot;;
-	color: &quot;#222&quot;;
 	padding-left: 0.25em;
 }</string>
          </property>
@@ -758,7 +757,6 @@ border: none;
 	border-width: 0 0 0 0.1em;
 	border-style: solid;
 	border-color: &quot;#999&quot;;
-	color: &quot;#222&quot;;
 	padding-left: 0.25em;
 }</string>
          </property>
@@ -914,7 +912,6 @@ border: none;
 	border-width: 0 0 0 0.1em;
 	border-style: solid;
 	border-color: &quot;#999&quot;;
-	color: &quot;#222&quot;;
 	padding-left: 0.25em;
 }</string>
          </property>

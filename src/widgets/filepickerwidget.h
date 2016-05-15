@@ -1,5 +1,5 @@
-#ifndef FILEPICKER_H
-#define FILEPICKER_H
+#ifndef FILEPICKERWIDGET_H
+#define FILEPICKERWIDGET_H
 
 #include "customfilesystemmodel.h"
 #include "ui_filepickerwidget.h"
@@ -44,4 +44,4 @@ private:
     QCompleter            _completer;
 };
 
-#endif // FILEPICKER_H
+#endif // FILEPICKERWIDGET_H

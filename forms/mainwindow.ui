@@ -1047,7 +1047,7 @@ color: blue;
                          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
                         </property>
                         <property name="elide" stdset="0">
-                         <string>ElideRight</string>
+                         <string>Qt::ElideRight</string>
                         </property>
                        </widget>
                       </item>

@@ -60,8 +60,9 @@ void Journal::purge()
 
 void Journal::log(QString message)
 {
-    LogEntry log{QDateTime::currentDateTime(), message};
+    LogEntry log{QDateTime::currentDateTime(), message.remove(QRegExp("<[^>]*>"))};
     _log.push_back(log);
+    emit logEntry(log);
 
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
@@ -72,9 +73,7 @@ void Journal::log(QString message)
         return;
     }
     query.addBindValue(log.timestamp.toTime_t());
-    query.addBindValue(log.message.remove(QRegExp("<[^>]*>")));
+    query.addBindValue(log.message);
     if(!store.runQuery(query))
         DEBUG << "Failed to add Journal entry.";
-
-    emit logEntry(log);
 }

@@ -1153,7 +1153,7 @@ void MainWindow::addDefaultJobs()
             job->setOptionTraverseMount(settings.value("tarsnap/traverse_mount", true).toBool());
             job->setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", false).toBool());
             job->setOptionSkipNoDump(settings.value("app/skip_nodump", false).toBool());
-            job->setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toULongLong());
+            job->setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toInt());
             job->setOptionSkipFiles(settings.value("app/skip_system_enabled", false).toBool());
             job->setOptionSkipFilesPatterns(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
             job->save();

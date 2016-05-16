@@ -72,7 +72,7 @@ void Archive::load()
     if(store.runQuery(query) && query.next())
     {
         _timestamp = QDateTime::fromTime_t(
-            query.value(query.record().indexOf("timestamp")).toULongLong());
+            query.value(query.record().indexOf("timestamp")).toUInt());
         _sizeTotal =
             query.value(query.record().indexOf("sizeTotal")).toULongLong();
         _sizeCompressed =

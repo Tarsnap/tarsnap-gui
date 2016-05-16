@@ -782,7 +782,7 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
                               backupTask->archive()->sizeUniqueCompressed(),
                               useIECPrefixes));
         emit message(msg, backupTask->archive()->archiveStats());
-        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
+        emit displayNotification(msg);
         _backupTaskMap.remove(backupTask->uuid());
         break;
     }
@@ -793,7 +793,7 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
     {
         QString msg = tr("Backup <i>%1</i> is running.").arg(backupTask->name());
         emit message(msg);
-        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
+        emit displayNotification(msg);
         break;
     }
     case TaskStatus::Failed:
@@ -802,7 +802,7 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
                           .arg(backupTask->name())
                           .arg(backupTask->output().simplified());
         emit message(msg, backupTask->output());
-        emit displayNotification(msg.remove(QRegExp("<[^>]*>")));
+        emit displayNotification(msg);
         _backupTaskMap.remove(backupTask->uuid());
         break;
     }

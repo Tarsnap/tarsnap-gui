@@ -475,6 +475,20 @@ void MainWindow::initialize()
                                  " Settings -> Advanced page to fix that."));
     }
 
+    if(!validateMachineKeyPath())
+    {
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Machine key file not found. Go to "
+                                 " Settings -> Tarsnap page to fix that."));
+    }
+
+    if(!validateTarsnapCache())
+    {
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Tarsnap cache dir is invalid. Go to "
+                                 " Settings -> Advanced page to fix that."));
+    }
+
     if(!settings.value("tarsnap/dry_run", false).toBool())
         emit getArchives();
 }
@@ -712,14 +726,20 @@ void MainWindow::commitSettings()
     emit settingsChanged();
 }
 
-void MainWindow::validateMachineKeyPath()
+bool MainWindow::validateMachineKeyPath()
 {
     QFileInfo machineKeyFile(_ui->accountMachineKeyLineEdit->text());
     if(machineKeyFile.exists() && machineKeyFile.isFile() &&
        machineKeyFile.isReadable())
+    {
         _ui->accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        return true;
+    }
     else
+    {
         _ui->accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        return false;
+    }
 }
 
 bool MainWindow::validateTarsnapPath()
@@ -738,12 +758,18 @@ bool MainWindow::validateTarsnapPath()
     }
 }
 
-void MainWindow::validateTarsnapCache()
+bool MainWindow::validateTarsnapCache()
 {
     if(Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text()).isEmpty())
+    {
         _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        return false;
+    }
     else
+    {
         _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        return true;
+    }
 }
 
 void MainWindow::purgeTimerFired()

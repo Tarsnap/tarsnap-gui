@@ -75,9 +75,9 @@ private slots:
     void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void commitSettings();
-    void validateMachineKeyPath();
+    bool validateMachineKeyPath();
     bool validateTarsnapPath();
-    void validateTarsnapCache();
+    bool validateTarsnapCache();
     void purgeTimerFired();
     void browseForBackupItems();
     void appendTimestampCheckBoxToggled(bool checked);

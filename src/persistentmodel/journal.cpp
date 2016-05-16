@@ -26,7 +26,7 @@ void Journal::load()
         while(query.next())
         {
             QDateTime timestamp = QDateTime::fromTime_t(
-                query.value(query.record().indexOf("timestamp")).toULongLong());
+                query.value(query.record().indexOf("timestamp")).toUInt());
             QString log = query.value(query.record().indexOf("log")).toString();
             _log.push_back(LogEntry{timestamp, log});
         }

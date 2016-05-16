@@ -38,7 +38,7 @@ signals:
 
 private:
     Qt::TextElideMode _elide;
-    QString           _origText;
+    QString           _fullText;
 
     QString elideText(const QString &text);
 };

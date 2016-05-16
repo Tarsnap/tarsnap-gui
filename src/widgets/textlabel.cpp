@@ -20,31 +20,31 @@ void TextLabel::setElide(const Qt::TextElideMode &elide)
 
 QString TextLabel::text()
 {
-    return _origText;
+    return _fullText;
 }
 
 QSize TextLabel::sizeHint() const
 {
     QFontMetrics metrics(this->font());
-    return metrics.size(Qt::TextSingleLine, _origText);
+    return metrics.size(Qt::TextSingleLine, _fullText);
 }
 
 void TextLabel::setText(const QString &text)
 {
-    _origText = text;
-    QLabel::setText(elideText(_origText));
-    setToolTip(_origText);
+    _fullText = text;
+    QLabel::setText(elideText(_fullText));
+    setToolTip(_fullText);
 }
 
 void TextLabel::clear()
 {
-    _origText.clear();
+    _fullText.clear();
     QLabel::clear();
 }
 
 void TextLabel::resizeEvent(QResizeEvent *event)
 {
-    QLabel::setText(elideText(_origText));
+    QLabel::setText(elideText(_fullText));
 
     if(event)
         event->ignore();

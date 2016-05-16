@@ -54,6 +54,7 @@ protected:
 
 public slots:
     void loadSettings();
+    void initialize();
     void updateStatusMessage(QString message, QString detail = "");
     void updateLoadingAnimation(bool idle);
     void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed,

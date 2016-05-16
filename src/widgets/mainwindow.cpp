@@ -392,6 +392,59 @@ void MainWindow::loadSettings()
 
     _ui->accountCreditLabel->setText(
         settings.value("tarsnap/credit", tr("click update button")).toString());
+    _ui->machineActivity->setText(
+        settings.value("tarsnap/machine_activity", tr("click update button")).toString());
+    _ui->accountUserLineEdit->setText(
+        settings.value("tarsnap/user", "").toString());
+    _ui->accountMachineKeyLineEdit->setText(
+        settings.value("tarsnap/key", "").toString());
+    _ui->accountMachineLineEdit->setText(
+        settings.value("tarsnap/machine", "").toString());
+    _ui->tarsnapPathLineEdit->setText(
+        settings.value("tarsnap/path", "").toString());
+    _ui->tarsnapCacheLineEdit->setText(
+        settings.value("tarsnap/cache", "").toString());
+    _ui->aggressiveNetworkingCheckBox->setChecked(
+        settings.value("tarsnap/aggressive_networking", false).toBool());
+    _ui->traverseMountCheckBox->setChecked(
+        settings.value("tarsnap/traverse_mount", true).toBool());
+    _ui->followSymLinksCheckBox->setChecked(
+        settings.value("tarsnap/follow_symlinks", false).toBool());
+    _ui->preservePathsCheckBox->setChecked(
+        settings.value("tarsnap/preserve_pathnames", true).toBool());
+    _ui->ignoreConfigCheckBox->setChecked(
+        settings.value("tarsnap/no_default_config", false).toBool());
+    _ui->simulationCheckBox->setChecked(
+        settings.value("tarsnap/dry_run", false).toBool());
+    _ui->simulationIcon->setVisible(_ui->simulationCheckBox->isChecked());
+    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
+    _ui->iecPrefixesCheckBox->setChecked(_useIECPrefixes);
+    _ui->skipFilesSizeSpinBox->setValue(
+        settings.value("app/skip_files_size", 0).toInt());
+    _ui->skipSystemJunkCheckBox->setChecked(
+        settings.value("app/skip_system_enabled", false).toBool());
+    _ui->skipSystemLineEdit->setEnabled(_ui->skipSystemJunkCheckBox->isChecked());
+    _ui->skipSystemLineEdit->setText(
+        settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
+    _ui->skipNoDumpCheckBox->setChecked(
+        settings.value("app/skip_nodump", false).toBool());
+    _ui->downloadsDirLineEdit->setText(
+        settings.value("app/downloads_dir", DOWNLOADS).toString());
+    _ui->appDataDirLineEdit->setText(
+        settings.value("app/app_data", "").toString());
+    _ui->notificationsCheckBox->setChecked(
+        settings.value("app/notifications", true).toBool());
+    if(settings.value("app/default_jobs_dismissed", false).toBool())
+        _ui->defaultJobs->hide();
+    _ui->limitUploadSpinBox->setValue(
+        settings.value("app/limit_upload", 0).toInt());
+    _ui->limitDownloadSpinBox->setValue(
+                settings.value("app/limit_download", 0).toInt());
+}
+
+void MainWindow::initialize()
+{
+    QSettings settings;
     QDate creditDate = settings.value("tarsnap/credit_date", QDate()).toDate();
     if(creditDate.isValid())
     {
@@ -415,61 +468,15 @@ void MainWindow::loadSettings()
                "above to update."));
     }
 
-    _ui->machineActivity->setText(
-        settings.value("tarsnap/machine_activity", tr("click update button")).toString());
-    _ui->accountUserLineEdit->setText(
-        settings.value("tarsnap/user", "").toString());
-    _ui->accountMachineKeyLineEdit->setText(
-        settings.value("tarsnap/key", "").toString());
-    _ui->accountMachineLineEdit->setText(
-        settings.value("tarsnap/machine", "").toString());
-    _ui->tarsnapPathLineEdit->setText(
-        settings.value("tarsnap/path", "").toString());
     if(!validateTarsnapPath())
     {
         QMessageBox::critical(this, tr("Tarsnap error"),
                               tr("Tarsnap CLI utilities not found. Go to "
                                  " Settings -> Advanced page to fix that."));
     }
-    _ui->tarsnapCacheLineEdit->setText(
-        settings.value("tarsnap/cache", "").toString());
-    _ui->aggressiveNetworkingCheckBox->setChecked(
-        settings.value("tarsnap/aggressive_networking", false).toBool());
-    _ui->traverseMountCheckBox->setChecked(
-        settings.value("tarsnap/traverse_mount", true).toBool());
-    _ui->followSymLinksCheckBox->setChecked(
-        settings.value("tarsnap/follow_symlinks", false).toBool());
-    _ui->preservePathsCheckBox->setChecked(
-        settings.value("tarsnap/preserve_pathnames", true).toBool());
-    _ui->ignoreConfigCheckBox->setChecked(
-        settings.value("tarsnap/no_default_config", false).toBool());
-    _ui->simulationCheckBox->setChecked(
-        settings.value("tarsnap/dry_run", false).toBool());
-    _ui->simulationIcon->setVisible(_ui->simulationCheckBox->isChecked());
 
-    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
-    _ui->iecPrefixesCheckBox->setChecked(_useIECPrefixes);
-    _ui->skipFilesSizeSpinBox->setValue(
-        settings.value("app/skip_files_size", 0).toInt());
-    _ui->skipSystemJunkCheckBox->setChecked(
-        settings.value("app/skip_system_enabled", false).toBool());
-    _ui->skipSystemLineEdit->setEnabled(_ui->skipSystemJunkCheckBox->isChecked());
-    _ui->skipSystemLineEdit->setText(
-        settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
-    _ui->skipNoDumpCheckBox->setChecked(
-        settings.value("app/skip_nodump", false).toBool());
-    _ui->downloadsDirLineEdit->setText(
-        settings.value("app/downloads_dir", DOWNLOADS).toString());
-    _ui->appDataDirLineEdit->setText(
-        settings.value("app/app_data", "").toString());
-    _ui->notificationsCheckBox->setChecked(
-        settings.value("app/notifications", true).toBool());
-    if(settings.value("app/default_jobs_dismissed", false).toBool())
-        _ui->defaultJobs->hide();
-    _ui->limitUploadSpinBox->setValue(
-        settings.value("app/limit_upload", 0).toInt());
-    _ui->limitDownloadSpinBox->setValue(
-        settings.value("app/limit_download", 0).toInt());
+    if(!settings.value("tarsnap/dry_run", false).toBool())
+        emit getArchives();
 }
 
 void MainWindow::paintEvent(QPaintEvent *)

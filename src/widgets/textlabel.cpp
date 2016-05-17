@@ -57,13 +57,6 @@ void TextLabel::mouseReleaseEvent(QMouseEvent *event)
     event->ignore();
 }
 
-void TextLabel::mouseDoubleClickEvent(QMouseEvent *event)
-{
-    if(event->buttons() & Qt::LeftButton)
-        emit doubleClicked();
-    event->ignore();
-}
-
 QString TextLabel::elideText(const QString &text)
 {
     QFontMetrics metrics(this->font());

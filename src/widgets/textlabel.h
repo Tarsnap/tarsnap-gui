@@ -28,12 +28,10 @@ public slots:
 protected:
     void resizeEvent(QResizeEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
-    void mouseDoubleClickEvent(QMouseEvent *event);
 
 signals:
     void elideChanged(Qt::TextElideMode elide);
     void clicked();
-    void doubleClicked();
 
 private:
     Qt::TextElideMode _elide;

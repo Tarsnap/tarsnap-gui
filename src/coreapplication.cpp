@@ -12,6 +12,8 @@ CoreApplication::CoreApplication(int &argc, char **argv)
       _notification(),
       _jobsOption(false)
 {
+    setQuitOnLastWindowClosed(false);
+    setQuitLockEnabled(false);
     setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     qRegisterMetaType<TaskStatus>("TaskStatus");
@@ -120,11 +122,11 @@ bool CoreApplication::initialize()
 
     if(_jobsOption)
     {
+        setQuitLockEnabled(true);
         connect(&_notification, &Notification::activated, this,
                 &CoreApplication::showMainWindow, QUEUED);
         connect(&_notification, &Notification::messageClicked, this,
                 &CoreApplication::showMainWindow, QUEUED);
-        _taskManager.setHeadless(true);
         QMetaObject::invokeMethod(&_taskManager, "runScheduledJobs", QUEUED);
     }
     else
@@ -140,7 +142,7 @@ void CoreApplication::showMainWindow()
     if(_mainWindow != nullptr)
         return;
 
-    _taskManager.setHeadless(false);
+    setQuitLockEnabled(false);
     disconnect(&_notification, &Notification::activated, this,
                &CoreApplication::showMainWindow);
     disconnect(&_notification, &Notification::messageClicked, this,

@@ -46,7 +46,7 @@ void TarsnapTask::run()
     else
         _process->setStandardOutputFile(_standardOutFile);
     QSettings settings;
-    int       upload_rate_kbps = settings.value("app/limit_upload", 0).toInt();
+    int upload_rate_kbps = settings.value("app/limit_upload", 0).toInt();
     int download_rate_kbps = settings.value("app/limit_download", 0).toInt();
     if(download_rate_kbps)
     {

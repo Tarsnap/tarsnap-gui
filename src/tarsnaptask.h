@@ -1,6 +1,7 @@
 #ifndef TARSNAPTASK_H
 #define TARSNAPTASK_H
 
+#include <QEventLoopLocker>
 #include <QProcess>
 #include <QRunnable>
 #include <QThread>
@@ -58,6 +59,7 @@ private:
     QString     _password;
     bool        _requiresPassword;
     QString     _standardOutFile;
+    QEventLoopLocker _lock;
 };
 
 #endif // TARSNAPTASK_H

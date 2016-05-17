@@ -28,7 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
       _useIECPrefixes(false),
       _purgeTimerCount(0),
       _purgeCountdownWindow(this),
-      _tarsnapAccount(this)
+      _tarsnapAccount(this),
+      _aboutToQuit(false)
 {
     connect(&Debug::instance(), &Debug::message, this,
             &MainWindow::appendToConsoleLog);
@@ -542,6 +543,21 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if(_aboutToQuit)
+    {
+        qApp->setQuitLockEnabled(true);
+        event->accept();
+    }
+    else
+    {
+        _aboutToQuit = true;
+        emit getTaskInfo();
+        event->ignore();
+    }
+}
+
 void MainWindow::updateLoadingAnimation(bool idle)
 {
     if(idle)
@@ -1025,10 +1041,19 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
 {
     if(!runningTasks && !queuedTasks)
     {
-        QMessageBox::information(this, tr("Stop Tasks"),
-                                 tr("There are no running or queued tasks."));
-        return;
+        if(_aboutToQuit)
+        {
+            close();
+            return;
+        }
+        else
+        {
+            QMessageBox::information(this, tr("Stop Tasks"),
+                                     tr("There are no running or queued tasks."));
+            return;
+        }
     }
+
     QMessageBox msgBox;
     msgBox.setText(tr("There are %1 running tasks and %2 queued.")
                        .arg(runningTasks)
@@ -1039,22 +1064,25 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
         interruptBackup =
             msgBox.addButton(tr("Interrupt backup"), QMessageBox::ActionRole);
     QPushButton *stopRunning = nullptr;
-    if(runningTasks)
+    if(runningTasks && !_aboutToQuit)
         stopRunning =
             msgBox.addButton(tr("Stop running"), QMessageBox::ActionRole);
     QPushButton *stopQueued = nullptr;
-    if(queuedTasks)
+    if(queuedTasks && !_aboutToQuit)
         stopQueued =
             msgBox.addButton(tr("Cancel queued"), QMessageBox::ActionRole);
     QPushButton *stopAll = nullptr;
-    if(runningTasks && queuedTasks)
+    if(runningTasks || queuedTasks)
         stopAll = msgBox.addButton(tr("Stop all"), QMessageBox::ActionRole);
+    QPushButton *background = nullptr;
+    if((runningTasks || queuedTasks) && _aboutToQuit)
+        background = msgBox.addButton(tr("Proceed in background"), QMessageBox::ActionRole);
     QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
     msgBox.setDefaultButton(cancel);
     msgBox.exec();
     if(msgBox.clickedButton() == interruptBackup)
     {
-        emit stopTasks(true, false, false);
+        emit stopTasks(true, false, true);
         updateStatusMessage("Interrupting current backup.");
     }
     if(msgBox.clickedButton() == stopQueued)
@@ -1072,6 +1100,13 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
         emit stopTasks(false, true, true);
         updateStatusMessage("Stopped running tasks and cleared queued ones.");
     }
+    else if((msgBox.clickedButton() == cancel) && _aboutToQuit)
+    {
+        _aboutToQuit = false;
+    }
+
+    if(_aboutToQuit)
+        close();
 }
 
 void MainWindow::tarsnapError(TarsnapError error)

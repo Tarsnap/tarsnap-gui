@@ -51,6 +51,7 @@ signals:
 protected:
     void paintEvent(QPaintEvent *);
     void keyReleaseEvent(QKeyEvent *event);
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void loadSettings();
@@ -113,6 +114,7 @@ private:
     int             _purgeTimerCount;
     QMessageBox     _purgeCountdownWindow;
     TarsnapAccount  _tarsnapAccount;
+    bool            _aboutToQuit;
 };
 
 #endif // MAINWINDOW_H

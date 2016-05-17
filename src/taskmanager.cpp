@@ -13,23 +13,12 @@
 TaskManager::TaskManager()
     : _threadPool(QThreadPool::globalInstance()),
       _aggressiveNetworking(false),
-      _preservePathnames(true),
-      _headless(false)
+      _preservePathnames(true)
 {
 }
 
 TaskManager::~TaskManager()
 {
-}
-
-bool TaskManager::headless() const
-{
-    return _headless;
-}
-
-void TaskManager::setHeadless(bool headless)
-{
-    _headless = headless;
 }
 
 void TaskManager::loadSettings()
@@ -454,14 +443,14 @@ void TaskManager::runScheduledJobs()
 
 void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
 {
+    if(queued) // queued should be cleared first to avoid race
+    {
+        _taskQueue.clear();
+    }
     if(interrupt)
     {
         if(!_runningTasks.isEmpty())
             _runningTasks.first()->interrupt();
-    }
-    if(queued) // queued should be cleared first to avoid race
-    {
-        _taskQueue.clear();
     }
     if(running)
     {
@@ -891,29 +880,13 @@ void TaskManager::dequeueTask()
     if(task == nullptr)
         return;
     _runningTasks.removeOne(task);
-    delete task;
+    task->deleteLater();
     if(_runningTasks.isEmpty())
     {
         if(_taskQueue.isEmpty())
-        {
-            // Give a chance for notifications to go through and quit
-            if(_headless)
-            {
-#if(QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
-                QTimer::singleShot(500, qApp, &QCoreApplication::quit);
-#else
-                QTimer::singleShot(500, qApp, SLOT(quit()));
-#endif
-            }
-            else
-            {
-                emit idle(true);
-            }
-        }
+            emit idle(true);
         else
-        {
             startTask(nullptr); // start another queued task
-        }
     }
 }
 

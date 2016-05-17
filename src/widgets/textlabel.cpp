@@ -52,7 +52,7 @@ void TextLabel::resizeEvent(QResizeEvent *event)
 
 void TextLabel::mouseReleaseEvent(QMouseEvent *event)
 {
-    if(event->buttons() ^ Qt::LeftButton)
+    if(event->button() == Qt::LeftButton)
         emit clicked();
     event->ignore();
 }

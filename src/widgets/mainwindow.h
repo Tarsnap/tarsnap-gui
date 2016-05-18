@@ -107,7 +107,6 @@ private slots:
 private:
     Ui::MainWindow *_ui;
     QDialog         _aboutWindow;
-    QPoint          _windowDragPos;
     QString         _lastTimestamp;
     bool            _useIECPrefixes;
     QTimer          _purgeTimer;

@@ -1019,6 +1019,12 @@ border: none;
             <property name="currentText">
              <string>this machine's keyfile</string>
             </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+            </property>
+            <property name="minimumContentsLength">
+             <number>10</number>
+            </property>
            </widget>
           </item>
           <item row="4" column="1">

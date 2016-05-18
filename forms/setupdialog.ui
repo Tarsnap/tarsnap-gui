@@ -344,7 +344,7 @@ min-width: 200px;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -386,7 +386,7 @@ min-width: 200px;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -806,7 +806,7 @@ border: none;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -842,7 +842,7 @@ border: none;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -1120,7 +1120,7 @@ color: darkred;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -1152,7 +1152,7 @@ color: darkred;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -1290,7 +1290,7 @@ color: darkred;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -1319,7 +1319,7 @@ color: darkred;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>

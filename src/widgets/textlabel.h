@@ -2,7 +2,6 @@
 #define TEXTLABEL_H
 
 #include <QLabel>
-#include <QMouseEvent>
 
 class TextLabel : public QLabel
 {

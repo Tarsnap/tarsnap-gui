@@ -4,6 +4,7 @@
 #include "ui_archiveitemwidget.h"
 
 #include <QMessageBox>
+#include <QKeyEvent>
 
 #define DELETE_CONFIRMATION_THRESHOLD 10
 

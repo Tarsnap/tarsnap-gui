@@ -1,5 +1,7 @@
 #include "textlabel.h"
 
+#include <QMouseEvent>
+
 TextLabel::TextLabel(QWidget *parent) : QLabel(parent), _elide(Qt::ElideNone)
 {
 }

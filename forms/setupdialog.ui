@@ -154,12 +154,6 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
           <property name="enabled">
            <bool>false</bool>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
           <property name="focusPolicy">
            <enum>Qt::ClickFocus</enum>
           </property>
@@ -227,12 +221,6 @@ min-width: 200px;
    </item>
    <item>
     <widget class="QStackedWidget" name="wizardStackedWidget">
-     <property name="maximumSize">
-      <size>
-       <width>500</width>
-       <height>16777215</height>
-      </size>
-     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -1021,12 +1009,6 @@ border: none;
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>450</width>
-              <height>16777215</height>
-             </size>
             </property>
             <property name="editable">
              <bool>true</bool>

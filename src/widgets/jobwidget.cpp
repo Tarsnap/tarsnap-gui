@@ -168,6 +168,7 @@ void JobWidget::updateDetails()
         _ui->skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
         _ui->skipFilesCheckBox->setChecked(_job->optionSkipFiles());
         _ui->skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
+        _ui->tabWidget->setTabText(_ui->tabWidget->indexOf(_ui->archiveListTab), tr("Archives (%1)").arg(_job->archives().count()));
     }
 }
 

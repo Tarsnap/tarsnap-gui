@@ -28,6 +28,9 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
    <property name="spacing">
     <number>3</number>
    </property>
+   <property name="sizeConstraint">
+    <enum>QLayout::SetMinimumSize</enum>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>

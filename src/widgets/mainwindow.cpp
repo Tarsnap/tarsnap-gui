@@ -44,31 +44,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     loadSettings();
 
-    // About menu action and widget initialization
-    Ui::aboutWidget aboutUi;
-    aboutUi.setupUi(&_aboutWindow);
-    aboutUi.versionLabel->setText(tr("version ") +
-                                  QCoreApplication::applicationVersion());
-    _aboutWindow.setWindowFlags(
-        (_aboutWindow.windowFlags() | Qt::CustomizeWindowHint) &
-        ~Qt::WindowMaximizeButtonHint);
-    connect(aboutUi.checkUpdateButton, &QPushButton::clicked, []() {
-        QDesktopServices::openUrl(
-            QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
-    });
-
     QMenuBar menuBar;
     if(menuBar.isNativeMenuBar())
     {
         QAction *actionAbout = new QAction(this);
         actionAbout->setMenuRole(QAction::AboutRole);
-        connect(actionAbout, &QAction::triggered, &_aboutWindow, &QDialog::show);
+        connect(actionAbout, &QAction::triggered, this, &MainWindow::showAbout);
         QMenu *appMenu = new QMenu(this);
         appMenu->addAction(actionAbout);
         menuBar.addMenu(appMenu);
     }
-    connect(_ui->aboutButton, &QPushButton::clicked, &_aboutWindow,
-            &QDialog::show);
+    connect(_ui->aboutButton, &QPushButton::clicked, this,
+            &MainWindow::showAbout);
     // --
 
     _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
@@ -623,6 +610,24 @@ void MainWindow::createJobClicked()
     _ui->addJobButton->setEnabled(true);
     _ui->addJobButton->setText(tr("Save"));
     _ui->addJobButton->setProperty("save", true);
+}
+
+void MainWindow::showAbout()
+{
+    QDialog *aboutWindow = new QDialog(this);
+    Ui::aboutWidget aboutUi;
+    aboutUi.setupUi(aboutWindow);
+    aboutUi.versionLabel->setText(tr("version ") +
+                                  QCoreApplication::applicationVersion());
+    aboutWindow->setAttribute(Qt::WA_DeleteOnClose, true);
+    aboutWindow->setWindowFlags(
+        (aboutWindow->windowFlags() | Qt::CustomizeWindowHint) &
+        ~Qt::WindowMaximizeButtonHint);
+    connect(aboutUi.checkUpdateButton, &QPushButton::clicked, []() {
+        QDesktopServices::openUrl(
+            QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
+    });
+    aboutWindow->show();
 }
 
 void MainWindow::notificationRaise()

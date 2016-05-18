@@ -103,10 +103,10 @@ private slots:
     void addDefaultJobs();
     void setTarsnapVersion(QString versionString);
     void createJobClicked();
+    void showAbout();
 
 private:
     Ui::MainWindow *_ui;
-    QDialog         _aboutWindow;
     QString         _lastTimestamp;
     bool            _useIECPrefixes;
     QTimer          _purgeTimer;

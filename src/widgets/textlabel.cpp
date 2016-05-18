@@ -9,6 +9,7 @@ TextLabel::TextLabel(QWidget *parent) : QLabel(parent), _elide(Qt::ElideNone)
 TextLabel::~TextLabel()
 {
 }
+
 Qt::TextElideMode TextLabel::elide() const
 {
     return _elide;

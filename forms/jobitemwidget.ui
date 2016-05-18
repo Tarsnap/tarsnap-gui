@@ -205,18 +205,45 @@ padding-left: 2px;
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="backupButton">
+    <widget class="QToolButton" name="backupButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="minimumSize">
+      <size>
+       <width>27</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>27</width>
+       <height>27</height>
+      </size>
+     </property>
      <property name="toolTip">
       <string>Initiate a backup now</string>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QToolButton {
+border: none;
+border-radius: 4px;
+}
+
+QToolButton:hover {
+background: rgba(179, 190, 255, 120);
+}
+
+QToolButton:pressed {
+padding-top: 2px;
+padding-left: 2px;
+}</string>
+     </property>
      <property name="text">
-      <string>Backup</string>
+      <string/>
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">

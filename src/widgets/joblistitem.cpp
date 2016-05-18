@@ -9,7 +9,7 @@ JobListItem::JobListItem(JobPtr job)
 
     _ui.setupUi(_widget);
 
-    connect(_ui.backupButton, &QPushButton::clicked, this,
+    connect(_ui.backupButton, &QToolButton::clicked, this,
             &JobListItem::requestBackup);
     connect(_ui.inspectButton, &QToolButton::clicked, this,
             &JobListItem::requestInspect);

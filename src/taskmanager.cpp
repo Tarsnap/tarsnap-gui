@@ -717,7 +717,7 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
     {
         emit message(tr("All archives purged successfully."), output);
         fsck();
-        loadArchives();
+        getArchives();
     }
     else
     {

@@ -28,6 +28,9 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
    <property name="spacing">
     <number>3</number>
    </property>
+   <property name="sizeConstraint">
+    <enum>QLayout::SetMinimumSize</enum>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -154,12 +157,6 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
           <property name="enabled">
            <bool>false</bool>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
           <property name="focusPolicy">
            <enum>Qt::ClickFocus</enum>
           </property>
@@ -227,12 +224,6 @@ min-width: 200px;
    </item>
    <item>
     <widget class="QStackedWidget" name="wizardStackedWidget">
-     <property name="maximumSize">
-      <size>
-       <width>500</width>
-       <height>16777215</height>
-      </size>
-     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -344,7 +335,7 @@ min-width: 200px;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -386,7 +377,7 @@ min-width: 200px;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -806,7 +797,7 @@ border: none;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -842,7 +833,7 @@ border: none;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -1022,17 +1013,17 @@ border: none;
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="maximumSize">
-             <size>
-              <width>450</width>
-              <height>16777215</height>
-             </size>
-            </property>
             <property name="editable">
              <bool>true</bool>
             </property>
             <property name="currentText">
              <string>this machine's keyfile</string>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+            </property>
+            <property name="minimumContentsLength">
+             <number>10</number>
             </property>
            </widget>
           </item>
@@ -1120,7 +1111,7 @@ color: darkred;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -1152,7 +1143,7 @@ color: darkred;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -1290,7 +1281,7 @@ color: darkred;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -1319,7 +1310,7 @@ color: darkred;
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>153</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>

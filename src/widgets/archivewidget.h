@@ -2,7 +2,6 @@
 #define ARCHIVEWIDGET_H
 
 #include "persistentmodel/archive.h"
-#include "utils.h"
 
 #include <QWidget>
 

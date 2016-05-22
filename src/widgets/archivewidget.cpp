@@ -1,6 +1,8 @@
 #include "archivewidget.h"
 #include "ui_archivewidget.h"
 
+#include "utils.h"
+
 ArchiveWidget::ArchiveWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::ArchiveWidget)
 {

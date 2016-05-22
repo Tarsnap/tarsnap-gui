@@ -6,7 +6,6 @@
 
 #include <QListWidgetItem>
 #include <QObject>
-#include <QSharedPointer>
 
 namespace Ui
 {

@@ -4,7 +4,6 @@
 #include "customfilesystemmodel.h"
 
 #include <QCompleter>
-#include <QFileSystemModel>
 #include <QWidget>
 
 namespace Ui

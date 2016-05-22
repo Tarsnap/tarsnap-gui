@@ -4,7 +4,6 @@
 #include <taskmanager.h>
 
 #include <QDialog>
-#include <QMouseEvent>
 #include <QMovie>
 
 namespace Ui

@@ -5,7 +5,6 @@
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
 
-#include <QLabel>
 #include <QMessageBox>
 #include <QTimer>
 #include <QWidget>

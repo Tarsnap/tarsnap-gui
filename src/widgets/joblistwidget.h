@@ -3,7 +3,6 @@
 
 #include "joblistitem.h"
 #include "persistentmodel/job.h"
-#include "taskmanager.h"
 
 #include <QListWidget>
 

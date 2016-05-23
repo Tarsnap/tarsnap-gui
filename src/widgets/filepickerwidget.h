@@ -39,9 +39,9 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
-    Ui::FilePickerWidget       *_ui;
-    CustomFileSystemModel _model;
-    QCompleter            _completer;
+    Ui::FilePickerWidget  *_ui;
+    CustomFileSystemModel  _model;
+    QCompleter             _completer;
 };
 
 #endif // FILEPICKERWIDGET_H

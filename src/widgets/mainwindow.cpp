@@ -65,6 +65,8 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->archiveDetailsWidget->hide();
     _ui->jobDetailsWidget->hide();
     _ui->outOfDateNoticeLabel->hide();
+    _ui->archivesFilter->hide();
+    _ui->jobsFilter->hide();
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     _ui->consoleLog->setPlaceholderText(tr("No events yet"));
     _ui->journalLog->setPlaceholderText(tr("No messages yet"));
@@ -212,6 +214,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->archiveListWidget->addAction(_ui->actionInspect);
     _ui->archiveListWidget->addAction(_ui->actionDelete);
     _ui->archiveListWidget->addAction(_ui->actionRestore);
+    _ui->archiveListWidget->addAction(_ui->actionShowFilter);
     connect(this, &MainWindow::archiveList, _ui->archiveListWidget,
             &ArchiveListWidget::addArchives);
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
@@ -242,6 +245,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->jobListWidget->addAction(_ui->actionJobDelete);
     _ui->jobListWidget->addAction(_ui->actionJobInspect);
     _ui->jobListWidget->addAction(_ui->actionJobRestore);
+    _ui->jobListWidget->addAction(_ui->actionShowFilter);
     connect(_ui->addJobButton, &QToolButton::clicked, this,
             &MainWindow::addJobClicked);
     connect(_ui->jobDetailsWidget, &JobWidget::collapse, this,
@@ -365,6 +369,19 @@ MainWindow::MainWindow(QWidget *parent)
         QSettings settings;
         settings.setValue("app/default_jobs_dismissed", true);
         _ui->defaultJobs->hide();
+    });
+    connect(_ui->actionShowFilter, &QAction::triggered, [&]()
+    {
+        if(_ui->mainTabWidget->currentWidget() == _ui->archivesTab)
+        {
+            _ui->archivesFilter->setVisible(!_ui->archivesFilter->isVisible());
+            _ui->archivesFilter->setFocus();
+        }
+        else if(_ui->mainTabWidget->currentWidget() == _ui->jobsTab)
+        {
+            _ui->jobsFilter->setVisible(!_ui->jobsFilter->isVisible());
+            _ui->jobsFilter->setFocus();
+        }
     });
 }
 

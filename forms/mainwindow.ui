@@ -114,9 +114,6 @@ border-radius: 2px;
           <property name="acceptDrops">
            <bool>false</bool>
           </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
           <attribute name="title">
            <string>Backup</string>
           </attribute>
@@ -375,7 +372,7 @@ text-align: center;
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_11">
            <property name="spacing">
-            <number>0</number>
+            <number>3</number>
            </property>
            <property name="leftMargin">
             <number>3</number>
@@ -389,6 +386,37 @@ text-align: center;
            <property name="bottomMargin">
             <number>0</number>
            </property>
+           <item>
+            <widget class="QComboBox" name="archivesFilter">
+             <property name="toolTip">
+              <string>Search and filter the Archives list</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+border: 1px solid darkgrey;
+padding-right: 6px;
+padding-left: 6px;
+}
+
+QComboBox::drop-down {
+border: none;
+padding-right: 6px;
+}
+
+QComboBox::down-arrow {
+image:url(:/icons/caret-bottom.png);
+}
+
+QComboBox::down-arrow:on {
+top: 1px;
+left: 1px;
+}</string>
+             </property>
+             <property name="editable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item>
             <widget class="QWidget" name="widget_2" native="true">
              <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -486,8 +514,39 @@ selection-background-color: rgba(177,214,255,150);
             <number>3</number>
            </property>
            <property name="bottomMargin">
-            <number>3</number>
+            <number>0</number>
            </property>
+           <item>
+            <widget class="QComboBox" name="jobsFilter">
+             <property name="toolTip">
+              <string>Search and filter the Jobs list</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QComboBox {
+border: 1px solid darkgrey;
+padding-right: 6px;
+padding-left: 6px;
+}
+
+QComboBox::drop-down {
+border: none;
+padding-right: 6px;
+}
+
+QComboBox::down-arrow {
+image:url(:/icons/caret-bottom.png);
+}
+
+QComboBox::down-arrow:on {
+top: 1px;
+left: 1px;
+}</string>
+             </property>
+             <property name="editable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item>
             <widget class="QWidget" name="widget_3" native="true">
              <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -2482,6 +2541,17 @@ border: none;
    </property>
    <property name="toolTip">
     <string>Create Job from current backup list</string>
+   </property>
+  </action>
+  <action name="actionShowFilter">
+   <property name="text">
+    <string>showFilter</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide filter</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>

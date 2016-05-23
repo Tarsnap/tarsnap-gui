@@ -369,6 +369,7 @@ MainWindow::MainWindow(QWidget *parent)
         QSettings settings;
         settings.setValue("app/default_jobs_dismissed", true);
         _ui->defaultJobs->hide();
+        _ui->addJobButton->show();
     });
     connect(_ui->actionShowFilter, &QAction::triggered, [&]()
     {
@@ -439,12 +440,21 @@ void MainWindow::loadSettings()
         settings.value("app/app_data", "").toString());
     _ui->notificationsCheckBox->setChecked(
         settings.value("app/notifications", true).toBool());
-    if(settings.value("app/default_jobs_dismissed", false).toBool())
-        _ui->defaultJobs->hide();
     _ui->limitUploadSpinBox->setValue(
         settings.value("app/limit_upload", 0).toInt());
     _ui->limitDownloadSpinBox->setValue(
                 settings.value("app/limit_download", 0).toInt());
+
+    if(settings.value("app/default_jobs_dismissed", false).toBool())
+    {
+        _ui->defaultJobs->hide();
+        _ui->addJobButton->show();
+    }
+    else
+    {
+        _ui->defaultJobs->show();
+        _ui->addJobButton->hide();
+    }
 }
 
 void MainWindow::initialize()
@@ -1252,4 +1262,5 @@ void MainWindow::addDefaultJobs()
     }
     settings.setValue("app/default_jobs_dismissed", true);
     _ui->defaultJobs->hide();
+    _ui->addJobButton->show();
 }

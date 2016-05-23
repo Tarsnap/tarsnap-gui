@@ -730,37 +730,13 @@ color: black;
              </layout>
             </widget>
            </item>
-           <item>
-            <widget class="QWidget" name="widget_5" native="true">
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QToolButton" name="addJobButton">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>Add a new job (Ctrl+n)</string>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QToolButton
+           <item alignment="Qt::AlignHCenter">
+            <widget class="QToolButton" name="addJobButton">
+             <property name="toolTip">
+              <string>Add a new job (Ctrl+n)</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QToolButton
 {
 background: rgba(64,152,212,255);
 border: 1px solid white;
@@ -771,6 +747,7 @@ padding-right: 24px;
 width: 100px;
 height: 20px;
 }
+
 QToolButton:hover {
 border: 1px solid grey;
 }
@@ -804,23 +781,30 @@ width: 16px;
 margin-right: 4px;
 }
 
+QToolButton::menu-button:active
+{
+border-left: 1px solid grey;
+}
+
+QToolButton::menu-arrow:open {
+top: 1px;
+left: 1px;
+}
+
 QToolButton QMenu
 {
 text-align: center;
 }</string>
-                </property>
-                <property name="text">
-                 <string>Add job</string>
-                </property>
-                <property name="popupMode">
-                 <enum>QToolButton::MenuButtonPopup</enum>
-                </property>
-                <property name="toolButtonStyle">
-                 <enum>Qt::ToolButtonTextOnly</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             </property>
+             <property name="text">
+              <string>Add job</string>
+             </property>
+             <property name="popupMode">
+              <enum>QToolButton::MenuButtonPopup</enum>
+             </property>
+             <property name="toolButtonStyle">
+              <enum>Qt::ToolButtonTextOnly</enum>
+             </property>
             </widget>
            </item>
           </layout>

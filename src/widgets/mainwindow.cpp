@@ -1106,9 +1106,8 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
     QPushButton *stopAll = nullptr;
     if(runningTasks || queuedTasks)
         stopAll = msgBox.addButton(tr("Stop all"), QMessageBox::ActionRole);
-    QPushButton *background = nullptr;
     if((runningTasks || queuedTasks) && _aboutToQuit)
-        background = msgBox.addButton(tr("Proceed in background"), QMessageBox::ActionRole);
+        msgBox.addButton(tr("Proceed in background"), QMessageBox::ActionRole);
     QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
     msgBox.setDefaultButton(cancel);
     msgBox.exec();

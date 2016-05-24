@@ -99,7 +99,6 @@ private:
                            ArchivePtr archive);
     QString makeTarsnapCommand(QString cmd);
 
-private:
     QString _tarsnapDir;
     QString _tarsnapCacheDir;
     QString _tarsnapKeyFile;

@@ -3,7 +3,6 @@
 
 #include <QListWidget>
 #include <QUrl>
-#include <QWidget>
 
 class BackupListWidget : public QListWidget
 {

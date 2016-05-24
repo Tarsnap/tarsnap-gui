@@ -15,6 +15,7 @@
 #include <QHostInfo>
 #include <QInputDialog>
 #include <QMenu>
+#include <QMenuBar>
 #include <QPainter>
 #include <QSettings>
 #include <QSharedPointer>

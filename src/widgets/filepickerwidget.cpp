@@ -1,4 +1,6 @@
 #include "filepickerwidget.h"
+#include "ui_filepickerwidget.h"
+
 #include "debug.h"
 
 #include <QKeyEvent>

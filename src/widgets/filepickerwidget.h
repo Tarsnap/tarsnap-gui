@@ -2,10 +2,8 @@
 #define FILEPICKERWIDGET_H
 
 #include "customfilesystemmodel.h"
-#include "ui_filepickerwidget.h"
 
 #include <QCompleter>
-#include <QFileSystemModel>
 #include <QWidget>
 
 namespace Ui

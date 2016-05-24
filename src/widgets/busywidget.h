@@ -2,7 +2,6 @@
 #define BUSYWIDGET_H
 
 #include <QLabel>
-#include <QMouseEvent>
 #include <QMovie>
 
 class BusyWidget : public QLabel

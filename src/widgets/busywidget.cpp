@@ -2,6 +2,8 @@
 
 #include "debug.h"
 
+#include <QMouseEvent>
+
 BusyWidget::BusyWidget(QWidget *parent)
     : QLabel(parent), _animation(":/icons/loading.gif")
 {

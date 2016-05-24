@@ -4,22 +4,31 @@
 #include <QLabel>
 #include <QMovie>
 
+/*!
+ * \brief The BusyWidget is a QLabel which displays a spinning "waiting" icon,
+ * and adds the \ref clicked signal.
+ */
 class BusyWidget : public QLabel
 {
     Q_OBJECT
 
 public:
+    //! Constructor.
     explicit BusyWidget(QWidget *parent = nullptr);
     ~BusyWidget();
 
 public slots:
+    //! Starts the animation.
     void animate();
+    //! Stops the animation.
     void stop();
 
 signals:
+    //! Emitted when this widget was clicked.
     void clicked();
 
 protected:
+    //! Used for detecting whether to emit \ref clicked.
     void mouseReleaseEvent(QMouseEvent *event);
 
 private:

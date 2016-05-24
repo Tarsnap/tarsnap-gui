@@ -14,14 +14,14 @@ class TarsnapAccount : public QDialog
 public:
     explicit TarsnapAccount(QWidget *parent = nullptr);
 
+public slots:
+    void getAccountInfo(bool displayActivity        = false,
+                        bool displayMachineActivity = false);
+
 signals:
     void accountCredit(qreal credit, QDate date);
     void lastMachineActivity(QStringList activityFields);
     void getKeyId(QString key);
-
-public slots:
-    void getAccountInfo(bool displayActivity        = false,
-                        bool displayMachineActivity = false);
 
 protected slots:
     void parseCredit(QString csv);

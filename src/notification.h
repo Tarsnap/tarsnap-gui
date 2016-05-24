@@ -10,10 +10,10 @@ class Notification : public QSystemTrayIcon
 public:
     explicit Notification(QSystemTrayIcon *parent = nullptr);
 
-signals:
-
 public slots:
     void displayNotification(QString message);
+
+signals:
 };
 
 #endif // NOTIFICATION_H

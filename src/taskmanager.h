@@ -25,23 +25,6 @@ public:
     TaskManager();
     ~TaskManager();
 
-signals:
-    // Tarsnap task notifications
-    void idle(bool status); // signal if we are working on tasks or not
-    void tarsnapVersion(QString versionString);
-    void registerMachineStatus(TaskStatus status, QString reason);
-    void fsckStatus(TaskStatus status, QString reason);
-    void archiveList(QList<ArchivePtr> archives, bool fromRemote = false);
-    void overallStats(quint64 sizeTotal, quint64 sizeCompressed,
-                      quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed,
-                      quint64 archiveCount);
-    void jobsList(QMap<QString, JobPtr> jobs);
-    void message(QString msg, QString detail = "");
-    void displayNotification(QString message);
-    void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
-    void error(TarsnapError error);
-    void keyId(QString key, int id);
-
 public slots:
     void loadSettings();
     void runScheduledJobs();
@@ -68,6 +51,23 @@ public slots:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void getKeyId(QString key);
     void initializeCache();
+
+signals:
+    // Tarsnap task notifications
+    void idle(bool status); // signal if we are working on tasks or not
+    void tarsnapVersion(QString versionString);
+    void registerMachineStatus(TaskStatus status, QString reason);
+    void fsckStatus(TaskStatus status, QString reason);
+    void archiveList(QList<ArchivePtr> archives, bool fromRemote = false);
+    void overallStats(quint64 sizeTotal, quint64 sizeCompressed,
+                      quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed,
+                      quint64 archiveCount);
+    void jobsList(QMap<QString, JobPtr> jobs);
+    void message(QString msg, QString detail = "");
+    void displayNotification(QString message);
+    void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
+    void error(TarsnapError error);
+    void keyId(QString key, int id);
 
 private slots:
     // post Tarsnap task processing

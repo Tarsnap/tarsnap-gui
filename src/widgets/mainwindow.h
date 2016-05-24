@@ -22,6 +22,25 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void loadSettings();
+    void initialize();
+    void updateStatusMessage(QString message, QString detail = "");
+    void updateLoadingAnimation(bool idle);
+    void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed,
+                               quint64 sizeUniqueTotal,
+                               quint64 sizeUniqueCompressed,
+                               quint64 archiveCount);
+    void updateTarsnapVersion(QString versionString);
+    void notificationRaise();
+    void displayStopTasks(bool backupTaskRunning, int runningTasks,
+                          int queuedTasks);
+    void tarsnapError(TarsnapError error);
+    void appendToJournalLog(LogEntry log);
+    void appendToConsoleLog(const QString &log);
+    void setJournal(QVector<LogEntry> _log);
+    void saveKeyId(QString key, int id);
+
 signals:
     void backupNow(BackupTaskPtr backupTask);
     void getArchives();
@@ -50,25 +69,6 @@ protected:
     void paintEvent(QPaintEvent *);
     void keyReleaseEvent(QKeyEvent *event);
     void closeEvent(QCloseEvent *event);
-
-public slots:
-    void loadSettings();
-    void initialize();
-    void updateStatusMessage(QString message, QString detail = "");
-    void updateLoadingAnimation(bool idle);
-    void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed,
-                               quint64 sizeUniqueTotal,
-                               quint64 sizeUniqueCompressed,
-                               quint64 archiveCount);
-    void updateTarsnapVersion(QString versionString);
-    void notificationRaise();
-    void displayStopTasks(bool backupTaskRunning, int runningTasks,
-                          int queuedTasks);
-    void tarsnapError(TarsnapError error);
-    void appendToJournalLog(LogEntry log);
-    void appendToConsoleLog(const QString &log);
-    void setJournal(QVector<LogEntry> _log);
-    void saveKeyId(QString key, int id);
 
 private slots:
     void updateBackupItemTotals(quint64 count, quint64 size);

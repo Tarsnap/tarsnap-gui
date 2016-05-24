@@ -14,12 +14,6 @@ public:
     explicit JobListWidget(QWidget *parent = nullptr);
     ~JobListWidget();
 
-signals:
-    void displayJobDetails(JobPtr job);
-    void backupJob(BackupTaskPtr backup);
-    void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
-    void deleteJob(JobPtr job, bool purgeArchives);
-
 public slots:
     void addJobs(QMap<QString, JobPtr> jobs);
     void backupSelectedItems();
@@ -31,6 +25,15 @@ public slots:
     void restoreSelectedItem();
     void deleteSelectedItem();
 
+signals:
+    void displayJobDetails(JobPtr job);
+    void backupJob(BackupTaskPtr backup);
+    void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
+    void deleteJob(JobPtr job, bool purgeArchives);
+
+protected:
+    void keyReleaseEvent(QKeyEvent *event);
+
 private slots:
     void backupItem();
     void inspectItem();
@@ -39,9 +42,6 @@ private slots:
 
 private:
     void execDeleteJob(JobListItem *jobItem);
-
-protected:
-    void keyReleaseEvent(QKeyEvent *event);
 };
 
 #endif // JOBLISTWIDGET_H

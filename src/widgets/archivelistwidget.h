@@ -23,6 +23,9 @@ public slots:
     void inspectSelectedItem();
     void restoreSelectedItem();
 
+protected:
+    void keyReleaseEvent(QKeyEvent *event);
+
 private slots:
     void removeItem();
     void inspectItem();
@@ -34,9 +37,6 @@ signals:
     void inspectArchive(ArchivePtr archive);
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void displayJobDetails(QString jobRef);
-
-protected:
-    void keyReleaseEvent(QKeyEvent *event);
 };
 
 #endif // ARCHIVELISTWIDGET_H

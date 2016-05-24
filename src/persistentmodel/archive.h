@@ -58,12 +58,12 @@ public:
     void purge();
     bool findObjectWithKey(QString key);
 
+public slots:
+    QString archiveStats();
+
 signals:
     void changed();
     void purged();
-
-public slots:
-    QString archiveStats();
 
 private:
     QString    _name;

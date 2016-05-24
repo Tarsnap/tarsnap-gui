@@ -47,10 +47,10 @@ public:
     inline Debug& operator<<(QLatin1String t) { WARN << t; emit message(QString(t)); return *this; }
     inline Debug& operator<<(const QByteArray& t) { WARN << t; emit message(QString(t)); return *this; }
 
+public slots:
+
 signals:
     void message(const QString message);
-
-public slots:
 
 private:
     // Yes, a singleton

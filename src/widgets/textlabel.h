@@ -36,17 +36,17 @@ public slots:
     //! Clears all contents, including the full text.
     void clear();
 
-protected:
-    //! Recalculates the amount of elided text to display.
-    void resizeEvent(QResizeEvent *event);
-    //! Used for detecting whether to emit \ref clicked.
-    void mouseReleaseEvent(QMouseEvent *event);
-
 signals:
     //! Emitted when the elide mode was changed.
     void elideChanged(Qt::TextElideMode elide);
     //! Emitted when this widget was clicked.
     void clicked();
+
+protected:
+    //! Recalculates the amount of elided text to display.
+    void resizeEvent(QResizeEvent *event);
+    //! Used for detecting whether to emit \ref clicked.
+    void mouseReleaseEvent(QMouseEvent *event);
 
 private:
     Qt::TextElideMode _elide;

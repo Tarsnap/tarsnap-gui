@@ -1,6 +1,8 @@
 #include "backuplistitem.h"
 #include "utils.h"
 
+#include "ui_backupitemwidget.h"
+
 #include <QDebug>
 #include <QDesktopServices>
 #include <QFileInfo>
@@ -8,16 +10,17 @@
 #include <QThreadPool>
 
 BackupListItem::BackupListItem(QUrl url)
-    : _widget(new QWidget), _count(0), _size(0), _useIECPrefixes(false)
+    : _ui(new Ui::BackupItemWidget), _widget(new QWidget), _count(0),
+      _size(0), _useIECPrefixes(false)
 {
-    _ui.setupUi(_widget);
-    _widget->addAction(_ui.actionOpen);
-    _widget->addAction(_ui.actionRemove);
-    _ui.browseButton->setDefaultAction(_ui.actionOpen);
-    _ui.removeButton->setDefaultAction(_ui.actionRemove);
-    connect(_ui.actionRemove, &QAction::triggered, this,
+    _ui->setupUi(_widget);
+    _widget->addAction(_ui->actionOpen);
+    _widget->addAction(_ui->actionRemove);
+    _ui->browseButton->setDefaultAction(_ui->actionOpen);
+    _ui->removeButton->setDefaultAction(_ui->actionRemove);
+    connect(_ui->actionRemove, &QAction::triggered, this,
             &BackupListItem::requestDelete);
-    connect(_ui.actionOpen, &QAction::triggered, this,
+    connect(_ui->actionOpen, &QAction::triggered, this,
             &BackupListItem::browseUrl);
 
     QSettings settings;
@@ -28,6 +31,7 @@ BackupListItem::BackupListItem(QUrl url)
 
 BackupListItem::~BackupListItem()
 {
+    delete _ui;
 }
 
 QWidget *BackupListItem::widget()
@@ -51,12 +55,12 @@ void BackupListItem::setUrl(const QUrl &url)
         QFileInfo file(fileUrl);
         if(!file.exists())
             return;
-        _ui.pathLabel->setText(fileUrl);
-        _ui.pathLabel->setToolTip(fileUrl);
+        _ui->pathLabel->setText(fileUrl);
+        _ui->pathLabel->setToolTip(fileUrl);
         if(file.isDir())
         {
             QPixmap icon(":/icons/folder.png");
-            _ui.iconLabel->setPixmap(icon);
+            _ui->iconLabel->setPixmap(icon);
             QDir dir(file.absoluteFilePath());
             QThreadPool *threadPool = QThreadPool::globalInstance();
             Utils::GetDirInfoTask *task = new Utils::GetDirInfoTask(dir);
@@ -68,10 +72,10 @@ void BackupListItem::setUrl(const QUrl &url)
         else if(file.isFile())
         {
             QPixmap icon(":/icons/file.png");
-            _ui.iconLabel->setPixmap(icon);
+            _ui->iconLabel->setPixmap(icon);
             _count = 1;
             _size  = file.size();
-            _ui.detailLabel->setText(Utils::humanBytes(_size, _useIECPrefixes));
+            _ui->detailLabel->setText(Utils::humanBytes(_size, _useIECPrefixes));
         }
         else
         {
@@ -90,7 +94,7 @@ void BackupListItem::updateDirDetail(quint64 size, quint64 count)
 {
     _size  = size;
     _count = count;
-    _ui.detailLabel->setText(QString::number(_count) + tr(" items totalling ") +
+    _ui->detailLabel->setText(QString::number(_count) + tr(" items totalling ") +
                              Utils::humanBytes(_size, _useIECPrefixes));
     emit requestUpdate();
 }

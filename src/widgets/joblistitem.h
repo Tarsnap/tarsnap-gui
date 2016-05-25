@@ -2,7 +2,6 @@
 #define JOBLISTITEM_H
 
 #include "persistentmodel/job.h"
-#include "ui_jobitemwidget.h"
 
 #include <QListWidgetItem>
 #include <QObject>
@@ -35,7 +34,7 @@ signals:
     void requestDelete();
 
 private:
-    Ui::JobItemWidget _ui;
+    Ui::JobItemWidget *_ui;
     QWidget          *_widget;
     JobPtr            _job;
     bool              _useIECPrefixes;

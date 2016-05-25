@@ -2,7 +2,6 @@
 #define ARCHIVELISTITEM_H
 
 #include "taskmanager.h"
-#include "ui_archiveitemwidget.h"
 
 #include <QListWidgetItem>
 #include <QObject>
@@ -37,7 +36,7 @@ signals:
     void requestGoToJob();
 
 private:
-    Ui::ArchiveItemWidget _ui;
+    Ui::ArchiveItemWidget *_ui;
     QWidget              *_widget;
     ArchivePtr            _archive;
     bool                  _useIECPrefixes;

@@ -1,11 +1,14 @@
 #ifndef TARSNAPACCOUNT_H
 #define TARSNAPACCOUNT_H
 
-#include "ui_logindialog.h"
-
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <QWidget>
+#include <QDialog>
+
+namespace Ui
+{
+class loginDialog;
+}
 
 class TarsnapAccount : public QDialog
 {
@@ -13,6 +16,7 @@ class TarsnapAccount : public QDialog
 
 public:
     explicit TarsnapAccount(QWidget *parent = nullptr);
+    ~TarsnapAccount();
 
 public slots:
     void getAccountInfo(bool displayActivity        = false,
@@ -33,7 +37,7 @@ protected slots:
     void sslError(QList<QSslError> errors);
 
 private:
-    Ui::loginDialog       _ui;
+    Ui::loginDialog      *_ui;
     QNetworkAccessManager _nam;
     QString               _user;
     QString               _machine;

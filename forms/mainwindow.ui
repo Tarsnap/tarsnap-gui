@@ -389,7 +389,7 @@ text-align: center;
            <item>
             <widget class="QComboBox" name="archivesFilter">
              <property name="toolTip">
-              <string>Search and filter the Archives list</string>
+              <string>Search and filter the Archives list. Shell globbing patterns can be used.</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QComboBox {
@@ -519,7 +519,7 @@ selection-background-color: rgba(177,214,255,150);
            <item>
             <widget class="QComboBox" name="jobsFilter">
              <property name="toolTip">
-              <string>Search and filter the Jobs list</string>
+              <string>Search and filter the Jobs list.  Shell globbing patterns can be used.</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QComboBox {
@@ -2021,6 +2021,9 @@ For help regarding Tarsnap GUI, please visit the &lt;a href=&quot;https://github
               </property>
               <item>
                <widget class="QPlainTextEdit" name="keyboardShortcuts">
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">#keyboardShortcuts {
 background: rgba(255,255,255,170);
@@ -2055,14 +2058,16 @@ ctrl+i    - inspect selected Archive
 ctrl+s    - restore selected Archive
 ctrl+d    - delete selected Archive(s)
 backspace - delete selected Archive(s)
+ctrl+f    - search the Archive list
 
 Jobs tab
 --------
-ctrl+n    - define new Job
+ctrl+n    - add new Job
 ctrl+b    - execute backup for selected Jobs
 ctrl+i    - inspect selected Job
 ctrl+s    - restore selected Job
 ctrl+d    - delete selected Job
+ctrl+f    - search the Job list
 
 Settings tab
 ------------
@@ -2104,6 +2109,9 @@ ctrl+r - refresh Account Summary
               </property>
               <item>
                <widget class="QPlainTextEdit" name="consoleLog">
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">#consoleLog
 {

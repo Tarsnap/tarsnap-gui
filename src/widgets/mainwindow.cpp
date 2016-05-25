@@ -553,9 +553,14 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
             if(_ui.archivesFilter->isVisible())
             {
                 if(_ui.archivesFilter->currentText().isEmpty())
+                {
                     _ui.archivesFilter->hide();
+                }
                 else
+                {
                     _ui.archivesFilter->clearEditText();
+                    _ui.archivesFilter->setFocus();
+                }
                 return;
             }
             else if(_ui.archiveDetailsWidget->isVisible())
@@ -570,9 +575,14 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
             if(_ui.jobsFilter->isVisible())
             {
                 if(_ui.jobsFilter->currentText().isEmpty())
+                {
                     _ui.jobsFilter->hide();
+                }
                 else
+                {
                     _ui.jobsFilter->clearEditText();
+                    _ui.jobsFilter->setFocus();
+                }
                 return;
             }
             if(_ui.jobDetailsWidget->isVisible())

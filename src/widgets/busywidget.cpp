@@ -30,4 +30,5 @@ void BusyWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
         emit clicked();
+    event->accept();
 }

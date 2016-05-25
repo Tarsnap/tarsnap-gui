@@ -48,16 +48,14 @@ void TextLabel::clear()
 void TextLabel::resizeEvent(QResizeEvent *event)
 {
     QLabel::setText(elideText(_fullText));
-
-    if(event)
-        event->ignore();
+    event->accept();
 }
 
 void TextLabel::mouseReleaseEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
         emit clicked();
-    event->ignore();
+    event->accept();
 }
 
 QString TextLabel::elideText(const QString &text)

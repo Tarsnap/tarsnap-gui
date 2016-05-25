@@ -375,14 +375,28 @@ MainWindow::MainWindow(QWidget *parent)
         if(_ui.mainTabWidget->currentWidget() == _ui.archivesTab)
         {
             _ui.archivesFilter->setVisible(!_ui.archivesFilter->isVisible());
-            _ui.archivesFilter->setFocus();
+            if(_ui.archivesFilter->isVisible())
+                _ui.archivesFilter->setFocus();
+            else
+                _ui.archivesFilter->clearEditText();
         }
         else if(_ui.mainTabWidget->currentWidget() == _ui.jobsTab)
         {
             _ui.jobsFilter->setVisible(!_ui.jobsFilter->isVisible());
-            _ui.jobsFilter->setFocus();
+            if(_ui.jobsFilter->isVisible())
+                _ui.jobsFilter->setFocus();
+            else
+                _ui.jobsFilter->clearEditText();
         }
     });
+    connect(_ui.archivesFilter, &QComboBox::editTextChanged, _ui.archiveListWidget,
+            &ArchiveListWidget::setFilter);
+    connect(_ui.jobsFilter, &QComboBox::editTextChanged, _ui.jobListWidget,
+            &JobListWidget::setFilter);
+    connect(_ui.archivesFilter, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+            [&](){_ui.archiveListWidget->setFocus();});
+    connect(_ui.jobsFilter, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+            [&](){_ui.jobListWidget->setFocus();});
 }
 
 MainWindow::~MainWindow()
@@ -534,20 +548,43 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Escape:
-        if((_ui.mainTabWidget->currentWidget() == _ui.archivesTab) &&
-           (_ui.archiveDetailsWidget->isVisible()))
+        if(_ui.mainTabWidget->currentWidget() == _ui.archivesTab)
         {
-            _ui.archiveDetailsWidget->hide();
-            _ui.archiveDetailsWidget->setArchive(ArchivePtr());
+            if(_ui.archivesFilter->isVisible())
+            {
+                if(_ui.archivesFilter->currentText().isEmpty())
+                    _ui.archivesFilter->hide();
+                else
+                    _ui.archivesFilter->clearEditText();
+                return;
+            }
+            else if(_ui.archiveDetailsWidget->isVisible())
+            {
+                _ui.archiveDetailsWidget->hide();
+                _ui.archiveDetailsWidget->setArchive(ArchivePtr());
+                return;
+            }
         }
-        if((_ui.mainTabWidget->currentWidget() == _ui.jobsTab) &&
-           (_ui.jobDetailsWidget->isVisible()))
+        if(_ui.mainTabWidget->currentWidget() == _ui.jobsTab)
         {
-            hideJobDetails();
+            if(_ui.jobsFilter->isVisible())
+            {
+                if(_ui.jobsFilter->currentText().isEmpty())
+                    _ui.jobsFilter->hide();
+                else
+                    _ui.jobsFilter->clearEditText();
+                return;
+            }
+            if(_ui.jobDetailsWidget->isVisible())
+            {
+                hideJobDetails();
+                return;
+            }
         }
-        else if(_ui.journalLog->isVisible())
+        if(_ui.journalLog->isVisible())
         {
             _ui.expandJournalButton->toggle();
+            return;
         }
         break;
     default:

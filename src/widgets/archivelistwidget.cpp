@@ -160,6 +160,24 @@ void ArchiveListWidget::restoreSelectedItem()
     }
 }
 
+void ArchiveListWidget::setFilter(QString regex)
+{
+    clearSelection();
+    QRegExp rx(regex, Qt::CaseInsensitive, QRegExp::Wildcard);
+    for(int i = 0; i < count(); ++i)
+    {
+        ArchiveListItem *archiveItem =
+            static_cast<ArchiveListItem *>(item(i));
+        if(archiveItem)
+        {
+            if(archiveItem->archive()->name().contains(rx))
+                archiveItem->setHidden(false);
+            else
+                archiveItem->setHidden(true);
+        }
+    }
+}
+
 void ArchiveListWidget::inspectItem()
 {
     if(sender())

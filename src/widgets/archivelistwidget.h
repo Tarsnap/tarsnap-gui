@@ -22,6 +22,7 @@ public slots:
     void removeSelectedItems();
     void inspectSelectedItem();
     void restoreSelectedItem();
+    void setFilter(QString regex);
 
 signals:
     void deleteArchives(QList<ArchivePtr> archives);

@@ -203,6 +203,24 @@ void JobListWidget::deleteSelectedItem()
         execDeleteJob(static_cast<JobListItem *>(selectedItems().first()));
 }
 
+void JobListWidget::setFilter(QString regex)
+{
+    clearSelection();
+    QRegExp rx(regex, Qt::CaseInsensitive, QRegExp::Wildcard);
+    for(int i = 0; i < count(); ++i)
+    {
+        JobListItem *jobItem =
+            static_cast<JobListItem *>(item(i));
+        if(jobItem)
+        {
+            if(jobItem->job()->name().contains(rx))
+                jobItem->setHidden(false);
+            else
+                jobItem->setHidden(true);
+        }
+    }
+}
+
 void JobListWidget::keyReleaseEvent(QKeyEvent *event)
 {
     switch(event->key())

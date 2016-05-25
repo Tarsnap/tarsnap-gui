@@ -24,6 +24,7 @@ public slots:
     void inspectSelectedItem();
     void restoreSelectedItem();
     void deleteSelectedItem();
+    void setFilter(QString regex);
 
 signals:
     void displayJobDetails(JobPtr job);

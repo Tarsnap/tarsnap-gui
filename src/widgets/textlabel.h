@@ -16,6 +16,7 @@ class TextLabel : public QLabel
                    elideChanged DESIGNABLE true)
 
 public:
+    //! Constructor.
     explicit TextLabel(QWidget *parent = nullptr);
     ~TextLabel();
 
@@ -52,8 +53,8 @@ private:
     Qt::TextElideMode _elide;
     QString           _fullText;
 
-    //! Returns an elided version of the string (if necessary), or the
-    //! original string (if not).
+    // Returns an elided version of the string (if necessary), or the original
+    // string (if not).
     QString elideText(const QString &text);
 };
 

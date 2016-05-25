@@ -1,6 +1,8 @@
 #ifndef FILEPICKERDIALOG_H
 #define FILEPICKERDIALOG_H
 
+#include "ui_filepickerdialog.h"
+
 #include <QDialog>
 #include <QUrl>
 
@@ -22,7 +24,7 @@ public:
     void selectUrl(QUrl url);
 
 private:
-    Ui::FilePickerDialog *_ui;
+    Ui::FilePickerDialog _ui;
 };
 
 #endif // FILEPICKERDIALOG_H

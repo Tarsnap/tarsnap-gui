@@ -2,6 +2,7 @@
 #define SETUPDIALOG_H
 
 #include <taskmanager.h>
+#include "ui_setupdialog.h"
 
 #include <QDialog>
 #include <QMovie>
@@ -46,7 +47,7 @@ signals:
     void getTarsnapVersion(QString tarsnapPath);
 
 private:
-    Ui::SetupDialog *_ui;
+    Ui::SetupDialog  _ui;
     QPoint           _windowDragPos;
     QMovie           _loadingAnimation;
 

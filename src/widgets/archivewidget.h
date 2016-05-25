@@ -2,6 +2,7 @@
 #define ARCHIVEWIDGET_H
 
 #include "persistentmodel/archive.h"
+#include "ui_archivewidget.h"
 
 #include <QWidget>
 
@@ -26,7 +27,7 @@ signals:
     void jobClicked(QString jobRef);
 
 private:
-    Ui::ArchiveWidget *_ui;
+    Ui::ArchiveWidget  _ui;
     bool               _useIECPrefixes;
     ArchivePtr         _archive;
 };

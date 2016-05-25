@@ -2,6 +2,7 @@
 #define RESTOREDIALOG_H
 
 #include "persistentmodel/archive.h"
+#include "ui_restoredialog.h"
 
 #include <QDialog>
 
@@ -29,7 +30,7 @@ private slots:
     bool validate();
 
 private:
-    Ui::RestoreDialog *_ui;
+    Ui::RestoreDialog  _ui;
     ArchivePtr         _archive;
     QString            _downDir;
 };

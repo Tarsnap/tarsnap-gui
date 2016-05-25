@@ -5,7 +5,7 @@
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <QWidget>
+#include <QDialog>
 
 class TarsnapAccount : public QDialog
 {

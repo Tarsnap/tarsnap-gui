@@ -7,6 +7,11 @@
 #include <QNetworkReply>
 #include <QDialog>
 
+namespace Ui
+{
+class loginDialog;
+}
+
 class TarsnapAccount : public QDialog
 {
     Q_OBJECT

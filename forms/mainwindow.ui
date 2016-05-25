@@ -2588,23 +2588,18 @@ border: none;
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>machineActivityShowButton</tabstop>
   <tabstop>backupListWidget</tabstop>
   <tabstop>backupNameLineEdit</tabstop>
   <tabstop>appendTimestampCheckBox</tabstop>
   <tabstop>backupButton</tabstop>
+  <tabstop>archivesFilter</tabstop>
   <tabstop>archiveListWidget</tabstop>
+  <tabstop>jobsFilter</tabstop>
   <tabstop>jobListWidget</tabstop>
   <tabstop>dismissButton</tabstop>
   <tabstop>sureButton</tabstop>
   <tabstop>addJobButton</tabstop>
-  <tabstop>accountActivityShowButton</tabstop>
-  <tabstop>machineActivityShowButton</tabstop>
-  <tabstop>accountUserLineEdit</tabstop>
-  <tabstop>updateAccountButton</tabstop>
-  <tabstop>accountMachineLineEdit</tabstop>
-  <tabstop>accountMachineUseHostnameButton</tabstop>
-  <tabstop>accountMachineKeyLineEdit</tabstop>
-  <tabstop>accountMachineKeyBrowseButton</tabstop>
   <tabstop>notificationsCheckBox</tabstop>
   <tabstop>iecPrefixesCheckBox</tabstop>
   <tabstop>aggressiveNetworkingCheckBox</tabstop>
@@ -2612,12 +2607,12 @@ border: none;
   <tabstop>traverseMountCheckBox</tabstop>
   <tabstop>followSymLinksCheckBox</tabstop>
   <tabstop>skipNoDumpCheckBox</tabstop>
-  <tabstop>downloadsDirLineEdit</tabstop>
-  <tabstop>downloadsDirBrowseButton</tabstop>
   <tabstop>skipFilesSizeSpinBox</tabstop>
   <tabstop>skipSystemJunkCheckBox</tabstop>
   <tabstop>skipSystemLineEdit</tabstop>
   <tabstop>skipSystemDefaultsButton</tabstop>
+  <tabstop>downloadsDirLineEdit</tabstop>
+  <tabstop>downloadsDirBrowseButton</tabstop>
   <tabstop>limitUploadSpinBox</tabstop>
   <tabstop>limitDownloadSpinBox</tabstop>
   <tabstop>simulationCheckBox</tabstop>
@@ -2635,6 +2630,13 @@ border: none;
   <tabstop>aboutButton</tabstop>
   <tabstop>keyboardShortcuts</tabstop>
   <tabstop>consoleLog</tabstop>
+  <tabstop>updateAccountButton</tabstop>
+  <tabstop>accountMachineUseHostnameButton</tabstop>
+  <tabstop>accountMachineKeyLineEdit</tabstop>
+  <tabstop>accountMachineKeyBrowseButton</tabstop>
+  <tabstop>accountActivityShowButton</tabstop>
+  <tabstop>accountMachineLineEdit</tabstop>
+  <tabstop>accountUserLineEdit</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

@@ -25,6 +25,10 @@ TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _nam(this)
     });
 }
 
+TarsnapAccount::~TarsnapAccount()
+{
+}
+
 void TarsnapAccount::getAccountInfo(bool displayActivity,
                                     bool displayMachineActivity)
 {

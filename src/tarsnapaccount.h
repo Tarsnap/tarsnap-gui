@@ -13,6 +13,7 @@ class TarsnapAccount : public QDialog
 
 public:
     explicit TarsnapAccount(QWidget *parent = nullptr);
+    ~TarsnapAccount();
 
 signals:
     void accountCredit(qreal credit, QDate date);

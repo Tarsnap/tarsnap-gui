@@ -1,8 +1,6 @@
 #ifndef BACKUPLISTITEM_H
 #define BACKUPLISTITEM_H
 
-#include "ui_backupitemwidget.h"
-
 #include <QListWidgetItem>
 #include <QObject>
 #include <QUrl>
@@ -40,7 +38,7 @@ public slots:
     void updateDirDetail(quint64 size, quint64 count);
 
 private:
-    Ui::BackupItemWidget _ui;
+    Ui::BackupItemWidget *_ui;
     QWidget             *_widget;
     QUrl                 _url;
     quint64              _count;

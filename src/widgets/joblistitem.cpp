@@ -1,19 +1,21 @@
 #include "joblistitem.h"
 #include "utils.h"
 
+#include "ui_jobitemwidget.h"
+
 JobListItem::JobListItem(JobPtr job)
-    : _widget(new QWidget), _useIECPrefixes(false)
+    : _ui(new Ui::JobItemWidget), _widget(new QWidget), _useIECPrefixes(false)
 {
     QSettings settings;
     _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
-    _ui.setupUi(_widget);
+    _ui->setupUi(_widget);
 
-    connect(_ui.backupButton, &QToolButton::clicked, this,
+    connect(_ui->backupButton, &QToolButton::clicked, this,
             &JobListItem::requestBackup);
-    connect(_ui.inspectButton, &QToolButton::clicked, this,
+    connect(_ui->inspectButton, &QToolButton::clicked, this,
             &JobListItem::requestInspect);
-    connect(_ui.restoreButton, &QToolButton::clicked, this,
+    connect(_ui->restoreButton, &QToolButton::clicked, this,
             &JobListItem::requestRestore);
 
     setJob(job);
@@ -21,6 +23,7 @@ JobListItem::JobListItem(JobPtr job)
 
 JobListItem::~JobListItem()
 {
+    delete _ui;
 }
 
 QWidget *JobListItem::widget()
@@ -38,11 +41,11 @@ void JobListItem::setJob(const JobPtr &job)
 
     connect(_job.data(), &Job::changed, this, &JobListItem::update, QUEUED);
 
-    _ui.nameLabel->setText(_job->name());
+    _ui->nameLabel->setText(_job->name());
     if(_job->archives().isEmpty())
-        _ui.lastBackupLabel->setText(tr("No backup done yet"));
+        _ui->lastBackupLabel->setText(tr("No backup done yet"));
     else
-        _ui.lastBackupLabel->setText(
+        _ui->lastBackupLabel->setText(
             _job->archives().first()->timestamp().toString(Qt::DefaultLocaleLongDate));
 
     QString detail;
@@ -56,7 +59,7 @@ void JobListItem::setJob(const JobPtr &job)
     }
     detail.append(Utils::humanBytes(totalSize, _useIECPrefixes));
 
-    _ui.detailLabel->setText(detail);
+    _ui->detailLabel->setText(detail);
 }
 
 void JobListItem::update()

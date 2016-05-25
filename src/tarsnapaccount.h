@@ -1,8 +1,6 @@
 #ifndef TARSNAPACCOUNT_H
 #define TARSNAPACCOUNT_H
 
-#include "ui_logindialog.h"
-
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QDialog>
@@ -39,7 +37,7 @@ protected slots:
     void sslError(QList<QSslError> errors);
 
 private:
-    Ui::loginDialog       _ui;
+    Ui::loginDialog      *_ui;
     QNetworkAccessManager _nam;
     QString               _user;
     QString               _machine;

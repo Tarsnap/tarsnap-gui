@@ -1,25 +1,28 @@
 #include "archivelistitem.h"
 #include "utils.h"
 
+#include "ui_archiveitemwidget.h"
+
 #include <QSettings>
 
 #define FIELD_WIDTH 6
 
 ArchiveListItem::ArchiveListItem(ArchivePtr archive)
-    : _widget(new QWidget), _useIECPrefixes(false)
+    : _ui(new Ui::ArchiveItemWidget), _widget(new QWidget),
+      _useIECPrefixes(false)
 {
     QSettings settings;
     _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
-    _ui.setupUi(_widget);
+    _ui->setupUi(_widget);
 
-    connect(_ui.deleteButton, &QToolButton::clicked, this,
+    connect(_ui->deleteButton, &QToolButton::clicked, this,
             &ArchiveListItem::requestDelete);
-    connect(_ui.inspectButton, &QToolButton::clicked, this,
+    connect(_ui->inspectButton, &QToolButton::clicked, this,
             &ArchiveListItem::requestInspect);
-    connect(_ui.restoreButton, &QToolButton::clicked, this,
+    connect(_ui->restoreButton, &QToolButton::clicked, this,
             &ArchiveListItem::requestRestore);
-    connect(_ui.jobButton, &QToolButton::clicked, this,
+    connect(_ui->jobButton, &QToolButton::clicked, this,
             &ArchiveListItem::requestGoToJob);
 
     setArchive(archive);
@@ -27,6 +30,7 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive)
 
 ArchiveListItem::~ArchiveListItem()
 {
+    delete _ui;
 }
 
 QWidget *ArchiveListItem::widget()
@@ -65,8 +69,8 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
         }
     }
     displayName += baseName;
-    _ui.nameLabel->setText(displayName);
-    _ui.nameLabel->setToolTip(_archive->name());
+    _ui->nameLabel->setText(displayName);
+    _ui->nameLabel->setToolTip(_archive->name());
     QString detail(_archive->timestamp().toString(Qt::DefaultLocaleLongDate));
     if(_archive->sizeTotal() != 0)
     {
@@ -74,26 +78,26 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
                                          FIELD_WIDTH);
         detail.prepend(size + "  ");
     }
-    _ui.detailLabel->setText(detail);
-    _ui.detailLabel->setToolTip(_archive->archiveStats());
+    _ui->detailLabel->setText(detail);
+    _ui->detailLabel->setToolTip(_archive->archiveStats());
 
     if(_archive->jobRef().isEmpty())
     {
-        _ui.jobButton->hide();
-        _ui.horizontalLayout->removeWidget(_ui.jobButton);
-        _ui.archiveButton->show();
+        _ui->jobButton->hide();
+        _ui->horizontalLayout->removeWidget(_ui->jobButton);
+        _ui->archiveButton->show();
     }
     else
     {
-        _ui.archiveButton->hide();
-        _ui.horizontalLayout->removeWidget(_ui.archiveButton);
-        _ui.jobButton->show();
+        _ui->archiveButton->hide();
+        _ui->horizontalLayout->removeWidget(_ui->archiveButton);
+        _ui->jobButton->show();
     }
 }
 
 void ArchiveListItem::setDisabled()
 {
-    _ui.detailLabel->setText(tr("(scheduled for deletion)"));
+    _ui->detailLabel->setText(tr("(scheduled for deletion)"));
     widget()->setEnabled(false);
 }
 

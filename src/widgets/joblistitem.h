@@ -25,14 +25,14 @@ public:
     JobPtr job() const;
     void setJob(const JobPtr &job);
 
+public slots:
+    void update();
+
 signals:
     void requestBackup();
     void requestInspect();
     void requestRestore();
     void requestDelete();
-
-public slots:
-    void update();
 
 private:
     Ui::JobItemWidget _ui;

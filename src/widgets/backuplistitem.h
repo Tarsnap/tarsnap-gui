@@ -31,13 +31,13 @@ public:
     quint64 size() const;
     void setSize(const quint64 &size);
 
-signals:
-    void requestDelete();
-    void requestUpdate();
-
 public slots:
     void browseUrl();
     void updateDirDetail(quint64 size, quint64 count);
+
+signals:
+    void requestDelete();
+    void requestUpdate();
 
 private:
     Ui::BackupItemWidget _ui;

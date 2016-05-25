@@ -4,15 +4,11 @@
 #include "persistentmodel/journal.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
+#include "ui_mainwindow.h"
 
 #include <QMessageBox>
 #include <QTimer>
 #include <QWidget>
-
-namespace Ui
-{
-class MainWindow;
-}
 
 class MainWindow : public QWidget
 {
@@ -104,7 +100,7 @@ private slots:
     void showAbout();
 
 private:
-    Ui::MainWindow *_ui;
+    Ui::MainWindow  _ui;
     QString         _lastTimestamp;
     bool            _useIECPrefixes;
     QTimer          _purgeTimer;

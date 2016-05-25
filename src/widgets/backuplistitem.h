@@ -7,11 +7,6 @@
 #include <QObject>
 #include <QUrl>
 
-namespace Ui
-{
-class BackupItemWidget;
-}
-
 class BackupListItem : public QObject, public QListWidgetItem
 {
     Q_OBJECT

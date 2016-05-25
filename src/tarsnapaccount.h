@@ -5,7 +5,7 @@
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <QWidget>
+#include <QDialog>
 
 class TarsnapAccount : public QDialog
 {
@@ -13,6 +13,7 @@ class TarsnapAccount : public QDialog
 
 public:
     explicit TarsnapAccount(QWidget *parent = nullptr);
+    ~TarsnapAccount();
 
 public slots:
     void getAccountInfo(bool displayActivity        = false,

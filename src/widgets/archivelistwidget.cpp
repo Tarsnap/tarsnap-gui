@@ -1,7 +1,6 @@
 #include "archivelistwidget.h"
 #include "archivelistitem.h"
 #include "restoredialog.h"
-#include "ui_archiveitemwidget.h"
 
 #include <QMessageBox>
 #include <QKeyEvent>

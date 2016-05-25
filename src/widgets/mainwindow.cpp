@@ -5,7 +5,6 @@
 #include "ui_aboutwidget.h"
 #include "ui_archiveitemwidget.h"
 #include "ui_backupitemwidget.h"
-#include "ui_mainwindow.h"
 #include "utils.h"
 
 #include <QDateTime>
@@ -25,7 +24,6 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
-      _ui(new Ui::MainWindow),
       _useIECPrefixes(false),
       _purgeTimerCount(0),
       _purgeCountdownWindow(this),
@@ -34,10 +32,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     connect(&Debug::instance(), &Debug::message, this,
             &MainWindow::appendToConsoleLog);
-    _ui->setupUi(this);
-    _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+    _ui.setupUi(this);
+    _ui.backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+    _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+    _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 #ifdef Q_OS_OSX
     new QShortcut(QKeySequence("Ctrl+M"), this, SLOT(showMinimized()));
 #endif
@@ -55,22 +53,22 @@ MainWindow::MainWindow(QWidget *parent)
         appMenu->addAction(actionAbout);
         menuBar.addMenu(appMenu);
     }
-    connect(_ui->aboutButton, &QPushButton::clicked, this,
+    connect(_ui.aboutButton, &QPushButton::clicked, this,
             &MainWindow::showAbout);
     // --
 
-    _ui->mainTabWidget->setCurrentWidget(_ui->backupTab);
-    _ui->settingsToolbox->setCurrentWidget(_ui->settingsAccountPage);
-    _ui->mainContentSplitter->setCollapsible(0, false);
-    _ui->journalLog->hide();
-    _ui->archiveDetailsWidget->hide();
-    _ui->jobDetailsWidget->hide();
-    _ui->outOfDateNoticeLabel->hide();
-    _ui->archivesFilter->hide();
-    _ui->jobsFilter->hide();
+    _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
+    _ui.settingsToolbox->setCurrentWidget(_ui.settingsAccountPage);
+    _ui.mainContentSplitter->setCollapsible(0, false);
+    _ui.journalLog->hide();
+    _ui.archiveDetailsWidget->hide();
+    _ui.jobDetailsWidget->hide();
+    _ui.outOfDateNoticeLabel->hide();
+    _ui.archivesFilter->hide();
+    _ui.jobsFilter->hide();
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
-    _ui->consoleLog->setPlaceholderText(tr("No events yet"));
-    _ui->journalLog->setPlaceholderText(tr("No messages yet"));
+    _ui.consoleLog->setPlaceholderText(tr("No events yet"));
+    _ui.journalLog->setPlaceholderText(tr("No messages yet"));
 #endif
 
     // Purge widget setup
@@ -83,244 +81,244 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Ui actions setup
 
-    _ui->settingsTab->addAction(_ui->actionRefreshAccount);
-    connect(_ui->actionRefreshAccount, &QAction::triggered, this,
+    _ui.settingsTab->addAction(_ui.actionRefreshAccount);
+    connect(_ui.actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
-    connect(_ui->actionRefreshAccount, &QAction::triggered, this,
+    connect(_ui.actionRefreshAccount, &QAction::triggered, this,
             [&]() { _tarsnapAccount.getAccountInfo(); });
-    this->addAction(_ui->actionGoBackup);
-    this->addAction(_ui->actionGoBrowse);
-    this->addAction(_ui->actionGoJobs);
-    this->addAction(_ui->actionGoSettings);
-    this->addAction(_ui->actionGoHelp);
-    this->addAction(_ui->actionShowJournal);
-    connect(_ui->actionGoBackup, &QAction::triggered,
-            [&]() { _ui->mainTabWidget->setCurrentWidget(_ui->backupTab); });
-    connect(_ui->actionGoBrowse, &QAction::triggered,
-            [&]() { _ui->mainTabWidget->setCurrentWidget(_ui->archivesTab); });
-    connect(_ui->actionGoJobs, &QAction::triggered,
-            [&]() { _ui->mainTabWidget->setCurrentWidget(_ui->jobsTab); });
-    connect(_ui->actionGoSettings, &QAction::triggered,
-            [&]() { _ui->mainTabWidget->setCurrentWidget(_ui->settingsTab); });
-    connect(_ui->actionGoHelp, &QAction::triggered,
-            [&]() { _ui->mainTabWidget->setCurrentWidget(_ui->helpTab); });
-    connect(_ui->actionShowJournal, &QAction::triggered,
-            _ui->expandJournalButton, &QToolButton::click);
+    this->addAction(_ui.actionGoBackup);
+    this->addAction(_ui.actionGoBrowse);
+    this->addAction(_ui.actionGoJobs);
+    this->addAction(_ui.actionGoSettings);
+    this->addAction(_ui.actionGoHelp);
+    this->addAction(_ui.actionShowJournal);
+    connect(_ui.actionGoBackup, &QAction::triggered,
+            [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.backupTab); });
+    connect(_ui.actionGoBrowse, &QAction::triggered,
+            [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.archivesTab); });
+    connect(_ui.actionGoJobs, &QAction::triggered,
+            [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.jobsTab); });
+    connect(_ui.actionGoSettings, &QAction::triggered,
+            [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.settingsTab); });
+    connect(_ui.actionGoHelp, &QAction::triggered,
+            [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.helpTab); });
+    connect(_ui.actionShowJournal, &QAction::triggered,
+            _ui.expandJournalButton, &QToolButton::click);
 
     // Backup pane
-    _ui->backupButton->addAction(_ui->actionCreateJob);
-    connect(_ui->actionCreateJob, &QAction::triggered, this,
+    _ui.backupButton->addAction(_ui.actionCreateJob);
+    connect(_ui.actionCreateJob, &QAction::triggered, this,
             &MainWindow::createJobClicked);
-    connect(_ui->backupListWidget, &BackupListWidget::itemTotals, this,
+    connect(_ui.backupListWidget, &BackupListWidget::itemTotals, this,
             &MainWindow::updateBackupItemTotals);
-    _ui->backupListWidget->addAction(_ui->actionClearList);
-    connect(_ui->actionClearList, &QAction::triggered, _ui->backupListWidget,
+    _ui.backupListWidget->addAction(_ui.actionClearList);
+    connect(_ui.actionClearList, &QAction::triggered, _ui.backupListWidget,
             &BackupListWidget::clear);
-    _ui->backupListWidget->addAction(_ui->actionBrowseItems);
-    connect(_ui->actionBrowseItems, &QAction::triggered, this,
+    _ui.backupListWidget->addAction(_ui.actionBrowseItems);
+    connect(_ui.actionBrowseItems, &QAction::triggered, this,
             &MainWindow::browseForBackupItems);
-    connect(_ui->backupListInfoLabel, &QLabel::linkActivated, this,
+    connect(_ui.backupListInfoLabel, &QLabel::linkActivated, this,
             &MainWindow::browseForBackupItems);
-    connect(_ui->backupButton, &QPushButton::clicked, this,
+    connect(_ui.backupButton, &QPushButton::clicked, this,
             &MainWindow::backupButtonClicked);
-    connect(_ui->appendTimestampCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
             &MainWindow::appendTimestampCheckBoxToggled);
 
     // Settings page
-    connect(_ui->accountUserLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui.accountUserLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
-    connect(_ui->accountMachineLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui.accountMachineLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
-    connect(_ui->accountMachineKeyLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui.accountMachineKeyLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
-    connect(_ui->tarsnapPathLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui.tarsnapPathLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
-    connect(_ui->tarsnapCacheLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui.tarsnapCacheLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
-    connect(_ui->aggressiveNetworkingCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.aggressiveNetworkingCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->accountMachineKeyLineEdit, &QLineEdit::textChanged, this,
+    connect(_ui.accountMachineKeyLineEdit, &QLineEdit::textChanged, this,
             &MainWindow::validateMachineKeyPath);
-    connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this,
+    connect(_ui.tarsnapPathLineEdit, &QLineEdit::textChanged, this,
             &MainWindow::validateTarsnapPath);
-    connect(_ui->tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
+    connect(_ui.tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
             &MainWindow::validateTarsnapCache);
-    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->notificationsCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.notificationsCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->preservePathsCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.preservePathsCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->downloadsDirLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui.downloadsDirLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
-    connect(_ui->traverseMountCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.traverseMountCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->followSymLinksCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.followSymLinksCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this,
+    connect(_ui.skipFilesSizeSpinBox, &QSpinBox::editingFinished, this,
             &MainWindow::commitSettings);
-    connect(_ui->skipSystemJunkCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.skipSystemJunkCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->skipSystemLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui.skipSystemLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
-    connect(_ui->skipNoDumpCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.skipNoDumpCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->simulationCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.simulationCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->ignoreConfigCheckBox, &QCheckBox::toggled, this,
+    connect(_ui.ignoreConfigCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui->limitUploadSpinBox, &QSpinBox::editingFinished, this,
+    connect(_ui.limitUploadSpinBox, &QSpinBox::editingFinished, this,
             &MainWindow::commitSettings);
-    connect(_ui->limitDownloadSpinBox, &QSpinBox::editingFinished, this,
+    connect(_ui.limitDownloadSpinBox, &QSpinBox::editingFinished, this,
             &MainWindow::commitSettings);
 
-    connect(_ui->accountMachineUseHostnameButton, &QPushButton::clicked, this,
+    connect(_ui.accountMachineUseHostnameButton, &QPushButton::clicked, this,
             &MainWindow::accountMachineUseHostnameButtonClicked);
-    connect(_ui->accountMachineKeyBrowseButton, &QPushButton::clicked, this,
+    connect(_ui.accountMachineKeyBrowseButton, &QPushButton::clicked, this,
             &MainWindow::accountMachineKeyBrowseButtonClicked);
-    connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this,
+    connect(_ui.tarsnapPathBrowseButton, &QPushButton::clicked, this,
             &MainWindow::tarsnapPathBrowseButtonClicked);
-    connect(_ui->tarsnapCacheBrowseButton, &QPushButton::clicked, this,
+    connect(_ui.tarsnapCacheBrowseButton, &QPushButton::clicked, this,
             &MainWindow::tarsnapCacheBrowseButton);
-    connect(_ui->appDataDirBrowseButton, &QPushButton::clicked, this,
+    connect(_ui.appDataDirBrowseButton, &QPushButton::clicked, this,
             &MainWindow::appDataButtonClicked);
-    connect(_ui->purgeArchivesButton, &QPushButton::clicked, this,
+    connect(_ui.purgeArchivesButton, &QPushButton::clicked, this,
             &MainWindow::purgeArchivesButtonClicked);
-    connect(_ui->runSetupWizard, &QPushButton::clicked, this,
+    connect(_ui.runSetupWizard, &QPushButton::clicked, this,
             &MainWindow::runSetupWizardClicked);
-    connect(_ui->expandJournalButton, &QToolButton::toggled, this,
+    connect(_ui.expandJournalButton, &QToolButton::toggled, this,
             &MainWindow::expandJournalButtonToggled);
-    connect(_ui->downloadsDirBrowseButton, &QPushButton::clicked, this,
+    connect(_ui.downloadsDirBrowseButton, &QPushButton::clicked, this,
             &MainWindow::downloadsDirBrowseButtonClicked);
-    connect(_ui->busyWidget, &BusyWidget::clicked, this,
+    connect(_ui.busyWidget, &BusyWidget::clicked, this,
             &MainWindow::getTaskInfo);
     connect(&_tarsnapAccount, &TarsnapAccount::accountCredit, this,
             &MainWindow::updateAccountCredit);
     connect(&_tarsnapAccount, &TarsnapAccount::getKeyId, this,
             &MainWindow::getKeyId);
-    connect(_ui->updateAccountButton, &QPushButton::clicked,
-            _ui->actionRefreshAccount, &QAction::trigger);
+    connect(_ui.updateAccountButton, &QPushButton::clicked,
+            _ui.actionRefreshAccount, &QAction::trigger);
     connect(&_tarsnapAccount, &TarsnapAccount::lastMachineActivity, this,
             &MainWindow::updateLastMachineActivity);
-    connect(_ui->accountActivityShowButton, &QPushButton::clicked,
+    connect(_ui.accountActivityShowButton, &QPushButton::clicked,
             [&]() { _tarsnapAccount.getAccountInfo(true, false); });
-    connect(_ui->machineActivityShowButton, &QPushButton::clicked,
+    connect(_ui.machineActivityShowButton, &QPushButton::clicked,
             [&]() { _tarsnapAccount.getAccountInfo(false, true); });
 
-    connect(_ui->clearJournalButton, &QPushButton::clicked, this,
+    connect(_ui.clearJournalButton, &QPushButton::clicked, this,
             &MainWindow::clearJournalClicked);
 
     // Archives
-    _ui->archiveListWidget->addAction(_ui->actionRefresh);
-    _ui->archiveListWidget->addAction(_ui->actionInspect);
-    _ui->archiveListWidget->addAction(_ui->actionDelete);
-    _ui->archiveListWidget->addAction(_ui->actionRestore);
-    _ui->archiveListWidget->addAction(_ui->actionShowFilter);
-    connect(this, &MainWindow::archiveList, _ui->archiveListWidget,
+    _ui.archiveListWidget->addAction(_ui.actionRefresh);
+    _ui.archiveListWidget->addAction(_ui.actionInspect);
+    _ui.archiveListWidget->addAction(_ui.actionDelete);
+    _ui.archiveListWidget->addAction(_ui.actionRestore);
+    _ui.archiveListWidget->addAction(_ui.actionShowFilter);
+    connect(this, &MainWindow::archiveList, _ui.archiveListWidget,
             &ArchiveListWidget::addArchives);
-    connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
+    connect(_ui.archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &MainWindow::displayInspectArchive);
-    connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives, this,
+    connect(_ui.archiveListWidget, &ArchiveListWidget::deleteArchives, this,
             &MainWindow::deleteArchives);
-    connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this,
+    connect(_ui.archiveListWidget, &ArchiveListWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
-    connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails,
-            _ui->jobListWidget, &JobListWidget::inspectJobByRef);
-    connect(_ui->archiveDetailsWidget, &ArchiveWidget::jobClicked,
-            _ui->jobListWidget, &JobListWidget::inspectJobByRef);
+    connect(_ui.archiveListWidget, &ArchiveListWidget::displayJobDetails,
+            _ui.jobListWidget, &JobListWidget::inspectJobByRef);
+    connect(_ui.archiveDetailsWidget, &ArchiveWidget::jobClicked,
+            _ui.jobListWidget, &JobListWidget::inspectJobByRef);
 
-    connect(_ui->archiveListWidget,
+    connect(_ui.archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,
             &MainWindow::showArchiveListMenu);
-    connect(_ui->actionRefresh, &QAction::triggered, this,
+    connect(_ui.actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
-    connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
+    connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::removeSelectedItems);
-    connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
+    connect(_ui.actionRestore, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::restoreSelectedItem);
-    connect(_ui->actionInspect, &QAction::triggered, _ui->archiveListWidget,
+    connect(_ui.actionInspect, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::inspectSelectedItem);
 
     // Jobs
-    _ui->jobListWidget->addAction(_ui->actionJobBackup);
-    _ui->jobListWidget->addAction(_ui->actionJobDelete);
-    _ui->jobListWidget->addAction(_ui->actionJobInspect);
-    _ui->jobListWidget->addAction(_ui->actionJobRestore);
-    _ui->jobListWidget->addAction(_ui->actionShowFilter);
-    connect(_ui->addJobButton, &QToolButton::clicked, this,
+    _ui.jobListWidget->addAction(_ui.actionJobBackup);
+    _ui.jobListWidget->addAction(_ui.actionJobDelete);
+    _ui.jobListWidget->addAction(_ui.actionJobInspect);
+    _ui.jobListWidget->addAction(_ui.actionJobRestore);
+    _ui.jobListWidget->addAction(_ui.actionShowFilter);
+    connect(_ui.addJobButton, &QToolButton::clicked, this,
             &MainWindow::addJobClicked);
-    connect(_ui->jobDetailsWidget, &JobWidget::collapse, this,
+    connect(_ui.jobDetailsWidget, &JobWidget::collapse, this,
             &MainWindow::hideJobDetails);
-    connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, _ui->jobListWidget,
+    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, _ui.jobListWidget,
             &JobListWidget::addJob);
-    connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, this,
+    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
             &MainWindow::displayJobDetails);
-    connect(_ui->jobDetailsWidget, &JobWidget::inspectJobArchive, this,
+    connect(_ui.jobDetailsWidget, &JobWidget::inspectJobArchive, this,
             &MainWindow::displayInspectArchive);
-    connect(_ui->jobDetailsWidget, &JobWidget::restoreJobArchive, this,
+    connect(_ui.jobDetailsWidget, &JobWidget::restoreJobArchive, this,
             &MainWindow::restoreArchive);
-    connect(_ui->jobDetailsWidget, &JobWidget::deleteJobArchives, this,
+    connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives, this,
             &MainWindow::deleteArchives);
-    connect(_ui->jobDetailsWidget, &JobWidget::deleteJobArchives,
-            _ui->archiveListWidget, &ArchiveListWidget::disableArchives);
-    connect(_ui->jobDetailsWidget, &JobWidget::enableSave, _ui->addJobButton,
+    connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives,
+            _ui.archiveListWidget, &ArchiveListWidget::disableArchives);
+    connect(_ui.jobDetailsWidget, &JobWidget::enableSave, _ui.addJobButton,
             &QToolButton::setEnabled);
-    connect(_ui->jobDetailsWidget, &JobWidget::backupJob, this,
+    connect(_ui.jobDetailsWidget, &JobWidget::backupJob, this,
             &MainWindow::backupNow);
-    connect(_ui->jobListWidget, &JobListWidget::displayJobDetails, this,
+    connect(_ui.jobListWidget, &JobListWidget::displayJobDetails, this,
             &MainWindow::displayJobDetails);
-    connect(_ui->jobListWidget, &JobListWidget::backupJob, this,
+    connect(_ui.jobListWidget, &JobListWidget::backupJob, this,
             &MainWindow::backupNow);
-    connect(_ui->jobListWidget, &JobListWidget::restoreArchive, this,
+    connect(_ui.jobListWidget, &JobListWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
-    connect(_ui->jobListWidget, &JobListWidget::deleteJob, this,
+    connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
             &MainWindow::deleteJob);
-    connect(this, &MainWindow::jobsList, _ui->jobListWidget,
+    connect(this, &MainWindow::jobsList, _ui.jobListWidget,
             &JobListWidget::addJobs);
-    connect(_ui->jobListWidget, &JobListWidget::customContextMenuRequested,
+    connect(_ui.jobListWidget, &JobListWidget::customContextMenuRequested,
             this, &MainWindow::showJobsListMenu);
-    connect(_ui->actionJobBackup, &QAction::triggered, _ui->jobListWidget,
+    connect(_ui.actionJobBackup, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::backupSelectedItems);
-    connect(_ui->actionJobDelete, &QAction::triggered, _ui->jobListWidget,
+    connect(_ui.actionJobDelete, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::deleteSelectedItem);
-    connect(_ui->actionJobRestore, &QAction::triggered, _ui->jobListWidget,
+    connect(_ui.actionJobRestore, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::restoreSelectedItem);
-    connect(_ui->actionJobInspect, &QAction::triggered, _ui->jobListWidget,
+    connect(_ui.actionJobInspect, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::inspectSelectedItem);
-    connect(_ui->sureButton, &QPushButton::clicked, this,
+    connect(_ui.sureButton, &QPushButton::clicked, this,
             &MainWindow::addDefaultJobs);
 
-    _ui->jobListWidget->addAction(_ui->actionJobBackup);
-    _ui->jobListWidget->addAction(_ui->actionAddJob);
-    connect(_ui->actionAddJob, &QAction::triggered, this,
+    _ui.jobListWidget->addAction(_ui.actionJobBackup);
+    _ui.jobListWidget->addAction(_ui.actionAddJob);
+    connect(_ui.actionAddJob, &QAction::triggered, this,
             &MainWindow::addJobClicked);
-    QMenu *addJobMenu = new QMenu(_ui->addJobButton);
-    addJobMenu->addAction(_ui->actionBackupAllJobs);
-    connect(_ui->actionBackupAllJobs, &QAction::triggered, _ui->jobListWidget,
+    QMenu *addJobMenu = new QMenu(_ui.addJobButton);
+    addJobMenu->addAction(_ui.actionBackupAllJobs);
+    connect(_ui.actionBackupAllJobs, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::backupAllJobs);
-    _ui->addJobButton->setMenu(addJobMenu);
+    _ui.addJobButton->setMenu(addJobMenu);
 
     // lambda slots for misc UI updates
-    connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
+    connect(_ui.backupNameLineEdit, &QLineEdit::textChanged,
             [&](const QString text) {
                 if(text.isEmpty())
                 {
-                    _ui->backupButton->setEnabled(false);
-                    _ui->appendTimestampCheckBox->setChecked(false);
+                    _ui.backupButton->setEnabled(false);
+                    _ui.appendTimestampCheckBox->setChecked(false);
                 }
-                else if(_ui->backupListWidget->count())
+                else if(_ui.backupListWidget->count())
                 {
-                    _ui->backupButton->setEnabled(true);
+                    _ui.backupButton->setEnabled(true);
                 }
             });
-    connect(_ui->downloadsDirLineEdit, &QLineEdit::textChanged, [&]() {
-        QFileInfo file(_ui->downloadsDirLineEdit->text());
+    connect(_ui.downloadsDirLineEdit, &QLineEdit::textChanged, [&]() {
+        QFileInfo file(_ui.downloadsDirLineEdit->text());
         if(file.exists() && file.isDir() && file.isWritable())
-            _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
+            _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
         else
-            _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
+            _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
     });
-    connect(_ui->jobListWidget, &JobListWidget::deleteJob,
+    connect(_ui.jobListWidget, &JobListWidget::deleteJob,
             [&](JobPtr job, bool purgeArchives) {
                 if(purgeArchives)
                     updateStatusMessage(tr("Job <i>%1</i> deleted. Deleting %2 "
@@ -331,58 +329,58 @@ MainWindow::MainWindow(QWidget *parent)
                     updateStatusMessage(
                         tr("Job <i>%1</i> deleted.").arg(job->name()));
             });
-    connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, [&](JobPtr job) {
+    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, [&](JobPtr job) {
         emit jobAdded(job);
         updateStatusMessage(tr("Job <i>%1</i> added.").arg(job->name()));
     });
-    connect(_ui->statusBarLabel, &TextLabel::clicked, [&]() {
-        _ui->expandJournalButton->setChecked(
-            !_ui->expandJournalButton->isChecked());
+    connect(_ui.statusBarLabel, &TextLabel::clicked, [&]() {
+        _ui.expandJournalButton->setChecked(
+            !_ui.expandJournalButton->isChecked());
     });
-    connect(_ui->simulationCheckBox, &QCheckBox::stateChanged, [&](int state) {
+    connect(_ui.simulationCheckBox, &QCheckBox::stateChanged, [&](int state) {
         if(state == Qt::Unchecked)
         {
             emit getArchives();
-            _ui->simulationIcon->hide();
+            _ui.simulationIcon->hide();
         }
         else
         {
-            _ui->simulationIcon->show();
+            _ui.simulationIcon->show();
         }
     });
-    connect(_ui->repairCacheButton, &QPushButton::clicked, this,
+    connect(_ui.repairCacheButton, &QPushButton::clicked, this,
             [&]() { emit repairCache(true); });
-    connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked,
-            [&]() { _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_FILES); });
-    connect(_ui->jobListWidget, &JobListWidget::deleteJob, this,
+    connect(_ui.skipSystemDefaultsButton, &QPushButton::clicked,
+            [&]() { _ui.skipSystemLineEdit->setText(DEFAULT_SKIP_FILES); });
+    connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
             [&](JobPtr job, bool purgeArchives) {
-                if(_ui->jobDetailsWidget->job() == job)
+                if(_ui.jobDetailsWidget->job() == job)
                     hideJobDetails();
                 if(purgeArchives)
-                    _ui->archiveListWidget->disableArchives(job->archives());
+                    _ui.archiveListWidget->disableArchives(job->archives());
             });
-    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
+    connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
         QMessageBox::information(this, QApplication::applicationName(),
                                  tr("The new size notation will take effect on "
                                     "application restart."));
     });
-    connect(_ui->dismissButton, &QPushButton::clicked, [&]() {
+    connect(_ui.dismissButton, &QPushButton::clicked, [&]() {
         QSettings settings;
         settings.setValue("app/default_jobs_dismissed", true);
-        _ui->defaultJobs->hide();
-        _ui->addJobButton->show();
+        _ui.defaultJobs->hide();
+        _ui.addJobButton->show();
     });
-    connect(_ui->actionShowFilter, &QAction::triggered, [&]()
+    connect(_ui.actionShowFilter, &QAction::triggered, [&]()
     {
-        if(_ui->mainTabWidget->currentWidget() == _ui->archivesTab)
+        if(_ui.mainTabWidget->currentWidget() == _ui.archivesTab)
         {
-            _ui->archivesFilter->setVisible(!_ui->archivesFilter->isVisible());
-            _ui->archivesFilter->setFocus();
+            _ui.archivesFilter->setVisible(!_ui.archivesFilter->isVisible());
+            _ui.archivesFilter->setFocus();
         }
-        else if(_ui->mainTabWidget->currentWidget() == _ui->jobsTab)
+        else if(_ui.mainTabWidget->currentWidget() == _ui.jobsTab)
         {
-            _ui->jobsFilter->setVisible(!_ui->jobsFilter->isVisible());
-            _ui->jobsFilter->setFocus();
+            _ui.jobsFilter->setVisible(!_ui.jobsFilter->isVisible());
+            _ui.jobsFilter->setFocus();
         }
     });
 }
@@ -390,71 +388,70 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     commitSettings();
-    delete _ui;
 }
 
 void MainWindow::loadSettings()
 {
     QSettings settings;
 
-    _ui->accountCreditLabel->setText(
+    _ui.accountCreditLabel->setText(
         settings.value("tarsnap/credit", tr("click update button")).toString());
-    _ui->machineActivity->setText(
+    _ui.machineActivity->setText(
         settings.value("tarsnap/machine_activity", tr("click update button")).toString());
-    _ui->accountUserLineEdit->setText(
+    _ui.accountUserLineEdit->setText(
         settings.value("tarsnap/user", "").toString());
-    _ui->accountMachineKeyLineEdit->setText(
+    _ui.accountMachineKeyLineEdit->setText(
         settings.value("tarsnap/key", "").toString());
-    _ui->accountMachineLineEdit->setText(
+    _ui.accountMachineLineEdit->setText(
         settings.value("tarsnap/machine", "").toString());
-    _ui->tarsnapPathLineEdit->setText(
+    _ui.tarsnapPathLineEdit->setText(
         settings.value("tarsnap/path", "").toString());
-    _ui->tarsnapCacheLineEdit->setText(
+    _ui.tarsnapCacheLineEdit->setText(
         settings.value("tarsnap/cache", "").toString());
-    _ui->aggressiveNetworkingCheckBox->setChecked(
+    _ui.aggressiveNetworkingCheckBox->setChecked(
         settings.value("tarsnap/aggressive_networking", false).toBool());
-    _ui->traverseMountCheckBox->setChecked(
+    _ui.traverseMountCheckBox->setChecked(
         settings.value("tarsnap/traverse_mount", true).toBool());
-    _ui->followSymLinksCheckBox->setChecked(
+    _ui.followSymLinksCheckBox->setChecked(
         settings.value("tarsnap/follow_symlinks", false).toBool());
-    _ui->preservePathsCheckBox->setChecked(
+    _ui.preservePathsCheckBox->setChecked(
         settings.value("tarsnap/preserve_pathnames", true).toBool());
-    _ui->ignoreConfigCheckBox->setChecked(
+    _ui.ignoreConfigCheckBox->setChecked(
         settings.value("tarsnap/no_default_config", false).toBool());
-    _ui->simulationCheckBox->setChecked(
+    _ui.simulationCheckBox->setChecked(
         settings.value("tarsnap/dry_run", false).toBool());
-    _ui->simulationIcon->setVisible(_ui->simulationCheckBox->isChecked());
+    _ui.simulationIcon->setVisible(_ui.simulationCheckBox->isChecked());
     _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
-    _ui->iecPrefixesCheckBox->setChecked(_useIECPrefixes);
-    _ui->skipFilesSizeSpinBox->setValue(
+    _ui.iecPrefixesCheckBox->setChecked(_useIECPrefixes);
+    _ui.skipFilesSizeSpinBox->setValue(
         settings.value("app/skip_files_size", 0).toInt());
-    _ui->skipSystemJunkCheckBox->setChecked(
+    _ui.skipSystemJunkCheckBox->setChecked(
         settings.value("app/skip_system_enabled", false).toBool());
-    _ui->skipSystemLineEdit->setEnabled(_ui->skipSystemJunkCheckBox->isChecked());
-    _ui->skipSystemLineEdit->setText(
+    _ui.skipSystemLineEdit->setEnabled(_ui.skipSystemJunkCheckBox->isChecked());
+    _ui.skipSystemLineEdit->setText(
         settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
-    _ui->skipNoDumpCheckBox->setChecked(
+    _ui.skipNoDumpCheckBox->setChecked(
         settings.value("app/skip_nodump", false).toBool());
-    _ui->downloadsDirLineEdit->setText(
+    _ui.downloadsDirLineEdit->setText(
         settings.value("app/downloads_dir", DOWNLOADS).toString());
-    _ui->appDataDirLineEdit->setText(
+    _ui.appDataDirLineEdit->setText(
         settings.value("app/app_data", "").toString());
-    _ui->notificationsCheckBox->setChecked(
+    _ui.notificationsCheckBox->setChecked(
         settings.value("app/notifications", true).toBool());
-    _ui->limitUploadSpinBox->setValue(
+    _ui.limitUploadSpinBox->setValue(
         settings.value("app/limit_upload", 0).toInt());
-    _ui->limitDownloadSpinBox->setValue(
+    _ui.limitDownloadSpinBox->setValue(
                 settings.value("app/limit_download", 0).toInt());
 
     if(settings.value("app/default_jobs_dismissed", false).toBool())
     {
-        _ui->defaultJobs->hide();
-        _ui->addJobButton->show();
+        _ui.defaultJobs->hide();
+        _ui.addJobButton->show();
     }
     else
     {
-        _ui->defaultJobs->show();
-        _ui->addJobButton->hide();
+        _ui.defaultJobs->show();
+        _ui.addJobButton->hide();
     }
 }
 
@@ -464,22 +461,22 @@ void MainWindow::initialize()
     QDate creditDate = settings.value("tarsnap/credit_date", QDate()).toDate();
     if(creditDate.isValid())
     {
-        _ui->accountCreditLabel->setToolTip(creditDate.toString());
+        _ui.accountCreditLabel->setToolTip(creditDate.toString());
         qint64 daysElapsed = creditDate.daysTo(QDate::currentDate());
         if(daysElapsed > 10)
         {
-            _ui->outOfDateNoticeLabel->setText(
-                _ui->outOfDateNoticeLabel->text().arg(daysElapsed));
-            _ui->outOfDateNoticeLabel->show();
+            _ui.outOfDateNoticeLabel->setText(
+                _ui.outOfDateNoticeLabel->text().arg(daysElapsed));
+            _ui.outOfDateNoticeLabel->show();
         }
         else
         {
-            _ui->outOfDateNoticeLabel->hide();
+            _ui.outOfDateNoticeLabel->hide();
         }
     }
     else
     {
-        _ui->accountCreditLabel->setToolTip(
+        _ui.accountCreditLabel->setToolTip(
             tr("This info is updated on demand. Press the big Tarsnap button "
                "above to update."));
     }
@@ -537,20 +534,20 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Escape:
-        if((_ui->mainTabWidget->currentWidget() == _ui->archivesTab) &&
-           (_ui->archiveDetailsWidget->isVisible()))
+        if((_ui.mainTabWidget->currentWidget() == _ui.archivesTab) &&
+           (_ui.archiveDetailsWidget->isVisible()))
         {
-            _ui->archiveDetailsWidget->hide();
-            _ui->archiveDetailsWidget->setArchive(ArchivePtr());
+            _ui.archiveDetailsWidget->hide();
+            _ui.archiveDetailsWidget->setArchive(ArchivePtr());
         }
-        if((_ui->mainTabWidget->currentWidget() == _ui->jobsTab) &&
-           (_ui->jobDetailsWidget->isVisible()))
+        if((_ui.mainTabWidget->currentWidget() == _ui.jobsTab) &&
+           (_ui.jobDetailsWidget->isVisible()))
         {
             hideJobDetails();
         }
-        else if(_ui->journalLog->isVisible())
+        else if(_ui.journalLog->isVisible())
         {
-            _ui->expandJournalButton->toggle();
+            _ui.expandJournalButton->toggle();
         }
         break;
     default:
@@ -576,9 +573,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::updateLoadingAnimation(bool idle)
 {
     if(idle)
-        _ui->busyWidget->stop();
+        _ui.busyWidget->stop();
     else
-        _ui->busyWidget->animate();
+        _ui.busyWidget->animate();
 }
 
 void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed,
@@ -593,18 +590,18 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
                         .arg(sizeCompressed)
                         .arg(sizeUniqueTotal)
                         .arg(sizeUniqueCompressed));
-    _ui->accountTotalSizeLabel->setText(
+    _ui.accountTotalSizeLabel->setText(
         Utils::humanBytes(sizeTotal, _useIECPrefixes));
-    _ui->accountTotalSizeLabel->setToolTip(tooltip);
-    _ui->accountActualSizeLabel->setText(
+    _ui.accountTotalSizeLabel->setToolTip(tooltip);
+    _ui.accountActualSizeLabel->setText(
         Utils::humanBytes(sizeUniqueCompressed, _useIECPrefixes));
-    _ui->accountActualSizeLabel->setToolTip(tooltip);
+    _ui.accountActualSizeLabel->setToolTip(tooltip);
     quint64 storageSaved =
         sizeTotal >= sizeUniqueCompressed ? sizeTotal - sizeUniqueCompressed : 0;
-    _ui->accountStorageSavedLabel->setText(
+    _ui.accountStorageSavedLabel->setText(
         Utils::humanBytes(storageSaved, _useIECPrefixes));
-    _ui->accountStorageSavedLabel->setToolTip(tooltip);
-    _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
+    _ui.accountStorageSavedLabel->setToolTip(tooltip);
+    _ui.accountArchivesCountLabel->setText(QString::number(archiveCount));
 }
 
 void MainWindow::updateTarsnapVersion(QString versionString)
@@ -618,26 +615,26 @@ void MainWindow::setTarsnapVersion(QString versionString)
 {
     if(versionString.isEmpty())
     {
-        _ui->tarsnapVersionLabel->clear();
-        _ui->tarsnapVersionLabel->hide();
+        _ui.tarsnapVersionLabel->clear();
+        _ui.tarsnapVersionLabel->hide();
     }
     else
     {
-        _ui->tarsnapVersionLabel->setText(tr("Tarsnap version ") +
+        _ui.tarsnapVersionLabel->setText(tr("Tarsnap version ") +
                                           versionString + tr(" detected"));
-        _ui->tarsnapVersionLabel->show();
+        _ui.tarsnapVersionLabel->show();
     }
 }
 
 void MainWindow::createJobClicked()
 {
     JobPtr job(new Job());
-    job->setUrls(_ui->backupListWidget->itemUrls());
-    job->setName(_ui->backupNameLineEdit->text());
+    job->setUrls(_ui.backupListWidget->itemUrls());
+    job->setName(_ui.backupNameLineEdit->text());
     displayJobDetails(job);
-    _ui->addJobButton->setEnabled(true);
-    _ui->addJobButton->setText(tr("Save"));
-    _ui->addJobButton->setProperty("save", true);
+    _ui.addJobButton->setEnabled(true);
+    _ui.addJobButton->setText(tr("Save"));
+    _ui.addJobButton->setProperty("save", true);
 }
 
 void MainWindow::showAbout()
@@ -669,18 +666,18 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 {
     if(count != 0)
     {
-        _ui->backupDetailLabel->setText(
+        _ui.backupDetailLabel->setText(
             tr("%1 %2 (%3)")
                 .arg(count)
                 .arg(count == 1 ? "item" : "items")
                 .arg(Utils::humanBytes(size, _useIECPrefixes)));
-        if(!_ui->backupNameLineEdit->text().isEmpty())
-            _ui->backupButton->setEnabled(true);
+        if(!_ui.backupNameLineEdit->text().isEmpty())
+            _ui.backupButton->setEnabled(true);
     }
     else
     {
-        _ui->backupDetailLabel->clear();
-        _ui->backupButton->setEnabled(false);
+        _ui.backupDetailLabel->clear();
+        _ui.backupButton->setEnabled(false);
     }
 }
 
@@ -692,35 +689,35 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
     if(archive->contents().count() == 0)
         emit loadArchiveContents(archive);
 
-    _ui->archiveListWidget->setSelectedArchive(archive);
+    _ui.archiveListWidget->setSelectedArchive(archive);
 
-    _ui->archiveDetailsWidget->setArchive(archive);
-    if(!_ui->archiveDetailsWidget->isVisible())
-        _ui->archiveDetailsWidget->show();
+    _ui.archiveDetailsWidget->setArchive(archive);
+    if(!_ui.archiveDetailsWidget->isVisible())
+        _ui.archiveDetailsWidget->show();
 
-    if(_ui->mainTabWidget->currentWidget() != _ui->archivesTab)
-        _ui->mainTabWidget->setCurrentWidget(_ui->archivesTab);
+    if(_ui.mainTabWidget->currentWidget() != _ui.archivesTab)
+        _ui.mainTabWidget->setCurrentWidget(_ui.archivesTab);
 }
 
 void MainWindow::appendTimestampCheckBoxToggled(bool checked)
 {
     if(checked)
     {
-        QString text = _ui->backupNameLineEdit->text();
+        QString text = _ui.backupNameLineEdit->text();
         _lastTimestamp.clear();
         _lastTimestamp.append(
             QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
         text.append(_lastTimestamp);
-        _ui->backupNameLineEdit->setText(text);
-        _ui->backupNameLineEdit->setCursorPosition(0);
+        _ui.backupNameLineEdit->setText(text);
+        _ui.backupNameLineEdit->setCursorPosition(0);
     }
     else
     {
-        QString text = _ui->backupNameLineEdit->text();
+        QString text = _ui.backupNameLineEdit->text();
         if(!_lastTimestamp.isEmpty() && text.endsWith(_lastTimestamp))
         {
             text.chop(_lastTimestamp.length());
-            _ui->backupNameLineEdit->setText(text);
+            _ui.backupNameLineEdit->setText(text);
         }
     }
 }
@@ -728,95 +725,95 @@ void MainWindow::appendTimestampCheckBoxToggled(bool checked)
 void MainWindow::backupButtonClicked()
 {
     QList<QUrl> urls;
-    for(int i = 0; i < _ui->backupListWidget->count(); ++i)
-        urls << static_cast<BackupListItem *>(_ui->backupListWidget->item(i))->url();
+    for(int i = 0; i < _ui.backupListWidget->count(); ++i)
+        urls << static_cast<BackupListItem *>(_ui.backupListWidget->item(i))->url();
 
     BackupTaskPtr backup(new BackupTask);
-    backup->setName(_ui->backupNameLineEdit->text());
+    backup->setName(_ui.backupNameLineEdit->text());
     backup->setUrls(urls);
-    backup->setOptionDryRun(_ui->simulationCheckBox->isChecked());
-    backup->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
+    backup->setOptionDryRun(_ui.simulationCheckBox->isChecked());
+    backup->setOptionSkipNoDump(_ui.skipNoDumpCheckBox->isChecked());
     emit backupNow(backup);
-    _ui->appendTimestampCheckBox->setChecked(false);
+    _ui.appendTimestampCheckBox->setChecked(false);
 }
 
 void MainWindow::updateStatusMessage(QString message, QString detail)
 {
-    _ui->statusBarLabel->setText(message);
-    _ui->statusBarLabel->setToolTip(detail);
+    _ui.statusBarLabel->setText(message);
+    _ui.statusBarLabel->setToolTip(detail);
 }
 
 void MainWindow::commitSettings()
 {
     DEBUG << "COMMIT SETTINGS";
     QSettings settings;
-    settings.setValue("tarsnap/path",    _ui->tarsnapPathLineEdit->text());
-    settings.setValue("tarsnap/cache",   _ui->tarsnapCacheLineEdit->text());
-    settings.setValue("tarsnap/key",     _ui->accountMachineKeyLineEdit->text());
-    settings.setValue("tarsnap/machine", _ui->accountMachineLineEdit->text());
-    settings.setValue("tarsnap/user",    _ui->accountUserLineEdit->text());
-    settings.setValue("tarsnap/aggressive_networking", _ui->aggressiveNetworkingCheckBox->isChecked());
-    settings.setValue("tarsnap/preserve_pathnames", _ui->preservePathsCheckBox->isChecked());
-    settings.setValue("tarsnap/traverse_mount", _ui->traverseMountCheckBox->isChecked());
-    settings.setValue("tarsnap/follow_symlinks", _ui->followSymLinksCheckBox->isChecked());
-    settings.setValue("tarsnap/no_default_config", _ui->ignoreConfigCheckBox->isChecked());
-    settings.setValue("tarsnap/dry_run", _ui->simulationCheckBox->isChecked());
-    settings.setValue("app/iec_prefixes", _ui->iecPrefixesCheckBox->isChecked());
-    settings.setValue("app/skip_files_size", _ui->skipFilesSizeSpinBox->value());
-    settings.setValue("app/skip_system_enabled", _ui->skipSystemJunkCheckBox->isChecked());
-    settings.setValue("app/skip_system_files", _ui->skipSystemLineEdit->text());
-    settings.setValue("app/skip_nodump", _ui->skipNoDumpCheckBox->isChecked());
-    settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
-    settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
-    settings.setValue("app/notifications", _ui->notificationsCheckBox->isChecked());
-    settings.setValue("app/limit_upload", _ui->limitUploadSpinBox->value());
-    settings.setValue("app/limit_download", _ui->limitDownloadSpinBox->value());
+    settings.setValue("tarsnap/path",    _ui.tarsnapPathLineEdit->text());
+    settings.setValue("tarsnap/cache",   _ui.tarsnapCacheLineEdit->text());
+    settings.setValue("tarsnap/key",     _ui.accountMachineKeyLineEdit->text());
+    settings.setValue("tarsnap/machine", _ui.accountMachineLineEdit->text());
+    settings.setValue("tarsnap/user",    _ui.accountUserLineEdit->text());
+    settings.setValue("tarsnap/aggressive_networking", _ui.aggressiveNetworkingCheckBox->isChecked());
+    settings.setValue("tarsnap/preserve_pathnames", _ui.preservePathsCheckBox->isChecked());
+    settings.setValue("tarsnap/traverse_mount", _ui.traverseMountCheckBox->isChecked());
+    settings.setValue("tarsnap/follow_symlinks", _ui.followSymLinksCheckBox->isChecked());
+    settings.setValue("tarsnap/no_default_config", _ui.ignoreConfigCheckBox->isChecked());
+    settings.setValue("tarsnap/dry_run", _ui.simulationCheckBox->isChecked());
+    settings.setValue("app/iec_prefixes", _ui.iecPrefixesCheckBox->isChecked());
+    settings.setValue("app/skip_files_size", _ui.skipFilesSizeSpinBox->value());
+    settings.setValue("app/skip_system_enabled", _ui.skipSystemJunkCheckBox->isChecked());
+    settings.setValue("app/skip_system_files", _ui.skipSystemLineEdit->text());
+    settings.setValue("app/skip_nodump", _ui.skipNoDumpCheckBox->isChecked());
+    settings.setValue("app/downloads_dir", _ui.downloadsDirLineEdit->text());
+    settings.setValue("app/app_data", _ui.appDataDirLineEdit->text());
+    settings.setValue("app/notifications", _ui.notificationsCheckBox->isChecked());
+    settings.setValue("app/limit_upload", _ui.limitUploadSpinBox->value());
+    settings.setValue("app/limit_download", _ui.limitDownloadSpinBox->value());
     settings.sync();
     emit settingsChanged();
 }
 
 bool MainWindow::validateMachineKeyPath()
 {
-    QFileInfo machineKeyFile(_ui->accountMachineKeyLineEdit->text());
+    QFileInfo machineKeyFile(_ui.accountMachineKeyLineEdit->text());
     if(machineKeyFile.exists() && machineKeyFile.isFile() &&
        machineKeyFile.isReadable())
     {
-        _ui->accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        _ui.accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: black;}");
         return true;
     }
     else
     {
-        _ui->accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        _ui.accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: red;}");
         return false;
     }
 }
 
 bool MainWindow::validateTarsnapPath()
 {
-    if(Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text()).isEmpty())
+    if(Utils::findTarsnapClientInPath(_ui.tarsnapPathLineEdit->text()).isEmpty())
     {
-        _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        _ui.tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
         setTarsnapVersion("");
         return false;
     }
     else
     {
-        _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: black;}");
-        emit getTarsnapVersion(_ui->tarsnapPathLineEdit->text());
+        _ui.tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        emit getTarsnapVersion(_ui.tarsnapPathLineEdit->text());
         return true;
     }
 }
 
 bool MainWindow::validateTarsnapCache()
 {
-    if(Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text()).isEmpty())
+    if(Utils::validateTarsnapCache(_ui.tarsnapCacheLineEdit->text()).isEmpty())
     {
-        _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        _ui.tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: red;}");
         return false;
     }
     else
     {
-        _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        _ui.tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: black;}");
         return true;
     }
 }
@@ -839,15 +836,15 @@ void MainWindow::purgeTimerFired()
 
 void MainWindow::appendToJournalLog(LogEntry log)
 {
-    QTextCursor cursor(_ui->journalLog->document());
-    if(!_ui->journalLog->document()->isEmpty())
+    QTextCursor cursor(_ui.journalLog->document());
+    if(!_ui.journalLog->document()->isEmpty())
     {
         cursor.movePosition(QTextCursor::End);
         cursor.insertBlock();
         cursor.movePosition(QTextCursor::NextBlock);
     }
     QColor bgcolor;
-    int    blockCount = _ui->journalLog->document()->blockCount();
+    int    blockCount = _ui.journalLog->document()->blockCount();
     if(blockCount % 2)
         bgcolor = qApp->palette().base().color();
     else
@@ -858,14 +855,14 @@ void MainWindow::appendToJournalLog(LogEntry log)
     cursor.insertText(QString("[%1] %2")
                           .arg(log.timestamp.toString(Qt::DefaultLocaleShortDate))
                           .arg(log.message));
-    _ui->journalLog->moveCursor(QTextCursor::End);
-    _ui->journalLog->ensureCursorVisible();
+    _ui.journalLog->moveCursor(QTextCursor::End);
+    _ui.journalLog->ensureCursorVisible();
 }
 
 void MainWindow::appendToConsoleLog(const QString &log)
 {
-    QTextCursor cursor(_ui->consoleLog->document());
-    if(!_ui->consoleLog->document()->isEmpty())
+    QTextCursor cursor(_ui.consoleLog->document());
+    if(!_ui.consoleLog->document()->isEmpty())
     {
         cursor.movePosition(QTextCursor::End);
         cursor.insertBlock();
@@ -879,20 +876,20 @@ void MainWindow::appendToConsoleLog(const QString &log)
     cursor.mergeBlockFormat(bf);
     cursor.insertText(QString("[%1] %2\n").arg(QDateTime::currentDateTime().toString(Qt::DefaultLocaleShortDate)).arg(log));
     cursor.insertText(QLatin1String("----------------------------------------------------------------------------"));
-    _ui->consoleLog->moveCursor(QTextCursor::End);
-    _ui->consoleLog->ensureCursorVisible();
+    _ui.consoleLog->moveCursor(QTextCursor::End);
+    _ui.consoleLog->ensureCursorVisible();
 }
 
 void MainWindow::setJournal(QVector<LogEntry> _log)
 {
-    _ui->journalLog->clear();
+    _ui.journalLog->clear();
     foreach(LogEntry entry, _log)
         appendToJournalLog(entry);
 }
 
 void MainWindow::saveKeyId(QString key, int id)
 {
-    if(key == _ui->accountMachineKeyLineEdit->text())
+    if(key == _ui.accountMachineKeyLineEdit->text())
     {
         QSettings settings;
         settings.setValue("tarsnap/key_id", id);
@@ -903,16 +900,16 @@ void MainWindow::saveKeyId(QString key, int id)
 void MainWindow::browseForBackupItems()
 {
     FilePickerDialog picker;
-    connect(_ui->backupListWidget, &BackupListWidget::itemWithUrlAdded,
+    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
             &picker, &FilePickerDialog::selectUrl);
-    picker.setSelectedUrls(_ui->backupListWidget->itemUrls());
+    picker.setSelectedUrls(_ui.backupListWidget->itemUrls());
     if(picker.exec())
-        _ui->backupListWidget->setItemsWithUrls(picker.getSelectedUrls());
+        _ui.backupListWidget->setItemsWithUrls(picker.getSelectedUrls());
 }
 
 void MainWindow::accountMachineUseHostnameButtonClicked()
 {
-    _ui->accountMachineLineEdit->setText(QHostInfo::localHostName());
+    _ui.accountMachineLineEdit->setText(QHostInfo::localHostName());
     commitSettings();
 }
 
@@ -923,7 +920,7 @@ void MainWindow::accountMachineKeyBrowseButtonClicked()
                                      tr("Browse for existing machine key"));
     if(!key.isEmpty())
     {
-        _ui->accountMachineKeyLineEdit->setText(key);
+        _ui.accountMachineKeyLineEdit->setText(key);
         commitSettings();
     }
 }
@@ -932,10 +929,10 @@ void MainWindow::tarsnapPathBrowseButtonClicked()
 {
     QString tarsnapPath =
         QFileDialog::getExistingDirectory(this, tr("Find Tarsnap client"),
-                                          _ui->tarsnapPathLineEdit->text());
+                                          _ui.tarsnapPathLineEdit->text());
     if(!tarsnapPath.isEmpty())
     {
-        _ui->tarsnapPathLineEdit->setText(tarsnapPath);
+        _ui.tarsnapPathLineEdit->setText(tarsnapPath);
         commitSettings();
     }
 }
@@ -944,10 +941,10 @@ void MainWindow::tarsnapCacheBrowseButton()
 {
     QString tarsnapCacheDir =
         QFileDialog::getExistingDirectory(this, tr("Tarsnap cache location"),
-                                          _ui->tarsnapCacheLineEdit->text());
+                                          _ui.tarsnapCacheLineEdit->text());
     if(!tarsnapCacheDir.isEmpty())
     {
-        _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
+        _ui.tarsnapCacheLineEdit->setText(tarsnapCacheDir);
         commitSettings();
     }
 }
@@ -957,10 +954,10 @@ void MainWindow::appDataButtonClicked()
     QString appDataDir =
         QFileDialog::getExistingDirectory(this,
                                           tr("App data directory location"),
-                                          _ui->appDataDirLineEdit->text());
+                                          _ui.appDataDirLineEdit->text());
     if(!appDataDir.isEmpty())
     {
-        _ui->appDataDirLineEdit->setText(appDataDir);
+        _ui.appDataDirLineEdit->setText(appDataDir);
         commitSettings();
     }
 }
@@ -976,7 +973,7 @@ void MainWindow::purgeArchivesButtonClicked()
            "<br /><br />To confirm, type '%2' and press OK."
            "<br /><br /><i>Warning: This action cannot be undone. "
            "All archives will be <b>lost forever</b></i>.")
-            .arg(_ui->accountArchivesCountLabel->text(), confirmationText),
+            .arg(_ui.accountArchivesCountLabel->text(), confirmationText),
         QLineEdit::Normal, "", &ok);
     if(ok && (confirmationText == userText))
     {
@@ -1005,9 +1002,9 @@ void MainWindow::runSetupWizardClicked()
 void MainWindow::expandJournalButtonToggled(bool checked)
 {
     if(checked)
-        _ui->journalLog->show();
+        _ui.journalLog->show();
     else
-        _ui->journalLog->hide();
+        _ui.journalLog->hide();
 }
 
 void MainWindow::downloadsDirBrowseButtonClicked()
@@ -1018,7 +1015,7 @@ void MainWindow::downloadsDirBrowseButtonClicked()
                                           DOWNLOADS);
     if(!downDir.isEmpty())
     {
-        _ui->downloadsDirLineEdit->setText(downDir);
+        _ui.downloadsDirLineEdit->setText(downDir);
         commitSettings();
     }
 }
@@ -1028,44 +1025,44 @@ void MainWindow::displayJobDetails(JobPtr job)
     if(!job)
         return;
 
-    _ui->jobListWidget->selectJob(job);
+    _ui.jobListWidget->selectJob(job);
     hideJobDetails();
-    _ui->jobDetailsWidget->setJob(job);
-    _ui->jobDetailsWidget->show();
-    if(_ui->mainTabWidget->currentWidget() != _ui->jobsTab)
-        _ui->mainTabWidget->setCurrentWidget(_ui->jobsTab);
+    _ui.jobDetailsWidget->setJob(job);
+    _ui.jobDetailsWidget->show();
+    if(_ui.mainTabWidget->currentWidget() != _ui.jobsTab)
+        _ui.mainTabWidget->setCurrentWidget(_ui.jobsTab);
 }
 
 void MainWindow::hideJobDetails()
 {
-    _ui->jobDetailsWidget->hide();
-    if(_ui->addJobButton->property("save").toBool())
+    _ui.jobDetailsWidget->hide();
+    if(_ui.addJobButton->property("save").toBool())
     {
-        _ui->addJobButton->setText(tr("Add job"));
-        _ui->addJobButton->setProperty("save", false);
-        _ui->addJobButton->setEnabled(true);
+        _ui.addJobButton->setText(tr("Add job"));
+        _ui.addJobButton->setProperty("save", false);
+        _ui.addJobButton->setEnabled(true);
     }
 }
 
 void MainWindow::addJobClicked()
 {
-    if(!_ui->addJobButton->isEnabled())
+    if(!_ui.addJobButton->isEnabled())
         return;
 
-    if(_ui->addJobButton->property("save").toBool())
+    if(_ui.addJobButton->property("save").toBool())
     {
-        _ui->jobDetailsWidget->saveNew();
-        _ui->addJobButton->setText(tr("Add job"));
-        _ui->addJobButton->setProperty("save", false);
-        _ui->addJobButton->setEnabled(true);
+        _ui.jobDetailsWidget->saveNew();
+        _ui.addJobButton->setText(tr("Add job"));
+        _ui.addJobButton->setProperty("save", false);
+        _ui.addJobButton->setEnabled(true);
     }
     else
     {
         JobPtr job(new Job());
         displayJobDetails(job);
-        _ui->addJobButton->setEnabled(false);
-        _ui->addJobButton->setText(tr("Save"));
-        _ui->addJobButton->setProperty("save", true);
+        _ui.addJobButton->setEnabled(false);
+        _ui.addJobButton->setText(tr("Save"));
+        _ui.addJobButton->setProperty("save", true);
     }
 }
 
@@ -1173,8 +1170,8 @@ void MainWindow::updateAccountCredit(qreal credit, QDate date)
     QSettings settings;
     settings.setValue("tarsnap/credit", QString::number(credit));
     settings.setValue("tarsnap/credit_date", date);
-    _ui->accountCreditLabel->setText(QString::number(credit));
-    _ui->accountCreditLabel->setToolTip(date.toString());
+    _ui.accountCreditLabel->setText(QString::number(credit));
+    _ui.accountCreditLabel->setToolTip(date.toString());
 }
 
 void MainWindow::updateLastMachineActivity(QStringList activityFields)
@@ -1184,11 +1181,11 @@ void MainWindow::updateLastMachineActivity(QStringList activityFields)
     QString machineActivity = activityFields[0] + ' ' + activityFields[1];
     QSettings settings;
     settings.setValue("tarsnap/machine_activity", machineActivity);
-    _ui->machineActivity->setText(machineActivity);
-    _ui->machineActivity->setToolTip(activityFields.join(' '));
-    _ui->machineActivity->resize(_ui->machineActivity->fontMetrics()
-                                 .width(_ui->machineActivity->text()),
-                                 _ui->machineActivity->sizeHint().height());
+    _ui.machineActivity->setText(machineActivity);
+    _ui.machineActivity->setToolTip(activityFields.join(' '));
+    _ui.machineActivity->resize(_ui.machineActivity->fontMetrics()
+                                 .width(_ui.machineActivity->text()),
+                                 _ui.machineActivity->sizeHint().height());
 }
 
 void MainWindow::clearJournalClicked()
@@ -1203,33 +1200,33 @@ void MainWindow::clearJournalClicked()
 
 void MainWindow::showArchiveListMenu(const QPoint &pos)
 {
-    QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
-    QMenu  archiveListMenu(_ui->archiveListWidget);
-    archiveListMenu.addAction(_ui->actionRefresh);
-    if(!_ui->archiveListWidget->selectedItems().isEmpty())
+    QPoint globalPos = _ui.archiveListWidget->viewport()->mapToGlobal(pos);
+    QMenu  archiveListMenu(_ui.archiveListWidget);
+    archiveListMenu.addAction(_ui.actionRefresh);
+    if(!_ui.archiveListWidget->selectedItems().isEmpty())
     {
-        if(_ui->archiveListWidget->selectedItems().count() == 1)
+        if(_ui.archiveListWidget->selectedItems().count() == 1)
         {
-            archiveListMenu.addAction(_ui->actionInspect);
-            archiveListMenu.addAction(_ui->actionRestore);
+            archiveListMenu.addAction(_ui.actionInspect);
+            archiveListMenu.addAction(_ui.actionRestore);
         }
-        archiveListMenu.addAction(_ui->actionDelete);
+        archiveListMenu.addAction(_ui.actionDelete);
     }
     archiveListMenu.exec(globalPos);
 }
 
 void MainWindow::showJobsListMenu(const QPoint &pos)
 {
-    QPoint globalPos = _ui->jobListWidget->viewport()->mapToGlobal(pos);
-    QMenu  jobListMenu(_ui->jobListWidget);
-    if(!_ui->jobListWidget->selectedItems().isEmpty())
+    QPoint globalPos = _ui.jobListWidget->viewport()->mapToGlobal(pos);
+    QMenu  jobListMenu(_ui.jobListWidget);
+    if(!_ui.jobListWidget->selectedItems().isEmpty())
     {
-        jobListMenu.addAction(_ui->actionJobBackup);
-        if(_ui->jobListWidget->selectedItems().count() == 1)
+        jobListMenu.addAction(_ui.actionJobBackup);
+        if(_ui.jobListWidget->selectedItems().count() == 1)
         {
-            jobListMenu.addAction(_ui->actionJobInspect);
-            jobListMenu.addAction(_ui->actionJobRestore);
-            jobListMenu.addAction(_ui->actionJobDelete);
+            jobListMenu.addAction(_ui.actionJobInspect);
+            jobListMenu.addAction(_ui.actionJobRestore);
+            jobListMenu.addAction(_ui.actionJobDelete);
         }
     }
     jobListMenu.exec(globalPos);
@@ -1257,10 +1254,10 @@ void MainWindow::addDefaultJobs()
             job->setOptionSkipFiles(settings.value("app/skip_system_enabled", false).toBool());
             job->setOptionSkipFilesPatterns(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
             job->save();
-            _ui->jobDetailsWidget->jobAdded(job);
+            _ui.jobDetailsWidget->jobAdded(job);
         }
     }
     settings.setValue("app/default_jobs_dismissed", true);
-    _ui->defaultJobs->hide();
-    _ui->addJobButton->show();
+    _ui.defaultJobs->hide();
+    _ui.addJobButton->show();
 }

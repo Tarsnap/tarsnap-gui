@@ -2,13 +2,9 @@
 #define JOBWIDGET_H
 
 #include "persistentmodel/job.h"
+#include "ui_jobwidget.h"
 
 #include <QWidget>
-
-namespace Ui
-{
-class JobWidget;
-}
 
 class JobWidget : public QWidget
 {
@@ -42,7 +38,7 @@ protected slots:
     void showArchiveListMenu(const QPoint &pos);
 
 private:
-    Ui::JobWidget *_ui;
+    Ui::JobWidget  _ui;
     JobPtr         _job;
     bool           _saveEnabled;
 };

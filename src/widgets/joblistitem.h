@@ -7,11 +7,6 @@
 #include <QListWidgetItem>
 #include <QObject>
 
-namespace Ui
-{
-class JobItemWidget;
-}
-
 class JobListItem : public QObject, public QListWidgetItem
 {
     Q_OBJECT

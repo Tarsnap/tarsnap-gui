@@ -6,11 +6,6 @@
 
 #include <QWidget>
 
-namespace Ui
-{
-class JobWidget;
-}
-
 class JobWidget : public QWidget
 {
     Q_OBJECT

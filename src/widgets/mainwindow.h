@@ -10,11 +10,6 @@
 #include <QTimer>
 #include <QWidget>
 
-namespace Ui
-{
-class MainWindow;
-}
-
 class MainWindow : public QWidget
 {
     Q_OBJECT

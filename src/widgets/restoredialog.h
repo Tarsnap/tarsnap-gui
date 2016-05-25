@@ -6,11 +6,6 @@
 
 #include <QDialog>
 
-namespace Ui
-{
-class RestoreDialog;
-}
-
 class RestoreDialog : public QDialog
 {
     Q_OBJECT

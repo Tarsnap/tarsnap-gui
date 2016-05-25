@@ -6,11 +6,6 @@
 #include <QDialog>
 #include <QUrl>
 
-namespace Ui
-{
-class FilePickerDialog;
-}
-
 class FilePickerDialog : public QDialog
 {
     Q_OBJECT

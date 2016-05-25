@@ -7,11 +7,6 @@
 #include <QCompleter>
 #include <QWidget>
 
-namespace Ui
-{
-class FilePickerWidget;
-}
-
 class FilePickerWidget : public QWidget
 {
     Q_OBJECT

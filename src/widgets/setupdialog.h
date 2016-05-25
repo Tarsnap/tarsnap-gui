@@ -7,11 +7,6 @@
 #include <QDialog>
 #include <QMovie>
 
-namespace Ui
-{
-class SetupDialog;
-}
-
 class SetupDialog : public QDialog
 {
     Q_OBJECT

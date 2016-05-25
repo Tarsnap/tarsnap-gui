@@ -6,11 +6,6 @@
 
 #include <QWidget>
 
-namespace Ui
-{
-class ArchiveWidget;
-}
-
 class ArchiveWidget : public QWidget
 {
     Q_OBJECT

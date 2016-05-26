@@ -465,6 +465,11 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
 void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output)
 {
     BackupTaskPtr backupTask = _backupTaskMap[data.toUuid()];
+    if(!backupTask)
+    {
+        DEBUG << "Task not found: " << data.toUuid();
+        return;
+    }
     backupTask->setExitCode(exitCode);
     backupTask->setOutput(output);
     if(exitCode == SUCCESS)
@@ -595,8 +600,12 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
                                           QString output)
 {
     ArchivePtr archive = _archiveMap[data.toString()];
-
-    if(archive && (exitCode == SUCCESS))
+    if(!archive)
+    {
+        DEBUG << "Archive not found: " << data.toString();
+        return;
+    }
+    if(exitCode == SUCCESS)
     {
         emit message(
             tr("Fetching stats for archive <i>%1</i>... done.").arg(archive->name()));
@@ -611,11 +620,8 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
         return;
     }
 
-    if(archive)
-    {
-        parseArchiveStats(output, false, archive);
-        parseGlobalStats(output);
-    }
+    parseArchiveStats(output, false, archive);
+    parseGlobalStats(output);
 }
 
 void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
@@ -623,7 +629,13 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
 {
     ArchivePtr archive = _archiveMap[data.toString()];
 
-    if(archive && (exitCode == SUCCESS))
+    if(!archive)
+    {
+        DEBUG << "Archive not found: " << data.toString();
+        return;
+    }
+
+    if(exitCode == SUCCESS)
     {
         emit message(tr("Fetching contents for archive <i>%1</i>... done.")
                          .arg(archive->name()));
@@ -732,7 +744,12 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
                                          QString output)
 {
     ArchivePtr archive = _archiveMap[data.toString()];
-    if(archive && (exitCode == SUCCESS))
+    if(!archive)
+    {
+        DEBUG << "Archive not found: " << data.toString();
+        return;
+    }
+    if(exitCode == SUCCESS)
     {
         emit message(
             tr("Restoring archive <i>%1</i>... done.").arg(archive->name()));

@@ -106,6 +106,11 @@ bool PersistentStore::init()
                 DEBUG << "DB upgraded to version 3.";
                 version = 3;
             }
+            if((version == 3) && upgradeVersion4())
+            {
+                DEBUG << "DB upgraded to version 4.";
+                version = 4;
+            }
         }
     }
 
@@ -279,6 +284,22 @@ bool PersistentStore::upgradeVersion3()
     {
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 3." << _db.databaseName();
+    }
+    return result;
+}
+
+bool PersistentStore::upgradeVersion4()
+{
+    bool      result = false;
+    QSqlQuery query(_db);
+
+    if((result = query.exec("ALTER TABLE archives ADD COLUMN truncated INTEGER;")))
+        result = query.exec("UPDATE version SET version = 4;");
+
+    if(!result)
+    {
+        DEBUG << query.lastError().text();
+        DEBUG << "Failed to upgrade DB to version 4." << _db.databaseName();
     }
     return result;
 }

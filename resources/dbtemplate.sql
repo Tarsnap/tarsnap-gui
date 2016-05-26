@@ -26,6 +26,7 @@ CREATE TABLE `jobs` (
 CREATE TABLE `archives` (
 	`name`	TEXT NOT NULL,
 	`timestamp`	INTEGER NOT NULL,
+	`truncated`	INTEGER NOT NULL,
 	`sizeTotal`	INTEGER NOT NULL,
 	`sizeCompressed`	INTEGER NOT NULL,
 	`sizeUniqueTotal`	INTEGER NOT NULL,

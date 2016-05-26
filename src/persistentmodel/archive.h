@@ -37,6 +37,8 @@ public:
     void setName(const QString &value);
     QDateTime timestamp() const;
     void setTimestamp(const QDateTime &value);
+    bool truncated() const;
+    void setTruncated(bool truncated);
     quint64 sizeTotal() const;
     void setSizeTotal(const quint64 &value);
     quint64 sizeCompressed() const;
@@ -68,6 +70,7 @@ signals:
 private:
     QString    _name;
     QDateTime  _timestamp;
+    bool       _truncated;
     quint64    _sizeTotal;
     quint64    _sizeCompressed;
     quint64    _sizeUniqueTotal;

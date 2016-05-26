@@ -3,6 +3,7 @@
 
 Archive::Archive(QObject *parent)
     : QObject(parent),
+      _truncated(false),
       _sizeTotal(0),
       _sizeCompressed(0),
       _sizeUniqueTotal(0),
@@ -21,15 +22,16 @@ void Archive::save()
     if(exists)
         queryString =
             QLatin1String("update archives set name=?, timestamp=?, "
-                          "sizeTotal=?, sizeCompressed=?,"
+                          "truncated=?, sizeTotal=?, sizeCompressed=?,"
                           " sizeUniqueTotal=?, sizeUniqueCompressed=?, "
                           "command=?, contents=?, jobRef=?"
                           " where name=?");
     else
         queryString = QLatin1String(
-            "insert into archives(name, timestamp, sizeTotal, sizeCompressed,"
-            " sizeUniqueTotal, sizeUniqueCompressed, command, contents, jobRef)"
-            " values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            "insert into archives(name, timestamp, truncated, sizeTotal,"
+            " sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed, command,"
+            " contents, jobRef)"
+            " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
     if(!query.prepare(queryString))
@@ -39,6 +41,7 @@ void Archive::save()
     }
     query.addBindValue(_name);
     query.addBindValue(_timestamp.toTime_t());
+    query.addBindValue(_truncated);
     query.addBindValue(_sizeTotal);
     query.addBindValue(_sizeCompressed);
     query.addBindValue(_sizeUniqueTotal);
@@ -73,6 +76,7 @@ void Archive::load()
     {
         _timestamp = QDateTime::fromTime_t(
             query.value(query.record().indexOf("timestamp")).toUInt());
+        _truncated = query.value(query.record().indexOf("truncated")).toBool();
         _sizeTotal =
             query.value(query.record().indexOf("sizeTotal")).toULongLong();
         _sizeCompressed =
@@ -154,6 +158,16 @@ QString Archive::archiveStats()
                      .arg(_sizeUniqueTotal)
                      .arg(_sizeUniqueCompressed));
     return stats;
+}
+
+bool Archive::truncated() const
+{
+    return _truncated;
+}
+
+void Archive::setTruncated(bool truncated)
+{
+    _truncated = truncated;
 }
 
 QString Archive::jobRef() const

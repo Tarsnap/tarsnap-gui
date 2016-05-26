@@ -66,6 +66,7 @@ void ArchiveWidget::updateDetails()
         _ui.archiveUniqueDataLabel->setToolTip(_archive->archiveStats());
         _ui.archiveCommandLineEdit->setText(_archive->command());
         _ui.archiveCommandLineEdit->setCursorPosition(0);
+        _ui.truncatedLabel->setVisible(_archive->truncated());
         QString contents = _archive->contents();
         _ui.archiveContentsLabel->setText(
             tr("Contents (%1)").arg(QString::number(contents.count('\n'))));

@@ -635,26 +635,28 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
         return;
     }
 
-    if(exitCode == SUCCESS)
+    if(exitCode != SUCCESS)
     {
-        emit message(tr("Fetching contents for archive <i>%1</i>... done.")
-                         .arg(archive->name()));
-    }
-    else
-    {
-        emit message(tr("Error: Failed to get archive contents from remote."),
-                     tr("Tarsnap exited with code %1 and output:\n%2")
+        if(archive->name().endsWith(".part", Qt::CaseSensitive)
+           && output.contains("Truncated input file"))
+        {
+            archive->setTruncated(true);
+        }
+        else
+        {
+            emit message(tr("Error: Failed to get archive contents from remote."),
+                         tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(output));
-        parseError(output);
-        return;
+            parseError(output);
+            return;
+        }
     }
 
-    if(archive)
-    {
-        archive->setContents(output);
-        archive->save();
-    }
+    emit message(tr("Fetching contents for archive <i>%1</i>... done.")
+                 .arg(archive->name()));
+    archive->setContents(output);
+    archive->save();
 }
 
 void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,

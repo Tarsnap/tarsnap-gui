@@ -294,6 +294,9 @@ bool PersistentStore::upgradeVersion4()
     QSqlQuery query(_db);
 
     if((result = query.exec("ALTER TABLE archives ADD COLUMN truncated INTEGER;")))
+    if((result = query.exec("ALTER TABLE jobs ADD COLUMN settingShowHidden INTEGER;")))
+    if((result = query.exec("ALTER TABLE jobs ADD COLUMN settingShowSystem INTEGER;")))
+    if((result = query.exec("ALTER TABLE jobs ADD COLUMN settingHideSymlinks INTEGER;")))
         result = query.exec("UPDATE version SET version = 4;");
 
     if(!result)

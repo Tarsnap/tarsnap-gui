@@ -41,18 +41,21 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
             _model.setFilter(_model.filter() | QDir::Hidden);
         else
             _model.setFilter(_model.filter() & ~QDir::Hidden);
+        emit settingChanged();
     });
     connect(_ui.showSystemCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::System);
         else
             _model.setFilter(_model.filter() & ~QDir::System);
+        emit settingChanged();
     });
     connect(_ui.hideLinksCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::NoSymLinks);
         else
             _model.setFilter(_model.filter() & ~QDir::NoSymLinks);
+        emit settingChanged();
     });
     connect(_ui.showOptionsButton, &QPushButton::clicked, [&]() {
         _ui.optionsContainer->setVisible(!_ui.optionsContainer->isVisible());
@@ -101,6 +104,36 @@ void FilePickerWidget::selectUrl(QUrl url)
 {
     _model.setData(_model.index(url.toLocalFile()), Qt::Checked,
                    Qt::CheckStateRole);
+}
+
+bool FilePickerWidget::settingShowHidden()
+{
+    return _ui.showHiddenCheckBox->isChecked();
+}
+
+void FilePickerWidget::setSettingShowHidden(bool showHidden)
+{
+    _ui.showHiddenCheckBox->setChecked(showHidden);
+}
+
+bool FilePickerWidget::settingShowSystem()
+{
+    return _ui.showSystemCheckBox->isChecked();
+}
+
+void FilePickerWidget::setSettingShowSystem(bool showSystem)
+{
+    _ui.showSystemCheckBox->setChecked(showSystem);
+}
+
+bool FilePickerWidget::settingHideSymlinks()
+{
+    return _ui.hideLinksCheckBox->isChecked();
+}
+
+void FilePickerWidget::setSettingHideSymlinks(bool hideSymlinks)
+{
+    _ui.hideLinksCheckBox->setChecked(hideSymlinks);
 }
 
 void FilePickerWidget::keyReleaseEvent(QKeyEvent *event)

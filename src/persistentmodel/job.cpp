@@ -11,7 +11,10 @@ Job::Job(QObject *parent)
       _optionSkipFilesSize(0),
       _optionSkipFiles(false),
       _optionSkipFilesPatterns(DEFAULT_SKIP_FILES),
-      _optionSkipNoDump(false)
+      _optionSkipNoDump(false),
+      _settingShowHidden(false),
+      _settingShowSystem(false),
+      _settingHideSymlinks(false)
 {
     QSettings settings;
     setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
@@ -153,6 +156,35 @@ void Job::setOptionSkipNoDump(bool optionSkipNoDump)
     _optionSkipNoDump = optionSkipNoDump;
 }
 
+bool Job::settingShowHidden() const
+{
+    return _settingShowHidden;
+}
+
+void Job::setSettingShowHidden(bool settingShowHidden)
+{
+    _settingShowHidden = settingShowHidden;
+}
+
+bool Job::settingShowSystem() const
+{
+    return _settingShowSystem;
+}
+
+void Job::setSettingShowSystem(bool settingShowSystem)
+{
+    _settingShowSystem = settingShowSystem;
+}
+
+bool Job::settingHideSymlinks() const
+{
+    return _settingHideSymlinks;
+}
+
+void Job::setSettingHideSymlinks(bool settingHideSymlinks)
+{
+    _settingHideSymlinks = settingHideSymlinks;
+}
 BackupTaskPtr Job::createBackupTask()
 {
     QSettings     settings;
@@ -183,15 +215,17 @@ void Job::save()
             "optionPreservePaths=?, "
             "optionTraverseMount=?, optionFollowSymLinks=?, "
             "optionSkipFilesSize=?, "
-            "optionSkipFiles=?, optionSkipFilesPatterns=?, optionSkipNoDump=?"
+            "optionSkipFiles=?, optionSkipFilesPatterns=?, optionSkipNoDump=?, "
+            "settingShowHidden=?, settingShowSystem=?, settingHideSymlinks=?"
             "where name=?");
     else
         queryString = QLatin1String(
             "insert into jobs(name, urls, optionScheduledEnabled, "
             "optionPreservePaths, optionTraverseMount, "
             "optionFollowSymLinks, optionSkipFilesSize, optionSkipFiles, "
-            "optionSkipFilesPatterns, optionSkipNoDump) values(?, ?, ?, ?, ?, "
-            "?, ?, ?, ?, ?)");
+            "optionSkipFilesPatterns, optionSkipNoDump, settingShowHidden, "
+            "settingShowSystem, settingHideSymlinks) values(?, ?, ?, ?, ?, "
+            "?, ?, ?, ?, ?, ?, ?, ?)");
 
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
@@ -213,6 +247,9 @@ void Job::save()
     query.addBindValue(_optionSkipFiles);
     query.addBindValue(_optionSkipFilesPatterns);
     query.addBindValue(_optionSkipNoDump);
+    query.addBindValue(_settingShowHidden);
+    query.addBindValue(_settingShowSystem);
+    query.addBindValue(_settingHideSymlinks);
     if(exists)
         query.addBindValue(_name);
 
@@ -257,6 +294,12 @@ void Job::load()
             query.value(query.record().indexOf("optionSkipFilesPatterns")).toString();
         _optionSkipNoDump =
             query.value(query.record().indexOf("optionSkipNoDump")).toBool();
+        _settingShowHidden =
+            query.value(query.record().indexOf("settingShowHidden")).toBool();
+        _settingShowSystem =
+            query.value(query.record().indexOf("settingShowSystem")).toBool();
+        _settingHideSymlinks =
+            query.value(query.record().indexOf("settingHideSymlinks")).toBool();
         setObjectKey(_name);
         emit loadArchives();
     }

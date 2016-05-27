@@ -21,11 +21,10 @@ JobWidget::JobWidget(QWidget *parent)
         else
             save();
     });
-//    connect(_ui.jobTreeWidget, &FilePickerWidget::focusLost,
-//            [&](){
-//                    if(!_job->objectKey().isEmpty())
-//                        save();
-//            });
+    connect(_ui.jobTreeWidget, &FilePickerWidget::settingChanged, [&]() {
+        if(!_job->objectKey().isEmpty())
+            save();
+    });
 
     connect(_ui.includeScheduledCheckBox, &QCheckBox::toggled, this,
             &JobWidget::save);
@@ -109,7 +108,7 @@ void JobWidget::setJob(const JobPtr &job)
 
 void JobWidget::save()
 {
-    if(_saveEnabled && !_job->objectKey().isEmpty())
+    if(_saveEnabled && !_job->name().isEmpty())
     {
         DEBUG << "SAVE JOB";
         _job->setUrls(_ui.jobTreeWidget->getSelectedUrls());
@@ -122,6 +121,9 @@ void JobWidget::save()
         _job->setOptionSkipFilesSize(_ui.skipFilesSizeSpinBox->value());
         _job->setOptionSkipFiles(_ui.skipFilesCheckBox->isChecked());
         _job->setOptionSkipFilesPatterns(_ui.skipFilesLineEdit->text());
+        _job->setSettingShowHidden(_ui.jobTreeWidget->settingShowHidden());
+        _job->setSettingShowSystem(_ui.jobTreeWidget->settingShowSystem());
+        _job->setSettingHideSymlinks(_ui.jobTreeWidget->settingHideSymlinks());
         _job->save();
     }
 }
@@ -132,42 +134,35 @@ void JobWidget::saveNew()
     {
         DEBUG << "SAVE NEW JOB";
         _job->setName(_ui.jobNameLineEdit->text());
-        _job->setUrls(_ui.jobTreeWidget->getSelectedUrls());
-        _job->setOptionScheduledEnabled(
-            _ui.includeScheduledCheckBox->isChecked());
-        _job->setOptionPreservePaths(_ui.preservePathsCheckBox->isChecked());
-        _job->setOptionTraverseMount(_ui.traverseMountCheckBox->isChecked());
-        _job->setOptionFollowSymLinks(_ui.followSymLinksCheckBox->isChecked());
-        _job->setOptionSkipNoDump(_ui.skipNoDumpCheckBox->isChecked());
-        _job->setOptionSkipFilesSize(_ui.skipFilesSizeSpinBox->value());
-        _job->setOptionSkipFiles(_ui.skipFilesCheckBox->isChecked());
-        _job->setOptionSkipFilesPatterns(_ui.skipFilesLineEdit->text());
-        _job->save();
+        save();
         emit jobAdded(_job);
     }
 }
 
 void JobWidget::updateDetails()
 {
-    if(_job)
-    {
-        _ui.jobNameLineEdit->setText(_job->name());
-        _ui.jobNameLabel->setText(_job->name());
-        _ui.jobTreeWidget->blockSignals(true);
-        _ui.jobTreeWidget->setSelectedUrls(_job->urls());
-        _ui.jobTreeWidget->blockSignals(false);
-        _ui.archiveListWidget->clear();
-        _ui.archiveListWidget->addArchives(_job->archives());
-        _ui.includeScheduledCheckBox->setChecked(_job->optionScheduledEnabled());
-        _ui.preservePathsCheckBox->setChecked(_job->optionPreservePaths());
-        _ui.traverseMountCheckBox->setChecked(_job->optionTraverseMount());
-        _ui.followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());
-        _ui.skipNoDumpCheckBox->setChecked(_job->optionSkipNoDump());
-        _ui.skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
-        _ui.skipFilesCheckBox->setChecked(_job->optionSkipFiles());
-        _ui.skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
-        _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab), tr("Archives (%1)").arg(_job->archives().count()));
-    }
+    if(!_job)
+        return;
+
+    _ui.jobNameLabel->setText(_job->name());
+    _ui.jobTreeWidget->blockSignals(true);
+    _ui.jobTreeWidget->setSelectedUrls(_job->urls());
+    _ui.jobTreeWidget->blockSignals(false);
+    _ui.jobTreeWidget->setSettingShowHidden(_job->settingShowHidden());
+    _ui.jobTreeWidget->setSettingShowSystem(_job->settingShowSystem());
+    _ui.jobTreeWidget->setSettingHideSymlinks(_job->settingHideSymlinks());
+    _ui.archiveListWidget->clear();
+    _ui.archiveListWidget->addArchives(_job->archives());
+    _ui.includeScheduledCheckBox->setChecked(_job->optionScheduledEnabled());
+    _ui.preservePathsCheckBox->setChecked(_job->optionPreservePaths());
+    _ui.traverseMountCheckBox->setChecked(_job->optionTraverseMount());
+    _ui.followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());
+    _ui.skipNoDumpCheckBox->setChecked(_job->optionSkipNoDump());
+    _ui.skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
+    _ui.skipFilesCheckBox->setChecked(_job->optionSkipFiles());
+    _ui.skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
+    _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
+                              tr("Archives (%1)").arg(_job->archives().count()));
 }
 
 void JobWidget::restoreButtonClicked()

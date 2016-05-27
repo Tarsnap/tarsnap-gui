@@ -57,6 +57,15 @@ public:
     bool optionSkipNoDump() const;
     void setOptionSkipNoDump(bool optionSkipNoDump);
 
+    bool settingShowHidden() const;
+    void setSettingShowHidden(bool settingShowHidden);
+
+    bool settingShowSystem() const;
+    void setSettingShowSystem(bool settingShowSystem);
+
+    bool settingHideSymlinks() const;
+    void setSettingHideSymlinks(bool settingHideSymlinks);
+
     BackupTaskPtr createBackupTask();
 
     // From PersistentObject
@@ -81,6 +90,9 @@ private:
     bool              _optionSkipFiles;
     QString           _optionSkipFilesPatterns;
     bool              _optionSkipNoDump;
+    bool              _settingShowHidden;
+    bool              _settingShowSystem;
+    bool              _settingHideSymlinks;
 };
 
 #endif // JOB_H

@@ -19,6 +19,12 @@ public:
     QList<QUrl> getSelectedUrls();
     void        setSelectedUrls(const QList<QUrl> &urls);
     void        selectUrl(QUrl url);
+    bool        settingShowHidden();
+    void        setSettingShowHidden(bool showHidden);
+    bool        settingShowSystem();
+    void        setSettingShowSystem(bool showSystem);
+    bool        settingHideSymlinks();
+    void        setSettingHideSymlinks(bool hideSymlinks);
 
 public slots:
     void updateFilter(QString filter);
@@ -27,6 +33,7 @@ public slots:
 signals:
     void selectionChanged();
     void focusLost();
+    void settingChanged();
 
 protected:
     void keyReleaseEvent(QKeyEvent *event);

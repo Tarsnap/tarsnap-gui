@@ -55,6 +55,17 @@ void Job::setUrls(const QList<QUrl> &urls)
     _urls = urls;
 }
 
+bool Job::validateUrls()
+{
+    foreach(QUrl url, _urls)
+    {
+        QFileInfo file(url.toLocalFile());
+        if(!file.exists())
+            return false;
+    }
+    return true;
+}
+
 QList<ArchivePtr> Job::archives() const
 {
     return _archives;
@@ -185,6 +196,7 @@ void Job::setSettingHideSymlinks(bool settingHideSymlinks)
 {
     _settingHideSymlinks = settingHideSymlinks;
 }
+
 BackupTaskPtr Job::createBackupTask()
 {
     QSettings     settings;

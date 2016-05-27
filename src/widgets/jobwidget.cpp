@@ -10,7 +10,8 @@ JobWidget::JobWidget(QWidget *parent)
 {
     _ui.setupUi(this);
     _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-
+    _ui.infoLabel->hide();
+    connect(_ui.infoLabel, &TextLabel::clicked, this, &JobWidget::updateDetails);
     connect(_ui.jobNameLineEdit, &QLineEdit::textChanged, [&]() {
         if(_job->objectKey().isEmpty())
             emit enableSave(canSaveNew());
@@ -143,14 +144,22 @@ void JobWidget::updateDetails()
 {
     if(!_job)
         return;
-
+    DEBUG << "UPDATE JOB DETAILS";
     _ui.jobNameLabel->setText(_job->name());
-    _ui.jobTreeWidget->blockSignals(true);
-    _ui.jobTreeWidget->setSelectedUrls(_job->urls());
-    _ui.jobTreeWidget->blockSignals(false);
     _ui.jobTreeWidget->setSettingShowHidden(_job->settingShowHidden());
     _ui.jobTreeWidget->setSettingShowSystem(_job->settingShowSystem());
     _ui.jobTreeWidget->setSettingHideSymlinks(_job->settingHideSymlinks());
+    _ui.jobTreeWidget->blockSignals(true);
+    _ui.jobTreeWidget->setSelectedUrls(_job->urls());
+    _ui.jobTreeWidget->blockSignals(false);
+    _ui.infoLabel->setVisible(!_job->validateUrls());
+    if(_ui.infoLabel->isVisible())
+    {
+        QStringList urls;
+        foreach(QUrl url, _job->urls())
+            urls << url.toLocalFile();
+        _ui.infoLabel->setToolTip(urls.join('\n'));
+    }
     _ui.archiveListWidget->clear();
     _ui.archiveListWidget->addArchives(_job->archives());
     _ui.includeScheduledCheckBox->setChecked(_job->optionScheduledEnabled());

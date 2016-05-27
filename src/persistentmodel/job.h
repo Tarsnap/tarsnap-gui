@@ -29,6 +29,7 @@ public:
 
     QList<QUrl> urls() const;
     void setUrls(const QList<QUrl> &urls);
+    bool validateUrls();
 
     QList<ArchivePtr> archives() const;
     void setArchives(const QList<ArchivePtr> &archives);

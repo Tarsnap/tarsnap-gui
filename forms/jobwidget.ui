@@ -180,6 +180,24 @@ padding-left: 3px;
     </widget>
    </item>
    <item>
+    <widget class="TextLabel" name="infoLabel">
+     <property name="font">
+      <font>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string>Previously selected paths are not accessible. Mount missing drives or make a new selection and click this label.</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="styleSheet">
       <string notr="true">QTabWidget::tab-bar {
@@ -520,6 +538,11 @@ selection-background-color: rgba(177,214,255, 150);
   </action>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>TextLabel</class>
+   <extends>QLabel</extends>
+   <header>../widgets/textlabel.h</header>
+  </customwidget>
   <customwidget>
    <class>ArchiveListWidget</class>
    <extends>QListWidget</extends>

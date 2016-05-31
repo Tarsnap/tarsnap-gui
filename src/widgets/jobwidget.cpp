@@ -79,7 +79,10 @@ JobPtr JobWidget::job() const
 void JobWidget::setJob(const JobPtr &job)
 {
     if(_job)
+    {
+        _job->removeWatcher();
         disconnect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
+    }
 
     _saveEnabled = false;
     _job = job;
@@ -104,6 +107,8 @@ void JobWidget::setJob(const JobPtr &job)
         _ui.jobNameLabel->show();
         _ui.jobNameLineEdit->hide();
         connect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
+        connect(_job.data(), &Job::pathsChanged, this, &JobWidget::verifyJobPaths);
+        job->installWatcher();
     }
     _ui.tabWidget->setCurrentWidget(_ui.jobTreeTab);
     updateDetails();
@@ -219,4 +224,10 @@ void JobWidget::showArchiveListMenu(const QPoint &pos)
         archiveListMenu.addAction(_ui.actionDelete);
     }
     archiveListMenu.exec(globalPos);
+}
+
+void JobWidget::verifyJobPaths()
+{
+    // change to instance timer and coalesce events
+    QTimer::singleShot(100, this, &JobWidget::updateDetails);
 }

@@ -66,6 +66,37 @@ bool Job::validateUrls()
     return true;
 }
 
+void Job::installWatcher()
+{
+    connect(&_fsWatcher, &QFileSystemWatcher::directoryChanged, this,
+            &Job::pathsChanged);
+    connect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this,
+            &Job::pathsChanged);
+
+    foreach(QUrl url, _urls)
+    {
+        QFileInfo file(url.toLocalFile());
+        _fsWatcher.addPath(file.absoluteFilePath());
+        QDir dir(file.absoluteDir());
+        while(dir != QDir::root())
+        {
+            _fsWatcher.addPath(dir.absolutePath());
+            dir.cdUp();
+        }
+    }
+}
+
+void Job::removeWatcher()
+{
+    disconnect(&_fsWatcher, &QFileSystemWatcher::directoryChanged, this,
+            &Job::pathsChanged);
+    disconnect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this,
+            &Job::pathsChanged);
+
+    _fsWatcher.removePaths(_fsWatcher.files());
+    _fsWatcher.removePaths(_fsWatcher.directories());
+}
+
 QList<ArchivePtr> Job::archives() const
 {
     return _archives;

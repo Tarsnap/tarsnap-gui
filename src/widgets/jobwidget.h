@@ -36,6 +36,7 @@ protected slots:
     void backupButtonClicked();
     bool canSaveNew();
     void showArchiveListMenu(const QPoint &pos);
+    void verifyJobPaths();
 
 private:
     Ui::JobWidget  _ui;

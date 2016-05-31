@@ -81,9 +81,9 @@ void JobWidget::setJob(const JobPtr &job)
     if(_job)
         disconnect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
 
+    _saveEnabled = false;
     _job = job;
 
-    _saveEnabled = false;
     // Creating a new job?
     if(_job->objectKey().isEmpty())
     {
@@ -148,6 +148,7 @@ void JobWidget::updateDetails()
     if(!_job)
         return;
     DEBUG << "UPDATE JOB DETAILS";
+    _saveEnabled = false;
     _ui.jobNameLabel->setText(_job->name());
     _ui.jobTreeWidget->setSettingShowHidden(_job->settingShowHidden());
     _ui.jobTreeWidget->setSettingShowSystem(_job->settingShowSystem());
@@ -175,6 +176,7 @@ void JobWidget::updateDetails()
     _ui.skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
     _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
                               tr("Archives (%1)").arg(_job->archives().count()));
+    _saveEnabled = true;
 }
 
 void JobWidget::restoreButtonClicked()

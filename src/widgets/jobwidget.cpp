@@ -78,6 +78,9 @@ JobPtr JobWidget::job() const
 
 void JobWidget::setJob(const JobPtr &job)
 {
+    if(_job)
+        disconnect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
+
     _job = job;
 
     _saveEnabled = false;

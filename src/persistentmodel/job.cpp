@@ -267,7 +267,6 @@ void Job::save()
 
     store.runQuery(query);
     setObjectKey(_name);
-    emit changed();
 }
 
 void Job::load()

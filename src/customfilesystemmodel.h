@@ -6,6 +6,8 @@
 #include <QPersistentModelIndex>
 #include <QSet>
 
+#define SELECTION_CHANGED_ROLE Qt::UserRole + 100
+
 /*!
  * \brief The CustomFileSystemModel is a QFileSystemModel which keeps track of
  * which files/directories have been (fully or partially) checked.

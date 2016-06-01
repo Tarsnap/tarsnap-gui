@@ -48,12 +48,15 @@ QVariant CustomFileSystemModel::data(const QModelIndex &index, int role) const
 bool CustomFileSystemModel::setData(const QModelIndex &index,
                                     const QVariant &value, int role)
 {
+    QVector<int> selectionChangedRole;
+    selectionChangedRole << SELECTION_CHANGED_ROLE;
     if(role == Qt::CheckStateRole)
     {
         if(value == Qt::Checked)
         {
             _partialChecklist.remove(index);
             _checklist.insert(index);
+            emit dataChanged(index, index, selectionChangedRole);
             if(index.parent().isValid())
             {
                 if(index.parent().data(Qt::CheckStateRole) == Qt::Checked)
@@ -87,7 +90,8 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
         }
         else if(value == Qt::PartiallyChecked)
         {
-            _checklist.remove(index);
+            if(_checklist.remove(index))
+                emit dataChanged(index, index, selectionChangedRole);
             _partialChecklist.insert(index);
             if(index.parent().isValid() &&
                (index.parent().data(Qt::CheckStateRole) == Qt::Unchecked))
@@ -95,7 +99,8 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
         }
         else if(value == Qt::Unchecked)
         {
-            _checklist.remove(index);
+            if(_checklist.remove(index))
+                emit dataChanged(index, index, selectionChangedRole);
             _partialChecklist.remove(index);
 
             if(isDir(index))

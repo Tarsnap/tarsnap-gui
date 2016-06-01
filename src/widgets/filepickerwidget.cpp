@@ -31,7 +31,7 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
                 const QVector<int> &roles) {
                 Q_UNUSED(topLeft);
                 Q_UNUSED(bottomRight);
-                if(!roles.isEmpty() && (roles.first() == Qt::CheckStateRole))
+                if(!roles.isEmpty() && (roles.first() == SELECTION_CHANGED_ROLE))
                     emit selectionChanged();
             });
     connect(_ui.filterLineEdit, &QLineEdit::textEdited, this,

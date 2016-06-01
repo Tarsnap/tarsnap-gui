@@ -4,6 +4,7 @@
 #include "utils.h"
 
 #include <QMenu>
+#include <QMessageBox>
 
 JobWidget::JobWidget(QWidget *parent)
     : QWidget(parent), _saveEnabled(false)
@@ -11,7 +12,9 @@ JobWidget::JobWidget(QWidget *parent)
     _ui.setupUi(this);
     _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui.infoLabel->hide();
-    connect(_ui.infoLabel, &TextLabel::clicked, this, &JobWidget::updateDetails);
+    _fsEventUpdate.setSingleShot(true);
+    connect(&_fsEventUpdate, &QTimer::timeout, this, &JobWidget::verifyJob);
+    connect(_ui.infoLabel, &TextLabel::clicked, this, &JobWidget::showJobPathsWarn);
     connect(_ui.jobNameLineEdit, &QLineEdit::textChanged, [&]() {
         if(_job->objectKey().isEmpty())
             emit enableSave(canSaveNew());
@@ -81,6 +84,7 @@ void JobWidget::setJob(const JobPtr &job)
     if(_job)
     {
         _job->removeWatcher();
+        disconnect(_job.data(), &Job::fsEvent, this, &JobWidget::fsEventReceived);
         disconnect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
     }
 
@@ -107,7 +111,7 @@ void JobWidget::setJob(const JobPtr &job)
         _ui.jobNameLabel->show();
         _ui.jobNameLineEdit->hide();
         connect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
-        connect(_job.data(), &Job::pathsChanged, this, &JobWidget::verifyJobPaths);
+        connect(_job.data(), &Job::fsEvent, this, &JobWidget::fsEventReceived);
         job->installWatcher();
     }
     _ui.tabWidget->setCurrentWidget(_ui.jobTreeTab);
@@ -121,6 +125,8 @@ void JobWidget::save()
     {
         DEBUG << "SAVE JOB";
         _job->setUrls(_ui.jobTreeWidget->getSelectedUrls());
+        _job->removeWatcher();
+        _job->installWatcher();
         _job->setOptionScheduledEnabled(
             _ui.includeScheduledCheckBox->isChecked());
         _job->setOptionPreservePaths(_ui.preservePathsCheckBox->isChecked());
@@ -134,6 +140,7 @@ void JobWidget::save()
         _job->setSettingShowSystem(_ui.jobTreeWidget->settingShowSystem());
         _job->setSettingHideSymlinks(_ui.jobTreeWidget->settingHideSymlinks());
         _job->save();
+        verifyJob();
     }
 }
 
@@ -161,14 +168,6 @@ void JobWidget::updateDetails()
     _ui.jobTreeWidget->blockSignals(true);
     _ui.jobTreeWidget->setSelectedUrls(_job->urls());
     _ui.jobTreeWidget->blockSignals(false);
-    _ui.infoLabel->setVisible(!_job->validateUrls());
-    if(_ui.infoLabel->isVisible())
-    {
-        QStringList urls;
-        foreach(QUrl url, _job->urls())
-            urls << url.toLocalFile();
-        _ui.infoLabel->setToolTip(urls.join('\n'));
-    }
     _ui.archiveListWidget->clear();
     _ui.archiveListWidget->addArchives(_job->archives());
     _ui.includeScheduledCheckBox->setChecked(_job->optionScheduledEnabled());
@@ -181,6 +180,7 @@ void JobWidget::updateDetails()
     _ui.skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
     _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
                               tr("Archives (%1)").arg(_job->archives().count()));
+    verifyJob();
     _saveEnabled = true;
 }
 
@@ -226,8 +226,45 @@ void JobWidget::showArchiveListMenu(const QPoint &pos)
     archiveListMenu.exec(globalPos);
 }
 
-void JobWidget::verifyJobPaths()
+void JobWidget::fsEventReceived()
 {
-    // change to instance timer and coalesce events
-    QTimer::singleShot(100, this, &JobWidget::updateDetails);
+    _fsEventUpdate.start(250); //coalesce update events with a 250ms time delay
+}
+
+void JobWidget::showJobPathsWarn()
+{
+    if(_job->urls().isEmpty())
+        return;
+    QMessageBox *msg = new QMessageBox(this);
+    msg->setAttribute(Qt::WA_DeleteOnClose, true);
+    msg->setText(tr("Previously selected backup paths for this Job are not"
+                   " accessible anymore and thus backups may be incomplete."
+                    " Mount missing drives or make a new selection. Press Show"
+                    " details to list all backup paths for Job %1:").arg(_job->name()));
+    QStringList urls;
+    foreach(QUrl url, _job->urls())
+        urls << url.toLocalFile();
+    msg->setDetailedText(urls.join('\n'));
+    msg->show();
+}
+
+void JobWidget::verifyJob()
+{
+    _ui.jobTreeWidget->blockSignals(true);
+    _ui.jobTreeWidget->setSelectedUrls(_job->urls());
+    _ui.jobTreeWidget->blockSignals(false);
+    _ui.infoLabel->setVisible(!_job->validateUrls());
+    if(!_job->validateUrls())
+    {
+        if(_job->urls().isEmpty())
+        {
+            _ui.infoLabel->setText(tr("This Job has no backup paths selected. "
+                                      "Please make a selection."));
+        }
+        else
+        {
+            _ui.infoLabel->setText(tr("Previously selected backup paths are not"
+                                      " accessible. Click here for details."));
+        }
+    }
 }

@@ -81,7 +81,7 @@ public:
 signals:
     void changed();
     void loadArchives();
-    void pathsChanged();
+    void fsEvent();
 
 private:
     QString            _name;

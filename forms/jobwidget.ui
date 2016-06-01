@@ -187,7 +187,7 @@ padding-left: 3px;
       </font>
      </property>
      <property name="text">
-      <string>Previously selected paths are not accessible. Mount missing drives or make a new selection and click this label.</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

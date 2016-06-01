@@ -57,6 +57,8 @@ void Job::setUrls(const QList<QUrl> &urls)
 
 bool Job::validateUrls()
 {
+    if(_urls.isEmpty())
+        return false;
     foreach(QUrl url, _urls)
     {
         QFileInfo file(url.toLocalFile());
@@ -69,9 +71,9 @@ bool Job::validateUrls()
 void Job::installWatcher()
 {
     connect(&_fsWatcher, &QFileSystemWatcher::directoryChanged, this,
-            &Job::pathsChanged);
+            &Job::fsEvent);
     connect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this,
-            &Job::pathsChanged);
+            &Job::fsEvent);
 
     foreach(QUrl url, _urls)
     {
@@ -89,12 +91,11 @@ void Job::installWatcher()
 void Job::removeWatcher()
 {
     disconnect(&_fsWatcher, &QFileSystemWatcher::directoryChanged, this,
-            &Job::pathsChanged);
+            &Job::fsEvent);
     disconnect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this,
-            &Job::pathsChanged);
+            &Job::fsEvent);
 
-    _fsWatcher.removePaths(_fsWatcher.files());
-    _fsWatcher.removePaths(_fsWatcher.directories());
+    _fsWatcher.removePaths(_fsWatcher.files() + _fsWatcher.directories());
 }
 
 QList<ArchivePtr> Job::archives() const

@@ -74,7 +74,7 @@ void JobListWidget::backupAllJobs()
     for(int i = 0; i < count(); ++i)
     {
         JobPtr job = static_cast<JobListItem *>(item(i))->job();
-        emit   backupJob(job->createBackupTask());
+        emit backupJob(job->createBackupTask());
     }
 }
 

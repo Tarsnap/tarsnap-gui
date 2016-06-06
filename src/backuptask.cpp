@@ -31,6 +31,56 @@ BackupTask::BackupTask()
         settings.value("app/skip_system_files", "").toString());
 }
 
+QString BackupTask::name() const
+{
+    return _name;
+}
+
+void BackupTask::setName(const QString &name)
+{
+    _name = name;
+}
+
+QUuid BackupTask::uuid() const
+{
+    return _uuid;
+}
+
+void BackupTask::setUuid(const QUuid &uuid)
+{
+    _uuid = uuid;
+}
+
+QDateTime BackupTask::timestamp() const
+{
+    return _timestamp;
+}
+
+void BackupTask::setTimestamp(const QDateTime &timestamp)
+{
+    _timestamp = timestamp;
+}
+
+QString BackupTask::jobRef() const
+{
+    return _jobRef;
+}
+
+void BackupTask::setJobRef(const QString &jobRef)
+{
+    _jobRef = jobRef;
+}
+
+QList<QUrl> BackupTask::urls() const
+{
+    return _urls;
+}
+
+void BackupTask::setUrls(const QList<QUrl> &urls)
+{
+    _urls = urls;
+}
+
 bool BackupTask::optionPreservePaths() const
 {
     return _optionPreservePaths;
@@ -165,6 +215,47 @@ bool BackupTask::optionSkipNoDump() const
 void BackupTask::setOptionSkipNoDump(bool optionSkipNoDump)
 {
     _optionSkipNoDump = optionSkipNoDump;
+}
+
+TaskStatus BackupTask::status() const
+{
+    return _status;
+}
+
+void BackupTask::setStatus(const TaskStatus &status)
+{
+    _status = status;
+    emit statusUpdate(_uuid, _status);
+}
+
+int BackupTask::exitCode() const
+{
+    return _exitCode;
+}
+
+void BackupTask::setExitCode(int exitCode)
+{
+    _exitCode = exitCode;
+}
+
+QString BackupTask::output() const
+{
+    return _output;
+}
+
+void BackupTask::setOutput(const QString &output)
+{
+    _output = output;
+}
+
+ArchivePtr BackupTask::archive() const
+{
+    return _archive;
+}
+
+void BackupTask::setArchive(const ArchivePtr &archive)
+{
+    _archive = archive;
 }
 
 QString BackupTask::command() const

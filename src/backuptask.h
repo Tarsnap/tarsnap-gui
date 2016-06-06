@@ -27,35 +27,20 @@ public:
     BackupTask();
     ~BackupTask() {}
 
-    QUuid uuid() const { return _uuid; }
-    void setUuid(const QUuid &uuid) { _uuid = uuid; }
+    QString name() const;
+    void setName(const QString &name);
 
-    QDateTime timestamp() const { return _timestamp; }
+    QUuid uuid() const;
+    void setUuid(const QUuid &uuid);
 
-    QList<QUrl> urls() const { return _urls; }
-    void setUrls(const QList<QUrl> &urls) { _urls = urls; }
+    QDateTime timestamp() const;
+    void setTimestamp(const QDateTime &timestamp);
 
-    QString name() const { return _name; }
-    void setName(const QString &name) { _name = name; }
+    QString jobRef() const;
+    void setJobRef(const QString &jobRef);
 
-    TaskStatus status() const { return _status; }
-    void setStatus(const TaskStatus &status)
-    {
-        _status = status;
-        emit statusUpdate(_uuid, _status);
-    }
-
-    int  exitCode() const { return _exitCode; }
-    void setExitCode(int exitCode) { _exitCode = exitCode; }
-
-    QString output() const { return _output; }
-    void setOutput(const QString &output) { _output = output; }
-
-    ArchivePtr archive() const { return _archive; }
-    void setArchive(const ArchivePtr &archive) { _archive = archive; }
-
-    QString jobRef() const { return _jobRef; }
-    void setJobRef(const QString &job) { _jobRef = job; }
+    QList<QUrl> urls() const;
+    void setUrls(const QList<QUrl> &urls);
 
     bool optionPreservePaths() const;
     void setOptionPreservePaths(bool optionPreservePaths);
@@ -84,6 +69,18 @@ public:
     bool optionSkipNoDump() const;
     void setOptionSkipNoDump(bool optionSkipNoDump);
 
+    TaskStatus status() const;
+    void setStatus(const TaskStatus &status);
+
+    int exitCode() const;
+    void setExitCode(int exitCode);
+
+    QString output() const;
+    void setOutput(const QString &output);
+
+    ArchivePtr archive() const;
+    void setArchive(const ArchivePtr &archive);
+
     QString command() const;
     void setCommand(const QString &command);
 
@@ -91,11 +88,11 @@ signals:
     void statusUpdate(QUuid uuid, const TaskStatus &status);
 
 private:
+    QString     _name;
     QUuid       _uuid;
     QDateTime   _timestamp;
     QString     _jobRef;
     QList<QUrl> _urls;
-    QString     _name;
     bool        _optionPreservePaths;
     bool        _optionTraverseMount;
     bool        _optionFollowSymLinks;
@@ -105,11 +102,11 @@ private:
     bool        _optionDryRun;
     bool        _optionSkipNoDump;
 
-    TaskStatus _status;
-    int        _exitCode;
-    QString    _output;
-    ArchivePtr _archive;
-    QString    _command;
+    TaskStatus  _status;
+    int         _exitCode;
+    QString     _output;
+    ArchivePtr  _archive;
+    QString     _command;
 };
 
 #endif // BACKUPTASK_H

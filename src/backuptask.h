@@ -31,7 +31,6 @@ public:
     void setUuid(const QUuid &uuid) { _uuid = uuid; }
 
     QDateTime timestamp() const { return _timestamp; }
-    void      updateTimestamp() { _timestamp = QDateTime::currentDateTime(); }
 
     QList<QUrl> urls() const { return _urls; }
     void setUrls(const QList<QUrl> &urls) { _urls = urls; }

@@ -33,7 +33,7 @@ void JobListWidget::backupSelectedItems()
             if(item->isSelected())
             {
                 JobPtr job = static_cast<JobListItem *>(item)->job();
-                emit   backupJob(job->createBackupTask());
+                emit backupJob(job);
             }
         }
     }
@@ -74,7 +74,7 @@ void JobListWidget::backupAllJobs()
     for(int i = 0; i < count(); ++i)
     {
         JobPtr job = static_cast<JobListItem *>(item(i))->job();
-        emit backupJob(job->createBackupTask());
+        emit backupJob(job);
     }
 }
 
@@ -84,9 +84,7 @@ void JobListWidget::backupItem()
     {
         JobPtr job = qobject_cast<JobListItem *>(sender())->job();
         if(job)
-        {
-            emit backupJob(job->createBackupTask());
-        }
+            emit backupJob(job);
     }
 }
 

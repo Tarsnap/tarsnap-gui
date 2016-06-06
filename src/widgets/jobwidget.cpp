@@ -198,7 +198,7 @@ void JobWidget::restoreButtonClicked()
 void JobWidget::backupButtonClicked()
 {
     if(_job)
-        emit backupJob(_job->createBackupTask());
+        emit backupJob(_job);
 }
 
 bool JobWidget::canSaveNew()
@@ -238,7 +238,7 @@ void JobWidget::showJobPathsWarn()
     QMessageBox *msg = new QMessageBox(this);
     msg->setAttribute(Qt::WA_DeleteOnClose, true);
     msg->setText(tr("Previously selected backup paths for this Job are not"
-                   " accessible anymore and thus backups may be incomplete."
+                    " accessible anymore and thus backups may be incomplete."
                     " Mount missing drives or make a new selection. Press Show"
                     " details to list all backup paths for Job %1:").arg(_job->name()));
     QStringList urls;

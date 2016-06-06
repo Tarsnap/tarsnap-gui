@@ -36,6 +36,7 @@ public slots:
     void appendToConsoleLog(const QString &log);
     void setJournal(QVector<LogEntry> _log);
     void saveKeyId(QString key, int id);
+    void backupJob(JobPtr job);
 
 signals:
     void backupNow(BackupTaskPtr backupTask);

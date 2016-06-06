@@ -264,11 +264,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.jobDetailsWidget, &JobWidget::enableSave, _ui.addJobButton,
             &QToolButton::setEnabled);
     connect(_ui.jobDetailsWidget, &JobWidget::backupJob, this,
-            &MainWindow::backupNow);
+            &MainWindow::backupJob);
     connect(_ui.jobListWidget, &JobListWidget::displayJobDetails, this,
             &MainWindow::displayJobDetails);
     connect(_ui.jobListWidget, &JobListWidget::backupJob, this,
-            &MainWindow::backupNow);
+            &MainWindow::backupJob);
     connect(_ui.jobListWidget, &JobListWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
     connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
@@ -942,6 +942,34 @@ void MainWindow::saveKeyId(QString key, int id)
         settings.setValue("tarsnap/key_id", id);
         settings.sync();
     }
+}
+
+void MainWindow::backupJob(JobPtr job)
+{
+    if(!job)
+        return;
+
+    if(!job->validateUrls())
+    {
+        if(job->urls().isEmpty())
+        {
+            QMessageBox::warning(this, tr("Job error"),
+                                 tr("Job %1 has no backup paths selected. "
+                                    "Nothing to back up.").arg(job->name()));
+            return;
+        }
+        else
+        {
+            auto confirm = QMessageBox::question(this, tr("Job warning"),
+                                  tr("Some backup paths for Job %1 are not"
+                                     " accessible anymore and thus backup may"
+                                     " be incomplete."
+                                     " Proceed with backup?").arg(job->name()));
+            if(confirm != QMessageBox::Yes)
+                return;
+        }
+    }
+    emit backupNow(job->createBackupTask());
 }
 
 void MainWindow::browseForBackupItems()

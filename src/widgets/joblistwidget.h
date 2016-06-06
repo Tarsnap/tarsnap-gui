@@ -28,7 +28,7 @@ public slots:
 
 signals:
     void displayJobDetails(JobPtr job);
-    void backupJob(BackupTaskPtr backup);
+    void backupJob(JobPtr job);
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void deleteJob(JobPtr job, bool purgeArchives);
 

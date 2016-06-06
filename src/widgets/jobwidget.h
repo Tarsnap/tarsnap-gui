@@ -27,7 +27,7 @@ signals:
     void inspectJobArchive(ArchivePtr archive);
     void deleteJobArchives(QList<ArchivePtr> archives);
     void restoreJobArchive(ArchivePtr archive, ArchiveRestoreOptions options);
-    void backupJob(BackupTaskPtr jobBackup);
+    void backupJob(JobPtr job);
     void enableSave(bool enable);
 
 protected slots:

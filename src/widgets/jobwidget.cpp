@@ -252,6 +252,9 @@ void JobWidget::showJobPathsWarn()
 
 void JobWidget::verifyJob()
 {
+    if(_job->objectKey().isEmpty())
+        return;
+
     _ui.jobTreeWidget->blockSignals(true);
     _ui.jobTreeWidget->setSelectedUrls(_job->urls());
     _ui.jobTreeWidget->blockSignals(false);

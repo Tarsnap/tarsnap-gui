@@ -84,6 +84,9 @@ min-height: 32px;
       </item>
       <item>
        <widget class="QLineEdit" name="jobNameLineEdit">
+        <property name="toolTip">
+         <string>Job name must be unique amongst existing Jobs.</string>
+        </property>
         <property name="styleSheet">
          <string notr="true">QLineEdit {
 padding-left: 3px;

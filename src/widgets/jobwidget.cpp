@@ -205,11 +205,15 @@ void JobWidget::backupButtonClicked()
 
 bool JobWidget::canSaveNew()
 {
-    if(_job->objectKey().isEmpty() && !_ui.jobNameLineEdit->text().isEmpty() &&
-       !_ui.jobTreeWidget->getSelectedUrls().isEmpty())
+    Job match;
+    if(_job->objectKey().isEmpty()
+       && !_ui.jobNameLineEdit->text().isEmpty()
+       && !match.findObjectWithKey(_ui.jobNameLineEdit->text())
+       && !_ui.jobTreeWidget->getSelectedUrls().isEmpty())
+    {
         return true;
-    else
-        return false;
+    }
+    return false;
 }
 
 void JobWidget::showArchiveListMenu(const QPoint &pos)

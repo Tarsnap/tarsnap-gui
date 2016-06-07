@@ -425,6 +425,19 @@ void TaskManager::initializeCache()
     queueTask(initTask);
 }
 
+void TaskManager::findMatchingArchives(QString jobPrefix)
+{
+    QList<ArchivePtr> matching;
+    foreach(ArchivePtr archive, _archiveMap)
+    {
+        if(archive->name().startsWith(jobPrefix + QChar('_'))
+           && archive->jobRef().isEmpty())
+            matching << archive;
+    }
+    if(!matching.isEmpty())
+        emit matchingArchives(matching);
+}
+
 void TaskManager::runScheduledJobs()
 {
     loadJobs();

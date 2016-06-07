@@ -217,6 +217,10 @@ void CoreApplication::showMainWindow()
             &MainWindow::appendToJournalLog, QUEUED);
     connect(_mainWindow, &MainWindow::clearJournal, &_journal, &Journal::purge,
             QUEUED);
+    connect(_mainWindow, &MainWindow::findMatchingArchives, &_taskManager,
+            &TaskManager::findMatchingArchives, QUEUED);
+    connect(&_taskManager, &TaskManager::matchingArchives, _mainWindow,
+            &MainWindow::matchingArchives, QUEUED);
 
     QMetaObject::invokeMethod(_mainWindow, "initialize", QUEUED);
     QMetaObject::invokeMethod(&_taskManager, "loadArchives", QUEUED);

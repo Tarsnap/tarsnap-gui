@@ -51,6 +51,7 @@ public slots:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void getKeyId(QString key);
     void initializeCache();
+    void findMatchingArchives(QString jobPrefix);
 
 signals:
     // Tarsnap task notifications
@@ -68,6 +69,7 @@ signals:
     void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
     void error(TarsnapError error);
     void keyId(QString key, int id);
+    void matchingArchives(QList<ArchivePtr> archives);
 
 private slots:
     // post Tarsnap task processing

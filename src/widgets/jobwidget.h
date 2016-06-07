@@ -20,6 +20,7 @@ public:
 public slots:
     void save();
     void saveNew();
+    void updateMatchingArchives(QList<ArchivePtr> archives);
 
 signals:
     void collapse();
@@ -29,6 +30,7 @@ signals:
     void restoreJobArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void backupJob(JobPtr job);
     void enableSave(bool enable);
+    void findMatchingArchives(QString jobPrefix);
 
 protected slots:
     void updateDetails();

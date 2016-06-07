@@ -61,6 +61,8 @@ signals:
     void clearJournal();
     void logMessage(QString message);
     void getKeyId(QString key);
+    void findMatchingArchives(QString jobPrefix);
+    void matchingArchives(QList<ArchivePtr> archives);
 
 protected:
     void paintEvent(QPaintEvent *);

@@ -265,6 +265,10 @@ MainWindow::MainWindow(QWidget *parent)
             &QToolButton::setEnabled);
     connect(_ui.jobDetailsWidget, &JobWidget::backupJob, this,
             &MainWindow::backupJob);
+    connect(_ui.jobDetailsWidget, &JobWidget::findMatchingArchives, this,
+            &MainWindow::findMatchingArchives);
+    connect(this, &MainWindow::matchingArchives, _ui.jobDetailsWidget,
+            &JobWidget::updateMatchingArchives);
     connect(_ui.jobListWidget, &JobListWidget::displayJobDetails, this,
             &MainWindow::displayJobDetails);
     connect(_ui.jobListWidget, &JobListWidget::backupJob, this,

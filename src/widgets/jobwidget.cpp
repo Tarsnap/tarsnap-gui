@@ -94,8 +94,8 @@ void JobWidget::setJob(const JobPtr &job)
     // Creating a new job?
     if(_job->objectKey().isEmpty())
     {
-        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                                      false);
+//        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
+//                                      false);
         _ui.restoreButton->hide();
         _ui.backupButton->hide();
         _ui.jobNameLabel->hide();
@@ -106,8 +106,8 @@ void JobWidget::setJob(const JobPtr &job)
     }
     else
     {
-        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                                      true);
+//        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
+//                                      true);
         _ui.restoreButton->show();
         _ui.backupButton->show();
         _ui.jobNameLabel->show();
@@ -154,6 +154,22 @@ void JobWidget::saveNew()
         _job->setName(_ui.jobNameLineEdit->text());
         save();
         emit jobAdded(_job);
+    }
+}
+
+void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
+{
+    if(!archives.isEmpty())
+    {
+        _ui.infoLabel->setText(tr("Found %1 archives matching this Job description."
+                                  " Go to Archives tab below to review and"
+                                  " assign to this Job.").arg(archives.count()));
+        _ui.infoLabel->show();
+        _job->setArchives(archives);
+        _ui.archiveListWidget->clear();
+        _ui.archiveListWidget->addArchives(_job->archives());
+        _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
+                                  tr("Archives (%1)").arg(_job->archives().count()));
     }
 }
 
@@ -205,13 +221,18 @@ void JobWidget::backupButtonClicked()
 
 bool JobWidget::canSaveNew()
 {
-    Job match;
+    _ui.infoLabel->clear();
+    _ui.infoLabel->hide();
     if(_job->objectKey().isEmpty()
        && !_ui.jobNameLineEdit->text().isEmpty()
-       && !match.findObjectWithKey(_ui.jobNameLineEdit->text())
        && !_ui.jobTreeWidget->getSelectedUrls().isEmpty())
     {
-        return true;
+        _job->setName(_ui.jobNameLineEdit->text());
+        if(!_job->findObjectWithKey(_job->name()))
+        {
+            emit findMatchingArchives(_job->archivePrefix());
+            return true;
+        }
     }
     return false;
 }

@@ -383,6 +383,7 @@ void SetupDialog::setTarsnapVersion(QString versionString)
             tr("Tarsnap utilities not found. Visit "
                "<a href=\"https://tarsnap.com\">tarsnap.com</a> "
                "for help with acquiring them."));
+        _ui.advancedCLIWidget->show();
     }
     else
     {

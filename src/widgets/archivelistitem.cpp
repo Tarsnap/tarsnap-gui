@@ -21,6 +21,8 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive)
             &ArchiveListItem::requestRestore);
     connect(_ui.jobButton, &QToolButton::clicked, this,
             &ArchiveListItem::requestGoToJob);
+    connect(_ui.archiveButton, &QToolButton::clicked, this,
+            &ArchiveListItem::requestInspect);
 
     setArchive(archive);
 }

@@ -50,6 +50,15 @@
       <string notr="true">QToolButton {
 border: none;
 border-radius: 4px;
+}
+
+QToolButton:hover {
+background: rgba(179, 190, 255, 120);
+}
+
+QToolButton:pressed {
+padding-top: 2px;
+padding-left: 2px;
 }</string>
      </property>
      <property name="text">

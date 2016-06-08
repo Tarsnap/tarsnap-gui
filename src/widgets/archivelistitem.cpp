@@ -82,13 +82,11 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     if(_archive->jobRef().isEmpty())
     {
         _ui.jobButton->hide();
-        _ui.horizontalLayout->removeWidget(_ui.jobButton);
         _ui.archiveButton->show();
     }
     else
     {
         _ui.archiveButton->hide();
-        _ui.horizontalLayout->removeWidget(_ui.archiveButton);
         _ui.jobButton->show();
     }
 }

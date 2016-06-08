@@ -16,8 +16,7 @@ JobWidget::JobWidget(QWidget *parent)
     connect(&_fsEventUpdate, &QTimer::timeout, this, &JobWidget::verifyJob);
     connect(_ui.infoLabel, &TextLabel::clicked, this, &JobWidget::showJobPathsWarn);
     connect(_ui.jobNameLineEdit, &QLineEdit::textChanged, [&]() {
-        if(_job->objectKey().isEmpty())
-            emit enableSave(canSaveNew());
+        emit enableSave(canSaveNew());
     });
     connect(_ui.jobTreeWidget, &FilePickerWidget::selectionChanged, [&]() {
         if(_job->objectKey().isEmpty())
@@ -148,29 +147,51 @@ void JobWidget::save()
 
 void JobWidget::saveNew()
 {
-    if(canSaveNew())
+    if(!canSaveNew())
+        return;
+
+    DEBUG << "SAVE NEW JOB";
+    _job->setName(_ui.jobNameLineEdit->text());
+    if(!_job->archives().isEmpty())
     {
-        DEBUG << "SAVE NEW JOB";
-        _job->setName(_ui.jobNameLineEdit->text());
-        save();
-        emit jobAdded(_job);
+        auto confirm =
+                QMessageBox::question(this, "Add job",
+                                      tr("Assign %1 found archives to this"
+                                         " Job?").arg(_job->archives().count()),
+                                      QMessageBox::Yes | QMessageBox::No,
+                                      QMessageBox::No);
+        QList<ArchivePtr> empty;
+        if(confirm == QMessageBox::No)
+            _job->setArchives(empty);
     }
+    save();
+    foreach(ArchivePtr archive, _job->archives())
+    {
+        archive->setJobRef(_job->objectKey());
+        archive->save();
+    }
+    emit jobAdded(_job);
 }
 
 void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
 {
     if(!archives.isEmpty())
     {
-        _ui.infoLabel->setText(tr("Found %1 archives matching this Job description."
-                                  " Go to Archives tab below to review and"
-                                  " assign to this Job.").arg(archives.count()));
+        _ui.infoLabel->setText(tr("Found %1 unassigned archives matching this"
+                                  " Job description. Go to Archives tab below"
+                                  " to review.").arg(archives.count()));
         _ui.infoLabel->show();
-        _job->setArchives(archives);
-        _ui.archiveListWidget->clear();
-        _ui.archiveListWidget->addArchives(_job->archives());
-        _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                                  tr("Archives (%1)").arg(_job->archives().count()));
     }
+    else
+    {
+        _ui.infoLabel->clear();
+        _ui.infoLabel->hide();
+    }
+    _job->setArchives(archives);
+    _ui.archiveListWidget->clear();
+    _ui.archiveListWidget->addArchives(_job->archives());
+    _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
+                              tr("Archives (%1)").arg(_job->archives().count()));
 }
 
 void JobWidget::updateDetails()
@@ -221,17 +242,20 @@ void JobWidget::backupButtonClicked()
 
 bool JobWidget::canSaveNew()
 {
-    _ui.infoLabel->clear();
-    _ui.infoLabel->hide();
-    if(_job->objectKey().isEmpty()
-       && !_ui.jobNameLineEdit->text().isEmpty()
-       && !_ui.jobTreeWidget->getSelectedUrls().isEmpty())
+    if(_job->objectKey().isEmpty() && !_ui.jobNameLineEdit->text().isEmpty())
     {
         _job->setName(_ui.jobNameLineEdit->text());
         if(!_job->findObjectWithKey(_job->name()))
         {
             emit findMatchingArchives(_job->archivePrefix());
-            return true;
+            if(!_ui.jobTreeWidget->getSelectedUrls().isEmpty())
+                return true;
+        }
+        else
+        {
+            _ui.infoLabel->setText(tr("Job name must be unique amongst existing"
+                                      " Jobs."));
+            _ui.infoLabel->show();
         }
     }
     return false;

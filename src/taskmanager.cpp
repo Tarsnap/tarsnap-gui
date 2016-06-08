@@ -434,8 +434,7 @@ void TaskManager::findMatchingArchives(QString jobPrefix)
            && archive->jobRef().isEmpty())
             matching << archive;
     }
-    if(!matching.isEmpty())
-        emit matchingArchives(matching);
+    emit matchingArchives(matching);
 }
 
 void TaskManager::runScheduledJobs()

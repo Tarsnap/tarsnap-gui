@@ -1075,7 +1075,17 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
     if(job)
     {
         if(purgeArchives)
+        {
             deleteArchives(job->archives());
+        }
+        else
+        {
+            foreach(ArchivePtr archive, job->archives())
+            {
+                archive->setJobRef("");
+                archive->save();
+            }
+        }
         job->purge();
         _jobMap.remove(job->name());
     }

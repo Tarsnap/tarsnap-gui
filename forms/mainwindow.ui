@@ -118,7 +118,7 @@ border-radius: 2px;
            <string>Backup</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+1 switches to this tab</string>
+           <string>Ctrl+1 switches to Backup tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <property name="spacing">
@@ -186,7 +186,7 @@ selection-background-color: rgba(177,214,255,150);
               </font>
              </property>
              <property name="toolTip">
-              <string>Ctrl+o key sequence also opens the browse dialog</string>
+              <string>Ctrl+O key sequence also opens the File Browser</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QLabel {
@@ -228,6 +228,9 @@ background-color: rgba(237,243,254,255);
                   <height>16777215</height>
                  </size>
                 </property>
+                <property name="toolTip">
+                 <string>Resulting Archive name</string>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -246,6 +249,9 @@ background-color: rgba(237,243,254,255);
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>Append current timestamp to the backup name</string>
                 </property>
                 <property name="text">
                  <string>Append timestamp</string>
@@ -279,6 +285,9 @@ background-color: rgba(237,243,254,255);
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>Current backup selection stats</string>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">QLabel {
 color: gray;
@@ -299,6 +308,9 @@ color: gray;
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>Backup now</string>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">QToolButton
@@ -368,7 +380,7 @@ text-align: center;
            <string>Archives</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+2 switches to this tab</string>
+           <string>Ctrl+2 switches to Archives tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_11">
            <property name="spacing">
@@ -441,6 +453,9 @@ left: 1px;
                  <property name="contextMenuPolicy">
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
+                 <property name="toolTip">
+                  <string>Archive list</string>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">#archiveListWidget::item
 {
@@ -480,6 +495,9 @@ selection-background-color: rgba(177,214,255,150);
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="toolTip">
+                  <string>Archive details</string>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">#archiveWidget {
 /*background: transparent;*/
@@ -498,7 +516,7 @@ selection-background-color: rgba(177,214,255,150);
            <string>Jobs</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+3 switches to this tab</string>
+           <string>Ctrl+3 switches to Jobs tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <property name="spacing">
@@ -571,6 +589,9 @@ left: 1px;
                  <property name="contextMenuPolicy">
                   <enum>Qt::CustomContextMenu</enum>
                  </property>
+                 <property name="toolTip">
+                  <string>Job list</string>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">#jobListWidget::item
 {
@@ -600,7 +621,11 @@ selection-background-color: rgba(177,214,255,150);
                   <number>20</number>
                  </property>
                 </widget>
-                <widget class="JobWidget" name="jobDetailsWidget" native="true"/>
+                <widget class="JobWidget" name="jobDetailsWidget" native="true">
+                 <property name="toolTip">
+                  <string>Job details</string>
+                 </property>
+                </widget>
                </widget>
               </item>
              </layout>
@@ -822,7 +847,7 @@ margin-right: 3px;
            <string>Settings</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+4 switches to this tab</string>
+           <string>Ctrl+4 switches to Settings tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <property name="spacing">
@@ -1923,7 +1948,7 @@ margin: 1px 0px 0px 6px;
            <string>Help</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+5 switches to this tab</string>
+           <string>Ctrl+5 switches to Help tab</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <property name="spacing">
@@ -1966,6 +1991,9 @@ margin: 1px 0px 0px 6px;
               </property>
               <item>
                <widget class="QLabel" name="label_5">
+                <property name="toolTip">
+                 <string>General help</string>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">QLabel {
 background: rgba(255,255,255,170);
@@ -2023,6 +2051,9 @@ For help regarding Tarsnap GUI, please visit the &lt;a href=&quot;https://github
                <widget class="QPlainTextEdit" name="keyboardShortcuts">
                 <property name="focusPolicy">
                  <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="toolTip">
+                 <string>Keyboard shortcuts list</string>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">#keyboardShortcuts {
@@ -2112,6 +2143,9 @@ ctrl+r - refresh Account Summary
                 <property name="focusPolicy">
                  <enum>Qt::NoFocus</enum>
                 </property>
+                <property name="toolTip">
+                 <string>Console command log</string>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">#consoleLog
 {
@@ -2144,6 +2178,9 @@ font-size: 12px;
          </property>
          <property name="focusPolicy">
           <enum>Qt::ClickFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>Journal log</string>
          </property>
          <property name="styleSheet">
           <string notr="true">#journalLog
@@ -2204,7 +2241,7 @@ font-size: 12px;
          <enum>Qt::NoFocus</enum>
         </property>
         <property name="toolTip">
-         <string>Show/hide message journal (CTRL+j)</string>
+         <string>Show/hide journal log (CTRL+j)</string>
         </property>
         <property name="styleSheet">
          <string notr="true">#expandJournalButton{
@@ -2231,6 +2268,9 @@ border: none;
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Status bar (displays the latest Journal message)</string>
         </property>
         <property name="text">
          <string/>

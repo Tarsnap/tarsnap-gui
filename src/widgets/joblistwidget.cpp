@@ -118,31 +118,30 @@ void JobListWidget::deleteItem()
 
 void JobListWidget::execDeleteJob(JobListItem *jobItem)
 {
-    if(jobItem)
+    if(!jobItem)
+        return;
+
+    JobPtr job   = jobItem->job();
+    auto confirm = QMessageBox::question(this, tr("Confirm action"),
+                                         tr("Are you sure you want to delete job"
+                                            " \"%1\" (this cannot be undone)?")
+                                         .arg(job->name()));
+    if(confirm == QMessageBox::Yes)
     {
-        JobPtr job           = jobItem->job();
-        auto   confirm =
-            QMessageBox::question(this, tr("Confirm action"),
-                                  tr("Are you sure you want to delete job "
-                                     "\"%1\" (this cannot be undone)?")
-                                      .arg(job->name()));
-        if(confirm == QMessageBox::Yes)
+        bool purgeArchives = false;
+        if(!job->archives().isEmpty())
         {
-            bool purgeArchives = false;
-            if(!job->archives().isEmpty())
-            {
-                auto confirmArchives =
-                    QMessageBox::question(this, tr("Confirm action"),
+            auto confirmArchives = QMessageBox::question(this,
+                                          tr("Confirm action"),
                                           tr("Also delete %1 archives "
-                                             "pertaining to this job (this "
+                                             "belonging to this job (this "
                                              "cannot be undone)?")
-                                              .arg(job->archives().count()));
-                if(confirmArchives == QMessageBox::Yes)
-                    purgeArchives = true;
-            }
-            emit deleteJob(job, purgeArchives);
-            delete jobItem;
+                                          .arg(job->archives().count()));
+            if(confirmArchives == QMessageBox::Yes)
+                purgeArchives = true;
         }
+        emit deleteJob(job, purgeArchives);
+        delete jobItem;
     }
 }
 

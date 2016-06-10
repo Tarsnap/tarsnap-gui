@@ -46,6 +46,9 @@
        <height>27</height>
       </size>
      </property>
+     <property name="toolTip">
+      <string>Display Archive details</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
 border: none;
@@ -83,6 +86,9 @@ padding-left: 2px;
        <width>27</width>
        <height>27</height>
       </size>
+     </property>
+     <property name="toolTip">
+      <string>Display Job details</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
@@ -167,6 +173,9 @@ font-size: 11px;
        <height>27</height>
       </size>
      </property>
+     <property name="toolTip">
+      <string>Display details for this Archive</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
 border: none;
@@ -205,6 +214,9 @@ padding-left: 2px;
        <height>27</height>
       </size>
      </property>
+     <property name="toolTip">
+      <string>Restore this Archive</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
 border: none;
@@ -242,6 +254,9 @@ padding-left: 2px;
        <width>27</width>
        <height>27</height>
       </size>
+     </property>
+     <property name="toolTip">
+      <string>Delete this Archive</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {

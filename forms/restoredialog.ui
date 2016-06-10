@@ -81,7 +81,7 @@
       <item row="8" column="0" colspan="2">
        <widget class="QCheckBox" name="overwriteCheckBox">
         <property name="toolTip">
-         <string>Overwrite existing files if they exist</string>
+         <string>Overwrite existing files when restoring</string>
         </property>
         <property name="text">
          <string>Overwrite existing files</string>
@@ -97,7 +97,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Change directory</string>
+         <string>Change base directory</string>
         </property>
         <property name="text">
          <string>Change</string>
@@ -114,7 +114,7 @@
       <item row="1" column="0">
        <widget class="QRadioButton" name="optionBaseDirRadio">
         <property name="toolTip">
-         <string>This will extract the archive contents to the specified directory</string>
+         <string>Extract Archive contents to the specified directory</string>
         </property>
         <property name="text">
          <string>Restore files to other base directory</string>
@@ -124,7 +124,7 @@
       <item row="0" column="0" colspan="2">
        <widget class="QRadioButton" name="optionRestoreRadio">
         <property name="toolTip">
-         <string>This will restore files and dirs to the original locations used when creating the backup, thus effectively achieving a restore.</string>
+         <string>Restore Archive contents to the original source locations.</string>
         </property>
         <property name="text">
          <string>Restore files to original locations</string>
@@ -137,7 +137,7 @@
       <item row="4" column="0">
        <widget class="QRadioButton" name="optionDownArchiveRadio">
         <property name="toolTip">
-         <string>This will download an uncompressed tar archive to the specified directory.</string>
+         <string>Download Archive as an uncompressed TAR archive file</string>
         </property>
         <property name="text">
          <string>Download tar archive</string>
@@ -150,7 +150,7 @@
          <bool>false</bool>
         </property>
         <property name="toolTip">
-         <string>Will skip if existing files are newer on disk than archive contents</string>
+         <string>Don't overwrite if files on disk are newer than archive contents</string>
         </property>
         <property name="text">
          <string>Keep newer files</string>
@@ -160,14 +160,14 @@
       <item row="5" column="0">
        <widget class="QLineEdit" name="archiveLineEdit">
         <property name="toolTip">
-         <string>Set archive file name</string>
+         <string>TAR archive file name and location</string>
         </property>
        </widget>
       </item>
       <item row="5" column="1">
        <widget class="QPushButton" name="changeArchiveButton">
         <property name="toolTip">
-         <string>Change archive name</string>
+         <string>Change resulting Tar archive file</string>
         </property>
         <property name="text">
          <string>Change</string>
@@ -194,6 +194,9 @@
       </property>
       <item>
        <widget class="QPushButton" name="cancelButton">
+        <property name="toolTip">
+         <string>Cancel restore</string>
+        </property>
         <property name="text">
          <string>Cancel</string>
         </property>
@@ -204,6 +207,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="restoreButton">
+        <property name="toolTip">
+         <string>Proceed with restore</string>
+        </property>
         <property name="text">
          <string>Restore</string>
         </property>

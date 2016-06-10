@@ -119,7 +119,7 @@ padding-left: 3px;
       <item>
        <widget class="QPushButton" name="backupButton">
         <property name="toolTip">
-         <string>Initiate a backup now</string>
+         <string>Initiate a backup for this Job</string>
         </property>
         <property name="text">
          <string>Backup</string>
@@ -133,7 +133,7 @@ padding-left: 3px;
       <item>
        <widget class="QPushButton" name="restoreButton">
         <property name="toolTip">
-         <string>Restore latest archive</string>
+         <string>Restore latest backup for this Job</string>
         </property>
         <property name="text">
          <string>Restore</string>
@@ -428,7 +428,7 @@ alignment: center;
              <item row="4" column="0" colspan="2">
               <widget class="QCheckBox" name="skipNoDumpCheckBox">
                <property name="toolTip">
-                <string>Skip files flagged with nodump attribute. Some filesystems support this.</string>
+                <string>Skip files flagged with nodump attribute. Not all filesystems support this attribute.</string>
                </property>
                <property name="text">
                 <string>Skip files flagged nodump</string>

@@ -158,7 +158,7 @@ image: url(:/icons/tarsnap-icon-big.png);
         </sizepolicy>
        </property>
        <property name="toolTip">
-        <string>Date created</string>
+        <string>Date when this Archive was created</string>
        </property>
        <property name="text">
         <string/>
@@ -199,7 +199,7 @@ image: url(:/icons/tarsnap-icon-big.png);
         </sizepolicy>
        </property>
        <property name="toolTip">
-        <string>Original archive size</string>
+        <string>Original backup size</string>
        </property>
        <property name="text">
         <string/>
@@ -216,6 +216,9 @@ image: url(:/icons/tarsnap-icon-big.png);
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>The Job this archive belongs to</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#archiveJobLabel {
@@ -236,6 +239,9 @@ color: blue;
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="archiveJobLabelField">
+       <property name="toolTip">
+        <string>Job name</string>
+       </property>
        <property name="text">
         <string>Job:</string>
        </property>
@@ -298,7 +304,7 @@ color: blue;
         </sizepolicy>
        </property>
        <property name="toolTip">
-        <string>Actual size occupied on Tarsnap</string>
+        <string>Actual size occupied on Tarsnap server</string>
        </property>
        <property name="text">
         <string/>
@@ -330,6 +336,9 @@ color: blue;
         <font>
          <italic>true</italic>
         </font>
+       </property>
+       <property name="toolTip">
+        <string>This archive was interrupted and may be incomplete</string>
        </property>
        <property name="text">
         <string>This archive is truncated. Data may be incomplete.</string>
@@ -365,6 +374,9 @@ color: blue;
    </item>
    <item>
     <widget class="QPlainTextEdit" name="archiveContentsPlainTextEdit">
+     <property name="toolTip">
+      <string>Archive contents listing</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">#archiveContentsPlainTextEdit
 {

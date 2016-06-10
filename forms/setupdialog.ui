@@ -344,7 +344,7 @@ min-width: 200px;
           <item>
            <widget class="QPushButton" name="welcomePageSkipButton">
             <property name="toolTip">
-             <string/>
+             <string>Skip this Wizard</string>
             </property>
             <property name="text">
              <string>Skip wizard</string>
@@ -356,6 +356,9 @@ min-width: 200px;
           </item>
           <item>
            <widget class="QPushButton" name="welcomePageProceedButton">
+            <property name="toolTip">
+             <string>Proceed to next step</string>
+            </property>
             <property name="text">
              <string>Proceed</string>
             </property>
@@ -1029,6 +1032,9 @@ border: none;
           </item>
           <item row="4" column="1">
            <widget class="QPushButton" name="browseKeyButton">
+            <property name="toolTip">
+             <string>Look for a machine key</string>
+            </property>
             <property name="text">
              <string>Browse for key</string>
             </property>
@@ -1291,6 +1297,9 @@ color: darkred;
            <widget class="QPushButton" name="doneButton">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Setup wizard is complete, start using the app</string>
             </property>
             <property name="text">
              <string>Start using Tarsnap</string>

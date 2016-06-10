@@ -1037,7 +1037,7 @@ border: 1px solid white;
                       <item>
                        <widget class="QLabel" name="accountCreditLabel">
                         <property name="toolTip">
-                         <string>This info is updated on demand. Press update button below.</string>
+                         <string>Click update button.</string>
                         </property>
                         <property name="text">
                          <string>click update button</string>
@@ -1103,7 +1103,7 @@ color: blue;
                       <item>
                        <widget class="TextLabel" name="machineActivity">
                         <property name="toolTip">
-                         <string>This info is updated on demand. Press update button below.</string>
+                         <string>Click update button</string>
                         </property>
                         <property name="text">
                          <string>click update button</string>
@@ -1168,10 +1168,10 @@ color: blue;
                        </font>
                       </property>
                       <property name="toolTip">
-                       <string>Press the big Tarsnap button above to update account details</string>
+                       <string>Displayed credit might be out of date. Click update button to fetch latest account details.</string>
                       </property>
                       <property name="text">
-                       <string>Credit is %1 days old. Click update below to fetch latest credit.</string>
+                       <string>Credit is %1 days old. Click update button to fetch latest credit.</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
@@ -1192,6 +1192,9 @@ color: blue;
                      <layout class="QHBoxLayout" name="horizontalLayout_11">
                       <item>
                        <widget class="QLineEdit" name="accountUserLineEdit">
+                        <property name="toolTip">
+                         <string>E-mail address used to register on Tarsnap.com</string>
+                        </property>
                         <property name="text">
                          <string/>
                         </property>
@@ -1218,7 +1221,7 @@ color: blue;
                          </size>
                         </property>
                         <property name="toolTip">
-                         <string>Update credit from Tarsnap website. Requires login.</string>
+                         <string>Login to Tarsnap website to update credit and machine activity</string>
                         </property>
                         <property name="text">
                          <string>update</string>
@@ -1241,6 +1244,9 @@ color: blue;
                      <layout class="QHBoxLayout" name="horizontalLayout_3">
                       <item>
                        <widget class="QLineEdit" name="accountMachineLineEdit">
+                        <property name="toolTip">
+                         <string>Name used for this machine</string>
+                        </property>
                         <property name="text">
                          <string/>
                         </property>
@@ -1269,6 +1275,9 @@ color: blue;
                           <height>16777215</height>
                          </size>
                         </property>
+                        <property name="toolTip">
+                         <string>Set machine name to host name</string>
+                        </property>
                         <property name="text">
                          <string>hostname</string>
                         </property>
@@ -1290,6 +1299,9 @@ color: blue;
                      <layout class="QHBoxLayout" name="horizontalLayout_9">
                       <item>
                        <widget class="QLineEdit" name="accountMachineKeyLineEdit">
+                        <property name="toolTip">
+                         <string>Tarsnap key used for this machine</string>
+                        </property>
                         <property name="text">
                          <string/>
                         </property>
@@ -1317,6 +1329,9 @@ color: blue;
                           <width>100</width>
                           <height>16777215</height>
                          </size>
+                        </property>
+                        <property name="toolTip">
+                         <string>Browse for a machine key</string>
                         </property>
                         <property name="text">
                          <string>change</string>
@@ -1378,6 +1393,9 @@ color: blue;
                  <layout class="QVBoxLayout" name="verticalLayout_14">
                   <item>
                    <widget class="QCheckBox" name="notificationsCheckBox">
+                    <property name="toolTip">
+                     <string>Control whether desktop notifications are displayed or not. Only for supported platforms.</string>
+                    </property>
                     <property name="text">
                      <string>Show desktop notifications</string>
                     </property>
@@ -1392,14 +1410,14 @@ color: blue;
                      <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</string>
                     </property>
                     <property name="text">
-                     <string>Use IEC notation for sizes (default is SI)</string>
+                     <string>Use IEC notation for displaying sizes (default is SI)</string>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
                     <property name="toolTip">
-                     <string>Use multiple TCP connections to send data to the Tarsnap server</string>
+                     <string>Use multiple TCP connections to send data to the Tarsnap server. Can improve network performance.</string>
                     </property>
                     <property name="text">
                      <string>Aggressive networking</string>
@@ -1409,7 +1427,7 @@ color: blue;
                   <item>
                    <widget class="QCheckBox" name="preservePathsCheckBox">
                     <property name="toolTip">
-                     <string>Preseve absolute pathnames by not removing leading slashes</string>
+                     <string>Preseve absolute pathnames when backing up, by not removing leading slashes</string>
                     </property>
                     <property name="text">
                      <string>Preserve pathnames globally</string>
@@ -1445,7 +1463,7 @@ color: blue;
                   <item>
                    <widget class="QCheckBox" name="skipNoDumpCheckBox">
                     <property name="toolTip">
-                     <string>Some filesystems support this</string>
+                     <string>Not all filesystems support this attribute</string>
                     </property>
                     <property name="text">
                      <string>Skip files flagged with nodump attribute</string>
@@ -1563,7 +1581,7 @@ border: 0;
                       <item>
                        <widget class="QLineEdit" name="downloadsDirLineEdit">
                         <property name="toolTip">
-                         <string>Where Archive are downloaded to by default.</string>
+                         <string>Specifies the directory where archives are restored to by default</string>
                         </property>
                        </widget>
                       </item>
@@ -1574,6 +1592,9 @@ border: 0;
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>Browse for Downloads directory</string>
                         </property>
                         <property name="text">
                          <string>change</string>
@@ -1598,7 +1619,7 @@ border: 0;
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>Limit upload bandwidth rate to kilobits per second.</string>
+                       <string>Limit upload bandwidth rate to kilobits per second</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
@@ -1636,7 +1657,7 @@ border: 0;
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>Limit download bandwidth rate to kilobits per second.</string>
+                       <string>Limit download bandwidth rate to kilobits per second</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
@@ -1714,6 +1735,9 @@ border: 0;
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="toolTip">
+                     <string>Browse for Tarsnap CLI utilities directory</string>
+                    </property>
                     <property name="text">
                      <string>change</string>
                     </property>
@@ -1750,6 +1774,9 @@ border: 0;
                   </item>
                   <item row="4" column="1" colspan="2">
                    <widget class="QLineEdit" name="tarsnapCacheLineEdit">
+                    <property name="toolTip">
+                     <string>Directory to use as Tarsnap cache</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -1761,7 +1788,7 @@ border: 0;
                   <item row="6" column="0" colspan="4">
                    <widget class="QPushButton" name="repairCacheButton">
                     <property name="toolTip">
-                     <string>Run tarsnap --fsck</string>
+                     <string>Runs tarsnap --fsck. Useful for fixing Tarsnap cache inconsistencies.</string>
                     </property>
                     <property name="text">
                      <string>Repair cache</string>
@@ -1789,6 +1816,9 @@ border: 0;
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="toolTip">
+                     <string>Browse for Tarsnap cache directory</string>
+                    </property>
                     <property name="text">
                      <string>change</string>
                     </property>
@@ -1807,7 +1837,7 @@ border: 0;
                   <item row="2" column="1" colspan="2">
                    <widget class="QLineEdit" name="tarsnapPathLineEdit">
                     <property name="toolTip">
-                     <string>Must point to the Tarsnap CLI utilities directory</string>
+                     <string>Directory where the Tarsnap CLI utilities reside</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -1820,7 +1850,7 @@ border: 0;
                   <item row="5" column="0">
                    <widget class="QLabel" name="label_7">
                     <property name="toolTip">
-                     <string>The app data directory is used to store settings and data</string>
+                     <string>The app data directory is used to store application settings and data</string>
                     </property>
                     <property name="text">
                      <string>App data directory:</string>
@@ -1833,7 +1863,7 @@ border: 0;
                   <item row="7" column="0" colspan="4">
                    <widget class="QPushButton" name="purgeArchivesButton">
                     <property name="toolTip">
-                     <string>Nukes all archives</string>
+                     <string>Nukes all archives stored for the current key from the Tarsnap server</string>
                     </property>
                     <property name="text">
                      <string>Purge archives</string>
@@ -1842,6 +1872,9 @@ border: 0;
                   </item>
                   <item row="5" column="1" colspan="2">
                    <widget class="QLineEdit" name="appDataDirLineEdit">
+                    <property name="toolTip">
+                     <string>Directory to use for app data</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -1853,7 +1886,7 @@ border: 0;
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_20">
                     <property name="toolTip">
-                     <string>The Tarsnap command line interface utilities are used to communicate with the Tarsnap service</string>
+                     <string>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</string>
                     </property>
                     <property name="text">
                      <string>Tarsnap client directory:</string>
@@ -1865,6 +1898,9 @@ border: 0;
                   </item>
                   <item row="3" column="1" colspan="2">
                    <widget class="QLabel" name="tarsnapVersionLabel">
+                    <property name="toolTip">
+                     <string>Tarsnap CLI utilities version</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -1877,6 +1913,9 @@ border: 0;
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Browse for app data directory</string>
                     </property>
                     <property name="text">
                      <string>change</string>

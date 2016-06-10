@@ -133,6 +133,9 @@ font-size: 11px;
        <height>27</height>
       </size>
      </property>
+     <property name="toolTip">
+      <string>Open this item in the native File Explorer</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
 border: none;
@@ -170,6 +173,9 @@ padding-left: 2px;
        <width>27</width>
        <height>27</height>
       </size>
+     </property>
+     <property name="toolTip">
+      <string>Remove this item</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {

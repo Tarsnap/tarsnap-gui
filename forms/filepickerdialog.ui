@@ -60,6 +60,9 @@
      <property name="enabled">
       <bool>false</bool>
      </property>
+     <property name="toolTip">
+      <string>Set the selected files and directories for the Backup list</string>
+     </property>
      <property name="text">
       <string>Use selected</string>
      </property>

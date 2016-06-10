@@ -492,12 +492,6 @@ void MainWindow::initialize()
             _ui.outOfDateNoticeLabel->hide();
         }
     }
-    else
-    {
-        _ui.accountCreditLabel->setToolTip(
-            tr("This info is updated on demand. Press the big Tarsnap button "
-               "above to update."));
-    }
 
     if(!validateTarsnapPath())
     {

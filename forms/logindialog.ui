@@ -44,6 +44,9 @@
    </item>
    <item>
     <widget class="QLineEdit" name="passwordLineEdit">
+     <property name="toolTip">
+      <string>Tarsnap password</string>
+     </property>
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
      </property>
@@ -99,6 +102,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="loginButton">
+       <property name="toolTip">
+        <string>Login to Tarsnap website</string>
+       </property>
        <property name="text">
         <string>Login</string>
        </property>

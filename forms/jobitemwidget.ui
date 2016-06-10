@@ -137,7 +137,7 @@ font-size: 11px;
       </size>
      </property>
      <property name="toolTip">
-      <string>Show Job details</string>
+      <string>Display details for this Job</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
@@ -178,7 +178,7 @@ padding-left: 2px;
       </size>
      </property>
      <property name="toolTip">
-      <string>Restore latest archive</string>
+      <string>Restore latest backup for this Job</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
@@ -225,7 +225,7 @@ padding-left: 2px;
       </size>
      </property>
      <property name="toolTip">
-      <string>Initiate a backup now</string>
+      <string>Initiate a backup for this Job</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {

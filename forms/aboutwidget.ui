@@ -76,7 +76,7 @@ image:url(:/icons/tarsnap-icon-big.png);
       </sizepolicy>
      </property>
      <property name="toolTip">
-      <string/>
+      <string>Look for new version of Tarsnap GUI upstream</string>
      </property>
      <property name="text">
       <string>Check for update</string>

@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
 #endif
     new QShortcut(QKeySequence("Ctrl+K"), this, SIGNAL(getTaskInfo()));
     _ui.keyboardShortcuts->setPlainText(_ui.keyboardShortcuts->toPlainText()
-                                        .arg(QKeySequence("Ctrl++")
+                                        .arg(QKeySequence(Qt::ControlModifier)
                                              .toString(QKeySequence::NativeText)));
 
     loadSettings();

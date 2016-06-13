@@ -118,7 +118,7 @@ border-radius: 2px;
            <string>Backup</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+1 switches to Backup tab</string>
+           <string>Switch to Backup tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <property name="spacing">
@@ -309,9 +309,6 @@ color: gray;
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="toolTip">
-                 <string>Backup now</string>
-                </property>
                 <property name="styleSheet">
                  <string notr="true">QToolButton
 {
@@ -357,6 +354,11 @@ width: 16px;
 margin-right: 4px;
 }
 
+QToolButton::menu-button:active
+{
+border-left: 1px solid grey;
+}
+
 QToolButton QMenu
 {
 text-align: center;
@@ -367,6 +369,9 @@ text-align: center;
                 </property>
                 <property name="popupMode">
                  <enum>QToolButton::MenuButtonPopup</enum>
+                </property>
+                <property name="toolButtonStyle">
+                 <enum>Qt::ToolButtonTextOnly</enum>
                 </property>
                </widget>
               </item>
@@ -380,7 +385,7 @@ text-align: center;
            <string>Archives</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+2 switches to Archives tab</string>
+           <string>Switch to Archives tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_11">
            <property name="spacing">
@@ -516,7 +521,7 @@ selection-background-color: rgba(177,214,255,150);
            <string>Jobs</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+3 switches to Jobs tab</string>
+           <string>Switch to Jobs tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <property name="spacing">
@@ -847,7 +852,7 @@ margin-right: 3px;
            <string>Settings</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+4 switches to Settings tab</string>
+           <string>Switch to Settings tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <property name="spacing">
@@ -1987,7 +1992,7 @@ margin: 1px 0px 0px 6px;
            <string>Help</string>
           </attribute>
           <attribute name="toolTip">
-           <string>Ctrl+5 switches to Help tab</string>
+           <string>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <property name="spacing">
@@ -2421,9 +2426,12 @@ border: none;
     <string>Ctrl+1</string>
    </property>
   </action>
-  <action name="actionGoBrowse">
+  <action name="actionGoArchives">
    <property name="text">
-    <string>GoBrowse</string>
+    <string>GoArchives</string>
+   </property>
+   <property name="toolTip">
+    <string>GoArchives</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+2</string>
@@ -2606,10 +2614,10 @@ border: none;
      <normaloff>:/icons/hard-drive.png</normaloff>:/icons/hard-drive.png</iconset>
    </property>
    <property name="text">
-    <string>Create job</string>
+    <string>Create Job</string>
    </property>
    <property name="toolTip">
-    <string>Create Job from current backup list</string>
+    <string>Create Job from current Backup list</string>
    </property>
   </action>
   <action name="actionShowFilter">
@@ -2621,6 +2629,21 @@ border: none;
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionBackupNow">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Backup</string>
+   </property>
+   <property name="toolTip">
+    <string>Backup now &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
    </property>
   </action>
  </widget>

@@ -37,13 +37,40 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
+    // Keyboard shortcuts
 #ifdef Q_OS_OSX
     new QShortcut(QKeySequence("Ctrl+M"), this, SLOT(showMinimized()));
 #endif
     new QShortcut(QKeySequence("Ctrl+K"), this, SIGNAL(getTaskInfo()));
+
     _ui.keyboardShortcuts->setPlainText(_ui.keyboardShortcuts->toPlainText()
                                         .arg(QKeySequence(Qt::ControlModifier)
                                              .toString(QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(0,
+                                     _ui.mainTabWidget->tabToolTip(0)
+                                     .arg(_ui.actionGoBackup->shortcut()
+                                          .toString(QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(1,
+                                     _ui.mainTabWidget->tabToolTip(1)
+                                     .arg(_ui.actionGoArchives->shortcut()
+                                          .toString(QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(2,
+                                     _ui.mainTabWidget->tabToolTip(2)
+                                     .arg(_ui.actionGoJobs->shortcut()
+                                          .toString(QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(3,
+                                     _ui.mainTabWidget->tabToolTip(3)
+                                     .arg(_ui.actionGoSettings->shortcut()
+                                          .toString(QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(4,
+                                     _ui.mainTabWidget->tabToolTip(4)
+                                     .arg(_ui.actionGoHelp->shortcut()
+                                          .toString(QKeySequence::NativeText)));
+
+    _ui.actionBackupNow->setToolTip(_ui.actionBackupNow->toolTip()
+                                    .arg(_ui.actionBackupNow->shortcut()
+                                         .toString(QKeySequence::NativeText)));
+    // --
 
     loadSettings();
 
@@ -91,15 +118,15 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::getOverallStats);
     connect(_ui.actionRefreshAccount, &QAction::triggered, this,
             [&]() { _tarsnapAccount.getAccountInfo(); });
-    this->addAction(_ui.actionGoBackup);
-    this->addAction(_ui.actionGoBrowse);
-    this->addAction(_ui.actionGoJobs);
-    this->addAction(_ui.actionGoSettings);
-    this->addAction(_ui.actionGoHelp);
-    this->addAction(_ui.actionShowJournal);
+    addAction(_ui.actionGoBackup);
+    addAction(_ui.actionGoArchives);
+    addAction(_ui.actionGoJobs);
+    addAction(_ui.actionGoSettings);
+    addAction(_ui.actionGoHelp);
+    addAction(_ui.actionShowJournal);
     connect(_ui.actionGoBackup, &QAction::triggered,
             [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.backupTab); });
-    connect(_ui.actionGoBrowse, &QAction::triggered,
+    connect(_ui.actionGoArchives, &QAction::triggered,
             [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.archivesTab); });
     connect(_ui.actionGoJobs, &QAction::triggered,
             [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.jobsTab); });
@@ -111,7 +138,11 @@ MainWindow::MainWindow(QWidget *parent)
             _ui.expandJournalButton, &QToolButton::click);
 
     // Backup pane
+    _ui.backupButton->setDefaultAction(_ui.actionBackupNow);
     _ui.backupButton->addAction(_ui.actionCreateJob);
+    _ui.backupButton->setEnabled(false);
+    connect(_ui.actionBackupNow, &QAction::triggered, this,
+            &MainWindow::backupButtonClicked);
     connect(_ui.actionCreateJob, &QAction::triggered, this,
             &MainWindow::createJobClicked);
     connect(_ui.backupListWidget, &BackupListWidget::itemTotals, this,
@@ -124,8 +155,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::browseForBackupItems);
     connect(_ui.backupListInfoLabel, &QLabel::linkActivated, this,
             &MainWindow::browseForBackupItems);
-    connect(_ui.backupButton, &QPushButton::clicked, this,
-            &MainWindow::backupButtonClicked);
     connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
             &MainWindow::appendTimestampCheckBoxToggled);
 

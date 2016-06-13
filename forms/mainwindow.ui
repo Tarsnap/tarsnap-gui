@@ -2111,39 +2111,37 @@ font-size: 12px;
                 <property name="plainText">
                  <string>Global
 ------
-ctrl+[1-5] - switch between Backup, Archives.. main tabs
-ctrl+j     - toggle the Journal log
-ctrl+k     - stop tasks
+%1[1-5] - switch between Backup, Archives.. main tabs
+%1J     - toggle the Journal log
+%1K     - stop tasks
 
 Backup tab
 ----------
-ctrl+o         - open the File Browser
-ctrl+backspace - clear the Backup list
-backspace      - remove selected items from the Backup list
+%1O         - open the File Browser
+%1backspace - clear the Backup list
+backspace   - remove selected items from the Backup list
 
 Archives tab
 ------------
-ctrl+r    - refresh the Archives list
-ctrl+i    - inspect selected Archive
-ctrl+s    - restore selected Archive
-ctrl+d    - delete selected Archive(s)
+%1R    - refresh the Archives list
+%1I    - inspect selected Archive
+%1S    - restore selected Archive
+%1D    - delete selected Archive(s)
 backspace - delete selected Archive(s)
-ctrl+f    - search the Archive list
+%1F    - search the Archive list
 
 Jobs tab
 --------
-ctrl+n    - add new Job
-ctrl+b    - execute backup for selected Jobs
-ctrl+i    - inspect selected Job
-ctrl+s    - restore selected Job
-ctrl+d    - delete selected Job
-ctrl+f    - search the Job list
+%1N    - add new Job
+%1B    - execute backup for selected Jobs
+%1I    - inspect selected Job
+%1S    - restore selected Job
+%1D    - delete selected Job
+%1F    - search the Job list
 
 Settings tab
 ------------
-ctrl+r - refresh Account Summary
-
-* ctrl is cmd key on OS X
+%1R - refresh Account Summary
 </string>
                 </property>
                </widget>

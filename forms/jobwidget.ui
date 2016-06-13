@@ -85,7 +85,7 @@ min-height: 32px;
       <item>
        <widget class="QLineEdit" name="jobNameLineEdit">
         <property name="toolTip">
-         <string>Job name must be unique amongst existing Jobs.</string>
+         <string>Job name must be unique amongst existing Jobs</string>
         </property>
         <property name="styleSheet">
          <string notr="true">QLineEdit {
@@ -388,7 +388,7 @@ alignment: center;
                 <bool>false</bool>
                </property>
                <property name="toolTip">
-                <string>Can use shell globbing patterns. The list is colon separated.</string>
+                <string>Can use shell globbing patterns, the list is colon separated</string>
                </property>
               </widget>
              </item>
@@ -418,7 +418,7 @@ alignment: center;
              <item row="0" column="0" colspan="2">
               <widget class="QCheckBox" name="includeScheduledCheckBox">
                <property name="toolTip">
-                <string>Enable to include this job in automatic scheduled jobs execution via the --jobs option.</string>
+                <string>Enable to include this job in automatic scheduled jobs execution via the --jobs option</string>
                </property>
                <property name="text">
                 <string>Include in scheduled backups</string>
@@ -428,7 +428,7 @@ alignment: center;
              <item row="4" column="0" colspan="2">
               <widget class="QCheckBox" name="skipNoDumpCheckBox">
                <property name="toolTip">
-                <string>Skip files flagged with nodump attribute. Not all filesystems support this attribute.</string>
+                <string>Skip files flagged with nodump attribute; not all filesystems support this attribute</string>
                </property>
                <property name="text">
                 <string>Skip files flagged nodump</string>
@@ -503,7 +503,7 @@ selection-background-color: rgba(177,214,255, 150);
     <string>Delete</string>
    </property>
    <property name="toolTip">
-    <string>Delete archive(s)</string>
+    <string>Delete Archive(s)</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+D</string>
@@ -518,7 +518,7 @@ selection-background-color: rgba(177,214,255, 150);
     <string>Inspect</string>
    </property>
    <property name="toolTip">
-    <string>Inspect archive</string>
+    <string>Inspect Archive</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>

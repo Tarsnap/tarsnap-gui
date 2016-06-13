@@ -140,7 +140,7 @@ bool RestoreDialog::validate()
         {
             _ui.baseDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
             _ui.baseDirLineEdit->setToolTip(
-                tr("Invalid base directory. Please choose a different one."));
+                tr("Invalid base directory, please choose a different one"));
             valid = false;
         }
     }
@@ -151,7 +151,7 @@ bool RestoreDialog::validate()
         {
             _ui.archiveLineEdit->setStyleSheet("QLineEdit{color:red;}");
             _ui.archiveLineEdit->setToolTip(
-                tr("File exists. Please choose a different file name."));
+                tr("File exists, please choose a different file name"));
             valid = false;
         }
         else

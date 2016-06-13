@@ -401,7 +401,7 @@ text-align: center;
            <item>
             <widget class="QComboBox" name="archivesFilter">
              <property name="toolTip">
-              <string>Search and filter the Archives list. Shell globbing patterns can be used.</string>
+              <string>Search and filter the Archives list, shell globbing patterns can be used</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QComboBox {
@@ -537,7 +537,7 @@ selection-background-color: rgba(177,214,255,150);
            <item>
             <widget class="QComboBox" name="jobsFilter">
              <property name="toolTip">
-              <string>Search and filter the Jobs list.  Shell globbing patterns can be used.</string>
+              <string>Search and filter the Jobs list, shell globbing patterns can be used</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QComboBox {
@@ -930,7 +930,7 @@ border: 1px solid white;
                     <item row="0" column="0">
                      <widget class="QLabel" name="label_4">
                       <property name="toolTip">
-                       <string>On the Tarsnap servers. This is what you're paying for.</string>
+                       <string>On the Tarsnap servers, this is what you're paying for</string>
                       </property>
                       <property name="text">
                        <string>Actual usage:</string>
@@ -953,7 +953,7 @@ border: 1px solid white;
                     <item row="1" column="0">
                      <widget class="QLabel" name="label_6">
                       <property name="toolTip">
-                       <string>Number of Archives stored for this Machine.</string>
+                       <string>Number of Archives stored for this Machine</string>
                       </property>
                       <property name="text">
                        <string>Archive count:</string>
@@ -999,7 +999,7 @@ border: 1px solid white;
                     <item row="3" column="0">
                      <widget class="QLabel" name="label_2">
                       <property name="toolTip">
-                       <string>Real size of all stored archives (before compression and deduplication).</string>
+                       <string>Real size of all stored archives (before compression and deduplication)</string>
                       </property>
                       <property name="text">
                        <string>Total backup size:</string>
@@ -1022,7 +1022,7 @@ border: 1px solid white;
                     <item row="4" column="0">
                      <widget class="QLabel" name="label_16">
                       <property name="toolTip">
-                       <string>Credit left on Tarsnap.</string>
+                       <string>Credit left on Tarsnap</string>
                       </property>
                       <property name="text">
                        <string>Credit:</string>
@@ -1037,7 +1037,7 @@ border: 1px solid white;
                       <item>
                        <widget class="QLabel" name="accountCreditLabel">
                         <property name="toolTip">
-                         <string>Click update button.</string>
+                         <string>Click update button</string>
                         </property>
                         <property name="text">
                          <string>click update button</string>
@@ -1055,7 +1055,7 @@ border: 1px solid white;
                          </font>
                         </property>
                         <property name="toolTip">
-                         <string>Show account activity. Requires Tarsnap login.</string>
+                         <string>Show account activity, requires Tarsnap login</string>
                         </property>
                         <property name="styleSheet">
                          <string notr="true">QPushButton {
@@ -1127,7 +1127,7 @@ color: blue;
                          </font>
                         </property>
                         <property name="toolTip">
-                         <string>Show machine activity. Requires Tarsnap login.</string>
+                         <string>Show machine activity, requires Tarsnap login</string>
                         </property>
                         <property name="styleSheet">
                          <string notr="true">QPushButton {
@@ -1168,7 +1168,7 @@ color: blue;
                        </font>
                       </property>
                       <property name="toolTip">
-                       <string>Displayed credit might be out of date. Click update button to fetch latest account details.</string>
+                       <string>Displayed credit might be out of date, click update button to fetch latest account details</string>
                       </property>
                       <property name="text">
                        <string>Credit is %1 days old. Click update button to fetch latest credit.</string>
@@ -1394,7 +1394,7 @@ color: blue;
                   <item>
                    <widget class="QCheckBox" name="notificationsCheckBox">
                     <property name="toolTip">
-                     <string>Control whether desktop notifications are displayed or not. Only for supported platforms.</string>
+                     <string>Control whether desktop notifications are displayed or not; only for supported platforms</string>
                     </property>
                     <property name="text">
                      <string>Show desktop notifications</string>
@@ -1417,7 +1417,7 @@ color: blue;
                   <item>
                    <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
                     <property name="toolTip">
-                     <string>Use multiple TCP connections to send data to the Tarsnap server. Can improve network performance.</string>
+                     <string>Use multiple TCP connections to send data to the Tarsnap server, can improve network performance</string>
                     </property>
                     <property name="text">
                      <string>Aggressive networking</string>
@@ -1547,7 +1547,7 @@ border: 0;
                          <bool>false</bool>
                         </property>
                         <property name="toolTip">
-                         <string>Shell globbing patterns can be used. The list is colon separated.</string>
+                         <string>Shell globbing patterns can be used, the list is colon separated</string>
                         </property>
                        </widget>
                       </item>
@@ -1581,7 +1581,7 @@ border: 0;
                       <item>
                        <widget class="QLineEdit" name="downloadsDirLineEdit">
                         <property name="toolTip">
-                         <string>Specifies the directory where archives are restored to by default</string>
+                         <string>The directory where archives are restored to by default</string>
                         </property>
                        </widget>
                       </item>
@@ -1788,7 +1788,7 @@ border: 0;
                   <item row="6" column="0" colspan="4">
                    <widget class="QPushButton" name="repairCacheButton">
                     <property name="toolTip">
-                     <string>Runs tarsnap --fsck. Useful for fixing Tarsnap cache inconsistencies.</string>
+                     <string>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</string>
                     </property>
                     <property name="text">
                      <string>Repair cache</string>
@@ -2362,7 +2362,7 @@ border: none;
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Tarsnap is busy running chores. Click to change that.</string>
+         <string>Tarsnap is busy running chores, click to change that</string>
         </property>
        </widget>
       </item>

@@ -341,7 +341,7 @@ color: blue;
         <string>This archive was interrupted and may be incomplete</string>
        </property>
        <property name="text">
-        <string>This archive is truncated. Data may be incomplete.</string>
+        <string>This archive is truncated, data may be incomplete</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

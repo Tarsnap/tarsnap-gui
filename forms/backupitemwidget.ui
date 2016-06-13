@@ -223,7 +223,7 @@ padding-left: 2px;
     <string>Open</string>
    </property>
    <property name="toolTip">
-    <string>Open in desktop</string>
+    <string>Open in Desktop</string>
    </property>
   </action>
  </widget>

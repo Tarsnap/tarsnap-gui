@@ -1129,7 +1129,7 @@ color: darkred;
              <bool>false</bool>
             </property>
             <property name="toolTip">
-             <string>This may take a while, please be patient.</string>
+             <string>This may take a while, please be patient</string>
             </property>
             <property name="text">
              <string>Register machine</string>

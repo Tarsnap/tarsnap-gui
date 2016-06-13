@@ -124,7 +124,7 @@
       <item row="0" column="0" colspan="2">
        <widget class="QRadioButton" name="optionRestoreRadio">
         <property name="toolTip">
-         <string>Restore Archive contents to the original source locations.</string>
+         <string>Restore Archive contents to the original source locations</string>
         </property>
         <property name="text">
          <string>Restore files to original locations</string>

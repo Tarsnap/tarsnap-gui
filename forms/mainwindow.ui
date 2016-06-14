@@ -186,7 +186,7 @@ selection-background-color: rgba(177,214,255,150);
               </font>
              </property>
              <property name="toolTip">
-              <string>Ctrl+O key sequence also opens the File Browser</string>
+              <string>Add files and directories using the File Browser &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QLabel {
@@ -195,7 +195,7 @@ background-color: rgba(237,243,254,255);
 }</string>
              </property>
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:normal;&quot;&gt;Drag and drop files or directories to back up, or use the &lt;/span&gt;&lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; font-style:normal; text-decoration: underline; color:#0000ff;&quot;&gt;File browser&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:normal;&quot;&gt;Drag and drop files or directories to back up, or use the &lt;/span&gt;&lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; font-style:normal; text-decoration: underline; color:#0000ff;&quot;&gt;File browser&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="textFormat">
               <enum>Qt::RichText</enum>
@@ -406,7 +406,7 @@ text-align: center;
            <item>
             <widget class="QComboBox" name="archivesFilter">
              <property name="toolTip">
-              <string>Search and filter the Archives list, shell globbing patterns can be used</string>
+              <string>Search and filter the Archives list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QComboBox {
@@ -542,7 +542,7 @@ selection-background-color: rgba(177,214,255,150);
            <item>
             <widget class="QComboBox" name="jobsFilter">
              <property name="toolTip">
-              <string>Search and filter the Jobs list, shell globbing patterns can be used</string>
+              <string>Search and filter the Jobs list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QComboBox {
@@ -763,7 +763,7 @@ color: black;
            <item alignment="Qt::AlignHCenter">
             <widget class="QToolButton" name="addJobButton">
              <property name="toolTip">
-              <string>Add a new job (Ctrl+n)</string>
+              <string>Add a new Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QToolButton
@@ -827,7 +827,7 @@ text-align: center;
 }</string>
              </property>
              <property name="text">
-              <string>Add job</string>
+              <string>Add Job</string>
              </property>
              <property name="popupMode">
               <enum>QToolButton::MenuButtonPopup</enum>
@@ -2282,9 +2282,6 @@ font-size: 12px;
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
-        <property name="toolTip">
-         <string>Show/hide journal log (CTRL+j)</string>
-        </property>
         <property name="styleSheet">
          <string notr="true">#expandJournalButton{
 border: none;
@@ -2292,11 +2289,6 @@ border: none;
         </property>
         <property name="text">
          <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="../resources/resources.qrc">
-          <normaloff>:/icons/caret-top.png</normaloff>
-          <activeon>:/icons/caret-bottom.png</activeon>:/icons/caret-top.png</iconset>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -2365,7 +2357,7 @@ border: none;
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Tarsnap is busy running chores, click to change that</string>
+         <string>Tarsnap is busy running chores, click to change that &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
         </property>
        </widget>
       </item>
@@ -2412,7 +2404,7 @@ border: none;
     <string>Browse for items</string>
    </property>
    <property name="toolTip">
-    <string>Browse for files and dirs</string>
+    <string>Browse for files and directories</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -2492,12 +2484,26 @@ border: none;
     <string>Backup all jobs</string>
    </property>
    <property name="toolTip">
-    <string>Backup all jobs</string>
+    <string>Backup all jobs now</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+B</string>
    </property>
   </action>
   <action name="actionShowJournal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/caret-top.png</normaloff>
+     <normalon>:/icons/caret-bottom.png</normalon>:/icons/caret-top.png</iconset>
+   </property>
    <property name="text">
     <string>Show Journal</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide Journal log &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+J</string>
@@ -2644,6 +2650,17 @@ border: none;
    </property>
    <property name="shortcut">
     <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionStopTasks">
+   <property name="text">
+    <string>Stop tasks</string>
+   </property>
+   <property name="toolTip">
+    <string>Stop running tasks or clear queued one</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+K</string>
    </property>
   </action>
  </widget>

@@ -87,7 +87,6 @@ private slots:
     void appDataButtonClicked();
     void purgeArchivesButtonClicked();
     void runSetupWizardClicked();
-    void expandJournalButtonToggled(bool checked);
     void downloadsDirBrowseButtonClicked();
     void displayJobDetails(JobPtr job);
     void hideJobDetails();

@@ -97,9 +97,9 @@ void JobWidget::setJob(const JobPtr &job)
                                      false);
         _ui.restoreButton->hide();
         _ui.backupButton->hide();
-        _ui.jobNameLabel->hide();
         _ui.infoLabel->hide();
-        _ui.jobNameLineEdit->clear();
+        _ui.jobNameLabel->hide();
+        _ui.jobNameLineEdit->setText(_job->name());
         _ui.jobNameLineEdit->show();
         _ui.jobNameLineEdit->setFocus();
     }

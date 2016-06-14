@@ -93,8 +93,8 @@ void JobWidget::setJob(const JobPtr &job)
     // Creating a new job?
     if(_job->objectKey().isEmpty())
     {
-//        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-//                                      false);
+        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
+                                     false);
         _ui.restoreButton->hide();
         _ui.backupButton->hide();
         _ui.jobNameLabel->hide();
@@ -105,8 +105,8 @@ void JobWidget::setJob(const JobPtr &job)
     }
     else
     {
-//        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-//                                      true);
+        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
+                                     true);
         _ui.restoreButton->show();
         _ui.backupButton->show();
         _ui.jobNameLabel->show();
@@ -181,11 +181,15 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
                                   " Job description. Go to Archives tab below"
                                   " to review.").arg(archives.count()));
         _ui.infoLabel->show();
+        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
+                                     true);
     }
     else
     {
         _ui.infoLabel->clear();
         _ui.infoLabel->hide();
+        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
+                                     false);
     }
     _job->setArchives(archives);
     _ui.archiveListWidget->clear();

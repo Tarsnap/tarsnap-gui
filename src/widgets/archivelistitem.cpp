@@ -13,6 +13,16 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive)
 
     _ui.setupUi(_widget);
 
+    _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
+                                   .arg(_ui.actionInspect->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.restoreButton->setToolTip(_ui.restoreButton->toolTip()
+                                   .arg(_ui.actionRestore->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip()
+                                   .arg(_ui.actionDelete->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+
     connect(_ui.deleteButton, &QToolButton::clicked, this,
             &ArchiveListItem::requestDelete);
     connect(_ui.inspectButton, &QToolButton::clicked, this,

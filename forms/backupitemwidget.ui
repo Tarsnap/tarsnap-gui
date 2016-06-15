@@ -133,9 +133,6 @@ font-size: 11px;
        <height>27</height>
       </size>
      </property>
-     <property name="toolTip">
-      <string>Open this item in the native File Explorer</string>
-     </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
 border: none;
@@ -174,9 +171,6 @@ padding-left: 2px;
        <height>27</height>
       </size>
      </property>
-     <property name="toolTip">
-      <string>Remove this item</string>
-     </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
 border: none;
@@ -211,7 +205,13 @@ padding-left: 2px;
     <string>Remove</string>
    </property>
    <property name="toolTip">
-    <string>Remove selected items</string>
+    <string>Remove selected item(s) &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+   </property>
+   <property name="shortcut">
+    <string>Backspace</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WidgetShortcut</enum>
    </property>
   </action>
   <action name="actionOpen">
@@ -223,7 +223,10 @@ padding-left: 2px;
     <string>Open</string>
    </property>
    <property name="toolTip">
-    <string>Open in Desktop</string>
+    <string>Open this item in the native File Explorer</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WidgetShortcut</enum>
    </property>
   </action>
  </widget>

@@ -137,7 +137,7 @@ font-size: 11px;
       </size>
      </property>
      <property name="toolTip">
-      <string>Display details for this Job</string>
+      <string>Display details for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
@@ -178,7 +178,7 @@ padding-left: 2px;
       </size>
      </property>
      <property name="toolTip">
-      <string>Restore latest backup for this Job</string>
+      <string>Restore latest backup for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
@@ -225,7 +225,7 @@ padding-left: 2px;
       </size>
      </property>
      <property name="toolTip">
-      <string>Initiate a backup for this Job</string>
+      <string>Initiate a backup for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
@@ -252,6 +252,51 @@ padding-left: 2px;
     </widget>
    </item>
   </layout>
+  <action name="actionJobRestore">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Restore</string>
+   </property>
+   <property name="toolTip">
+    <string>Restore latest backup</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionJobInspect">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
+   </property>
+   <property name="text">
+    <string>Inspect</string>
+   </property>
+   <property name="toolTip">
+    <string>Show job details</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionJobBackup">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Backup</string>
+   </property>
+   <property name="toolTip">
+    <string>Execute backup for job(s)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

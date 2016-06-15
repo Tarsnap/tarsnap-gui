@@ -9,6 +9,16 @@ JobListItem::JobListItem(JobPtr job)
 
     _ui.setupUi(_widget);
 
+    _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
+                                   .arg(_ui.actionJobInspect->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.restoreButton->setToolTip(_ui.restoreButton->toolTip()
+                                   .arg(_ui.actionJobRestore->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.backupButton->setToolTip(_ui.backupButton->toolTip()
+                                   .arg(_ui.actionJobBackup->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+
     connect(_ui.backupButton, &QToolButton::clicked, this,
             &JobListItem::requestBackup);
     connect(_ui.inspectButton, &QToolButton::clicked, this,

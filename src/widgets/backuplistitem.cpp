@@ -15,6 +15,9 @@ BackupListItem::BackupListItem(QUrl url)
     _widget->addAction(_ui.actionRemove);
     _ui.browseButton->setDefaultAction(_ui.actionOpen);
     _ui.removeButton->setDefaultAction(_ui.actionRemove);
+    _ui.removeButton->setToolTip(_ui.removeButton->toolTip()
+                                   .arg(_ui.actionRemove->shortcut()
+                                        .toString(QKeySequence::NativeText)));
     connect(_ui.actionRemove, &QAction::triggered, this,
             &BackupListItem::requestDelete);
     connect(_ui.actionOpen, &QAction::triggered, this,

@@ -32,10 +32,28 @@ MainWindow::MainWindow(QWidget *parent)
 {
     connect(&Debug::instance(), &Debug::message, this,
             &MainWindow::appendToConsoleLog);
+
+    // Ui initialization
     _ui.setupUi(this);
     _ui.backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+
+    _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
+    _ui.settingsToolbox->setCurrentWidget(_ui.settingsAccountPage);
+    _ui.mainContentSplitter->setCollapsible(0, false);
+    _ui.journalLog->hide();
+    _ui.archiveDetailsWidget->hide();
+    _ui.jobDetailsWidget->hide();
+    _ui.outOfDateNoticeLabel->hide();
+    _ui.archivesFilter->hide();
+    _ui.jobsFilter->hide();
+
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
+    _ui.consoleLog->setPlaceholderText(tr("No events yet"));
+    _ui.journalLog->setPlaceholderText(tr("No messages yet"));
+#endif
+    // --
 
     // Keyboard shortcuts
 #ifdef Q_OS_OSX
@@ -92,8 +110,6 @@ MainWindow::MainWindow(QWidget *parent)
                                         .toString(QKeySequence::NativeText)));
     // --
 
-    loadSettings();
-
     // Menubar init
     QMenuBar menuBar;
     if(menuBar.isNativeMenuBar())
@@ -105,23 +121,7 @@ MainWindow::MainWindow(QWidget *parent)
         appMenu->addAction(actionAbout);
         menuBar.addMenu(appMenu);
     }
-    connect(_ui.aboutButton, &QPushButton::clicked, this,
-            &MainWindow::showAbout);
     // --
-
-    _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
-    _ui.settingsToolbox->setCurrentWidget(_ui.settingsAccountPage);
-    _ui.mainContentSplitter->setCollapsible(0, false);
-    _ui.journalLog->hide();
-    _ui.archiveDetailsWidget->hide();
-    _ui.jobDetailsWidget->hide();
-    _ui.outOfDateNoticeLabel->hide();
-    _ui.archivesFilter->hide();
-    _ui.jobsFilter->hide();
-#if(QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
-    _ui.consoleLog->setPlaceholderText(tr("No events yet"));
-    _ui.journalLog->setPlaceholderText(tr("No messages yet"));
-#endif
 
     // Purge widget setup
     _purgeCountdownWindow.setIcon(QMessageBox::Critical);
@@ -183,7 +183,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
             &MainWindow::appendTimestampCheckBoxToggled);
 
-    // Settings page
+    // Settings pane
+    loadSettings();
+    connect(_ui.aboutButton, &QPushButton::clicked, this,
+            &MainWindow::showAbout);
     connect(_ui.accountUserLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
     connect(_ui.accountMachineLineEdit, &QLineEdit::editingFinished, this,
@@ -259,11 +262,10 @@ MainWindow::MainWindow(QWidget *parent)
             [&]() { _tarsnapAccount.getAccountInfo(true, false); });
     connect(_ui.machineActivityShowButton, &QPushButton::clicked,
             [&]() { _tarsnapAccount.getAccountInfo(false, true); });
-
     connect(_ui.clearJournalButton, &QPushButton::clicked, this,
             &MainWindow::clearJournalClicked);
 
-    // Archives
+    // Archives pane
     _ui.archiveListWidget->addAction(_ui.actionRefresh);
     _ui.archiveListWidget->addAction(_ui.actionInspect);
     _ui.archiveListWidget->addAction(_ui.actionDelete);
@@ -294,7 +296,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.actionInspect, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::inspectSelectedItem);
 
-    // Jobs
+    // Jobs pane
     _ui.jobListWidget->addAction(_ui.actionJobBackup);
     _ui.jobListWidget->addAction(_ui.actionJobDelete);
     _ui.jobListWidget->addAction(_ui.actionJobInspect);
@@ -448,9 +450,13 @@ MainWindow::MainWindow(QWidget *parent)
             &ArchiveListWidget::setFilter);
     connect(_ui.jobsFilter, &QComboBox::editTextChanged, _ui.jobListWidget,
             &JobListWidget::setFilter);
-    connect(_ui.archivesFilter, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+    connect(_ui.archivesFilter,
+            static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+            this,
             [&](){_ui.archiveListWidget->setFocus();});
-    connect(_ui.jobsFilter, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+    connect(_ui.jobsFilter,
+            static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+            this,
             [&](){_ui.jobListWidget->setFocus();});
 }
 

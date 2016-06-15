@@ -45,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     _ui.keyboardShortcuts->setPlainText(_ui.keyboardShortcuts->toPlainText()
                                         .arg(QKeySequence(Qt::ControlModifier)
+                                             .toString(QKeySequence::NativeText))
+                                        .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
                                              .toString(QKeySequence::NativeText)));
     _ui.mainTabWidget->setTabToolTip(0,
                                      _ui.mainTabWidget->tabToolTip(0)

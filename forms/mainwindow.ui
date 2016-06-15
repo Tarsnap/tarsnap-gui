@@ -2132,17 +2132,18 @@ Archives tab
 %1I    - inspect selected Archive
 %1S    - restore selected Archive
 %1D    - delete selected Archive(s)
+%1F    - search and filter the Archives list
 backspace - delete selected Archive(s)
-%1F    - search the Archive list
 
 Jobs tab
 --------
 %1N    - add new Job
-%1B    - execute backup for selected Jobs
+%1B    - execute backup for selected Job(s)
+%2B    - execute backup for all Jobs
 %1I    - inspect selected Job
 %1S    - restore selected Job
 %1D    - delete selected Job
-%1F    - search the Job list
+%1F    - search and filter the Jobs list
 
 Settings tab
 ------------

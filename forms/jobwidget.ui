@@ -165,7 +165,7 @@ padding-left: 3px;
          </size>
         </property>
         <property name="toolTip">
-         <string>Hide job details (ESC key)</string>
+         <string>Hide job details &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
         </property>
         <property name="text">
          <string/>

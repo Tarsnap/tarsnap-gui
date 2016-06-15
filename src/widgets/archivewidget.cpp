@@ -9,6 +9,10 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     QSettings settings;
     _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
+    _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
+                               .arg(QKeySequence(QKeySequence::Cancel)
+                                    .toString(QKeySequence::NativeText)));
+
     connect(_ui.hideButton, &QPushButton::clicked, this, &ArchiveWidget::hide);
     connect(_ui.archiveJobLabel, &TextLabel::clicked,
             [&]() { emit jobClicked(_archive->jobRef()); });

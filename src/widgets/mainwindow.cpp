@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
       _useIECPrefixes(false),
       _purgeTimerCount(0),
-      _purgeCountdownWindow(this),
+      _purgeCountdown(this),
       _tarsnapAccount(this),
       _aboutToQuit(false)
 {
@@ -124,10 +124,10 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     // Purge widget setup
-    _purgeCountdownWindow.setIcon(QMessageBox::Critical);
-    _purgeCountdownWindow.setWindowTitle(
+    _purgeCountdown.setIcon(QMessageBox::Critical);
+    _purgeCountdown.setWindowTitle(
         tr("Deleting all archives: press Cancel to abort"));
-    _purgeCountdownWindow.setStandardButtons(QMessageBox::Cancel);
+    _purgeCountdown.setStandardButtons(QMessageBox::Cancel);
     connect(&_purgeTimer, &QTimer::timeout, this, &MainWindow::purgeTimerFired);
     // --
 
@@ -925,13 +925,13 @@ void MainWindow::purgeTimerFired()
     if(_purgeTimerCount <= 1)
     {
         _purgeTimer.stop();
-        _purgeCountdownWindow.accept();
+        _purgeCountdown.accept();
         emit purgeArchives();
     }
     else
     {
         --_purgeTimerCount;
-        _purgeCountdownWindow.setText(
+        _purgeCountdown.setText(
             tr("Purging all archives in %1 seconds...").arg(_purgeTimerCount));
     }
 }
@@ -1108,10 +1108,10 @@ void MainWindow::purgeArchivesButtonClicked()
     if(ok && (confirmationText == userText))
     {
         _purgeTimerCount = PURGE_SECONDS_DELAY;
-        _purgeCountdownWindow.setText(
+        _purgeCountdown.setText(
             tr("Purging all archives in %1 seconds...").arg(_purgeTimerCount));
         _purgeTimer.start(1000);
-        if(QMessageBox::Cancel == _purgeCountdownWindow.exec())
+        if(QMessageBox::Cancel == _purgeCountdown.exec())
         {
             _purgeTimer.stop();
             updateStatusMessage(tr("Purge cancelled."));

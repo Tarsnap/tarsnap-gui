@@ -107,7 +107,7 @@ private:
     bool            _useIECPrefixes;
     QTimer          _purgeTimer;
     int             _purgeTimerCount;
-    QMessageBox     _purgeCountdownWindow;
+    QMessageBox     _purgeCountdown;
     TarsnapAccount  _tarsnapAccount;
     bool            _aboutToQuit;
 };

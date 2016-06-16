@@ -218,7 +218,7 @@ void JobListWidget::setFilter(QString regex)
     }
 }
 
-void JobListWidget::keyReleaseEvent(QKeyEvent *event)
+void JobListWidget::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
@@ -226,9 +226,9 @@ void JobListWidget::keyReleaseEvent(QKeyEvent *event)
         if(!selectedItems().isEmpty())
             clearSelection();
         else
-            QListWidget::keyReleaseEvent(event);
+            QListWidget::keyPressEvent(event);
         break;
     default:
-        QListWidget::keyReleaseEvent(event);
+        QListWidget::keyPressEvent(event);
     }
 }

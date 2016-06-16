@@ -33,7 +33,7 @@ signals:
     void deleteJob(JobPtr job, bool purgeArchives);
 
 protected:
-    void keyReleaseEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
 private slots:
     void backupItem();

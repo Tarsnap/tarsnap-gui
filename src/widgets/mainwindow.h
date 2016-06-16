@@ -66,7 +66,7 @@ signals:
 
 protected:
     void paintEvent(QPaintEvent *);
-    void keyReleaseEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
     void closeEvent(QCloseEvent *event);
 
 private slots:

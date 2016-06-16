@@ -240,7 +240,7 @@ void ArchiveListWidget::disableArchives(QList<ArchivePtr> archives)
     }
 }
 
-void ArchiveListWidget::keyReleaseEvent(QKeyEvent *event)
+void ArchiveListWidget::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
@@ -252,9 +252,9 @@ void ArchiveListWidget::keyReleaseEvent(QKeyEvent *event)
         if(!selectedItems().isEmpty())
             clearSelection();
         else
-            QListWidget::keyReleaseEvent(event);
+            QListWidget::keyPressEvent(event);
         break;
     default:
-        QListWidget::keyReleaseEvent(event);
+        QListWidget::keyPressEvent(event);
     }
 }

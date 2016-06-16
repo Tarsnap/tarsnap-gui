@@ -31,7 +31,7 @@ signals:
     void displayJobDetails(QString jobRef);
 
 protected:
-    void keyReleaseEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
 private slots:
     void removeItem();

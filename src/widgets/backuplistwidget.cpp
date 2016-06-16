@@ -178,7 +178,7 @@ void BackupListWidget::dropEvent(QDropEvent *event)
     event->acceptProposedAction();
 }
 
-void BackupListWidget::keyReleaseEvent(QKeyEvent *event)
+void BackupListWidget::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
@@ -190,9 +190,9 @@ void BackupListWidget::keyReleaseEvent(QKeyEvent *event)
         if(!selectedItems().isEmpty())
             clearSelection();
         else
-            QListWidget::keyReleaseEvent(event);
+            QListWidget::keyPressEvent(event);
         break;
     default:
-        QListWidget::keyReleaseEvent(event);
+        QListWidget::keyPressEvent(event);
     }
 }

@@ -36,7 +36,7 @@ signals:
     void settingChanged();
 
 protected:
-    void keyReleaseEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:

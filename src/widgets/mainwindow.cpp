@@ -598,7 +598,7 @@ void MainWindow::paintEvent(QPaintEvent *)
     }
 }
 
-void MainWindow::keyReleaseEvent(QKeyEvent *event)
+void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
@@ -653,7 +653,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
         }
         break;
     default:
-        QWidget::keyReleaseEvent(event);
+        QWidget::keyPressEvent(event);
     }
 }
 

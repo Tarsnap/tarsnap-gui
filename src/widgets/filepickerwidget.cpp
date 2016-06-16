@@ -136,7 +136,7 @@ void FilePickerWidget::setSettingHideSymlinks(bool hideSymlinks)
     _ui.hideLinksCheckBox->setChecked(hideSymlinks);
 }
 
-void FilePickerWidget::keyReleaseEvent(QKeyEvent *event)
+void FilePickerWidget::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
@@ -151,11 +151,11 @@ void FilePickerWidget::keyReleaseEvent(QKeyEvent *event)
         }
         else
         {
-            QWidget::keyReleaseEvent(event);
+            QWidget::keyPressEvent(event);
         }
         break;
     default:
-        QWidget::keyReleaseEvent(event);
+        QWidget::keyPressEvent(event);
     }
 }
 

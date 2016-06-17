@@ -592,6 +592,9 @@ min-width: 200px;
                <property name="text">
                 <string>Change</string>
                </property>
+               <property name="autoDefault">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
              <item row="3" column="1">
@@ -677,6 +680,9 @@ border: none;
             </property>
             <property name="checkable">
              <bool>true</bool>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -1038,6 +1044,9 @@ border: none;
             <property name="text">
              <string>Browse for key</string>
             </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item row="5" column="0" colspan="2">
@@ -1135,7 +1144,7 @@ color: darkred;
              <string>Register machine</string>
             </property>
             <property name="default">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -1335,24 +1344,24 @@ color: darkred;
   </layout>
  </widget>
  <tabstops>
-  <tabstop>welcomePageSkipButton</tabstop>
   <tabstop>welcomePageProceedButton</tabstop>
+  <tabstop>welcomePageSkipButton</tabstop>
+  <tabstop>advancedPageProceedButton</tabstop>
+  <tabstop>advancedCLIButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapCacheLineEdit</tabstop>
   <tabstop>tarsnapCacheBrowseButton</tabstop>
   <tabstop>appDataPathLineEdit</tabstop>
   <tabstop>appDataBrowseButton</tabstop>
-  <tabstop>advancedCLIButton</tabstop>
-  <tabstop>advancedPageProceedButton</tabstop>
   <tabstop>restoreNoButton</tabstop>
   <tabstop>restoreYesButton</tabstop>
+  <tabstop>registerMachineButton</tabstop>
   <tabstop>tarsnapUserLineEdit</tabstop>
   <tabstop>tarsnapPasswordLineEdit</tabstop>
   <tabstop>machineNameLineEdit</tabstop>
   <tabstop>machineKeyCombo</tabstop>
   <tabstop>browseKeyButton</tabstop>
-  <tabstop>registerMachineButton</tabstop>
   <tabstop>doneButton</tabstop>
  </tabstops>
  <resources>

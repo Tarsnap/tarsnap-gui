@@ -11,9 +11,10 @@ JobWidget::JobWidget(QWidget *parent)
 {
     _ui.setupUi(this);
     _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
-                               .arg(QKeySequence(QKeySequence::Cancel)
-                                    .toString(QKeySequence::NativeText)));
+    // Requires Qt 5.6 or higher to build!
+    //_ui.hideButton->setToolTip(_ui.hideButton->toolTip()
+    //                           .arg(QKeySequence(QKeySequence::Cancel)
+    //                                .toString(QKeySequence::NativeText)));
     _ui.infoLabel->hide();
     _fsEventUpdate.setSingleShot(true);
     connect(&_fsEventUpdate, &QTimer::timeout, this, &JobWidget::verifyJob);

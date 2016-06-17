@@ -10,7 +10,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
     _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
-                               .arg(QKeySequence(QKeySequence::Cancel)
+                               .arg(QKeySequence(Qt::Key_Escape)
                                     .toString(QKeySequence::NativeText)));
 
     connect(_ui.hideButton, &QPushButton::clicked, this, &ArchiveWidget::hide);

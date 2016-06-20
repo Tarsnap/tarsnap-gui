@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
+    mainTabChanged(_ui.mainTabWidget->currentIndex());
     _ui.settingsToolbox->setCurrentWidget(_ui.settingsAccountPage);
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
@@ -103,24 +104,60 @@ MainWindow::MainWindow(QWidget *parent)
                                  .arg(_ui.actionAddJob->shortcut()
                                       .toString(QKeySequence::NativeText)));
     _ui.archivesFilter->setToolTip(_ui.archivesFilter->toolTip()
-                                   .arg(_ui.actionShowFilter->shortcut()
+                                   .arg(_ui.actionFilterArchives->shortcut()
                                         .toString(QKeySequence::NativeText)));
     _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip()
-                                   .arg(_ui.actionShowFilter->shortcut()
+                                   .arg(_ui.actionFilterJobs->shortcut()
                                         .toString(QKeySequence::NativeText)));
+    _ui.updateAccountButton->setToolTip(_ui.updateAccountButton->toolTip()
+                                        .arg(_ui.actionRefreshAccount->shortcut()
+                                             .toString(QKeySequence::NativeText)));
     // --
 
     // Menubar init
-    QMenuBar menuBar;
-    if(menuBar.isNativeMenuBar())
+    QMenuBar *menuBar = new QMenuBar(this);
+    if(menuBar->isNativeMenuBar())
     {
         QAction *actionAbout = new QAction(this);
         actionAbout->setMenuRole(QAction::AboutRole);
         connect(actionAbout, &QAction::triggered, this, &MainWindow::showAbout);
-        QMenu *appMenu = new QMenu(this);
+        QAction *actionSettings = new QAction(this);
+        actionSettings->setMenuRole(QAction::PreferencesRole);
+        connect(actionSettings, &QAction::triggered, _ui.actionGoSettings, &QAction::trigger);
+        QMenu *appMenu = menuBar->addMenu("");
         appMenu->addAction(actionAbout);
-        menuBar.addMenu(appMenu);
+        appMenu->addAction(actionSettings);
+        QMenu *fileMenu = menuBar->addMenu(tr("&Backup"));
+        fileMenu->addAction(_ui.actionBrowseItems);
+        fileMenu->addAction(_ui.actionBackupNow);
+        fileMenu->addAction(_ui.actionCreateJob);
+        QMenu *archivesMenu = menuBar->addMenu(tr("&Archives"));
+        archivesMenu->addAction(_ui.actionRefresh);
+        archivesMenu->addAction(_ui.actionInspect);
+        archivesMenu->addAction(_ui.actionRestore);
+        archivesMenu->addAction(_ui.actionDelete);
+        archivesMenu->addAction(_ui.actionFilterArchives);
+        QMenu *jobsMenu = menuBar->addMenu(tr("&Jobs"));
+        jobsMenu->addAction(_ui.actionAddJob);
+        jobsMenu->addAction(_ui.actionBackupAllJobs);
+        jobsMenu->addAction(_ui.actionJobBackup);
+        jobsMenu->addAction(_ui.actionJobInspect);
+        jobsMenu->addAction(_ui.actionJobRestore);
+        jobsMenu->addAction(_ui.actionJobDelete);
+        jobsMenu->addAction(_ui.actionFilterJobs);
+        QMenu *settingsMenu = menuBar->addMenu(tr("&Settings"));
+        settingsMenu->addAction(_ui.actionRefreshAccount);
+        settingsMenu->addAction(_ui.actionStopTasks);
+        QMenu *windowMenu = menuBar->addMenu(tr("&Window"));
+        windowMenu->addAction(_ui.actionGoBackup);
+        windowMenu->addAction(_ui.actionGoArchives);
+        windowMenu->addAction(_ui.actionGoJobs);
+        windowMenu->addAction(_ui.actionGoSettings);
+        windowMenu->addAction(_ui.actionGoHelp);
+        windowMenu->addAction(_ui.actionShowJournal);
     }
+    connect(_ui.mainTabWidget, &QTabWidget::currentChanged, this,
+            &MainWindow::mainTabChanged);
     // --
 
     // Purge widget setup
@@ -165,7 +202,6 @@ MainWindow::MainWindow(QWidget *parent)
     // Backup pane
     _ui.backupButton->setDefaultAction(_ui.actionBackupNow);
     _ui.backupButton->addAction(_ui.actionCreateJob);
-    _ui.backupButton->setEnabled(false);
     connect(_ui.actionBackupNow, &QAction::triggered, this,
             &MainWindow::backupButtonClicked);
     connect(_ui.actionCreateJob, &QAction::triggered, this,
@@ -270,7 +306,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archiveListWidget->addAction(_ui.actionInspect);
     _ui.archiveListWidget->addAction(_ui.actionDelete);
     _ui.archiveListWidget->addAction(_ui.actionRestore);
-    _ui.archiveListWidget->addAction(_ui.actionShowFilter);
+    _ui.archiveListWidget->addAction(_ui.actionFilterArchives);
     connect(this, &MainWindow::archiveList, _ui.archiveListWidget,
             &ArchiveListWidget::addArchives);
     connect(_ui.archiveListWidget, &ArchiveListWidget::inspectArchive, this,
@@ -301,7 +337,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.jobListWidget->addAction(_ui.actionJobDelete);
     _ui.jobListWidget->addAction(_ui.actionJobInspect);
     _ui.jobListWidget->addAction(_ui.actionJobRestore);
-    _ui.jobListWidget->addAction(_ui.actionShowFilter);
+    _ui.jobListWidget->addAction(_ui.actionFilterJobs);
     connect(_ui.addJobButton, &QToolButton::clicked, this,
             &MainWindow::addJobClicked);
     connect(_ui.jobDetailsWidget, &JobWidget::collapse, this,
@@ -363,14 +399,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.backupNameLineEdit, &QLineEdit::textChanged,
             [&](const QString text) {
                 if(text.isEmpty())
-                {
-                    _ui.backupButton->setEnabled(false);
                     _ui.appendTimestampCheckBox->setChecked(false);
-                }
-                else if(_ui.backupListWidget->count())
-                {
-                    _ui.backupButton->setEnabled(true);
-                }
+                validateBackupTab();
             });
     connect(_ui.downloadsDirLineEdit, &QLineEdit::textChanged, [&]() {
         QFileInfo file(_ui.downloadsDirLineEdit->text());
@@ -427,24 +457,21 @@ MainWindow::MainWindow(QWidget *parent)
         _ui.defaultJobs->hide();
         _ui.addJobButton->show();
     });
-    connect(_ui.actionShowFilter, &QAction::triggered, [&]()
+    connect(_ui.actionFilterArchives, &QAction::triggered, [&]()
     {
-        if(_ui.mainTabWidget->currentWidget() == _ui.archivesTab)
-        {
-            _ui.archivesFilter->setVisible(!_ui.archivesFilter->isVisible());
-            if(_ui.archivesFilter->isVisible())
-                _ui.archivesFilter->setFocus();
-            else
-                _ui.archivesFilter->clearEditText();
-        }
-        else if(_ui.mainTabWidget->currentWidget() == _ui.jobsTab)
-        {
-            _ui.jobsFilter->setVisible(!_ui.jobsFilter->isVisible());
-            if(_ui.jobsFilter->isVisible())
-                _ui.jobsFilter->setFocus();
-            else
-                _ui.jobsFilter->clearEditText();
-        }
+        _ui.archivesFilter->setVisible(!_ui.archivesFilter->isVisible());
+        if(_ui.archivesFilter->isVisible())
+            _ui.archivesFilter->setFocus();
+        else
+            _ui.archivesFilter->clearEditText();
+    });
+    connect(_ui.actionFilterJobs, &QAction::triggered, [&]()
+    {
+        _ui.jobsFilter->setVisible(!_ui.jobsFilter->isVisible());
+        if(_ui.jobsFilter->isVisible())
+            _ui.jobsFilter->setFocus();
+        else
+            _ui.jobsFilter->clearEditText();
     });
     connect(_ui.archivesFilter, &QComboBox::editTextChanged, _ui.archiveListWidget,
             &ArchiveListWidget::setFilter);
@@ -757,6 +784,66 @@ void MainWindow::showAbout()
     aboutWindow->show();
 }
 
+void MainWindow::mainTabChanged(int index)
+{
+    Q_UNUSED(index)
+    if(_ui.mainTabWidget->currentWidget() == _ui.backupTab)
+    {
+        validateBackupTab();
+    }
+    else
+    {
+        _ui.actionBackupNow->setEnabled(false);
+        _ui.actionCreateJob->setEnabled(false);
+    }
+    if(_ui.mainTabWidget->currentWidget() == _ui.archivesTab)
+    {
+        _ui.actionInspect->setEnabled(true);
+        _ui.actionRestore->setEnabled(true);
+        _ui.actionDelete->setEnabled(true);
+        _ui.actionFilterArchives->setEnabled(true);
+    }
+    else
+    {
+        _ui.actionInspect->setEnabled(false);
+        _ui.actionRestore->setEnabled(false);
+        _ui.actionDelete->setEnabled(false);
+        _ui.actionFilterArchives->setEnabled(false);
+    }
+    if(_ui.mainTabWidget->currentWidget() == _ui.jobsTab)
+    {
+        _ui.actionJobBackup->setEnabled(true);
+        _ui.actionJobInspect->setEnabled(true);
+        _ui.actionJobRestore->setEnabled(true);
+        _ui.actionJobDelete->setEnabled(true);
+        _ui.actionFilterJobs->setEnabled(true);
+    }
+    else
+    {
+        _ui.actionJobBackup->setEnabled(false);
+        _ui.actionJobInspect->setEnabled(false);
+        _ui.actionJobRestore->setEnabled(false);
+        _ui.actionJobDelete->setEnabled(false);
+        _ui.actionFilterJobs->setEnabled(false);
+    }
+}
+
+void MainWindow::validateBackupTab()
+{
+
+    if(!_ui.backupNameLineEdit->text().isEmpty()
+       && (_ui.backupListWidget->count() > 0))
+    {
+        _ui.actionBackupNow->setEnabled(true);
+        _ui.actionCreateJob->setEnabled(true);
+    }
+    else
+    {
+        _ui.actionBackupNow->setEnabled(false);
+        _ui.actionCreateJob->setEnabled(false);
+    }
+}
+
 void MainWindow::notificationRaise()
 {
     raise();
@@ -768,19 +855,16 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 {
     if(count != 0)
     {
-        _ui.backupDetailLabel->setText(
-            tr("%1 %2 (%3)")
-                .arg(count)
-                .arg(count == 1 ? "item" : "items")
-                .arg(Utils::humanBytes(size, _useIECPrefixes)));
-        if(!_ui.backupNameLineEdit->text().isEmpty())
-            _ui.backupButton->setEnabled(true);
+        _ui.backupDetailLabel->setText(tr("%1 %2 (%3)")
+                                       .arg(count)
+                                       .arg(count == 1 ? "item" : "items")
+                                       .arg(Utils::humanBytes(size, _useIECPrefixes)));
     }
     else
     {
         _ui.backupDetailLabel->clear();
-        _ui.backupButton->setEnabled(false);
     }
+    validateBackupTab();
 }
 
 void MainWindow::displayInspectArchive(ArchivePtr archive)
@@ -1029,6 +1113,8 @@ void MainWindow::backupJob(JobPtr job)
 
 void MainWindow::browseForBackupItems()
 {
+    if(_ui.mainTabWidget->currentWidget() != _ui.backupTab)
+        _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
     FilePickerDialog picker;
     connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
             &picker, &FilePickerDialog::selectUrl);

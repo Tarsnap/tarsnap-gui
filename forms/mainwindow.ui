@@ -1226,7 +1226,7 @@ color: blue;
                          </size>
                         </property>
                         <property name="toolTip">
-                         <string>Login to Tarsnap website to update credit and machine activity</string>
+                         <string>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
                         </property>
                         <property name="text">
                          <string>update</string>
@@ -2147,7 +2147,7 @@ Jobs tab
 
 Settings tab
 ------------
-%1R - refresh Account Summary
+%1U - update Account Summary
 </string>
                 </property>
                </widget>
@@ -2402,10 +2402,10 @@ border: none;
      <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
    </property>
    <property name="text">
-    <string>Browse for items</string>
+    <string>Open File Browser</string>
    </property>
    <property name="toolTip">
-    <string>Browse for files and directories</string>
+    <string>Set files and directories for the Backup tab</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -2413,7 +2413,10 @@ border: none;
   </action>
   <action name="actionGoBackup">
    <property name="text">
-    <string>GoBackup</string>
+    <string>Go to Backup</string>
+   </property>
+   <property name="toolTip">
+    <string>Switch to Backup pane</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+1</string>
@@ -2421,10 +2424,10 @@ border: none;
   </action>
   <action name="actionGoArchives">
    <property name="text">
-    <string>GoArchives</string>
+    <string>Go to Archives</string>
    </property>
    <property name="toolTip">
-    <string>GoArchives</string>
+    <string>Switch to Archives pane</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+2</string>
@@ -2432,7 +2435,10 @@ border: none;
   </action>
   <action name="actionGoJobs">
    <property name="text">
-    <string>GoJobs</string>
+    <string>Go to Jobs</string>
+   </property>
+   <property name="toolTip">
+    <string>Switch to Jobs pane</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+3</string>
@@ -2440,7 +2446,10 @@ border: none;
   </action>
   <action name="actionGoSettings">
    <property name="text">
-    <string>GoSettings</string>
+    <string>Go to Settings</string>
+   </property>
+   <property name="toolTip">
+    <string>Switch to Settings pane</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+4</string>
@@ -2448,13 +2457,20 @@ border: none;
   </action>
   <action name="actionGoHelp">
    <property name="text">
-    <string>GoHelp</string>
+    <string>Go to Help</string>
+   </property>
+   <property name="toolTip">
+    <string>Switch to Help pane</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+5</string>
    </property>
   </action>
   <action name="actionAddJob">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/hard-drive.png</normaloff>:/icons/hard-drive.png</iconset>
+   </property>
    <property name="text">
     <string>Add Job</string>
    </property>
@@ -2467,13 +2483,13 @@ border: none;
   </action>
   <action name="actionRefreshAccount">
    <property name="text">
-    <string>Refresh account</string>
+    <string>Update account details</string>
    </property>
    <property name="toolTip">
-    <string>Refresh Tarsnap account details</string>
+    <string>Update Tarsnap account details from website</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+R</string>
+    <string>Ctrl+U</string>
    </property>
   </action>
   <action name="actionBackupAllJobs">
@@ -2482,7 +2498,7 @@ border: none;
      <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
    </property>
    <property name="text">
-    <string>Backup all jobs</string>
+    <string>Backup all Jobs</string>
    </property>
    <property name="toolTip">
     <string>Backup all jobs now</string>
@@ -2621,18 +2637,18 @@ border: none;
      <normaloff>:/icons/hard-drive.png</normaloff>:/icons/hard-drive.png</iconset>
    </property>
    <property name="text">
-    <string>Create Job</string>
+    <string>Morph into Job</string>
    </property>
    <property name="toolTip">
     <string>Create Job from current Backup list</string>
    </property>
   </action>
-  <action name="actionShowFilter">
+  <action name="actionFilterArchives">
    <property name="text">
-    <string>showFilter</string>
+    <string>Filter and search</string>
    </property>
    <property name="toolTip">
-    <string>Show/hide filter</string>
+    <string>Filter and search Archives list</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
@@ -2658,10 +2674,21 @@ border: none;
     <string>Stop tasks</string>
    </property>
    <property name="toolTip">
-    <string>Stop running tasks or clear queued one</string>
+    <string>Stop, interrupt or clear queued tasks</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+K</string>
+   </property>
+  </action>
+  <action name="actionFilterJobs">
+   <property name="text">
+    <string>Filter and search</string>
+   </property>
+   <property name="toolTip">
+    <string>Filter and search Jobs list</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>

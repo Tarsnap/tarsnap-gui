@@ -100,6 +100,8 @@ private slots:
     void setTarsnapVersion(QString versionString);
     void createJobClicked();
     void showAbout();
+    void mainTabChanged(int index);
+    void validateBackupTab();
 
 private:
     Ui::MainWindow  _ui;

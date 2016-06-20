@@ -163,7 +163,8 @@ void SetupDialog::setNextPage()
     {
         _ui.wizardStackedWidget->setCurrentWidget(_ui.advancedPage);
         _ui.advancedPageRadioButton->setEnabled(true);
-        validateAdvancedSetupPage();
+        if (validateAdvancedSetupPage())
+            _ui.advancedCLIWidget->hide();
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.advancedPage)
     {

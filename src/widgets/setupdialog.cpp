@@ -163,10 +163,7 @@ void SetupDialog::setNextPage()
     {
         _ui.wizardStackedWidget->setCurrentWidget(_ui.advancedPage);
         _ui.advancedPageRadioButton->setEnabled(true);
-        if (validateAdvancedSetupPage())
-            _ui.advancedCLIWidget->hide();
-        else
-            _ui.advancedCLIButton->setChecked(true);
+        _ui.advancedCLIButton->setChecked(!validateAdvancedSetupPage());
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.advancedPage)
     {
@@ -389,7 +386,6 @@ void SetupDialog::setTarsnapVersion(QString versionString)
             tr("Tarsnap utilities not found. Visit "
                "<a href=\"https://tarsnap.com\">tarsnap.com</a> "
                "for help with acquiring them."));
-        _ui.advancedCLIWidget->show();
     }
     else
     {

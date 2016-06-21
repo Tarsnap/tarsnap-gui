@@ -153,7 +153,7 @@ selection-background-color: rgba(177,214,255,150);
 </string>
              </property>
              <property name="tabKeyNavigation">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <property name="alternatingRowColors">
               <bool>true</bool>

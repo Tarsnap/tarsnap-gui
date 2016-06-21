@@ -66,6 +66,10 @@ MainWindow::MainWindow(QWidget *parent)
                                         .arg(QKeySequence(Qt::ControlModifier)
                                              .toString(QKeySequence::NativeText))
                                         .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
+                                             .toString(QKeySequence::NativeText))
+                                        .arg(QKeySequence(Qt::Key_Backspace)
+                                             .toString(QKeySequence::NativeText))
+                                        .arg(QKeySequence(Qt::Key_Delete)
                                              .toString(QKeySequence::NativeText)));
     _ui.mainTabWidget->setTabToolTip(0,
                                      _ui.mainTabWidget->tabToolTip(0)

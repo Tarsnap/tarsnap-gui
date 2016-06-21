@@ -2118,13 +2118,14 @@ font-size: 12px;
 ------
 %1[1-5] - switch between Backup, Archives.. main tabs
 %1J     - toggle the Journal log
-%1K     - stop tasks
+%1K     - stop, interrupt or clear queued tasks
 
 Backup tab
 ----------
+%1B         - execute Backup for current list
 %1O         - open the File Browser
-%1backspace - clear the Backup list
-backspace   - remove selected items from the Backup list
+%3, %4      - remove selected item(s) from the Backup list
+%1%3, %1%4  - clear the Backup list
 
 Archives tab
 ------------
@@ -2392,7 +2393,7 @@ border: none;
     <string>Clear list</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Backspace</string>
+    <string>Ctrl+Backspace, Ctrl+Del</string>
    </property>
   </action>
   <action name="actionBrowseItems">

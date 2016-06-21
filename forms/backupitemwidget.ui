@@ -208,7 +208,7 @@ padding-left: 2px;
     <string>Remove selected item(s) &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
    </property>
    <property name="shortcut">
-    <string>Backspace</string>
+    <string>Backspace, Del</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::WidgetShortcut</enum>

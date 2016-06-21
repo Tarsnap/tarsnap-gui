@@ -113,88 +113,7 @@ MainWindow::MainWindow(QWidget *parent)
                                              .toString(QKeySequence::NativeText)));
     // --
 
-    // Menubar init
-    QMenuBar *menuBar = new QMenuBar(this);
-    if(menuBar->isNativeMenuBar())
-    {
-        QAction *actionAbout = new QAction(this);
-        actionAbout->setMenuRole(QAction::AboutRole);
-        connect(actionAbout, &QAction::triggered, this, &MainWindow::showAbout);
-        QAction *actionSettings = new QAction(this);
-        actionSettings->setMenuRole(QAction::PreferencesRole);
-        connect(actionSettings, &QAction::triggered, _ui.actionGoSettings, &QAction::trigger);
-        QMenu *appMenu = menuBar->addMenu("");
-        appMenu->addAction(actionAbout);
-        appMenu->addAction(actionSettings);
-        QMenu *backupMenu = menuBar->addMenu(tr("&Backup"));
-        backupMenu->addAction(_ui.actionBrowseItems);
-        backupMenu->addAction(_ui.actionAddFiles);
-        backupMenu->addAction(_ui.actionAddDirectory);
-        backupMenu->addAction(_ui.actionClearList);
-        backupMenu->addSeparator();
-        backupMenu->addAction(_ui.actionBackupNow);
-        backupMenu->addAction(_ui.actionCreateJob);
-        QMenu *archivesMenu = menuBar->addMenu(tr("&Archives"));
-        archivesMenu->addAction(_ui.actionRefresh);
-        archivesMenu->addAction(_ui.actionInspect);
-        archivesMenu->addAction(_ui.actionRestore);
-        archivesMenu->addAction(_ui.actionDelete);
-        archivesMenu->addAction(_ui.actionFilterArchives);
-        QMenu *jobsMenu = menuBar->addMenu(tr("&Jobs"));
-        jobsMenu->addAction(_ui.actionAddJob);
-        jobsMenu->addAction(_ui.actionBackupAllJobs);
-        jobsMenu->addAction(_ui.actionJobBackup);
-        jobsMenu->addAction(_ui.actionJobInspect);
-        jobsMenu->addAction(_ui.actionJobRestore);
-        jobsMenu->addAction(_ui.actionJobDelete);
-        jobsMenu->addAction(_ui.actionFilterJobs);
-        QMenu *settingsMenu = menuBar->addMenu(tr("&Settings"));
-        settingsMenu->addAction(_ui.actionRefreshAccount);
-        settingsMenu->addAction(_ui.actionStopTasks);
-        QMenu *windowMenu = menuBar->addMenu(tr("&Window"));
-#ifdef Q_OS_OSX
-        QAction *actionMinimize = new QAction(tr("Minimize"), this);
-        actionMinimize->setShortcut(QKeySequence("Ctrl+M"));
-        connect(actionMinimize, &QAction::triggered, this, &QWidget::showMinimized);
-        QAction *actionZoom = new QAction(tr("Zoom"), this);
-        connect(actionZoom, &QAction::triggered, this, &QWidget::showMaximized);
-        QAction *actionFullScreen = new QAction(tr("Enter Full Screen"), this);
-        actionFullScreen->setShortcut(QKeySequence("Ctrl+Meta+F"));
-        actionFullScreen->setCheckable(true);
-        connect(actionFullScreen, &QAction::triggered, [=](bool checked)
-        {
-            if(checked)
-            {
-                actionFullScreen->setText(tr("Exit Full Screen"));
-                this->showFullScreen();
-            }
-            else
-                actionFullScreen->setText(tr("Enter Full Screen"));
-                this->showNormal();
-        });
-        windowMenu->addAction(actionMinimize);
-        windowMenu->addAction(actionZoom);
-        windowMenu->addAction(actionFullScreen);
-        windowMenu->addSeparator();
-
-        QMenu *helpMenu = menuBar->addMenu(tr("&Help"));
-        QAction *actionTarsnapWebsite = new QAction(tr("Tarsnap Website"), this);
-        connect(actionTarsnapWebsite, &QAction::triggered, []()
-        {
-            QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
-        });
-        helpMenu->addAction(actionTarsnapWebsite);
-#endif
-        windowMenu->addAction(_ui.actionGoBackup);
-        windowMenu->addAction(_ui.actionGoArchives);
-        windowMenu->addAction(_ui.actionGoJobs);
-        windowMenu->addAction(_ui.actionGoSettings);
-        windowMenu->addAction(_ui.actionGoHelp);
-        windowMenu->addAction(_ui.actionShowJournal);
-    }
-    connect(_ui.mainTabWidget, &QTabWidget::currentChanged, this,
-            &MainWindow::mainTabChanged);
-    // --
+    setupMenuBar();
 
     // Purge widget setup
     _purgeCountdown.setIcon(QMessageBox::Critical);
@@ -749,6 +668,91 @@ void MainWindow::closeEvent(QCloseEvent *event)
         emit getTaskInfo();
         event->ignore();
     }
+}
+
+void MainWindow::setupMenuBar()
+{
+    QMenuBar *menuBar = new QMenuBar(this);
+    if(!menuBar->isNativeMenuBar())
+        return;
+
+    QAction *actionAbout = new QAction(this);
+    actionAbout->setMenuRole(QAction::AboutRole);
+    connect(actionAbout, &QAction::triggered, this, &MainWindow::showAbout);
+    QAction *actionSettings = new QAction(this);
+    actionSettings->setMenuRole(QAction::PreferencesRole);
+    connect(actionSettings, &QAction::triggered, _ui.actionGoSettings, &QAction::trigger);
+    QMenu *appMenu = menuBar->addMenu("");
+    appMenu->addAction(actionAbout);
+    appMenu->addAction(actionSettings);
+    QMenu *backupMenu = menuBar->addMenu(tr("&Backup"));
+    backupMenu->addAction(_ui.actionBrowseItems);
+    backupMenu->addAction(_ui.actionAddFiles);
+    backupMenu->addAction(_ui.actionAddDirectory);
+    backupMenu->addAction(_ui.actionClearList);
+    backupMenu->addSeparator();
+    backupMenu->addAction(_ui.actionBackupNow);
+    backupMenu->addAction(_ui.actionCreateJob);
+    QMenu *archivesMenu = menuBar->addMenu(tr("&Archives"));
+    archivesMenu->addAction(_ui.actionRefresh);
+    archivesMenu->addAction(_ui.actionInspect);
+    archivesMenu->addAction(_ui.actionRestore);
+    archivesMenu->addAction(_ui.actionDelete);
+    archivesMenu->addAction(_ui.actionFilterArchives);
+    QMenu *jobsMenu = menuBar->addMenu(tr("&Jobs"));
+    jobsMenu->addAction(_ui.actionAddJob);
+    jobsMenu->addAction(_ui.actionBackupAllJobs);
+    jobsMenu->addAction(_ui.actionJobBackup);
+    jobsMenu->addAction(_ui.actionJobInspect);
+    jobsMenu->addAction(_ui.actionJobRestore);
+    jobsMenu->addAction(_ui.actionJobDelete);
+    jobsMenu->addAction(_ui.actionFilterJobs);
+    QMenu *settingsMenu = menuBar->addMenu(tr("&Settings"));
+    settingsMenu->addAction(_ui.actionRefreshAccount);
+    settingsMenu->addAction(_ui.actionStopTasks);
+    QMenu *windowMenu = menuBar->addMenu(tr("&Window"));
+#ifdef Q_OS_OSX
+    QAction *actionMinimize = new QAction(tr("Minimize"), this);
+    actionMinimize->setShortcut(QKeySequence("Ctrl+M"));
+    connect(actionMinimize, &QAction::triggered, this, &QWidget::showMinimized);
+    QAction *actionZoom = new QAction(tr("Zoom"), this);
+    connect(actionZoom, &QAction::triggered, this, &QWidget::showMaximized);
+    QAction *actionFullScreen = new QAction(tr("Enter Full Screen"), this);
+    actionFullScreen->setShortcut(QKeySequence("Ctrl+Meta+F"));
+    actionFullScreen->setCheckable(true);
+    connect(actionFullScreen, &QAction::triggered, [=](bool checked)
+    {
+        if(checked)
+        {
+            actionFullScreen->setText(tr("Exit Full Screen"));
+            this->showFullScreen();
+        }
+        else
+            actionFullScreen->setText(tr("Enter Full Screen"));
+        this->showNormal();
+    });
+    windowMenu->addAction(actionMinimize);
+    windowMenu->addAction(actionZoom);
+    windowMenu->addAction(actionFullScreen);
+    windowMenu->addSeparator();
+
+    QMenu *helpMenu = menuBar->addMenu(tr("&Help"));
+    QAction *actionTarsnapWebsite = new QAction(tr("Tarsnap Website"), this);
+    connect(actionTarsnapWebsite, &QAction::triggered, []()
+    {
+        QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
+    });
+    helpMenu->addAction(actionTarsnapWebsite);
+#endif
+    windowMenu->addAction(_ui.actionGoBackup);
+    windowMenu->addAction(_ui.actionGoArchives);
+    windowMenu->addAction(_ui.actionGoJobs);
+    windowMenu->addAction(_ui.actionGoSettings);
+    windowMenu->addAction(_ui.actionGoHelp);
+    windowMenu->addAction(_ui.actionShowJournal);
+
+    connect(_ui.mainTabWidget, &QTabWidget::currentChanged, this,
+            &MainWindow::mainTabChanged);
 }
 
 void MainWindow::updateLoadingAnimation(bool idle)

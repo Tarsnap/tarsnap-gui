@@ -70,6 +70,7 @@ protected:
     void closeEvent(QCloseEvent *event);
 
 private slots:
+    void setupMenuBar();
     void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void commitSettings();

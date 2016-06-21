@@ -19,6 +19,27 @@ SetupDialog::SetupDialog(QWidget *parent)
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) &
                    ~Qt::WindowMaximizeButtonHint);
 
+    // These should be done before connecting objects to
+    // validateAdvancedSetupPage() to avoid calling that function
+    // unnecessarily.
+    _tarsnapDir = Utils::findTarsnapClientInPath("", true);
+    _ui.tarsnapPathLineEdit->setText(_tarsnapDir);
+    _ui.machineNameLineEdit->setText(QHostInfo::localHostName());
+    _ui.wizardStackedWidget->setCurrentWidget(_ui.welcomePage);
+
+    _appDataDir = QStandardPaths::writableLocation(APPDATA);
+    QDir keysDir(_appDataDir);
+    if(!keysDir.exists())
+        keysDir.mkpath(_appDataDir);
+    _ui.appDataPathLineEdit->setText(_appDataDir);
+
+    _tarsnapCacheDir =
+        QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    QDir cacheDir(_tarsnapCacheDir);
+    if(!cacheDir.exists())
+        cacheDir.mkpath(_tarsnapCacheDir);
+    _ui.tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
+
     _ui.loadingIconLabel->setMovie(&_loadingAnimation);
     _ui.errorLabel->hide();
     _ui.machineKeyLabel->hide();
@@ -87,24 +108,6 @@ SetupDialog::SetupDialog(QWidget *parent)
     // Done page
     connect(_ui.doneButton, &QPushButton::clicked, this,
             &SetupDialog::commitSettings);
-
-    _appDataDir = QStandardPaths::writableLocation(APPDATA);
-    QDir keysDir(_appDataDir);
-    if(!keysDir.exists())
-        keysDir.mkpath(_appDataDir);
-    _ui.appDataPathLineEdit->setText(_appDataDir);
-
-    _tarsnapCacheDir =
-        QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-    QDir cacheDir(_tarsnapCacheDir);
-    if(!cacheDir.exists())
-        cacheDir.mkpath(_tarsnapCacheDir);
-    _ui.tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
-
-    _tarsnapDir = Utils::findTarsnapClientInPath("", true);
-    _ui.tarsnapPathLineEdit->setText(_tarsnapDir);
-    _ui.machineNameLineEdit->setText(QHostInfo::localHostName());
-    _ui.wizardStackedWidget->setCurrentWidget(_ui.welcomePage);
 }
 
 SetupDialog::~SetupDialog()
@@ -160,7 +163,10 @@ void SetupDialog::setNextPage()
     {
         _ui.wizardStackedWidget->setCurrentWidget(_ui.advancedPage);
         _ui.advancedPageRadioButton->setEnabled(true);
-        validateAdvancedSetupPage();
+        if (validateAdvancedSetupPage())
+            _ui.advancedCLIWidget->hide();
+        else
+            _ui.advancedCLIButton->setChecked(true);
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.advancedPage)
     {

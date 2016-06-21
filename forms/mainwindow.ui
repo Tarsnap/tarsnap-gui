@@ -2691,6 +2691,30 @@ border: none;
     <string>Ctrl+F</string>
    </property>
   </action>
+  <action name="actionAddFiles">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/file.png</normaloff>:/icons/file.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add file(s)</string>
+   </property>
+   <property name="toolTip">
+    <string>Browse for files to add to the Backup list</string>
+   </property>
+  </action>
+  <action name="actionAddDirectory">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/folder.png</normaloff>:/icons/folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add directory</string>
+   </property>
+   <property name="toolTip">
+    <string>Browse for directory to add to the Backup list</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

@@ -222,6 +222,9 @@ void JobListWidget::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
+    case Qt::Key_Delete:
+        deleteSelectedItem();
+        break;
     case Qt::Key_Escape:
         if(!selectedItems().isEmpty())
             clearSelection();

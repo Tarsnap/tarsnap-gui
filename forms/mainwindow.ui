@@ -2133,7 +2133,6 @@ Archives tab
 %1S    - restore selected Archive
 %1D    - delete selected Archive(s)
 %1F    - search and filter the Archives list
-backspace - delete selected Archive(s)
 
 Jobs tab
 --------

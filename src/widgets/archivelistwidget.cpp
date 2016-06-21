@@ -245,7 +245,6 @@ void ArchiveListWidget::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Delete:
-    case Qt::Key_Backspace:
         removeSelectedItems();
         break;
     case Qt::Key_Escape:

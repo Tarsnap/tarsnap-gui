@@ -57,11 +57,6 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     // Keyboard shortcuts
-#ifdef Q_OS_OSX
-    // Minimize app on OS X
-    new QShortcut(QKeySequence("Ctrl+M"), this, SLOT(showMinimized()));
-#endif
-
     _ui.keyboardShortcuts->setPlainText(_ui.keyboardShortcuts->toPlainText()
                                         .arg(QKeySequence(Qt::ControlModifier)
                                              .toString(QKeySequence::NativeText))
@@ -157,6 +152,39 @@ MainWindow::MainWindow(QWidget *parent)
         settingsMenu->addAction(_ui.actionRefreshAccount);
         settingsMenu->addAction(_ui.actionStopTasks);
         QMenu *windowMenu = menuBar->addMenu(tr("&Window"));
+#ifdef Q_OS_OSX
+        QAction *actionMinimize = new QAction(tr("Minimize"), this);
+        actionMinimize->setShortcut(QKeySequence("Ctrl+M"));
+        connect(actionMinimize, &QAction::triggered, this, &QWidget::showMinimized);
+        QAction *actionZoom = new QAction(tr("Zoom"), this);
+        connect(actionZoom, &QAction::triggered, this, &QWidget::showMaximized);
+        QAction *actionFullScreen = new QAction(tr("Enter Full Screen"), this);
+        actionFullScreen->setShortcut(QKeySequence("Ctrl+Meta+F"));
+        actionFullScreen->setCheckable(true);
+        connect(actionFullScreen, &QAction::triggered, [=](bool checked)
+        {
+            if(checked)
+            {
+                actionFullScreen->setText(tr("Exit Full Screen"));
+                this->showFullScreen();
+            }
+            else
+                actionFullScreen->setText(tr("Enter Full Screen"));
+                this->showNormal();
+        });
+        windowMenu->addAction(actionMinimize);
+        windowMenu->addAction(actionZoom);
+        windowMenu->addAction(actionFullScreen);
+        windowMenu->addSeparator();
+
+        QMenu *helpMenu = menuBar->addMenu(tr("&Help"));
+        QAction *actionTarsnapWebsite = new QAction(tr("Tarsnap Website"), this);
+        connect(actionTarsnapWebsite, &QAction::triggered, []()
+        {
+            QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
+        });
+        helpMenu->addAction(actionTarsnapWebsite);
+#endif
         windowMenu->addAction(_ui.actionGoBackup);
         windowMenu->addAction(_ui.actionGoArchives);
         windowMenu->addAction(_ui.actionGoJobs);

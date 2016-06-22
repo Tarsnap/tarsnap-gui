@@ -735,6 +735,13 @@ void MainWindow::setupMenuBar()
     windowMenu->addAction(actionZoom);
     windowMenu->addAction(actionFullScreen);
     windowMenu->addSeparator();
+#endif
+    windowMenu->addAction(_ui.actionGoBackup);
+    windowMenu->addAction(_ui.actionGoArchives);
+    windowMenu->addAction(_ui.actionGoJobs);
+    windowMenu->addAction(_ui.actionGoSettings);
+    windowMenu->addAction(_ui.actionGoHelp);
+    windowMenu->addAction(_ui.actionShowJournal);
 
     QMenu *helpMenu = menuBar->addMenu(tr("&Help"));
     QAction *actionTarsnapWebsite = new QAction(tr("Tarsnap Website"), this);
@@ -743,13 +750,6 @@ void MainWindow::setupMenuBar()
         QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
     });
     helpMenu->addAction(actionTarsnapWebsite);
-#endif
-    windowMenu->addAction(_ui.actionGoBackup);
-    windowMenu->addAction(_ui.actionGoArchives);
-    windowMenu->addAction(_ui.actionGoJobs);
-    windowMenu->addAction(_ui.actionGoSettings);
-    windowMenu->addAction(_ui.actionGoHelp);
-    windowMenu->addAction(_ui.actionShowJournal);
 
     connect(_ui.mainTabWidget, &QTabWidget::currentChanged, this,
             &MainWindow::mainTabChanged);

@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
-    mainTabChanged(_ui.mainTabWidget->currentIndex());
+    validateBackupTab();
     _ui.settingsToolbox->setCurrentWidget(_ui.settingsAccountPage);
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
@@ -753,6 +753,7 @@ void MainWindow::setupMenuBar()
 
     connect(_ui.mainTabWidget, &QTabWidget::currentChanged, this,
             &MainWindow::mainTabChanged);
+    mainTabChanged(_ui.mainTabWidget->currentIndex());
 }
 
 void MainWindow::updateLoadingAnimation(bool idle)

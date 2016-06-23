@@ -820,7 +820,10 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
     {
         QString msg = tr("Backup <i>%1</i> failed: %2")
                           .arg(backupTask->name())
-                          .arg(backupTask->output().simplified());
+                          .arg(backupTask->output()
+                               .section(QChar('\n'), 0, 0,
+                                        QString::SectionSkipEmpty)
+                               .simplified());
         emit message(msg, backupTask->output());
         emit displayNotification(msg);
         _backupTaskMap.remove(backupTask->uuid());

@@ -983,7 +983,8 @@ void MainWindow::backupButtonClicked()
 void MainWindow::updateStatusMessage(QString message, QString detail)
 {
     _ui.statusBarLabel->setText(message);
-    _ui.statusBarLabel->setToolTip(detail);
+    if(!detail.isEmpty())
+        _ui.statusBarLabel->setToolTip(detail);
 }
 
 void MainWindow::commitSettings()

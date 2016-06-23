@@ -1172,7 +1172,7 @@ void MainWindow::browseForBackupItems()
 {
     if(_ui.mainTabWidget->currentWidget() != _ui.backupTab)
         _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
-    FilePickerDialog picker;
+    FilePickerDialog picker(this);
     connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
             &picker, &FilePickerDialog::selectUrl);
     picker.setSelectedUrls(_ui.backupListWidget->itemUrls());

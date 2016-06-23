@@ -81,12 +81,14 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
             _partialChecklist.remove(index);
             _checklist.insert(index);
             emit dataChanged(index, index, selectionChangedRole);
-            if(index.parent().isValid())
+
+            QModelIndex parent = index.parent();
+            if(parent.isValid())
             {
-                if(index.parent().data(Qt::CheckStateRole) == Qt::Checked)
+                if(parent.data(Qt::CheckStateRole) == Qt::Checked)
                 {
                     // Set any partially-selected siblings to be unchecked.
-                    for(int i = 0; i < rowCount(index.parent()); i++)
+                    for(int i = 0; i < rowCount(parent); i++)
                     {
                         if(index.sibling(i, index.column()).isValid())
                         {
@@ -100,7 +102,7 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                     }
                 }
                 // Set parent to be PartiallyChecked.
-                setIndexCheckState(index.parent(), Qt::PartiallyChecked);
+                setIndexCheckState(parent, Qt::PartiallyChecked);
             }
             if(isDir(index))
             {
@@ -118,9 +120,10 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
             if(_checklist.remove(index))
                 emit dataChanged(index, index, selectionChangedRole);
             _partialChecklist.insert(index);
-            if(index.parent().isValid() &&
-               (index.parent().data(Qt::CheckStateRole) == Qt::Unchecked))
-                setIndexCheckState(index.parent(), Qt::PartiallyChecked);
+            QModelIndex parent = index.parent();
+            if(parent.isValid() &&
+               (parent.data(Qt::CheckStateRole) == Qt::Unchecked))
+                setIndexCheckState(parent, Qt::PartiallyChecked);
         }
         else if(value == Qt::Unchecked)
         {

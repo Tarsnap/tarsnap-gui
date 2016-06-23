@@ -230,6 +230,8 @@ bool SetupDialog::validateAdvancedSetupPage()
         emit getTarsnapVersion(_tarsnapDir);
 
     _ui.advancedPageProceedButton->setEnabled(result);
+    if (result)
+	    _ui.advancedPageProceedButton->setFocus();
 
     return result;
 }

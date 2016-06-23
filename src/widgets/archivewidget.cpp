@@ -14,7 +14,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
                                     .toString(QKeySequence::NativeText)));
 
     connect(_ui.hideButton, &QPushButton::clicked, this, &ArchiveWidget::hide);
-    connect(_ui.archiveJobLabel, &TextLabel::clicked,
+    connect(_ui.archiveJobLabel, &ElidedLabel::clicked,
             [&]() { emit jobClicked(_archive->jobRef()); });
 }
 

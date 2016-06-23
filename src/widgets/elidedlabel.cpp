@@ -1,64 +1,64 @@
-#include "textlabel.h"
+#include "elidedlabel.h"
 
 #include <QMouseEvent>
 
-TextLabel::TextLabel(QWidget *parent) : QLabel(parent), _elide(Qt::ElideNone)
+ElidedLabel::ElidedLabel(QWidget *parent) : QLabel(parent), _elide(Qt::ElideNone)
 {
 }
 
-TextLabel::~TextLabel()
+ElidedLabel::~ElidedLabel()
 {
 }
 
-Qt::TextElideMode TextLabel::elide() const
+Qt::TextElideMode ElidedLabel::elide() const
 {
     return _elide;
 }
 
-void TextLabel::setElide(const Qt::TextElideMode &elide)
+void ElidedLabel::setElide(const Qt::TextElideMode &elide)
 {
     _elide = elide;
     emit elideChanged(_elide);
 }
 
-QString TextLabel::text()
+QString ElidedLabel::text()
 {
     return _fullText;
 }
 
-QSize TextLabel::sizeHint() const
+QSize ElidedLabel::sizeHint() const
 {
     QFontMetrics metrics(this->font());
     return metrics.size(Qt::TextSingleLine, _fullText);
 }
 
-void TextLabel::setText(const QString &text)
+void ElidedLabel::setText(const QString &text)
 {
     _fullText = text;
     QLabel::setText(elideText(_fullText));
     setToolTip(_fullText);
 }
 
-void TextLabel::clear()
+void ElidedLabel::clear()
 {
     _fullText.clear();
     QLabel::clear();
 }
 
-void TextLabel::resizeEvent(QResizeEvent *event)
+void ElidedLabel::resizeEvent(QResizeEvent *event)
 {
     QLabel::setText(elideText(_fullText));
     event->accept();
 }
 
-void TextLabel::mouseReleaseEvent(QMouseEvent *event)
+void ElidedLabel::mouseReleaseEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
         emit clicked();
     event->accept();
 }
 
-QString TextLabel::elideText(const QString &text)
+QString ElidedLabel::elideText(const QString &text)
 {
     QFontMetrics metrics(this->font());
     return metrics.elidedText(text, _elide, this->width());

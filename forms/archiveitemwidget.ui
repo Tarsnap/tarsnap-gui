@@ -115,7 +115,7 @@ padding-left: 2px;
     </widget>
    </item>
    <item>
-    <widget class="TextLabel" name="nameLabel">
+    <widget class="ElidedLabel" name="nameLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -137,7 +137,7 @@ font-size: 12px;
     </widget>
    </item>
    <item>
-    <widget class="TextLabel" name="detailLabel">
+    <widget class="ElidedLabel" name="detailLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -331,9 +331,9 @@ padding-left: 2px;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TextLabel</class>
+   <class>ElidedLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/textlabel.h</header>
+   <header>../widgets/elidedlabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

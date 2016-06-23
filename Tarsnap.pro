@@ -30,7 +30,7 @@ SOURCES += \
     src/widgets/mainwindow.cpp \
     src/widgets/restoredialog.cpp \
     src/widgets/setupdialog.cpp \
-    src/widgets/textlabel.cpp \
+    src/widgets/elidedlabel.cpp \
     src/widgets/busywidget.cpp \
     src/customfilesystemmodel.cpp \
     src/taskmanager.cpp \
@@ -61,7 +61,7 @@ HEADERS  += \
     src/widgets/mainwindow.h \
     src/widgets/restoredialog.h \
     src/widgets/setupdialog.h \
-    src/widgets/textlabel.h \
+    src/widgets/elidedlabel.h \
     src/widgets/busywidget.h \
     src/customfilesystemmodel.h \
     src/taskmanager.h \

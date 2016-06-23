@@ -1,13 +1,13 @@
-#ifndef TEXTLABEL_H
-#define TEXTLABEL_H
+#ifndef ELIDEDLABEL_H
+#define ELIDEDLABEL_H
 
 #include <QLabel>
 
 /*!
- * \brief The TextLabel widget is a QLabel which automatically elides (`...`)
- * long text, and adds the \ref clicked signal.
+ * \brief The ElidedLabel widget is a QLabel which automatically elides
+ * (`...`) long text, and adds the \ref clicked signal.
  */
-class TextLabel : public QLabel
+class ElidedLabel : public QLabel
 {
     Q_OBJECT
 
@@ -17,8 +17,8 @@ class TextLabel : public QLabel
 
 public:
     //! Constructor.
-    explicit TextLabel(QWidget *parent = nullptr);
-    ~TextLabel();
+    explicit ElidedLabel(QWidget *parent = nullptr);
+    ~ElidedLabel();
 
     //! Returns the elided mode.
     Qt::TextElideMode elide() const;
@@ -32,7 +32,7 @@ public:
     QSize sizeHint() const;
 
 public slots:
-    //! Sets the full text for this TextLabel to display (may be elided).
+    //! Sets the full text for this ElidedLabel to display (may be elided).
     void setText(const QString &text);
     //! Clears all contents, including the full text.
     void clear();
@@ -58,4 +58,4 @@ private:
     QString elideText(const QString &text);
 };
 
-#endif // TEXTLABEL_H
+#endif // ELIDEDLABEL_H

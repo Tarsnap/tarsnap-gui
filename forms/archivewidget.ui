@@ -210,7 +210,7 @@ image: url(:/icons/tarsnap-icon-big.png);
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="TextLabel" name="archiveJobLabel">
+      <widget class="ElidedLabel" name="archiveJobLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -315,7 +315,7 @@ color: blue;
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="TextLabel" name="archiveNameLabel">
+      <widget class="ElidedLabel" name="archiveNameLabel">
        <property name="toolTip">
         <string>Archive name</string>
        </property>
@@ -396,9 +396,9 @@ font-size: 12px;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TextLabel</class>
+   <class>ElidedLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/textlabel.h</header>
+   <header>../widgets/elidedlabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -52,6 +52,22 @@ void CustomFileSystemModel::setIndexCheckState(const QModelIndex &index,
         setData(index, state, Qt::CheckStateRole);
 }
 
+bool CustomFileSystemModel::hasCheckedSibling(const QModelIndex &index)
+{
+    for(int i = 0; i < rowCount(index.parent()); i++)
+    {
+        QModelIndex sibling = index.sibling(i, index.column());
+        if(sibling.isValid())
+        {
+            if(sibling == index)
+                continue;
+            if(data(sibling, Qt::CheckStateRole) != Qt::Unchecked)
+                return true;
+        }
+    }
+    return false;
+}
+
 bool CustomFileSystemModel::setData(const QModelIndex &index,
                                     const QVariant &value, int role)
 {
@@ -118,24 +134,13 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                 }
             }
 
-            if(index.parent().isValid())
+            QModelIndex parent = index.parent();
+            if(parent.isValid())
             {
-                bool foundOne = false;
-                for(int i = 0; i < rowCount(index.parent()); i++)
-                {
-                    if(index.sibling(i, index.column()).isValid())
-                    {
-                        if(index.sibling(i, index.column()) == index)
-                            continue;
-                        if(data(index.sibling(i, index.column()),
-                                Qt::CheckStateRole) != Qt::Unchecked)
-                            foundOne = true;
-                    }
-                }
-                if(foundOne)
-                    setIndexCheckState(index.parent(), Qt::PartiallyChecked);
+                if(hasCheckedSibling(index))
+                    setIndexCheckState(parent, Qt::PartiallyChecked);
                 else
-                    setIndexCheckState(index.parent(), Qt::Unchecked);
+                    setIndexCheckState(parent, Qt::Unchecked);
             }
         }
         QVector<int> roles;

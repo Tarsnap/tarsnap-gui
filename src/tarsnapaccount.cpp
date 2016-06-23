@@ -41,16 +41,16 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
     }
     else
     {
-        QMessageBox::warning(
-            this, tr("Warning"),
-            tr("You need Tarsnap CLI utils version 1.0.37 to "
-               "be able to fetch machine activity. "
-               "You have version %1.")
-                .arg(settings.value("tarsnap/version", "").toString()));
+        QMessageBox::warning(this->parentWidget(), tr("Warning"),
+                             tr("You need Tarsnap CLI utils version 1.0.37 to "
+                                "be able to fetch machine activity. "
+                                "You have version %1.")
+                             .arg(settings.value("tarsnap/version", "")
+                                  .toString()));
     }
     if(_user.isEmpty() || _machine.isEmpty())
     {
-        QMessageBox::warning(this, tr("Warning"),
+        QMessageBox::warning(this->parentWidget(), tr("Warning"),
                              tr("Tarsnap user and machine name must be set."));
         return;
     }

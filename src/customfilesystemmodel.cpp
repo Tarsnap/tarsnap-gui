@@ -89,14 +89,15 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                     // Uncheck any partially-selected siblings.
                     for(int i = 0; i < rowCount(parent); i++)
                     {
-                        if(index.sibling(i, index.column()).isValid())
+                        QModelIndex child = parent.child(i, parent.column());
+                        if(child.isValid())
                         {
-                            if(index.sibling(i, index.column()) == index)
+                            // Avoid unchecking current index.
+                            if(child == index)
                                 continue;
-                            if(data(index.sibling(i, index.column()),
-                                    Qt::CheckStateRole) == Qt::PartiallyChecked)
-                                setData(index.sibling(i, index.column()),
-                                        Qt::Unchecked, Qt::CheckStateRole);
+                            if(data(child, Qt::CheckStateRole) ==
+                                    Qt::PartiallyChecked)
+                                setIndexCheckState(child, Qt::Unchecked);
                         }
                     }
                 }

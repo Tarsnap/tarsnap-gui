@@ -211,7 +211,6 @@ bool SetupDialog::validateAdvancedSetupPage()
 {
     bool result = false;
 
-    setTarsnapVersion("");
 
     _tarsnapDir =
         Utils::findTarsnapClientInPath(_ui.tarsnapPathLineEdit->text(), true);
@@ -231,6 +230,8 @@ bool SetupDialog::validateAdvancedSetupPage()
 
     if(result)
         emit getTarsnapVersion(_tarsnapDir);
+    else
+        setTarsnapVersion("");
 
     _ui.advancedPageProceedButton->setEnabled(result);
 

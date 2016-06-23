@@ -51,6 +51,10 @@ public:
 private:
     QSet<QPersistentModelIndex> _checklist;
     QSet<QPersistentModelIndex> _partialChecklist;
+
+    // Sets the index to the desired state (if it is not already).
+    void setIndexCheckState(const QModelIndex &index,
+                            const Qt::CheckState state);
 };
 
 #endif // CUSTOMFILESYSTEMMODEL_H

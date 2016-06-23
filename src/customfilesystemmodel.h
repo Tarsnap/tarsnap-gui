@@ -58,6 +58,9 @@ private:
 
     // Searches for a checked sibling.
     bool hasCheckedSibling(const QModelIndex &index);
+
+    // Searches for a checked ancestor (including the given index).
+    bool hasCheckedAncestor(const QModelIndex &index);
 };
 
 #endif // CUSTOMFILESYSTEMMODEL_H

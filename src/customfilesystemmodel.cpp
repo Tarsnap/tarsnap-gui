@@ -68,6 +68,18 @@ bool CustomFileSystemModel::hasCheckedSibling(const QModelIndex &index)
     return false;
 }
 
+bool CustomFileSystemModel::hasCheckedAncestor(const QModelIndex &index)
+{
+    QModelIndex ancestor = index;
+    while (ancestor.isValid())
+    {
+        if (ancestor.data(Qt::CheckStateRole) == Qt::Checked)
+            return true;
+        ancestor = ancestor.parent();
+    }
+    return false;
+}
+
 bool CustomFileSystemModel::setData(const QModelIndex &index,
                                     const QVariant &value, int role)
 {
@@ -82,9 +94,12 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
             emit dataChanged(index, index, selectionChangedRole);
 
             QModelIndex parent = index.parent();
-            if(parent.isValid())
+            QModelIndex previousParent = index;
+            // Recursively set PartiallyChecked on all ancestors, and uncheck
+            // partially-selected siblings.
+            while(parent.isValid())
             {
-                if(parent.data(Qt::CheckStateRole) == Qt::Checked)
+                if(hasCheckedAncestor(parent))
                 {
                     // Uncheck any partially-selected siblings.
                     for(int i = 0; i < rowCount(parent); i++)
@@ -92,8 +107,8 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                         QModelIndex child = parent.child(i, parent.column());
                         if(child.isValid())
                         {
-                            // Avoid unchecking current index.
-                            if(child == index)
+                            // Avoid unchecking previous parent.
+                            if(child == previousParent)
                                 continue;
                             if(data(child, Qt::CheckStateRole) ==
                                     Qt::PartiallyChecked)
@@ -104,6 +119,10 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
 
                 // Set parent to PartiallyChecked.
                 setIndexCheckState(parent, Qt::PartiallyChecked);
+
+                // Ascend to higher level of ancestor.
+                previousParent = parent;
+                parent = parent.parent();
             }
             if(isDir(index))
             {

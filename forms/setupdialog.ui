@@ -82,7 +82,7 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
          <number>0</number>
         </property>
         <item>
-         <spacer name="horizontalSpacer_11">
+         <spacer name="jumpLeftSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -169,7 +169,7 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_12">
+         <spacer name="jumpRightSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -242,7 +242,7 @@ min-width: 200px;
         <number>0</number>
        </property>
        <item>
-        <spacer name="verticalSpacer_2">
+        <spacer name="welcomeTopSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -295,7 +295,7 @@ min-width: 200px;
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="welcomeBottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -326,7 +326,7 @@ min-width: 200px;
            <number>0</number>
           </property>
           <item>
-           <spacer name="horizontalSpacer">
+           <spacer name="welcomeLeftSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -371,7 +371,7 @@ min-width: 200px;
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_2">
+           <spacer name="welcomeRightSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -424,7 +424,7 @@ min-width: 200px;
            <number>0</number>
           </property>
           <item>
-           <spacer name="verticalSpacer_6">
+           <spacer name="cliTopSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
@@ -627,7 +627,7 @@ min-width: 200px;
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_5">
+        <spacer name="cliBottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -713,7 +713,7 @@ border: none;
         <number>0</number>
        </property>
        <item>
-        <spacer name="verticalSpacer_3">
+        <spacer name="restoreTopSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -763,7 +763,7 @@ border: none;
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_4">
+        <spacer name="restoreBottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -791,7 +791,7 @@ border: none;
            <number>0</number>
           </property>
           <item>
-           <spacer name="horizontalSpacer_3">
+           <spacer name="restoreLeftSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -827,7 +827,7 @@ border: none;
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_4">
+           <spacer name="restoreRightSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -865,7 +865,7 @@ border: none;
         <number>0</number>
        </property>
        <item>
-        <spacer name="verticalSpacer_7">
+        <spacer name="registerTopSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -1080,7 +1080,7 @@ color: darkred;
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_8">
+        <spacer name="registerBottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -1108,7 +1108,7 @@ color: darkred;
            <number>0</number>
           </property>
           <item>
-           <spacer name="horizontalSpacer_7">
+           <spacer name="registerLeftSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -1140,7 +1140,7 @@ color: darkred;
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_8">
+           <spacer name="registerRightSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -1175,7 +1175,7 @@ color: darkred;
         <number>0</number>
        </property>
        <item>
-        <spacer name="verticalSpacer_10">
+        <spacer name="doneTopSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -1250,7 +1250,7 @@ color: darkred;
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_9">
+        <spacer name="doneBottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -1278,7 +1278,7 @@ color: darkred;
            <number>0</number>
           </property>
           <item>
-           <spacer name="horizontalSpacer_9">
+           <spacer name="doneLeftSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -1310,7 +1310,7 @@ color: darkred;
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_10">
+           <spacer name="doneRightSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>

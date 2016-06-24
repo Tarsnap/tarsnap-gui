@@ -62,7 +62,7 @@ bool CustomFileSystemModel::hasCheckedSibling(const QModelIndex &index)
         {
             if(sibling == index)
                 continue;
-            if(data(sibling, Qt::CheckStateRole) != Qt::Unchecked)
+            if(data(sibling, Qt::CheckStateRole) == Qt::Checked)
                 return true;
         }
     }
@@ -128,21 +128,21 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
         }
         else if(value == Qt::Unchecked)
         {
-            if(_checklist.remove(index))
-                emit dataChanged(index, index, selectionChangedRole);
             _partialChecklist.remove(index);
-
-            if(isDir(index))
+            if(_checklist.remove(index))
             {
-                // Set all children to be unchecked.
-                for(int i = 0; i < rowCount(index); i++)
+                emit dataChanged(index, index, selectionChangedRole);
+                if(isDir(index))
                 {
-                    QModelIndex child = index.child(i, index.column());
-                    if(child.isValid())
-                        setData(child, Qt::Unchecked, Qt::CheckStateRole);
+                    // Set all children to be unchecked.
+                    for(int i = 0; i < rowCount(index); i++)
+                    {
+                        QModelIndex child = index.child(i, index.column());
+                        if(child.isValid())
+                            setData(child, Qt::Unchecked, Qt::CheckStateRole);
+                    }
                 }
             }
-
             QModelIndex parent = index.parent();
             if(parent.isValid())
             {

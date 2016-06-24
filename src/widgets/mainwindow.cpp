@@ -147,7 +147,7 @@ MainWindow::MainWindow(QWidget *parent)
     addAction(_ui.actionShowJournal);
     _ui.expandJournalButton->setDefaultAction(_ui.actionShowJournal);
     connect(_ui.actionShowJournal, &QAction::toggled, _ui.journalLog, &QWidget::setVisible);
-    connect(_ui.statusBarLabel, &TextLabel::clicked, _ui.actionShowJournal, &QAction::toggle);
+    connect(_ui.statusBarLabel, &ElidedLabel::clicked, _ui.actionShowJournal, &QAction::toggle);
     addAction(_ui.actionStopTasks);
     connect(_ui.actionStopTasks, &QAction::triggered, this, &MainWindow::getTaskInfo);
     connect(_ui.busyWidget, &BusyWidget::clicked, _ui.actionStopTasks,

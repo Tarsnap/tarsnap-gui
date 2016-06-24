@@ -183,7 +183,7 @@ padding-left: 3px;
     </widget>
    </item>
    <item>
-    <widget class="TextLabel" name="infoLabel">
+    <widget class="ElidedLabel" name="infoLabel">
      <property name="font">
       <font>
        <italic>true</italic>
@@ -542,9 +542,9 @@ selection-background-color: rgba(177,214,255, 150);
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TextLabel</class>
+   <class>ElidedLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/textlabel.h</header>
+   <header>../widgets/elidedlabel.h</header>
   </customwidget>
   <customwidget>
    <class>ArchiveListWidget</class>

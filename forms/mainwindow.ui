@@ -1106,7 +1106,7 @@ color: blue;
                     <item row="5" column="1">
                      <layout class="QHBoxLayout" name="machineActivityHorizontalLayout">
                       <item>
-                       <widget class="TextLabel" name="machineActivity">
+                       <widget class="ElidedLabel" name="machineActivity">
                         <property name="toolTip">
                          <string>Click update button</string>
                         </property>
@@ -2297,7 +2297,7 @@ border: none;
        </widget>
       </item>
       <item>
-       <widget class="TextLabel" name="statusBarLabel">
+       <widget class="ElidedLabel" name="statusBarLabel">
         <property name="toolTip">
          <string>Status bar (displays the latest Journal message)</string>
         </property>
@@ -2713,9 +2713,9 @@ border: none;
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>TextLabel</class>
+   <class>ElidedLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/textlabel.h</header>
+   <header>../widgets/elidedlabel.h</header>
   </customwidget>
   <customwidget>
    <class>ArchiveListWidget</class>

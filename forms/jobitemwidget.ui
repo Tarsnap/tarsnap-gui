@@ -58,7 +58,7 @@
     </widget>
    </item>
    <item>
-    <widget class="TextLabel" name="nameLabel">
+    <widget class="ElidedLabel" name="nameLabel">
      <property name="minimumSize">
       <size>
        <width>100</width>
@@ -80,7 +80,7 @@ font-size: 12px;
     </widget>
    </item>
    <item>
-    <widget class="TextLabel" name="detailLabel">
+    <widget class="ElidedLabel" name="detailLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -103,7 +103,7 @@ font-size: 11px;
     </widget>
    </item>
    <item alignment="Qt::AlignRight">
-    <widget class="TextLabel" name="lastBackupLabel">
+    <widget class="ElidedLabel" name="lastBackupLabel">
      <property name="toolTip">
       <string>Last backup timestamp</string>
      </property>
@@ -300,9 +300,9 @@ padding-left: 2px;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TextLabel</class>
+   <class>ElidedLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/textlabel.h</header>
+   <header>../widgets/elidedlabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

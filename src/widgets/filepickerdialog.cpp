@@ -4,6 +4,7 @@ FilePickerDialog::FilePickerDialog(QWidget *parent)
     : QDialog(parent)
 {
     _ui.setupUi(this);
+    // Enable the "select" button if, and only if, there are selected URLs.
     connect(_ui.filePickerWidget, &FilePickerWidget::selectionChanged, [&]()
     {
         _ui.selectButton->setEnabled(!_ui.filePickerWidget->getSelectedUrls().isEmpty());

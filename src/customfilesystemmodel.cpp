@@ -90,7 +90,7 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                     // Set any partially-selected siblings to be unchecked.
                     for(int i = 0; i < rowCount(parent); i++)
                     {
-                        QModelIndex child = parent.child(i, parent.column());
+                        QModelIndex child = parent.child(i, index.column());
                         if(child.isValid())
                         {
                             if(child == index)

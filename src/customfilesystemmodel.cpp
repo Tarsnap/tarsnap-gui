@@ -90,14 +90,14 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                     // Set any partially-selected siblings to be unchecked.
                     for(int i = 0; i < rowCount(parent); i++)
                     {
-                        if(index.sibling(i, index.column()).isValid())
+                        QModelIndex child = parent.child(i, parent.column());
+                        if(child.isValid())
                         {
-                            if(index.sibling(i, index.column()) == index)
+                            if(child == index)
                                 continue;
-                            if(data(index.sibling(i, index.column()),
-                                    Qt::CheckStateRole) == Qt::PartiallyChecked)
-                                setData(index.sibling(i, index.column()),
-                                        Qt::Unchecked, Qt::CheckStateRole);
+                            if(data(child, Qt::CheckStateRole) ==
+                                    Qt::PartiallyChecked)
+                                setIndexCheckState(child, Qt::Unchecked);
                         }
                     }
                 }
@@ -109,9 +109,10 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                 // Set all children to be PartiallyChecked.
                 for(int i = 0; i < rowCount(index); i++)
                 {
-                    if(index.child(i, index.column()).isValid())
-                        setData(index.child(i, index.column()),
-                                Qt::PartiallyChecked, Qt::CheckStateRole);
+                    QModelIndex child = index.child(i, index.column());
+                    if(child.isValid())
+                        setData(child, Qt::PartiallyChecked,
+                                Qt::CheckStateRole);
                 }
             }
         }
@@ -136,9 +137,9 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                 // Set all children to be unchecked.
                 for(int i = 0; i < rowCount(index); i++)
                 {
-                    if(index.child(i, index.column()).isValid())
-                        setData(index.child(i, index.column()), Qt::Unchecked,
-                                Qt::CheckStateRole);
+                    QModelIndex child = index.child(i, index.column());
+                    if(child.isValid())
+                        setData(child, Qt::Unchecked, Qt::CheckStateRole);
                 }
             }
 

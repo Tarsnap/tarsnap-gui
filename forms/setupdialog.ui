@@ -64,11 +64,11 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
       <number>0</number>
      </property>
      <item row="0" column="2">
-      <widget class="QWidget" name="wizardNavigateWidget_2" native="true">
+      <widget class="QWidget" name="wizardNavigateWidget" native="true">
        <property name="styleSheet">
         <string notr="true"/>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <layout class="QHBoxLayout" name="wizardNavigateHorizontalLayout">
         <property name="leftMargin">
          <number>0</number>
         </property>
@@ -82,7 +82,7 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
          <number>0</number>
         </property>
         <item>
-         <spacer name="horizontalSpacer_11">
+         <spacer name="jumpLeftSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -169,7 +169,7 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_12">
+         <spacer name="jumpRightSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -228,7 +228,7 @@ min-width: 200px;
       <number>0</number>
      </property>
      <widget class="QWidget" name="welcomePage">
-      <layout class="QVBoxLayout" name="verticalLayout_6">
+      <layout class="QVBoxLayout" name="welcomeVerticalLayout">
        <property name="leftMargin">
         <number>12</number>
        </property>
@@ -242,7 +242,7 @@ min-width: 200px;
         <number>0</number>
        </property>
        <item>
-        <spacer name="verticalSpacer_2">
+        <spacer name="welcomeTopSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -295,7 +295,7 @@ min-width: 200px;
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="welcomeBottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -326,7 +326,7 @@ min-width: 200px;
            <number>0</number>
           </property>
           <item>
-           <spacer name="horizontalSpacer">
+           <spacer name="welcomeLeftSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -371,7 +371,7 @@ min-width: 200px;
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_2">
+           <spacer name="welcomeRightSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -395,7 +395,7 @@ min-width: 200px;
       <zorder>buttonBox</zorder>
      </widget>
      <widget class="QWidget" name="advancedPage">
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <layout class="QVBoxLayout" name="advancedVerticalLayout">
        <property name="leftMargin">
         <number>12</number>
        </property>
@@ -410,7 +410,7 @@ min-width: 200px;
        </property>
        <item>
         <widget class="QWidget" name="actionContainerWidget" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_7">
+         <layout class="QVBoxLayout" name="actionVerticalLayout">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -424,7 +424,7 @@ min-width: 200px;
            <number>0</number>
           </property>
           <item>
-           <spacer name="verticalSpacer_6">
+           <spacer name="cliTopSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
@@ -549,7 +549,7 @@ min-width: 200px;
               </widget>
              </item>
              <item row="0" column="0" colspan="3">
-              <widget class="QLabel" name="label_6">
+              <widget class="QLabel" name="cliLabel">
                <property name="text">
                 <string>Command-line utilities:</string>
                </property>
@@ -562,7 +562,7 @@ min-width: 200px;
               </widget>
              </item>
              <item row="2" column="0" colspan="3">
-              <widget class="QLabel" name="label_7">
+              <widget class="QLabel" name="cacheLabel">
                <property name="text">
                 <string>Cache directory:</string>
                </property>
@@ -575,7 +575,7 @@ min-width: 200px;
               </widget>
              </item>
              <item row="4" column="0" colspan="3">
-              <widget class="QLabel" name="label_10">
+              <widget class="QLabel" name="configLabel">
                <property name="text">
                 <string>Config directory:</string>
                </property>
@@ -627,7 +627,7 @@ min-width: 200px;
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_5">
+        <spacer name="cliBottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -640,8 +640,8 @@ min-width: 200px;
         </spacer>
        </item>
        <item alignment="Qt::AlignBottom">
-        <widget class="QWidget" name="buttonBox_3" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <widget class="QWidget" name="cliButtonBox" native="true">
+         <layout class="QHBoxLayout" name="cliButtonBoxHorizontalLayout">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -699,7 +699,7 @@ border: none;
       </layout>
      </widget>
      <widget class="QWidget" name="restorePage">
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="restoreVerticalLayout">
        <property name="leftMargin">
         <number>12</number>
        </property>
@@ -713,7 +713,7 @@ border: none;
         <number>0</number>
        </property>
        <item>
-        <spacer name="verticalSpacer_3">
+        <spacer name="restoreTopSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -763,7 +763,7 @@ border: none;
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_4">
+        <spacer name="restoreBottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -776,8 +776,8 @@ border: none;
         </spacer>
        </item>
        <item alignment="Qt::AlignBottom">
-        <widget class="QWidget" name="buttonBox_2" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <widget class="QWidget" name="restoreButtonBox" native="true">
+         <layout class="QHBoxLayout" name="restoreButtonBoxHorizontalLayout">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -791,7 +791,7 @@ border: none;
            <number>0</number>
           </property>
           <item>
-           <spacer name="horizontalSpacer_3">
+           <spacer name="restoreLeftSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -827,7 +827,7 @@ border: none;
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_4">
+           <spacer name="restoreRightSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -848,7 +848,7 @@ border: none;
       </layout>
      </widget>
      <widget class="QWidget" name="registerPage">
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="registerVerticalLayout">
        <property name="spacing">
         <number>0</number>
        </property>
@@ -865,7 +865,7 @@ border: none;
         <number>0</number>
        </property>
        <item>
-        <spacer name="verticalSpacer_7">
+        <spacer name="registerTopSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -979,7 +979,7 @@ border: none;
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="label_9">
+           <widget class="QLabel" name="machineNameLabel">
             <property name="text">
              <string>Machine name:</string>
             </property>
@@ -1080,7 +1080,7 @@ color: darkred;
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_8">
+        <spacer name="registerBottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -1093,8 +1093,8 @@ color: darkred;
         </spacer>
        </item>
        <item alignment="Qt::AlignBottom">
-        <widget class="QWidget" name="buttonBox_4" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <widget class="QWidget" name="registerButtonBox" native="true">
+         <layout class="QHBoxLayout" name="registerButtonBoxHorizontalLayout">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -1108,7 +1108,7 @@ color: darkred;
            <number>0</number>
           </property>
           <item>
-           <spacer name="horizontalSpacer_7">
+           <spacer name="registerLeftSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -1140,7 +1140,7 @@ color: darkred;
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_8">
+           <spacer name="registerRightSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -1161,7 +1161,7 @@ color: darkred;
       </layout>
      </widget>
      <widget class="QWidget" name="donePage">
-      <layout class="QVBoxLayout" name="verticalLayout_5">
+      <layout class="QVBoxLayout" name="doneVerticalLayout">
        <property name="leftMargin">
         <number>12</number>
        </property>
@@ -1175,7 +1175,7 @@ color: darkred;
         <number>0</number>
        </property>
        <item>
-        <spacer name="verticalSpacer_10">
+        <spacer name="doneTopSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -1250,7 +1250,7 @@ color: darkred;
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_9">
+        <spacer name="doneBottomSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -1263,8 +1263,8 @@ color: darkred;
         </spacer>
        </item>
        <item alignment="Qt::AlignBottom">
-        <widget class="QWidget" name="buttonBox_5" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <widget class="QWidget" name="doneButtonBox" native="true">
+         <layout class="QHBoxLayout" name="doneButtonBoxHorizontalLayout">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -1278,7 +1278,7 @@ color: darkred;
            <number>0</number>
           </property>
           <item>
-           <spacer name="horizontalSpacer_9">
+           <spacer name="doneLeftSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -1310,7 +1310,7 @@ color: darkred;
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_10">
+           <spacer name="doneRightSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>

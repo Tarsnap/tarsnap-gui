@@ -526,6 +526,8 @@ void MainWindow::loadSettings()
         _ui.defaultJobs->show();
         _ui.addJobButton->hide();
     }
+
+    restoreGeometry(settings.value("app/window_geometry").toByteArray());
 }
 
 void MainWindow::initialize()
@@ -1012,6 +1014,7 @@ void MainWindow::commitSettings()
     settings.setValue("app/notifications", _ui.notificationsCheckBox->isChecked());
     settings.setValue("app/limit_upload", _ui.limitUploadSpinBox->value());
     settings.setValue("app/limit_download", _ui.limitDownloadSpinBox->value());
+    settings.setValue("app/window_geometry", saveGeometry());
     settings.sync();
     emit settingsChanged();
 }

@@ -2,6 +2,8 @@
 
 #include "utils.h"
 
+#define EMPTY_TAR_ARCHIVE_BYTES 2000
+
 ArchiveWidget::ArchiveWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -70,10 +72,25 @@ void ArchiveWidget::updateDetails()
         _ui.archiveUniqueDataLabel->setToolTip(_archive->archiveStats());
         _ui.archiveCommandLineEdit->setText(_archive->command());
         _ui.archiveCommandLineEdit->setCursorPosition(0);
-        _ui.truncatedLabel->setVisible(_archive->truncated());
-        QString contents = _archive->contents();
-        _ui.archiveContentsLabel->setText(
-            tr("Contents (%1)").arg(QString::number(contents.count('\n'))));
-        _ui.archiveContentsPlainTextEdit->setPlainText(contents);
+        if(_archive->truncated())
+        {
+            _ui.infoLabel->setText(tr("This archive is truncated,"
+                                      " data may be incomplete"));
+            _ui.infoLabel->show();
+        }
+        else if(_archive->contents().isEmpty()
+                && (_archive->sizeTotal() < EMPTY_TAR_ARCHIVE_BYTES))
+        {
+            _ui.infoLabel->setText(tr("This archive looks empty,"
+                                      " no file data may be contained"
+                                      " besides the TAR header"));
+            _ui.infoLabel->show();
+        }
+        else
+            _ui.infoLabel->hide();
+        _ui.archiveContentsLabel->setText(tr("Contents (%1)")
+                                          .arg(QString::number(
+                                            _archive->contents().count('\n'))));
+        _ui.archiveContentsPlainTextEdit->setPlainText(_archive->contents());
     }
 }

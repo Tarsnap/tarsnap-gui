@@ -621,7 +621,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             else if(_ui.archiveDetailsWidget->isVisible())
             {
                 _ui.archiveDetailsWidget->hide();
-                _ui.archiveDetailsWidget->setArchive(ArchivePtr());
                 return;
             }
         }

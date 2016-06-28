@@ -94,3 +94,9 @@ void ArchiveWidget::updateDetails()
         _ui.archiveContentsPlainTextEdit->setPlainText(_archive->contents());
     }
 }
+
+void ArchiveWidget::hideEvent(QHideEvent *event)
+{
+    if(!event->spontaneous())
+        setArchive(ArchivePtr()); // Release memory held by the contents widget
+}

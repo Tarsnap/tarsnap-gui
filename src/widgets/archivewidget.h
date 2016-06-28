@@ -21,6 +21,9 @@ public slots:
 signals:
     void jobClicked(QString jobRef);
 
+protected:
+    void hideEvent(QHideEvent *event);
+
 private:
     Ui::ArchiveWidget  _ui;
     bool               _useIECPrefixes;

@@ -30,9 +30,6 @@ public:
     QString password() const;
     void setPassword(const QString &password);
 
-    bool requiresPassword() const;
-    void setRequiresPassword(bool requiresPassword);
-
     void setStandardOutputFile(const QString &fileName);
 
     QVariant data() const;
@@ -58,7 +55,6 @@ private:
     QString     _command;
     QStringList _arguments;
     QString     _password;
-    bool        _requiresPassword;
     QString     _standardOutFile;
     bool        _truncateLogOutput;
     QEventLoopLocker _lock;

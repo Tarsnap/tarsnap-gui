@@ -11,8 +11,7 @@
 #define LOG_OUTPUT_BYTES 10240
 
 TarsnapTask::TarsnapTask()
-    : QObject(), _process(nullptr), _requiresPassword(false),
-      _truncateLogOutput(false)
+    : QObject(), _process(nullptr), _truncateLogOutput(false)
 {
 }
 
@@ -57,7 +56,7 @@ void TarsnapTask::run()
         processError();
         goto cleanup;
     }
-    if(_requiresPassword)
+    if(!_password.isEmpty())
     {
         QByteArray password(_password.toUtf8() + "\n");
         _process->write(password.data(), password.size());
@@ -132,16 +131,6 @@ QString TarsnapTask::password() const
 void TarsnapTask::setPassword(const QString &password)
 {
     _password = password;
-}
-
-bool TarsnapTask::requiresPassword() const
-{
-    return _requiresPassword;
-}
-
-void TarsnapTask::setRequiresPassword(bool requiresPassword)
-{
-    _requiresPassword = requiresPassword;
 }
 
 void TarsnapTask::setStandardOutputFile(const QString &fileName)

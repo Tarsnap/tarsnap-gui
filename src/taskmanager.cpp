@@ -70,7 +70,6 @@ void TaskManager::registerMachine(QString user, QString password,
                                  CMD_TARSNAPKEYGEN);
         registerTask->setArguments(args);
         registerTask->setPassword(password);
-        registerTask->setRequiresPassword(true);
     }
     connect(registerTask, &TarsnapTask::finished, this,
             &TaskManager::registerMachineFinished, QUEUED);
@@ -337,7 +336,6 @@ void TaskManager::nuke()
     args << "--nuke";
     nuke->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     nuke->setPassword("No Tomorrow");
-    nuke->setRequiresPassword(true);
     nuke->setArguments(args);
     connect(nuke, &TarsnapTask::finished, this, &TaskManager::nukeFinished,
             QUEUED);

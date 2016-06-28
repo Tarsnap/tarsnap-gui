@@ -16,18 +16,16 @@ public:
     ~TarsnapTask();
 
     void run();
+    void stop(bool kill = false);
+    void interrupt();
+    bool waitForTask();
+    QProcess::ProcessState taskStatus();
 
     QString command() const;
     void setCommand(const QString &command);
 
     QStringList arguments() const;
     void setArguments(const QStringList &arguments);
-
-    void stop(bool kill = false);
-    void                   interrupt();
-    QProcess::ProcessState taskStatus();
-
-    bool waitForTask();
 
     QString password() const;
     void setPassword(const QString &password);

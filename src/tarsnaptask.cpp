@@ -20,26 +20,6 @@ TarsnapTask::~TarsnapTask()
 {
 }
 
-QString TarsnapTask::command() const
-{
-    return _command;
-}
-
-void TarsnapTask::setCommand(const QString &command)
-{
-    _command = command;
-}
-
-QStringList TarsnapTask::arguments() const
-{
-    return _arguments;
-}
-
-void TarsnapTask::setArguments(const QStringList &arguments)
-{
-    _arguments = arguments;
-}
-
 void TarsnapTask::run()
 {
     _process = new QProcess();
@@ -114,14 +94,79 @@ void TarsnapTask::interrupt()
 #endif
 }
 
+bool TarsnapTask::waitForTask()
+{
+    return _process->waitForFinished(-1);
+}
+
 QProcess::ProcessState TarsnapTask::taskStatus()
 {
     return _process->state();
 }
 
-bool TarsnapTask::waitForTask()
+QString TarsnapTask::command() const
 {
-    return _process->waitForFinished(-1);
+    return _command;
+}
+
+void TarsnapTask::setCommand(const QString &command)
+{
+    _command = command;
+}
+
+QStringList TarsnapTask::arguments() const
+{
+    return _arguments;
+}
+
+void TarsnapTask::setArguments(const QStringList &arguments)
+{
+    _arguments = arguments;
+}
+
+QString TarsnapTask::password() const
+{
+    return _password;
+}
+
+void TarsnapTask::setPassword(const QString &password)
+{
+    _password = password;
+}
+
+bool TarsnapTask::requiresPassword() const
+{
+    return _requiresPassword;
+}
+
+void TarsnapTask::setRequiresPassword(bool requiresPassword)
+{
+    _requiresPassword = requiresPassword;
+}
+
+void TarsnapTask::setStandardOutputFile(const QString &fileName)
+{
+    _standardOutFile = fileName;
+}
+
+QVariant TarsnapTask::data() const
+{
+    return _data;
+}
+
+void TarsnapTask::setData(const QVariant &data)
+{
+    _data = data;
+}
+
+bool TarsnapTask::truncateLogOutput() const
+{
+    return _truncateLogOutput;
+}
+
+void TarsnapTask::setTruncateLogOutput(bool truncateLogOutput)
+{
+    _truncateLogOutput = truncateLogOutput;
 }
 
 void TarsnapTask::readProcessOutput()
@@ -175,48 +220,4 @@ void TarsnapTask::processError()
                .arg(_process->exitCode())
                .arg(QString(_processOutput));
     emit terminated();
-}
-
-bool TarsnapTask::truncateLogOutput() const
-{
-    return _truncateLogOutput;
-}
-
-void TarsnapTask::setTruncateLogOutput(bool truncateLogOutput)
-{
-    _truncateLogOutput = truncateLogOutput;
-}
-QVariant TarsnapTask::data() const
-{
-    return _data;
-}
-
-void TarsnapTask::setData(const QVariant &data)
-{
-    _data = data;
-}
-
-bool TarsnapTask::requiresPassword() const
-{
-    return _requiresPassword;
-}
-
-void TarsnapTask::setRequiresPassword(bool requiresPassword)
-{
-    _requiresPassword = requiresPassword;
-}
-
-void TarsnapTask::setStandardOutputFile(const QString &fileName)
-{
-    _standardOutFile = fileName;
-}
-
-QString TarsnapTask::password() const
-{
-    return _password;
-}
-
-void TarsnapTask::setPassword(const QString &password)
-{
-    _password = password;
 }

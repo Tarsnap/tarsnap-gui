@@ -37,6 +37,7 @@ QWidget *BackupListItem::widget()
 {
     return _widget;
 }
+
 QUrl BackupListItem::url() const
 {
     return _url;

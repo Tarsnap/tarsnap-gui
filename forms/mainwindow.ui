@@ -1086,7 +1086,7 @@ color: blue;
                         <property name="sizeHint" stdset="0">
                          <size>
                           <width>40</width>
-                          <height>20</height>
+                          <height>0</height>
                          </size>
                         </property>
                        </spacer>
@@ -1158,15 +1158,15 @@ color: blue;
                         <property name="sizeHint" stdset="0">
                          <size>
                           <width>40</width>
-                          <height>20</height>
+                          <height>0</height>
                          </size>
                         </property>
                        </spacer>
                       </item>
                      </layout>
                     </item>
-                    <item row="9" column="0" colspan="2">
-                     <widget class="QLabel" name="outOfDateNoticeLabel">
+                    <item row="6" column="0" colspan="2">
+                     <widget class="ElidedLabel" name="outOfDateNoticeLabel">
                       <property name="font">
                        <font>
                         <italic>true</italic>
@@ -1176,176 +1176,193 @@ color: blue;
                        <string>Displayed credit might be out of date, click update button to fetch latest account details</string>
                       </property>
                       <property name="text">
-                       <string>Credit is %1 days old. Click update button to fetch latest credit.</string>
+                       <string>Credit and machine activity is %1 days old. Click update to fetch latest details.</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
+                      <property name="elide" stdset="0">
+                       <string>Qt::ElideRight</string>
+                      </property>
                      </widget>
                     </item>
-                    <item row="6" column="0">
-                     <widget class="QLabel" name="label">
+                    <item row="7" column="0" colspan="2">
+                     <widget class="QPushButton" name="updateAccountButton">
+                      <property name="toolTip">
+                       <string>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+                      </property>
                       <property name="text">
-                       <string>Tarsnap user:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       <string>Update credit and machine activity</string>
                       </property>
                      </widget>
-                    </item>
-                    <item row="6" column="1">
-                     <layout class="QHBoxLayout" name="horizontalLayout_11">
-                      <item>
-                       <widget class="QLineEdit" name="accountUserLineEdit">
-                        <property name="toolTip">
-                         <string>E-mail address used to register on Tarsnap.com</string>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="updateAccountButton">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="minimumSize">
-                         <size>
-                          <width>100</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>100</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="toolTip">
-                         <string>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-                        </property>
-                        <property name="text">
-                         <string>update</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item row="7" column="0">
-                     <widget class="QLabel" name="label_19">
-                      <property name="text">
-                       <string>Machine name:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="1">
-                     <layout class="QHBoxLayout" name="horizontalLayout_3">
-                      <item>
-                       <widget class="QLineEdit" name="accountMachineLineEdit">
-                        <property name="toolTip">
-                         <string>Name used for this machine</string>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                        <property name="placeholderText">
-                         <string/>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="accountMachineUseHostnameButton">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="minimumSize">
-                         <size>
-                          <width>100</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>100</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="toolTip">
-                         <string>Set machine name to host name</string>
-                        </property>
-                        <property name="text">
-                         <string>hostname</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item row="8" column="0">
-                     <widget class="QLabel" name="label_11">
-                      <property name="text">
-                       <string>Machine key:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="8" column="1">
-                     <layout class="QHBoxLayout" name="horizontalLayout_9">
-                      <item>
-                       <widget class="QLineEdit" name="accountMachineKeyLineEdit">
-                        <property name="toolTip">
-                         <string>Tarsnap key used for this machine</string>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                        <property name="placeholderText">
-                         <string/>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="accountMachineKeyBrowseButton">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="minimumSize">
-                         <size>
-                          <width>100</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>100</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="toolTip">
-                         <string>Browse for a machine key</string>
-                        </property>
-                        <property name="text">
-                         <string>change</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
                     </item>
                    </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_2">
+                    <property name="title">
+                     <string/>
+                    </property>
+                    <layout class="QFormLayout" name="formLayout">
+                     <property name="fieldGrowthPolicy">
+                      <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label">
+                       <property name="text">
+                        <string>Tarsnap user:</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QLineEdit" name="accountUserLineEdit">
+                       <property name="toolTip">
+                        <string>E-mail address used to register on Tarsnap.com</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_19">
+                       <property name="text">
+                        <string>Machine name:</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <layout class="QHBoxLayout" name="horizontalLayout_3">
+                       <item>
+                        <widget class="QLineEdit" name="accountMachineLineEdit">
+                         <property name="toolTip">
+                          <string>Name used for this machine</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="placeholderText">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="accountMachineUseHostnameButton">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>100</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>100</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                         <property name="toolTip">
+                          <string>Set machine name to host name</string>
+                         </property>
+                         <property name="text">
+                          <string>hostname</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item row="2" column="0">
+                      <widget class="QLabel" name="label_11">
+                       <property name="text">
+                        <string>Machine key:</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="1">
+                      <layout class="QHBoxLayout" name="horizontalLayout_9">
+                       <item>
+                        <widget class="QLineEdit" name="accountMachineKeyLineEdit">
+                         <property name="toolTip">
+                          <string>Tarsnap key used for this machine</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="placeholderText">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="accountMachineKeyBrowseButton">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>100</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>100</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                         <property name="toolTip">
+                          <string>Browse for a machine key</string>
+                         </property>
+                         <property name="text">
+                          <string>change</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                    <zorder>accountMachineKeyLineEdit</zorder>
+                    <zorder></zorder>
+                    <zorder>label_11</zorder>
+                    <zorder>accountUserLineEdit</zorder>
+                    <zorder>label_19</zorder>
+                    <zorder>label</zorder>
+                    <zorder></zorder>
+                    <zorder></zorder>
+                    <zorder>label_11</zorder>
+                    <zorder>accountUserLineEdit</zorder>
+                    <zorder>label_19</zorder>
+                    <zorder>label</zorder>
+                   </widget>
                   </item>
                  </layout>
                 </widget>

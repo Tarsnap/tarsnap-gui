@@ -1441,6 +1441,7 @@ void MainWindow::updateAccountCredit(qreal credit, QDate date)
     settings.setValue("tarsnap/credit_date", date);
     _ui.accountCreditLabel->setText(QString::number(credit));
     _ui.accountCreditLabel->setToolTip(date.toString());
+    _ui.outOfDateNoticeLabel->hide();
 }
 
 void MainWindow::updateLastMachineActivity(QStringList activityFields)

@@ -148,6 +148,7 @@ void TaskManager::getArchives()
          << "-vv";
     listArchivesTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     listArchivesTask->setArguments(args);
+    listArchivesTask->setTruncateLogOutput(true);
     connect(listArchivesTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveListFinished, QUEUED);
     connect(listArchivesTask, &TarsnapTask::started, this,
@@ -243,6 +244,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     contentsTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     contentsTask->setArguments(args);
     contentsTask->setData(archive->name());
+    contentsTask->setTruncateLogOutput(true);
     connect(contentsTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveContentsFinished, QUEUED);
     connect(contentsTask, &TarsnapTask::started, this,

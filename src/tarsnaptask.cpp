@@ -8,9 +8,11 @@
 #endif
 
 #define DEFAULT_TIMEOUT_MS 5000
+#define LOG_OUTPUT_BYTES 10240
 
 TarsnapTask::TarsnapTask()
-    : QObject(), _process(nullptr), _requiresPassword(false)
+    : QObject(), _process(nullptr), _requiresPassword(false),
+      _truncateLogOutput(false)
 {
 }
 
@@ -132,23 +134,32 @@ void TarsnapTask::readProcessOutput()
 
 void TarsnapTask::processFinished()
 {
-    QString output(_processOutput);
     switch(_process->exitStatus())
     {
     case QProcess::NormalExit:
+    {
+        QString output(_processOutput);
+        emit finished(_data, _process->exitCode(), output);
+        emit terminated();
         if(!output.isEmpty())
+        {
+            if(_truncateLogOutput)
+            {
+                output.truncate(LOG_OUTPUT_BYTES);
+                output.append(tr("...\n-- Output truncated by Tarsnap GUI --"));
+            }
             LOG << tr("Command finished with exit code %3 and output:\n[%1 %2]\n%4")
                        .arg(_command)
                        .arg(_arguments.join(' '))
                        .arg(_process->exitCode())
                        .arg(output);
+        }
         else
             LOG << tr("Command finished with exit code %3 and no output:\n[%1 %2]")
                        .arg(_command)
                        .arg(_arguments.join(' '))
                        .arg(_process->exitCode());
-        emit finished(_data, _process->exitCode(), output);
-        emit terminated();
+    }
         break;
     case QProcess::CrashExit:
         processError();
@@ -164,6 +175,16 @@ void TarsnapTask::processError()
                .arg(_process->exitCode())
                .arg(QString(_processOutput));
     emit terminated();
+}
+
+bool TarsnapTask::truncateLogOutput() const
+{
+    return _truncateLogOutput;
+}
+
+void TarsnapTask::setTruncateLogOutput(bool truncateLogOutput)
+{
+    _truncateLogOutput = truncateLogOutput;
 }
 QVariant TarsnapTask::data() const
 {

@@ -40,6 +40,9 @@ public:
     QVariant data() const;
     void setData(const QVariant &data);
 
+    bool truncateLogOutput() const;
+    void setTruncateLogOutput(bool truncateLogOutput);
+
 signals:
     void finished(QVariant data, int exitCode, QString output);
     void started(QVariant data);
@@ -59,6 +62,7 @@ private:
     QString     _password;
     bool        _requiresPassword;
     QString     _standardOutFile;
+    bool        _truncateLogOutput;
     QEventLoopLocker _lock;
 };
 

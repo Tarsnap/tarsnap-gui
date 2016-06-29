@@ -1356,18 +1356,6 @@ color: blue;
                       </layout>
                      </item>
                     </layout>
-                    <zorder>accountMachineKeyLineEdit</zorder>
-                    <zorder></zorder>
-                    <zorder>label_11</zorder>
-                    <zorder>accountUserLineEdit</zorder>
-                    <zorder>label_19</zorder>
-                    <zorder>label</zorder>
-                    <zorder></zorder>
-                    <zorder></zorder>
-                    <zorder>label_11</zorder>
-                    <zorder>accountUserLineEdit</zorder>
-                    <zorder>label_19</zorder>
-                    <zorder>label</zorder>
                    </widget>
                   </item>
                  </layout>

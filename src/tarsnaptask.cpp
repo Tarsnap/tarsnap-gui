@@ -180,7 +180,7 @@ void TarsnapTask::processFinished()
             if(_truncateLogOutput)
             {
                 output.truncate(LOG_OUTPUT_BYTES);
-                output.append(tr("...\n-- Output truncated by Tarsnap GUI --"));
+                output.append(tr("\n...\n-- Output truncated by Tarsnap GUI --"));
             }
             LOG << tr("Command finished with exit code %3 and output:\n[%1 %2]\n%4")
                        .arg(_command)

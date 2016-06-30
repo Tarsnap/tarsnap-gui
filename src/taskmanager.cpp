@@ -546,7 +546,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
     }
 
     QMap<QString, ArchivePtr> _newArchiveMap;
-    QStringList lines = output.trimmed().split('\n', QString::SkipEmptyParts);
+    QStringList lines = output.split('\n', QString::SkipEmptyParts);
     foreach(QString line, lines)
     {
         QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");
@@ -947,7 +947,7 @@ void TaskManager::parseGlobalStats(QString tarsnapOutput)
     quint64 sizeUniqueCompressed;
 
     QStringList lines =
-        tarsnapOutput.trimmed().split('\n', QString::SkipEmptyParts);
+        tarsnapOutput.split('\n', QString::SkipEmptyParts);
     if(lines.count() < 3)
     {
         DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
@@ -987,7 +987,7 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput,
                                     bool newArchiveOutput, ArchivePtr archive)
 {
     QStringList lines =
-        tarsnapOutput.trimmed().split('\n', QString::SkipEmptyParts);
+        tarsnapOutput.split('\n', QString::SkipEmptyParts);
     if(lines.count() != 5)
     {
         DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;

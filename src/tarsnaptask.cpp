@@ -173,6 +173,7 @@ void TarsnapTask::processFinished()
     case QProcess::NormalExit:
     {
         QString output(_processOutput);
+        output = output.trimmed();
         emit finished(_data, _process->exitCode(), output);
         emit terminated();
         if(!output.isEmpty())
@@ -207,6 +208,6 @@ void TarsnapTask::processError()
                .arg(_process->error())
                .arg(_process->errorString())
                .arg(_process->exitCode())
-               .arg(QString(_processOutput));
+               .arg(QString(_processOutput).trimmed());
     emit terminated();
 }

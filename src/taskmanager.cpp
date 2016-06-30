@@ -546,7 +546,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
     }
 
     QMap<QString, ArchivePtr> _newArchiveMap;
-    QStringList lines = output.trimmed().split('\n');
+    QStringList lines = output.trimmed().split('\n', QString::SkipEmptyParts);
     foreach(QString line, lines)
     {
         QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");

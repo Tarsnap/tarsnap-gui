@@ -58,9 +58,6 @@ signals:
     //! The selected state of some paths in the underlying model has changed.
     void selectionChanged();
 
-    //! The focus is no longer on this widget.
-    void focusLost();
-
     //! One of the setting checkboxes has changed.
     void settingChanged();
 
@@ -68,8 +65,7 @@ protected:
     //! Used for handling the ESC key.
     void keyPressEvent(QKeyEvent *event);
 
-    //! Used for determining if the focus was lost, and then emitting
-    //! \ref focusLost and saving the currently-browsed path.
+    //! Used for saving the currently-browsed path if the focus was lost.
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:

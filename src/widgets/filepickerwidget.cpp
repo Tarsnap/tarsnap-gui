@@ -163,7 +163,6 @@ bool FilePickerWidget::eventFilter(QObject *obj, QEvent *event)
 {
     if((obj == _ui.treeView) && (event->type() == QEvent::FocusOut))
     {
-        emit focusLost();
         QSettings settings;
         settings.setValue("app/file_browse_last",
                           _model.filePath(_ui.treeView->currentIndex()));

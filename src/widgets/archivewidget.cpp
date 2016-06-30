@@ -2,6 +2,8 @@
 
 #include "utils.h"
 
+#include <QHideEvent>
+
 #define EMPTY_TAR_ARCHIVE_BYTES 2000
 
 ArchiveWidget::ArchiveWidget(QWidget *parent)

@@ -1,6 +1,7 @@
 #ifndef ARCHIVEWIDGET_H
 #define ARCHIVEWIDGET_H
 
+#include "filetablemodel.h"
 #include "persistentmodel/archive.h"
 #include "ui_archivewidget.h"
 
@@ -28,6 +29,7 @@ private:
     Ui::ArchiveWidget  _ui;
     bool               _useIECPrefixes;
     ArchivePtr         _archive;
+    FileTableModel     _contentsModel;
 };
 
 #endif // ARCHIVEWIDGET_H

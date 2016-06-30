@@ -376,23 +376,32 @@ color: blue;
     </widget>
    </item>
    <item>
-    <widget class="QPlainTextEdit" name="archiveContentsPlainTextEdit">
-     <property name="toolTip">
-      <string>Archive contents listing</string>
-     </property>
+    <widget class="QTableView" name="archiveContentsTableView">
      <property name="styleSheet">
-      <string notr="true">#archiveContentsPlainTextEdit
+      <string notr="true">#archiveContentsTableView
 {
 font-family: Monospace, Monaco;
 font-size: 12px;
 }</string>
      </property>
-     <property name="documentTitle">
-      <string>test</string>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
      </property>
-     <property name="readOnly">
+     <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="showGrid">
+      <bool>false</bool>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
     </widget>
    </item>
   </layout>
@@ -406,7 +415,6 @@ font-size: 12px;
  </customwidgets>
  <tabstops>
   <tabstop>archiveCommandLineEdit</tabstop>
-  <tabstop>archiveContentsPlainTextEdit</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

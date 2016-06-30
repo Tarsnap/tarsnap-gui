@@ -7,9 +7,10 @@
 #define EMPTY_TAR_ARCHIVE_BYTES 2000
 
 ArchiveWidget::ArchiveWidget(QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent), _contentsModel(this)
 {
     _ui.setupUi(this);
+    _ui.archiveContentsTableView->setModel(&_contentsModel);
     QSettings settings;
     _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
 
@@ -42,7 +43,7 @@ void ArchiveWidget::setArchive(ArchivePtr archive)
     }
     else
     {
-        _ui.archiveContentsPlainTextEdit->clear(); // reduce memory usage
+        _contentsModel.reset(); // reduce memory usage
     }
 }
 
@@ -90,10 +91,10 @@ void ArchiveWidget::updateDetails()
         }
         else
             _ui.infoLabel->hide();
+        _contentsModel.setFiles(_archive->contents());
         _ui.archiveContentsLabel->setText(tr("Contents (%1)")
-                                          .arg(QString::number(
-                                            _archive->contents().count('\n'))));
-        _ui.archiveContentsPlainTextEdit->setPlainText(_archive->contents());
+                                          .arg(_contentsModel.rowCount()));
+        _ui.archiveContentsTableView->resizeColumnToContents(0);
     }
 }
 

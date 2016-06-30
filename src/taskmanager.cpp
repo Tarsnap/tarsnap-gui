@@ -238,7 +238,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
         args << "--cachedir" << _tarsnapCacheDir;
     if(_preservePathnames)
         args << "-P";
-    args << "-t"
+    args << "-tv"
          << "-f" << archive->name();
     contentsTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     contentsTask->setArguments(args);

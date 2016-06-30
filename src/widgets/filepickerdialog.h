@@ -4,6 +4,7 @@
 #include "ui_filepickerdialog.h"
 
 #include <QDialog>
+#include <QList>
 #include <QUrl>
 
 /*!

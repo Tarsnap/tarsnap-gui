@@ -1,7 +1,5 @@
 #include "busywidget.h"
 
-#include "debug.h"
-
 #include <QMouseEvent>
 
 BusyWidget::BusyWidget(QWidget *parent)

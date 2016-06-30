@@ -2,7 +2,8 @@
 
 #include <QMouseEvent>
 
-ElidedLabel::ElidedLabel(QWidget *parent) : QLabel(parent), _elide(Qt::ElideNone)
+ElidedLabel::ElidedLabel(QWidget *parent)
+    : QLabel(parent), _elide(Qt::ElideNone)
 {
 }
 

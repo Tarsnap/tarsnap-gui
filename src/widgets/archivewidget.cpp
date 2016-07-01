@@ -94,7 +94,7 @@ void ArchiveWidget::updateDetails()
         _contentsModel.setFiles(_archive->contents());
         _ui.archiveContentsLabel->setText(tr("Contents (%1)")
                                           .arg(_contentsModel.rowCount()));
-        _ui.archiveContentsTableView->resizeColumnToContents(0);
+        _ui.archiveContentsTableView->resizeColumnsToContents();
     }
 }
 

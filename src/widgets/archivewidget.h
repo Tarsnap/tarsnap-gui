@@ -1,9 +1,9 @@
 #ifndef ARCHIVEWIDGET_H
 #define ARCHIVEWIDGET_H
 
+#include "ui_archivewidget.h"
 #include "filetablemodel.h"
 #include "persistentmodel/archive.h"
-#include "ui_archivewidget.h"
 
 #include <QWidget>
 

@@ -29,6 +29,7 @@ CoreApplication::CoreApplication(int &argc, char **argv)
     qRegisterMetaType<TarsnapError>("TarsnapError");
     qRegisterMetaType<LogEntry>("LogEntry");
     qRegisterMetaType<QVector<LogEntry>>("QVector<LogEntry>");
+    qRegisterMetaType<QVector<File>>("QVector<File>");
 
     QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));

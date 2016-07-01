@@ -1,5 +1,4 @@
 #include "archivewidget.h"
-
 #include "utils.h"
 
 #include <QCloseEvent>
@@ -21,6 +20,12 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     connect(_ui.hideButton, &QPushButton::clicked, this, &ArchiveWidget::close);
     connect(_ui.archiveJobLabel, &ElidedLabel::clicked,
             [&]() { emit jobClicked(_archive->jobRef()); });
+    connect(&_contentsModel, &FileTableModel::modelReset, this, [&]()
+    {
+        _ui.archiveContentsTableView->resizeColumnsToContents();
+        _ui.archiveContentsLabel->setText(tr("Contents (%1)")
+                                          .arg(_contentsModel.rowCount()));
+    });
 }
 
 ArchiveWidget::~ArchiveWidget()
@@ -91,14 +96,12 @@ void ArchiveWidget::updateDetails()
         }
         else
             _ui.infoLabel->hide();
-        _contentsModel.setFiles(_archive->contents());
-        _ui.archiveContentsLabel->setText(tr("Contents (%1)")
-                                          .arg(_contentsModel.rowCount()));
-        _ui.archiveContentsTableView->resizeColumnsToContents();
+        _contentsModel.setArchive(_archive);
     }
 }
 
 void ArchiveWidget::closeEvent(QCloseEvent *event)
 {
+    Q_UNUSED(event)
     setArchive(ArchivePtr()); // Release memory held by the contents widget
 }

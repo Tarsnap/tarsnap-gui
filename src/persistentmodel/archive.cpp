@@ -1,6 +1,30 @@
 #include "archive.h"
 #include "debug.h"
 
+#include <QThreadPool>
+
+void ParseArchiveListingTask::run()
+{
+    QVector<File> files;
+    QRegExp fileRx("^(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+\\s+\\S+\\s+\\S+)\\s+(.+)$");
+    foreach(QString line, _listing.split('\n', QString::SkipEmptyParts))
+    {
+        if(-1 != fileRx.indexIn(line))
+        {
+            File file;
+            file.mode  = fileRx.capturedTexts()[1];
+            file.links = fileRx.capturedTexts()[2].toULongLong();
+            file.user  = fileRx.capturedTexts()[3];
+            file.group = fileRx.capturedTexts()[4];
+            file.size  = fileRx.capturedTexts()[5].toULongLong();
+            file.modified = fileRx.capturedTexts()[6];
+            file.name     = fileRx.capturedTexts()[7];
+            files.append(file);
+        }
+    }
+    emit result(files);
+}
+
 Archive::Archive(QObject *parent)
     : QObject(parent),
       _truncated(false),
@@ -178,6 +202,16 @@ QString Archive::jobRef() const
 void Archive::setJobRef(const QString &jobRef)
 {
     _jobRef = jobRef;
+}
+
+void Archive::getFileList()
+{
+    QThreadPool *threadPool = QThreadPool::globalInstance();
+    ParseArchiveListingTask *parseTask = new ParseArchiveListingTask(contents());
+    parseTask->setAutoDelete(true);
+    connect(parseTask, &ParseArchiveListingTask::result, this,
+            &Archive::fileList);
+    threadPool->start(parseTask);
 }
 
 QString Archive::contents() const

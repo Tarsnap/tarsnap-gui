@@ -1,8 +1,5 @@
 #include "filetablemodel.h"
 
-
-#include "debug.h"
-
 FileTableModel::FileTableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
@@ -58,28 +55,23 @@ QVariant FileTableModel::headerData(int section, Qt::Orientation orientation, in
     return QVariant();
 }
 
-void FileTableModel::setFiles(const QString &listing)
+void FileTableModel::setArchive(ArchivePtr archive)
+{
+    if(_archive)
+        disconnect(_archive.data(), &Archive::fileList, this, &FileTableModel::setFiles);
+    reset();
+    _archive = archive;
+    if(_archive)
+    {
+        connect(archive.data(), &Archive::fileList, this, &FileTableModel::setFiles);
+        _archive->getFileList();
+    }
+}
+
+void FileTableModel::setFiles(QVector<File> files)
 {
     beginResetModel();
-    _files.clear();
-    foreach(QString line, listing.split('\n', QString::SkipEmptyParts))
-    {
-        QRegExp fileRX("^(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+\\s+\\S+\\s+\\S+)\\s+(.+)$");
-        if(-1 != fileRX.indexIn(line))
-        {
-            QStringList fileListing = fileRX.capturedTexts();
-            fileListing.removeFirst();
-            File file;
-            file.mode  = fileListing[0];
-            file.links = fileListing[1].toULongLong();
-            file.user  = fileListing[2];
-            file.group = fileListing[3];
-            file.size  = fileListing[4].toULongLong();
-            file.modified = fileListing[5];
-            file.name     = fileListing[6];
-            _files.append(file);
-        }
-    }
+    _files = files;
     endResetModel();
 }
 

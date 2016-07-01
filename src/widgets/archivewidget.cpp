@@ -2,7 +2,7 @@
 
 #include "utils.h"
 
-#include <QHideEvent>
+#include <QCloseEvent>
 
 #define EMPTY_TAR_ARCHIVE_BYTES 2000
 
@@ -18,7 +18,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
                                .arg(QKeySequence(Qt::Key_Escape)
                                     .toString(QKeySequence::NativeText)));
 
-    connect(_ui.hideButton, &QPushButton::clicked, this, &ArchiveWidget::hide);
+    connect(_ui.hideButton, &QPushButton::clicked, this, &ArchiveWidget::close);
     connect(_ui.archiveJobLabel, &ElidedLabel::clicked,
             [&]() { emit jobClicked(_archive->jobRef()); });
 }
@@ -98,8 +98,7 @@ void ArchiveWidget::updateDetails()
     }
 }
 
-void ArchiveWidget::hideEvent(QHideEvent *event)
+void ArchiveWidget::closeEvent(QCloseEvent *event)
 {
-    if(!event->spontaneous())
-        setArchive(ArchivePtr()); // Release memory held by the contents widget
+    setArchive(ArchivePtr()); // Release memory held by the contents widget
 }

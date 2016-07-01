@@ -23,7 +23,7 @@ signals:
     void jobClicked(QString jobRef);
 
 protected:
-    void hideEvent(QHideEvent *event);
+    void closeEvent(QCloseEvent *event);
 
 private:
     Ui::ArchiveWidget  _ui;

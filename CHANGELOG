@@ -19,8 +19,8 @@ Backup button drop-down.
 Settings -> Application.
 * Added Home button to the File Browser that when clicked quickly jumps the
 browse tree to the user's home directory.
-* Homebrew is now the preferred installation method for OS X. Port and pkg's are 
-available for FreeBSD too. See INSTALL dist file. 
+* Homebrew is now the preferred installation method for OS X. Port and pkg's are
+available for FreeBSD too. See INSTALL dist file.
 
 Improvements and fixes:
 * Made SI notation default in the UI with option to switch to IEC.

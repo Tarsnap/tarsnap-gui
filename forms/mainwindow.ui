@@ -2105,7 +2105,7 @@ For help regarding Tarsnap GUI, please visit the &lt;a href=&quot;https://github
               <item>
                <widget class="QPlainTextEdit" name="keyboardShortcuts">
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::ClickFocus</enum>
                 </property>
                 <property name="toolTip">
                  <string>Keyboard shortcuts list</string>
@@ -2195,7 +2195,7 @@ Settings tab
               <item>
                <widget class="QPlainTextEdit" name="consoleLog">
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::ClickFocus</enum>
                 </property>
                 <property name="toolTip">
                  <string>Console command log</string>

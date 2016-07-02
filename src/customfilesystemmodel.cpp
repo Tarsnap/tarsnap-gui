@@ -23,25 +23,11 @@ QVariant CustomFileSystemModel::data(const QModelIndex &index, int role) const
     if(role == Qt::CheckStateRole && index.column() == 0)
     {
         if(_checklist.contains(index))
-        {
             return Qt::Checked;
-        }
         else if(_partialChecklist.contains(index))
-        {
             return Qt::PartiallyChecked;
-        }
         else
-        {
-            // Return PartiallyChecked if any ancestor is checked.
-            QModelIndex parent = index.parent();
-            while(parent.isValid())
-            {
-                if(_checklist.contains(parent))
-                    return Qt::PartiallyChecked;
-                parent = parent.parent();
-            }
-        }
-        return Qt::Unchecked;
+            return Qt::Unchecked;
     }
     return QFileSystemModel::data(index, role);
 }

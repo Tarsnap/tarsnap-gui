@@ -56,6 +56,10 @@ private:
     void setIndexCheckState(const QModelIndex &index,
                             const Qt::CheckState state);
 
+    // Recursively sets all children's state.
+    void setChildrenStateRecursive(const QModelIndex &index,
+                                   const Qt::CheckState state);
+
     // Searches for a checked or partially checked sibling.
     bool hasCheckedSibling(const QModelIndex &index);
 

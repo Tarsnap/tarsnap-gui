@@ -53,6 +53,20 @@ void CustomFileSystemModel::setIndexCheckState(const QModelIndex &index,
         setData(index, state, Qt::CheckStateRole);
 }
 
+void CustomFileSystemModel::setChildrenStateRecursive(const QModelIndex &index,
+                                       const Qt::CheckState state)
+{
+    // Set all children to be PartiallyChecked.
+    for(int i = 0; i < rowCount(index); i++)
+    {
+        QModelIndex child = index.child(i, index.column());
+        if(child.isValid())
+            setData(child, state, Qt::CheckStateRole);
+        if(isDir(child))
+            setChildrenStateRecursive(child, state);
+    }
+}
+
 bool CustomFileSystemModel::hasCheckedSibling(const QModelIndex &index)
 {
     for(int i = 0; i < rowCount(index.parent()); i++)
@@ -125,16 +139,7 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                 parent = parent.parent();
             }
             if(isDir(index))
-            {
-                // Set all children to be PartiallyChecked.
-                for(int i = 0; i < rowCount(index); i++)
-                {
-                    QModelIndex child = index.child(i, index.column());
-                    if(child.isValid())
-                        setData(child, Qt::PartiallyChecked,
-                                Qt::CheckStateRole);
-                }
-            }
+                setChildrenStateRecursive(index, Qt::PartiallyChecked);
         }
         else if(value == Qt::PartiallyChecked)
         {

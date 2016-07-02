@@ -158,15 +158,7 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
             {
                 emit dataChanged(index, index, selectionChangedRole);
                 if(isDir(index))
-                {
-                    // Set all children to be unchecked.
-                    for(int i = 0; i < rowCount(index); i++)
-                    {
-                        QModelIndex child = index.child(i, index.column());
-                        if(child.isValid())
-                            setData(child, Qt::Unchecked, Qt::CheckStateRole);
-                    }
-                }
+                    setChildrenStateRecursive(index, Qt::Unchecked);
             }
             QModelIndex parent = index.parent();
             if(parent.isValid())

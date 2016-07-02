@@ -13,7 +13,7 @@ class TestCFSM : public QObject
     Q_OBJECT
 
 public:
-    TestCFSM();
+    TestCFSM(int scenario_num);
     ~TestCFSM();
 
 public slots:
@@ -31,6 +31,8 @@ private:
     QString                 _rootDir;
     // A hash table of emitted data from the model.
     QHash<QString, int>     _emittedHash;
+    // Allows running a single scenario
+    int                     _scenario_num;
 
     // Recursively checks for any unread subdirectories?
     bool needToReadSubdirs(const QString dirname);

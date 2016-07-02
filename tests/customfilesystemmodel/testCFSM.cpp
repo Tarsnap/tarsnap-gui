@@ -7,9 +7,10 @@
 #include "testCFSM.h"
 #include "scenario-num.h"
 
-TestCFSM::TestCFSM()
+TestCFSM::TestCFSM(int scenario_num)
 {
     _rootDir = QDir::currentPath() + QDir::separator() + "dirs";
+    _scenario_num = scenario_num;
 
     // see comment for ::directoryLoaded()
     connect(&_model, &CustomFileSystemModel::directoryLoaded, this,
@@ -272,18 +273,26 @@ void TestCFSM::start()
 {
     // Run tests
     int num_errors = 0;
-    for (int i = 0; i < NUM_SCENARIOS; i++) {
-        _model.reset();
-        _emittedHash.clear();
-        if (runScenario(i) != 0)
+    if (_scenario_num >= 0) {
+        if (runScenario(_scenario_num) != 0)
             num_errors++;
+    } else {
+        for (int i = 0; i < NUM_SCENARIOS; i++) {
+            _model.reset();
+            _emittedHash.clear();
+            if (runScenario(i) != 0)
+                num_errors++;
+        }
     }
 
     // Notify user on stdout
     QTextStream console(stdout);
-    if (num_errors == 0)
-        console << "All " << NUM_SCENARIOS << " tests successful." << endl;
-    else
+    if (num_errors == 0) {
+        if (_scenario_num >= 0)
+            console << "Scenario " << _scenario_num << " successful." << endl;
+        else
+            console << "All " << NUM_SCENARIOS << " tests successful." << endl;
+    } else
         console << num_errors << " error(s) detected!" << endl;
 
     // Output exit code

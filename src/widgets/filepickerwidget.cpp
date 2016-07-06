@@ -4,7 +4,6 @@
 
 #include <QKeyEvent>
 #include <QPersistentModelIndex>
-#include <QSettings>
 
 FilePickerWidget::FilePickerWidget(QWidget *parent)
     : QWidget(parent)
@@ -24,13 +23,10 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
 
     // Configure visual display of the model.
     _ui.treeView->setModel(&_model);
-    _ui.treeView->installEventFilter(this);
     _ui.treeView->setColumnWidth(0, 250);
 
-    // Load last browsed file url.
-    QSettings settings;
-    setCurrentPath(
-        settings.value("app/file_browse_last", QDir::homePath()).toString());
+    // Select the home directory in the display.
+    setCurrentPath(QDir::homePath());
 
     // Connection for the model's data changing.
     connect(&_model, &CustomFileSystemModel::dataChanged,
@@ -85,10 +81,13 @@ void FilePickerWidget::reset()
 {
     _model.reset();
     _ui.treeView->reset();
-    // Load last browsed file url.
-    QSettings settings;
-    setCurrentPath(
-        settings.value("app/file_browse_last", QDir::homePath()).toString());
+    // Select the home directory in the display.
+    setCurrentPath(QDir::homePath());
+}
+
+QString FilePickerWidget::getCurrentPath()
+{
+    return _model.filePath(_ui.treeView->currentIndex());
 }
 
 QList<QUrl> FilePickerWidget::getSelectedUrls()
@@ -167,23 +166,6 @@ void FilePickerWidget::keyPressEvent(QKeyEvent *event)
         break;
     default:
         QWidget::keyPressEvent(event);
-    }
-}
-
-bool FilePickerWidget::eventFilter(QObject *obj, QEvent *event)
-{
-    if((obj == _ui.treeView) && (event->type() == QEvent::FocusOut))
-    {
-        // Save last browsed file url.
-        QSettings settings;
-        settings.setValue("app/file_browse_last",
-                          _model.filePath(_ui.treeView->currentIndex()));
-        return false;
-    }
-    else
-    {
-        // standard event processing
-        return QWidget::eventFilter(obj, event);
     }
 }
 

@@ -24,6 +24,9 @@ public:
     //! Resets the model, tree view, and the "last file browsed" setting.
     void        reset();
 
+    //! Returns the path of the currently-selected item.
+    QString     getCurrentPath();
+
     //! Returns a list of the selected URLs.
     QList<QUrl> getSelectedUrls();
     //! Sets the list of selected URLs to be Qt::Checked in the underlying
@@ -64,9 +67,6 @@ signals:
 protected:
     //! Used for handling the ESC key.
     void keyPressEvent(QKeyEvent *event);
-
-    //! Used for saving the currently-browsed path if the focus was lost.
-    bool eventFilter(QObject *obj, QEvent *event);
 
 private:
     Ui::FilePickerWidget   _ui;

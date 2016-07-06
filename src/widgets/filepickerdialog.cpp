@@ -1,5 +1,7 @@
 #include "filepickerdialog.h"
 
+#include <QSettings>
+
 FilePickerDialog::FilePickerDialog(QWidget *parent) : QDialog(parent)
 {
     _ui.setupUi(this);
@@ -10,10 +12,19 @@ FilePickerDialog::FilePickerDialog(QWidget *parent) : QDialog(parent)
     });
     connect(_ui.selectButton, &QPushButton::clicked, this,
             &FilePickerDialog::accept);
+
+    // Load last browsed file url.
+    QSettings settings;
+    _ui.filePickerWidget->setCurrentPath(
+        settings.value("app/file_browse_last", QDir::homePath()).toString());
 }
 
 FilePickerDialog::~FilePickerDialog()
 {
+    // Save last browsed file url.
+    QSettings settings;
+    settings.setValue("app/file_browse_last",
+                      _ui.filePickerWidget->getCurrentPath());
 }
 
 QList<QUrl> FilePickerDialog::getSelectedUrls()

@@ -1,0 +1,21 @@
+/**
+ * \defgroup widgets-general General-use widgets
+ * \brief Widgets which are small and can be used for multiple purposes.
+ */
+
+/**
+ * \defgroup widgets-specialized Specialized widgets
+ * \brief Widgets which are used as components of larger screens.
+ */
+
+/**
+ * \defgroup widgets-main Main widgets
+ * \brief Widgets which are the main "windows" or "screens" of the
+ * application.
+ */
+
+/**
+ * \defgroup persistent Database-stored information
+ * \brief Information which is stored in a database.
+ */
+

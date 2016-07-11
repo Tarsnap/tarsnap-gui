@@ -407,7 +407,7 @@ color: blue;
         </size>
        </property>
        <property name="toolTip">
-        <string>Show/hide search and filter Archive contents box</string>
+        <string>Show/hide search and filter Archive contents box &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
        </property>
        <property name="text">
         <string/>
@@ -415,6 +415,9 @@ color: blue;
        <property name="icon">
         <iconset resource="../resources/resources.qrc">
          <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+Shift+F</string>
        </property>
        <property name="checkable">
         <bool>true</bool>

@@ -24,12 +24,14 @@ signals:
 
 protected:
     void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
 private:
-    Ui::ArchiveWidget  _ui;
-    bool               _useIECPrefixes;
-    ArchivePtr         _archive;
-    FileTableModel     _contentsModel;
+    Ui::ArchiveWidget      _ui;
+    bool                   _useIECPrefixes;
+    ArchivePtr             _archive;
+    FileTableModel         _contentsModel;
+    QSortFilterProxyModel  _proxyModel;
 };
 
 #endif // ARCHIVEWIDGET_H

@@ -58,8 +58,9 @@ void TarsnapTask::run()
     }
     if(!_password.isEmpty())
     {
-        QByteArray password(_password.toUtf8() + "\n");
+        QByteArray password(_password.toUtf8());
         _process->write(password.data(), password.size());
+        _process->closeWriteChannel();
     }
     if(_process->waitForFinished(-1))
     {

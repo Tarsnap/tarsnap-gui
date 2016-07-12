@@ -4,7 +4,6 @@
 
 #include <QKeyEvent>
 #include <QPersistentModelIndex>
-#include <QSettings>
 
 FilePickerWidget::FilePickerWidget(QWidget *parent)
     : QWidget(parent)
@@ -12,20 +11,24 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
     _ui.setupUi(this);
     _ui.optionsContainer->hide();
 
+    // Configure underlying model.
     _model.setRootPath(QDir::rootPath());
-    //    _model.setNameFilterDisables(false);
-    _ui.treeView->setModel(&_model);
-    _ui.treeView->installEventFilter(this);
-    QSettings settings;
-    setCurrentPath(
-        settings.value("app/file_browse_last", QDir::homePath()).toString());
+
+    // Configure file url completions.
     _completer.setModel(&_model);
     _completer.setCompletionMode(QCompleter::InlineCompletion);
     _completer.setCaseSensitivity(Qt::CaseSensitive);
     _ui.filterLineEdit->setCompleter(&_completer);
-    _ui.treeView->setColumnWidth(0, 250);
     _ui.filterLineEdit->setFocus();
 
+    // Configure visual display of the model.
+    _ui.treeView->setModel(&_model);
+    _ui.treeView->setColumnWidth(0, 250);
+
+    // Select the home directory in the display.
+    setCurrentPath(QDir::homePath());
+
+    // Connection for the model's data changing.
     connect(&_model, &CustomFileSystemModel::dataChanged,
             [&](const QModelIndex &topLeft, const QModelIndex &bottomRight,
                 const QVector<int> &roles) {
@@ -34,8 +37,19 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
                 if(!roles.isEmpty() && (roles.first() == SELECTION_CHANGED_ROLE))
                     emit selectionChanged();
             });
+    // Connections for the top bar of the widget
+    connect(_ui.showOptionsButton, &QPushButton::clicked, [&]() {
+        _ui.optionsContainer->setVisible(!_ui.optionsContainer->isVisible());
+    });
+    connect(_ui.homeButton, &QPushButton::clicked,
+            [&]() { setCurrentPath(QDir::homePath()); });
     connect(_ui.filterLineEdit, &QLineEdit::textEdited, this,
             &FilePickerWidget::updateFilter);
+    connect(_ui.filterLineEdit, &QLineEdit::returnPressed, [&]() {
+        if(_completer.currentCompletion().isEmpty())
+            _ui.treeView->setFocus();
+    });
+    // Connections for the settings
     connect(_ui.showHiddenCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::Hidden);
@@ -57,15 +71,6 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
             _model.setFilter(_model.filter() & ~QDir::NoSymLinks);
         emit settingChanged();
     });
-    connect(_ui.showOptionsButton, &QPushButton::clicked, [&]() {
-        _ui.optionsContainer->setVisible(!_ui.optionsContainer->isVisible());
-    });
-    connect(_ui.filterLineEdit, &QLineEdit::returnPressed, [&]() {
-        if(_completer.currentCompletion().isEmpty())
-            _ui.treeView->setFocus();
-    });
-    connect(_ui.homeButton, &QPushButton::clicked,
-            [&]() { setCurrentPath(QDir::homePath()); });
 }
 
 FilePickerWidget::~FilePickerWidget()
@@ -76,13 +81,18 @@ void FilePickerWidget::reset()
 {
     _model.reset();
     _ui.treeView->reset();
-    QSettings settings;
-    setCurrentPath(
-        settings.value("app/file_browse_last", QDir::homePath()).toString());
+    // Select the home directory in the display.
+    setCurrentPath(QDir::homePath());
+}
+
+QString FilePickerWidget::getCurrentPath()
+{
+    return _model.filePath(_ui.treeView->currentIndex());
 }
 
 QList<QUrl> FilePickerWidget::getSelectedUrls()
 {
+    // Construct a list of urls from the filePath QStrings.
     QList<QUrl> urls;
     QList<QPersistentModelIndex> indexList = _model.checkedIndexes();
     foreach(QPersistentModelIndex index, indexList)
@@ -156,23 +166,6 @@ void FilePickerWidget::keyPressEvent(QKeyEvent *event)
         break;
     default:
         QWidget::keyPressEvent(event);
-    }
-}
-
-bool FilePickerWidget::eventFilter(QObject *obj, QEvent *event)
-{
-    if((obj == _ui.treeView) && (event->type() == QEvent::FocusOut))
-    {
-        emit focusLost();
-        QSettings settings;
-        settings.setValue("app/file_browse_last",
-                          _model.filePath(_ui.treeView->currentIndex()));
-        return false;
-    }
-    else
-    {
-        // standard event processing
-        return QWidget::eventFilter(obj, event);
     }
 }
 

@@ -1,5 +1,6 @@
 #include "archivewidget.h"
 #include "utils.h"
+#include "restoredialog.h"
 
 #include <QCloseEvent>
 
@@ -7,7 +8,7 @@
 
 ArchiveWidget::ArchiveWidget(QWidget *parent)
     : QWidget(parent), _contentsModel(this),
-      _proxyModel(&_contentsModel)
+      _proxyModel(&_contentsModel), _fileMenu(this)
 {
     _ui.setupUi(this);
     QSettings settings;
@@ -25,6 +26,15 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     _proxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
     _proxyModel.setSourceModel(&_contentsModel);
     _ui.archiveContentsTableView->setModel(&_proxyModel);
+    _ui.archiveContentsTableView->setContextMenuPolicy(Qt::CustomContextMenu);
+//    _fileMenu.addAction(_ui.actionOpenFile);
+    _fileMenu.addAction(_ui.actionRestoreFiles);
+    connect(_ui.archiveContentsTableView, &QTableView::customContextMenuRequested,
+            this, &ArchiveWidget::showContextMenu);
+    connect(_ui.actionOpenFile, &QAction::triggered, this,
+            &ArchiveWidget::openFile);
+    connect(_ui.actionRestoreFiles, &QAction::triggered, this,
+            &ArchiveWidget::restoreFiles);
 
     connect(_ui.hideButton, &QPushButton::clicked, this, &ArchiveWidget::close);
     connect(_ui.archiveJobLabel, &ElidedLabel::clicked,
@@ -135,4 +145,35 @@ void ArchiveWidget::keyPressEvent(QKeyEvent *event)
         _ui.filterButton->toggle();
     else
         QWidget::keyPressEvent(event);
+}
+
+void ArchiveWidget::showContextMenu(const QPoint &pos)
+{
+    QPoint globalPos = _ui.archiveContentsTableView->viewport()->mapToGlobal(pos);
+    _fileMenu.exec(globalPos);
+}
+
+void ArchiveWidget::openFile()
+{
+
+}
+
+void ArchiveWidget::restoreFiles()
+{
+    QModelIndexList indexes =
+            _ui.archiveContentsTableView->selectionModel()->selectedRows();
+    if(indexes.isEmpty())
+        return;
+    QStringList files;
+    foreach(QModelIndex index, indexes)
+        files << index.data().toString();
+
+    RestoreDialog restoreDialog(_archive, this);
+    restoreDialog.displayTarOption(false);
+    if(QDialog::Accepted == restoreDialog.exec())
+    {
+        ArchiveRestoreOptions options = restoreDialog.getOptions();
+        options.files = files;
+        emit restoreArchive(_archive, options);
+    }
 }

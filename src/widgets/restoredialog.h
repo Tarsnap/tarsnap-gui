@@ -15,6 +15,7 @@ public:
     ~RestoreDialog();
 
     ArchiveRestoreOptions getOptions();
+    void displayTarOption(bool display);
 
 private slots:
     void optionBaseDirToggled(bool checked);

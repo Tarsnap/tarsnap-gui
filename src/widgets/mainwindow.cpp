@@ -290,6 +290,8 @@ MainWindow::MainWindow(QWidget *parent)
             _ui.jobListWidget, &JobListWidget::inspectJobByRef);
     connect(_ui.archiveDetailsWidget, &ArchiveWidget::jobClicked,
             _ui.jobListWidget, &JobListWidget::inspectJobByRef);
+    connect(_ui.archiveDetailsWidget, &ArchiveWidget::restoreArchive, this,
+            &MainWindow::restoreArchive);
 
     connect(_ui.archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,

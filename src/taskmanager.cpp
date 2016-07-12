@@ -375,6 +375,11 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
         args << "-r";
         restore->setStandardOutputFile(options.path);
     }
+    if(!options.files.isEmpty())
+    {
+        args << "-T" << "-";
+        restore->setStandardIn(options.files.join(QChar('\n')));
+    }
     args << "-f" << archive->name();
     restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     restore->setArguments(args);
@@ -384,7 +389,7 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     connect(restore, &TarsnapTask::started, this,
             [=]() {
                 emit message(
-                    tr("Restoring archive <i>%1</i>...").arg(archive->name()));
+                    tr("Restoring from archive <i>%1</i>...").arg(archive->name()));
             },
             QUEUED);
     queueTask(restore);
@@ -766,12 +771,12 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     if(exitCode == SUCCESS)
     {
         emit message(
-            tr("Restoring archive <i>%1</i>... done.").arg(archive->name()));
+            tr("Restoring from archive <i>%1</i>... done.").arg(archive->name()));
     }
     else
     {
         emit message(
-            tr("Restoring archive <i>%1</i> failed. Hover mouse for details.")
+            tr("Restoring from archive <i>%1</i> failed. Hover mouse for details.")
                 .arg(archive->name()),
             output);
         parseError(output);

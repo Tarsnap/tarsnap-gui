@@ -5,6 +5,7 @@
 #include "filetablemodel.h"
 #include "persistentmodel/archive.h"
 
+#include <QMenu>
 #include <QWidget>
 
 class ArchiveWidget : public QWidget
@@ -21,10 +22,16 @@ public slots:
 
 signals:
     void jobClicked(QString jobRef);
+    void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
 
 protected:
     void closeEvent(QCloseEvent *event);
     void keyPressEvent(QKeyEvent *event);
+
+private slots:
+    void showContextMenu(const QPoint &pos);
+    void openFile();
+    void restoreFiles();
 
 private:
     Ui::ArchiveWidget      _ui;
@@ -32,6 +39,7 @@ private:
     ArchivePtr             _archive;
     FileTableModel         _contentsModel;
     QSortFilterProxyModel  _proxyModel;
+    QMenu                  _fileMenu;
 };
 
 #endif // ARCHIVEWIDGET_H

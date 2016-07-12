@@ -18,7 +18,8 @@ struct ArchiveRestoreOptions
     bool    optionDownArchive = false;
     bool    overwriteFiles    = false;
     bool    keepNewerFiles    = true;
-    QString path;
+    QString     path;
+    QStringList files;
 };
 
 class Archive;

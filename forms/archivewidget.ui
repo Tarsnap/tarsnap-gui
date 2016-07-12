@@ -493,6 +493,30 @@ font-size: 12px;
     </widget>
    </item>
   </layout>
+  <action name="actionOpenFile">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open File</string>
+   </property>
+   <property name="toolTip">
+    <string>Download and open this file in the native File Explorer</string>
+   </property>
+  </action>
+  <action name="actionRestoreFiles">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Restore file(s)</string>
+   </property>
+   <property name="toolTip">
+    <string>Restore selected file(s)</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

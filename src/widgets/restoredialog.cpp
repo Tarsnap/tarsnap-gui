@@ -82,6 +82,11 @@ ArchiveRestoreOptions RestoreDialog::getOptions()
     return options;
 }
 
+void RestoreDialog::displayTarOption(bool display)
+{
+    _ui.optionDownArchiveRadio->setVisible(display);
+}
+
 void RestoreDialog::optionBaseDirToggled(bool checked)
 {
     _ui.baseDirLineEdit->setVisible(checked);

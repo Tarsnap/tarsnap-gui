@@ -538,7 +538,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
 
     if(exitCode == SUCCESS)
     {
-        emit message(tr("Updating archives list from remote... done."));
+        emit message(tr("Updating archives list from remote...done."));
     }
     else
     {
@@ -625,7 +625,7 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
     if(exitCode == SUCCESS)
     {
         emit message(
-            tr("Fetching stats for archive <i>%1</i>... done.").arg(archive->name()));
+            tr("Fetching stats for archive <i>%1</i>...done.").arg(archive->name()));
     }
     else
     {
@@ -670,7 +670,7 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
         }
     }
 
-    emit message(tr("Fetching contents for archive <i>%1</i>... done.")
+    emit message(tr("Fetching contents for archive <i>%1</i>...done.")
                  .arg(archive->name()));
     archive->setContents(output);
     archive->save();
@@ -771,7 +771,7 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     if(exitCode == SUCCESS)
     {
         emit message(
-            tr("Restoring from archive <i>%1</i>... done.").arg(archive->name()));
+            tr("Restoring from archive <i>%1</i>...done.").arg(archive->name()));
     }
     else
     {
@@ -850,7 +850,7 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
             ArchivePtr archive = archives.at(i);
             detail.append(QString::fromLatin1(", ") + archive->name());
         }
-        emit message(tr("Deleting archive <i>%1</i> and %2 more archives... %3")
+        emit message(tr("Deleting archive <i>%1</i> and %2 more archives...%3")
                          .arg(archives.first()->name())
                          .arg(archives.count() - 1)
                          .arg(done ? "done." : ""),
@@ -858,7 +858,7 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
     }
     else if(archives.count() == 1)
     {
-        emit message(tr("Deleting archive <i>%1</i>... %2")
+        emit message(tr("Deleting archive <i>%1</i>...%2")
                          .arg(archives.first()->name())
                          .arg(done ? "done." : ""));
     }

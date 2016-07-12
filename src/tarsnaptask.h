@@ -27,8 +27,8 @@ public:
     QStringList arguments() const;
     void setArguments(const QStringList &arguments);
 
-    QString password() const;
-    void setPassword(const QString &password);
+    QString standardIn() const;
+    void setStandardIn(const QString &standardIn);
 
     void setStandardOutputFile(const QString &fileName);
 
@@ -54,7 +54,7 @@ private:
     QByteArray  _processOutput;
     QString     _command;
     QStringList _arguments;
-    QString     _password;
+    QString     _standardIn;
     QString     _standardOutFile;
     bool        _truncateLogOutput;
     QEventLoopLocker _lock;

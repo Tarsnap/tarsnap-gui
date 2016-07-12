@@ -69,7 +69,7 @@ void TaskManager::registerMachine(QString user, QString password,
         registerTask->setCommand(tarsnapPath + QDir::separator() +
                                  CMD_TARSNAPKEYGEN);
         registerTask->setArguments(args);
-        registerTask->setPassword(password);
+        registerTask->setStandardIn(password);
     }
     connect(registerTask, &TarsnapTask::finished, this,
             &TaskManager::registerMachineFinished, QUEUED);
@@ -335,7 +335,7 @@ void TaskManager::nuke()
         args << "--cachedir" << _tarsnapCacheDir;
     args << "--nuke";
     nuke->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    nuke->setPassword("No Tomorrow");
+    nuke->setStandardIn("No Tomorrow");
     nuke->setArguments(args);
     connect(nuke, &TarsnapTask::finished, this, &TaskManager::nukeFinished,
             QUEUED);

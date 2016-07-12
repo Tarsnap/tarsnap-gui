@@ -56,9 +56,9 @@ void TarsnapTask::run()
         processError();
         goto cleanup;
     }
-    if(!_password.isEmpty())
+    if(!_standardIn.isEmpty())
     {
-        QByteArray password(_password.toUtf8());
+        QByteArray password(_standardIn.toUtf8());
         _process->write(password.data(), password.size());
         _process->closeWriteChannel();
     }
@@ -124,14 +124,14 @@ void TarsnapTask::setArguments(const QStringList &arguments)
     _arguments = arguments;
 }
 
-QString TarsnapTask::password() const
+QString TarsnapTask::standardIn() const
 {
-    return _password;
+    return _standardIn;
 }
 
-void TarsnapTask::setPassword(const QString &password)
+void TarsnapTask::setStandardIn(const QString &standardIn)
 {
-    _password = password;
+    _standardIn = standardIn;
 }
 
 void TarsnapTask::setStandardOutputFile(const QString &fileName)

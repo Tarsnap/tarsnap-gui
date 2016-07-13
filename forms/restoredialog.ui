@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Restore archive</string>
+   <string>Archive restore</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -63,7 +63,7 @@
       </sizepolicy>
      </property>
      <property name="title">
-      <string>Options</string>
+      <string/>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">
@@ -193,6 +193,19 @@
        <number>0</number>
       </property>
       <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QPushButton" name="cancelButton">
         <property name="toolTip">
          <string>Cancel restore</string>
@@ -214,6 +227,19 @@
          <string>Restore</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>

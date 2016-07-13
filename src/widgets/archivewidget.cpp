@@ -35,7 +35,8 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
             &ArchiveWidget::openFile);
     connect(_ui.actionRestoreFiles, &QAction::triggered, this,
             &ArchiveWidget::restoreFiles);
-
+    connect(_ui.archiveContentsTableView, &QTableView::activated, this,
+            &ArchiveWidget::restoreFiles);
     connect(_ui.hideButton, &QPushButton::clicked, this, &ArchiveWidget::close);
     connect(_ui.archiveJobLabel, &ElidedLabel::clicked,
             [&]() { emit jobClicked(_archive->jobRef()); });

@@ -30,7 +30,6 @@ protected:
 
 private slots:
     void showContextMenu(const QPoint &pos);
-    void openFile();
     void restoreFiles();
 
 private:

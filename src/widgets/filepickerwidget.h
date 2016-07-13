@@ -8,6 +8,7 @@
 #include <QWidget>
 
 /*!
+ * \ingroup widgets-specialized
  * \brief The FilePickerWidget filesystem is a QTreeView widget for selecting
  * files and directories; can be used standalone or inside a FilePickerDialog.
  */

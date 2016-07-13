@@ -5,6 +5,7 @@
 #include <QMovie>
 
 /*!
+ * \ingroup widgets-general
  * \brief The BusyWidget is a QLabel which displays a spinning "waiting" icon,
  * and adds the \ref clicked signal.
  */

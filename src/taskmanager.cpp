@@ -1149,7 +1149,7 @@ void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
         return;
     }
 
-    QRegExp versionRx("^tarsnap (\\S+)\\s$");
+    QRegExp versionRx("^tarsnap (\\S+)\\s?$");
     if(-1 != versionRx.indexIn(output))
         emit tarsnapVersion(versionRx.cap(1));
 }

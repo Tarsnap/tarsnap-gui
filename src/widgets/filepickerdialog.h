@@ -8,6 +8,7 @@
 #include <QUrl>
 
 /*!
+ * \ingroup widgets-specialized
  * \brief The FilePickerDialog is a QDialog which provides a thin wrapper
  * around a FilePickerWidget.
  */

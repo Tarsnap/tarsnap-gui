@@ -290,6 +290,8 @@ MainWindow::MainWindow(QWidget *parent)
             _ui.jobListWidget, &JobListWidget::inspectJobByRef);
     connect(_ui.archiveDetailsWidget, &ArchiveWidget::jobClicked,
             _ui.jobListWidget, &JobListWidget::inspectJobByRef);
+    connect(_ui.archiveDetailsWidget, &ArchiveWidget::restoreArchive, this,
+            &MainWindow::restoreArchive);
 
     connect(_ui.archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,
@@ -620,7 +622,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             }
             else if(_ui.archiveDetailsWidget->isVisible())
             {
-                _ui.archiveDetailsWidget->hide();
+                _ui.archiveDetailsWidget->close();
                 return;
             }
         }
@@ -847,10 +849,12 @@ void MainWindow::mainTabChanged(int index)
     Q_UNUSED(index)
     if(_ui.mainTabWidget->currentWidget() == _ui.backupTab)
     {
+        _ui.actionBrowseItems->setEnabled(true);
         validateBackupTab();
     }
     else
     {
+        _ui.actionBrowseItems->setEnabled(false);
         _ui.actionBackupNow->setEnabled(false);
         _ui.actionCreateJob->setEnabled(false);
     }

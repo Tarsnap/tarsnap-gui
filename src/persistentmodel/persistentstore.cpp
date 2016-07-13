@@ -293,6 +293,7 @@ bool PersistentStore::upgradeVersion4()
     bool      result = false;
     QSqlQuery query(_db);
 
+    if((result = query.exec("UPDATE archives SET contents=\"\";")))
     if((result = query.exec("ALTER TABLE archives ADD COLUMN truncated INTEGER;")))
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN settingShowHidden INTEGER;")))
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN settingShowSystem INTEGER;")))

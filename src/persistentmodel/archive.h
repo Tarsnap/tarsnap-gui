@@ -5,6 +5,7 @@
 
 #include <QDateTime>
 #include <QObject>
+#include <QRunnable>
 #include <QSharedPointer>
 #include <QStringList>
 
@@ -17,13 +18,39 @@ struct ArchiveRestoreOptions
     bool    optionDownArchive = false;
     bool    overwriteFiles    = false;
     bool    keepNewerFiles    = true;
-    QString path;
+    QString     path;
+    QStringList files;
 };
 
 class Archive;
 typedef QSharedPointer<Archive> ArchivePtr;
 
 Q_DECLARE_METATYPE(ArchivePtr)
+
+struct File {
+    QString name;
+    QString modified;
+    quint64 size;
+    QString user;
+    QString group;
+    QString mode;
+    quint64 links;
+};
+
+class ParseArchiveListingTask : public QObject, public QRunnable
+{
+    Q_OBJECT
+
+public:
+    explicit ParseArchiveListingTask(const QString &listing):_listing(listing){}
+    void run();
+
+signals:
+    void result(QVector<File> files);
+
+private:
+    QString _listing;
+};
 
 class Archive : public QObject, public PersistentObject
 {
@@ -53,6 +80,7 @@ public:
     void setContents(const QString &value);
     QString jobRef() const;
     void setJobRef(const QString &jobRef);
+    void getFileList();
 
     // From PersistentObject
     void save();
@@ -66,6 +94,7 @@ public slots:
 signals:
     void changed();
     void purged();
+    void fileList(QVector<File> files);
 
 private:
     QString    _name;

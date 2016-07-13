@@ -366,36 +366,145 @@ color: blue;
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="archiveContentsLabel">
-     <property name="text">
-      <string>Contents</string>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>0</number>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+     <property name="leftMargin">
+      <number>6</number>
+     </property>
+     <property name="topMargin">
+      <number>3</number>
+     </property>
+     <property name="rightMargin">
+      <number>6</number>
+     </property>
+     <property name="bottomMargin">
+      <number>3</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="archiveContentsLabel">
+       <property name="text">
+        <string>Contents</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="filterButton">
+       <property name="minimumSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Show/hide search and filter Archive contents box &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources/resources.qrc">
+         <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+Shift+F</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QComboBox" name="filterComboBox">
+     <property name="toolTip">
+      <string>Search and filter Archive contents, shell globbing patterns can be used</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox {
+border: 1px solid darkgrey;
+padding-right: 6px;
+padding-left: 6px;
+}
+
+QComboBox::drop-down {
+border: none;
+padding-right: 6px;
+}
+
+QComboBox::down-arrow {
+image:url(:/icons/caret-bottom.png);
+}
+
+QComboBox::down-arrow:on {
+top: 1px;
+left: 1px;
+}</string>
+     </property>
+     <property name="editable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPlainTextEdit" name="archiveContentsPlainTextEdit">
-     <property name="toolTip">
-      <string>Archive contents listing</string>
-     </property>
+    <widget class="QTableView" name="archiveContentsTableView">
      <property name="styleSheet">
-      <string notr="true">#archiveContentsPlainTextEdit
+      <string notr="true">#archiveContentsTableView
 {
 font-family: Monospace, Monaco;
 font-size: 12px;
 }</string>
      </property>
-     <property name="documentTitle">
-      <string>test</string>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
      </property>
-     <property name="readOnly">
+     <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="showGrid">
+      <bool>false</bool>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
     </widget>
    </item>
   </layout>
+  <action name="actionRestoreFiles">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Restore file(s)</string>
+   </property>
+   <property name="toolTip">
+    <string>Restore selected file(s)</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -406,7 +515,6 @@ font-size: 12px;
  </customwidgets>
  <tabstops>
   <tabstop>archiveCommandLineEdit</tabstop>
-  <tabstop>archiveContentsPlainTextEdit</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

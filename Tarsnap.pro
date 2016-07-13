@@ -43,7 +43,8 @@ SOURCES += \
     src/tarsnapaccount.cpp \
     src/notification.cpp \
     src/persistentmodel/journal.cpp \
-    src/widgets/archivewidget.cpp
+    src/widgets/archivewidget.cpp \
+    src/filetablemodel.cpp
 
 HEADERS  += \
     src/coreapplication.h \
@@ -75,7 +76,8 @@ HEADERS  += \
     src/notification.h \
     src/error.h \
     src/persistentmodel/journal.h \
-    src/widgets/archivewidget.h
+    src/widgets/archivewidget.h \
+    src/filetablemodel.h
 
 INCLUDEPATH += src/widgets/ \
             += src/

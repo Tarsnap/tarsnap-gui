@@ -849,10 +849,12 @@ void MainWindow::mainTabChanged(int index)
     Q_UNUSED(index)
     if(_ui.mainTabWidget->currentWidget() == _ui.backupTab)
     {
+        _ui.actionBrowseItems->setEnabled(true);
         validateBackupTab();
     }
     else
     {
+        _ui.actionBrowseItems->setEnabled(false);
         _ui.actionBackupNow->setEnabled(false);
         _ui.actionCreateJob->setEnabled(false);
     }

@@ -24,7 +24,6 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
-      _useIECPrefixes(false),
       _purgeTimerCount(0),
       _purgeCountdown(this),
       _tarsnapAccount(this),
@@ -421,8 +420,8 @@ MainWindow::MainWindow(QWidget *parent)
             });
     connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
         QMessageBox::information(this, QApplication::applicationName(),
-                                 tr("The new size notation will take effect on "
-                                    "application restart."));
+                                 tr("The new size notation will take global "
+                                    "effect on application restart."));
     });
     connect(_ui.dismissButton, &QPushButton::clicked, [&]() {
         QSettings settings;
@@ -496,8 +495,8 @@ void MainWindow::loadSettings()
     _ui.simulationCheckBox->setChecked(
         settings.value("tarsnap/dry_run", false).toBool());
     _ui.simulationIcon->setVisible(_ui.simulationCheckBox->isChecked());
-    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
-    _ui.iecPrefixesCheckBox->setChecked(_useIECPrefixes);
+    _ui.iecPrefixesCheckBox->setChecked(
+        settings.value("app/iec_prefixes", false).toBool());
     _ui.skipFilesSizeSpinBox->setValue(
         settings.value("app/skip_files_size", 0).toInt());
     _ui.skipSystemJunkCheckBox->setChecked(
@@ -780,15 +779,15 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
                         .arg(sizeUniqueTotal)
                         .arg(sizeUniqueCompressed));
     _ui.accountTotalSizeLabel->setText(
-        Utils::humanBytes(sizeTotal, _useIECPrefixes));
+        Utils::humanBytes(sizeTotal));
     _ui.accountTotalSizeLabel->setToolTip(tooltip);
     _ui.accountActualSizeLabel->setText(
-        Utils::humanBytes(sizeUniqueCompressed, _useIECPrefixes));
+        Utils::humanBytes(sizeUniqueCompressed));
     _ui.accountActualSizeLabel->setToolTip(tooltip);
     quint64 storageSaved =
         sizeTotal >= sizeUniqueCompressed ? sizeTotal - sizeUniqueCompressed : 0;
     _ui.accountStorageSavedLabel->setText(
-        Utils::humanBytes(storageSaved, _useIECPrefixes));
+        Utils::humanBytes(storageSaved));
     _ui.accountStorageSavedLabel->setToolTip(tooltip);
     _ui.accountArchivesCountLabel->setText(QString::number(archiveCount));
 }
@@ -920,7 +919,7 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
         _ui.backupDetailLabel->setText(tr("%1 %2 (%3)")
                                        .arg(count)
                                        .arg(count == 1 ? "item" : "items")
-                                       .arg(Utils::humanBytes(size, _useIECPrefixes)));
+                                       .arg(Utils::humanBytes(size)));
     }
     else
     {

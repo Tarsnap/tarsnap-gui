@@ -68,8 +68,10 @@ quint64 GetDirInfoTask::getDirCount(QDir dir)
     return count;
 }
 
-QString Utils::humanBytes(quint64 bytes, bool IEC, int fieldWidth)
+QString Utils::humanBytes(quint64 bytes, int fieldWidth)
 {
+    QSettings settings;
+    bool IEC = settings.value("app/iec_prefixes", false).toBool();
     quint64 unit = IEC ? 1024 : 1000;
     if(bytes < unit)
         return QString::number(bytes) + " B";

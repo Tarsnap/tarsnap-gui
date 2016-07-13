@@ -1,16 +1,11 @@
 #include "archivelistitem.h"
 #include "utils.h"
 
-#include <QSettings>
-
 #define FIELD_WIDTH 6
 
 ArchiveListItem::ArchiveListItem(ArchivePtr archive)
-    : _widget(new QWidget), _useIECPrefixes(false)
+    : _widget(new QWidget)
 {
-    QSettings settings;
-    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
-
     _ui.setupUi(_widget);
 
     _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
@@ -82,8 +77,7 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     QString detail(_archive->timestamp().toString(Qt::DefaultLocaleLongDate));
     if(_archive->sizeTotal() != 0)
     {
-        QString size = Utils::humanBytes(_archive->sizeTotal(), _useIECPrefixes,
-                                         FIELD_WIDTH);
+        QString size = Utils::humanBytes(_archive->sizeTotal(), FIELD_WIDTH);
         detail.prepend(size + "  ");
     }
     _ui.detailLabel->setText(detail);

@@ -11,9 +11,6 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
       _proxyModel(&_contentsModel), _fileMenu(this)
 {
     _ui.setupUi(this);
-    QSettings settings;
-    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
-
     _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
                                .arg(QKeySequence(Qt::Key_Escape)
                                     .toString(QKeySequence::NativeText)));
@@ -104,10 +101,10 @@ void ArchiveWidget::updateDetails()
             _ui.archiveIconLabel->setStyleSheet("image: url(:/icons/hard-drive-big.png)");
         }
         _ui.archiveSizeLabel->setText(
-            Utils::humanBytes(_archive->sizeTotal(), _useIECPrefixes));
+            Utils::humanBytes(_archive->sizeTotal()));
         _ui.archiveSizeLabel->setToolTip(_archive->archiveStats());
         _ui.archiveUniqueDataLabel->setText(
-            Utils::humanBytes(_archive->sizeUniqueCompressed(), _useIECPrefixes));
+            Utils::humanBytes(_archive->sizeUniqueCompressed()));
         _ui.archiveUniqueDataLabel->setToolTip(_archive->archiveStats());
         _ui.archiveCommandLineEdit->setText(_archive->command());
         _ui.archiveCommandLineEdit->setCursorPosition(0);

@@ -35,7 +35,6 @@ private:
     Ui::ArchiveItemWidget _ui;
     QWidget              *_widget;
     ArchivePtr            _archive;
-    bool                  _useIECPrefixes;
 };
 
 #endif // ARCHIVELISTITEM_H

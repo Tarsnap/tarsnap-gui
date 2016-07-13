@@ -34,7 +34,6 @@ private slots:
 
 private:
     Ui::ArchiveWidget      _ui;
-    bool                   _useIECPrefixes;
     ArchivePtr             _archive;
     FileTableModel         _contentsModel;
     QSortFilterProxyModel  _proxyModel;

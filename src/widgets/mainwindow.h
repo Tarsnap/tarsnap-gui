@@ -107,7 +107,6 @@ private slots:
 private:
     Ui::MainWindow  _ui;
     QString         _lastTimestamp;
-    bool            _useIECPrefixes;
     QTimer          _purgeTimer;
     int             _purgeTimerCount;
     QMessageBox     _purgeCountdown;

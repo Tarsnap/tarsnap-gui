@@ -67,8 +67,8 @@ private:
 };
 
 // Convert an int64 size in bytes to a human readable string using either
-// SI(1000) or IEC(1024) units (default is SI)
-QString humanBytes(quint64 bytes, bool IEC = false, int fieldWidth = 0);
+// SI(1000) or IEC(1024) units (default is SI) depending on the app setting
+QString humanBytes(quint64 bytes, int fieldWidth = 0);
 
 // if path.isEmpty it will search in $PATH
 // if keygenToo it will search for tarsnap-keygen too

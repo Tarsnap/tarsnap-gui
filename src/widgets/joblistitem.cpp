@@ -2,11 +2,8 @@
 #include "utils.h"
 
 JobListItem::JobListItem(JobPtr job)
-    : _widget(new QWidget), _useIECPrefixes(false)
+    : _widget(new QWidget)
 {
-    QSettings settings;
-    _useIECPrefixes = settings.value("app/iec_prefixes", false).toBool();
-
     _ui.setupUi(_widget);
 
     _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
@@ -64,7 +61,7 @@ void JobListItem::setJob(const JobPtr &job)
     {
         totalSize += archive->sizeTotal();
     }
-    detail.append(Utils::humanBytes(totalSize, _useIECPrefixes));
+    detail.append(Utils::humanBytes(totalSize));
 
     _ui.detailLabel->setText(detail);
 }

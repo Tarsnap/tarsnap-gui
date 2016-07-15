@@ -46,6 +46,16 @@ QVariant CustomFileSystemModel::data(const QModelIndex &index, int role) const
     return QFileSystemModel::data(index, role);
 }
 
+QVariant CustomFileSystemModel::dataInternal(const QModelIndex &index) const
+{
+    if(_checklist.contains(index))
+        return Qt::Checked;
+    else if(_partialChecklist.contains(index))
+        return Qt::PartiallyChecked;
+    else
+        return Qt::Unchecked;
+}
+
 void CustomFileSystemModel::setIndexCheckState(const QModelIndex &index,
                                                const Qt::CheckState state)
 {

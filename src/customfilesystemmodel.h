@@ -52,6 +52,9 @@ private:
     QSet<QPersistentModelIndex> _checklist;
     QSet<QPersistentModelIndex> _partialChecklist;
 
+    // Returns the actual data (i.e. without fakery with PartiallyChecked).
+    QVariant dataInternal(const QModelIndex &index) const;
+
     // Sets the index to the desired state (if it is not already).
     void setIndexCheckState(const QModelIndex &index,
                             const Qt::CheckState state);

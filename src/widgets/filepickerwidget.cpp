@@ -35,7 +35,10 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
                 Q_UNUSED(topLeft);
                 Q_UNUSED(bottomRight);
                 if(!roles.isEmpty() && (roles.first() == SELECTION_CHANGED_ROLE))
+                {
                     emit selectionChanged();
+                    _ui.treeView->viewport()->update();
+                }
             });
     // Connections for the top bar of the widget
     connect(_ui.showOptionsButton, &QPushButton::clicked, [&]() {

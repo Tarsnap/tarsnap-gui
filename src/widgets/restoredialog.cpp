@@ -13,7 +13,6 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) &
                    ~Qt::WindowMaximizeButtonHint);
 
-    _ui.infoLabel->setText(_ui.infoLabel->text().arg(archive->name()));
     QSettings settings;
     _downDir = settings.value("app/downloads_dir", DOWNLOADS).toString();
     _ui.baseDirLineEdit->setText(_downDir);
@@ -44,8 +43,8 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
             &RestoreDialog::optionRestoreToggled);
     connect(_ui.optionBaseDirRadio, &QRadioButton::toggled, this,
             &RestoreDialog::optionBaseDirToggled);
-    connect(_ui.optionDownArchiveRadio, &QRadioButton::toggled, this,
-            &RestoreDialog::optionDownArchiveToggled);
+    connect(_ui.optionTarArchiveRadio, &QRadioButton::toggled, this,
+            &RestoreDialog::optionTarArchiveToggled);
     connect(_ui.overwriteCheckBox, &QCheckBox::toggled, this, [&](bool checked) {
         _ui.keepNewerCheckBox->setChecked(checked);
         _ui.keepNewerCheckBox->setEnabled(checked);
@@ -55,12 +54,10 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
     connect(_ui.archiveLineEdit, &QLineEdit::textChanged, this,
             &RestoreDialog::validate);
 
-    if(settings.value("tarsnap/preserve_pathnames", true).toBool())
-        _ui.optionRestoreRadio->setChecked(true);
-    else
-        _ui.optionBaseDirRadio->setChecked(true);
-
-    adjustSize();
+    bool canRestore = _archive->hasPreservePaths();
+    displayRestoreOption(canRestore);
+    _ui.optionRestoreRadio->setChecked(canRestore);
+    _ui.optionBaseDirRadio->setChecked(!canRestore);
 }
 
 RestoreDialog::~RestoreDialog()
@@ -74,21 +71,33 @@ ArchiveRestoreOptions RestoreDialog::getOptions()
     options.optionRestoreDir  = _ui.optionBaseDirRadio->isChecked();
     options.overwriteFiles    = _ui.overwriteCheckBox->isChecked();
     options.keepNewerFiles    = _ui.keepNewerCheckBox->isChecked();
-    options.optionDownArchive = _ui.optionDownArchiveRadio->isChecked();
+    options.optionTarArchive  = _ui.optionTarArchiveRadio->isChecked();
     if(options.optionRestoreDir)
         options.path = _ui.baseDirLineEdit->text();
-    else if(options.optionDownArchive)
+    else if(options.optionTarArchive)
         options.path = _ui.archiveLineEdit->text();
     return options;
 }
 
+void RestoreDialog::displayRestoreOption(bool display)
+{
+    _ui.optionRestoreRadio->setVisible(display);
+    adjustSize();
+}
+
 void RestoreDialog::displayTarOption(bool display)
 {
-    _ui.optionDownArchiveRadio->setVisible(display);
+    _ui.optionTarArchiveRadio->setVisible(display);
+    adjustSize();
 }
 
 void RestoreDialog::optionBaseDirToggled(bool checked)
 {
+    _ui.infoLabel->setText(tr("Restore archive <b>%1</b> contents to specified"
+                              " directory? Any existing files will not be"
+                              " replaced by default. Use the options below to"
+                              " modify this behavior:")
+                           .arg(_archive->name()));
     _ui.baseDirLineEdit->setVisible(checked);
     _ui.changeDirButton->setVisible(checked);
     _ui.overwriteCheckBox->setVisible(checked);
@@ -96,8 +105,11 @@ void RestoreDialog::optionBaseDirToggled(bool checked)
     adjustSize();
 }
 
-void RestoreDialog::optionDownArchiveToggled(bool checked)
+void RestoreDialog::optionTarArchiveToggled(bool checked)
 {
+    _ui.infoLabel->setText(tr("Download archive <b>%1</b> contents as an"
+                              " uncompressed TAR archive.")
+                           .arg(_archive->name()));
     _ui.archiveLineEdit->setVisible(checked);
     _ui.changeArchiveButton->setVisible(checked);
     adjustSize();
@@ -105,6 +117,11 @@ void RestoreDialog::optionDownArchiveToggled(bool checked)
 
 void RestoreDialog::optionRestoreToggled(bool checked)
 {
+    _ui.infoLabel->setText(tr("Restore archive <b>%1</b> contents to original"
+                              " locations? Any existing files will not be"
+                              " replaced by default. Use the options below to"
+                              " modify this behavior:")
+                           .arg(_archive->name()));
     _ui.overwriteCheckBox->setVisible(checked);
     _ui.keepNewerCheckBox->setVisible(checked);
     adjustSize();
@@ -135,7 +152,7 @@ bool RestoreDialog::validate()
     if(_ui.optionBaseDirRadio->isChecked())
     {
         QFileInfo dir(_ui.baseDirLineEdit->text());
-        if(dir.exists() && dir.isDir() && dir.isWritable())
+        if(dir.exists() && dir.isDir())
         {
             _ui.baseDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
             _ui.baseDirLineEdit->setToolTip(
@@ -149,7 +166,7 @@ bool RestoreDialog::validate()
             valid = false;
         }
     }
-    else if(_ui.optionDownArchiveRadio->isChecked())
+    else if(_ui.optionTarArchiveRadio->isChecked())
     {
         QFileInfo archive(_ui.archiveLineEdit->text());
         if(archive.exists())

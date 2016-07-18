@@ -374,7 +374,7 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     if((options.optionRestore || options.optionRestoreDir) &&
        options.keepNewerFiles)
         args << "--keep-newer-files";
-    if(options.optionDownArchive)
+    if(options.optionTarArchive)
     {
         args << "-r";
         restore->setStandardOutputFile(options.path);

@@ -15,11 +15,12 @@ public:
     ~RestoreDialog();
 
     ArchiveRestoreOptions getOptions();
+    void displayRestoreOption(bool display);
     void displayTarOption(bool display);
 
 private slots:
     void optionBaseDirToggled(bool checked);
-    void optionDownArchiveToggled(bool checked);
+    void optionTarArchiveToggled(bool checked);
     void optionRestoreToggled(bool checked);
     void changeDir();
     void changeArchive();

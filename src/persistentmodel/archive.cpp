@@ -214,6 +214,11 @@ void Archive::getFileList()
     threadPool->start(parseTask);
 }
 
+bool Archive::hasPreservePaths()
+{
+    return _command.contains(" -P ", Qt::CaseSensitive);
+}
+
 QString Archive::contents() const
 {
     return qUncompress(_contents);

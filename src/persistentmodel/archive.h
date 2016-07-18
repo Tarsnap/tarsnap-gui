@@ -15,7 +15,7 @@ struct ArchiveRestoreOptions
 {
     bool    optionRestore     = false;
     bool    optionRestoreDir  = false;
-    bool    optionDownArchive = false;
+    bool    optionTarArchive  = false;
     bool    overwriteFiles    = false;
     bool    keepNewerFiles    = true;
     QString     path;
@@ -81,6 +81,7 @@ public:
     QString jobRef() const;
     void setJobRef(const QString &jobRef);
     void getFileList();
+    bool hasPreservePaths();
 
     // From PersistentObject
     void save();

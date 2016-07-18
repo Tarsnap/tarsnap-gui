@@ -24,7 +24,6 @@ TaskManager::~TaskManager()
 void TaskManager::loadSettings()
 {
     QSettings settings;
-
     _tarsnapDir      = settings.value("tarsnap/path").toString();
     _tarsnapCacheDir = settings.value("tarsnap/cache").toString();
     _tarsnapKeyFile  = settings.value("tarsnap/key").toString();
@@ -359,8 +358,13 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     if(!_tarsnapKeyFile.isEmpty())
         args << "--keyfile" << _tarsnapKeyFile;
     if(options.optionRestore)
+    {
+        QSettings settings;
         args << "-x"
-             << "-P";
+             << "-P"
+             << "-C"
+             << settings.value("app/downloads_dir", DOWNLOADS).toString();
+    }
     if(options.optionRestoreDir)
         args << "-x"
              << "-C" << options.path;

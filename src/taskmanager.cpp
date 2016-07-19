@@ -448,13 +448,38 @@ void TaskManager::findMatchingArchives(QString jobPrefix)
 
 void TaskManager::runScheduledJobs()
 {
+    QSettings settings;
     loadJobs();
     bool nothingToDo = true;
+    QDate now(QDate::currentDate());
+    QDate nextWeekly = settings.value("app/next_weekly_timestamp").toDate();
+    QDate nextMonthly = settings.value("app/next_monthly_timestamp").toDate();
+    bool doWeekly = false;
+    bool doMonthly = false;
+    if(!nextWeekly.isValid() || (nextWeekly <= now))
+    {
+        doWeekly = true;
+        QDate nextSunday = now.addDays(1);
+        for(; nextSunday.dayOfWeek() != 7; nextSunday = nextSunday.addDays(1));
+        settings.setValue("app/next_weekly_timestamp", nextSunday);
+    }
+    if(!nextMonthly.isValid() || (nextMonthly <= now))
+    {
+        doMonthly = true;
+        QDate nextMonth = now.addMonths(1);
+        nextMonth.setDate(nextMonth.year(), nextMonth.month(), 1);
+        settings.setValue("app/next_monthly_timestamp", nextMonth);
+    }
+    settings.sync();
+    DEBUG << "Weekly: " << doWeekly;
+    DEBUG << "Next weekly: " << settings.value("app/next_weekly_timestamp").toDate().toString();
+    DEBUG << "Monthly: " << doWeekly;
+    DEBUG << "Next monthly: " << settings.value("app/next_monthly_timestamp").toDate().toString();
     foreach(JobPtr job, _jobMap)
     {
         if(job->optionScheduledEnabled())
         {
-            backupNow(job->createBackupTask());
+//            backupNow(job->createBackupTask());
             nothingToDo = false;
         }
     }

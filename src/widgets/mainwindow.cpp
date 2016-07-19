@@ -1524,7 +1524,7 @@ void MainWindow::addDefaultJobs()
             QList<QUrl> urls;
             urls << QUrl::fromUserInput(dir.canonicalPath());
             job->setUrls(urls);
-            job->setOptionScheduledEnabled(false);
+            job->setOptionScheduledEnabled(JobSchedule::Disabled);
             job->setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
             job->setOptionTraverseMount(settings.value("tarsnap/traverse_mount", true).toBool());
             job->setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", false).toBool());

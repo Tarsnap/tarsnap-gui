@@ -15,6 +15,13 @@ typedef QSharedPointer<Job> JobPtr;
 
 Q_DECLARE_METATYPE(JobPtr)
 
+typedef enum {
+    Disabled,
+    Daily,
+    Weekly,
+    Monthly
+}JobSchedule;
+
 class Job : public QObject, public PersistentObject
 {
     Q_OBJECT
@@ -37,8 +44,8 @@ public:
     QList<ArchivePtr> archives() const;
     void setArchives(const QList<ArchivePtr> &archives);
 
-    bool optionScheduledEnabled() const;
-    void setOptionScheduledEnabled(bool optionScheduledEnabled);
+    JobSchedule optionScheduledEnabled() const;
+    void setOptionScheduledEnabled(JobSchedule schedule);
 
     bool optionPreservePaths() const;
     void setOptionPreservePaths(bool optionPreservePaths);
@@ -88,7 +95,7 @@ private:
     QList<QUrl>        _urls;
     QList<ArchivePtr>  _archives;
     QFileSystemWatcher _fsWatcher;
-    bool               _optionScheduledEnabled;
+    int                _optionScheduledEnabled;
     bool               _optionPreservePaths;
     bool               _optionTraverseMount;
     bool               _optionFollowSymLinks;

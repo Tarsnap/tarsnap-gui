@@ -4,7 +4,7 @@
 
 Job::Job(QObject *parent)
     : QObject(parent),
-      _optionScheduledEnabled(false),
+      _optionScheduledEnabled(JobSchedule::Disabled),
       _optionPreservePaths(true),
       _optionTraverseMount(true),
       _optionFollowSymLinks(false),
@@ -119,14 +119,14 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
     emit changed();
 }
 
-bool Job::optionScheduledEnabled() const
+JobSchedule Job::optionScheduledEnabled() const
 {
-    return _optionScheduledEnabled;
+    return static_cast<JobSchedule>(_optionScheduledEnabled);
 }
 
-void Job::setOptionScheduledEnabled(bool optionScheduledEnabled)
+void Job::setOptionScheduledEnabled(JobSchedule schedule)
 {
-    _optionScheduledEnabled = optionScheduledEnabled;
+    _optionScheduledEnabled = schedule;
 }
 
 bool Job::optionPreservePaths() const
@@ -322,7 +322,7 @@ void Job::load()
                                          .toString()
                                          .split('\n', QString::SkipEmptyParts));
         _optionScheduledEnabled =
-            query.value(query.record().indexOf("optionScheduledEnabled")).toBool();
+            query.value(query.record().indexOf("optionScheduledEnabled")).toInt();
         _optionPreservePaths =
             query.value(query.record().indexOf("optionPreservePaths")).toBool();
         _optionTraverseMount =

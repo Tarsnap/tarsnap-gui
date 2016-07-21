@@ -545,7 +545,6 @@ selection-background-color: rgba(177,214,255, 150);
   <tabstop>restoreButton</tabstop>
   <tabstop>hideButton</tabstop>
   <tabstop>tabWidget</tabstop>
-  <tabstop>includeScheduledCheckBox</tabstop>
   <tabstop>preservePathsCheckBox</tabstop>
   <tabstop>followSymLinksCheckBox</tabstop>
   <tabstop>traverseMountCheckBox</tabstop>

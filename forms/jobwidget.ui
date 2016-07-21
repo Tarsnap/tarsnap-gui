@@ -255,6 +255,9 @@ alignment: center;
        </property>
        <item row="1" column="0">
         <widget class="QLabel" name="label">
+         <property name="toolTip">
+          <string>Set automatic backup frequency for this Job</string>
+         </property>
          <property name="text">
           <string>Include in scheduled backups:</string>
          </property>
@@ -267,6 +270,9 @@ alignment: center;
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Backup frequency</string>
          </property>
          <item>
           <property name="text">
@@ -389,7 +395,7 @@ alignment: center;
           <string>Tarsnap will skip these file patterns for this Job</string>
          </property>
          <property name="text">
-          <string>Skip file patterns:</string>
+          <string>Skip files matching patterns:</string>
          </property>
         </widget>
        </item>

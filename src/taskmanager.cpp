@@ -477,9 +477,11 @@ void TaskManager::runScheduledJobs()
     DEBUG << "Next monthly: " << settings.value("app/next_monthly_timestamp").toDate().toString();
     foreach(JobPtr job, _jobMap)
     {
-        if(job->optionScheduledEnabled())
+        if((job->optionScheduledEnabled() == JobSchedule::Daily)
+          || (doWeekly && (job->optionScheduledEnabled() == JobSchedule::Weekly))
+          || (doMonthly && (job->optionScheduledEnabled() == JobSchedule::Monthly)))
         {
-//            backupNow(job->createBackupTask());
+            backupNow(job->createBackupTask());
             nothingToDo = false;
         }
     }

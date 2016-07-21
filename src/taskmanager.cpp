@@ -334,7 +334,7 @@ void TaskManager::nuke()
         args << "--cachedir" << _tarsnapCacheDir;
     args << "--nuke";
     nuke->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    nuke->setStandardIn("No Tomorrow");
+    nuke->setStandardIn("No Tomorrow\n");
     nuke->setArguments(args);
     connect(nuke, &TarsnapTask::finished, this, &TaskManager::nukeFinished,
             QUEUED);

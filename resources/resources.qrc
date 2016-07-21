@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>dbtemplate.db</file>
+        <file>com.tarsnap.gui.plist</file>
         <file>icons/loading.gif</file>
         <file>icons/action-undo.png</file>
         <file>icons/action-undo@2x.png</file>

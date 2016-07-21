@@ -270,6 +270,8 @@ MainWindow::MainWindow(QWidget *parent)
             [&]() { _tarsnapAccount.getAccountInfo(false, true); });
     connect(_ui.clearJournalButton, &QPushButton::clicked, this,
             &MainWindow::clearJournalClicked);
+    connect(_ui.enableSchedulingButton, &QPushButton::clicked, this,
+            &MainWindow::enableJobScheduling);
 
     // Archives pane
     _ui.archiveListWidget->addAction(_ui.actionRefresh);
@@ -906,6 +908,32 @@ void MainWindow::validateBackupTab()
         _ui.actionBackupNow->setEnabled(false);
         _ui.actionCreateJob->setEnabled(false);
     }
+}
+
+void MainWindow::enableJobScheduling()
+{
+#if defined(Q_OS_OSX)
+    QFile launchdPlist(":/com.tarsnap.gui.plist");
+    launchdPlist.open(QIODevice::ReadOnly | QIODevice::Text);
+    QFile launchdPlistFile(QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist");
+    if (!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QString msg("Cannot open file %1 for writing. Aborting operation.");
+        msg = msg.arg(launchdPlistFile.fileName());
+        DEBUG << msg;
+        QMessageBox::critical(this, "Cannot enable job scheduling", msg);
+        return;
+    }
+    launchdPlistFile.write(launchdPlist.readAll()
+                           .replace("%1", QCoreApplication::applicationFilePath().toLatin1())
+                           .replace("%2", QDir::homePath().toLatin1()));
+    launchdPlist.close();
+    launchdPlistFile.close();
+#elif defined(Q_OS_LINUX)
+
+#elif defined(Q_OS_BSD4)
+
+#endif
 }
 
 void MainWindow::notificationRaise()

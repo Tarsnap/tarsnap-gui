@@ -256,10 +256,10 @@ alignment: center;
        <item row="1" column="0">
         <widget class="QLabel" name="label">
          <property name="toolTip">
-          <string>Set automatic backup frequency for this Job</string>
+          <string>Set automatic backup frequency for this Job. Job scheduling must be enabled in Settings.</string>
          </property>
          <property name="text">
-          <string>Include in scheduled backups:</string>
+          <string>Automatic backup schedule:</string>
          </property>
         </widget>
        </item>
@@ -272,7 +272,7 @@ alignment: center;
           </sizepolicy>
          </property>
          <property name="toolTip">
-          <string>Backup frequency</string>
+          <string>Automatic backup frequency</string>
          </property>
          <item>
           <property name="text">

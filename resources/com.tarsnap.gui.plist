@@ -10,9 +10,8 @@
     <string>com.tarsnap.gui</string>
     <key>ProgramArguments</key>
     <array>
-        <string>sh</string>
-        <string>-c</string>
-        <string>%1 --jobs</string>
+        <string>%1</string>
+        <string>--jobs</string>
     </array>
     <key>StartCalendarInterval</key>
     <dict>

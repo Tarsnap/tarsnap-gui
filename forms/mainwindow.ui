@@ -1743,26 +1743,88 @@ border: 0;
                   <string/>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_2">
-                  <item row="5" column="0">
-                   <widget class="QLabel" name="label_7">
+                  <item row="12" column="0" colspan="4">
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_12">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
                     <property name="toolTip">
-                     <string>The app data directory is used to store application settings and data</string>
+                     <string>Tarsnap caches information about what it has uploaded in a local directory</string>
                     </property>
                     <property name="text">
-                     <string>App data directory:</string>
+                     <string>Tarsnap cache directory:</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="1" colspan="2">
-                   <widget class="QLabel" name="tarsnapVersionLabel">
+                  <item row="6" column="0" colspan="4">
+                   <widget class="QPushButton" name="enableSchedulingButton">
+                    <property name="text">
+                     <string>Enable Job scheduling</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="0" colspan="4">
+                   <widget class="QPushButton" name="clearJournalButton">
                     <property name="toolTip">
-                     <string>Tarsnap CLI utilities version</string>
+                     <string>Clear Journal log of all entries</string>
                     </property>
                     <property name="text">
-                     <string/>
+                     <string>Clear journal</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0" colspan="4">
+                   <widget class="QCheckBox" name="simulationCheckBox">
+                    <property name="toolTip">
+                     <string>Don't really create archives on the Tarsnap servers; just simulate doing so locally.  The resulted archives and archive statistics will be almost identical (typically within a few kB or a fraction of a percent) to the real deal.</string>
+                    </property>
+                    <property name="text">
+                     <string>Simulation mode (simulate creation of archives, useful for dry runs)</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="3">
+                   <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Browse for Tarsnap cache directory</string>
+                    </property>
+                    <property name="text">
+                     <string>change</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="0" colspan="4">
+                   <widget class="QPushButton" name="purgeArchivesButton">
+                    <property name="toolTip">
+                     <string>Nukes all archives stored for the current key from the Tarsnap server</string>
+                    </property>
+                    <property name="text">
+                     <string>Purge archives</string>
                     </property>
                    </widget>
                   </item>
@@ -1805,38 +1867,26 @@ border: 0;
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="3">
-                   <widget class="QPushButton" name="tarsnapPathBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_7">
                     <property name="toolTip">
-                     <string>Browse for Tarsnap CLI utilities directory</string>
+                     <string>The app data directory is used to store application settings and data</string>
                     </property>
                     <property name="text">
-                     <string>change</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="label_12">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Tarsnap caches information about what it has uploaded in a local directory</string>
-                    </property>
-                    <property name="text">
-                     <string>Tarsnap cache directory:</string>
+                     <string>App data directory:</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1" colspan="2">
+                   <widget class="QLabel" name="tarsnapVersionLabel">
+                    <property name="toolTip">
+                     <string>Tarsnap CLI utilities version</string>
+                    </property>
+                    <property name="text">
+                     <string/>
                     </property>
                    </widget>
                   </item>
@@ -1853,17 +1903,7 @@ border: 0;
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="0" colspan="4">
-                   <widget class="QCheckBox" name="simulationCheckBox">
-                    <property name="toolTip">
-                     <string>Don't really create archives on the Tarsnap servers; just simulate doing so locally.  The resulted archives and archive statistics will be almost identical (typically within a few kB or a fraction of a percent) to the real deal.</string>
-                    </property>
-                    <property name="text">
-                     <string>Simulation mode (simulate creation of archives, useful for dry runs)</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="0" colspan="4">
+                  <item row="8" column="0" colspan="4">
                    <widget class="QPushButton" name="repairCacheButton">
                     <property name="toolTip">
                      <string>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</string>
@@ -1873,8 +1913,8 @@ border: 0;
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="3">
-                   <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+                  <item row="2" column="3">
+                   <widget class="QPushButton" name="tarsnapPathBrowseButton">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -1882,53 +1922,10 @@ border: 0;
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Browse for Tarsnap cache directory</string>
+                     <string>Browse for Tarsnap CLI utilities directory</string>
                     </property>
                     <property name="text">
                      <string>change</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="0" colspan="4">
-                   <spacer name="verticalSpacer_2">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="10" column="0" colspan="4">
-                   <widget class="QPushButton" name="runSetupWizard">
-                    <property name="toolTip">
-                     <string>Reset app settings and run Setup Wizard</string>
-                    </property>
-                    <property name="text">
-                     <string>Run setup wizard</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="0" colspan="4">
-                   <widget class="QPushButton" name="purgeArchivesButton">
-                    <property name="toolTip">
-                     <string>Nukes all archives stored for the current key from the Tarsnap server</string>
-                    </property>
-                    <property name="text">
-                     <string>Purge archives</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="9" column="0" colspan="4">
-                   <widget class="QPushButton" name="clearJournalButton">
-                    <property name="toolTip">
-                     <string>Clear Journal log of all entries</string>
-                    </property>
-                    <property name="text">
-                     <string>Clear journal</string>
                     </property>
                    </widget>
                   </item>
@@ -1939,6 +1936,16 @@ border: 0;
                     </property>
                     <property name="text">
                      <string>Ignore default configuration files</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="0" colspan="4">
+                   <widget class="QPushButton" name="runSetupWizard">
+                    <property name="toolTip">
+                     <string>Reset app settings and run Setup Wizard</string>
+                    </property>
+                    <property name="text">
+                     <string>Run setup wizard</string>
                     </property>
                    </widget>
                   </item>
@@ -1958,10 +1965,10 @@ border: 0;
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="0" colspan="4">
-                   <widget class="QPushButton" name="enableSchedulingButton">
+                  <item row="7" column="0" colspan="4">
+                   <widget class="QPushButton" name="disableSchedulingButton">
                     <property name="text">
-                     <string>Enable Job scheduling</string>
+                     <string>Disable Job scheduling</string>
                     </property>
                    </widget>
                   </item>

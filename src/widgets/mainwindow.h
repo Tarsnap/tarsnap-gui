@@ -104,6 +104,7 @@ private slots:
     void mainTabChanged(int index);
     void validateBackupTab();
     void enableJobScheduling();
+    void disableJobScheduling();
 
 private:
     Ui::MainWindow  _ui;

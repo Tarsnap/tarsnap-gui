@@ -272,6 +272,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::clearJournalClicked);
     connect(_ui.enableSchedulingButton, &QPushButton::clicked, this,
             &MainWindow::enableJobScheduling);
+    connect(_ui.disableSchedulingButton, &QPushButton::clicked, this,
+            &MainWindow::disableJobScheduling);
 
     // Archives pane
     _ui.archiveListWidget->addAction(_ui.actionRefresh);
@@ -913,6 +915,16 @@ void MainWindow::validateBackupTab()
 void MainWindow::enableJobScheduling()
 {
 #if defined(Q_OS_OSX)
+    auto confirm = QMessageBox::question(this, "Confirm action",
+                                         "Register Tarsnap GUI with the OS X"
+                                         " Launchd service to run daily at 10am?"
+                                         "\nJobs that have scheduled backup"
+                                         " turned on will be backed up according"
+                                         " to the Daily, Weekly or Monthly"
+                                         " schedule.");
+    if(confirm != QMessageBox::Yes)
+        return;
+
     QFile launchdPlist(":/com.tarsnap.gui.plist");
     launchdPlist.open(QIODevice::ReadOnly | QIODevice::Text);
     QFile launchdPlistFile(QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist");
@@ -921,14 +933,86 @@ void MainWindow::enableJobScheduling()
         QString msg("Cannot open file %1 for writing. Aborting operation.");
         msg = msg.arg(launchdPlistFile.fileName());
         DEBUG << msg;
-        QMessageBox::critical(this, "Cannot enable job scheduling", msg);
+        QMessageBox::critical(this, "Failed two write service file", msg);
         return;
     }
-    launchdPlistFile.write(launchdPlist.readAll()
+    launchdPlistFile.write(launchdPlist
+                           .readAll()
                            .replace("%1", QCoreApplication::applicationFilePath().toLatin1())
                            .replace("%2", QDir::homePath().toLatin1()));
     launchdPlist.close();
     launchdPlistFile.close();
+
+    QProcess process;
+    process.start("launchctl",
+                  QStringList() << "load" << launchdPlistFile.fileName());
+    process.waitForFinished(-1);
+    if((process.exitStatus() != QProcess::NormalExit)
+       || (process.exitCode() != 0))
+    {
+        QString msg("Failed to load launchd plist file");
+        DEBUG << msg;
+        QMessageBox::critical(this, "Launchd command failed", msg);
+        return;
+    }
+
+    process.start("launchctl", QStringList() << "start" << "com.tarsnap.gui");
+    process.waitForFinished(-1);
+    if((process.exitStatus() != QProcess::NormalExit)
+       || (process.exitCode() != 0))
+    {
+        QString msg("Failed to start launchd service");
+        DEBUG << msg;
+        QMessageBox::critical(this, "Launchd command failed", msg);
+        return;
+    }
+#elif defined(Q_OS_LINUX)
+
+#elif defined(Q_OS_BSD4)
+
+#endif
+}
+
+void MainWindow::disableJobScheduling()
+{
+#if defined(Q_OS_OSX)
+    auto confirm = QMessageBox::question(this, "Confirm action",
+                                         "Unregister Tarsnap GUI from the OS X"
+                                         " Launchd service? This will disable"
+                                         " automatic Job backup scheduling.");
+    if(confirm != QMessageBox::Yes)
+        return;
+
+    QFile launchdPlistFile(QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist");
+    if(!launchdPlistFile.exists())
+    {
+        QString msg("Launch service file not found:\n%1\nAborting operation.");
+        msg = msg.arg(launchdPlistFile.fileName());
+        DEBUG << msg;
+        QMessageBox::critical(this, "Service file not found", msg);
+        return;
+    }
+
+    QProcess process;
+    process.start("launchctl", QStringList() << "unload" << launchdPlistFile.fileName());
+    process.waitForFinished(-1);
+    if((process.exitStatus() != QProcess::NormalExit)
+       || (process.exitCode() != 0))
+    {
+        QString msg("Failed to unload launchd service.");
+        DEBUG << msg;
+        QMessageBox::critical(this, "Launchd command failed", msg);
+        return;
+    }
+
+    if(!launchdPlistFile.remove())
+    {
+        QString msg("Cannot remove service file:\n%1\nAborting operation.");
+        msg = msg.arg(launchdPlistFile.fileName());
+        DEBUG << msg;
+        QMessageBox::critical(this, "Cannot remove service file", msg);
+        return;
+    }
 #elif defined(Q_OS_LINUX)
 
 #elif defined(Q_OS_BSD4)

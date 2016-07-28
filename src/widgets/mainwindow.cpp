@@ -49,6 +49,10 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archivesFilter->hide();
     _ui.jobsFilter->hide();
 
+#ifdef Q_OS_OSX
+    _ui.aboutButton->hide();
+#endif
+
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     _ui.consoleLog->setPlaceholderText(tr("No events yet"));
     _ui.journalLog->setPlaceholderText(tr("No messages yet"));

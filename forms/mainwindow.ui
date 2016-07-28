@@ -2085,47 +2085,69 @@ For help regarding Tarsnap GUI, please visit the &lt;a href=&quot;https://github
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBox_7">
-             <property name="title">
-              <string>Keyboard shortcuts</string>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_20">
+            <widget class="QWidget" name="widget" native="true">
+             <layout class="QVBoxLayout" name="verticalLayout_19">
+              <property name="spacing">
+               <number>0</number>
+              </property>
               <property name="leftMargin">
-               <number>2</number>
+               <number>0</number>
               </property>
               <property name="topMargin">
-               <number>2</number>
+               <number>0</number>
               </property>
               <property name="rightMargin">
-               <number>2</number>
+               <number>0</number>
               </property>
               <property name="bottomMargin">
-               <number>2</number>
+               <number>0</number>
               </property>
               <item>
-               <widget class="QPlainTextEdit" name="keyboardShortcuts">
-                <property name="focusPolicy">
-                 <enum>Qt::ClickFocus</enum>
+               <widget class="QSplitter" name="splitter_3">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
                 </property>
-                <property name="toolTip">
-                 <string>Keyboard shortcuts list</string>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">#keyboardShortcuts {
+                <widget class="QGroupBox" name="groupBox_7">
+                 <property name="title">
+                  <string>Keyboard shortcuts</string>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_20">
+                  <property name="leftMargin">
+                   <number>2</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>2</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>2</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <widget class="QPlainTextEdit" name="keyboardShortcuts">
+                    <property name="focusPolicy">
+                     <enum>Qt::ClickFocus</enum>
+                    </property>
+                    <property name="toolTip">
+                     <string>Keyboard shortcuts list</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">#keyboardShortcuts {
 background: rgba(255,255,255,170);
 border-radius: 4px;
 font-family: Monospace, Monaco;
 font-size: 12px;
 }</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::NoFrame</enum>
-                </property>
-                <property name="readOnly">
-                 <bool>true</bool>
-                </property>
-                <property name="plainText">
-                 <string>Global
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                    <property name="plainText">
+                     <string>Global
 ------
 %1[1-5] - switch between Backup, Archives.. main tabs
 %1J     - toggle the Journal log
@@ -2160,61 +2182,63 @@ Settings tab
 ------------
 %1U - update Account Summary
 </string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox_5">
-             <property name="font">
-              <font>
-               <pointsize>-1</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="title">
-              <string>Console log</string>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <property name="leftMargin">
-               <number>2</number>
-              </property>
-              <property name="topMargin">
-               <number>2</number>
-              </property>
-              <property name="rightMargin">
-               <number>2</number>
-              </property>
-              <property name="bottomMargin">
-               <number>2</number>
-              </property>
-              <item>
-               <widget class="QPlainTextEdit" name="consoleLog">
-                <property name="focusPolicy">
-                 <enum>Qt::ClickFocus</enum>
-                </property>
-                <property name="toolTip">
-                 <string>Console command log</string>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">#consoleLog
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QGroupBox" name="groupBox_5">
+                 <property name="font">
+                  <font>
+                   <pointsize>-1</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="title">
+                  <string>Console log</string>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_18">
+                  <property name="leftMargin">
+                   <number>2</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>2</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>2</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <widget class="QPlainTextEdit" name="consoleLog">
+                    <property name="focusPolicy">
+                     <enum>Qt::ClickFocus</enum>
+                    </property>
+                    <property name="toolTip">
+                     <string>Console command log</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">#consoleLog
 {
 background: rgba(255,255,255,170);
 border-radius: 4px;
 font-family: Monospace, Monaco;
 font-size: 12px;
 }</string>
-                </property>
-                <property name="frameShape">
-                 <enum>QFrame::NoFrame</enum>
-                </property>
-                <property name="readOnly">
-                 <bool>true</bool>
-                </property>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
                </widget>
               </item>
              </layout>

@@ -91,6 +91,31 @@ bool CustomFileSystemModel::hasCheckedAncestor(const QModelIndex &index)
     return false;
 }
 
+QList<QModelIndex> CustomFileSystemModel::getFakePCRecursive(
+        const QModelIndex &index)
+{
+    QList<QModelIndex> indices;
+    if(isDir(index))
+    {
+        for(int i = 0; i < rowCount(index); i++)
+        {
+            QModelIndex child = index.child(i, index.column());
+            if(child.isValid())
+            {
+                if((dataInternal(child) == Qt::Unchecked) &&
+                        (data(child, Qt::CheckStateRole) ==
+                         Qt::PartiallyChecked))
+                {
+                    indices << child;
+                    if(isDir(child))
+                        indices << getFakePCRecursive(child);
+                }
+            }
+        }
+    }
+    return indices;
+}
+
 void CustomFileSystemModel::setUncheckedRecursive(const QModelIndex &index)
 {
     if(isDir(index))
@@ -184,6 +209,10 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
         }
         else if(value == Qt::Unchecked)
         {
+            // Get list of files which need manually emitting.  Must be
+            // done before modifying the _checklist.
+            QList<QModelIndex> fakeDescendents = getFakePCRecursive(index);
+
             _partialChecklist.remove(index);
             if(_checklist.remove(index))
                 emit dataChanged(index, index, selectionChangedRole);
@@ -197,6 +226,12 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                     setIndexCheckState(parent, Qt::PartiallyChecked);
                 else
                     setIndexCheckState(parent, Qt::Unchecked);
+            }
+
+            // Emit data for descendents which falsely reported PC.
+            for (int i = 0; i < fakeDescendents.count(); i++) {
+                QModelIndex descendent = fakeDescendents.at(i);
+                emit dataChanged(descendent, descendent, selectionChangedRole);
             }
         }
         QVector<int> roles;

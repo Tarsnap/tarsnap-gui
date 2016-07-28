@@ -72,7 +72,7 @@ bool CustomFileSystemModel::hasCheckedSibling(const QModelIndex &index)
         {
             if(sibling == index)
                 continue;
-            if(data(sibling, Qt::CheckStateRole) != Qt::Unchecked)
+            if(dataInternal(sibling) != Qt::Unchecked)
                 return true;
         }
     }

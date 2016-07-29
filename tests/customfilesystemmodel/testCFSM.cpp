@@ -1,5 +1,3 @@
-#include <assert.h>
-
 #include <QApplication>
 #include <QDir>
 #include <QTextStream>
@@ -7,8 +5,6 @@
 
 #include "scenario-num.h"
 #include "testCFSM.h"
-
-#include "debug.h"
 
 TestCFSM::TestCFSM(int scenario_num)
 {
@@ -18,10 +14,6 @@ TestCFSM::TestCFSM(int scenario_num)
     // Set up model.
     _model.setReadOnly(true);
     _model.setRootPath(_rootDir);
-
-    // Catch (and track) emit dataChanged from model.
-    connect(&_model, &CustomFileSystemModel::dataChanged, this,
-            &TestCFSM::dataChanged);
 
     // In the GUI, we cannot select a file or directory until its parent
     // directory has been loaded.  This is not a perfect imitation of that
@@ -71,27 +63,6 @@ bool TestCFSM::needToReadSubdirs(const QString dirname)
         }
     }
     return loadingMore;
-}
-
-void TestCFSM::dataChanged(const QModelIndex & topLeft,
-                           const QModelIndex & bottomRight,
-                           const QVector<int> &roles)
-{
-    QModelIndex index    = topLeft;
-    QString     filename = _model.filePath(index);
-    (void)roles;
-
-    // Our CustomFileSystemModel outputs each file url separately.
-    assert(topLeft == bottomRight);
-
-    // We only care about names inside the model's root directory.
-    if(filename.size() < _rootDir.size() + 1)
-        return;
-
-    // Store "relative name" and state in our hash.
-    QString relname = filename.right(filename.size() - _rootDir.size() - 1);
-    int     state   = _model.data(index, Qt::CheckStateRole).toInt();
-    _emittedHash[relname] = state;
 }
 
 // The format of these lines in the scenario file is:
@@ -177,14 +148,6 @@ int TestCFSM::processResults(QTextStream &in)
                 // Test failed!
                 return (1);
             }
-            // Check the emitted state.  If we haven't received any info about
-            // this relname, skip this check.
-            int emittedState = _emittedHash.value(lineRelname, -1);
-            if((emittedState != -1) && (desiredState != emittedState))
-            {
-                // Test failed!
-                return (2);
-            }
         }
         else
         {
@@ -222,17 +185,6 @@ int TestCFSM::runScenario(const int num)
                 console << "Model internal state does not match "
                         << "desired state.  Model data:" << endl;
                 printModel();
-            }
-            else if(result == 2)
-            {
-                console << "Model emitted state does not match "
-                        << "desired state.  Emitted data:" << endl;
-                QHashIterator<QString, int> iter(_emittedHash);
-                while(iter.hasNext())
-                {
-                    iter.next();
-                    console << iter.value() << "\t" << iter.key() << endl;
-                }
             }
             console << "--" << endl << endl;
         }
@@ -291,7 +243,6 @@ void TestCFSM::start()
         for(int i = 0; i < NUM_SCENARIOS; i++)
         {
             _model.reset();
-            _emittedHash.clear();
             if(runScenario(i) != 0)
                 num_errors++;
         }

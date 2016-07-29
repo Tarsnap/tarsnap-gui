@@ -1,7 +1,6 @@
 #ifndef TESTCFSM_H
 #define TESTCFSM_H
 
-#include <QHash>
 #include <QObject>
 #include <QString>
 #include <QTextStream>
@@ -17,10 +16,6 @@ public:
     ~TestCFSM();
 
 public slots:
-    // CustomFileSystemModel changed some data;
-    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
-                     const QVector<int> &roles);
-
     // Start running the test scenarios.
     void start();
 
@@ -29,8 +24,6 @@ private:
     CustomFileSystemModel _model;
     // The root directory of the model.
     QString _rootDir;
-    // A hash table of emitted data from the model.
-    QHash<QString, int> _emittedHash;
     // Allows running a single scenario
     int _scenario_num;
 

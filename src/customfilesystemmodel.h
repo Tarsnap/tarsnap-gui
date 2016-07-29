@@ -55,6 +55,9 @@ private:
     // Returns the actual data (i.e. without fakery with PartiallyChecked).
     QVariant dataInternal(const QModelIndex &index) const;
 
+    // Updates the index Checked state without generating an emit.
+    void setDataInternal(const QModelIndex &index, const QVariant &value);
+
     // Sets the index to the desired state (if it is not already).
     void setIndexCheckState(const QModelIndex &index,
                             const Qt::CheckState state);

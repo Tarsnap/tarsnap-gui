@@ -60,7 +60,7 @@ void CustomFileSystemModel::setIndexCheckState(const QModelIndex &index,
                                                const Qt::CheckState state)
 {
     if(dataInternal(index) != state)
-        setData(index, state, Qt::CheckStateRole);
+        setDataInternal(index, state);
 }
 
 bool CustomFileSystemModel::hasCheckedSibling(const QModelIndex &index)
@@ -104,7 +104,7 @@ void CustomFileSystemModel::setUncheckedRecursive(const QModelIndex &index)
                 // PartiallyChecked.
                 if(dataInternal(child) != Qt::Unchecked)
                 {
-                    setData(child, Qt::Unchecked, Qt::CheckStateRole);
+                    setDataInternal(child, Qt::Unchecked);
                     if(isDir(child))
                         setUncheckedRecursive(child);
                 }
@@ -118,6 +118,19 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
 {
     if(role == Qt::CheckStateRole)
     {
+        setDataInternal(index, value);
+
+        QVector<int> selectionChangedRole;
+        selectionChangedRole << SELECTION_CHANGED_ROLE;
+        emit dataChanged(index, index, selectionChangedRole);
+        return true;
+    }
+    return QFileSystemModel::setData(index, value, role);
+}
+
+void CustomFileSystemModel::setDataInternal(const QModelIndex &index,
+                                            const QVariant &value)
+{
         if(value == Qt::Checked)
         {
             _partialChecklist.remove(index);
@@ -194,12 +207,6 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                     setIndexCheckState(parent, Qt::Unchecked);
             }
         }
-        QVector<int> selectionChangedRole;
-        selectionChangedRole << SELECTION_CHANGED_ROLE;
-        emit dataChanged(index, index, selectionChangedRole);
-        return true;
-    }
-    return QFileSystemModel::setData(index, value, role);
 }
 
 void CustomFileSystemModel::reset()

@@ -64,6 +64,13 @@ private:
 
     // Searches for a checked ancestor.
     bool hasCheckedAncestor(const QModelIndex &index);
+
+    // Recursively sets previously-checked descendents to be unchecked.
+    void setUncheckedRecursive(const QModelIndex &index);
+
+    // Recursively gets all descendents which are marked as PartiallyChecked
+    // but which are not actually PartiallyChecked.
+    QList<QModelIndex> getFakePCRecursive(const QModelIndex &index);
 };
 
 #endif // CUSTOMFILESYSTEMMODEL_H

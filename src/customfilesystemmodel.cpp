@@ -116,15 +116,12 @@ void CustomFileSystemModel::setUncheckedRecursive(const QModelIndex &index)
 bool CustomFileSystemModel::setData(const QModelIndex &index,
                                     const QVariant &value, int role)
 {
-    QVector<int> selectionChangedRole;
-    selectionChangedRole << SELECTION_CHANGED_ROLE;
     if(role == Qt::CheckStateRole)
     {
         if(value == Qt::Checked)
         {
             _partialChecklist.remove(index);
             _checklist.insert(index);
-            emit dataChanged(index, index, selectionChangedRole);
 
             // Recursively set PartiallyChecked on all ancestors, and make an
             // ordered list of checked ancestors.
@@ -174,8 +171,7 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
         }
         else if(value == Qt::PartiallyChecked)
         {
-            if(_checklist.remove(index))
-                emit dataChanged(index, index, selectionChangedRole);
+            _checklist.remove(index);
             _partialChecklist.insert(index);
             QModelIndex parent = index.parent();
             if(parent.isValid() &&
@@ -185,8 +181,7 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
         else if(value == Qt::Unchecked)
         {
             _partialChecklist.remove(index);
-            if(_checklist.remove(index))
-                emit dataChanged(index, index, selectionChangedRole);
+            _checklist.remove(index);
 
             // Check ancestor
             QModelIndex parent = index.parent();
@@ -199,9 +194,9 @@ bool CustomFileSystemModel::setData(const QModelIndex &index,
                     setIndexCheckState(parent, Qt::Unchecked);
             }
         }
-        QVector<int> roles;
-        roles << Qt::CheckStateRole;
-        emit dataChanged(index, index, roles);
+        QVector<int> selectionChangedRole;
+        selectionChangedRole << SELECTION_CHANGED_ROLE;
+        emit dataChanged(index, index, selectionChangedRole);
         return true;
     }
     return QFileSystemModel::setData(index, value, role);

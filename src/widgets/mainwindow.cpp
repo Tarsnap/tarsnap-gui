@@ -495,7 +495,7 @@ void MainWindow::loadSettings()
     _ui.preservePathsCheckBox->setChecked(
         settings.value("tarsnap/preserve_pathnames", true).toBool());
     _ui.ignoreConfigCheckBox->setChecked(
-        settings.value("tarsnap/no_default_config", false).toBool());
+        settings.value("tarsnap/no_default_config", true).toBool());
     _ui.simulationCheckBox->setChecked(
         settings.value("tarsnap/dry_run", false).toBool());
     _ui.simulationIcon->setVisible(_ui.simulationCheckBox->isChecked());

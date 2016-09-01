@@ -1946,6 +1946,9 @@ border: 0;
                     <property name="text">
                      <string>Ignore default configuration files</string>
                     </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
                    </widget>
                   </item>
                   <item row="8" column="0" colspan="4">

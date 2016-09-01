@@ -52,12 +52,24 @@ private:
     QSet<QPersistentModelIndex> _checklist;
     QSet<QPersistentModelIndex> _partialChecklist;
 
+    // Returns the actual data (i.e. without fakery with PartiallyChecked).
+    QVariant dataInternal(const QModelIndex &index) const;
+
+    // Updates the index Checked state without generating an emit.
+    void setDataInternal(const QModelIndex &index, const QVariant &value);
+
     // Sets the index to the desired state (if it is not already).
     void setIndexCheckState(const QModelIndex &index,
                             const Qt::CheckState state);
 
-    // Searches for a checked sibling.
+    // Searches for a checked or partially checked sibling.
     bool hasCheckedSibling(const QModelIndex &index);
+
+    // Searches for a checked ancestor.
+    bool hasCheckedAncestor(const QModelIndex &index);
+
+    // Recursively sets previously-checked descendents to be unchecked.
+    void setUncheckedRecursive(const QModelIndex &index);
 };
 
 #endif // CUSTOMFILESYSTEMMODEL_H

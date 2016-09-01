@@ -1,0 +1,13 @@
+## Directory: select.
+actions:
++ dir-1/dir-2
+
+results:
+1 dir-1
+2 dir-1/dir-2
+1 dir-1/dir-2/file-5.txt
+1 dir-1/dir-2/file-6.txt
+0 dir-1/file-3.txt
+0 dir-1/file-4.txt
+0 file-1.txt
+0 file-2.txt

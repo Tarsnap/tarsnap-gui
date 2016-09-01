@@ -39,7 +39,7 @@ void TarsnapTask::run()
         _arguments.prepend("--maxbw-rate-up");
         _arguments.insert(1, QString::number(1024 * quint64(upload_rate_kbps)));
     }
-    if(settings.value("tarsnap/no_default_config", false).toBool())
+    if(settings.value("tarsnap/no_default_config", true).toBool())
         _arguments.prepend("--no-default-config");
     _process->setProgram(_command);
     _process->setArguments(_arguments);

@@ -49,6 +49,10 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archivesFilter->hide();
     _ui.jobsFilter->hide();
 
+#ifdef Q_OS_OSX
+    _ui.aboutButton->hide();
+#endif
+
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     _ui.consoleLog->setPlaceholderText(tr("No events yet"));
     _ui.journalLog->setPlaceholderText(tr("No messages yet"));
@@ -495,7 +499,7 @@ void MainWindow::loadSettings()
     _ui.preservePathsCheckBox->setChecked(
         settings.value("tarsnap/preserve_pathnames", true).toBool());
     _ui.ignoreConfigCheckBox->setChecked(
-        settings.value("tarsnap/no_default_config", false).toBool());
+        settings.value("tarsnap/no_default_config", true).toBool());
     _ui.simulationCheckBox->setChecked(
         settings.value("tarsnap/dry_run", false).toBool());
     _ui.simulationIcon->setVisible(_ui.simulationCheckBox->isChecked());

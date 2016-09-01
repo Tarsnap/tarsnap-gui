@@ -1,0 +1,14 @@
+scenario-00.txt: File: select.
+scenario-01.txt: File: select and de-select.
+scenario-02.txt: File in a directory: select.
+scenario-03.txt: File in a directory: select and deselect.
+scenario-04.txt: File in a grandson directory: select.
+scenario-05.txt: File in a grandson directory: select and deselect.
+scenario-06.txt: Directory: select.
+scenario-07.txt: Directory: select and deselect.
+scenario-08.txt: Grandfather directory: select.
+scenario-09.txt: Grandfather directory: select and deselect.
+scenario-10.txt: Grandfather directory: select, then select grandson file.
+scenario-11.txt: Grandfather directory: select grandson, then select grandfather.
+scenario-12.txt: Siblings: keep parent selected if unselecting but sibling is selected.
+scenario-13.txt: Siblings: select grandson, then grandparent, then unselect grandparent

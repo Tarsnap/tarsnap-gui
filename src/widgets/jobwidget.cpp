@@ -189,8 +189,6 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
     }
     else
     {
-        _ui.infoLabel->clear();
-        _ui.infoLabel->hide();
         _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
                                      false);
     }
@@ -249,14 +247,24 @@ void JobWidget::backupButtonClicked()
 
 bool JobWidget::canSaveNew()
 {
+    _ui.infoLabel->clear();
+    _ui.infoLabel->hide();
     if(_job->objectKey().isEmpty() && !_ui.jobNameLineEdit->text().isEmpty())
     {
-        _job->setName(_ui.jobNameLineEdit->text());
-        if(!_job->findObjectWithKey(_job->name()))
+        JobPtr newJob(new Job);
+        newJob->setName(_ui.jobNameLineEdit->text());
+        if(!newJob->findObjectWithKey(newJob->name()))
         {
-            emit findMatchingArchives(_job->archivePrefix());
+            emit findMatchingArchives(newJob->archivePrefix());
             if(!_ui.jobTreeWidget->getSelectedUrls().isEmpty())
+            {
                 return true;
+            }
+            else
+            {
+                _ui.infoLabel->setText(tr("No backup paths selected."));
+                _ui.infoLabel->show();
+            }
         }
         else
         {

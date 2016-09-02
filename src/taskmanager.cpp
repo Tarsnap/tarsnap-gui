@@ -368,12 +368,15 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     if(options.optionRestoreDir)
         args << "-x"
              << "-C" << options.path;
-    if((options.optionRestore || options.optionRestoreDir) &&
-       !options.overwriteFiles)
-        args << "-k";
-    if((options.optionRestore || options.optionRestoreDir) &&
-       options.keepNewerFiles)
-        args << "--keep-newer-files";
+    if((options.optionRestore || options.optionRestoreDir))
+    {
+       if(!options.overwriteFiles)
+           args << "-k";
+       if(options.keepNewerFiles)
+           args << "--keep-newer-files";
+       if(options.preservePerms)
+           args << "-p";
+    }
     if(options.optionTarArchive)
     {
         args << "-r";

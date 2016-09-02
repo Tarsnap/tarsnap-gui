@@ -18,6 +18,7 @@ struct ArchiveRestoreOptions
     bool    optionTarArchive  = false;
     bool    overwriteFiles    = false;
     bool    keepNewerFiles    = true;
+    bool    preservePerms     = false;
     QString     path;
     QStringList files;
 };

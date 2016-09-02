@@ -69,9 +69,10 @@ ArchiveRestoreOptions RestoreDialog::getOptions()
     ArchiveRestoreOptions options;
     options.optionRestore     = _ui.optionRestoreRadio->isChecked();
     options.optionRestoreDir  = _ui.optionBaseDirRadio->isChecked();
+    options.optionTarArchive  = _ui.optionTarArchiveRadio->isChecked();
     options.overwriteFiles    = _ui.overwriteCheckBox->isChecked();
     options.keepNewerFiles    = _ui.keepNewerCheckBox->isChecked();
-    options.optionTarArchive  = _ui.optionTarArchiveRadio->isChecked();
+    options.preservePerms     = _ui.preservePermCheckBox->isChecked();
     if(options.optionRestoreDir)
         options.path = _ui.baseDirLineEdit->text();
     else if(options.optionTarArchive)
@@ -102,6 +103,7 @@ void RestoreDialog::optionBaseDirToggled(bool checked)
     _ui.changeDirButton->setVisible(checked);
     _ui.overwriteCheckBox->setVisible(checked);
     _ui.keepNewerCheckBox->setVisible(checked);
+    _ui.preservePermCheckBox->setVisible(checked);
     adjustSize();
 }
 
@@ -124,6 +126,7 @@ void RestoreDialog::optionRestoreToggled(bool checked)
                            .arg(_archive->name()));
     _ui.overwriteCheckBox->setVisible(checked);
     _ui.keepNewerCheckBox->setVisible(checked);
+    _ui.preservePermCheckBox->setVisible(checked);
     adjustSize();
 }
 

@@ -1046,7 +1046,7 @@ border: 1px solid white;
                     <item row="4" column="1">
                      <layout class="QHBoxLayout" name="horizontalLayout_6">
                       <item>
-                       <widget class="QLabel" name="accountCreditLabel">
+                       <widget class="ElidedLabel" name="accountCreditLabel">
                         <property name="toolTip">
                          <string>Click update button</string>
                         </property>
@@ -1055,6 +1055,9 @@ border: 1px solid white;
                         </property>
                         <property name="textInteractionFlags">
                          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                        </property>
+                        <property name="elide" stdset="0">
+                         <string>Qt::ElideRight</string>
                         </property>
                        </widget>
                       </item>
@@ -1118,9 +1121,6 @@ color: blue;
                         </property>
                         <property name="text">
                          <string>click update button</string>
-                        </property>
-                        <property name="wordWrap">
-                         <bool>true</bool>
                         </property>
                         <property name="textInteractionFlags">
                          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -1209,10 +1209,7 @@ color: blue;
                     <property name="title">
                      <string/>
                     </property>
-                    <layout class="QFormLayout" name="formLayout">
-                     <property name="fieldGrowthPolicy">
-                      <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                     </property>
+                    <layout class="QGridLayout" name="gridLayout_3">
                      <property name="leftMargin">
                       <number>0</number>
                      </property>
@@ -1225,6 +1222,72 @@ color: blue;
                      <property name="bottomMargin">
                       <number>0</number>
                      </property>
+                     <item row="1" column="2">
+                      <widget class="QPushButton" name="accountMachineUseHostnameButton">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>100</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>100</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string>Set machine name to host name</string>
+                       </property>
+                       <property name="text">
+                        <string>hostname</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_19">
+                       <property name="text">
+                        <string>Machine name:</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="2">
+                      <widget class="QPushButton" name="accountMachineKeyBrowseButton">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>100</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>100</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="toolTip">
+                        <string>Browse for a machine key</string>
+                       </property>
+                       <property name="text">
+                        <string>change</string>
+                       </property>
+                      </widget>
+                     </item>
                      <item row="0" column="0">
                       <widget class="QLabel" name="label">
                        <property name="text">
@@ -1245,60 +1308,31 @@ color: blue;
                        </property>
                       </widget>
                      </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_19">
-                       <property name="text">
-                        <string>Machine name:</string>
+                     <item row="1" column="1">
+                      <widget class="QLineEdit" name="accountMachineLineEdit">
+                       <property name="toolTip">
+                        <string>Name used for this machine</string>
                        </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="placeholderText">
+                        <string/>
                        </property>
                       </widget>
                      </item>
-                     <item row="1" column="1">
-                      <layout class="QHBoxLayout" name="horizontalLayout_3">
-                       <item>
-                        <widget class="QLineEdit" name="accountMachineLineEdit">
-                         <property name="toolTip">
-                          <string>Name used for this machine</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="placeholderText">
-                          <string/>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="accountMachineUseHostnameButton">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>100</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>100</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="toolTip">
-                          <string>Set machine name to host name</string>
-                         </property>
-                         <property name="text">
-                          <string>hostname</string>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
+                     <item row="2" column="1">
+                      <widget class="QLineEdit" name="accountMachineKeyLineEdit">
+                       <property name="toolTip">
+                        <string>Tarsnap key used for this machine</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="placeholderText">
+                        <string/>
+                       </property>
+                      </widget>
                      </item>
                      <item row="2" column="0">
                       <widget class="QLabel" name="label_11">
@@ -1309,51 +1343,6 @@ color: blue;
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                        </property>
                       </widget>
-                     </item>
-                     <item row="2" column="1">
-                      <layout class="QHBoxLayout" name="horizontalLayout_9">
-                       <item>
-                        <widget class="QLineEdit" name="accountMachineKeyLineEdit">
-                         <property name="toolTip">
-                          <string>Tarsnap key used for this machine</string>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                         <property name="placeholderText">
-                          <string/>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="accountMachineKeyBrowseButton">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>100</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>100</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="toolTip">
-                          <string>Browse for a machine key</string>
-                         </property>
-                         <property name="text">
-                          <string>change</string>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
                      </item>
                     </layout>
                    </widget>

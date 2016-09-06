@@ -116,7 +116,6 @@ bool CoreApplication::initialize()
     connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
             QUEUED);
 
-    QMetaObject::invokeMethod(&_taskManager, "loadSettings", QUEUED);
     if(!wizardDone)
         QMetaObject::invokeMethod(&_taskManager, "initializeCache", QUEUED);
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
@@ -176,8 +175,6 @@ void CoreApplication::showMainWindow()
             &MainWindow::updateSettingsSummary, QUEUED);
     connect(_mainWindow, &MainWindow::repairCache, &_taskManager,
             &TaskManager::fsck, QUEUED);
-    connect(_mainWindow, &MainWindow::settingsChanged, &_taskManager,
-            &TaskManager::loadSettings, QUEUED);
     connect(_mainWindow, &MainWindow::purgeArchives, &_taskManager,
             &TaskManager::nuke, QUEUED);
     connect(_mainWindow, &MainWindow::restoreArchive, &_taskManager,

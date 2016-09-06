@@ -1025,7 +1025,6 @@ void MainWindow::commitSettings()
     settings.setValue("app/limit_download", _ui.limitDownloadSpinBox->value());
     settings.setValue("app/window_geometry", saveGeometry());
     settings.sync();
-    emit settingsChanged();
 }
 
 bool MainWindow::validateMachineKeyPath()

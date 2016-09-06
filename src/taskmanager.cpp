@@ -11,26 +11,12 @@
 #define SUCCESS 0
 
 TaskManager::TaskManager()
-    : _threadPool(QThreadPool::globalInstance()),
-      _aggressiveNetworking(false),
-      _preservePathnames(true)
+    : _threadPool(QThreadPool::globalInstance())
 {
 }
 
 TaskManager::~TaskManager()
 {
-}
-
-void TaskManager::loadSettings()
-{
-    QSettings settings;
-    _tarsnapDir      = settings.value("tarsnap/path").toString();
-    _tarsnapCacheDir = settings.value("tarsnap/cache").toString();
-    _tarsnapKeyFile  = settings.value("tarsnap/key").toString();
-    _aggressiveNetworking =
-        settings.value("tarsnap/aggressive_networking", false).toBool();
-    _preservePathnames =
-        settings.value("tarsnap/preserve_pathnames", true).toBool();
 }
 
 void TaskManager::getTarsnapVersion(QString tarsnapPath)
@@ -86,11 +72,9 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     _backupTaskMap[backupTask->uuid()] = backupTask;
     TarsnapTask *bTask = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
-    if(_aggressiveNetworking)
+    initTarsnapArgs(args);
+    QSettings settings;
+    if(settings.value("tarsnap/aggressive_networking", false).toBool())
         args << "--aggressive-networking";
     if(backupTask->optionDryRun())
         args << "--dry-run";
@@ -136,14 +120,8 @@ void TaskManager::getArchives()
 {
     TarsnapTask *listArchivesTask = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty()) // We shouldn't need to pass this as per the
-                                    // man page, however Tarsnap CLI seems to
-                                    // require it
-        args << "--cachedir" << _tarsnapCacheDir;
-    args << "--list-archives"
-         << "-vv";
+    initTarsnapArgs(args);
+    args << "--list-archives" << "-vv";
     listArchivesTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     listArchivesTask->setArguments(args);
     listArchivesTask->setTruncateLogOutput(true);
@@ -196,10 +174,7 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
 
     TarsnapTask *statsTask = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
+    initTarsnapArgs(args);
     args << "--print-stats"
          << "--no-humanize-numbers"
          << "-f" << archive->name();
@@ -229,13 +204,9 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
 
     TarsnapTask *contentsTask = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty()) // We shouldn't need to pass this as per the
-                                    // man page, however Tarsnap CLI seems to
-                                    // require it
-        args << "--cachedir" << _tarsnapCacheDir;
-    if(_preservePathnames)
+    initTarsnapArgs(args);
+    QSettings settings;
+    if(settings.value("tarsnap/preserve_pathnames", true).toBool())
         args << "-P";
     args << "-tv"
          << "-f" << archive->name();
@@ -264,10 +235,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
 
     TarsnapTask *delArchives = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
+    initTarsnapArgs(args);
     args << "--print-stats"
          << "-d";
     foreach(ArchivePtr archive, archives)
@@ -292,10 +260,7 @@ void TaskManager::getOverallStats()
 {
     TarsnapTask *overallStats = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
+    initTarsnapArgs(args);
     args << "--print-stats"
          << "--no-humanize-numbers";
     overallStats->setCommand(makeTarsnapCommand(CMD_TARSNAP));
@@ -309,10 +274,7 @@ void TaskManager::fsck(bool prune)
 {
     TarsnapTask *fsck = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
+    initTarsnapArgs(args);
     if(prune)
         args << "--fsck-prune";
     else
@@ -328,10 +290,7 @@ void TaskManager::nuke()
 {
     TarsnapTask *nuke = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
+    initTarsnapArgs(args);
     args << "--nuke";
     nuke->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     nuke->setStandardIn("No Tomorrow\n");
@@ -355,8 +314,7 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
 
     TarsnapTask *restore = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
+    initTarsnapArgs(args);
     if(options.optionRestore)
     {
         QSettings settings;
@@ -1046,10 +1004,37 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput,
 
 QString TaskManager::makeTarsnapCommand(QString cmd)
 {
+    QSettings settings;
+    QString _tarsnapDir = settings.value("tarsnap/path").toString();
     if(_tarsnapDir.isEmpty())
         return cmd;
     else
         return _tarsnapDir + QDir::separator() + cmd;
+}
+
+void TaskManager::initTarsnapArgs(QStringList &args)
+{
+    QSettings settings;
+    QString tarsnapKeyFile  = settings.value("tarsnap/key").toString();
+    if(!tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << tarsnapKeyFile;
+    QString tarsnapCacheDir = settings.value("tarsnap/cache").toString();
+    if(!tarsnapCacheDir.isEmpty())
+        args << "--cachedir" << tarsnapCacheDir;
+    int download_rate_kbps = settings.value("app/limit_download", 0).toInt();
+    if(download_rate_kbps)
+    {
+        args.prepend("--maxbw-rate-down");
+        args.insert(1, QString::number(1024 * quint64(download_rate_kbps)));
+    }
+    int upload_rate_kbps = settings.value("app/limit_upload", 0).toInt();
+    if(upload_rate_kbps)
+    {
+        args.prepend("--maxbw-rate-up");
+        args.insert(1, QString::number(1024 * quint64(upload_rate_kbps)));
+    }
+    if(settings.value("tarsnap/no_default_config", true).toBool())
+        args.prepend("--no-default-config");
 }
 
 void TaskManager::loadJobs()

@@ -1,8 +1,6 @@
 #include "tarsnaptask.h"
 #include "debug.h"
 
-#include <QSettings>
-
 #if defined Q_OS_UNIX
 #include <signal.h>
 #endif
@@ -26,21 +24,6 @@ void TarsnapTask::run()
         _process->setProcessChannelMode(QProcess::MergedChannels);
     else
         _process->setStandardOutputFile(_standardOutFile);
-    QSettings settings;
-    int upload_rate_kbps = settings.value("app/limit_upload", 0).toInt();
-    int download_rate_kbps = settings.value("app/limit_download", 0).toInt();
-    if(download_rate_kbps)
-    {
-        _arguments.prepend("--maxbw-rate-down");
-        _arguments.insert(1, QString::number(1024 * quint64(download_rate_kbps)));
-    }
-    if(upload_rate_kbps)
-    {
-        _arguments.prepend("--maxbw-rate-up");
-        _arguments.insert(1, QString::number(1024 * quint64(upload_rate_kbps)));
-    }
-    if(settings.value("tarsnap/no_default_config", true).toBool())
-        _arguments.prepend("--no-default-config");
     _process->setProgram(_command);
     _process->setArguments(_arguments);
     LOG << tr("Executing command:\n[%1 %2]")

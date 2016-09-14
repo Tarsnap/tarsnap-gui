@@ -34,6 +34,9 @@ signals:
     void requestDelete();
     void requestUpdate();
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
+
 private:
     Ui::BackupItemWidget _ui;
     QWidget             *_widget;

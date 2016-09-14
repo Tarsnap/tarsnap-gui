@@ -180,12 +180,6 @@ selection-background-color: rgba(177,214,255,150);
            </item>
            <item>
             <widget class="QLabel" name="backupListInfoLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
              <property name="font">
               <font>
                <italic>true</italic>
@@ -238,7 +232,7 @@ background-color: rgba(237,243,254,255);
                  <string>Resulting Archive name</string>
                 </property>
                 <property name="text">
-                 <string/>
+                 <string notr="true"/>
                 </property>
                 <property name="placeholderText">
                  <string>backup name</string>
@@ -711,18 +705,6 @@ color: black;
                  </property>
                  <item>
                   <widget class="QPushButton" name="dismissButton">
-                   <property name="minimumSize">
-                    <size>
-                     <width>120</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>100</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
                    <property name="text">
                     <string>Dismiss</string>
                    </property>
@@ -743,18 +725,6 @@ color: black;
                  </item>
                  <item>
                   <widget class="QPushButton" name="sureButton">
-                   <property name="minimumSize">
-                    <size>
-                     <width>120</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>100</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
                    <property name="text">
                     <string>Yes, create them</string>
                    </property>
@@ -954,7 +924,7 @@ border: 1px solid white;
                     <item row="0" column="1">
                      <widget class="QLabel" name="accountActualSizeLabel">
                       <property name="text">
-                       <string/>
+                       <string notr="true"/>
                       </property>
                       <property name="textInteractionFlags">
                        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -977,7 +947,7 @@ border: 1px solid white;
                     <item row="1" column="1">
                      <widget class="QLabel" name="accountArchivesCountLabel">
                       <property name="text">
-                       <string/>
+                       <string notr="true"/>
                       </property>
                       <property name="textInteractionFlags">
                        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -1000,7 +970,7 @@ border: 1px solid white;
                     <item row="2" column="1">
                      <widget class="QLabel" name="accountStorageSavedLabel">
                       <property name="text">
-                       <string/>
+                       <string notr="true"/>
                       </property>
                       <property name="textInteractionFlags">
                        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -1023,7 +993,7 @@ border: 1px solid white;
                     <item row="3" column="1">
                      <widget class="QLabel" name="accountTotalSizeLabel">
                       <property name="text">
-                       <string/>
+                       <string notr="true"/>
                       </property>
                       <property name="textInteractionFlags">
                        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -1051,13 +1021,13 @@ border: 1px solid white;
                          <string>Click update button</string>
                         </property>
                         <property name="text">
-                         <string>click update button</string>
+                         <string notr="true"/>
                         </property>
                         <property name="textInteractionFlags">
                          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
                         </property>
                         <property name="elide" stdset="0">
-                         <string>Qt::ElideRight</string>
+                         <string notr="true">Qt::ElideRight</string>
                         </property>
                        </widget>
                       </item>
@@ -1120,13 +1090,13 @@ color: blue;
                          <string>Click update button</string>
                         </property>
                         <property name="text">
-                         <string>click update button</string>
+                         <string notr="true"/>
                         </property>
                         <property name="textInteractionFlags">
                          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
                         </property>
                         <property name="elide" stdset="0">
-                         <string>Qt::ElideRight</string>
+                         <string notr="true">Qt::ElideRight</string>
                         </property>
                        </widget>
                       </item>
@@ -1188,7 +1158,7 @@ color: blue;
                        <set>Qt::AlignCenter</set>
                       </property>
                       <property name="elide" stdset="0">
-                       <string>Qt::ElideRight</string>
+                       <string notr="true">Qt::ElideRight</string>
                       </property>
                      </widget>
                     </item>
@@ -1304,7 +1274,7 @@ color: blue;
                         <string>E-mail address used to register on Tarsnap.com</string>
                        </property>
                        <property name="text">
-                        <string/>
+                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -1314,7 +1284,7 @@ color: blue;
                         <string>Name used for this machine</string>
                        </property>
                        <property name="text">
-                        <string/>
+                        <string notr="true"/>
                        </property>
                        <property name="placeholderText">
                         <string/>
@@ -1327,7 +1297,7 @@ color: blue;
                         <string>Tarsnap key used for this machine</string>
                        </property>
                        <property name="text">
-                        <string/>
+                        <string notr="true"/>
                        </property>
                        <property name="placeholderText">
                         <string/>
@@ -1396,7 +1366,44 @@ color: blue;
                   <string/>
                  </property>
                  <layout class="QGridLayout" name="gridLayout">
+                  <item row="13" column="0" alignment="Qt::AlignRight">
+                   <widget class="QLabel" name="label_10">
+                    <property name="text">
+                     <string>Limit download bandwidth:</string>
+                    </property>
+                   </widget>
+                  </item>
                   <item row="2" column="0" colspan="4">
+                   <widget class="QCheckBox" name="iecPrefixesCheckBox">
+                    <property name="toolTip">
+                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</string>
+                    </property>
+                    <property name="text">
+                     <string>Use IEC notation for displaying sizes (default is SI)</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="1">
+                   <widget class="QLineEdit" name="downloadsDirLineEdit">
+                    <property name="toolTip">
+                     <string>The directory where archives are restored to by default</string>
+                    </property>
+                    <property name="text">
+                     <string notr="true"/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0" colspan="4">
+                   <widget class="QCheckBox" name="followSymLinksCheckBox">
+                    <property name="toolTip">
+                     <string>If checked all symbolic links will be followed when creating an archive</string>
+                    </property>
+                    <property name="text">
+                     <string>Follow symbolic links</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0" colspan="4">
                    <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
                     <property name="toolTip">
                      <string>Use multiple TCP connections to send data to the Tarsnap server, can improve network performance</string>
@@ -1406,115 +1413,7 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="0" colspan="4">
-                   <widget class="QCheckBox" name="notificationsCheckBox">
-                    <property name="toolTip">
-                     <string>Control whether desktop notifications are displayed or not; only for supported platforms</string>
-                    </property>
-                    <property name="text">
-                     <string>Show desktop notifications</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="0" alignment="Qt::AlignRight">
-                   <widget class="QLabel" name="label_3">
-                    <property name="text">
-                     <string>Skip files larger than:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="9" column="0" alignment="Qt::AlignRight">
-                   <widget class="QLabel" name="downloadsDirLabel">
-                    <property name="text">
-                     <string>Downloads directory:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="2">
-                   <widget class="QPushButton" name="skipSystemDefaultsButton">
-                    <property name="toolTip">
-                     <string>Fill with default system junk patterns</string>
-                    </property>
-                    <property name="text">
-                     <string>defaults</string>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="10" column="1">
-                   <widget class="QSpinBox" name="limitUploadSpinBox">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Limit upload bandwidth rate to kilobits per second</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                    <property name="specialValueText">
-                     <string>disabled</string>
-                    </property>
-                    <property name="suffix">
-                     <string>kbps</string>
-                    </property>
-                    <property name="minimum">
-                     <number>0</number>
-                    </property>
-                    <property name="maximum">
-                     <number>2147483647</number>
-                    </property>
-                    <property name="singleStep">
-                     <number>1024</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="0" colspan="4">
-                   <widget class="QCheckBox" name="skipNoDumpCheckBox">
-                    <property name="toolTip">
-                     <string>Not all filesystems support this attribute</string>
-                    </property>
-                    <property name="text">
-                     <string>Skip files flagged with nodump attribute</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0" colspan="4">
-                   <widget class="QCheckBox" name="preservePathsCheckBox">
-                    <property name="toolTip">
-                     <string>Preseve absolute pathnames when backing up, by not removing leading slashes</string>
-                    </property>
-                    <property name="text">
-                     <string>Preserve pathnames globally</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="0" alignment="Qt::AlignRight">
-                   <widget class="QCheckBox" name="skipSystemJunkCheckBox">
-                    <property name="toolTip">
-                     <string>Tarsnap will skip these files globally for backups</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">#skipSystemJunkCheckBox
-{
-margin-top: 6px;
-border: 0;
-}</string>
-                    </property>
-                    <property name="text">
-                     <string>Skip system junk:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="1">
                    <widget class="QSpinBox" name="skipFilesSizeSpinBox">
                     <property name="enabled">
                      <bool>true</bool>
@@ -1554,7 +1453,7 @@ border: 0;
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="1">
+                  <item row="9" column="1">
                    <widget class="QLineEdit" name="skipSystemLineEdit">
                     <property name="enabled">
                      <bool>false</bool>
@@ -1562,56 +1461,25 @@ border: 0;
                     <property name="toolTip">
                      <string>Shell globbing patterns can be used, the list is colon separated</string>
                     </property>
+                    <property name="text">
+                     <string notr="true"/>
+                    </property>
                    </widget>
                   </item>
                   <item row="4" column="0" colspan="4">
-                   <widget class="QCheckBox" name="traverseMountCheckBox">
+                   <widget class="QCheckBox" name="preservePathsCheckBox">
                     <property name="toolTip">
-                     <string>Cross mount points when creating archives</string>
+                     <string>Preseve absolute pathnames when backing up, by not removing leading slashes</string>
                     </property>
                     <property name="text">
-                     <string>Traverse mounted points</string>
+                     <string>Preserve pathnames globally</string>
                     </property>
                     <property name="checked">
                      <bool>true</bool>
                     </property>
                    </widget>
                   </item>
-                  <item row="10" column="0" alignment="Qt::AlignRight">
-                   <widget class="QLabel" name="label_9">
-                    <property name="text">
-                     <string>Limit upload bandwidth:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="0" alignment="Qt::AlignRight">
-                   <widget class="QLabel" name="label_10">
-                    <property name="text">
-                     <string>Limit download bandwidth:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0" colspan="4">
-                   <widget class="QCheckBox" name="iecPrefixesCheckBox">
-                    <property name="toolTip">
-                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</string>
-                    </property>
-                    <property name="text">
-                     <string>Use IEC notation for displaying sizes (default is SI)</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="0" colspan="4">
-                   <widget class="QCheckBox" name="followSymLinksCheckBox">
-                    <property name="toolTip">
-                     <string>If checked all symbolic links will be followed when creating an archive</string>
-                    </property>
-                    <property name="text">
-                     <string>Follow symbolic links</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="1">
+                  <item row="13" column="1">
                    <widget class="QSpinBox" name="limitDownloadSpinBox">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1639,14 +1507,7 @@ border: 0;
                     </property>
                    </widget>
                   </item>
-                  <item row="9" column="1">
-                   <widget class="QLineEdit" name="downloadsDirLineEdit">
-                    <property name="toolTip">
-                     <string>The directory where archives are restored to by default</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="9" column="2">
+                  <item row="11" column="2">
                    <widget class="QPushButton" name="downloadsDirBrowseButton">
                     <property name="toolTip">
                      <string>Browse for Downloads directory</string>
@@ -1656,7 +1517,17 @@ border: 0;
                     </property>
                    </widget>
                   </item>
-                  <item row="12" column="0" colspan="4">
+                  <item row="7" column="0" colspan="4">
+                   <widget class="QCheckBox" name="skipNoDumpCheckBox">
+                    <property name="toolTip">
+                     <string>Not all filesystems support this attribute</string>
+                    </property>
+                    <property name="text">
+                     <string>Skip files flagged with nodump attribute</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="14" column="0" colspan="4">
                    <spacer name="verticalSpacer">
                     <property name="orientation">
                      <enum>Qt::Vertical</enum>
@@ -1668,6 +1539,134 @@ border: 0;
                      </size>
                     </property>
                    </spacer>
+                  </item>
+                  <item row="9" column="0" alignment="Qt::AlignRight">
+                   <widget class="QCheckBox" name="skipSystemJunkCheckBox">
+                    <property name="toolTip">
+                     <string>Tarsnap will skip these files globally for backups</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">#skipSystemJunkCheckBox
+{
+margin-top: 6px;
+border: 0;
+}</string>
+                    </property>
+                    <property name="text">
+                     <string>Skip system junk:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="0" alignment="Qt::AlignRight">
+                   <widget class="QLabel" name="label_3">
+                    <property name="text">
+                     <string>Skip files larger than:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0" colspan="4">
+                   <widget class="QCheckBox" name="notificationsCheckBox">
+                    <property name="toolTip">
+                     <string>Control whether desktop notifications are displayed or not; only for supported platforms</string>
+                    </property>
+                    <property name="text">
+                     <string>Show desktop notifications</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="0" alignment="Qt::AlignRight">
+                   <widget class="QLabel" name="label_13">
+                    <property name="text">
+                     <string>Language:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0" colspan="4">
+                   <widget class="QCheckBox" name="traverseMountCheckBox">
+                    <property name="toolTip">
+                     <string>Cross mount points when creating archives</string>
+                    </property>
+                    <property name="text">
+                     <string>Traverse mounted points</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="0" alignment="Qt::AlignRight">
+                   <widget class="QLabel" name="downloadsDirLabel">
+                    <property name="text">
+                     <string>Downloads directory:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="0" alignment="Qt::AlignRight">
+                   <widget class="QLabel" name="label_9">
+                    <property name="text">
+                     <string>Limit upload bandwidth:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="1">
+                   <widget class="QSpinBox" name="limitUploadSpinBox">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Limit upload bandwidth rate to kilobits per second</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="specialValueText">
+                     <string>disabled</string>
+                    </property>
+                    <property name="suffix">
+                     <string>kbps</string>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>2147483647</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1024</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="2">
+                   <widget class="QPushButton" name="skipSystemDefaultsButton">
+                    <property name="toolTip">
+                     <string>Fill with default system junk patterns</string>
+                    </property>
+                    <property name="text">
+                     <string>defaults</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="1">
+                   <widget class="QComboBox" name="languageComboBox">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="currentText">
+                     <string notr="true"/>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
@@ -1721,22 +1720,13 @@ border: 0;
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="0">
+                  <item row="4" column="0" alignment="Qt::AlignRight">
                    <widget class="QLabel" name="label_12">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
                     <property name="toolTip">
                      <string>Tarsnap caches information about what it has uploaded in a local directory</string>
                     </property>
                     <property name="text">
                      <string>Tarsnap cache directory:</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1756,7 +1746,7 @@ border: 0;
                      <string>Directory to use as Tarsnap cache</string>
                     </property>
                     <property name="text">
-                     <string/>
+                     <string notr="true"/>
                     </property>
                     <property name="placeholderText">
                      <string>Tarsnap cache directory</string>
@@ -1818,23 +1808,20 @@ border: 0;
                      <string>Directory where the Tarsnap CLI utilities reside</string>
                     </property>
                     <property name="text">
-                     <string/>
+                     <string notr="true"/>
                     </property>
                     <property name="placeholderText">
                      <string>Tarsnap client utilities directory</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="0">
+                  <item row="5" column="0" alignment="Qt::AlignRight">
                    <widget class="QLabel" name="label_7">
                     <property name="toolTip">
                      <string>The app data directory is used to store application settings and data</string>
                     </property>
                     <property name="text">
                      <string>App data directory:</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1854,14 +1841,14 @@ border: 0;
                      <string>Directory to use for app data</string>
                     </property>
                     <property name="text">
-                     <string/>
+                     <string notr="true"/>
                     </property>
                     <property name="placeholderText">
                      <string>App data directory</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="0">
+                  <item row="2" column="0" alignment="Qt::AlignRight">
                    <widget class="QLabel" name="label_20">
                     <property name="toolTip">
                      <string>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</string>
@@ -1869,18 +1856,21 @@ border: 0;
                     <property name="text">
                      <string>Tarsnap client directory:</string>
                     </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                    </property>
                    </widget>
                   </item>
                   <item row="3" column="1" colspan="2">
                    <widget class="QLabel" name="tarsnapVersionLabel">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
                     <property name="toolTip">
                      <string>Tarsnap CLI utilities version</string>
                     </property>
                     <property name="text">
-                     <string/>
+                     <string notr="true"/>
                     </property>
                    </widget>
                   </item>
@@ -1922,6 +1912,38 @@ border: 0;
                      <string>Clear journal</string>
                     </property>
                    </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <spacer name="horizontalSpacer_5">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Preferred</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="3" column="3">
+                   <spacer name="horizontalSpacer_6">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Preferred</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                  </layout>
                 </widget>
@@ -2302,10 +2324,10 @@ border: none;
          <string>Status bar (displays the latest Journal message)</string>
         </property>
         <property name="text">
-         <string/>
+         <string notr="true"/>
         </property>
         <property name="elide" stdset="0">
-         <string>Qt::ElideRight</string>
+         <string notr="true">Qt::ElideRight</string>
         </property>
        </widget>
       </item>

@@ -195,6 +195,13 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
                               tr("Archives (%1)").arg(_job->archives().count()));
 }
 
+void JobWidget::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+        _ui.retranslateUi(this);
+    QWidget::changeEvent(event);
+}
+
 void JobWidget::updateDetails()
 {
     if(!_job)

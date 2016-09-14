@@ -46,9 +46,6 @@
        <height>27</height>
       </size>
      </property>
-     <property name="text">
-      <string/>
-     </property>
      <property name="pixmap">
       <pixmap resource="../resources/resources.qrc">:/icons/hard-drive.png</pixmap>
      </property>
@@ -72,10 +69,10 @@ font-size: 12px;
 }</string>
      </property>
      <property name="text">
-      <string/>
+      <string notr="true"/>
      </property>
      <property name="elide" stdset="0">
-      <string>Qt::ElideRight</string>
+      <string notr="true">Qt::ElideRight</string>
      </property>
     </widget>
    </item>
@@ -95,10 +92,10 @@ font-size: 11px;
 }</string>
      </property>
      <property name="text">
-      <string/>
+      <string notr="true"/>
      </property>
      <property name="elide" stdset="0">
-      <string>Qt::ElideRight</string>
+      <string notr="true">Qt::ElideRight</string>
      </property>
     </widget>
    </item>
@@ -115,10 +112,10 @@ font-size: 11px;
 }</string>
      </property>
      <property name="text">
-      <string/>
+      <string notr="true"/>
      </property>
      <property name="elide" stdset="0">
-      <string>Qt::ElideRight</string>
+      <string notr="true">Qt::ElideRight</string>
      </property>
     </widget>
    </item>

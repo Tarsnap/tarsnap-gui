@@ -474,8 +474,14 @@ min-width: 200px;
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
             <property name="openExternalLinks">
              <bool>true</bool>
+            </property>
+            <property name="textInteractionFlags">
+             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
             </property>
            </widget>
           </item>
@@ -850,7 +856,7 @@ border: none;
      <widget class="QWidget" name="registerPage">
       <layout class="QVBoxLayout" name="registerVerticalLayout">
        <property name="spacing">
-        <number>0</number>
+        <number>-1</number>
        </property>
        <property name="leftMargin">
         <number>12</number>

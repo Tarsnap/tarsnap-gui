@@ -32,7 +32,11 @@ signals:
     void enableSave(bool enable);
     void findMatchingArchives(QString jobPrefix);
 
-protected slots:
+
+protected:
+    void changeEvent(QEvent *event);
+
+private slots:
     void updateDetails();
     void restoreButtonClicked();
     void backupButtonClicked();

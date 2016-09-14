@@ -6,6 +6,7 @@
 #include "ui_archiveitemwidget.h"
 #include "ui_backupitemwidget.h"
 #include "utils.h"
+#include "translator.h"
 
 #include <QDateTime>
 #include <QDesktopServices>
@@ -456,6 +457,16 @@ MainWindow::MainWindow(QWidget *parent)
             static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
             this,
             [&](){_ui.jobListWidget->setFocus();});
+    connect(_ui.languageComboBox, &QComboBox::currentTextChanged, this,
+            [&](const QString language)
+    {
+        if(!language.isEmpty())
+        {
+            this->commitSettings();
+            Translator &translator = Translator::instance();
+            translator.translateApp(qApp, language);
+        }
+    });
 }
 
 MainWindow::~MainWindow()
@@ -526,6 +537,13 @@ void MainWindow::loadSettings()
         _ui.defaultJobs->show();
         _ui.addJobButton->hide();
     }
+
+    Translator &translator = Translator::instance();
+    _ui.languageComboBox->addItem(LANG_AUTO);
+    _ui.languageComboBox->addItems(translator.languageList());
+    _ui.languageComboBox->setCurrentText(settings.value("app/language",
+                                                        LANG_AUTO)
+                                         .toString());
 
     restoreGeometry(settings.value("app/window_geometry").toByteArray());
 }
@@ -669,6 +687,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
         emit getTaskInfo();
         event->ignore();
     }
+}
+
+void MainWindow::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+        _ui.retranslateUi(this);
+    QWidget::changeEvent(event);
 }
 
 void MainWindow::setupMenuBar()
@@ -920,7 +945,7 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
     {
         _ui.backupDetailLabel->setText(tr("%1 %2 (%3)")
                                        .arg(count)
-                                       .arg(count == 1 ? "item" : "items")
+                                       .arg(count == 1 ? tr("item") : tr("items"))
                                        .arg(Utils::humanBytes(size)));
     }
     else
@@ -1019,6 +1044,7 @@ void MainWindow::commitSettings()
     settings.setValue("app/limit_upload", _ui.limitUploadSpinBox->value());
     settings.setValue("app/limit_download", _ui.limitDownloadSpinBox->value());
     settings.setValue("app/window_geometry", saveGeometry());
+    settings.setValue("app/language", _ui.languageComboBox->currentText());
     settings.sync();
 }
 

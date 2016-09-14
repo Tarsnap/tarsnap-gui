@@ -9,6 +9,7 @@
 BackupListItem::BackupListItem(QUrl url)
     : _widget(new QWidget), _count(0), _size(0)
 {
+    _widget->installEventFilter(this);
     _ui.setupUi(_widget);
     _widget->addAction(_ui.actionOpen);
     _widget->addAction(_ui.actionRemove);
@@ -94,6 +95,17 @@ void BackupListItem::updateDirDetail(quint64 size, quint64 count)
                              + Utils::humanBytes(_size));
     emit requestUpdate();
 }
+
+bool BackupListItem::eventFilter(QObject *obj, QEvent *event)
+{
+    if((obj == _widget) && (event->type() == QEvent::LanguageChange))
+    {
+        _ui.retranslateUi(_widget);
+        return true;
+    }
+    return false;
+}
+
 quint64 BackupListItem::size() const
 {
     return _size;

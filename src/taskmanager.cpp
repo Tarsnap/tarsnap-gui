@@ -815,14 +815,14 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
         emit message(tr("Deleting archive <i>%1</i> and %2 more archives... %3")
                          .arg(archives.first()->name())
                          .arg(archives.count() - 1)
-                         .arg(done ? "done." : ""),
+                         .arg(done ? tr("done.") : ""),
                      detail);
     }
     else if(archives.count() == 1)
     {
         emit message(tr("Deleting archive <i>%1</i>... %2")
                          .arg(archives.first()->name())
-                         .arg(done ? "done." : ""));
+                         .arg(done ? tr("done.") : ""));
     }
 }
 

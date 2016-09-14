@@ -6,6 +6,7 @@
 ArchiveListItem::ArchiveListItem(ArchivePtr archive)
     : _widget(new QWidget)
 {
+    _widget->installEventFilter(this);
     _ui.setupUi(_widget);
 
     _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
@@ -109,4 +110,14 @@ bool ArchiveListItem::isDisabled()
 void ArchiveListItem::update()
 {
     setArchive(_archive);
+}
+
+bool ArchiveListItem::eventFilter(QObject *obj, QEvent *event)
+{
+    if((obj == _widget) && (event->type() == QEvent::LanguageChange))
+    {
+        _ui.retranslateUi(_widget);
+        return true;
+    }
+    return false;
 }

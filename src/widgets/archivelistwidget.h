@@ -38,7 +38,6 @@ private slots:
     void inspectItem();
     void restoreItem();
     void goToJob();
-
 };
 
 #endif // ARCHIVELISTWIDGET_H

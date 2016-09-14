@@ -75,7 +75,7 @@ min-height: 32px;
          </font>
         </property>
         <property name="text">
-         <string/>
+         <string notr="true"/>
         </property>
         <property name="textInteractionFlags">
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -93,7 +93,7 @@ padding-left: 3px;
 }</string>
         </property>
         <property name="text">
-         <string/>
+         <string notr="true"/>
         </property>
         <property name="placeholderText">
          <string>Job name</string>
@@ -190,7 +190,7 @@ padding-left: 3px;
       </font>
      </property>
      <property name="text">
-      <string/>
+      <string notr="true"/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -283,7 +283,7 @@ alignment: center;
           <item>
            <widget class="QGroupBox" name="groupBox_2">
             <property name="title">
-             <string>Backup</string>
+             <string>Backup options</string>
             </property>
             <layout class="QGridLayout" name="gridLayout">
              <property name="spacing">
@@ -389,6 +389,9 @@ alignment: center;
                </property>
                <property name="toolTip">
                 <string>Can use shell globbing patterns, the list is colon separated</string>
+               </property>
+               <property name="text">
+                <string notr="true"/>
                </property>
               </widget>
              </item>

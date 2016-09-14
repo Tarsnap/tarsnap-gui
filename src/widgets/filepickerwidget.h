@@ -67,6 +67,8 @@ signals:
 protected:
     //! Used for handling the ESC key.
     void keyPressEvent(QKeyEvent *event);
+    //! Used for handling the LanguageChange event
+    void changeEvent(QEvent *event);
 
 private:
     Ui::FilePickerWidget   _ui;

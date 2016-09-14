@@ -29,6 +29,9 @@ signals:
     void requestRestore();
     void requestDelete();
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
+
 private:
     Ui::JobItemWidget _ui;
     QWidget          *_widget;

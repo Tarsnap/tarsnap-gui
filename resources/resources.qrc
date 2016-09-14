@@ -43,5 +43,7 @@
         <file>icons/tarsnap-logo-icon.png</file>
         <file>icons/tarsnap-logo-icon@2x.png</file>
         <file>icons/hard-drive-big.png</file>
+        <file>translations/tarsnap-gui_ro.qm</file>
+        <file>translations/tarsnap-gui_en.qm</file>
     </qresource>
 </RCC>

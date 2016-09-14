@@ -2,6 +2,7 @@
 #include "debug.h"
 #include "utils.h"
 #include "widgets/setupdialog.h"
+#include "translator.h"
 
 #include <QFontDatabase>
 #include <QMessageBox>
@@ -76,6 +77,10 @@ bool CoreApplication::initialize()
         settings.setPath(QSettings::IniFormat, QSettings::UserScope, _appDataDir);
         settings.setDefaultFormat(QSettings::IniFormat);
     }
+
+    Translator &translator = Translator::instance();
+    translator.translateApp(this, settings.value("app/language", LANG_AUTO)
+                            .toString());
 
     bool wizardDone = settings.value("app/wizard_done", false).toBool();
     if(!wizardDone)

@@ -31,6 +31,9 @@ signals:
     void requestRestore();
     void requestGoToJob();
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
+
 private:
     Ui::ArchiveItemWidget _ui;
     QWidget              *_widget;

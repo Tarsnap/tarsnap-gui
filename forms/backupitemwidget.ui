@@ -49,9 +49,6 @@
        <height>20</height>
       </size>
      </property>
-     <property name="text">
-      <string/>
-     </property>
      <property name="pixmap">
       <pixmap resource="../resources/resources.qrc">:/icons/file.png</pixmap>
      </property>
@@ -73,10 +70,10 @@ font-size: 12px;
 }</string>
      </property>
      <property name="text">
-      <string/>
+      <string notr="true"/>
      </property>
      <property name="elide" stdset="0">
-      <string>Qt::ElideMiddle</string>
+      <string notr="true">Qt::ElideMiddle</string>
      </property>
     </widget>
    </item>
@@ -112,7 +109,7 @@ font-size: 11px;
 }</string>
      </property>
      <property name="text">
-      <string/>
+      <string notr="true"/>
      </property>
     </widget>
    </item>

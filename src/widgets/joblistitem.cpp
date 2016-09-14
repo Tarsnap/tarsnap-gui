@@ -4,6 +4,7 @@
 JobListItem::JobListItem(JobPtr job)
     : _widget(new QWidget)
 {
+    _widget->installEventFilter(this);
     _ui.setupUi(_widget);
 
     _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
@@ -69,4 +70,14 @@ void JobListItem::setJob(const JobPtr &job)
 void JobListItem::update()
 {
     setJob(_job);
+}
+
+bool JobListItem::eventFilter(QObject *obj, QEvent *event)
+{
+    if((obj == _widget) && (event->type() == QEvent::LanguageChange))
+    {
+        _ui.retranslateUi(_widget);
+        return true;
+    }
+    return false;
 }

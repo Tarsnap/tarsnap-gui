@@ -142,6 +142,13 @@ void ArchiveWidget::keyPressEvent(QKeyEvent *event)
         QWidget::keyPressEvent(event);
 }
 
+void ArchiveWidget::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+        _ui.retranslateUi(this);
+    QWidget::changeEvent(event);
+}
+
 void ArchiveWidget::showContextMenu(const QPoint &pos)
 {
     QPoint globalPos = _ui.archiveContentsTableView->viewport()->mapToGlobal(pos);

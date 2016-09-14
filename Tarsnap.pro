@@ -44,7 +44,8 @@ SOURCES += \
     src/notification.cpp \
     src/persistentmodel/journal.cpp \
     src/widgets/archivewidget.cpp \
-    src/filetablemodel.cpp
+    src/filetablemodel.cpp \
+    src/translator.cpp
 
 HEADERS  += \
     src/coreapplication.h \
@@ -77,7 +78,8 @@ HEADERS  += \
     src/error.h \
     src/persistentmodel/journal.h \
     src/widgets/archivewidget.h \
-    src/filetablemodel.h
+    src/filetablemodel.h \
+    src/translator.h
 
 INCLUDEPATH += src/widgets/ \
             += src/
@@ -105,6 +107,9 @@ DISTFILES += \
     CHANGELOG
 
 DISTFILES += .astylerc
+
+TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
+               resources/translations/tarsnap-gui_ro.ts
 
 osx {
     LIBS += -framework Foundation

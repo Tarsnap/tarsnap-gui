@@ -67,6 +67,7 @@ protected:
     void paintEvent(QPaintEvent *);
     void keyPressEvent(QKeyEvent *event);
     void closeEvent(QCloseEvent *event);
+    void changeEvent(QEvent *event);
 
 private slots:
     void setupMenuBar();

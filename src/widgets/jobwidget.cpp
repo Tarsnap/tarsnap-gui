@@ -96,8 +96,6 @@ void JobWidget::setJob(const JobPtr &job)
     // Creating a new job?
     if(_job->objectKey().isEmpty())
     {
-        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                                     false);
         _ui.restoreButton->hide();
         _ui.backupButton->hide();
         _ui.infoLabel->hide();
@@ -108,8 +106,6 @@ void JobWidget::setJob(const JobPtr &job)
     }
     else
     {
-        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                                     true);
         _ui.restoreButton->show();
         _ui.backupButton->show();
         _ui.jobNameLabel->show();
@@ -222,6 +218,8 @@ void JobWidget::updateDetails()
     _ui.skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
     _ui.skipFilesCheckBox->setChecked(_job->optionSkipFiles());
     _ui.skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
+    _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
+                                 _job->archives().count());
     _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
                               tr("Archives (%1)").arg(_job->archives().count()));
     verifyJob();

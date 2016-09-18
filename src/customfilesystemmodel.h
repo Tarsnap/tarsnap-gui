@@ -62,8 +62,8 @@ private:
     void setIndexCheckState(const QModelIndex &index,
                             const Qt::CheckState state);
 
-    // Searches for a checked or partially checked sibling.
-    bool hasCheckedSibling(const QModelIndex &index);
+    // Checks that any&all siblings are unchecked.
+    bool hasAllSiblingsUnchecked(const QModelIndex &index);
 
     // Searches for a checked ancestor.
     bool hasCheckedAncestor(const QModelIndex &index);

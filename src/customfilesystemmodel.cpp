@@ -186,9 +186,10 @@ void CustomFileSystemModel::setDataInternal(const QModelIndex &index,
     {
         _checklist.remove(index);
         _partialChecklist.insert(index);
+
+        // Should the parent be partially checked?
         QModelIndex parent = index.parent();
-        if(parent.isValid() &&
-           (parent.data(Qt::CheckStateRole) == Qt::Unchecked))
+        if(parent.isValid() && (dataInternal(parent) == Qt::Unchecked))
             setIndexCheckState(parent, Qt::PartiallyChecked);
     }
     else if(value == Qt::Unchecked)

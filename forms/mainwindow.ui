@@ -1336,7 +1336,7 @@ color: blue;
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="settingsAppPage">
+             <widget class="QWidget" name="settingsBackupPage">
               <property name="geometry">
                <rect>
                 <x>0</x>
@@ -1367,7 +1367,7 @@ color: blue;
                   <string/>
                  </property>
                  <layout class="QGridLayout" name="gridLayout">
-                  <item row="3" column="0" colspan="4">
+                  <item row="2" column="0" colspan="4">
                    <widget class="QCheckBox" name="followSymLinksCheckBox">
                     <property name="toolTip">
                      <string>If checked all symbolic links will be followed when creating an archive</string>
@@ -1377,131 +1377,14 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="0" colspan="4">
-                   <widget class="QCheckBox" name="skipNoDumpCheckBox">
-                    <property name="toolTip">
-                     <string>Not all filesystems support this attribute</string>
-                    </property>
-                    <property name="text">
-                     <string>Skip files flagged with nodump attribute</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="0">
+                  <item row="7" column="0">
                    <widget class="QLabel" name="label_10">
                     <property name="text">
                      <string>Limit download bandwidth</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="10" column="0" colspan="4">
-                   <widget class="QCheckBox" name="simulationCheckBox">
-                    <property name="toolTip">
-                     <string>Don't really create archives on the Tarsnap servers; just simulate doing so locally.  The resulted archives and archive statistics will be almost identical (typically within a few kB or a fraction of a percent) to the real deal.</string>
-                    </property>
-                    <property name="text">
-                     <string>Simulation mode (simulate creation of archives, useful for dry runs)</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0" colspan="4">
-                   <widget class="QCheckBox" name="preservePathsCheckBox">
-                    <property name="toolTip">
-                     <string>Preseve absolute pathnames when backing up, by not removing leading slashes</string>
-                    </property>
-                    <property name="text">
-                     <string>Preserve pathnames globally</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="1">
-                   <widget class="QSpinBox" name="limitDownloadSpinBox">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Limit download bandwidth rate to kilobits per second</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                    <property name="specialValueText">
-                     <string>disabled</string>
-                    </property>
-                    <property name="suffix">
-                     <string>kbps</string>
-                    </property>
-                    <property name="maximum">
-                     <number>2147483647</number>
-                    </property>
-                    <property name="singleStep">
-                     <number>1024</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="0" colspan="4">
-                   <spacer name="verticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="5" column="1">
-                   <widget class="QLineEdit" name="skipSystemLineEdit">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="toolTip">
-                     <string>Shell globbing patterns can be used, the list is colon separated</string>
-                    </property>
-                    <property name="text">
-                     <string notr="true"/>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0" colspan="4">
-                   <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
-                    <property name="toolTip">
-                     <string>Use multiple TCP connections to send data to the Tarsnap server, can improve network performance</string>
-                    </property>
-                    <property name="text">
-                     <string>Aggressive networking</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0" colspan="4">
-                   <widget class="QCheckBox" name="traverseMountCheckBox">
-                    <property name="toolTip">
-                     <string>Cross mount points when creating archives</string>
-                    </property>
-                    <property name="text">
-                     <string>Traverse mounted points</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="0">
-                   <widget class="QLabel" name="label_9">
-                    <property name="text">
-                     <string>Limit upload bandwidth</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="1">
+                  <item row="6" column="1">
                    <widget class="QSpinBox" name="limitUploadSpinBox">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1532,7 +1415,7 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="1" colspan="2">
+                  <item row="5" column="1" colspan="2">
                    <widget class="QSpinBox" name="skipFilesSizeSpinBox">
                     <property name="enabled">
                      <bool>true</bool>
@@ -1572,31 +1455,24 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="0">
+                  <item row="5" column="0">
                    <widget class="QLabel" name="label_3">
                     <property name="text">
                      <string>Skip files larger than</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="0">
+                  <item row="4" column="0">
                    <widget class="QCheckBox" name="skipSystemJunkCheckBox">
                     <property name="toolTip">
                      <string>Tarsnap will skip these files globally for backups</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">#skipSystemJunkCheckBox
-{
-margin-top: 6px;
-border: 0;
-}</string>
                     </property>
                     <property name="text">
                      <string>Skip system junk</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="2" colspan="2">
+                  <item row="4" column="2" colspan="2">
                    <widget class="QPushButton" name="skipSystemDefaultsButton">
                     <property name="toolTip">
                      <string>Fill with default system junk patterns</string>
@@ -1619,12 +1495,129 @@ border: 0;
                     </property>
                    </widget>
                   </item>
+                  <item row="11" column="0" colspan="4">
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QLineEdit" name="skipSystemLineEdit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="toolTip">
+                     <string>Shell globbing patterns can be used, the list is colon separated</string>
+                    </property>
+                    <property name="text">
+                     <string notr="true"/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0" colspan="4">
+                   <widget class="QCheckBox" name="traverseMountCheckBox">
+                    <property name="toolTip">
+                     <string>Cross mount points when creating archives</string>
+                    </property>
+                    <property name="text">
+                     <string>Traverse mounted points</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="label_9">
+                    <property name="text">
+                     <string>Limit upload bandwidth</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0" colspan="4">
+                   <widget class="QCheckBox" name="preservePathsCheckBox">
+                    <property name="toolTip">
+                     <string>Preseve absolute pathnames when backing up, by not removing leading slashes</string>
+                    </property>
+                    <property name="text">
+                     <string>Preserve pathnames globally</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0" colspan="4">
+                   <widget class="QCheckBox" name="skipNoDumpCheckBox">
+                    <property name="toolTip">
+                     <string>Not all filesystems support this attribute</string>
+                    </property>
+                    <property name="text">
+                     <string>Skip files flagged with nodump attribute</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="0" colspan="4">
+                   <widget class="QCheckBox" name="aggressiveNetworkingCheckBox">
+                    <property name="toolTip">
+                     <string>Use multiple TCP connections to send data to the Tarsnap server, can improve network performance</string>
+                    </property>
+                    <property name="text">
+                     <string>Aggressive networking</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QSpinBox" name="limitDownloadSpinBox">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Limit download bandwidth rate to kilobits per second</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="specialValueText">
+                     <string>disabled</string>
+                    </property>
+                    <property name="suffix">
+                     <string>kbps</string>
+                    </property>
+                    <property name="maximum">
+                     <number>2147483647</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1024</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="0" colspan="4">
+                   <widget class="QCheckBox" name="simulationCheckBox">
+                    <property name="toolTip">
+                     <string>Don't really create archives on the Tarsnap servers; just simulate doing so locally.  The resulted archives and archive statistics will be almost identical (typically within a few kB or a fraction of a percent) to the real deal.</string>
+                    </property>
+                    <property name="text">
+                     <string>Simulation mode (simulate creation of archives, useful for dry runs)</string>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </widget>
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="settingsAdvancedPage">
+             <widget class="QWidget" name="settingsApplicationPage">
               <property name="geometry">
                <rect>
                 <x>0</x>
@@ -1909,6 +1902,9 @@ border: 0;
                     </property>
                     <property name="text">
                      <string notr="true"/>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Default restore directory</string>
                     </property>
                    </widget>
                   </item>

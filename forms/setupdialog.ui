@@ -409,6 +409,19 @@ min-width: 200px;
         <number>0</number>
        </property>
        <item>
+        <spacer name="cliTopSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QWidget" name="actionContainerWidget" native="true">
          <layout class="QVBoxLayout" name="actionVerticalLayout">
           <property name="leftMargin">
@@ -423,19 +436,6 @@ min-width: 200px;
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item>
-           <spacer name="cliTopSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
           <item>
            <widget class="QLabel" name="cliInfoLabel">
             <property name="sizePolicy">
@@ -856,7 +856,7 @@ border: none;
      <widget class="QWidget" name="registerPage">
       <layout class="QVBoxLayout" name="registerVerticalLayout">
        <property name="spacing">
-        <number>-1</number>
+        <number>3</number>
        </property>
        <property name="leftMargin">
         <number>12</number>

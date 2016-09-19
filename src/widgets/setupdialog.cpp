@@ -66,12 +66,6 @@ SetupDialog::SetupDialog(QWidget *parent)
     connect(_ui.wizardStackedWidget, &QStackedWidget::currentChanged, this,
             &SetupDialog::wizardPageChanged);
 
-    // Welcome page
-    connect(_ui.welcomePageSkipButton, &QPushButton::clicked,
-            [&]() { commitSettings(true); });
-    connect(_ui.welcomePageProceedButton, &QPushButton::clicked, this,
-            &SetupDialog::setNextPage);
-
     // Advanced setup page
     connect(_ui.advancedCLIButton, &QPushButton::toggled,
             _ui.advancedCLIWidget, &QWidget::setVisible);
@@ -87,8 +81,6 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::showAppDataBrowse);
     connect(_ui.appDataPathLineEdit, &QLineEdit::textChanged, this,
             &SetupDialog::validateAdvancedSetupPage);
-    connect(_ui.advancedPageProceedButton, &QPushButton::clicked, this,
-            &SetupDialog::setNextPage);
 
     // Restore page
     connect(_ui.restoreNoButton, &QPushButton::clicked, this,
@@ -107,12 +99,6 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::validateRegisterPage);
     connect(_ui.browseKeyButton, &QPushButton::clicked, this,
             &SetupDialog::registerHaveKeyBrowse);
-    connect(_ui.registerMachineButton, &QPushButton::clicked, this,
-            &SetupDialog::registerMachine);
-
-    // Done page
-    connect(_ui.doneButton, &QPushButton::clicked, this,
-            &SetupDialog::commitSettings);
 
     _ui.backButton->setText(tr("Skip wizard"));
 }
@@ -200,10 +186,8 @@ void SetupDialog::setNextPage()
         _ui.advancedPageRadioButton->setEnabled(true);
         bool advancedOk = validateAdvancedSetupPage();
         _ui.advancedCLIButton->setChecked(!advancedOk);
-        if (advancedOk) {
-            _ui.advancedPageProceedButton->setFocus();
+        if (advancedOk)
             _ui.nextButton->setFocus();
-        }
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.advancedPage)
     {
@@ -270,7 +254,6 @@ bool SetupDialog::validateAdvancedSetupPage()
     else
         setTarsnapVersion("");
 
-    _ui.advancedPageProceedButton->setEnabled(result);
     _ui.nextButton->setEnabled(result);
 
     return result;
@@ -346,7 +329,6 @@ void SetupDialog::validateRegisterPage()
         }
     }
 
-    _ui.registerMachineButton->setEnabled(result);
     _ui.nextButton->setEnabled(result);
 }
 
@@ -361,7 +343,6 @@ void SetupDialog::registerHaveKeyBrowse()
 
 void SetupDialog::registerMachine()
 {
-    _ui.registerMachineButton->setEnabled(false);
     _ui.nextButton->setEnabled(false);
     _ui.errorLabel->clear();
     if(_haveKey)
@@ -393,14 +374,12 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
                     QString("<a href=\"%1\">%2</a>")
                            .arg(QUrl::fromLocalFile(QFileInfo(_tarsnapKeyFile).absolutePath()).toString())
                            .arg(_tarsnapKeyFile));
-        _ui.doneButton->setEnabled(true);
         _ui.nextButton->setEnabled(true);
         setNextPage();
         break;
     case TaskStatus::Failed:
         _ui.errorLabel->setText(reason);
         _ui.errorLabel->show();
-        _ui.registerMachineButton->setEnabled(true);
         _ui.nextButton->setEnabled(true);
         resize(sizeHint());
         break;

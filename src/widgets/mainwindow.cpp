@@ -505,6 +505,8 @@ void MainWindow::loadSettings()
     _ui.simulationCheckBox->setChecked(
         settings.value("tarsnap/dry_run", false).toBool());
     _ui.simulationIcon->setVisible(_ui.simulationCheckBox->isChecked());
+    _ui.skipNoDumpCheckBox->setChecked(
+        settings.value("tarsnap/skip_nodump", false).toBool());
     _ui.iecPrefixesCheckBox->setChecked(
         settings.value("app/iec_prefixes", false).toBool());
     _ui.skipFilesSizeSpinBox->setValue(
@@ -514,8 +516,6 @@ void MainWindow::loadSettings()
     _ui.skipSystemLineEdit->setEnabled(_ui.skipSystemJunkCheckBox->isChecked());
     _ui.skipSystemLineEdit->setText(
         settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
-    _ui.skipNoDumpCheckBox->setChecked(
-        settings.value("app/skip_nodump", false).toBool());
     _ui.downloadsDirLineEdit->setText(
         settings.value("app/downloads_dir", DOWNLOADS).toString());
     _ui.appDataDirLineEdit->setText(
@@ -1033,11 +1033,11 @@ void MainWindow::commitSettings()
     settings.setValue("tarsnap/follow_symlinks", _ui.followSymLinksCheckBox->isChecked());
     settings.setValue("tarsnap/no_default_config", _ui.ignoreConfigCheckBox->isChecked());
     settings.setValue("tarsnap/dry_run", _ui.simulationCheckBox->isChecked());
+    settings.setValue("tarsnap/skip_nodump", _ui.skipNoDumpCheckBox->isChecked());
     settings.setValue("app/iec_prefixes", _ui.iecPrefixesCheckBox->isChecked());
     settings.setValue("app/skip_files_size", _ui.skipFilesSizeSpinBox->value());
     settings.setValue("app/skip_system_enabled", _ui.skipSystemJunkCheckBox->isChecked());
     settings.setValue("app/skip_system_files", _ui.skipSystemLineEdit->text());
-    settings.setValue("app/skip_nodump", _ui.skipNoDumpCheckBox->isChecked());
     settings.setValue("app/downloads_dir", _ui.downloadsDirLineEdit->text());
     settings.setValue("app/app_data", _ui.appDataDirLineEdit->text());
     settings.setValue("app/notifications", _ui.notificationsCheckBox->isChecked());
@@ -1552,7 +1552,7 @@ void MainWindow::addDefaultJobs()
             job->setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
             job->setOptionTraverseMount(settings.value("tarsnap/traverse_mount", true).toBool());
             job->setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", false).toBool());
-            job->setOptionSkipNoDump(settings.value("app/skip_nodump", false).toBool());
+            job->setOptionSkipNoDump(settings.value("tarsnap/skip_nodump", false).toBool());
             job->setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toInt());
             job->setOptionSkipFiles(settings.value("app/skip_system_enabled", false).toBool());
             job->setOptionSkipFilesPatterns(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());

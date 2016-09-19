@@ -252,7 +252,7 @@ min-width: 200px;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -305,7 +305,7 @@ min-width: 200px;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -416,7 +416,7 @@ min-width: 200px;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -640,7 +640,7 @@ min-width: 200px;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -726,7 +726,7 @@ border: none;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -776,7 +776,7 @@ border: none;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -878,7 +878,7 @@ border: none;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -1093,7 +1093,7 @@ color: darkred;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -1188,7 +1188,7 @@ color: darkred;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -1263,7 +1263,7 @@ color: darkred;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>

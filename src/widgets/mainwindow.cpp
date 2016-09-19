@@ -572,21 +572,21 @@ void MainWindow::initialize()
     {
         QMessageBox::critical(this, tr("Tarsnap error"),
                               tr("Tarsnap CLI utilities not found. Go to "
-                                 " Settings -> Advanced page to fix that."));
+                                 " Settings -> Application page to fix that."));
     }
 
     if(!validateMachineKeyPath())
     {
         QMessageBox::critical(this, tr("Tarsnap error"),
                               tr("Machine key file not found. Go to "
-                                 " Settings -> Tarsnap page to fix that."));
+                                 " Settings -> Account page to fix that."));
     }
 
     if(!validateTarsnapCache())
     {
         QMessageBox::critical(this, tr("Tarsnap error"),
                               tr("Tarsnap cache dir is invalid. Go to "
-                                 " Settings -> Advanced page to fix that."));
+                                 " Settings -> Application page to fix that."));
     }
 
     if(!settings.value("tarsnap/dry_run", false).toBool())
@@ -1457,7 +1457,7 @@ void MainWindow::tarsnapError(TarsnapError error)
         QMessageBox::critical(this, tr("Tarsnap error"),
                               tr("Cache repair failed. It might be worth trying"
                                  " the 'Repair cache' button in Settings -> "
-                                 " Advanced."));
+                                 " Application."));
         break;
     }
     }

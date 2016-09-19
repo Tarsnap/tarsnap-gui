@@ -106,7 +106,7 @@ void ArchiveListWidget::removeSelectedItems()
                     tr("Are you sure you want to delete all of your "
                        "archives?\n"
                        "For your information, there's a purge action in "
-                       "Settings -> Advanced page that achieves the same "
+                       "Settings -> Account page that achieves the same "
                        "thing but more efficiently."));
             }
             else

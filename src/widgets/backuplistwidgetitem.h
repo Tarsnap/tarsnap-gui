@@ -21,10 +21,8 @@ public:
     void setUrl(const QUrl &url);
 
     quint64 count() const;
-    void setCount(const quint64 &count);
 
     quint64 size() const;
-    void setSize(const quint64 &size);
 
 public slots:
     void browseUrl();

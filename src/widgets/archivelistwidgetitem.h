@@ -18,12 +18,8 @@ public:
     QWidget *widget();
 
     ArchivePtr archive() const;
-    void setArchive(ArchivePtr archive);
     void setDisabled();
     bool isDisabled();
-
-public slots:
-    void update();
 
 signals:
     void requestDelete();
@@ -34,10 +30,15 @@ signals:
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
+private slots:
+    void update();
+
 private:
     Ui::ArchiveListWidgetItem _ui;
     QWidget    *_widget;
     ArchivePtr _archive;
+
+    void setArchive(ArchivePtr archive);
 };
 
 #endif // ARCHIVELISTWIDGETITEM_H

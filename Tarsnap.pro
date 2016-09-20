@@ -19,8 +19,8 @@ SOURCES += \
     src/main.cpp \
     src/utils.cpp \
     src/widgets/archivelistitem.cpp \
-    src/widgets/backuplistitem.cpp \
     src/widgets/backuplistwidget.cpp \
+    src/widgets/backuplistwidgetitem.cpp \
     src/widgets/archivelistwidget.cpp \
     src/widgets/filepickerdialog.cpp \
     src/widgets/filepickerwidget.cpp \
@@ -52,8 +52,8 @@ HEADERS  += \
     src/debug.h \
     src/utils.h \
     src/widgets/archivelistitem.h \
-    src/widgets/backuplistitem.h \
     src/widgets/backuplistwidget.h \
+    src/widgets/backuplistwidgetitem.h \
     src/widgets/archivelistwidget.h \
     src/widgets/filepickerdialog.h \
     src/widgets/filepickerwidget.h \
@@ -85,7 +85,7 @@ INCLUDEPATH += src/widgets/ \
             += src/
 
 FORMS    += \
-    forms/backupitemwidget.ui \
+    forms/backuplistwidgetitem.ui \
     forms/setupdialog.ui \
     forms/mainwindow.ui \
     forms/archiveitemwidget.ui \

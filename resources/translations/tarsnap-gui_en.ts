@@ -282,43 +282,43 @@ For your information, there&apos;s a purge action in Settings -&gt; Advanced pag
     </message>
 </context>
 <context>
-    <name>BackupItemWidget</name>
+    <name>BackupWidgetItem</name>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="146"/>
-        <location filename="../../forms/backupitemwidget.ui" line="184"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="146"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="184"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="199"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="199"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="202"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="202"/>
         <source>Remove selected item(s) &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="205"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="205"/>
         <source>Backspace, Del</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="217"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="217"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="220"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="220"/>
         <source>Open this item in the native File Explorer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>BackupListItem</name>
+    <name>BackupListWidgetItem</name>
     <message>
-        <location filename="../../src/widgets/backuplistitem.cpp" line="94"/>
+        <location filename="../../src/widgets/backuplistwidgetitem.cpp" line="94"/>
         <source> items totalling </source>
         <translation type="unfinished"></translation>
     </message>

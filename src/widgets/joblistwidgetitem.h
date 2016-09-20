@@ -18,10 +18,6 @@ public:
     QWidget *widget();
 
     JobPtr job() const;
-    void setJob(const JobPtr &job);
-
-public slots:
-    void update();
 
 signals:
     void requestBackup();
@@ -32,10 +28,15 @@ signals:
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
+private slots:
+    void update();
+
 private:
     Ui::JobListWidgetItem _ui;
     QWidget *_widget;
     JobPtr  _job;
+
+    void setJob(const JobPtr &job);
 };
 
 #endif // JOBLISTWIDGETITEM_H

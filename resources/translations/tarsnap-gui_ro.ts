@@ -12,6 +12,39 @@ unique data	%3		%4</source>
     </message>
 </context>
 <context>
+    <name>ArchiveListWidget</name>
+    <message>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="59"/>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="90"/>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="105"/>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="114"/>
+        <source>Confirm delete</source>
+        <translation>Confirmare ștergere</translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="60"/>
+        <source>Are you sure you want to delete archive %1 (this cannot be undone)?</source>
+        <translation>Ești sigur că dorești să ștergi Arhiva %1 (acțiunea este ireversibilă)?</translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="91"/>
+        <source>Are you sure you want to delete %1 selected archive(s) (this cannot be undone)?</source>
+        <translation>Ești sigur că dorești ștergerea a %1 Arhive selectate (acțiunea este ireversibila)?</translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="106"/>
+        <source>Are you sure you want to delete all of your archives?
+For your information, there&apos;s a purge action in Settings -&gt; Advanced page that achieves the same thing but more efficiently.</source>
+        <translation>Ești sigur că dorești să ștergi toate arhivele?
+Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge din Setări -&gt; Avansat.</translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="115"/>
+        <source>This will permanently delete the %1 selected archives. Proceed?</source>
+        <translation>Procedez cu ștergerea definitiva a %1 arhive selectate?</translation>
+    </message>
+</context>
+<context>
     <name>ArchiveListWidgetItem</name>
     <message>
         <location filename="../../forms/archivelistwidgetitem.ui" line="17"/>
@@ -95,46 +128,10 @@ unique data	%3		%4</source>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
-</context>
-<context>
-    <name>ArchiveListWidgetItem</name>
     <message>
         <location filename="../../src/widgets/archivelistwidgetitem.cpp" line="101"/>
         <source>(scheduled for deletion)</source>
         <translation>(în curs de stergere)</translation>
-    </message>
-</context>
-<context>
-    <name>ArchiveListWidget</name>
-    <message>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="59"/>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="90"/>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="105"/>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="114"/>
-        <source>Confirm delete</source>
-        <translation>Confirmare ștergere</translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="60"/>
-        <source>Are you sure you want to delete archive %1 (this cannot be undone)?</source>
-        <translation>Ești sigur că dorești să ștergi Arhiva %1 (acțiunea este ireversibilă)?</translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="91"/>
-        <source>Are you sure you want to delete %1 selected archive(s) (this cannot be undone)?</source>
-        <translation>Ești sigur că dorești ștergerea a %1 Arhive selectate (acțiunea este ireversibila)?</translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="106"/>
-        <source>Are you sure you want to delete all of your archives?
-For your information, there&apos;s a purge action in Settings -&gt; Advanced page that achieves the same thing but more efficiently.</source>
-        <translation>Ești sigur că dorești să ștergi toate arhivele?
-Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge din Setări -&gt; Avansat.</translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="115"/>
-        <source>This will permanently delete the %1 selected archives. Proceed?</source>
-        <translation>Procedez cu ștergerea definitiva a %1 arhive selectate?</translation>
     </message>
 </context>
 <context>
@@ -283,6 +280,25 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
     </message>
 </context>
 <context>
+    <name>BackupListWidget</name>
+    <message>
+        <location filename="../../src/widgets/backuplistwidget.cpp" line="77"/>
+        <source>Confirm action</source>
+        <translation>Confirmare acțiune</translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/backuplistwidget.cpp" line="78"/>
+        <source>The file or directory:
+    %1
+was already in the backup list; adding it again will have no effect.
+Add anyway?</source>
+        <translation>Fișierul sau directorul:
+    %1
+se află deja în lista de backup; adăugarea multiplă nu are niciun efect.
+Adaugă oricum?</translation>
+    </message>
+</context>
+<context>
     <name>BackupListWidgetItem</name>
     <message>
         <location filename="../../forms/backuplistwidgetitem.ui" line="146"/>
@@ -315,32 +331,10 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
         <source>Open this item in the native File Explorer</source>
         <translation>Deschide acest element în Managerul de Fișiere nativ</translation>
     </message>
-</context>
-<context>
-    <name>BackupListWidgetItem</name>
     <message>
         <location filename="../../src/widgets/backuplistwidgetitem.cpp" line="94"/>
         <source> items totalling </source>
         <translation> elemente cu dimensiunea totală  </translation>
-    </message>
-</context>
-<context>
-    <name>BackupListWidget</name>
-    <message>
-        <location filename="../../src/widgets/backuplistwidget.cpp" line="77"/>
-        <source>Confirm action</source>
-        <translation>Confirmare acțiune</translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/backuplistwidget.cpp" line="78"/>
-        <source>The file or directory:
-    %1
-was already in the backup list; adding it again will have no effect.
-Add anyway?</source>
-        <translation>Fișierul sau directorul:
-    %1
-se află deja în lista de backup; adăugarea multiplă nu are niciun efect.
-Adaugă oricum?</translation>
     </message>
 </context>
 <context>
@@ -491,6 +485,31 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>JobListWidget</name>
+    <message>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="26"/>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="125"/>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="135"/>
+        <source>Confirm action</source>
+        <translation>Confirmare acțiune</translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="27"/>
+        <source>Initiate backup for the %1 selected job(s)?</source>
+        <translation>Inițiază backup pentru %1 Joburi selectate?</translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="126"/>
+        <source>Are you sure you want to delete job &quot;%1&quot; (this cannot be undone)?</source>
+        <translation>Ești sigur că dorești să ștergi Jobul %1 (acțiunea este ireversibilă)?</translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="136"/>
+        <source>Also delete %1 archives belonging to this job (this cannot be undone)?</source>
+        <translation>Dorești să ștergi și cele %1 arhive aparținând acestui Job (acțiunea este ireversibilă)?</translation>
+    </message>
+</context>
+<context>
     <name>JobListWidgetItem</name>
     <message>
         <location filename="../../forms/joblistwidgetitem.ui" line="17"/>
@@ -568,9 +587,6 @@ Adaugă oricum?</translation>
         <source>Ctrl+B</source>
         <translation></translation>
     </message>
-</context>
-<context>
-    <name>JobListWidgetItem</name>
     <message>
         <location filename="../../src/widgets/joblistwidgetitem.cpp" line="51"/>
         <source>No backup done yet</source>
@@ -590,31 +606,6 @@ Adaugă oricum?</translation>
         <location filename="../../src/widgets/joblistwidgetitem.cpp" line="59"/>
         <source>%1 %2 totaling </source>
         <translation>%1 %2 cu dimensiunea totală </translation>
-    </message>
-</context>
-<context>
-    <name>JobListWidget</name>
-    <message>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="26"/>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="125"/>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="135"/>
-        <source>Confirm action</source>
-        <translation>Confirmare acțiune</translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="27"/>
-        <source>Initiate backup for the %1 selected job(s)?</source>
-        <translation>Inițiază backup pentru %1 Joburi selectate?</translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="126"/>
-        <source>Are you sure you want to delete job &quot;%1&quot; (this cannot be undone)?</source>
-        <translation>Ești sigur că dorești să ștergi Jobul %1 (acțiunea este ireversibilă)?</translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="136"/>
-        <source>Also delete %1 archives belonging to this job (this cannot be undone)?</source>
-        <translation>Dorești să ștergi și cele %1 arhive aparținând acestui Job (acțiunea este ireversibilă)?</translation>
     </message>
 </context>
 <context>
@@ -676,99 +667,107 @@ Adaugă oricum?</translation>
         <translation>Opțiuni backup</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="295"/>
+        <location filename="../../forms/jobwidget.ui" line="351"/>
         <source>Cross mount points when creating archives</source>
         <translation>Traversează dispozitivele montate la crearea arhivelor</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="298"/>
+        <location filename="../../forms/jobwidget.ui" line="354"/>
         <source>Traverse mounted points</source>
         <translation>Traversează dispozitivele montate</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="308"/>
         <source>Skip files larger than:</source>
-        <translation>Exclude fișierele cu dimensiunea mai mare de:</translation>
+        <translation type="vanished">Exclude fișierele cu dimensiunea mai mare de:</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="315"/>
+        <location filename="../../forms/jobwidget.ui" line="318"/>
         <source>If checked all symbolic links will be followed when creating an archive</source>
         <translation>Urmărește legăturile simbolice la crearea arhivelor </translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="318"/>
+        <location filename="../../forms/jobwidget.ui" line="321"/>
         <source>Follow symbolic links</source>
         <translation>Urmărește legăturile simbolice</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="325"/>
+        <location filename="../../forms/jobwidget.ui" line="411"/>
         <source>Tarsnap will skip these file patterns for this Job</source>
         <translation>Exclude fișierele ce îndeplinesc șabloanele specificate</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="328"/>
         <source>Skip file patterns:</source>
-        <translation>Șabloane de excludere a fișierelor:</translation>
+        <translation type="vanished">Șabloane de excludere a fișierelor:</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="357"/>
+        <location filename="../../forms/jobwidget.ui" line="373"/>
         <source>Do not include files of size equal or greater than the specified value in backups</source>
         <translation>Exclude fișierele cu dimensiune egală sau mai mare decât cea specificată</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="363"/>
+        <location filename="../../forms/jobwidget.ui" line="379"/>
         <source>disabled</source>
         <translation>dezactivat</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="369"/>
+        <location filename="../../forms/jobwidget.ui" line="385"/>
         <source>MiB</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="391"/>
+        <location filename="../../forms/jobwidget.ui" line="298"/>
         <source>Can use shell globbing patterns, the list is colon separated</source>
         <translation>Se pot folosi &quot;shell globbing patterns&quot;, lista este separată de simbolul &quot;:&quot;</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="401"/>
+        <location filename="../../forms/jobwidget.ui" line="308"/>
         <source>Fill with global settings value</source>
         <translation>Folosește valoarea din setările globale</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="404"/>
+        <location filename="../../forms/jobwidget.ui" line="311"/>
         <source>Defaults</source>
         <translation>Valoare implicită</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="411"/>
+        <location filename="../../forms/jobwidget.ui" line="338"/>
         <source>Preserve absolute pathnames by not removing leading slashes</source>
         <translation>Păstrează căi fișiere absolute, fară a elimina directorul radăcină</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="414"/>
+        <location filename="../../forms/jobwidget.ui" line="341"/>
         <source>Preserve pathnames</source>
         <translation>Păstrează căi fișiere absolute</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="424"/>
+        <location filename="../../forms/jobwidget.ui" line="421"/>
         <source>Enable to include this job in automatic scheduled jobs execution via the --jobs option</source>
         <translation>Activează programarea execuției automate pentru acest Job</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="427"/>
+        <location filename="../../forms/jobwidget.ui" line="424"/>
         <source>Include in scheduled backups</source>
         <translation>Activează programarea execuției automate</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="434"/>
+        <location filename="../../forms/jobwidget.ui" line="328"/>
         <source>Skip files flagged with nodump attribute; not all filesystems support this attribute</source>
         <translation>Exclude fișierele marcate cu atributul &quot;nodump&quot;; nu toate sistemele de fișiere suportă acest atribut</translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="437"/>
+        <location filename="../../forms/jobwidget.ui" line="331"/>
         <source>Skip files flagged nodump</source>
         <translation>Exclude fișierele marcate cu atributul &quot;nodump&quot;</translation>
+    </message>
+    <message>
+        <location filename="../../forms/jobwidget.ui" line="404"/>
+        <source>Skip files larger than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../forms/jobwidget.ui" line="414"/>
+        <source>Skip file patterns</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../forms/jobwidget.ui" line="451"/>
@@ -816,43 +815,43 @@ Adaugă oricum?</translation>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="162"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="158"/>
         <source>Assign %1 found archives to this Job?</source>
         <translation>Atribui %1 arhive găsite acestui Job?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="183"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="179"/>
         <source>Found %1 unassigned archives matching this Job description. Go to Archives tab below to review.</source>
         <translation>Am găsit %1 arhive neatribuite care se potrivesc cu descrierea acestui Job. Navighează în panoul Arhive de mai jos pentru revizuire.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="199"/>
-        <location filename="../../src/widgets/jobwidget.cpp" line="233"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="195"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="231"/>
         <source>Archives (%1)</source>
         <translation>Arhive (%1)</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="272"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="270"/>
         <source>No backup paths selected.</source>
         <translation>Nu ai selectat nicio cale din sistemul de fișiere.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="278"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="276"/>
         <source>Job name must be unique amongst existing Jobs.</source>
         <translation>Numele Jobului nou trebuie sa fie unic.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="313"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="311"/>
         <source>Previously selected backup paths for this Job are not accessible anymore and thus backups may be incomplete. Mount missing drives or make a new selection. Press Show details to list all backup paths for Job %1:</source>
         <translation>Căile de backup anterior definite pentru acest Job nu mai sunt accesibile, prin urmare, backupul poate fi incomplet. Montează dispozitivele lipsă sau redefinește caile aferente acestui Job. Apasă afișați detalii pentu a lista căile definite pentru Jobul %1:</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="337"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="335"/>
         <source>This Job has no backup paths selected. Please make a selection.</source>
         <translation>Acest Job nu are nicio cale de backup definită. Vă rugam să faceți o selecție. </translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="342"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="340"/>
         <source>Previously selected backup paths are not accessible. Click here for details.</source>
         <translation>Căile de backup anterior definite pentru acest Job nu mai sunt accesibile. Apasă aici pentru detalii.</translation>
     </message>
@@ -1060,8 +1059,8 @@ Adaugă oricum?</translation>
         <translation>Necesită actualizare</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="487"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="489"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="480"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="482"/>
         <source>click update button</source>
         <translation>necesită actualizare</translation>
     </message>
@@ -1899,7 +1898,7 @@ Settings tab
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="2719"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="185"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="178"/>
         <source>Browse for files to add to the Backup list</source>
         <translation>Navighează după fișiere de adăugat la lista de Backup</translation>
     </message>
@@ -1910,315 +1909,305 @@ Settings tab
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="2731"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="192"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="185"/>
         <source>Browse for directory to add to the Backup list</source>
         <translation>Navighează după director de adăugat la lista de Backup</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="58"/>
-        <source>No events yet</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="59"/>
-        <source>No messages yet</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="125"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="118"/>
         <source>Deleting all archives: press Cancel to abort</source>
         <translation>Se șterg toate arhivele: apasă Anulare pentru a renunța</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="392"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="385"/>
         <source>Job &lt;i&gt;%1&lt;/i&gt; deleted. Deleting %2 associated archives next...</source>
         <translation>Jobul &lt;i&gt;%1&lt;/i&gt; a fost șters. Se șterg %2 arhive asociate în pasul următor...</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="398"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="391"/>
         <source>Job &lt;i&gt;%1&lt;/i&gt; deleted.</source>
         <translation>Jobul &lt;i&gt;%1&lt;/i&gt; a fost șters.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="402"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="395"/>
         <source>Job &lt;i&gt;%1&lt;/i&gt; added.</source>
         <translation>Jobul &lt;i&gt;%1&lt;/i&gt; a fost adăugat.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="428"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="421"/>
         <source>The new size notation will take global effect on application restart.</source>
         <translation>Opțiunea de afișare a dimensiunilor va avea efect global la următoarea repornire a aplicației.</translation>
     </message>
     <message>
+        <location filename="../../src/widgets/mainwindow.cpp" line="571"/>
         <location filename="../../src/widgets/mainwindow.cpp" line="578"/>
         <location filename="../../src/widgets/mainwindow.cpp" line="585"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="592"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1451"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1462"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1444"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1455"/>
         <source>Tarsnap error</source>
         <translation>Eroare Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="579"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="572"/>
         <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Advanced page to fix that.</source>
         <translation>Utilitarele la linia de comandă Tarsnap nu au fost găsite. Navighează la panoul Setări -&gt; Avansat pentru a remedia.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="586"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="579"/>
         <source>Machine key file not found. Go to  Settings -&gt; Tarsnap page to fix that.</source>
         <translation>Cheia Tarsnap pentru acest dispozitiv nu a fost găsită. Navighează la panoul Setări -&gt; Tarsnap pentru a remedia.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="593"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="586"/>
         <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Advanced page to fix that.</source>
         <translation>Directorul &quot;cache&quot; Tarsnap este invalid. Navighează la panoul Setări -&gt; Avansat pentru a remedia.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="722"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="715"/>
         <source>&amp;Backup</source>
         <translation>&amp;Backup</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="730"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="723"/>
         <source>&amp;Archives</source>
         <translation>&amp;Arhive</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="736"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="729"/>
         <source>&amp;Jobs</source>
         <translation>&amp;Joburi</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="744"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="737"/>
         <source>&amp;Settings</source>
         <translation>&amp;Setări</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="747"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="740"/>
         <source>&amp;Window</source>
         <translation>&amp;Fereastră</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="749"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="742"/>
         <source>Minimize</source>
         <translation>Minimizează</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="752"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="745"/>
         <source>Zoom</source>
         <translation>Maximizează</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="754"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="765"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="747"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="758"/>
         <source>Enter Full Screen</source>
         <translation>Activează modul Ecran Complet</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="761"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="754"/>
         <source>Exit Full Screen</source>
         <translation>Dezactivează modul Ecran Complet</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="780"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="773"/>
         <source>&amp;Help</source>
         <translation>&amp;Ajutor</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="781"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="774"/>
         <source>Tarsnap Website</source>
         <translation>Website Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="806"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="799"/>
         <source>		Total size	Compressed size
 all archives	%1		%2
 unique data	%3		%4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="843"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="836"/>
         <source>Tarsnap version </source>
         <translation>Versiune Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="844"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="837"/>
         <source> detected</source>
         <translation> detectată</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="856"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1367"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="849"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1360"/>
         <source>Save</source>
         <translation>Salvează</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="865"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="858"/>
         <source>version </source>
         <translation>versiune</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="951"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="944"/>
         <source>%1 %2 (%3)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="953"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="946"/>
         <source>item</source>
         <translation>element</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="953"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="946"/>
         <source>items</source>
         <translation>elemente</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1114"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1293"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1107"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1286"/>
         <source>Purging all archives in %1 seconds...</source>
         <translation>Toate arhivele vor fi șterse în %1 secunde...</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1190"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1183"/>
         <source>Job error</source>
         <translation>Eroare Job</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1191"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1184"/>
         <source>Job %1 has no backup paths selected. Nothing to back up.</source>
         <translation>Jobul %1 nu are nicio cale de backup definită, așadar backupul nu poate fi realizat. </translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1197"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1190"/>
         <source>Job warning</source>
         <translation>Avertizare Job</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1198"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1191"/>
         <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
         <translation>Căile de backup anterior definite pentru Jobul %1 nu mai sunt accesibile. Backupul poate fi incomplet, procedez?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1231"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1224"/>
         <source>Browse for existing machine key</source>
         <translation>Navighează după o cheie dispozitiv Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1242"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1235"/>
         <source>Find Tarsnap client</source>
         <translation>Navighează după utilitarele la linia de comandă Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1254"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1247"/>
         <source>Tarsnap cache location</source>
         <translation>Navighează după directorul &quot;cache&quot; Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1267"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1260"/>
         <source>App data directory location</source>
         <translation>Navighează după directorul de date al aplicației</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1278"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1271"/>
         <source>No Tomorrow</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1281"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1274"/>
         <source>Purge all archives?</source>
         <translation>Elimin toate arhivele?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1282"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1275"/>
         <source>This action will &lt;b&gt;delete all (%1) archives&lt;/b&gt; stored for this key.&lt;br /&gt;&lt;br /&gt;To confirm, type &apos;%2&apos; and press OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Warning: This action cannot be undone. All archives will be &lt;b&gt;lost forever&lt;/b&gt;&lt;/i&gt;.</source>
         <translation>Această acțiune &lt;b&gt;va șterge toate cele (%1) arhive&lt;/b&gt; stocate pentru cheia curentă.&lt;br /&gt;&lt;br /&gt;Pentru a confirma, tastează &apos;%2&apos; și apasă butonul OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Avertisment: Această acțiune este ireversibilă. Arhivele vor fi șterse &lt;b&gt;definitiv&lt;/b&gt;, fără posibilitatea de a le recupera&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1298"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1291"/>
         <source>Purge cancelled.</source>
         <translation>Eliminare arhive anulată.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1306"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1498"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1299"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1491"/>
         <source>Confirm action</source>
         <translation>Confirmare acțiune</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1307"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1300"/>
         <source>Reset current app settings, job definitions and run the setup wizard?</source>
         <translation>Resetează setările aplicației, joburile definite și rulează Asistentul de configurare?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1317"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1310"/>
         <source>Browse for downloads directory</source>
         <translation>Navighează după directorul descărcări</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1344"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1358"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1337"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1351"/>
         <source>Add job</source>
         <translation>Adaugă job</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1384"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1377"/>
         <source>Stop Tasks</source>
         <translation>Oprește activitați</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1385"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1378"/>
         <source>There are no running or queued tasks.</source>
         <translation>Nu există activități în curs de desfășurare sau programate.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1391"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1384"/>
         <source>There are %1 running tasks and %2 queued.</source>
         <translation>Există %1 activități în curs de desfășurare și %2 programate pentru execuție.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1394"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1387"/>
         <source>What do you want to do?</source>
         <translation>Cum dorești să procedezi?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1398"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1391"/>
         <source>Interrupt backup</source>
         <translation>Întrerupe backup</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1402"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1395"/>
         <source>Stop running</source>
         <translation>Oprește activitățile în desfășurare</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1406"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1399"/>
         <source>Cancel queued</source>
         <translation>Anulează activitățile programate </translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1409"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1402"/>
         <source>Stop all</source>
         <translation>Oprește toate activitățile</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1411"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1404"/>
         <source>Proceed in background</source>
         <translation>Procedează în fundal</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1452"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1445"/>
         <source>The tarsnap cache directory is either missing or is broken. Run tarsnap fsck to fix this?
 </source>
         <translation>Directorul &quot;cache&quot; Tarsnap lipsește sau este invalid. Dorești să rezolvi această problemă?
  </translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1463"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1456"/>
         <source>Cache repair failed. It might be worth trying the &apos;Repair cache&apos; button in Settings -&gt;  Advanced.</source>
         <translation>Operațiunea de reparație a directorului cache a eșuat. Poți încerca din nou folosind butonul &quot;Repară director cache&quot; din panoul Setări -&gt; Avansat. </translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1499"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1492"/>
         <source>Clear journal log? All entries will be deleted forever.</source>
         <translation>Dorești să golești Jurnalul de activitați? Toate intrările vor fi sterse fără posibilitate de recuperare.</translation>
     </message>

@@ -12,6 +12,38 @@ unique data	%3		%4</source>
     </message>
 </context>
 <context>
+    <name>ArchiveListWidget</name>
+    <message>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="59"/>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="90"/>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="105"/>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="114"/>
+        <source>Confirm delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="60"/>
+        <source>Are you sure you want to delete archive %1 (this cannot be undone)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="91"/>
+        <source>Are you sure you want to delete %1 selected archive(s) (this cannot be undone)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="106"/>
+        <source>Are you sure you want to delete all of your archives?
+For your information, there&apos;s a purge action in Settings -&gt; Advanced page that achieves the same thing but more efficiently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/archivelistwidget.cpp" line="115"/>
+        <source>This will permanently delete the %1 selected archives. Proceed?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ArchiveListWidgetItem</name>
     <message>
         <location filename="../../forms/archivelistwidgetitem.ui" line="17"/>
@@ -95,44 +127,9 @@ unique data	%3		%4</source>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>ArchiveListWidgetItem</name>
     <message>
         <location filename="../../src/widgets/archivelistwidgetitem.cpp" line="101"/>
         <source>(scheduled for deletion)</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ArchiveListWidget</name>
-    <message>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="59"/>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="90"/>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="105"/>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="114"/>
-        <source>Confirm delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="60"/>
-        <source>Are you sure you want to delete archive %1 (this cannot be undone)?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="91"/>
-        <source>Are you sure you want to delete %1 selected archive(s) (this cannot be undone)?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="106"/>
-        <source>Are you sure you want to delete all of your archives?
-For your information, there&apos;s a purge action in Settings -&gt; Advanced page that achieves the same thing but more efficiently.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/archivelistwidget.cpp" line="115"/>
-        <source>This will permanently delete the %1 selected archives. Proceed?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -282,7 +279,28 @@ For your information, there&apos;s a purge action in Settings -&gt; Advanced pag
     </message>
 </context>
 <context>
-    <name>BackupWidgetItem</name>
+    <name>BackupListWidget</name>
+    <message>
+        <location filename="../../src/widgets/backuplistwidget.cpp" line="77"/>
+        <source>Confirm action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/backuplistwidget.cpp" line="78"/>
+        <source>The file or directory:
+    %1
+was already in the backup list; adding it again will have no effect.
+Add anyway?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BackupListWidgetItem</name>
+    <message>
+        <location filename="../../src/widgets/backuplistwidgetitem.cpp" line="94"/>
+        <source> items totalling </source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <location filename="../../forms/backuplistwidgetitem.ui" line="146"/>
         <location filename="../../forms/backuplistwidgetitem.ui" line="184"/>
@@ -312,30 +330,6 @@ For your information, there&apos;s a purge action in Settings -&gt; Advanced pag
     <message>
         <location filename="../../forms/backuplistwidgetitem.ui" line="220"/>
         <source>Open this item in the native File Explorer</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>BackupListWidgetItem</name>
-    <message>
-        <location filename="../../src/widgets/backuplistwidgetitem.cpp" line="94"/>
-        <source> items totalling </source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>BackupListWidget</name>
-    <message>
-        <location filename="../../src/widgets/backuplistwidget.cpp" line="77"/>
-        <source>Confirm action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/backuplistwidget.cpp" line="78"/>
-        <source>The file or directory:
-    %1
-was already in the backup list; adding it again will have no effect.
-Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -487,6 +481,31 @@ Add anyway?</source>
     </message>
 </context>
 <context>
+    <name>JobListWidget</name>
+    <message>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="26"/>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="125"/>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="135"/>
+        <source>Confirm action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="27"/>
+        <source>Initiate backup for the %1 selected job(s)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="126"/>
+        <source>Are you sure you want to delete job &quot;%1&quot; (this cannot be undone)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="136"/>
+        <source>Also delete %1 archives belonging to this job (this cannot be undone)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>JobListWidgetItem</name>
     <message>
         <location filename="../../forms/joblistwidgetitem.ui" line="17"/>
@@ -564,9 +583,6 @@ Add anyway?</source>
         <source>Ctrl+B</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>JobListWidgetItem</name>
     <message>
         <location filename="../../src/widgets/joblistwidgetitem.cpp" line="51"/>
         <source>No backup done yet</source>
@@ -585,31 +601,6 @@ Add anyway?</source>
     <message>
         <location filename="../../src/widgets/joblistwidgetitem.cpp" line="59"/>
         <source>%1 %2 totaling </source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>JobListWidget</name>
-    <message>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="26"/>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="125"/>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="135"/>
-        <source>Confirm action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="27"/>
-        <source>Initiate backup for the %1 selected job(s)?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="126"/>
-        <source>Are you sure you want to delete job &quot;%1&quot; (this cannot be undone)?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="136"/>
-        <source>Also delete %1 archives belonging to this job (this cannot be undone)?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -672,98 +663,98 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="295"/>
+        <location filename="../../forms/jobwidget.ui" line="351"/>
         <source>Cross mount points when creating archives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="298"/>
+        <location filename="../../forms/jobwidget.ui" line="354"/>
         <source>Traverse mounted points</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="308"/>
-        <source>Skip files larger than:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../forms/jobwidget.ui" line="315"/>
+        <location filename="../../forms/jobwidget.ui" line="318"/>
         <source>If checked all symbolic links will be followed when creating an archive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="318"/>
+        <location filename="../../forms/jobwidget.ui" line="321"/>
         <source>Follow symbolic links</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="325"/>
+        <location filename="../../forms/jobwidget.ui" line="411"/>
         <source>Tarsnap will skip these file patterns for this Job</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="328"/>
-        <source>Skip file patterns:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../forms/jobwidget.ui" line="357"/>
+        <location filename="../../forms/jobwidget.ui" line="373"/>
         <source>Do not include files of size equal or greater than the specified value in backups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="363"/>
+        <location filename="../../forms/jobwidget.ui" line="379"/>
         <source>disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="369"/>
+        <location filename="../../forms/jobwidget.ui" line="385"/>
         <source>MiB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="391"/>
+        <location filename="../../forms/jobwidget.ui" line="298"/>
         <source>Can use shell globbing patterns, the list is colon separated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="401"/>
+        <location filename="../../forms/jobwidget.ui" line="308"/>
         <source>Fill with global settings value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="404"/>
+        <location filename="../../forms/jobwidget.ui" line="311"/>
         <source>Defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="411"/>
+        <location filename="../../forms/jobwidget.ui" line="338"/>
         <source>Preserve absolute pathnames by not removing leading slashes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="414"/>
+        <location filename="../../forms/jobwidget.ui" line="341"/>
         <source>Preserve pathnames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="424"/>
+        <location filename="../../forms/jobwidget.ui" line="421"/>
         <source>Enable to include this job in automatic scheduled jobs execution via the --jobs option</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="427"/>
+        <location filename="../../forms/jobwidget.ui" line="424"/>
         <source>Include in scheduled backups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="434"/>
+        <location filename="../../forms/jobwidget.ui" line="328"/>
         <source>Skip files flagged with nodump attribute; not all filesystems support this attribute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobwidget.ui" line="437"/>
+        <location filename="../../forms/jobwidget.ui" line="331"/>
         <source>Skip files flagged nodump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../forms/jobwidget.ui" line="404"/>
+        <source>Skip files larger than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../forms/jobwidget.ui" line="414"/>
+        <source>Skip file patterns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -812,43 +803,43 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="162"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="158"/>
         <source>Assign %1 found archives to this Job?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="183"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="179"/>
         <source>Found %1 unassigned archives matching this Job description. Go to Archives tab below to review.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="199"/>
-        <location filename="../../src/widgets/jobwidget.cpp" line="233"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="195"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="231"/>
         <source>Archives (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="272"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="270"/>
         <source>No backup paths selected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="278"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="276"/>
         <source>Job name must be unique amongst existing Jobs.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="313"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="311"/>
         <source>Previously selected backup paths for this Job are not accessible anymore and thus backups may be incomplete. Mount missing drives or make a new selection. Press Show details to list all backup paths for Job %1:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="337"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="335"/>
         <source>This Job has no backup paths selected. Please make a selection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="342"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="340"/>
         <source>Previously selected backup paths are not accessible. Click here for details.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1056,8 +1047,8 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="487"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="489"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="480"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="482"/>
         <source>click update button</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1895,7 +1886,7 @@ Settings tab
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="2719"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="185"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="178"/>
         <source>Browse for files to add to the Backup list</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1906,314 +1897,304 @@ Settings tab
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="2731"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="192"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="185"/>
         <source>Browse for directory to add to the Backup list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="58"/>
-        <source>No events yet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="59"/>
-        <source>No messages yet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="125"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="118"/>
         <source>Deleting all archives: press Cancel to abort</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="392"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="385"/>
         <source>Job &lt;i&gt;%1&lt;/i&gt; deleted. Deleting %2 associated archives next...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="398"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="391"/>
         <source>Job &lt;i&gt;%1&lt;/i&gt; deleted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="402"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="395"/>
         <source>Job &lt;i&gt;%1&lt;/i&gt; added.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="428"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="421"/>
         <source>The new size notation will take global effect on application restart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../src/widgets/mainwindow.cpp" line="571"/>
         <location filename="../../src/widgets/mainwindow.cpp" line="578"/>
         <location filename="../../src/widgets/mainwindow.cpp" line="585"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="592"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1451"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1462"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1444"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1455"/>
         <source>Tarsnap error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="579"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="572"/>
         <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Advanced page to fix that.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="586"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="579"/>
         <source>Machine key file not found. Go to  Settings -&gt; Tarsnap page to fix that.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="593"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="586"/>
         <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Advanced page to fix that.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="722"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="715"/>
         <source>&amp;Backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="730"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="723"/>
         <source>&amp;Archives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="736"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="729"/>
         <source>&amp;Jobs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="744"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="737"/>
         <source>&amp;Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="747"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="740"/>
         <source>&amp;Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="749"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="742"/>
         <source>Minimize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="752"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="745"/>
         <source>Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="754"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="765"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="747"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="758"/>
         <source>Enter Full Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="761"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="754"/>
         <source>Exit Full Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="780"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="773"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="781"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="774"/>
         <source>Tarsnap Website</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="806"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="799"/>
         <source>		Total size	Compressed size
 all archives	%1		%2
 unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="843"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="836"/>
         <source>Tarsnap version </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="844"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="837"/>
         <source> detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="856"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1367"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="849"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1360"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="865"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="858"/>
         <source>version </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="951"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="944"/>
         <source>%1 %2 (%3)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="953"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="946"/>
         <source>item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="953"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="946"/>
         <source>items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1114"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1293"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1107"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1286"/>
         <source>Purging all archives in %1 seconds...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1190"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1183"/>
         <source>Job error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1191"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1184"/>
         <source>Job %1 has no backup paths selected. Nothing to back up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1197"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1190"/>
         <source>Job warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1198"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1191"/>
         <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1231"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1224"/>
         <source>Browse for existing machine key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1242"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1235"/>
         <source>Find Tarsnap client</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1254"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1247"/>
         <source>Tarsnap cache location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1267"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1260"/>
         <source>App data directory location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1278"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1271"/>
         <source>No Tomorrow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1281"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1274"/>
         <source>Purge all archives?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1282"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1275"/>
         <source>This action will &lt;b&gt;delete all (%1) archives&lt;/b&gt; stored for this key.&lt;br /&gt;&lt;br /&gt;To confirm, type &apos;%2&apos; and press OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Warning: This action cannot be undone. All archives will be &lt;b&gt;lost forever&lt;/b&gt;&lt;/i&gt;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1298"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1291"/>
         <source>Purge cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1306"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1498"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1299"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1491"/>
         <source>Confirm action</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1307"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1300"/>
         <source>Reset current app settings, job definitions and run the setup wizard?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1317"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1310"/>
         <source>Browse for downloads directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1344"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1358"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1337"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1351"/>
         <source>Add job</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1384"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1377"/>
         <source>Stop Tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1385"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1378"/>
         <source>There are no running or queued tasks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1391"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1384"/>
         <source>There are %1 running tasks and %2 queued.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1394"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1387"/>
         <source>What do you want to do?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1398"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1391"/>
         <source>Interrupt backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1402"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1395"/>
         <source>Stop running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1406"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1399"/>
         <source>Cancel queued</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1409"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1402"/>
         <source>Stop all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1411"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1404"/>
         <source>Proceed in background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1452"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1445"/>
         <source>The tarsnap cache directory is either missing or is broken. Run tarsnap fsck to fix this?
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1463"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1456"/>
         <source>Cache repair failed. It might be worth trying the &apos;Repair cache&apos; button in Settings -&gt;  Advanced.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1499"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1492"/>
         <source>Clear journal log? All entries will be deleted forever.</source>
         <translation type="unfinished"></translation>
     </message>

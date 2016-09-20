@@ -111,17 +111,7 @@ quint64 BackupListWidgetItem::size() const
     return _size;
 }
 
-void BackupListWidgetItem::setSize(const quint64 &size)
-{
-    _size = size;
-}
-
 quint64 BackupListWidgetItem::count() const
 {
     return _count;
-}
-
-void BackupListWidgetItem::setCount(const quint64 &count)
-{
-    _count = count;
 }

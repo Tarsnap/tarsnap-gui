@@ -1,4 +1,5 @@
 #include "archivelistwidgetitem.h"
+
 #include "utils.h"
 
 #define FIELD_WIDTH 6
@@ -6,9 +7,10 @@
 ArchiveListWidgetItem::ArchiveListWidgetItem(ArchivePtr archive)
     : _widget(new QWidget)
 {
-    _widget->installEventFilter(this);
     _ui.setupUi(_widget);
-
+    // Send translation events to the widget.
+    _widget->installEventFilter(this);
+    // Display tooltips using platform-specific strings.
     _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
                                    .arg(_ui.actionInspect->shortcut()
                                         .toString(QKeySequence::NativeText)));
@@ -18,7 +20,7 @@ ArchiveListWidgetItem::ArchiveListWidgetItem(ArchivePtr archive)
     _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip()
                                    .arg(_ui.actionDelete->shortcut()
                                         .toString(QKeySequence::NativeText)));
-
+    // Set up action connections.
     connect(_ui.deleteButton, &QToolButton::clicked, this,
             &ArchiveListWidgetItem::requestDelete);
     connect(_ui.inspectButton, &QToolButton::clicked, this,
@@ -29,7 +31,7 @@ ArchiveListWidgetItem::ArchiveListWidgetItem(ArchivePtr archive)
             &ArchiveListWidgetItem::requestGoToJob);
     connect(_ui.archiveButton, &QToolButton::clicked, this,
             &ArchiveListWidgetItem::requestInspect);
-
+    // Load the archive.
     setArchive(archive);
 }
 

@@ -91,7 +91,7 @@ void BackupListWidgetItem::updateDirDetail(quint64 size, quint64 count)
 {
     _size  = size;
     _count = count;
-    _ui.detailLabel->setText(QString::number(_count) + tr(" items totalling ")
+    _ui.detailLabel->setText(QString::number(_count) + tr(" items, ")
                              + Utils::humanBytes(_size));
     emit requestUpdate();
 }

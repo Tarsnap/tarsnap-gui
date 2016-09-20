@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>JobItemWidget</class>
- <widget class="QWidget" name="JobItemWidget">
+ <class>JobListWidgetItem</class>
+ <widget class="QWidget" name="JobListWidgetItem">
   <property name="geometry">
    <rect>
     <x>0</x>

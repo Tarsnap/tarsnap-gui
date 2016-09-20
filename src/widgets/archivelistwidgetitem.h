@@ -1,19 +1,19 @@
-#ifndef ARCHIVELISTITEM_H
-#define ARCHIVELISTITEM_H
+#ifndef ARCHIVELISTWIDGETITEM_H
+#define ARCHIVELISTWIDGETITEM_H
 
 #include "taskmanager.h"
-#include "ui_archiveitemwidget.h"
+#include "ui_archivelistwidgetitem.h"
 
 #include <QListWidgetItem>
 #include <QObject>
 
-class ArchiveListItem : public QObject, public QListWidgetItem
+class ArchiveListWidgetItem : public QObject, public QListWidgetItem
 {
     Q_OBJECT
 
 public:
-    explicit ArchiveListItem(ArchivePtr archive);
-    ~ArchiveListItem();
+    explicit ArchiveListWidgetItem(ArchivePtr archive);
+    ~ArchiveListWidgetItem();
 
     QWidget *widget();
 
@@ -35,9 +35,9 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
-    Ui::ArchiveItemWidget _ui;
-    QWidget              *_widget;
-    ArchivePtr            _archive;
+    Ui::ArchiveListWidgetItem _ui;
+    QWidget    *_widget;
+    ArchivePtr _archive;
 };
 
-#endif // ARCHIVELISTITEM_H
+#endif // ARCHIVELISTWIDGETITEM_H

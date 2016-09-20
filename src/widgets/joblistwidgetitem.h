@@ -1,19 +1,19 @@
-#ifndef JOBLISTITEM_H
-#define JOBLISTITEM_H
+#ifndef JOBLISTWIDGETITEM_H
+#define JOBLISTWIDGETITEM_H
 
 #include "persistentmodel/job.h"
-#include "ui_jobitemwidget.h"
+#include "ui_joblistwidgetitem.h"
 
 #include <QListWidgetItem>
 #include <QObject>
 
-class JobListItem : public QObject, public QListWidgetItem
+class JobListWidgetItem : public QObject, public QListWidgetItem
 {
     Q_OBJECT
 
 public:
-    explicit JobListItem(JobPtr job);
-    ~JobListItem();
+    explicit JobListWidgetItem(JobPtr job);
+    ~JobListWidgetItem();
 
     QWidget *widget();
 
@@ -33,9 +33,9 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
-    Ui::JobItemWidget _ui;
-    QWidget          *_widget;
-    JobPtr            _job;
+    Ui::JobListWidgetItem _ui;
+    QWidget *_widget;
+    JobPtr  _job;
 };
 
-#endif // JOBLISTITEM_H
+#endif // JOBLISTWIDGETITEM_H

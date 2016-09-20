@@ -1,7 +1,7 @@
-#include "joblistitem.h"
+#include "joblistwidgetitem.h"
 #include "utils.h"
 
-JobListItem::JobListItem(JobPtr job)
+JobListWidgetItem::JobListWidgetItem(JobPtr job)
     : _widget(new QWidget)
 {
     _widget->installEventFilter(this);
@@ -18,33 +18,33 @@ JobListItem::JobListItem(JobPtr job)
                                         .toString(QKeySequence::NativeText)));
 
     connect(_ui.backupButton, &QToolButton::clicked, this,
-            &JobListItem::requestBackup);
+            &JobListWidgetItem::requestBackup);
     connect(_ui.inspectButton, &QToolButton::clicked, this,
-            &JobListItem::requestInspect);
+            &JobListWidgetItem::requestInspect);
     connect(_ui.restoreButton, &QToolButton::clicked, this,
-            &JobListItem::requestRestore);
+            &JobListWidgetItem::requestRestore);
 
     setJob(job);
 }
 
-JobListItem::~JobListItem()
+JobListWidgetItem::~JobListWidgetItem()
 {
 }
 
-QWidget *JobListItem::widget()
+QWidget *JobListWidgetItem::widget()
 {
     return _widget;
 }
-JobPtr JobListItem::job() const
+JobPtr JobListWidgetItem::job() const
 {
     return _job;
 }
 
-void JobListItem::setJob(const JobPtr &job)
+void JobListWidgetItem::setJob(const JobPtr &job)
 {
     _job = job;
 
-    connect(_job.data(), &Job::changed, this, &JobListItem::update, QUEUED);
+    connect(_job.data(), &Job::changed, this, &JobListWidgetItem::update, QUEUED);
 
     _ui.nameLabel->setText(_job->name());
     if(_job->archives().isEmpty())
@@ -67,12 +67,12 @@ void JobListItem::setJob(const JobPtr &job)
     _ui.detailLabel->setText(detail);
 }
 
-void JobListItem::update()
+void JobListWidgetItem::update()
 {
     setJob(_job);
 }
 
-bool JobListItem::eventFilter(QObject *obj, QEvent *event)
+bool JobListWidgetItem::eventFilter(QObject *obj, QEvent *event)
 {
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {

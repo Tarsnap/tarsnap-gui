@@ -1,9 +1,9 @@
-#include "archivelistitem.h"
+#include "archivelistwidgetitem.h"
 #include "utils.h"
 
 #define FIELD_WIDTH 6
 
-ArchiveListItem::ArchiveListItem(ArchivePtr archive)
+ArchiveListWidgetItem::ArchiveListWidgetItem(ArchivePtr archive)
     : _widget(new QWidget)
 {
     _widget->installEventFilter(this);
@@ -20,38 +20,38 @@ ArchiveListItem::ArchiveListItem(ArchivePtr archive)
                                         .toString(QKeySequence::NativeText)));
 
     connect(_ui.deleteButton, &QToolButton::clicked, this,
-            &ArchiveListItem::requestDelete);
+            &ArchiveListWidgetItem::requestDelete);
     connect(_ui.inspectButton, &QToolButton::clicked, this,
-            &ArchiveListItem::requestInspect);
+            &ArchiveListWidgetItem::requestInspect);
     connect(_ui.restoreButton, &QToolButton::clicked, this,
-            &ArchiveListItem::requestRestore);
+            &ArchiveListWidgetItem::requestRestore);
     connect(_ui.jobButton, &QToolButton::clicked, this,
-            &ArchiveListItem::requestGoToJob);
+            &ArchiveListWidgetItem::requestGoToJob);
     connect(_ui.archiveButton, &QToolButton::clicked, this,
-            &ArchiveListItem::requestInspect);
+            &ArchiveListWidgetItem::requestInspect);
 
     setArchive(archive);
 }
 
-ArchiveListItem::~ArchiveListItem()
+ArchiveListWidgetItem::~ArchiveListWidgetItem()
 {
 }
 
-QWidget *ArchiveListItem::widget()
+QWidget *ArchiveListWidgetItem::widget()
 {
     return _widget;
 }
 
-ArchivePtr ArchiveListItem::archive() const
+ArchivePtr ArchiveListWidgetItem::archive() const
 {
     return _archive;
 }
 
-void ArchiveListItem::setArchive(ArchivePtr archive)
+void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
 {
     _archive = archive;
 
-    connect(_archive.data(), &Archive::changed, this, &ArchiveListItem::update,
+    connect(_archive.data(), &Archive::changed, this, &ArchiveListWidgetItem::update,
             QUEUED);
 
     QString displayName;
@@ -96,23 +96,23 @@ void ArchiveListItem::setArchive(ArchivePtr archive)
     }
 }
 
-void ArchiveListItem::setDisabled()
+void ArchiveListWidgetItem::setDisabled()
 {
     _ui.detailLabel->setText(tr("(scheduled for deletion)"));
     widget()->setEnabled(false);
 }
 
-bool ArchiveListItem::isDisabled()
+bool ArchiveListWidgetItem::isDisabled()
 {
     return !widget()->isEnabled();
 }
 
-void ArchiveListItem::update()
+void ArchiveListWidgetItem::update()
 {
     setArchive(_archive);
 }
 
-bool ArchiveListItem::eventFilter(QObject *obj, QEvent *event)
+bool ArchiveListWidgetItem::eventFilter(QObject *obj, QEvent *event)
 {
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {

@@ -18,14 +18,14 @@ SOURCES += \
     src/coreapplication.cpp \
     src/main.cpp \
     src/utils.cpp \
-    src/widgets/archivelistitem.cpp \
     src/widgets/backuplistwidget.cpp \
     src/widgets/backuplistwidgetitem.cpp \
     src/widgets/archivelistwidget.cpp \
+    src/widgets/archivelistwidgetitem.cpp \
     src/widgets/filepickerdialog.cpp \
     src/widgets/filepickerwidget.cpp \
-    src/widgets/joblistitem.cpp \
     src/widgets/joblistwidget.cpp \
+    src/widgets/joblistwidgetitem.cpp \
     src/widgets/jobwidget.cpp \
     src/widgets/mainwindow.cpp \
     src/widgets/restoredialog.cpp \
@@ -51,14 +51,14 @@ HEADERS  += \
     src/coreapplication.h \
     src/debug.h \
     src/utils.h \
-    src/widgets/archivelistitem.h \
     src/widgets/backuplistwidget.h \
     src/widgets/backuplistwidgetitem.h \
     src/widgets/archivelistwidget.h \
+    src/widgets/archivelistwidgetitem.h \
     src/widgets/filepickerdialog.h \
     src/widgets/filepickerwidget.h \
-    src/widgets/joblistitem.h \
     src/widgets/joblistwidget.h \
+    src/widgets/joblistwidgetitem.h \
     src/widgets/jobwidget.h \
     src/widgets/mainwindow.h \
     src/widgets/restoredialog.h \
@@ -88,15 +88,15 @@ FORMS    += \
     forms/backuplistwidgetitem.ui \
     forms/setupdialog.ui \
     forms/mainwindow.ui \
-    forms/archiveitemwidget.ui \
     forms/restoredialog.ui \
     forms/filepickerdialog.ui \
     forms/filepickerwidget.ui \
-    forms/jobitemwidget.ui \
     forms/jobwidget.ui \
     forms/aboutwidget.ui \
     forms/logindialog.ui \
-    forms/archivewidget.ui
+    forms/archivewidget.ui \
+    forms/archivelistwidgetitem.ui \
+    forms/joblistwidgetitem.ui
 
 RESOURCES += resources/resources.qrc
 

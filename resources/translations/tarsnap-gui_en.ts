@@ -12,94 +12,94 @@ unique data	%3		%4</source>
     </message>
 </context>
 <context>
-    <name>ArchiveItemWidget</name>
+    <name>ArchiveListWidgetItem</name>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="17"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="17"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="50"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="50"/>
         <source>Display Archive details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="91"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="91"/>
         <source>Display Job details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="177"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="177"/>
         <source>Display details for this Archive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="195"/>
-        <location filename="../../forms/archiveitemwidget.ui" line="236"/>
-        <location filename="../../forms/archiveitemwidget.ui" line="277"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="195"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="236"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="277"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="218"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="218"/>
         <source>Restore this Archive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="259"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="259"/>
         <source>Delete this Archive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="292"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="292"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="295"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="295"/>
         <source>Delete archive(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="298"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="298"/>
         <source>Ctrl+D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="307"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="307"/>
         <source>Inspect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="310"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="310"/>
         <source>Inspect archive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="313"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="313"/>
         <source>Ctrl+I</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="322"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="322"/>
         <source>Restore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="325"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="325"/>
         <source>Restore Archive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/archiveitemwidget.ui" line="328"/>
+        <location filename="../../forms/archivelistwidgetitem.ui" line="328"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>ArchiveListItem</name>
+    <name>ArchiveListWidgetItem</name>
     <message>
-        <location filename="../../src/widgets/archivelistitem.cpp" line="101"/>
+        <location filename="../../src/widgets/archivelistwidgetitem.cpp" line="101"/>
         <source>(scheduled for deletion)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -487,103 +487,103 @@ Add anyway?</source>
     </message>
 </context>
 <context>
-    <name>JobItemWidget</name>
+    <name>JobListWidgetItem</name>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="17"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="17"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="105"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="105"/>
         <source>Last backup timestamp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="137"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="137"/>
         <source>Display details for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="155"/>
-        <location filename="../../forms/jobitemwidget.ui" line="196"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="155"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="196"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="178"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="178"/>
         <source>Restore latest backup for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="225"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="225"/>
         <source>Initiate a backup for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="258"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="258"/>
         <source>Restore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="261"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="261"/>
         <source>Restore latest backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="264"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="264"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="273"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="273"/>
         <source>Inspect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="276"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="276"/>
         <source>Show job details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="279"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="279"/>
         <source>Ctrl+I</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="288"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="288"/>
         <source>Backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="291"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="291"/>
         <source>Execute backup for job(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../forms/jobitemwidget.ui" line="294"/>
+        <location filename="../../forms/joblistwidgetitem.ui" line="294"/>
         <source>Ctrl+B</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>JobListItem</name>
+    <name>JobListWidgetItem</name>
     <message>
-        <location filename="../../src/widgets/joblistitem.cpp" line="51"/>
+        <location filename="../../src/widgets/joblistwidgetitem.cpp" line="51"/>
         <source>No backup done yet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/joblistitem.cpp" line="58"/>
+        <location filename="../../src/widgets/joblistwidgetitem.cpp" line="58"/>
         <source>archive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/joblistitem.cpp" line="58"/>
+        <location filename="../../src/widgets/joblistwidgetitem.cpp" line="58"/>
         <source>archives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/joblistitem.cpp" line="59"/>
+        <location filename="../../src/widgets/joblistwidgetitem.cpp" line="59"/>
         <source>%1 %2 totaling </source>
         <translation type="unfinished"></translation>
     </message>

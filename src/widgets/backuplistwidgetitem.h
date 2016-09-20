@@ -18,7 +18,6 @@ public:
     QWidget *widget();
 
     QUrl url() const;
-    void setUrl(const QUrl &url);
 
     quint64 count() const;
 
@@ -26,7 +25,6 @@ public:
 
 public slots:
     void browseUrl();
-    void updateDirDetail(quint64 size, quint64 count);
 
 signals:
     void requestDelete();
@@ -35,12 +33,17 @@ signals:
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
+private slots:
+    void updateDirDetail(quint64 size, quint64 count);
+
 private:
     Ui::BackupListWidgetItem _ui;
     QWidget             *_widget;
     QUrl                 _url;
     quint64              _count;
     quint64              _size;
+
+    void setUrl(const QUrl &url);
 };
 
 #endif // BACKUPLISTITEM_H

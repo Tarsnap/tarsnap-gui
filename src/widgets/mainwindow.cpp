@@ -3,8 +3,6 @@
 #include "debug.h"
 #include "filepickerdialog.h"
 #include "ui_aboutwidget.h"
-#include "ui_archiveitemwidget.h"
-#include "ui_backuplistwidgetitem.h"
 #include "utils.h"
 #include "translator.h"
 

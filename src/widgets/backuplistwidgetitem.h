@@ -56,10 +56,10 @@ private slots:
 
 private:
     Ui::BackupListWidgetItem _ui;
-    QWidget             *_widget;
-    QUrl                 _url;
-    quint64              _count;
-    quint64              _size;
+    QWidget *                _widget;
+    QUrl                     _url;
+    quint64                  _count;
+    quint64                  _size;
 
     void setUrl(const QUrl &url);
 };

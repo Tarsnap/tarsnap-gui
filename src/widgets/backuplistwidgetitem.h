@@ -1,7 +1,7 @@
 #ifndef BACKUPLISTWIDGETITEM_H
 #define BACKUPLISTWIDGETITEM_H
 
-#include "ui_backupitemwidget.h"
+#include "ui_backuplistwidgetitem.h"
 
 #include <QListWidgetItem>
 #include <QObject>
@@ -38,7 +38,7 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
-    Ui::BackupItemWidget _ui;
+    Ui::BackupListWidgetItem _ui;
     QWidget             *_widget;
     QUrl                 _url;
     quint64              _count;

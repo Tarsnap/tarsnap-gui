@@ -283,35 +283,35 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
     </message>
 </context>
 <context>
-    <name>BackupItemWidget</name>
+    <name>BackupListWidgetItem</name>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="146"/>
-        <location filename="../../forms/backupitemwidget.ui" line="184"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="146"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="184"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="199"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="199"/>
         <source>Remove</source>
         <translation>Elimină</translation>
     </message>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="202"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="202"/>
         <source>Remove selected item(s) &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation>Elimină elementele selectate &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt; </translation>
     </message>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="205"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="205"/>
         <source>Backspace, Del</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="217"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="217"/>
         <source>Open</source>
         <translation>Deschide</translation>
     </message>
     <message>
-        <location filename="../../forms/backupitemwidget.ui" line="220"/>
+        <location filename="../../forms/backuplistwidgetitem.ui" line="220"/>
         <source>Open this item in the native File Explorer</source>
         <translation>Deschide acest element în Managerul de Fișiere nativ</translation>
     </message>

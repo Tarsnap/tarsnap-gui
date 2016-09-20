@@ -85,7 +85,7 @@ INCLUDEPATH += src/widgets/ \
             += src/
 
 FORMS    += \
-    forms/backupitemwidget.ui \
+    forms/backuplistwidgetitem.ui \
     forms/setupdialog.ui \
     forms/mainwindow.ui \
     forms/archiveitemwidget.ui \

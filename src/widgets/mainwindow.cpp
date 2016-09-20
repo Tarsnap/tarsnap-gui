@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "backuplistitem.h"
+#include "backuplistwidgetitem.h"
 #include "debug.h"
 #include "filepickerdialog.h"
 #include "ui_aboutwidget.h"
@@ -1000,7 +1000,7 @@ void MainWindow::backupButtonClicked()
 {
     QList<QUrl> urls;
     for(int i = 0; i < _ui.backupListWidget->count(); ++i)
-        urls << static_cast<BackupListItem *>(_ui.backupListWidget->item(i))->url();
+        urls << static_cast<BackupListWidgetItem *>(_ui.backupListWidget->item(i))->url();
 
     BackupTaskPtr backup(new BackupTask);
     backup->setName(_ui.backupNameLineEdit->text());

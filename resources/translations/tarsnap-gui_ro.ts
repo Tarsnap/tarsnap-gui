@@ -317,9 +317,9 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
     </message>
 </context>
 <context>
-    <name>BackupListItem</name>
+    <name>BackupListWidgetItem</name>
     <message>
-        <location filename="../../src/widgets/backuplistitem.cpp" line="94"/>
+        <location filename="../../src/widgets/backuplistwidgetitem.cpp" line="94"/>
         <source> items totalling </source>
         <translation> elemente cu dimensiunea totală  </translation>
     </message>

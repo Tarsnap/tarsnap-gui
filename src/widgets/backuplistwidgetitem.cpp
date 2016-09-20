@@ -1,4 +1,4 @@
-#include "backuplistitem.h"
+#include "backuplistwidgetitem.h"
 #include "utils.h"
 
 #include <QDebug>
@@ -6,7 +6,7 @@
 #include <QFileInfo>
 #include <QThreadPool>
 
-BackupListItem::BackupListItem(QUrl url)
+BackupListWidgetItem::BackupListWidgetItem(QUrl url)
     : _widget(new QWidget), _count(0), _size(0)
 {
     _widget->installEventFilter(this);
@@ -19,28 +19,28 @@ BackupListItem::BackupListItem(QUrl url)
                                    .arg(_ui.actionRemove->shortcut()
                                         .toString(QKeySequence::NativeText)));
     connect(_ui.actionRemove, &QAction::triggered, this,
-            &BackupListItem::requestDelete);
+            &BackupListWidgetItem::requestDelete);
     connect(_ui.actionOpen, &QAction::triggered, this,
-            &BackupListItem::browseUrl);
+            &BackupListWidgetItem::browseUrl);
 
     setUrl(url);
 }
 
-BackupListItem::~BackupListItem()
+BackupListWidgetItem::~BackupListWidgetItem()
 {
 }
 
-QWidget *BackupListItem::widget()
+QWidget *BackupListWidgetItem::widget()
 {
     return _widget;
 }
 
-QUrl BackupListItem::url() const
+QUrl BackupListWidgetItem::url() const
 {
     return _url;
 }
 
-void BackupListItem::setUrl(const QUrl &url)
+void BackupListWidgetItem::setUrl(const QUrl &url)
 {
     _url = url;
 
@@ -63,7 +63,7 @@ void BackupListItem::setUrl(const QUrl &url)
             Utils::GetDirInfoTask *task = new Utils::GetDirInfoTask(dir);
             task->setAutoDelete(true);
             connect(task, &Utils::GetDirInfoTask::result, this,
-                    &BackupListItem::updateDirDetail, QUEUED);
+                    &BackupListWidgetItem::updateDirDetail, QUEUED);
             threadPool->start(task);
         }
         else if(file.isFile())
@@ -82,12 +82,12 @@ void BackupListItem::setUrl(const QUrl &url)
     }
 }
 
-void BackupListItem::browseUrl()
+void BackupListWidgetItem::browseUrl()
 {
     QDesktopServices::openUrl(_url);
 }
 
-void BackupListItem::updateDirDetail(quint64 size, quint64 count)
+void BackupListWidgetItem::updateDirDetail(quint64 size, quint64 count)
 {
     _size  = size;
     _count = count;
@@ -96,7 +96,7 @@ void BackupListItem::updateDirDetail(quint64 size, quint64 count)
     emit requestUpdate();
 }
 
-bool BackupListItem::eventFilter(QObject *obj, QEvent *event)
+bool BackupListWidgetItem::eventFilter(QObject *obj, QEvent *event)
 {
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
@@ -106,22 +106,22 @@ bool BackupListItem::eventFilter(QObject *obj, QEvent *event)
     return false;
 }
 
-quint64 BackupListItem::size() const
+quint64 BackupListWidgetItem::size() const
 {
     return _size;
 }
 
-void BackupListItem::setSize(const quint64 &size)
+void BackupListWidgetItem::setSize(const quint64 &size)
 {
     _size = size;
 }
 
-quint64 BackupListItem::count() const
+quint64 BackupListWidgetItem::count() const
 {
     return _count;
 }
 
-void BackupListItem::setCount(const quint64 &count)
+void BackupListWidgetItem::setCount(const quint64 &count)
 {
     _count = count;
 }

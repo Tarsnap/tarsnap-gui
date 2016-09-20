@@ -1,5 +1,5 @@
-#ifndef BACKUPLISTITEM_H
-#define BACKUPLISTITEM_H
+#ifndef BACKUPLISTWIDGETITEM_H
+#define BACKUPLISTWIDGETITEM_H
 
 #include "ui_backupitemwidget.h"
 
@@ -7,13 +7,13 @@
 #include <QObject>
 #include <QUrl>
 
-class BackupListItem : public QObject, public QListWidgetItem
+class BackupListWidgetItem : public QObject, public QListWidgetItem
 {
     Q_OBJECT
 
 public:
-    explicit BackupListItem(QUrl url);
-    ~BackupListItem();
+    explicit BackupListWidgetItem(QUrl url);
+    ~BackupListWidgetItem();
 
     QWidget *widget();
 

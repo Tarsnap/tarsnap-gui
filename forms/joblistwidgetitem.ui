@@ -120,6 +120,53 @@ font-size: 11px;
     </widget>
    </item>
    <item>
+    <widget class="QToolButton" name="backupButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>27</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>27</width>
+       <height>27</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Initiate a backup for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QToolButton {
+border: none;
+border-radius: 4px;
+}
+
+QToolButton:hover {
+background: rgba(179, 190, 255, 120);
+}
+
+QToolButton:pressed {
+padding-top: 2px;
+padding-left: 2px;
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QToolButton" name="inspectButton">
      <property name="minimumSize">
       <size>
@@ -202,13 +249,7 @@ padding-left: 2px;
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="backupButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
+    <widget class="QToolButton" name="deleteButton">
      <property name="minimumSize">
       <size>
        <width>27</width>
@@ -222,7 +263,7 @@ padding-left: 2px;
       </size>
      </property>
      <property name="toolTip">
-      <string>Initiate a backup for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+      <string>Delete this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
@@ -244,7 +285,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+       <normaloff>:/icons/trash.png</normaloff>:/icons/trash.png</iconset>
      </property>
     </widget>
    </item>
@@ -292,6 +333,21 @@ padding-left: 2px;
    </property>
    <property name="shortcut">
     <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/trash.png</normaloff>:/icons/trash.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete jobs(s)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

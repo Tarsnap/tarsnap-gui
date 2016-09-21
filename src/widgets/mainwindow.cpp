@@ -1003,8 +1003,6 @@ void MainWindow::backupButtonClicked()
     BackupTaskPtr backup(new BackupTask);
     backup->setName(_ui.backupNameLineEdit->text());
     backup->setUrls(urls);
-    backup->setOptionDryRun(_ui.simulationCheckBox->isChecked());
-    backup->setOptionSkipNoDump(_ui.skipNoDumpCheckBox->isChecked());
     emit backupNow(backup);
     _ui.appendTimestampCheckBox->setChecked(false);
 }

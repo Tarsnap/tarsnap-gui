@@ -32,7 +32,7 @@ QVariant CustomFileSystemModel::data(const QModelIndex &index, int role) const
         }
         else
         {
-            // Return PartiallyChecked if any ancestor is checked.
+            // Returns PartiallyChecked if any ancestor is checked.
             QModelIndex parent = index.parent();
             while(parent.isValid())
             {

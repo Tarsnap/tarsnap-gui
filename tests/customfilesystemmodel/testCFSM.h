@@ -41,7 +41,7 @@ private:
 
     // Main scenario-handling functions.
     int processActions(QTextStream &in);
-    // Return 0 if success, 1 if a model error, 2 if an emit error.
+    // Returns 0 if success, 1 if a model error, 2 if an emit error.
     int processResults(QTextStream &in);
     int runScenario(const int num);
 

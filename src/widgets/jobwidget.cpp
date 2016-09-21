@@ -60,7 +60,7 @@ JobWidget::JobWidget(QWidget *parent)
     connect(_ui.skipFilesDefaultsButton, &QPushButton::clicked, [&]() {
         QSettings settings;
         _ui.skipFilesLineEdit->setText(
-            settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
+            settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES).toString());
     });
     connect(_ui.archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,

@@ -74,7 +74,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     QStringList  args;
     initTarsnapArgs(args);
     QSettings settings;
-    if(settings.value("tarsnap/aggressive_networking", false).toBool())
+    if(settings.value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING).toBool())
         args << "--aggressive-networking";
     if(backupTask->optionDryRun())
         args << "--dry-run";
@@ -206,7 +206,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     QStringList  args;
     initTarsnapArgs(args);
     QSettings settings;
-    if(settings.value("tarsnap/preserve_pathnames", true).toBool())
+    if(settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES).toBool())
         args << "-P";
     args << "-tv"
          << "-f" << archive->name();
@@ -326,7 +326,7 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
         args << "-x"
              << "-P"
              << "-C"
-             << settings.value("app/downloads_dir", DOWNLOADS).toString();
+             << settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString();
     }
     if(options.optionRestoreDir)
         args << "-x"
@@ -1039,7 +1039,7 @@ void TaskManager::initTarsnapArgs(QStringList &args)
         args.prepend("--maxbw-rate-up");
         args.insert(1, QString::number(1024 * quint64(upload_rate_kbps)));
     }
-    if(settings.value("tarsnap/no_default_config", true).toBool())
+    if(settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG).toBool())
         args.prepend("--no-default-config");
 }
 

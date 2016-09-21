@@ -29,13 +29,13 @@ BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
 
 BackupListWidget::~BackupListWidget()
 {
-    QSettings   settings;
     QStringList urls;
     for(int i = 0; i < count(); ++i)
     {
         BackupListWidgetItem *backupItem = static_cast<BackupListWidgetItem *>(item(i));
         urls << backupItem->url().toString(QUrl::FullyEncoded);
     }
+    QSettings settings;
     settings.setValue("app/backup_list", urls);
     settings.sync();
     clear();

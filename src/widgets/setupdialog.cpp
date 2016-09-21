@@ -408,7 +408,6 @@ void SetupDialog::commitSettings(bool skipped)
 
     if(!skipped)
     {
-        QSettings settings;
         settings.setValue("app/app_data",    _appDataDir);
         settings.setValue("tarsnap/path",    _tarsnapDir);
         settings.setValue("tarsnap/version", _tarsnapVersion);

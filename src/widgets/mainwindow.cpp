@@ -408,7 +408,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.repairCacheButton, &QPushButton::clicked, this,
             [&]() { emit repairCache(true); });
     connect(_ui.skipSystemDefaultsButton, &QPushButton::clicked,
-            [&]() { _ui.skipSystemLineEdit->setText(DEFAULT_SKIP_FILES); });
+            [&]() { _ui.skipSystemLineEdit->setText(DEFAULT_SKIP_SYSTEM_FILES); });
     connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
             [&](JobPtr job, bool purgeArchives) {
                 if(_ui.jobDetailsWidget->job() == job)
@@ -491,31 +491,31 @@ void MainWindow::loadSettings()
     _ui.tarsnapCacheLineEdit->setText(
         settings.value("tarsnap/cache", "").toString());
     _ui.aggressiveNetworkingCheckBox->setChecked(
-        settings.value("tarsnap/aggressive_networking", false).toBool());
+        settings.value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING).toBool());
     _ui.traverseMountCheckBox->setChecked(
-        settings.value("tarsnap/traverse_mount", true).toBool());
+        settings.value("tarsnap/traverse_mount", DEFAULT_TRAVERSE_MOUNT).toBool());
     _ui.followSymLinksCheckBox->setChecked(
-        settings.value("tarsnap/follow_symlinks", false).toBool());
+        settings.value("tarsnap/follow_symlinks", DEFAULT_FOLLOW_SYMLINKS).toBool());
     _ui.preservePathsCheckBox->setChecked(
-        settings.value("tarsnap/preserve_pathnames", true).toBool());
+        settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES).toBool());
     _ui.ignoreConfigCheckBox->setChecked(
-        settings.value("tarsnap/no_default_config", true).toBool());
+        settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG).toBool());
     _ui.simulationCheckBox->setChecked(
-        settings.value("tarsnap/dry_run", false).toBool());
+        settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
     _ui.simulationIcon->setVisible(_ui.simulationCheckBox->isChecked());
     _ui.iecPrefixesCheckBox->setChecked(
         settings.value("app/iec_prefixes", false).toBool());
     _ui.skipFilesSizeSpinBox->setValue(
-        settings.value("app/skip_files_size", 0).toInt());
+        settings.value("app/skip_files_size", DEFAULT_SKIP_FILES_SIZE).toInt());
     _ui.skipSystemJunkCheckBox->setChecked(
-        settings.value("app/skip_system_enabled", false).toBool());
+        settings.value("app/skip_system_enabled", DEFAULT_SKIP_SYSTEM_ENABLED).toBool());
     _ui.skipSystemLineEdit->setEnabled(_ui.skipSystemJunkCheckBox->isChecked());
     _ui.skipSystemLineEdit->setText(
-        settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
+        settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES).toString());
     _ui.skipNoDumpCheckBox->setChecked(
-        settings.value("app/skip_nodump", false).toBool());
+        settings.value("app/skip_nodump", DEFAULT_SKIP_NODUMP).toBool());
     _ui.downloadsDirLineEdit->setText(
-        settings.value("app/downloads_dir", DOWNLOADS).toString());
+        settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString());
     _ui.appDataDirLineEdit->setText(
         settings.value("app/app_data", "").toString());
     _ui.notificationsCheckBox->setChecked(
@@ -1306,7 +1306,7 @@ void MainWindow::downloadsDirBrowseButtonClicked()
     QString downDir =
         QFileDialog::getExistingDirectory(this,
                                           tr("Browse for downloads directory"),
-                                          DOWNLOADS);
+                                          DEFAULT_DOWNLOADS);
     if(!downDir.isEmpty())
     {
         _ui.downloadsDirLineEdit->setText(downDir);

@@ -231,7 +231,6 @@ void Job::setSettingHideSymlinks(bool settingHideSymlinks)
 
 BackupTaskPtr Job::createBackupTask()
 {
-    QSettings     settings;
     BackupTaskPtr backup(new BackupTask);
     backup->setName(JOB_NAME_PREFIX + name() +
                     QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
@@ -244,7 +243,6 @@ BackupTaskPtr Job::createBackupTask()
     backup->setOptionSkipSystem(optionSkipFiles());
     backup->setOptionSkipSystemFiles(optionSkipFilesPatterns());
     backup->setOptionSkipNoDump(optionSkipNoDump());
-    backup->setOptionDryRun(settings.value("tarsnap/dry_run", false).toBool());
     return backup;
 }
 

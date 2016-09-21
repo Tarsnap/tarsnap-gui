@@ -110,7 +110,7 @@ void TarsnapAccount::parseCredit(QString csv)
             DEBUG << "Invalid CSV.";
             return;
         }
-        emit accountCredit(fields.last().toFloat(),
+        emit accountCredit(fields.last().toDouble(),
                            QDate::fromString(fields[1], Qt::ISODate));
     }
 }

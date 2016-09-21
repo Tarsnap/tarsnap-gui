@@ -1462,9 +1462,9 @@ void MainWindow::tarsnapError(TarsnapError error)
 void MainWindow::updateAccountCredit(qreal credit, QDate date)
 {
     QSettings settings;
-    settings.setValue("tarsnap/credit", QString::number(credit));
+    settings.setValue("tarsnap/credit", QString::number(credit, 'f', 18));
     settings.setValue("tarsnap/credit_date", date);
-    _ui.accountCreditLabel->setText(QString::number(credit));
+    _ui.accountCreditLabel->setText(QString::number(credit, 'f', 18));
     _ui.accountCreditLabel->setToolTip(date.toString());
     _ui.outOfDateNoticeLabel->hide();
 }

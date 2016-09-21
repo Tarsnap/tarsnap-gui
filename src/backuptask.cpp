@@ -25,6 +25,7 @@ BackupTask::BackupTask()
         settings.value("tarsnap/traverse_mount", true).toBool());
     setOptionFollowSymLinks(
         settings.value("tarsnap/follow_symlinks", false).toBool());
+    setOptionSkipNoDump(settings.value("app/skip_nodump", false).toBool());
     setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toInt());
     setOptionSkipSystem(settings.value("app/skip_system_enabled", false).toBool());
     setOptionSkipSystemFiles(

@@ -110,7 +110,7 @@ bool CoreApplication::initialize()
         QMessageBox::warning(nullptr, tr("Tarsnap warning"),
                              tr("Simulation mode is enabled. Archives will not"
                                 " be uploaded to the Tarsnap server. Disable"
-                                " in Settings -> Advanced."));
+                                " in Settings -> Backup."));
     }
 
     // Initialize the PersistentStore early

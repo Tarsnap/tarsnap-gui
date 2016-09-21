@@ -71,7 +71,7 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
             QPixmap icon(":/icons/file.png");
             _ui.iconLabel->setPixmap(icon);
             _count = 1;
-            _size  = file.size();
+            _size  = static_cast<quint64>(file.size());
             _ui.detailLabel->setText(Utils::humanBytes(_size));
         }
         else

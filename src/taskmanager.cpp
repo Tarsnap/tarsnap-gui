@@ -283,6 +283,11 @@ void TaskManager::fsck(bool prune)
     fsck->setArguments(args);
     connect(fsck, &TarsnapTask::finished, this, &TaskManager::fsckFinished,
             QUEUED);
+    connect(fsck, &TarsnapTask::started, this,
+            [=]() {
+                emit message(tr("Cache repair initiated."));
+            },
+            QUEUED);
     queueTask(fsck, true);
 }
 

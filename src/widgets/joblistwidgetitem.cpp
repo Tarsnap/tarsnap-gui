@@ -56,7 +56,7 @@ void JobListWidgetItem::setJob(const JobPtr &job)
         _ui.lastBackupLabel->setText(tr("No backup done yet"));
     else
         _ui.lastBackupLabel->setText(
-            _job->archives().first()->timestamp().toString(Qt::DefaultLocaleLongDate));
+            _job->archives().first()->timestamp().toString(Qt::DefaultLocaleShortDate));
 
     QString detail;
     QString str =

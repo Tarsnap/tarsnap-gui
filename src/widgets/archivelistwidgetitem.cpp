@@ -77,7 +77,7 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
     displayName += baseName;
     _ui.nameLabel->setText(displayName);
     _ui.nameLabel->setToolTip(_archive->name());
-    QString detail(_archive->timestamp().toString(Qt::DefaultLocaleLongDate));
+    QString detail(_archive->timestamp().toString(Qt::DefaultLocaleShortDate));
     if(_archive->sizeTotal() != 0)
     {
         QString size = Utils::humanBytes(_archive->sizeTotal(), FIELD_WIDTH);

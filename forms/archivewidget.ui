@@ -343,12 +343,6 @@ color: blue;
          <italic>true</italic>
         </font>
        </property>
-       <property name="toolTip">
-        <string>This archive was interrupted and may be incomplete</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>

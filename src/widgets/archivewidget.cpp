@@ -145,7 +145,10 @@ void ArchiveWidget::keyPressEvent(QKeyEvent *event)
 void ArchiveWidget::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
+    {
         _ui.retranslateUi(this);
+        updateDetails();
+    }
     QWidget::changeEvent(event);
 }
 

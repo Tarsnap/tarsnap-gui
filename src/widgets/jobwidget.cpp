@@ -198,7 +198,10 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
 void JobWidget::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
+    {
         _ui.retranslateUi(this);
+        updateDetails();
+    }
     QWidget::changeEvent(event);
 }
 

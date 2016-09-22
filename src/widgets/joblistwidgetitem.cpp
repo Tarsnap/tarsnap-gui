@@ -16,6 +16,9 @@ JobListWidgetItem::JobListWidgetItem(JobPtr job)
     _ui.backupButton->setToolTip(_ui.backupButton->toolTip()
                                    .arg(_ui.actionJobBackup->shortcut()
                                         .toString(QKeySequence::NativeText)));
+    _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip()
+                                   .arg(_ui.actionDelete->shortcut()
+                                        .toString(QKeySequence::NativeText)));
 
     connect(_ui.backupButton, &QToolButton::clicked, this,
             &JobListWidgetItem::requestBackup);
@@ -23,6 +26,8 @@ JobListWidgetItem::JobListWidgetItem(JobPtr job)
             &JobListWidgetItem::requestInspect);
     connect(_ui.restoreButton, &QToolButton::clicked, this,
             &JobListWidgetItem::requestRestore);
+    connect(_ui.deleteButton, &QToolButton::clicked, this,
+            &JobListWidgetItem::requestDelete);
 
     setJob(job);
 }

@@ -22,6 +22,8 @@ public:
         LINKS
     };
 
+    const int kTableColumnsCount = 7;
+
     FileTableModel(QObject *parent);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -38,7 +40,6 @@ public slots:
 
 private:
     QVector<File>    _files;
-    QVector<QString> _columns;
     ArchivePtr       _archive;
 };
 

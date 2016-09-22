@@ -47,6 +47,9 @@ JobPtr JobListWidgetItem::job() const
 
 void JobListWidgetItem::setJob(const JobPtr &job)
 {
+    if(_job)
+        disconnect(_job.data(), &Job::changed, this, &JobListWidgetItem::update);
+
     _job = job;
 
     connect(_job.data(), &Job::changed, this, &JobListWidgetItem::update, QUEUED);
@@ -82,6 +85,7 @@ bool JobListWidgetItem::eventFilter(QObject *obj, QEvent *event)
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
         _ui.retranslateUi(_widget);
+        update();
         return true;
     }
     return false;

@@ -51,6 +51,9 @@ ArchivePtr ArchiveListWidgetItem::archive() const
 
 void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
 {
+    if(_archive)
+        disconnect(_archive.data(), &Archive::changed, this, &ArchiveListWidgetItem::update);
+
     _archive = archive;
 
     connect(_archive.data(), &Archive::changed, this, &ArchiveListWidgetItem::update,
@@ -83,7 +86,12 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
         QString size = Utils::humanBytes(_archive->sizeTotal(), FIELD_WIDTH);
         detail.prepend(size + "  ");
     }
-    _ui.detailLabel->setText(detail);
+
+    if(isDisabled())
+        _ui.detailLabel->setText(tr("(scheduled for deletion)"));
+    else
+        _ui.detailLabel->setText(detail);
+
     _ui.detailLabel->setToolTip(_archive->archiveStats());
 
     if(_archive->jobRef().isEmpty())
@@ -119,6 +127,7 @@ bool ArchiveListWidgetItem::eventFilter(QObject *obj, QEvent *event)
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
         _ui.retranslateUi(_widget);
+        update();
         return true;
     }
     return false;

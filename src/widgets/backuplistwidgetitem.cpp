@@ -1,7 +1,7 @@
 #include "backuplistwidgetitem.h"
+
 #include "utils.h"
 
-#include <QDebug>
 #include <QDesktopServices>
 #include <QFileInfo>
 #include <QThreadPool>
@@ -9,20 +9,24 @@
 BackupListWidgetItem::BackupListWidgetItem(QUrl url)
     : _widget(new QWidget), _count(0), _size(0)
 {
-    _widget->installEventFilter(this);
     _ui.setupUi(_widget);
+    // Send translation events to the widget.
+    _widget->installEventFilter(this);
+    // Set up actions.
     _widget->addAction(_ui.actionOpen);
     _widget->addAction(_ui.actionRemove);
     _ui.browseButton->setDefaultAction(_ui.actionOpen);
     _ui.removeButton->setDefaultAction(_ui.actionRemove);
+    // Display tooltip using a platform-specific string.
     _ui.removeButton->setToolTip(_ui.removeButton->toolTip()
                                    .arg(_ui.actionRemove->shortcut()
                                         .toString(QKeySequence::NativeText)));
+    // Set up action connections.
     connect(_ui.actionRemove, &QAction::triggered, this,
             &BackupListWidgetItem::requestDelete);
     connect(_ui.actionOpen, &QAction::triggered, this,
             &BackupListWidgetItem::browseUrl);
-
+    // Begin loading the url.
     setUrl(url);
 }
 
@@ -52,12 +56,17 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
         QFileInfo file(fileUrl);
         if(!file.exists())
             return;
+        // Display path in the widget.  pathLabel is an ElidedLabel, so
+        // the text might be cut short.  Therefore we display the path
+        // as a tooltip as well, which will always be displayed in full.
         _ui.pathLabel->setText(fileUrl);
         _ui.pathLabel->setToolTip(fileUrl);
+
         if(file.isDir())
         {
             QPixmap icon(":/icons/folder.png");
             _ui.iconLabel->setPixmap(icon);
+            // Load info about this directory in a separate thread.
             QDir dir(file.absoluteFilePath());
             QThreadPool *threadPool = QThreadPool::globalInstance();
             Utils::GetDirInfoTask *task = new Utils::GetDirInfoTask(dir);
@@ -76,7 +85,7 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
         }
         else
         {
-            // could be a device file, fifo or whatever, thus ignore
+            // Could be a device file, fifo, or whatever; thus ignore.
             return;
         }
     }
@@ -91,7 +100,7 @@ void BackupListWidgetItem::updateDirDetail(quint64 size, quint64 count)
 {
     _size  = size;
     _count = count;
-    _ui.detailLabel->setText(QString::number(_count) + tr(" items totalling ")
+    _ui.detailLabel->setText(QString::number(_count) + tr(" items, ")
                              + Utils::humanBytes(_size));
     emit requestUpdate();
 }
@@ -111,17 +120,7 @@ quint64 BackupListWidgetItem::size() const
     return _size;
 }
 
-void BackupListWidgetItem::setSize(const quint64 &size)
-{
-    _size = size;
-}
-
 quint64 BackupListWidgetItem::count() const
 {
     return _count;
-}
-
-void BackupListWidgetItem::setCount(const quint64 &count)
-{
-    _count = count;
 }

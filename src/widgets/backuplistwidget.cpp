@@ -196,3 +196,10 @@ void BackupListWidget::keyPressEvent(QKeyEvent *event)
         QListWidget::keyPressEvent(event);
     }
 }
+
+void BackupListWidget::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+        recomputeListTotals();
+    QWidget::changeEvent(event);
+}

@@ -293,9 +293,6 @@ background-color: rgba(237,243,254,255);
 color: gray;
 }</string>
                 </property>
-                <property name="text">
-                 <string/>
-                </property>
                </widget>
               </item>
               <item>

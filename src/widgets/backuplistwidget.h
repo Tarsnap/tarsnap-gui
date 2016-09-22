@@ -29,8 +29,7 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
     void keyPressEvent(QKeyEvent *event);
-
-private:
+    void changeEvent(QEvent *event);
 };
 
 #endif // BACKUPLISTWIDGET_H

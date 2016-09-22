@@ -19,10 +19,6 @@ ArchiveListWidgetItem::ArchiveListWidgetItem(ArchivePtr archive)
             &ArchiveListWidgetItem::requestInspect);
     connect(_ui.restoreButton, &QToolButton::clicked, this,
             &ArchiveListWidgetItem::requestRestore);
-    connect(_ui.jobButton, &QToolButton::clicked, this,
-            &ArchiveListWidgetItem::requestGoToJob);
-    connect(_ui.archiveButton, &QToolButton::clicked, this,
-            &ArchiveListWidgetItem::requestInspect);
     // Load the archive.
     setArchive(archive);
 }
@@ -85,17 +81,6 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
         _ui.detailLabel->setText(detail);
 
     _ui.detailLabel->setToolTip(_archive->archiveStats());
-
-    if(_archive->jobRef().isEmpty())
-    {
-        _ui.jobButton->hide();
-        _ui.archiveButton->show();
-    }
-    else
-    {
-        _ui.archiveButton->hide();
-        _ui.jobButton->show();
-    }
 }
 
 void ArchiveListWidgetItem::setDisabled()

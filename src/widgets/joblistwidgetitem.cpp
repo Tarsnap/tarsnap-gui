@@ -17,7 +17,7 @@ JobListWidgetItem::JobListWidgetItem(JobPtr job)
                                    .arg(_ui.actionJobBackup->shortcut()
                                         .toString(QKeySequence::NativeText)));
     _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip()
-                                   .arg(_ui.actionDelete->shortcut()
+                                   .arg(_ui.actionJobDelete->shortcut()
                                         .toString(QKeySequence::NativeText)));
 
     connect(_ui.backupButton, &QToolButton::clicked, this,

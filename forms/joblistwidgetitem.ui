@@ -335,7 +335,7 @@ padding-left: 2px;
     <string>Ctrl+B</string>
    </property>
   </action>
-  <action name="actionDelete">
+  <action name="actionJobDelete">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
      <normaloff>:/icons/trash.png</normaloff>:/icons/trash.png</iconset>

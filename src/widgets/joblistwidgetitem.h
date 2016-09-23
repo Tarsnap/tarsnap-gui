@@ -51,6 +51,7 @@ private:
     JobPtr  _job;
 
     void setJob(const JobPtr &job);
+    void updateUi();
 };
 
 #endif // JOBLISTWIDGETITEM_H

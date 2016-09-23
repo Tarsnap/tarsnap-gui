@@ -12,15 +12,13 @@ BackupListWidgetItem::BackupListWidgetItem(QUrl url)
     _ui.setupUi(_widget);
     // Send translation events to the widget.
     _widget->installEventFilter(this);
+    updateUi();
+
     // Set up actions.
     _widget->addAction(_ui.actionOpen);
     _widget->addAction(_ui.actionRemove);
     _ui.browseButton->setDefaultAction(_ui.actionOpen);
     _ui.removeButton->setDefaultAction(_ui.actionRemove);
-    // Display tooltip using a platform-specific string.
-    _ui.removeButton->setToolTip(_ui.removeButton->toolTip()
-                                   .arg(_ui.actionRemove->shortcut()
-                                        .toString(QKeySequence::NativeText)));
     // Set up action connections.
     connect(_ui.actionRemove, &QAction::triggered, this,
             &BackupListWidgetItem::requestDelete);
@@ -110,6 +108,7 @@ bool BackupListWidgetItem::eventFilter(QObject *obj, QEvent *event)
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
         _ui.retranslateUi(_widget);
+        updateUi();
         return true;
     }
     return false;
@@ -123,4 +122,12 @@ quint64 BackupListWidgetItem::size() const
 quint64 BackupListWidgetItem::count() const
 {
     return _count;
+}
+
+void BackupListWidgetItem::updateUi()
+{
+    // Display tooltip using a platform-specific string.
+    _ui.actionRemove->setToolTip(_ui.actionRemove->toolTip()
+                                 .arg(_ui.actionRemove->shortcut()
+                                      .toString(QKeySequence::NativeText)));
 }

@@ -51,6 +51,8 @@ private:
     JobPtr         _job;
     bool           _saveEnabled;
     QTimer         _fsEventUpdate;
+
+    void updateUi();
 };
 
 #endif // JOBWIDGET_H

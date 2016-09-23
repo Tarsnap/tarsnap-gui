@@ -11,10 +11,9 @@ JobWidget::JobWidget(QWidget *parent)
 {
     _ui.setupUi(this);
     _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
-                               .arg(QKeySequence(Qt::Key_Escape)
-                                    .toString(QKeySequence::NativeText)));
     _ui.infoLabel->hide();
+    updateUi();
+
     _fsEventUpdate.setSingleShot(true);
     connect(&_fsEventUpdate, &QTimer::timeout, this, &JobWidget::verifyJob);
     connect(_ui.infoLabel, &ElidedLabel::clicked, this, &JobWidget::showJobPathsWarn);
@@ -200,6 +199,7 @@ void JobWidget::changeEvent(QEvent *event)
     if(event->type() == QEvent::LanguageChange)
     {
         _ui.retranslateUi(this);
+        updateUi();
         updateDetails();
     }
     QWidget::changeEvent(event);
@@ -344,4 +344,11 @@ void JobWidget::verifyJob()
                                       " accessible. Click here for details."));
         }
     }
+}
+
+void JobWidget::updateUi()
+{
+    _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
+                               .arg(QKeySequence(Qt::Key_Escape)
+                                    .toString(QKeySequence::NativeText)));
 }

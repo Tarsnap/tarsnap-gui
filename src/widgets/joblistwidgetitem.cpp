@@ -6,19 +6,7 @@ JobListWidgetItem::JobListWidgetItem(JobPtr job)
 {
     _widget->installEventFilter(this);
     _ui.setupUi(_widget);
-
-    _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
-                                   .arg(_ui.actionJobInspect->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.restoreButton->setToolTip(_ui.restoreButton->toolTip()
-                                   .arg(_ui.actionJobRestore->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.backupButton->setToolTip(_ui.backupButton->toolTip()
-                                   .arg(_ui.actionJobBackup->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip()
-                                   .arg(_ui.actionJobDelete->shortcut()
-                                        .toString(QKeySequence::NativeText)));
+    updateUi();
 
     connect(_ui.backupButton, &QToolButton::clicked, this,
             &JobListWidgetItem::requestBackup);
@@ -85,8 +73,25 @@ bool JobListWidgetItem::eventFilter(QObject *obj, QEvent *event)
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
         _ui.retranslateUi(_widget);
+        updateUi();
         update();
         return true;
     }
     return false;
+}
+
+void JobListWidgetItem::updateUi()
+{
+    _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
+                                   .arg(_ui.actionJobInspect->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.restoreButton->setToolTip(_ui.restoreButton->toolTip()
+                                   .arg(_ui.actionJobRestore->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.backupButton->setToolTip(_ui.backupButton->toolTip()
+                                   .arg(_ui.actionJobBackup->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip()
+                                   .arg(_ui.actionJobDelete->shortcut()
+                                        .toString(QKeySequence::NativeText)));
 }

@@ -13,7 +13,6 @@
 #include <QHostInfo>
 #include <QInputDialog>
 #include <QMenu>
-#include <QMenuBar>
 #include <QPainter>
 #include <QSettings>
 #include <QSharedPointer>
@@ -23,6 +22,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
+      _menuBar(nullptr),
       _purgeTimerCount(0),
       _purgeCountdown(this),
       _tarsnapAccount(this),
@@ -53,69 +53,10 @@ MainWindow::MainWindow(QWidget *parent)
 #endif
     // --
 
-    // Keyboard shortcuts
-    _ui.keyboardShortcuts->setPlainText(_ui.keyboardShortcuts->toPlainText()
-                                        .arg(QKeySequence(Qt::ControlModifier)
-                                             .toString(QKeySequence::NativeText))
-                                        .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
-                                             .toString(QKeySequence::NativeText))
-                                        .arg(QKeySequence(Qt::Key_Backspace)
-                                             .toString(QKeySequence::NativeText))
-                                        .arg(QKeySequence(Qt::Key_Delete)
-                                             .toString(QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(0,
-                                     _ui.mainTabWidget->tabToolTip(0)
-                                     .arg(_ui.actionGoBackup->shortcut()
-                                          .toString(QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(1,
-                                     _ui.mainTabWidget->tabToolTip(1)
-                                     .arg(_ui.actionGoArchives->shortcut()
-                                          .toString(QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(2,
-                                     _ui.mainTabWidget->tabToolTip(2)
-                                     .arg(_ui.actionGoJobs->shortcut()
-                                          .toString(QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(3,
-                                     _ui.mainTabWidget->tabToolTip(3)
-                                     .arg(_ui.actionGoSettings->shortcut()
-                                          .toString(QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(4,
-                                     _ui.mainTabWidget->tabToolTip(4)
-                                     .arg(_ui.actionGoHelp->shortcut()
-                                          .toString(QKeySequence::NativeText)));
-
-    _ui.actionBackupNow->setToolTip(_ui.actionBackupNow->toolTip()
-                                    .arg(_ui.actionBackupNow->shortcut()
-                                         .toString(QKeySequence::NativeText)));
-    _ui.backupListInfoLabel->setToolTip(_ui.backupListInfoLabel->toolTip()
-                                        .arg(_ui.actionBrowseItems->shortcut()
-                                         .toString(QKeySequence::NativeText)));
-    _ui.actionShowJournal->setToolTip(_ui.actionShowJournal->toolTip()
-                                      .arg(_ui.actionShowJournal->shortcut()
-                                           .toString(QKeySequence::NativeText)));
-    _ui.busyWidget->setToolTip(_ui.busyWidget->toolTip()
-                               .arg(_ui.actionStopTasks->shortcut()
-                                    .toString(QKeySequence::NativeText)));
-    _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip()
-                                 .arg(_ui.actionAddJob->shortcut()
-                                      .toString(QKeySequence::NativeText)));
-    _ui.archivesFilter->setToolTip(_ui.archivesFilter->toolTip()
-                                   .arg(_ui.actionFilterArchives->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip()
-                                   .arg(_ui.actionFilterJobs->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.updateAccountButton->setToolTip(_ui.updateAccountButton->toolTip()
-                                        .arg(_ui.actionRefreshAccount->shortcut()
-                                             .toString(QKeySequence::NativeText)));
-    // --
-
-    setupMenuBar();
+    updateUi();
 
     // Purge widget setup
     _purgeCountdown.setIcon(QMessageBox::Critical);
-    _purgeCountdown.setWindowTitle(
-        tr("Deleting all archives: press Cancel to abort"));
     _purgeCountdown.setStandardButtons(QMessageBox::Cancel);
     connect(&_purgeTimer, &QTimer::timeout, this, &MainWindow::purgeTimerFired);
     // --
@@ -690,16 +631,27 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
+    {
         _ui.retranslateUi(this);
+        updateUi();
+    }
     QWidget::changeEvent(event);
 }
 
 void MainWindow::setupMenuBar()
 {
-    QMenuBar *menuBar = new QMenuBar(this);
-    if(!menuBar->isNativeMenuBar())
+    if(_menuBar != nullptr)
     {
-        delete menuBar;
+        _menuBar->clear();
+        delete _menuBar;
+        _menuBar = nullptr;
+    }
+
+    _menuBar = new QMenuBar(this);
+    if(!_menuBar->isNativeMenuBar())
+    {
+        delete _menuBar;
+        _menuBar = nullptr;
         return;
     }
 
@@ -709,10 +661,10 @@ void MainWindow::setupMenuBar()
     QAction *actionSettings = new QAction(this);
     actionSettings->setMenuRole(QAction::PreferencesRole);
     connect(actionSettings, &QAction::triggered, _ui.actionGoSettings, &QAction::trigger);
-    QMenu *appMenu = menuBar->addMenu("");
+    QMenu *appMenu = _menuBar->addMenu("");
     appMenu->addAction(actionAbout);
     appMenu->addAction(actionSettings);
-    QMenu *backupMenu = menuBar->addMenu(tr("&Backup"));
+    QMenu *backupMenu = _menuBar->addMenu(tr("&Backup"));
     backupMenu->addAction(_ui.actionBrowseItems);
     backupMenu->addAction(_ui.actionAddFiles);
     backupMenu->addAction(_ui.actionAddDirectory);
@@ -720,13 +672,13 @@ void MainWindow::setupMenuBar()
     backupMenu->addSeparator();
     backupMenu->addAction(_ui.actionBackupNow);
     backupMenu->addAction(_ui.actionCreateJob);
-    QMenu *archivesMenu = menuBar->addMenu(tr("&Archives"));
+    QMenu *archivesMenu = _menuBar->addMenu(tr("&Archives"));
     archivesMenu->addAction(_ui.actionRefresh);
     archivesMenu->addAction(_ui.actionInspect);
     archivesMenu->addAction(_ui.actionRestore);
     archivesMenu->addAction(_ui.actionDelete);
     archivesMenu->addAction(_ui.actionFilterArchives);
-    QMenu *jobsMenu = menuBar->addMenu(tr("&Jobs"));
+    QMenu *jobsMenu = _menuBar->addMenu(tr("&Jobs"));
     jobsMenu->addAction(_ui.actionAddJob);
     jobsMenu->addAction(_ui.actionBackupAllJobs);
     jobsMenu->addAction(_ui.actionJobBackup);
@@ -734,10 +686,10 @@ void MainWindow::setupMenuBar()
     jobsMenu->addAction(_ui.actionJobRestore);
     jobsMenu->addAction(_ui.actionJobDelete);
     jobsMenu->addAction(_ui.actionFilterJobs);
-    QMenu *settingsMenu = menuBar->addMenu(tr("&Settings"));
+    QMenu *settingsMenu = _menuBar->addMenu(tr("&Settings"));
     settingsMenu->addAction(_ui.actionRefreshAccount);
     settingsMenu->addAction(_ui.actionStopTasks);
-    QMenu *windowMenu = menuBar->addMenu(tr("&Window"));
+    QMenu *windowMenu = _menuBar->addMenu(tr("&Window"));
 #ifdef Q_OS_OSX
     QAction *actionMinimize = new QAction(tr("Minimize"), this);
     actionMinimize->setShortcut(QKeySequence("Ctrl+M"));
@@ -770,7 +722,7 @@ void MainWindow::setupMenuBar()
     windowMenu->addAction(_ui.actionGoHelp);
     windowMenu->addAction(_ui.actionShowJournal);
 
-    QMenu *helpMenu = menuBar->addMenu(tr("&Help"));
+    QMenu *helpMenu = _menuBar->addMenu(tr("&Help"));
     QAction *actionTarsnapWebsite = new QAction(tr("Tarsnap Website"), this);
     connect(actionTarsnapWebsite, &QAction::triggered, []()
     {
@@ -819,24 +771,9 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
 
 void MainWindow::updateTarsnapVersion(QString versionString)
 {
-    setTarsnapVersion(versionString);
+    _ui.tarsnapVersionLabel->setText(versionString);
     QSettings settings;
     settings.setValue("tarsnap/version", versionString);
-}
-
-void MainWindow::setTarsnapVersion(QString versionString)
-{
-    if(versionString.isEmpty())
-    {
-        _ui.tarsnapVersionLabel->clear();
-        _ui.tarsnapVersionLabel->hide();
-    }
-    else
-    {
-        _ui.tarsnapVersionLabel->setText(tr("Tarsnap version ") +
-                                          versionString + tr(" detected"));
-        _ui.tarsnapVersionLabel->show();
-    }
 }
 
 void MainWindow::createJobClicked()
@@ -1065,7 +1002,7 @@ bool MainWindow::validateTarsnapPath()
     if(Utils::findTarsnapClientInPath(_ui.tarsnapPathLineEdit->text()).isEmpty())
     {
         _ui.tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
-        setTarsnapVersion("");
+        _ui.tarsnapVersionLabel->clear();
         return false;
     }
     else
@@ -1280,6 +1217,8 @@ void MainWindow::purgeArchivesButtonClicked()
     if(ok && (confirmationText == userText))
     {
         _purgeTimerCount = PURGE_SECONDS_DELAY;
+        _purgeCountdown.setWindowTitle(
+                            tr("Deleting all archives: press Cancel to abort"));
         _purgeCountdown.setText(
             tr("Purging all archives in %1 seconds...").arg(_purgeTimerCount));
         _purgeTimer.start(1000);
@@ -1551,4 +1490,71 @@ void MainWindow::addDefaultJobs()
     settings.setValue("app/default_jobs_dismissed", true);
     _ui.defaultJobs->hide();
     _ui.addJobButton->show();
+}
+
+void MainWindow::updateUi()
+{
+    // Keyboard shortcuts
+    _ui.keyboardShortcuts->setPlainText(_ui.keyboardShortcuts->toPlainText()
+                                        .arg(QKeySequence(Qt::ControlModifier)
+                                             .toString(QKeySequence::NativeText))
+                                        .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
+                                             .toString(QKeySequence::NativeText))
+                                        .arg(QKeySequence(Qt::Key_Backspace)
+                                             .toString(QKeySequence::NativeText))
+                                        .arg(QKeySequence(Qt::Key_Delete)
+                                             .toString(QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(0,
+                                     _ui.mainTabWidget->tabToolTip(0)
+                                     .arg(_ui.actionGoBackup->shortcut()
+                                          .toString(QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(1,
+                                     _ui.mainTabWidget->tabToolTip(1)
+                                     .arg(_ui.actionGoArchives->shortcut()
+                                          .toString(QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(2,
+                                     _ui.mainTabWidget->tabToolTip(2)
+                                     .arg(_ui.actionGoJobs->shortcut()
+                                          .toString(QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(3,
+                                     _ui.mainTabWidget->tabToolTip(3)
+                                     .arg(_ui.actionGoSettings->shortcut()
+                                          .toString(QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(4,
+                                     _ui.mainTabWidget->tabToolTip(4)
+                                     .arg(_ui.actionGoHelp->shortcut()
+                                          .toString(QKeySequence::NativeText)));
+
+    _ui.actionBackupNow->setToolTip(_ui.actionBackupNow->toolTip()
+                                    .arg(_ui.actionBackupNow->shortcut()
+                                         .toString(QKeySequence::NativeText)));
+    _ui.backupListInfoLabel->setToolTip(_ui.backupListInfoLabel->toolTip()
+                                        .arg(_ui.actionBrowseItems->shortcut()
+                                         .toString(QKeySequence::NativeText)));
+    _ui.actionShowJournal->setToolTip(_ui.actionShowJournal->toolTip()
+                                      .arg(_ui.actionShowJournal->shortcut()
+                                           .toString(QKeySequence::NativeText)));
+    _ui.busyWidget->setToolTip(_ui.busyWidget->toolTip()
+                               .arg(_ui.actionStopTasks->shortcut()
+                                    .toString(QKeySequence::NativeText)));
+    _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip()
+                                 .arg(_ui.actionAddJob->shortcut()
+                                      .toString(QKeySequence::NativeText)));
+    _ui.archivesFilter->setToolTip(_ui.archivesFilter->toolTip()
+                                   .arg(_ui.actionFilterArchives->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip()
+                                   .arg(_ui.actionFilterJobs->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.updateAccountButton->setToolTip(_ui.updateAccountButton->toolTip()
+                                        .arg(_ui.actionRefreshAccount->shortcut()
+                                             .toString(QKeySequence::NativeText)));
+    // --
+
+    setupMenuBar();
+
+    if(_ui.addJobButton->property("save").toBool())
+        _ui.addJobButton->setText(tr("Save"));
+    else
+        _ui.addJobButton->setText(tr("Add job"));
 }

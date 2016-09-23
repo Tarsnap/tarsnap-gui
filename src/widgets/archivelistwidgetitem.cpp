@@ -10,16 +10,8 @@ ArchiveListWidgetItem::ArchiveListWidgetItem(ArchivePtr archive)
     _ui.setupUi(_widget);
     // Send translation events to the widget.
     _widget->installEventFilter(this);
-    // Display tooltips using platform-specific strings.
-    _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
-                                   .arg(_ui.actionInspect->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.restoreButton->setToolTip(_ui.restoreButton->toolTip()
-                                   .arg(_ui.actionRestore->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip()
-                                   .arg(_ui.actionDelete->shortcut()
-                                        .toString(QKeySequence::NativeText)));
+    updateUi();
+
     // Set up action connections.
     connect(_ui.deleteButton, &QToolButton::clicked, this,
             &ArchiveListWidgetItem::requestDelete);
@@ -127,8 +119,23 @@ bool ArchiveListWidgetItem::eventFilter(QObject *obj, QEvent *event)
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
         _ui.retranslateUi(_widget);
+        updateUi();
         update();
         return true;
     }
     return false;
+}
+
+void ArchiveListWidgetItem::updateUi()
+{
+    // Display tooltips using platform-specific strings.
+    _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
+                                   .arg(_ui.actionInspect->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.restoreButton->setToolTip(_ui.restoreButton->toolTip()
+                                   .arg(_ui.actionRestore->shortcut()
+                                        .toString(QKeySequence::NativeText)));
+    _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip()
+                                   .arg(_ui.actionDelete->shortcut()
+                                        .toString(QKeySequence::NativeText)));
 }

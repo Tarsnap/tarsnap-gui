@@ -62,6 +62,7 @@ private:
     quint64                  _size;
 
     void setUrl(const QUrl &url);
+    void updateUi();
 };
 
 #endif // BACKUPLISTITEM_H

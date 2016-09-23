@@ -56,6 +56,7 @@ private:
     ArchivePtr _archive;
 
     void setArchive(ArchivePtr archive);
+    void updateUi();
 };
 
 #endif // ARCHIVELISTWIDGETITEM_H

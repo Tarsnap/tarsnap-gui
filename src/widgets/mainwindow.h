@@ -6,6 +6,7 @@
 #include "taskmanager.h"
 #include "ui_mainwindow.h"
 
+#include <QMenuBar>
 #include <QMessageBox>
 #include <QTimer>
 #include <QWidget>
@@ -98,7 +99,6 @@ private slots:
     void showArchiveListMenu(const QPoint &pos);
     void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
-    void setTarsnapVersion(QString versionString);
     void createJobClicked();
     void showAbout();
     void mainTabChanged(int index);
@@ -106,12 +106,15 @@ private slots:
 
 private:
     Ui::MainWindow  _ui;
+    QMenuBar       *_menuBar;
     QString         _lastTimestamp;
     QTimer          _purgeTimer;
     int             _purgeTimerCount;
     QMessageBox     _purgeCountdown;
     TarsnapAccount  _tarsnapAccount;
     bool            _aboutToQuit;
+
+    void updateUi();
 };
 
 #endif // MAINWINDOW_H

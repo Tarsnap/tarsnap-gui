@@ -86,6 +86,9 @@ QFileInfoList findKeysInPath(QString path);
 // Returns canonical path if verified, otherwise empty string
 QString validateTarsnapCache(QString path);
 
+// Returns canonical path if verified, otherwise empty string
+QString validateAppDataDir(QString path);
+
 // Verifies if the current CLI utils version is at least minVersion
 bool tarsnapVersionMinimum(const QString &minVersion);
 

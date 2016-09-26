@@ -78,6 +78,7 @@ private slots:
     bool validateMachineKeyPath();
     bool validateTarsnapPath();
     bool validateTarsnapCache();
+    bool validateAppDataDir();
     void purgeTimerFired();
     void browseForBackupItems();
     void appendTimestampCheckBoxToggled(bool checked);

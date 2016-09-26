@@ -150,6 +150,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::validateTarsnapPath);
     connect(_ui.tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
             &MainWindow::validateTarsnapCache);
+    connect(_ui.appDataDirLineEdit, &QLineEdit::textChanged, this,
+            &MainWindow::validateAppDataDir);
     connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
     connect(_ui.notificationsCheckBox, &QCheckBox::toggled, this,
@@ -525,6 +527,13 @@ void MainWindow::initialize()
     {
         QMessageBox::critical(this, tr("Tarsnap error"),
                               tr("Tarsnap cache dir is invalid. Go to "
+                                 " Settings -> Application page to fix that."));
+    }
+
+    if(!validateAppDataDir())
+    {
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Application data dir is invalid. Go to "
                                  " Settings -> Application page to fix that."));
     }
 
@@ -1023,6 +1032,20 @@ bool MainWindow::validateTarsnapCache()
     else
     {
         _ui.tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        return true;
+    }
+}
+
+bool MainWindow::validateAppDataDir()
+{
+    if(Utils::validateAppDataDir(_ui.appDataDirLineEdit->text()).isEmpty())
+    {
+        _ui.appDataDirLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        return false;
+    }
+    else
+    {
+        _ui.appDataDirLineEdit->setStyleSheet("QLineEdit {color: black;}");
         return true;
     }
 }

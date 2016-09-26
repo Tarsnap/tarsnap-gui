@@ -216,11 +216,7 @@ bool SetupDialog::validateAdvancedSetupPage()
         Utils::findTarsnapClientInPath(_ui.tarsnapPathLineEdit->text(), true);
     _tarsnapCacheDir =
         Utils::validateTarsnapCache(_ui.tarsnapCacheLineEdit->text());
-    QFileInfo appDataDir(_ui.appDataPathLineEdit->text());
-    if(appDataDir.exists() && appDataDir.isDir() && appDataDir.isWritable())
-        _appDataDir = _ui.appDataPathLineEdit->text();
-    else
-        _appDataDir.clear();
+    _appDataDir = Utils::validateAppDataDir(_ui.appDataPathLineEdit->text());
 
     if(_tarsnapDir.isEmpty() || _tarsnapCacheDir.isEmpty() ||
        _appDataDir.isEmpty())

@@ -93,6 +93,18 @@ QString Utils::validateTarsnapCache(QString path)
     return result;
 }
 
+QString Utils::validateAppDataDir(QString path)
+{
+    QString result;
+    if(!path.isEmpty())
+    {
+        QFileInfo candidate(path);
+        if(candidate.exists() && candidate.isDir() && candidate.isWritable())
+            result = candidate.canonicalFilePath();
+    }
+    return result;
+}
+
 QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
 {
     QStringList searchPaths;

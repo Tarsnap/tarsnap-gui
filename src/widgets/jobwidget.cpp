@@ -75,6 +75,7 @@ JobWidget::JobWidget(QWidget *parent)
 JobWidget::~JobWidget()
 {
 }
+
 JobPtr JobWidget::job() const
 {
     return _job;
@@ -200,7 +201,13 @@ void JobWidget::changeEvent(QEvent *event)
     {
         _ui.retranslateUi(this);
         updateUi();
-        updateDetails();
+        if(_job)
+        {
+            if(_job->objectKey().isEmpty())
+                canSaveNew();
+            else
+                updateDetails();
+        }
     }
     QWidget::changeEvent(event);
 }

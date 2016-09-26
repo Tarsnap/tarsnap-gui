@@ -391,7 +391,6 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
         _ui.errorLabel->setText(reason);
         _ui.errorLabel->show();
         _ui.nextButton->setEnabled(true);
-        resize(sizeHint());
         break;
     default:
         break;

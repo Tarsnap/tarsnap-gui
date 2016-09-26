@@ -1070,6 +1070,9 @@ color: darkred;
        <property name="text">
         <string>Next</string>
        </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>

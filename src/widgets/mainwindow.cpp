@@ -1255,6 +1255,14 @@ void MainWindow::purgeArchivesButtonClicked()
 
 void MainWindow::runSetupWizardClicked()
 {
+    if(_ui.busyWidget->isVisible())
+    {
+        QMessageBox::warning(this, tr("Confirm action"),
+                              tr("Tasks are currently running. Please "
+                                 "stop executing tasks or wait for "
+                                 "completion and try again."));
+        return;
+    }
     auto confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Reset current app settings, job definitions "

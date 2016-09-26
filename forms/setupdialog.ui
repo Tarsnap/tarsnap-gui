@@ -41,7 +41,7 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
     <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>6</number>
+    <number>0</number>
    </property>
    <item>
     <layout class="QGridLayout" name="headerLayout">
@@ -229,18 +229,6 @@ min-width: 200px;
      </property>
      <widget class="QWidget" name="welcomePage">
       <layout class="QVBoxLayout" name="welcomeVerticalLayout">
-       <property name="leftMargin">
-        <number>12</number>
-       </property>
-       <property name="topMargin">
-        <number>12</number>
-       </property>
-       <property name="rightMargin">
-        <number>12</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
        <item>
         <spacer name="welcomeTopSpacer">
          <property name="orientation">
@@ -313,21 +301,11 @@ min-width: 200px;
       </layout>
       <zorder>welcomePageInfoLabelAside</zorder>
       <zorder>welcomePageInfoLabel</zorder>
+      <zorder>welcomeBottomSpacer</zorder>
+      <zorder>welcomeTopSpacer</zorder>
      </widget>
      <widget class="QWidget" name="advancedPage">
       <layout class="QVBoxLayout" name="advancedVerticalLayout">
-       <property name="leftMargin">
-        <number>12</number>
-       </property>
-       <property name="topMargin">
-        <number>12</number>
-       </property>
-       <property name="rightMargin">
-        <number>12</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
        <item>
         <spacer name="cliTopSpacer">
          <property name="orientation">
@@ -565,65 +543,35 @@ min-width: 200px;
          </property>
         </spacer>
        </item>
-       <item alignment="Qt::AlignBottom">
-        <widget class="QWidget" name="cliButtonBox" native="true">
-         <layout class="QHBoxLayout" name="cliButtonBoxHorizontalLayout">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item alignment="Qt::AlignLeft">
-           <widget class="QPushButton" name="advancedCLIButton">
-            <property name="toolTip">
-             <string>Show advanced setup options</string>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
+       <item>
+        <widget class="QPushButton" name="advancedCLIButton">
+         <property name="toolTip">
+          <string>Show advanced setup options</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
 border: none;
 }</string>
-            </property>
-            <property name="text">
-             <string>Advanced options</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../resources/resources.qrc">
-              <normaloff>:/icons/caret-top.png</normaloff>
-              <normalon>:/icons/caret-bottom.png</normalon>:/icons/caret-top.png</iconset>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         </property>
+         <property name="text">
+          <string>Advanced options</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources/resources.qrc">
+           <normaloff>:/icons/caret-top.png</normaloff>
+           <normalon>:/icons/caret-bottom.png</normalon>:/icons/caret-top.png</iconset>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
       </layout>
      </widget>
      <widget class="QWidget" name="restorePage">
       <layout class="QVBoxLayout" name="restoreVerticalLayout">
-       <property name="leftMargin">
-        <number>12</number>
-       </property>
-       <property name="topMargin">
-        <number>12</number>
-       </property>
-       <property name="rightMargin">
-        <number>12</number>
-       </property>
        <property name="bottomMargin">
-        <number>0</number>
+        <number>12</number>
        </property>
        <item>
         <spacer name="restoreTopSpacer">
@@ -762,21 +710,6 @@ border: none;
      </widget>
      <widget class="QWidget" name="registerPage">
       <layout class="QVBoxLayout" name="registerVerticalLayout">
-       <property name="spacing">
-        <number>3</number>
-       </property>
-       <property name="leftMargin">
-        <number>12</number>
-       </property>
-       <property name="topMargin">
-        <number>12</number>
-       </property>
-       <property name="rightMargin">
-        <number>12</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
        <item>
         <spacer name="registerTopSpacer">
          <property name="orientation">
@@ -981,6 +914,9 @@ color: darkred;
           </item>
           <item row="6" column="0" colspan="2">
            <widget class="QLabel" name="loadingIconLabel">
+            <property name="toolTip">
+             <string>This may take a while, please be patient</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -1009,18 +945,6 @@ color: darkred;
      </widget>
      <widget class="QWidget" name="donePage">
       <layout class="QVBoxLayout" name="doneVerticalLayout">
-       <property name="leftMargin">
-        <number>12</number>
-       </property>
-       <property name="topMargin">
-        <number>12</number>
-       </property>
-       <property name="rightMargin">
-        <number>12</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
        <item>
         <spacer name="doneTopSpacer">
          <property name="orientation">

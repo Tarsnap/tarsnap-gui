@@ -230,25 +230,39 @@ void SetupDialog::showAppDataBrowse()
 
 bool SetupDialog::validateAdvancedSetupPage()
 {
-    bool result = false;
+    bool result = true;
 
+    _appDataDir = Utils::validateAppDataDir(_ui.appDataPathLineEdit->text());
+    if(_appDataDir.isEmpty())
+    {
+        _ui.advancedValidationLabel->setText(tr("Invalid App data directory "
+                                                "set."));
+        result = false;
+    }
+
+    _tarsnapCacheDir =
+        Utils::validateTarsnapCache(_ui.tarsnapCacheLineEdit->text());
+    if(result && _tarsnapCacheDir.isEmpty())
+    {
+        _ui.advancedValidationLabel->setText(tr("Invalid Tarsnap cache directory"
+                                                " set."));
+        result = false;
+    }
 
     _tarsnapDir =
         Utils::findTarsnapClientInPath(_ui.tarsnapPathLineEdit->text(), true);
-    _tarsnapCacheDir =
-        Utils::validateTarsnapCache(_ui.tarsnapCacheLineEdit->text());
-    _appDataDir = Utils::validateAppDataDir(_ui.appDataPathLineEdit->text());
-
-    if(_tarsnapDir.isEmpty() || _tarsnapCacheDir.isEmpty() ||
-       _appDataDir.isEmpty())
+    if(result && _tarsnapDir.isEmpty())
+    {
+        _ui.advancedValidationLabel->setText(
+                    tr("Tarsnap utilities not found. Visit "
+                       "<a href=\"https://tarsnap.com\">tarsnap.com</a> "
+                       "for help with acquiring them."));
         result = false;
-    else
-        result = true;
-
-    if(result)
+    }
+    else if(result)
+    {
         emit getTarsnapVersion(_tarsnapDir);
-    else
-        setTarsnapVersion("");
+    }
 
     _ui.nextButton->setEnabled(result);
 
@@ -401,17 +415,10 @@ void SetupDialog::updateLoadingAnimation(bool idle)
 void SetupDialog::setTarsnapVersion(QString versionString)
 {
     _tarsnapVersion = versionString;
-    if(_tarsnapVersion.isEmpty())
+    if(!_tarsnapVersion.isEmpty())
     {
-        _ui.clientVersionLabel->setText(
-            tr("Tarsnap utilities not found. Visit "
-               "<a href=\"https://tarsnap.com\">tarsnap.com</a> "
-               "for help with acquiring them."));
-    }
-    else
-    {
-        _ui.clientVersionLabel->setText(tr("Tarsnap CLI version ") +
-                                         _tarsnapVersion + tr(" detected.  ✔"));
+        _ui.advancedValidationLabel->setText(tr("Tarsnap CLI version ") +
+                                             _tarsnapVersion + tr(" detected.  ✔"));
     }
 }
 

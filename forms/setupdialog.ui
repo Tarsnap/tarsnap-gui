@@ -382,7 +382,7 @@ min-width: 200px;
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="clientVersionLabel">
+           <widget class="QLabel" name="advancedValidationLabel">
             <property name="font">
              <font>
               <italic>true</italic>

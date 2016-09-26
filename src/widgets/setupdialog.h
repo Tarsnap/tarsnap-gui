@@ -41,6 +41,10 @@ signals:
                                 QString cachePath);
     void getTarsnapVersion(QString tarsnapPath);
 
+private slots:
+    void backButtonClicked();
+    void nextButtonClicked();
+
 private:
     Ui::SetupDialog  _ui;
     QPoint           _windowDragPos;

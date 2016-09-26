@@ -252,7 +252,7 @@ min-width: 200px;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -305,94 +305,14 @@ min-width: 200px;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
        </item>
-       <item alignment="Qt::AlignBottom">
-        <widget class="QWidget" name="buttonBox" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <spacer name="welcomeLeftSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="welcomePageSkipButton">
-            <property name="toolTip">
-             <string>Skip this Wizard</string>
-            </property>
-            <property name="text">
-             <string>Skip wizard</string>
-            </property>
-            <property name="autoDefault">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="welcomePageProceedButton">
-            <property name="toolTip">
-             <string>Proceed to next step</string>
-            </property>
-            <property name="text">
-             <string>Proceed</string>
-            </property>
-            <property name="autoDefault">
-             <bool>true</bool>
-            </property>
-            <property name="default">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="welcomeRightSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
       </layout>
       <zorder>welcomePageInfoLabelAside</zorder>
       <zorder>welcomePageInfoLabel</zorder>
-      <zorder>buttonBox</zorder>
      </widget>
      <widget class="QWidget" name="advancedPage">
       <layout class="QVBoxLayout" name="advancedVerticalLayout">
@@ -409,6 +329,19 @@ min-width: 200px;
         <number>0</number>
        </property>
        <item>
+        <spacer name="cliTopSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>5</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QWidget" name="actionContainerWidget" native="true">
          <layout class="QVBoxLayout" name="actionVerticalLayout">
           <property name="leftMargin">
@@ -423,19 +356,6 @@ min-width: 200px;
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item>
-           <spacer name="cliTopSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
           <item>
            <widget class="QLabel" name="cliInfoLabel">
             <property name="sizePolicy">
@@ -640,7 +560,7 @@ min-width: 200px;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -686,19 +606,6 @@ border: none;
             </property>
            </widget>
           </item>
-          <item alignment="Qt::AlignLeft">
-           <widget class="QPushButton" name="advancedPageProceedButton">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>Proceed</string>
-            </property>
-            <property name="default">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
@@ -726,7 +633,7 @@ border: none;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -767,19 +674,6 @@ border: none;
           <bool>true</bool>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="restoreBottomSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item alignment="Qt::AlignBottom">
         <widget class="QWidget" name="restoreButtonBox" native="true">
@@ -851,12 +745,25 @@ border: none;
          </layout>
         </widget>
        </item>
+       <item>
+        <spacer name="restoreBottomSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>5</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="registerPage">
       <layout class="QVBoxLayout" name="registerVerticalLayout">
        <property name="spacing">
-        <number>-1</number>
+        <number>3</number>
        </property>
        <property name="leftMargin">
         <number>12</number>
@@ -878,7 +785,7 @@ border: none;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -1093,76 +1000,10 @@ color: darkred;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
-       </item>
-       <item alignment="Qt::AlignBottom">
-        <widget class="QWidget" name="registerButtonBox" native="true">
-         <layout class="QHBoxLayout" name="registerButtonBoxHorizontalLayout">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <spacer name="registerLeftSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="registerMachineButton">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>This may take a while, please be patient</string>
-            </property>
-            <property name="text">
-             <string>Register machine</string>
-            </property>
-            <property name="default">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="registerRightSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -1188,7 +1029,7 @@ color: darkred;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
@@ -1263,86 +1104,56 @@ color: darkred;
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>5</height>
           </size>
          </property>
         </spacer>
-       </item>
-       <item alignment="Qt::AlignBottom">
-        <widget class="QWidget" name="doneButtonBox" native="true">
-         <layout class="QHBoxLayout" name="doneButtonBoxHorizontalLayout">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <spacer name="doneLeftSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="doneButton">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>Setup wizard is complete, start using the app</string>
-            </property>
-            <property name="text">
-             <string>Start using Tarsnap</string>
-            </property>
-            <property name="default">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="doneRightSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
        </item>
       </layout>
      </widget>
     </widget>
    </item>
+   <item>
+    <layout class="QHBoxLayout" name="footerLayout">
+     <property name="leftMargin">
+      <number>6</number>
+     </property>
+     <property name="rightMargin">
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="backButton">
+       <property name="text">
+        <string>Back</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="footerSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="nextButton">
+       <property name="text">
+        <string>Next</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>welcomePageSkipButton</tabstop>
-  <tabstop>welcomePageProceedButton</tabstop>
+  <tabstop>nextButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapCacheLineEdit</tabstop>
@@ -1350,7 +1161,6 @@ color: darkred;
   <tabstop>appDataPathLineEdit</tabstop>
   <tabstop>appDataBrowseButton</tabstop>
   <tabstop>advancedCLIButton</tabstop>
-  <tabstop>advancedPageProceedButton</tabstop>
   <tabstop>restoreNoButton</tabstop>
   <tabstop>restoreYesButton</tabstop>
   <tabstop>tarsnapUserLineEdit</tabstop>
@@ -1358,8 +1168,7 @@ color: darkred;
   <tabstop>machineNameLineEdit</tabstop>
   <tabstop>machineKeyCombo</tabstop>
   <tabstop>browseKeyButton</tabstop>
-  <tabstop>registerMachineButton</tabstop>
-  <tabstop>doneButton</tabstop>
+  <tabstop>backButton</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

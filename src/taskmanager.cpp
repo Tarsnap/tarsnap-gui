@@ -433,11 +433,13 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
     if(queued) // queued should be cleared first to avoid race
     {
         _taskQueue.clear();
+        emit message("Cleared queued tasks.");
     }
     if(interrupt)
     {
         if(!_runningTasks.isEmpty())
             _runningTasks.first()->interrupt();
+        emit message("Interrupting current backup.");
     }
     if(running)
     {
@@ -446,6 +448,7 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
             if(task)
                 task->stop();
         }
+        emit message("Stopped running tasks.");
     }
 }
 
@@ -1080,6 +1083,10 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
         if(purgeArchives)
         {
             deleteArchives(job->archives());
+            emit message(tr("Job <i>%1</i> deleted. Deleting %2 associated "
+                            "archives next...")
+                         .arg(job->name())
+                         .arg(job->archives().count()));
         }
         else
         {
@@ -1088,6 +1095,7 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
                 archive->setJobRef("");
                 archive->save();
             }
+            emit message(tr("Job <i>%1</i> deleted.").arg(job->name()));
         }
         job->purge();
         _jobMap.remove(job->name());
@@ -1128,6 +1136,7 @@ void TaskManager::addJob(JobPtr job)
     _jobMap[job->name()] = job;
     connect(job.data(), &Job::loadArchives, this, &TaskManager::loadJobArchives,
             QUEUED);
+    emit message(tr("Job <i>%1</i> added.").arg(job->name()));
 }
 
 void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,

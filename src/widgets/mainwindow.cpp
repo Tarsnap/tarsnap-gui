@@ -259,6 +259,8 @@ MainWindow::MainWindow(QWidget *parent)
             &JobListWidget::addJob);
     connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
             &MainWindow::displayJobDetails);
+    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
+            &MainWindow::jobAdded);
     connect(_ui.jobDetailsWidget, &JobWidget::inspectJobArchive, this,
             &MainWindow::displayInspectArchive);
     connect(_ui.jobDetailsWidget, &JobWidget::restoreJobArchive, this,
@@ -321,21 +323,6 @@ MainWindow::MainWindow(QWidget *parent)
             _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
         else
             _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
-    });
-    connect(_ui.jobListWidget, &JobListWidget::deleteJob,
-            [&](JobPtr job, bool purgeArchives) {
-                if(purgeArchives)
-                    updateStatusMessage(tr("Job <i>%1</i> deleted. Deleting %2 "
-                                           "associated archives next...")
-                                            .arg(job->name())
-                                            .arg(job->archives().count()));
-                else
-                    updateStatusMessage(
-                        tr("Job <i>%1</i> deleted.").arg(job->name()));
-            });
-    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, [&](JobPtr job) {
-        emit jobAdded(job);
-        updateStatusMessage(tr("Job <i>%1</i> added.").arg(job->name()));
     });
     connect(_ui.simulationCheckBox, &QCheckBox::stateChanged, [&](int state) {
         if(state == Qt::Unchecked)
@@ -1374,29 +1361,15 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
     msgBox.setDefaultButton(cancel);
     msgBox.exec();
     if(msgBox.clickedButton() == interruptBackup)
-    {
         emit stopTasks(true, false, true);
-        updateStatusMessage("Interrupting current backup.");
-    }
     if(msgBox.clickedButton() == stopQueued)
-    {
         emit stopTasks(false, false, true);
-        updateStatusMessage("Cleared queued tasks.");
-    }
     else if(msgBox.clickedButton() == stopRunning)
-    {
         emit stopTasks(false, true, false);
-        updateStatusMessage("Stopped running tasks.");
-    }
     else if(msgBox.clickedButton() == stopAll)
-    {
         emit stopTasks(false, true, true);
-        updateStatusMessage("Stopped running tasks and cleared queued ones.");
-    }
     else if((msgBox.clickedButton() == cancel) && _aboutToQuit)
-    {
         _aboutToQuit = false;
-    }
 
     if(_aboutToQuit)
         close();

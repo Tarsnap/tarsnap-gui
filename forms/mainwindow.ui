@@ -2513,7 +2513,7 @@ border: none;
   <action name="actionAddJob">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/hard-drive.png</normaloff>:/icons/hard-drive.png</iconset>
+     <normaloff>:/icons/arrow-circle-right.png</normaloff>:/icons/arrow-circle-right.png</iconset>
    </property>
    <property name="text">
     <string>Add Job</string>
@@ -2539,7 +2539,7 @@ border: none;
   <action name="actionBackupAllJobs">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+     <normaloff>:/icons/data-transfer-download.png</normaloff>:/icons/data-transfer-download.png</iconset>
    </property>
    <property name="text">
     <string>Backup all Jobs</string>
@@ -2603,7 +2603,7 @@ border: none;
   <action name="actionRestore">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+     <normaloff>:/icons/data-transfer-download.png</normaloff>:/icons/data-transfer-download.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>
@@ -2618,7 +2618,7 @@ border: none;
   <action name="actionJobRestore">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+     <normaloff>:/icons/data-transfer-download.png</normaloff>:/icons/data-transfer-download.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>
@@ -2648,7 +2648,7 @@ border: none;
   <action name="actionJobBackup">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+     <normaloff>:/icons/data-transfer-upload.png</normaloff>:/icons/data-transfer-upload.png</iconset>
    </property>
    <property name="text">
     <string>Backup</string>
@@ -2678,7 +2678,7 @@ border: none;
   <action name="actionCreateJob">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/hard-drive.png</normaloff>:/icons/hard-drive.png</iconset>
+     <normaloff>:/icons/arrow-circle-right.png</normaloff>:/icons/arrow-circle-right.png</iconset>
    </property>
    <property name="text">
     <string>Morph into Job</string>
@@ -2701,7 +2701,7 @@ border: none;
   <action name="actionBackupNow">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+     <normaloff>:/icons/data-transfer-upload.png</normaloff>:/icons/data-transfer-upload.png</iconset>
    </property>
    <property name="text">
     <string>Backup</string>

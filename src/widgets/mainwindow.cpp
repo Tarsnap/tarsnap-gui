@@ -1342,8 +1342,19 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
     msgBox.setInformativeText(tr("What do you want to do?"));
     QPushButton *interruptBackup = nullptr;
     if(backupTaskRunning)
-        interruptBackup =
-            msgBox.addButton(tr("Interrupt backup"), QMessageBox::ActionRole);
+    {
+        if(_aboutToQuit)
+        {
+            interruptBackup =
+                    msgBox.addButton(tr("Interrupt backup and clear queue"),
+                                     QMessageBox::ActionRole);
+        }
+        else
+        {
+            interruptBackup = msgBox.addButton(tr("Interrupt backup"),
+                                               QMessageBox::ActionRole);
+        }
+    }
     QPushButton *stopRunning = nullptr;
     if(runningTasks && !_aboutToQuit)
         stopRunning =
@@ -1360,9 +1371,10 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
     QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
     msgBox.setDefaultButton(cancel);
     msgBox.exec();
+
     if(msgBox.clickedButton() == interruptBackup)
-        emit stopTasks(true, false, true);
-    if(msgBox.clickedButton() == stopQueued)
+        emit stopTasks(true, false, _aboutToQuit);
+    else if(msgBox.clickedButton() == stopQueued)
         emit stopTasks(false, false, true);
     else if(msgBox.clickedButton() == stopRunning)
         emit stopTasks(false, true, false);

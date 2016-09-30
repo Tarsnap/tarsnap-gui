@@ -33,6 +33,10 @@ SetupDialog::SetupDialog(QWidget *parent)
         keysDir.mkpath(_appDataDir);
     _ui.appDataPathLineEdit->setText(_appDataDir);
 
+    // find existing keys
+    foreach(QFileInfo file, Utils::findKeysInPath(_appDataDir))
+        _ui.machineKeyCombo->addItem(file.canonicalFilePath());
+
     _tarsnapCacheDir =
         QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
     QDir cacheDir(_tarsnapCacheDir);
@@ -129,6 +133,10 @@ void SetupDialog::wizardPageChanged(int)
         _ui.restorePageRadioButton->setChecked(true);
         _ui.titleLabel->setText(tr("Machine key"));
         _ui.nextButton->setEnabled(false); // temporary until machinekey change
+        if(_ui.machineKeyCombo->count() > 0)
+            _ui.restoreYesButton->setFocus();
+        else
+            _ui.restoreNoButton->setFocus();
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.registerPage)
     {

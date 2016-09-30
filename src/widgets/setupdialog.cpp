@@ -186,7 +186,7 @@ void SetupDialog::setNextPage()
         _ui.advancedPageRadioButton->setEnabled(true);
         bool advancedOk = validateAdvancedSetupPage();
         _ui.advancedCLIButton->setChecked(!advancedOk);
-        if (advancedOk)
+        if(advancedOk)
             _ui.nextButton->setFocus();
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.advancedPage)
@@ -198,6 +198,8 @@ void SetupDialog::setNextPage()
     {
         _ui.wizardStackedWidget->setCurrentWidget(_ui.registerPage);
         _ui.registerPageRadioButton->setEnabled(true);
+        if(validateRegisterPage())
+            _ui.nextButton->setFocus();
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.registerPage)
     {
@@ -315,7 +317,7 @@ void SetupDialog::restoreYes()
     setNextPage();
 }
 
-void SetupDialog::validateRegisterPage()
+bool SetupDialog::validateRegisterPage()
 {
     bool result = false;
     if(_haveKey)
@@ -340,6 +342,7 @@ void SetupDialog::validateRegisterPage()
     }
 
     _ui.nextButton->setEnabled(result);
+    return result;
 }
 
 void SetupDialog::registerHaveKeyBrowse()

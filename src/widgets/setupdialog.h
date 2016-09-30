@@ -25,7 +25,7 @@ public slots:
     bool validateAdvancedSetupPage();
     void restoreNo();
     void restoreYes();
-    void validateRegisterPage();
+    bool validateRegisterPage();
     void registerHaveKeyBrowse();
     void registerMachine();
     void commitSettings(bool skipped = false);

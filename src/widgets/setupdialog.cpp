@@ -41,7 +41,6 @@ SetupDialog::SetupDialog(QWidget *parent)
     _ui.tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
 
     _ui.loadingIconLabel->setMovie(&_loadingAnimation);
-    _ui.errorLabel->hide();
     _ui.machineKeyLabel->hide();
     _ui.machineKeyCombo->hide();
     _ui.browseKeyButton->hide();
@@ -289,7 +288,7 @@ void SetupDialog::restoreNo()
         tr("Don't have an account? Register on "
         "<a href=\"http://tarsnap.com\">tarsnap.com</a>, "
         "then come back."));
-    _ui.errorLabel->clear();
+    _ui.statusLabel->clear();
     setNextPage();
 }
 
@@ -310,7 +309,7 @@ void SetupDialog::restoreYes()
         tr("The registration will also "
            "verify the archive integrity and consistency, "
            "so please be patient."));
-    _ui.errorLabel->clear();
+    _ui.statusLabel->clear();
     _ui.machineKeyCombo->clear();
     foreach(QFileInfo file, Utils::findKeysInPath(_appDataDir))
         _ui.machineKeyCombo->addItem(file.canonicalFilePath());
@@ -357,14 +356,18 @@ void SetupDialog::registerHaveKeyBrowse()
 void SetupDialog::registerMachine()
 {
     _ui.nextButton->setEnabled(false);
-    _ui.errorLabel->clear();
-    if(_haveKey)
+    _ui.statusLabel->clear();
+    _ui.statusLabel->setStyleSheet("");
+    if(_haveKey) {
+        _ui.statusLabel->setText("Verifying archive integrity...");
         _tarsnapKeyFile = _ui.machineKeyCombo->currentText();
-    else
+    } else {
+        _ui.statusLabel->setText("Generating keyfile...");
         _tarsnapKeyFile =
             _appDataDir + QDir::separator() + _ui.machineNameLineEdit->text() +
             "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss") +
             ".key";
+    }
 
     DEBUG << "Registration details >>\n" << _tarsnapDir << ::endl
           << _appDataDir << ::endl
@@ -382,7 +385,7 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
     switch(status)
     {
     case TaskStatus::Completed:
-        _ui.errorLabel->clear();
+        _ui.statusLabel->clear();
         _ui.doneKeyFileNameLabel->setText(
                     QString("<a href=\"%1\">%2</a>")
                            .arg(QUrl::fromLocalFile(QFileInfo(_tarsnapKeyFile).absolutePath()).toString())
@@ -391,8 +394,8 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
         setNextPage();
         break;
     case TaskStatus::Failed:
-        _ui.errorLabel->setText(reason);
-        _ui.errorLabel->show();
+        _ui.statusLabel->setText(reason);
+        _ui.statusLabel->setStyleSheet("#statusLabel { color: darkred; }");
         _ui.nextButton->setEnabled(true);
         break;
     default:

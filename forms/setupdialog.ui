@@ -887,16 +887,11 @@ border: none;
            </widget>
           </item>
           <item row="5" column="0" colspan="2">
-           <widget class="QLabel" name="errorLabel">
+           <widget class="QLabel" name="statusLabel">
             <property name="font">
              <font>
               <italic>true</italic>
              </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">#errorLabel {
-color: darkred;
-}</string>
             </property>
             <property name="text">
              <string/>

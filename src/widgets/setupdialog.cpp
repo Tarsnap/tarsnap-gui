@@ -281,16 +281,6 @@ void SetupDialog::restoreYes()
     // Share machineNameLineEdit in both pages of the keyStackedWidget
     _ui.gridKeyYesLayout->addWidget(_ui.machineNameLineEdit, 1, 1);
     _ui.statusLabel->clear();
-
-    // Temporarily disconnect (and then reconnect) machineKeyCombo
-    // so that we don't trigger validateRegisterPage().
-    disconnect(_ui.machineKeyCombo, &QComboBox::currentTextChanged, this,
-               &SetupDialog::validateRegisterPage);
-    _ui.machineKeyCombo->clear();
-    foreach(QFileInfo file, Utils::findKeysInPath(_appDataDir))
-        _ui.machineKeyCombo->addItem(file.canonicalFilePath());
-    connect(_ui.machineKeyCombo, &QComboBox::currentTextChanged, this,
-            &SetupDialog::validateRegisterPage);
 }
 
 bool SetupDialog::validateRegisterPage()

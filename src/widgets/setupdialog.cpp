@@ -12,8 +12,7 @@
 
 SetupDialog::SetupDialog(QWidget *parent)
     : QDialog(parent),
-      _loadingAnimation(":/icons/loading.gif"),
-      _haveKey(false)
+      _loadingAnimation(":/icons/loading.gif")
 {
     _ui.setupUi(this);
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) &
@@ -263,7 +262,6 @@ bool SetupDialog::validateAdvancedSetupPage()
 
 void SetupDialog::restoreNo()
 {
-    _haveKey = false;
     // Exclusive button groups don't support keyboard focus, so we fake it.
     _ui.restoreYesButton->setChecked(false);
     _ui.registerKeyStackedWidget->setCurrentWidget(_ui.keyNoPage);
@@ -274,7 +272,6 @@ void SetupDialog::restoreNo()
 
 void SetupDialog::restoreYes()
 {
-    _haveKey = true;
     // Exclusive button groups don't support keyboard focus, so we fake it.
     _ui.restoreNoButton->setChecked(false);
     _ui.registerKeyStackedWidget->setCurrentWidget(_ui.keyYesPage);
@@ -286,7 +283,7 @@ void SetupDialog::restoreYes()
 bool SetupDialog::validateRegisterPage()
 {
     bool result = false;
-    if(_haveKey)
+    if(_ui.restoreYesButton->isChecked())
     {
         // user specified key
         QFileInfo machineKeyFile(_ui.machineKeyCombo->currentText());
@@ -325,7 +322,7 @@ void SetupDialog::registerMachine()
     _ui.nextButton->setEnabled(false);
     _ui.statusLabel->clear();
     _ui.statusLabel->setStyleSheet("");
-    if(_haveKey) {
+    if(_ui.restoreYesButton->isChecked()) {
         _ui.statusLabel->setText("Verifying archive integrity...");
         _tarsnapKeyFile = _ui.machineKeyCombo->currentText();
     } else {

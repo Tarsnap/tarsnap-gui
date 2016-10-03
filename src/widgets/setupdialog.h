@@ -55,7 +55,6 @@ private:
     QString _tarsnapCacheDir;
     QString _appDataDir;
     QString _tarsnapKeyFile;
-    bool    _haveKey;
 };
 
 #endif // SETUPDIALOG_H

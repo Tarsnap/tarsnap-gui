@@ -262,8 +262,6 @@ bool SetupDialog::validateAdvancedSetupPage()
 
 void SetupDialog::restoreNo()
 {
-    // Exclusive button groups don't support keyboard focus, so we fake it.
-    _ui.restoreYesButton->setChecked(false);
     _ui.registerKeyStackedWidget->setCurrentWidget(_ui.keyNoPage);
     // Share machineNameLineEdit in both pages of the keyStackedWidget
     _ui.gridKeyNoLayout->addWidget(_ui.machineNameLineEdit, 1, 1);
@@ -274,8 +272,6 @@ void SetupDialog::restoreNo()
 
 void SetupDialog::restoreYes()
 {
-    // Exclusive button groups don't support keyboard focus, so we fake it.
-    _ui.restoreNoButton->setChecked(false);
     _ui.registerKeyStackedWidget->setCurrentWidget(_ui.keyYesPage);
     // Share machineNameLineEdit in both pages of the keyStackedWidget
     _ui.gridKeyYesLayout->addWidget(_ui.machineNameLineEdit, 1, 1);

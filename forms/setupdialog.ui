@@ -706,7 +706,10 @@ border: none;
            <property name="bottomMargin">
             <number>3</number>
            </property>
-           <property name="spacing">
+           <property name="horizontalSpacing">
+            <number>6</number>
+           </property>
+           <property name="verticalSpacing">
             <number>3</number>
            </property>
            <item row="0" column="0" colspan="2">
@@ -743,12 +746,6 @@ border: none;
            </item>
            <item row="2" column="1">
             <widget class="QLineEdit" name="tarsnapUserLineEdit">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>27</height>
-              </size>
-             </property>
              <property name="placeholderText">
               <string>your e-mail</string>
              </property>
@@ -769,12 +766,6 @@ border: none;
            </item>
            <item row="3" column="1">
             <widget class="QLineEdit" name="tarsnapPasswordLineEdit">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>27</height>
-              </size>
-             </property>
              <property name="echoMode">
               <enum>QLineEdit::Password</enum>
              </property>
@@ -798,12 +789,6 @@ border: none;
            </item>
            <item row="1" column="1">
             <widget class="QLineEdit" name="machineNameLineEdit">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>27</height>
-              </size>
-             </property>
              <property name="text">
               <string/>
              </property>
@@ -831,7 +816,10 @@ border: none;
            <property name="bottomMargin">
             <number>3</number>
            </property>
-           <property name="spacing">
+           <property name="horizontalSpacing">
+            <number>6</number>
+           </property>
+           <property name="verticalSpacing">
             <number>3</number>
            </property>
            <item row="2" column="0">
@@ -848,18 +836,6 @@ border: none;
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>27</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>450</width>
-               <height>16777215</height>
-              </size>
              </property>
              <property name="editable">
               <bool>true</bool>
@@ -927,7 +903,7 @@ border: none;
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QLabel" name="statusLabel">
+          <widget class="ElidedLabel" name="statusLabel">
            <property name="font">
             <font>
              <italic>true</italic>
@@ -938,6 +914,12 @@ border: none;
            </property>
            <property name="openExternalLinks">
             <bool>true</bool>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+           </property>
+           <property name="elide" stdset="0">
+            <string>Qt::ElideRight</string>
            </property>
           </widget>
          </item>
@@ -1101,6 +1083,13 @@ border: none;
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ElidedLabel</class>
+   <extends>QLabel</extends>
+   <header>../widgets/elidedlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>nextButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>

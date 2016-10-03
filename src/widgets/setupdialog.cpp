@@ -268,6 +268,8 @@ void SetupDialog::restoreNo()
     // Share machineNameLineEdit in both pages of the keyStackedWidget
     _ui.gridKeyNoLayout->addWidget(_ui.machineNameLineEdit, 1, 1);
     _ui.statusLabel->clear();
+    if(validateRegisterPage())
+        _ui.nextButton->setFocus();
 }
 
 void SetupDialog::restoreYes()
@@ -278,6 +280,8 @@ void SetupDialog::restoreYes()
     // Share machineNameLineEdit in both pages of the keyStackedWidget
     _ui.gridKeyYesLayout->addWidget(_ui.machineNameLineEdit, 1, 1);
     _ui.statusLabel->clear();
+    if(validateRegisterPage())
+        _ui.nextButton->setFocus();
 }
 
 bool SetupDialog::validateRegisterPage()

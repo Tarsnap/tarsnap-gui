@@ -432,7 +432,12 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
 {
     if(queued) // queued should be cleared first to avoid race
     {
-        _taskQueue.clear();
+        while(!_taskQueue.isEmpty())
+        {
+            TarsnapTask *task = _taskQueue.dequeue();
+            if(task)
+                delete task;
+        }
         emit message("Cleared queued tasks.");
     }
     if(interrupt)

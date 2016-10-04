@@ -613,7 +613,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(_aboutToQuit)
     {
-        qApp->setQuitLockEnabled(true);
         event->accept();
     }
     else
@@ -1324,7 +1323,7 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
     {
         if(_aboutToQuit)
         {
-            close();
+            qApp->quit();
             return;
         }
         else
@@ -1372,6 +1371,15 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
     msgBox.setDefaultButton(cancel);
     msgBox.exec();
 
+    if((msgBox.clickedButton() == cancel) && _aboutToQuit)
+        _aboutToQuit = false;
+
+    if(_aboutToQuit)
+    {
+        qApp->setQuitLockEnabled(true);
+        close();
+    }
+
     if(msgBox.clickedButton() == interruptBackup)
         emit stopTasks(true, false, _aboutToQuit);
     else if(msgBox.clickedButton() == stopQueued)
@@ -1380,11 +1388,6 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
         emit stopTasks(false, true, false);
     else if(msgBox.clickedButton() == stopAll)
         emit stopTasks(false, true, true);
-    else if((msgBox.clickedButton() == cancel) && _aboutToQuit)
-        _aboutToQuit = false;
-
-    if(_aboutToQuit)
-        close();
 }
 
 void MainWindow::tarsnapError(TarsnapError error)

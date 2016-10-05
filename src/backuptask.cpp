@@ -1,5 +1,7 @@
 #include "backuptask.h"
 
+#include "utils.h"
+
 #include <QFileInfo>
 
 #define MB 1048576ULL
@@ -7,28 +9,30 @@
 BackupTask::BackupTask()
     : _uuid(QUuid::createUuid()),
       _timestamp(QDateTime::currentDateTime()),
-      _optionPreservePaths(true),
-      _optionTraverseMount(true),
-      _optionFollowSymLinks(false),
-      _optionSkipFilesSize(0),
-      _optionSkipSystem(false),
-      _optionSkipSystemFiles(),
-      _optionDryRun(false),
-      _optionSkipNoDump(false),
+      _optionPreservePaths(DEFAULT_PRESERVE_PATHNAMES),
+      _optionTraverseMount(DEFAULT_TRAVERSE_MOUNT),
+      _optionFollowSymLinks(DEFAULT_FOLLOW_SYMLINKS),
+      _optionSkipFilesSize(DEFAULT_SKIP_FILES_SIZE),
+      _optionSkipSystem(DEFAULT_SKIP_SYSTEM_ENABLED),
+      _optionSkipSystemFiles(DEFAULT_SKIP_SYSTEM_FILES),
+      _optionDryRun(DEFAULT_DRY_RUN),
+      _optionSkipNoDump(DEFAULT_SKIP_NODUMP),
       _status(TaskStatus::Initialized),
       _exitCode(0)
 {
     QSettings settings;
     setOptionPreservePaths(
-        settings.value("tarsnap/preserve_pathnames", true).toBool());
+        settings.value("tarsnap/preserve_pathnames", optionPreservePaths()).toBool());
     setOptionTraverseMount(
-        settings.value("tarsnap/traverse_mount", true).toBool());
+        settings.value("tarsnap/traverse_mount", optionTraverseMount()).toBool());
     setOptionFollowSymLinks(
-        settings.value("tarsnap/follow_symlinks", false).toBool());
-    setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toInt());
-    setOptionSkipSystem(settings.value("app/skip_system_enabled", false).toBool());
+        settings.value("tarsnap/follow_symlinks", optionFollowSymLinks()).toBool());
+    setOptionDryRun(settings.value("tarsnap/dry_run", optionDryRun()).toBool());
+    setOptionSkipNoDump(settings.value("app/skip_nodump", optionSkipNoDump()).toBool());
+    setOptionSkipFilesSize(settings.value("app/skip_files_size", optionSkipFilesSize()).toInt());
+    setOptionSkipSystem(settings.value("app/skip_system_enabled", optionSkipSystem()).toBool());
     setOptionSkipSystemFiles(
-        settings.value("app/skip_system_files", "").toString());
+        settings.value("app/skip_system_files", optionSkipSystemFiles()).toString());
 }
 
 QString BackupTask::name() const

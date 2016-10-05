@@ -1,5 +1,5 @@
 #include "backuplistwidget.h"
-#include "backuplistitem.h"
+#include "backuplistwidgetitem.h"
 #include "debug.h"
 #include "utils.h"
 
@@ -23,19 +23,19 @@ BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
                                       Q_ARG(QList<QUrl>, urllist));
     }
     connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
-        static_cast<BackupListItem *>(item)->browseUrl();
+        static_cast<BackupListWidgetItem *>(item)->browseUrl();
     });
 }
 
 BackupListWidget::~BackupListWidget()
 {
-    QSettings   settings;
     QStringList urls;
     for(int i = 0; i < count(); ++i)
     {
-        BackupListItem *backupItem = static_cast<BackupListItem *>(item(i));
+        BackupListWidgetItem *backupItem = static_cast<BackupListWidgetItem *>(item(i));
         urls << backupItem->url().toString(QUrl::FullyEncoded);
     }
+    QSettings settings;
     settings.setValue("app/backup_list", urls);
     settings.sync();
     clear();
@@ -83,10 +83,10 @@ void BackupListWidget::addItemWithUrl(QUrl url)
             return;
     }
 
-    BackupListItem *item = new BackupListItem(url);
-    connect(item, &BackupListItem::requestDelete, this,
+    BackupListWidgetItem *item = new BackupListWidgetItem(url);
+    connect(item, &BackupListWidgetItem::requestDelete, this,
             &BackupListWidget::removeItems);
-    connect(item, &BackupListItem::requestUpdate, this,
+    connect(item, &BackupListWidgetItem::requestUpdate, this,
             &BackupListWidget::recomputeListTotals);
     insertItem(count(), item);
     setItemWidget(item, item->widget());
@@ -111,7 +111,7 @@ QList<QUrl> BackupListWidget::itemUrls()
     QList<QUrl> urls;
     for(int i = 0; i < count(); ++i)
     {
-        BackupListItem *backupItem = static_cast<BackupListItem *>(item(i));
+        BackupListWidgetItem *backupItem = static_cast<BackupListWidgetItem *>(item(i));
         urls << backupItem->url().toString(QUrl::FullyEncoded);
     }
     return urls;
@@ -122,7 +122,7 @@ void BackupListWidget::removeItems()
     if(selectedItems().count() == 0)
     {
         // attempt to remove the sender
-        BackupListItem *backupItem = qobject_cast<BackupListItem *>(sender());
+        BackupListWidgetItem *backupItem = qobject_cast<BackupListWidgetItem *>(sender());
         if(backupItem)
             delete backupItem;
     }
@@ -143,7 +143,7 @@ void BackupListWidget::recomputeListTotals()
     quint64 size  = 0;
     for(int i = 0; i < count(); ++i)
     {
-        BackupListItem *backupItem = static_cast<BackupListItem *>(item(i));
+        BackupListWidgetItem *backupItem = static_cast<BackupListWidgetItem *>(item(i));
         if(backupItem && (backupItem->count() != 0))
         {
             items += backupItem->count();
@@ -195,4 +195,11 @@ void BackupListWidget::keyPressEvent(QKeyEvent *event)
     default:
         QListWidget::keyPressEvent(event);
     }
+}
+
+void BackupListWidget::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+        recomputeListTotals();
+    QWidget::changeEvent(event);
 }

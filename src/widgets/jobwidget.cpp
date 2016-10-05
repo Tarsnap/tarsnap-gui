@@ -11,10 +11,9 @@ JobWidget::JobWidget(QWidget *parent)
 {
     _ui.setupUi(this);
     _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
-                               .arg(QKeySequence(Qt::Key_Escape)
-                                    .toString(QKeySequence::NativeText)));
     _ui.infoLabel->hide();
+    updateUi();
+
     _fsEventUpdate.setSingleShot(true);
     connect(&_fsEventUpdate, &QTimer::timeout, this, &JobWidget::verifyJob);
     connect(_ui.infoLabel, &ElidedLabel::clicked, this, &JobWidget::showJobPathsWarn);
@@ -61,7 +60,7 @@ JobWidget::JobWidget(QWidget *parent)
     connect(_ui.skipFilesDefaultsButton, &QPushButton::clicked, [&]() {
         QSettings settings;
         _ui.skipFilesLineEdit->setText(
-            settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
+            settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES).toString());
     });
     connect(_ui.archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,
@@ -77,6 +76,7 @@ JobWidget::JobWidget(QWidget *parent)
 JobWidget::~JobWidget()
 {
 }
+
 JobPtr JobWidget::job() const
 {
     return _job;
@@ -97,8 +97,6 @@ void JobWidget::setJob(const JobPtr &job)
     // Creating a new job?
     if(_job->objectKey().isEmpty())
     {
-        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                                     false);
         _ui.restoreButton->hide();
         _ui.backupButton->hide();
         _ui.infoLabel->hide();
@@ -109,8 +107,6 @@ void JobWidget::setJob(const JobPtr &job)
     }
     else
     {
-        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                                     true);
         _ui.restoreButton->show();
         _ui.backupButton->show();
         _ui.jobNameLabel->show();
@@ -199,6 +195,23 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
                               tr("Archives (%1)").arg(_job->archives().count()));
 }
 
+void JobWidget::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+    {
+        _ui.retranslateUi(this);
+        updateUi();
+        if(_job)
+        {
+            if(_job->objectKey().isEmpty())
+                canSaveNew();
+            else
+                updateDetails();
+        }
+    }
+    QWidget::changeEvent(event);
+}
+
 void JobWidget::updateDetails()
 {
     if(!_job)
@@ -222,6 +235,8 @@ void JobWidget::updateDetails()
     _ui.skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
     _ui.skipFilesCheckBox->setChecked(_job->optionSkipFiles());
     _ui.skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
+    _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
+                                 _job->archives().count());
     _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
                               tr("Archives (%1)").arg(_job->archives().count()));
     verifyJob();
@@ -336,4 +351,11 @@ void JobWidget::verifyJob()
                                       " accessible. Click here for details."));
         }
     }
+}
+
+void JobWidget::updateUi()
+{
+    _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
+                               .arg(QKeySequence(Qt::Key_Escape)
+                                    .toString(QKeySequence::NativeText)));
 }

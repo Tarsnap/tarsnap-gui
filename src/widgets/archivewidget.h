@@ -27,6 +27,7 @@ signals:
 protected:
     void closeEvent(QCloseEvent *event);
     void keyPressEvent(QKeyEvent *event);
+    void changeEvent(QEvent *event);
 
 private slots:
     void showContextMenu(const QPoint &pos);
@@ -38,6 +39,8 @@ private:
     FileTableModel         _contentsModel;
     QSortFilterProxyModel  _proxyModel;
     QMenu                  _fileMenu;
+
+    void updateUi();
 };
 
 #endif // ARCHIVEWIDGET_H

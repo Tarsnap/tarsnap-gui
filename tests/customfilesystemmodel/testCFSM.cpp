@@ -126,7 +126,7 @@ int TestCFSM::processActions(QTextStream &in)
     return (0);
 }
 
-// Return 0 if success, 1 if a model error, 2 if an emit error.
+// Returns 0 if success, 1 if a model error, 2 if an emit error.
 int TestCFSM::processResults(QTextStream &in)
 {
     while(!in.atEnd())

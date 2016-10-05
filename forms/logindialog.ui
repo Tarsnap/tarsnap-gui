@@ -80,9 +80,6 @@
      <property name="wordWrap">
       <bool>true</bool>
      </property>
-     <property name="elide" stdset="0">
-      <string>Qt::ElideRight</string>
-     </property>
     </widget>
    </item>
    <item>

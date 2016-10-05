@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ArchiveItemWidget</class>
- <widget class="QWidget" name="ArchiveItemWidget">
+ <class>ArchiveListWidgetItem</class>
+ <widget class="QWidget" name="ArchiveListWidgetItem">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -129,10 +129,10 @@ font-size: 12px;
 }</string>
      </property>
      <property name="text">
-      <string/>
+      <string notr="true"/>
      </property>
      <property name="elide" stdset="0">
-      <string>Qt::ElideNone</string>
+      <string notr="true">Qt::ElideNone</string>
      </property>
     </widget>
    </item>
@@ -152,10 +152,10 @@ font-size: 11px;
 }</string>
      </property>
      <property name="text">
-      <string/>
+      <string notr="true"/>
      </property>
      <property name="elide" stdset="0">
-      <string>Qt::ElideRight</string>
+      <string notr="true">Qt::ElideRight</string>
      </property>
     </widget>
    </item>

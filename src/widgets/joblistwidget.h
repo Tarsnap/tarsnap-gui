@@ -1,7 +1,7 @@
 #ifndef JOBLISTWIDGET_H
 #define JOBLISTWIDGET_H
 
-#include "joblistitem.h"
+#include "joblistwidgetitem.h"
 #include "persistentmodel/job.h"
 
 #include <QListWidget>
@@ -42,7 +42,7 @@ private slots:
     void deleteItem();
 
 private:
-    void execDeleteJob(JobListItem *jobItem);
+    void execDeleteJob(JobListWidgetItem *jobItem);
 };
 
 #endif // JOBLISTWIDGET_H

@@ -1,5 +1,5 @@
 #include "archivelistwidget.h"
-#include "archivelistitem.h"
+#include "archivelistwidgetitem.h"
 #include "restoredialog.h"
 
 #include <QMessageBox>
@@ -12,7 +12,7 @@ ArchiveListWidget::ArchiveListWidget(QWidget *parent) : QListWidget(parent)
     connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
         if(item)
         {
-            ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(item);
+            ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(item);
             if(archiveItem && !archiveItem->isDisabled())
                 emit inspectArchive(archiveItem->archive());
         }
@@ -34,14 +34,14 @@ void ArchiveListWidget::addArchives(QList<ArchivePtr> archives)
     clear();
     foreach(ArchivePtr archive, archives)
     {
-        ArchiveListItem *item = new ArchiveListItem(archive);
-        connect(item, &ArchiveListItem::requestDelete, this,
+        ArchiveListWidgetItem *item = new ArchiveListWidgetItem(archive);
+        connect(item, &ArchiveListWidgetItem::requestDelete, this,
                 &ArchiveListWidget::removeItem);
-        connect(item, &ArchiveListItem::requestInspect, this,
+        connect(item, &ArchiveListWidgetItem::requestInspect, this,
                 &ArchiveListWidget::inspectItem);
-        connect(item, &ArchiveListItem::requestRestore, this,
+        connect(item, &ArchiveListWidgetItem::requestRestore, this,
                 &ArchiveListWidget::restoreItem);
-        connect(item, &ArchiveListItem::requestGoToJob, this,
+        connect(item, &ArchiveListWidgetItem::requestGoToJob, this,
                 &ArchiveListWidget::goToJob);
         insertItem(count(), item);
         setItemWidget(item, item->widget());
@@ -51,7 +51,7 @@ void ArchiveListWidget::addArchives(QList<ArchivePtr> archives)
 
 void ArchiveListWidget::removeItem()
 {
-    ArchiveListItem *archiveItem = qobject_cast<ArchiveListItem *>(sender());
+    ArchiveListWidgetItem *archiveItem = qobject_cast<ArchiveListWidgetItem *>(sender());
     if(archiveItem)
     {
         ArchivePtr archive = archiveItem->archive();
@@ -75,11 +75,11 @@ void ArchiveListWidget::removeSelectedItems()
     if(selectedItems().isEmpty())
         return;
 
-    QList<ArchiveListItem *> selectedListItems;
+    QList<ArchiveListWidgetItem *> selectedListItems;
     // Any archives pending deletion in the selection? if so deny action
     foreach(QListWidgetItem *item, selectedItems())
     {
-        ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(item);
+        ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(item);
         if(!archiveItem || archiveItem->isDisabled())
             return;
         else
@@ -106,7 +106,7 @@ void ArchiveListWidget::removeSelectedItems()
                     tr("Are you sure you want to delete all of your "
                        "archives?\n"
                        "For your information, there's a purge action in "
-                       "Settings -> Advanced page that achieves the same "
+                       "Settings -> Account page that achieves the same "
                        "thing but more efficiently."));
             }
             else
@@ -123,7 +123,7 @@ void ArchiveListWidget::removeSelectedItems()
     if(button == QMessageBox::Yes)
     {
         QList<ArchivePtr> archivesToDelete;
-        foreach(ArchiveListItem *archiveItem, selectedListItems)
+        foreach(ArchiveListWidgetItem *archiveItem, selectedListItems)
         {
             archiveItem->setDisabled();
             archivesToDelete.append(archiveItem->archive());
@@ -137,8 +137,8 @@ void ArchiveListWidget::inspectSelectedItem()
 {
     if(!selectedItems().isEmpty())
     {
-        ArchiveListItem *archiveItem =
-            static_cast<ArchiveListItem *>(selectedItems().first());
+        ArchiveListWidgetItem *archiveItem =
+            static_cast<ArchiveListWidgetItem *>(selectedItems().first());
         if(archiveItem && !archiveItem->isDisabled())
             emit inspectArchive(archiveItem->archive());
     }
@@ -148,8 +148,8 @@ void ArchiveListWidget::restoreSelectedItem()
 {
     if(!selectedItems().isEmpty())
     {
-        ArchiveListItem *archiveItem =
-            static_cast<ArchiveListItem *>(selectedItems().first());
+        ArchiveListWidgetItem *archiveItem =
+            static_cast<ArchiveListWidgetItem *>(selectedItems().first());
         if(archiveItem && !archiveItem->isDisabled())
         {
             RestoreDialog restoreDialog(archiveItem->archive(), this);
@@ -166,8 +166,8 @@ void ArchiveListWidget::setFilter(QString regex)
     QRegExp rx(regex, Qt::CaseInsensitive, QRegExp::Wildcard);
     for(int i = 0; i < count(); ++i)
     {
-        ArchiveListItem *archiveItem =
-            static_cast<ArchiveListItem *>(item(i));
+        ArchiveListWidgetItem *archiveItem =
+            static_cast<ArchiveListWidgetItem *>(item(i));
         if(archiveItem)
         {
             if(archiveItem->archive()->name().contains(rx))
@@ -181,12 +181,12 @@ void ArchiveListWidget::setFilter(QString regex)
 void ArchiveListWidget::inspectItem()
 {
     if(sender())
-        emit inspectArchive(qobject_cast<ArchiveListItem *>(sender())->archive());
+        emit inspectArchive(qobject_cast<ArchiveListWidgetItem *>(sender())->archive());
 }
 
 void ArchiveListWidget::restoreItem()
 {
-    ArchiveListItem *archiveItem = qobject_cast<ArchiveListItem *>(sender());
+    ArchiveListWidgetItem *archiveItem = qobject_cast<ArchiveListWidgetItem *>(sender());
     if(archiveItem)
     {
         RestoreDialog restoreDialog(archiveItem->archive(), this);
@@ -200,7 +200,7 @@ void ArchiveListWidget::goToJob()
 {
     if(sender())
         emit displayJobDetails(
-            qobject_cast<ArchiveListItem *>(sender())->archive()->jobRef());
+            qobject_cast<ArchiveListWidgetItem *>(sender())->archive()->jobRef());
 }
 
 void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
@@ -208,13 +208,13 @@ void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
     if(!archive)
         return;
 
-    ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(currentItem());
+    ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(currentItem());
     if(!archiveItem || (archiveItem->archive() != archive))
     {
         for(int i = 0; i < count(); ++i)
         {
-            ArchiveListItem *archiveItem =
-                static_cast<ArchiveListItem *>(item(i));
+            ArchiveListWidgetItem *archiveItem =
+                static_cast<ArchiveListWidgetItem *>(item(i));
             if(archiveItem &&
                (archiveItem->archive()->objectKey() == archive->objectKey()))
             {
@@ -228,7 +228,7 @@ void ArchiveListWidget::disableArchives(QList<ArchivePtr> archives)
 {
     for(int i = 0; i < count(); ++i)
     {
-        ArchiveListItem *archiveItem = static_cast<ArchiveListItem *>(item(i));
+        ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(item(i));
         if(archiveItem)
         {
             foreach(ArchivePtr archive, archives)

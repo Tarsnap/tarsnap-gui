@@ -5,25 +5,25 @@
 Job::Job(QObject *parent)
     : QObject(parent),
       _optionScheduledEnabled(JobSchedule::Disabled),
-      _optionPreservePaths(true),
-      _optionTraverseMount(true),
-      _optionFollowSymLinks(false),
-      _optionSkipFilesSize(0),
-      _optionSkipFiles(false),
-      _optionSkipFilesPatterns(DEFAULT_SKIP_FILES),
-      _optionSkipNoDump(false),
+      _optionPreservePaths(DEFAULT_PRESERVE_PATHNAMES),
+      _optionTraverseMount(DEFAULT_TRAVERSE_MOUNT),
+      _optionFollowSymLinks(DEFAULT_FOLLOW_SYMLINKS),
+      _optionSkipFilesSize(DEFAULT_SKIP_FILES_SIZE),
+      _optionSkipFiles(DEFAULT_SKIP_SYSTEM_ENABLED),
+      _optionSkipFilesPatterns(DEFAULT_SKIP_SYSTEM_FILES),
+      _optionSkipNoDump(DEFAULT_SKIP_NODUMP),
       _settingShowHidden(false),
       _settingShowSystem(false),
       _settingHideSymlinks(false)
 {
     QSettings settings;
-    setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", true).toBool());
-    setOptionTraverseMount(settings.value("tarsnap/traverse_mount", true).toBool());
-    setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", false).toBool());
-    setOptionSkipNoDump(settings.value("app/skip_nodump", false).toBool());
-    setOptionSkipFilesSize(settings.value("app/skip_files_size", 0).toInt());
-    setOptionSkipFiles(settings.value("app/skip_system_enabled", false).toBool());
-    setOptionSkipFilesPatterns(settings.value("app/skip_system_files", DEFAULT_SKIP_FILES).toString());
+    setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", optionPreservePaths()).toBool());
+    setOptionTraverseMount(settings.value("tarsnap/traverse_mount", optionTraverseMount()).toBool());
+    setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", optionFollowSymLinks()).toBool());
+    setOptionSkipNoDump(settings.value("app/skip_nodump", optionSkipNoDump()).toBool());
+    setOptionSkipFilesSize(settings.value("app/skip_files_size", optionSkipFilesSize()).toInt());
+    setOptionSkipFiles(settings.value("app/skip_system_enabled", optionSkipFiles()).toBool());
+    setOptionSkipFilesPatterns(settings.value("app/skip_system_files", optionSkipFilesPatterns()).toString());
 }
 
 Job::~Job()
@@ -231,7 +231,6 @@ void Job::setSettingHideSymlinks(bool settingHideSymlinks)
 
 BackupTaskPtr Job::createBackupTask()
 {
-    QSettings     settings;
     BackupTaskPtr backup(new BackupTask);
     backup->setName(JOB_NAME_PREFIX + name() +
                     QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
@@ -244,7 +243,6 @@ BackupTaskPtr Job::createBackupTask()
     backup->setOptionSkipSystem(optionSkipFiles());
     backup->setOptionSkipSystemFiles(optionSkipFilesPatterns());
     backup->setOptionSkipNoDump(optionSkipNoDump());
-    backup->setOptionDryRun(settings.value("tarsnap/dry_run", false).toBool());
     return backup;
 }
 

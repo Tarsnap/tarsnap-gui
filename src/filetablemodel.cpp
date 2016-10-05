@@ -3,8 +3,6 @@
 FileTableModel::FileTableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    _columns << tr("FILE") << tr("DATE MODIFIED") << tr("SIZE") << tr("USER")
-             << tr("GROUP") << tr("MODE") << tr("LINKS");
 }
 
 int FileTableModel::rowCount(const QModelIndex &parent) const
@@ -16,7 +14,7 @@ int FileTableModel::rowCount(const QModelIndex &parent) const
 int FileTableModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
-    return _columns.count();
+    return kTableColumnsCount;
 }
 
 QVariant FileTableModel::data(const QModelIndex &index, int role) const
@@ -51,7 +49,25 @@ QVariant FileTableModel::headerData(int section, Qt::Orientation orientation, in
     if(orientation == Qt::Vertical)
         return QString("%1").arg(section + 1);
     if(orientation == Qt::Horizontal)
-        return _columns[section];
+    {
+        switch(section)
+        {
+        case TableColumns::FILE:
+            return tr("FILE");
+        case TableColumns::MODIFIED:
+            return tr("DATE MODIFIED");
+        case TableColumns::SIZE:
+            return tr("SIZE");
+        case TableColumns::USER:
+            return tr("USER");
+        case TableColumns::GROUP:
+            return tr("GROUP");
+        case TableColumns::MODE:
+            return tr("MODE");
+        case TableColumns::LINKS:
+            return tr("LINKS");
+        }
+    }
     return QVariant();
 }
 

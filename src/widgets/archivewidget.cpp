@@ -11,13 +11,8 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
       _proxyModel(&_contentsModel), _fileMenu(this)
 {
     _ui.setupUi(this);
-    _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
-                               .arg(QKeySequence(Qt::Key_Escape)
-                                    .toString(QKeySequence::NativeText)));
-    _ui.filterButton->setToolTip(_ui.filterButton->toolTip()
-                               .arg(_ui.filterButton->shortcut()
-                                    .toString(QKeySequence::NativeText)));
     _ui.filterComboBox->hide();
+    updateUi();
 
     _proxyModel.setDynamicSortFilter(false);
     _proxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
@@ -142,6 +137,17 @@ void ArchiveWidget::keyPressEvent(QKeyEvent *event)
         QWidget::keyPressEvent(event);
 }
 
+void ArchiveWidget::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+    {
+        _ui.retranslateUi(this);
+        updateUi();
+        updateDetails();
+    }
+    QWidget::changeEvent(event);
+}
+
 void ArchiveWidget::showContextMenu(const QPoint &pos)
 {
     QPoint globalPos = _ui.archiveContentsTableView->viewport()->mapToGlobal(pos);
@@ -166,4 +172,14 @@ void ArchiveWidget::restoreFiles()
         options.files = files;
         emit restoreArchive(_archive, options);
     }
+}
+
+void ArchiveWidget::updateUi()
+{
+    _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
+                               .arg(QKeySequence(Qt::Key_Escape)
+                                    .toString(QKeySequence::NativeText)));
+    _ui.filterButton->setToolTip(_ui.filterButton->toolTip()
+                               .arg(_ui.filterButton->shortcut()
+                                    .toString(QKeySequence::NativeText)));
 }

@@ -40,7 +40,7 @@ quint64 GetDirInfoTask::getDirSize(QDir dir)
                 size += getDirSize(QDir(fileInfo.absoluteFilePath()));
             }
             else
-                size += fileInfo.size();
+                size += static_cast<quint64>(fileInfo.size());
         }
     }
     return size;
@@ -75,13 +75,25 @@ QString Utils::humanBytes(quint64 bytes, int fieldWidth)
     quint64 unit = IEC ? 1024 : 1000;
     if(bytes < unit)
         return QString::number(bytes) + " B";
-    int     exp = (int)(log(bytes) / log(unit));
+    int     exp = static_cast<int>(log(bytes) / log(unit));
     QString pre =
         QString(IEC ? "KMGTPE" : "kMGTPE").at(exp - 1) + QString(IEC ? "i" : "");
     return QString("%1 %2B").arg(bytes / pow(unit, exp), fieldWidth, 'f', 2).arg(pre);
 }
 
 QString Utils::validateTarsnapCache(QString path)
+{
+    QString result;
+    if(!path.isEmpty())
+    {
+        QFileInfo candidate(path);
+        if(candidate.exists() && candidate.isDir() && candidate.isWritable())
+            result = candidate.canonicalFilePath();
+    }
+    return result;
+}
+
+QString Utils::validateAppDataDir(QString path)
 {
     QString result;
     if(!path.isEmpty())

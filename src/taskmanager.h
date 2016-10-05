@@ -26,7 +26,6 @@ public:
     ~TaskManager();
 
 public slots:
-    void loadSettings();
     void runScheduledJobs();
     void stopTasks(bool interrupt, bool running, bool queued);
     void loadArchives();
@@ -100,17 +99,13 @@ private:
     void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
                            ArchivePtr archive);
     QString makeTarsnapCommand(QString cmd);
+    void    initTarsnapArgs(QStringList &args);
 
-    QString _tarsnapDir;
-    QString _tarsnapCacheDir;
-    QString _tarsnapKeyFile;
     QMap<QUuid, BackupTaskPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>  _archiveMap;
     QList<TarsnapTask *>       _runningTasks;
     QQueue<TarsnapTask *>      _taskQueue; // mutually exclusive tasks
     QThreadPool               *_threadPool;
-    bool                       _aggressiveNetworking;
-    bool                       _preservePathnames;
     QMap<QString, JobPtr>      _jobMap;
 };
 

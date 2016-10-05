@@ -172,6 +172,13 @@ void FilePickerWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void FilePickerWidget::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+        _ui.retranslateUi(this);
+    QWidget::changeEvent(event);
+}
+
 void FilePickerWidget::updateFilter(QString filter)
 {
     _model.setNameFilters(QStringList("*"));

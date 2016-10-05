@@ -6,6 +6,7 @@
 #include "taskmanager.h"
 #include "ui_mainwindow.h"
 
+#include <QMenuBar>
 #include <QMessageBox>
 #include <QTimer>
 #include <QWidget>
@@ -47,7 +48,6 @@ signals:
     void loadArchiveContents(ArchivePtr archive);
     void getOverallStats();
     void repairCache(bool prune);
-    void settingsChanged();
     void purgeArchives();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runSetupWizard();
@@ -68,6 +68,7 @@ protected:
     void paintEvent(QPaintEvent *);
     void keyPressEvent(QKeyEvent *event);
     void closeEvent(QCloseEvent *event);
+    void changeEvent(QEvent *event);
 
 private slots:
     void setupMenuBar();
@@ -77,6 +78,7 @@ private slots:
     bool validateMachineKeyPath();
     bool validateTarsnapPath();
     bool validateTarsnapCache();
+    bool validateAppDataDir();
     void purgeTimerFired();
     void browseForBackupItems();
     void appendTimestampCheckBoxToggled(bool checked);
@@ -98,7 +100,6 @@ private slots:
     void showArchiveListMenu(const QPoint &pos);
     void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
-    void setTarsnapVersion(QString versionString);
     void createJobClicked();
     void showAbout();
     void mainTabChanged(int index);
@@ -108,12 +109,15 @@ private slots:
 
 private:
     Ui::MainWindow  _ui;
+    QMenuBar       *_menuBar;
     QString         _lastTimestamp;
     QTimer          _purgeTimer;
     int             _purgeTimerCount;
     QMessageBox     _purgeCountdown;
     TarsnapAccount  _tarsnapAccount;
     bool            _aboutToQuit;
+
+    void updateUi();
 };
 
 #endif // MAINWINDOW_H

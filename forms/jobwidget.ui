@@ -75,7 +75,7 @@ min-height: 32px;
          </font>
         </property>
         <property name="text">
-         <string/>
+         <string notr="true"/>
         </property>
         <property name="textInteractionFlags">
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -93,7 +93,7 @@ padding-left: 3px;
 }</string>
         </property>
         <property name="text">
-         <string/>
+         <string notr="true"/>
         </property>
         <property name="placeholderText">
          <string>Job name</string>
@@ -190,7 +190,7 @@ padding-left: 3px;
       </font>
      </property>
      <property name="text">
-      <string/>
+      <string notr="true"/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -246,182 +246,236 @@ alignment: center;
       <attribute name="title">
        <string>Options</string>
       </attribute>
-      <layout class="QFormLayout" name="formLayout">
-       <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <property name="spacing">
+        <number>0</number>
        </property>
-       <property name="labelAlignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       <property name="leftMargin">
+        <number>0</number>
        </property>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label">
-         <property name="toolTip">
-          <string>Set automatic backup frequency for this Job. Job scheduling must be enabled in Settings.</string>
-         </property>
-         <property name="text">
-          <string>Automatic backup schedule:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QComboBox" name="scheduleComboBox">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="toolTip">
-          <string>Automatic backup frequency</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>Disabled</string>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="settingsContainer" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <property name="spacing">
+           <number>0</number>
           </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Daily</string>
+          <property name="leftMargin">
+           <number>0</number>
           </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Weekly</string>
+          <property name="topMargin">
+           <number>0</number>
           </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Monthly</string>
+          <property name="rightMargin">
+           <number>0</number>
           </property>
-         </item>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>Backup options</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout">
+             <property name="spacing">
+              <number>6</number>
+             </property>
+             <item row="5" column="1">
+              <widget class="QLineEdit" name="skipFilesLineEdit">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Can use shell globbing patterns, the list is colon separated</string>
+               </property>
+               <property name="text">
+                <string notr="true"/>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="toolTip">
+                <string>Set automatic backup frequency for this Job. Job scheduling must be enabled in Settings.</string>
+               </property>
+               <property name="text">
+                <string>Automatic backup schedule</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0" colspan="3">
+              <widget class="QCheckBox" name="traverseMountCheckBox">
+               <property name="toolTip">
+                <string>Cross mount points when creating archives</string>
+               </property>
+               <property name="text">
+                <string>Traverse mounted points</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0" colspan="3">
+              <widget class="QCheckBox" name="preservePathsCheckBox">
+               <property name="toolTip">
+                <string>Preserve absolute pathnames by not removing leading slashes</string>
+               </property>
+               <property name="text">
+                <string>Preserve pathnames</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" colspan="3">
+              <widget class="QCheckBox" name="followSymLinksCheckBox">
+               <property name="toolTip">
+                <string>If checked all symbolic links will be followed when creating an archive</string>
+               </property>
+               <property name="text">
+                <string>Follow symbolic links</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0" colspan="3">
+              <widget class="QCheckBox" name="skipNoDumpCheckBox">
+               <property name="toolTip">
+                <string>Skip files flagged with nodump attribute; not all filesystems support this attribute</string>
+               </property>
+               <property name="text">
+                <string>Skip files flagged nodump</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1" colspan="2">
+              <widget class="QSpinBox" name="skipFilesSizeSpinBox">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>Do not include files of size equal or greater than the specified value in backups</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="specialValueText">
+                <string>disabled</string>
+               </property>
+               <property name="showGroupSeparator" stdset="0">
+                <bool>true</bool>
+               </property>
+               <property name="suffix">
+                <string>MiB</string>
+               </property>
+               <property name="minimum">
+                <number>0</number>
+               </property>
+               <property name="maximum">
+                <number>999999999</number>
+               </property>
+               <property name="singleStep">
+                <number>512</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="2">
+              <widget class="QPushButton" name="skipFilesDefaultsButton">
+               <property name="toolTip">
+                <string>Fill with global settings value</string>
+               </property>
+               <property name="text">
+                <string>Defaults</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0">
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="5" column="0">
+              <widget class="QCheckBox" name="skipFilesCheckBox">
+               <property name="toolTip">
+                <string>Tarsnap will skip these file patterns for this Job</string>
+               </property>
+               <property name="text">
+                <string>Skip file patterns</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Skip files larger than</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QComboBox" name="scheduleComboBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>Automatic backup frequency</string>
+               </property>
+               <item>
+                <property name="text">
+                 <string>Disabled</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Daily</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Weekly</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Monthly</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QCheckBox" name="preservePathsCheckBox">
-         <property name="toolTip">
-          <string>Preserve absolute pathnames by not removing leading slashes</string>
-         </property>
-         <property name="text">
-          <string>Preserve pathnames</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QCheckBox" name="followSymLinksCheckBox">
-         <property name="toolTip">
-          <string>If checked all symbolic links will be followed when creating an archive</string>
-         </property>
-         <property name="text">
-          <string>Follow symbolic links</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QCheckBox" name="traverseMountCheckBox">
-         <property name="toolTip">
-          <string>Cross mount points when creating archives</string>
-         </property>
-         <property name="text">
-          <string>Traverse mounted points</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0" colspan="2">
-        <widget class="QCheckBox" name="skipNoDumpCheckBox">
-         <property name="toolTip">
-          <string>Skip files flagged with nodump attribute; not all filesystems support this attribute</string>
-         </property>
-         <property name="text">
-          <string>Skip files flagged nodump</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="skipFilesLabel">
-         <property name="text">
-          <string>Skip files larger than:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QSpinBox" name="skipFilesSizeSpinBox">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="toolTip">
-          <string>Do not include files of size equal or greater than the specified value in backups</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="specialValueText">
-          <string>disabled</string>
-         </property>
-         <property name="showGroupSeparator" stdset="0">
-          <bool>true</bool>
-         </property>
-         <property name="suffix">
-          <string>MiB</string>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>999999999</number>
-         </property>
-         <property name="singleStep">
-          <number>512</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QCheckBox" name="skipFilesCheckBox">
-         <property name="toolTip">
-          <string>Tarsnap will skip these file patterns for this Job</string>
-         </property>
-         <property name="text">
-          <string>Skip files matching patterns:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QLineEdit" name="skipFilesLineEdit">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="toolTip">
-            <string>Can use shell globbing patterns, the list is colon separated</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="skipFilesDefaultsButton">
-           <property name="toolTip">
-            <string>Fill with global settings value</string>
-           </property>
-           <property name="text">
-            <string>Defaults</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </item>
       </layout>
      </widget>

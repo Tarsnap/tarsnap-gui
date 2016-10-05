@@ -12,8 +12,7 @@
 
 SetupDialog::SetupDialog(QWidget *parent)
     : QDialog(parent),
-      _loadingAnimation(":/icons/loading.gif"),
-      _haveKey(false)
+      _loadingAnimation(":/icons/loading.gif")
 {
     _ui.setupUi(this);
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) &
@@ -33,6 +32,10 @@ SetupDialog::SetupDialog(QWidget *parent)
         keysDir.mkpath(_appDataDir);
     _ui.appDataPathLineEdit->setText(_appDataDir);
 
+    // find existing keys
+    foreach(QFileInfo file, Utils::findKeysInPath(_appDataDir))
+        _ui.machineKeyCombo->addItem(file.canonicalFilePath());
+
     _tarsnapCacheDir =
         QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
     QDir cacheDir(_tarsnapCacheDir);
@@ -41,15 +44,14 @@ SetupDialog::SetupDialog(QWidget *parent)
     _ui.tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
 
     _ui.loadingIconLabel->setMovie(&_loadingAnimation);
-    _ui.errorLabel->hide();
-    _ui.machineKeyLabel->hide();
-    _ui.machineKeyCombo->hide();
-    _ui.browseKeyButton->hide();
     _ui.advancedCLIWidget->hide();
 
+    // All pages
+    connect(_ui.backButton, &QPushButton::clicked, this,
+           &SetupDialog::backButtonClicked);
+    connect(_ui.nextButton, &QPushButton::clicked, this,
+           &SetupDialog::nextButtonClicked);
     connect(_ui.welcomePageRadioButton, &QRadioButton::clicked, this,
-            &SetupDialog::skipToPage);
-    connect(_ui.restorePageRadioButton, &QRadioButton::clicked, this,
             &SetupDialog::skipToPage);
     connect(_ui.advancedPageRadioButton, &QRadioButton::clicked, this,
             &SetupDialog::skipToPage);
@@ -60,12 +62,6 @@ SetupDialog::SetupDialog(QWidget *parent)
 
     connect(_ui.wizardStackedWidget, &QStackedWidget::currentChanged, this,
             &SetupDialog::wizardPageChanged);
-
-    // Welcome page
-    connect(_ui.welcomePageSkipButton, &QPushButton::clicked,
-            [&]() { commitSettings(true); });
-    connect(_ui.welcomePageProceedButton, &QPushButton::clicked, this,
-            &SetupDialog::setNextPage);
 
     // Advanced setup page
     connect(_ui.advancedCLIButton, &QPushButton::toggled,
@@ -82,16 +78,12 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::showAppDataBrowse);
     connect(_ui.appDataPathLineEdit, &QLineEdit::textChanged, this,
             &SetupDialog::validateAdvancedSetupPage);
-    connect(_ui.advancedPageProceedButton, &QPushButton::clicked, this,
-            &SetupDialog::setNextPage);
 
-    // Restore page
+    // Register page
     connect(_ui.restoreNoButton, &QPushButton::clicked, this,
             &SetupDialog::restoreNo);
     connect(_ui.restoreYesButton, &QPushButton::clicked, this,
             &SetupDialog::restoreYes);
-
-    // Register page
     connect(_ui.tarsnapUserLineEdit, &QLineEdit::textChanged, this,
             &SetupDialog::validateRegisterPage);
     connect(_ui.tarsnapPasswordLineEdit, &QLineEdit::textChanged, this,
@@ -102,12 +94,8 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::validateRegisterPage);
     connect(_ui.browseKeyButton, &QPushButton::clicked, this,
             &SetupDialog::registerHaveKeyBrowse);
-    connect(_ui.registerMachineButton, &QPushButton::clicked, this,
-            &SetupDialog::registerMachine);
 
-    // Done page
-    connect(_ui.doneButton, &QPushButton::clicked, this,
-            &SetupDialog::commitSettings);
+    _ui.backButton->setText(tr("Skip wizard"));
 }
 
 SetupDialog::~SetupDialog()
@@ -116,39 +104,66 @@ SetupDialog::~SetupDialog()
 
 void SetupDialog::wizardPageChanged(int)
 {
+    // Values which might be overwritten below.
+    _ui.backButton->setText(tr("Back"));
+    _ui.nextButton->setText(tr("Next"));
+    _ui.nextButton->setEnabled(true);
+
     if(_ui.wizardStackedWidget->currentWidget() == _ui.welcomePage)
     {
         _ui.welcomePageRadioButton->setChecked(true);
         _ui.titleLabel->setText(tr("Setup wizard"));
+        _ui.backButton->setText(tr("Skip wizard"));
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.advancedPage)
     {
         _ui.advancedPageRadioButton->setChecked(true);
         _ui.titleLabel->setText(tr("Command-line utilities"));
     }
-    else if(_ui.wizardStackedWidget->currentWidget() == _ui.restorePage)
-    {
-        _ui.restorePageRadioButton->setChecked(true);
-        _ui.titleLabel->setText(tr("Machine key"));
-    }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.registerPage)
     {
         _ui.registerPageRadioButton->setChecked(true);
         _ui.titleLabel->setText(tr("Register with server"));
+        _ui.nextButton->setText(tr("Register machine"));
+        if(_ui.machineKeyCombo->count() > 0) {
+            _ui.restoreYesButton->setChecked(true);
+            restoreYes();
+        } else {
+            _ui.restoreNoButton->setChecked(true);
+            restoreNo();
+        }
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.donePage)
     {
         _ui.donePageRadioButton->setChecked(true);
         _ui.titleLabel->setText(tr("Setup complete!"));
+        _ui.nextButton->setText(tr("Start using Tarsnap"));
     }
+}
+
+void SetupDialog::backButtonClicked()
+{
+    int nextIndex = _ui.wizardStackedWidget->currentIndex() - 1;
+    if (nextIndex < 0)
+        commitSettings(true);
+    else
+        _ui.wizardStackedWidget->setCurrentIndex(nextIndex);
+}
+
+void SetupDialog::nextButtonClicked()
+{
+    if(_ui.wizardStackedWidget->currentWidget() == _ui.registerPage)
+        registerMachine();
+    else if(_ui.wizardStackedWidget->currentWidget() == _ui.donePage)
+        commitSettings(false);
+    else
+        setNextPage();
 }
 
 void SetupDialog::skipToPage()
 {
     if(sender() == _ui.welcomePageRadioButton)
         _ui.wizardStackedWidget->setCurrentWidget(_ui.welcomePage);
-    else if(sender() == _ui.restorePageRadioButton)
-        _ui.wizardStackedWidget->setCurrentWidget(_ui.restorePage);
     else if(sender() == _ui.advancedPageRadioButton)
         _ui.wizardStackedWidget->setCurrentWidget(_ui.advancedPage);
     else if(sender() == _ui.registerPageRadioButton)
@@ -165,18 +180,15 @@ void SetupDialog::setNextPage()
         _ui.advancedPageRadioButton->setEnabled(true);
         bool advancedOk = validateAdvancedSetupPage();
         _ui.advancedCLIButton->setChecked(!advancedOk);
-        if (advancedOk)
-            _ui.advancedPageProceedButton->setFocus();
+        if(advancedOk)
+            _ui.nextButton->setFocus();
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.advancedPage)
     {
-        _ui.wizardStackedWidget->setCurrentWidget(_ui.restorePage);
-        _ui.restorePageRadioButton->setEnabled(true);
-    }
-    else if(_ui.wizardStackedWidget->currentWidget() == _ui.restorePage)
-    {
         _ui.wizardStackedWidget->setCurrentWidget(_ui.registerPage);
         _ui.registerPageRadioButton->setEnabled(true);
+        if(validateRegisterPage())
+            _ui.nextButton->setFocus();
     }
     else if(_ui.wizardStackedWidget->currentWidget() == _ui.registerPage)
     {
@@ -209,85 +221,69 @@ void SetupDialog::showAppDataBrowse()
 
 bool SetupDialog::validateAdvancedSetupPage()
 {
-    bool result = false;
+    bool result = true;
 
+    _appDataDir = Utils::validateAppDataDir(_ui.appDataPathLineEdit->text());
+    if(_appDataDir.isEmpty())
+    {
+        _ui.advancedValidationLabel->setText(tr("Invalid App data directory "
+                                                "set."));
+        result = false;
+    }
+
+    _tarsnapCacheDir =
+        Utils::validateTarsnapCache(_ui.tarsnapCacheLineEdit->text());
+    if(result && _tarsnapCacheDir.isEmpty())
+    {
+        _ui.advancedValidationLabel->setText(tr("Invalid Tarsnap cache directory"
+                                                " set."));
+        result = false;
+    }
 
     _tarsnapDir =
         Utils::findTarsnapClientInPath(_ui.tarsnapPathLineEdit->text(), true);
-    _tarsnapCacheDir =
-        Utils::validateTarsnapCache(_ui.tarsnapCacheLineEdit->text());
-    QFileInfo appDataDir(_ui.appDataPathLineEdit->text());
-    if(appDataDir.exists() && appDataDir.isDir() && appDataDir.isWritable())
-        _appDataDir = _ui.appDataPathLineEdit->text();
-    else
-        _appDataDir.clear();
-
-    if(_tarsnapDir.isEmpty() || _tarsnapCacheDir.isEmpty() ||
-       _appDataDir.isEmpty())
+    if(result && _tarsnapDir.isEmpty())
+    {
+        _ui.advancedValidationLabel->setText(
+                    tr("Tarsnap utilities not found. Visit "
+                       "<a href=\"https://tarsnap.com\">tarsnap.com</a> "
+                       "for help with acquiring them."));
         result = false;
-    else
-        result = true;
-
-    if(result)
+    }
+    else if(result)
+    {
         emit getTarsnapVersion(_tarsnapDir);
-    else
-        setTarsnapVersion("");
+    }
 
-    _ui.advancedPageProceedButton->setEnabled(result);
+    _ui.nextButton->setEnabled(result);
 
     return result;
 }
 
 void SetupDialog::restoreNo()
 {
-    _haveKey = false;
-    _ui.machineKeyLabel->hide();
-    _ui.machineKeyCombo->hide();
-    _ui.browseKeyButton->hide();
-    _ui.tarsnapUserLabel->show();
-    _ui.tarsnapUserLineEdit->show();
-    _ui.tarsnapPasswordLabel->show();
-    _ui.tarsnapPasswordLineEdit->show();
-    _ui.registerPageInfoLabel->setText(
-        tr("Please use your Tarsnap account "
-           "credentials to register this machine with the service "
-           "and create a local key for this machine."));
-    _ui.registerPageInfoLabelAside->setText(
-        tr("Don't have an account? Register on "
-        "<a href=\"http://tarsnap.com\">tarsnap.com</a>, "
-        "then come back."));
-    _ui.errorLabel->clear();
-    setNextPage();
+    _ui.registerKeyStackedWidget->setCurrentWidget(_ui.keyNoPage);
+    // Share machineNameLineEdit in both pages of the keyStackedWidget
+    _ui.gridKeyNoLayout->addWidget(_ui.machineNameLineEdit, 1, 1);
+    _ui.statusLabel->clear();
+    if(validateRegisterPage())
+        _ui.nextButton->setFocus();
 }
 
 void SetupDialog::restoreYes()
 {
-    _haveKey = true;
-    _ui.tarsnapUserLabel->hide();
-    _ui.tarsnapUserLineEdit->hide();
-    _ui.tarsnapPasswordLabel->hide();
-    _ui.tarsnapPasswordLineEdit->hide();
-    _ui.machineKeyLabel->show();
-    _ui.machineKeyCombo->show();
-    _ui.browseKeyButton->show();
-    _ui.registerPageInfoLabel->setText(
-        tr("Please use your existing machine key "
-           "and choose a machine name. "));
-    _ui.registerPageInfoLabelAside->setText(
-        tr("The registration will also "
-           "verify the archive integrity and consistency, "
-           "so please be patient."));
-    _ui.errorLabel->clear();
-    _ui.machineKeyCombo->clear();
-    foreach(QFileInfo file, Utils::findKeysInPath(_appDataDir))
-        _ui.machineKeyCombo->addItem(file.canonicalFilePath());
-    setNextPage();
+    _ui.registerKeyStackedWidget->setCurrentWidget(_ui.keyYesPage);
+    // Share machineNameLineEdit in both pages of the keyStackedWidget
+    _ui.gridKeyYesLayout->addWidget(_ui.machineNameLineEdit, 1, 1);
+    _ui.statusLabel->clear();
+    if(validateRegisterPage())
+        _ui.nextButton->setFocus();
 }
 
-void SetupDialog::validateRegisterPage()
+bool SetupDialog::validateRegisterPage()
 {
     bool result = false;
-    if(_haveKey)
+    if(_ui.restoreYesButton->isChecked())
     {
         // user specified key
         QFileInfo machineKeyFile(_ui.machineKeyCombo->currentText());
@@ -308,7 +304,8 @@ void SetupDialog::validateRegisterPage()
         }
     }
 
-    _ui.registerMachineButton->setEnabled(result);
+    _ui.nextButton->setEnabled(result);
+    return result;
 }
 
 void SetupDialog::registerHaveKeyBrowse()
@@ -322,15 +319,19 @@ void SetupDialog::registerHaveKeyBrowse()
 
 void SetupDialog::registerMachine()
 {
-    _ui.registerMachineButton->setEnabled(false);
-    _ui.errorLabel->clear();
-    if(_haveKey)
+    _ui.nextButton->setEnabled(false);
+    _ui.statusLabel->clear();
+    _ui.statusLabel->setStyleSheet("");
+    if(_ui.restoreYesButton->isChecked()) {
+        _ui.statusLabel->setText("Verifying archive integrity...");
         _tarsnapKeyFile = _ui.machineKeyCombo->currentText();
-    else
+    } else {
+        _ui.statusLabel->setText("Generating keyfile...");
         _tarsnapKeyFile =
             _appDataDir + QDir::separator() + _ui.machineNameLineEdit->text() +
             "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss") +
             ".key";
+    }
 
     DEBUG << "Registration details >>\n" << _tarsnapDir << ::endl
           << _appDataDir << ::endl
@@ -348,19 +349,18 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
     switch(status)
     {
     case TaskStatus::Completed:
-        _ui.errorLabel->clear();
+        _ui.statusLabel->clear();
         _ui.doneKeyFileNameLabel->setText(
                     QString("<a href=\"%1\">%2</a>")
                            .arg(QUrl::fromLocalFile(QFileInfo(_tarsnapKeyFile).absolutePath()).toString())
                            .arg(_tarsnapKeyFile));
-        _ui.doneButton->setEnabled(true);
+        _ui.nextButton->setEnabled(true);
         setNextPage();
         break;
     case TaskStatus::Failed:
-        _ui.errorLabel->setText(reason);
-        _ui.errorLabel->show();
-        _ui.registerMachineButton->setEnabled(true);
-        resize(sizeHint());
+        _ui.statusLabel->setText(reason);
+        _ui.statusLabel->setStyleSheet("#statusLabel { color: darkred; }");
+        _ui.nextButton->setEnabled(true);
         break;
     default:
         break;
@@ -384,17 +384,10 @@ void SetupDialog::updateLoadingAnimation(bool idle)
 void SetupDialog::setTarsnapVersion(QString versionString)
 {
     _tarsnapVersion = versionString;
-    if(_tarsnapVersion.isEmpty())
+    if(!_tarsnapVersion.isEmpty())
     {
-        _ui.clientVersionLabel->setText(
-            tr("Tarsnap utilities not found. Visit "
-               "<a href=\"https://tarsnap.com\">tarsnap.com</a> "
-               "for help with acquiring them."));
-    }
-    else
-    {
-        _ui.clientVersionLabel->setText(tr("Tarsnap CLI version ") +
-                                         _tarsnapVersion + tr(" detected.  ✔"));
+        _ui.advancedValidationLabel->setText(tr("Tarsnap CLI version ") +
+                                             _tarsnapVersion + tr(" detected.  ✔"));
     }
 }
 
@@ -408,7 +401,6 @@ void SetupDialog::commitSettings(bool skipped)
 
     if(!skipped)
     {
-        QSettings settings;
         settings.setValue("app/app_data",    _appDataDir);
         settings.setValue("tarsnap/path",    _tarsnapDir);
         settings.setValue("tarsnap/version", _tarsnapVersion);

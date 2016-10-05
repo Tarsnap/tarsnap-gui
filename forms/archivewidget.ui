@@ -161,7 +161,7 @@ image: url(:/icons/tarsnap-icon-big.png);
         <string>Date when this Archive was created</string>
        </property>
        <property name="text">
-        <string/>
+        <string notr="true"/>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::TextSelectableByMouse</set>
@@ -202,7 +202,7 @@ image: url(:/icons/tarsnap-icon-big.png);
         <string>Original backup size</string>
        </property>
        <property name="text">
-        <string/>
+        <string notr="true"/>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::TextSelectableByMouse</set>
@@ -230,10 +230,13 @@ color: blue;
 }</string>
        </property>
        <property name="text">
-        <string/>
+        <string notr="true"/>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+       </property>
+       <property name="elide" stdset="0">
+        <string notr="true">Qt::ElideMiddle</string>
        </property>
       </widget>
      </item>
@@ -254,6 +257,9 @@ color: blue;
       <widget class="QLineEdit" name="archiveCommandLineEdit">
        <property name="toolTip">
         <string>Command used to create the archive</string>
+       </property>
+       <property name="text">
+        <string notr="true"/>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -307,7 +313,7 @@ color: blue;
         <string>Actual size occupied on Tarsnap server</string>
        </property>
        <property name="text">
-        <string/>
+        <string notr="true"/>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::TextSelectableByMouse</set>
@@ -320,13 +326,13 @@ color: blue;
         <string>Archive name</string>
        </property>
        <property name="text">
-        <string/>
+        <string notr="true"/>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::TextSelectableByMouse</set>
        </property>
        <property name="elide" stdset="0">
-        <string>Qt::ElideMiddle</string>
+        <string notr="true">Qt::ElideMiddle</string>
        </property>
       </widget>
      </item>
@@ -337,17 +343,11 @@ color: blue;
          <italic>true</italic>
         </font>
        </property>
-       <property name="toolTip">
-        <string>This archive was interrupted and may be incomplete</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
        <property name="elide" stdset="0">
-        <string>Qt::ElideRight</string>
+        <string notr="true">Qt::ElideRight</string>
        </property>
       </widget>
      </item>

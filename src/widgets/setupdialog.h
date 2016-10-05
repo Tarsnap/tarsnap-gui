@@ -25,7 +25,7 @@ public slots:
     bool validateAdvancedSetupPage();
     void restoreNo();
     void restoreYes();
-    void validateRegisterPage();
+    bool validateRegisterPage();
     void registerHaveKeyBrowse();
     void registerMachine();
     void commitSettings(bool skipped = false);
@@ -41,6 +41,10 @@ signals:
                                 QString cachePath);
     void getTarsnapVersion(QString tarsnapPath);
 
+private slots:
+    void backButtonClicked();
+    void nextButtonClicked();
+
 private:
     Ui::SetupDialog  _ui;
     QPoint           _windowDragPos;
@@ -51,7 +55,6 @@ private:
     QString _tarsnapCacheDir;
     QString _appDataDir;
     QString _tarsnapKeyFile;
-    bool    _haveKey;
 };
 
 #endif // SETUPDIALOG_H

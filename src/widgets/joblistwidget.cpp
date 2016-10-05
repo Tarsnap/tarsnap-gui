@@ -8,7 +8,7 @@
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {
     connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
-        emit displayJobDetails(static_cast<JobListItem *>(item)->job());
+        emit displayJobDetails(static_cast<JobListWidgetItem *>(item)->job());
     });
 }
 
@@ -32,7 +32,7 @@ void JobListWidget::backupSelectedItems()
         {
             if(item->isSelected())
             {
-                JobPtr job = static_cast<JobListItem *>(item)->job();
+                JobPtr job = static_cast<JobListWidgetItem *>(item)->job();
                 emit backupJob(job);
             }
         }
@@ -45,7 +45,7 @@ void JobListWidget::selectJob(JobPtr job)
     {
         for(int i = 0; i < count(); ++i)
         {
-            JobListItem *jobItem = static_cast<JobListItem *>(item(i));
+            JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
             if(jobItem && (jobItem->job()->objectKey() == job->objectKey()))
             {
                 clearSelection();
@@ -62,7 +62,7 @@ void JobListWidget::inspectJobByRef(QString jobRef)
     {
         for(int i = 0; i < count(); ++i)
         {
-            JobListItem *jobItem = static_cast<JobListItem *>(item(i));
+            JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
             if(jobItem && (jobItem->job()->objectKey() == jobRef))
                 emit displayJobDetails(jobItem->job());
         }
@@ -73,7 +73,7 @@ void JobListWidget::backupAllJobs()
 {
     for(int i = 0; i < count(); ++i)
     {
-        JobPtr job = static_cast<JobListItem *>(item(i))->job();
+        JobPtr job = static_cast<JobListWidgetItem *>(item(i))->job();
         emit backupJob(job);
     }
 }
@@ -82,7 +82,7 @@ void JobListWidget::backupItem()
 {
     if(sender())
     {
-        JobPtr job = qobject_cast<JobListItem *>(sender())->job();
+        JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
         if(job)
             emit backupJob(job);
     }
@@ -92,7 +92,7 @@ void JobListWidget::inspectItem()
 {
     if(sender())
     {
-        emit displayJobDetails(qobject_cast<JobListItem *>(sender())->job());
+        emit displayJobDetails(qobject_cast<JobListWidgetItem *>(sender())->job());
     }
 }
 
@@ -100,7 +100,7 @@ void JobListWidget::restoreItem()
 {
     if(sender())
     {
-        JobPtr job = qobject_cast<JobListItem *>(sender())->job();
+        JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
         if(!job->archives().isEmpty())
         {
             ArchivePtr    archive = job->archives().first();
@@ -113,10 +113,10 @@ void JobListWidget::restoreItem()
 
 void JobListWidget::deleteItem()
 {
-    execDeleteJob(qobject_cast<JobListItem *>(sender()));
+    execDeleteJob(qobject_cast<JobListWidgetItem *>(sender()));
 }
 
-void JobListWidget::execDeleteJob(JobListItem *jobItem)
+void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
 {
     if(!jobItem)
         return;
@@ -158,14 +158,14 @@ void JobListWidget::addJob(JobPtr job)
 {
     if(job)
     {
-        JobListItem *item = new JobListItem(job);
-        connect(item, &JobListItem::requestBackup, this,
+        JobListWidgetItem *item = new JobListWidgetItem(job);
+        connect(item, &JobListWidgetItem::requestBackup, this,
                 &JobListWidget::backupItem);
-        connect(item, &JobListItem::requestInspect, this,
+        connect(item, &JobListWidgetItem::requestInspect, this,
                 &JobListWidget::inspectItem);
-        connect(item, &JobListItem::requestRestore, this,
+        connect(item, &JobListWidgetItem::requestRestore, this,
                 &JobListWidget::restoreItem);
-        connect(item, &JobListItem::requestDelete, this,
+        connect(item, &JobListWidgetItem::requestDelete, this,
                 &JobListWidget::deleteItem);
         insertItem(count(), item);
         setItemWidget(item, item->widget());
@@ -176,14 +176,14 @@ void JobListWidget::inspectSelectedItem()
 {
     if(!selectedItems().isEmpty())
         emit displayJobDetails(
-            static_cast<JobListItem *>(selectedItems().first())->job());
+            static_cast<JobListWidgetItem *>(selectedItems().first())->job());
 }
 
 void JobListWidget::restoreSelectedItem()
 {
     if(!selectedItems().isEmpty())
     {
-        JobPtr job = static_cast<JobListItem *>(selectedItems().first())->job();
+        JobPtr job = static_cast<JobListWidgetItem *>(selectedItems().first())->job();
         if(!job->archives().isEmpty())
         {
             ArchivePtr    archive = job->archives().first();
@@ -197,7 +197,7 @@ void JobListWidget::restoreSelectedItem()
 void JobListWidget::deleteSelectedItem()
 {
     if(!selectedItems().isEmpty())
-        execDeleteJob(static_cast<JobListItem *>(selectedItems().first()));
+        execDeleteJob(static_cast<JobListWidgetItem *>(selectedItems().first()));
 }
 
 void JobListWidget::setFilter(QString regex)
@@ -206,8 +206,8 @@ void JobListWidget::setFilter(QString regex)
     QRegExp rx(regex, Qt::CaseInsensitive, QRegExp::Wildcard);
     for(int i = 0; i < count(); ++i)
     {
-        JobListItem *jobItem =
-            static_cast<JobListItem *>(item(i));
+        JobListWidgetItem *jobItem =
+            static_cast<JobListWidgetItem *>(item(i));
         if(jobItem)
         {
             if(jobItem->job()->name().contains(rx))

@@ -1,14 +1,12 @@
 #include "tarsnaptask.h"
 #include "debug.h"
 
-#include <QSettings>
-
 #if defined Q_OS_UNIX
 #include <signal.h>
 #endif
 
 #define DEFAULT_TIMEOUT_MS 5000
-#define LOG_OUTPUT_BYTES 10240
+#define LOG_MAX_LENGTH 10240
 
 TarsnapTask::TarsnapTask()
     : QObject(), _process(nullptr), _truncateLogOutput(false)
@@ -26,21 +24,6 @@ void TarsnapTask::run()
         _process->setProcessChannelMode(QProcess::MergedChannels);
     else
         _process->setStandardOutputFile(_standardOutFile);
-    QSettings settings;
-    int upload_rate_kbps = settings.value("app/limit_upload", 0).toInt();
-    int download_rate_kbps = settings.value("app/limit_download", 0).toInt();
-    if(download_rate_kbps)
-    {
-        _arguments.prepend("--maxbw-rate-down");
-        _arguments.insert(1, QString::number(1024 * quint64(download_rate_kbps)));
-    }
-    if(upload_rate_kbps)
-    {
-        _arguments.prepend("--maxbw-rate-up");
-        _arguments.insert(1, QString::number(1024 * quint64(upload_rate_kbps)));
-    }
-    if(settings.value("tarsnap/no_default_config", true).toBool())
-        _arguments.prepend("--no-default-config");
     _process->setProgram(_command);
     _process->setArguments(_arguments);
     LOG << tr("Executing command:\n[%1 %2]")
@@ -179,9 +162,9 @@ void TarsnapTask::processFinished()
         emit terminated();
         if(!output.isEmpty())
         {
-            if(_truncateLogOutput)
+            if(_truncateLogOutput && (output.size() > LOG_MAX_LENGTH))
             {
-                output.truncate(LOG_OUTPUT_BYTES);
+                output.truncate(LOG_MAX_LENGTH);
                 output.append(tr("\n...\n-- Output truncated by Tarsnap GUI --"));
             }
             LOG << tr("Command finished with exit code %3 and output:\n[%1 %2]\n%4")

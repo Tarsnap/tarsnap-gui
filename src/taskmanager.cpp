@@ -11,26 +11,12 @@
 #define SUCCESS 0
 
 TaskManager::TaskManager()
-    : _threadPool(QThreadPool::globalInstance()),
-      _aggressiveNetworking(false),
-      _preservePathnames(true)
+    : _threadPool(QThreadPool::globalInstance())
 {
 }
 
 TaskManager::~TaskManager()
 {
-}
-
-void TaskManager::loadSettings()
-{
-    QSettings settings;
-    _tarsnapDir      = settings.value("tarsnap/path").toString();
-    _tarsnapCacheDir = settings.value("tarsnap/cache").toString();
-    _tarsnapKeyFile  = settings.value("tarsnap/key").toString();
-    _aggressiveNetworking =
-        settings.value("tarsnap/aggressive_networking", false).toBool();
-    _preservePathnames =
-        settings.value("tarsnap/preserve_pathnames", true).toBool();
 }
 
 void TaskManager::getTarsnapVersion(QString tarsnapPath)
@@ -86,11 +72,9 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     _backupTaskMap[backupTask->uuid()] = backupTask;
     TarsnapTask *bTask = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
-    if(_aggressiveNetworking)
+    initTarsnapArgs(args);
+    QSettings settings;
+    if(settings.value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING).toBool())
         args << "--aggressive-networking";
     if(backupTask->optionDryRun())
         args << "--dry-run";
@@ -136,14 +120,8 @@ void TaskManager::getArchives()
 {
     TarsnapTask *listArchivesTask = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty()) // We shouldn't need to pass this as per the
-                                    // man page, however Tarsnap CLI seems to
-                                    // require it
-        args << "--cachedir" << _tarsnapCacheDir;
-    args << "--list-archives"
-         << "-vv";
+    initTarsnapArgs(args);
+    args << "--list-archives" << "-vv";
     listArchivesTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     listArchivesTask->setArguments(args);
     listArchivesTask->setTruncateLogOutput(true);
@@ -196,10 +174,7 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
 
     TarsnapTask *statsTask = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
+    initTarsnapArgs(args);
     args << "--print-stats"
          << "--no-humanize-numbers"
          << "-f" << archive->name();
@@ -229,13 +204,9 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
 
     TarsnapTask *contentsTask = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty()) // We shouldn't need to pass this as per the
-                                    // man page, however Tarsnap CLI seems to
-                                    // require it
-        args << "--cachedir" << _tarsnapCacheDir;
-    if(_preservePathnames)
+    initTarsnapArgs(args);
+    QSettings settings;
+    if(settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES).toBool())
         args << "-P";
     args << "-tv"
          << "-f" << archive->name();
@@ -264,10 +235,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
 
     TarsnapTask *delArchives = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
+    initTarsnapArgs(args);
     args << "--print-stats"
          << "-d";
     foreach(ArchivePtr archive, archives)
@@ -292,10 +260,7 @@ void TaskManager::getOverallStats()
 {
     TarsnapTask *overallStats = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
+    initTarsnapArgs(args);
     args << "--print-stats"
          << "--no-humanize-numbers";
     overallStats->setCommand(makeTarsnapCommand(CMD_TARSNAP));
@@ -309,10 +274,7 @@ void TaskManager::fsck(bool prune)
 {
     TarsnapTask *fsck = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
+    initTarsnapArgs(args);
     if(prune)
         args << "--fsck-prune";
     else
@@ -321,6 +283,11 @@ void TaskManager::fsck(bool prune)
     fsck->setArguments(args);
     connect(fsck, &TarsnapTask::finished, this, &TaskManager::fsckFinished,
             QUEUED);
+    connect(fsck, &TarsnapTask::started, this,
+            [=]() {
+                emit message(tr("Cache repair initiated."));
+            },
+            QUEUED);
     queueTask(fsck, true);
 }
 
@@ -328,10 +295,7 @@ void TaskManager::nuke()
 {
     TarsnapTask *nuke = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
-    if(!_tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << _tarsnapCacheDir;
+    initTarsnapArgs(args);
     args << "--nuke";
     nuke->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     nuke->setStandardIn("No Tomorrow\n");
@@ -355,25 +319,27 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
 
     TarsnapTask *restore = new TarsnapTask();
     QStringList  args;
-    if(!_tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << _tarsnapKeyFile;
+    initTarsnapArgs(args);
     if(options.optionRestore)
     {
         QSettings settings;
         args << "-x"
              << "-P"
              << "-C"
-             << settings.value("app/downloads_dir", DOWNLOADS).toString();
+             << settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString();
     }
     if(options.optionRestoreDir)
         args << "-x"
              << "-C" << options.path;
-    if((options.optionRestore || options.optionRestoreDir) &&
-       !options.overwriteFiles)
-        args << "-k";
-    if((options.optionRestore || options.optionRestoreDir) &&
-       options.keepNewerFiles)
-        args << "--keep-newer-files";
+    if((options.optionRestore || options.optionRestoreDir))
+    {
+       if(!options.overwriteFiles)
+           args << "-k";
+       if(options.keepNewerFiles)
+           args << "--keep-newer-files";
+       if(options.preservePerms)
+           args << "-p";
+    }
     if(options.optionTarArchive)
     {
         args << "-r";
@@ -493,12 +459,19 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
 {
     if(queued) // queued should be cleared first to avoid race
     {
-        _taskQueue.clear();
+        while(!_taskQueue.isEmpty())
+        {
+            TarsnapTask *task = _taskQueue.dequeue();
+            if(task)
+                delete task;
+        }
+        emit message("Cleared queued tasks.");
     }
     if(interrupt)
     {
         if(!_runningTasks.isEmpty())
             _runningTasks.first()->interrupt();
+        emit message("Interrupting current backup.");
     }
     if(running)
     {
@@ -507,6 +480,7 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
             if(task)
                 task->stop();
         }
+        emit message("Stopped running tasks.");
     }
 }
 
@@ -881,14 +855,14 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
         emit message(tr("Deleting archive <i>%1</i> and %2 more archives... %3")
                          .arg(archives.first()->name())
                          .arg(archives.count() - 1)
-                         .arg(done ? "done." : ""),
+                         .arg(done ? tr("done.") : ""),
                      detail);
     }
     else if(archives.count() == 1)
     {
         emit message(tr("Deleting archive <i>%1</i>... %2")
                          .arg(archives.first()->name())
-                         .arg(done ? "done." : ""));
+                         .arg(done ? tr("done.") : ""));
     }
 }
 
@@ -1013,7 +987,8 @@ void TaskManager::parseGlobalStats(QString tarsnapOutput)
         return;
     }
     emit overallStats(sizeTotal, sizeCompressed, sizeUniqueTotal,
-                      sizeUniqueCompressed, _archiveMap.count());
+                      sizeUniqueCompressed,
+                      static_cast<quint64>(_archiveMap.count()));
 }
 
 void TaskManager::parseArchiveStats(QString tarsnapOutput,
@@ -1070,10 +1045,37 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput,
 
 QString TaskManager::makeTarsnapCommand(QString cmd)
 {
+    QSettings settings;
+    QString _tarsnapDir = settings.value("tarsnap/path").toString();
     if(_tarsnapDir.isEmpty())
         return cmd;
     else
         return _tarsnapDir + QDir::separator() + cmd;
+}
+
+void TaskManager::initTarsnapArgs(QStringList &args)
+{
+    QSettings settings;
+    QString tarsnapKeyFile  = settings.value("tarsnap/key").toString();
+    if(!tarsnapKeyFile.isEmpty())
+        args << "--keyfile" << tarsnapKeyFile;
+    QString tarsnapCacheDir = settings.value("tarsnap/cache").toString();
+    if(!tarsnapCacheDir.isEmpty())
+        args << "--cachedir" << tarsnapCacheDir;
+    int download_rate_kbps = settings.value("app/limit_download", 0).toInt();
+    if(download_rate_kbps)
+    {
+        args.prepend("--maxbw-rate-down");
+        args.insert(1, QString::number(1024 * quint64(download_rate_kbps)));
+    }
+    int upload_rate_kbps = settings.value("app/limit_upload", 0).toInt();
+    if(upload_rate_kbps)
+    {
+        args.prepend("--maxbw-rate-up");
+        args.insert(1, QString::number(1024 * quint64(upload_rate_kbps)));
+    }
+    if(settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG).toBool())
+        args.prepend("--no-default-config");
 }
 
 void TaskManager::loadJobs()
@@ -1113,6 +1115,10 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
         if(purgeArchives)
         {
             deleteArchives(job->archives());
+            emit message(tr("Job <i>%1</i> deleted. Deleting %2 associated "
+                            "archives next...")
+                         .arg(job->name())
+                         .arg(job->archives().count()));
         }
         else
         {
@@ -1121,6 +1127,7 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
                 archive->setJobRef("");
                 archive->save();
             }
+            emit message(tr("Job <i>%1</i> deleted.").arg(job->name()));
         }
         job->purge();
         _jobMap.remove(job->name());
@@ -1161,6 +1168,7 @@ void TaskManager::addJob(JobPtr job)
     _jobMap[job->name()] = job;
     connect(job.data(), &Job::loadArchives, this, &TaskManager::loadJobArchives,
             QUEUED);
+    emit message(tr("Job <i>%1</i> added.").arg(job->name()));
 }
 
 void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,

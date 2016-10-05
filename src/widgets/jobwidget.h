@@ -32,7 +32,11 @@ signals:
     void enableSave(bool enable);
     void findMatchingArchives(QString jobPrefix);
 
-protected slots:
+
+protected:
+    void changeEvent(QEvent *event);
+
+private slots:
     void updateDetails();
     void restoreButtonClicked();
     void backupButtonClicked();
@@ -47,6 +51,8 @@ private:
     JobPtr         _job;
     bool           _saveEnabled;
     QTimer         _fsEventUpdate;
+
+    void updateUi();
 };
 
 #endif // JOBWIDGET_H

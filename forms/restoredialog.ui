@@ -69,43 +69,20 @@
       <property name="spacing">
        <number>6</number>
       </property>
-      <item row="6" column="0" colspan="2">
-       <widget class="QCheckBox" name="keepNewerCheckBox">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="toolTip">
-         <string>Don't overwrite if files on disk are newer than archive contents</string>
-        </property>
-        <property name="text">
-         <string>Keep newer files</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QRadioButton" name="optionBaseDirRadio">
-        <property name="toolTip">
-         <string>Extract Archive contents to the specified base directory</string>
-        </property>
-        <property name="text">
-         <string>Restore files to specified directory</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QRadioButton" name="optionTarArchiveRadio">
-        <property name="toolTip">
-         <string>Download Archive contents as an uncompressed TAR archive file</string>
-        </property>
-        <property name="text">
-         <string>Download uncompressed tar archive</string>
-        </property>
-       </widget>
-      </item>
       <item row="4" column="1">
        <widget class="QPushButton" name="changeArchiveButton">
         <property name="toolTip">
          <string>Change resulting Tar archive file</string>
+        </property>
+        <property name="text">
+         <string>Change</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="changeDirButton">
+        <property name="toolTip">
+         <string>Change base directory</string>
         </property>
         <property name="text">
          <string>Change</string>
@@ -125,6 +102,26 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QRadioButton" name="optionTarArchiveRadio">
+        <property name="toolTip">
+         <string>Download Archive contents as an uncompressed TAR archive file</string>
+        </property>
+        <property name="text">
+         <string>Download uncompressed tar archive</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0" colspan="2">
+       <widget class="QCheckBox" name="overwriteCheckBox">
+        <property name="toolTip">
+         <string>Overwrite existing files when restoring to disk</string>
+        </property>
+        <property name="text">
+         <string>Overwrite existing files</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0" colspan="2">
        <widget class="QRadioButton" name="optionRestoreRadio">
         <property name="toolTip">
@@ -135,23 +132,16 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="0" colspan="2">
-       <widget class="QCheckBox" name="overwriteCheckBox">
+      <item row="8" column="0" colspan="2">
+       <widget class="QCheckBox" name="keepNewerCheckBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="toolTip">
-         <string>Overwrite existing files when restoring to disk</string>
+         <string>Don't overwrite if files on disk are newer than archive contents</string>
         </property>
         <property name="text">
-         <string>Overwrite existing files</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="changeDirButton">
-        <property name="toolTip">
-         <string>Change base directory</string>
-        </property>
-        <property name="text">
-         <string>Change</string>
+         <string>Keep newer files</string>
         </property>
        </widget>
       </item>
@@ -165,6 +155,33 @@
         </property>
         <property name="toolTip">
          <string>Set base directory to extract archive contents to</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QCheckBox" name="preservePermCheckBox">
+        <property name="toolTip">
+         <string>Attempt to restore the full permissions, including owner, file modes, file flags and ACLs, if available, for each item extracted from the archive.</string>
+        </property>
+        <property name="text">
+         <string>Preserve file permissions</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QRadioButton" name="optionBaseDirRadio">
+        <property name="toolTip">
+         <string>Extract Archive contents to the specified base directory</string>
+        </property>
+        <property name="text">
+         <string>Restore files to specified directory</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>

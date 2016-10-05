@@ -2,6 +2,7 @@
 #include "debug.h"
 #include "utils.h"
 #include "widgets/setupdialog.h"
+#include "translator.h"
 
 #include <QFontDatabase>
 #include <QMessageBox>
@@ -77,6 +78,10 @@ bool CoreApplication::initialize()
         settings.setDefaultFormat(QSettings::IniFormat);
     }
 
+    Translator &translator = Translator::instance();
+    translator.translateApp(this, settings.value("app/language", LANG_AUTO)
+                            .toString());
+
     bool wizardDone = settings.value("app/wizard_done", false).toBool();
     if(!wizardDone)
     {
@@ -105,7 +110,7 @@ bool CoreApplication::initialize()
         QMessageBox::warning(nullptr, tr("Tarsnap warning"),
                              tr("Simulation mode is enabled. Archives will not"
                                 " be uploaded to the Tarsnap server. Disable"
-                                " in Settings -> Advanced."));
+                                " in Settings -> Backup."));
     }
 
     // Initialize the PersistentStore early
@@ -116,7 +121,6 @@ bool CoreApplication::initialize()
     connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
             QUEUED);
 
-    QMetaObject::invokeMethod(&_taskManager, "loadSettings", QUEUED);
     if(!wizardDone)
         QMetaObject::invokeMethod(&_taskManager, "initializeCache", QUEUED);
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
@@ -176,8 +180,6 @@ void CoreApplication::showMainWindow()
             &MainWindow::updateSettingsSummary, QUEUED);
     connect(_mainWindow, &MainWindow::repairCache, &_taskManager,
             &TaskManager::fsck, QUEUED);
-    connect(_mainWindow, &MainWindow::settingsChanged, &_taskManager,
-            &TaskManager::loadSettings, QUEUED);
     connect(_mainWindow, &MainWindow::purgeArchives, &_taskManager,
             &TaskManager::nuke, QUEUED);
     connect(_mainWindow, &MainWindow::restoreArchive, &_taskManager,

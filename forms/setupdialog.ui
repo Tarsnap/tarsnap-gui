@@ -694,6 +694,9 @@ border: none;
          </property>
          <widget class="QWidget" name="keyNoPage">
           <layout class="QGridLayout" name="gridKeyNoLayout">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetMinimumSize</enum>
+           </property>
            <property name="leftMargin">
             <number>3</number>
            </property>
@@ -712,6 +715,19 @@ border: none;
            <property name="verticalSpacing">
             <number>3</number>
            </property>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="tarsnapPasswordLineEdit">
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+             <property name="placeholderText">
+              <string>your password</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0" colspan="2">
             <widget class="QLabel" name="registerPageInfoLabel">
              <property name="minimumSize">
@@ -764,19 +780,6 @@ border: none;
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="tarsnapPasswordLineEdit">
-             <property name="echoMode">
-              <enum>QLineEdit::Password</enum>
-             </property>
-             <property name="placeholderText">
-              <string>your password</string>
-             </property>
-             <property name="clearButtonEnabled">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="0">
             <widget class="QLabel" name="machineNameLabel">
              <property name="text">
@@ -800,10 +803,26 @@ border: none;
              </property>
             </widget>
            </item>
+           <item row="4" column="1">
+            <spacer name="keyNoPageBottomSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>0</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="keyYesPage">
           <layout class="QGridLayout" name="gridKeyYesLayout">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetMinimumSize</enum>
+           </property>
            <property name="leftMargin">
             <number>3</number>
            </property>
@@ -895,6 +914,19 @@ border: none;
               <cstring>machineNameLineEdit</cstring>
              </property>
             </widget>
+           </item>
+           <item row="4" column="1">
+            <spacer name="keyYesPageBottomSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>0</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>

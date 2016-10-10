@@ -922,6 +922,46 @@ void MainWindow::enableJobScheduling()
     }
 #elif defined(Q_OS_LINUX)
 
+    auto confirm = QMessageBox::question(this, "Confirm action",
+                                         "Register Tarsnap GUI with cron?");
+    if(confirm != QMessageBox::Yes)
+        return;
+
+    QString CRON_LINE("\n*/1 * * * * /usr/bin/env SCREEN=%1 DISPLAY=%2 XAUTHORITY=%3 %4 --jobs\n");
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    CRON_LINE = CRON_LINE.arg(env.value("SCREEN"))
+                         .arg(env.value("DISPLAY"))
+                         .arg(env.value("XAUTHORITY"))
+                         .arg(QCoreApplication::applicationFilePath());
+    DEBUG << CRON_LINE;
+
+    QProcess crontab;
+    crontab.start("crontab", QStringList() << "-l");
+    crontab.waitForFinished(-1);
+    if((crontab.exitStatus() != QProcess::NormalExit)
+       || (crontab.exitCode() != 0))
+    {
+        QString msg("Failed to list current crontab");
+        DEBUG << msg;
+        QMessageBox::critical(this, "Crontab command failed", msg);
+        return;
+    }
+    QByteArray currentCrontab = crontab.readAllStandardOutput();
+    currentCrontab.append(CRON_LINE.toLatin1());
+    DEBUG << currentCrontab;
+
+    crontab.start("crontab");
+    crontab.write(currentCrontab);
+    crontab.closeWriteChannel();
+    crontab.waitForFinished(-1);
+    if((crontab.exitStatus() != QProcess::NormalExit)
+       || (crontab.exitCode() != 0))
+    {
+        QString msg("Failed to update crontab");
+        DEBUG << msg << crontab.readAll();
+        QMessageBox::critical(this, "Crontab command failed", msg);
+        return;
+    }
 #elif defined(Q_OS_BSD4)
 
 #endif

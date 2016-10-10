@@ -114,7 +114,7 @@ public:
     //! Delets this data from the PersistentStore.
     void purge();
     //! Returns whether an object with this key exists in the PersistentStore.
-    bool findObjectWithKey(QString key);
+    bool doesKeyExist(QString key);
 
 public slots:
     //! Returns statistics about this archive.

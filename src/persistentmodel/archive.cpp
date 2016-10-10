@@ -41,7 +41,7 @@ Archive::~Archive()
 
 void Archive::save()
 {
-    bool    exists = findObjectWithKey(_name);
+    bool    exists = doesKeyExist(_name);
     QString queryString;
     if(exists)
         queryString =
@@ -127,7 +127,7 @@ void Archive::purge()
         DEBUG << "Attempting to delete Archive object with empty _name key.";
         return;
     }
-    if(!findObjectWithKey(_name))
+    if(!doesKeyExist(_name))
     {
         DEBUG << "No Archive object with key " << _name;
         return;
@@ -145,12 +145,12 @@ void Archive::purge()
     emit purged();
 }
 
-bool Archive::findObjectWithKey(QString key)
+bool Archive::doesKeyExist(QString key)
 {
     bool found = false;
     if(key.isEmpty())
     {
-        DEBUG << "findObjectWithKey method called with empty args";
+        DEBUG << "doesKeyExist method called with empty args";
         return found;
     }
     PersistentStore &store = getStore();

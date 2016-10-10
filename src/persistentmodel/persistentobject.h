@@ -3,20 +3,33 @@
 
 #include "persistentstore.h"
 
+/*!
+ * \ingroup persistent
+ * \brief The PersistentObject is an abstract data type for information which
+ * is stored in the PersistentStore.
+ */
 class PersistentObject
 {
 public:
+    //! Constructor.
     explicit PersistentObject();
     ~PersistentObject();
 
+    //! Saves data to the PersistentStore; creating or updating as appropriate.
     virtual void save()                         = 0;
+    //! Loads data from the PersistentStore.
     virtual void load()                         = 0;
+    //! Deletes this data from the PersistentStore.
     virtual void purge()                        = 0;
+    //! Returns whether an object with this key exists in the PersistentStore.
     virtual bool findObjectWithKey(QString key) = 0;
 
+    //! Returns the PersistentStore singleton.
     PersistentStore &getStore();
 
+    //! Returns the object key.
     QString objectKey() const;
+    //! Sets the object key.
     void setObjectKey(const QString &objectKey);
 
 private:

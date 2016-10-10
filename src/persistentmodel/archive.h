@@ -38,29 +38,46 @@ struct File {
     quint64 links;
 };
 
+/*!
+ * \ingroup background-task
+ * \brief The ParseArchiveListingTask extracts the list of files
+ * from an archive.
+ */
 class ParseArchiveListingTask : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
+    //! Constructor.
+    //! \param listing: the output of <tt>tarsnap -tv</tt>.
     explicit ParseArchiveListingTask(const QString &listing):_listing(listing){}
+    //! Run this task in the background; will emit the \ref result
+    //! signal when finished.
     void run();
 
 signals:
+    //! The list of files.
     void result(QVector<File> files);
 
 private:
     QString _listing;
 };
 
+/*!
+ * \ingroup persistent
+ * \brief The Archive stores metadata about a user's archive.
+ */
 class Archive : public QObject, public PersistentObject
 {
     Q_OBJECT
 
 public:
+    //! Constructor.
     explicit Archive(QObject *parent = nullptr);
     ~Archive();
 
+    //! \name Getter/setter variables
+    //! @{
     QString name() const;
     void setName(const QString &value);
     QDateTime timestamp() const;
@@ -81,21 +98,34 @@ public:
     void setContents(const QString &value);
     QString jobRef() const;
     void setJobRef(const QString &jobRef);
+    //! @}
+
+    //! Starts loading the file list.  When finished, it emits a \ref fileList
+    //! signal.
     void getFileList();
+    //! Returns whether the tarsnap command included "-P" (preserve pathnames).
     bool hasPreservePaths();
 
     // From PersistentObject
+    //! Saves data to the PersistentStore; creating or updating as appropriate.
     void save();
+    //! Loads data from the PersistentStore.
     void load();
+    //! Delets this data from the PersistentStore.
     void purge();
+    //! Returns whether an object with this key exists in the PersistentStore.
     bool findObjectWithKey(QString key);
 
 public slots:
+    //! Returns statistics about this archive.
     QString archiveStats();
 
 signals:
+    //! This item was saved.
     void changed();
+    //! This item was deleted.
     void purged();
+    //! The file list has been updated.
     void fileList(QVector<File> files);
 
 private:

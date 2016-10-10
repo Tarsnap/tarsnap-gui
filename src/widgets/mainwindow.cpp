@@ -897,12 +897,12 @@ void MainWindow::enableJobScheduling()
     launchdPlist.close();
     launchdPlistFile.close();
 
-    QProcess process;
-    process.start("launchctl",
-                  QStringList() << "load" << launchdPlistFile.fileName());
-    process.waitForFinished(-1);
-    if((process.exitStatus() != QProcess::NormalExit)
-       || (process.exitCode() != 0))
+    QProcess launchctl;
+    launchctl.start("launchctl",
+                    QStringList() << "load" << launchdPlistFile.fileName());
+    launchctl.waitForFinished(-1);
+    if((launchctl.exitStatus() != QProcess::NormalExit)
+       || (launchctl.exitCode() != 0))
     {
         QString msg("Failed to load launchd plist file");
         DEBUG << msg;
@@ -910,10 +910,10 @@ void MainWindow::enableJobScheduling()
         return;
     }
 
-    process.start("launchctl", QStringList() << "start" << "com.tarsnap.gui");
-    process.waitForFinished(-1);
-    if((process.exitStatus() != QProcess::NormalExit)
-       || (process.exitCode() != 0))
+    launchctl.start("launchctl", QStringList() << "start" << "com.tarsnap.gui");
+    launchctl.waitForFinished(-1);
+    if((launchctl.exitStatus() != QProcess::NormalExit)
+       || (launchctl.exitCode() != 0))
     {
         QString msg("Failed to start launchd service");
         DEBUG << msg;

@@ -414,14 +414,20 @@ void TaskManager::findMatchingArchives(QString jobPrefix)
 
 void TaskManager::runScheduledJobs()
 {
-    QSettings settings;
     loadJobs();
-    bool nothingToDo = true;
+    QSettings settings;
     QDate now(QDate::currentDate());
+    QDate nextDaily = settings.value("app/next_daily_timestamp").toDate();
     QDate nextWeekly = settings.value("app/next_weekly_timestamp").toDate();
     QDate nextMonthly = settings.value("app/next_monthly_timestamp").toDate();
-    bool doWeekly = false;
+    bool doDaily   = false;
+    bool doWeekly  = false;
     bool doMonthly = false;
+    if(!nextDaily.isValid() || (nextDaily <= now))
+    {
+        doDaily = true;
+        settings.setValue("app/next_daily_timestamp", now.addDays(1));
+    }
     if(!nextWeekly.isValid() || (nextWeekly <= now))
     {
         doWeekly = true;
@@ -437,13 +443,16 @@ void TaskManager::runScheduledJobs()
         settings.setValue("app/next_monthly_timestamp", nextMonth);
     }
     settings.sync();
+    DEBUG << "Daily: " << doDaily;
+    DEBUG << "Next daily: " << settings.value("app/next_daily_timestamp").toDate().toString();
     DEBUG << "Weekly: " << doWeekly;
     DEBUG << "Next weekly: " << settings.value("app/next_weekly_timestamp").toDate().toString();
     DEBUG << "Monthly: " << doWeekly;
     DEBUG << "Next monthly: " << settings.value("app/next_monthly_timestamp").toDate().toString();
+    bool nothingToDo = true;
     foreach(JobPtr job, _jobMap)
     {
-        if((job->optionScheduledEnabled() == JobSchedule::Daily)
+        if((doDaily && (job->optionScheduledEnabled() == JobSchedule::Daily))
           || (doWeekly && (job->optionScheduledEnabled() == JobSchedule::Weekly))
           || (doMonthly && (job->optionScheduledEnabled() == JobSchedule::Monthly)))
         {

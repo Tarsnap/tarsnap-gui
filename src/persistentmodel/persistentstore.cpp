@@ -298,7 +298,7 @@ bool PersistentStore::upgradeVersion4()
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN settingShowHidden INTEGER;")))
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN settingShowSystem INTEGER;")))
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN settingHideSymlinks INTEGER;")))
-//    if((result = query.exec("UPDATE jobs SET optionScheduledEnabled=0;")))
+    if((result = query.exec("UPDATE jobs SET optionScheduledEnabled=0;")))
         result = query.exec("UPDATE version SET version = 4;");
 
     if(!result)

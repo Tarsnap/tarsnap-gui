@@ -927,14 +927,6 @@ void MainWindow::enableJobScheduling()
     if(confirm != QMessageBox::Yes)
         return;
 
-    QString CRON_LINE("\n*/1 * * * * /usr/bin/env SCREEN=%1 DISPLAY=%2 XAUTHORITY=%3 %4 --jobs\n");
-    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    CRON_LINE = CRON_LINE.arg(env.value("SCREEN"))
-                         .arg(env.value("DISPLAY"))
-                         .arg(env.value("XAUTHORITY"))
-                         .arg(QCoreApplication::applicationFilePath());
-    DEBUG << CRON_LINE;
-
     QProcess crontab;
     crontab.start("crontab", QStringList() << "-l");
     crontab.waitForFinished(-1);
@@ -956,7 +948,40 @@ void MainWindow::enableJobScheduling()
         }
     }
     QByteArray currentCrontab = crontab.readAllStandardOutput();
-    currentCrontab.append(CRON_LINE.toLatin1());
+
+    QString cronLine(CRON_LINE);
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    cronLine = cronLine.arg(env.value("SCREEN"))
+                       .arg(env.value("DISPLAY"))
+                       .arg(env.value("XAUTHORITY"))
+                       .arg(QCoreApplication::applicationFilePath());
+
+    QString cronBlock("\n%1\n%2\n%3\n%4\n");
+    cronBlock = cronBlock.arg(CRON_MARKER_BEGIN)
+                         .arg(CRON_MARKER_HELP)
+                         .arg(cronLine)
+                         .arg(CRON_MARKER_END);
+
+    QMessageBox question(this);
+    question.setIcon(QMessageBox::Question);
+    question.setText("Tarsnap GUI will be added to the current user's crontab.");
+    question.setInformativeText("To ensure proper behavior please review the"
+                                " lines to be added by pressing Show Details"
+                                " before proceeding.");
+    question.setDetailedText(cronBlock);
+    question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
+    // Workaround for activating Show details by default
+    foreach(QAbstractButton *button, question.buttons()) {
+        if (question.buttonRole(button) == QMessageBox::ActionRole) {
+            button->click();
+            break;
+        }
+    }
+    int proceed = question.exec();
+    if(proceed == QMessageBox::Cancel)
+        return;
+
+    currentCrontab.append(cronBlock.toLatin1());
     DEBUG << currentCrontab;
 
     crontab.start("crontab");
@@ -1018,6 +1043,103 @@ void MainWindow::disableJobScheduling()
         return;
     }
 #elif defined(Q_OS_LINUX)
+    auto confirm = QMessageBox::question(this, "Confirm action",
+                                         "Unregister Tarsnap GUI from cron?");
+    if(confirm != QMessageBox::Yes)
+        return;
+
+    QProcess crontab;
+    crontab.start("crontab", QStringList() << "-l");
+    crontab.waitForFinished(-1);
+    if((crontab.exitStatus() != QProcess::NormalExit)
+       || (crontab.exitCode() != 0))
+    {
+        QString error(crontab.readAllStandardError());
+        /* On some distros crontab -l exits with error 1 and message
+         * "no crontab for username" if there's no crontab installed
+         * for the current user. If this is the case proceed and don't err.
+         */
+        if(error.startsWith(QLatin1String("no crontab for")))
+        {
+            QMessageBox::warning(this, "Job scheduling",
+                                 "There's no crontab for the current user."
+                                 " Nothing to do.");
+            return;
+        }
+        else
+        {
+            QString msg("Failed to list current crontab: %1");
+            msg = msg.arg(error);
+            DEBUG << msg;
+            QMessageBox::critical(this, "Crontab command failed", msg);
+            return;
+        }
+    }
+    QString currentCrontab(crontab.readAllStandardOutput());
+    if(currentCrontab.isEmpty())
+    {
+        QMessageBox::warning(this, "Job scheduling",
+                             "Looks like the crontab for the current user is"
+                             " empty. Nothing to do.");
+        return;
+    }
+
+    DEBUG << currentCrontab;
+    QRegExp rx(QString("\n?%1.+%2\n?").arg(QRegExp::escape(CRON_MARKER_BEGIN))
+                                      .arg(QRegExp::escape(CRON_MARKER_END)));
+    rx.setMinimal(true);
+    QString linesToRemove;
+    int pos = 0;
+    while((pos = rx.indexIn(currentCrontab, pos)) != -1)
+    {
+        linesToRemove += rx.cap();
+        pos += rx.matchedLength();
+    }
+
+    if(linesToRemove.isEmpty())
+    {
+        QMessageBox::warning(this, "Job scheduling",
+                             "Looks like Job scheduling hasn't been enabled yet."
+                             " Nothing to do.");
+        return;
+    }
+
+    QMessageBox question(this);
+    question.setIcon(QMessageBox::Question);
+    question.setText("Tarsnap GUI will be removed from the current user's"
+                     " crontab.");
+    question.setInformativeText("To ensure proper behavior please review the"
+                                " lines to be removed by pressing Show Details"
+                                " before proceeding.");
+    question.setDetailedText(linesToRemove);
+    question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
+    // Workaround for activating Show details by default
+    foreach(QAbstractButton *button, question.buttons()) {
+        if (question.buttonRole(button) == QMessageBox::ActionRole) {
+            button->click();
+            break;
+        }
+    }
+    int proceed = question.exec();
+    if(proceed == QMessageBox::Cancel)
+        return;
+
+    currentCrontab.remove(rx);
+    DEBUG << currentCrontab;
+
+    crontab.start("crontab");
+    crontab.write(currentCrontab.toLatin1());
+    crontab.closeWriteChannel();
+    crontab.waitForFinished(-1);
+    if((crontab.exitStatus() != QProcess::NormalExit)
+       || (crontab.exitCode() != 0))
+    {
+        QString msg("Failed to update crontab: %1");
+        msg = msg.arg(QString(crontab.readAllStandardError()));
+        DEBUG << msg;
+        QMessageBox::critical(this, "Crontab command failed", msg);
+        return;
+    }
 
 #elif defined(Q_OS_BSD4)
 

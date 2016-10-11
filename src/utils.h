@@ -50,6 +50,12 @@ const QStringList DEFAULT_JOBS {
 #define APPDATA QStandardPaths::DataLocation
 #endif
 
+
+#define CRON_LINE "*/1 * * * * /usr/bin/env SCREEN=%1 DISPLAY=%2 XAUTHORITY=%3 %4 --jobs"
+#define CRON_MARKER_BEGIN "#BEGIN Tarsnap GUI - DO NOT EDIT THIS BLOCK MANUALLY"
+#define CRON_MARKER_END "#END Tarsnap GUI - DO NOT EDIT THIS BLOCK MANUALLY"
+#define CRON_MARKER_HELP "# For help see the following wiki page https://github.com/Tarsnap/tarsnap-gui/wiki/Scheduling"
+
 namespace Utils
 {
 

@@ -33,28 +33,6 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QLabel" name="iconLabel">
-     <property name="minimumSize">
-      <size>
-       <width>27</width>
-       <height>27</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>27</width>
-       <height>27</height>
-      </size>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../resources/resources.qrc">:/icons/hard-drive.png</pixmap>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="ElidedLabel" name="nameLabel">
      <property name="minimumSize">
       <size>
@@ -120,13 +98,14 @@ font-size: 11px;
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="backupButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QToolButton" name="backupButton">
      <property name="minimumSize">
       <size>
        <width>27</width>
@@ -162,7 +141,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+       <normaloff>:/icons/data-transfer-upload.png</normaloff>:/icons/data-transfer-upload.png</iconset>
      </property>
     </widget>
    </item>
@@ -244,7 +223,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+       <normaloff>:/icons/data-transfer-download.png</normaloff>:/icons/data-transfer-download.png</iconset>
      </property>
     </widget>
    </item>
@@ -293,7 +272,7 @@ padding-left: 2px;
   <action name="actionJobRestore">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+     <normaloff>:/icons/data-transfer-download.png</normaloff>:/icons/data-transfer-download.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>
@@ -323,7 +302,7 @@ padding-left: 2px;
   <action name="actionJobBackup">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+     <normaloff>:/icons/data-transfer-upload.png</normaloff>:/icons/data-transfer-upload.png</iconset>
    </property>
    <property name="text">
     <string>Backup</string>

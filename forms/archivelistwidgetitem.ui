@@ -33,88 +33,6 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QToolButton" name="archiveButton">
-     <property name="minimumSize">
-      <size>
-       <width>27</width>
-       <height>27</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>27</width>
-       <height>27</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Display Archive details</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton {
-border: none;
-border-radius: 4px;
-}
-
-QToolButton:hover {
-background: rgba(179, 190, 255, 120);
-}
-
-QToolButton:pressed {
-padding-top: 2px;
-padding-left: 2px;
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QToolButton" name="jobButton">
-     <property name="minimumSize">
-      <size>
-       <width>27</width>
-       <height>27</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>27</width>
-       <height>27</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Display Job details</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton {
-border: none;
-border-radius: 4px;
-}
-
-QToolButton:hover {
-background: rgba(179, 190, 255, 120);
-}
-
-QToolButton:pressed {
-padding-top: 2px;
-padding-left: 2px;
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/hard-drive.png</normaloff>:/icons/hard-drive.png</iconset>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="ElidedLabel" name="nameLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -156,6 +74,13 @@ font-size: 11px;
      </property>
      <property name="elide" stdset="0">
       <string notr="true">Qt::ElideRight</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
     </widget>
    </item>
@@ -237,7 +162,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+       <normaloff>:/icons/data-transfer-download.png</normaloff>:/icons/data-transfer-download.png</iconset>
      </property>
     </widget>
    </item>
@@ -316,7 +241,7 @@ padding-left: 2px;
   <action name="actionRestore">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+     <normaloff>:/icons/data-transfer-download.png</normaloff>:/icons/data-transfer-download.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>

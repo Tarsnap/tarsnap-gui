@@ -496,7 +496,7 @@ font-size: 12px;
   <action name="actionRestoreFiles">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+     <normaloff>:/icons/data-transfer-download.png</normaloff>:/icons/data-transfer-download.png</iconset>
    </property>
    <property name="text">
     <string>Restore file(s)</string>

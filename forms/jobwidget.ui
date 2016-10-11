@@ -54,19 +54,6 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QLabel" name="iconLabel">
-        <property name="styleSheet">
-         <string notr="true">#iconLabel {
-image: url(&quot;:/icons/hard-drive.png&quot;);
-max-width: 32px;
-max-height: 32px;
-min-width: 32px;
-min-height: 32px;
-}</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="jobNameLabel">
         <property name="font">
          <font>
@@ -126,7 +113,7 @@ padding-left: 3px;
         </property>
         <property name="icon">
          <iconset resource="../resources/resources.qrc">
-          <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+          <normaloff>:/icons/data-transfer-upload.png</normaloff>:/icons/data-transfer-upload.png</iconset>
         </property>
        </widget>
       </item>
@@ -140,7 +127,7 @@ padding-left: 3px;
         </property>
         <property name="icon">
          <iconset resource="../resources/resources.qrc">
-          <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+          <normaloff>:/icons/data-transfer-download.png</normaloff>:/icons/data-transfer-download.png</iconset>
         </property>
        </widget>
       </item>
@@ -530,7 +517,7 @@ selection-background-color: rgba(177,214,255, 150);
   <action name="actionRestore">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+     <normaloff>:/icons/data-transfer-download.png</normaloff>:/icons/data-transfer-download.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>

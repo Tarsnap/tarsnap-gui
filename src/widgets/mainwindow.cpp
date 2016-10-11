@@ -941,10 +941,19 @@ void MainWindow::enableJobScheduling()
     if((crontab.exitStatus() != QProcess::NormalExit)
        || (crontab.exitCode() != 0))
     {
-        QString msg("Failed to list current crontab");
-        DEBUG << msg;
-        QMessageBox::critical(this, "Crontab command failed", msg);
-        return;
+        QString error(crontab.readAllStandardError());
+        /* On some distros crontab -l exits with error 1 and message
+         * "no crontab for username" if there's no crontab installed
+         * for the current user. If this is the case proceed and don't err.
+         */
+        if(!error.startsWith(QLatin1String("no crontab for")))
+        {
+            QString msg("Failed to list current crontab: %1");
+            msg = msg.arg(error);
+            DEBUG << msg;
+            QMessageBox::critical(this, "Crontab command failed", msg);
+            return;
+        }
     }
     QByteArray currentCrontab = crontab.readAllStandardOutput();
     currentCrontab.append(CRON_LINE.toLatin1());
@@ -957,8 +966,9 @@ void MainWindow::enableJobScheduling()
     if((crontab.exitStatus() != QProcess::NormalExit)
        || (crontab.exitCode() != 0))
     {
-        QString msg("Failed to update crontab");
-        DEBUG << msg << crontab.readAll();
+        QString msg("Failed to update crontab: %1");
+        msg = msg.arg(QString(crontab.readAllStandardError()));
+        DEBUG << msg;
         QMessageBox::critical(this, "Crontab command failed", msg);
         return;
     }

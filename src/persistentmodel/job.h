@@ -76,7 +76,7 @@ public:
     void save();
     void load();
     void purge();
-    bool findObjectWithKey(QString key);
+    bool doesKeyExist(QString key);
 
 signals:
     void changed();

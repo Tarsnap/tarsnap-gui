@@ -22,7 +22,7 @@ public:
     //! Deletes this data from the PersistentStore.
     virtual void purge()                        = 0;
     //! Returns whether an object with this key exists in the PersistentStore.
-    virtual bool findObjectWithKey(QString key) = 0;
+    virtual bool doesKeyExist(QString key) = 0;
 
     //! Returns the PersistentStore singleton.
     PersistentStore &getStore();

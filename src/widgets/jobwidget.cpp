@@ -268,7 +268,7 @@ bool JobWidget::canSaveNew()
     {
         JobPtr newJob(new Job);
         newJob->setName(_ui.jobNameLineEdit->text());
-        if(!newJob->findObjectWithKey(newJob->name()))
+        if(!newJob->doesKeyExist(newJob->name()))
         {
             emit findMatchingArchives(newJob->archivePrefix());
             if(!_ui.jobTreeWidget->getSelectedUrls().isEmpty())

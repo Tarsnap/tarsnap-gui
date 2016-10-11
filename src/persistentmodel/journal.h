@@ -27,7 +27,7 @@ public slots:
     void save() {}
     void load();
     void purge();
-    bool findObjectWithKey(QString key)
+    bool doesKeyExist(QString key)
     {
         Q_UNUSED(key);
         return false;

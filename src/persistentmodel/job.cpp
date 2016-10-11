@@ -248,7 +248,7 @@ BackupTaskPtr Job::createBackupTask()
 
 void Job::save()
 {
-    bool exists = findObjectWithKey(_name);
+    bool exists = doesKeyExist(_name);
 
     QString queryString;
     if(exists)
@@ -357,7 +357,7 @@ void Job::purge()
         DEBUG << "Attempting to delete Job object with empty _name key.";
         return;
     }
-    if(!findObjectWithKey(_name))
+    if(!doesKeyExist(_name))
     {
         DEBUG << "No Job object with key " << _name;
         return;
@@ -374,12 +374,12 @@ void Job::purge()
     setObjectKey("");
 }
 
-bool Job::findObjectWithKey(QString key)
+bool Job::doesKeyExist(QString key)
 {
     bool found = false;
     if(key.isEmpty())
     {
-        DEBUG << "findObjectWithKey method called with empty args";
+        DEBUG << "doesKeyExist method called with empty args";
         return found;
     }
     PersistentStore &store = getStore();

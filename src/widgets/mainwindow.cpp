@@ -920,7 +920,7 @@ void MainWindow::enableJobScheduling()
         QMessageBox::critical(this, "Launchd command failed", msg);
         return;
     }
-#elif defined(Q_OS_LINUX)
+#elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
 
     auto confirm = QMessageBox::question(this, "Confirm action",
                                          "Register Tarsnap GUI with cron?");
@@ -998,8 +998,6 @@ void MainWindow::enableJobScheduling()
         QMessageBox::critical(this, "Crontab command failed", msg);
         return;
     }
-#elif defined(Q_OS_BSD4)
-
 #endif
 }
 
@@ -1043,7 +1041,7 @@ void MainWindow::disableJobScheduling()
         QMessageBox::critical(this, "Cannot remove service file", msg);
         return;
     }
-#elif defined(Q_OS_LINUX)
+#elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
     auto confirm = QMessageBox::question(this, "Confirm action",
                                          "Unregister Tarsnap GUI from cron?");
     if(confirm != QMessageBox::Yes)
@@ -1142,9 +1140,6 @@ void MainWindow::disableJobScheduling()
         QMessageBox::critical(this, "Crontab command failed", msg);
         return;
     }
-
-#elif defined(Q_OS_BSD4)
-
 #endif
 }
 

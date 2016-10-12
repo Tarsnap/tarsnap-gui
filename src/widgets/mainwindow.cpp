@@ -949,6 +949,17 @@ void MainWindow::enableJobScheduling()
     }
     QByteArray currentCrontab = crontab.readAllStandardOutput();
 
+    QRegExp rx(QString("\n?%1.+%2\n?").arg(QRegExp::escape(CRON_MARKER_BEGIN))
+                                      .arg(QRegExp::escape(CRON_MARKER_END)));
+    rx.setMinimal(true);
+    if(-1 != rx.indexIn(currentCrontab))
+    {
+        QMessageBox::critical(this, "Job scheduling",
+                              "Looks like scheduling is already enabled for the"
+                              " current user's crontab. Nothing to do.");
+        return;
+    }
+
     QString cronLine(CRON_LINE);
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     cronLine = cronLine.arg(env.value("SCREEN"))

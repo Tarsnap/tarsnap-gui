@@ -962,9 +962,9 @@ void MainWindow::enableJobScheduling()
 
     QString cronLine(CRON_LINE);
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    cronLine = cronLine.arg(env.value("SCREEN"))
-                       .arg(env.value("DISPLAY"))
-                       .arg(env.value("XAUTHORITY"))
+    cronLine = cronLine.arg(env.contains("SCREEN") ? "SCREEN=" + env.value("SCREEN") : "")
+                       .arg(env.contains("DISPLAY") ? "DISPLAY=" + env.value("DISPLAY") : "")
+                       .arg(env.contains("XAUTHORITY") ? "XAUTHORITY=" + env.value("XAUTHORITY") : "")
                        .arg(QCoreApplication::applicationFilePath());
 
     QString cronBlock("\n%1\n%2\n%3\n%4\n");

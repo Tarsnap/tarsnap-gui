@@ -76,7 +76,7 @@ public:
     explicit Archive(QObject *parent = nullptr);
     ~Archive();
 
-    //! \name Getter/setter variables
+    //! \name Getter/setter methods
     //! @{
     QString name() const;
     void setName(const QString &value);
@@ -111,7 +111,7 @@ public:
     void save();
     //! Loads data from the PersistentStore.
     void load();
-    //! Delets this data from the PersistentStore.
+    //! Deletes this data from the PersistentStore.
     void purge();
     //! Returns whether an object with this key exists in the PersistentStore.
     bool doesKeyExist(QString key);

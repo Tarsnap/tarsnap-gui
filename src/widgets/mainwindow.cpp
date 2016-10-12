@@ -970,6 +970,7 @@ void MainWindow::enableJobScheduling()
                                 " before proceeding.");
     question.setDetailedText(cronBlock);
     question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
+    question.setDefaultButton(QMessageBox::Cancel);
     // Workaround for activating Show details by default
     foreach(QAbstractButton *button, question.buttons()) {
         if (question.buttonRole(button) == QMessageBox::ActionRole) {
@@ -1113,6 +1114,7 @@ void MainWindow::disableJobScheduling()
                                 " before proceeding.");
     question.setDetailedText(linesToRemove);
     question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
+    question.setDefaultButton(QMessageBox::Cancel);
     // Workaround for activating Show details by default
     foreach(QAbstractButton *button, question.buttons()) {
         if (question.buttonRole(button) == QMessageBox::ActionRole) {

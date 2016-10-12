@@ -938,7 +938,7 @@ void MainWindow::enableJobScheduling()
          * "no crontab for username" if there's no crontab installed
          * for the current user. If this is the case proceed and don't err.
          */
-        if(!error.startsWith(QLatin1String("no crontab for")))
+        if(-1 == error.indexOf(QRegExp("^(crontab: )?no crontab for")))
         {
             QString msg("Failed to list current crontab: %1");
             msg = msg.arg(error);

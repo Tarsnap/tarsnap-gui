@@ -15,11 +15,12 @@ public:
     explicit PersistentObject();
     ~PersistentObject();
 
-    //! Saves data to the PersistentStore; creating or updating as appropriate.
+    //! Saves this object to the PersistentStore; creating or
+    //! updating as appropriate.
     virtual void save()                         = 0;
-    //! Loads data from the PersistentStore.
+    //! Loads this object from the PersistentStore.
     virtual void load()                         = 0;
-    //! Deletes this data from the PersistentStore.
+    //! Deletes this object from the PersistentStore.
     virtual void purge()                        = 0;
     //! Returns whether an object with this key exists in the PersistentStore.
     virtual bool doesKeyExist(QString key) = 0;

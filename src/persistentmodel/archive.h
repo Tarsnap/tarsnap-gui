@@ -76,7 +76,7 @@ public:
     explicit Archive(QObject *parent = nullptr);
     ~Archive();
 
-    //! \name Getter/setter variables
+    //! \name Getter/setter methods
     //! @{
     QString name() const;
     void setName(const QString &value);
@@ -107,11 +107,14 @@ public:
     bool hasPreservePaths();
 
     // From PersistentObject
-    //! Saves data to the PersistentStore; creating or updating as appropriate.
+    //! Saves this object to the PersistentStore; creating or
+    //! updating as appropriate.
     void save();
-    //! Loads data from the PersistentStore.
+    //! Loads this object from the PersistentStore.  The object's
+    //! \c _name must already be set.
     void load();
-    //! Delets this data from the PersistentStore.
+    //! Deletes this object from the PersistentStore.  The object's
+    //! \c _name must already be set.
     void purge();
     //! Returns whether an object with this key exists in the PersistentStore.
     bool doesKeyExist(QString key);

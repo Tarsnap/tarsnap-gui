@@ -996,9 +996,27 @@ void MainWindow::enableJobScheduling()
     currentCrontab.append(cronBlock.toLatin1());
     DEBUG << currentCrontab;
 
-    crontab.start("crontab", QStringList() << "-");
-    crontab.write(currentCrontab);
-    crontab.closeWriteChannel();
+    QTemporaryFile newCrontab;
+    if(!newCrontab.open())
+    {
+        DEBUG << "Error creating temporary file.";
+        QMessageBox::critical(this, "Job scheduling",
+                              "Error creating temporary file. Aborting.");
+        return;
+    }
+    DEBUG << newCrontab.fileName();
+
+    if(-1 == newCrontab.write(currentCrontab))
+    {
+        DEBUG << "Error creating temporary file.";
+        QMessageBox::critical(this, "Job scheduling",
+                              "Error creating temporary file. Aborting.");
+        return;
+    }
+    newCrontab.flush();
+    newCrontab.close();
+
+    crontab.start("crontab", QStringList() << newCrontab.fileName());
     crontab.waitForFinished(-1);
     if((crontab.exitStatus() != QProcess::NormalExit)
        || (crontab.exitCode() != 0))
@@ -1138,9 +1156,27 @@ void MainWindow::disableJobScheduling()
     currentCrontab.remove(rx);
     DEBUG << currentCrontab;
 
-    crontab.start("crontab", QStringList() << "-");
-    crontab.write(currentCrontab.toLatin1());
-    crontab.closeWriteChannel();
+    QTemporaryFile newCrontab;
+    if(!newCrontab.open())
+    {
+        DEBUG << "Error creating temporary file.";
+        QMessageBox::critical(this, "Job scheduling",
+                              "Error creating temporary file. Aborting.");
+        return;
+    }
+    DEBUG << newCrontab.fileName();
+
+    if(-1 == newCrontab.write(currentCrontab.toLatin1()))
+    {
+        DEBUG << "Error creating temporary file.";
+        QMessageBox::critical(this, "Job scheduling",
+                              "Error creating temporary file. Aborting.");
+        return;
+    }
+    newCrontab.flush();
+    newCrontab.close();
+
+    crontab.start("crontab", QStringList() << newCrontab.fileName());
     crontab.waitForFinished(-1);
     if((crontab.exitStatus() != QProcess::NormalExit)
        || (crontab.exitCode() != 0))

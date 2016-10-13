@@ -996,7 +996,7 @@ void MainWindow::enableJobScheduling()
     currentCrontab.append(cronBlock.toLatin1());
     DEBUG << currentCrontab;
 
-    crontab.start("crontab");
+    crontab.start("crontab", QStringList() << "-");
     crontab.write(currentCrontab);
     crontab.closeWriteChannel();
     crontab.waitForFinished(-1);
@@ -1138,7 +1138,7 @@ void MainWindow::disableJobScheduling()
     currentCrontab.remove(rx);
     DEBUG << currentCrontab;
 
-    crontab.start("crontab");
+    crontab.start("crontab", QStringList() << "-");
     crontab.write(currentCrontab.toLatin1());
     crontab.closeWriteChannel();
     crontab.waitForFinished(-1);

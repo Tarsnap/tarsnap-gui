@@ -22,7 +22,7 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="restoreDialogLayout">
    <property name="leftMargin">
     <number>12</number>
    </property>
@@ -53,7 +53,7 @@
    </item>
    <item>
     <widget class="QGroupBox" name="optionsGroupBox">
-     <layout class="QGridLayout" name="gridLayout_2">
+     <layout class="QGridLayout" name="optionsGridLayout">
       <property name="leftMargin">
        <number>6</number>
       </property>
@@ -190,7 +190,7 @@
    </item>
    <item alignment="Qt::AlignBottom">
     <widget class="QWidget" name="widget" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QHBoxLayout" name="bottomLayout">
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -204,7 +204,7 @@
        <number>0</number>
       </property>
       <item>
-       <spacer name="horizontalSpacer">
+       <spacer name="leftHorizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -240,7 +240,7 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_2">
+       <spacer name="rightHorizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>

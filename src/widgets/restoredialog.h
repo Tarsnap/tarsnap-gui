@@ -6,16 +6,26 @@
 
 #include <QDialog>
 
+/*!
+ * \ingroup widgets-specialized
+ * \brief The RestoreDialog is a QDialog which asks the user where to restore
+ * an archive, and whether to overwrite files.
+ */
 class RestoreDialog : public QDialog
 {
     Q_OBJECT
 
 public:
+    //! Constructor.
+    //! \param archive: the ArchivePtr to restore.
+    //! \param parent: standard Qt parameter.
     explicit RestoreDialog(ArchivePtr archive, QWidget *parent = nullptr);
     ~RestoreDialog();
 
+    //! Returns options from the dialog window.
     ArchiveRestoreOptions getOptions();
     void displayRestoreOption(bool display);
+    //! Display (or not) the "download uncompressed tar archive" option.
     void displayTarOption(bool display);
 
 private slots:

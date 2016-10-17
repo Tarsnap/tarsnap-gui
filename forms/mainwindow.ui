@@ -20,7 +20,7 @@
    <iconset resource="../resources/resources.qrc">
     <normaloff>:/icons/tarsnap-icon-big.png</normaloff>:/icons/tarsnap-icon-big.png</iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="mainLayout">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -38,7 +38,7 @@
    </property>
    <item>
     <widget class="QWidget" name="mainContent" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_17">
+     <layout class="QVBoxLayout" name="mainContentLayout">
       <property name="spacing">
        <number>3</number>
       </property>
@@ -676,7 +676,7 @@ color: black;
                <number>6</number>
               </property>
               <item>
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="defaultJobsLabel">
                 <property name="text">
                  <string>Would you like to automatically create a handful of predefined Jobs for commonly-used directories such as Desktop, Documents, and Pictures?</string>
                 </property>
@@ -686,7 +686,7 @@ color: black;
                </widget>
               </item>
               <item>
-               <widget class="QWidget" name="widget_4" native="true">
+               <widget class="QWidget" name="defaultJobsButtonsWidget" native="true">
                 <layout class="QHBoxLayout" name="horizontalLayout_5">
                  <property name="leftMargin">
                   <number>0</number>
@@ -708,7 +708,7 @@ color: black;
                   </widget>
                  </item>
                  <item>
-                  <spacer name="horizontalSpacer_4">
+                  <spacer name="defaultJobsSpacer">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
@@ -909,7 +909,7 @@ border: 1px solid white;
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                     </property>
                     <item row="0" column="0">
-                     <widget class="QLabel" name="label_4">
+                     <widget class="QLabel" name="actualUsageLabel">
                       <property name="toolTip">
                        <string>On the Tarsnap servers, this is what you're paying for</string>
                       </property>
@@ -932,7 +932,7 @@ border: 1px solid white;
                      </widget>
                     </item>
                     <item row="1" column="0">
-                     <widget class="QLabel" name="label_6">
+                     <widget class="QLabel" name="archiveCountLabel">
                       <property name="toolTip">
                        <string>Number of Archives stored for this Machine</string>
                       </property>
@@ -955,7 +955,7 @@ border: 1px solid white;
                      </widget>
                     </item>
                     <item row="2" column="0">
-                     <widget class="QLabel" name="label_21">
+                     <widget class="QLabel" name="bytesEconomyLabel">
                       <property name="toolTip">
                        <string>Bytes reduced by deduplication and compression</string>
                       </property>
@@ -978,7 +978,7 @@ border: 1px solid white;
                      </widget>
                     </item>
                     <item row="3" column="0">
-                     <widget class="QLabel" name="label_2">
+                     <widget class="QLabel" name="toalBackupLabel">
                       <property name="toolTip">
                        <string>Real size of all stored archives (before compression and deduplication)</string>
                       </property>
@@ -1001,7 +1001,7 @@ border: 1px solid white;
                      </widget>
                     </item>
                     <item row="4" column="0">
-                     <widget class="QLabel" name="label_16">
+                     <widget class="QLabel" name="creditLabel">
                       <property name="toolTip">
                        <string>Credit left on Tarsnap</string>
                       </property>
@@ -1221,7 +1221,7 @@ color: blue;
                       </widget>
                      </item>
                      <item row="1" column="0">
-                      <widget class="QLabel" name="label_19">
+                      <widget class="QLabel" name="machineNameLabel">
                        <property name="text">
                         <string>Machine name</string>
                        </property>
@@ -1256,7 +1256,7 @@ color: blue;
                       </widget>
                      </item>
                      <item row="0" column="0">
-                      <widget class="QLabel" name="label">
+                      <widget class="QLabel" name="tarsnapUserLabel">
                        <property name="text">
                         <string>Tarsnap user</string>
                        </property>
@@ -1299,7 +1299,7 @@ color: blue;
                       </widget>
                      </item>
                      <item row="2" column="0">
-                      <widget class="QLabel" name="label_11">
+                      <widget class="QLabel" name="machineKeyLabel">
                        <property name="text">
                         <string>Machine key</string>
                        </property>
@@ -1378,7 +1378,7 @@ color: blue;
                    </widget>
                   </item>
                   <item row="7" column="0">
-                   <widget class="QLabel" name="label_10">
+                   <widget class="QLabel" name="limitDownloadBandwidthLabel">
                     <property name="text">
                      <string>Limit download bandwidth</string>
                     </property>
@@ -1456,7 +1456,7 @@ color: blue;
                    </widget>
                   </item>
                   <item row="5" column="0">
-                   <widget class="QLabel" name="label_3">
+                   <widget class="QLabel" name="skipLargeFilesLabel">
                     <property name="text">
                      <string>Skip files larger than</string>
                     </property>
@@ -1535,7 +1535,7 @@ color: blue;
                    </widget>
                   </item>
                   <item row="6" column="0">
-                   <widget class="QLabel" name="label_9">
+                   <widget class="QLabel" name="limitUploadBandwidthLabel">
                     <property name="text">
                      <string>Limit upload bandwidth</string>
                     </property>
@@ -1649,14 +1649,14 @@ color: blue;
                  </property>
                  <layout class="QGridLayout" name="gridLayout_2">
                   <item row="0" column="0">
-                   <widget class="QLabel" name="label_13">
+                   <widget class="QLabel" name="languageLabel">
                     <property name="text">
                      <string>Language</string>
                     </property>
                    </widget>
                   </item>
                   <item row="5" column="0">
-                   <widget class="QLabel" name="label_20">
+                   <widget class="QLabel" name="tarsnapClientDirectoryLabel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -1728,7 +1728,7 @@ color: blue;
                    </widget>
                   </item>
                   <item row="6" column="0">
-                   <widget class="QLabel" name="label_12">
+                   <widget class="QLabel" name="tarsnapCacheLabel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -1787,7 +1787,7 @@ color: blue;
                    </widget>
                   </item>
                   <item row="8" column="0">
-                   <widget class="QLabel" name="label_7">
+                   <widget class="QLabel" name="appDataDirectoryLabel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -1958,7 +1958,7 @@ color: blue;
                    </spacer>
                   </item>
                   <item row="4" column="0">
-                   <widget class="QLabel" name="label_14">
+                   <widget class="QLabel" name="tarsnapClientVersionLabel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -2060,7 +2060,7 @@ margin: 1px 0px 0px 6px;
                <number>2</number>
               </property>
               <item>
-               <widget class="QLabel" name="label_5">
+               <widget class="QLabel" name="websiteLinksLabel">
                 <property name="toolTip">
                  <string>General help</string>
                 </property>

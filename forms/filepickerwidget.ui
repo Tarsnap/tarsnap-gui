@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Select files and directories</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="filePickerLayout">
    <property name="spacing">
     <number>6</number>
    </property>
@@ -30,8 +30,8 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QWidget" name="widget_2" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <widget class="QWidget" name="topWidget" native="true">
+     <layout class="QHBoxLayout" name="topWidgetLayout">
       <property name="spacing">
        <number>3</number>
       </property>
@@ -156,7 +156,7 @@ padding-left: 3px;
    </item>
    <item>
     <widget class="QWidget" name="optionsContainer" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="optionsLayout">
       <property name="spacing">
        <number>-1</number>
       </property>

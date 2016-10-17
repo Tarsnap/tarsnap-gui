@@ -100,7 +100,7 @@ image:url(:/icons/tarsnap-icon-big.png);
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="bsdLabel">
+    <widget class="QLabel" name="licenseLabel">
      <property name="text">
       <string>This software is released under the BSD 2-clause license.
 Built with the help of the following 3rd party components:</string>

@@ -978,7 +978,7 @@ border: 1px solid white;
                      </widget>
                     </item>
                     <item row="3" column="0">
-                     <widget class="QLabel" name="toalBackupLabel">
+                     <widget class="QLabel" name="totalBackupLabel">
                       <property name="toolTip">
                        <string>Real size of all stored archives (before compression and deduplication)</string>
                       </property>
@@ -2060,7 +2060,7 @@ margin: 1px 0px 0px 6px;
                <number>2</number>
               </property>
               <item>
-               <widget class="QLabel" name="websiteLinksLabel">
+               <widget class="QLabel" name="tarsnapHelpLabel">
                 <property name="toolTip">
                  <string>General help</string>
                 </property>

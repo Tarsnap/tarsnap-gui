@@ -7,6 +7,8 @@
 
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {
+    _filter.setCaseSensitivity(Qt::CaseInsensitive);
+    _filter.setPatternSyntax(QRegExp::Wildcard);
     connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
         emit displayJobDetails(static_cast<JobListWidgetItem *>(item)->job());
     });
@@ -169,6 +171,7 @@ void JobListWidget::addJob(JobPtr job)
                 &JobListWidget::deleteItem);
         insertItem(count(), item);
         setItemWidget(item, item->widget());
+        item->setHidden(!job->name().contains(_filter));
     }
 }
 
@@ -203,14 +206,14 @@ void JobListWidget::deleteSelectedItem()
 void JobListWidget::setFilter(QString regex)
 {
     clearSelection();
-    QRegExp rx(regex, Qt::CaseInsensitive, QRegExp::Wildcard);
+    _filter.setPattern(regex);
     for(int i = 0; i < count(); ++i)
     {
         JobListWidgetItem *jobItem =
             static_cast<JobListWidgetItem *>(item(i));
         if(jobItem)
         {
-            if(jobItem->job()->name().contains(rx))
+            if(jobItem->job()->name().contains(_filter))
                 jobItem->setHidden(false);
             else
                 jobItem->setHidden(true);

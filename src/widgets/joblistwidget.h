@@ -43,6 +43,8 @@ private slots:
 
 private:
     void execDeleteJob(JobListWidgetItem *jobItem);
+
+    QRegExp _filter;
 };
 
 #endif // JOBLISTWIDGET_H

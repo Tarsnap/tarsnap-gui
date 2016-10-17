@@ -38,6 +38,9 @@ private slots:
     void inspectItem();
     void restoreItem();
     void goToJob();
+
+private:
+    QRegExp _filter;
 };
 
 #endif // ARCHIVELISTWIDGET_H

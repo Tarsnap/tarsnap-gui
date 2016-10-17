@@ -9,6 +9,8 @@
 
 ArchiveListWidget::ArchiveListWidget(QWidget *parent) : QListWidget(parent)
 {
+    _filter.setCaseSensitivity(Qt::CaseInsensitive);
+    _filter.setPatternSyntax(QRegExp::Wildcard);
     connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
         if(item)
         {
@@ -45,6 +47,7 @@ void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
                 &ArchiveListWidget::goToJob);
         insertItem(count(), item);
         setItemWidget(item, item->widget());
+        item->setHidden(!archive->name().contains(_filter));
     }
     setUpdatesEnabled(true);
 }
@@ -163,14 +166,14 @@ void ArchiveListWidget::restoreSelectedItem()
 void ArchiveListWidget::setFilter(QString regex)
 {
     clearSelection();
-    QRegExp rx(regex, Qt::CaseInsensitive, QRegExp::Wildcard);
+    _filter.setPattern(regex);
     for(int i = 0; i < count(); ++i)
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(item(i));
         if(archiveItem)
         {
-            if(archiveItem->archive()->name().contains(rx))
+            if(archiveItem->archive()->name().contains(_filter))
                 archiveItem->setHidden(false);
             else
                 archiveItem->setHidden(true);

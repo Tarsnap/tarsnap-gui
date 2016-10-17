@@ -120,7 +120,7 @@ border-radius: 2px;
           <attribute name="toolTip">
            <string>Switch to Backup tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
+          <layout class="QVBoxLayout" name="backupTabVerticalLayout">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -384,7 +384,7 @@ text-align: center;
           <attribute name="toolTip">
            <string>Switch to Archives tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_11">
+          <layout class="QVBoxLayout" name="archivesVerticalLayout">
            <property name="spacing">
             <number>3</number>
            </property>
@@ -432,8 +432,8 @@ left: 1px;
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget_2" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_12">
+            <widget class="QWidget" name="archivesWidget" native="true">
+             <layout class="QVBoxLayout" name="archivesWidgetVerticalLayout">
               <property name="leftMargin">
                <number>0</number>
               </property>
@@ -447,7 +447,7 @@ left: 1px;
                <number>0</number>
               </property>
               <item>
-               <widget class="QSplitter" name="splitter">
+               <widget class="QSplitter" name="archivesSplitter">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
@@ -520,7 +520,7 @@ selection-background-color: rgba(177,214,255,150);
           <attribute name="toolTip">
            <string>Switch to Jobs tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
+          <layout class="QVBoxLayout" name="jobsVerticalLayout">
            <property name="spacing">
             <number>3</number>
            </property>
@@ -568,8 +568,8 @@ left: 1px;
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget_3" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_5">
+            <widget class="QWidget" name="jobsWidget" native="true">
+             <layout class="QVBoxLayout" name="jobsWidgetVerticalLayout">
               <property name="leftMargin">
                <number>0</number>
               </property>
@@ -583,7 +583,7 @@ left: 1px;
                <number>0</number>
               </property>
               <item>
-               <widget class="QSplitter" name="splitter_2">
+               <widget class="QSplitter" name="jobsSplitter">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
@@ -662,7 +662,7 @@ background: white;
 color: black;
 }</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_13">
+             <layout class="QVBoxLayout" name="defaultJobsVerticalLayout">
               <property name="leftMargin">
                <number>6</number>
               </property>
@@ -687,7 +687,7 @@ color: black;
               </item>
               <item>
                <widget class="QWidget" name="defaultJobsButtonsWidget" native="true">
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <layout class="QHBoxLayout" name="defaultJobsButtonWidgetHorizontalLayout">
                  <property name="leftMargin">
                   <number>0</number>
                  </property>
@@ -830,7 +830,7 @@ margin-right: 3px;
           <attribute name="toolTip">
            <string>Switch to Settings tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <layout class="QVBoxLayout" name="settingsTabVerticalLayout">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -881,7 +881,7 @@ border: 1px solid white;
               <attribute name="label">
                <string>Account</string>
               </attribute>
-              <layout class="QVBoxLayout" name="verticalLayout_9">
+              <layout class="QVBoxLayout" name="settingsAccountVerticalLayout">
                <property name="leftMargin">
                 <number>0</number>
                </property>
@@ -895,13 +895,13 @@ border: 1px solid white;
                 <number>0</number>
                </property>
                <item>
-                <widget class="QGroupBox" name="groupBox">
+                <widget class="QGroupBox" name="settingsAccountGroupBox">
                  <property name="title">
                   <string/>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_10">
+                 <layout class="QVBoxLayout" name="settingsAccountGroupBoxVerticalLayout">
                   <item>
-                   <layout class="QFormLayout" name="formLayout_3">
+                   <layout class="QFormLayout" name="settingsGroupFormLayout">
                     <property name="fieldGrowthPolicy">
                      <enum>QFormLayout::ExpandingFieldsGrow</enum>
                     </property>
@@ -1014,7 +1014,7 @@ border: 1px solid white;
                      </widget>
                     </item>
                     <item row="4" column="1">
-                     <layout class="QHBoxLayout" name="horizontalLayout_6">
+                     <layout class="QHBoxLayout" name="creditHorizontalLayout">
                       <item>
                        <widget class="ElidedLabel" name="accountCreditLabel">
                         <property name="toolTip">
@@ -1055,7 +1055,7 @@ color: blue;
                        </widget>
                       </item>
                       <item>
-                       <spacer name="horizontalSpacer_2">
+                       <spacer name="creditHorizontalSpacer">
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
                         </property>
@@ -1124,7 +1124,7 @@ color: blue;
                        </widget>
                       </item>
                       <item>
-                       <spacer name="horizontalSpacer_3">
+                       <spacer name="machineActivityHorizontalSpacer">
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
                         </property>
@@ -1175,11 +1175,11 @@ color: blue;
                    </layout>
                   </item>
                   <item>
-                   <widget class="QGroupBox" name="groupBox_2">
+                   <widget class="QGroupBox" name="settingsAccountSubGroupBox">
                     <property name="title">
                      <string/>
                     </property>
-                    <layout class="QGridLayout" name="gridLayout_3">
+                    <layout class="QGridLayout" name="settingsAccountSubGridLayout">
                      <property name="leftMargin">
                       <number>0</number>
                      </property>
@@ -1322,7 +1322,7 @@ color: blue;
                 </widget>
                </item>
                <item>
-                <spacer name="verticalSpacer_4">
+                <spacer name="settingsVerticalSpacer">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
                  </property>
@@ -1348,7 +1348,7 @@ color: blue;
               <attribute name="label">
                <string>Backup</string>
               </attribute>
-              <layout class="QVBoxLayout" name="verticalLayout_15">
+              <layout class="QVBoxLayout" name="settingsBackupVerticalLayout">
                <property name="leftMargin">
                 <number>0</number>
                </property>
@@ -1362,7 +1362,7 @@ color: blue;
                 <number>0</number>
                </property>
                <item>
-                <widget class="QGroupBox" name="groupBox_3">
+                <widget class="QGroupBox" name="settingsBackupGroupBox">
                  <property name="title">
                   <string/>
                  </property>
@@ -1629,7 +1629,7 @@ color: blue;
               <attribute name="label">
                <string>Application</string>
               </attribute>
-              <layout class="QVBoxLayout" name="verticalLayout_16">
+              <layout class="QVBoxLayout" name="settingsApplicationVerticalLayout">
                <property name="leftMargin">
                 <number>0</number>
                </property>
@@ -1643,11 +1643,11 @@ color: blue;
                 <number>0</number>
                </property>
                <item>
-                <widget class="QGroupBox" name="groupBox_6">
+                <widget class="QGroupBox" name="settingsApplicationsGroupBox">
                  <property name="title">
                   <string/>
                  </property>
-                 <layout class="QGridLayout" name="gridLayout_2">
+                 <layout class="QGridLayout" name="settingsApplicationsGridLayout">
                   <item row="0" column="0">
                    <widget class="QLabel" name="languageLabel">
                     <property name="text">
@@ -1721,7 +1721,7 @@ color: blue;
                    </widget>
                   </item>
                   <item row="3" column="0" colspan="4">
-                   <widget class="Line" name="line_2">
+                   <widget class="Line" name="settingsApplicationsTopLine">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -1764,7 +1764,7 @@ color: blue;
                    </widget>
                   </item>
                   <item row="13" column="0" colspan="4">
-                   <spacer name="verticalSpacer_2">
+                   <spacer name="settingsApplicationVerticalSpacer">
                     <property name="orientation">
                      <enum>Qt::Vertical</enum>
                     </property>
@@ -1893,7 +1893,7 @@ color: blue;
                    </widget>
                   </item>
                   <item row="9" column="0" colspan="4">
-                   <widget class="Line" name="line">
+                   <widget class="Line" name="settingsApplicationMiddleLine">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -1942,7 +1942,7 @@ color: blue;
                    </widget>
                   </item>
                   <item row="4" column="3">
-                   <spacer name="horizontalSpacer_6">
+                   <spacer name="tarsnapClientVersionHorizontalSpacer">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -1981,7 +1981,7 @@ color: blue;
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer_3">
+            <spacer name="settingsVerticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -2020,7 +2020,7 @@ margin: 1px 0px 0px 6px;
           <attribute name="toolTip">
            <string>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_6">
+          <layout class="QVBoxLayout" name="helpVerticalLayout">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -2037,7 +2037,7 @@ margin: 1px 0px 0px 6px;
             <number>0</number>
            </property>
            <item>
-            <widget class="QGroupBox" name="groupBox_4">
+            <widget class="QGroupBox" name="helpGroupBox">
              <property name="font">
               <font>
                <pointsize>-1</pointsize>
@@ -2046,7 +2046,7 @@ margin: 1px 0px 0px 6px;
              <property name="title">
               <string>Tarsnap help</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_7">
+             <layout class="QVBoxLayout" name="helpGroupBoxVerticalLayout">
               <property name="leftMargin">
                <number>2</number>
               </property>
@@ -2100,8 +2100,8 @@ For help regarding Tarsnap GUI, please visit the &lt;a href=&quot;https://github
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_19">
+            <widget class="QWidget" name="helpWidget" native="true">
+             <layout class="QVBoxLayout" name="helpWidgetVerticalLayout">
               <property name="spacing">
                <number>0</number>
               </property>
@@ -2118,15 +2118,15 @@ For help regarding Tarsnap GUI, please visit the &lt;a href=&quot;https://github
                <number>0</number>
               </property>
               <item>
-               <widget class="QSplitter" name="splitter_3">
+               <widget class="QSplitter" name="helpSplitter">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
-                <widget class="QGroupBox" name="groupBox_7">
+                <widget class="QGroupBox" name="helpKeyboardShortcutsGroupBox">
                  <property name="title">
                   <string>Keyboard shortcuts</string>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_20">
+                 <layout class="QVBoxLayout" name="helpKeyboardShortcutsVerticalLayout">
                   <property name="leftMargin">
                    <number>2</number>
                   </property>
@@ -2202,7 +2202,7 @@ Settings tab
                   </item>
                  </layout>
                 </widget>
-                <widget class="QGroupBox" name="groupBox_5">
+                <widget class="QGroupBox" name="helpConsoleGroupBox">
                  <property name="font">
                   <font>
                    <pointsize>-1</pointsize>
@@ -2214,7 +2214,7 @@ Settings tab
                  <property name="title">
                   <string>Console log</string>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_18">
+                 <layout class="QVBoxLayout" name="helpConsoleVerticalLayout">
                   <property name="leftMargin">
                    <number>2</number>
                   </property>
@@ -2297,7 +2297,7 @@ font-size: 12px;
    </item>
    <item>
     <widget class="QWidget" name="statusBarWidget" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <layout class="QHBoxLayout" name="statusBarHorizontalLayout">
       <property name="leftMargin">
        <number>12</number>
       </property>

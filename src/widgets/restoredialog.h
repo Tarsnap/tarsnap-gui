@@ -24,7 +24,6 @@ public:
 
     //! Returns options from the dialog window.
     ArchiveRestoreOptions getOptions();
-    void displayRestoreOption(bool display);
     //! Display (or not) the "download uncompressed tar archive" option.
     void displayTarOption(bool display);
 
@@ -40,6 +39,8 @@ private:
     Ui::RestoreDialog  _ui;
     ArchivePtr         _archive;
     QString            _downDir;
+
+    void displayRestoreOption(bool display);
 };
 
 #endif // RESTOREDIALOG_H

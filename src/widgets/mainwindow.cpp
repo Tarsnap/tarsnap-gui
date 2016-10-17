@@ -882,6 +882,13 @@ void MainWindow::enableJobScheduling()
     QFile launchdPlist(":/com.tarsnap.gui.plist");
     launchdPlist.open(QIODevice::ReadOnly | QIODevice::Text);
     QFile launchdPlistFile(QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist");
+    if(launchdPlistFile.exists())
+    {
+        QMessageBox::critical(this, "Job scheduling",
+                              "Looks like scheduling is already enabled."
+                              " Nothing to do.");
+        return;
+    }
     if (!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QString msg("Cannot open file %1 for writing. Aborting operation.");
@@ -1025,7 +1032,7 @@ void MainWindow::disableJobScheduling()
     QFile launchdPlistFile(QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist");
     if(!launchdPlistFile.exists())
     {
-        QString msg("Launch service file not found:\n%1\nAborting operation.");
+        QString msg("Launchd service file not found:\n%1\nAborting operation.");
         msg = msg.arg(launchdPlistFile.fileName());
         DEBUG << msg;
         QMessageBox::critical(this, "Service file not found", msg);

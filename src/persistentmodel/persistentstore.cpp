@@ -186,16 +186,6 @@ void PersistentStore::purge()
     }
 }
 
-void PersistentStore::lock()
-{
-    _mutex.lock();
-}
-
-void PersistentStore::unlock()
-{
-    _mutex.unlock();
-}
-
 bool PersistentStore::runQuery(QSqlQuery query)
 {
     QMutexLocker locker(&_mutex);

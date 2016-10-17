@@ -189,8 +189,7 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
                                      false);
     }
     _job->setArchives(archives);
-    _ui.archiveListWidget->clear();
-    _ui.archiveListWidget->addArchives(_job->archives());
+    _ui.archiveListWidget->setArchives(_job->archives());
     _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
                               tr("Archives (%1)").arg(_job->archives().count()));
 }
@@ -225,8 +224,7 @@ void JobWidget::updateDetails()
     _ui.jobTreeWidget->blockSignals(true);
     _ui.jobTreeWidget->setSelectedUrls(_job->urls());
     _ui.jobTreeWidget->blockSignals(false);
-    _ui.archiveListWidget->clear();
-    _ui.archiveListWidget->addArchives(_job->archives());
+    _ui.archiveListWidget->setArchives(_job->archives());
     _ui.includeScheduledCheckBox->setChecked(_job->optionScheduledEnabled());
     _ui.preservePathsCheckBox->setChecked(_job->optionPreservePaths());
     _ui.traverseMountCheckBox->setChecked(_job->optionTraverseMount());

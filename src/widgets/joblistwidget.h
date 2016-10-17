@@ -15,7 +15,7 @@ public:
     ~JobListWidget();
 
 public slots:
-    void addJobs(QMap<QString, JobPtr> jobs);
+    void setJobs(QMap<QString, JobPtr> jobs);
     void backupSelectedItems();
     void selectJob(JobPtr job);
     void inspectJobByRef(QString jobRef);

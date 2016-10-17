@@ -219,7 +219,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archiveListWidget->addAction(_ui.actionRestore);
     _ui.archiveListWidget->addAction(_ui.actionFilterArchives);
     connect(this, &MainWindow::archiveList, _ui.archiveListWidget,
-            &ArchiveListWidget::addArchives);
+            &ArchiveListWidget::setArchives);
     connect(_ui.archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &MainWindow::displayInspectArchive);
     connect(_ui.archiveListWidget, &ArchiveListWidget::deleteArchives, this,
@@ -286,7 +286,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
             &MainWindow::deleteJob);
     connect(this, &MainWindow::jobsList, _ui.jobListWidget,
-            &JobListWidget::addJobs);
+            &JobListWidget::setJobs);
     connect(_ui.jobListWidget, &JobListWidget::customContextMenuRequested,
             this, &MainWindow::showJobsListMenu);
     connect(_ui.actionJobBackup, &QAction::triggered, _ui.jobListWidget,

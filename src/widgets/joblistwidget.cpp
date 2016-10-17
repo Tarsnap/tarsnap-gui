@@ -145,7 +145,7 @@ void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
     }
 }
 
-void JobListWidget::addJobs(QMap<QString, JobPtr> jobs)
+void JobListWidget::setJobs(QMap<QString, JobPtr> jobs)
 {
     clear();
     foreach(JobPtr job, jobs)

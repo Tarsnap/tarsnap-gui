@@ -24,7 +24,7 @@ ArchiveListWidget::~ArchiveListWidget()
     clear();
 }
 
-void ArchiveListWidget::addArchives(QList<ArchivePtr> archives)
+void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
 {
     std::sort(archives.begin(), archives.end(),
               [](const ArchivePtr &a, const ArchivePtr &b) {

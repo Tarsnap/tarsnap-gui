@@ -15,6 +15,7 @@ bool PersistentStore::init()
 {
     QMutexLocker locker(&_mutex);
 
+    // Get application data directory and database filename.
     QSettings settings;
     QString   appdata = settings.value("app/app_data").toString();
     if(appdata.isEmpty())
@@ -26,10 +27,12 @@ bool PersistentStore::init()
     QString   dbUrl(appdata + QDir::separator() + DEFAULT_DBNAME);
     QFileInfo dbFileInfo(dbUrl);
 
+    // Initialize database object.
     _db = _db.addDatabase("QSQLITE", "tarsnap");
     _db.setConnectOptions("QSQLITE_OPEN_URI");
     _db.setDatabaseName(dbUrl);
 
+    // Determine whether to try to open the database.
     if(!dbFileInfo.exists())
     {
         create = true;
@@ -40,7 +43,7 @@ bool PersistentStore::init()
             << "Error creating the PersistentStore: DB file is not accessible "
             << dbUrl;
         return false;
-    }
+    } // Database file exists and is readable; attempt to open.
     else if(!_db.open())
     {
         DEBUG << "Error opening the PersistentStore DB: "
@@ -49,7 +52,9 @@ bool PersistentStore::init()
     }
     else
     {
+        // Successfully opened database.
         QStringList tables = _db.tables();
+        // Is the database valid?
         if(!tables.contains("archives", Qt::CaseInsensitive))
         {
             _db.close();
@@ -59,7 +64,7 @@ bool PersistentStore::init()
             if(!QFile::rename(dbUrl, newName))
             {
                 DEBUG << "Failed to rename current invalid PersistentStore DB. "
-                         "Please manually cleanup the DB directory "
+                         "Please manually clean up the DB directory "
                       << appdata;
                 return false;
             }
@@ -67,6 +72,7 @@ bool PersistentStore::init()
         }
         else
         {
+            // Check the database version, and upgrade if necessary.
             if(!tables.contains("version", Qt::CaseInsensitive))
             {
                 if(!upgradeVersion0())
@@ -114,6 +120,7 @@ bool PersistentStore::init()
         }
     }
 
+    // Create new database (if needed).
     if(create)
     {
         QFile dbTemplate(":/dbtemplate.db");
@@ -184,16 +191,6 @@ void PersistentStore::purge()
     {
         DEBUG << "DB not initialized.";
     }
-}
-
-void PersistentStore::lock()
-{
-    _mutex.lock();
-}
-
-void PersistentStore::unlock()
-{
-    _mutex.unlock();
 }
 
 bool PersistentStore::runQuery(QSqlQuery query)

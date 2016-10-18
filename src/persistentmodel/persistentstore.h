@@ -33,10 +33,6 @@ public:
     QSqlQuery createQuery();
     //! Removes the existing database if it is initialized.  Does not lock.
     void      purge();
-    //! Locks the database mutex.
-    void      lock();
-    //! Unlocks the database mutex.
-    void      unlock();
 
 public slots:
     //! Locks the database and runs a query.

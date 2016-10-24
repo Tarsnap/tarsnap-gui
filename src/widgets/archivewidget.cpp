@@ -58,8 +58,12 @@ ArchiveWidget::~ArchiveWidget()
 void ArchiveWidget::setArchive(ArchivePtr archive)
 {
     if(_archive)
+    {
         disconnect(_archive.data(), &Archive::changed, this,
                    &ArchiveWidget::updateDetails);
+        disconnect(_archive.data(), &Archive::purged, this,
+                   &ArchiveWidget::close);
+    }
 
     _archive = archive;
 
@@ -67,6 +71,8 @@ void ArchiveWidget::setArchive(ArchivePtr archive)
     {
         connect(_archive.data(), &Archive::changed, this,
                 &ArchiveWidget::updateDetails);
+        connect(_archive.data(), &Archive::purged, this,
+                &ArchiveWidget::close);
         updateDetails();
     }
     else

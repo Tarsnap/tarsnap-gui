@@ -30,7 +30,7 @@ public slots:
     //! Disable the items corresponding to the specified archives.
     void disableArchives(QList<ArchivePtr> archives);
     //! Delete the selected archives.
-    void removeSelectedItems();
+    void deleteSelectedItems();
     //! Displays detailed information about the first of the selected items.
     void inspectSelectedItem();
     //! Restore the first of the selected archives.
@@ -56,10 +56,11 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 
 private slots:
-    void removeItem();
+    void deleteItem();
     void inspectItem();
     void restoreItem();
     void goToJob();
+    void removeItem();
 
 private:
     QRegExp _filter;

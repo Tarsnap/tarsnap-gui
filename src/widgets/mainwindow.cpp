@@ -239,7 +239,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
     connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
-            &ArchiveListWidget::removeSelectedItems);
+            &ArchiveListWidget::deleteSelectedItems);
     connect(_ui.actionRestore, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::restoreSelectedItem);
     connect(_ui.actionInspect, &QAction::triggered, _ui.archiveListWidget,

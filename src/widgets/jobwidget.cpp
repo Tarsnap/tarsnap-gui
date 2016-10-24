@@ -65,7 +65,7 @@ JobWidget::JobWidget(QWidget *parent)
             &ArchiveListWidget::customContextMenuRequested, this,
             &JobWidget::showArchiveListMenu);
     connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
-            &ArchiveListWidget::removeSelectedItems);
+            &ArchiveListWidget::deleteSelectedItems);
     connect(_ui.actionRestore, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::restoreSelectedItem);
     connect(_ui.actionInspect, &QAction::triggered, _ui.archiveListWidget,

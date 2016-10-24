@@ -38,13 +38,15 @@ void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
     {
         ArchiveListWidgetItem *item = new ArchiveListWidgetItem(archive);
         connect(item, &ArchiveListWidgetItem::requestDelete, this,
-                &ArchiveListWidget::removeItem);
+                &ArchiveListWidget::deleteItem);
         connect(item, &ArchiveListWidgetItem::requestInspect, this,
                 &ArchiveListWidget::inspectItem);
         connect(item, &ArchiveListWidgetItem::requestRestore, this,
                 &ArchiveListWidget::restoreItem);
         connect(item, &ArchiveListWidgetItem::requestGoToJob, this,
                 &ArchiveListWidget::goToJob);
+        connect(item, &ArchiveListWidgetItem::removeItem, this,
+                &ArchiveListWidget::removeItem);
         insertItem(count(), item);
         setItemWidget(item, item->widget());
         item->setHidden(!archive->name().contains(_filter));
@@ -52,7 +54,7 @@ void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
     setUpdatesEnabled(true);
 }
 
-void ArchiveListWidget::removeItem()
+void ArchiveListWidget::deleteItem()
 {
     ArchiveListWidgetItem *archiveItem = qobject_cast<ArchiveListWidgetItem *>(sender());
     if(archiveItem)
@@ -73,7 +75,7 @@ void ArchiveListWidget::removeItem()
     }
 }
 
-void ArchiveListWidget::removeSelectedItems()
+void ArchiveListWidget::deleteSelectedItems()
 {
     if(selectedItems().isEmpty())
         return;
@@ -181,6 +183,13 @@ void ArchiveListWidget::setFilter(QString regex)
     }
 }
 
+void ArchiveListWidget::removeItem()
+{
+    ArchiveListWidgetItem *archiveItem = qobject_cast<ArchiveListWidgetItem *>(sender());
+    if(archiveItem)
+        delete archiveItem; // Removes item from the list
+}
+
 void ArchiveListWidget::inspectItem()
 {
     if(sender())
@@ -248,7 +257,7 @@ void ArchiveListWidget::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Delete:
-        removeSelectedItems();
+        deleteSelectedItems();
         break;
     case Qt::Key_Escape:
         if(!selectedItems().isEmpty())

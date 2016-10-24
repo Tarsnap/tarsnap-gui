@@ -44,11 +44,16 @@ ArchivePtr ArchiveListWidgetItem::archive() const
 void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
 {
     if(_archive)
+    {
         disconnect(_archive.data(), &Archive::changed, this, &ArchiveListWidgetItem::update);
+        disconnect(_archive.data(), &Archive::purged, this, &ArchiveListWidgetItem::removeItem);
+    }
 
     _archive = archive;
 
     connect(_archive.data(), &Archive::changed, this, &ArchiveListWidgetItem::update,
+            QUEUED);
+    connect(_archive.data(), &Archive::purged, this, &ArchiveListWidgetItem::removeItem,
             QUEUED);
 
     QString displayName;

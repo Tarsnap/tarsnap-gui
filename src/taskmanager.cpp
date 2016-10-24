@@ -676,7 +676,6 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
             _archiveMap.remove(archive->name());
             archive->purge();
         }
-        emit archiveList(_archiveMap.values());
         notifyArchivesDeleted(archives, true);
     }
     // We are only interested in the output of the last archive deleted

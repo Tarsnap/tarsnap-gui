@@ -466,7 +466,9 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
         ArchivePtr archive(new Archive);
         archive->setName(backupTask->name());
         archive->setCommand(backupTask->command());
-        archive->setTimestamp(backupTask->timestamp());
+        // Lose milliseconds precision by converting to Unix timestamp and back.
+        // So that a subsequent comparison in getArchiveListFinished won't fail.
+        archive->setTimestamp(QDateTime::fromTime_t(backupTask->timestamp().toTime_t()));
         archive->setJobRef(backupTask->jobRef());
         parseArchiveStats(output, true, archive);
         backupTask->setArchive(archive);

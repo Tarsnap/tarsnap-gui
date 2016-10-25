@@ -58,7 +58,8 @@ signals:
     void tarsnapVersion(QString versionString);
     void registerMachineStatus(TaskStatus status, QString reason);
     void fsckStatus(TaskStatus status, QString reason);
-    void archiveList(QList<ArchivePtr> archives, bool fromRemote = false);
+    void archiveList(QList<ArchivePtr> archives);
+    void addArchive(ArchivePtr archive);
     void overallStats(quint64 sizeTotal, quint64 sizeCompressed,
                       quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed,
                       quint64 archiveCount);

@@ -166,6 +166,8 @@ void CoreApplication::showMainWindow()
             &TaskManager::getArchives, QUEUED);
     connect(&_taskManager, &TaskManager::archiveList, _mainWindow,
             &MainWindow::archiveList, QUEUED);
+    connect(&_taskManager, &TaskManager::addArchive, _mainWindow,
+            &MainWindow::addArchive, QUEUED);
     connect(_mainWindow, &MainWindow::deleteArchives, &_taskManager,
             &TaskManager::deleteArchives, QUEUED);
     connect(_mainWindow, &MainWindow::loadArchiveStats, &_taskManager,

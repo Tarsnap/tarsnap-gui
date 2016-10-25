@@ -35,23 +35,24 @@ void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
     setUpdatesEnabled(false);
     clear();
     foreach(ArchivePtr archive, archives)
-    {
-        ArchiveListWidgetItem *item = new ArchiveListWidgetItem(archive);
-        connect(item, &ArchiveListWidgetItem::requestDelete, this,
-                &ArchiveListWidget::deleteItem);
-        connect(item, &ArchiveListWidgetItem::requestInspect, this,
-                &ArchiveListWidget::inspectItem);
-        connect(item, &ArchiveListWidgetItem::requestRestore, this,
-                &ArchiveListWidget::restoreItem);
-        connect(item, &ArchiveListWidgetItem::requestGoToJob, this,
-                &ArchiveListWidget::goToJob);
-        connect(item, &ArchiveListWidgetItem::removeItem, this,
-                &ArchiveListWidget::removeItem);
-        insertItem(count(), item);
-        setItemWidget(item, item->widget());
-        item->setHidden(!archive->name().contains(_filter));
-    }
+        insertArchive(archive, count());
     setUpdatesEnabled(true);
+}
+
+void ArchiveListWidget::addArchive(ArchivePtr archive)
+{
+    int pos = 0;
+    for(; pos < count(); ++pos)
+    {
+        ArchiveListWidgetItem *archiveItem =
+            static_cast<ArchiveListWidgetItem *>(item(pos));
+        if(archiveItem
+           && (archive->timestamp() > archiveItem->archive()->timestamp()))
+        {
+            break;
+        }
+    }
+    insertArchive(archive, pos);
 }
 
 void ArchiveListWidget::deleteItem()
@@ -188,6 +189,24 @@ void ArchiveListWidget::removeItem()
     ArchiveListWidgetItem *archiveItem = qobject_cast<ArchiveListWidgetItem *>(sender());
     if(archiveItem)
         delete archiveItem; // Removes item from the list
+}
+
+void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
+{
+    ArchiveListWidgetItem *item = new ArchiveListWidgetItem(archive);
+    connect(item, &ArchiveListWidgetItem::requestDelete, this,
+            &ArchiveListWidget::deleteItem);
+    connect(item, &ArchiveListWidgetItem::requestInspect, this,
+            &ArchiveListWidget::inspectItem);
+    connect(item, &ArchiveListWidgetItem::requestRestore, this,
+            &ArchiveListWidget::restoreItem);
+    connect(item, &ArchiveListWidgetItem::requestGoToJob, this,
+            &ArchiveListWidget::goToJob);
+    connect(item, &ArchiveListWidgetItem::removeItem, this,
+            &ArchiveListWidget::removeItem);
+    insertItem(pos, item);
+    setItemWidget(item, item->widget());
+    item->setHidden(!archive->name().contains(_filter));
 }
 
 void ArchiveListWidget::inspectItem()

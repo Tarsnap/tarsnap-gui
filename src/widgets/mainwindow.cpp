@@ -220,6 +220,8 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archiveListWidget->addAction(_ui.actionFilterArchives);
     connect(this, &MainWindow::archiveList, _ui.archiveListWidget,
             &ArchiveListWidget::setArchives);
+    connect(this, &MainWindow::addArchive, _ui.archiveListWidget,
+            &ArchiveListWidget::addArchive);
     connect(_ui.archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &MainWindow::displayInspectArchive);
     connect(_ui.archiveListWidget, &ArchiveListWidget::deleteArchives, this,

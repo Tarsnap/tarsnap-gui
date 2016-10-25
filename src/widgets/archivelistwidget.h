@@ -22,9 +22,10 @@ public:
     ~ArchiveListWidget();
 
 public slots:
-    //! Clears the archive list, then sets it to the specified
-    //! archives, creating an ArchiveListWidgetItem for every archive.
+    //! Clears the archive list, then sets it to the specified archives
     void setArchives(QList<ArchivePtr> archives);
+    //! Adds an archive to the list.
+    void addArchive(ArchivePtr archive);
     //! Sets the current selection in the list view.
     void setSelectedArchive(ArchivePtr archive);
     //! Disable the items corresponding to the specified archives.
@@ -63,6 +64,8 @@ private slots:
     void removeItem();
 
 private:
+    void insertArchive(ArchivePtr archive, int pos);
+
     QRegExp _filter;
 };
 

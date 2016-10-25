@@ -43,6 +43,7 @@ signals:
     void backupNow(BackupTaskPtr backupTask);
     void getArchives();
     void archiveList(QList<ArchivePtr> archives);
+    void addArchive(ArchivePtr archive);
     void deleteArchives(QList<ArchivePtr> archives);
     void loadArchiveStats(ArchivePtr archive);
     void loadArchiveContents(ArchivePtr archive);

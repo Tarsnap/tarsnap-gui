@@ -83,7 +83,8 @@ void Archive::save()
     if(exists)
         query.addBindValue(_name);
     // Run query.
-    store.runQuery(query);
+    if(!store.runQuery(query))
+        DEBUG << "Failed to save Archive entry.";
     setObjectKey(_name);
     emit changed();
 }
@@ -155,7 +156,8 @@ void Archive::purge()
     // Fill in missing value in query string.
     query.addBindValue(_name);
     // Run query.
-    store.runQuery(query);
+    if(!store.runQuery(query))
+        DEBUG << "Failed to remove Archive entry.";
     setObjectKey("");
     emit purged();
 }
@@ -181,9 +183,13 @@ bool Archive::doesKeyExist(QString key)
     // Fill in missing value in query string.
     query.addBindValue(key);
     // Run query.
-    if(store.runQuery(query) && query.next())
+    if(store.runQuery(query))
     {
-        found = true;
+        if (query.next()) {
+            found = true;
+        }
+    } else {
+        DEBUG << "Failed to run doesKeyExist query for an Archive.";
     }
     return found;
 }

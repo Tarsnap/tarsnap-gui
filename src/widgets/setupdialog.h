@@ -16,20 +16,6 @@ public:
     ~SetupDialog();
 
 public slots:
-    void wizardPageChanged(int);
-    void skipToPage();
-    void setNextPage();
-    void showTarsnapPathBrowse();
-    void showTarsnapCacheBrowse();
-    void showAppDataBrowse();
-    bool validateAdvancedSetupPage();
-    void restoreNo();
-    void restoreYes();
-    bool validateRegisterPage();
-    void registerHaveKeyBrowse();
-    void registerMachine();
-    void commitSettings(bool skipped = false);
-
     // TaskManager responses
     void registerMachineStatus(TaskStatus status, QString reason);
     void setTarsnapVersion(QString versionString);
@@ -42,6 +28,16 @@ signals:
     void getTarsnapVersion(QString tarsnapPath);
 
 private slots:
+    void wizardPageChanged(int);
+    void skipToPage();
+    void showTarsnapPathBrowse();
+    void showTarsnapCacheBrowse();
+    void showAppDataBrowse();
+    bool validateAdvancedSetupPage();
+    void restoreNo();
+    void restoreYes();
+    bool validateRegisterPage();
+    void registerHaveKeyBrowse();
     void backButtonClicked();
     void nextButtonClicked();
 
@@ -55,6 +51,10 @@ private:
     QString _tarsnapCacheDir;
     QString _appDataDir;
     QString _tarsnapKeyFile;
+
+    void setNextPage();
+    void registerMachine();
+    void commitSettings(bool skipped = false);
 };
 
 #endif // SETUPDIALOG_H

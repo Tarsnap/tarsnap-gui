@@ -28,8 +28,6 @@ public slots:
     void addArchive(ArchivePtr archive);
     //! Sets the current selection in the list view.
     void setSelectedArchive(ArchivePtr archive);
-    //! Disable the items corresponding to the specified archives.
-    void disableArchives(QList<ArchivePtr> archives);
     //! Delete the selected archives.
     void deleteSelectedItems();
     //! Displays detailed information about the first of the selected items.

@@ -15,7 +15,7 @@ ArchiveListWidget::ArchiveListWidget(QWidget *parent) : QListWidget(parent)
         if(item)
         {
             ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(item);
-            if(archiveItem && !archiveItem->isDisabled())
+            if(archiveItem && !archiveItem->archive()->deleteScheduled())
                 emit inspectArchive(archiveItem->archive());
         }
     });
@@ -68,7 +68,6 @@ void ArchiveListWidget::deleteItem()
                                       .arg(archive->name()));
         if(button == QMessageBox::Yes)
         {
-            archiveItem->setDisabled();
             QList<ArchivePtr> archiveList;
             archiveList.append(archive);
             emit deleteArchives(archiveList);
@@ -86,7 +85,7 @@ void ArchiveListWidget::deleteSelectedItems()
     foreach(QListWidgetItem *item, selectedItems())
     {
         ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(item);
-        if(!archiveItem || archiveItem->isDisabled())
+        if(!archiveItem || archiveItem->archive()->deleteScheduled())
             return;
         else
             selectedListItems << archiveItem;
@@ -131,7 +130,6 @@ void ArchiveListWidget::deleteSelectedItems()
         QList<ArchivePtr> archivesToDelete;
         foreach(ArchiveListWidgetItem *archiveItem, selectedListItems)
         {
-            archiveItem->setDisabled();
             archivesToDelete.append(archiveItem->archive());
         }
         if(!archivesToDelete.isEmpty())
@@ -145,7 +143,7 @@ void ArchiveListWidget::inspectSelectedItem()
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(selectedItems().first());
-        if(archiveItem && !archiveItem->isDisabled())
+        if(archiveItem && !archiveItem->archive()->deleteScheduled())
             emit inspectArchive(archiveItem->archive());
     }
 }
@@ -156,7 +154,7 @@ void ArchiveListWidget::restoreSelectedItem()
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(selectedItems().first());
-        if(archiveItem && !archiveItem->isDisabled())
+        if(archiveItem && !archiveItem->archive()->deleteScheduled())
         {
             RestoreDialog restoreDialog(archiveItem->archive(), this);
             if(QDialog::Accepted == restoreDialog.exec())
@@ -250,22 +248,6 @@ void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
                (archiveItem->archive()->objectKey() == archive->objectKey()))
             {
                 setCurrentItem(archiveItem);
-            }
-        }
-    }
-}
-
-void ArchiveListWidget::disableArchives(QList<ArchivePtr> archives)
-{
-    for(int i = 0; i < count(); ++i)
-    {
-        ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(item(i));
-        if(archiveItem)
-        {
-            foreach(ArchivePtr archive, archives)
-            {
-                if((archiveItem->archive()->objectKey() == archive->objectKey()))
-                    archiveItem->setDisabled();
             }
         }
     }

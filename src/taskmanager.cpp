@@ -229,6 +229,9 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
         return;
     }
 
+    foreach(ArchivePtr archive, archives)
+        archive->setDeleteScheduled(true);
+
     TarsnapTask *delArchives = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
@@ -243,6 +246,13 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     delArchives->setData(QVariant::fromValue(archives));
     connect(delArchives, &TarsnapTask::finished, this,
             &TaskManager::deleteArchivesFinished, QUEUED);
+    connect(delArchives, &TarsnapTask::canceled, this,
+            [=](QVariant data) {
+                QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
+                foreach(ArchivePtr archive, archives)
+                    archive->setDeleteScheduled(false);
+            },
+            QUEUED);
     connect(delArchives, &TarsnapTask::started, this,
             [=](QVariant data) {
                 QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
@@ -647,18 +657,20 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
 void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
                                          QString output)
 {
+    QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
+
     if(exitCode != SUCCESS)
     {
-        emit message(tr("Error: Failed to delete archive from remote."),
+        emit message(tr("Error: Failed to delete archive(s) from remote."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(output));
         parseError(output);
-        emit archiveList(_archiveMap.values());
+        foreach(ArchivePtr archive, archives)
+            archive->setDeleteScheduled(false);
         return;
     }
 
-    QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
     if(!archives.empty())
     {
         foreach(ArchivePtr archive, archives)

@@ -28,11 +28,6 @@ public:
     //! Returns a pointer to the archive.
     ArchivePtr archive() const;
 
-    //! Indicate that this archive is scheduled for deletion.
-    void setDisabled();
-    //! Returns whether this archive is scheduled for deletion.
-    bool isDisabled();
-
 signals:
     //! The user requested to delete this archive.
     void requestDelete();

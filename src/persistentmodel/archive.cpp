@@ -31,7 +31,8 @@ Archive::Archive(QObject *parent)
       _sizeTotal(0),
       _sizeCompressed(0),
       _sizeUniqueTotal(0),
-      _sizeUniqueCompressed(0)
+      _sizeUniqueCompressed(0),
+      _deleteScheduled(false)
 {
 }
 
@@ -182,6 +183,17 @@ QString Archive::archiveStats()
                      .arg(_sizeUniqueTotal)
                      .arg(_sizeUniqueCompressed));
     return stats;
+}
+
+bool Archive::deleteScheduled() const
+{
+    return _deleteScheduled;
+}
+
+void Archive::setDeleteScheduled(bool deleteScheduled)
+{
+    _deleteScheduled = deleteScheduled;
+    emit changed();
 }
 
 bool Archive::truncated() const

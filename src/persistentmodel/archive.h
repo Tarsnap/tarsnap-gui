@@ -105,6 +105,10 @@ public:
     void getFileList();
     //! Returns whether the tarsnap command included "-P" (preserve pathnames).
     bool hasPreservePaths();
+    //! Returns whether this Archive has been scheduled for deletion.
+    bool deleteScheduled() const;
+    //! Sets whether this Archive is scheduled for deletion. Emits changed().
+    void setDeleteScheduled(bool deleteScheduled);
 
     // From PersistentObject
     //! Saves this object to the PersistentStore; creating or
@@ -142,6 +146,9 @@ private:
     QString    _command;
     QByteArray _contents;
     QString    _jobRef;
+
+    // Properties not saved to the PersistentStore
+    bool       _deleteScheduled;
 };
 
 #endif // ARCHIVE_H

@@ -269,8 +269,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::restoreArchive);
     connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives, this,
             &MainWindow::deleteArchives);
-    connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives,
-            _ui.archiveListWidget, &ArchiveListWidget::disableArchives);
     connect(_ui.jobDetailsWidget, &JobWidget::enableSave, _ui.addJobButton,
             &QToolButton::setEnabled);
     connect(_ui.jobDetailsWidget, &JobWidget::backupJob, this,
@@ -343,10 +341,9 @@ MainWindow::MainWindow(QWidget *parent)
             [&]() { _ui.skipSystemLineEdit->setText(DEFAULT_SKIP_SYSTEM_FILES); });
     connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
             [&](JobPtr job, bool purgeArchives) {
+                Q_UNUSED(purgeArchives);
                 if(_ui.jobDetailsWidget->job() == job)
                     hideJobDetails();
-                if(purgeArchives)
-                    _ui.archiveListWidget->disableArchives(job->archives());
             });
     connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
         QMessageBox::information(this, QApplication::applicationName(),

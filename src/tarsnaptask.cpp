@@ -58,6 +58,7 @@ void TarsnapTask::run()
 cleanup:
     delete _process;
     _process = nullptr;
+    emit dequeue();
 }
 
 void TarsnapTask::stop(bool kill)
@@ -75,6 +76,11 @@ void TarsnapTask::interrupt()
 #if defined Q_OS_UNIX
     kill(_process->pid(), SIGQUIT);
 #endif
+}
+
+void TarsnapTask::cancel()
+{
+    emit canceled(_data);
 }
 
 bool TarsnapTask::waitForTask()
@@ -159,7 +165,6 @@ void TarsnapTask::processFinished()
         QString output(_processOutput);
         output = output.trimmed();
         emit finished(_data, _process->exitCode(), output);
-        emit terminated();
         if(!output.isEmpty())
         {
             if(_truncateLogOutput && (output.size() > LOG_MAX_LENGTH))
@@ -193,5 +198,5 @@ void TarsnapTask::processError()
                .arg(_process->errorString())
                .arg(_process->exitCode())
                .arg(QString(_processOutput).trimmed());
-    emit terminated();
+    cancel();
 }

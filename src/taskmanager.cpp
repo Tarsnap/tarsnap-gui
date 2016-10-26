@@ -430,7 +430,10 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
         {
             TarsnapTask *task = _taskQueue.dequeue();
             if(task)
-                delete task;
+            {
+                task->cancel();
+                task->deleteLater();
+            }
         }
         emit message("Cleared queued tasks.");
     }
@@ -866,7 +869,7 @@ void TaskManager::startTask(TarsnapTask *task)
         else
             return;
     }
-    connect(task, &TarsnapTask::terminated, this, &TaskManager::dequeueTask,
+    connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask,
             QUEUED);
     _runningTasks.append(task);
     task->setAutoDelete(false);

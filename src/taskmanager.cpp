@@ -1086,25 +1086,28 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
 {
     if(job)
     {
+        // Clear JobRef for assigned Archives.
+        foreach(ArchivePtr archive, job->archives())
+        {
+            archive->setJobRef("");
+            archive->save();
+        }
+
+        job->purge();
+        _jobMap.remove(job->name());
+
         if(purgeArchives)
         {
-            deleteArchives(job->archives());
             emit message(tr("Job <i>%1</i> deleted. Deleting %2 associated "
                             "archives next...")
                          .arg(job->name())
                          .arg(job->archives().count()));
+            deleteArchives(job->archives());
         }
         else
         {
-            foreach(ArchivePtr archive, job->archives())
-            {
-                archive->setJobRef("");
-                archive->save();
-            }
             emit message(tr("Job <i>%1</i> deleted.").arg(job->name()));
         }
-        job->purge();
-        _jobMap.remove(job->name());
     }
 }
 

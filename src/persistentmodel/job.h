@@ -104,6 +104,8 @@ public:
 signals:
     //! The list of archives belonging to this backup has changed.
     void changed();
+    //! This Job was deleted.
+    void purged();
     //! Notifies that the list of archives belonging to this Job
     //! needs to be refreshed.
     void loadArchives();

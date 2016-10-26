@@ -88,6 +88,7 @@ void JobWidget::setJob(const JobPtr &job)
         _job->removeWatcher();
         disconnect(_job.data(), &Job::fsEvent, this, &JobWidget::fsEventReceived);
         disconnect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
+        disconnect(_job.data(), &Job::purged, this, &JobWidget::collapse);
     }
 
     _saveEnabled = false;
@@ -112,6 +113,7 @@ void JobWidget::setJob(const JobPtr &job)
         _ui.jobNameLineEdit->hide();
         connect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
         connect(_job.data(), &Job::fsEvent, this, &JobWidget::fsEventReceived);
+        connect(_job.data(), &Job::purged, this, &JobWidget::collapse);
         job->installWatcher();
     }
     _ui.tabWidget->setCurrentWidget(_ui.jobTreeTab);

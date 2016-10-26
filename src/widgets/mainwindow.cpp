@@ -339,12 +339,6 @@ MainWindow::MainWindow(QWidget *parent)
             [&]() { emit repairCache(true); });
     connect(_ui.skipSystemDefaultsButton, &QPushButton::clicked,
             [&]() { _ui.skipSystemLineEdit->setText(DEFAULT_SKIP_SYSTEM_FILES); });
-    connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
-            [&](JobPtr job, bool purgeArchives) {
-                Q_UNUSED(purgeArchives);
-                if(_ui.jobDetailsWidget->job() == job)
-                    hideJobDetails();
-            });
     connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
         QMessageBox::information(this, QApplication::applicationName(),
                                  tr("The new size notation will take global "

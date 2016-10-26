@@ -372,6 +372,7 @@ void Job::purge()
     query.addBindValue(_name);
     store.runQuery(query);
     setObjectKey("");
+    emit purged();
 }
 
 bool Job::doesKeyExist(QString key)

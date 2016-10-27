@@ -25,7 +25,6 @@ public:
 public slots:
     //! Sets the Archive whose details this widget should display.
     void setArchive(ArchivePtr archive);
-    void updateDetails();
 
 signals:
     //! The user clicked on the Job label.
@@ -47,6 +46,7 @@ protected:
 private slots:
     void showContextMenu(const QPoint &pos);
     void restoreFiles();
+    void updateDetails();
 
 private:
     Ui::ArchiveWidget      _ui;

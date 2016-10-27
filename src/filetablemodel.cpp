@@ -74,6 +74,7 @@ QVariant FileTableModel::headerData(int section, Qt::Orientation orientation,
 
 void FileTableModel::setArchive(ArchivePtr archive)
 {
+    // Disable previous connection (if it exists).
     if(_archive)
         disconnect(_archive.data(), &Archive::fileList, this,
                    &FileTableModel::setFiles);
@@ -81,6 +82,9 @@ void FileTableModel::setArchive(ArchivePtr archive)
     _archive = archive;
     if(_archive)
     {
+        // ->getFileList() runs as a background task, so we can't
+        // call it and block.  Instead, we essentially set up a
+        // callback (::setFiles).
         connect(archive.data(), &Archive::fileList, this,
                 &FileTableModel::setFiles);
         _archive->getFileList();
@@ -89,8 +93,11 @@ void FileTableModel::setArchive(ArchivePtr archive)
 
 void FileTableModel::setFiles(QVector<File> files)
 {
+    // This indicates that our internal data is changing.
     beginResetModel();
     _files = files;
+    // We finished changing internal data; any views using this
+    // model will refresh.
     endResetModel();
 }
 

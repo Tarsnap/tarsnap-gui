@@ -21,19 +21,19 @@ public:
 public slots:
     //! Add a single item to the backup list.
     //! \param url: the path of the file or directory.
-    void        addItemWithUrl(QUrl url);
+    void addItemWithUrl(QUrl url);
     //! Add multiple items to the backup list.
     //! \param urls: a list of the paths of the files or directories.
-    void        addItemsWithUrls(QList<QUrl> urls);
+    void addItemsWithUrls(QList<QUrl> urls);
     //! Returns a list of the paths of files or directories.
     QList<QUrl> itemUrls();
     //! Removes the currently-selected items.
-    void        removeItems();
+    void removeItems();
     //! Calculates the number of items, and their total size.
-    void        recomputeListTotals();
+    void recomputeListTotals();
     //! Clears any existing items, then adds the listed items.
     //! \param urls: a list of the paths of the files or directories.
-    void        setItemsWithUrls(QList<QUrl> urls);
+    void setItemsWithUrls(QList<QUrl> urls);
 
 signals:
     //! The total number and size of items.

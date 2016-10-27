@@ -11,19 +11,6 @@ class FileTableModel : public QAbstractTableModel
 
 public:
 
-    enum TableColumns
-    {
-        FILE,
-        MODIFIED,
-        SIZE,
-        USER,
-        GROUP,
-        MODE,
-        LINKS
-    };
-
-    const int kTableColumnsCount = 7;
-
     FileTableModel(QObject *parent);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -41,6 +28,19 @@ public slots:
 private:
     QVector<File>    _files;
     ArchivePtr       _archive;
+
+    enum TableColumns
+    {
+        FILE,
+        MODIFIED,
+        SIZE,
+        USER,
+        GROUP,
+        MODE,
+        LINKS
+    };
+
+    const int kTableColumnsCount = 7;
 };
 
 #endif // FILETABLEMODEL_H

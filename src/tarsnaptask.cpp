@@ -1,4 +1,5 @@
 #include "tarsnaptask.h"
+#include "utils.h"
 #include "debug.h"
 
 #if defined Q_OS_UNIX
@@ -28,7 +29,7 @@ void TarsnapTask::run()
     _process->setArguments(_arguments);
     LOG << tr("Executing command:\n[%1 %2]")
                .arg(_process->program())
-               .arg(_process->arguments().join(' '));
+               .arg(Utils::quoteCommandLine(_process->arguments()));
     _process->start();
     if(_process->waitForStarted(DEFAULT_TIMEOUT_MS))
     {
@@ -174,7 +175,7 @@ void TarsnapTask::processFinished()
             }
             LOG << tr("Command finished with exit code %3 and output:\n[%1 %2]\n%4")
                        .arg(_command)
-                       .arg(_arguments.join(' '))
+                       .arg(Utils::quoteCommandLine(_arguments))
                        .arg(_process->exitCode())
                        .arg(output);
         }

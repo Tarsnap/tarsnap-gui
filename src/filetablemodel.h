@@ -20,10 +20,10 @@ public:
 
     //! Returns the number of files in the table.
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    //! Returns the number of columns (a fixed value).
+    //! Returns the number of columns (const \c kTableColumnsCount).
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-    //! Returns some information about a file.
+    //! Returns file information for an index.
     //! \param index: which file (row), and what type of information (column).
     //! \param role: should be \c Qt::DisplayRole.
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -42,7 +42,7 @@ public:
     void reset();
 
 public slots:
-    //! Sets the list of files to be stored in thie object.
+    //! Sets the list of files to be stored in this object.
     void setFiles(QVector<File> files);
 
 private:

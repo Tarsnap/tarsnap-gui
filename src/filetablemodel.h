@@ -46,8 +46,8 @@ public slots:
     void setFiles(QVector<File> files);
 
 private:
-    QVector<File>    _files;
-    ArchivePtr       _archive;
+    QVector<File> _files;
+    ArchivePtr    _archive;
 
     enum TableColumns
     {

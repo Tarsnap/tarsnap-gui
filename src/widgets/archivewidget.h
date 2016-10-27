@@ -1,9 +1,9 @@
 #ifndef ARCHIVEWIDGET_H
 #define ARCHIVEWIDGET_H
 
-#include "ui_archivewidget.h"
 #include "filetablemodel.h"
 #include "persistentmodel/archive.h"
+#include "ui_archivewidget.h"
 
 #include <QMenu>
 #include <QWidget>
@@ -49,11 +49,11 @@ private slots:
     void updateDetails();
 
 private:
-    Ui::ArchiveWidget      _ui;
-    ArchivePtr             _archive;
-    FileTableModel         _contentsModel;
-    QSortFilterProxyModel  _proxyModel;
-    QMenu                  _fileMenu;
+    Ui::ArchiveWidget     _ui;
+    ArchivePtr            _archive;
+    FileTableModel        _contentsModel;
+    QSortFilterProxyModel _proxyModel;
+    QMenu                 _fileMenu;
 
     void updateUi();
 };

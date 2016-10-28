@@ -306,7 +306,8 @@ void Job::save()
         query.addBindValue(_name);
 
     // Run query.
-    store.runQuery(query);
+    if (!store.runQuery(query))
+        DEBUG << "Failed to save Job entry.";
     setObjectKey(_name);
 }
 
@@ -389,7 +390,8 @@ void Job::purge()
     // Fill in missing value in query string.
     query.addBindValue(_name);
     // Run query.
-    store.runQuery(query);
+    if (!store.runQuery(query))
+        DEBUG << "Failed to remove Job entry.";
     setObjectKey("");
     emit purged();
 }
@@ -414,9 +416,13 @@ bool Job::doesKeyExist(QString key)
     // Fill in missing value in query string.
     query.addBindValue(key);
     // Run query.
-    if(store.runQuery(query) && query.next())
+    if(store.runQuery(query))
     {
-        found = true;
+        if (query.next()) {
+            found = true;
+        }
+    } else {
+        DEBUG << "Failed to run doesKeyExist query for a Job.";
     }
     return found;
 }

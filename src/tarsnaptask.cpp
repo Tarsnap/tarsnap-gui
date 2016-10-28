@@ -180,10 +180,12 @@ void TarsnapTask::processFinished()
                        .arg(output);
         }
         else
+        {
             LOG << tr("Command finished with exit code %3 and no output:\n[%1 %2]")
                        .arg(_command)
-                       .arg(_arguments.join(' '))
+                       .arg(Utils::quoteCommandLine(_arguments))
                        .arg(_process->exitCode());
+        }
     }
         break;
     case QProcess::CrashExit:

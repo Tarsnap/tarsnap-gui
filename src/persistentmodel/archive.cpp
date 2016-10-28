@@ -6,6 +6,9 @@
 void ParseArchiveListingTask::run()
 {
     QVector<File> files;
+    // This splits each line of "tarsnap -tv -f ..." into a QStringList.
+    // (We don't actually run "tarsnap -tv", because that data is
+    // already stored in the Archive _contents when we created it.)
     QRegExp fileRx("^(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+\\s+\\S+\\s+\\S+)\\s+(.+)$");
     foreach(QString line, _listing.split('\n', QString::SkipEmptyParts))
     {
@@ -44,6 +47,7 @@ void Archive::save()
 {
     bool    exists = doesKeyExist(_name);
     QString queryString;
+    // Prepare query: either updating or creating an entry.
     if(exists)
         queryString =
             QLatin1String("update archives set name=?, timestamp=?, "
@@ -57,6 +61,7 @@ void Archive::save()
             " sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed, command,"
             " contents, jobRef)"
             " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    // Get database instance and create query object.
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
     if(!query.prepare(queryString))
@@ -64,6 +69,7 @@ void Archive::save()
         DEBUG << query.lastError().text();
         return;
     }
+    // Fill in missing values in query string.
     query.addBindValue(_name);
     query.addBindValue(_timestamp.toTime_t());
     query.addBindValue(_truncated);
@@ -76,19 +82,22 @@ void Archive::save()
     query.addBindValue(_jobRef);
     if(exists)
         query.addBindValue(_name);
-
-    store.runQuery(query);
+    // Run query.
+    if(!store.runQuery(query))
+        DEBUG << "Failed to save Archive entry.";
     setObjectKey(_name);
     emit changed();
 }
 
 void Archive::load()
 {
+    // Sanity check.
     if(_name.isEmpty())
     {
         DEBUG << "Attempting to load Archive object with empty _name key.";
         return;
     }
+    // Get database instance and prepare query.
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
     if(!query.prepare(QLatin1String("select * from archives where name = ?")))
@@ -96,7 +105,9 @@ void Archive::load()
         DEBUG << query.lastError().text();
         return;
     }
+    // Fill in missing value in query string.
     query.addBindValue(_name);
+    // Run query and extract information.
     if(store.runQuery(query) && query.next())
     {
         _timestamp = QDateTime::fromTime_t(
@@ -123,6 +134,7 @@ void Archive::load()
 
 void Archive::purge()
 {
+    // Sanity checks.
     if(_name.isEmpty())
     {
         DEBUG << "Attempting to delete Archive object with empty _name key.";
@@ -133,6 +145,7 @@ void Archive::purge()
         DEBUG << "No Archive object with key " << _name;
         return;
     }
+    // Get database instance and prepare query.
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
     if(!query.prepare(QLatin1String("delete from archives where name = ?")))
@@ -140,8 +153,11 @@ void Archive::purge()
         DEBUG << query.lastError().text();
         return;
     }
+    // Fill in missing value in query string.
     query.addBindValue(_name);
-    store.runQuery(query);
+    // Run query.
+    if(!store.runQuery(query))
+        DEBUG << "Failed to remove Archive entry.";
     setObjectKey("");
     emit purged();
 }
@@ -149,11 +165,13 @@ void Archive::purge()
 bool Archive::doesKeyExist(QString key)
 {
     bool found = false;
+    // Sanity check.
     if(key.isEmpty())
     {
         DEBUG << "doesKeyExist method called with empty args";
         return found;
     }
+    // Get database instance and prepare query.
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
     if(!query.prepare(
@@ -162,10 +180,16 @@ bool Archive::doesKeyExist(QString key)
         DEBUG << query.lastError().text();
         return found;
     }
+    // Fill in missing value in query string.
     query.addBindValue(key);
-    if(store.runQuery(query) && query.next())
+    // Run query.
+    if(store.runQuery(query))
     {
-        found = true;
+        if (query.next()) {
+            found = true;
+        }
+    } else {
+        DEBUG << "Failed to run doesKeyExist query for an Archive.";
     }
     return found;
 }
@@ -218,6 +242,7 @@ void Archive::setJobRef(const QString &jobRef)
 
 void Archive::getFileList()
 {
+    // Prepare a background thread to parse the Archive's saved contents.
     QThreadPool *threadPool = QThreadPool::globalInstance();
     ParseArchiveListingTask *parseTask = new ParseArchiveListingTask(contents());
     parseTask->setAutoDelete(true);

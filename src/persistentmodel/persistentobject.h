@@ -17,11 +17,11 @@ public:
 
     //! Saves this object to the PersistentStore; creating or
     //! updating as appropriate.
-    virtual void save()                         = 0;
+    virtual void save() = 0;
     //! Loads this object from the PersistentStore.
-    virtual void load()                         = 0;
+    virtual void load() = 0;
     //! Deletes this object from the PersistentStore.
-    virtual void purge()                        = 0;
+    virtual void purge() = 0;
     //! Returns whether an object with this key exists in the PersistentStore.
     virtual bool doesKeyExist(QString key) = 0;
 

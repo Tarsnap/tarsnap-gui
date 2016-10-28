@@ -3,6 +3,7 @@
 
 #include <QDir>
 #include <QRunnable>
+#include <QStringList>
 
 #define CMD_TARSNAP         "tarsnap"
 #define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
@@ -92,6 +93,8 @@ QString validateAppDataDir(QString path);
 // Verifies if the current CLI utils version is at least minVersion
 bool tarsnapVersionMinimum(const QString &minVersion);
 
+// Displays a "copy&paste-able" command line.
+QString quoteCommandLine(QStringList args);
 } // namespace Utils
 
 #endif // UTILS_H

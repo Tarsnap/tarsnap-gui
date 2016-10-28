@@ -6,8 +6,8 @@
 
 /*!
  * \ingroup widgets-specialized
- * \brief The BackupListWidget is a QListWidget which displays
- * information about all Backups.
+ * \brief The BackupListWidget is a QListWidget which lists
+ * files and directories to be included in an on-demand backup.
  */
 class BackupListWidget : public QListWidget
 {

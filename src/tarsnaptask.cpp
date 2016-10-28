@@ -196,7 +196,9 @@ void TarsnapTask::processFinished()
 
 void TarsnapTask::processError()
 {
-    LOG << tr("Tarsnap process error %1 (%2) occured (exit code %3):\n%4")
+    LOG << tr("Tarsnap process error %3 (%4) occured (exit code %5):\n[%1 %2]\n%6")
+               .arg(_command)
+               .arg(Utils::quoteCommandLine(_arguments))
                .arg(_process->error())
                .arg(_process->errorString())
                .arg(_process->exitCode())

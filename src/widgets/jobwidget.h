@@ -6,33 +6,56 @@
 
 #include <QWidget>
 
+/*!
+ * \ingroup widgets-specialized
+ * \brief The JobWidget is a QWidget which displays detailed
+ * information about a single Job.
+ */
 class JobWidget : public QWidget
 {
     Q_OBJECT
 
 public:
+    //! Constructor.
     explicit JobWidget(QWidget *parent = nullptr);
     ~JobWidget();
 
+    //! Returns the JobPtr associated with this widget.
     JobPtr job() const;
+    //! Clears the current job, then sets a new job.
     void setJob(const JobPtr &job);
 
 public slots:
+    //! Create (and save) a new job.
     void saveNew();
+    //! The update the list of potential matching archives.
+    //! \param archives: the archives which match this job name.
     void updateMatchingArchives(QList<ArchivePtr> archives);
 
 signals:
+    //! The widget should be hidden.
     void collapse();
+    //! A new job has been added.
     void jobAdded(JobPtr job);
+    //! An archive belonging to this job should be inspected.
     void inspectJobArchive(ArchivePtr archive);
+    //! Some archives belonging to this job should be deleted.
     void deleteJobArchives(QList<ArchivePtr> archives);
+    //! The specified archive should be restored, using the
+    //! user-selected options from the \ref RestoreDialog.
     void restoreJobArchive(ArchivePtr archive, ArchiveRestoreOptions options);
+    //! Notify that we should create a new archive for this Job.
     void backupJob(JobPtr job);
+    //! Notify whether we have enough information to create a new
+    //! Job (i.e. job name and at least one file or directory).
     void enableSave(bool enable);
+    //! Notify that we should look for archives matching this Job.
+    //! \param jobPrefix: prefix to match.
     void findMatchingArchives(QString jobPrefix);
 
 
 protected:
+    //! Handles translation change of language.
     void changeEvent(QEvent *event);
 
 private slots:

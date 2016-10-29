@@ -18,7 +18,6 @@ public:
     void setJob(const JobPtr &job);
 
 public slots:
-    void save();
     void saveNew();
     void updateMatchingArchives(QList<ArchivePtr> archives);
 
@@ -52,6 +51,7 @@ private:
     bool           _saveEnabled;
     QTimer         _fsEventUpdate;
 
+    void save();
     void updateUi();
 };
 

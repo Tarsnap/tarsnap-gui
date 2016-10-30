@@ -178,6 +178,7 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
 {
     if(!archives.isEmpty())
     {
+        _ui.infoLabel->setStyleSheet("");
         _ui.infoLabel->setText(tr("Found %1 unassigned archives matching this"
                                   " Job description. Go to Archives tab below"
                                   " to review.").arg(archives.count()));
@@ -262,6 +263,7 @@ void JobWidget::backupButtonClicked()
 
 bool JobWidget::canSaveNew()
 {
+    _ui.infoLabel->setStyleSheet("");
     _ui.infoLabel->clear();
     _ui.infoLabel->hide();
     if(_job->objectKey().isEmpty() && !_ui.jobNameLineEdit->text().isEmpty())
@@ -277,12 +279,14 @@ bool JobWidget::canSaveNew()
             }
             else
             {
+                _ui.infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
                 _ui.infoLabel->setText(tr("No backup paths selected."));
                 _ui.infoLabel->show();
             }
         }
         else
         {
+            _ui.infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
             _ui.infoLabel->setText(tr("Job name must be unique amongst existing"
                                       " Jobs."));
             _ui.infoLabel->show();
@@ -342,6 +346,7 @@ void JobWidget::verifyJob()
     {
         if(_job->urls().isEmpty())
         {
+            _ui.infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
             _ui.infoLabel->setText(tr("This Job has no backup paths selected. "
                                       "Please make a selection."));
         }

@@ -9,7 +9,7 @@
 /*!
  * \ingroup widgets-specialized
  * \brief The JobListWidget is a QListWidget which displays
- * information about all archives.
+ * information about all jobs.
  */
 class JobListWidget : public QListWidget
 {
@@ -52,7 +52,7 @@ signals:
     //! using the user-selected options from the \ref RestoreDialog.
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! Notify that the specified job (and possibly archives)
-    //! should be deleted from the app.
+    //! should be deleted.
     //! \param job: the job to delete.
     //! \param purgeArchives: if true, delete all archives belonging
     //!        to this job.

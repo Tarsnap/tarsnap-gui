@@ -28,7 +28,7 @@ public:
 public slots:
     //! Create (and save) a new job.
     void saveNew();
-    //! The update the list of potential matching archives.
+    //! Update the list of potential matching archives.
     //! \param archives: the archives which match this job name.
     void updateMatchingArchives(QList<ArchivePtr> archives);
 

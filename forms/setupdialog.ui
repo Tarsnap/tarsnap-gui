@@ -286,10 +286,6 @@ min-width: 200px;
         </spacer>
        </item>
       </layout>
-      <zorder>welcomePageInfoLabelAside</zorder>
-      <zorder>welcomePageInfoLabel</zorder>
-      <zorder>welcomeBottomSpacer</zorder>
-      <zorder>welcomeTopSpacer</zorder>
      </widget>
      <widget class="QWidget" name="advancedPage">
       <layout class="QVBoxLayout" name="advancedVerticalLayout">

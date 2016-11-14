@@ -1077,6 +1077,9 @@ border: none;
      <property name="rightMargin">
       <number>6</number>
      </property>
+     <property name="bottomMargin">
+      <number>6</number>
+     </property>
      <item>
       <widget class="QPushButton" name="backButton">
        <property name="text">

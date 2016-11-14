@@ -44,11 +44,16 @@ ArchivePtr ArchiveListWidgetItem::archive() const
 void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
 {
     if(_archive)
+    {
         disconnect(_archive.data(), &Archive::changed, this, &ArchiveListWidgetItem::update);
+        disconnect(_archive.data(), &Archive::purged, this, &ArchiveListWidgetItem::removeItem);
+    }
 
     _archive = archive;
 
     connect(_archive.data(), &Archive::changed, this, &ArchiveListWidgetItem::update,
+            QUEUED);
+    connect(_archive.data(), &Archive::purged, this, &ArchiveListWidgetItem::removeItem,
             QUEUED);
 
     QString displayName;
@@ -79,10 +84,16 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
         detail.prepend(size + "  ");
     }
 
-    if(isDisabled())
+    if(_archive->deleteScheduled())
+    {
         _ui.detailLabel->setText(tr("(scheduled for deletion)"));
+        _widget->setEnabled(false);
+    }
     else
+    {
         _ui.detailLabel->setText(detail);
+        _widget->setEnabled(true);
+    }
 
     _ui.detailLabel->setToolTip(_archive->archiveStats());
 
@@ -96,17 +107,6 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
         _ui.archiveButton->hide();
         _ui.jobButton->show();
     }
-}
-
-void ArchiveListWidgetItem::setDisabled()
-{
-    _ui.detailLabel->setText(tr("(scheduled for deletion)"));
-    widget()->setEnabled(false);
-}
-
-bool ArchiveListWidgetItem::isDisabled()
-{
-    return !widget()->isEnabled();
 }
 
 void ArchiveListWidgetItem::update()

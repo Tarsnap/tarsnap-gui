@@ -66,7 +66,7 @@ JobWidget::JobWidget(QWidget *parent)
             &ArchiveListWidget::customContextMenuRequested, this,
             &JobWidget::showArchiveListMenu);
     connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
-            &ArchiveListWidget::removeSelectedItems);
+            &ArchiveListWidget::deleteSelectedItems);
     connect(_ui.actionRestore, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::restoreSelectedItem);
     connect(_ui.actionInspect, &QAction::triggered, _ui.archiveListWidget,
@@ -89,6 +89,7 @@ void JobWidget::setJob(const JobPtr &job)
         _job->removeWatcher();
         disconnect(_job.data(), &Job::fsEvent, this, &JobWidget::fsEventReceived);
         disconnect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
+        disconnect(_job.data(), &Job::purged, this, &JobWidget::collapse);
     }
 
     _saveEnabled = false;
@@ -113,6 +114,7 @@ void JobWidget::setJob(const JobPtr &job)
         _ui.jobNameLineEdit->hide();
         connect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
         connect(_job.data(), &Job::fsEvent, this, &JobWidget::fsEventReceived);
+        connect(_job.data(), &Job::purged, this, &JobWidget::collapse);
         job->installWatcher();
     }
     _ui.tabWidget->setCurrentWidget(_ui.jobTreeTab);
@@ -176,6 +178,7 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
 {
     if(!archives.isEmpty())
     {
+        _ui.infoLabel->setStyleSheet("");
         _ui.infoLabel->setText(tr("Found %1 unassigned archives matching this"
                                   " Job description. Go to Archives tab below"
                                   " to review.").arg(archives.count()));
@@ -189,8 +192,7 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
                                      false);
     }
     _job->setArchives(archives);
-    _ui.archiveListWidget->clear();
-    _ui.archiveListWidget->addArchives(_job->archives());
+    _ui.archiveListWidget->setArchives(_job->archives());
     _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
                               tr("Archives (%1)").arg(_job->archives().count()));
 }
@@ -225,8 +227,7 @@ void JobWidget::updateDetails()
     _ui.jobTreeWidget->blockSignals(true);
     _ui.jobTreeWidget->setSelectedUrls(_job->urls());
     _ui.jobTreeWidget->blockSignals(false);
-    _ui.archiveListWidget->clear();
-    _ui.archiveListWidget->addArchives(_job->archives());
+    _ui.archiveListWidget->setArchives(_job->archives());
     _ui.scheduleComboBox->setCurrentIndex(static_cast<int>(_job->optionScheduledEnabled()));
     _ui.preservePathsCheckBox->setChecked(_job->optionPreservePaths());
     _ui.traverseMountCheckBox->setChecked(_job->optionTraverseMount());
@@ -262,13 +263,14 @@ void JobWidget::backupButtonClicked()
 
 bool JobWidget::canSaveNew()
 {
+    _ui.infoLabel->setStyleSheet("");
     _ui.infoLabel->clear();
     _ui.infoLabel->hide();
     if(_job->objectKey().isEmpty() && !_ui.jobNameLineEdit->text().isEmpty())
     {
         JobPtr newJob(new Job);
         newJob->setName(_ui.jobNameLineEdit->text());
-        if(!newJob->findObjectWithKey(newJob->name()))
+        if(!newJob->doesKeyExist(newJob->name()))
         {
             emit findMatchingArchives(newJob->archivePrefix());
             if(!_ui.jobTreeWidget->getSelectedUrls().isEmpty())
@@ -277,12 +279,14 @@ bool JobWidget::canSaveNew()
             }
             else
             {
+                _ui.infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
                 _ui.infoLabel->setText(tr("No backup paths selected."));
                 _ui.infoLabel->show();
             }
         }
         else
         {
+            _ui.infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
             _ui.infoLabel->setText(tr("Job name must be unique amongst existing"
                                       " Jobs."));
             _ui.infoLabel->show();
@@ -342,6 +346,7 @@ void JobWidget::verifyJob()
     {
         if(_job->urls().isEmpty())
         {
+            _ui.infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
             _ui.infoLabel->setText(tr("This Job has no backup paths selected. "
                                       "Please make a selection."));
         }

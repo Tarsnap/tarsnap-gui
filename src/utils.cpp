@@ -149,3 +149,24 @@ bool Utils::tarsnapVersionMinimum(const QString &minVersion)
     return (-1 != versionRx.indexIn(tarsnapVersion)) &&
            (versionRx.cap(0) >= minVersion);
 }
+
+QString Utils::quoteCommandLine(QStringList args)
+{
+    QStringList escaped;
+    QRegExp rx("^[0-9a-z-A-Z/._-]*$");
+    QString cmdLine;
+
+    for (int i = 0; i < args.size(); ++i) {
+        QString arg = args.at(i);
+        if (rx.indexIn(arg) >= 0) {
+            escaped.append(arg);
+        } else {
+            escaped.append(arg.prepend("\'").append("\'"));
+        }
+    }
+
+    cmdLine = escaped.join(' ');
+    return (cmdLine);
+}
+
+

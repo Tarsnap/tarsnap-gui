@@ -223,7 +223,9 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archiveListWidget->addAction(_ui.actionRestore);
     _ui.archiveListWidget->addAction(_ui.actionFilterArchives);
     connect(this, &MainWindow::archiveList, _ui.archiveListWidget,
-            &ArchiveListWidget::addArchives);
+            &ArchiveListWidget::setArchives);
+    connect(this, &MainWindow::addArchive, _ui.archiveListWidget,
+            &ArchiveListWidget::addArchive);
     connect(_ui.archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &MainWindow::displayInspectArchive);
     connect(_ui.archiveListWidget, &ArchiveListWidget::deleteArchives, this,
@@ -243,7 +245,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
     connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
-            &ArchiveListWidget::removeSelectedItems);
+            &ArchiveListWidget::deleteSelectedItems);
     connect(_ui.actionRestore, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::restoreSelectedItem);
     connect(_ui.actionInspect, &QAction::triggered, _ui.archiveListWidget,
@@ -271,8 +273,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::restoreArchive);
     connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives, this,
             &MainWindow::deleteArchives);
-    connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives,
-            _ui.archiveListWidget, &ArchiveListWidget::disableArchives);
     connect(_ui.jobDetailsWidget, &JobWidget::enableSave, _ui.addJobButton,
             &QToolButton::setEnabled);
     connect(_ui.jobDetailsWidget, &JobWidget::backupJob, this,
@@ -290,7 +290,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
             &MainWindow::deleteJob);
     connect(this, &MainWindow::jobsList, _ui.jobListWidget,
-            &JobListWidget::addJobs);
+            &JobListWidget::setJobs);
     connect(_ui.jobListWidget, &JobListWidget::customContextMenuRequested,
             this, &MainWindow::showJobsListMenu);
     connect(_ui.actionJobBackup, &QAction::triggered, _ui.jobListWidget,
@@ -343,13 +343,6 @@ MainWindow::MainWindow(QWidget *parent)
             [&]() { emit repairCache(true); });
     connect(_ui.skipSystemDefaultsButton, &QPushButton::clicked,
             [&]() { _ui.skipSystemLineEdit->setText(DEFAULT_SKIP_SYSTEM_FILES); });
-    connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
-            [&](JobPtr job, bool purgeArchives) {
-                if(_ui.jobDetailsWidget->job() == job)
-                    hideJobDetails();
-                if(purgeArchives)
-                    _ui.archiveListWidget->disableArchives(job->archives());
-            });
     connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
         QMessageBox::information(this, QApplication::applicationName(),
                                  tr("The new size notation will take global "

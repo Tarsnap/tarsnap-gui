@@ -170,8 +170,6 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
         return;
     }
 
-    _archiveMap.insert(archive->name(), archive);
-
     TarsnapTask *statsTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
@@ -180,7 +178,7 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
          << "-f" << archive->name();
     statsTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     statsTask->setArguments(args);
-    statsTask->setData(archive->name());
+    statsTask->setData(QVariant::fromValue(archive));
     connect(statsTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveStatsFinished, QUEUED);
     connect(statsTask, &TarsnapTask::started, this,
@@ -200,8 +198,6 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
         return;
     }
 
-    _archiveMap.insert(archive->name(), archive);
-
     TarsnapTask *contentsTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
@@ -212,7 +208,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
          << "-f" << archive->name();
     contentsTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     contentsTask->setArguments(args);
-    contentsTask->setData(archive->name());
+    contentsTask->setData(QVariant::fromValue(archive));
     contentsTask->setTruncateLogOutput(true);
     connect(contentsTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveContentsFinished, QUEUED);
@@ -233,6 +229,9 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
         return;
     }
 
+    foreach(ArchivePtr archive, archives)
+        archive->setDeleteScheduled(true);
+
     TarsnapTask *delArchives = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
@@ -247,6 +246,13 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     delArchives->setData(QVariant::fromValue(archives));
     connect(delArchives, &TarsnapTask::finished, this,
             &TaskManager::deleteArchivesFinished, QUEUED);
+    connect(delArchives, &TarsnapTask::canceled, this,
+            [=](QVariant data) {
+                QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
+                foreach(ArchivePtr archive, archives)
+                    archive->setDeleteScheduled(false);
+            },
+            QUEUED);
     connect(delArchives, &TarsnapTask::started, this,
             [=](QVariant data) {
                 QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
@@ -315,8 +321,6 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
         return;
     }
 
-    _archiveMap.insert(archive->name(), archive);
-
     TarsnapTask *restore = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
@@ -353,7 +357,7 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     args << "-f" << archive->name();
     restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     restore->setArguments(args);
-    restore->setData(archive->name());
+    restore->setData(QVariant::fromValue(archive));
     connect(restore, &TarsnapTask::finished, this,
             &TaskManager::restoreArchiveFinished, QUEUED);
     connect(restore, &TarsnapTask::started, this,
@@ -472,7 +476,10 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
         {
             TarsnapTask *task = _taskQueue.dequeue();
             if(task)
-                delete task;
+            {
+                task->cancel();
+                task->deleteLater();
+            }
         }
         emit message("Cleared queued tasks.");
     }
@@ -508,7 +515,9 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
         ArchivePtr archive(new Archive);
         archive->setName(backupTask->name());
         archive->setCommand(backupTask->command());
-        archive->setTimestamp(backupTask->timestamp());
+        // Lose milliseconds precision by converting to Unix timestamp and back.
+        // So that a subsequent comparison in getArchiveListFinished won't fail.
+        archive->setTimestamp(QDateTime::fromTime_t(backupTask->timestamp().toTime_t()));
         archive->setJobRef(backupTask->jobRef());
         parseArchiveStats(output, true, archive);
         backupTask->setArchive(archive);
@@ -519,7 +528,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
             if(job->objectKey() == archive->jobRef())
                 emit job->loadArchives();
         }
-        emit archiveList(_archiveMap.values());
+        emit addArchive(archive);
         parseGlobalStats(output);
     }
     else
@@ -575,37 +584,29 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
             archiveDetails.removeFirst();
             QDateTime timestamp =
                 QDateTime::fromString(archiveDetails[1], Qt::ISODate);
-            ArchivePtr archive(new Archive);
-            bool       update = false;
-            archive->setName(archiveDetails[0]);
-            archive->load();
-            if(archive->objectKey().isEmpty())
-            {
-                update = true;
-            }
-            else if(archive->timestamp() != timestamp)
+            ArchivePtr archive = _archiveMap.value(archiveDetails[0], ArchivePtr(new Archive));
+            if(!archive->objectKey().isEmpty()
+               && (archive->timestamp() != timestamp))
             {
                 // There is a different archive with the same name on the remote
                 archive->purge();
                 archive.clear();
                 archive = archive.create();
-                archive->setName(archiveDetails[0]);
-                update = true;
             }
-            if(update)
+            if(archive->objectKey().isEmpty())
             {
                 // New archive
+                archive->setName(archiveDetails[0]);
                 archive->setTimestamp(timestamp);
                 archive->setCommand(archiveDetails[2]);
-                archive->save();
                 // Automagically set Job ownership
                 foreach(JobPtr job, _jobMap)
                 {
                     if(archive->name().startsWith(job->archivePrefix()))
-                    {
                         archive->setJobRef(job->objectKey());
-                    }
                 }
+                archive->save();
+                emit addArchive(archive);
                 getArchiveStats(archive);
             }
             _newArchiveMap.insert(archive->name(), archive);
@@ -623,17 +624,16 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
     {
         emit job->loadArchives();
     }
-    emit archiveList(_archiveMap.values(), true);
     getOverallStats();
 }
 
 void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
                                           QString output)
 {
-    ArchivePtr archive = _archiveMap[data.toString()];
+    ArchivePtr archive = data.value<ArchivePtr>();
     if(!archive)
     {
-        DEBUG << "Archive not found: " << data.toString();
+        DEBUG << "Archive not found.";
         return;
     }
     if(exitCode == SUCCESS)
@@ -658,11 +658,11 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
 void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
                                              QString output)
 {
-    ArchivePtr archive = _archiveMap[data.toString()];
+    ArchivePtr archive = data.value<ArchivePtr>();
 
     if(!archive)
     {
-        DEBUG << "Archive not found: " << data.toString();
+        DEBUG << "Archive not found.";
         return;
     }
 
@@ -693,18 +693,20 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
 void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
                                          QString output)
 {
+    QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
+
     if(exitCode != SUCCESS)
     {
-        emit message(tr("Error: Failed to delete archive from remote."),
+        emit message(tr("Error: Failed to delete archive(s) from remote."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(output));
         parseError(output);
-        emit archiveList(_archiveMap.values());
+        foreach(ArchivePtr archive, archives)
+            archive->setDeleteScheduled(false);
         return;
     }
 
-    QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
     if(!archives.empty())
     {
         foreach(ArchivePtr archive, archives)
@@ -712,7 +714,6 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
             _archiveMap.remove(archive->name());
             archive->purge();
         }
-        emit archiveList(_archiveMap.values());
         notifyArchivesDeleted(archives, true);
     }
     // We are only interested in the output of the last archive deleted
@@ -776,10 +777,10 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
 void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
                                          QString output)
 {
-    ArchivePtr archive = _archiveMap[data.toString()];
+    ArchivePtr archive = data.value<ArchivePtr>();
     if(!archive)
     {
-        DEBUG << "Archive not found: " << data.toString();
+        DEBUG << "Archive not found.";
         return;
     }
     if(exitCode == SUCCESS)
@@ -916,7 +917,7 @@ void TaskManager::startTask(TarsnapTask *task)
         else
             return;
     }
-    connect(task, &TarsnapTask::terminated, this, &TaskManager::dequeueTask,
+    connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask,
             QUEUED);
     _runningTasks.append(task);
     task->setAutoDelete(false);
@@ -1121,25 +1122,28 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
 {
     if(job)
     {
+        // Clear JobRef for assigned Archives.
+        foreach(ArchivePtr archive, job->archives())
+        {
+            archive->setJobRef("");
+            archive->save();
+        }
+
+        job->purge();
+        _jobMap.remove(job->name());
+
         if(purgeArchives)
         {
-            deleteArchives(job->archives());
             emit message(tr("Job <i>%1</i> deleted. Deleting %2 associated "
                             "archives next...")
                          .arg(job->name())
                          .arg(job->archives().count()));
+            deleteArchives(job->archives());
         }
         else
         {
-            foreach(ArchivePtr archive, job->archives())
-            {
-                archive->setJobRef("");
-                archive->save();
-            }
             emit message(tr("Job <i>%1</i> deleted.").arg(job->name()));
         }
-        job->purge();
-        _jobMap.remove(job->name());
     }
 }
 

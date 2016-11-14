@@ -22,24 +22,38 @@ typedef enum {
     Monthly
 }JobSchedule;
 
+/*!
+ * \ingroup persistent
+ * \brief The Job stores metadata about a user's scheduled job.
+ */
 class Job : public QObject, public PersistentObject
 {
     Q_OBJECT
 
 public:
+    //! Constructor.
     explicit Job(QObject *parent = nullptr);
     ~Job();
 
+    //! Returns JOB_NAME_PREFIX + job name.
+    QString archivePrefix();
+
+    //! Checks that each file listed in the Job exists.
+    bool validateUrls();
+
+    //! Installs a watcher to notify us if any files or
+    //! directories in this Job are changed.
+    void installWatcher();
+    //! Removes the filesystem watcher.
+    void removeWatcher();
+
+    //! \name Getter/setter methods
+    //! @{
     QString name() const;
     void setName(const QString &name);
 
-    QString archivePrefix();
-
     QList<QUrl> urls() const;
     void setUrls(const QList<QUrl> &urls);
-    bool validateUrls();
-    void installWatcher();
-    void removeWatcher();
 
     QList<ArchivePtr> archives() const;
     void setArchives(const QList<ArchivePtr> &archives);
@@ -76,18 +90,33 @@ public:
 
     bool settingHideSymlinks() const;
     void setSettingHideSymlinks(bool settingHideSymlinks);
+    //! @}
 
+    //! Create a backupTask() which may be passed to TaskManager::backupNow().
     BackupTaskPtr createBackupTask();
 
     // From PersistentObject
+    //! Saves this object to the PersistentStore; creating or
+    //! updating as appropriate.
     void save();
+    //! Loads this object from the PersistentStore.  The object's
+    //! \c _name must already be set.
     void load();
+    //! Deletes this object from the PersistentStore.  The object's
+    //! \c _name must already be set.
     void purge();
-    bool findObjectWithKey(QString key);
+    //! Returns whether an object with this key exists in the PersistentStore.
+    bool doesKeyExist(QString key);
 
 signals:
+    //! The list of archives belonging to this backup has changed.
     void changed();
+    //! This Job was deleted.
+    void purged();
+    //! Notifies that the list of archives belonging to this Job
+    //! needs to be refreshed.
     void loadArchives();
+    //! A file or directory (which is being watched) has changed.
     void fsEvent();
 
 private:

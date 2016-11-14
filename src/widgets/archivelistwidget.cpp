@@ -9,11 +9,13 @@
 
 ArchiveListWidget::ArchiveListWidget(QWidget *parent) : QListWidget(parent)
 {
+    _filter.setCaseSensitivity(Qt::CaseInsensitive);
+    _filter.setPatternSyntax(QRegExp::Wildcard);
     connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
         if(item)
         {
             ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(item);
-            if(archiveItem && !archiveItem->isDisabled())
+            if(archiveItem && !archiveItem->archive()->deleteScheduled())
                 emit inspectArchive(archiveItem->archive());
         }
     });
@@ -24,7 +26,7 @@ ArchiveListWidget::~ArchiveListWidget()
     clear();
 }
 
-void ArchiveListWidget::addArchives(QList<ArchivePtr> archives)
+void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
 {
     std::sort(archives.begin(), archives.end(),
               [](const ArchivePtr &a, const ArchivePtr &b) {
@@ -33,23 +35,27 @@ void ArchiveListWidget::addArchives(QList<ArchivePtr> archives)
     setUpdatesEnabled(false);
     clear();
     foreach(ArchivePtr archive, archives)
-    {
-        ArchiveListWidgetItem *item = new ArchiveListWidgetItem(archive);
-        connect(item, &ArchiveListWidgetItem::requestDelete, this,
-                &ArchiveListWidget::removeItem);
-        connect(item, &ArchiveListWidgetItem::requestInspect, this,
-                &ArchiveListWidget::inspectItem);
-        connect(item, &ArchiveListWidgetItem::requestRestore, this,
-                &ArchiveListWidget::restoreItem);
-        connect(item, &ArchiveListWidgetItem::requestGoToJob, this,
-                &ArchiveListWidget::goToJob);
-        insertItem(count(), item);
-        setItemWidget(item, item->widget());
-    }
+        insertArchive(archive, count());
     setUpdatesEnabled(true);
 }
 
-void ArchiveListWidget::removeItem()
+void ArchiveListWidget::addArchive(ArchivePtr archive)
+{
+    int pos = 0;
+    for(; pos < count(); ++pos)
+    {
+        ArchiveListWidgetItem *archiveItem =
+            static_cast<ArchiveListWidgetItem *>(item(pos));
+        if(archiveItem
+           && (archive->timestamp() > archiveItem->archive()->timestamp()))
+        {
+            break;
+        }
+    }
+    insertArchive(archive, pos);
+}
+
+void ArchiveListWidget::deleteItem()
 {
     ArchiveListWidgetItem *archiveItem = qobject_cast<ArchiveListWidgetItem *>(sender());
     if(archiveItem)
@@ -62,7 +68,6 @@ void ArchiveListWidget::removeItem()
                                       .arg(archive->name()));
         if(button == QMessageBox::Yes)
         {
-            archiveItem->setDisabled();
             QList<ArchivePtr> archiveList;
             archiveList.append(archive);
             emit deleteArchives(archiveList);
@@ -70,7 +75,7 @@ void ArchiveListWidget::removeItem()
     }
 }
 
-void ArchiveListWidget::removeSelectedItems()
+void ArchiveListWidget::deleteSelectedItems()
 {
     if(selectedItems().isEmpty())
         return;
@@ -80,7 +85,7 @@ void ArchiveListWidget::removeSelectedItems()
     foreach(QListWidgetItem *item, selectedItems())
     {
         ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(item);
-        if(!archiveItem || archiveItem->isDisabled())
+        if(!archiveItem || archiveItem->archive()->deleteScheduled())
             return;
         else
             selectedListItems << archiveItem;
@@ -125,7 +130,6 @@ void ArchiveListWidget::removeSelectedItems()
         QList<ArchivePtr> archivesToDelete;
         foreach(ArchiveListWidgetItem *archiveItem, selectedListItems)
         {
-            archiveItem->setDisabled();
             archivesToDelete.append(archiveItem->archive());
         }
         if(!archivesToDelete.isEmpty())
@@ -139,7 +143,7 @@ void ArchiveListWidget::inspectSelectedItem()
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(selectedItems().first());
-        if(archiveItem && !archiveItem->isDisabled())
+        if(archiveItem && !archiveItem->archive()->deleteScheduled())
             emit inspectArchive(archiveItem->archive());
     }
 }
@@ -150,7 +154,7 @@ void ArchiveListWidget::restoreSelectedItem()
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(selectedItems().first());
-        if(archiveItem && !archiveItem->isDisabled())
+        if(archiveItem && !archiveItem->archive()->deleteScheduled())
         {
             RestoreDialog restoreDialog(archiveItem->archive(), this);
             if(QDialog::Accepted == restoreDialog.exec())
@@ -163,19 +167,44 @@ void ArchiveListWidget::restoreSelectedItem()
 void ArchiveListWidget::setFilter(QString regex)
 {
     clearSelection();
-    QRegExp rx(regex, Qt::CaseInsensitive, QRegExp::Wildcard);
+    _filter.setPattern(regex);
     for(int i = 0; i < count(); ++i)
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(item(i));
         if(archiveItem)
         {
-            if(archiveItem->archive()->name().contains(rx))
+            if(archiveItem->archive()->name().contains(_filter))
                 archiveItem->setHidden(false);
             else
                 archiveItem->setHidden(true);
         }
     }
+}
+
+void ArchiveListWidget::removeItem()
+{
+    ArchiveListWidgetItem *archiveItem = qobject_cast<ArchiveListWidgetItem *>(sender());
+    if(archiveItem)
+        delete archiveItem; // Removes item from the list
+}
+
+void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
+{
+    ArchiveListWidgetItem *item = new ArchiveListWidgetItem(archive);
+    connect(item, &ArchiveListWidgetItem::requestDelete, this,
+            &ArchiveListWidget::deleteItem);
+    connect(item, &ArchiveListWidgetItem::requestInspect, this,
+            &ArchiveListWidget::inspectItem);
+    connect(item, &ArchiveListWidgetItem::requestRestore, this,
+            &ArchiveListWidget::restoreItem);
+    connect(item, &ArchiveListWidgetItem::requestGoToJob, this,
+            &ArchiveListWidget::goToJob);
+    connect(item, &ArchiveListWidgetItem::removeItem, this,
+            &ArchiveListWidget::removeItem);
+    insertItem(pos, item);
+    setItemWidget(item, item->widget());
+    item->setHidden(!archive->name().contains(_filter));
 }
 
 void ArchiveListWidget::inspectItem()
@@ -224,28 +253,12 @@ void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
     }
 }
 
-void ArchiveListWidget::disableArchives(QList<ArchivePtr> archives)
-{
-    for(int i = 0; i < count(); ++i)
-    {
-        ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(item(i));
-        if(archiveItem)
-        {
-            foreach(ArchivePtr archive, archives)
-            {
-                if((archiveItem->archive()->objectKey() == archive->objectKey()))
-                    archiveItem->setDisabled();
-            }
-        }
-    }
-}
-
 void ArchiveListWidget::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
     case Qt::Key_Delete:
-        removeSelectedItems();
+        deleteSelectedItems();
         break;
     case Qt::Key_Escape:
         if(!selectedItems().isEmpty())

@@ -19,3 +19,13 @@
  * \brief Information which is stored in a database.
  */
 
+/**
+ * \defgroup background-task Background tasks
+ * \brief Tasks which run in the background and emit a signal when
+ * completed.
+ */
+
+/**
+ * \defgroup data Data
+ * \brief Classes which are primarily for data storage.
+ */

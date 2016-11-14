@@ -1,4 +1,5 @@
 #include "tarsnaptask.h"
+#include "utils.h"
 #include "debug.h"
 
 #if defined Q_OS_UNIX
@@ -28,7 +29,7 @@ void TarsnapTask::run()
     _process->setArguments(_arguments);
     LOG << tr("Executing command:\n[%1 %2]")
                .arg(_process->program())
-               .arg(_process->arguments().join(' '));
+               .arg(Utils::quoteCommandLine(_process->arguments()));
     _process->start();
     if(_process->waitForStarted(DEFAULT_TIMEOUT_MS))
     {
@@ -58,6 +59,7 @@ void TarsnapTask::run()
 cleanup:
     delete _process;
     _process = nullptr;
+    emit dequeue();
 }
 
 void TarsnapTask::stop(bool kill)
@@ -75,6 +77,11 @@ void TarsnapTask::interrupt()
 #if defined Q_OS_UNIX
     kill(_process->pid(), SIGQUIT);
 #endif
+}
+
+void TarsnapTask::cancel()
+{
+    emit canceled(_data);
 }
 
 bool TarsnapTask::waitForTask()
@@ -159,7 +166,6 @@ void TarsnapTask::processFinished()
         QString output(_processOutput);
         output = output.trimmed();
         emit finished(_data, _process->exitCode(), output);
-        emit terminated();
         if(!output.isEmpty())
         {
             if(_truncateLogOutput && (output.size() > LOG_MAX_LENGTH))
@@ -169,15 +175,17 @@ void TarsnapTask::processFinished()
             }
             LOG << tr("Command finished with exit code %3 and output:\n[%1 %2]\n%4")
                        .arg(_command)
-                       .arg(_arguments.join(' '))
+                       .arg(Utils::quoteCommandLine(_arguments))
                        .arg(_process->exitCode())
                        .arg(output);
         }
         else
+        {
             LOG << tr("Command finished with exit code %3 and no output:\n[%1 %2]")
                        .arg(_command)
-                       .arg(_arguments.join(' '))
+                       .arg(Utils::quoteCommandLine(_arguments))
                        .arg(_process->exitCode());
+        }
     }
         break;
     case QProcess::CrashExit:
@@ -188,10 +196,12 @@ void TarsnapTask::processFinished()
 
 void TarsnapTask::processError()
 {
-    LOG << tr("Tarsnap process error %1 (%2) occured (exit code %3):\n%4")
+    LOG << tr("Tarsnap process error %3 (%4) occured (exit code %5):\n[%1 %2]\n%6")
+               .arg(_command)
+               .arg(Utils::quoteCommandLine(_arguments))
                .arg(_process->error())
                .arg(_process->errorString())
                .arg(_process->exitCode())
                .arg(QString(_processOutput).trimmed());
-    emit terminated();
+    cancel();
 }

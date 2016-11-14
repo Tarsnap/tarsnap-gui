@@ -18,6 +18,7 @@ public:
     void run();
     void stop(bool kill = false);
     void interrupt();
+    void cancel();
     bool waitForTask();
     QProcess::ProcessState taskStatus();
 
@@ -39,9 +40,10 @@ public:
     void setTruncateLogOutput(bool truncateLogOutput);
 
 signals:
-    void finished(QVariant data, int exitCode, QString output);
     void started(QVariant data);
-    void terminated();
+    void finished(QVariant data, int exitCode, QString output);
+    void canceled(QVariant data);
+    void dequeue();
 
 private slots:
     void readProcessOutput();

@@ -28,13 +28,8 @@ public:
     //! Returns a pointer to the archive.
     ArchivePtr archive() const;
 
-    //! Indicate that this archive is scheduled for deletion.
-    void setDisabled();
-    //! Returns whether this archive is scheduled for deletion.
-    bool isDisabled();
-
 signals:
-    //! The user requested to remove this item from the archive list.
+    //! The user requested to delete this archive.
     void requestDelete();
     //! The user requested more information about this archive.
     void requestInspect();
@@ -42,6 +37,8 @@ signals:
     void requestRestore();
     //! The user requested to see the Job which created this archive.
     void requestGoToJob();
+    //! Remove this item from the Archive list.
+    void removeItem();
 
 protected:
     //! Processes requests to switch language.

@@ -38,29 +38,46 @@ struct File {
     quint64 links;
 };
 
+/*!
+ * \ingroup background-task
+ * \brief The ParseArchiveListingTask extracts the list of files
+ * from an archive.
+ */
 class ParseArchiveListingTask : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
+    //! Constructor.
+    //! \param listing: the output of <tt>tarsnap -tv</tt>.
     explicit ParseArchiveListingTask(const QString &listing):_listing(listing){}
+    //! Run this task in the background; will emit the \ref result
+    //! signal when finished.
     void run();
 
 signals:
+    //! The list of files.
     void result(QVector<File> files);
 
 private:
     QString _listing;
 };
 
+/*!
+ * \ingroup persistent
+ * \brief The Archive stores metadata about a user's archive.
+ */
 class Archive : public QObject, public PersistentObject
 {
     Q_OBJECT
 
 public:
+    //! Constructor.
     explicit Archive(QObject *parent = nullptr);
     ~Archive();
 
+    //! \name Getter/setter methods
+    //! @{
     QString name() const;
     void setName(const QString &value);
     QDateTime timestamp() const;
@@ -81,21 +98,41 @@ public:
     void setContents(const QString &value);
     QString jobRef() const;
     void setJobRef(const QString &jobRef);
+    //! @}
+
+    //! Starts loading the file list.  When finished, it emits a \ref fileList
+    //! signal.
     void getFileList();
+    //! Returns whether the tarsnap command included "-P" (preserve pathnames).
     bool hasPreservePaths();
+    //! Returns whether this Archive has been scheduled for deletion.
+    bool deleteScheduled() const;
+    //! Sets whether this Archive is scheduled for deletion. Emits changed().
+    void setDeleteScheduled(bool deleteScheduled);
 
     // From PersistentObject
+    //! Saves this object to the PersistentStore; creating or
+    //! updating as appropriate.
     void save();
+    //! Loads this object from the PersistentStore.  The object's
+    //! \c _name must already be set.
     void load();
+    //! Deletes this object from the PersistentStore.  The object's
+    //! \c _name must already be set.
     void purge();
-    bool findObjectWithKey(QString key);
+    //! Returns whether an object with this key exists in the PersistentStore.
+    bool doesKeyExist(QString key);
 
 public slots:
+    //! Returns statistics about this archive.
     QString archiveStats();
 
 signals:
+    //! This item was saved.
     void changed();
+    //! This item was deleted.
     void purged();
+    //! The file list has been updated.
     void fileList(QVector<File> files);
 
 private:
@@ -109,6 +146,9 @@ private:
     QString    _command;
     QByteArray _contents;
     QString    _jobRef;
+
+    // Properties not saved to the PersistentStore
+    bool       _deleteScheduled;
 };
 
 #endif // ARCHIVE_H

@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="jobVerticalLayout">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -37,7 +37,7 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QHBoxLayout" name="headerLayout">
       <property name="spacing">
        <number>6</number>
       </property>
@@ -104,7 +104,7 @@ padding-left: 3px;
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_2">
+       <spacer name="headerHorizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -214,7 +214,7 @@ alignment: center;
       <attribute name="title">
        <string>File System</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="jobTabVerticalLayout">
        <property name="spacing">
         <number>0</number>
        </property>
@@ -246,7 +246,7 @@ alignment: center;
       <attribute name="title">
        <string>Options</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
+      <layout class="QVBoxLayout" name="optionsTabVerticalLayout">
        <property name="spacing">
         <number>0</number>
        </property>
@@ -264,7 +264,7 @@ alignment: center;
        </property>
        <item>
         <widget class="QWidget" name="settingsContainer" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <layout class="QVBoxLayout" name="settingsContainerVerticalLayout">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -281,7 +281,7 @@ alignment: center;
            <number>0</number>
           </property>
           <item>
-           <widget class="QGroupBox" name="groupBox_2">
+           <widget class="QGroupBox" name="optionsGroupBox">
             <property name="title">
              <string>Backup options</string>
             </property>
@@ -483,7 +483,7 @@ alignment: center;
       <attribute name="title">
        <string>Archives</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <layout class="QVBoxLayout" name="archiveTabVerticalLayout">
        <property name="spacing">
         <number>0</number>
        </property>

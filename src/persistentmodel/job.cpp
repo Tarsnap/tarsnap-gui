@@ -16,6 +16,7 @@ Job::Job(QObject *parent)
       _settingShowSystem(false),
       _settingHideSymlinks(false)
 {
+    // Load values from settings.
     QSettings settings;
     setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", optionPreservePaths()).toBool());
     setOptionTraverseMount(settings.value("tarsnap/traverse_mount", optionTraverseMount()).toBool());
@@ -57,8 +58,10 @@ void Job::setUrls(const QList<QUrl> &urls)
 
 bool Job::validateUrls()
 {
+    // Check that _urls is not empty.
     if(_urls.isEmpty())
         return false;
+    // Check that every file exists.
     foreach(QUrl url, _urls)
     {
         QFileInfo file(url.toLocalFile());
@@ -77,8 +80,10 @@ void Job::installWatcher()
 
     foreach(QUrl url, _urls)
     {
+        // Emit a signal if a file has changed.
         QFileInfo file(url.toLocalFile());
         _fsWatcher.addPath(file.absoluteFilePath());
+        // Emit a signal if a directory or any of its ancestors has changed.
         QDir dir(file.absoluteDir());
         while(dir != QDir::root())
         {
@@ -107,10 +112,12 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
 {
     _archives.clear();
     _archives = archives;
+    // Sort archives based on timestamp using an anonymous sorting function.
     std::sort(_archives.begin(), _archives.end(),
               [](const ArchivePtr &a, const ArchivePtr &b) {
                   return (a->timestamp() > b->timestamp());
               });
+    // If any Archive is deleted, reload the list.
     foreach(ArchivePtr archive, _archives)
     {
         connect(archive.data(), &Archive::purged, this, &Job::loadArchives,
@@ -248,8 +255,9 @@ BackupTaskPtr Job::createBackupTask()
 
 void Job::save()
 {
-    bool exists = findObjectWithKey(_name);
+    bool exists = doesKeyExist(_name);
 
+    // Prepare query: either updating or creating an entry.
     QString queryString;
     if(exists)
         queryString = QLatin1String(
@@ -269,6 +277,7 @@ void Job::save()
             "settingShowSystem, settingHideSymlinks) values(?, ?, ?, ?, ?, "
             "?, ?, ?, ?, ?, ?, ?, ?)");
 
+    // Get database instance and create query object.
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
     if(!query.prepare(queryString))
@@ -276,6 +285,7 @@ void Job::save()
         DEBUG << query.lastError().text();
         return;
     }
+    // Fill in missing value in query string.
     query.addBindValue(_name);
     QStringList urls;
     foreach(QUrl url, _urls)
@@ -295,17 +305,21 @@ void Job::save()
     if(exists)
         query.addBindValue(_name);
 
-    store.runQuery(query);
+    // Run query.
+    if (!store.runQuery(query))
+        DEBUG << "Failed to save Job entry.";
     setObjectKey(_name);
 }
 
 void Job::load()
 {
+    // Sanity checks.
     if(_name.isEmpty())
     {
         DEBUG << "Attempting to load Job object with empty _name key.";
         return;
     }
+    // Get database instance and prepare query.
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
     if(!query.prepare(QLatin1String("select * from jobs where name = ?")))
@@ -313,7 +327,9 @@ void Job::load()
         DEBUG << query.lastError().text();
         return;
     }
+    // Fill in missing value in query string.
     query.addBindValue(_name);
+    // Run query.
     if(store.runQuery(query) && query.next())
     {
         _urls = QUrl::fromStringList(query.value(query.record().indexOf("urls"))
@@ -352,16 +368,18 @@ void Job::load()
 
 void Job::purge()
 {
+    // Sanity checks.
     if(_name.isEmpty())
     {
         DEBUG << "Attempting to delete Job object with empty _name key.";
         return;
     }
-    if(!findObjectWithKey(_name))
+    if(!doesKeyExist(_name))
     {
         DEBUG << "No Job object with key " << _name;
         return;
     }
+    // Get database instance and prepare query.
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
     if(!query.prepare(QLatin1String("delete from jobs where name = ?")))
@@ -369,19 +387,25 @@ void Job::purge()
         DEBUG << query.lastError().text();
         return;
     }
+    // Fill in missing value in query string.
     query.addBindValue(_name);
-    store.runQuery(query);
+    // Run query.
+    if (!store.runQuery(query))
+        DEBUG << "Failed to remove Job entry.";
     setObjectKey("");
+    emit purged();
 }
 
-bool Job::findObjectWithKey(QString key)
+bool Job::doesKeyExist(QString key)
 {
     bool found = false;
+    // Sanity check.
     if(key.isEmpty())
     {
-        DEBUG << "findObjectWithKey method called with empty args";
+        DEBUG << "doesKeyExist method called with empty args";
         return found;
     }
+    // Get database instance and prepare query.
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
     if(!query.prepare(QLatin1String("select name from jobs where name = ?")))
@@ -389,10 +413,16 @@ bool Job::findObjectWithKey(QString key)
         DEBUG << query.lastError().text();
         return found;
     }
+    // Fill in missing value in query string.
     query.addBindValue(key);
-    if(store.runQuery(query) && query.next())
+    // Run query.
+    if(store.runQuery(query))
     {
-        found = true;
+        if (query.next()) {
+            found = true;
+        }
+    } else {
+        DEBUG << "Failed to run doesKeyExist query for a Job.";
     }
     return found;
 }

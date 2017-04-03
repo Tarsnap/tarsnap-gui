@@ -53,6 +53,7 @@ void JobListWidget::selectJob(JobPtr job)
                 clearSelection();
                 setCurrentItem(jobItem);
                 scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
+                break;
             }
         }
     }

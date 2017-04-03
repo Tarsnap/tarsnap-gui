@@ -886,7 +886,7 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
     if(archive->contents().count() == 0)
         emit loadArchiveContents(archive);
 
-    _ui.archiveListWidget->setSelectedArchive(archive);
+    _ui.archiveListWidget->selectArchive(archive);
 
     _ui.archiveDetailsWidget->setArchive(archive);
     if(!_ui.archiveDetailsWidget->isVisible())

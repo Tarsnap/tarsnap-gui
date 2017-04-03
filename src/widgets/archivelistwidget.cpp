@@ -232,23 +232,22 @@ void ArchiveListWidget::goToJob()
             qobject_cast<ArchiveListWidgetItem *>(sender())->archive()->jobRef());
 }
 
-void ArchiveListWidget::setSelectedArchive(ArchivePtr archive)
+void ArchiveListWidget::selectArchive(ArchivePtr archive)
 {
     if(!archive)
         return;
 
-    ArchiveListWidgetItem *archiveItem = static_cast<ArchiveListWidgetItem *>(currentItem());
-    if(!archiveItem || (archiveItem->archive() != archive))
+    for(int i = 0; i < count(); ++i)
     {
-        for(int i = 0; i < count(); ++i)
-        {
-            ArchiveListWidgetItem *archiveItem =
+        ArchiveListWidgetItem *archiveItem =
                 static_cast<ArchiveListWidgetItem *>(item(i));
-            if(archiveItem &&
-               (archiveItem->archive()->objectKey() == archive->objectKey()))
-            {
-                setCurrentItem(archiveItem);
-            }
+        if(archiveItem &&
+                (archiveItem->archive()->objectKey() == archive->objectKey()))
+        {
+            clearSelection();
+            setCurrentItem(archiveItem);
+            scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
+            break;
         }
     }
 }

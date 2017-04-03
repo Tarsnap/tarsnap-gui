@@ -27,7 +27,7 @@ public slots:
     //! Adds an archive to the list.
     void addArchive(ArchivePtr archive);
     //! Sets the current selection in the list view.
-    void setSelectedArchive(ArchivePtr archive);
+    void selectArchive(ArchivePtr archive);
     //! Delete the selected archives.
     void deleteSelectedItems();
     //! Displays detailed information about the first of the selected items.

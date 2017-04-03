@@ -862,32 +862,33 @@ void MainWindow::validateBackupTab()
 void MainWindow::enableJobScheduling()
 {
 #if defined(Q_OS_OSX)
-    auto confirm = QMessageBox::question(this, "Confirm action",
-                                         "Register Tarsnap GUI with the OS X"
+    auto confirm = QMessageBox::question(this, tr("Job scheduling"),
+                                         tr("Register Tarsnap GUI with the OS X"
                                          " Launchd service to run daily at 10am?"
                                          "\nJobs that have scheduled backup"
                                          " turned on will be backed up according"
                                          " to the Daily, Weekly or Monthly"
-                                         " schedule.");
+                                         " schedule."));
     if(confirm != QMessageBox::Yes)
         return;
 
     QFile launchdPlist(":/com.tarsnap.gui.plist");
     launchdPlist.open(QIODevice::ReadOnly | QIODevice::Text);
-    QFile launchdPlistFile(QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist");
+    QFile launchdPlistFile(QDir::homePath()
+                           + "/Library/LaunchAgents/com.tarsnap.gui.plist");
     if(launchdPlistFile.exists())
     {
-        QMessageBox::critical(this, "Job scheduling",
-                              "Looks like scheduling is already enabled."
-                              " Nothing to do.");
+        QMessageBox::critical(this, tr("Job scheduling"),
+                              tr("Looks like scheduling is already enabled."
+                              " Nothing to do."));
         return;
     }
     if (!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        QString msg("Cannot open file %1 for writing. Aborting operation.");
+        QString msg(tr("Failed to write service file %1. Aborting operation."));
         msg = msg.arg(launchdPlistFile.fileName());
         DEBUG << msg;
-        QMessageBox::critical(this, "Failed two write service file", msg);
+        QMessageBox::critical(this, tr("Job scheduling"), msg);
         return;
     }
     launchdPlistFile.write(launchdPlist
@@ -904,9 +905,9 @@ void MainWindow::enableJobScheduling()
     if((launchctl.exitStatus() != QProcess::NormalExit)
        || (launchctl.exitCode() != 0))
     {
-        QString msg("Failed to load launchd plist file");
+        QString msg(tr("Failed to load launchd service file."));
         DEBUG << msg;
-        QMessageBox::critical(this, "Launchd command failed", msg);
+        QMessageBox::critical(this, tr("Job scheduling"), msg);
         return;
     }
 
@@ -915,15 +916,15 @@ void MainWindow::enableJobScheduling()
     if((launchctl.exitStatus() != QProcess::NormalExit)
        || (launchctl.exitCode() != 0))
     {
-        QString msg("Failed to start launchd service");
+        QString msg(tr("Failed to start launchd service."));
         DEBUG << msg;
-        QMessageBox::critical(this, "Launchd command failed", msg);
+        QMessageBox::critical(this, tr("Job scheduling"), msg);
         return;
     }
 #elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
 
-    auto confirm = QMessageBox::question(this, "Confirm action",
-                                         "Register Tarsnap GUI with cron?");
+    auto confirm = QMessageBox::question(this, tr("Job scheduling"),
+                                         tr("Register Tarsnap GUI with cron?"));
     if(confirm != QMessageBox::Yes)
         return;
 

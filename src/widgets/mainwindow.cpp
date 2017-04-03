@@ -1327,41 +1327,47 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
         }
     }
 
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setText(tr("There are %1 running tasks and %2 queued.")
                        .arg(runningTasks)
                        .arg(queuedTasks));
     msgBox.setInformativeText(tr("What do you want to do?"));
-    QPushButton *interruptBackup = nullptr;
+
+    QPushButton actionButton(&msgBox);
+    actionButton.setText(tr("Choose action"));
+    QMenu actionMenu(&actionButton);
+
+    QAction interruptBackup;
+    interruptBackup.setCheckable(true);
     if(backupTaskRunning)
     {
         if(_aboutToQuit)
-        {
-            interruptBackup =
-                    msgBox.addButton(tr("Interrupt backup and clear queue"),
-                                     QMessageBox::ActionRole);
-        }
+            interruptBackup.setText(tr("Interrupt backup and clear queue"));
         else
-        {
-            interruptBackup = msgBox.addButton(tr("Interrupt backup"),
-                                               QMessageBox::ActionRole);
-        }
+            interruptBackup.setText(tr("Interrupt backup"));
+        actionMenu.addAction(&interruptBackup);
     }
-    QPushButton *stopRunning = nullptr;
+    QAction stopRunning(tr("Stop running"));
+    stopRunning.setCheckable(true);
     if(runningTasks && !_aboutToQuit)
-        stopRunning =
-            msgBox.addButton(tr("Stop running"), QMessageBox::ActionRole);
-    QPushButton *stopQueued = nullptr;
+        actionMenu.addAction(&stopRunning);
+    QAction stopQueued(tr("Cancel queued"));
+    stopQueued.setCheckable(true);
     if(queuedTasks && !_aboutToQuit)
-        stopQueued =
-            msgBox.addButton(tr("Cancel queued"), QMessageBox::ActionRole);
-    QPushButton *stopAll = nullptr;
+        actionMenu.addAction(&stopQueued);
+    QAction stopAll(tr("Stop all"));
+    stopAll.setCheckable(true);
     if(runningTasks || queuedTasks)
-        stopAll = msgBox.addButton(tr("Stop all"), QMessageBox::ActionRole);
+        actionMenu.addAction(&stopAll);
+    QAction proceedBackground(tr("Proceed in background"));
+    proceedBackground.setCheckable(true);
     if((runningTasks || queuedTasks) && _aboutToQuit)
-        msgBox.addButton(tr("Proceed in background"), QMessageBox::ActionRole);
+        actionMenu.addAction(&proceedBackground);
     QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
     msgBox.setDefaultButton(cancel);
+    connect(&actionMenu, &QMenu::triggered, &msgBox, &QDialog::accept, Qt::QueuedConnection);
+    actionButton.setMenu(&actionMenu);
+    msgBox.addButton(&actionButton, QMessageBox::ActionRole);
     msgBox.exec();
 
     if((msgBox.clickedButton() == cancel) && _aboutToQuit)
@@ -1373,13 +1379,13 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
         close();
     }
 
-    if(msgBox.clickedButton() == interruptBackup)
+    if(interruptBackup.isChecked())
         emit stopTasks(true, false, _aboutToQuit);
-    else if(msgBox.clickedButton() == stopQueued)
+    else if(stopQueued.isChecked())
         emit stopTasks(false, false, true);
-    else if(msgBox.clickedButton() == stopRunning)
+    else if(stopRunning.isChecked())
         emit stopTasks(false, true, false);
-    else if(msgBox.clickedButton() == stopAll)
+    else if(stopAll.isChecked())
         emit stopTasks(false, true, true);
 }
 

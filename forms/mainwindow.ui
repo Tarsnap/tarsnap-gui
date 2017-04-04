@@ -235,7 +235,7 @@ background-color: rgba(237,243,254,255);
                  <string notr="true"/>
                 </property>
                 <property name="placeholderText">
-                 <string>backup name</string>
+                 <string>archive name</string>
                 </property>
                 <property name="clearButtonEnabled">
                  <bool>true</bool>

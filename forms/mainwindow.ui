@@ -497,9 +497,6 @@ selection-background-color: rgba(177,214,255,150);
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="toolTip">
-                  <string>Archive details</string>
-                 </property>
                  <property name="styleSheet">
                   <string notr="true">#archiveWidget {
 /*background: transparent;*/

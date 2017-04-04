@@ -73,14 +73,77 @@
       <number>6</number>
      </property>
      <property name="topMargin">
-      <number>6</number>
+      <number>0</number>
      </property>
      <property name="rightMargin">
       <number>6</number>
      </property>
+     <property name="bottomMargin">
+      <number>3</number>
+     </property>
      <property name="spacing">
       <number>6</number>
      </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="archiveJobLabelField">
+       <property name="toolTip">
+        <string>Job name</string>
+       </property>
+       <property name="text">
+        <string>Job:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0" colspan="3">
+      <widget class="ElidedLabel" name="infoLabel">
+       <property name="font">
+        <font>
+         <italic>true</italic>
+        </font>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="elide" stdset="0">
+        <string notr="true">Qt::ElideRight</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="2">
+      <widget class="QLineEdit" name="archiveCommandLineEdit">
+       <property name="toolTip">
+        <string>Command used to create the archive</string>
+       </property>
+       <property name="text">
+        <string notr="true"/>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="archiveSizeLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Original backup size</string>
+       </property>
+       <property name="text">
+        <string notr="true"/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
      <item row="3" column="0">
       <widget class="QLabel" name="archiveSizeLabelField">
        <property name="sizePolicy">
@@ -94,6 +157,47 @@
        </property>
        <property name="text">
         <string>Archive size:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::NoTextInteraction</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="archiveDateLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Date when this Archive was created</string>
+       </property>
+       <property name="text">
+        <string notr="true"/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="nameLabelField">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Archive name</string>
+       </property>
+       <property name="text">
+        <string>Name:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -125,32 +229,21 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2" rowspan="5">
-      <widget class="QLabel" name="archiveIconLabel">
-       <property name="minimumSize">
-        <size>
-         <width>128</width>
-         <height>128</height>
-        </size>
+     <item row="5" column="0">
+      <widget class="QLabel" name="commandLabel">
+       <property name="toolTip">
+        <string>Command used to create the archive</string>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>128</width>
-         <height>128</height>
-        </size>
+       <property name="text">
+        <string>Command:</string>
        </property>
-       <property name="styleSheet">
-        <string notr="true">#archiveIconLabel {
-image: url(:/icons/tarsnap-icon-big.png);
-}</string>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::NoTextInteraction</set>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="archiveDateLabel">
+     <item row="4" column="1">
+      <widget class="QLabel" name="archiveUniqueDataLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -158,7 +251,7 @@ image: url(:/icons/tarsnap-icon-big.png);
         </sizepolicy>
        </property>
        <property name="toolTip">
-        <string>Date when this Archive was created</string>
+        <string>Actual size occupied on Tarsnap server</string>
        </property>
        <property name="text">
         <string notr="true"/>
@@ -190,16 +283,10 @@ image: url(:/icons/tarsnap-icon-big.png);
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QLabel" name="archiveSizeLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
+     <item row="1" column="1">
+      <widget class="ElidedLabel" name="archiveNameLabel">
        <property name="toolTip">
-        <string>Original backup size</string>
+        <string>Archive name</string>
        </property>
        <property name="text">
         <string notr="true"/>
@@ -207,9 +294,36 @@ image: url(:/icons/tarsnap-icon-big.png);
        <property name="textInteractionFlags">
         <set>Qt::TextSelectableByMouse</set>
        </property>
+       <property name="elide" stdset="0">
+        <string notr="true">Qt::ElideMiddle</string>
+       </property>
       </widget>
      </item>
-     <item row="0" column="1">
+     <item row="1" column="2" rowspan="4">
+      <widget class="QLabel" name="archiveIconLabel">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#archiveIconLabel {
+image: url(:/icons/tarsnap-icon-big.png);
+}</string>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::NoTextInteraction</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="2">
       <widget class="ElidedLabel" name="archiveJobLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -240,118 +354,14 @@ color: blue;
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="archiveJobLabelField">
-       <property name="toolTip">
-        <string>Job name</string>
-       </property>
-       <property name="text">
-        <string>Job:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1" colspan="2">
-      <widget class="QLineEdit" name="archiveCommandLineEdit">
-       <property name="toolTip">
-        <string>Command used to create the archive</string>
-       </property>
-       <property name="text">
-        <string notr="true"/>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="commandLabel">
-       <property name="toolTip">
-        <string>Command used to create the archive</string>
-       </property>
-       <property name="text">
-        <string>Command:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="nameLabelField">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>Archive name</string>
-       </property>
-       <property name="text">
-        <string>Name:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::NoTextInteraction</set>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="archiveUniqueDataLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>Actual size occupied on Tarsnap server</string>
-       </property>
-       <property name="text">
-        <string notr="true"/>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::TextSelectableByMouse</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="ElidedLabel" name="archiveNameLabel">
-       <property name="toolTip">
-        <string>Archive name</string>
-       </property>
-       <property name="text">
-        <string notr="true"/>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::TextSelectableByMouse</set>
-       </property>
-       <property name="elide" stdset="0">
-        <string notr="true">Qt::ElideMiddle</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0" colspan="3">
-      <widget class="ElidedLabel" name="infoLabel">
-       <property name="font">
-        <font>
-         <italic>true</italic>
-        </font>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-       <property name="elide" stdset="0">
-        <string notr="true">Qt::ElideRight</string>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </item>
+   <item>
+    <widget class="Line" name="horizontalLine">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="contentsHorizontalLayout">

@@ -718,6 +718,7 @@ void TaskManager::fsckFinished(QVariant data, int exitCode, QString output)
         emit message(tr("Cache repair failed. Hover mouse for details."), output);
         parseError(output);
     }
+    getArchives();
 }
 
 void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
@@ -727,7 +728,6 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
     {
         emit message(tr("All archives purged successfully."), output);
         fsck();
-        getArchives();
     }
     else
     {

@@ -218,6 +218,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archiveListWidget->addAction(_ui.actionDelete);
     _ui.archiveListWidget->addAction(_ui.actionRestore);
     _ui.archiveListWidget->addAction(_ui.actionFilterArchives);
+    _ui.archivesFilterButton->setDefaultAction(_ui.actionFilterArchives);
     connect(this, &MainWindow::archiveList, _ui.archiveListWidget,
             &ArchiveListWidget::setArchives);
     connect(this, &MainWindow::addArchive, _ui.archiveListWidget,
@@ -387,6 +388,12 @@ MainWindow::MainWindow(QWidget *parent)
             Translator &translator = Translator::instance();
             translator.translateApp(qApp, language);
         }
+    });
+    connect(this, &MainWindow::archiveList, this,
+            [&](const QList<ArchivePtr> archives)
+    {
+        _ui.archivesCountLabel->setText(tr("Archives (%1)")
+                                        .arg(archives.count()));
     });
 }
 
@@ -731,7 +738,7 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui.busyWidget->animate();
 }
 
-void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed,
+void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                                        quint64 sizeUniqueTotal,
                                        quint64 sizeUniqueCompressed,
                                        quint64 archiveCount)
@@ -755,6 +762,7 @@ void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed
         Utils::humanBytes(storageSaved));
     _ui.accountStorageSavedLabel->setToolTip(tooltip);
     _ui.accountArchivesCountLabel->setText(QString::number(archiveCount));
+    _ui.archivesCountLabel->setText(tr("Archives (%1)").arg(archiveCount));
 }
 
 void MainWindow::updateTarsnapVersion(QString versionString)
@@ -1558,6 +1566,9 @@ void MainWindow::updateUi()
     _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip()
                                  .arg(_ui.actionAddJob->shortcut()
                                       .toString(QKeySequence::NativeText)));
+    _ui.actionFilterArchives->setToolTip(_ui.actionFilterArchives->toolTip()
+                                         .arg(_ui.actionFilterArchives->shortcut()
+                                              .toString(QKeySequence::NativeText)));
     _ui.archivesFilter->setToolTip(_ui.archivesFilter->toolTip()
                                    .arg(_ui.actionFilterArchives->shortcut()
                                         .toString(QKeySequence::NativeText)));

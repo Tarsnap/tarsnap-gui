@@ -179,7 +179,7 @@ void CoreApplication::showMainWindow()
     connect(_mainWindow, &MainWindow::getOverallStats, &_taskManager,
             &TaskManager::getOverallStats, QUEUED);
     connect(&_taskManager, &TaskManager::overallStats, _mainWindow,
-            &MainWindow::updateSettingsSummary, QUEUED);
+            &MainWindow::overallStatsChanged, QUEUED);
     connect(_mainWindow, &MainWindow::repairCache, &_taskManager,
             &TaskManager::fsck, QUEUED);
     connect(_mainWindow, &MainWindow::purgeArchives, &_taskManager,

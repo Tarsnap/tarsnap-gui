@@ -386,7 +386,7 @@ text-align: center;
           </attribute>
           <layout class="QVBoxLayout" name="archivesVerticalLayout">
            <property name="spacing">
-            <number>3</number>
+            <number>0</number>
            </property>
            <property name="leftMargin">
             <number>3</number>
@@ -401,13 +401,92 @@ text-align: center;
             <number>0</number>
            </property>
            <item>
+            <widget class="QWidget" name="archivesHeader" native="true">
+             <property name="styleSheet">
+              <string notr="true">#archivesHeader {
+border-top: 2px groove darkgrey;
+border-left: 2px groove darkgrey;
+border-right: 2px ridge darkgrey;
+border-bottom: 0px;
+background: rgba(246,246,246,255);
+}</string>
+             </property>
+             <layout class="QHBoxLayout" name="archivesHeaderHL">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>3</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>3</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="archivesCountLabel">
+                <property name="text">
+                 <string>Archives</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="archivesFilterButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>16</width>
+                  <height>16</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16</width>
+                  <height>16</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QToolButton {
+border: none;
+background: none;
+}
+
+QToolButton:checked {
+background: darkgrey;
+}</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../resources/resources.qrc">
+                  <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+F</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
             <widget class="QComboBox" name="archivesFilter">
              <property name="toolTip">
               <string>Search and filter the Archives list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QComboBox {
-border: 1px solid darkgrey;
+border-top: 2px groove darkgrey;
+border-left: 2px groove darkgrey;
+border-right: 2px ridge darkgrey;
+border-bottom: 0px;
 padding-right: 6px;
 padding-left: 6px;
 }
@@ -519,7 +598,7 @@ selection-background-color: rgba(177,214,255,150);
           </attribute>
           <layout class="QVBoxLayout" name="jobsVerticalLayout">
            <property name="spacing">
-            <number>3</number>
+            <number>0</number>
            </property>
            <property name="leftMargin">
             <number>3</number>
@@ -540,7 +619,10 @@ selection-background-color: rgba(177,214,255,150);
              </property>
              <property name="styleSheet">
               <string notr="true">QComboBox {
-border: 1px solid darkgrey;
+border-top: 2px groove darkgrey;
+border-left: 2px groove darkgrey;
+border-right: 2px ridge darkgrey;
+border-bottom: 0px;
 padding-right: 6px;
 padding-left: 6px;
 }
@@ -816,8 +898,8 @@ text-align: center;
           <property name="styleSheet">
            <string notr="true">#settingsTab
 {
-border-top: 1px solid darkgrey;
-margin-left: 3px;
+border-top: 2px groove darkgrey;
+margin-left: 9px;
 margin-right: 3px;
 }</string>
           </property>
@@ -1999,8 +2081,8 @@ color: blue;
           <property name="styleSheet">
            <string notr="true">#helpTab
 {
-border-top: 1px solid darkgrey;
-margin-left: 3px;
+border-top: 2px groove darkgrey;
+margin-left: 9px;
 margin-right: 3px;
 }
 #helpTab QGroupBox {
@@ -2685,11 +2767,18 @@ border: none;
    </property>
   </action>
   <action name="actionFilterArchives">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+   </property>
    <property name="text">
     <string>Filter and search</string>
    </property>
    <property name="toolTip">
-    <string>Filter and search Archives list</string>
+    <string>Search and filter Archives list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>

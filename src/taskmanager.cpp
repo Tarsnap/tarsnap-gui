@@ -395,7 +395,7 @@ void TaskManager::initializeCache()
     if(!tarsnapCacheDir.isEmpty() &&
        !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count())
     {
-        if(!Utils::tarsnapVersionMinimum("1.0.37"))
+        if(!Utils::tarsnapVersionMinimum("1.0.38"))
         {
             DEBUG << "Tarsnap CLI version 1.0.38 or higher required to use "
                      "--initialize-cachedir.";

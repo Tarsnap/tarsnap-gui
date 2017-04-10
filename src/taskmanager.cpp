@@ -38,10 +38,9 @@ void TaskManager::registerMachine(QString user, QString password,
 {
     TarsnapTask *registerTask = new TarsnapTask();
     QStringList  args;
-    QFileInfo    keyFile(key);
-    if(keyFile.exists())
+    if(QFileInfo(key).exists())
     {
-        // existing key, just check with a tarsnap --print-stats command
+        // existing key, attempt to rebuild cache & verify archive integrity
         args << "--fsck-prune"
              << "--keyfile" << key << "--cachedir" << cachePath;
         registerTask->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
@@ -49,7 +48,7 @@ void TaskManager::registerMachine(QString user, QString password,
     }
     else
     {
-        // register machine with tarsnap-keygen
+        // generate a new key and register machine with tarsnap-keygen
         args << "--user" << user << "--machine" << machine << "--keyfile" << key;
         registerTask->setCommand(tarsnapPath + QDir::separator() +
                                  CMD_TARSNAPKEYGEN);
@@ -390,18 +389,30 @@ void TaskManager::getKeyId(QString key)
 
 void TaskManager::initializeCache()
 {
-    if(!Utils::tarsnapVersionMinimum("1.0.38"))
+    QSettings settings;
+    QString tarsnapCacheDir = settings.value("tarsnap/cache").toString();
+    QDir cacheDir(tarsnapCacheDir);
+    if(!tarsnapCacheDir.isEmpty() &&
+       !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count())
     {
-        DEBUG << "Tarsnap CLI version 1.0.38 or higher required to use "
-                 "--initialize-cachedir.";
-        return;
+        if(!Utils::tarsnapVersionMinimum("1.0.37"))
+        {
+            DEBUG << "Tarsnap CLI version 1.0.38 or higher required to use "
+                     "--initialize-cachedir.";
+            return;
+        }
+        TarsnapTask *initTask = new TarsnapTask();
+        QStringList  args;
+        initTarsnapArgs(args);
+        args << "--initialize-cachedir";
+        initTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+        initTask->setArguments(args);
+        queueTask(initTask);
     }
-    TarsnapTask *initTask = new TarsnapTask();
-    QStringList  args;
-    args << "--initialize-cachedir";
-    initTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    initTask->setArguments(args);
-    queueTask(initTask);
+    else
+    {
+        fsck(true);
+    }
 }
 
 void TaskManager::findMatchingArchives(QString jobPrefix)

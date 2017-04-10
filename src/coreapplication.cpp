@@ -95,6 +95,8 @@ bool CoreApplication::initialize()
                 &TaskManager::registerMachine);
         connect(&_taskManager, &TaskManager::registerMachineStatus, &wizard,
                 &SetupDialog::registerMachineStatus);
+        connect(&wizard, &SetupDialog::initializeCache, &_taskManager,
+                &TaskManager::initializeCache);
         connect(&_taskManager, &TaskManager::idle, &wizard,
                 &SetupDialog::updateLoadingAnimation);
 
@@ -121,8 +123,6 @@ bool CoreApplication::initialize()
     connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
             QUEUED);
 
-    if(!wizardDone)
-        QMetaObject::invokeMethod(&_taskManager, "initializeCache", QUEUED);
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
     if(_jobsOption)

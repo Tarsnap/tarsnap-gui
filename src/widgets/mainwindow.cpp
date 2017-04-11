@@ -562,7 +562,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             {
                 if(_ui.archivesFilter->currentText().isEmpty())
                 {
-                    _ui.archivesFilter->hide();
+                    _ui.actionFilterArchives->trigger();
                 }
                 else
                 {

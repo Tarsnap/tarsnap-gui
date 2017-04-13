@@ -141,9 +141,22 @@ void ArchiveWidget::closeEvent(QCloseEvent *event)
 void ArchiveWidget::keyPressEvent(QKeyEvent *event)
 {
     if((event->key() == Qt::Key_Escape) && _ui.filterComboBox->isVisible())
-        _ui.filterButton->toggle();
+    {
+        if(_ui.filterComboBox->currentText().isEmpty())
+        {
+            _ui.filterButton->toggle();
+        }
+        else
+        {
+            _ui.filterComboBox->clearEditText();
+            _ui.filterComboBox->setFocus();
+        }
+
+    }
     else
+    {
         QWidget::keyPressEvent(event);
+    }
 }
 
 void ArchiveWidget::changeEvent(QEvent *event)

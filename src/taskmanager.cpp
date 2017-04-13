@@ -641,11 +641,17 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
         return;
     }
 
+    QString detailText;
     if(exitCode != SUCCESS)
     {
+        int lastIndex = output.lastIndexOf(
+                         QLatin1String("tarsnap: Truncated input file"), -1,
+                                        Qt::CaseSensitive);
         if(archive->name().endsWith(".part", Qt::CaseSensitive)
-           && output.contains("Truncated input file"))
+           && (lastIndex != -1))
         {
+            detailText = output.mid(lastIndex);
+            output.remove(lastIndex, output.size() - 1);
             archive->setTruncated(true);
         }
         else
@@ -660,7 +666,7 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
     }
 
     emit message(tr("Fetching contents for archive <i>%1</i>... done.")
-                 .arg(archive->name()));
+                 .arg(archive->name()), detailText);
     archive->setContents(output);
     archive->save();
 }

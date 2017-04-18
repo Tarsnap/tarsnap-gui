@@ -485,32 +485,49 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
     }
     backupTask->setExitCode(exitCode);
     backupTask->setOutput(output);
-    if(exitCode == SUCCESS)
+    bool truncated = false;
+
+    if(exitCode != SUCCESS)
     {
-        ArchivePtr archive(new Archive);
-        archive->setName(backupTask->name());
-        archive->setCommand(backupTask->command());
-        // Lose milliseconds precision by converting to Unix timestamp and back.
-        // So that a subsequent comparison in getArchiveListFinished won't fail.
-        archive->setTimestamp(QDateTime::fromTime_t(backupTask->timestamp().toTime_t()));
-        archive->setJobRef(backupTask->jobRef());
-        parseArchiveStats(output, true, archive);
-        backupTask->setArchive(archive);
-        backupTask->setStatus(TaskStatus::Completed);
-        _archiveMap.insert(archive->name(), archive);
-        foreach(JobPtr job, _jobMap)
+        int lastIndex = output.lastIndexOf(
+                        QLatin1String("tarsnap: Archive truncated"), -1,
+                                      Qt::CaseSensitive);
+        if(lastIndex == -1)
         {
-            if(job->objectKey() == archive->jobRef())
-                emit job->loadArchives();
+            backupTask->setStatus(TaskStatus::Failed);
+            parseError(output);
+            return;
         }
-        emit addArchive(archive);
-        parseGlobalStats(output);
+        else
+        {
+            truncated = true;
+        }
     }
-    else
+
+    ArchivePtr archive(new Archive);
+    archive->setName(backupTask->name());
+    if(truncated)
     {
-        backupTask->setStatus(TaskStatus::Failed);
-        parseError(output);
+        archive->setName(archive->name().append(".part"));
+        archive->setTruncated(true);
     }
+    archive->setCommand(backupTask->command());
+    // Lose milliseconds precision by converting to Unix timestamp and back.
+    // So that a subsequent comparison in getArchiveListFinished won't fail.
+    archive->setTimestamp(QDateTime::fromTime_t(backupTask->timestamp().toTime_t()));
+    archive->setJobRef(backupTask->jobRef());
+    parseArchiveStats(output, true, archive);
+    archive->save();
+    backupTask->setArchive(archive);
+    backupTask->setStatus(TaskStatus::Completed);
+    _archiveMap.insert(archive->name(), archive);
+    foreach(JobPtr job, _jobMap)
+    {
+        if(job->objectKey() == archive->jobRef())
+            emit job->loadArchives();
+    }
+    emit addArchive(archive);
+    parseGlobalStats(output);
 }
 
 void TaskManager::backupTaskStarted(QVariant data)

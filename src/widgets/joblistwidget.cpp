@@ -150,11 +150,13 @@ void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
 
 void JobListWidget::setJobs(QMap<QString, JobPtr> jobs)
 {
+    setUpdatesEnabled(false);
     clear();
     foreach(JobPtr job, jobs)
     {
         addJob(job);
     }
+    setUpdatesEnabled(true);
 }
 
 void JobListWidget::addJob(JobPtr job)
@@ -206,6 +208,7 @@ void JobListWidget::deleteSelectedItem()
 
 void JobListWidget::setFilter(QString regex)
 {
+    setUpdatesEnabled(false);
     clearSelection();
     _filter.setPattern(regex);
     for(int i = 0; i < count(); ++i)
@@ -220,6 +223,7 @@ void JobListWidget::setFilter(QString regex)
                 jobItem->setHidden(true);
         }
     }
+    setUpdatesEnabled(true);
 }
 
 void JobListWidget::keyPressEvent(QKeyEvent *event)

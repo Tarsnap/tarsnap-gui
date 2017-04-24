@@ -166,6 +166,7 @@ void ArchiveListWidget::restoreSelectedItem()
 
 void ArchiveListWidget::setFilter(QString regex)
 {
+    setUpdatesEnabled(false);
     clearSelection();
     _filter.setPattern(regex);
     for(int i = 0; i < count(); ++i)
@@ -180,6 +181,7 @@ void ArchiveListWidget::setFilter(QString regex)
                 archiveItem->setHidden(true);
         }
     }
+    setUpdatesEnabled(true);
 }
 
 void ArchiveListWidget::removeItem()

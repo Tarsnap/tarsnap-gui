@@ -391,7 +391,7 @@ color: blue;
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="filterButton">
+      <widget class="QToolButton" name="filterButton">
        <property name="minimumSize">
         <size>
          <width>16</width>
@@ -407,6 +407,17 @@ color: blue;
        <property name="toolTip">
         <string>Show/hide search and filter Archive contents box &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+border: transparent;
+background: none;
+padding: 2px;
+}
+
+QToolButton:checked {
+border: 1px solid darkgrey;
+}</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -418,9 +429,6 @@ color: blue;
         <string>Ctrl+Shift+F</string>
        </property>
        <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>

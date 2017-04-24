@@ -45,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archiveDetailsWidget->hide();
     _ui.jobDetailsWidget->hide();
     _ui.outOfDateNoticeLabel->hide();
-    _ui.archivesFilter->hide();
+    _ui.archivesFilterFrame->hide();
     _ui.jobsFilter->hide();
 
 #ifdef Q_OS_OSX
@@ -353,7 +353,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(_ui.actionFilterArchives, &QAction::triggered, [&]()
     {
-        _ui.archivesFilter->setVisible(!_ui.archivesFilter->isVisible());
+        _ui.archivesFilterFrame->setVisible(!_ui.archivesFilterFrame->isVisible());
         if(_ui.archivesFilter->isVisible())
             _ui.archivesFilter->setFocus();
         else

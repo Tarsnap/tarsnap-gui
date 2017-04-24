@@ -49,6 +49,9 @@ signals:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! Notify that the job details should be displayed.
     void displayJobDetails(QString jobRef);
+    //! Notify the total and visible (not hidden) items count on list change
+    //! (item added, removed or hidden).
+    void countChanged(int countTotal, int countVisible);
 
 protected:
     //! Handles the delete and escape keys; passes other events on.
@@ -63,6 +66,7 @@ private slots:
 
 private:
     void insertArchive(ArchivePtr archive, int pos);
+    int  visibleItemsCount();
 
     QRegExp _filter;
 };

@@ -182,13 +182,17 @@ void ArchiveListWidget::setFilter(QString regex)
         }
     }
     setUpdatesEnabled(true);
+    emit countChanged(count(), visibleItemsCount());
 }
 
 void ArchiveListWidget::removeItem()
 {
     ArchiveListWidgetItem *archiveItem = qobject_cast<ArchiveListWidgetItem *>(sender());
     if(archiveItem)
+    {
         delete archiveItem; // Removes item from the list
+        emit countChanged(count(), visibleItemsCount());
+    }
 }
 
 void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
@@ -207,6 +211,18 @@ void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
     insertItem(pos, item);
     setItemWidget(item, item->widget());
     item->setHidden(!archive->name().contains(_filter));
+    emit countChanged(count(), visibleItemsCount());
+}
+
+int ArchiveListWidget::visibleItemsCount()
+{
+    int count = 0;
+    foreach(QListWidgetItem *item, findItems("*", Qt::MatchWildcard))
+    {
+        if(item && !item->isHidden())
+            count++;
+    }
+    return count;
 }
 
 void ArchiveListWidget::inspectItem()

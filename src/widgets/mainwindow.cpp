@@ -389,11 +389,11 @@ MainWindow::MainWindow(QWidget *parent)
             translator.translateApp(qApp, language);
         }
     });
-    connect(this, &MainWindow::archiveList, this,
-            [&](const QList<ArchivePtr> archives)
+    connect(_ui.archiveListWidget, &ArchiveListWidget::countChanged, this,
+            [&](int total, int visible)
     {
-        _ui.archivesCountLabel->setText(tr("Archives (%1)")
-                                        .arg(archives.count()));
+        _ui.archivesCountLabel->setText(tr("Archives (%1/%2)")
+                                        .arg(visible).arg(total));
     });
 }
 
@@ -764,7 +764,6 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
         Utils::humanBytes(storageSaved));
     _ui.accountStorageSavedLabel->setToolTip(tooltip);
     _ui.accountArchivesCountLabel->setText(QString::number(archiveCount));
-    _ui.archivesCountLabel->setText(tr("Archives (%1)").arg(archiveCount));
 }
 
 void MainWindow::updateTarsnapVersion(QString versionString)

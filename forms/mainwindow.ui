@@ -2539,7 +2539,7 @@ border: none;
     <string>Clear list</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Backspace, Ctrl+Del</string>
+    <string>Ctrl+Backspace</string>
    </property>
   </action>
   <action name="actionBrowseItems">

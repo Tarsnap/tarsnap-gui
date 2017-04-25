@@ -27,16 +27,16 @@ void JobListWidget::backupSelectedItems()
     auto confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Initiate backup for the %1 selected job(s)?")
-                                  .arg(selectedItems().count()));
-    if(confirm == QMessageBox::Yes)
+                              .arg(selectedItems().count()));
+    if(confirm != QMessageBox::Yes)
+        return;
+
+    foreach(QListWidgetItem *item, selectedItems())
     {
-        foreach(QListWidgetItem *item, selectedItems())
+        if(item->isSelected())
         {
-            if(item->isSelected())
-            {
-                JobPtr job = static_cast<JobListWidgetItem *>(item)->job();
-                emit backupJob(job);
-            }
+            JobPtr job = static_cast<JobListWidgetItem *>(item)->job();
+            emit backupJob(job);
         }
     }
 }
@@ -132,26 +132,38 @@ void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
 
     JobPtr job   = jobItem->job();
     auto confirm = QMessageBox::question(this, tr("Confirm action"),
-                                         tr("Are you sure you want to delete job"
-                                            " \"%1\" (this cannot be undone)?")
+                                         tr("Are you sure you want to "
+                                            "delete job \"%1\" "
+                                            "(this cannot be undone)?")
                                          .arg(job->name()));
-    if(confirm == QMessageBox::Yes)
+    if(confirm != QMessageBox::Yes)
+        return;
+
+    bool purgeArchives = false;
+    if(!job->archives().isEmpty())
     {
-        bool purgeArchives = false;
-        if(!job->archives().isEmpty())
-        {
-            auto confirmArchives = QMessageBox::question(this,
-                                          tr("Confirm action"),
-                                          tr("Also delete %1 archives "
-                                             "belonging to this job (this "
-                                             "cannot be undone)?")
-                                          .arg(job->archives().count()));
-            if(confirmArchives == QMessageBox::Yes)
-                purgeArchives = true;
-        }
-        emit deleteJob(job, purgeArchives);
-        delete jobItem;
+        auto delArchives = QMessageBox::question(this, tr("Confirm action"),
+                                                 tr("Also delete %1 archives "
+                                                    "belonging to this job "
+                                                    "(this cannot be undone)?")
+                                                 .arg(job->archives().count()));
+        if(delArchives == QMessageBox::Yes)
+            purgeArchives = true;
     }
+    emit deleteJob(job, purgeArchives);
+    delete jobItem;
+    emit countChanged(count(), visibleItemsCount());
+}
+
+int JobListWidget::visibleItemsCount()
+{
+    int count = 0;
+    foreach(QListWidgetItem *item, findItems("*", Qt::MatchWildcard))
+    {
+        if(item && !item->isHidden())
+            count++;
+    }
+    return count;
 }
 
 void JobListWidget::setJobs(QMap<QString, JobPtr> jobs)
@@ -199,7 +211,8 @@ void JobListWidget::restoreSelectedItem()
 {
     if(!selectedItems().isEmpty())
     {
-        JobPtr job = static_cast<JobListWidgetItem *>(selectedItems().first())->job();
+        JobPtr job =
+               static_cast<JobListWidgetItem *>(selectedItems().first())->job();
         if(!job->archives().isEmpty())
         {
             ArchivePtr    archive = job->archives().first();
@@ -234,6 +247,7 @@ void JobListWidget::setFilter(QString regex)
         }
     }
     setUpdatesEnabled(true);
+    emit countChanged(count(), visibleItemsCount());
 }
 
 void JobListWidget::keyPressEvent(QKeyEvent *event)

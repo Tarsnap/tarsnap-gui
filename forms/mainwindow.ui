@@ -481,9 +481,6 @@ border: 1px solid darkgrey;
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <property name="leftMargin">
                <number>0</number>
@@ -636,16 +633,110 @@ selection-background-color: rgba(177,214,255,150);
             <number>0</number>
            </property>
            <item>
-            <widget class="QComboBox" name="jobsFilter">
-             <property name="toolTip">
-              <string>Search and filter the Jobs list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-             </property>
+            <widget class="QFrame" name="jobsHeader">
              <property name="styleSheet">
-              <string notr="true">QComboBox {
-border-top: 2px groove darkgrey;
-border-left: 2px groove darkgrey;
-border-right: 2px ridge darkgrey;
-border-bottom: 0px;
+              <string notr="true">#jobsHeader {
+background: rgba(246,246,246,255);
+margin-bottom: -1px;
+}</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <layout class="QHBoxLayout" name="archivesHeaderHL_2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>3</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>3</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="jobsCountLabel">
+                <property name="text">
+                 <string>Jobs</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="jobsFilterButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>16</width>
+                  <height>16</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16</width>
+                  <height>16</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QToolButton {
+border: transparent;
+padding: 2px;
+}
+
+QToolButton:checked {
+border: 1px solid darkgrey;
+}</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../resources/resources.qrc">
+                  <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+F</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="jobsFilterFrame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QComboBox" name="jobsFilter">
+                <property name="toolTip">
+                 <string>Search and filter the Jobs list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QComboBox {
+border: none;
 padding-right: 6px;
 padding-left: 6px;
 }
@@ -663,10 +754,13 @@ QComboBox::down-arrow:on {
 top: 1px;
 left: 1px;
 }</string>
-             </property>
-             <property name="editable">
-              <bool>true</bool>
-             </property>
+                </property>
+                <property name="editable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
@@ -2834,11 +2928,18 @@ border: none;
    </property>
   </action>
   <action name="actionFilterJobs">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+   </property>
    <property name="text">
     <string>Filter and search</string>
    </property>
    <property name="toolTip">
-    <string>Filter and search Jobs list</string>
+    <string>Search and filter Jobs list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>

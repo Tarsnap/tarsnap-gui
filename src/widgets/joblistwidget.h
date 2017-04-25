@@ -57,6 +57,9 @@ signals:
     //! \param purgeArchives: if true, delete all archives belonging
     //!        to this job.
     void deleteJob(JobPtr job, bool purgeArchives);
+    //! Notify the total and visible (not hidden) items count on list change
+    //! (item added, removed or hidden).
+    void countChanged(int countTotal, int countVisible);
 
 protected:
     //! Handles the delete and escape keys; passes other events on.
@@ -70,6 +73,7 @@ private slots:
 
 private:
     void execDeleteJob(JobListWidgetItem *jobItem);
+    int  visibleItemsCount();
 
     QRegExp _filter;
 };

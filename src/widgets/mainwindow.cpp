@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.jobDetailsWidget->hide();
     _ui.outOfDateNoticeLabel->hide();
     _ui.archivesFilterFrame->hide();
-    _ui.jobsFilter->hide();
+    _ui.jobsFilterFrame->hide();
 
 #ifdef Q_OS_OSX
     _ui.aboutButton->hide();
@@ -254,6 +254,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.jobListWidget->addAction(_ui.actionJobInspect);
     _ui.jobListWidget->addAction(_ui.actionJobRestore);
     _ui.jobListWidget->addAction(_ui.actionFilterJobs);
+    _ui.jobsFilterButton->setDefaultAction(_ui.actionFilterJobs);
     connect(_ui.addJobButton, &QToolButton::clicked, this,
             &MainWindow::addJobClicked);
     connect(_ui.jobDetailsWidget, &JobWidget::collapse, this,
@@ -361,7 +362,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(_ui.actionFilterJobs, &QAction::triggered, [&]()
     {
-        _ui.jobsFilter->setVisible(!_ui.jobsFilter->isVisible());
+        _ui.jobsFilterFrame->setVisible(!_ui.jobsFilterFrame->isVisible());
         if(_ui.jobsFilter->isVisible())
             _ui.jobsFilter->setFocus();
         else
@@ -394,6 +395,12 @@ MainWindow::MainWindow(QWidget *parent)
     {
         _ui.archivesCountLabel->setText(tr("Archives (%1/%2)")
                                         .arg(visible).arg(total));
+    });
+    connect(_ui.jobListWidget, &JobListWidget::countChanged, this,
+            [&](int total, int visible)
+    {
+        _ui.jobsCountLabel->setText(tr("Jobs (%1/%2)")
+                                    .arg(visible).arg(total));
     });
 }
 
@@ -583,7 +590,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             {
                 if(_ui.jobsFilter->currentText().isEmpty())
                 {
-                    _ui.jobsFilter->hide();
+                    _ui.actionFilterJobs->trigger();
                 }
                 else
                 {
@@ -1579,6 +1586,9 @@ void MainWindow::updateUi()
     _ui.archivesFilter->setToolTip(_ui.archivesFilter->toolTip()
                                    .arg(_ui.actionFilterArchives->shortcut()
                                         .toString(QKeySequence::NativeText)));
+    _ui.actionFilterJobs->setToolTip(_ui.actionFilterJobs->toolTip()
+                                         .arg(_ui.actionFilterJobs->shortcut()
+                                              .toString(QKeySequence::NativeText)));
     _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip()
                                    .arg(_ui.actionFilterJobs->shortcut()
                                         .toString(QKeySequence::NativeText)));

@@ -45,8 +45,8 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archiveDetailsWidget->hide();
     _ui.jobDetailsWidget->hide();
     _ui.outOfDateNoticeLabel->hide();
-    _ui.archivesFilter->hide();
-    _ui.jobsFilter->hide();
+    _ui.archivesFilterFrame->hide();
+    _ui.jobsFilterFrame->hide();
 
 #ifdef Q_OS_OSX
     _ui.aboutButton->hide();
@@ -222,6 +222,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archiveListWidget->addAction(_ui.actionDelete);
     _ui.archiveListWidget->addAction(_ui.actionRestore);
     _ui.archiveListWidget->addAction(_ui.actionFilterArchives);
+    _ui.archivesFilterButton->setDefaultAction(_ui.actionFilterArchives);
     connect(this, &MainWindow::archiveList, _ui.archiveListWidget,
             &ArchiveListWidget::setArchives);
     connect(this, &MainWindow::addArchive, _ui.archiveListWidget,
@@ -257,6 +258,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.jobListWidget->addAction(_ui.actionJobInspect);
     _ui.jobListWidget->addAction(_ui.actionJobRestore);
     _ui.jobListWidget->addAction(_ui.actionFilterJobs);
+    _ui.jobsFilterButton->setDefaultAction(_ui.actionFilterJobs);
     connect(_ui.addJobButton, &QToolButton::clicked, this,
             &MainWindow::addJobClicked);
     connect(_ui.jobDetailsWidget, &JobWidget::collapse, this,
@@ -356,7 +358,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(_ui.actionFilterArchives, &QAction::triggered, [&]()
     {
-        _ui.archivesFilter->setVisible(!_ui.archivesFilter->isVisible());
+        _ui.archivesFilterFrame->setVisible(!_ui.archivesFilterFrame->isVisible());
         if(_ui.archivesFilter->isVisible())
             _ui.archivesFilter->setFocus();
         else
@@ -364,7 +366,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(_ui.actionFilterJobs, &QAction::triggered, [&]()
     {
-        _ui.jobsFilter->setVisible(!_ui.jobsFilter->isVisible());
+        _ui.jobsFilterFrame->setVisible(!_ui.jobsFilterFrame->isVisible());
         if(_ui.jobsFilter->isVisible())
             _ui.jobsFilter->setFocus();
         else
@@ -391,6 +393,18 @@ MainWindow::MainWindow(QWidget *parent)
             Translator &translator = Translator::instance();
             translator.translateApp(qApp, language);
         }
+    });
+    connect(_ui.archiveListWidget, &ArchiveListWidget::countChanged, this,
+            [&](int total, int visible)
+    {
+        _ui.archivesCountLabel->setText(tr("Archives (%1/%2)")
+                                        .arg(visible).arg(total));
+    });
+    connect(_ui.jobListWidget, &JobListWidget::countChanged, this,
+            [&](int total, int visible)
+    {
+        _ui.jobsCountLabel->setText(tr("Jobs (%1/%2)")
+                                    .arg(visible).arg(total));
     });
 }
 
@@ -559,7 +573,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             {
                 if(_ui.archivesFilter->currentText().isEmpty())
                 {
-                    _ui.archivesFilter->hide();
+                    _ui.actionFilterArchives->trigger();
                 }
                 else
                 {
@@ -580,7 +594,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             {
                 if(_ui.jobsFilter->currentText().isEmpty())
                 {
-                    _ui.jobsFilter->hide();
+                    _ui.actionFilterJobs->trigger();
                 }
                 else
                 {
@@ -665,18 +679,20 @@ void MainWindow::setupMenuBar()
     backupMenu->addAction(_ui.actionBackupNow);
     backupMenu->addAction(_ui.actionCreateJob);
     QMenu *archivesMenu = _menuBar->addMenu(tr("&Archives"));
-    archivesMenu->addAction(_ui.actionRefresh);
     archivesMenu->addAction(_ui.actionInspect);
     archivesMenu->addAction(_ui.actionRestore);
     archivesMenu->addAction(_ui.actionDelete);
+    archivesMenu->addSeparator();
+    archivesMenu->addAction(_ui.actionRefresh);
     archivesMenu->addAction(_ui.actionFilterArchives);
     QMenu *jobsMenu = _menuBar->addMenu(tr("&Jobs"));
-    jobsMenu->addAction(_ui.actionAddJob);
-    jobsMenu->addAction(_ui.actionBackupAllJobs);
-    jobsMenu->addAction(_ui.actionJobBackup);
     jobsMenu->addAction(_ui.actionJobInspect);
     jobsMenu->addAction(_ui.actionJobRestore);
     jobsMenu->addAction(_ui.actionJobDelete);
+    jobsMenu->addSeparator();
+    jobsMenu->addAction(_ui.actionJobBackup);
+    jobsMenu->addAction(_ui.actionBackupAllJobs);
+    jobsMenu->addAction(_ui.actionAddJob);
     jobsMenu->addAction(_ui.actionFilterJobs);
     QMenu *settingsMenu = _menuBar->addMenu(tr("&Settings"));
     settingsMenu->addAction(_ui.actionRefreshAccount);
@@ -735,7 +751,7 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui.busyWidget->animate();
 }
 
-void MainWindow::updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed,
+void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                                        quint64 sizeUniqueTotal,
                                        quint64 sizeUniqueCompressed,
                                        quint64 archiveCount)
@@ -1186,7 +1202,7 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
     if(archive->contents().count() == 0)
         emit loadArchiveContents(archive);
 
-    _ui.archiveListWidget->setSelectedArchive(archive);
+    _ui.archiveListWidget->selectArchive(archive);
 
     _ui.archiveDetailsWidget->setArchive(archive);
     if(!_ui.archiveDetailsWidget->isVisible())
@@ -1627,41 +1643,53 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
         }
     }
 
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setText(tr("There are %1 running tasks and %2 queued.")
                        .arg(runningTasks)
                        .arg(queuedTasks));
     msgBox.setInformativeText(tr("What do you want to do?"));
-    QPushButton *interruptBackup = nullptr;
+
+    QPushButton actionButton(&msgBox);
+    actionButton.setText(tr("Choose action"));
+    QMenu actionMenu(&actionButton);
+    QAction *interruptBackup = nullptr;
     if(backupTaskRunning)
     {
         if(_aboutToQuit)
-        {
-            interruptBackup =
-                    msgBox.addButton(tr("Interrupt backup and clear queue"),
-                                     QMessageBox::ActionRole);
-        }
+            interruptBackup = actionMenu.addAction(tr("Interrupt backup and clear queue"));
         else
-        {
-            interruptBackup = msgBox.addButton(tr("Interrupt backup"),
-                                               QMessageBox::ActionRole);
-        }
+            interruptBackup = actionMenu.addAction(tr("Interrupt backup"));
+        interruptBackup->setCheckable(true);
     }
-    QPushButton *stopRunning = nullptr;
+    QAction *stopRunning = nullptr;
     if(runningTasks && !_aboutToQuit)
-        stopRunning =
-            msgBox.addButton(tr("Stop running"), QMessageBox::ActionRole);
-    QPushButton *stopQueued = nullptr;
+    {
+        stopRunning = actionMenu.addAction(tr("Stop running"));
+        stopRunning->setCheckable(true);
+    }
+    QAction *stopQueued = nullptr;
     if(queuedTasks && !_aboutToQuit)
-        stopQueued =
-            msgBox.addButton(tr("Cancel queued"), QMessageBox::ActionRole);
-    QPushButton *stopAll = nullptr;
+    {
+        stopQueued = actionMenu.addAction(tr("Cancel queued"));
+        stopQueued->setCheckable(true);
+    }
+    QAction *stopAll = nullptr;
     if(runningTasks || queuedTasks)
-        stopAll = msgBox.addButton(tr("Stop all"), QMessageBox::ActionRole);
+    {
+        stopAll = actionMenu.addAction(tr("Stop all"));
+        stopAll->setCheckable(true);
+    }
+    QAction *proceedBackground = nullptr;
     if((runningTasks || queuedTasks) && _aboutToQuit)
-        msgBox.addButton(tr("Proceed in background"), QMessageBox::ActionRole);
+    {
+        proceedBackground = actionMenu.addAction(tr("Proceed in background"));
+        proceedBackground->setCheckable(true);
+    }
     QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
     msgBox.setDefaultButton(cancel);
+    connect(&actionMenu, &QMenu::triggered, &msgBox, &QDialog::accept, Qt::QueuedConnection);
+    actionButton.setMenu(&actionMenu);
+    msgBox.addButton(&actionButton, QMessageBox::ActionRole);
     msgBox.exec();
 
     if((msgBox.clickedButton() == cancel) && _aboutToQuit)
@@ -1673,13 +1701,13 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
         close();
     }
 
-    if(msgBox.clickedButton() == interruptBackup)
+    if(interruptBackup && interruptBackup->isChecked())
         emit stopTasks(true, false, _aboutToQuit);
-    else if(msgBox.clickedButton() == stopQueued)
+    else if(stopQueued && stopQueued->isChecked())
         emit stopTasks(false, false, true);
-    else if(msgBox.clickedButton() == stopRunning)
+    else if(stopRunning && stopRunning->isChecked())
         emit stopTasks(false, true, false);
-    else if(msgBox.clickedButton() == stopAll)
+    else if(stopAll && stopAll->isChecked())
         emit stopTasks(false, true, true);
 }
 
@@ -1852,9 +1880,15 @@ void MainWindow::updateUi()
     _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip()
                                  .arg(_ui.actionAddJob->shortcut()
                                       .toString(QKeySequence::NativeText)));
+    _ui.actionFilterArchives->setToolTip(_ui.actionFilterArchives->toolTip()
+                                         .arg(_ui.actionFilterArchives->shortcut()
+                                              .toString(QKeySequence::NativeText)));
     _ui.archivesFilter->setToolTip(_ui.archivesFilter->toolTip()
                                    .arg(_ui.actionFilterArchives->shortcut()
                                         .toString(QKeySequence::NativeText)));
+    _ui.actionFilterJobs->setToolTip(_ui.actionFilterJobs->toolTip()
+                                         .arg(_ui.actionFilterJobs->shortcut()
+                                              .toString(QKeySequence::NativeText)));
     _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip()
                                    .arg(_ui.actionFilterJobs->shortcut()
                                         .toString(QKeySequence::NativeText)));

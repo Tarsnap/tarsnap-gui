@@ -48,6 +48,8 @@ signals:
     /// We need to determine the Tarsnap CLI version number.
     /// \param tarsnapPath: the path of the CLI app.
     void getTarsnapVersion(QString tarsnapPath);
+    /// Request cache initialization (used when generating a new key)
+    void initializeCache();
 
 private slots:
     void wizardPageChanged(int);

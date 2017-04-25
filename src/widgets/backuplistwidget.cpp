@@ -95,14 +95,18 @@ void BackupListWidget::addItemWithUrl(QUrl url)
 
 void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
 {
+    setUpdatesEnabled(false);
     foreach(QUrl url, urls)
         addItemWithUrl(url);
     recomputeListTotals();
+    setUpdatesEnabled(true);
 }
 
 void BackupListWidget::setItemsWithUrls(QList<QUrl> urls)
 {
+    setUpdatesEnabled(false);
     clear();
+    setUpdatesEnabled(true);
     addItemsWithUrls(urls);
 }
 
@@ -119,6 +123,7 @@ QList<QUrl> BackupListWidget::itemUrls()
 
 void BackupListWidget::removeItems()
 {
+    setUpdatesEnabled(false);
     if(selectedItems().count() == 0)
     {
         // attempt to remove the sender
@@ -134,6 +139,7 @@ void BackupListWidget::removeItems()
                 delete item;
         }
     }
+    setUpdatesEnabled(true);
     recomputeListTotals();
 }
 

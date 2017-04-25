@@ -38,10 +38,9 @@ void TaskManager::registerMachine(QString user, QString password,
 {
     TarsnapTask *registerTask = new TarsnapTask();
     QStringList  args;
-    QFileInfo    keyFile(key);
-    if(keyFile.exists())
+    if(QFileInfo(key).exists())
     {
-        // existing key, just check with a tarsnap --print-stats command
+        // existing key, attempt to rebuild cache & verify archive integrity
         args << "--fsck-prune"
              << "--keyfile" << key << "--cachedir" << cachePath;
         registerTask->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
@@ -49,7 +48,7 @@ void TaskManager::registerMachine(QString user, QString password,
     }
     else
     {
-        // register machine with tarsnap-keygen
+        // generate a new key and register machine with tarsnap-keygen
         args << "--user" << user << "--machine" << machine << "--keyfile" << key;
         registerTask->setCommand(tarsnapPath + QDir::separator() +
                                  CMD_TARSNAPKEYGEN);
@@ -390,18 +389,30 @@ void TaskManager::getKeyId(QString key)
 
 void TaskManager::initializeCache()
 {
-    if(!Utils::tarsnapVersionMinimum("1.0.38"))
+    QSettings settings;
+    QString tarsnapCacheDir = settings.value("tarsnap/cache").toString();
+    QDir cacheDir(tarsnapCacheDir);
+    if(!tarsnapCacheDir.isEmpty() &&
+       !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count())
     {
-        DEBUG << "Tarsnap CLI version 1.0.38 or higher required to use "
-                 "--initialize-cachedir.";
-        return;
+        if(!Utils::tarsnapVersionMinimum("1.0.38"))
+        {
+            DEBUG << "Tarsnap CLI version 1.0.38 or higher required to use "
+                     "--initialize-cachedir.";
+            return;
+        }
+        TarsnapTask *initTask = new TarsnapTask();
+        QStringList  args;
+        initTarsnapArgs(args);
+        args << "--initialize-cachedir";
+        initTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+        initTask->setArguments(args);
+        queueTask(initTask);
     }
-    TarsnapTask *initTask = new TarsnapTask();
-    QStringList  args;
-    args << "--initialize-cachedir";
-    initTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    initTask->setArguments(args);
-    queueTask(initTask);
+    else
+    {
+        fsck(true);
+    }
 }
 
 void TaskManager::findMatchingArchives(QString jobPrefix)
@@ -510,32 +521,49 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
     }
     backupTask->setExitCode(exitCode);
     backupTask->setOutput(output);
-    if(exitCode == SUCCESS)
+    bool truncated = false;
+
+    if(exitCode != SUCCESS)
     {
-        ArchivePtr archive(new Archive);
-        archive->setName(backupTask->name());
-        archive->setCommand(backupTask->command());
-        // Lose milliseconds precision by converting to Unix timestamp and back.
-        // So that a subsequent comparison in getArchiveListFinished won't fail.
-        archive->setTimestamp(QDateTime::fromTime_t(backupTask->timestamp().toTime_t()));
-        archive->setJobRef(backupTask->jobRef());
-        parseArchiveStats(output, true, archive);
-        backupTask->setArchive(archive);
-        backupTask->setStatus(TaskStatus::Completed);
-        _archiveMap.insert(archive->name(), archive);
-        foreach(JobPtr job, _jobMap)
+        int lastIndex = output.lastIndexOf(
+                        QLatin1String("tarsnap: Archive truncated"), -1,
+                                      Qt::CaseSensitive);
+        if(lastIndex == -1)
         {
-            if(job->objectKey() == archive->jobRef())
-                emit job->loadArchives();
+            backupTask->setStatus(TaskStatus::Failed);
+            parseError(output);
+            return;
         }
-        emit addArchive(archive);
-        parseGlobalStats(output);
+        else
+        {
+            truncated = true;
+        }
     }
-    else
+
+    ArchivePtr archive(new Archive);
+    archive->setName(backupTask->name());
+    if(truncated)
     {
-        backupTask->setStatus(TaskStatus::Failed);
-        parseError(output);
+        archive->setName(archive->name().append(".part"));
+        archive->setTruncated(true);
     }
+    archive->setCommand(backupTask->command());
+    // Lose milliseconds precision by converting to Unix timestamp and back.
+    // So that a subsequent comparison in getArchiveListFinished won't fail.
+    archive->setTimestamp(QDateTime::fromTime_t(backupTask->timestamp().toTime_t()));
+    archive->setJobRef(backupTask->jobRef());
+    parseArchiveStats(output, true, archive);
+    archive->save();
+    backupTask->setArchive(archive);
+    backupTask->setStatus(TaskStatus::Completed);
+    _archiveMap.insert(archive->name(), archive);
+    foreach(JobPtr job, _jobMap)
+    {
+        if(job->objectKey() == archive->jobRef())
+            emit job->loadArchives();
+    }
+    emit addArchive(archive);
+    parseGlobalStats(output);
 }
 
 void TaskManager::backupTaskStarted(QVariant data)
@@ -666,11 +694,17 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
         return;
     }
 
+    QString detailText;
     if(exitCode != SUCCESS)
     {
+        int lastIndex = output.lastIndexOf(
+                         QLatin1String("tarsnap: Truncated input file"), -1,
+                                        Qt::CaseSensitive);
         if(archive->name().endsWith(".part", Qt::CaseSensitive)
-           && output.contains("Truncated input file"))
+           && (lastIndex != -1))
         {
+            detailText = output.mid(lastIndex);
+            output.remove(lastIndex, output.size() - 1);
             archive->setTruncated(true);
         }
         else
@@ -685,7 +719,7 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
     }
 
     emit message(tr("Fetching contents for archive <i>%1</i>... done.")
-                 .arg(archive->name()));
+                 .arg(archive->name()), detailText);
     archive->setContents(output);
     archive->save();
 }
@@ -754,6 +788,7 @@ void TaskManager::fsckFinished(QVariant data, int exitCode, QString output)
         emit message(tr("Cache repair failed. Hover mouse for details."), output);
         parseError(output);
     }
+    getArchives();
 }
 
 void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
@@ -763,7 +798,6 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
     {
         emit message(tr("All archives purged successfully."), output);
         fsck();
-        getArchives();
     }
     else
     {

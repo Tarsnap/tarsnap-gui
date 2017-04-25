@@ -66,12 +66,20 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
     }
     if(baseName.size() > ARCHIVE_TIMESTAMP_FORMAT.size())
     {
+        QString truncated;
+        if(baseName.endsWith(QLatin1String(".part")))
+        {
+            truncated = QLatin1String(".part");
+            baseName.chop(truncated.size());
+        }
         QString timestamp = baseName.right(ARCHIVE_TIMESTAMP_FORMAT.size());
         QDateTime validate = QDateTime::fromString(timestamp, ARCHIVE_TIMESTAMP_FORMAT);
         if(validate.isValid())
         {
             baseName.chop(timestamp.size());
-            baseName += QString("<font color=\"grey\">%1</font>").arg(timestamp);
+            baseName += QString("<font color=\"grey\">%1%2</font>")
+                        .arg(timestamp)
+                        .arg(truncated);
         }
     }
     displayName += baseName;

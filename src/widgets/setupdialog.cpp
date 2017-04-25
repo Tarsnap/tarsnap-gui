@@ -411,5 +411,10 @@ void SetupDialog::commitSettings(bool skipped)
     }
     settings.sync();
 
+    // We initialize/verify the cache with fsck-prune for existing keys
+    // anyway, so we only need to initialize for new keys here.
+    if(!skipped && _ui.restoreNoButton->isChecked())
+        emit initializeCache();
+
     accept();
 }

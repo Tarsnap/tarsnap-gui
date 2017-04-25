@@ -108,6 +108,9 @@ void ArchiveWidget::updateDetails()
             Utils::humanBytes(_archive->sizeUniqueCompressed()));
         _ui.archiveUniqueDataLabel->setToolTip(_archive->archiveStats());
         _ui.archiveCommandLineEdit->setText(_archive->command());
+        _ui.archiveCommandLineEdit->setToolTip(_archive->command()
+                                               .prepend("<p>")
+                                               .append("</p>"));
         _ui.archiveCommandLineEdit->setCursorPosition(0);
         if(_archive->truncated())
         {
@@ -138,9 +141,22 @@ void ArchiveWidget::closeEvent(QCloseEvent *event)
 void ArchiveWidget::keyPressEvent(QKeyEvent *event)
 {
     if((event->key() == Qt::Key_Escape) && _ui.filterComboBox->isVisible())
-        _ui.filterButton->toggle();
+    {
+        if(_ui.filterComboBox->currentText().isEmpty())
+        {
+            _ui.filterButton->toggle();
+        }
+        else
+        {
+            _ui.filterComboBox->clearEditText();
+            _ui.filterComboBox->setFocus();
+        }
+
+    }
     else
+    {
         QWidget::keyPressEvent(event);
+    }
 }
 
 void ArchiveWidget::changeEvent(QEvent *event)

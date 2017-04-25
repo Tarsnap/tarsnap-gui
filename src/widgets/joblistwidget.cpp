@@ -27,33 +27,37 @@ void JobListWidget::backupSelectedItems()
     auto confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Initiate backup for the %1 selected job(s)?")
-                                  .arg(selectedItems().count()));
-    if(confirm == QMessageBox::Yes)
+                              .arg(selectedItems().count()));
+    if(confirm != QMessageBox::Yes)
+        return;
+
+    foreach(QListWidgetItem *item, selectedItems())
     {
-        foreach(QListWidgetItem *item, selectedItems())
+        if(item->isSelected())
         {
-            if(item->isSelected())
-            {
-                JobPtr job = static_cast<JobListWidgetItem *>(item)->job();
-                emit backupJob(job);
-            }
+            JobPtr job = static_cast<JobListWidgetItem *>(item)->job();
+            emit backupJob(job);
         }
     }
 }
 
 void JobListWidget::selectJob(JobPtr job)
 {
-    if(job)
+    if(!job)
     {
-        for(int i = 0; i < count(); ++i)
+        DEBUG << "Null JobPtr passed.";
+        return;
+    }
+
+    for(int i = 0; i < count(); ++i)
+    {
+        JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
+        if(jobItem && (jobItem->job()->objectKey() == job->objectKey()))
         {
-            JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
-            if(jobItem && (jobItem->job()->objectKey() == job->objectKey()))
-            {
-                clearSelection();
-                setCurrentItem(jobItem);
-                scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
-            }
+            clearSelection();
+            setCurrentItem(jobItem);
+            scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
+            break;
         }
     }
 }
@@ -121,58 +125,79 @@ void JobListWidget::deleteItem()
 void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
 {
     if(!jobItem)
+    {
+        DEBUG << "Null JobListWidgetItem passed.";
         return;
+    }
 
     JobPtr job   = jobItem->job();
     auto confirm = QMessageBox::question(this, tr("Confirm action"),
-                                         tr("Are you sure you want to delete job"
-                                            " \"%1\" (this cannot be undone)?")
+                                         tr("Are you sure you want to "
+                                            "delete job \"%1\" "
+                                            "(this cannot be undone)?")
                                          .arg(job->name()));
-    if(confirm == QMessageBox::Yes)
+    if(confirm != QMessageBox::Yes)
+        return;
+
+    bool purgeArchives = false;
+    if(!job->archives().isEmpty())
     {
-        bool purgeArchives = false;
-        if(!job->archives().isEmpty())
-        {
-            auto confirmArchives = QMessageBox::question(this,
-                                          tr("Confirm action"),
-                                          tr("Also delete %1 archives "
-                                             "belonging to this job (this "
-                                             "cannot be undone)?")
-                                          .arg(job->archives().count()));
-            if(confirmArchives == QMessageBox::Yes)
-                purgeArchives = true;
-        }
-        emit deleteJob(job, purgeArchives);
-        delete jobItem;
+        auto delArchives = QMessageBox::question(this, tr("Confirm action"),
+                                                 tr("Also delete %1 archives "
+                                                    "belonging to this job "
+                                                    "(this cannot be undone)?")
+                                                 .arg(job->archives().count()));
+        if(delArchives == QMessageBox::Yes)
+            purgeArchives = true;
     }
+    emit deleteJob(job, purgeArchives);
+    delete jobItem;
+    emit countChanged(count(), visibleItemsCount());
+}
+
+int JobListWidget::visibleItemsCount()
+{
+    int count = 0;
+    foreach(QListWidgetItem *item, findItems("*", Qt::MatchWildcard))
+    {
+        if(item && !item->isHidden())
+            count++;
+    }
+    return count;
 }
 
 void JobListWidget::setJobs(QMap<QString, JobPtr> jobs)
 {
+    setUpdatesEnabled(false);
     clear();
     foreach(JobPtr job, jobs)
     {
         addJob(job);
     }
+    setUpdatesEnabled(true);
 }
 
 void JobListWidget::addJob(JobPtr job)
 {
-    if(job)
+    if(!job)
     {
-        JobListWidgetItem *item = new JobListWidgetItem(job);
-        connect(item, &JobListWidgetItem::requestBackup, this,
-                &JobListWidget::backupItem);
-        connect(item, &JobListWidgetItem::requestInspect, this,
-                &JobListWidget::inspectItem);
-        connect(item, &JobListWidgetItem::requestRestore, this,
-                &JobListWidget::restoreItem);
-        connect(item, &JobListWidgetItem::requestDelete, this,
-                &JobListWidget::deleteItem);
-        insertItem(count(), item);
-        setItemWidget(item, item->widget());
-        item->setHidden(!job->name().contains(_filter));
+        DEBUG << "Null JobPtr passed.";
+        return;
     }
+
+    JobListWidgetItem *item = new JobListWidgetItem(job);
+    connect(item, &JobListWidgetItem::requestBackup, this,
+            &JobListWidget::backupItem);
+    connect(item, &JobListWidgetItem::requestInspect, this,
+            &JobListWidget::inspectItem);
+    connect(item, &JobListWidgetItem::requestRestore, this,
+            &JobListWidget::restoreItem);
+    connect(item, &JobListWidgetItem::requestDelete, this,
+            &JobListWidget::deleteItem);
+    insertItem(count(), item);
+    setItemWidget(item, item->widget());
+    item->setHidden(!job->name().contains(_filter));
+    emit countChanged(count(), visibleItemsCount());
 }
 
 void JobListWidget::inspectSelectedItem()
@@ -186,7 +211,8 @@ void JobListWidget::restoreSelectedItem()
 {
     if(!selectedItems().isEmpty())
     {
-        JobPtr job = static_cast<JobListWidgetItem *>(selectedItems().first())->job();
+        JobPtr job =
+               static_cast<JobListWidgetItem *>(selectedItems().first())->job();
         if(!job->archives().isEmpty())
         {
             ArchivePtr    archive = job->archives().first();
@@ -205,6 +231,7 @@ void JobListWidget::deleteSelectedItem()
 
 void JobListWidget::setFilter(QString regex)
 {
+    setUpdatesEnabled(false);
     clearSelection();
     _filter.setPattern(regex);
     for(int i = 0; i < count(); ++i)
@@ -219,6 +246,8 @@ void JobListWidget::setFilter(QString regex)
                 jobItem->setHidden(true);
         }
     }
+    setUpdatesEnabled(true);
+    emit countChanged(count(), visibleItemsCount());
 }
 
 void JobListWidget::keyPressEvent(QKeyEvent *event)

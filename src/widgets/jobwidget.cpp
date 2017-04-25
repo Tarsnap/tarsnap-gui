@@ -53,6 +53,8 @@ JobWidget::JobWidget(QWidget *parent)
             &JobWidget::backupButtonClicked);
     connect(_ui.archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &JobWidget::inspectJobArchive);
+    connect(_ui.archiveListWidget, &ArchiveListWidget::inspectArchive,
+            _ui.archiveListWidget, &ArchiveListWidget::selectArchive);
     connect(_ui.archiveListWidget, &ArchiveListWidget::restoreArchive, this,
             &JobWidget::restoreJobArchive);
     connect(_ui.archiveListWidget, &ArchiveListWidget::deleteArchives, this,

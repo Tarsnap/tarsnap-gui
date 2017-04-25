@@ -43,18 +43,21 @@ void JobListWidget::backupSelectedItems()
 
 void JobListWidget::selectJob(JobPtr job)
 {
-    if(job)
+    if(!job)
     {
-        for(int i = 0; i < count(); ++i)
+        DEBUG << "Null JobPtr passed.";
+        return;
+    }
+
+    for(int i = 0; i < count(); ++i)
+    {
+        JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
+        if(jobItem && (jobItem->job()->objectKey() == job->objectKey()))
         {
-            JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
-            if(jobItem && (jobItem->job()->objectKey() == job->objectKey()))
-            {
-                clearSelection();
-                setCurrentItem(jobItem);
-                scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
-                break;
-            }
+            clearSelection();
+            setCurrentItem(jobItem);
+            scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
+            break;
         }
     }
 }
@@ -122,7 +125,10 @@ void JobListWidget::deleteItem()
 void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
 {
     if(!jobItem)
+    {
+        DEBUG << "Null JobListWidgetItem passed.";
         return;
+    }
 
     JobPtr job   = jobItem->job();
     auto confirm = QMessageBox::question(this, tr("Confirm action"),
@@ -161,21 +167,25 @@ void JobListWidget::setJobs(QMap<QString, JobPtr> jobs)
 
 void JobListWidget::addJob(JobPtr job)
 {
-    if(job)
+    if(!job)
     {
-        JobListWidgetItem *item = new JobListWidgetItem(job);
-        connect(item, &JobListWidgetItem::requestBackup, this,
-                &JobListWidget::backupItem);
-        connect(item, &JobListWidgetItem::requestInspect, this,
-                &JobListWidget::inspectItem);
-        connect(item, &JobListWidgetItem::requestRestore, this,
-                &JobListWidget::restoreItem);
-        connect(item, &JobListWidgetItem::requestDelete, this,
-                &JobListWidget::deleteItem);
-        insertItem(count(), item);
-        setItemWidget(item, item->widget());
-        item->setHidden(!job->name().contains(_filter));
+        DEBUG << "Null JobPtr passed.";
+        return;
     }
+
+    JobListWidgetItem *item = new JobListWidgetItem(job);
+    connect(item, &JobListWidgetItem::requestBackup, this,
+            &JobListWidget::backupItem);
+    connect(item, &JobListWidgetItem::requestInspect, this,
+            &JobListWidget::inspectItem);
+    connect(item, &JobListWidgetItem::requestRestore, this,
+            &JobListWidget::restoreItem);
+    connect(item, &JobListWidgetItem::requestDelete, this,
+            &JobListWidget::deleteItem);
+    insertItem(count(), item);
+    setItemWidget(item, item->widget());
+    item->setHidden(!job->name().contains(_filter));
+    emit countChanged(count(), visibleItemsCount());
 }
 
 void JobListWidget::inspectSelectedItem()

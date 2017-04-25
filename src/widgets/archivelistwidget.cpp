@@ -1,5 +1,6 @@
 #include "archivelistwidget.h"
 #include "archivelistwidgetitem.h"
+#include "debug.h"
 #include "restoredialog.h"
 
 #include <QMessageBox>
@@ -41,6 +42,12 @@ void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
 
 void ArchiveListWidget::addArchive(ArchivePtr archive)
 {
+    if(!archive)
+    {
+        DEBUG << "Null ArchivePtr passed.";
+        return;
+    }
+
     int pos = 0;
     for(; pos < count(); ++pos)
     {
@@ -197,6 +204,12 @@ void ArchiveListWidget::removeItem()
 
 void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
 {
+    if(!archive)
+    {
+        DEBUG << "Null ArchivePtr passed.";
+        return;
+    }
+
     ArchiveListWidgetItem *item = new ArchiveListWidgetItem(archive);
     connect(item, &ArchiveListWidgetItem::requestDelete, this,
             &ArchiveListWidget::deleteItem);
@@ -253,7 +266,10 @@ void ArchiveListWidget::goToJob()
 void ArchiveListWidget::selectArchive(ArchivePtr archive)
 {
     if(!archive)
+    {
+        DEBUG << "Null ArchivePtr passed.";
         return;
+    }
 
     for(int i = 0; i < count(); ++i)
     {

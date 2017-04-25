@@ -2969,6 +2969,28 @@ border: none;
     <string>Browse for directory to add to the Backup list</string>
    </property>
   </action>
+  <action name="actionShowArchivesTabHeader">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Archives tab header</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide the Archives tab header</string>
+   </property>
+  </action>
+  <action name="actionShowJobsTabHeader">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Jobs tab header</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide the Jobs tab header</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

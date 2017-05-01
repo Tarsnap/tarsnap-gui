@@ -587,6 +587,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Escape:
         if(_ui.mainTabWidget->currentWidget() == _ui.archivesTab)
         {
+            if(_ui.archiveDetailsWidget->isVisible())
+            {
+                _ui.archiveDetailsWidget->close();
+                return;
+            }
             if(_ui.archivesFilter->isVisible())
             {
                 if(_ui.archivesFilter->currentText().isEmpty())
@@ -600,14 +605,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 }
                 return;
             }
-            else if(_ui.archiveDetailsWidget->isVisible())
-            {
-                _ui.archiveDetailsWidget->close();
-                return;
-            }
         }
         if(_ui.mainTabWidget->currentWidget() == _ui.jobsTab)
         {
+            if(_ui.jobDetailsWidget->isVisible())
+            {
+                hideJobDetails();
+                return;
+            }
             if(_ui.jobsFilter->isVisible())
             {
                 if(_ui.jobsFilter->currentText().isEmpty())
@@ -619,11 +624,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     _ui.jobsFilter->clearEditText();
                     _ui.jobsFilter->setFocus();
                 }
-                return;
-            }
-            if(_ui.jobDetailsWidget->isVisible())
-            {
-                hideJobDetails();
                 return;
             }
         }

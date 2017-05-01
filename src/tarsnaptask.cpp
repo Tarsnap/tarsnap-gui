@@ -7,10 +7,12 @@
 #endif
 
 #define DEFAULT_TIMEOUT_MS 5000
-#define LOG_MAX_LENGTH 10240
+#define LOG_MAX_LENGTH 3072
+#define LOG_MAX_SEARCH_NL 1024
 
 TarsnapTask::TarsnapTask()
-    : QObject(), _process(nullptr), _truncateLogOutput(false)
+    : QObject(), _id(QUuid::createUuid()), _process(nullptr),
+      _truncateLogOutput(false)
 {
 }
 
@@ -21,16 +23,18 @@ TarsnapTask::~TarsnapTask()
 void TarsnapTask::run()
 {
     _process = new QProcess();
-    if(_standardOutFile.isEmpty())
-        _process->setProcessChannelMode(QProcess::MergedChannels);
-    else
-        _process->setStandardOutputFile(_standardOutFile);
     _process->setProgram(_command);
     _process->setArguments(_arguments);
-    LOG << tr("Executing command:\n[%1 %2]")
+    if(!_stdOutFile.isEmpty())
+        _process->setStandardOutputFile(_stdOutFile);
+
+    LOG << tr("Executing task %1:\n[%2 %3]")
+               .arg(_id.toString())
                .arg(_process->program())
                .arg(Utils::quoteCommandLine(_process->arguments()));
+
     _process->start();
+
     if(_process->waitForStarted(DEFAULT_TIMEOUT_MS))
     {
         emit started(_data);
@@ -40,12 +44,14 @@ void TarsnapTask::run()
         processError();
         goto cleanup;
     }
-    if(!_standardIn.isEmpty())
+
+    if(!_stdIn.isEmpty())
     {
-        QByteArray password(_standardIn.toUtf8());
+        QByteArray password(_stdIn.toUtf8());
         _process->write(password.data(), password.size());
         _process->closeWriteChannel();
     }
+
     if(_process->waitForFinished(-1))
     {
         readProcessOutput();
@@ -53,9 +59,11 @@ void TarsnapTask::run()
     }
     else
     {
+        readProcessOutput();
         processError();
         goto cleanup;
     }
+
 cleanup:
     delete _process;
     _process = nullptr;
@@ -114,19 +122,14 @@ void TarsnapTask::setArguments(const QStringList &arguments)
     _arguments = arguments;
 }
 
-QString TarsnapTask::standardIn() const
+void TarsnapTask::setStdIn(const QString &standardIn)
 {
-    return _standardIn;
+    _stdIn = standardIn;
 }
 
-void TarsnapTask::setStandardIn(const QString &standardIn)
+void TarsnapTask::setStdOutFile(const QString &fileName)
 {
-    _standardIn = standardIn;
-}
-
-void TarsnapTask::setStandardOutputFile(const QString &fileName)
-{
-    _standardOutFile = fileName;
+    _stdOutFile = fileName;
 }
 
 QVariant TarsnapTask::data() const
@@ -151,10 +154,9 @@ void TarsnapTask::setTruncateLogOutput(bool truncateLogOutput)
 
 void TarsnapTask::readProcessOutput()
 {
-    if(_process->processChannelMode() == QProcess::MergedChannels)
-        _processOutput.append(_process->readAll());
-    else
-        _processOutput.append(_process->readAllStandardError());
+    if(_stdOutFile.isEmpty())
+        _stdOut.append(_process->readAllStandardOutput().trimmed());
+    _stdErr.append(_process->readAllStandardError().trimmed());
 }
 
 void TarsnapTask::processFinished()
@@ -163,45 +165,45 @@ void TarsnapTask::processFinished()
     {
     case QProcess::NormalExit:
     {
-        QString output(_processOutput);
-        output = output.trimmed();
-        emit finished(_data, _process->exitCode(), output);
-        if(!output.isEmpty())
+        emit finished(_data, _process->exitCode(), QString(_stdOut), QString(_stdErr));
+        QByteArray stdOut(_stdOut);
+        if(!stdOut.isEmpty() && _truncateLogOutput
+           && (stdOut.size() > LOG_MAX_LENGTH))
         {
-            if(_truncateLogOutput && (output.size() > LOG_MAX_LENGTH))
-            {
-                output.truncate(LOG_MAX_LENGTH);
-                output.append(tr("\n...\n-- Output truncated by Tarsnap GUI --"));
-            }
-            LOG << tr("Command finished with exit code %3 and output:\n[%1 %2]\n%4")
-                       .arg(_command)
-                       .arg(Utils::quoteCommandLine(_arguments))
-                       .arg(_process->exitCode())
-                       .arg(output);
+            int nextNL = stdOut.lastIndexOf(QChar('\n'),
+                                            LOG_MAX_LENGTH +
+                                            std::min(stdOut.size() - LOG_MAX_LENGTH,
+                                                     LOG_MAX_SEARCH_NL));
+            stdOut.truncate(std::max(LOG_MAX_LENGTH, nextNL));
+            stdOut.append(tr("\n...\n-- %1 output lines truncated by Tarsnap GUI --\n")
+                          .arg(_stdOut.mid(stdOut.size())
+                               .count(QChar('\n').toLatin1())));
         }
-        else
-        {
-            LOG << tr("Command finished with exit code %3 and no output:\n[%1 %2]")
-                       .arg(_command)
-                       .arg(Utils::quoteCommandLine(_arguments))
-                       .arg(_process->exitCode());
-        }
-    }
+        LOG << tr("Task %1 finished with exit code %2:\n[%3 %4]\n%5")
+               .arg(_id.toString())
+               .arg(_process->exitCode())
+               .arg(_command)
+               .arg(Utils::quoteCommandLine(_arguments))
+               .arg(QString(stdOut + _stdErr));
         break;
+    }
     case QProcess::CrashExit:
+    {
         processError();
         break;
+    }
     }
 }
 
 void TarsnapTask::processError()
 {
-    LOG << tr("Tarsnap process error %3 (%4) occured (exit code %5):\n[%1 %2]\n%6")
-               .arg(_command)
-               .arg(Utils::quoteCommandLine(_arguments))
+    LOG << tr("Task %1 finished with error %2 (%3) occured (exit code %4):\n[%5 %6]\n%7")
+               .arg(_id.toString())
                .arg(_process->error())
                .arg(_process->errorString())
                .arg(_process->exitCode())
-               .arg(QString(_processOutput).trimmed());
+               .arg(_command)
+               .arg(Utils::quoteCommandLine(_arguments))
+               .arg(QString(_stdOut + _stdErr).trimmed());
     cancel();
 }

@@ -5,6 +5,7 @@
 #include <QProcess>
 #include <QRunnable>
 #include <QThread>
+#include <QUuid>
 #include <QVariant>
 
 class TarsnapTask : public QObject, public QRunnable
@@ -28,10 +29,8 @@ public:
     QStringList arguments() const;
     void setArguments(const QStringList &arguments);
 
-    QString standardIn() const;
-    void setStandardIn(const QString &standardIn);
-
-    void setStandardOutputFile(const QString &fileName);
+    void setStdIn(const QString &stdIn);
+    void setStdOutFile(const QString &fileName);
 
     QVariant data() const;
     void setData(const QVariant &data);
@@ -41,7 +40,7 @@ public:
 
 signals:
     void started(QVariant data);
-    void finished(QVariant data, int exitCode, QString output);
+    void finished(QVariant data, int exitCode, QString stdOut, QString stdErr);
     void canceled(QVariant data);
     void dequeue();
 
@@ -51,13 +50,15 @@ private slots:
     void processError();
 
 private:
+    QUuid       _id;
     QVariant    _data; // caller supplied data
     QProcess   *_process;
-    QByteArray  _processOutput;
+    QByteArray  _stdOut;
+    QByteArray  _stdErr;
+    QString     _stdIn;
+    QString     _stdOutFile;
     QString     _command;
     QStringList _arguments;
-    QString     _standardIn;
-    QString     _standardOutFile;
     bool        _truncateLogOutput;
     QEventLoopLocker _lock;
 };

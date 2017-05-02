@@ -28,7 +28,7 @@ void TarsnapTask::run()
     if(!_stdOutFile.isEmpty())
         _process->setStandardOutputFile(_stdOutFile);
 
-    LOG << tr("Executing task %1:\n[%2 %3]")
+    LOG << tr("Task %1 started:\n[%2 %3]")
                .arg(_id.toString())
                .arg(_process->program())
                .arg(Utils::quoteCommandLine(_process->arguments()));

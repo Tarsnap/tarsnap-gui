@@ -669,6 +669,7 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
         {
             detailText = stdErr;
             archive->setTruncated(true);
+            archive->setTruncatedInfo(stdErr);
         }
         else
         {

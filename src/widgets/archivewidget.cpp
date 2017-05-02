@@ -116,6 +116,7 @@ void ArchiveWidget::updateDetails()
         {
             _ui.infoLabel->setText(tr("This archive is truncated,"
                                       " data may be incomplete"));
+            _ui.infoLabel->setToolTip(_archive->truncatedInfo());
             _ui.infoLabel->show();
         }
         else if(_archive->contents().isEmpty()

@@ -408,15 +408,11 @@ MainWindow::MainWindow(QWidget *parent)
             [&](bool checked)
     {
         _ui.archivesHeader->setVisible(checked);
-        QSettings settings;
-        settings.setValue("app/archives_header_enabled", checked);
     });
     connect(_ui.actionShowJobsTabHeader, &QAction::triggered,
             [&](bool checked)
     {
         _ui.jobsHeader->setVisible(checked);
-        QSettings settings;
-        settings.setValue("app/jobs_header_enabled", checked);
     });
 }
 
@@ -1006,6 +1002,8 @@ void MainWindow::commitSettings()
     settings.setValue("app/limit_download", _ui.limitDownloadSpinBox->value());
     settings.setValue("app/window_geometry", saveGeometry());
     settings.setValue("app/language", _ui.languageComboBox->currentText());
+    settings.setValue("app/archives_header_enabled", _ui.actionShowArchivesTabHeader->isChecked());
+    settings.setValue("app/jobs_header_enabled", _ui.actionShowJobsTabHeader->isChecked());
     settings.sync();
 }
 

@@ -182,6 +182,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::commitSettings);
     connect(_ui.limitDownloadSpinBox, &QSpinBox::editingFinished, this,
             &MainWindow::commitSettings);
+    connect(_ui.saveConsoleLogCheckBox, &QCheckBox::toggled, this,
+            &MainWindow::commitSettings);
 
     connect(_ui.accountMachineUseHostnameButton, &QPushButton::clicked, this,
             &MainWindow::accountMachineUseHostnameButtonClicked);
@@ -479,6 +481,9 @@ void MainWindow::loadSettings()
     _ui.actionShowJobsTabHeader->setChecked(
                 settings.value("app/jobs_header_enabled", true).toBool());
     _ui.jobsHeader->setVisible(_ui.actionShowJobsTabHeader->isChecked());
+    _ui.saveConsoleLogCheckBox->setChecked(
+                settings.value("app/save_console_log", false).toBool());
+    _ui.saveConsoleLogLineEdit->setText(ConsoleLog::getLogFile());
 
     if(settings.value("app/default_jobs_dismissed", false).toBool())
     {
@@ -1004,6 +1009,7 @@ void MainWindow::commitSettings()
     settings.setValue("app/language", _ui.languageComboBox->currentText());
     settings.setValue("app/archives_header_enabled", _ui.actionShowArchivesTabHeader->isChecked());
     settings.setValue("app/jobs_header_enabled", _ui.actionShowJobsTabHeader->isChecked());
+    settings.setValue("app/save_console_log", _ui.saveConsoleLogCheckBox->isChecked());
     settings.sync();
 }
 

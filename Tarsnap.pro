@@ -15,8 +15,9 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 #QMAKE_TARGET_COPYRIGHT = copyright Tarsnap Backup Inc.
 
 SOURCES += \
-    src/coreapplication.cpp \
     src/main.cpp \
+    src/coreapplication.cpp \
+    src/debug.cpp \
     src/utils.cpp \
     src/widgets/backuplistwidget.cpp \
     src/widgets/backuplistwidgetitem.cpp \

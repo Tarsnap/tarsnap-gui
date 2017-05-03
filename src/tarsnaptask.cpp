@@ -166,6 +166,8 @@ void TarsnapTask::processFinished()
     case QProcess::NormalExit:
     {
         emit finished(_data, _process->exitCode(), QString(_stdOut), QString(_stdErr));
+
+        // Truncate LOG output
         QByteArray stdOut(_stdOut);
         if(!stdOut.isEmpty() && _truncateLogOutput
            && (stdOut.size() > LOG_MAX_LENGTH))
@@ -179,6 +181,7 @@ void TarsnapTask::processFinished()
                           .arg(_stdOut.mid(stdOut.size())
                                .count(QChar('\n').toLatin1())));
         }
+
         LOG << tr("Task %1 finished with exit code %2:\n[%3 %4]\n%5")
                .arg(_id.toString())
                .arg(_process->exitCode())

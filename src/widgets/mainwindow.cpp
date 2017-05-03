@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
       _tarsnapAccount(this),
       _aboutToQuit(false)
 {
-    connect(&Debug::instance(), &Debug::message, this,
+    connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
             &MainWindow::appendToConsoleLog);
 
     // Ui initialization

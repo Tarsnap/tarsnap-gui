@@ -526,8 +526,6 @@ left: 1px;
                </widget>
               </item>
              </layout>
-             <zorder>archivesFilter</zorder>
-             <zorder>archivesFilter</zorder>
             </widget>
            </item>
            <item>
@@ -1421,6 +1419,9 @@ color: blue;
                        <property name="text">
                         <string>Machine name</string>
                        </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
                       </widget>
                      </item>
                      <item row="2" column="2">
@@ -1455,6 +1456,9 @@ color: blue;
                       <widget class="QLabel" name="tarsnapUserLabel">
                        <property name="text">
                         <string>Tarsnap user</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                        </property>
                       </widget>
                      </item>
@@ -1498,6 +1502,9 @@ color: blue;
                       <widget class="QLabel" name="machineKeyLabel">
                        <property name="text">
                         <string>Machine key</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                        </property>
                       </widget>
                      </item>
@@ -1578,6 +1585,9 @@ color: blue;
                     <property name="text">
                      <string>Limit download bandwidth</string>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
                    </widget>
                   </item>
                   <item row="6" column="1">
@@ -1656,6 +1666,9 @@ color: blue;
                     <property name="text">
                      <string>Skip files larger than</string>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
                    </widget>
                   </item>
                   <item row="4" column="0">
@@ -1664,7 +1677,7 @@ color: blue;
                      <string>Tarsnap will skip these files globally for backups</string>
                     </property>
                     <property name="text">
-                     <string>Skip system junk</string>
+                     <string>Skip operating system junk</string>
                     </property>
                    </widget>
                   </item>
@@ -1734,6 +1747,9 @@ color: blue;
                    <widget class="QLabel" name="limitUploadBandwidthLabel">
                     <property name="text">
                      <string>Limit upload bandwidth</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1844,8 +1860,8 @@ color: blue;
                   <string/>
                  </property>
                  <layout class="QGridLayout" name="settingsApplicationsGridLayout">
-                  <item row="9" column="3">
-                   <widget class="QPushButton" name="downloadsDirBrowseButton">
+                  <item row="11" column="1">
+                   <widget class="QPushButton" name="clearJournalButton">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -1853,60 +1869,34 @@ color: blue;
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Browse for Downloads directory</string>
+                     <string>Clear Journal log of all entries</string>
                     </property>
                     <property name="text">
-                     <string>change</string>
+                     <string>Clear journal</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QCheckBox" name="saveConsoleLogCheckBox">
+                    <property name="text">
+                     <string>Save Console Log to file</string>
                     </property>
                    </widget>
                   </item>
                   <item row="6" column="1" colspan="2">
-                   <widget class="QLabel" name="tarsnapVersionLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
+                   <widget class="QLineEdit" name="tarsnapPathLineEdit">
                     <property name="toolTip">
-                     <string>Tarsnap CLI utilities version</string>
-                    </property>
-                    <property name="text">
-                     <string notr="true"/>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="0" colspan="4">
-                   <widget class="Line" name="settingsApplicationMiddleLine">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="9" column="1" colspan="2">
-                   <widget class="QLineEdit" name="downloadsDirLineEdit">
-                    <property name="toolTip">
-                     <string>The directory where archives are restored to by default</string>
+                     <string>Directory where the Tarsnap CLI utilities reside</string>
                     </property>
                     <property name="text">
                      <string notr="true"/>
                     </property>
                     <property name="placeholderText">
-                     <string>Default restore directory</string>
+                     <string>Tarsnap client utilities directory</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="14" column="0" colspan="4">
-                   <widget class="QPushButton" name="runSetupWizard">
-                    <property name="toolTip">
-                     <string>Reset app settings and run Setup Wizard</string>
-                    </property>
-                    <property name="text">
-                     <string>Run setup wizard</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="12" column="0" colspan="4">
+                  <item row="11" column="0">
                    <widget class="QPushButton" name="repairCacheButton">
                     <property name="toolTip">
                      <string>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</string>
@@ -1916,47 +1906,8 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="0">
-                   <widget class="QLabel" name="tarsnapCacheLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Tarsnap caches information about what it has uploaded in a local directory</string>
-                    </property>
-                    <property name="text">
-                     <string>Tarsnap cache directory</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="15" column="0" colspan="4">
-                   <spacer name="settingsApplicationVerticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="13" column="0" colspan="4">
-                   <widget class="QPushButton" name="clearJournalButton">
-                    <property name="toolTip">
-                     <string>Clear Journal log of all entries</string>
-                    </property>
-                    <property name="text">
-                     <string>Clear journal</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="9" column="0">
-                   <widget class="QLabel" name="downloadsDirLabel">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="languageLabel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -1964,69 +1915,24 @@ color: blue;
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>Downloads directory</string>
+                     <string>Language</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="3">
-                   <widget class="QPushButton" name="tarsnapCacheBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="tarsnapClientDirectoryLabel">
                     <property name="toolTip">
-                     <string>Browse for Tarsnap cache directory</string>
+                     <string>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</string>
                     </property>
                     <property name="text">
-                     <string>change</string>
+                     <string>Tarsnap client directory</string>
                     </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="1" colspan="2">
-                   <widget class="QLineEdit" name="tarsnapCacheLineEdit">
-                    <property name="toolTip">
-                     <string>Directory to use as Tarsnap cache</string>
-                    </property>
-                    <property name="text">
-                     <string notr="true"/>
-                    </property>
-                    <property name="placeholderText">
-                     <string>Tarsnap cache directory</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1" colspan="3">
-                   <widget class="QComboBox" name="languageComboBox">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="currentText">
-                     <string notr="true"/>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
                   <item row="6" column="3">
-                   <spacer name="tarsnapClientVersionHorizontalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Preferred</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="7" column="3">
                    <widget class="QPushButton" name="tarsnapPathBrowseButton">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -2042,80 +1948,16 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="10" column="1" colspan="2">
-                   <widget class="QLineEdit" name="appDataDirLineEdit">
-                    <property name="toolTip">
-                     <string>Directory to use for app data</string>
-                    </property>
-                    <property name="text">
-                     <string notr="true"/>
-                    </property>
-                    <property name="placeholderText">
-                     <string>App data directory</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="10" column="3">
-                   <widget class="QPushButton" name="appDataDirBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Browse for app data directory</string>
-                    </property>
-                    <property name="text">
-                     <string>change</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="10" column="0">
-                   <widget class="QLabel" name="appDataDirectoryLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>The app data directory is used to store application settings and data</string>
-                    </property>
-                    <property name="text">
-                     <string>App data directory</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="0">
+                  <item row="5" column="0">
                    <widget class="QLabel" name="tarsnapClientVersionLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
                     <property name="toolTip">
                      <string>Tarsnap command-line utilities version</string>
                     </property>
                     <property name="text">
                      <string>Tarsnap client version</string>
                     </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="0">
-                   <widget class="QLabel" name="tarsnapClientDirectoryLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</string>
-                    </property>
-                    <property name="text">
-                     <string>Tarsnap client directory</string>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -2132,20 +1974,114 @@ color: blue;
                     </property>
                    </widget>
                   </item>
+                  <item row="5" column="1" colspan="3">
+                   <widget class="QLabel" name="tarsnapVersionLabel">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Tarsnap CLI utilities version</string>
+                    </property>
+                    <property name="text">
+                     <string notr="true"/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="0">
+                   <widget class="QLabel" name="appDataDirectoryLabel">
+                    <property name="toolTip">
+                     <string>The app data directory is used to store application settings and data</string>
+                    </property>
+                    <property name="text">
+                     <string>App data directory</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1" colspan="3">
+                   <widget class="QLineEdit" name="saveConsoleLogLineEdit">
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="1" colspan="2">
+                   <widget class="QLineEdit" name="downloadsDirLineEdit">
+                    <property name="toolTip">
+                     <string>The directory where archives are restored to by default</string>
+                    </property>
+                    <property name="text">
+                     <string notr="true"/>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Default restore directory</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="3">
+                   <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Browse for Tarsnap cache directory</string>
+                    </property>
+                    <property name="text">
+                     <string>change</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1" colspan="3">
+                   <widget class="QComboBox" name="languageComboBox">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="currentText">
+                     <string notr="true"/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="0" colspan="4">
+                   <widget class="Line" name="settingsApplicationMiddleLine">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
                   <item row="2" column="0" colspan="4">
                    <widget class="QCheckBox" name="iecPrefixesCheckBox">
                     <property name="toolTip">
                      <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</string>
                     </property>
                     <property name="text">
-                     <string>Use IEC notation for displaying sizes (default is SI)</string>
+                     <string>Display byte sizes in IEC notation (default is SI)</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="languageLabel">
+                  <item row="9" column="3">
+                   <widget class="QPushButton" name="appDataDirBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Browse for app data directory</string>
+                    </property>
                     <property name="text">
-                     <string>Language</string>
+                     <string>change</string>
                     </property>
                    </widget>
                   </item>
@@ -2156,30 +2092,97 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="1" colspan="2">
-                   <widget class="QLineEdit" name="tarsnapPathLineEdit">
+                  <item row="9" column="1" colspan="2">
+                   <widget class="QLineEdit" name="appDataDirLineEdit">
                     <property name="toolTip">
-                     <string>Directory where the Tarsnap CLI utilities reside</string>
+                     <string>Directory to use for app data</string>
                     </property>
                     <property name="text">
                      <string notr="true"/>
                     </property>
                     <property name="placeholderText">
-                     <string>Tarsnap client utilities directory</string>
+                     <string>App data directory</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="0">
-                   <widget class="QCheckBox" name="saveConsoleLogCheckBox">
+                  <item row="8" column="0">
+                   <widget class="QLabel" name="downloadsDirLabel">
                     <property name="text">
-                     <string>Save Console Log to file</string>
+                     <string>Downloads directory</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="1" colspan="3">
-                   <widget class="QLineEdit" name="saveConsoleLogLineEdit">
-                    <property name="readOnly">
-                     <bool>true</bool>
+                  <item row="8" column="3">
+                   <widget class="QPushButton" name="downloadsDirBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Browse for Downloads directory</string>
+                    </property>
+                    <property name="text">
+                     <string>change</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="14" column="0" colspan="4">
+                   <spacer name="settingsApplicationVerticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="tarsnapCacheLabel">
+                    <property name="toolTip">
+                     <string>Tarsnap caches information about what it has uploaded in a local directory</string>
+                    </property>
+                    <property name="text">
+                     <string>Tarsnap cache directory</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1" colspan="2">
+                   <widget class="QLineEdit" name="tarsnapCacheLineEdit">
+                    <property name="toolTip">
+                     <string>Directory to use as Tarsnap cache</string>
+                    </property>
+                    <property name="text">
+                     <string notr="true"/>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Tarsnap cache directory</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="2" colspan="2">
+                   <widget class="QPushButton" name="runSetupWizard">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Reset app settings and run Setup Wizard</string>
+                    </property>
+                    <property name="text">
+                     <string>Run setup wizard</string>
                     </property>
                    </widget>
                   </item>

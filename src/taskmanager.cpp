@@ -674,7 +674,7 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
             archive->setTruncated(true);
             archive->setTruncatedInfo(stdErr);
         }
-        else
+        else if(stdOut.isEmpty())
         {
             emit message(tr("Error: Failed to get archive contents from remote."),
                          tr("Tarsnap exited with code %1 and output:\n%2")
@@ -687,6 +687,7 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
 
     emit message(tr("Fetching contents for archive <i>%1</i>... done.")
                  .arg(archive->name()), detailText);
+
     archive->setContents(stdOut);
     archive->save();
 }

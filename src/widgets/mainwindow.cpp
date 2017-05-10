@@ -1463,6 +1463,15 @@ void MainWindow::tarsnapError(TarsnapError error)
                                  " Application."));
         break;
     }
+    case TarsnapError::NetworkError:
+    {
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Tarsnap encountered network errors. Please "
+                                 "check your network connection and verify that"
+                                 " internet access is available and try "
+                                 "again."));
+        break;
+    }
     }
 }
 

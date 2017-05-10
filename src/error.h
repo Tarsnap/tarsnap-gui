@@ -4,7 +4,8 @@
 enum TarsnapError
 {
     CacheError,
-    FsckError
+    FsckError,
+    NetworkError
 };
 
 #endif // ERROR_H

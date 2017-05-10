@@ -958,6 +958,12 @@ void TaskManager::parseError(QString tarsnapOutput)
     {
         emit error(TarsnapError::FsckError);
     }
+    else if(tarsnapOutput.contains("Cannot obtain server address")
+            || tarsnapOutput.contains("Error looking up")
+            || tarsnapOutput.contains("Too many network failures"))
+    {
+        emit error(TarsnapError::NetworkError);
+    }
 }
 
 void TaskManager::parseGlobalStats(QString tarsnapOutput)

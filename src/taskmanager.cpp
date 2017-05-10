@@ -9,6 +9,7 @@
 #include <QTimer>
 
 #define SUCCESS 0
+#define SCHEDULED_JOBS_SLEEP 3
 
 TaskManager::TaskManager()
     : _threadPool(QThreadPool::globalInstance())
@@ -431,6 +432,8 @@ void TaskManager::findMatchingArchives(QString jobPrefix)
 
 void TaskManager::runScheduledJobs()
 {
+    //sleep for a short while just to take an extra assurance that network is up
+    QThread::sleep(SCHEDULED_JOBS_SLEEP);
     loadJobs();
     bool nothingToDo = true;
     foreach(JobPtr job, _jobMap)

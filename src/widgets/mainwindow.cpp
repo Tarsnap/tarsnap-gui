@@ -1274,6 +1274,10 @@ void MainWindow::purgeArchivesButtonClicked()
             updateStatusMessage(tr("Purge cancelled."));
         }
     }
+    else
+    {
+        updateStatusMessage(tr("Purge cancelled."));
+    }
 }
 
 void MainWindow::runSetupWizardClicked()

@@ -277,7 +277,10 @@ bool Archive::hasPreservePaths()
 
 QString Archive::contents() const
 {
-    return qUncompress(_contents);
+    if(!_contents.isEmpty())
+        return qUncompress(_contents);
+    else
+        return QString();
 }
 
 void Archive::setContents(const QString &value)

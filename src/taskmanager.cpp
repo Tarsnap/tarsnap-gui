@@ -968,11 +968,6 @@ void TaskManager::parseError(QString tarsnapOutput)
 
 void TaskManager::parseGlobalStats(QString tarsnapOutput)
 {
-    quint64 sizeTotal = 0;
-    quint64 sizeCompressed = 0;
-    quint64 sizeUniqueTotal = 0;
-    quint64 sizeUniqueCompressed = 0;
-
     QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
     if(lines.count() < 3)
     {
@@ -980,33 +975,35 @@ void TaskManager::parseGlobalStats(QString tarsnapOutput)
         return;
     }
 
+    quint64 sizeTotal            = 0;
+    quint64 sizeCompressed       = 0;
+    quint64 sizeUniqueTotal      = 0;
+    quint64 sizeUniqueCompressed = 0;
+
     QRegExp sizeRX("^All archives\\s+(\\d+)\\s+(\\d+)$");
-    QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
-    bool matched = false;
-    foreach(QString line, lines)
-    {
-        if(-1 != sizeRX.indexIn(line))
-        {
-            QStringList captured = sizeRX.capturedTexts();
-            captured.removeFirst();
-            sizeTotal      = captured[0].toULongLong();
-            sizeCompressed = captured[1].toULongLong();
-            matched = true;
-        }
-        if(-1 != uniqueSizeRX.indexIn(line))
-        {
-            QStringList captured = uniqueSizeRX.capturedTexts();
-            captured.removeFirst();
-            sizeUniqueTotal      = captured[0].toULongLong();
-            sizeUniqueCompressed = captured[1].toULongLong();
-            matched = true;
-        }
-    }
-    if(!matched)
+    if(-1 == sizeRX.indexIn(lines[1]))
     {
         DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
     }
+
+    QStringList captured = sizeRX.capturedTexts();
+    captured.removeFirst();
+    sizeTotal      = captured[0].toULongLong();
+    sizeCompressed = captured[1].toULongLong();
+
+    QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
+    if(-1 == uniqueSizeRX.indexIn(lines[2]))
+    {
+        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
+        return;
+    }
+
+    captured = uniqueSizeRX.capturedTexts();
+    captured.removeFirst();
+    sizeUniqueTotal      = captured[0].toULongLong();
+    sizeUniqueCompressed = captured[1].toULongLong();
+
     emit overallStats(sizeTotal, sizeCompressed, sizeUniqueTotal,
                       sizeUniqueCompressed,
                       static_cast<quint64>(_archiveMap.count()));

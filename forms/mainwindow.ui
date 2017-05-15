@@ -1212,7 +1212,7 @@ border: 1px solid white;
                       <item>
                        <widget class="ElidedLabel" name="accountCreditLabel">
                         <property name="toolTip">
-                         <string>Click update button</string>
+                         <string>Click login button to update</string>
                         </property>
                         <property name="text">
                          <string notr="true"/>
@@ -1265,7 +1265,7 @@ color: blue;
                       <item>
                        <widget class="ElidedLabel" name="machineActivity">
                         <property name="toolTip">
-                         <string>Click update button</string>
+                         <string>Click login button to update</string>
                         </property>
                         <property name="text">
                          <string notr="true"/>
@@ -1311,7 +1311,7 @@ color: blue;
                        </font>
                       </property>
                       <property name="toolTip">
-                       <string>Displayed credit might be out of date, click update button to fetch latest account details</string>
+                       <string>Displayed credit might be out of date, click login button to fetch latest account details</string>
                       </property>
                       <property name="text">
                        <string>Credit and machine activity is %1 days old. Click update to fetch latest details.</string>
@@ -1321,16 +1321,6 @@ color: blue;
                       </property>
                       <property name="elide" stdset="0">
                        <string notr="true">Qt::ElideRight</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="0" colspan="2">
-                     <widget class="QPushButton" name="updateAccountButton">
-                      <property name="toolTip">
-                       <string>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-                      </property>
-                      <property name="text">
-                       <string>Update credit and machine activity</string>
                       </property>
                      </widget>
                     </item>
@@ -1473,6 +1463,16 @@ color: blue;
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="2">
+                      <widget class="QPushButton" name="updateAccountButton">
+                       <property name="toolTip">
+                        <string>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+                       </property>
+                       <property name="text">
+                        <string>login</string>
                        </property>
                       </widget>
                      </item>

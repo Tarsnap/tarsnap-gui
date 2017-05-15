@@ -428,9 +428,9 @@ void MainWindow::loadSettings()
     QSettings settings;
 
     _ui.accountCreditLabel->setText(
-        settings.value("tarsnap/credit", tr("click update button")).toString());
+        settings.value("tarsnap/credit", tr("click login button")).toString());
     _ui.machineActivity->setText(
-        settings.value("tarsnap/machine_activity", tr("click update button")).toString());
+        settings.value("tarsnap/machine_activity", tr("click login button")).toString());
     _ui.accountUserLineEdit->setText(
         settings.value("tarsnap/user", "").toString());
     _ui.accountMachineKeyLineEdit->setText(

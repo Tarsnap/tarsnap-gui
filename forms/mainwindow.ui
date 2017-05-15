@@ -1480,12 +1480,12 @@ color: blue;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="purgeArchivesButton">
+                   <widget class="QPushButton" name="nukeArchivesButton">
                     <property name="toolTip">
                      <string>Nukes all archives stored for the current key from the Tarsnap server</string>
                     </property>
                     <property name="text">
-                     <string>Purge archives</string>
+                     <string>Nuke archives</string>
                     </property>
                    </widget>
                   </item>
@@ -3054,7 +3054,7 @@ border: none;
   <tabstop>appDataDirLineEdit</tabstop>
   <tabstop>appDataDirBrowseButton</tabstop>
   <tabstop>repairCacheButton</tabstop>
-  <tabstop>purgeArchivesButton</tabstop>
+  <tabstop>nukeArchivesButton</tabstop>
   <tabstop>clearJournalButton</tabstop>
   <tabstop>runSetupWizard</tabstop>
   <tabstop>aboutButton</tabstop>

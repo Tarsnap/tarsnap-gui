@@ -311,7 +311,7 @@ void TaskManager::nuke()
     connect(nuke, &TarsnapTask::finished, this, &TaskManager::nukeFinished,
             QUEUED);
     connect(nuke, &TarsnapTask::started, this,
-            [=]() { emit message(tr("Archives purge initiated...")); }, QUEUED);
+            [=]() { emit message(tr("Archives nuke initiated...")); }, QUEUED);
     queueTask(nuke, true);
 }
 
@@ -766,12 +766,12 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString stdOut, QStr
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
     {
-        emit message(tr("All archives purged successfully."), stdOut);
+        emit message(tr("All archives nuked successfully."), stdOut);
         fsck();
     }
     else
     {
-        emit message(tr("Archives purging failed. Hover mouse for details."),
+        emit message(tr("Archives nuke failed. Hover mouse for details."),
                      stdErr);
         parseError(stdErr);
         return;

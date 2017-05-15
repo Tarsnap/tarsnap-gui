@@ -18,13 +18,13 @@
 #include <QSharedPointer>
 #include <QShortcut>
 
-#define PURGE_SECONDS_DELAY 8
+#define NUKE_SECONDS_DELAY 8
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
       _menuBar(nullptr),
-      _purgeTimerCount(0),
-      _purgeCountdown(this),
+      _nukeTimerCount(0),
+      _nukeCountdown(this),
       _tarsnapAccount(this),
       _aboutToQuit(false)
 {
@@ -55,10 +55,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     updateUi();
 
-    // Purge widget setup
-    _purgeCountdown.setIcon(QMessageBox::Critical);
-    _purgeCountdown.setStandardButtons(QMessageBox::Cancel);
-    connect(&_purgeTimer, &QTimer::timeout, this, &MainWindow::purgeTimerFired);
+    // Nuke widget setup
+    _nukeCountdown.setIcon(QMessageBox::Critical);
+    _nukeCountdown.setStandardButtons(QMessageBox::Cancel);
+    connect(&_nukeTimer, &QTimer::timeout, this, &MainWindow::nukeTimerFired);
     // --
 
     // Ui actions setup
@@ -195,8 +195,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::tarsnapCacheBrowseButton);
     connect(_ui.appDataDirBrowseButton, &QPushButton::clicked, this,
             &MainWindow::appDataButtonClicked);
-    connect(_ui.purgeArchivesButton, &QPushButton::clicked, this,
-            &MainWindow::purgeArchivesButtonClicked);
+    connect(_ui.nukeArchivesButton, &QPushButton::clicked, this,
+            &MainWindow::nukeArchivesButtonClicked);
     connect(_ui.runSetupWizard, &QPushButton::clicked, this,
             &MainWindow::runSetupWizardClicked);
     connect(_ui.downloadsDirBrowseButton, &QPushButton::clicked, this,
@@ -1073,19 +1073,19 @@ bool MainWindow::validateAppDataDir()
     }
 }
 
-void MainWindow::purgeTimerFired()
+void MainWindow::nukeTimerFired()
 {
-    if(_purgeTimerCount <= 1)
+    if(_nukeTimerCount <= 1)
     {
-        _purgeTimer.stop();
-        _purgeCountdown.accept();
-        emit purgeArchives();
+        _nukeTimer.stop();
+        _nukeCountdown.accept();
+        emit nukeArchives();
     }
     else
     {
-        --_purgeTimerCount;
-        _purgeCountdown.setText(
-            tr("Purging all archives in %1 seconds...").arg(_purgeTimerCount));
+        --_nukeTimerCount;
+        _nukeCountdown.setText(
+            tr("Purging all archives in %1 seconds...").arg(_nukeTimerCount));
     }
 }
 
@@ -1247,12 +1247,12 @@ void MainWindow::appDataButtonClicked()
     }
 }
 
-void MainWindow::purgeArchivesButtonClicked()
+void MainWindow::nukeArchivesButtonClicked()
 {
     const QString confirmationText = tr("No Tomorrow");
     bool          ok               = false;
     QString       userText         = QInputDialog::getText(
-        this, tr("Purge all archives?"),
+        this, tr("Nuke all archives?"),
         tr("This action will <b>delete all (%1) archives</b> stored for this "
            "key."
            "<br /><br />To confirm, type '%2' and press OK."
@@ -1262,21 +1262,21 @@ void MainWindow::purgeArchivesButtonClicked()
         QLineEdit::Normal, "", &ok);
     if(ok && (confirmationText == userText))
     {
-        _purgeTimerCount = PURGE_SECONDS_DELAY;
-        _purgeCountdown.setWindowTitle(
+        _nukeTimerCount = NUKE_SECONDS_DELAY;
+        _nukeCountdown.setWindowTitle(
                             tr("Deleting all archives: press Cancel to abort"));
-        _purgeCountdown.setText(
-            tr("Purging all archives in %1 seconds...").arg(_purgeTimerCount));
-        _purgeTimer.start(1000);
-        if(QMessageBox::Cancel == _purgeCountdown.exec())
+        _nukeCountdown.setText(
+            tr("Purging all archives in %1 seconds...").arg(_nukeTimerCount));
+        _nukeTimer.start(1000);
+        if(QMessageBox::Cancel == _nukeCountdown.exec())
         {
-            _purgeTimer.stop();
-            updateStatusMessage(tr("Purge cancelled."));
+            _nukeTimer.stop();
+            updateStatusMessage(tr("Nuke cancelled."));
         }
     }
     else
     {
-        updateStatusMessage(tr("Purge cancelled."));
+        updateStatusMessage(tr("Nuke cancelled."));
     }
 }
 

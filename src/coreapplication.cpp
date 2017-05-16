@@ -49,7 +49,7 @@ CoreApplication::~CoreApplication()
 void CoreApplication::parseArgs()
 {
     QCommandLineParser parser;
-    parser.setApplicationDescription(QLatin1String("Tarsnap GUI - Online backups for the truly lazy"));
+    parser.setApplicationDescription(tr("Tarsnap GUI - Online backups for the truly lazy"));
     parser.addHelpOption();
     parser.addVersionOption();
     QCommandLineOption jobsOption(QStringList() << "j" << "jobs",

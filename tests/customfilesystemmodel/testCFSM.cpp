@@ -137,7 +137,7 @@ int TestCFSM::processResults(QTextStream &in)
             continue;
         else if(line == "results:")
             continue;
-        else if((line[0] == QChar('0')) || line[0] == QChar('1')
+        else if((line[0] == QChar('0')) || (line[0] == QChar('1'))
                 || (line[0] == QChar('2')))
         {
             QString lineRelname  = getRelname(line);

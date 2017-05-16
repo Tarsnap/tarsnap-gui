@@ -9,17 +9,18 @@ void ParseArchiveListingTask::run()
     // This splits each line of "tarsnap -tv -f ..." into a QStringList.
     // (We don't actually run "tarsnap -tv", because that data is
     // already stored in the Archive _contents when we created it.)
-    QRegExp fileRx("^(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+\\s+\\S+\\s+\\S+)\\s+(.+)$");
+    QRegExp fileRx("^(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+"
+                   "\\s+\\S+\\s+\\S+)\\s+(.+)$");
     foreach(QString line, _listing.split('\n', QString::SkipEmptyParts))
     {
         if(-1 != fileRx.indexIn(line))
         {
             File file;
-            file.mode  = fileRx.capturedTexts()[1];
-            file.links = fileRx.capturedTexts()[2].toULongLong();
-            file.user  = fileRx.capturedTexts()[3];
-            file.group = fileRx.capturedTexts()[4];
-            file.size  = fileRx.capturedTexts()[5].toULongLong();
+            file.mode     = fileRx.capturedTexts()[1];
+            file.links    = fileRx.capturedTexts()[2].toULongLong();
+            file.user     = fileRx.capturedTexts()[3];
+            file.group    = fileRx.capturedTexts()[4];
+            file.size     = fileRx.capturedTexts()[5].toULongLong();
             file.modified = fileRx.capturedTexts()[6];
             file.name     = fileRx.capturedTexts()[7];
             files.append(file);
@@ -130,7 +131,7 @@ void Archive::load()
             query.value(query.record().indexOf("sizeUniqueTotal")).toULongLong();
         _sizeUniqueCompressed =
             query.value(query.record().indexOf("sizeUniqueCompressed")).toULongLong();
-        _command  = query.value(query.record().indexOf("command")).toString();
+        _command = query.value(query.record().indexOf("command")).toString();
         _contents = query.value(query.record().indexOf("contents")).toByteArray();
         _jobRef   = query.value(query.record().indexOf("jobRef")).toString();
         setObjectKey(_name);
@@ -194,10 +195,13 @@ bool Archive::doesKeyExist(QString key)
     // Run query.
     if(store.runQuery(query))
     {
-        if (query.next()) {
+        if(query.next())
+        {
             found = true;
         }
-    } else {
+    }
+    else
+    {
         DEBUG << "Failed to run doesKeyExist query for an Archive.";
     }
     return found;
@@ -262,7 +266,7 @@ void Archive::setJobRef(const QString &jobRef)
 void Archive::getFileList()
 {
     // Prepare a background thread to parse the Archive's saved contents.
-    QThreadPool *threadPool = QThreadPool::globalInstance();
+    QThreadPool *            threadPool = QThreadPool::globalInstance();
     ParseArchiveListingTask *parseTask = new ParseArchiveListingTask(contents());
     parseTask->setAutoDelete(true);
     connect(parseTask, &ParseArchiveListingTask::result, this,

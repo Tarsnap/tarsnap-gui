@@ -28,8 +28,8 @@ quint64 GetDirInfoTask::getDirSize(QDir dir)
     quint64 size = 0;
     if(dir.exists())
     {
-        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot |
-                      QDir::Hidden | QDir::NoSymLinks);
+        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot
+                      | QDir::Hidden | QDir::NoSymLinks);
 
         QFileInfoList list = dir.entryInfoList();
         for(int i = 0; i < list.size(); ++i)
@@ -51,8 +51,8 @@ quint64 GetDirInfoTask::getDirCount(QDir dir)
     quint64 count = 0;
     if(dir.exists())
     {
-        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot |
-                      QDir::Hidden | QDir::NoSymLinks);
+        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot
+                      | QDir::Hidden | QDir::NoSymLinks);
 
         QFileInfoList list = dir.entryInfoList();
         for(int i = 0; i < list.size(); ++i)
@@ -71,8 +71,8 @@ quint64 GetDirInfoTask::getDirCount(QDir dir)
 QString Utils::humanBytes(quint64 bytes, int fieldWidth)
 {
     QSettings settings;
-    bool IEC = settings.value("app/iec_prefixes", false).toBool();
-    quint64 unit = IEC ? 1024 : 1000;
+    bool      IEC  = settings.value("app/iec_prefixes", false).toBool();
+    quint64   unit = IEC ? 1024 : 1000;
     if(bytes < unit)
         return QString::number(bytes) + " B";
     int     exp = static_cast<int>(log(bytes) / log(unit));
@@ -113,15 +113,15 @@ QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
         searchPaths << path;
 
     QString executable = QStandardPaths::findExecutable(CMD_TARSNAP, searchPaths);
-    if(executable.isEmpty() || !QFileInfo(executable).isReadable() ||
-       !QFileInfo(executable).isExecutable())
+    if(executable.isEmpty() || !QFileInfo(executable).isReadable()
+       || !QFileInfo(executable).isExecutable())
         return "";
     else if(keygenToo)
         executable =
             QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, searchPaths);
 
-    if(executable.isEmpty() || !QFileInfo(executable).isReadable() ||
-       !QFileInfo(executable).isExecutable())
+    if(executable.isEmpty() || !QFileInfo(executable).isReadable()
+       || !QFileInfo(executable).isExecutable())
         return "";
     else if(path.isEmpty())
         path = QFileInfo(executable).absolutePath();
@@ -146,21 +146,25 @@ bool Utils::tarsnapVersionMinimum(const QString &minVersion)
     QSettings settings;
     QString   tarsnapVersion = settings.value("tarsnap/version", "").toString();
     QRegExp   versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
-    return (-1 != versionRx.indexIn(tarsnapVersion)) &&
-           (versionRx.cap(0) >= minVersion);
+    return (-1 != versionRx.indexIn(tarsnapVersion))
+           && (versionRx.cap(0) >= minVersion);
 }
 
 QString Utils::quoteCommandLine(QStringList args)
 {
     QStringList escaped;
-    QRegExp rx("^[0-9a-z-A-Z/._-]*$");
-    QString cmdLine;
+    QRegExp     rx("^[0-9a-z-A-Z/._-]*$");
+    QString     cmdLine;
 
-    for (int i = 0; i < args.size(); ++i) {
+    for(int i = 0; i < args.size(); ++i)
+    {
         QString arg = args.at(i);
-        if (rx.indexIn(arg) >= 0) {
+        if(rx.indexIn(arg) >= 0)
+        {
             escaped.append(arg);
-        } else {
+        }
+        else
+        {
             escaped.append(arg.prepend("\'").append("\'"));
         }
     }
@@ -168,5 +172,3 @@ QString Utils::quoteCommandLine(QStringList args)
     cmdLine = escaped.join(' ');
     return (cmdLine);
 }
-
-

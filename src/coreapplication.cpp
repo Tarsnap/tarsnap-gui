@@ -1,8 +1,8 @@
 #include "coreapplication.h"
 #include "debug.h"
+#include "translator.h"
 #include "utils.h"
 #include "widgets/setupdialog.h"
-#include "translator.h"
 
 #include <QFontDatabase>
 #include <QMessageBox>
@@ -26,7 +26,8 @@ CoreApplication::CoreApplication(int &argc, char **argv)
     qRegisterMetaType<QSqlQuery>("QSqlQuery");
     qRegisterMetaType<JobPtr>("JobPtr");
     qRegisterMetaType<QMap<QString, JobPtr>>("QMap<QString, JobPtr>");
-    qRegisterMetaType<QSystemTrayIcon::ActivationReason>("QSystemTrayIcon::ActivationReason");
+    qRegisterMetaType<QSystemTrayIcon::ActivationReason>(
+        "QSystemTrayIcon::ActivationReason");
     qRegisterMetaType<TarsnapError>("TarsnapError");
     qRegisterMetaType<LogEntry>("LogEntry");
     qRegisterMetaType<QVector<LogEntry>>("QVector<LogEntry>");
@@ -49,16 +50,25 @@ CoreApplication::~CoreApplication()
 void CoreApplication::parseArgs()
 {
     QCommandLineParser parser;
-    parser.setApplicationDescription(tr("Tarsnap GUI - Online backups for the truly lazy"));
+    parser.setApplicationDescription(
+        tr("Tarsnap GUI - Online backups for the truly lazy"));
     parser.addHelpOption();
     parser.addVersionOption();
-    QCommandLineOption jobsOption(QStringList() << "j" << "jobs",
-                                  tr("Executes all jobs sequentially that have the \'Include in scheduled backups\' option checked."
-                                     " The application runs headless and useful information is printed to standard out and error."));
-    QCommandLineOption appDataOption(QStringList() << "a" << "appdata",
-                                    tr("Use the specified app data directory."
-                                       " Useful for multiple configurations on the same machine (INI format is implied)."),
-                                    tr("directory"));
+    QCommandLineOption jobsOption(QStringList() << "j"
+                                                << "jobs",
+                                  tr("Executes all jobs sequentially that have "
+                                     "the \'Include in scheduled backups\' "
+                                     "option checked."
+                                     " The application runs headless and "
+                                     "useful information is printed to "
+                                     "standard out and error."));
+    QCommandLineOption appDataOption(QStringList() << "a"
+                                                   << "appdata",
+                                     tr("Use the specified app data directory."
+                                        " Useful for multiple configurations "
+                                        "on the same machine (INI format is "
+                                        "implied)."),
+                                     tr("directory"));
     parser.addOption(jobsOption);
     parser.addOption(appDataOption);
     parser.process(arguments());
@@ -79,8 +89,8 @@ bool CoreApplication::initialize()
     }
 
     Translator &translator = Translator::instance();
-    translator.translateApp(this, settings.value("app/language", LANG_AUTO)
-                            .toString());
+    translator.translateApp(this,
+                            settings.value("app/language", LANG_AUTO).toString());
 
     bool wizardDone = settings.value("app/wizard_done", false).toBool();
     if(!wizardDone)

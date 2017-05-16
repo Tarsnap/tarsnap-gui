@@ -59,7 +59,7 @@ private:
     // Yes, a singleton
     inline explicit ConsoleLog() : QObject() {}
     ConsoleLog(ConsoleLog const &) : QObject() {}
-    ConsoleLog& operator=(ConsoleLog const &);
+    ConsoleLog &operator=(ConsoleLog const &);
 
     void saveLogMessage(QString msg);
 };

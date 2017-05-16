@@ -15,7 +15,7 @@ void ConsoleLog::saveLogMessage(QString msg)
        && !logFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         DEBUG << "Error saving Console Log message: cannot open log file "
-                 + logFile.fileName();
+                     + logFile.fileName();
         return;
     }
     logFile.write(QByteArray(msg.toLatin1()));

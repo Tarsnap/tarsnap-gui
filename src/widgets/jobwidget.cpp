@@ -6,8 +6,7 @@
 #include <QMenu>
 #include <QMessageBox>
 
-JobWidget::JobWidget(QWidget *parent)
-    : QWidget(parent), _saveEnabled(false)
+JobWidget::JobWidget(QWidget *parent) : QWidget(parent), _saveEnabled(false)
 {
     _ui.setupUi(this);
     _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -16,10 +15,10 @@ JobWidget::JobWidget(QWidget *parent)
 
     _fsEventUpdate.setSingleShot(true);
     connect(&_fsEventUpdate, &QTimer::timeout, this, &JobWidget::verifyJob);
-    connect(_ui.infoLabel, &ElidedLabel::clicked, this, &JobWidget::showJobPathsWarn);
-    connect(_ui.jobNameLineEdit, &QLineEdit::textChanged, [&]() {
-        emit enableSave(canSaveNew());
-    });
+    connect(_ui.infoLabel, &ElidedLabel::clicked, this,
+            &JobWidget::showJobPathsWarn);
+    connect(_ui.jobNameLineEdit, &QLineEdit::textChanged,
+            [&]() { emit enableSave(canSaveNew()); });
     connect(_ui.jobTreeWidget, &FilePickerWidget::selectionChanged, [&]() {
         if(_job->objectKey().isEmpty())
             emit enableSave(canSaveNew());
@@ -61,11 +60,11 @@ JobWidget::JobWidget(QWidget *parent)
     connect(_ui.skipFilesDefaultsButton, &QPushButton::clicked, [&]() {
         QSettings settings;
         _ui.skipFilesLineEdit->setText(
-            settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES).toString());
+            settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
+                .toString());
     });
-    connect(_ui.archiveListWidget,
-            &ArchiveListWidget::customContextMenuRequested, this,
-            &JobWidget::showArchiveListMenu);
+    connect(_ui.archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
+            this, &JobWidget::showArchiveListMenu);
     connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::deleteSelectedItems);
     connect(_ui.actionRestore, &QAction::triggered, _ui.archiveListWidget,
@@ -94,7 +93,7 @@ void JobWidget::setJob(const JobPtr &job)
     }
 
     _saveEnabled = false;
-    _job = job;
+    _job         = job;
 
     // Creating a new job?
     if(_job->objectKey().isEmpty())
@@ -131,8 +130,7 @@ void JobWidget::save()
         _job->setUrls(_ui.jobTreeWidget->getSelectedUrls());
         _job->removeWatcher();
         _job->installWatcher();
-        _job->setOptionScheduledEnabled(
-            _ui.includeScheduledCheckBox->isChecked());
+        _job->setOptionScheduledEnabled(_ui.includeScheduledCheckBox->isChecked());
         _job->setOptionPreservePaths(_ui.preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui.traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui.followSymLinksCheckBox->isChecked());
@@ -315,7 +313,7 @@ void JobWidget::showArchiveListMenu(const QPoint &pos)
 
 void JobWidget::fsEventReceived()
 {
-    _fsEventUpdate.start(250); //coalesce update events with a 250ms time delay
+    _fsEventUpdate.start(250); // coalesce update events with a 250ms time delay
 }
 
 void JobWidget::showJobPathsWarn()
@@ -327,7 +325,8 @@ void JobWidget::showJobPathsWarn()
     msg->setText(tr("Previously selected backup paths for this Job are not"
                     " accessible anymore and thus backups may be incomplete."
                     " Mount missing drives or make a new selection. Press Show"
-                    " details to list all backup paths for Job %1:").arg(_job->name()));
+                    " details to list all backup paths for Job %1:")
+                     .arg(_job->name()));
     QStringList urls;
     foreach(QUrl url, _job->urls())
         urls << url.toLocalFile();
@@ -362,7 +361,6 @@ void JobWidget::verifyJob()
 
 void JobWidget::updateUi()
 {
-    _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
-                               .arg(QKeySequence(Qt::Key_Escape)
-                                    .toString(QKeySequence::NativeText)));
+    _ui.hideButton->setToolTip(_ui.hideButton->toolTip().arg(
+        QKeySequence(Qt::Key_Escape).toString(QKeySequence::NativeText)));
 }

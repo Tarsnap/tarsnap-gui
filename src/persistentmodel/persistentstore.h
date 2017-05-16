@@ -27,12 +27,12 @@ public:
         return instance;
     }
     //! Returns the status of whether the database is initialized or not.
-    bool      initialized() { return _initialized; }
+    bool initialized() { return _initialized; }
     //! Returns an empty query attached to the database if it is initialized,
     //! or an unattached query otherwise.
     QSqlQuery createQuery();
     //! Removes the existing database if it is initialized.  Does not lock.
-    void      purge();
+    void purge();
 
 public slots:
     //! Locks the database and runs a query.

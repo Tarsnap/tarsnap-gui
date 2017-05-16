@@ -2,8 +2,8 @@
 #include "debug.h"
 #include "restoredialog.h"
 
-#include <QMessageBox>
 #include <QKeyEvent>
+#include <QMessageBox>
 
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {
@@ -27,7 +27,7 @@ void JobListWidget::backupSelectedItems()
     auto confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Initiate backup for the %1 selected job(s)?")
-                              .arg(selectedItems().count()));
+                                  .arg(selectedItems().count()));
     if(confirm != QMessageBox::Yes)
         return;
 
@@ -36,7 +36,7 @@ void JobListWidget::backupSelectedItems()
         if(item->isSelected())
         {
             JobPtr job = static_cast<JobListWidgetItem *>(item)->job();
-            emit backupJob(job);
+            emit   backupJob(job);
         }
     }
 }
@@ -68,7 +68,8 @@ void JobListWidget::inspectJobByRef(QString jobRef)
     {
         for(int i = 0; i < count(); ++i)
         {
-            JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
+            JobListWidgetItem *jobItem =
+                static_cast<JobListWidgetItem *>(item(i));
             if(jobItem && (jobItem->job()->objectKey() == jobRef))
                 emit displayJobDetails(jobItem->job());
         }
@@ -80,7 +81,7 @@ void JobListWidget::backupAllJobs()
     for(int i = 0; i < count(); ++i)
     {
         JobPtr job = static_cast<JobListWidgetItem *>(item(i))->job();
-        emit backupJob(job);
+        emit   backupJob(job);
     }
 }
 
@@ -130,23 +131,24 @@ void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
         return;
     }
 
-    JobPtr job   = jobItem->job();
-    auto confirm = QMessageBox::question(this, tr("Confirm action"),
+    JobPtr job     = jobItem->job();
+    auto   confirm = QMessageBox::question(this, tr("Confirm action"),
                                          tr("Are you sure you want to "
                                             "delete job \"%1\" "
                                             "(this cannot be undone)?")
-                                         .arg(job->name()));
+                                             .arg(job->name()));
     if(confirm != QMessageBox::Yes)
         return;
 
     bool purgeArchives = false;
     if(!job->archives().isEmpty())
     {
-        auto delArchives = QMessageBox::question(this, tr("Confirm action"),
-                                                 tr("Also delete %1 archives "
-                                                    "belonging to this job "
-                                                    "(this cannot be undone)?")
-                                                 .arg(job->archives().count()));
+        auto delArchives =
+            QMessageBox::question(this, tr("Confirm action"),
+                                  tr("Also delete %1 archives "
+                                     "belonging to this job "
+                                     "(this cannot be undone)?")
+                                      .arg(job->archives().count()));
         if(delArchives == QMessageBox::Yes)
             purgeArchives = true;
     }
@@ -212,7 +214,7 @@ void JobListWidget::restoreSelectedItem()
     if(!selectedItems().isEmpty())
     {
         JobPtr job =
-               static_cast<JobListWidgetItem *>(selectedItems().first())->job();
+            static_cast<JobListWidgetItem *>(selectedItems().first())->job();
         if(!job->archives().isEmpty())
         {
             ArchivePtr    archive = job->archives().first();
@@ -236,8 +238,7 @@ void JobListWidget::setFilter(QString regex)
     _filter.setPattern(regex);
     for(int i = 0; i < count(); ++i)
     {
-        JobListWidgetItem *jobItem =
-            static_cast<JobListWidgetItem *>(item(i));
+        JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
         if(jobItem)
         {
             if(jobItem->job()->name().contains(_filter))

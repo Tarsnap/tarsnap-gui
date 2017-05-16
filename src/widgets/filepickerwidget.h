@@ -22,33 +22,33 @@ public:
     ~FilePickerWidget();
 
     //! Resets the model, tree view, and the "last file browsed" setting.
-    void        reset();
+    void reset();
 
     //! Returns the path of the currently-selected item.
-    QString     getCurrentPath();
+    QString getCurrentPath();
 
     //! Returns a list of the selected URLs.
     QList<QUrl> getSelectedUrls();
     //! Sets the list of selected URLs to be Qt::Checked in the underlying
     //! model.
-    void        setSelectedUrls(const QList<QUrl> &urls);
+    void setSelectedUrls(const QList<QUrl> &urls);
     //! Sets an URL to be Qt::Checked in the underlying model.
-    void        selectUrl(QUrl url);
+    void selectUrl(QUrl url);
 
     //! Returns the state of the "show hidden" checkbox.
-    bool        settingShowHidden();
+    bool settingShowHidden();
     //! Sets the state of the "show hidden" checkbox.
-    void        setSettingShowHidden(bool showHidden);
+    void setSettingShowHidden(bool showHidden);
 
     //! Returns the state of the "show system" checkbox.
-    bool        settingShowSystem();
+    bool settingShowSystem();
     //! Sets the state of the "show system " checkbox.
-    void        setSettingShowSystem(bool showSystem);
+    void setSettingShowSystem(bool showSystem);
 
     //! Returns the state of the "hide symbolic links" checkbox.
-    bool        settingHideSymlinks();
+    bool settingHideSymlinks();
     //! Sets the state of the "hide symbolic links" checkbox.
-    void        setSettingHideSymlinks(bool hideSymlinks);
+    void setSettingHideSymlinks(bool hideSymlinks);
 
 public slots:
     //! Updates a filter for filenames.  Directory names are unaffected.
@@ -71,9 +71,9 @@ protected:
     void changeEvent(QEvent *event);
 
 private:
-    Ui::FilePickerWidget   _ui;
-    CustomFileSystemModel  _model;
-    QCompleter             _completer;
+    Ui::FilePickerWidget  _ui;
+    CustomFileSystemModel _model;
+    QCompleter            _completer;
 };
 
 #endif // FILEPICKERWIDGET_H

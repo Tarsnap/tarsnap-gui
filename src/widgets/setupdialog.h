@@ -1,8 +1,8 @@
 #ifndef SETUPDIALOG_H
 #define SETUPDIALOG_H
 
-#include <taskmanager.h>
 #include "ui_setupdialog.h"
+#include <taskmanager.h>
 
 #include <QDialog>
 #include <QMovie>
@@ -66,9 +66,9 @@ private slots:
     void nextButtonClicked();
 
 private:
-    Ui::SetupDialog  _ui;
-    QPoint           _windowDragPos;
-    QMovie           _loadingAnimation;
+    Ui::SetupDialog _ui;
+    QPoint          _windowDragPos;
+    QMovie          _loadingAnimation;
 
     QString _tarsnapDir;
     QString _tarsnapVersion;

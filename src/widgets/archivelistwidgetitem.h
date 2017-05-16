@@ -49,8 +49,8 @@ private slots:
 
 private:
     Ui::ArchiveListWidgetItem _ui;
-    QWidget    *_widget;
-    ArchivePtr _archive;
+    QWidget *                 _widget;
+    ArchivePtr                _archive;
 
     void setArchive(ArchivePtr archive);
     void updateUi();

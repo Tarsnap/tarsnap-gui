@@ -18,13 +18,21 @@ Job::Job(QObject *parent)
 {
     // Load values from settings.
     QSettings settings;
-    setOptionPreservePaths(settings.value("tarsnap/preserve_pathnames", optionPreservePaths()).toBool());
-    setOptionTraverseMount(settings.value("tarsnap/traverse_mount", optionTraverseMount()).toBool());
-    setOptionFollowSymLinks(settings.value("tarsnap/follow_symlinks", optionFollowSymLinks()).toBool());
-    setOptionSkipNoDump(settings.value("app/skip_nodump", optionSkipNoDump()).toBool());
-    setOptionSkipFilesSize(settings.value("app/skip_files_size", optionSkipFilesSize()).toInt());
-    setOptionSkipFiles(settings.value("app/skip_system_enabled", optionSkipFiles()).toBool());
-    setOptionSkipFilesPatterns(settings.value("app/skip_system_files", optionSkipFilesPatterns()).toString());
+    setOptionPreservePaths(
+        settings.value("tarsnap/preserve_pathnames", optionPreservePaths()).toBool());
+    setOptionTraverseMount(
+        settings.value("tarsnap/traverse_mount", optionTraverseMount()).toBool());
+    setOptionFollowSymLinks(
+        settings.value("tarsnap/follow_symlinks", optionFollowSymLinks()).toBool());
+    setOptionSkipNoDump(
+        settings.value("app/skip_nodump", optionSkipNoDump()).toBool());
+    setOptionSkipFilesSize(
+        settings.value("app/skip_files_size", optionSkipFilesSize()).toInt());
+    setOptionSkipFiles(
+        settings.value("app/skip_system_enabled", optionSkipFiles()).toBool());
+    setOptionSkipFilesPatterns(
+        settings.value("app/skip_system_files", optionSkipFilesPatterns())
+            .toString());
 }
 
 Job::~Job()
@@ -75,8 +83,7 @@ void Job::installWatcher()
 {
     connect(&_fsWatcher, &QFileSystemWatcher::directoryChanged, this,
             &Job::fsEvent);
-    connect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this,
-            &Job::fsEvent);
+    connect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this, &Job::fsEvent);
 
     foreach(QUrl url, _urls)
     {
@@ -96,9 +103,9 @@ void Job::installWatcher()
 void Job::removeWatcher()
 {
     disconnect(&_fsWatcher, &QFileSystemWatcher::directoryChanged, this,
-            &Job::fsEvent);
+               &Job::fsEvent);
     disconnect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this,
-            &Job::fsEvent);
+               &Job::fsEvent);
 
     _fsWatcher.removePaths(_fsWatcher.files() + _fsWatcher.directories());
 }
@@ -306,7 +313,7 @@ void Job::save()
         query.addBindValue(_name);
 
     // Run query.
-    if (!store.runQuery(query))
+    if(!store.runQuery(query))
         DEBUG << "Failed to save Job entry.";
     setObjectKey(_name);
 }
@@ -390,7 +397,7 @@ void Job::purge()
     // Fill in missing value in query string.
     query.addBindValue(_name);
     // Run query.
-    if (!store.runQuery(query))
+    if(!store.runQuery(query))
         DEBUG << "Failed to remove Job entry.";
     setObjectKey("");
     emit purged();
@@ -418,10 +425,13 @@ bool Job::doesKeyExist(QString key)
     // Run query.
     if(store.runQuery(query))
     {
-        if (query.next()) {
+        if(query.next())
+        {
             found = true;
         }
-    } else {
+    }
+    else
+    {
         DEBUG << "Failed to run doesKeyExist query for a Job.";
     }
     return found;

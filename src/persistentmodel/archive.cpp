@@ -31,6 +31,7 @@ void ParseArchiveListingTask::run()
 Archive::Archive(QObject *parent)
     : QObject(parent),
       _truncated(false),
+      _truncatedInfo(""),
       _sizeTotal(0),
       _sizeCompressed(0),
       _sizeUniqueTotal(0),
@@ -49,18 +50,23 @@ void Archive::save()
     QString queryString;
     // Prepare query: either updating or creating an entry.
     if(exists)
+    {
         queryString =
-            QLatin1String("update archives set name=?, timestamp=?, "
-                          "truncated=?, sizeTotal=?, sizeCompressed=?,"
-                          " sizeUniqueTotal=?, sizeUniqueCompressed=?, "
-                          "command=?, contents=?, jobRef=?"
-                          " where name=?");
+            QLatin1String("update archives set name=?, timestamp=?,"
+                          " truncated=?, truncatedInfo=?, sizeTotal=?,"
+                          " sizeCompressed=?, sizeUniqueTotal=?,"
+                          " sizeUniqueCompressed=?, command=?, contents=?,"
+                          " jobRef=?"
+                          "  where name=?");
+    }
     else
+    {
         queryString = QLatin1String(
-            "insert into archives(name, timestamp, truncated, sizeTotal,"
-            " sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed, command,"
-            " contents, jobRef)"
-            " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            "insert into archives(name, timestamp, truncated, truncatedInfo,"
+            " sizeTotal, sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed,"
+            " command, contents, jobRef)"
+            " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    }
     // Get database instance and create query object.
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
@@ -73,6 +79,7 @@ void Archive::save()
     query.addBindValue(_name);
     query.addBindValue(_timestamp.toTime_t());
     query.addBindValue(_truncated);
+    query.addBindValue(_truncatedInfo);
     query.addBindValue(_sizeTotal);
     query.addBindValue(_sizeCompressed);
     query.addBindValue(_sizeUniqueTotal);
@@ -113,6 +120,8 @@ void Archive::load()
         _timestamp = QDateTime::fromTime_t(
             query.value(query.record().indexOf("timestamp")).toUInt());
         _truncated = query.value(query.record().indexOf("truncated")).toBool();
+        _truncatedInfo =
+            query.value(query.record().indexOf("truncatedInfo")).toString();
         _sizeTotal =
             query.value(query.record().indexOf("sizeTotal")).toULongLong();
         _sizeCompressed =
@@ -230,6 +239,16 @@ void Archive::setTruncated(bool truncated)
     _truncated = truncated;
 }
 
+QString Archive::truncatedInfo() const
+{
+    return _truncatedInfo;
+}
+
+void Archive::setTruncatedInfo(const QString &truncatedInfo)
+{
+    _truncatedInfo = truncatedInfo;
+}
+
 QString Archive::jobRef() const
 {
     return _jobRef;
@@ -258,7 +277,10 @@ bool Archive::hasPreservePaths()
 
 QString Archive::contents() const
 {
-    return qUncompress(_contents);
+    if(!_contents.isEmpty())
+        return qUncompress(_contents);
+    else
+        return QString();
 }
 
 void Archive::setContents(const QString &value)

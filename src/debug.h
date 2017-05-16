@@ -17,35 +17,38 @@
 #define WARN qWarning()
 #endif
 
-#define LOG Debug::instance()
+#define LOG ConsoleLog::instance()
+#define DEFAULT_LOG_FILE "tarsnap.log"
 
-class Debug : public QObject
+class ConsoleLog : public QObject
 {
     Q_OBJECT
 
 public:
     static void initialize() { qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}"); }
-    static Debug &instance() { static Debug instance; return instance; }
-    ~Debug() {}
+    static ConsoleLog &instance() { static ConsoleLog instance; return instance; }
+    ~ConsoleLog() {}
 
-    inline Debug& operator<<(QChar t) { WARN << t; emit message(QString(t)); return *this; }
-    inline Debug& operator<<(bool t) { WARN << t; emit message(QString(t)); return *this; }
-    inline Debug& operator<<(char t) { WARN << t; emit message(QString(t)); return *this; }
-    inline Debug& operator<<(signed short t) { WARN << t; emit message(QString::number(t)); return *this; }
-    inline Debug& operator<<(unsigned short t) { WARN << t; emit message(QString::number(t)); return *this; }
-    inline Debug& operator<<(signed int t) { WARN << t; emit message(QString::number(t)); return *this; }
-    inline Debug& operator<<(unsigned int t) { WARN << t; emit message(QString::number(t)); return *this; }
-    inline Debug& operator<<(signed long t) { WARN << t; emit message(QString::number(t)); return *this; }
-    inline Debug& operator<<(unsigned long t) { WARN << t; emit message(QString::number(t)); return *this; }
-    inline Debug& operator<<(qint64 t) { WARN << t; emit message(QString::number(t)); return *this; }
-    inline Debug& operator<<(quint64 t) { WARN << t; emit message(QString::number(t)); return *this; }
-    inline Debug& operator<<(float t) { WARN << t; emit message(QString::number(t)); return *this; }
-    inline Debug& operator<<(double t) { WARN << t; emit message(QString::number(t)); return *this; }
-    inline Debug& operator<<(const char* t) { WARN << t; emit message(QString::fromUtf8(t)); return *this; }
-    inline Debug& operator<<(const QString& t) { WARN << t; emit message(t); return *this; }
-    inline Debug& operator<<(const QStringRef& t) { WARN << t; emit message(t.toString()); return *this; }
-    inline Debug& operator<<(QLatin1String t) { WARN << t; emit message(QString(t)); return *this; }
-    inline Debug& operator<<(const QByteArray& t) { WARN << t; emit message(QString(t)); return *this; }
+    inline ConsoleLog& operator<<(QChar t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }
+    inline ConsoleLog& operator<<(bool t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }
+    inline ConsoleLog& operator<<(char t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }
+    inline ConsoleLog& operator<<(signed short t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
+    inline ConsoleLog& operator<<(unsigned short t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
+    inline ConsoleLog& operator<<(signed int t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
+    inline ConsoleLog& operator<<(unsigned int t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
+    inline ConsoleLog& operator<<(signed long t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
+    inline ConsoleLog& operator<<(unsigned long t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
+    inline ConsoleLog& operator<<(qint64 t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
+    inline ConsoleLog& operator<<(quint64 t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
+    inline ConsoleLog& operator<<(float t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
+    inline ConsoleLog& operator<<(double t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
+    inline ConsoleLog& operator<<(const char* t) { WARN << t; emit message(QString::fromUtf8(t)); saveLogMessage(QString::fromUtf8(t)); return *this; }
+    inline ConsoleLog& operator<<(const QString& t) { WARN << t; emit message(t); saveLogMessage(t); return *this; }
+    inline ConsoleLog& operator<<(const QStringRef& t) { WARN << t; emit message(t.toString()); saveLogMessage(t.toString()); return *this; }
+    inline ConsoleLog& operator<<(QLatin1String t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }
+    inline ConsoleLog& operator<<(const QByteArray& t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }
+
+    static QString getLogFile();
 
 public slots:
 
@@ -54,9 +57,11 @@ signals:
 
 private:
     // Yes, a singleton
-    inline explicit Debug() : QObject() {}
-    Debug(Debug const &) : QObject() {}
-    Debug& operator=(Debug const &);
+    inline explicit ConsoleLog() : QObject() {}
+    ConsoleLog(ConsoleLog const &) : QObject() {}
+    ConsoleLog& operator=(ConsoleLog const &);
+
+    void saveLogMessage(QString msg);
 };
 
 #endif // DEBUG_H

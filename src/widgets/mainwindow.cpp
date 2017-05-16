@@ -18,17 +18,17 @@
 #include <QSharedPointer>
 #include <QShortcut>
 
-#define PURGE_SECONDS_DELAY 8
+#define NUKE_SECONDS_DELAY 8
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
       _menuBar(nullptr),
-      _purgeTimerCount(0),
-      _purgeCountdown(this),
+      _nukeTimerCount(0),
+      _nukeCountdown(this),
       _tarsnapAccount(this),
       _aboutToQuit(false)
 {
-    connect(&Debug::instance(), &Debug::message, this,
+    connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
             &MainWindow::appendToConsoleLog);
 
     // Ui initialization
@@ -55,10 +55,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     updateUi();
 
-    // Purge widget setup
-    _purgeCountdown.setIcon(QMessageBox::Critical);
-    _purgeCountdown.setStandardButtons(QMessageBox::Cancel);
-    connect(&_purgeTimer, &QTimer::timeout, this, &MainWindow::purgeTimerFired);
+    // Nuke widget setup
+    _nukeCountdown.setIcon(QMessageBox::Critical);
+    _nukeCountdown.setStandardButtons(QMessageBox::Cancel);
+    connect(&_nukeTimer, &QTimer::timeout, this, &MainWindow::nukeTimerFired);
     // --
 
     // Ui actions setup
@@ -90,6 +90,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.actionStopTasks, &QAction::triggered, this, &MainWindow::getTaskInfo);
     connect(_ui.busyWidget, &BusyWidget::clicked, _ui.actionStopTasks,
             &QAction::trigger);
+    addAction(_ui.actionShowArchivesTabHeader);
+    addAction(_ui.actionShowJobsTabHeader);
     // --
 
     // Backup pane
@@ -180,6 +182,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::commitSettings);
     connect(_ui.limitDownloadSpinBox, &QSpinBox::editingFinished, this,
             &MainWindow::commitSettings);
+    connect(_ui.saveConsoleLogCheckBox, &QCheckBox::toggled, this,
+            &MainWindow::commitSettings);
 
     connect(_ui.accountMachineUseHostnameButton, &QPushButton::clicked, this,
             &MainWindow::accountMachineUseHostnameButtonClicked);
@@ -191,8 +195,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::tarsnapCacheBrowseButton);
     connect(_ui.appDataDirBrowseButton, &QPushButton::clicked, this,
             &MainWindow::appDataButtonClicked);
-    connect(_ui.purgeArchivesButton, &QPushButton::clicked, this,
-            &MainWindow::purgeArchivesButtonClicked);
+    connect(_ui.nukeArchivesButton, &QPushButton::clicked, this,
+            &MainWindow::nukeArchivesButtonClicked);
     connect(_ui.runSetupWizard, &QPushButton::clicked, this,
             &MainWindow::runSetupWizardClicked);
     connect(_ui.downloadsDirBrowseButton, &QPushButton::clicked, this,
@@ -406,6 +410,16 @@ MainWindow::MainWindow(QWidget *parent)
         _ui.jobsCountLabel->setText(tr("Jobs (%1/%2)")
                                     .arg(visible).arg(total));
     });
+    connect(_ui.actionShowArchivesTabHeader, &QAction::triggered,
+            [&](bool checked)
+    {
+        _ui.archivesHeader->setVisible(checked);
+    });
+    connect(_ui.actionShowJobsTabHeader, &QAction::triggered,
+            [&](bool checked)
+    {
+        _ui.jobsHeader->setVisible(checked);
+    });
 }
 
 MainWindow::~MainWindow()
@@ -418,9 +432,9 @@ void MainWindow::loadSettings()
     QSettings settings;
 
     _ui.accountCreditLabel->setText(
-        settings.value("tarsnap/credit", tr("click update button")).toString());
+        settings.value("tarsnap/credit", tr("click login button")).toString());
     _ui.machineActivity->setText(
-        settings.value("tarsnap/machine_activity", tr("click update button")).toString());
+        settings.value("tarsnap/machine_activity", tr("click login button")).toString());
     _ui.accountUserLineEdit->setText(
         settings.value("tarsnap/user", "").toString());
     _ui.accountMachineKeyLineEdit->setText(
@@ -465,6 +479,15 @@ void MainWindow::loadSettings()
         settings.value("app/limit_upload", 0).toInt());
     _ui.limitDownloadSpinBox->setValue(
                 settings.value("app/limit_download", 0).toInt());
+    _ui.actionShowArchivesTabHeader->setChecked(
+                settings.value("app/archives_header_enabled", true).toBool());
+    _ui.archivesHeader->setVisible(_ui.actionShowArchivesTabHeader->isChecked());
+    _ui.actionShowJobsTabHeader->setChecked(
+                settings.value("app/jobs_header_enabled", true).toBool());
+    _ui.jobsHeader->setVisible(_ui.actionShowJobsTabHeader->isChecked());
+    _ui.saveConsoleLogCheckBox->setChecked(
+                settings.value("app/save_console_log", false).toBool());
+    _ui.saveConsoleLogLineEdit->setText(ConsoleLog::getLogFile());
 
     if(settings.value("app/default_jobs_dismissed", false).toBool())
     {
@@ -569,6 +592,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Escape:
         if(_ui.mainTabWidget->currentWidget() == _ui.archivesTab)
         {
+            if(_ui.archiveDetailsWidget->isVisible())
+            {
+                _ui.archiveDetailsWidget->close();
+                return;
+            }
             if(_ui.archivesFilter->isVisible())
             {
                 if(_ui.archivesFilter->currentText().isEmpty())
@@ -582,14 +610,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 }
                 return;
             }
-            else if(_ui.archiveDetailsWidget->isVisible())
-            {
-                _ui.archiveDetailsWidget->close();
-                return;
-            }
         }
         if(_ui.mainTabWidget->currentWidget() == _ui.jobsTab)
         {
+            if(_ui.jobDetailsWidget->isVisible())
+            {
+                hideJobDetails();
+                return;
+            }
             if(_ui.jobsFilter->isVisible())
             {
                 if(_ui.jobsFilter->currentText().isEmpty())
@@ -601,11 +629,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     _ui.jobsFilter->clearEditText();
                     _ui.jobsFilter->setFocus();
                 }
-                return;
-            }
-            if(_ui.jobDetailsWidget->isVisible())
-            {
-                hideJobDetails();
                 return;
             }
         }
@@ -729,6 +752,8 @@ void MainWindow::setupMenuBar()
     windowMenu->addAction(_ui.actionGoSettings);
     windowMenu->addAction(_ui.actionGoHelp);
     windowMenu->addAction(_ui.actionShowJournal);
+    windowMenu->addAction(_ui.actionShowArchivesTabHeader);
+    windowMenu->addAction(_ui.actionShowJobsTabHeader);
 
     QMenu *helpMenu = _menuBar->addMenu(tr("&Help"));
     QAction *actionTarsnapWebsite = new QAction(tr("Tarsnap Website"), this);
@@ -1282,6 +1307,9 @@ void MainWindow::commitSettings()
     settings.setValue("app/limit_download", _ui.limitDownloadSpinBox->value());
     settings.setValue("app/window_geometry", saveGeometry());
     settings.setValue("app/language", _ui.languageComboBox->currentText());
+    settings.setValue("app/archives_header_enabled", _ui.actionShowArchivesTabHeader->isChecked());
+    settings.setValue("app/jobs_header_enabled", _ui.actionShowJobsTabHeader->isChecked());
+    settings.setValue("app/save_console_log", _ui.saveConsoleLogCheckBox->isChecked());
     settings.sync();
 }
 
@@ -1345,19 +1373,19 @@ bool MainWindow::validateAppDataDir()
     }
 }
 
-void MainWindow::purgeTimerFired()
+void MainWindow::nukeTimerFired()
 {
-    if(_purgeTimerCount <= 1)
+    if(_nukeTimerCount <= 1)
     {
-        _purgeTimer.stop();
-        _purgeCountdown.accept();
-        emit purgeArchives();
+        _nukeTimer.stop();
+        _nukeCountdown.accept();
+        emit nukeArchives();
     }
     else
     {
-        --_purgeTimerCount;
-        _purgeCountdown.setText(
-            tr("Purging all archives in %1 seconds...").arg(_purgeTimerCount));
+        --_nukeTimerCount;
+        _nukeCountdown.setText(
+            tr("Purging all archives in %1 seconds...").arg(_nukeTimerCount));
     }
 }
 
@@ -1519,12 +1547,12 @@ void MainWindow::appDataButtonClicked()
     }
 }
 
-void MainWindow::purgeArchivesButtonClicked()
+void MainWindow::nukeArchivesButtonClicked()
 {
     const QString confirmationText = tr("No Tomorrow");
     bool          ok               = false;
     QString       userText         = QInputDialog::getText(
-        this, tr("Purge all archives?"),
+        this, tr("Nuke all archives?"),
         tr("This action will <b>delete all (%1) archives</b> stored for this "
            "key."
            "<br /><br />To confirm, type '%2' and press OK."
@@ -1534,17 +1562,21 @@ void MainWindow::purgeArchivesButtonClicked()
         QLineEdit::Normal, "", &ok);
     if(ok && (confirmationText == userText))
     {
-        _purgeTimerCount = PURGE_SECONDS_DELAY;
-        _purgeCountdown.setWindowTitle(
+        _nukeTimerCount = NUKE_SECONDS_DELAY;
+        _nukeCountdown.setWindowTitle(
                             tr("Deleting all archives: press Cancel to abort"));
-        _purgeCountdown.setText(
-            tr("Purging all archives in %1 seconds...").arg(_purgeTimerCount));
-        _purgeTimer.start(1000);
-        if(QMessageBox::Cancel == _purgeCountdown.exec())
+        _nukeCountdown.setText(
+            tr("Purging all archives in %1 seconds...").arg(_nukeTimerCount));
+        _nukeTimer.start(1000);
+        if(QMessageBox::Cancel == _nukeCountdown.exec())
         {
-            _purgeTimer.stop();
-            updateStatusMessage(tr("Purge cancelled."));
+            _nukeTimer.stop();
+            updateStatusMessage(tr("Nuke cancelled."));
         }
+    }
+    else
+    {
+        updateStatusMessage(tr("Nuke cancelled."));
     }
 }
 
@@ -1733,6 +1765,15 @@ void MainWindow::tarsnapError(TarsnapError error)
                               tr("Cache repair failed. It might be worth trying"
                                  " the 'Repair cache' button in Settings -> "
                                  " Application."));
+        break;
+    }
+    case TarsnapError::NetworkError:
+    {
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Tarsnap encountered network errors. Please "
+                                 "check your network connection and verify that"
+                                 " internet access is available and try "
+                                 "again."));
         break;
     }
     }

@@ -9,6 +9,7 @@
 #include <QTimer>
 
 #define SUCCESS 0
+#define SCHEDULED_JOBS_SLEEP 3
 
 TaskManager::TaskManager()
     : _threadPool(QThreadPool::globalInstance())
@@ -53,7 +54,7 @@ void TaskManager::registerMachine(QString user, QString password,
         registerTask->setCommand(tarsnapPath + QDir::separator() +
                                  CMD_TARSNAPKEYGEN);
         registerTask->setArguments(args);
-        registerTask->setStandardIn(password);
+        registerTask->setStdIn(password);
     }
     connect(registerTask, &TarsnapTask::finished, this,
             &TaskManager::registerMachineFinished, QUEUED);
@@ -73,7 +74,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     QStringList  args;
     initTarsnapArgs(args);
     QSettings settings;
-    if(settings.value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING).toBool())
+    if(settings.value("tarsnap/aggressive_networking",
+                      DEFAULT_AGGRESSIVE_NETWORKING).toBool())
         args << "--aggressive-networking";
     if(backupTask->optionDryRun())
         args << "--dry-run";
@@ -201,7 +203,8 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     QStringList  args;
     initTarsnapArgs(args);
     QSettings settings;
-    if(settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES).toBool())
+    if(settings.value("tarsnap/preserve_pathnames",
+                      DEFAULT_PRESERVE_PATHNAMES).toBool())
         args << "-P";
     args << "-tv"
          << "-f" << archive->name();
@@ -303,12 +306,12 @@ void TaskManager::nuke()
     initTarsnapArgs(args);
     args << "--nuke";
     nuke->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    nuke->setStandardIn("No Tomorrow\n");
+    nuke->setStdIn("No Tomorrow\n");
     nuke->setArguments(args);
     connect(nuke, &TarsnapTask::finished, this, &TaskManager::nukeFinished,
             QUEUED);
     connect(nuke, &TarsnapTask::started, this,
-            [=]() { emit message(tr("Archives purge initiated...")); }, QUEUED);
+            [=]() { emit message(tr("Archives nuke initiated...")); }, QUEUED);
     queueTask(nuke, true);
 }
 
@@ -346,12 +349,12 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     if(options.optionTarArchive)
     {
         args << "-r";
-        restore->setStandardOutputFile(options.path);
+        restore->setStdOutFile(options.path);
     }
     if(!options.files.isEmpty())
     {
         args << "-T" << "-";
-        restore->setStandardIn(options.files.join(QChar('\n')));
+        restore->setStdIn(options.files.join(QChar('\n')));
     }
     args << "-f" << archive->name();
     restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));
@@ -429,6 +432,8 @@ void TaskManager::findMatchingArchives(QString jobPrefix)
 
 void TaskManager::runScheduledJobs()
 {
+    //sleep for a short while just to take an extra assurance that network is up
+    QThread::sleep(SCHEDULED_JOBS_SLEEP);
     loadJobs();
     QSettings settings;
     QDate now(QDate::currentDate());
@@ -511,7 +516,7 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
     }
 }
 
-void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output)
+void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString stdOut, QString stdErr)
 {
     BackupTaskPtr backupTask = _backupTaskMap[data.toUuid()];
     if(!backupTask)
@@ -520,18 +525,17 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
         return;
     }
     backupTask->setExitCode(exitCode);
-    backupTask->setOutput(output);
+    backupTask->setOutput(stdOut + stdErr);
     bool truncated = false;
-
     if(exitCode != SUCCESS)
     {
-        int lastIndex = output.lastIndexOf(
+        int lastIndex = stdErr.lastIndexOf(
                         QLatin1String("tarsnap: Archive truncated"), -1,
                                       Qt::CaseSensitive);
         if(lastIndex == -1)
         {
             backupTask->setStatus(TaskStatus::Failed);
-            parseError(output);
+            parseError(stdErr);
             return;
         }
         else
@@ -552,7 +556,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
     // So that a subsequent comparison in getArchiveListFinished won't fail.
     archive->setTimestamp(QDateTime::fromTime_t(backupTask->timestamp().toTime_t()));
     archive->setJobRef(backupTask->jobRef());
-    parseArchiveStats(output, true, archive);
+    parseArchiveStats(stdErr, true, archive);
     archive->save();
     backupTask->setArchive(archive);
     backupTask->setStatus(TaskStatus::Completed);
@@ -563,7 +567,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString output
             emit job->loadArchives();
     }
     emit addArchive(archive);
-    parseGlobalStats(output);
+    parseGlobalStats(stdErr);
 }
 
 void TaskManager::backupTaskStarted(QVariant data)
@@ -573,17 +577,17 @@ void TaskManager::backupTaskStarted(QVariant data)
 }
 
 void TaskManager::registerMachineFinished(QVariant data, int exitCode,
-                                          QString output)
+                                          QString stdOut, QString stdErr)
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
-        emit registerMachineStatus(TaskStatus::Completed, output);
+        emit registerMachineStatus(TaskStatus::Completed, stdOut);
     else
-        emit registerMachineStatus(TaskStatus::Failed, output);
+        emit registerMachineStatus(TaskStatus::Failed, stdErr);
 }
 
 void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
-                                         QString output)
+                                         QString stdOut, QString stdErr)
 {
     Q_UNUSED(data)
 
@@ -595,14 +599,14 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
     {
         emit message(tr("Error: Failed to list archives from remote."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
-                         .arg(exitCode)
-                         .arg(output));
-        parseError(output);
+                     .arg(exitCode)
+                     .arg(stdErr));
+        parseError(stdErr);
         return;
     }
 
     QMap<QString, ArchivePtr> _newArchiveMap;
-    QStringList lines = output.split('\n', QString::SkipEmptyParts);
+    QStringList lines = stdOut.split('\n', QString::SkipEmptyParts);
     foreach(QString line, lines)
     {
         QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");
@@ -612,7 +616,8 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
             archiveDetails.removeFirst();
             QDateTime timestamp =
                 QDateTime::fromString(archiveDetails[1], Qt::ISODate);
-            ArchivePtr archive = _archiveMap.value(archiveDetails[0], ArchivePtr(new Archive));
+            ArchivePtr archive = _archiveMap.value(archiveDetails[0],
+                                                   ArchivePtr(new Archive));
             if(!archive->objectKey().isEmpty()
                && (archive->timestamp() != timestamp))
             {
@@ -656,7 +661,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
 }
 
 void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
-                                          QString output)
+                                          QString stdOut, QString stdErr)
 {
     ArchivePtr archive = data.value<ArchivePtr>();
     if(!archive)
@@ -666,25 +671,25 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
     }
     if(exitCode == SUCCESS)
     {
-        emit message(
-            tr("Fetching stats for archive <i>%1</i>... done.").arg(archive->name()));
+        emit message(tr("Fetching stats for archive <i>%1</i>... done.")
+                     .arg(archive->name()));
     }
     else
     {
         emit message(tr("Error: Failed to get archive stats from remote."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
-                         .arg(output));
-        parseError(output);
+                         .arg(stdErr));
+        parseError(stdErr);
         return;
     }
 
-    parseArchiveStats(output, false, archive);
-    parseGlobalStats(output);
+    parseArchiveStats(stdOut, false, archive);
+    parseGlobalStats(stdOut);
 }
 
 void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
-                                             QString output)
+                                             QString stdOut, QString stdErr)
 {
     ArchivePtr archive = data.value<ArchivePtr>();
 
@@ -697,36 +702,36 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
     QString detailText;
     if(exitCode != SUCCESS)
     {
-        int lastIndex = output.lastIndexOf(
-                         QLatin1String("tarsnap: Truncated input file"), -1,
-                                        Qt::CaseSensitive);
-        if(archive->name().endsWith(".part", Qt::CaseSensitive)
-           && (lastIndex != -1))
+        bool truncated = stdErr.contains(QLatin1String("tarsnap: Truncated"
+                                                       " input file"));
+        if(archive->name().endsWith(".part", Qt::CaseSensitive) && truncated)
         {
-            detailText = output.mid(lastIndex);
-            output.remove(lastIndex, output.size() - 1);
+            detailText = stdErr;
             archive->setTruncated(true);
+            archive->setTruncatedInfo(stdErr);
         }
-        else
+        else if(stdOut.isEmpty())
         {
             emit message(tr("Error: Failed to get archive contents from remote."),
                          tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
-                         .arg(output));
-            parseError(output);
+                         .arg(stdErr));
+            parseError(stdErr);
             return;
         }
     }
 
     emit message(tr("Fetching contents for archive <i>%1</i>... done.")
                  .arg(archive->name()), detailText);
-    archive->setContents(output);
+
+    archive->setContents(stdOut);
     archive->save();
 }
 
 void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
-                                         QString output)
+                                         QString stdOut, QString stdErr)
 {
+    Q_UNUSED(stdOut)
     QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
 
     if(exitCode != SUCCESS)
@@ -734,8 +739,8 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
         emit message(tr("Error: Failed to delete archive(s) from remote."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
-                         .arg(output));
-        parseError(output);
+                         .arg(stdErr));
+        parseError(stdErr);
         foreach(ArchivePtr archive, archives)
             archive->setDeleteScheduled(false);
         return;
@@ -750,8 +755,9 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
         }
         notifyArchivesDeleted(archives, true);
     }
-    // We are only interested in the output of the last archive deleted
-    QStringList lines = output.split('\n', QString::SkipEmptyParts);
+    // We are only interested in the output of the last archive deleted for
+    // parsing the final global stats
+    QStringList lines = stdErr.split('\n', QString::SkipEmptyParts);
     QStringList lastFive;
     int         count = lines.count();
     for(int i = 0; i < std::min(5, count); ++i)
@@ -759,7 +765,7 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
     parseGlobalStats(lastFive.join('\n'));
 }
 
-void TaskManager::overallStatsFinished(QVariant data, int exitCode, QString output)
+void TaskManager::overallStatsFinished(QVariant data, int exitCode, QString stdOut, QString stdErr)
 {
     Q_UNUSED(data);
 
@@ -768,49 +774,50 @@ void TaskManager::overallStatsFinished(QVariant data, int exitCode, QString outp
         emit message(tr("Error: Failed to get stats from remote."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
-                         .arg(output));
-        parseError(output);
+                         .arg(stdErr));
+        parseError(stdErr);
         return;
     }
 
-    parseGlobalStats(output);
+    parseGlobalStats(stdOut);
 }
 
-void TaskManager::fsckFinished(QVariant data, int exitCode, QString output)
+void TaskManager::fsckFinished(QVariant data, int exitCode, QString stdOut, QString stdErr)
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
     {
-        emit message(tr("Cache repair succeeded."), output);
+        emit message(tr("Cache repair succeeded."), stdOut);
     }
     else
     {
-        emit message(tr("Cache repair failed. Hover mouse for details."), output);
-        parseError(output);
+        emit message(tr("Cache repair failed. Hover mouse for details."), stdErr);
+        parseError(stdErr);
     }
     getArchives();
 }
 
-void TaskManager::nukeFinished(QVariant data, int exitCode, QString output)
+void TaskManager::nukeFinished(QVariant data, int exitCode, QString stdOut, QString stdErr)
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
     {
-        emit message(tr("All archives purged successfully."), output);
+        emit message(tr("All archives nuked successfully."), stdOut);
         fsck();
     }
     else
     {
-        emit message(tr("Archives purging failed. Hover mouse for details."),
-                     output);
-        parseError(output);
+        emit message(tr("Archives nuke failed. Hover mouse for details."),
+                     stdErr);
+        parseError(stdErr);
         return;
     }
 }
 
 void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
-                                         QString output)
+                                         QString stdOut, QString stdErr)
 {
+    Q_UNUSED(stdOut)
     ArchivePtr archive = data.value<ArchivePtr>();
     if(!archive)
     {
@@ -819,16 +826,15 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     }
     if(exitCode == SUCCESS)
     {
-        emit message(
-            tr("Restoring from archive <i>%1</i>... done.").arg(archive->name()));
+        emit message(tr("Restoring from archive <i>%1</i>... done.")
+                     .arg(archive->name()));
     }
     else
     {
-        emit message(
-            tr("Restoring from archive <i>%1</i> failed. Hover mouse for details.")
-                .arg(archive->name()),
-            output);
-        parseError(output);
+        emit message(tr("Restoring from archive <i>%1</i> failed."
+                        " Hover mouse for details.").arg(archive->name()),
+                     stdErr);
+        parseError(stdErr);
         return;
     }
 }
@@ -910,13 +916,13 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
     }
 }
 
-void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString output)
+void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString stdOut, QString stdErr)
 {
     QString key = data.toString();
     if(exitCode == SUCCESS)
     {
         bool ok = false;
-        int  id = output.toInt(&ok);
+        int  id = stdOut.toInt(&ok);
         if(ok)
             emit keyId(key, id);
         else
@@ -925,7 +931,7 @@ void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString output)
     else
     {
         DEBUG << "Failed to get the id for key " << key;
-        parseError(output);
+        parseError(stdErr);
     }
 }
 
@@ -988,48 +994,52 @@ void TaskManager::parseError(QString tarsnapOutput)
     {
         emit error(TarsnapError::FsckError);
     }
+    else if(tarsnapOutput.contains("Cannot obtain server address")
+            || tarsnapOutput.contains("Error looking up")
+            || tarsnapOutput.contains("Too many network failures"))
+    {
+        emit error(TarsnapError::NetworkError);
+    }
 }
 
 void TaskManager::parseGlobalStats(QString tarsnapOutput)
 {
-    quint64 sizeTotal;
-    quint64 sizeCompressed;
-    quint64 sizeUniqueTotal;
-    quint64 sizeUniqueCompressed;
-
-    QStringList lines =
-        tarsnapOutput.split('\n', QString::SkipEmptyParts);
+    QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
     if(lines.count() < 3)
     {
         DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
     }
+
+    quint64 sizeTotal            = 0;
+    quint64 sizeCompressed       = 0;
+    quint64 sizeUniqueTotal      = 0;
+    quint64 sizeUniqueCompressed = 0;
+
     QRegExp sizeRX("^All archives\\s+(\\d+)\\s+(\\d+)$");
+    if(-1 == sizeRX.indexIn(lines[1]))
+    {
+        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
+        return;
+    }
+
+    QStringList captured = sizeRX.capturedTexts();
+    captured.removeFirst();
+    sizeTotal      = captured[0].toULongLong();
+    sizeCompressed = captured[1].toULongLong();
+
     QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
-    if(-1 != sizeRX.indexIn(lines[1]))
-    {
-        QStringList captured = sizeRX.capturedTexts();
-        captured.removeFirst();
-        sizeTotal      = captured[0].toULongLong();
-        sizeCompressed = captured[1].toULongLong();
-    }
-    else
+    if(-1 == uniqueSizeRX.indexIn(lines[2]))
     {
         DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
     }
-    if(-1 != uniqueSizeRX.indexIn(lines[2]))
-    {
-        QStringList captured = uniqueSizeRX.capturedTexts();
-        captured.removeFirst();
-        sizeUniqueTotal      = captured[0].toULongLong();
-        sizeUniqueCompressed = captured[1].toULongLong();
-    }
-    else
-    {
-        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
-        return;
-    }
+
+    captured = uniqueSizeRX.capturedTexts();
+    captured.removeFirst();
+    sizeUniqueTotal      = captured[0].toULongLong();
+    sizeUniqueCompressed = captured[1].toULongLong();
+
     emit overallStats(sizeTotal, sizeCompressed, sizeUniqueTotal,
                       sizeUniqueCompressed,
                       static_cast<quint64>(_archiveMap.count()));
@@ -1038,15 +1048,12 @@ void TaskManager::parseGlobalStats(QString tarsnapOutput)
 void TaskManager::parseArchiveStats(QString tarsnapOutput,
                                     bool newArchiveOutput, ArchivePtr archive)
 {
-    QStringList lines =
-        tarsnapOutput.split('\n', QString::SkipEmptyParts);
-    if(lines.count() != 5)
+    QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
+    if(lines.count() < 5)
     {
         DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
     }
-    QString sizeLine       = lines[3];
-    QString uniqueSizeLine = lines[4];
     QRegExp sizeRX;
     QRegExp uniqueSizeRX;
     if(newArchiveOutput)
@@ -1060,26 +1067,27 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput,
             QString("^%1\\s+(\\d+)\\s+(\\d+)$").arg(archive->name()));
         uniqueSizeRX.setPattern("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
     }
-    if(-1 != sizeRX.indexIn(sizeLine))
+    bool matched = false;
+    foreach(QString line, lines)
     {
-        QStringList captured = sizeRX.capturedTexts();
-        captured.removeFirst();
-        archive->setSizeTotal(captured[0].toULongLong());
-        archive->setSizeCompressed(captured[1].toULongLong());
+        if(-1 != sizeRX.indexIn(line))
+        {
+            QStringList captured = sizeRX.capturedTexts();
+            captured.removeFirst();
+            archive->setSizeTotal(captured[0].toULongLong());
+            archive->setSizeCompressed(captured[1].toULongLong());
+            matched = true;
+        }
+        if(-1 != uniqueSizeRX.indexIn(line))
+        {
+            QStringList captured = uniqueSizeRX.capturedTexts();
+            captured.removeFirst();
+            archive->setSizeUniqueTotal(captured[0].toULongLong());
+            archive->setSizeUniqueCompressed(captured[1].toULongLong());
+            matched = true;
+        }
     }
-    else
-    {
-        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
-        return;
-    }
-    if(-1 != uniqueSizeRX.indexIn(uniqueSizeLine))
-    {
-        QStringList captured = uniqueSizeRX.capturedTexts();
-        captured.removeFirst();
-        archive->setSizeUniqueTotal(captured[0].toULongLong());
-        archive->setSizeUniqueCompressed(captured[1].toULongLong());
-    }
-    else
+    if(!matched)
     {
         DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
@@ -1219,7 +1227,7 @@ void TaskManager::addJob(JobPtr job)
 }
 
 void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
-                                            QString output)
+                                            QString stdOut, QString stdErr)
 {
     Q_UNUSED(data)
 
@@ -1228,11 +1236,11 @@ void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
         emit message(tr("Error: Failed to get Tarsnap version."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
-                         .arg(output));
+                         .arg(stdErr));
         return;
     }
 
     QRegExp versionRx("^tarsnap (\\S+)\\s?$");
-    if(-1 != versionRx.indexIn(output))
+    if(-1 != versionRx.indexIn(stdOut))
         emit tarsnapVersion(versionRx.cap(1));
 }

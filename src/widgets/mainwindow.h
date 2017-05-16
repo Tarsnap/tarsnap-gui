@@ -49,7 +49,7 @@ signals:
     void loadArchiveContents(ArchivePtr archive);
     void getOverallStats();
     void repairCache(bool prune);
-    void purgeArchives();
+    void nukeArchives();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runSetupWizard();
     void stopTasks(bool interrupt, bool running, bool queued);
@@ -80,7 +80,7 @@ private slots:
     bool validateTarsnapPath();
     bool validateTarsnapCache();
     bool validateAppDataDir();
-    void purgeTimerFired();
+    void nukeTimerFired();
     void browseForBackupItems();
     void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();
@@ -89,7 +89,7 @@ private slots:
     void tarsnapPathBrowseButtonClicked();
     void tarsnapCacheBrowseButton();
     void appDataButtonClicked();
-    void purgeArchivesButtonClicked();
+    void nukeArchivesButtonClicked();
     void runSetupWizardClicked();
     void downloadsDirBrowseButtonClicked();
     void displayJobDetails(JobPtr job);
@@ -112,9 +112,9 @@ private:
     Ui::MainWindow  _ui;
     QMenuBar       *_menuBar;
     QString         _lastTimestamp;
-    QTimer          _purgeTimer;
-    int             _purgeTimerCount;
-    QMessageBox     _purgeCountdown;
+    QTimer          _nukeTimer;
+    int             _nukeTimerCount;
+    QMessageBox     _nukeCountdown;
     TarsnapAccount  _tarsnapAccount;
     bool            _aboutToQuit;
 

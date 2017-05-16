@@ -182,7 +182,7 @@ void CoreApplication::showMainWindow()
             &MainWindow::overallStatsChanged, QUEUED);
     connect(_mainWindow, &MainWindow::repairCache, &_taskManager,
             &TaskManager::fsck, QUEUED);
-    connect(_mainWindow, &MainWindow::purgeArchives, &_taskManager,
+    connect(_mainWindow, &MainWindow::nukeArchives, &_taskManager,
             &TaskManager::nuke, QUEUED);
     connect(_mainWindow, &MainWindow::restoreArchive, &_taskManager,
             &TaskManager::restoreArchive, QUEUED);

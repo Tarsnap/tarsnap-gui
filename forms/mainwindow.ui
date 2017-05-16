@@ -1061,7 +1061,7 @@ border: 1px solid white;
 }</string>
              </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="settingsAccountPage">
               <property name="geometry">
@@ -1314,7 +1314,7 @@ color: blue;
                        <string>Displayed credit might be out of date, click login button to fetch latest account details</string>
                       </property>
                       <property name="text">
-                       <string>Credit and machine activity is %1 days old. Click update to fetch latest details.</string>
+                       <string>Credit and machine activity is %1 days old. Click login to update.</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>

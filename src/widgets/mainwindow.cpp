@@ -552,7 +552,7 @@ void MainWindow::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
-    if(frameGeometry().width() > 600)
+    if(frameGeometry().width() > 550)
     {
         QPixmap pixmap(":/icons/tarsnap-logo.png");
         QIcon   icon;

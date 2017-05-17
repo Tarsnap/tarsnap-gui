@@ -114,7 +114,7 @@ MainWindow::MainWindow(QWidget *parent)
             &BackupListWidget::clear);
     connect(_ui.actionBrowseItems, &QAction::triggered, this,
             &MainWindow::browseForBackupItems);
-    connect(_ui.backupListInfoLabel, &QLabel::linkActivated,
+    connect(_ui.backupListInfoLabel, &ElidedLabel::clicked,
             _ui.actionBrowseItems, &QAction::trigger);
     connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
             &MainWindow::appendTimestampCheckBoxToggled);
@@ -552,19 +552,19 @@ void MainWindow::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
-    if(width() < 600)
-    {
-        QPixmap pixmap(":/icons/tarsnap-logo-icon.png");
-        QIcon   icon;
-        icon.addFile(":/icons/tarsnap-logo-icon.png");
-        icon.paint(&p, width() - pixmap.width() - 5, 2, pixmap.width(),
-                   pixmap.height());
-    }
-    else
+    if(frameGeometry().width() > 600)
     {
         QPixmap pixmap(":/icons/tarsnap-logo.png");
         QIcon   icon;
         icon.addFile(":/icons/tarsnap-logo.png");
+        icon.paint(&p, width() - pixmap.width() - 5, 2, pixmap.width(),
+                   pixmap.height());
+    }
+    else if(frameGeometry().width() > 400)
+    {
+        QPixmap pixmap(":/icons/tarsnap-logo-icon.png");
+        QIcon   icon;
+        icon.addFile(":/icons/tarsnap-logo-icon.png");
         icon.paint(&p, width() - pixmap.width() - 5, 2, pixmap.width(),
                    pixmap.height());
     }
@@ -1610,6 +1610,8 @@ void MainWindow::updateUi()
     _ui.actionBackupNow->setToolTip(_ui.actionBackupNow->toolTip().arg(
         _ui.actionBackupNow->shortcut().toString(QKeySequence::NativeText)));
     _ui.backupListInfoLabel->setToolTip(_ui.backupListInfoLabel->toolTip().arg(
+        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+    _ui.backupListInfoLabel->setText(_ui.backupListInfoLabel->text().arg(
         _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
     _ui.actionShowJournal->setToolTip(_ui.actionShowJournal->toolTip().arg(
         _ui.actionShowJournal->shortcut().toString(QKeySequence::NativeText)));

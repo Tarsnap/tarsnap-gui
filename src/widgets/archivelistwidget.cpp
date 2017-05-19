@@ -5,6 +5,7 @@
 
 #include <QKeyEvent>
 #include <QMessageBox>
+#include <QKeyEvent>
 
 #define DELETE_CONFIRMATION_THRESHOLD 10
 

@@ -4,6 +4,7 @@
 
 #include <QKeyEvent>
 #include <QMessageBox>
+#include <QKeyEvent>
 
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {

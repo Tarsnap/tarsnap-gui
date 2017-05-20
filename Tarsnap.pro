@@ -1,5 +1,5 @@
-# Check for at least Qt 5
-lessThan(QT_MAJOR_VERSION, 5): error("Tarsnap-gui requires Qt 5 or higher.")
+# Check for at least Qt 5.2
+lessThan(QT_VERSION, 5.2): error("Tarsnap-gui requires Qt 5.2 or higher.")
 
 QT += core gui network sql widgets
 CONFIG += c++11

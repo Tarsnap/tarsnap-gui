@@ -60,6 +60,12 @@
          <enum>Qt::Vertical</enum>
         </property>
         <widget class="QTabWidget" name="mainTabWidget">
+         <property name="minimumSize">
+          <size>
+           <width>365</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>

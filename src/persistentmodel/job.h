@@ -63,7 +63,7 @@ public:
     bool optionFollowSymLinks() const;
     void setOptionFollowSymLinks(bool optionFollowSymLinks);
 
-    int optionSkipFilesSize() const;
+    int  optionSkipFilesSize() const;
     void setOptionSkipFilesSize(const int &optionSkipFilesSize);
 
     bool optionSkipFiles() const;

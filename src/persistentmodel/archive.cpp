@@ -9,17 +9,18 @@ void ParseArchiveListingTask::run()
     // This splits each line of "tarsnap -tv -f ..." into a QStringList.
     // (We don't actually run "tarsnap -tv", because that data is
     // already stored in the Archive _contents when we created it.)
-    QRegExp fileRx("^(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+\\s+\\S+\\s+\\S+)\\s+(.+)$");
+    QRegExp fileRx("^(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+"
+                   "\\s+\\S+\\s+\\S+)\\s+(.+)$");
     foreach(QString line, _listing.split('\n', QString::SkipEmptyParts))
     {
         if(-1 != fileRx.indexIn(line))
         {
             File file;
-            file.mode  = fileRx.capturedTexts()[1];
-            file.links = fileRx.capturedTexts()[2].toULongLong();
-            file.user  = fileRx.capturedTexts()[3];
-            file.group = fileRx.capturedTexts()[4];
-            file.size  = fileRx.capturedTexts()[5].toULongLong();
+            file.mode     = fileRx.capturedTexts()[1];
+            file.links    = fileRx.capturedTexts()[2].toULongLong();
+            file.user     = fileRx.capturedTexts()[3];
+            file.group    = fileRx.capturedTexts()[4];
+            file.size     = fileRx.capturedTexts()[5].toULongLong();
             file.modified = fileRx.capturedTexts()[6];
             file.name     = fileRx.capturedTexts()[7];
             files.append(file);
@@ -31,6 +32,7 @@ void ParseArchiveListingTask::run()
 Archive::Archive(QObject *parent)
     : QObject(parent),
       _truncated(false),
+      _truncatedInfo(""),
       _sizeTotal(0),
       _sizeCompressed(0),
       _sizeUniqueTotal(0),
@@ -49,18 +51,23 @@ void Archive::save()
     QString queryString;
     // Prepare query: either updating or creating an entry.
     if(exists)
+    {
         queryString =
-            QLatin1String("update archives set name=?, timestamp=?, "
-                          "truncated=?, sizeTotal=?, sizeCompressed=?,"
-                          " sizeUniqueTotal=?, sizeUniqueCompressed=?, "
-                          "command=?, contents=?, jobRef=?"
-                          " where name=?");
+            QLatin1String("update archives set name=?, timestamp=?,"
+                          " truncated=?, truncatedInfo=?, sizeTotal=?,"
+                          " sizeCompressed=?, sizeUniqueTotal=?,"
+                          " sizeUniqueCompressed=?, command=?, contents=?,"
+                          " jobRef=?"
+                          "  where name=?");
+    }
     else
+    {
         queryString = QLatin1String(
-            "insert into archives(name, timestamp, truncated, sizeTotal,"
-            " sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed, command,"
-            " contents, jobRef)"
-            " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            "insert into archives(name, timestamp, truncated, truncatedInfo,"
+            " sizeTotal, sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed,"
+            " command, contents, jobRef)"
+            " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    }
     // Get database instance and create query object.
     PersistentStore &store = getStore();
     QSqlQuery        query = store.createQuery();
@@ -73,6 +80,7 @@ void Archive::save()
     query.addBindValue(_name);
     query.addBindValue(_timestamp.toTime_t());
     query.addBindValue(_truncated);
+    query.addBindValue(_truncatedInfo);
     query.addBindValue(_sizeTotal);
     query.addBindValue(_sizeCompressed);
     query.addBindValue(_sizeUniqueTotal);
@@ -113,6 +121,8 @@ void Archive::load()
         _timestamp = QDateTime::fromTime_t(
             query.value(query.record().indexOf("timestamp")).toUInt());
         _truncated = query.value(query.record().indexOf("truncated")).toBool();
+        _truncatedInfo =
+            query.value(query.record().indexOf("truncatedInfo")).toString();
         _sizeTotal =
             query.value(query.record().indexOf("sizeTotal")).toULongLong();
         _sizeCompressed =
@@ -121,7 +131,7 @@ void Archive::load()
             query.value(query.record().indexOf("sizeUniqueTotal")).toULongLong();
         _sizeUniqueCompressed =
             query.value(query.record().indexOf("sizeUniqueCompressed")).toULongLong();
-        _command  = query.value(query.record().indexOf("command")).toString();
+        _command = query.value(query.record().indexOf("command")).toString();
         _contents = query.value(query.record().indexOf("contents")).toByteArray();
         _jobRef   = query.value(query.record().indexOf("jobRef")).toString();
         setObjectKey(_name);
@@ -185,10 +195,13 @@ bool Archive::doesKeyExist(QString key)
     // Run query.
     if(store.runQuery(query))
     {
-        if (query.next()) {
+        if(query.next())
+        {
             found = true;
         }
-    } else {
+    }
+    else
+    {
         DEBUG << "Failed to run doesKeyExist query for an Archive.";
     }
     return found;
@@ -230,6 +243,16 @@ void Archive::setTruncated(bool truncated)
     _truncated = truncated;
 }
 
+QString Archive::truncatedInfo() const
+{
+    return _truncatedInfo;
+}
+
+void Archive::setTruncatedInfo(const QString &truncatedInfo)
+{
+    _truncatedInfo = truncatedInfo;
+}
+
 QString Archive::jobRef() const
 {
     return _jobRef;
@@ -243,7 +266,7 @@ void Archive::setJobRef(const QString &jobRef)
 void Archive::getFileList()
 {
     // Prepare a background thread to parse the Archive's saved contents.
-    QThreadPool *threadPool = QThreadPool::globalInstance();
+    QThreadPool *            threadPool = QThreadPool::globalInstance();
     ParseArchiveListingTask *parseTask = new ParseArchiveListingTask(contents());
     parseTask->setAutoDelete(true);
     connect(parseTask, &ParseArchiveListingTask::result, this,
@@ -258,7 +281,10 @@ bool Archive::hasPreservePaths()
 
 QString Archive::contents() const
 {
-    return qUncompress(_contents);
+    if(!_contents.isEmpty())
+        return qUncompress(_contents);
+    else
+        return QString();
 }
 
 void Archive::setContents(const QString &value)

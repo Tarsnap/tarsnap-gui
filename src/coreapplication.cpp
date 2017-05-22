@@ -1,8 +1,8 @@
 #include "coreapplication.h"
 #include "debug.h"
+#include "translator.h"
 #include "utils.h"
 #include "widgets/setupdialog.h"
-#include "translator.h"
 
 #include <QFontDatabase>
 #include <QMessageBox>
@@ -26,7 +26,8 @@ CoreApplication::CoreApplication(int &argc, char **argv)
     qRegisterMetaType<QSqlQuery>("QSqlQuery");
     qRegisterMetaType<JobPtr>("JobPtr");
     qRegisterMetaType<QMap<QString, JobPtr>>("QMap<QString, JobPtr>");
-    qRegisterMetaType<QSystemTrayIcon::ActivationReason>("QSystemTrayIcon::ActivationReason");
+    qRegisterMetaType<QSystemTrayIcon::ActivationReason>(
+        "QSystemTrayIcon::ActivationReason");
     qRegisterMetaType<TarsnapError>("TarsnapError");
     qRegisterMetaType<LogEntry>("LogEntry");
     qRegisterMetaType<QVector<LogEntry>>("QVector<LogEntry>");
@@ -49,16 +50,25 @@ CoreApplication::~CoreApplication()
 void CoreApplication::parseArgs()
 {
     QCommandLineParser parser;
-    parser.setApplicationDescription(QLatin1String("Tarsnap GUI - Online backups for the truly lazy"));
+    parser.setApplicationDescription(
+        tr("Tarsnap GUI - Online backups for the truly lazy"));
     parser.addHelpOption();
     parser.addVersionOption();
-    QCommandLineOption jobsOption(QStringList() << "j" << "jobs",
-                                  tr("Executes all jobs sequentially that have the \'Include in scheduled backups\' option checked."
-                                     " The application runs headless and useful information is printed to standard out and error."));
-    QCommandLineOption appDataOption(QStringList() << "a" << "appdata",
-                                    tr("Use the specified app data directory."
-                                       " Useful for multiple configurations on the same machine (INI format is implied)."),
-                                    tr("directory"));
+    QCommandLineOption jobsOption(QStringList() << "j"
+                                                << "jobs",
+                                  tr("Executes all jobs sequentially that have "
+                                     "the \'Include in scheduled backups\' "
+                                     "option checked."
+                                     " The application runs headless and "
+                                     "useful information is printed to "
+                                     "standard out and error."));
+    QCommandLineOption appDataOption(QStringList() << "a"
+                                                   << "appdata",
+                                     tr("Use the specified app data directory."
+                                        " Useful for multiple configurations "
+                                        "on the same machine (INI format is "
+                                        "implied)."),
+                                     tr("directory"));
     parser.addOption(jobsOption);
     parser.addOption(appDataOption);
     parser.process(arguments());
@@ -79,8 +89,8 @@ bool CoreApplication::initialize()
     }
 
     Translator &translator = Translator::instance();
-    translator.translateApp(this, settings.value("app/language", LANG_AUTO)
-                            .toString());
+    translator.translateApp(this,
+                            settings.value("app/language", LANG_AUTO).toString());
 
     bool wizardDone = settings.value("app/wizard_done", false).toBool();
     if(!wizardDone)
@@ -95,6 +105,8 @@ bool CoreApplication::initialize()
                 &TaskManager::registerMachine);
         connect(&_taskManager, &TaskManager::registerMachineStatus, &wizard,
                 &SetupDialog::registerMachineStatus);
+        connect(&wizard, &SetupDialog::initializeCache, &_taskManager,
+                &TaskManager::initializeCache);
         connect(&_taskManager, &TaskManager::idle, &wizard,
                 &SetupDialog::updateLoadingAnimation);
 
@@ -121,8 +133,6 @@ bool CoreApplication::initialize()
     connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
             QUEUED);
 
-    if(!wizardDone)
-        QMetaObject::invokeMethod(&_taskManager, "initializeCache", QUEUED);
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
     if(_jobsOption)
@@ -179,10 +189,10 @@ void CoreApplication::showMainWindow()
     connect(_mainWindow, &MainWindow::getOverallStats, &_taskManager,
             &TaskManager::getOverallStats, QUEUED);
     connect(&_taskManager, &TaskManager::overallStats, _mainWindow,
-            &MainWindow::updateSettingsSummary, QUEUED);
+            &MainWindow::overallStatsChanged, QUEUED);
     connect(_mainWindow, &MainWindow::repairCache, &_taskManager,
             &TaskManager::fsck, QUEUED);
-    connect(_mainWindow, &MainWindow::purgeArchives, &_taskManager,
+    connect(_mainWindow, &MainWindow::nukeArchives, &_taskManager,
             &TaskManager::nuke, QUEUED);
     connect(_mainWindow, &MainWindow::restoreArchive, &_taskManager,
             &TaskManager::restoreArchive, QUEUED);

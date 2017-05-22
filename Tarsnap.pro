@@ -1,5 +1,5 @@
-# Check for at least Qt 5
-lessThan(QT_MAJOR_VERSION, 5): error("Tarsnap-gui requires Qt 5 or higher.")
+# Check for at least Qt 5.2
+lessThan(QT_VERSION, 5.2): error("Tarsnap-gui requires Qt 5.2 or higher.")
 
 QT += core gui network sql widgets
 CONFIG += c++11
@@ -15,8 +15,9 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 #QMAKE_TARGET_COPYRIGHT = copyright Tarsnap Backup Inc.
 
 SOURCES += \
-    src/coreapplication.cpp \
     src/main.cpp \
+    src/coreapplication.cpp \
+    src/debug.cpp \
     src/utils.cpp \
     src/widgets/backuplistwidget.cpp \
     src/widgets/backuplistwidgetitem.cpp \

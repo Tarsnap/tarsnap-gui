@@ -32,7 +32,8 @@ BackupListWidget::~BackupListWidget()
     QStringList urls;
     for(int i = 0; i < count(); ++i)
     {
-        BackupListWidgetItem *backupItem = static_cast<BackupListWidgetItem *>(item(i));
+        BackupListWidgetItem *backupItem =
+            static_cast<BackupListWidgetItem *>(item(i));
         urls << backupItem->url().toString(QUrl::FullyEncoded);
     }
     QSettings settings;
@@ -63,8 +64,8 @@ void BackupListWidget::addItemWithUrl(QUrl url)
             break;
         }
         QFileInfo existingFile(existingUrl.toLocalFile());
-        if(existingFile.isDir() &&
-           fileUrl.startsWith(existingFile.absoluteFilePath()))
+        if(existingFile.isDir()
+           && fileUrl.startsWith(existingFile.absoluteFilePath()))
         {
             matches = true;
             break;
@@ -78,7 +79,8 @@ void BackupListWidget::addItemWithUrl(QUrl url)
                                   tr("The file or directory:\n    %1\n"
                                      "was already in the backup list;"
                                      " adding it again will have no effect.\n"
-                                     "Add anyway?").arg(url.toLocalFile()));
+                                     "Add anyway?")
+                                      .arg(url.toLocalFile()));
         if(confirm == QMessageBox::No)
             return;
     }
@@ -95,14 +97,18 @@ void BackupListWidget::addItemWithUrl(QUrl url)
 
 void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
 {
+    setUpdatesEnabled(false);
     foreach(QUrl url, urls)
         addItemWithUrl(url);
     recomputeListTotals();
+    setUpdatesEnabled(true);
 }
 
 void BackupListWidget::setItemsWithUrls(QList<QUrl> urls)
 {
+    setUpdatesEnabled(false);
     clear();
+    setUpdatesEnabled(true);
     addItemsWithUrls(urls);
 }
 
@@ -111,7 +117,8 @@ QList<QUrl> BackupListWidget::itemUrls()
     QList<QUrl> urls;
     for(int i = 0; i < count(); ++i)
     {
-        BackupListWidgetItem *backupItem = static_cast<BackupListWidgetItem *>(item(i));
+        BackupListWidgetItem *backupItem =
+            static_cast<BackupListWidgetItem *>(item(i));
         urls << backupItem->url().toString(QUrl::FullyEncoded);
     }
     return urls;
@@ -119,10 +126,12 @@ QList<QUrl> BackupListWidget::itemUrls()
 
 void BackupListWidget::removeItems()
 {
+    setUpdatesEnabled(false);
     if(selectedItems().count() == 0)
     {
         // attempt to remove the sender
-        BackupListWidgetItem *backupItem = qobject_cast<BackupListWidgetItem *>(sender());
+        BackupListWidgetItem *backupItem =
+            qobject_cast<BackupListWidgetItem *>(sender());
         if(backupItem)
             delete backupItem;
     }
@@ -134,6 +143,7 @@ void BackupListWidget::removeItems()
                 delete item;
         }
     }
+    setUpdatesEnabled(true);
     recomputeListTotals();
 }
 
@@ -143,7 +153,8 @@ void BackupListWidget::recomputeListTotals()
     quint64 size  = 0;
     for(int i = 0; i < count(); ++i)
     {
-        BackupListWidgetItem *backupItem = static_cast<BackupListWidgetItem *>(item(i));
+        BackupListWidgetItem *backupItem =
+            static_cast<BackupListWidgetItem *>(item(i));
         if(backupItem && (backupItem->count() != 0))
         {
             items += backupItem->count();

@@ -69,7 +69,8 @@ void Journal::log(QString message)
 {
     // Create a LogEntry with the current timestamp, after
     // stripping HTML commands from the log message.
-    LogEntry log{QDateTime::currentDateTime(), message.remove(QRegExp("<[^>]*>"))};
+    LogEntry log{QDateTime::currentDateTime(),
+                 message.remove(QRegExp("<[^>]*>"))};
     _log.push_back(log);
     emit logEntry(log);
 

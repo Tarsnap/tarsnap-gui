@@ -28,7 +28,7 @@
     <number>0</number>
    </property>
    <property name="topMargin">
-    <number>21</number>
+    <number>6</number>
    </property>
    <property name="rightMargin">
     <number>0</number>
@@ -60,6 +60,12 @@
          <enum>Qt::Vertical</enum>
         </property>
         <widget class="QTabWidget" name="mainTabWidget">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>350</height>
+          </size>
+         </property>
          <property name="focusPolicy">
           <enum>Qt::NoFocus</enum>
          </property>
@@ -75,12 +81,16 @@ border: 1px solid #ECF0F1;
 border-bottom: none;
 border-top-left-radius: 2px;
 border-top-right-radius: 2px;
-padding: 5px;
-width: 60px;
-height: 20px;
+padding: 5px 3px 5px 3px;
+width: 55px;
+height: 18px;
 font-size: 13px;
-margin-left: 3px;
+margin-left: 2px;
 color: white;
+}
+
+#mainTabWidget &gt; QTabBar::tab:last {
+margin-right: 5px;
 }
 
 #mainTabWidget &gt; QTabBar::tab:selected {
@@ -179,7 +189,13 @@ selection-background-color: rgba(177,214,255,150);
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="backupListInfoLabel">
+            <widget class="ElidedLabel" name="backupListInfoLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="font">
               <font>
                <italic>true</italic>
@@ -195,13 +211,13 @@ background-color: rgba(237,243,254,255);
 }</string>
              </property>
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:normal;&quot;&gt;Drag and drop files or directories to back up, or use the &lt;/span&gt;&lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; font-style:normal; text-decoration: underline; color:#0000ff;&quot;&gt;File browser&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="textFormat">
-              <enum>Qt::RichText</enum>
+              <string>Drag and drop files or directories to back up, or use the File browser (%1)</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
+             </property>
+             <property name="elide" stdset="0">
+              <string>Qt::ElideMiddle</string>
              </property>
             </widget>
            </item>
@@ -235,7 +251,7 @@ background-color: rgba(237,243,254,255);
                  <string notr="true"/>
                 </property>
                 <property name="placeholderText">
-                 <string>backup name</string>
+                 <string>archive name</string>
                 </property>
                 <property name="clearButtonEnabled">
                  <bool>true</bool>
@@ -386,7 +402,7 @@ text-align: center;
           </attribute>
           <layout class="QVBoxLayout" name="archivesVerticalLayout">
            <property name="spacing">
-            <number>3</number>
+            <number>0</number>
            </property>
            <property name="leftMargin">
             <number>3</number>
@@ -401,13 +417,107 @@ text-align: center;
             <number>0</number>
            </property>
            <item>
-            <widget class="QComboBox" name="archivesFilter">
-             <property name="toolTip">
-              <string>Search and filter the Archives list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-             </property>
+            <widget class="QFrame" name="archivesHeader">
              <property name="styleSheet">
-              <string notr="true">QComboBox {
+              <string notr="true">#archivesHeader {
+background: rgba(246,246,246,255);
+margin-bottom: -1px;
+}</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <layout class="QHBoxLayout" name="archivesHeaderHL">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>3</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>3</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="archivesCountLabel">
+                <property name="text">
+                 <string>Archives</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="archivesFilterButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>16</width>
+                  <height>16</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16</width>
+                  <height>16</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QToolButton {
+border: transparent;
+padding: 2px;
+}
+
+QToolButton:checked {
 border: 1px solid darkgrey;
+}</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../resources/resources.qrc">
+                  <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+F</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="archivesFilterFrame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QComboBox" name="archivesFilter">
+                <property name="toolTip">
+                 <string>Search and filter the Archives list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QComboBox {
+border: none;
 padding-right: 6px;
 padding-left: 6px;
 }
@@ -425,10 +535,13 @@ QComboBox::down-arrow:on {
 top: 1px;
 left: 1px;
 }</string>
-             </property>
-             <property name="editable">
-              <bool>true</bool>
-             </property>
+                </property>
+                <property name="editable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
@@ -497,9 +610,6 @@ selection-background-color: rgba(177,214,255,150);
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="toolTip">
-                  <string>Archive details</string>
-                 </property>
                  <property name="styleSheet">
                   <string notr="true">#archiveWidget {
 /*background: transparent;*/
@@ -522,7 +632,7 @@ selection-background-color: rgba(177,214,255,150);
           </attribute>
           <layout class="QVBoxLayout" name="jobsVerticalLayout">
            <property name="spacing">
-            <number>3</number>
+            <number>0</number>
            </property>
            <property name="leftMargin">
             <number>3</number>
@@ -537,13 +647,110 @@ selection-background-color: rgba(177,214,255,150);
             <number>0</number>
            </property>
            <item>
-            <widget class="QComboBox" name="jobsFilter">
-             <property name="toolTip">
-              <string>Search and filter the Jobs list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-             </property>
+            <widget class="QFrame" name="jobsHeader">
              <property name="styleSheet">
-              <string notr="true">QComboBox {
+              <string notr="true">#jobsHeader {
+background: rgba(246,246,246,255);
+margin-bottom: -1px;
+}</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <layout class="QHBoxLayout" name="archivesHeaderHL_2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>3</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>3</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="jobsCountLabel">
+                <property name="text">
+                 <string>Jobs</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="jobsFilterButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>16</width>
+                  <height>16</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16</width>
+                  <height>16</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QToolButton {
+border: transparent;
+padding: 2px;
+}
+
+QToolButton:checked {
 border: 1px solid darkgrey;
+}</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../resources/resources.qrc">
+                  <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+F</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="jobsFilterFrame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QComboBox" name="jobsFilter">
+                <property name="toolTip">
+                 <string>Search and filter the Jobs list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QComboBox {
+border: none;
 padding-right: 6px;
 padding-left: 6px;
 }
@@ -561,10 +768,13 @@ QComboBox::down-arrow:on {
 top: 1px;
 left: 1px;
 }</string>
-             </property>
-             <property name="editable">
-              <bool>true</bool>
-             </property>
+                </property>
+                <property name="editable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
@@ -819,8 +1029,8 @@ text-align: center;
           <property name="styleSheet">
            <string notr="true">#settingsTab
 {
-border-top: 1px solid darkgrey;
-margin-left: 3px;
+border-top: 2px groove darkgrey;
+margin-left: 9px;
 margin-right: 3px;
 }</string>
           </property>
@@ -874,8 +1084,8 @@ border: 1px solid white;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>580</width>
-                <height>393</height>
+                <width>594</width>
+                <height>371</height>
                </rect>
               </property>
               <attribute name="label">
@@ -909,29 +1119,6 @@ border: 1px solid white;
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                     </property>
                     <item row="0" column="0">
-                     <widget class="QLabel" name="actualUsageLabel">
-                      <property name="toolTip">
-                       <string>On the Tarsnap servers, this is what you're paying for</string>
-                      </property>
-                      <property name="text">
-                       <string>Actual usage:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="1">
-                     <widget class="QLabel" name="accountActualSizeLabel">
-                      <property name="text">
-                       <string notr="true"/>
-                      </property>
-                      <property name="textInteractionFlags">
-                       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
                      <widget class="QLabel" name="archiveCountLabel">
                       <property name="toolTip">
                        <string>Number of Archives stored for this Machine</string>
@@ -944,7 +1131,7 @@ border: 1px solid white;
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="1">
+                    <item row="0" column="1">
                      <widget class="QLabel" name="accountArchivesCountLabel">
                       <property name="text">
                        <string notr="true"/>
@@ -954,30 +1141,7 @@ border: 1px solid white;
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="0">
-                     <widget class="QLabel" name="bytesEconomyLabel">
-                      <property name="toolTip">
-                       <string>Bytes reduced by deduplication and compression</string>
-                      </property>
-                      <property name="text">
-                       <string>Bytes economy:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="1">
-                     <widget class="QLabel" name="accountStorageSavedLabel">
-                      <property name="text">
-                       <string notr="true"/>
-                      </property>
-                      <property name="textInteractionFlags">
-                       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="0">
+                    <item row="1" column="0">
                      <widget class="QLabel" name="totalBackupLabel">
                       <property name="toolTip">
                        <string>Real size of all stored archives (before compression and deduplication)</string>
@@ -990,8 +1154,54 @@ border: 1px solid white;
                       </property>
                      </widget>
                     </item>
-                    <item row="3" column="1">
+                    <item row="1" column="1">
                      <widget class="QLabel" name="accountTotalSizeLabel">
+                      <property name="text">
+                       <string notr="true"/>
+                      </property>
+                      <property name="textInteractionFlags">
+                       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="actualUsageLabel">
+                      <property name="toolTip">
+                       <string>On the Tarsnap servers, this is what you're paying for</string>
+                      </property>
+                      <property name="text">
+                       <string>Actual usage:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QLabel" name="accountActualSizeLabel">
+                      <property name="text">
+                       <string notr="true"/>
+                      </property>
+                      <property name="textInteractionFlags">
+                       <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="bytesEconomyLabel">
+                      <property name="toolTip">
+                       <string>Bytes reduced by deduplication and compression</string>
+                      </property>
+                      <property name="text">
+                       <string>Bytes economy:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QLabel" name="accountStorageSavedLabel">
                       <property name="text">
                        <string notr="true"/>
                       </property>
@@ -1018,7 +1228,7 @@ border: 1px solid white;
                       <item>
                        <widget class="ElidedLabel" name="accountCreditLabel">
                         <property name="toolTip">
-                         <string>Click update button</string>
+                         <string>Click login button to update</string>
                         </property>
                         <property name="text">
                          <string notr="true"/>
@@ -1054,22 +1264,6 @@ color: blue;
                         </property>
                        </widget>
                       </item>
-                      <item>
-                       <spacer name="creditHorizontalSpacer">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeType">
-                         <enum>QSizePolicy::Preferred</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
                      </layout>
                     </item>
                     <item row="5" column="0">
@@ -1087,7 +1281,7 @@ color: blue;
                       <item>
                        <widget class="ElidedLabel" name="machineActivity">
                         <property name="toolTip">
-                         <string>Click update button</string>
+                         <string>Click login button to update</string>
                         </property>
                         <property name="text">
                          <string notr="true"/>
@@ -1123,22 +1317,6 @@ color: blue;
                         </property>
                        </widget>
                       </item>
-                      <item>
-                       <spacer name="machineActivityHorizontalSpacer">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeType">
-                         <enum>QSizePolicy::Preferred</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
                      </layout>
                     </item>
                     <item row="6" column="0" colspan="2">
@@ -1149,26 +1327,16 @@ color: blue;
                        </font>
                       </property>
                       <property name="toolTip">
-                       <string>Displayed credit might be out of date, click update button to fetch latest account details</string>
+                       <string>Displayed credit might be out of date, click login button to fetch latest account details</string>
                       </property>
                       <property name="text">
-                       <string>Credit and machine activity is %1 days old. Click update to fetch latest details.</string>
+                       <string>Credit and machine activity is %1 days old. Click login to update.</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
                       <property name="elide" stdset="0">
                        <string notr="true">Qt::ElideRight</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="0" colspan="2">
-                     <widget class="QPushButton" name="updateAccountButton">
-                      <property name="toolTip">
-                       <string>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-                      </property>
-                      <property name="text">
-                       <string>Update credit and machine activity</string>
                       </property>
                      </widget>
                     </item>
@@ -1225,6 +1393,9 @@ color: blue;
                        <property name="text">
                         <string>Machine name</string>
                        </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
                       </widget>
                      </item>
                      <item row="2" column="2">
@@ -1259,6 +1430,9 @@ color: blue;
                       <widget class="QLabel" name="tarsnapUserLabel">
                        <property name="text">
                         <string>Tarsnap user</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                        </property>
                       </widget>
                      </item>
@@ -1303,18 +1477,31 @@ color: blue;
                        <property name="text">
                         <string>Machine key</string>
                        </property>
+                       <property name="alignment">
+                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="2">
+                      <widget class="QPushButton" name="updateAccountButton">
+                       <property name="toolTip">
+                        <string>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+                       </property>
+                       <property name="text">
+                        <string>login</string>
+                       </property>
                       </widget>
                      </item>
                     </layout>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="purgeArchivesButton">
+                   <widget class="QPushButton" name="nukeArchivesButton">
                     <property name="toolTip">
                      <string>Nukes all archives stored for the current key from the Tarsnap server</string>
                     </property>
                     <property name="text">
-                     <string>Purge archives</string>
+                     <string>Nuke archives</string>
                     </property>
                    </widget>
                   </item>
@@ -1341,8 +1528,8 @@ color: blue;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>339</width>
-                <height>370</height>
+                <width>451</width>
+                <height>323</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1381,6 +1568,9 @@ color: blue;
                    <widget class="QLabel" name="limitDownloadBandwidthLabel">
                     <property name="text">
                      <string>Limit download bandwidth</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1460,6 +1650,9 @@ color: blue;
                     <property name="text">
                      <string>Skip files larger than</string>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
                    </widget>
                   </item>
                   <item row="4" column="0">
@@ -1468,7 +1661,7 @@ color: blue;
                      <string>Tarsnap will skip these files globally for backups</string>
                     </property>
                     <property name="text">
-                     <string>Skip system junk</string>
+                     <string>Skip operating system junk</string>
                     </property>
                    </widget>
                   </item>
@@ -1538,6 +1731,9 @@ color: blue;
                    <widget class="QLabel" name="limitUploadBandwidthLabel">
                     <property name="text">
                      <string>Limit upload bandwidth</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1622,8 +1818,8 @@ color: blue;
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>450</width>
-                <height>334</height>
+                <width>457</width>
+                <height>352</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1648,26 +1844,104 @@ color: blue;
                   <string/>
                  </property>
                  <layout class="QGridLayout" name="settingsApplicationsGridLayout">
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="languageLabel">
+                  <item row="11" column="1">
+                   <widget class="QPushButton" name="clearJournalButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Clear Journal log of all entries</string>
+                    </property>
                     <property name="text">
-                     <string>Language</string>
+                     <string>Clear journal</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="0">
-                   <widget class="QLabel" name="tarsnapClientDirectoryLabel">
+                  <item row="3" column="0">
+                   <widget class="QCheckBox" name="saveConsoleLogCheckBox">
+                    <property name="text">
+                     <string>Save Console Log to file</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1" colspan="2">
+                   <widget class="QLineEdit" name="tarsnapPathLineEdit">
+                    <property name="toolTip">
+                     <string>Directory where the Tarsnap CLI utilities reside</string>
+                    </property>
+                    <property name="text">
+                     <string notr="true"/>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Tarsnap client utilities directory</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="0">
+                   <widget class="QPushButton" name="repairCacheButton">
+                    <property name="toolTip">
+                     <string>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</string>
+                    </property>
+                    <property name="text">
+                     <string>Repair cache</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="languageLabel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="text">
+                     <string>Language</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="tarsnapClientDirectoryLabel">
                     <property name="toolTip">
                      <string>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</string>
                     </property>
                     <property name="text">
                      <string>Tarsnap client directory</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="3">
+                   <widget class="QPushButton" name="tarsnapPathBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Browse for Tarsnap CLI utilities directory</string>
+                    </property>
+                    <property name="text">
+                     <string>change</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="tarsnapClientVersionLabel">
+                    <property name="toolTip">
+                     <string>Tarsnap command-line utilities version</string>
+                    </property>
+                    <property name="text">
+                     <string>Tarsnap client version</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1684,154 +1958,7 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="0">
-                   <widget class="QLabel" name="downloadsDirLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>Downloads directory</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0" colspan="4">
-                   <widget class="QCheckBox" name="iecPrefixesCheckBox">
-                    <property name="toolTip">
-                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</string>
-                    </property>
-                    <property name="text">
-                     <string>Use IEC notation for displaying sizes (default is SI)</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="1" colspan="2">
-                   <widget class="QLineEdit" name="tarsnapPathLineEdit">
-                    <property name="toolTip">
-                     <string>Directory where the Tarsnap CLI utilities reside</string>
-                    </property>
-                    <property name="text">
-                     <string notr="true"/>
-                    </property>
-                    <property name="placeholderText">
-                     <string>Tarsnap client utilities directory</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0" colspan="4">
-                   <widget class="Line" name="settingsApplicationsTopLine">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="0">
-                   <widget class="QLabel" name="tarsnapCacheLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Tarsnap caches information about what it has uploaded in a local directory</string>
-                    </property>
-                    <property name="text">
-                     <string>Tarsnap cache directory</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="0" colspan="4">
-                   <widget class="QPushButton" name="clearJournalButton">
-                    <property name="toolTip">
-                     <string>Clear Journal log of all entries</string>
-                    </property>
-                    <property name="text">
-                     <string>Clear journal</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="10" column="0" colspan="4">
-                   <widget class="QPushButton" name="repairCacheButton">
-                    <property name="toolTip">
-                     <string>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</string>
-                    </property>
-                    <property name="text">
-                     <string>Repair cache</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="13" column="0" colspan="4">
-                   <spacer name="settingsApplicationVerticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="12" column="0" colspan="4">
-                   <widget class="QPushButton" name="runSetupWizard">
-                    <property name="toolTip">
-                     <string>Reset app settings and run Setup Wizard</string>
-                    </property>
-                    <property name="text">
-                     <string>Run setup wizard</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="0">
-                   <widget class="QLabel" name="appDataDirectoryLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>The app data directory is used to store application settings and data</string>
-                    </property>
-                    <property name="text">
-                     <string>App data directory</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="1" colspan="2">
-                   <widget class="QLineEdit" name="appDataDirLineEdit">
-                    <property name="toolTip">
-                     <string>Directory to use for app data</string>
-                    </property>
-                    <property name="text">
-                     <string notr="true"/>
-                    </property>
-                    <property name="placeholderText">
-                     <string>App data directory</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="3">
-                   <widget class="QPushButton" name="appDataDirBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Browse for app data directory</string>
-                    </property>
-                    <property name="text">
-                     <string>change</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="1" colspan="2">
+                  <item row="5" column="1" colspan="3">
                    <widget class="QLabel" name="tarsnapVersionLabel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -1847,39 +1974,27 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="3">
-                   <widget class="QPushButton" name="downloadsDirBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
+                  <item row="9" column="0">
+                   <widget class="QLabel" name="appDataDirectoryLabel">
                     <property name="toolTip">
-                     <string>Browse for Downloads directory</string>
+                     <string>The app data directory is used to store application settings and data</string>
                     </property>
                     <property name="text">
-                     <string>change</string>
+                     <string>App data directory</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="3">
-                   <widget class="QPushButton" name="tarsnapPathBrowseButton">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Browse for Tarsnap CLI utilities directory</string>
-                    </property>
-                    <property name="text">
-                     <string>change</string>
+                  <item row="3" column="1" colspan="3">
+                   <widget class="QLineEdit" name="saveConsoleLogLineEdit">
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="1" colspan="2">
+                  <item row="8" column="1" colspan="2">
                    <widget class="QLineEdit" name="downloadsDirLineEdit">
                     <property name="toolTip">
                      <string>The directory where archives are restored to by default</string>
@@ -1892,10 +2007,19 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="9" column="0" colspan="4">
-                   <widget class="Line" name="settingsApplicationMiddleLine">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
+                  <item row="7" column="3">
+                   <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Browse for Tarsnap cache directory</string>
+                    </property>
+                    <property name="text">
+                     <string>change</string>
                     </property>
                    </widget>
                   </item>
@@ -1912,8 +2036,25 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="3">
-                   <widget class="QPushButton" name="tarsnapCacheBrowseButton">
+                  <item row="10" column="0" colspan="4">
+                   <widget class="Line" name="settingsApplicationMiddleLine">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0" colspan="4">
+                   <widget class="QCheckBox" name="iecPrefixesCheckBox">
+                    <property name="toolTip">
+                     <string>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</string>
+                    </property>
+                    <property name="text">
+                     <string>Display byte sizes in IEC notation (default is SI)</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="3">
+                   <widget class="QPushButton" name="appDataDirBrowseButton">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -1921,14 +2062,86 @@ color: blue;
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Browse for Tarsnap cache directory</string>
+                     <string>Browse for app data directory</string>
                     </property>
                     <property name="text">
                      <string>change</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="1" colspan="2">
+                  <item row="4" column="0" colspan="4">
+                   <widget class="Line" name="settingsApplicationsTopLine">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="1" colspan="2">
+                   <widget class="QLineEdit" name="appDataDirLineEdit">
+                    <property name="toolTip">
+                     <string>Directory to use for app data</string>
+                    </property>
+                    <property name="text">
+                     <string notr="true"/>
+                    </property>
+                    <property name="placeholderText">
+                     <string>App data directory</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="0">
+                   <widget class="QLabel" name="downloadsDirLabel">
+                    <property name="text">
+                     <string>Downloads directory</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="3">
+                   <widget class="QPushButton" name="downloadsDirBrowseButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Browse for Downloads directory</string>
+                    </property>
+                    <property name="text">
+                     <string>change</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="14" column="0" colspan="4">
+                   <spacer name="settingsApplicationVerticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="tarsnapCacheLabel">
+                    <property name="toolTip">
+                     <string>Tarsnap caches information about what it has uploaded in a local directory</string>
+                    </property>
+                    <property name="text">
+                     <string>Tarsnap cache directory</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1" colspan="2">
                    <widget class="QLineEdit" name="tarsnapCacheLineEdit">
                     <property name="toolTip">
                      <string>Directory to use as Tarsnap cache</string>
@@ -1941,35 +2154,19 @@ color: blue;
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="3">
-                   <spacer name="tarsnapClientVersionHorizontalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Preferred</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="tarsnapClientVersionLabel">
+                  <item row="11" column="2" colspan="2">
+                   <widget class="QPushButton" name="runSetupWizard">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Tarsnap command-line utilities version</string>
+                     <string>Reset app settings and run Setup Wizard</string>
                     </property>
                     <property name="text">
-                     <string>Tarsnap client version:</string>
+                     <string>Run setup wizard</string>
                     </property>
                    </widget>
                   </item>
@@ -2002,8 +2199,8 @@ color: blue;
           <property name="styleSheet">
            <string notr="true">#helpTab
 {
-border-top: 1px solid darkgrey;
-margin-left: 3px;
+border-top: 2px groove darkgrey;
+margin-left: 9px;
 margin-right: 3px;
 }
 #helpTab QGroupBox {
@@ -2437,7 +2634,7 @@ border: none;
     <string>Clear list</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Backspace, Ctrl+Del</string>
+    <string>Ctrl+Backspace</string>
    </property>
   </action>
   <action name="actionBrowseItems">
@@ -2688,11 +2885,18 @@ border: none;
    </property>
   </action>
   <action name="actionFilterArchives">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+   </property>
    <property name="text">
     <string>Filter and search</string>
    </property>
    <property name="toolTip">
-    <string>Filter and search Archives list</string>
+    <string>Search and filter Archives list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
@@ -2725,11 +2929,18 @@ border: none;
    </property>
   </action>
   <action name="actionFilterJobs">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+   </property>
    <property name="text">
     <string>Filter and search</string>
    </property>
    <property name="toolTip">
-    <string>Filter and search Jobs list</string>
+    <string>Search and filter Jobs list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
@@ -2757,6 +2968,28 @@ border: none;
    </property>
    <property name="toolTip">
     <string>Browse for directory to add to the Backup list</string>
+   </property>
+  </action>
+  <action name="actionShowArchivesTabHeader">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Archives tab header</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide the Archives tab header</string>
+   </property>
+  </action>
+  <action name="actionShowJobsTabHeader">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Jobs tab header</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide the Jobs tab header</string>
    </property>
   </action>
  </widget>
@@ -2837,7 +3070,7 @@ border: none;
   <tabstop>appDataDirLineEdit</tabstop>
   <tabstop>appDataDirBrowseButton</tabstop>
   <tabstop>repairCacheButton</tabstop>
-  <tabstop>purgeArchivesButton</tabstop>
+  <tabstop>nukeArchivesButton</tabstop>
   <tabstop>clearJournalButton</tabstop>
   <tabstop>runSetupWizard</tabstop>
   <tabstop>aboutButton</tabstop>

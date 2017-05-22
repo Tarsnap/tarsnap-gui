@@ -72,7 +72,7 @@ public:
     TaskStatus status() const;
     void setStatus(const TaskStatus &status);
 
-    int exitCode() const;
+    int  exitCode() const;
     void setExitCode(int exitCode);
 
     QString output() const;
@@ -102,11 +102,11 @@ private:
     bool        _optionDryRun;
     bool        _optionSkipNoDump;
 
-    TaskStatus  _status;
-    int         _exitCode;
-    QString     _output;
-    ArchivePtr  _archive;
-    QString     _command;
+    TaskStatus _status;
+    int        _exitCode;
+    QString    _output;
+    ArchivePtr _archive;
+    QString    _command;
 };
 
 #endif // BACKUPTASK_H

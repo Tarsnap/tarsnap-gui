@@ -5,9 +5,9 @@
 #include <QRunnable>
 #include <QStringList>
 
-#define CMD_TARSNAP         "tarsnap"
-#define CMD_TARSNAPKEYGEN   "tarsnap-keygen"
-#define CMD_TARSNAPKEYMGMT  "tarsnap-keymgmt"
+#define CMD_TARSNAP "tarsnap"
+#define CMD_TARSNAPKEYGEN "tarsnap-keygen"
+#define CMD_TARSNAPKEYMGMT "tarsnap-keymgmt"
 
 #define DEFAULT_PRESERVE_PATHNAMES true
 #define DEFAULT_TRAVERSE_MOUNT true
@@ -18,9 +18,11 @@
 
 #define DEFAULT_SKIP_SYSTEM_ENABLED false
 #if defined Q_OS_OSX
-#define DEFAULT_SKIP_SYSTEM_FILES ".DS_Store:.localized:.fseventsd:.Spotlight-V100:._.Trashes:.Trashes"
+#define DEFAULT_SKIP_SYSTEM_FILES                                              \
+    ".DS_Store:.localized:.fseventsd:.Spotlight-V100:._.Trashes:.Trashes"
 #elif defined Q_OS_WIN
-#define DEFAULT_SKIP_SYSTEM_FILES "$RECYCLE.BIN:System Volume Information:Thumbs.db"
+#define DEFAULT_SKIP_SYSTEM_FILES                                              \
+    "$RECYCLE.BIN:System Volume Information:Thumbs.db"
 #elif defined Q_OS_LINUX
 #define DEFAULT_SKIP_SYSTEM_FILES ".lost+found"
 #else
@@ -30,7 +32,7 @@
 #define DEFAULT_AGGRESSIVE_NETWORKING false
 #define DEFAULT_NO_DEFAULT_CONFIG true
 
-#define DEFAULT_DOWNLOADS \
+#define DEFAULT_DOWNLOADS                                                      \
     QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
 
 const QStringList DEFAULT_JOBS {

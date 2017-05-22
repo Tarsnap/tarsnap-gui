@@ -1,8 +1,8 @@
 #ifndef SETUPDIALOG_H
 #define SETUPDIALOG_H
 
-#include <taskmanager.h>
 #include "ui_setupdialog.h"
+#include <taskmanager.h>
 
 #include <QDialog>
 #include <QMovie>
@@ -48,6 +48,8 @@ signals:
     /// We need to determine the Tarsnap CLI version number.
     /// \param tarsnapPath: the path of the CLI app.
     void getTarsnapVersion(QString tarsnapPath);
+    /// Request cache initialization (used when generating a new key)
+    void initializeCache();
 
 private slots:
     void wizardPageChanged(int);
@@ -64,9 +66,9 @@ private slots:
     void nextButtonClicked();
 
 private:
-    Ui::SetupDialog  _ui;
-    QPoint           _windowDragPos;
-    QMovie           _loadingAnimation;
+    Ui::SetupDialog _ui;
+    QPoint          _windowDragPos;
+    QMovie          _loadingAnimation;
 
     QString _tarsnapDir;
     QString _tarsnapVersion;

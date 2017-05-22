@@ -10,7 +10,7 @@
 
 /*!
  * \ingroup widgets-specialized
- * \brief The ArchiveWidget is a custom QWidget which displays detailed
+ * \brief The ArchiveWidget is a QWidget which displays detailed
  * information about a single Archive.
  */
 class ArchiveWidget : public QWidget

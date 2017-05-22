@@ -18,8 +18,8 @@
 TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _nam(this)
 {
     _ui.setupUi(this);
-    setWindowFlags((windowFlags() | Qt::CustomizeWindowHint) &
-                   ~Qt::WindowMaximizeButtonHint);
+    setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
+                   & ~Qt::WindowMaximizeButtonHint);
     connect(_ui.passwordLineEdit, &QLineEdit::textEdited, this, [&]() {
         _ui.loginButton->setEnabled(!_ui.passwordLineEdit->text().isEmpty());
     });
@@ -41,12 +41,12 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
     }
     else
     {
-        QMessageBox::warning(this->parentWidget(), tr("Warning"),
-                             tr("You need Tarsnap CLI utils version 1.0.37 to "
-                                "be able to fetch machine activity. "
-                                "You have version %1.")
-                             .arg(settings.value("tarsnap/version", "")
-                                  .toString()));
+        QMessageBox::warning(
+            this->parentWidget(), tr("Warning"),
+            tr("You need Tarsnap CLI utils version 1.0.37 to "
+               "be able to fetch machine activity. "
+               "You have version %1.")
+                .arg(settings.value("tarsnap/version", "").toString()));
     }
     if(_user.isEmpty() || _machine.isEmpty())
     {
@@ -75,10 +75,11 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
         QString machineActivity(URL_MACHINE_ACTIVITY);
         QString hexId("%1");
         hexId = hexId.arg(_machineId, 16, 16, QLatin1Char('0'));
-        machineActivity = machineActivity.arg(
-                    QString(QUrl::toPercentEncoding(_user)),
-                    QString(QUrl::toPercentEncoding(_ui.passwordLineEdit->text())),
-                    QString(QUrl::toPercentEncoding(hexId)));
+        machineActivity =
+            machineActivity.arg(QString(QUrl::toPercentEncoding(_user)),
+                                QString(QUrl::toPercentEncoding(
+                                    _ui.passwordLineEdit->text())),
+                                QString(QUrl::toPercentEncoding(hexId)));
         QNetworkReply *machineActivityReply = tarsnapRequest(machineActivity);
         connect(machineActivityReply, &QNetworkReply::finished, [=]() {
             QByteArray replyData = readReply(machineActivityReply);
@@ -190,9 +191,9 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
             this, tr("Invalid password"),
             tr("Password for account %1 is incorrect; please try again.").arg(_user));
     }
-    else if(warn &&
-            data.contains("No user exists with the provided email "
-                          "address; please try again."))
+    else if(warn
+            && data.contains("No user exists with the provided email "
+                             "address; please try again."))
     {
         QMessageBox::warning(
             this, tr("Invalid username"),

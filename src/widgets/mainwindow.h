@@ -24,10 +24,9 @@ public slots:
     void initialize();
     void updateStatusMessage(QString message, QString detail = "");
     void updateLoadingAnimation(bool idle);
-    void updateSettingsSummary(quint64 sizeTotal, quint64 sizeCompressed,
-                               quint64 sizeUniqueTotal,
-                               quint64 sizeUniqueCompressed,
-                               quint64 archiveCount);
+    void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
+                             quint64 sizeUniqueTotal,
+                             quint64 sizeUniqueCompressed, quint64 archiveCount);
     void updateTarsnapVersion(QString versionString);
     void notificationRaise();
     void displayStopTasks(bool backupTaskRunning, int runningTasks,
@@ -49,7 +48,7 @@ signals:
     void loadArchiveContents(ArchivePtr archive);
     void getOverallStats();
     void repairCache(bool prune);
-    void purgeArchives();
+    void nukeArchives();
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     void runSetupWizard();
     void stopTasks(bool interrupt, bool running, bool queued);
@@ -80,7 +79,7 @@ private slots:
     bool validateTarsnapPath();
     bool validateTarsnapCache();
     bool validateAppDataDir();
-    void purgeTimerFired();
+    void nukeTimerFired();
     void browseForBackupItems();
     void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();
@@ -89,7 +88,7 @@ private slots:
     void tarsnapPathBrowseButtonClicked();
     void tarsnapCacheBrowseButton();
     void appDataButtonClicked();
-    void purgeArchivesButtonClicked();
+    void nukeArchivesButtonClicked();
     void runSetupWizardClicked();
     void downloadsDirBrowseButtonClicked();
     void displayJobDetails(JobPtr job);
@@ -107,14 +106,14 @@ private slots:
     void validateBackupTab();
 
 private:
-    Ui::MainWindow  _ui;
-    QMenuBar       *_menuBar;
-    QString         _lastTimestamp;
-    QTimer          _purgeTimer;
-    int             _purgeTimerCount;
-    QMessageBox     _purgeCountdown;
-    TarsnapAccount  _tarsnapAccount;
-    bool            _aboutToQuit;
+    Ui::MainWindow _ui;
+    QMenuBar *     _menuBar;
+    QString        _lastTimestamp;
+    QTimer         _nukeTimer;
+    int            _nukeTimerCount;
+    QMessageBox    _nukeCountdown;
+    TarsnapAccount _tarsnapAccount;
+    bool           _aboutToQuit;
 
     void updateUi();
 };

@@ -73,21 +73,33 @@ signals:
 
 private slots:
     // post Tarsnap task processing
-    void getTarsnapVersionFinished(QVariant data, int exitCode, QString output);
-    void backupTaskFinished(QVariant data, int exitCode, QString output);
+    void getTarsnapVersionFinished(QVariant data, int exitCode, QString stdOut,
+                                   QString stdErr);
+    void backupTaskFinished(QVariant data, int exitCode, QString stdOut,
+                            QString stdErr);
     void backupTaskStarted(QVariant data);
-    void registerMachineFinished(QVariant data, int exitCode, QString output);
-    void getArchiveListFinished(QVariant data, int exitCode, QString output);
-    void getArchiveStatsFinished(QVariant data, int exitCode, QString output);
-    void getArchiveContentsFinished(QVariant data, int exitCode, QString output);
-    void deleteArchivesFinished(QVariant data, int exitCode, QString output);
-    void overallStatsFinished(QVariant data, int exitCode, QString output);
-    void fsckFinished(QVariant data, int exitCode, QString output);
-    void nukeFinished(QVariant data, int exitCode, QString output);
-    void restoreArchiveFinished(QVariant data, int exitCode, QString output);
+    void registerMachineFinished(QVariant data, int exitCode, QString stdOut,
+                                 QString stdErr);
+    void getArchiveListFinished(QVariant data, int exitCode, QString stdOut,
+                                QString stdErr);
+    void getArchiveStatsFinished(QVariant data, int exitCode, QString stdOut,
+                                 QString stdErr);
+    void getArchiveContentsFinished(QVariant data, int exitCode, QString stdOut,
+                                    QString stdErr);
+    void deleteArchivesFinished(QVariant data, int exitCode, QString stdOut,
+                                QString stdErr);
+    void overallStatsFinished(QVariant data, int exitCode, QString stdOut,
+                              QString stdErr);
+    void fsckFinished(QVariant data, int exitCode, QString stdOut,
+                      QString stdErr);
+    void nukeFinished(QVariant data, int exitCode, QString stdOut,
+                      QString stdErr);
+    void restoreArchiveFinished(QVariant data, int exitCode, QString stdOut,
+                                QString stdErr);
     void notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status);
     void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
-    void getKeyIdFinished(QVariant data, int exitCode, QString output);
+    void getKeyIdFinished(QVariant data, int exitCode, QString stdOut,
+                          QString stdErr);
 
     // general task management
     void queueTask(TarsnapTask *task, bool exclusive = false);
@@ -100,14 +112,14 @@ private:
     void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
                            ArchivePtr archive);
     QString makeTarsnapCommand(QString cmd);
-    void    initTarsnapArgs(QStringList &args);
+    void initTarsnapArgs(QStringList &args);
 
     QMap<QUuid, BackupTaskPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>  _archiveMap;
-    QList<TarsnapTask *>       _runningTasks;
-    QQueue<TarsnapTask *>      _taskQueue; // mutually exclusive tasks
-    QThreadPool               *_threadPool;
-    QMap<QString, JobPtr>      _jobMap;
+    QList<TarsnapTask *>  _runningTasks;
+    QQueue<TarsnapTask *> _taskQueue; // mutually exclusive tasks
+    QThreadPool *         _threadPool;
+    QMap<QString, JobPtr> _jobMap;
 };
 
 #endif // TASKMANAGER_H

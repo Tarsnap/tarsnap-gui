@@ -1,14 +1,16 @@
 #include "archivewidget.h"
-#include "utils.h"
 #include "restoredialog.h"
+#include "utils.h"
 
 #include <QCloseEvent>
 
 #define EMPTY_TAR_ARCHIVE_BYTES 2000
 
 ArchiveWidget::ArchiveWidget(QWidget *parent)
-    : QWidget(parent), _contentsModel(this),
-      _proxyModel(&_contentsModel), _fileMenu(this)
+    : QWidget(parent),
+      _contentsModel(this),
+      _proxyModel(&_contentsModel),
+      _fileMenu(this)
 {
     _ui.setupUi(this);
     _ui.filterComboBox->hide();
@@ -29,11 +31,10 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     connect(_ui.hideButton, &QPushButton::clicked, this, &ArchiveWidget::close);
     connect(_ui.archiveJobLabel, &ElidedLabel::clicked,
             [&]() { emit jobClicked(_archive->jobRef()); });
-    connect(&_contentsModel, &FileTableModel::modelReset, this, [&]()
-    {
+    connect(&_contentsModel, &FileTableModel::modelReset, this, [&]() {
         _ui.archiveContentsTableView->resizeColumnsToContents();
-        _ui.archiveContentsLabel->setText(tr("Contents (%1)")
-                                          .arg(_contentsModel.rowCount()));
+        _ui.archiveContentsLabel->setText(
+            tr("Contents (%1)").arg(_contentsModel.rowCount()));
     });
     connect(_ui.filterComboBox, &QComboBox::editTextChanged, &_proxyModel,
             &QSortFilterProxyModel::setFilterWildcard);
@@ -71,8 +72,7 @@ void ArchiveWidget::setArchive(ArchivePtr archive)
     {
         connect(_archive.data(), &Archive::changed, this,
                 &ArchiveWidget::updateDetails);
-        connect(_archive.data(), &Archive::purged, this,
-                &ArchiveWidget::close);
+        connect(_archive.data(), &Archive::purged, this, &ArchiveWidget::close);
         updateDetails();
     }
     else
@@ -92,27 +92,31 @@ void ArchiveWidget::updateDetails()
         {
             _ui.archiveJobLabel->hide();
             _ui.archiveJobLabelField->hide();
-            _ui.archiveIconLabel->setStyleSheet("image: url(:/icons/tarsnap-icon-big.png)");
+            _ui.archiveIconLabel->setStyleSheet(
+                "image: url(:/icons/tarsnap-icon-big.png)");
         }
         else
         {
             _ui.archiveJobLabel->show();
             _ui.archiveJobLabelField->show();
             _ui.archiveJobLabel->setText(_archive->jobRef());
-            _ui.archiveIconLabel->setStyleSheet("image: url(:/icons/hard-drive-big.png)");
+            _ui.archiveIconLabel->setStyleSheet(
+                "image: url(:/icons/hard-drive-big.png)");
         }
-        _ui.archiveSizeLabel->setText(
-            Utils::humanBytes(_archive->sizeTotal()));
+        _ui.archiveSizeLabel->setText(Utils::humanBytes(_archive->sizeTotal()));
         _ui.archiveSizeLabel->setToolTip(_archive->archiveStats());
         _ui.archiveUniqueDataLabel->setText(
             Utils::humanBytes(_archive->sizeUniqueCompressed()));
         _ui.archiveUniqueDataLabel->setToolTip(_archive->archiveStats());
         _ui.archiveCommandLineEdit->setText(_archive->command());
+        _ui.archiveCommandLineEdit->setToolTip(
+            _archive->command().prepend("<p>").append("</p>"));
         _ui.archiveCommandLineEdit->setCursorPosition(0);
         if(_archive->truncated())
         {
             _ui.infoLabel->setText(tr("This archive is truncated,"
                                       " data may be incomplete"));
+            _ui.infoLabel->setToolTip(_archive->truncatedInfo());
             _ui.infoLabel->show();
         }
         else if(_archive->contents().isEmpty()
@@ -138,9 +142,21 @@ void ArchiveWidget::closeEvent(QCloseEvent *event)
 void ArchiveWidget::keyPressEvent(QKeyEvent *event)
 {
     if((event->key() == Qt::Key_Escape) && _ui.filterComboBox->isVisible())
-        _ui.filterButton->toggle();
+    {
+        if(_ui.filterComboBox->currentText().isEmpty())
+        {
+            _ui.filterButton->toggle();
+        }
+        else
+        {
+            _ui.filterComboBox->clearEditText();
+            _ui.filterComboBox->setFocus();
+        }
+    }
     else
+    {
         QWidget::keyPressEvent(event);
+    }
 }
 
 void ArchiveWidget::changeEvent(QEvent *event)
@@ -163,7 +179,7 @@ void ArchiveWidget::showContextMenu(const QPoint &pos)
 void ArchiveWidget::restoreFiles()
 {
     QModelIndexList indexes =
-            _ui.archiveContentsTableView->selectionModel()->selectedRows();
+        _ui.archiveContentsTableView->selectionModel()->selectedRows();
     if(indexes.isEmpty())
         return;
     QStringList files;
@@ -182,10 +198,8 @@ void ArchiveWidget::restoreFiles()
 
 void ArchiveWidget::updateUi()
 {
-    _ui.hideButton->setToolTip(_ui.hideButton->toolTip()
-                               .arg(QKeySequence(Qt::Key_Escape)
-                                    .toString(QKeySequence::NativeText)));
-    _ui.filterButton->setToolTip(_ui.filterButton->toolTip()
-                               .arg(_ui.filterButton->shortcut()
-                                    .toString(QKeySequence::NativeText)));
+    _ui.hideButton->setToolTip(_ui.hideButton->toolTip().arg(
+        QKeySequence(Qt::Key_Escape).toString(QKeySequence::NativeText)));
+    _ui.filterButton->setToolTip(_ui.filterButton->toolTip().arg(
+        _ui.filterButton->shortcut().toString(QKeySequence::NativeText)));
 }

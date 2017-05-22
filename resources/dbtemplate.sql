@@ -1,7 +1,7 @@
 -- Unfortunately, we can't easily import this into QSqlDatabase directly
--- due to the lack of support for executing multiple statements in a single query,
--- thus you need to modify this file to update the db schema, then regenerate
--- dbtemplate.db which is in turn used by the app.
+-- due to the lack of support for executing multiple statements in a single 
+-- query, thus you need to modify this file to update the db schema, then 
+-- regenerate dbtemplate.db which is in turn used by the app.
 
 -- NB: UPDATE the version column below whenever you change this schema
 
@@ -30,6 +30,7 @@ CREATE TABLE `archives` (
 	`name`	TEXT NOT NULL,
 	`timestamp`	INTEGER NOT NULL,
 	`truncated`	INTEGER NOT NULL,
+	`truncatedInfo`	TEXT NOT NULL,
 	`sizeTotal`	INTEGER NOT NULL,
 	`sizeCompressed`	INTEGER NOT NULL,
 	`sizeUniqueTotal`	INTEGER NOT NULL,

@@ -1,7 +1,6 @@
 #include "filetablemodel.h"
 
-FileTableModel::FileTableModel(QObject *parent)
-    : QAbstractTableModel(parent)
+FileTableModel::FileTableModel(QObject *parent) : QAbstractTableModel(parent)
 {
 }
 

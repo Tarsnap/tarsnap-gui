@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-    Debug::instance().initialize();
+    ConsoleLog::instance().initialize();
     CoreApplication app(argc, argv);
     if(app.initialize())
         return app.exec();

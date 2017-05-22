@@ -1,17 +1,15 @@
-#include "debug.h"
 #include "translator.h"
+#include "debug.h"
 
 #include <QLibraryInfo>
 
-Translator::Translator():
-    _qtTranslator(nullptr),
-    _appTranslator(nullptr)
+Translator::Translator() : _qtTranslator(nullptr), _appTranslator(nullptr)
 {
     _languageMap["English"]  = "en";
     _languageMap["Romanian"] = "ro";
 }
 
-Translator& Translator::instance()
+Translator &Translator::instance()
 {
     static Translator instance;
     return instance;
@@ -22,8 +20,8 @@ void Translator::translateApp(QApplication *app, QString lang)
     if(!app)
         return;
 
-    DEBUG << "System language is " <<
-             QLocale::languageToString(QLocale().language());
+    DEBUG << "System language is "
+          << QLocale::languageToString(QLocale().language());
 
     if(lang == LANG_AUTO)
         lang = QLocale::languageToString(QLocale().language());
@@ -47,8 +45,7 @@ void Translator::translateApp(QApplication *app, QString lang)
     app->installTranslator(_qtTranslator);
 
     _appTranslator = new QTranslator();
-    _appTranslator->load("tarsnap-gui_" + _languageMap[lang],
-                         ":/translations");
+    _appTranslator->load("tarsnap-gui_" + _languageMap[lang], ":/translations");
     app->installTranslator(_appTranslator);
 }
 

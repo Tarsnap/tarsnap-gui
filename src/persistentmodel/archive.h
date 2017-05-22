@@ -13,12 +13,12 @@
 
 struct ArchiveRestoreOptions
 {
-    bool    optionRestore     = false;
-    bool    optionRestoreDir  = false;
-    bool    optionTarArchive  = false;
-    bool    overwriteFiles    = false;
-    bool    keepNewerFiles    = true;
-    bool    preservePerms     = false;
+    bool        optionRestore    = false;
+    bool        optionRestoreDir = false;
+    bool        optionTarArchive = false;
+    bool        overwriteFiles   = false;
+    bool        keepNewerFiles   = true;
+    bool        preservePerms    = false;
     QString     path;
     QStringList files;
 };
@@ -28,7 +28,8 @@ typedef QSharedPointer<Archive> ArchivePtr;
 
 Q_DECLARE_METATYPE(ArchivePtr)
 
-struct File {
+struct File
+{
     QString name;
     QString modified;
     quint64 size;
@@ -50,7 +51,9 @@ class ParseArchiveListingTask : public QObject, public QRunnable
 public:
     //! Constructor.
     //! \param listing: the output of <tt>tarsnap -tv</tt>.
-    explicit ParseArchiveListingTask(const QString &listing):_listing(listing){}
+    explicit ParseArchiveListingTask(const QString &listing) : _listing(listing)
+    {
+    }
     //! Run this task in the background; will emit the \ref result
     //! signal when finished.
     void run();
@@ -84,6 +87,8 @@ public:
     void setTimestamp(const QDateTime &value);
     bool truncated() const;
     void setTruncated(bool truncated);
+    QString truncatedInfo() const;
+    void setTruncatedInfo(const QString &truncatedInfo);
     quint64 sizeTotal() const;
     void setSizeTotal(const quint64 &value);
     quint64 sizeCompressed() const;
@@ -139,6 +144,7 @@ private:
     QString    _name;
     QDateTime  _timestamp;
     bool       _truncated;
+    QString    _truncatedInfo;
     quint64    _sizeTotal;
     quint64    _sizeCompressed;
     quint64    _sizeUniqueTotal;
@@ -148,7 +154,7 @@ private:
     QString    _jobRef;
 
     // Properties not saved to the PersistentStore
-    bool       _deleteScheduled;
+    bool _deleteScheduled;
 };
 
 #endif // ARCHIVE_H

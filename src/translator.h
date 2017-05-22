@@ -9,18 +9,18 @@
 class Translator
 {
 public:
-    static Translator& instance();
+    static Translator &instance();
     void translateApp(QApplication *app, QString lang);
     QStringList languageList();
 
 private:
     Translator();
     Translator(Translator const &);
-    Translator& operator=(Translator const &);
+    Translator &operator=(Translator const &);
 
     QMap<QString, QString> _languageMap;
-    QTranslator           *_qtTranslator;
-    QTranslator           *_appTranslator;
+    QTranslator *_qtTranslator;
+    QTranslator *_appTranslator;
 };
 
 #endif // TRANSLATOR_H

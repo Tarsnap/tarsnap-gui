@@ -26,7 +26,7 @@ public slots:
     void showMainWindow();
 
 private:
-    MainWindow  *_mainWindow;
+    MainWindow * _mainWindow;
     Notification _notification;
     TaskManager  _taskManager;
     QThread      _managerThread;

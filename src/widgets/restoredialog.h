@@ -36,9 +36,9 @@ private slots:
     bool validate();
 
 private:
-    Ui::RestoreDialog  _ui;
-    ArchivePtr         _archive;
-    QString            _downDir;
+    Ui::RestoreDialog _ui;
+    ArchivePtr        _archive;
+    QString           _downDir;
 
     void displayRestoreOption(bool display);
 };

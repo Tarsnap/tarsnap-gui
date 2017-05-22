@@ -552,12 +552,12 @@ void MainWindow::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
-    if(frameGeometry().width() > 440)
+    if(frameGeometry().width() > 460)
     {
         QPixmap pixmap(":/icons/tarsnap-logo.png");
         QIcon   icon;
         icon.addFile(":/icons/tarsnap-logo.png");
-        icon.paint(&p, width() - pixmap.width() - 5, 6, pixmap.width(),
+        icon.paint(&p, width() - pixmap.width() - 5, 3, pixmap.width(),
                    pixmap.height());
     }
     else if(frameGeometry().width() > 360)
@@ -565,7 +565,7 @@ void MainWindow::paintEvent(QPaintEvent *)
         QPixmap pixmap(":/icons/tarsnap-logo-icon.png");
         QIcon   icon;
         icon.addFile(":/icons/tarsnap-logo-icon.png");
-        icon.paint(&p, width() - pixmap.width() - 5, 6, pixmap.width(),
+        icon.paint(&p, width() - pixmap.width() - 5, 3, pixmap.width(),
                    pixmap.height());
     }
 }

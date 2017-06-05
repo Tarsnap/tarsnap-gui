@@ -19,7 +19,8 @@ public:
     //! Constructor.
     //! \param archive: the ArchivePtr to restore.
     //! \param parent: standard Qt parameter.
-    explicit RestoreDialog(ArchivePtr archive, QWidget *parent = nullptr);
+    explicit RestoreDialog(QWidget *parent, ArchivePtr archive,
+                           QStringList files = QStringList());
     ~RestoreDialog();
 
     //! Returns options from the dialog window.
@@ -38,6 +39,7 @@ private slots:
 private:
     Ui::RestoreDialog _ui;
     ArchivePtr        _archive;
+    QStringList       _files;
     QString           _downDir;
 
     void displayRestoreOption(bool display);

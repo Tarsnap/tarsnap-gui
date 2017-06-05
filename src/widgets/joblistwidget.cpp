@@ -111,7 +111,7 @@ void JobListWidget::restoreItem()
         if(!job->archives().isEmpty())
         {
             ArchivePtr    archive = job->archives().first();
-            RestoreDialog restoreDialog(archive, this);
+            RestoreDialog restoreDialog(this, archive);
             if(QDialog::Accepted == restoreDialog.exec())
                 emit restoreArchive(archive, restoreDialog.getOptions());
         }
@@ -218,7 +218,7 @@ void JobListWidget::restoreSelectedItem()
         if(!job->archives().isEmpty())
         {
             ArchivePtr    archive = job->archives().first();
-            RestoreDialog restoreDialog(archive, this);
+            RestoreDialog restoreDialog(this, archive);
             if(QDialog::Accepted == restoreDialog.exec())
                 emit restoreArchive(archive, restoreDialog.getOptions());
         }

@@ -6,12 +6,10 @@
 #include <QMessageBox>
 #include <QSettings>
 
-RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
-    : QDialog(parent), _archive(archive)
+RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive, QStringList files)
+    : QDialog(parent), _archive(archive), _files(files)
 {
     _ui.setupUi(this);
-    setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
-                   & ~Qt::WindowMaximizeButtonHint);
 
     QSettings settings;
     _downDir = settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString();
@@ -58,6 +56,10 @@ RestoreDialog::RestoreDialog(ArchivePtr archive, QWidget *parent)
     displayRestoreOption(canRestore);
     _ui.optionRestoreRadio->setChecked(canRestore);
     _ui.optionBaseDirRadio->setChecked(!canRestore);
+    if(!_files.isEmpty())
+        _ui.filesListWidget->addItems(_files);
+    else
+        _ui.filesListWidget->addItems(_archive->contents().split(QChar('\n')));
 }
 
 RestoreDialog::~RestoreDialog()
@@ -73,6 +75,7 @@ ArchiveRestoreOptions RestoreDialog::getOptions()
     options.overwriteFiles   = _ui.overwriteCheckBox->isChecked();
     options.keepNewerFiles   = _ui.keepNewerCheckBox->isChecked();
     options.preservePerms    = _ui.preservePermCheckBox->isChecked();
+    options.files            = _files;
     if(options.optionRestoreDir)
         options.path = _ui.baseDirLineEdit->text();
     else if(options.optionTarArchive)
@@ -94,7 +97,7 @@ void RestoreDialog::displayTarOption(bool display)
 
 void RestoreDialog::optionBaseDirToggled(bool checked)
 {
-    _ui.infoLabel->setText(tr("Restore archive <b>%1</b> contents to specified"
+    _ui.infoLabel->setText(tr("Restore from archive <b>%1</b> to specified"
                               " directory? Any existing files will not be"
                               " replaced by default. Use the options below to"
                               " modify this behavior:")
@@ -110,7 +113,7 @@ void RestoreDialog::optionBaseDirToggled(bool checked)
 void RestoreDialog::optionTarArchiveToggled(bool checked)
 {
     _ui.infoLabel->setText(tr("Download archive <b>%1</b> contents as an"
-                              " uncompressed TAR archive.")
+                              " uncompressed TAR archive?")
                                .arg(_archive->name()));
     _ui.archiveLineEdit->setVisible(checked);
     _ui.changeArchiveButton->setVisible(checked);
@@ -119,7 +122,7 @@ void RestoreDialog::optionTarArchiveToggled(bool checked)
 
 void RestoreDialog::optionRestoreToggled(bool checked)
 {
-    _ui.infoLabel->setText(tr("Restore archive <b>%1</b> contents to original"
+    _ui.infoLabel->setText(tr("Restore from archive <b>%1</b> to original"
                               " locations? Any existing files will not be"
                               " replaced by default. Use the options below to"
                               " modify this behavior:")

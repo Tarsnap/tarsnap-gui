@@ -888,13 +888,14 @@ void MainWindow::validateBackupTab()
 void MainWindow::enableJobScheduling()
 {
 #if defined(Q_OS_OSX)
-    auto confirm = QMessageBox::question(this, tr("Job scheduling"),
-                                         tr("Register Tarsnap GUI with the OS X"
-                                         " Launchd service to run daily at 10am?"
-                                         "\nJobs that have scheduled backup"
-                                         " turned on will be backed up according"
-                                         " to the Daily, Weekly or Monthly"
-                                         " schedule."));
+    auto confirm =
+        QMessageBox::question(this, tr("Job scheduling"),
+                              tr("Register Tarsnap GUI with the OS X"
+                                 " Launchd service to run daily at 10am?"
+                                 "\nJobs that have scheduled backup"
+                                 " turned on will be backed up according"
+                                 " to the Daily, Weekly or Monthly"
+                                 " schedule."));
     if(confirm != QMessageBox::Yes)
         return;
 
@@ -906,10 +907,10 @@ void MainWindow::enableJobScheduling()
     {
         QMessageBox::critical(this, tr("Job scheduling"),
                               tr("Looks like scheduling is already enabled."
-                              " Nothing to do."));
+                                 " Nothing to do."));
         return;
     }
-    if (!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    if(!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QString msg(tr("Failed to write service file %1. Aborting operation."));
         msg = msg.arg(launchdPlistFile.fileName());
@@ -917,16 +918,16 @@ void MainWindow::enableJobScheduling()
         QMessageBox::critical(this, tr("Job scheduling"), msg);
         return;
     }
-    launchdPlistFile.write(launchdPlist
-                           .readAll()
-                           .replace("%1", QCoreApplication::applicationFilePath().toLatin1())
-                           .replace("%2", QDir::homePath().toLatin1()));
+    launchdPlistFile.write(
+        launchdPlist.readAll()
+            .replace("%1", QCoreApplication::applicationFilePath().toLatin1())
+            .replace("%2", QDir::homePath().toLatin1()));
     launchdPlist.close();
     launchdPlistFile.close();
 
     QProcess launchctl;
-    launchctl.start("launchctl",
-                    QStringList() << "load" << launchdPlistFile.fileName());
+    launchctl.start("launchctl", QStringList() << "load"
+                                               << launchdPlistFile.fileName());
     launchctl.waitForFinished(-1);
     if((launchctl.exitStatus() != QProcess::NormalExit)
        || (launchctl.exitCode() != 0))
@@ -937,7 +938,8 @@ void MainWindow::enableJobScheduling()
         return;
     }
 
-    launchctl.start("launchctl", QStringList() << "start" << "com.tarsnap.gui");
+    launchctl.start("launchctl", QStringList() << "start"
+                                               << "com.tarsnap.gui");
     launchctl.waitForFinished(-1);
     if((launchctl.exitStatus() != QProcess::NormalExit)
        || (launchctl.exitCode() != 0))
@@ -976,8 +978,9 @@ void MainWindow::enableJobScheduling()
     }
     QByteArray currentCrontab = crontab.readAllStandardOutput();
 
-    QRegExp rx(QString("\n?%1.+%2\n?").arg(QRegExp::escape(CRON_MARKER_BEGIN))
-                                      .arg(QRegExp::escape(CRON_MARKER_END)));
+    QRegExp rx(QString("\n?%1.+%2\n?")
+                   .arg(QRegExp::escape(CRON_MARKER_BEGIN))
+                   .arg(QRegExp::escape(CRON_MARKER_END)));
     rx.setMinimal(true);
     if(-1 != rx.indexIn(currentCrontab))
     {
@@ -1010,8 +1013,10 @@ void MainWindow::enableJobScheduling()
     question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
     question.setDefaultButton(QMessageBox::Cancel);
     // Workaround for activating Show details by default
-    foreach(QAbstractButton *button, question.buttons()) {
-        if (question.buttonRole(button) == QMessageBox::ActionRole) {
+    foreach(QAbstractButton *button, question.buttons())
+    {
+        if(question.buttonRole(button) == QMessageBox::ActionRole)
+        {
             button->click();
             break;
         }
@@ -1049,7 +1054,8 @@ void MainWindow::disableJobScheduling()
     if(confirm != QMessageBox::Yes)
         return;
 
-    QFile launchdPlistFile(QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist");
+    QFile launchdPlistFile(QDir::homePath()
+                           + "/Library/LaunchAgents/com.tarsnap.gui.plist");
     if(!launchdPlistFile.exists())
     {
         QString msg("Launchd service file not found:\n%1\nAborting operation.");
@@ -1060,7 +1066,8 @@ void MainWindow::disableJobScheduling()
     }
 
     QProcess process;
-    process.start("launchctl", QStringList() << "unload" << launchdPlistFile.fileName());
+    process.start("launchctl", QStringList() << "unload"
+                                             << launchdPlistFile.fileName());
     process.waitForFinished(-1);
     if((process.exitStatus() != QProcess::NormalExit)
        || (process.exitCode() != 0))
@@ -1126,7 +1133,7 @@ void MainWindow::disableJobScheduling()
                                       .arg(QRegExp::escape(CRON_MARKER_END)));
     rx.setMinimal(true);
     QString linesToRemove;
-    int pos = 0;
+    int     pos = 0;
     while((pos = rx.indexIn(currentCrontab, pos)) != -1)
     {
         linesToRemove += rx.cap();
@@ -1135,9 +1142,10 @@ void MainWindow::disableJobScheduling()
 
     if(linesToRemove.isEmpty())
     {
-        QMessageBox::warning(this, "Job scheduling",
-                             "Looks like Job scheduling hasn't been enabled yet."
-                             " Nothing to do.");
+        QMessageBox::warning(this, "Job scheduling", "Looks like Job "
+                                                     "scheduling hasn't been "
+                                                     "enabled yet."
+                                                     " Nothing to do.");
         return;
     }
 
@@ -1152,8 +1160,10 @@ void MainWindow::disableJobScheduling()
     question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
     question.setDefaultButton(QMessageBox::Cancel);
     // Workaround for activating Show details by default
-    foreach(QAbstractButton *button, question.buttons()) {
-        if (question.buttonRole(button) == QMessageBox::ActionRole) {
+    foreach(QAbstractButton *button, question.buttons())
+    {
+        if(question.buttonRole(button) == QMessageBox::ActionRole)
+        {
             button->click();
             break;
         }
@@ -1250,7 +1260,8 @@ void MainWindow::backupButtonClicked()
 {
     QList<QUrl> urls;
     for(int i = 0; i < _ui.backupListWidget->count(); ++i)
-        urls << static_cast<BackupListWidgetItem *>(_ui.backupListWidget->item(i))->url();
+        urls << static_cast<BackupListWidgetItem *>(_ui.backupListWidget->item(i))
+                    ->url();
 
     BackupTaskPtr backup(new BackupTask);
     backup->setName(_ui.backupNameLineEdit->text());

@@ -25,9 +25,8 @@ public slots:
     void updateStatusMessage(QString message, QString detail = "");
     void updateLoadingAnimation(bool idle);
     void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
-                               quint64 sizeUniqueTotal,
-                               quint64 sizeUniqueCompressed,
-                               quint64 archiveCount);
+                             quint64 sizeUniqueTotal,
+                             quint64 sizeUniqueCompressed, quint64 archiveCount);
     void updateTarsnapVersion(QString versionString);
     void notificationRaise();
     void displayStopTasks(bool backupTaskRunning, int runningTasks,
@@ -109,14 +108,14 @@ private slots:
     void disableJobScheduling();
 
 private:
-    Ui::MainWindow  _ui;
-    QMenuBar       *_menuBar;
-    QString         _lastTimestamp;
-    QTimer          _nukeTimer;
-    int             _nukeTimerCount;
-    QMessageBox     _nukeCountdown;
-    TarsnapAccount  _tarsnapAccount;
-    bool            _aboutToQuit;
+    Ui::MainWindow _ui;
+    QMenuBar *     _menuBar;
+    QString        _lastTimestamp;
+    QTimer         _nukeTimer;
+    int            _nukeTimerCount;
+    QMessageBox    _nukeCountdown;
+    TarsnapAccount _tarsnapAccount;
+    bool           _aboutToQuit;
 
     void updateUi();
 };

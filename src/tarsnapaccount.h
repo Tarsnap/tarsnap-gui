@@ -3,9 +3,9 @@
 
 #include "ui_logindialog.h"
 
+#include <QDialog>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <QDialog>
 
 class TarsnapAccount : public QDialog
 {

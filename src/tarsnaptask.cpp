@@ -1,6 +1,6 @@
 #include "tarsnaptask.h"
-#include "utils.h"
 #include "debug.h"
+#include "utils.h"
 
 #if defined Q_OS_UNIX
 #include <signal.h>
@@ -11,7 +11,9 @@
 #define LOG_MAX_SEARCH_NL 1024
 
 TarsnapTask::TarsnapTask()
-    : QObject(), _id(QUuid::createUuid()), _process(nullptr),
+    : QObject(),
+      _id(QUuid::createUuid()),
+      _process(nullptr),
       _truncateLogOutput(false)
 {
 }
@@ -165,29 +167,31 @@ void TarsnapTask::processFinished()
     {
     case QProcess::NormalExit:
     {
-        emit finished(_data, _process->exitCode(), QString(_stdOut), QString(_stdErr));
+        emit finished(_data, _process->exitCode(), QString(_stdOut),
+                      QString(_stdErr));
 
         // Truncate LOG output
         QByteArray stdOut(_stdOut);
         if(!stdOut.isEmpty() && _truncateLogOutput
            && (stdOut.size() > LOG_MAX_LENGTH))
         {
-            int nextNL = stdOut.lastIndexOf(QChar('\n'),
-                                            LOG_MAX_LENGTH +
-                                            std::min(stdOut.size() - LOG_MAX_LENGTH,
-                                                     LOG_MAX_SEARCH_NL));
+            int nextNL =
+                stdOut.lastIndexOf(QChar('\n'),
+                                   LOG_MAX_LENGTH
+                                       + std::min(stdOut.size() - LOG_MAX_LENGTH,
+                                                  LOG_MAX_SEARCH_NL));
             stdOut.truncate(std::max(LOG_MAX_LENGTH, nextNL));
-            stdOut.append(tr("\n...\n-- %1 output lines truncated by Tarsnap GUI --\n")
-                          .arg(_stdOut.mid(stdOut.size())
-                               .count(QChar('\n').toLatin1())));
+            stdOut.append(
+                tr("\n...\n-- %1 output lines truncated by Tarsnap GUI --\n")
+                    .arg(_stdOut.mid(stdOut.size()).count(QChar('\n').toLatin1())));
         }
 
         LOG << tr("Task %1 finished with exit code %2:\n[%3 %4]\n%5")
-               .arg(_id.toString())
-               .arg(_process->exitCode())
-               .arg(_command)
-               .arg(Utils::quoteCommandLine(_arguments))
-               .arg(QString(stdOut + _stdErr));
+                   .arg(_id.toString())
+                   .arg(_process->exitCode())
+                   .arg(_command)
+                   .arg(Utils::quoteCommandLine(_arguments))
+                   .arg(QString(stdOut + _stdErr));
         break;
     }
     case QProcess::CrashExit:

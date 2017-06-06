@@ -2,9 +2,9 @@
 #include "backuplistwidgetitem.h"
 #include "debug.h"
 #include "filepickerdialog.h"
+#include "translator.h"
 #include "ui_aboutwidget.h"
 #include "utils.h"
-#include "translator.h"
 
 #include <QDateTime>
 #include <QDesktopServices>
@@ -84,10 +84,13 @@ MainWindow::MainWindow(QWidget *parent)
             [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.helpTab); });
     addAction(_ui.actionShowJournal);
     _ui.expandJournalButton->setDefaultAction(_ui.actionShowJournal);
-    connect(_ui.actionShowJournal, &QAction::toggled, _ui.journalLog, &QWidget::setVisible);
-    connect(_ui.statusBarLabel, &ElidedLabel::clicked, _ui.actionShowJournal, &QAction::toggle);
+    connect(_ui.actionShowJournal, &QAction::toggled, _ui.journalLog,
+            &QWidget::setVisible);
+    connect(_ui.statusBarLabel, &ElidedLabel::clicked, _ui.actionShowJournal,
+            &QAction::toggle);
     addAction(_ui.actionStopTasks);
-    connect(_ui.actionStopTasks, &QAction::triggered, this, &MainWindow::getTaskInfo);
+    connect(_ui.actionStopTasks, &QAction::triggered, this,
+            &MainWindow::getTaskInfo);
     connect(_ui.busyWidget, &BusyWidget::clicked, _ui.actionStopTasks,
             &QAction::trigger);
     addAction(_ui.actionShowArchivesTabHeader);
@@ -111,29 +114,26 @@ MainWindow::MainWindow(QWidget *parent)
             &BackupListWidget::clear);
     connect(_ui.actionBrowseItems, &QAction::triggered, this,
             &MainWindow::browseForBackupItems);
-    connect(_ui.backupListInfoLabel, &QLabel::linkActivated, _ui.actionBrowseItems,
-            &QAction::trigger);
+    connect(_ui.backupListInfoLabel, &ElidedLabel::clicked,
+            _ui.actionBrowseItems, &QAction::trigger);
     connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
             &MainWindow::appendTimestampCheckBoxToggled);
-    connect(_ui.actionAddFiles, &QAction::triggered, this, [&]()
-    {
-        QList<QUrl> urls = QFileDialog::getOpenFileUrls(this,
-                              tr("Browse for files to add to the Backup list"));
+    connect(_ui.actionAddFiles, &QAction::triggered, this, [&]() {
+        QList<QUrl> urls = QFileDialog::getOpenFileUrls(
+            this, tr("Browse for files to add to the Backup list"));
         if(urls.count())
             _ui.backupListWidget->addItemsWithUrls(urls);
     });
-    connect(_ui.actionAddDirectory, &QAction::triggered, this, [&]()
-    {
-        QUrl url = QFileDialog::getExistingDirectoryUrl(this,
-                          tr("Browse for directory to add to the Backup list"));
+    connect(_ui.actionAddDirectory, &QAction::triggered, this, [&]() {
+        QUrl url = QFileDialog::getExistingDirectoryUrl(
+            this, tr("Browse for directory to add to the Backup list"));
         if(!url.isEmpty())
             _ui.backupListWidget->addItemWithUrl(url);
     });
 
     // Settings pane
     loadSettings();
-    connect(_ui.aboutButton, &QPushButton::clicked, this,
-            &MainWindow::showAbout);
+    connect(_ui.aboutButton, &QPushButton::clicked, this, &MainWindow::showAbout);
     connect(_ui.accountUserLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
     connect(_ui.accountMachineLineEdit, &QLineEdit::editingFinished, this,
@@ -244,9 +244,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.archiveDetailsWidget, &ArchiveWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
 
-    connect(_ui.archiveListWidget,
-            &ArchiveListWidget::customContextMenuRequested, this,
-            &MainWindow::showArchiveListMenu);
+    connect(_ui.archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
+            this, &MainWindow::showArchiveListMenu);
     connect(_ui.actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
     connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
@@ -297,8 +296,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::deleteJob);
     connect(this, &MainWindow::jobsList, _ui.jobListWidget,
             &JobListWidget::setJobs);
-    connect(_ui.jobListWidget, &JobListWidget::customContextMenuRequested,
-            this, &MainWindow::showJobsListMenu);
+    connect(_ui.jobListWidget, &JobListWidget::customContextMenuRequested, this,
+            &MainWindow::showJobsListMenu);
     connect(_ui.actionJobBackup, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::backupSelectedItems);
     connect(_ui.actionJobDelete, &QAction::triggered, _ui.jobListWidget,
@@ -347,8 +346,9 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(_ui.repairCacheButton, &QPushButton::clicked, this,
             [&]() { emit repairCache(true); });
-    connect(_ui.skipSystemDefaultsButton, &QPushButton::clicked,
-            [&]() { _ui.skipSystemLineEdit->setText(DEFAULT_SKIP_SYSTEM_FILES); });
+    connect(_ui.skipSystemDefaultsButton, &QPushButton::clicked, [&]() {
+        _ui.skipSystemLineEdit->setText(DEFAULT_SKIP_SYSTEM_FILES);
+    });
     connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
         QMessageBox::information(this, QApplication::applicationName(),
                                  tr("The new size notation will take global "
@@ -360,24 +360,22 @@ MainWindow::MainWindow(QWidget *parent)
         _ui.defaultJobs->hide();
         _ui.addJobButton->show();
     });
-    connect(_ui.actionFilterArchives, &QAction::triggered, [&]()
-    {
+    connect(_ui.actionFilterArchives, &QAction::triggered, [&]() {
         _ui.archivesFilterFrame->setVisible(!_ui.archivesFilterFrame->isVisible());
         if(_ui.archivesFilter->isVisible())
             _ui.archivesFilter->setFocus();
         else
             _ui.archivesFilter->clearEditText();
     });
-    connect(_ui.actionFilterJobs, &QAction::triggered, [&]()
-    {
+    connect(_ui.actionFilterJobs, &QAction::triggered, [&]() {
         _ui.jobsFilterFrame->setVisible(!_ui.jobsFilterFrame->isVisible());
         if(_ui.jobsFilter->isVisible())
             _ui.jobsFilter->setFocus();
         else
             _ui.jobsFilter->clearEditText();
     });
-    connect(_ui.archivesFilter, &QComboBox::editTextChanged, _ui.archiveListWidget,
-            &ArchiveListWidget::setFilter);
+    connect(_ui.archivesFilter, &QComboBox::editTextChanged,
+            _ui.archiveListWidget, &ArchiveListWidget::setFilter);
     connect(_ui.jobsFilter, &QComboBox::editTextChanged, _ui.jobListWidget,
             &JobListWidget::setFilter);
     connect(_ui.archivesFilter,
@@ -389,37 +387,28 @@ MainWindow::MainWindow(QWidget *parent)
             this,
             [&](){_ui.jobListWidget->setFocus();});
     connect(_ui.languageComboBox, &QComboBox::currentTextChanged, this,
-            [&](const QString language)
-    {
-        if(!language.isEmpty())
-        {
-            this->commitSettings();
-            Translator &translator = Translator::instance();
-            translator.translateApp(qApp, language);
-        }
-    });
+            [&](const QString language) {
+                if(!language.isEmpty())
+                {
+                    this->commitSettings();
+                    Translator &translator = Translator::instance();
+                    translator.translateApp(qApp, language);
+                }
+            });
     connect(_ui.archiveListWidget, &ArchiveListWidget::countChanged, this,
-            [&](int total, int visible)
-    {
-        _ui.archivesCountLabel->setText(tr("Archives (%1/%2)")
-                                        .arg(visible).arg(total));
-    });
+            [&](int total, int visible) {
+                _ui.archivesCountLabel->setText(
+                    tr("Archives (%1/%2)").arg(visible).arg(total));
+            });
     connect(_ui.jobListWidget, &JobListWidget::countChanged, this,
-            [&](int total, int visible)
-    {
-        _ui.jobsCountLabel->setText(tr("Jobs (%1/%2)")
-                                    .arg(visible).arg(total));
-    });
+            [&](int total, int visible) {
+                _ui.jobsCountLabel->setText(
+                    tr("Jobs (%1/%2)").arg(visible).arg(total));
+            });
     connect(_ui.actionShowArchivesTabHeader, &QAction::triggered,
-            [&](bool checked)
-    {
-        _ui.archivesHeader->setVisible(checked);
-    });
+            [&](bool checked) { _ui.archivesHeader->setVisible(checked); });
     connect(_ui.actionShowJobsTabHeader, &QAction::triggered,
-            [&](bool checked)
-    {
-        _ui.jobsHeader->setVisible(checked);
-    });
+            [&](bool checked) { _ui.jobsHeader->setVisible(checked); });
 }
 
 MainWindow::~MainWindow()
@@ -471,8 +460,7 @@ void MainWindow::loadSettings()
         settings.value("app/skip_nodump", DEFAULT_SKIP_NODUMP).toBool());
     _ui.downloadsDirLineEdit->setText(
         settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString());
-    _ui.appDataDirLineEdit->setText(
-        settings.value("app/app_data", "").toString());
+    _ui.appDataDirLineEdit->setText(settings.value("app/app_data", "").toString());
     _ui.notificationsCheckBox->setChecked(
         settings.value("app/notifications", true).toBool());
     _ui.limitUploadSpinBox->setValue(
@@ -503,9 +491,8 @@ void MainWindow::loadSettings()
     Translator &translator = Translator::instance();
     _ui.languageComboBox->addItem(LANG_AUTO);
     _ui.languageComboBox->addItems(translator.languageList());
-    _ui.languageComboBox->setCurrentText(settings.value("app/language",
-                                                        LANG_AUTO)
-                                         .toString());
+    _ui.languageComboBox->setCurrentText(
+        settings.value("app/language", LANG_AUTO).toString());
 
     restoreGeometry(settings.value("app/window_geometry").toByteArray());
 }
@@ -569,19 +556,21 @@ void MainWindow::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
-    if(width() < 600)
-    {
-        QPixmap pixmap(":/icons/tarsnap-logo-icon.png");
-        QIcon icon;
-        icon.addFile(":/icons/tarsnap-logo-icon.png");
-        icon.paint(&p, width() - pixmap.width() - 5, 2, pixmap.width(), pixmap.height());
-    }
-    else
+    if(frameGeometry().width() > 460)
     {
         QPixmap pixmap(":/icons/tarsnap-logo.png");
-        QIcon icon;
+        QIcon   icon;
         icon.addFile(":/icons/tarsnap-logo.png");
-        icon.paint(&p, width() - pixmap.width() - 5, 2, pixmap.width(), pixmap.height());
+        icon.paint(&p, width() - pixmap.width() - 5, 3, pixmap.width(),
+                   pixmap.height());
+    }
+    else if(frameGeometry().width() > 360)
+    {
+        QPixmap pixmap(":/icons/tarsnap-logo-icon.png");
+        QIcon   icon;
+        icon.addFile(":/icons/tarsnap-logo-icon.png");
+        icon.paint(&p, width() - pixmap.width() - 5, 3, pixmap.width(),
+                   pixmap.height());
     }
 }
 
@@ -689,7 +678,8 @@ void MainWindow::setupMenuBar()
     connect(actionAbout, &QAction::triggered, this, &MainWindow::showAbout);
     QAction *actionSettings = new QAction(this);
     actionSettings->setMenuRole(QAction::PreferencesRole);
-    connect(actionSettings, &QAction::triggered, _ui.actionGoSettings, &QAction::trigger);
+    connect(actionSettings, &QAction::triggered, _ui.actionGoSettings,
+            &QAction::trigger);
     QMenu *appMenu = _menuBar->addMenu("");
     appMenu->addAction(actionAbout);
     appMenu->addAction(actionSettings);
@@ -730,8 +720,7 @@ void MainWindow::setupMenuBar()
     QAction *actionFullScreen = new QAction(tr("Enter Full Screen"), this);
     actionFullScreen->setShortcut(QKeySequence("Ctrl+Meta+F"));
     actionFullScreen->setCheckable(true);
-    connect(actionFullScreen, &QAction::triggered, [=](bool checked)
-    {
+    connect(actionFullScreen, &QAction::triggered, [=](bool checked) {
         if(checked)
         {
             actionFullScreen->setText(tr("Exit Full Screen"));
@@ -755,10 +744,9 @@ void MainWindow::setupMenuBar()
     windowMenu->addAction(_ui.actionShowArchivesTabHeader);
     windowMenu->addAction(_ui.actionShowJobsTabHeader);
 
-    QMenu *helpMenu = _menuBar->addMenu(tr("&Help"));
+    QMenu *  helpMenu             = _menuBar->addMenu(tr("&Help"));
     QAction *actionTarsnapWebsite = new QAction(tr("Tarsnap Website"), this);
-    connect(actionTarsnapWebsite, &QAction::triggered, []()
-    {
+    connect(actionTarsnapWebsite, &QAction::triggered, []() {
         QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
     });
     helpMenu->addAction(actionTarsnapWebsite);
@@ -777,9 +765,9 @@ void MainWindow::updateLoadingAnimation(bool idle)
 }
 
 void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
-                                       quint64 sizeUniqueTotal,
-                                       quint64 sizeUniqueCompressed,
-                                       quint64 archiveCount)
+                                     quint64 sizeUniqueTotal,
+                                     quint64 sizeUniqueCompressed,
+                                     quint64 archiveCount)
 {
     QString tooltip(tr("\t\tTotal size\tCompressed size\n"
                        "all archives\t%1\t\t%2\n"
@@ -788,16 +776,13 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                         .arg(sizeCompressed)
                         .arg(sizeUniqueTotal)
                         .arg(sizeUniqueCompressed));
-    _ui.accountTotalSizeLabel->setText(
-        Utils::humanBytes(sizeTotal));
+    _ui.accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal));
     _ui.accountTotalSizeLabel->setToolTip(tooltip);
-    _ui.accountActualSizeLabel->setText(
-        Utils::humanBytes(sizeUniqueCompressed));
+    _ui.accountActualSizeLabel->setText(Utils::humanBytes(sizeUniqueCompressed));
     _ui.accountActualSizeLabel->setToolTip(tooltip);
     quint64 storageSaved =
         sizeTotal >= sizeUniqueCompressed ? sizeTotal - sizeUniqueCompressed : 0;
-    _ui.accountStorageSavedLabel->setText(
-        Utils::humanBytes(storageSaved));
+    _ui.accountStorageSavedLabel->setText(Utils::humanBytes(storageSaved));
     _ui.accountStorageSavedLabel->setToolTip(tooltip);
     _ui.accountArchivesCountLabel->setText(QString::number(archiveCount));
 }
@@ -822,15 +807,15 @@ void MainWindow::createJobClicked()
 
 void MainWindow::showAbout()
 {
-    QDialog *aboutWindow = new QDialog(this);
+    QDialog *       aboutWindow = new QDialog(this);
     Ui::aboutWidget aboutUi;
     aboutUi.setupUi(aboutWindow);
-    aboutUi.versionLabel->setText(tr("version ") +
-                                  QCoreApplication::applicationVersion());
+    aboutUi.versionLabel->setText(tr("version ")
+                                  + QCoreApplication::applicationVersion());
     aboutWindow->setAttribute(Qt::WA_DeleteOnClose, true);
     aboutWindow->setWindowFlags(
-        (aboutWindow->windowFlags() | Qt::CustomizeWindowHint) &
-        ~Qt::WindowMaximizeButtonHint);
+        (aboutWindow->windowFlags() | Qt::CustomizeWindowHint)
+        & ~Qt::WindowMaximizeButtonHint);
     connect(aboutUi.checkUpdateButton, &QPushButton::clicked, []() {
         QDesktopServices::openUrl(
             QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
@@ -1207,10 +1192,11 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 {
     if(count != 0)
     {
-        _ui.backupDetailLabel->setText(tr("%1 %2 (%3)")
-                                       .arg(count)
-                                       .arg(count == 1 ? tr("item") : tr("items"))
-                                       .arg(Utils::humanBytes(size)));
+        _ui.backupDetailLabel->setText(
+            tr("%1 %2 (%3)")
+                .arg(count)
+                .arg(count == 1 ? tr("item") : tr("items"))
+                .arg(Utils::humanBytes(size)));
     }
     else
     {
@@ -1284,42 +1270,53 @@ void MainWindow::commitSettings()
 {
     DEBUG << "COMMIT SETTINGS";
     QSettings settings;
-    settings.setValue("tarsnap/path",    _ui.tarsnapPathLineEdit->text());
-    settings.setValue("tarsnap/cache",   _ui.tarsnapCacheLineEdit->text());
-    settings.setValue("tarsnap/key",     _ui.accountMachineKeyLineEdit->text());
+    settings.setValue("tarsnap/path", _ui.tarsnapPathLineEdit->text());
+    settings.setValue("tarsnap/cache", _ui.tarsnapCacheLineEdit->text());
+    settings.setValue("tarsnap/key", _ui.accountMachineKeyLineEdit->text());
     settings.setValue("tarsnap/machine", _ui.accountMachineLineEdit->text());
-    settings.setValue("tarsnap/user",    _ui.accountUserLineEdit->text());
-    settings.setValue("tarsnap/aggressive_networking", _ui.aggressiveNetworkingCheckBox->isChecked());
-    settings.setValue("tarsnap/preserve_pathnames", _ui.preservePathsCheckBox->isChecked());
-    settings.setValue("tarsnap/traverse_mount", _ui.traverseMountCheckBox->isChecked());
-    settings.setValue("tarsnap/follow_symlinks", _ui.followSymLinksCheckBox->isChecked());
-    settings.setValue("tarsnap/no_default_config", _ui.ignoreConfigCheckBox->isChecked());
+    settings.setValue("tarsnap/user", _ui.accountUserLineEdit->text());
+    settings.setValue("tarsnap/aggressive_networking",
+                      _ui.aggressiveNetworkingCheckBox->isChecked());
+    settings.setValue("tarsnap/preserve_pathnames",
+                      _ui.preservePathsCheckBox->isChecked());
+    settings.setValue("tarsnap/traverse_mount",
+                      _ui.traverseMountCheckBox->isChecked());
+    settings.setValue("tarsnap/follow_symlinks",
+                      _ui.followSymLinksCheckBox->isChecked());
+    settings.setValue("tarsnap/no_default_config",
+                      _ui.ignoreConfigCheckBox->isChecked());
     settings.setValue("tarsnap/dry_run", _ui.simulationCheckBox->isChecked());
     settings.setValue("app/iec_prefixes", _ui.iecPrefixesCheckBox->isChecked());
     settings.setValue("app/skip_files_size", _ui.skipFilesSizeSpinBox->value());
-    settings.setValue("app/skip_system_enabled", _ui.skipSystemJunkCheckBox->isChecked());
+    settings.setValue("app/skip_system_enabled",
+                      _ui.skipSystemJunkCheckBox->isChecked());
     settings.setValue("app/skip_system_files", _ui.skipSystemLineEdit->text());
     settings.setValue("app/skip_nodump", _ui.skipNoDumpCheckBox->isChecked());
     settings.setValue("app/downloads_dir", _ui.downloadsDirLineEdit->text());
     settings.setValue("app/app_data", _ui.appDataDirLineEdit->text());
-    settings.setValue("app/notifications", _ui.notificationsCheckBox->isChecked());
+    settings.setValue("app/notifications",
+                      _ui.notificationsCheckBox->isChecked());
     settings.setValue("app/limit_upload", _ui.limitUploadSpinBox->value());
     settings.setValue("app/limit_download", _ui.limitDownloadSpinBox->value());
     settings.setValue("app/window_geometry", saveGeometry());
     settings.setValue("app/language", _ui.languageComboBox->currentText());
-    settings.setValue("app/archives_header_enabled", _ui.actionShowArchivesTabHeader->isChecked());
-    settings.setValue("app/jobs_header_enabled", _ui.actionShowJobsTabHeader->isChecked());
-    settings.setValue("app/save_console_log", _ui.saveConsoleLogCheckBox->isChecked());
+    settings.setValue("app/archives_header_enabled",
+                      _ui.actionShowArchivesTabHeader->isChecked());
+    settings.setValue("app/jobs_header_enabled",
+                      _ui.actionShowJobsTabHeader->isChecked());
+    settings.setValue("app/save_console_log",
+                      _ui.saveConsoleLogCheckBox->isChecked());
     settings.sync();
 }
 
 bool MainWindow::validateMachineKeyPath()
 {
     QFileInfo machineKeyFile(_ui.accountMachineKeyLineEdit->text());
-    if(machineKeyFile.exists() && machineKeyFile.isFile() &&
-       machineKeyFile.isReadable())
+    if(machineKeyFile.exists() && machineKeyFile.isFile()
+       && machineKeyFile.isReadable())
     {
-        _ui.accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        _ui.accountMachineKeyLineEdit->setStyleSheet(
+            "QLineEdit {color: black;}");
         return true;
     }
     else
@@ -1430,7 +1427,7 @@ void MainWindow::appendToConsoleLog(const QString &log)
         bf.setBackground(QBrush(qApp->palette().base().color()));
     cursor.mergeBlockFormat(bf);
     cursor.insertText(QString("[%1] %2\n").arg(QDateTime::currentDateTime().toString(Qt::DefaultLocaleShortDate)).arg(log));
-    cursor.insertText(QLatin1String("----------------------------------------------------------------------------"));
+//    cursor.insertText(QLatin1String("----------------------------------------------------------------------------"));
     _ui.consoleLog->moveCursor(QTextCursor::End);
     _ui.consoleLog->ensureCursorVisible();
 }
@@ -1463,16 +1460,19 @@ void MainWindow::backupJob(JobPtr job)
         {
             QMessageBox::warning(this, tr("Job error"),
                                  tr("Job %1 has no backup paths selected. "
-                                    "Nothing to back up.").arg(job->name()));
+                                    "Nothing to back up.")
+                                     .arg(job->name()));
             return;
         }
         else
         {
-            auto confirm = QMessageBox::question(this, tr("Job warning"),
-                                  tr("Some backup paths for Job %1 are not"
-                                     " accessible anymore and thus backup may"
-                                     " be incomplete."
-                                     " Proceed with backup?").arg(job->name()));
+            auto confirm = QMessageBox::question(
+                this, tr("Job warning"),
+                tr("Some backup paths for Job %1 are not"
+                   " accessible anymore and thus backup may"
+                   " be incomplete."
+                   " Proceed with backup?")
+                    .arg(job->name()));
             if(confirm != QMessageBox::Yes)
                 return;
         }
@@ -1485,8 +1485,8 @@ void MainWindow::browseForBackupItems()
     if(_ui.mainTabWidget->currentWidget() != _ui.backupTab)
         _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
     FilePickerDialog picker(this);
-    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
-            &picker, &FilePickerDialog::selectUrl);
+    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded, &picker,
+            &FilePickerDialog::selectUrl);
     picker.setSelectedUrls(_ui.backupListWidget->itemUrls());
     if(picker.exec())
         _ui.backupListWidget->setItemsWithUrls(picker.getSelectedUrls());
@@ -1564,7 +1564,7 @@ void MainWindow::nukeArchivesButtonClicked()
     {
         _nukeTimerCount = NUKE_SECONDS_DELAY;
         _nukeCountdown.setWindowTitle(
-                            tr("Deleting all archives: press Cancel to abort"));
+            tr("Deleting all archives: press Cancel to abort"));
         _nukeCountdown.setText(
             tr("Purging all archives in %1 seconds...").arg(_nukeTimerCount));
         _nukeTimer.start(1000);
@@ -1585,9 +1585,9 @@ void MainWindow::runSetupWizardClicked()
     if(_ui.busyWidget->isVisible())
     {
         QMessageBox::warning(this, tr("Confirm action"),
-                              tr("Tasks are currently running. Please "
-                                 "stop executing tasks or wait for "
-                                 "completion and try again."));
+                             tr("Tasks are currently running. Please "
+                                "stop executing tasks or wait for "
+                                "completion and try again."));
         return;
     }
     auto confirm =
@@ -1669,8 +1669,9 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
         }
         else
         {
-            QMessageBox::information(this, tr("Stop Tasks"),
-                                     tr("There are no running or queued tasks."));
+            QMessageBox::information(
+                this, tr("Stop Tasks"),
+                tr("There are no running or queued tasks."));
             return;
         }
     }
@@ -1683,12 +1684,13 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
 
     QPushButton actionButton(&msgBox);
     actionButton.setText(tr("Choose action"));
-    QMenu actionMenu(&actionButton);
+    QMenu    actionMenu(&actionButton);
     QAction *interruptBackup = nullptr;
     if(backupTaskRunning)
     {
         if(_aboutToQuit)
-            interruptBackup = actionMenu.addAction(tr("Interrupt backup and clear queue"));
+            interruptBackup =
+                actionMenu.addAction(tr("Interrupt backup and clear queue"));
         else
             interruptBackup = actionMenu.addAction(tr("Interrupt backup"));
         interruptBackup->setCheckable(true);
@@ -1719,7 +1721,8 @@ void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
     }
     QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
     msgBox.setDefaultButton(cancel);
-    connect(&actionMenu, &QMenu::triggered, &msgBox, &QDialog::accept, Qt::QueuedConnection);
+    connect(&actionMenu, &QMenu::triggered, &msgBox, &QDialog::accept,
+            Qt::QueuedConnection);
     actionButton.setMenu(&actionMenu);
     msgBox.addButton(&actionButton, QMessageBox::ActionRole);
     msgBox.exec();
@@ -1793,14 +1796,14 @@ void MainWindow::updateLastMachineActivity(QStringList activityFields)
 {
     if(activityFields.size() < 2)
         return;
-    QString machineActivity = activityFields[0] + ' ' + activityFields[1];
+    QString   machineActivity = activityFields[0] + ' ' + activityFields[1];
     QSettings settings;
     settings.setValue("tarsnap/machine_activity", machineActivity);
     _ui.machineActivity->setText(machineActivity);
     _ui.machineActivity->setToolTip(activityFields.join(' '));
-    _ui.machineActivity->resize(_ui.machineActivity->fontMetrics()
-                                 .width(_ui.machineActivity->text()),
-                                 _ui.machineActivity->sizeHint().height());
+    _ui.machineActivity->resize(_ui.machineActivity->fontMetrics().width(
+                                    _ui.machineActivity->text()),
+                                _ui.machineActivity->sizeHint().height());
 }
 
 void MainWindow::clearJournalClicked()
@@ -1886,56 +1889,46 @@ void MainWindow::updateUi()
                                         .arg(QKeySequence(Qt::Key_Delete)
                                              .toString(QKeySequence::NativeText)));
     _ui.mainTabWidget->setTabToolTip(0,
-                                     _ui.mainTabWidget->tabToolTip(0)
-                                     .arg(_ui.actionGoBackup->shortcut()
-                                          .toString(QKeySequence::NativeText)));
+                                     _ui.mainTabWidget->tabToolTip(0).arg(
+                                         _ui.actionGoBackup->shortcut().toString(
+                                             QKeySequence::NativeText)));
     _ui.mainTabWidget->setTabToolTip(1,
-                                     _ui.mainTabWidget->tabToolTip(1)
-                                     .arg(_ui.actionGoArchives->shortcut()
-                                          .toString(QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(2,
-                                     _ui.mainTabWidget->tabToolTip(2)
-                                     .arg(_ui.actionGoJobs->shortcut()
-                                          .toString(QKeySequence::NativeText)));
+                                     _ui.mainTabWidget->tabToolTip(1).arg(
+                                         _ui.actionGoArchives->shortcut().toString(
+                                             QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(2, _ui.mainTabWidget->tabToolTip(2).arg(
+                                            _ui.actionGoJobs->shortcut().toString(
+                                                QKeySequence::NativeText)));
     _ui.mainTabWidget->setTabToolTip(3,
-                                     _ui.mainTabWidget->tabToolTip(3)
-                                     .arg(_ui.actionGoSettings->shortcut()
-                                          .toString(QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(4,
-                                     _ui.mainTabWidget->tabToolTip(4)
-                                     .arg(_ui.actionGoHelp->shortcut()
-                                          .toString(QKeySequence::NativeText)));
+                                     _ui.mainTabWidget->tabToolTip(3).arg(
+                                         _ui.actionGoSettings->shortcut().toString(
+                                             QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(4, _ui.mainTabWidget->tabToolTip(4).arg(
+                                            _ui.actionGoHelp->shortcut().toString(
+                                                QKeySequence::NativeText)));
 
-    _ui.actionBackupNow->setToolTip(_ui.actionBackupNow->toolTip()
-                                    .arg(_ui.actionBackupNow->shortcut()
-                                         .toString(QKeySequence::NativeText)));
-    _ui.backupListInfoLabel->setToolTip(_ui.backupListInfoLabel->toolTip()
-                                        .arg(_ui.actionBrowseItems->shortcut()
-                                         .toString(QKeySequence::NativeText)));
-    _ui.actionShowJournal->setToolTip(_ui.actionShowJournal->toolTip()
-                                      .arg(_ui.actionShowJournal->shortcut()
-                                           .toString(QKeySequence::NativeText)));
-    _ui.busyWidget->setToolTip(_ui.busyWidget->toolTip()
-                               .arg(_ui.actionStopTasks->shortcut()
-                                    .toString(QKeySequence::NativeText)));
-    _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip()
-                                 .arg(_ui.actionAddJob->shortcut()
-                                      .toString(QKeySequence::NativeText)));
-    _ui.actionFilterArchives->setToolTip(_ui.actionFilterArchives->toolTip()
-                                         .arg(_ui.actionFilterArchives->shortcut()
-                                              .toString(QKeySequence::NativeText)));
-    _ui.archivesFilter->setToolTip(_ui.archivesFilter->toolTip()
-                                   .arg(_ui.actionFilterArchives->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.actionFilterJobs->setToolTip(_ui.actionFilterJobs->toolTip()
-                                         .arg(_ui.actionFilterJobs->shortcut()
-                                              .toString(QKeySequence::NativeText)));
-    _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip()
-                                   .arg(_ui.actionFilterJobs->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.updateAccountButton->setToolTip(_ui.updateAccountButton->toolTip()
-                                        .arg(_ui.actionRefreshAccount->shortcut()
-                                             .toString(QKeySequence::NativeText)));
+    _ui.actionBackupNow->setToolTip(_ui.actionBackupNow->toolTip().arg(
+        _ui.actionBackupNow->shortcut().toString(QKeySequence::NativeText)));
+    _ui.backupListInfoLabel->setToolTip(_ui.backupListInfoLabel->toolTip().arg(
+        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+    _ui.backupListInfoLabel->setText(_ui.backupListInfoLabel->text().arg(
+        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+    _ui.actionShowJournal->setToolTip(_ui.actionShowJournal->toolTip().arg(
+        _ui.actionShowJournal->shortcut().toString(QKeySequence::NativeText)));
+    _ui.busyWidget->setToolTip(_ui.busyWidget->toolTip().arg(
+        _ui.actionStopTasks->shortcut().toString(QKeySequence::NativeText)));
+    _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip().arg(
+        _ui.actionAddJob->shortcut().toString(QKeySequence::NativeText)));
+    _ui.actionFilterArchives->setToolTip(_ui.actionFilterArchives->toolTip().arg(
+        _ui.actionFilterArchives->shortcut().toString(QKeySequence::NativeText)));
+    _ui.archivesFilter->setToolTip(_ui.archivesFilter->toolTip().arg(
+        _ui.actionFilterArchives->shortcut().toString(QKeySequence::NativeText)));
+    _ui.actionFilterJobs->setToolTip(_ui.actionFilterJobs->toolTip().arg(
+        _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
+    _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip().arg(
+        _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
+    _ui.updateAccountButton->setToolTip(_ui.updateAccountButton->toolTip().arg(
+        _ui.actionRefreshAccount->shortcut().toString(QKeySequence::NativeText)));
     // --
 
     setupMenuBar();

@@ -28,9 +28,12 @@ BackupTask::BackupTask()
     setOptionFollowSymLinks(
         settings.value("tarsnap/follow_symlinks", optionFollowSymLinks()).toBool());
     setOptionDryRun(settings.value("tarsnap/dry_run", optionDryRun()).toBool());
-    setOptionSkipNoDump(settings.value("app/skip_nodump", optionSkipNoDump()).toBool());
-    setOptionSkipFilesSize(settings.value("app/skip_files_size", optionSkipFilesSize()).toInt());
-    setOptionSkipSystem(settings.value("app/skip_system_enabled", optionSkipSystem()).toBool());
+    setOptionSkipNoDump(
+        settings.value("app/skip_nodump", optionSkipNoDump()).toBool());
+    setOptionSkipFilesSize(
+        settings.value("app/skip_files_size", optionSkipFilesSize()).toInt());
+    setOptionSkipSystem(
+        settings.value("app/skip_system_enabled", optionSkipSystem()).toBool());
     setOptionSkipSystemFiles(
         settings.value("app/skip_system_files", optionSkipSystemFiles()).toString());
 }
@@ -178,8 +181,8 @@ QStringList BackupTask::getExcludesList()
                 while(!dirStack.isEmpty())
                 {
                     QDir dir(dirStack.pop());
-                    dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot |
-                                  QDir::Hidden | QDir::NoSymLinks);
+                    dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot
+                                  | QDir::Hidden | QDir::NoSymLinks);
                     foreach(QFileInfo entry, dir.entryInfoList())
                     {
                         if(entry.isFile())

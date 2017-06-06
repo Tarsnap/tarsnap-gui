@@ -13,12 +13,12 @@
 
 struct ArchiveRestoreOptions
 {
-    bool    optionRestore     = false;
-    bool    optionRestoreDir  = false;
-    bool    optionTarArchive  = false;
-    bool    overwriteFiles    = false;
-    bool    keepNewerFiles    = true;
-    bool    preservePerms     = false;
+    bool        optionRestore    = false;
+    bool        optionRestoreDir = false;
+    bool        optionTarArchive = false;
+    bool        overwriteFiles   = false;
+    bool        keepNewerFiles   = true;
+    bool        preservePerms    = false;
     QString     path;
     QStringList files;
 };
@@ -28,7 +28,8 @@ typedef QSharedPointer<Archive> ArchivePtr;
 
 Q_DECLARE_METATYPE(ArchivePtr)
 
-struct File {
+struct File
+{
     QString name;
     QString modified;
     quint64 size;
@@ -50,7 +51,9 @@ class ParseArchiveListingTask : public QObject, public QRunnable
 public:
     //! Constructor.
     //! \param listing: the output of <tt>tarsnap -tv</tt>.
-    explicit ParseArchiveListingTask(const QString &listing):_listing(listing){}
+    explicit ParseArchiveListingTask(const QString &listing) : _listing(listing)
+    {
+    }
     //! Run this task in the background; will emit the \ref result
     //! signal when finished.
     void run();
@@ -151,7 +154,7 @@ private:
     QString    _jobRef;
 
     // Properties not saved to the PersistentStore
-    bool       _deleteScheduled;
+    bool _deleteScheduled;
 };
 
 #endif // ARCHIVE_H

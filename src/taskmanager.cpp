@@ -11,8 +11,7 @@
 #define SUCCESS 0
 #define SCHEDULED_JOBS_SLEEP 3
 
-TaskManager::TaskManager()
-    : _threadPool(QThreadPool::globalInstance())
+TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
 {
 }
 
@@ -51,8 +50,8 @@ void TaskManager::registerMachine(QString user, QString password,
     {
         // generate a new key and register machine with tarsnap-keygen
         args << "--user" << user << "--machine" << machine << "--keyfile" << key;
-        registerTask->setCommand(tarsnapPath + QDir::separator() +
-                                 CMD_TARSNAPKEYGEN);
+        registerTask->setCommand(tarsnapPath + QDir::separator()
+                                 + CMD_TARSNAPKEYGEN);
         registerTask->setArguments(args);
         registerTask->setStdIn(password);
     }
@@ -292,10 +291,7 @@ void TaskManager::fsck(bool prune)
     connect(fsck, &TarsnapTask::finished, this, &TaskManager::fsckFinished,
             QUEUED);
     connect(fsck, &TarsnapTask::started, this,
-            [=]() {
-                emit message(tr("Cache repair initiated."));
-            },
-            QUEUED);
+            [=]() { emit message(tr("Cache repair initiated.")); }, QUEUED);
     queueTask(fsck, true);
 }
 
@@ -339,12 +335,12 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
              << "-C" << options.path;
     if((options.optionRestore || options.optionRestoreDir))
     {
-       if(!options.overwriteFiles)
-           args << "-k";
-       if(options.keepNewerFiles)
-           args << "--keep-newer-files";
-       if(options.preservePerms)
-           args << "-p";
+        if(!options.overwriteFiles)
+            args << "-k";
+        if(options.keepNewerFiles)
+            args << "--keep-newer-files";
+        if(options.preservePerms)
+            args << "-p";
     }
     if(options.optionTarArchive)
     {
@@ -393,10 +389,10 @@ void TaskManager::getKeyId(QString key)
 void TaskManager::initializeCache()
 {
     QSettings settings;
-    QString tarsnapCacheDir = settings.value("tarsnap/cache").toString();
-    QDir cacheDir(tarsnapCacheDir);
-    if(!tarsnapCacheDir.isEmpty() &&
-       !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count())
+    QString   tarsnapCacheDir = settings.value("tarsnap/cache").toString();
+    QDir      cacheDir(tarsnapCacheDir);
+    if(!tarsnapCacheDir.isEmpty()
+       && !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count())
     {
         if(!Utils::tarsnapVersionMinimum("1.0.38"))
         {
@@ -432,7 +428,8 @@ void TaskManager::findMatchingArchives(QString jobPrefix)
 
 void TaskManager::runScheduledJobs()
 {
-    //sleep for a short while just to take an extra assurance that network is up
+    // sleep for a short while just to take an extra assurance that network is
+    // up
     QThread::sleep(SCHEDULED_JOBS_SLEEP);
     loadJobs();
     QSettings settings;
@@ -516,7 +513,8 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
     }
 }
 
-void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString stdOut, QString stdErr)
+void TaskManager::backupTaskFinished(QVariant data, int exitCode,
+                                     QString stdOut, QString stdErr)
 {
     BackupTaskPtr backupTask = _backupTaskMap[data.toUuid()];
     if(!backupTask)
@@ -529,9 +527,9 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString stdOut
     bool truncated = false;
     if(exitCode != SUCCESS)
     {
-        int lastIndex = stdErr.lastIndexOf(
-                        QLatin1String("tarsnap: Archive truncated"), -1,
-                                      Qt::CaseSensitive);
+        int lastIndex =
+            stdErr.lastIndexOf(QLatin1String("tarsnap: Archive truncated"), -1,
+                               Qt::CaseSensitive);
         if(lastIndex == -1)
         {
             backupTask->setStatus(TaskStatus::Failed);
@@ -554,7 +552,8 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode, QString stdOut
     archive->setCommand(backupTask->command());
     // Lose milliseconds precision by converting to Unix timestamp and back.
     // So that a subsequent comparison in getArchiveListFinished won't fail.
-    archive->setTimestamp(QDateTime::fromTime_t(backupTask->timestamp().toTime_t()));
+    archive->setTimestamp(
+        QDateTime::fromTime_t(backupTask->timestamp().toTime_t()));
     archive->setJobRef(backupTask->jobRef());
     parseArchiveStats(stdErr, true, archive);
     archive->save();
@@ -599,8 +598,8 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
     {
         emit message(tr("Error: Failed to list archives from remote."),
                      tr("Tarsnap exited with code %1 and output:\n%2")
-                     .arg(exitCode)
-                     .arg(stdErr));
+                         .arg(exitCode)
+                         .arg(stdErr));
         parseError(stdErr);
         return;
     }
@@ -616,8 +615,8 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
             archiveDetails.removeFirst();
             QDateTime timestamp =
                 QDateTime::fromString(archiveDetails[1], Qt::ISODate);
-            ArchivePtr archive = _archiveMap.value(archiveDetails[0],
-                                                   ArchivePtr(new Archive));
+            ArchivePtr archive =
+                _archiveMap.value(archiveDetails[0], ArchivePtr(new Archive));
             if(!archive->objectKey().isEmpty()
                && (archive->timestamp() != timestamp))
             {
@@ -672,7 +671,7 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
     if(exitCode == SUCCESS)
     {
         emit message(tr("Fetching stats for archive <i>%1</i>... done.")
-                     .arg(archive->name()));
+                         .arg(archive->name()));
     }
     else
     {
@@ -765,7 +764,8 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
     parseGlobalStats(lastFive.join('\n'));
 }
 
-void TaskManager::overallStatsFinished(QVariant data, int exitCode, QString stdOut, QString stdErr)
+void TaskManager::overallStatsFinished(QVariant data, int exitCode,
+                                       QString stdOut, QString stdErr)
 {
     Q_UNUSED(data);
 
@@ -782,7 +782,8 @@ void TaskManager::overallStatsFinished(QVariant data, int exitCode, QString stdO
     parseGlobalStats(stdOut);
 }
 
-void TaskManager::fsckFinished(QVariant data, int exitCode, QString stdOut, QString stdErr)
+void TaskManager::fsckFinished(QVariant data, int exitCode, QString stdOut,
+                               QString stdErr)
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
@@ -797,7 +798,8 @@ void TaskManager::fsckFinished(QVariant data, int exitCode, QString stdOut, QStr
     getArchives();
 }
 
-void TaskManager::nukeFinished(QVariant data, int exitCode, QString stdOut, QString stdErr)
+void TaskManager::nukeFinished(QVariant data, int exitCode, QString stdOut,
+                               QString stdErr)
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
@@ -869,8 +871,8 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
     case TaskStatus::Running:
     {
         QString msg = tr("Backup <i>%1</i> is running.").arg(backupTask->name());
-        emit message(msg);
-        emit displayNotification(msg);
+        emit    message(msg);
+        emit    displayNotification(msg);
         break;
     }
     case TaskStatus::Failed:
@@ -916,7 +918,8 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
     }
 }
 
-void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString stdOut, QString stdErr)
+void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString stdOut,
+                                   QString stdErr)
 {
     QString key = data.toString();
     if(exitCode == SUCCESS)
@@ -957,8 +960,7 @@ void TaskManager::startTask(TarsnapTask *task)
         else
             return;
     }
-    connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask,
-            QUEUED);
+    connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask, QUEUED);
     _runningTasks.append(task);
     task->setAutoDelete(false);
     _threadPool->start(task);
@@ -983,10 +985,10 @@ void TaskManager::dequeueTask()
 
 void TaskManager::parseError(QString tarsnapOutput)
 {
-    if(tarsnapOutput.contains("Error reading cache directory") ||
-       tarsnapOutput.contains("Sequence number mismatch: Run --fsck") ||
-       tarsnapOutput.contains(
-           "Directory is not consistent with archive: Run --fsck"))
+    if(tarsnapOutput.contains("Error reading cache directory")
+       || tarsnapOutput.contains("Sequence number mismatch: Run --fsck")
+       || tarsnapOutput.contains(
+              "Directory is not consistent with archive: Run --fsck"))
     {
         emit error(TarsnapError::CacheError);
     }
@@ -1098,7 +1100,7 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput,
 QString TaskManager::makeTarsnapCommand(QString cmd)
 {
     QSettings settings;
-    QString _tarsnapDir = settings.value("tarsnap/path").toString();
+    QString   _tarsnapDir = settings.value("tarsnap/path").toString();
     if(_tarsnapDir.isEmpty())
         return cmd;
     else
@@ -1108,7 +1110,7 @@ QString TaskManager::makeTarsnapCommand(QString cmd)
 void TaskManager::initTarsnapArgs(QStringList &args)
 {
     QSettings settings;
-    QString tarsnapKeyFile  = settings.value("tarsnap/key").toString();
+    QString   tarsnapKeyFile = settings.value("tarsnap/key").toString();
     if(!tarsnapKeyFile.isEmpty())
         args << "--keyfile" << tarsnapKeyFile;
     QString tarsnapCacheDir = settings.value("tarsnap/cache").toString();
@@ -1126,7 +1128,8 @@ void TaskManager::initTarsnapArgs(QStringList &args)
         args.prepend("--maxbw-rate-up");
         args.insert(1, QString::number(1024 * quint64(upload_rate_kbps)));
     }
-    if(settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG).toBool())
+    if(settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG)
+           .toBool())
         args.prepend("--no-default-config");
 }
 

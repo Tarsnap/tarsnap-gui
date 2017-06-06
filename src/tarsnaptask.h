@@ -50,16 +50,16 @@ private slots:
     void processError();
 
 private:
-    QUuid       _id;
-    QVariant    _data; // caller supplied data
-    QProcess   *_process;
-    QByteArray  _stdOut;
-    QByteArray  _stdErr;
-    QString     _stdIn;
-    QString     _stdOutFile;
-    QString     _command;
-    QStringList _arguments;
-    bool        _truncateLogOutput;
+    QUuid            _id;
+    QVariant         _data; // caller supplied data
+    QProcess *       _process;
+    QByteArray       _stdOut;
+    QByteArray       _stdErr;
+    QString          _stdIn;
+    QString          _stdOutFile;
+    QString          _command;
+    QStringList      _arguments;
+    bool             _truncateLogOutput;
     QEventLoopLocker _lock;
 };
 

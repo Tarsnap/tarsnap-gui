@@ -127,7 +127,6 @@ quint64 BackupListWidgetItem::count() const
 void BackupListWidgetItem::updateUi()
 {
     // Display tooltip using a platform-specific string.
-    _ui.actionRemove->setToolTip(_ui.actionRemove->toolTip()
-                                 .arg(_ui.actionRemove->shortcut()
-                                      .toString(QKeySequence::NativeText)));
+    _ui.actionRemove->setToolTip(_ui.actionRemove->toolTip().arg(
+        _ui.actionRemove->shortcut().toString(QKeySequence::NativeText)));
 }

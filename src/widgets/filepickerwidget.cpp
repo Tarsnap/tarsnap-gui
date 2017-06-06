@@ -5,8 +5,7 @@
 #include <QKeyEvent>
 #include <QPersistentModelIndex>
 
-FilePickerWidget::FilePickerWidget(QWidget *parent)
-    : QWidget(parent)
+FilePickerWidget::FilePickerWidget(QWidget *parent) : QWidget(parent)
 {
     _ui.setupUi(this);
     _ui.optionsContainer->hide();
@@ -96,7 +95,7 @@ QString FilePickerWidget::getCurrentPath()
 QList<QUrl> FilePickerWidget::getSelectedUrls()
 {
     // Construct a list of urls from the filePath QStrings.
-    QList<QUrl> urls;
+    QList<QUrl>                  urls;
     QList<QPersistentModelIndex> indexList = _model.checkedIndexes();
     foreach(QPersistentModelIndex index, indexList)
         urls << QUrl::fromUserInput(_model.filePath(index));

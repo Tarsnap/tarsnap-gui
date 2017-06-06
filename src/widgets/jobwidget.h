@@ -53,7 +53,6 @@ signals:
     //! \param jobPrefix: prefix to match.
     void findMatchingArchives(QString jobPrefix);
 
-
 protected:
     //! Handles translation change of language.
     void changeEvent(QEvent *event);
@@ -69,10 +68,10 @@ private slots:
     void verifyJob();
 
 private:
-    Ui::JobWidget  _ui;
-    JobPtr         _job;
-    bool           _saveEnabled;
-    QTimer         _fsEventUpdate;
+    Ui::JobWidget _ui;
+    JobPtr        _job;
+    bool          _saveEnabled;
+    QTimer        _fsEventUpdate;
 
     void save();
     void updateUi();

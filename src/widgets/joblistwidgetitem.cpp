@@ -1,8 +1,7 @@
 #include "joblistwidgetitem.h"
 #include "utils.h"
 
-JobListWidgetItem::JobListWidgetItem(JobPtr job)
-    : _widget(new QWidget)
+JobListWidgetItem::JobListWidgetItem(JobPtr job) : _widget(new QWidget)
 {
     _widget->installEventFilter(this);
     _ui.setupUi(_widget);
@@ -82,16 +81,12 @@ bool JobListWidgetItem::eventFilter(QObject *obj, QEvent *event)
 
 void JobListWidgetItem::updateUi()
 {
-    _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip()
-                                   .arg(_ui.actionJobInspect->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.restoreButton->setToolTip(_ui.restoreButton->toolTip()
-                                   .arg(_ui.actionJobRestore->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.backupButton->setToolTip(_ui.backupButton->toolTip()
-                                   .arg(_ui.actionJobBackup->shortcut()
-                                        .toString(QKeySequence::NativeText)));
-    _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip()
-                                   .arg(_ui.actionJobDelete->shortcut()
-                                        .toString(QKeySequence::NativeText)));
+    _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip().arg(
+        _ui.actionJobInspect->shortcut().toString(QKeySequence::NativeText)));
+    _ui.restoreButton->setToolTip(_ui.restoreButton->toolTip().arg(
+        _ui.actionJobRestore->shortcut().toString(QKeySequence::NativeText)));
+    _ui.backupButton->setToolTip(_ui.backupButton->toolTip().arg(
+        _ui.actionJobBackup->shortcut().toString(QKeySequence::NativeText)));
+    _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip().arg(
+        _ui.actionJobDelete->shortcut().toString(QKeySequence::NativeText)));
 }

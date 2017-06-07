@@ -1137,7 +1137,7 @@ void MainWindow::disableJobScheduling()
     DEBUG << currentCrontab;
     QRegExp rx(QString("\n?%1.+%2\n?").arg(QRegExp::escape(CRON_MARKER_BEGIN))
                                       .arg(QRegExp::escape(CRON_MARKER_END)));
-    rx.setMinimal(true);
+//    rx.setMinimal(true);
     QString linesToRemove;
     int     pos = 0;
     while((pos = rx.indexIn(currentCrontab, pos)) != -1)
@@ -1177,7 +1177,7 @@ void MainWindow::disableJobScheduling()
     if(proceed == QMessageBox::Cancel)
         return;
 
-    currentCrontab.remove(rx);
+    currentCrontab.remove(linesToRemove);
     DEBUG << currentCrontab;
 
     crontab.start("crontab", QStringList() << "-");

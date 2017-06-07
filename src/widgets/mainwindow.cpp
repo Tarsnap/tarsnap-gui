@@ -892,10 +892,10 @@ void MainWindow::enableJobScheduling()
         QMessageBox::question(this, tr("Job scheduling"),
                               tr("Register Tarsnap GUI with the OS X"
                                  " Launchd service to run daily at 10am?"
-                                 "\nJobs that have scheduled backup"
+                                 "\n\nJobs that have scheduled backup"
                                  " turned on will be backed up according"
                                  " to the Daily, Weekly or Monthly"
-                                 " schedule."));
+                                 " schedule. \n\n%1").arg(CRON_MARKER_HELP));
     if(confirm != QMessageBox::Yes)
         return;
 
@@ -907,7 +907,7 @@ void MainWindow::enableJobScheduling()
     {
         QMessageBox::critical(this, tr("Job scheduling"),
                               tr("Looks like scheduling is already enabled."
-                                 " Nothing to do."));
+                                 " Nothing to do.\n\n%1").arg(CRON_MARKER_HELP));
         return;
     }
     if(!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -952,7 +952,11 @@ void MainWindow::enableJobScheduling()
 #elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
 
     auto confirm = QMessageBox::question(this, tr("Job scheduling"),
-                                         tr("Register Tarsnap GUI with cron?"));
+                                         tr("Register Tarsnap GUI with cron serivce?"
+                                            "\nJobs that have scheduled backup"
+                                            " turned on will be backed up according"
+                                            " to the Daily, Weekly or Monthly"
+                                            " schedule. \n\n%1").arg(CRON_MARKER_HELP));
     if(confirm != QMessageBox::Yes)
         return;
 
@@ -969,10 +973,10 @@ void MainWindow::enableJobScheduling()
          */
         if(-1 == error.indexOf(QRegExp("^(crontab: )?no crontab for")))
         {
-            QString msg("Failed to list current crontab: %1");
+            QString msg(tr("Failed to list current crontab: %1"));
             msg = msg.arg(error);
             DEBUG << msg;
-            QMessageBox::critical(this, "Crontab command failed", msg);
+            QMessageBox::critical(this, tr("Job scheduling"), msg);
             return;
         }
     }
@@ -984,9 +988,10 @@ void MainWindow::enableJobScheduling()
     rx.setMinimal(true);
     if(-1 != rx.indexIn(currentCrontab))
     {
-        QMessageBox::critical(this, "Job scheduling",
-                              "Looks like scheduling is already enabled for the"
-                              " current user's crontab. Nothing to do.");
+        QMessageBox::critical(this, tr("Job scheduling"),
+                              tr("Looks like scheduling is already enabled for the"
+                              " current user's crontab. Nothing to do."
+                              "\n%1").arg(CRON_MARKER_HELP));
         return;
     }
 
@@ -1005,10 +1010,10 @@ void MainWindow::enableJobScheduling()
 
     QMessageBox question(this);
     question.setIcon(QMessageBox::Question);
-    question.setText("Tarsnap GUI will be added to the current user's crontab.");
-    question.setInformativeText("To ensure proper behavior please review the"
+    question.setText(tr("Tarsnap GUI will be added to the current user's crontab."));
+    question.setInformativeText(tr("To ensure proper behavior please review the"
                                 " lines to be added by pressing Show Details"
-                                " before proceeding.");
+                                " before proceeding."));
     question.setDetailedText(cronBlock);
     question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
     question.setDefaultButton(QMessageBox::Cancel);
@@ -1035,10 +1040,10 @@ void MainWindow::enableJobScheduling()
     if((crontab.exitStatus() != QProcess::NormalExit)
        || (crontab.exitCode() != 0))
     {
-        QString msg("Failed to update crontab: %1");
+        QString msg(tr("Failed to update crontab: %1"));
         msg = msg.arg(QString(crontab.readAllStandardError()));
         DEBUG << msg;
-        QMessageBox::critical(this, "Crontab command failed", msg);
+        QMessageBox::critical(this, tr("Job scheduling"), msg);
         return;
     }
 #endif
@@ -1047,10 +1052,11 @@ void MainWindow::enableJobScheduling()
 void MainWindow::disableJobScheduling()
 {
 #if defined(Q_OS_OSX)
-    auto confirm = QMessageBox::question(this, "Confirm action",
-                                         "Unregister Tarsnap GUI from the OS X"
+    auto confirm = QMessageBox::question(this, tr("Job scheduling"),
+                                         tr("Unregister Tarsnap GUI from the OS X"
                                          " Launchd service? This will disable"
-                                         " automatic Job backup scheduling.");
+                                         " automatic Job backup scheduling."
+                                            "\n\n%1").arg(CRON_MARKER_HELP));
     if(confirm != QMessageBox::Yes)
         return;
 
@@ -1058,10 +1064,10 @@ void MainWindow::disableJobScheduling()
                            + "/Library/LaunchAgents/com.tarsnap.gui.plist");
     if(!launchdPlistFile.exists())
     {
-        QString msg("Launchd service file not found:\n%1\nAborting operation.");
+        QString msg(tr("Launchd service file not found:\n%1\n Nothing to do."));
         msg = msg.arg(launchdPlistFile.fileName());
         DEBUG << msg;
-        QMessageBox::critical(this, "Service file not found", msg);
+        QMessageBox::critical(this, tr("Job scheduling"), msg);
         return;
     }
 
@@ -1072,18 +1078,18 @@ void MainWindow::disableJobScheduling()
     if((process.exitStatus() != QProcess::NormalExit)
        || (process.exitCode() != 0))
     {
-        QString msg("Failed to unload launchd service.");
+        QString msg(tr("Failed to unload launchd service."));
         DEBUG << msg;
-        QMessageBox::critical(this, "Launchd command failed", msg);
+        QMessageBox::critical(this, tr("Job scheduling"), msg);
         return;
     }
 
     if(!launchdPlistFile.remove())
     {
-        QString msg("Cannot remove service file:\n%1\nAborting operation.");
+        QString msg(tr("Cannot remove service file:\n%1\nAborting operation."));
         msg = msg.arg(launchdPlistFile.fileName());
         DEBUG << msg;
-        QMessageBox::critical(this, "Cannot remove service file", msg);
+        QMessageBox::critical(this, tr("Job scheduling"), msg);
         return;
     }
 #elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
@@ -1105,26 +1111,26 @@ void MainWindow::disableJobScheduling()
          */
         if(error.startsWith(QLatin1String("no crontab for")))
         {
-            QMessageBox::warning(this, "Job scheduling",
-                                 "There's no crontab for the current user."
-                                 " Nothing to do.");
+            QMessageBox::warning(this, tr("Job scheduling"),
+                                 tr("There's no crontab for the current user."
+                                 " Nothing to do.\n\n%1").arg(CRON_MARKER_HELP));
             return;
         }
         else
         {
-            QString msg("Failed to list current crontab: %1");
+            QString msg(tr("Failed to list current crontab: %1"));
             msg = msg.arg(error);
             DEBUG << msg;
-            QMessageBox::critical(this, "Crontab command failed", msg);
+            QMessageBox::critical(this, tr("Job scheduling"), msg);
             return;
         }
     }
     QString currentCrontab(crontab.readAllStandardOutput());
     if(currentCrontab.isEmpty())
     {
-        QMessageBox::warning(this, "Job scheduling",
-                             "Looks like the crontab for the current user is"
-                             " empty. Nothing to do.");
+        QMessageBox::warning(this, tr("Job scheduling"),
+                             tr("Looks like the crontab for the current user is"
+                             " empty. Nothing to do.\n\n%1").arg(CRON_MARKER_HELP));
         return;
     }
 
@@ -1142,20 +1148,19 @@ void MainWindow::disableJobScheduling()
 
     if(linesToRemove.isEmpty())
     {
-        QMessageBox::warning(this, "Job scheduling", "Looks like Job "
-                                                     "scheduling hasn't been "
-                                                     "enabled yet."
-                                                     " Nothing to do.");
+        QMessageBox::warning(this, tr("Job scheduling"),
+                             tr("Looks like Job scheduling hasn't been enabled"
+                             " yet. Nothing to do. \n\n%1").arg(CRON_MARKER_HELP));
         return;
     }
 
     QMessageBox question(this);
     question.setIcon(QMessageBox::Question);
-    question.setText("Tarsnap GUI will be removed from the current user's"
-                     " crontab.");
-    question.setInformativeText("To ensure proper behavior please review the"
+    question.setText(tr("Tarsnap GUI will be removed from the current user's"
+                     " crontab."));
+    question.setInformativeText(tr("To ensure proper behavior please review the"
                                 " lines to be removed by pressing Show Details"
-                                " before proceeding.");
+                                " before proceeding."));
     question.setDetailedText(linesToRemove);
     question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
     question.setDefaultButton(QMessageBox::Cancel);
@@ -1182,10 +1187,10 @@ void MainWindow::disableJobScheduling()
     if((crontab.exitStatus() != QProcess::NormalExit)
        || (crontab.exitCode() != 0))
     {
-        QString msg("Failed to update crontab: %1");
+        QString msg(tr("Failed to update crontab: %1"));
         msg = msg.arg(QString(crontab.readAllStandardError()));
         DEBUG << msg;
-        QMessageBox::critical(this, "Crontab command failed", msg);
+        QMessageBox::critical(this, tr("Job scheduling"), msg);
         return;
     }
 #endif

@@ -1,13 +1,13 @@
 The Tarsnap graphical user interface desktop application is an open source
-cross-platform frontend to the popular Tarsnap backup service. This software
+cross-platform front-end to the popular Tarsnap backup service. This software
 is distributed under the BSD 2-clause license.
 
-The application uses the tarsnap command line client utilities to communicate
+The application uses the tarsnap command-line client utilities to communicate
 with the Tarsnap service and thus they need to be installed on your system.
 You can register for an account and download the client utilities from:
 https://www.tarsnap.com
 
-To read more about Tarsnap head to the wiki on Github:
+To read more about Tarsnap GUI head to the Wiki on GitHub:
 https://github.com/Tarsnap/tarsnap-gui/wiki
 
 This project makes use of the following 3rd party components:
@@ -20,5 +20,5 @@ For explicit licensing info see COPYING.
 For building and install instructions see INSTALL.
 For version history see CHANGELOG.
 
-Report bugs and issues at https://github.com/Tarsnap/tarsnap-gui/issues
-Alternatively, you can use the mail list tarsnap-users<at>tarsnap.com
+Report bugs and issues at https://github.com/Tarsnap/tarsnap-gui/issues.
+Alternatively, you can use the mail list tarsnap-users<at>tarsnap.com.

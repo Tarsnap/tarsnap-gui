@@ -41,7 +41,7 @@ image:url(:/icons/tarsnap-header.png);
    <item>
     <widget class="QLabel" name="versionLabel">
      <property name="text">
-      <string>version </string>
+      <string>GUI version </string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

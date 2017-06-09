@@ -19,38 +19,22 @@
    </property>
    <item alignment="Qt::AlignHCenter">
     <widget class="QLabel" name="tarsnapLogo">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="minimumSize">
       <size>
-       <width>128</width>
-       <height>128</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>128</width>
-       <height>128</height>
+       <width>429</width>
+       <height>96</height>
       </size>
      </property>
      <property name="styleSheet">
       <string notr="true">#tarsnapLogo {
-image:url(:/icons/tarsnap-icon-big.png);
+image:url(:/icons/tarsnap-header.png);
 }</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="titleLabel">
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Tarsnap</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>

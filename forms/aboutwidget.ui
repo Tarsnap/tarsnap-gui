@@ -70,7 +70,7 @@ image:url(:/icons/tarsnap-header.png);
    <item>
     <widget class="QLabel" name="copyrightLabel">
      <property name="text">
-      <string>© 2014-2016 Tarsnap Backup Inc. All rights reserved.</string>
+      <string>© 2014-2017 Tarsnap Backup Inc. All rights reserved.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

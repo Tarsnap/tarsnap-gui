@@ -555,8 +555,12 @@ void MainWindow::paintEvent(QPaintEvent *)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    // Find out how much room is left to display an icon, including a
+    // "fudge factor" to accommodate margins.
+    int remaining_width = frameGeometry().width() - minimumWidth() + 8;
 
-    if(frameGeometry().width() > 460)
+    // Compare with the width of the png files.
+    if(remaining_width > 131)
     {
         QPixmap pixmap(":/icons/tarsnap-logo.png");
         QIcon   icon;
@@ -564,7 +568,7 @@ void MainWindow::paintEvent(QPaintEvent *)
         icon.paint(&p, width() - pixmap.width() - 5, 3, pixmap.width(),
                    pixmap.height());
     }
-    else if(frameGeometry().width() > 360)
+    else if(remaining_width > 29)
     {
         QPixmap pixmap(":/icons/tarsnap-logo-icon.png");
         QIcon   icon;

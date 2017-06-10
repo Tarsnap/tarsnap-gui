@@ -29,3 +29,8 @@
  * \defgroup data Data
  * \brief Classes which are primarily for data storage.
  */
+
+/**
+ * \defgroup misc Misc
+ * \brief Classes which don't fit anywhere else.
+ */

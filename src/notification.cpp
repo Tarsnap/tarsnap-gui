@@ -14,8 +14,11 @@ void Notification::displayNotification(QString message)
     if(settings.value("app/notifications", true).toBool()
        && isSystemTrayAvailable())
     {
+        // Strip HTML tags
+        QString messagePlainText = message.remove(QRegExp("<[^>]*>"));
+        // Display message
         show();
         showMessage(QCoreApplication::instance()->applicationName(),
-                    message.remove(QRegExp("<[^>]*>")));
+                    messagePlainText);
     }
 }

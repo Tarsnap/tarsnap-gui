@@ -58,8 +58,16 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive, QStringList fi
     _ui.optionBaseDirRadio->setChecked(!canRestore);
     if(!_files.isEmpty())
         _ui.filesListWidget->addItems(_files);
-    else
-        _ui.filesListWidget->addItems(_archive->contents().split(QChar('\n')));
+    else {
+        if(_archive->contents().isEmpty()) {
+            _ui.filesListWidget->hide();
+            adjustSize();
+        } else {
+            _ui.filesListWidget->addItems(_archive->contents().split(QChar('\n')));
+            _ui.filesListWidget->show();
+            adjustSize();
+        }
+    }
 }
 
 RestoreDialog::~RestoreDialog()

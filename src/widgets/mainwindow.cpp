@@ -19,6 +19,7 @@
 #include <QShortcut>
 
 #define NUKE_SECONDS_DELAY 8
+#define MAIN_LOGO_RIGHT_MARGIN 5
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
@@ -557,7 +558,7 @@ void MainWindow::paintEvent(QPaintEvent *)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
     // Find out how much room is left to display an icon, including a
     // "fudge factor" to accommodate margins.
-    int remaining_width = frameGeometry().width() - minimumWidth() + 8;
+    int remaining_width = frameGeometry().width() - minimumWidth() + 3;
 
     // Compare with the width of the png files.
     if(remaining_width > 131)
@@ -565,16 +566,16 @@ void MainWindow::paintEvent(QPaintEvent *)
         QPixmap pixmap(":/icons/tarsnap-logo.png");
         QIcon   icon;
         icon.addFile(":/icons/tarsnap-logo.png");
-        icon.paint(&p, width() - pixmap.width(), 3, pixmap.width(),
-                   pixmap.height());
+        icon.paint(&p, width() - pixmap.width() - MAIN_LOGO_RIGHT_MARGIN,
+                   3, pixmap.width(), pixmap.height());
     }
     else if(remaining_width > 29)
     {
         QPixmap pixmap(":/icons/tarsnap-logo-icon.png");
         QIcon   icon;
         icon.addFile(":/icons/tarsnap-logo-icon.png");
-        icon.paint(&p, width() - pixmap.width(), 3, pixmap.width(),
-                   pixmap.height());
+        icon.paint(&p, width() - pixmap.width() - MAIN_LOGO_RIGHT_MARGIN,
+                   3, pixmap.width(), pixmap.height());
     }
 }
 

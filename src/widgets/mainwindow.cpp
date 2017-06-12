@@ -565,7 +565,7 @@ void MainWindow::paintEvent(QPaintEvent *)
         QPixmap pixmap(":/icons/tarsnap-logo.png");
         QIcon   icon;
         icon.addFile(":/icons/tarsnap-logo.png");
-        icon.paint(&p, width() - pixmap.width() - 5, 3, pixmap.width(),
+        icon.paint(&p, width() - pixmap.width(), 3, pixmap.width(),
                    pixmap.height());
     }
     else if(remaining_width > 29)
@@ -573,7 +573,7 @@ void MainWindow::paintEvent(QPaintEvent *)
         QPixmap pixmap(":/icons/tarsnap-logo-icon.png");
         QIcon   icon;
         icon.addFile(":/icons/tarsnap-logo-icon.png");
-        icon.paint(&p, width() - pixmap.width() - 5, 3, pixmap.width(),
+        icon.paint(&p, width() - pixmap.width(), 3, pixmap.width(),
                    pixmap.height());
     }
 }

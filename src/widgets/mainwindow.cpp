@@ -810,7 +810,7 @@ void MainWindow::showAbout()
     QDialog *       aboutWindow = new QDialog(this);
     Ui::aboutWidget aboutUi;
     aboutUi.setupUi(aboutWindow);
-    aboutUi.versionLabel->setText(tr("version ")
+    aboutUi.versionLabel->setText(tr("GUI version ")
                                   + QCoreApplication::applicationVersion());
     aboutWindow->setAttribute(Qt::WA_DeleteOnClose, true);
     aboutWindow->setWindowFlags(

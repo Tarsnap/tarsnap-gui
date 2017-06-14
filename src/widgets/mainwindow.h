@@ -116,6 +116,7 @@ private:
     QMessageBox    _nukeCountdown;
     TarsnapAccount _tarsnapAccount;
     bool           _aboutToQuit;
+    QString	   _helpTabHTML;
 
     void updateUi();
 };

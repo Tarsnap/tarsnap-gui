@@ -2384,7 +2384,7 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
                    <number>2</number>
                   </property>
                   <item>
-                   <widget class="QPlainTextEdit" name="keyboardShortcuts">
+                   <widget class="QTextEdit" name="keyboardShortcuts">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -2410,43 +2410,6 @@ font-size: 12px;
                     </property>
                     <property name="readOnly">
                      <bool>true</bool>
-                    </property>
-                    <property name="plainText">
-                     <string>Global
-------
-%1[1-5] - switch between Backup, Archives.. main tabs
-%1J     - toggle the Journal log
-%1K     - stop, interrupt or clear queued tasks
-
-Backup tab
-----------
-%1B         - execute Backup for current list
-%1O         - open the File Browser
-%3, %4      - remove selected item(s) from the Backup list
-%1%3, %1%4  - clear the Backup list
-
-Archives tab
-------------
-%1R    - refresh the Archives list
-%1I    - inspect selected Archive
-%1S    - restore selected Archive
-%1D    - delete selected Archive(s)
-%1F    - search and filter the Archives list
-
-Jobs tab
---------
-%1N    - add new Job
-%1B    - execute backup for selected Job(s)
-%2B    - execute backup for all Jobs
-%1I    - inspect selected Job
-%1S    - restore selected Job
-%1D    - delete selected Job
-%1F    - search and filter the Jobs list
-
-Settings tab
-------------
-%1U - update Account Summary
-</string>
                     </property>
                    </widget>
                   </item>

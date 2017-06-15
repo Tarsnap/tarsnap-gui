@@ -1907,7 +1907,7 @@ void MainWindow::addDefaultJobs()
 void MainWindow::updateUi()
 {
     // Keyboard shortcuts
-    _ui.keyboardShortcuts->setHtml(_helpTabHTML
+    _ui.helpTabText->setHtml(_helpTabHTML
                                         .arg(QKeySequence(Qt::ControlModifier)
                                              .toString(QKeySequence::NativeText))
                                         .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)

@@ -511,6 +511,7 @@ void MainWindow::loadSettings()
 void MainWindow::initialize()
 {
     QSettings settings;
+    // Check if we should show a "credit might be out of date" warning.
     QDate creditDate = settings.value("tarsnap/credit_date", QDate()).toDate();
     if(creditDate.isValid())
     {
@@ -528,6 +529,7 @@ void MainWindow::initialize()
         }
     }
 
+    // Validate applications paths.
     if(!validateTarsnapPath())
     {
         QMessageBox::critical(this, tr("Tarsnap error"),
@@ -556,6 +558,7 @@ void MainWindow::initialize()
                                  " Settings -> Application page to fix that."));
     }
 
+    // Update list of archives (unless we're doing a dry run).
     if(!settings.value("tarsnap/dry_run", false).toBool())
         emit getArchives();
 }

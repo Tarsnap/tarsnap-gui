@@ -7,12 +7,19 @@ table { font-family: Monospace, Monaco; }
 
 <h3>Tarsnap help</h3>
 
-<p>
-The Tarsnap GUI front-end is an open source cross-platform Graphical User Interface for the popular Tarsnap secure online backup service which is as easy to use, light, and open as the Tarsnap command-line client itself. In order to use the graphical front-end you need to create a Tarsnap account and install the command-line tools by following <a href="https://www.tarsnap.com/gettingstarted.html">these steps</a>.
-</p>
-<p>
-Source code is available at <a href="https://github.com/Tarsnap/tarsnap-gui">Github</a> and issues can be reported <a href="https://github.com/Tarsnap/tarsnap-gui/issues">here</a>. For general announcements, support and inquiries, see <a href="https://www.tarsnap.com/support.html">Tarsnap support</a>. For help regarding Tarsnap GUI, please visit the <a href="https://github.com/Tarsnap/tarsnap-gui/wiki">Github Wiki</a>.
-</p>
+<ul>
+<li>To create a Tarsnap account and install the command-line tools, see <a href="https://www.tarsnap.com/gettingstarted.html">these steps</a>.
+</li>
+<li>
+Report issues and get the source code of this GUI at <a href="https://github.com/Tarsnap/tarsnap-gui">Github</a>.
+</li>
+<li>
+For general announcements, support, and inquiries of Tarsnap, see <a href="https://www.tarsnap.com/support.html">Tarsnap support</a>.
+</li>
+<li>
+For help regarding Tarsnap GUI, please visit the <a href="https://github.com/Tarsnap/tarsnap-gui/wiki">Github Wiki</a>.
+</li>
+</ul>
 
 <h3>Keyboard shortcuts</h3>
 

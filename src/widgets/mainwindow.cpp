@@ -49,6 +49,14 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archivesFilterFrame->hide();
     _ui.jobsFilterFrame->hide();
 
+    // Initialize the Help tab text
+    QFile helpTabFile(":/text/help-tab.xml");
+    if (helpTabFile.open(QFile::ReadOnly | QIODevice::Text)) {
+        DEBUG << "Failed to load a resource file.";
+    }
+    _helpTabHTML = QTextStream(&helpTabFile).readAll();
+    helpTabFile.close();
+
 #ifdef Q_OS_OSX
     _ui.aboutButton->hide();
 #endif
@@ -1899,7 +1907,7 @@ void MainWindow::addDefaultJobs()
 void MainWindow::updateUi()
 {
     // Keyboard shortcuts
-    _ui.keyboardShortcuts->setPlainText(_ui.keyboardShortcuts->toPlainText()
+    _ui.helpTabText->setHtml(_helpTabHTML
                                         .arg(QKeySequence(Qt::ControlModifier)
                                              .toString(QKeySequence::NativeText))
                                         .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)

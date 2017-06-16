@@ -2223,19 +2223,7 @@ color: blue;
          </widget>
          <widget class="QWidget" name="helpTab">
           <property name="styleSheet">
-           <string notr="true">#helpTab
-{
-border-top: 2px groove darkgrey;
-margin-left: 9px;
-margin-right: 3px;
-}
-#helpTab QGroupBox {
-font-size: 14px;
-}
-#helpTab QGroupBox::title {
-background: transparent;
-margin: 1px 0px 0px 6px;
-}</string>
+           <string notr="true"/>
           </property>
           <attribute name="title">
            <string>Help</string>
@@ -2243,9 +2231,9 @@ margin: 1px 0px 0px 6px;
           <attribute name="toolTip">
            <string>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout">
+          <layout class="QVBoxLayout" name="helpTabLayout" stretch="2,0,1">
            <property name="spacing">
-            <number>0</number>
+            <number>3</number>
            </property>
            <property name="leftMargin">
             <number>3</number>
@@ -2260,201 +2248,57 @@ margin: 1px 0px 0px 6px;
             <number>0</number>
            </property>
            <item>
+            <widget class="QTextBrowser" name="helpTabText">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="focusPolicy">
+              <enum>Qt::ClickFocus</enum>
+             </property>
+             <property name="toolTip">
+              <string>Keyboard shortcuts list</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#keyboardShortcuts {
+background: rgba(255,255,255,170);
+border-radius: 4px;
+}</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="openExternalLinks">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="aboutButton">
+             <property name="text">
+              <string>About Tarsnap</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QSplitter" name="splitter">
+             <property name="styleSheet">
+              <string notr="true">#helpTab QGroupBox {
+font-size: 14px;
+}
+#helpTab QGroupBox::title {
+background: transparent;
+margin: 1px 0px 0px 6px;
+}</string>
+             </property>
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
-             <widget class="QWidget" name="helpContainerWidget" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_4">
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QGroupBox" name="tarsnapHelpGroupBox">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>-1</pointsize>
-                  </font>
-                 </property>
-                 <property name="title">
-                  <string>Tarsnap help</string>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_3">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <property name="leftMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>2</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="tarsnapHelpLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>General help</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">QLabel {
-background: rgba(255,255,255,170);
-border-radius: 4px;
-padding: 3px;
-}</string>
-                    </property>
-                    <property name="text">
-                     <string>The Tarsnap GUI front-end is an open source cross-platform Graphical User Interface for the popular Tarsnap secure online backup service which is as easy to use, light, and open as the Tarsnap command-line client itself. In order to use the graphical front-end you need to create a Tarsnap account and install the command-line tools by following &lt;a href=&quot;https://www.tarsnap.com/gettingstarted.html&quot;&gt;these steps&lt;/a&gt;.
-Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-gui&quot;&gt;Github&lt;/a&gt; and issues can be reported &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-gui/issues&quot;&gt;here&lt;/a&gt;. For general announcements, support and inquiries, see &lt;a href=&quot;https://www.tarsnap.com/support.html&quot;&gt;Tarsnap support&lt;/a&gt;. For help regarding Tarsnap GUI, please visit the &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-gui/wiki&quot;&gt;Github Wiki&lt;/a&gt;.</string>
-                    </property>
-                    <property name="wordWrap">
-                     <bool>true</bool>
-                    </property>
-                    <property name="openExternalLinks">
-                     <bool>true</bool>
-                    </property>
-                    <property name="textInteractionFlags">
-                     <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="aboutButton">
-                    <property name="text">
-                     <string>About Tarsnap</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="helpKeyboardShortcutsGroupBox">
-                 <property name="title">
-                  <string>Keyboard shortcuts</string>
-                 </property>
-                 <layout class="QVBoxLayout" name="helpKeyboardShortcutsVerticalLayout">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <property name="leftMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>2</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>2</number>
-                  </property>
-                  <item>
-                   <widget class="QPlainTextEdit" name="keyboardShortcuts">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="focusPolicy">
-                     <enum>Qt::ClickFocus</enum>
-                    </property>
-                    <property name="toolTip">
-                     <string>Keyboard shortcuts list</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">#keyboardShortcuts {
-background: rgba(255,255,255,170);
-border-radius: 4px;
-font-family: Monospace, Monaco;
-font-size: 12px;
-}</string>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="readOnly">
-                     <bool>true</bool>
-                    </property>
-                    <property name="plainText">
-                     <string>Global
-------
-%1[1-5] - switch between Backup, Archives.. main tabs
-%1J     - toggle the Journal log
-%1K     - stop, interrupt or clear queued tasks
-
-Backup tab
-----------
-%1B         - execute Backup for current list
-%1O         - open the File Browser
-%3, %4      - remove selected item(s) from the Backup list
-%1%3, %1%4  - clear the Backup list
-
-Archives tab
-------------
-%1R    - refresh the Archives list
-%1I    - inspect selected Archive
-%1S    - restore selected Archive
-%1D    - delete selected Archive(s)
-%1F    - search and filter the Archives list
-
-Jobs tab
---------
-%1N    - add new Job
-%1B    - execute backup for selected Job(s)
-%2B    - execute backup for all Jobs
-%1I    - inspect selected Job
-%1S    - restore selected Job
-%1D    - delete selected Job
-%1F    - search and filter the Jobs list
-
-Settings tab
-------------
-%1U - update Account Summary
-</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
-             </widget>
              <widget class="QGroupBox" name="helpConsoleGroupBox">
               <property name="font">
                <font>
@@ -2472,13 +2316,13 @@ Settings tab
                 <number>0</number>
                </property>
                <property name="leftMargin">
-                <number>2</number>
+                <number>0</number>
                </property>
                <property name="topMargin">
                 <number>2</number>
                </property>
                <property name="rightMargin">
-                <number>2</number>
+                <number>0</number>
                </property>
                <property name="bottomMargin">
                 <number>2</number>
@@ -3130,7 +2974,7 @@ border: none;
   <tabstop>clearJournalButton</tabstop>
   <tabstop>runSetupWizard</tabstop>
   <tabstop>aboutButton</tabstop>
-  <tabstop>keyboardShortcuts</tabstop>
+  <tabstop>helpTabText</tabstop>
   <tabstop>consoleLog</tabstop>
   <tabstop>updateAccountButton</tabstop>
   <tabstop>accountMachineUseHostnameButton</tabstop>

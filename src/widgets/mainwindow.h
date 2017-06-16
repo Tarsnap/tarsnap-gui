@@ -109,6 +109,7 @@ private slots:
 
 private:
     Ui::MainWindow _ui;
+    int            _minWidth;
     QMenuBar *     _menuBar;
     QString        _lastTimestamp;
     QTimer         _nukeTimer;
@@ -116,7 +117,7 @@ private:
     QMessageBox    _nukeCountdown;
     TarsnapAccount _tarsnapAccount;
     bool           _aboutToQuit;
-    QString	   _helpTabHTML;
+    QString	       _helpTabHTML;
 
     void updateUi();
 };

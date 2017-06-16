@@ -20,9 +20,11 @@
 
 #define NUKE_SECONDS_DELAY 8
 #define MAIN_LOGO_RIGHT_MARGIN 5
+#define MAIN_LOGO_FUDGE 3
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
+      _minWidth(0),
       _menuBar(nullptr),
       _nukeTimerCount(0),
       _nukeCountdown(this),
@@ -564,26 +566,26 @@ void MainWindow::paintEvent(QPaintEvent *)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    if(_minWidth == 0)
+        _minWidth = minimumWidth();
     // Find out how much room is left to display an icon, including a
     // "fudge factor" to accommodate margins.
-    int remaining_width = frameGeometry().width() - minimumWidth() + 3;
+    int remaining_width = frameGeometry().width() - _minWidth + MAIN_LOGO_FUDGE;
 
     // Compare with the width of the png files.
-    if(remaining_width > 131)
+    QPixmap logoPixmap(":/icons/tarsnap-logo.png");
+    QPixmap iconPixmap(":/icons/tarsnap-logo-icon.png");
+    if(remaining_width > logoPixmap.width())
     {
-        QPixmap pixmap(":/icons/tarsnap-logo.png");
-        QIcon   icon;
-        icon.addFile(":/icons/tarsnap-logo.png");
-        icon.paint(&p, width() - pixmap.width() - MAIN_LOGO_RIGHT_MARGIN,
-                   3, pixmap.width(), pixmap.height());
+        QIcon icon(":/icons/tarsnap-logo.png");
+        icon.paint(&p, width() - logoPixmap.width() - MAIN_LOGO_RIGHT_MARGIN,
+                   3, logoPixmap.width(), logoPixmap.height());
     }
-    else if(remaining_width > 29)
+    else if(remaining_width > iconPixmap.width())
     {
-        QPixmap pixmap(":/icons/tarsnap-logo-icon.png");
-        QIcon   icon;
-        icon.addFile(":/icons/tarsnap-logo-icon.png");
-        icon.paint(&p, width() - pixmap.width() - MAIN_LOGO_RIGHT_MARGIN,
-                   3, pixmap.width(), pixmap.height());
+        QIcon icon(":/icons/tarsnap-logo-icon.png");
+        icon.paint(&p, width() - iconPixmap.width() - MAIN_LOGO_RIGHT_MARGIN,
+                   3, iconPixmap.width(), iconPixmap.height());
     }
 }
 

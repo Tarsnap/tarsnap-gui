@@ -2264,7 +2264,7 @@ color: blue;
              <property name="styleSheet">
               <string notr="true">#helpTabText {
 background: rgba(255,255,255,170);
-border-radius: 4px;
+border-radius: 3px;
 border: 1px solid darkgrey;
 border-top: 2px groove darkgrey;
 }</string>
@@ -2341,7 +2341,7 @@ margin: 1px 0px 0px 6px;
                   <string notr="true">#consoleLog
 {
 background: rgba(255,255,255,170);
-border-radius: 4px;
+border-radius: 3px;
 font-family: Monospace, Monaco;
 font-size: 12px;
 }</string>

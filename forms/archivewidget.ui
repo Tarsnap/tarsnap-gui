@@ -167,7 +167,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLabel" name="archiveDateLabel">
+      <widget class="ElidedLabel" name="archiveDateLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -182,6 +182,9 @@
        </property>
        <property name="textInteractionFlags">
         <set>Qt::TextSelectableByMouse</set>
+       </property>
+       <property name="elide" stdset="0">
+        <string>Qt::ElideMiddle</string>
        </property>
       </widget>
      </item>

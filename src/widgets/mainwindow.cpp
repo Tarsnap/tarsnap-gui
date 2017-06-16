@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Initialize the Help tab text
     QFile helpTabFile(":/text/help-tab.xml");
-    if (helpTabFile.open(QFile::ReadOnly | QIODevice::Text)) {
+    if (!helpTabFile.open(QFile::ReadOnly | QIODevice::Text)) {
         DEBUG << "Failed to load a resource file.";
     }
     _helpTabHTML = QTextStream(&helpTabFile).readAll();

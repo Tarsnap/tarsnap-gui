@@ -11,7 +11,7 @@ table { font-family: Monospace, Monaco; }
 <li>To create a Tarsnap account and install the command-line tools, see <a href="https://www.tarsnap.com/gettingstarted.html">these steps</a>.
 </li>
 <li>
-Report issues and get the source code of this GUI at <a href="https://github.com/Tarsnap/tarsnap-gui">Github</a>.
+Report issues and get the source code of Tarsnap GUI at <a href="https://github.com/Tarsnap/tarsnap-gui">Github</a>.
 </li>
 <li>
 For general announcements, support, and inquiries of Tarsnap, see <a href="https://www.tarsnap.com/support.html">Tarsnap support</a>.

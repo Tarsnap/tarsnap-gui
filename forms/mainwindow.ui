@@ -2239,7 +2239,7 @@ color: blue;
             <number>3</number>
            </property>
            <property name="topMargin">
-            <number>6</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
             <number>3</number>
@@ -2262,9 +2262,11 @@ color: blue;
               <string>Keyboard shortcuts list</string>
              </property>
              <property name="styleSheet">
-              <string notr="true">#keyboardShortcuts {
+              <string notr="true">#helpTabText {
 background: rgba(255,255,255,170);
 border-radius: 4px;
+border: 1px solid darkgrey;
+border-top: 2px groove darkgrey;
 }</string>
              </property>
              <property name="frameShape">

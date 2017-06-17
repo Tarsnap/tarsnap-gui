@@ -40,7 +40,7 @@ struct File
 };
 
 /*!
- * \ingroup background-task
+ * \ingroup background-tasks
  * \brief The ParseArchiveListingTask extracts the list of files
  * from an archive.
  */

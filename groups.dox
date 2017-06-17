@@ -20,7 +20,7 @@
  */
 
 /**
- * \defgroup background-task Background tasks
+ * \defgroup background-tasks Background tasks
  * \brief Tasks which run in the background and emit a signal when
  * completed.
  */

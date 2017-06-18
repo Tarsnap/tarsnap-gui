@@ -31,6 +31,8 @@ public:
     ~TaskManager();
 
 public slots:
+    //! Checks if any scheduled jobs need to run now; if so, adds them to
+    //! the queue.  If there are no scheduled jobs, quit the app immediately.
     void runScheduledJobs();
     void stopTasks(bool interrupt, bool running, bool queued);
     //! Load Archives from the PersistentStore.
@@ -39,6 +41,8 @@ public slots:
     void loadJobs();
     //! Delete a Job, and potentially all associated Archives.
     void deleteJob(JobPtr job, bool purgeArchives);
+    //! Load the list of archives belonging to a specific Job (specified
+    //! via Qt's `sender()` function call).
     void loadJobArchives();
     //! Send a \ref taskInfo signal.
     void getTaskInfo();

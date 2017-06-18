@@ -43,6 +43,8 @@ public slots:
     //! Show the Tarsnap version number, and store it in the settings.
     void updateTarsnapVersion(QString versionString);
     void notificationRaise();
+    //! Prompt user to clarify whether to stop background tasks and then
+    //! quit the app, or continue the tasks and cancel the "quit" command.
     void displayStopTasks(bool backupTaskRunning, int runningTasks,
                           int queuedTasks);
     //! Display an explanation of a tarsnap CLI error.
@@ -87,6 +89,8 @@ signals:
     //! Begin tarsnap --version
     void getTarsnapVersion(QString tarsnapPath);
     void displayNotification(QString message);
+    //! Query whether there are any running tasks; will receive a taskInfo
+    //! signal which is received by \ref displayStopTasks.
     void getTaskInfo();
     void jobAdded(JobPtr job);
     //! Clear all Journal entries.

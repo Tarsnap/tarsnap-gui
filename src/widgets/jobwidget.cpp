@@ -250,9 +250,13 @@ void JobWidget::restoreButtonClicked()
     if(_job && !_job->archives().isEmpty())
     {
         ArchivePtr    archive = _job->archives().first();
-        RestoreDialog restoreDialog(this, archive);
-        if(QDialog::Accepted == restoreDialog.exec())
-            emit restoreJobArchive(archive, restoreDialog.getOptions());
+        RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
+        restoreDialog->show();
+        connect(restoreDialog, &RestoreDialog::accepted, [=]
+        {
+            emit restoreJobArchive(restoreDialog->archive(),
+                                restoreDialog->getOptions());
+        });
     }
 }
 

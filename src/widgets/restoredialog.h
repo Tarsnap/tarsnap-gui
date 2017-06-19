@@ -29,6 +29,8 @@ public:
     ArchiveRestoreOptions getOptions();
     //! Display (or not) the "download uncompressed tar archive" option.
     void displayTarOption(bool display);
+    //! Returns current archive.
+    ArchivePtr archive() const;
 
 private slots:
     void optionBaseDirToggled(bool checked);

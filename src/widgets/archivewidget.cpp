@@ -186,13 +186,14 @@ void ArchiveWidget::restoreFiles()
     foreach(QModelIndex index, indexes)
         files << index.data().toString();
 
-    RestoreDialog restoreDialog(this, _archive, files);
-    restoreDialog.displayTarOption(false);
-    if(QDialog::Accepted == restoreDialog.exec())
+    RestoreDialog *restoreDialog = new RestoreDialog(this, _archive, files);
+    restoreDialog->displayTarOption(false);
+    restoreDialog->show();
+    connect(restoreDialog, &RestoreDialog::accepted, [=]
     {
-        ArchiveRestoreOptions options = restoreDialog.getOptions();
-        emit restoreArchive(_archive, options);
-    }
+        emit restoreArchive(restoreDialog->archive(),
+                            restoreDialog->getOptions());
+    });
 }
 
 void ArchiveWidget::updateUi()

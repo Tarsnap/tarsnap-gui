@@ -9,6 +9,7 @@
 RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive, QStringList files)
     : QDialog(parent), _archive(archive), _files(files)
 {
+    setAttribute(Qt::WA_DeleteOnClose, true);
     _ui.setupUi(this);
 
     QSettings settings;
@@ -197,4 +198,9 @@ bool RestoreDialog::validate()
         }
     }
     return valid;
+}
+
+ArchivePtr RestoreDialog::archive() const
+{
+    return _archive;
 }

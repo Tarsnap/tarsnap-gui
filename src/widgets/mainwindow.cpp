@@ -1690,7 +1690,7 @@ void MainWindow::addJobClicked()
     }
 }
 
-void MainWindow::displayStopTasks(bool backupTaskRunning, int runningTasks,
+void MainWindow::displayStopTasksDialog(bool backupTaskRunning, int runningTasks,
                                   int queuedTasks)
 {
     if(!runningTasks && !queuedTasks)

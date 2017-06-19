@@ -95,7 +95,6 @@ signals:
     void jobAdded(JobPtr job);
     //! Clear all Journal entries.
     void clearJournal();
-    void logMessage(QString message);
     void getKeyId(QString key);
     void findMatchingArchives(QString jobPrefix);
     void matchingArchives(QList<ArchivePtr> archives);

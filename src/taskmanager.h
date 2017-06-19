@@ -86,7 +86,6 @@ signals:
     void tarsnapVersion(QString versionString);
     //! Result of tarsnap-keygen.
     void registerMachineStatus(TaskStatus status, QString reason);
-    void fsckStatus(TaskStatus status, QString reason);
     //! A list of all Archives.
     void archiveList(QList<ArchivePtr> archives);
     void addArchive(ArchivePtr archive);

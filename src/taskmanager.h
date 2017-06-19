@@ -44,7 +44,7 @@ public slots:
     //! Load the list of archives belonging to a specific Job (specified
     //! via Qt's `sender()` function call).
     void loadJobArchives();
-    //! Send a \ref taskInfo signal.
+    //! Emit \ref taskInfo signal with information regarding running and queued tasks.
     void getTaskInfo();
     //! Add a job to the Jobs list.
     void addJob(JobPtr job);

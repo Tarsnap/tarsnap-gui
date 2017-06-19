@@ -2223,7 +2223,14 @@ color: blue;
          </widget>
          <widget class="QWidget" name="helpTab">
           <property name="styleSheet">
-           <string notr="true"/>
+           <string notr="true">#helpTab QGroupBox {
+font-size: 14px;
+}
+#helpTab QGroupBox::title {
+background: transparent;
+margin: 1px 0px 0px 6px;
+}&lt;/string&gt;
+</string>
           </property>
           <attribute name="title">
            <string>Help</string>
@@ -2231,7 +2238,7 @@ color: blue;
           <attribute name="toolTip">
            <string>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
-          <layout class="QVBoxLayout" name="helpTabLayout" stretch="2,0,1">
+          <layout class="QVBoxLayout" name="verticalLayout_3">
            <property name="spacing">
             <number>3</number>
            </property>
@@ -2248,67 +2255,74 @@ color: blue;
             <number>0</number>
            </property>
            <item>
-            <widget class="QTextBrowser" name="helpTabText">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+            <widget class="QSplitter" name="splitter">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
-             <property name="focusPolicy">
-              <enum>Qt::ClickFocus</enum>
-             </property>
-             <property name="toolTip">
-              <string>Keyboard shortcuts list</string>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">#helpTabText {
+             <widget class="QFrame" name="helpContainer">
+              <layout class="QVBoxLayout" name="verticalLayout">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QTextBrowser" name="helpTabText">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="focusPolicy">
+                  <enum>Qt::ClickFocus</enum>
+                 </property>
+                 <property name="toolTip">
+                  <string>Keyboard shortcuts list</string>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">#helpTabText {
 background: rgba(255,255,255,170);
 border-radius: 3px;
 border: 1px solid darkgrey;
 border-top: 2px groove darkgrey;
 }</string>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-             <property name="openExternalLinks">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="aboutButton">
-             <property name="text">
-              <string>About Tarsnap</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSplitter" name="splitter">
-             <property name="styleSheet">
-              <string notr="true">#helpTab QGroupBox {
-font-size: 14px;
-}
-#helpTab QGroupBox::title {
-background: transparent;
-margin: 1px 0px 0px 6px;
-}</string>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                 <property name="openExternalLinks">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="aboutButton">
+                 <property name="text">
+                  <string>About Tarsnap</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
              <widget class="QGroupBox" name="helpConsoleGroupBox">
               <property name="font">
                <font>
                 <pointsize>-1</pointsize>
                </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
               </property>
               <property name="title">
                <string>Console log</string>
@@ -2321,13 +2335,13 @@ margin: 1px 0px 0px 6px;
                 <number>0</number>
                </property>
                <property name="topMargin">
-                <number>2</number>
+                <number>0</number>
                </property>
                <property name="rightMargin">
                 <number>0</number>
                </property>
                <property name="bottomMargin">
-                <number>2</number>
+                <number>0</number>
                </property>
                <item>
                 <widget class="QPlainTextEdit" name="consoleLog">

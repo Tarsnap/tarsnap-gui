@@ -25,36 +25,35 @@ public:
     ~MainWindow();
 
 public slots:
-    //! Load settings from the config file.
+    //! Load saved application settings.
     void loadSettings();
-    //! Check days elapsed since last credit update, check application paths,
+    //! Initialization routines: Check days elapsed since last credit update, application paths,
     //! and update archive list.
     void initialize();
     //! Set the statusbar message.
     //! \param message: display this text
     //! \param detail: display this text as a mouse-over tooltip.
     void updateStatusMessage(QString message, QString detail = "");
-    //! Show a "waiting for results" indicator (or not).
+    //! Indicate if the application is busy running Tarsnap chores or not.
     void updateLoadingAnimation(bool idle);
-    //! Show the Tarsnap --print-stats values in the Settings tab.
+    //! Update the global Tarsnap --print-stats values in the Settings tab.
     void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                              quint64 sizeUniqueTotal,
                              quint64 sizeUniqueCompressed, quint64 archiveCount);
-    //! Show the Tarsnap version number, and store it in the settings.
+    //! Update the Tarsnap version number, and store it in the settings.
     void updateTarsnapVersion(QString versionString);
     void notificationRaise();
-    //! Prompt user to clarify whether to stop background tasks and then
-    //! quit the app, or continue the tasks and cancel the "quit" command.
+    //! Display stop tasks dialog. Also used when quitting the application 
+    //! while active or background tasks are queued.
     void displayStopTasks(bool backupTaskRunning, int runningTasks,
                           int queuedTasks);
     //! Display an explanation of a tarsnap CLI error.
     void tarsnapError(TarsnapError error);
-    //! Append a new entry to the journal (bottom of the window).
+    //! Append a new entry to the journal.
     void appendToJournalLog(LogEntry log);
-    //! Append a new entry to the console log (in the Help tab).
+    //! Append a new entry to the console log.
     void appendToConsoleLog(const QString &log);
-    //! Clears the current Journal, and loads new entries.  Used for
-    //! loading the Journal file a file (on app startup).
+    //! Reset the current Journal using _log.
     void setJournal(QVector<LogEntry> _log);
     void saveKeyId(QString key, int id);
     //! Create a new archive from an existing Job.

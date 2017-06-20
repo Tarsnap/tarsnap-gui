@@ -1816,6 +1816,9 @@ color: blue;
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="toolTip">
+                     <string>Register Tarsnap GUI with the platform scheduler to enable automatic Job backups</string>
+                    </property>
                     <property name="text">
                      <string>Enable Job scheduling</string>
                     </property>
@@ -1828,6 +1831,9 @@ color: blue;
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Deregister Tarsnap GUI from the platform scheduler to disable automatic Job backups</string>
                     </property>
                     <property name="text">
                      <string>Disable Job scheduling</string>

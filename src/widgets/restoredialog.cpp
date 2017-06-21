@@ -59,7 +59,9 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
     _ui.optionRestoreRadio->setChecked(canRestore);
     _ui.optionBaseDirRadio->setChecked(!canRestore);
     if(!_files.isEmpty())
+    {
         _ui.filesListWidget->addItems(_files);
+    }
     else
     {
         if(_archive->contents().isEmpty())

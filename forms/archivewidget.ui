@@ -524,6 +524,9 @@ font-size: 12px;
  </customwidgets>
  <tabstops>
   <tabstop>archiveCommandLineEdit</tabstop>
+  <tabstop>filterButton</tabstop>
+  <tabstop>filterComboBox</tabstop>
+  <tabstop>archiveContentsTableView</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

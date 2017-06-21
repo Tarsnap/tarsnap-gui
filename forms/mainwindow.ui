@@ -2956,55 +2956,60 @@ border: none;
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>machineActivityShowButton</tabstop>
   <tabstop>backupListWidget</tabstop>
   <tabstop>backupNameLineEdit</tabstop>
   <tabstop>appendTimestampCheckBox</tabstop>
   <tabstop>backupButton</tabstop>
+  <tabstop>archivesFilterButton</tabstop>
   <tabstop>archivesFilter</tabstop>
   <tabstop>archiveListWidget</tabstop>
+  <tabstop>jobsFilterButton</tabstop>
   <tabstop>jobsFilter</tabstop>
   <tabstop>jobListWidget</tabstop>
   <tabstop>dismissButton</tabstop>
   <tabstop>sureButton</tabstop>
   <tabstop>addJobButton</tabstop>
-  <tabstop>notificationsCheckBox</tabstop>
-  <tabstop>iecPrefixesCheckBox</tabstop>
-  <tabstop>aggressiveNetworkingCheckBox</tabstop>
+  <tabstop>accountActivityShowButton</tabstop>
+  <tabstop>machineActivityShowButton</tabstop>
+  <tabstop>accountUserLineEdit</tabstop>
+  <tabstop>updateAccountButton</tabstop>
+  <tabstop>accountMachineLineEdit</tabstop>
+  <tabstop>accountMachineUseHostnameButton</tabstop>
+  <tabstop>accountMachineKeyLineEdit</tabstop>
+  <tabstop>accountMachineKeyBrowseButton</tabstop>
+  <tabstop>nukeArchivesButton</tabstop>
   <tabstop>preservePathsCheckBox</tabstop>
   <tabstop>traverseMountCheckBox</tabstop>
   <tabstop>followSymLinksCheckBox</tabstop>
   <tabstop>skipNoDumpCheckBox</tabstop>
-  <tabstop>skipFilesSizeSpinBox</tabstop>
   <tabstop>skipSystemJunkCheckBox</tabstop>
   <tabstop>skipSystemLineEdit</tabstop>
   <tabstop>skipSystemDefaultsButton</tabstop>
-  <tabstop>downloadsDirLineEdit</tabstop>
-  <tabstop>downloadsDirBrowseButton</tabstop>
+  <tabstop>skipFilesSizeSpinBox</tabstop>
   <tabstop>limitUploadSpinBox</tabstop>
   <tabstop>limitDownloadSpinBox</tabstop>
-  <tabstop>simulationCheckBox</tabstop>
+  <tabstop>aggressiveNetworkingCheckBox</tabstop>
   <tabstop>ignoreConfigCheckBox</tabstop>
+  <tabstop>simulationCheckBox</tabstop>
+  <tabstop>enableSchedulingButton</tabstop>
+  <tabstop>disableSchedulingButton</tabstop>
+  <tabstop>languageComboBox</tabstop>
+  <tabstop>notificationsCheckBox</tabstop>
+  <tabstop>iecPrefixesCheckBox</tabstop>
+  <tabstop>saveConsoleLogCheckBox</tabstop>
+  <tabstop>saveConsoleLogLineEdit</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapCacheLineEdit</tabstop>
   <tabstop>tarsnapCacheBrowseButton</tabstop>
+  <tabstop>downloadsDirLineEdit</tabstop>
+  <tabstop>downloadsDirBrowseButton</tabstop>
   <tabstop>appDataDirLineEdit</tabstop>
   <tabstop>appDataDirBrowseButton</tabstop>
   <tabstop>repairCacheButton</tabstop>
-  <tabstop>nukeArchivesButton</tabstop>
   <tabstop>clearJournalButton</tabstop>
   <tabstop>runSetupWizard</tabstop>
   <tabstop>aboutButton</tabstop>
-  <tabstop>helpTabText</tabstop>
-  <tabstop>consoleLog</tabstop>
-  <tabstop>updateAccountButton</tabstop>
-  <tabstop>accountMachineUseHostnameButton</tabstop>
-  <tabstop>accountMachineKeyLineEdit</tabstop>
-  <tabstop>accountMachineKeyBrowseButton</tabstop>
-  <tabstop>accountActivityShowButton</tabstop>
-  <tabstop>accountMachineLineEdit</tabstop>
-  <tabstop>accountUserLineEdit</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

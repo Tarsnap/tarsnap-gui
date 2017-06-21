@@ -1123,6 +1123,7 @@ border: none;
  </customwidgets>
  <tabstops>
   <tabstop>nextButton</tabstop>
+  <tabstop>backButton</tabstop>
   <tabstop>tarsnapPathLineEdit</tabstop>
   <tabstop>tarsnapPathBrowseButton</tabstop>
   <tabstop>tarsnapCacheLineEdit</tabstop>
@@ -1132,12 +1133,11 @@ border: none;
   <tabstop>advancedCLIButton</tabstop>
   <tabstop>restoreNoButton</tabstop>
   <tabstop>restoreYesButton</tabstop>
+  <tabstop>machineNameLineEdit</tabstop>
   <tabstop>tarsnapUserLineEdit</tabstop>
   <tabstop>tarsnapPasswordLineEdit</tabstop>
-  <tabstop>machineNameLineEdit</tabstop>
   <tabstop>machineKeyCombo</tabstop>
   <tabstop>browseKeyButton</tabstop>
-  <tabstop>backButton</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

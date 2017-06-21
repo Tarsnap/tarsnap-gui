@@ -299,6 +299,7 @@ height: 25px;
   </layout>
  </widget>
  <tabstops>
+  <tabstop>filesListWidget</tabstop>
   <tabstop>optionRestoreRadio</tabstop>
   <tabstop>optionBaseDirRadio</tabstop>
   <tabstop>baseDirLineEdit</tabstop>
@@ -306,6 +307,7 @@ height: 25px;
   <tabstop>optionTarArchiveRadio</tabstop>
   <tabstop>archiveLineEdit</tabstop>
   <tabstop>changeArchiveButton</tabstop>
+  <tabstop>preservePermCheckBox</tabstop>
   <tabstop>overwriteCheckBox</tabstop>
   <tabstop>keepNewerCheckBox</tabstop>
   <tabstop>cancelButton</tabstop>

@@ -189,8 +189,7 @@ void ArchiveWidget::restoreFiles()
     RestoreDialog *restoreDialog = new RestoreDialog(this, _archive, files);
     restoreDialog->displayTarOption(false);
     restoreDialog->show();
-    connect(restoreDialog, &RestoreDialog::accepted, [=]
-    {
+    connect(restoreDialog, &RestoreDialog::accepted, [=] {
         emit restoreArchive(restoreDialog->archive(),
                             restoreDialog->getOptions());
     });

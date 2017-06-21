@@ -229,7 +229,8 @@ void JobWidget::updateDetails()
     _ui.jobTreeWidget->setSelectedUrls(_job->urls());
     _ui.jobTreeWidget->blockSignals(false);
     _ui.archiveListWidget->setArchives(_job->archives());
-    _ui.scheduleComboBox->setCurrentIndex(static_cast<int>(_job->optionScheduledEnabled()));
+    _ui.scheduleComboBox->setCurrentIndex(
+        static_cast<int>(_job->optionScheduledEnabled()));
     _ui.preservePathsCheckBox->setChecked(_job->optionPreservePaths());
     _ui.traverseMountCheckBox->setChecked(_job->optionTraverseMount());
     _ui.followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());
@@ -249,13 +250,12 @@ void JobWidget::restoreButtonClicked()
 {
     if(_job && !_job->archives().isEmpty())
     {
-        ArchivePtr    archive = _job->archives().first();
+        ArchivePtr     archive       = _job->archives().first();
         RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
         restoreDialog->show();
-        connect(restoreDialog, &RestoreDialog::accepted, [=]
-        {
+        connect(restoreDialog, &RestoreDialog::accepted, [=] {
             emit restoreJobArchive(restoreDialog->archive(),
-                                restoreDialog->getOptions());
+                                   restoreDialog->getOptions());
         });
     }
 }

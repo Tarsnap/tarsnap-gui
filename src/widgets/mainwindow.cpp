@@ -53,7 +53,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Initialize the Help tab text
     QFile helpTabFile(":/text/help-tab.xml");
-    if (!helpTabFile.open(QFile::ReadOnly | QIODevice::Text)) {
+    if(!helpTabFile.open(QFile::ReadOnly | QIODevice::Text))
+    {
         DEBUG << "Failed to load a resource file.";
     }
     _helpTabHTML = QTextStream(&helpTabFile).readAll();
@@ -581,14 +582,14 @@ void MainWindow::paintEvent(QPaintEvent *)
     if(remaining_width > logoPixmap.width())
     {
         QIcon icon(":/icons/tarsnap-logo.png");
-        icon.paint(&p, width() - logoPixmap.width() - MAIN_LOGO_RIGHT_MARGIN,
-                   3, logoPixmap.width(), logoPixmap.height());
+        icon.paint(&p, width() - logoPixmap.width() - MAIN_LOGO_RIGHT_MARGIN, 3,
+                   logoPixmap.width(), logoPixmap.height());
     }
     else if(remaining_width > iconPixmap.width())
     {
         QIcon icon(":/icons/tarsnap-logo-icon.png");
-        icon.paint(&p, width() - iconPixmap.width() - MAIN_LOGO_RIGHT_MARGIN,
-                   3, iconPixmap.width(), iconPixmap.height());
+        icon.paint(&p, width() - iconPixmap.width() - MAIN_LOGO_RIGHT_MARGIN, 3,
+                   iconPixmap.width(), iconPixmap.height());
     }
 }
 
@@ -913,7 +914,8 @@ void MainWindow::enableJobScheduling()
                                  "\n\nJobs that have scheduled backup"
                                  " turned on will be backed up according"
                                  " to the Daily, Weekly or Monthly"
-                                 " schedule. \n\n%1").arg(CRON_MARKER_HELP));
+                                 " schedule. \n\n%1")
+                                  .arg(CRON_MARKER_HELP));
     if(confirm != QMessageBox::Yes)
         return;
 
@@ -925,7 +927,8 @@ void MainWindow::enableJobScheduling()
     {
         QMessageBox::critical(this, tr("Job scheduling"),
                               tr("Looks like scheduling is already enabled."
-                                 " Nothing to do.\n\n%1").arg(CRON_MARKER_HELP));
+                                 " Nothing to do.\n\n%1")
+                                  .arg(CRON_MARKER_HELP));
         return;
     }
     if(!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -969,12 +972,14 @@ void MainWindow::enableJobScheduling()
     }
 #elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
 
-    auto confirm = QMessageBox::question(this, tr("Job scheduling"),
-                                         tr("Register Tarsnap GUI with cron serivce?"
-                                            "\nJobs that have scheduled backup"
-                                            " turned on will be backed up according"
-                                            " to the Daily, Weekly or Monthly"
-                                            " schedule. \n\n%1").arg(CRON_MARKER_HELP));
+    auto confirm =
+        QMessageBox::question(this, tr("Job scheduling"),
+                              tr("Register Tarsnap GUI with cron serivce?"
+                                 "\nJobs that have scheduled backup"
+                                 " turned on will be backed up according"
+                                 " to the Daily, Weekly or Monthly"
+                                 " schedule. \n\n%1")
+                                  .arg(CRON_MARKER_HELP));
     if(confirm != QMessageBox::Yes)
         return;
 
@@ -1070,11 +1075,13 @@ void MainWindow::enableJobScheduling()
 void MainWindow::disableJobScheduling()
 {
 #if defined(Q_OS_OSX)
-    auto confirm = QMessageBox::question(this, tr("Job scheduling"),
-                                         tr("Unregister Tarsnap GUI from the OS X"
-                                         " Launchd service? This will disable"
-                                         " automatic Job backup scheduling."
-                                            "\n\n%1").arg(CRON_MARKER_HELP));
+    auto confirm =
+        QMessageBox::question(this, tr("Job scheduling"),
+                              tr("Unregister Tarsnap GUI from the OS X"
+                                 " Launchd service? This will disable"
+                                 " automatic Job backup scheduling."
+                                 "\n\n%1")
+                                  .arg(CRON_MARKER_HELP));
     if(confirm != QMessageBox::Yes)
         return;
 
@@ -1131,7 +1138,8 @@ void MainWindow::disableJobScheduling()
         {
             QMessageBox::warning(this, tr("Job scheduling"),
                                  tr("There's no crontab for the current user."
-                                 " Nothing to do.\n\n%1").arg(CRON_MARKER_HELP));
+                                    " Nothing to do.\n\n%1")
+                                     .arg(CRON_MARKER_HELP));
             return;
         }
         else
@@ -1148,14 +1156,16 @@ void MainWindow::disableJobScheduling()
     {
         QMessageBox::warning(this, tr("Job scheduling"),
                              tr("Looks like the crontab for the current user is"
-                             " empty. Nothing to do.\n\n%1").arg(CRON_MARKER_HELP));
+                                " empty. Nothing to do.\n\n%1")
+                                 .arg(CRON_MARKER_HELP));
         return;
     }
 
     DEBUG << currentCrontab;
-    QRegExp rx(QString("\n?%1.+%2\n?").arg(QRegExp::escape(CRON_MARKER_BEGIN))
-                                      .arg(QRegExp::escape(CRON_MARKER_END)));
-//    rx.setMinimal(true);
+    QRegExp rx(QString("\n?%1.+%2\n?")
+                   .arg(QRegExp::escape(CRON_MARKER_BEGIN))
+                   .arg(QRegExp::escape(CRON_MARKER_END)));
+    //    rx.setMinimal(true);
     QString linesToRemove;
     int     pos = 0;
     while((pos = rx.indexIn(currentCrontab, pos)) != -1)
@@ -1168,17 +1178,19 @@ void MainWindow::disableJobScheduling()
     {
         QMessageBox::warning(this, tr("Job scheduling"),
                              tr("Looks like Job scheduling hasn't been enabled"
-                             " yet. Nothing to do. \n\n%1").arg(CRON_MARKER_HELP));
+                                " yet. Nothing to do. \n\n%1")
+                                 .arg(CRON_MARKER_HELP));
         return;
     }
 
     QMessageBox question(this);
     question.setIcon(QMessageBox::Question);
     question.setText(tr("Tarsnap GUI will be removed from the current user's"
-                     " crontab."));
-    question.setInformativeText(tr("To ensure proper behavior please review the"
-                                " lines to be removed by pressing Show Details"
-                                " before proceeding."));
+                        " crontab."));
+    question.setInformativeText(
+        tr("To ensure proper behavior please review the"
+           " lines to be removed by pressing Show Details"
+           " before proceeding."));
     question.setDetailedText(linesToRemove);
     question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
     question.setDefaultButton(QMessageBox::Cancel);
@@ -1690,8 +1702,8 @@ void MainWindow::addJobClicked()
     }
 }
 
-void MainWindow::displayStopTasksDialog(bool backupTaskRunning, int runningTasks,
-                                  int queuedTasks)
+void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
+                                        int runningTasks, int queuedTasks)
 {
     if(!runningTasks && !queuedTasks)
     {

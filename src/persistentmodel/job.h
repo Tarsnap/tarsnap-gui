@@ -15,12 +15,7 @@ typedef QSharedPointer<Job> JobPtr;
 
 Q_DECLARE_METATYPE(JobPtr)
 
-typedef enum {
-    Disabled,
-    Daily,
-    Weekly,
-    Monthly
-}JobSchedule;
+typedef enum { Disabled, Daily, Weekly, Monthly } JobSchedule;
 
 /*!
  * \ingroup persistent

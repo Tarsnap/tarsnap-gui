@@ -168,10 +168,10 @@ void ArchiveListWidget::restoreSelectedItem()
             static_cast<ArchiveListWidgetItem *>(selectedItems().first());
         if(archiveItem && !archiveItem->archive()->deleteScheduled())
         {
-            RestoreDialog *restoreDialog = new RestoreDialog(this, archiveItem->archive());
+            RestoreDialog *restoreDialog =
+                new RestoreDialog(this, archiveItem->archive());
             restoreDialog->show();
-            connect(restoreDialog, &RestoreDialog::accepted, [=]
-            {
+            connect(restoreDialog, &RestoreDialog::accepted, [=] {
                 emit restoreArchive(restoreDialog->archive(),
                                     restoreDialog->getOptions());
             });
@@ -260,10 +260,10 @@ void ArchiveListWidget::restoreItem()
         qobject_cast<ArchiveListWidgetItem *>(sender());
     if(archiveItem)
     {
-        RestoreDialog *restoreDialog = new RestoreDialog(this, archiveItem->archive());
+        RestoreDialog *restoreDialog =
+            new RestoreDialog(this, archiveItem->archive());
         restoreDialog->show();
-        connect(restoreDialog, &RestoreDialog::accepted, [=]
-        {
+        connect(restoreDialog, &RestoreDialog::accepted, [=] {
             emit restoreArchive(restoreDialog->archive(),
                                 restoreDialog->getOptions());
         });

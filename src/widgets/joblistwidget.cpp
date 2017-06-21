@@ -110,11 +110,10 @@ void JobListWidget::restoreItem()
         JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
         if(!job->archives().isEmpty())
         {
-            ArchivePtr    archive = job->archives().first();
+            ArchivePtr     archive       = job->archives().first();
             RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
             restoreDialog->show();
-            connect(restoreDialog, &RestoreDialog::accepted, [=]
-            {
+            connect(restoreDialog, &RestoreDialog::accepted, [=] {
                 emit restoreArchive(restoreDialog->archive(),
                                     restoreDialog->getOptions());
             });
@@ -221,11 +220,10 @@ void JobListWidget::restoreSelectedItem()
             static_cast<JobListWidgetItem *>(selectedItems().first())->job();
         if(!job->archives().isEmpty())
         {
-            ArchivePtr    archive = job->archives().first();
+            ArchivePtr     archive       = job->archives().first();
             RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
             restoreDialog->show();
-            connect(restoreDialog, &RestoreDialog::accepted, [=]
-            {
+            connect(restoreDialog, &RestoreDialog::accepted, [=] {
                 emit restoreArchive(restoreDialog->archive(),
                                     restoreDialog->getOptions());
             });

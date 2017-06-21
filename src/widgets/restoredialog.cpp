@@ -6,7 +6,8 @@
 #include <QMessageBox>
 #include <QSettings>
 
-RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive, QStringList files)
+RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
+                             QStringList files)
     : QDialog(parent), _archive(archive), _files(files)
 {
     setAttribute(Qt::WA_DeleteOnClose, true);
@@ -59,11 +60,15 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive, QStringList fi
     _ui.optionBaseDirRadio->setChecked(!canRestore);
     if(!_files.isEmpty())
         _ui.filesListWidget->addItems(_files);
-    else {
-        if(_archive->contents().isEmpty()) {
+    else
+    {
+        if(_archive->contents().isEmpty())
+        {
             _ui.filesListWidget->hide();
             adjustSize();
-        } else {
+        }
+        else
+        {
             _ui.filesListWidget->addItems(_archive->contents().split(QChar('\n')));
             _ui.filesListWidget->show();
             adjustSize();

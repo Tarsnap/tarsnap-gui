@@ -715,10 +715,11 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
         }
         else if(stdOut.isEmpty())
         {
-            emit message(tr("Error: Failed to get archive contents from remote."),
-                         tr("Tarsnap exited with code %1 and output:\n%2")
-                         .arg(exitCode)
-                         .arg(stdErr));
+            emit message(
+                tr("Error: Failed to get archive contents from remote."),
+                tr("Tarsnap exited with code %1 and output:\n%2")
+                    .arg(exitCode)
+                    .arg(stdErr));
             parseError(stdErr);
             return;
         }
@@ -832,13 +833,14 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     }
     if(exitCode == SUCCESS)
     {
-        emit message(tr("Restoring from archive <i>%1</i>... done.")
-                     .arg(archive->name()));
+        emit message(
+            tr("Restoring from archive <i>%1</i>... done.").arg(archive->name()));
     }
     else
     {
         emit message(tr("Restoring from archive <i>%1</i> failed."
-                        " Hover mouse for details.").arg(archive->name()),
+                        " Hover mouse for details.")
+                         .arg(archive->name()),
                      stdErr);
         parseError(stdErr);
         return;
@@ -881,12 +883,12 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
     }
     case TaskStatus::Failed:
     {
-        QString msg = tr("Backup <i>%1</i> failed: %2")
-                          .arg(backupTask->name())
-                          .arg(backupTask->output()
-                               .section(QChar('\n'), 0, 0,
-                                        QString::SectionSkipEmpty)
-                               .simplified());
+        QString msg =
+            tr("Backup <i>%1</i> failed: %2")
+                .arg(backupTask->name())
+                .arg(backupTask->output()
+                         .section(QChar('\n'), 0, 0, QString::SectionSkipEmpty)
+                         .simplified());
         emit message(msg, backupTask->output());
         emit displayNotification(msg);
         _backupTaskMap.remove(backupTask->uuid());

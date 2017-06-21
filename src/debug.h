@@ -25,8 +25,15 @@ class ConsoleLog : public QObject
     Q_OBJECT
 
 public:
-    static void initialize() { qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}"); }
-    static ConsoleLog &instance() { static ConsoleLog instance; return instance; }
+    static void initialize()
+    {
+        qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}");
+    }
+    static ConsoleLog &instance()
+    {
+        static ConsoleLog instance;
+        return instance;
+    }
     ~ConsoleLog() {}
 
     inline ConsoleLog& operator<<(QChar t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }

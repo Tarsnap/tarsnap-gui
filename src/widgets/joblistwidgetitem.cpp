@@ -43,7 +43,7 @@ void JobListWidgetItem::setJob(const JobPtr &job)
 
     _ui.nameLabel->setText(_job->name());
     if(_job->archives().isEmpty())
-        _ui.lastBackupLabel->setText(tr("No backup done yet"));
+        _ui.lastBackupLabel->setText(tr("No backups"));
     else
         _ui.lastBackupLabel->setText(
             _job->archives().first()->timestamp().toString(Qt::DefaultLocaleShortDate));

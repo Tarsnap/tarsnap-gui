@@ -56,9 +56,9 @@ void CoreApplication::parseArgs()
     parser.addVersionOption();
     QCommandLineOption jobsOption(QStringList() << "j"
                                                 << "jobs",
-                                  tr("Executes all jobs sequentially that have "
-                                     "the \'Include in scheduled backups\' "
-                                     "option checked."
+                                  tr("Executes all Jobs sequentially that have "
+                                     "the \'Automatic backup schedule\' "
+                                     "option enabled."
                                      " The application runs headless and "
                                      "useful information is printed to "
                                      "standard out and error."));

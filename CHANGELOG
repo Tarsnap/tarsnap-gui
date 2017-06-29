@@ -2,6 +2,10 @@ Version 1.0
 -----------
 
 New features:
+* Automatic Job backup scheduling can now be enabled in Settings -> Backup.
+Launchd service on MacOS and CRON on Linux/BSD will be used. Individual Job
+scheduling intervals Daily, Weekly and Monthly can be enabled individually for
+each Job.
 * The app has full I18N support and sports full translation to other languages.
 By default the app will use the language set on your system, though currently
 there is only one extra translation, Romanian, my native language :-). You can
@@ -9,12 +13,17 @@ override the language setting in Settings -> Application. We need your help
 for extra languages, if you'd like to offer a translation to your native
 language get in touch with us and we'll provide the necessary support needed
 for you to do that.
+* Add Archives/Jobs tab headers. Displays archive,job count and search tool
+icon. Can be hidden via the menu bar. 
 * Added the ability to search/filter in the Archive and Job lists. Press
 CTRL+F keyboard shortcut in the Archives and Jobs panes respectively and the
 filter box will appear. You can use shell globbing patterns to filter or
 simple text to search.
-* Truncated archives are now distinguished as such. Also significant
-improvements to the archive contents parsing and listing.
+* Truncated and empty archives are now distinguished as such. Also significant
+improvements to archive contents parsing and listing.
+* Settings pane has been overhauled and options have been regrouped into the
+following categories, Account, Backup & Application.
+* FilePicker dialog is now more reliable and robust then before.
 * FilePicker display settings like ShowHidden, ShowSystem are now remembered
 on a per Job basis. This fixes the issue where selected files and dirs that
 are not visible by default in the FilePicker were not being displayed in the
@@ -28,6 +37,7 @@ app or system reset.
 Archive&Jobs lists. Top that with the ability to restore individual/select
 files from your archives.
 * You can run concurrent restore operations now.
+* Console log can now be saved to a file. Option available in Settings -> App.
 
 Improvements and fixes:
 * Homebrew recipe now uses mac-deploy-qt to install Tarsnap.app on your system.
@@ -35,10 +45,15 @@ Improvements and fixes:
 * Remember last desktop position and window geometry and restore on launch.
 * Many memory and performance improvements. The app should be much faster,
 easier on resources and more robust than ever.
+* Archives sync with remote is now smarter and less redundant.
+* Greatly improved restore behavior and UI.
+* The Setup Wizard has been redesigned and further improved. There's only 4
+pages now of which only 2 are for configuration.
 * Various improvements to the Archives list, including but not limited to:
   * Grey out Job prefix and timestamp suffix;
   * Removed useless icon on the left of each item;
-  * 
+  * Archives are now properly enabled/disabled after failed/canceled delete
+  tasks;
 * Significant improvements to error handling and reporting:
   * Warn when a keyfile is missing or a cachedir is not found.
   * Forward critical CLI errors such as network not available.
@@ -55,6 +70,14 @@ to:
   keyboard shortcut for triggering the said action;
   * Added menu bar actions for platforms that harness a unified menu bar like
  OS X and Ubuntu Unity;
+* Purge archives operation has been renamed to Nuke to be in line with the CLI
+action.
+* Console log output is truncated now for list archives and archive contents
+operations which can produce enormous amounts of text. This significantly
+reduces memory usage and improves performance for those cases.
+* Ignore default tarsnap config files by default (--no-default-config).
+* Code wise, there's Doxygen comments now, many improvements, cleanups and
+refactorings resulting in a much improved code base. 
 
 
 Caveats:

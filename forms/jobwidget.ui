@@ -303,7 +303,7 @@ alignment: center;
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QLabel" name="label_2">
+              <widget class="QLabel" name="auomaticBackupScheduleLabel">
                <property name="toolTip">
                 <string>Set automatic backup frequency for this Job. Job scheduling must be enabled in Settings.</string>
                </property>
@@ -432,7 +432,7 @@ alignment: center;
               </widget>
              </item>
              <item row="6" column="0">
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="skipFilesLargerLabel">
                <property name="text">
                 <string>Skip files larger than</string>
                </property>

@@ -497,7 +497,7 @@ border: 1px solid darkgrey;
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <layout class="QHBoxLayout" name="archivesFilterFrameLayout">
               <property name="leftMargin">
                <number>0</number>
               </property>
@@ -657,7 +657,7 @@ margin-bottom: -1px;
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
-             <layout class="QHBoxLayout" name="archivesHeaderHL_2">
+             <layout class="QHBoxLayout" name="jobsHeaderLayout">
               <property name="spacing">
                <number>0</number>
               </property>
@@ -730,7 +730,7 @@ border: 1px solid darkgrey;
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <layout class="QHBoxLayout" name="jobsFilterFrameLayout">
               <property name="leftMargin">
                <number>0</number>
               </property>
@@ -2244,7 +2244,7 @@ margin: 1px 0px 0px 6px;
           <attribute name="toolTip">
            <string>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <layout class="QVBoxLayout" name="helpTabLayout">
            <property name="spacing">
             <number>3</number>
            </property>
@@ -2333,7 +2333,7 @@ border-top: 2px groove darkgrey;
               <property name="title">
                <string>Console log</string>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_2">
+              <layout class="QVBoxLayout" name="consoleGroupBoxLayout">
                <property name="spacing">
                 <number>0</number>
                </property>

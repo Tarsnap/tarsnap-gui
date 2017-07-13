@@ -59,6 +59,8 @@ public slots:
     void saveKeyId(QString key, int id);
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
+    //! The "About" window was closed.
+    void showAboutClosed(int result);
 
 signals:
     //! Begin tarsnap -c -f \<name\>
@@ -140,7 +142,7 @@ private slots:
     void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
     void createJobClicked();
-    void showAbout();
+    void aboutButtonClicked();
     void mainTabChanged(int index);
     void validateBackupTab();
     void enableJobScheduling();
@@ -157,6 +159,7 @@ private:
     TarsnapAccount _tarsnapAccount;
     bool           _aboutToQuit;
     QString        _helpTabHTML;
+    QDialog        _aboutWindow;
 
     void updateUi();
 };

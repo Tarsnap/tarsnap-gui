@@ -145,7 +145,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Settings pane
     loadSettings();
-    connect(_ui.aboutButton, &QPushButton::clicked, this, &MainWindow::showAbout);
+    connect(_ui.aboutButton, &QPushButton::clicked, this,
+            &MainWindow::aboutButtonClicked);
     connect(_ui.accountUserLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
     connect(_ui.accountMachineLineEdit, &QLineEdit::editingFinished, this,
@@ -421,6 +422,21 @@ MainWindow::MainWindow(QWidget *parent)
             [&](bool checked) { _ui.archivesHeader->setVisible(checked); });
     connect(_ui.actionShowJobsTabHeader, &QAction::triggered,
             [&](bool checked) { _ui.jobsHeader->setVisible(checked); });
+
+    // Initialize About window
+    Ui::aboutWidget aboutUi;
+    aboutUi.setupUi(&_aboutWindow);
+    aboutUi.versionLabel->setText(tr("GUI version ")
+                                  + QCoreApplication::applicationVersion());
+    _aboutWindow.setWindowFlags(
+        (_aboutWindow.windowFlags() | Qt::CustomizeWindowHint)
+        & ~Qt::WindowMaximizeButtonHint);
+    connect(aboutUi.checkUpdateButton, &QPushButton::clicked, []() {
+        QDesktopServices::openUrl(
+            QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
+    });
+    connect(&_aboutWindow, &QDialog::finished, this,
+            &MainWindow::showAboutClosed);
 }
 
 MainWindow::~MainWindow()
@@ -694,7 +710,8 @@ void MainWindow::setupMenuBar()
 
     QAction *actionAbout = new QAction(this);
     actionAbout->setMenuRole(QAction::AboutRole);
-    connect(actionAbout, &QAction::triggered, this, &MainWindow::showAbout);
+    connect(actionAbout, &QAction::triggered, this,
+            &MainWindow::aboutButtonClicked);
     QAction *actionSettings = new QAction(this);
     actionSettings->setMenuRole(QAction::PreferencesRole);
     connect(actionSettings, &QAction::triggered, _ui.actionGoSettings,
@@ -824,22 +841,18 @@ void MainWindow::createJobClicked()
     _ui.addJobButton->setProperty("save", true);
 }
 
-void MainWindow::showAbout()
+void MainWindow::aboutButtonClicked()
 {
-    QDialog *       aboutWindow = new QDialog(this);
-    Ui::aboutWidget aboutUi;
-    aboutUi.setupUi(aboutWindow);
-    aboutUi.versionLabel->setText(tr("GUI version ")
-                                  + QCoreApplication::applicationVersion());
-    aboutWindow->setAttribute(Qt::WA_DeleteOnClose, true);
-    aboutWindow->setWindowFlags(
-        (aboutWindow->windowFlags() | Qt::CustomizeWindowHint)
-        & ~Qt::WindowMaximizeButtonHint);
-    connect(aboutUi.checkUpdateButton, &QPushButton::clicked, []() {
-        QDesktopServices::openUrl(
-            QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
-    });
-    aboutWindow->show();
+    if (_aboutWindow.isVisible()) {
+        _ui.aboutButton->setChecked(true);
+    } else {
+        _aboutWindow.show();
+    }
+}
+
+void MainWindow::showAboutClosed(int result) {
+    (void)result; /* UNUSED */
+    _ui.aboutButton->setChecked(false);
 }
 
 void MainWindow::mainTabChanged(int index)

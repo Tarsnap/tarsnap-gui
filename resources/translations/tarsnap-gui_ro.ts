@@ -163,12 +163,17 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
         <translation>Dimensiune arhivă:</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="219"/>
+        <location filename="../../forms/archivewidget.ui" line="187"/>
+        <source>Qt::ElideMiddle</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../forms/archivewidget.ui" line="222"/>
         <source>Actual size occupied on Tarsnap</source>
         <translation>Dimensiune actuală pe serverele Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="222"/>
+        <location filename="../../forms/archivewidget.ui" line="225"/>
         <source>Unique data:</source>
         <translation>Date unice:</translation>
     </message>
@@ -178,12 +183,12 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
         <translation>Data creării</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="273"/>
+        <location filename="../../forms/archivewidget.ui" line="276"/>
         <source>Date created</source>
         <translation>Data creării</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="276"/>
+        <location filename="../../forms/archivewidget.ui" line="279"/>
         <source>Date:</source>
         <translation>Data creării:</translation>
     </message>
@@ -193,7 +198,7 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
         <translation>Dimensiune originală</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="335"/>
+        <location filename="../../forms/archivewidget.ui" line="338"/>
         <source>The Job this archive belongs to</source>
         <translation>Jobul de care această arhivă aparține</translation>
     </message>
@@ -209,28 +214,28 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
     </message>
     <message>
         <location filename="../../forms/archivewidget.ui" line="118"/>
-        <location filename="../../forms/archivewidget.ui" line="235"/>
+        <location filename="../../forms/archivewidget.ui" line="238"/>
         <source>Command used to create the archive</source>
         <translation>Linia de comandă folosită la crearea acestei arhive</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="238"/>
+        <location filename="../../forms/archivewidget.ui" line="241"/>
         <source>Command:</source>
         <translation>Linia de comandă:</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="197"/>
-        <location filename="../../forms/archivewidget.ui" line="289"/>
+        <location filename="../../forms/archivewidget.ui" line="200"/>
+        <location filename="../../forms/archivewidget.ui" line="292"/>
         <source>Archive name</source>
         <translation>Nume arhivă</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="200"/>
+        <location filename="../../forms/archivewidget.ui" line="203"/>
         <source>Name:</source>
         <translation>Nume:</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="254"/>
+        <location filename="../../forms/archivewidget.ui" line="257"/>
         <source>Actual size occupied on Tarsnap server</source>
         <translation>Dimensiune actuală pe serverele Tarsnap</translation>
     </message>
@@ -239,32 +244,32 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
         <translation type="vanished">Această arhivă a fost intreruptă și este posibil să fie incompletă</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="386"/>
+        <location filename="../../forms/archivewidget.ui" line="389"/>
         <source>Contents</source>
         <translation>Conținut</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="408"/>
+        <location filename="../../forms/archivewidget.ui" line="411"/>
         <source>Show/hide search and filter Archive contents box &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation>Arată/ascunde instrumentul de căutare și filtrare conținut arhivă &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="429"/>
+        <location filename="../../forms/archivewidget.ui" line="432"/>
         <source>Ctrl+Shift+F</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="441"/>
+        <location filename="../../forms/archivewidget.ui" line="444"/>
         <source>Search and filter Archive contents, shell globbing patterns can be used</source>
         <translation>Caută și filtrează conținutul arhivei, se pot folosi &quot;shell globbing patterns&quot;</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="508"/>
+        <location filename="../../forms/archivewidget.ui" line="511"/>
         <source>Restore file(s)</source>
         <translation>Restaurează fișier(e)</translation>
     </message>
     <message>
-        <location filename="../../forms/archivewidget.ui" line="511"/>
+        <location filename="../../forms/archivewidget.ui" line="514"/>
         <source>Restore selected file(s)</source>
         <translation>Restaurează fișierele selectate</translation>
     </message>
@@ -355,7 +360,7 @@ Adaugă oricum?</translation>
     </message>
     <message>
         <location filename="../../src/coreapplication.cpp" line="59"/>
-        <source>Executes all jobs sequentially that have the &apos;Include in scheduled backups&apos; option checked. The application runs headless and useful information is printed to standard out and error.</source>
+        <source>Executes all Jobs sequentially that have the &apos;Automatic backup schedule&apos; option enabled. The application runs headless and useful information is printed to standard out and error.</source>
         <translation></translation>
     </message>
     <message>
@@ -506,8 +511,8 @@ Adaugă oricum?</translation>
     <name>JobListWidget</name>
     <message>
         <location filename="../../src/widgets/joblistwidget.cpp" line="28"/>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="135"/>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="147"/>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="138"/>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="150"/>
         <source>Confirm action</source>
         <translation>Confirmare acțiune</translation>
     </message>
@@ -517,12 +522,12 @@ Adaugă oricum?</translation>
         <translation>Inițiază backup pentru %1 Joburi selectate?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="136"/>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="139"/>
         <source>Are you sure you want to delete job &quot;%1&quot; (this cannot be undone)?</source>
         <translation>Ești sigur că dorești să ștergi Jobul %1 (acțiunea este ireversibilă)?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/joblistwidget.cpp" line="148"/>
+        <location filename="../../src/widgets/joblistwidget.cpp" line="151"/>
         <source>Also delete %1 archives belonging to this job (this cannot be undone)?</source>
         <translation>Dorești să ștergi și cele %1 arhive aparținând acestui Job (acțiunea este ireversibilă)?</translation>
     </message>
@@ -626,9 +631,13 @@ Adaugă oricum?</translation>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/joblistwidgetitem.cpp" line="46"/>
         <source>No backup done yet</source>
-        <translation>Niciun backup efectuat</translation>
+        <translation type="vanished">Niciun backup efectuat</translation>
+    </message>
+    <message>
+        <location filename="../../src/widgets/joblistwidgetitem.cpp" line="46"/>
+        <source>No backups</source>
+        <translation>Niciun backup</translation>
     </message>
     <message>
         <location filename="../../src/widgets/joblistwidgetitem.cpp" line="53"/>
@@ -897,32 +906,32 @@ Adaugă oricum?</translation>
     </message>
     <message>
         <location filename="../../src/widgets/jobwidget.cpp" line="198"/>
-        <location filename="../../src/widgets/jobwidget.cpp" line="243"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="244"/>
         <source>Archives (%1)</source>
         <translation>Arhive (%1)</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="284"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="288"/>
         <source>No backup paths selected.</source>
         <translation>Nu ai selectat nicio cale din sistemul de fișiere.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="291"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="295"/>
         <source>Job name must be unique amongst existing Jobs.</source>
         <translation>Numele Jobului nou trebuie sa fie unic.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="326"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="330"/>
         <source>Previously selected backup paths for this Job are not accessible anymore and thus backups may be incomplete. Mount missing drives or make a new selection. Press Show details to list all backup paths for Job %1:</source>
         <translation>Căile de backup anterior definite pentru acest Job nu mai sunt accesibile, prin urmare, backupul poate fi incomplet. Montează dispozitivele lipsă sau redefinește caile aferente acestui Job. Apasă afișați detalii pentu a lista căile definite pentru Jobul %1:</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="352"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="356"/>
         <source>This Job has no backup paths selected. Please make a selection.</source>
         <translation>Acest Job nu are nicio cale de backup definită. Vă rugam să faceți o selecție.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/jobwidget.cpp" line="357"/>
+        <location filename="../../src/widgets/jobwidget.cpp" line="361"/>
         <source>Previously selected backup paths are not accessible. Click here for details.</source>
         <translation>Căile de backup anterior definite pentru acest Job nu mai sunt accesibile. Apasă aici pentru detalii.</translation>
     </message>
@@ -938,8 +947,8 @@ Adaugă oricum?</translation>
         <location filename="../../forms/mainwindow.ui" line="128"/>
         <location filename="../../forms/mainwindow.ui" line="381"/>
         <location filename="../../forms/mainwindow.ui" line="1536"/>
-        <location filename="../../forms/mainwindow.ui" line="2907"/>
-        <location filename="../../forms/mainwindow.ui" line="2967"/>
+        <location filename="../../forms/mainwindow.ui" line="2776"/>
+        <location filename="../../forms/mainwindow.ui" line="2836"/>
         <source>Backup</source>
         <translation>Backup</translation>
     </message>
@@ -1020,7 +1029,7 @@ Adaugă oricum?</translation>
     <message>
         <location filename="../../forms/mainwindow.ui" line="749"/>
         <source>Search and filter the Jobs list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Caută și filtrează în lista de Joburi, se pot folosi &quot;shell globbing patterns&quot; &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt; </translation>
+        <translation>Caută și filtrează în lista de Joburi, se pot folosi &quot;shell globbing patterns&quot; &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="805"/>
@@ -1053,18 +1062,12 @@ Adaugă oricum?</translation>
         <translation>Adaugă Job nou &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2341"/>
-        <source>The Tarsnap GUI front-end is an open source cross-platform Graphical User Interface for the popular Tarsnap secure online backup service which is as easy to use, light, and open as the Tarsnap command-line client itself. In order to use the graphical front-end you need to create a Tarsnap account and install the command-line tools by following &lt;a href=&quot;https://www.tarsnap.com/gettingstarted.html&quot;&gt;these steps&lt;/a&gt;.
-Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-gui&quot;&gt;Github&lt;/a&gt; and issues can be reported &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-gui/issues&quot;&gt;here&lt;/a&gt;. For general announcements, support and inquiries, see &lt;a href=&quot;https://www.tarsnap.com/support.html&quot;&gt;Tarsnap support&lt;/a&gt;. For help regarding Tarsnap GUI, please visit the &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-gui/wiki&quot;&gt;Github Wiki&lt;/a&gt;.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../forms/mainwindow.ui" line="2693"/>
+        <location filename="../../forms/mainwindow.ui" line="2562"/>
         <source>Ctrl+Backspace</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2772"/>
+        <location filename="../../forms/mainwindow.ui" line="2641"/>
         <source>Add Job</source>
         <translation>Adaugă Job</translation>
     </message>
@@ -1144,7 +1147,7 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
     <message>
         <location filename="../../forms/mainwindow.ui" line="1252"/>
         <source>Show account activity, requires Tarsnap login</source>
-        <translation>Arată activitatea contului, necesită logare cu credențiale </translation>
+        <translation>Arată activitatea contului, necesită logare cu credențiale</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="1263"/>
@@ -1232,30 +1235,30 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="1425"/>
-        <location filename="../../forms/mainwindow.ui" line="1957"/>
-        <location filename="../../forms/mainwindow.ui" line="2048"/>
-        <location filename="../../forms/mainwindow.ui" line="2094"/>
-        <location filename="../../forms/mainwindow.ui" line="2140"/>
+        <location filename="../../forms/mainwindow.ui" line="1963"/>
+        <location filename="../../forms/mainwindow.ui" line="2054"/>
+        <location filename="../../forms/mainwindow.ui" line="2100"/>
+        <location filename="../../forms/mainwindow.ui" line="2146"/>
         <source>change</source>
         <translation>schimbă</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1852"/>
+        <location filename="../../forms/mainwindow.ui" line="1858"/>
         <source>Application</source>
         <translation>Setări aplicație</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1977"/>
+        <location filename="../../forms/mainwindow.ui" line="1983"/>
         <source>Control whether desktop notifications are displayed or not; only for supported platforms</source>
         <translation>Controlează dacă notificările desktop sunt afișate; doar pentru platformele suportate</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1980"/>
+        <location filename="../../forms/mainwindow.ui" line="1986"/>
         <source>Show desktop notifications</source>
         <translation>Arată notificări desktop</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2075"/>
+        <location filename="../../forms/mainwindow.ui" line="2081"/>
         <source>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</source>
         <translation>Standardul SI folosește prefixuri octet folosind baza 10, iar standardul IEC baza 2</translation>
     </message>
@@ -1363,12 +1366,12 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
         <translation type="vanished">Director descărcări:</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2026"/>
+        <location filename="../../forms/mainwindow.ui" line="2032"/>
         <source>The directory where archives are restored to by default</source>
         <translation>Directorul folosit implicit pentru restaurarea arhivelor</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2137"/>
+        <location filename="../../forms/mainwindow.ui" line="2143"/>
         <source>Browse for Downloads directory</source>
         <translation>Schimbă director descărcări</translation>
     </message>
@@ -1379,7 +1382,7 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
     <message>
         <location filename="../../forms/mainwindow.ui" line="1769"/>
         <source>Limit upload bandwidth rate to kilobits per second</source>
-        <translation>Limitează lățimea de bandă la încarcare în kilo-biți pe secundă </translation>
+        <translation>Limitează lățimea de bandă la încarcare în kilo-biți pe secundă</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="1585"/>
@@ -1394,7 +1397,7 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
     <message>
         <location filename="../../forms/mainwindow.ui" line="1576"/>
         <source>Limit download bandwidth rate to kilobits per second</source>
-        <translation>Limitează lățimea de bandă la descărcare în kilo-biți pe secundă </translation>
+        <translation>Limitează lățimea de bandă la descărcare în kilo-biți pe secundă</translation>
     </message>
     <message>
         <source>Language:</source>
@@ -1405,12 +1408,12 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
         <translation type="vanished">Setări avansate</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1954"/>
+        <location filename="../../forms/mainwindow.ui" line="1960"/>
         <source>Browse for Tarsnap CLI utilities directory</source>
         <translation>Navighează după utilitarele la linia de comandă Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2160"/>
+        <location filename="../../forms/mainwindow.ui" line="2166"/>
         <source>Tarsnap caches information about what it has uploaded in a local directory</source>
         <translation>Tarsnap folosește un director local &quot;cache&quot; pentru a stoca informații de lucru</translation>
     </message>
@@ -1429,53 +1432,53 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
         <translation>Activează mod simulare (funcție utilă la estimarea costurilor de stocare)</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2173"/>
+        <location filename="../../forms/mainwindow.ui" line="2179"/>
         <source>Directory to use as Tarsnap cache</source>
         <translation>Directorul cache local folosit de Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2163"/>
-        <location filename="../../forms/mainwindow.ui" line="2179"/>
+        <location filename="../../forms/mainwindow.ui" line="2169"/>
+        <location filename="../../forms/mainwindow.ui" line="2185"/>
         <source>Tarsnap cache directory</source>
         <translation>Directorul cache Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1912"/>
+        <location filename="../../forms/mainwindow.ui" line="1918"/>
         <source>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</source>
-        <translation>Repară posibilele probleme cu directorul cache folosind comanda &quot;--fsck&quot; </translation>
+        <translation>Repară posibilele probleme cu directorul cache folosind comanda &quot;--fsck&quot;</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1915"/>
+        <location filename="../../forms/mainwindow.ui" line="1921"/>
         <source>Repair cache</source>
         <translation>Repară director cache</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2045"/>
+        <location filename="../../forms/mainwindow.ui" line="2051"/>
         <source>Browse for Tarsnap cache directory</source>
         <translation>Schimbă director cache Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2192"/>
+        <location filename="../../forms/mainwindow.ui" line="2198"/>
         <source>Reset app settings and run Setup Wizard</source>
         <translation>Resetează aplicația la valorile standard și rulează Asistentul de Configurare</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2195"/>
+        <location filename="../../forms/mainwindow.ui" line="2201"/>
         <source>Run setup wizard</source>
         <translation>Rulează asistentul de configurare</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1899"/>
+        <location filename="../../forms/mainwindow.ui" line="1905"/>
         <source>Directory where the Tarsnap CLI utilities reside</source>
         <translation>Directorul unde se regăsesc utilitarele la linia de comandă Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1905"/>
+        <location filename="../../forms/mainwindow.ui" line="1911"/>
         <source>Tarsnap client utilities directory</source>
         <translation>Utilitarele la linia de comandă Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2006"/>
+        <location filename="../../forms/mainwindow.ui" line="2012"/>
         <source>The app data directory is used to store application settings and data</source>
         <translation>Directorul de date al aplicației este folosit pentru a stoca setările și datele aplicației</translation>
     </message>
@@ -1493,18 +1496,18 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
         <translation type="vanished">Șterge toate arhivele </translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2108"/>
+        <location filename="../../forms/mainwindow.ui" line="2114"/>
         <source>Directory to use for app data</source>
         <translation>Directorul de date al aplicației</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2009"/>
-        <location filename="../../forms/mainwindow.ui" line="2114"/>
+        <location filename="../../forms/mainwindow.ui" line="2015"/>
+        <location filename="../../forms/mainwindow.ui" line="2120"/>
         <source>App data directory</source>
         <translation>Directorul de date al aplicației</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1935"/>
+        <location filename="../../forms/mainwindow.ui" line="1941"/>
         <source>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</source>
         <translation>Utilitarele la linia de comandă sunt folosite pentru a comunica cu serviciul Tarsnap</translation>
     </message>
@@ -1513,12 +1516,12 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
         <translation type="vanished">Utilitarele la linia de comandă Tarsnap:</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1996"/>
+        <location filename="../../forms/mainwindow.ui" line="2002"/>
         <source>Tarsnap CLI utilities version</source>
         <translation>Versiune utilitare la linia de comandă</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2091"/>
+        <location filename="../../forms/mainwindow.ui" line="2097"/>
         <source>Browse for app data directory</source>
         <translation>Schimbă</translation>
     </message>
@@ -1610,449 +1613,417 @@ Source code is available at &lt;a href=&quot;https://github.com/Tarsnap/tarsnap-
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="1820"/>
+        <source>Register Tarsnap GUI with the platform scheduler to enable automatic Job backups</source>
+        <translation>Înregistrează aplicația cu serviciul de programare al sistemului de operare? Această acțiune va activa programarea execuțiilor automate pentru Joburi.</translation>
+    </message>
+    <message>
+        <location filename="../../forms/mainwindow.ui" line="1823"/>
         <source>Enable Job scheduling</source>
         <translation>Activează programarea execuției automate</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1833"/>
+        <location filename="../../forms/mainwindow.ui" line="1836"/>
+        <source>Deregister Tarsnap GUI from the platform scheduler to disable automatic Job backups</source>
+        <translation>Dorești anularea înregistrării aplicației cu serviciul de programare al sistemului de operare? Această acțiune va dezactiva programarea execuțiilor automate pentru Joburi.</translation>
+    </message>
+    <message>
+        <location filename="../../forms/mainwindow.ui" line="1839"/>
         <source>Disable Job scheduling</source>
         <translation>Dezactivează programarea execuției automate</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1882"/>
+        <location filename="../../forms/mainwindow.ui" line="1888"/>
         <source>Clear Journal log of all entries</source>
         <translation>Elimină toate intrarile din Jurnal</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1885"/>
+        <location filename="../../forms/mainwindow.ui" line="1891"/>
         <source>Clear journal</source>
         <translation>Golește jurnal</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1892"/>
+        <location filename="../../forms/mainwindow.ui" line="1898"/>
         <source>Save Console Log to file</source>
         <translation>Salvează Jurnal consolă în fișier</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1928"/>
+        <location filename="../../forms/mainwindow.ui" line="1934"/>
         <source>Language</source>
         <translation>Limbă</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1938"/>
+        <location filename="../../forms/mainwindow.ui" line="1944"/>
         <source>Tarsnap client directory</source>
         <translation>Utilitarele la linia de comandă Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1964"/>
+        <location filename="../../forms/mainwindow.ui" line="1970"/>
         <source>Tarsnap command-line utilities version</source>
         <translation>Versiune utilitare la linia de comandă</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="1967"/>
+        <location filename="../../forms/mainwindow.ui" line="1973"/>
         <source>Tarsnap client version</source>
         <translation>Versiune utilitare la linia de comandă</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2032"/>
+        <location filename="../../forms/mainwindow.ui" line="2038"/>
         <source>Default restore directory</source>
         <translation>Director de bază la restaurare</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2078"/>
+        <location filename="../../forms/mainwindow.ui" line="2084"/>
         <source>Display byte sizes in IEC notation (default is SI)</source>
         <translation>Folosește notația IEC pentru dimensiuni în octeți (implicit se afișează notația SI)</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2121"/>
+        <location filename="../../forms/mainwindow.ui" line="2127"/>
         <source>Downloads directory</source>
         <translation>Director descărcări</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2241"/>
+        <location filename="../../forms/mainwindow.ui" line="2242"/>
         <source>Help</source>
         <translation>Ajutor</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2244"/>
+        <location filename="../../forms/mainwindow.ui" line="2245"/>
         <source>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation>Comută la panoul Ajutor &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2304"/>
         <source>Tarsnap help</source>
-        <translation>Ajutor Tarsnap</translation>
+        <translation type="vanished">Ajutor Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2331"/>
         <source>General help</source>
-        <translation>Ajutor general</translation>
+        <translation type="vanished">Ajutor general</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2358"/>
+        <location filename="../../forms/mainwindow.ui" line="2321"/>
         <source>About Tarsnap</source>
         <translation>Despre Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2368"/>
         <source>Keyboard shortcuts</source>
-        <translation>Comenzi tastatură</translation>
+        <translation type="vanished">Comenzi tastatură</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2398"/>
+        <location filename="../../forms/mainwindow.ui" line="2297"/>
         <source>Keyboard shortcuts list</source>
         <translation>Listă comenzi tastatura</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2415"/>
-        <source>Global
-------
-%1[1-5] - switch between Backup, Archives.. main tabs
-%1J     - toggle the Journal log
-%1K     - stop, interrupt or clear queued tasks
-
-Backup tab
-----------
-%1B         - execute Backup for current list
-%1O         - open the File Browser
-%3, %4      - remove selected item(s) from the Backup list
-%1%3, %1%4  - clear the Backup list
-
-Archives tab
-------------
-%1R    - refresh the Archives list
-%1I    - inspect selected Archive
-%1S    - restore selected Archive
-%1D    - delete selected Archive(s)
-%1F    - search and filter the Archives list
-
-Jobs tab
---------
-%1N    - add new Job
-%1B    - execute backup for selected Job(s)
-%2B    - execute backup for all Jobs
-%1I    - inspect selected Job
-%1S    - restore selected Job
-%1D    - delete selected Job
-%1F    - search and filter the Jobs list
-
-Settings tab
-------------
-%1U - update Account Summary
-</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../forms/mainwindow.ui" line="2468"/>
+        <location filename="../../forms/mainwindow.ui" line="2337"/>
         <source>Console log</source>
         <translation>Jurnal consolă</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2492"/>
+        <location filename="../../forms/mainwindow.ui" line="2361"/>
         <source>Console command log</source>
         <translation>Jurnal de comandă al consolei</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2529"/>
+        <location filename="../../forms/mainwindow.ui" line="2398"/>
         <source>Journal log</source>
         <translation>Jurnal</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2605"/>
+        <location filename="../../forms/mainwindow.ui" line="2474"/>
         <source>Status bar (displays the latest Journal message)</source>
         <translation>Bara de stare (afișează ultimul mesaj Jurnal)</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2633"/>
+        <location filename="../../forms/mainwindow.ui" line="2502"/>
         <source>Simulation mode is ON. No new archives will be uploaded to the Tarsnap servers. Disable this in Settings for normal operation.</source>
         <translation>Modul simulare este activat. Arhivele noi nu vor fi încarcate pe serverele Tarsnap. Poți dezactiva această opțiune din panoul Setări Avansate.</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2658"/>
+        <location filename="../../forms/mainwindow.ui" line="2527"/>
         <source>Tarsnap is busy running chores, click to change that &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation>Există activitați în curs de desfașurare, fă click pentru a modifica &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2672"/>
+        <location filename="../../forms/mainwindow.ui" line="2541"/>
         <source>Refresh</source>
         <translation>Actualizează</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2675"/>
+        <location filename="../../forms/mainwindow.ui" line="2544"/>
         <source>Reload archives list from Tarsnap server</source>
         <translation>Actualizează lista de arhive de pe serverele Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2678"/>
+        <location filename="../../forms/mainwindow.ui" line="2547"/>
         <source>Ctrl+R</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2687"/>
-        <location filename="../../forms/mainwindow.ui" line="2690"/>
+        <location filename="../../forms/mainwindow.ui" line="2556"/>
+        <location filename="../../forms/mainwindow.ui" line="2559"/>
         <source>Clear list</source>
         <translation>Golește lista</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2702"/>
+        <location filename="../../forms/mainwindow.ui" line="2571"/>
         <source>Open File Browser</source>
         <translation>Deschide Navigatorul de Fișiere</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2705"/>
+        <location filename="../../forms/mainwindow.ui" line="2574"/>
         <source>Set files and directories for the Backup tab</source>
         <translation>Selectează fișierele și directoarele de adăugat la lista de backup</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2708"/>
+        <location filename="../../forms/mainwindow.ui" line="2577"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2713"/>
+        <location filename="../../forms/mainwindow.ui" line="2582"/>
         <source>Go to Backup</source>
         <translation>Comută la panoul Backup</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2716"/>
+        <location filename="../../forms/mainwindow.ui" line="2585"/>
         <source>Switch to Backup pane</source>
         <translation>Comută la panoul Backup</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2719"/>
+        <location filename="../../forms/mainwindow.ui" line="2588"/>
         <source>Ctrl+1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2724"/>
+        <location filename="../../forms/mainwindow.ui" line="2593"/>
         <source>Go to Archives</source>
         <translation>Comută la panoul Arhive</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2727"/>
+        <location filename="../../forms/mainwindow.ui" line="2596"/>
         <source>Switch to Archives pane</source>
         <translation>Comută la panoul Arhive</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2730"/>
+        <location filename="../../forms/mainwindow.ui" line="2599"/>
         <source>Ctrl+2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2735"/>
+        <location filename="../../forms/mainwindow.ui" line="2604"/>
         <source>Go to Jobs</source>
         <translation>Comută la panoul Joburi</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2738"/>
+        <location filename="../../forms/mainwindow.ui" line="2607"/>
         <source>Switch to Jobs pane</source>
         <translation>Comută la panoul Joburi</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2741"/>
+        <location filename="../../forms/mainwindow.ui" line="2610"/>
         <source>Ctrl+3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2746"/>
+        <location filename="../../forms/mainwindow.ui" line="2615"/>
         <source>Go to Settings</source>
         <translation>Comută la panoul Setări</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2749"/>
+        <location filename="../../forms/mainwindow.ui" line="2618"/>
         <source>Switch to Settings pane</source>
         <translation>Comută la panoul Setări</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2752"/>
+        <location filename="../../forms/mainwindow.ui" line="2621"/>
         <source>Ctrl+4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2757"/>
+        <location filename="../../forms/mainwindow.ui" line="2626"/>
         <source>Go to Help</source>
         <translation>Comută la panoul Ajutor</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2760"/>
+        <location filename="../../forms/mainwindow.ui" line="2629"/>
         <source>Switch to Help pane</source>
         <translation>Comută la panoul Ajutor</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2763"/>
+        <location filename="../../forms/mainwindow.ui" line="2632"/>
         <source>Ctrl+5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2775"/>
+        <location filename="../../forms/mainwindow.ui" line="2644"/>
         <source>Add a new job</source>
         <translation>Adaugă Job nou</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2778"/>
+        <location filename="../../forms/mainwindow.ui" line="2647"/>
         <source>Ctrl+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2783"/>
+        <location filename="../../forms/mainwindow.ui" line="2652"/>
         <source>Update account details</source>
         <translation>Actualizează detalii cont</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2786"/>
+        <location filename="../../forms/mainwindow.ui" line="2655"/>
         <source>Update Tarsnap account details from website</source>
         <translation>Actualizează detalii cont Tarsnap de pe website</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2789"/>
+        <location filename="../../forms/mainwindow.ui" line="2658"/>
         <source>Ctrl+U</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2798"/>
+        <location filename="../../forms/mainwindow.ui" line="2667"/>
         <source>Backup all Jobs</source>
         <translation>Execută backup pentru toate Joburile</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2801"/>
+        <location filename="../../forms/mainwindow.ui" line="2670"/>
         <source>Backup all jobs now</source>
         <translation>Execută backup pentru toate Joburile</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2804"/>
+        <location filename="../../forms/mainwindow.ui" line="2673"/>
         <source>Ctrl+Shift+B</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2817"/>
+        <location filename="../../forms/mainwindow.ui" line="2686"/>
         <source>Show Journal</source>
         <translation>Arată Jurnal</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2820"/>
+        <location filename="../../forms/mainwindow.ui" line="2689"/>
         <source>Show/hide Journal log &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Arată/ascunde Jurnal &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt; </translation>
+        <translation>Arată/ascunde Jurnal &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2823"/>
+        <location filename="../../forms/mainwindow.ui" line="2692"/>
         <source>Ctrl+J</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2832"/>
-        <location filename="../../forms/mainwindow.ui" line="2922"/>
+        <location filename="../../forms/mainwindow.ui" line="2701"/>
+        <location filename="../../forms/mainwindow.ui" line="2791"/>
         <source>Delete</source>
         <translation>Șterge</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2835"/>
+        <location filename="../../forms/mainwindow.ui" line="2704"/>
         <source>Delete archive(s)</source>
         <translation>Șterge arhive</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2838"/>
-        <location filename="../../forms/mainwindow.ui" line="2928"/>
+        <location filename="../../forms/mainwindow.ui" line="2707"/>
+        <location filename="../../forms/mainwindow.ui" line="2797"/>
         <source>Ctrl+D</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2847"/>
-        <location filename="../../forms/mainwindow.ui" line="2892"/>
+        <location filename="../../forms/mainwindow.ui" line="2716"/>
+        <location filename="../../forms/mainwindow.ui" line="2761"/>
         <source>Inspect</source>
         <translation>Detalii</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2850"/>
+        <location filename="../../forms/mainwindow.ui" line="2719"/>
         <source>Inspect archive</source>
         <translation>Detalii Arhivă</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2853"/>
-        <location filename="../../forms/mainwindow.ui" line="2898"/>
+        <location filename="../../forms/mainwindow.ui" line="2722"/>
+        <location filename="../../forms/mainwindow.ui" line="2767"/>
         <source>Ctrl+I</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2862"/>
-        <location filename="../../forms/mainwindow.ui" line="2877"/>
+        <location filename="../../forms/mainwindow.ui" line="2731"/>
+        <location filename="../../forms/mainwindow.ui" line="2746"/>
         <source>Restore</source>
         <translation>Restaurează</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2865"/>
+        <location filename="../../forms/mainwindow.ui" line="2734"/>
         <source>Restore Archive</source>
         <translation>Restaurează Arhivă</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2868"/>
-        <location filename="../../forms/mainwindow.ui" line="2883"/>
+        <location filename="../../forms/mainwindow.ui" line="2737"/>
+        <location filename="../../forms/mainwindow.ui" line="2752"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2880"/>
+        <location filename="../../forms/mainwindow.ui" line="2749"/>
         <source>Restore latest backup</source>
         <translation>Restaurează din cel mai recent backup</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2895"/>
+        <location filename="../../forms/mainwindow.ui" line="2764"/>
         <source>Show job details</source>
         <translation>Arată detalii Job</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2910"/>
+        <location filename="../../forms/mainwindow.ui" line="2779"/>
         <source>Execute backup for job(s)</source>
         <translation>Execută backup</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2913"/>
-        <location filename="../../forms/mainwindow.ui" line="2973"/>
+        <location filename="../../forms/mainwindow.ui" line="2782"/>
+        <location filename="../../forms/mainwindow.ui" line="2842"/>
         <source>Ctrl+B</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2925"/>
+        <location filename="../../forms/mainwindow.ui" line="2794"/>
         <source>Delete job</source>
         <translation>Șterge Job</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2937"/>
+        <location filename="../../forms/mainwindow.ui" line="2806"/>
         <source>Morph into Job</source>
         <translation>Transformă în Job</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2940"/>
+        <location filename="../../forms/mainwindow.ui" line="2809"/>
         <source>Create Job from current Backup list</source>
         <translation>Crează Job folosind lista curentă de Backup</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2952"/>
-        <location filename="../../forms/mainwindow.ui" line="2996"/>
+        <location filename="../../forms/mainwindow.ui" line="2821"/>
+        <location filename="../../forms/mainwindow.ui" line="2865"/>
         <source>Filter and search</source>
         <translation>Filtrează și caută</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2999"/>
+        <location filename="../../forms/mainwindow.ui" line="2868"/>
         <source>Search and filter Jobs list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation>Caută și filtrează în lista de Joburi &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="3034"/>
+        <location filename="../../forms/mainwindow.ui" line="2903"/>
         <source>Show Archives tab header</source>
         <translation>Afișează antent pentru panoul Arhive</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="3037"/>
+        <location filename="../../forms/mainwindow.ui" line="2906"/>
         <source>Show/hide the Archives tab header</source>
         <translation>Afișează/ascunde antent pentru panoul Arhive</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="3045"/>
+        <location filename="../../forms/mainwindow.ui" line="2914"/>
         <source>Show Jobs tab header</source>
         <translation>Afișează antent pentru panoul Joburi</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="3048"/>
+        <location filename="../../forms/mainwindow.ui" line="2917"/>
         <source>Show/hide the Jobs tab header</source>
         <translation>Afișează/ascunde antent pentru panoul Joburi</translation>
     </message>
@@ -2063,33 +2034,33 @@ Settings tab
     <message>
         <location filename="../../forms/mainwindow.ui" line="485"/>
         <location filename="../../forms/mainwindow.ui" line="715"/>
-        <location filename="../../forms/mainwindow.ui" line="2958"/>
-        <location filename="../../forms/mainwindow.ui" line="3002"/>
+        <location filename="../../forms/mainwindow.ui" line="2827"/>
+        <location filename="../../forms/mainwindow.ui" line="2871"/>
         <source>Ctrl+F</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2955"/>
+        <location filename="../../forms/mainwindow.ui" line="2824"/>
         <source>Search and filter Archives list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation>Caută și filtrează în lista de Arhive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2970"/>
+        <location filename="../../forms/mainwindow.ui" line="2839"/>
         <source>Backup now &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation>Execută backup &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2978"/>
+        <location filename="../../forms/mainwindow.ui" line="2847"/>
         <source>Stop tasks</source>
         <translation>Oprește activitați</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2981"/>
+        <location filename="../../forms/mainwindow.ui" line="2850"/>
         <source>Stop, interrupt or clear queued tasks</source>
         <translation>Oprește, întrerupe sau elimină activitațile programate</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="2984"/>
+        <location filename="../../forms/mainwindow.ui" line="2853"/>
         <source>Ctrl+K</source>
         <translation></translation>
     </message>
@@ -2098,29 +2069,29 @@ Settings tab
         <translation type="vanished">Filtrează și caută în lista de Joburi</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="3011"/>
+        <location filename="../../forms/mainwindow.ui" line="2880"/>
         <source>Add file(s)</source>
         <translation>Adaugă fișiere</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="3014"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="124"/>
+        <location filename="../../forms/mainwindow.ui" line="2883"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="135"/>
         <source>Browse for files to add to the Backup list</source>
         <translation>Navighează după fișiere de adăugat la lista de Backup</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="3023"/>
+        <location filename="../../forms/mainwindow.ui" line="2892"/>
         <source>Add directory</source>
         <translation>Adaugă director</translation>
     </message>
     <message>
-        <location filename="../../forms/mainwindow.ui" line="3026"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="130"/>
+        <location filename="../../forms/mainwindow.ui" line="2895"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="141"/>
         <source>Browse for directory to add to the Backup list</source>
         <translation>Navighează după director de adăugat la lista de Backup</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1587"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1615"/>
         <source>Deleting all archives: press Cancel to abort</source>
         <translation>Se șterg toate arhivele: apasă Anulare pentru a renunța</translation>
     </message>
@@ -2137,34 +2108,34 @@ Settings tab
         <translation type="vanished">Jobul &lt;i&gt;%1&lt;/i&gt; a fost adăugat.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="355"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="367"/>
         <source>The new size notation will take global effect on application restart.</source>
         <translation>Opțiunea de afișare a dimensiunilor va avea efect global la următoarea repornire a aplicației.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="402"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="414"/>
         <source>Archives (%1/%2)</source>
         <translation>Arhive (%1/%2)</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="407"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="419"/>
         <source>Jobs (%1/%2)</source>
         <translation>Joburi (%1/%2)</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="425"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="427"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="450"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="452"/>
         <source>click login button</source>
         <translation>Execută Autentificare pentru actualizare</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="523"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="530"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="537"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="544"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1776"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1787"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1795"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="550"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="557"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="564"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="571"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1804"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1815"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1823"/>
         <source>Tarsnap error</source>
         <translation>Eroare Tarsnap</translation>
     </message>
@@ -2181,63 +2152,63 @@ Settings tab
         <translation type="vanished">Directorul &quot;cache&quot; Tarsnap este invalid. Navighează la panoul Setări -&gt; Avansat pentru a remedia.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="691"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="720"/>
         <source>&amp;Backup</source>
         <translation>&amp;Backup</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="699"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="728"/>
         <source>&amp;Archives</source>
         <translation>&amp;Arhive</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="706"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="735"/>
         <source>&amp;Jobs</source>
         <translation>&amp;Joburi</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="715"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="744"/>
         <source>&amp;Settings</source>
         <translation>&amp;Setări</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="718"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="747"/>
         <source>&amp;Window</source>
         <translation>&amp;Fereastră</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="720"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="749"/>
         <source>Minimize</source>
         <translation>Minimizează</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="723"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="752"/>
         <source>Zoom</source>
         <translation>Maximizează</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="725"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="735"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="754"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="764"/>
         <source>Enter Full Screen</source>
         <translation>Activează modul Ecran Complet</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="731"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="760"/>
         <source>Exit Full Screen</source>
         <translation>Dezactivează modul Ecran Complet</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="752"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="781"/>
         <source>&amp;Help</source>
         <translation>&amp;Ajutor</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="753"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="782"/>
         <source>Tarsnap Website</source>
         <translation>Website Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="777"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="806"/>
         <source>		Total size	Compressed size
 all archives	%1		%2
 unique data	%3		%4</source>
@@ -2252,9 +2223,9 @@ unique data	%3		%4</source>
         <translation type="vanished"> detectată</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="809"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1675"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1957"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="838"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1703"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1985"/>
         <source>Save</source>
         <translation>Salvează</translation>
     </message>
@@ -2263,68 +2234,68 @@ unique data	%3		%4</source>
         <translation type="vanished">versiune</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1216"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1244"/>
         <source>%1 %2 (%3)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1218"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1246"/>
         <source>item</source>
         <translation>element</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1218"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1246"/>
         <source>items</source>
         <translation>elemente</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1406"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1589"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1434"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1617"/>
         <source>Purging all archives in %1 seconds...</source>
         <translation>Toate arhivele vor fi șterse în %1 secunde...</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1481"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1509"/>
         <source>Job error</source>
         <translation>Eroare Job</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1482"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1510"/>
         <source>Job %1 has no backup paths selected. Nothing to back up.</source>
         <translation>Jobul %1 nu are nicio cale de backup definită, așadar backupul nu poate fi realizat. </translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1490"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1518"/>
         <source>Job warning</source>
         <translation>Avertizare Job</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1491"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1519"/>
         <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
         <translation>Căile de backup anterior definite pentru Jobul %1 nu mai sunt accesibile. Backupul poate fi incomplet, procedez?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1525"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1553"/>
         <source>Browse for existing machine key</source>
         <translation>Navighează după o cheie dispozitiv Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1536"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1564"/>
         <source>Find Tarsnap client</source>
         <translation>Navighează după utilitarele la linia de comandă Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1548"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1576"/>
         <source>Tarsnap cache location</source>
         <translation>Navighează după directorul &quot;cache&quot; Tarsnap</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1561"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1589"/>
         <source>App data directory location</source>
         <translation>Navighează după directorul de date al aplicației</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1572"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1600"/>
         <source>No Tomorrow</source>
         <translation></translation>
     </message>
@@ -2333,7 +2304,7 @@ unique data	%3		%4</source>
         <translation type="vanished">Elimin toate arhivele?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1576"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1604"/>
         <source>This action will &lt;b&gt;delete all (%1) archives&lt;/b&gt; stored for this key.&lt;br /&gt;&lt;br /&gt;To confirm, type &apos;%2&apos; and press OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Warning: This action cannot be undone. All archives will be &lt;b&gt;lost forever&lt;/b&gt;&lt;/i&gt;.</source>
         <translation>Această acțiune &lt;b&gt;va șterge toate cele (%1) arhive&lt;/b&gt; stocate pentru cheia curentă.&lt;br /&gt;&lt;br /&gt;Pentru a confirma, tastează &apos;%2&apos; și apasă butonul OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Avertisment: Această acțiune este ireversibilă. Arhivele vor fi șterse &lt;b&gt;definitiv&lt;/b&gt;, fără posibilitatea de a le recupera&lt;/i&gt;.</translation>
     </message>
@@ -2342,54 +2313,54 @@ unique data	%3		%4</source>
         <translation type="vanished">Eliminare arhive anulată.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="524"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="551"/>
         <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Application page to fix that.</source>
         <translation>Utilitarele la linia de comandă Tarsnap nu au fost găsite. Navighează la panoul Setări -&gt; Aplicație pentru a remedia.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="531"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="558"/>
         <source>Machine key file not found. Go to  Settings -&gt; Account page to fix that.</source>
         <translation>Cheia Tarsnap pentru acest dispozitiv nu a fost găsită. Navighează la panoul Setări -&gt; Cont pentru a remedia.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="538"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="565"/>
         <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
         <translation>Directorul &quot;cache&quot; Tarsnap este invalid. Navighează la panoul Setări -&gt; Aplicație pentru a remedia.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="545"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="572"/>
         <source>Application data dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
         <translation>Directorul de date al aplicației este invalid. Navighează la panoul Setări -&gt; Aplicație pentru a remedia.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="818"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="429"/>
         <source>GUI version </source>
         <translation>Versiune aplicație </translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="897"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="913"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="923"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="914"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="931"/>
         <location filename="../../src/widgets/mainwindow.cpp" line="942"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="954"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="959"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="984"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="996"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1051"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1060"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1075"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1088"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1097"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1119"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1129"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1136"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1156"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1198"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="961"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="973"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="979"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1005"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1017"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1072"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1082"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1098"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1111"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1120"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1142"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1153"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1160"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1182"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1226"/>
         <source>Job scheduling</source>
         <translation>Programarea execuției automate</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="898"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="915"/>
         <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
 
 Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
@@ -2402,7 +2373,7 @@ Joburile care au activată execuția programată vor fi executate conform setăr
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="914"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="932"/>
         <source>Looks like scheduling is already enabled. Nothing to do.
 
 %1</source>
@@ -2411,22 +2382,22 @@ Joburile care au activată execuția programată vor fi executate conform setăr
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="920"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="939"/>
         <source>Failed to write service file %1. Aborting operation.</source>
         <translation>Eroare la salvarea fișierului Launchd %1. Operațiune anulată.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="940"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="959"/>
         <source>Failed to load launchd service file.</source>
         <translation>Eroare la încărcarea fișierului Launchd. Operațiune anulată.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="952"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="971"/>
         <source>Failed to start launchd service.</source>
         <translation>Eroare la pornirea serviciului Launchd.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="960"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="980"/>
         <source>Register Tarsnap GUI with cron serivce?
 Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
 
@@ -2437,36 +2408,36 @@ Joburile care au activată execuția programată vor fi executate conform setăr
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="981"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1126"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1002"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1150"/>
         <source>Failed to list current crontab: %1</source>
         <translation>Eroare la listarea crontab-ului curent: %1</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="997"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1018"/>
         <source>Looks like scheduling is already enabled for the current user&apos;s crontab. Nothing to do.
 %1</source>
         <translation>Serviciul execuție programată este deja activat pentru utilizatorul curent.
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1018"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1039"/>
         <source>Tarsnap GUI will be added to the current user&apos;s crontab.</source>
         <translation>Aplicația va fi înregistrată folosind serviciul CRON pentru utilizatorul curent.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1019"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1040"/>
         <source>To ensure proper behavior please review the lines to be added by pressing Show Details before proceeding.</source>
         <translation>Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1048"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1195"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1069"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1223"/>
         <source>Failed to update crontab: %1</source>
         <translation>Eroare la actualizarea fișierului crontab: %1</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1061"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1083"/>
         <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
 
 %1</source>
@@ -2475,7 +2446,7 @@ Joburile care au activată execuția programată vor fi executate conform setăr
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1072"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1095"/>
         <source>Launchd service file not found:
 %1
  Nothing to do.</source>
@@ -2484,12 +2455,12 @@ Joburile care au activată execuția programată vor fi executate conform setăr
  Operațiune anulată.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1086"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1109"/>
         <source>Failed to unload launchd service.</source>
         <translation>Eroare la anularea serviciului Launchd.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1094"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1117"/>
         <source>Cannot remove service file:
 %1
 Aborting operation.</source>
@@ -2498,7 +2469,7 @@ Aborting operation.</source>
  Operațiune anulată.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1120"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1143"/>
         <source>There&apos;s no crontab for the current user. Nothing to do.
 
 %1</source>
@@ -2507,7 +2478,7 @@ Aborting operation.</source>
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1137"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1161"/>
         <source>Looks like the crontab for the current user is empty. Nothing to do.
 
 %1</source>
@@ -2516,7 +2487,7 @@ Aborting operation.</source>
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1157"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1183"/>
         <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do. 
 
 %1</source>
@@ -2525,124 +2496,124 @@ Aborting operation.</source>
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1164"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1191"/>
         <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
         <translation>Înregistrarea aplicației cu serviciul CRON pentru utilizatorul curent va fi anulată.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1166"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1194"/>
         <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
         <translation>Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent. Execută click pe Arată detalii.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1575"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1603"/>
         <source>Nuke all archives?</source>
         <translation>Ești sigur că dorești să ștergi toate arhivele?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1594"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1599"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1622"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1627"/>
         <source>Nuke cancelled.</source>
         <translation>Operațiunea de ștergere a arhivelor a fost anulată.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1607"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1614"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1832"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1635"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1642"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1860"/>
         <source>Confirm action</source>
         <translation>Confirmare acțiune</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1608"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1636"/>
         <source>Tasks are currently running. Please stop executing tasks or wait for completion and try again.</source>
         <translation>Există activitați în curs de desfașurare. Vă rugăm să opriți aceste activitați sau să așteptați finalizarea acestora înainte de a proceda.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1615"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1643"/>
         <source>Reset current app settings, job definitions and run the setup wizard?</source>
         <translation>Resetează setările aplicației, joburile definite și rulează Asistentul de configurare?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1625"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1653"/>
         <source>Browse for downloads directory</source>
         <translation>Navighează după directorul descărcări</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1652"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1666"/>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1959"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1680"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1694"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1987"/>
         <source>Add job</source>
         <translation>Adaugă job</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1693"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1721"/>
         <source>Stop Tasks</source>
         <translation>Oprește activitați</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1694"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1722"/>
         <source>There are no running or queued tasks.</source>
         <translation>Nu există activități în curs de desfășurare sau programate.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1700"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1728"/>
         <source>There are %1 running tasks and %2 queued.</source>
         <translation>Există %1 activități în curs de desfășurare și %2 programate pentru execuție.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1703"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1731"/>
         <source>What do you want to do?</source>
         <translation>Cum dorești să procedezi?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1706"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1734"/>
         <source>Choose action</source>
         <translation>Cum dorești să procedezi</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1713"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1741"/>
         <source>Interrupt backup and clear queue</source>
         <translation>Întrerupe backup curent și elimină activitațile în așteptare</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1715"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1743"/>
         <source>Interrupt backup</source>
         <translation>Întrerupe backup</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1721"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1749"/>
         <source>Stop running</source>
         <translation>Oprește activitățile în desfășurare</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1727"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1755"/>
         <source>Cancel queued</source>
         <translation>Anulează activitățile programate</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1733"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1761"/>
         <source>Stop all</source>
         <translation>Oprește toate activitățile</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1739"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1767"/>
         <source>Proceed in background</source>
         <translation>Procedează în fundal</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1777"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1805"/>
         <source>The tarsnap cache directory is either missing or is broken. Run tarsnap fsck to fix this?
 </source>
         <translation>Directorul &quot;cache&quot; Tarsnap lipsește sau este invalid. Dorești să rezolvi această problemă?
 </translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1788"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1816"/>
         <source>Cache repair failed. It might be worth trying the &apos;Repair cache&apos; button in Settings -&gt;  Application.</source>
         <translation>Operațiunea de reparație a directorului cache a eșuat. Poți încerca din nou folosind butonul &quot;Repară director cache&quot; din panoul Setări -&gt; Aplicație.</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1796"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1824"/>
         <source>Tarsnap encountered network errors. Please check your network connection and verify that internet access is available and try again.</source>
         <translation>Eroare la conectarea în rețea. Vă rugam să verificați conectivitatea dumneavoastra și accesul la internet.</translation>
     </message>
@@ -2651,7 +2622,7 @@ Aborting operation.</source>
         <translation type="vanished">Operațiunea de reparație a directorului cache a eșuat. Poți încerca din nou folosind butonul &quot;Repară director cache&quot; din panoul Setări -&gt; Avansat. </translation>
     </message>
     <message>
-        <location filename="../../src/widgets/mainwindow.cpp" line="1833"/>
+        <location filename="../../src/widgets/mainwindow.cpp" line="1861"/>
         <source>Clear journal log? All entries will be deleted forever.</source>
         <translation>Dorești să golești Jurnalul de activitați? Toate intrările vor fi sterse fără posibilitate de recuperare.</translation>
     </message>
@@ -2726,7 +2697,7 @@ Aborting operation.</source>
     </message>
     <message>
         <location filename="../../forms/restoredialog.ui" line="198"/>
-        <location filename="../../src/widgets/restoredialog.cpp" line="173"/>
+        <location filename="../../src/widgets/restoredialog.cpp" line="181"/>
         <source>Set base directory to extract archive contents to</source>
         <translation>Setează directorul de bază pentru restaurare</translation>
     </message>
@@ -2748,7 +2719,7 @@ Aborting operation.</source>
     <message>
         <location filename="../../forms/restoredialog.ui" line="208"/>
         <source>Restore files to specified directory</source>
-        <translation>Restaurează în directorul de bază specificat </translation>
+        <translation>Restaurează în directorul de bază specificat</translation>
     </message>
     <message>
         <location filename="../../forms/restoredialog.ui" line="263"/>
@@ -2783,47 +2754,47 @@ Aborting operation.</source>
         <translation type="vanished">Restaurează conținutul arhivei &lt;b&gt;%1&lt;/b&gt; folosind căile sursă ale fișierelor? Fișierele existente pe disc nu vor fi suprascrise. Folosește opțiunile de mai jos pentru a modifica acest comportament: </translation>
     </message>
     <message>
-        <location filename="../../src/widgets/restoredialog.cpp" line="108"/>
+        <location filename="../../src/widgets/restoredialog.cpp" line="116"/>
         <source>Restore from archive &lt;b&gt;%1&lt;/b&gt; to specified directory? Any existing files will not be replaced by default. Use the options below to modify this behavior:</source>
         <translation>Restaurează din arhiva &lt;b&gt;%1&lt;/b&gt; în directorul specificat? Fișierele existente pe disc nu vor fi suprascrise. Folosește opțiunile de mai jos pentru a modifica acest comportament:</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/restoredialog.cpp" line="123"/>
+        <location filename="../../src/widgets/restoredialog.cpp" line="131"/>
         <source>Download archive &lt;b&gt;%1&lt;/b&gt; contents as an uncompressed TAR archive?</source>
         <translation>Descarcă conținutul arhivei &lt;b&gt;%1&lt;/b&gt; ca fișier TAR necompresat?</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/restoredialog.cpp" line="133"/>
+        <location filename="../../src/widgets/restoredialog.cpp" line="141"/>
         <source>Restore from archive &lt;b&gt;%1&lt;/b&gt; to original locations? Any existing files will not be replaced by default. Use the options below to modify this behavior:</source>
         <translation>Restaurează conținutul arhivei &lt;b&gt;%1&lt;/b&gt; folosind căile sursă ale fișierelor? Fișierele existente pe disc nu vor fi suprascrise. Folosește opțiunile de mai jos pentru a modifica acest comportament:</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/restoredialog.cpp" line="147"/>
+        <location filename="../../src/widgets/restoredialog.cpp" line="155"/>
         <source>Directory to restore to</source>
         <translation>Navighează după director de bază la restaurare</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/restoredialog.cpp" line="156"/>
+        <location filename="../../src/widgets/restoredialog.cpp" line="164"/>
         <source>Select tar archive file</source>
         <translation>Selectează fișier arhivă TAR rezultat</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/restoredialog.cpp" line="158"/>
+        <location filename="../../src/widgets/restoredialog.cpp" line="166"/>
         <source>Tar archives (*.tar)</source>
         <translation>Arhive de tip TAR (*.tar)</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/restoredialog.cpp" line="179"/>
+        <location filename="../../src/widgets/restoredialog.cpp" line="187"/>
         <source>Invalid base directory, please choose a different one</source>
         <translation>Director de bază invalid, vă rugam să faceți o alegere diferită</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/restoredialog.cpp" line="190"/>
+        <location filename="../../src/widgets/restoredialog.cpp" line="198"/>
         <source>File exists, please choose a different file name</source>
         <translation>Fișierul există, vă rugam să alegeți un nume diferit</translation>
     </message>
     <message>
-        <location filename="../../src/widgets/restoredialog.cpp" line="196"/>
+        <location filename="../../src/widgets/restoredialog.cpp" line="204"/>
         <source>Set archive file name</source>
         <translation>Selectează fișier arhivă TAR rezultat</translation>
     </message>
@@ -3353,10 +3324,10 @@ Aborting operation.</source>
     <message>
         <location filename="../../src/taskmanager.cpp" line="604"/>
         <location filename="../../src/taskmanager.cpp" line="683"/>
-        <location filename="../../src/taskmanager.cpp" line="719"/>
-        <location filename="../../src/taskmanager.cpp" line="743"/>
-        <location filename="../../src/taskmanager.cpp" line="779"/>
-        <location filename="../../src/taskmanager.cpp" line="1244"/>
+        <location filename="../../src/taskmanager.cpp" line="720"/>
+        <location filename="../../src/taskmanager.cpp" line="744"/>
+        <location filename="../../src/taskmanager.cpp" line="780"/>
+        <location filename="../../src/taskmanager.cpp" line="1246"/>
         <source>Tarsnap exited with code %1 and output:
 %2</source>
         <translation>Comandă Tarsnap finalizată cu codul de ieșire %1 și rezultat:
@@ -3373,12 +3344,12 @@ Aborting operation.</source>
         <translation>Eroare la descărcare statistici arhivă.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="718"/>
+        <location filename="../../src/taskmanager.cpp" line="719"/>
         <source>Error: Failed to get archive contents from remote.</source>
         <translation>Eroare la descărcare conținut arhivă.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="727"/>
+        <location filename="../../src/taskmanager.cpp" line="728"/>
         <source>Fetching contents for archive &lt;i&gt;%1&lt;/i&gt;... done.</source>
         <translation>Se descarcă conținut pentru arhiva &lt;i&gt;%1&lt;/i&gt;... finalizat.</translation>
     </message>
@@ -3387,19 +3358,19 @@ Aborting operation.</source>
         <translation type="vanished">Eroare la ștergerea arhivei.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="778"/>
+        <location filename="../../src/taskmanager.cpp" line="779"/>
         <source>Error: Failed to get stats from remote.</source>
         <translation>Eroare la descărcare statistici generale.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="795"/>
+        <location filename="../../src/taskmanager.cpp" line="796"/>
         <source>Cache repair succeeded.</source>
         <translation>Directorul &quot;cache&quot; Tarsnap a fost reparat cu succes.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="799"/>
+        <location filename="../../src/taskmanager.cpp" line="800"/>
         <source>Cache repair failed. Hover mouse for details.</source>
-        <translation>Eroare la repararea directorului &quot;cache&quot; Tarsnap. </translation>
+        <translation>Eroare la repararea directorului &quot;cache&quot; Tarsnap.</translation>
     </message>
     <message>
         <source>All archives purged successfully.</source>
@@ -3420,88 +3391,88 @@ Aborting operation.</source>
         <translation>Eliminarea tuturor arhivelor a fost inițiată...</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="742"/>
+        <location filename="../../src/taskmanager.cpp" line="743"/>
         <source>Error: Failed to delete archive(s) from remote.</source>
         <translation>Eroare la ștergerea arhivei(lor).</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="811"/>
+        <location filename="../../src/taskmanager.cpp" line="812"/>
         <source>All archives nuked successfully.</source>
         <translation>Toate arhivele au fost șterse cu succes.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="816"/>
+        <location filename="../../src/taskmanager.cpp" line="817"/>
         <source>Archives nuke failed. Hover mouse for details.</source>
         <translation>Eroare la ștergerea arhivelor.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="835"/>
+        <location filename="../../src/taskmanager.cpp" line="837"/>
         <source>Restoring from archive &lt;i&gt;%1&lt;/i&gt;... done.</source>
         <translation>Se restaurează din arhiva &lt;i&gt;%1&lt;/i&gt;... finalizat.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="840"/>
+        <location filename="../../src/taskmanager.cpp" line="841"/>
         <source>Restoring from archive &lt;i&gt;%1&lt;/i&gt; failed. Hover mouse for details.</source>
         <translation>Eroare la ștergerea arhivei &lt;i&gt;%1&lt;/i&gt;.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="863"/>
+        <location filename="../../src/taskmanager.cpp" line="865"/>
         <source>Backup &lt;i&gt;%1&lt;/i&gt; completed. (%2 new data on Tarsnap)</source>
         <translation>Backup &lt;i&gt;%1&lt;/i&gt; finalizat. (%2 date noi încărcate)</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="873"/>
+        <location filename="../../src/taskmanager.cpp" line="875"/>
         <source>Backup &lt;i&gt;%1&lt;/i&gt; queued.</source>
         <translation>Backup &lt;i&gt;%1&lt;/i&gt; programat.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="877"/>
+        <location filename="../../src/taskmanager.cpp" line="879"/>
         <source>Backup &lt;i&gt;%1&lt;/i&gt; is running.</source>
         <translation>Backup &lt;i&gt;%1&lt;/i&gt; inițiat.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="884"/>
+        <location filename="../../src/taskmanager.cpp" line="887"/>
         <source>Backup &lt;i&gt;%1&lt;/i&gt; failed: %2</source>
         <translation>Backup &lt;i&gt;%1&lt;/i&gt; eșuat: %2</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="896"/>
+        <location filename="../../src/taskmanager.cpp" line="898"/>
         <source>Backup &lt;i&gt;%1&lt;/i&gt; paused.</source>
         <translation>Backup &lt;i&gt;%1&lt;/i&gt; în repaus.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="911"/>
+        <location filename="../../src/taskmanager.cpp" line="913"/>
         <source>Deleting archive &lt;i&gt;%1&lt;/i&gt; and %2 more archives... %3</source>
         <translation>Se șterge arhiva &lt;i&gt;%1&lt;/i&gt; și încă %2 arhive... %3</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="914"/>
-        <location filename="../../src/taskmanager.cpp" line="921"/>
+        <location filename="../../src/taskmanager.cpp" line="916"/>
+        <location filename="../../src/taskmanager.cpp" line="923"/>
         <source>done.</source>
         <translation>finalizat.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="919"/>
+        <location filename="../../src/taskmanager.cpp" line="921"/>
         <source>Deleting archive &lt;i&gt;%1&lt;/i&gt;... %2</source>
         <translation>Se șterge arhiva &lt;i&gt;%1&lt;/i&gt;... %2</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="1186"/>
+        <location filename="../../src/taskmanager.cpp" line="1188"/>
         <source>Job &lt;i&gt;%1&lt;/i&gt; deleted. Deleting %2 associated archives next...</source>
         <translation>Jobul &lt;i&gt;%1&lt;/i&gt; a fost șters. Se șterg %2 arhive asociate în pasul următor...</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="1194"/>
+        <location filename="../../src/taskmanager.cpp" line="1196"/>
         <source>Job &lt;i&gt;%1&lt;/i&gt; deleted.</source>
         <translation>Jobul &lt;i&gt;%1&lt;/i&gt; a fost șters.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="1233"/>
+        <location filename="../../src/taskmanager.cpp" line="1235"/>
         <source>Job &lt;i&gt;%1&lt;/i&gt; added.</source>
         <translation>Jobul &lt;i&gt;%1&lt;/i&gt; a fost adăugat.</translation>
     </message>
     <message>
-        <location filename="../../src/taskmanager.cpp" line="1243"/>
+        <location filename="../../src/taskmanager.cpp" line="1245"/>
         <source>Error: Failed to get Tarsnap version.</source>
         <translation>Eroare la obținerea versiunii utilitarelor la linia de comandă Tarsnap.</translation>
     </message>

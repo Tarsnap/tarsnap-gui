@@ -59,8 +59,6 @@ public slots:
     void saveKeyId(QString key, int id);
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
-    //! The "About" window was closed.
-    void showAboutClosed(int result);
 
 signals:
     //! Begin tarsnap -c -f \<name\>

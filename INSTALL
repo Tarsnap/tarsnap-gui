@@ -70,7 +70,7 @@ Assuming you survived up until now, let's proceed to the actual steps for
 building the app for your system:
 
 1) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
-2) git checkout v0.9 # switch to the desired stable version
+2) git checkout v1.0 # switch to the desired stable version
 3) qmake # /usr/local/opt/qt5/bin/qmake for Homebrew
 4) make -j$(sysctl -n hw.ncpu)
 5) open ./Tarsnap.app
@@ -86,7 +86,7 @@ Last tested on FreeBSD 10.1 with Qt 5.3.2 and KDE 4/GNOME 3.
 
 1) pkg install git qt5-core qt5-widgets qt5-qmake qt5-network qt5-buildtools qt5-sql qt5-sqldrivers-sqlite3
 2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
-3) git checkout v0.9 # switch to the desired version
+3) git checkout v1.0 # switch to the desired version
 4) /usr/local/lib/qt5/bin/qmake
 5') (This seems to have been fixed with Qmake 3.0/Qt5.5.1/FreeBSD10.3)
 Edit the resulted Makefile and append ",-L,/usr/local/lib" to the LFLAGS line. Somehow
@@ -112,7 +112,7 @@ All of them seem to include the Qt5 SDK in the official main repos.
 
 1) sudo apt-get install g++ git qtbase5-dev
 2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
-3) git checkout v0.9 # switch to the desired version
+3) git checkout v1.0 # switch to the desired version
 4) QT_SELECT=qt5 qmake && make -j$(nproc)
 5) ./tarsnap-gui
 
@@ -124,6 +124,6 @@ Tested on Fedora 22
 
 1) sudo yum install gcc-c++ git qt5-qtbase-devel
 2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
-3) git checkout v0.9 # switch to the desired version
+3) git checkout v1.0 # switch to the desired version
 4) qmake-qt5 && make -j$(nproc)
 5) ./tarsnap-gui

@@ -5,13 +5,13 @@ class TarsnapGui < Formula
   sha256 ""
   head "https://github.com/Tarsnap/tarsnap-gui.git"
 
-  depends_on "qt5"
+  depends_on "qt"
   depends_on "tarsnap"
 
   def install
     system "qmake"
     system "make"
-    system "macdeployqt Tarsnap.app"
+    system "macdeployqt", "Tarsnap.app"
     prefix.install "Tarsnap.app"
   end
 

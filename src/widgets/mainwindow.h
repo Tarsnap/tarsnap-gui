@@ -59,6 +59,10 @@ public slots:
     void saveKeyId(QString key, int id);
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
+    //! Indicate that the "About" window was closed.  This is needed in case a
+    //! user closes that window (instead of clicking on the "About" button
+    //! again).
+    void aboutWindowClosed(int result);
 
 signals:
     //! Begin tarsnap -c -f \<name\>

@@ -841,7 +841,6 @@ void MainWindow::createJobClicked()
 
 void MainWindow::aboutButtonClicked()
 {
-    _ui.aboutButton->setChecked(!_ui.aboutButton->isChecked());
     _aboutWindow.setVisible(_ui.aboutButton->isChecked());
 }
 

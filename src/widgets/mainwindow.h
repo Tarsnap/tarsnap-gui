@@ -56,7 +56,8 @@ public slots:
     void appendToConsoleLog(const QString &log);
     //! Reset the current Journal using _log.
     void setJournal(QVector<LogEntry> _log);
-    void saveKeyId(QString key, int id);
+    //! Save the Tarsnap key ID.
+    void saveKeyId(QString key_filename, int id);
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
 
@@ -95,7 +96,8 @@ signals:
     void jobAdded(JobPtr job);
     //! Clear all Journal entries.
     void clearJournal();
-    void getKeyId(QString key);
+    //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
+    void getKeyId(QString key_filename);
     void findMatchingArchives(QString jobPrefix);
     void matchingArchives(QList<ArchivePtr> archives);
 

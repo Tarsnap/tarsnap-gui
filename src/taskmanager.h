@@ -74,7 +74,8 @@ public slots:
     void nuke();
     //! tarsnap -x -f \<name\>, with options.
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
-    void getKeyId(QString key);
+    //! tarsnap-keymgmt --print-key-id \<key_filename\>
+    void getKeyId(QString key_filename);
     //! Ensure that the cache directory has been created.
     void initializeCache();
     void findMatchingArchives(QString jobPrefix);
@@ -109,7 +110,10 @@ signals:
     void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
     //! The tarsnap CLI experienced an error.
     void error(TarsnapError error);
-    void keyId(QString key, int id);
+    //! The tarsnap key ID number.
+    //! \param key_filename: the filename.
+    //! \param id: the 64-bit unsigned integer representing the key.
+    void keyId(QString key_filename, int id);
     void matchingArchives(QList<ArchivePtr> archives);
 
 private slots:

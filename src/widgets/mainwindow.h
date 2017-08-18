@@ -57,7 +57,7 @@ public slots:
     //! Reset the current Journal using _log.
     void setJournal(QVector<LogEntry> _log);
     //! Save the Tarsnap key ID.
-    void saveKeyId(QString key_filename, int id);
+    void saveKeyId(QString key_filename, quint64 id);
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
 

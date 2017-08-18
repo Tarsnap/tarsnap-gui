@@ -1487,7 +1487,7 @@ void MainWindow::setJournal(QVector<LogEntry> _log)
         appendToJournalLog(entry);
 }
 
-void MainWindow::saveKeyId(QString key, int id)
+void MainWindow::saveKeyId(QString key, quint64 id)
 {
     if(key == _ui.accountMachineKeyLineEdit->text())
     {

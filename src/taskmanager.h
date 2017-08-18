@@ -113,7 +113,7 @@ signals:
     //! The tarsnap key ID number.
     //! \param key_filename: the filename.
     //! \param id: the 64-bit unsigned integer representing the key.
-    void keyId(QString key_filename, int id);
+    void keyId(QString key_filename, quint64 id);
     void matchingArchives(QList<ArchivePtr> archives);
 
 private slots:

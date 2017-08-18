@@ -931,7 +931,8 @@ void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString stdOut,
     if(exitCode == SUCCESS)
     {
         bool ok = false;
-        int  id = stdOut.toInt(&ok);
+        // qulonglong is the same as quint64.
+        quint64 id = stdOut.toULongLong(&ok);
         if(ok)
             emit keyId(key_filename, id);
         else

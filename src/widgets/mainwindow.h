@@ -90,7 +90,6 @@ signals:
     void deleteJob(JobPtr job, bool purgeArchives);
     //! Begin tarsnap --version
     void getTarsnapVersion(QString tarsnapPath);
-    void displayNotification(QString message);
     //! Query whether there are any running tasks; will trigger a taskInfo
     //! signal which is received by \ref displayStopTasksDialog.
     void getTaskInfo();

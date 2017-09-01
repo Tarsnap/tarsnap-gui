@@ -42,6 +42,7 @@ public slots:
                              quint64 sizeUniqueCompressed, quint64 archiveCount);
     //! Update the Tarsnap version number, and store it in the settings.
     void updateTarsnapVersion(QString versionString);
+    //! Display (and raise) the MainWindow (if minimized or hidden).
     void notificationRaise();
     //! Prompt user to clarify whether to stop background tasks; if so,
     //! quits the app. Also used when quitting the application while active
@@ -75,6 +76,7 @@ signals:
     void loadArchiveContents(ArchivePtr archive);
     //! Begin tarsnap --print-stats
     void getOverallStats();
+    //! Begin tarsnap --fsck or --fsck-prune
     void repairCache(bool prune);
     //! The confirmation has been accepted and the timer has finished; go
     //! ahead and nuke all archives.
@@ -89,7 +91,6 @@ signals:
     void deleteJob(JobPtr job, bool purgeArchives);
     //! Begin tarsnap --version
     void getTarsnapVersion(QString tarsnapPath);
-    void displayNotification(QString message);
     //! Query whether there are any running tasks; will trigger a taskInfo
     //! signal which is received by \ref displayStopTasksDialog.
     void getTaskInfo();

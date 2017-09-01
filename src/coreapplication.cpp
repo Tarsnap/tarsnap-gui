@@ -222,8 +222,6 @@ void CoreApplication::showMainWindow()
             &MainWindow::notificationRaise, QUEUED);
     connect(&_notification, &Notification::messageClicked, _mainWindow,
             &MainWindow::notificationRaise, QUEUED);
-    connect(_mainWindow, &MainWindow::displayNotification, &_notification,
-            &Notification::displayNotification, QUEUED);
     connect(&_journal, &Journal::journal, _mainWindow, &MainWindow::setJournal,
             QUEUED);
     connect(&_journal, &Journal::logEntry, _mainWindow,

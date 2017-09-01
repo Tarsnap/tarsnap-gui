@@ -38,7 +38,7 @@ private:
     QNetworkAccessManager _nam;
     QString               _user;
     QString               _machine;
-    int                   _machineId;
+    quint64               _machineId;
 };
 
 #endif // TARSNAPACCOUNT_H

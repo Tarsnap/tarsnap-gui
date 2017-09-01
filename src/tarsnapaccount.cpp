@@ -69,7 +69,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
         if(displayActivity)
             displayCSVTable(replyData, tr("Account activity"));
     });
-    _machineId = settings.value("tarsnap/key_id", 0).toInt();
+    _machineId = settings.value("tarsnap/key_id", 0).toULongLong();
     if(_machineId)
     {
         QString machineActivity(URL_MACHINE_ACTIVITY);

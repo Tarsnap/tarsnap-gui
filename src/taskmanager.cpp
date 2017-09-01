@@ -367,9 +367,9 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     queueTask(restore);
 }
 
-void TaskManager::getKeyId(QString key)
+void TaskManager::getKeyId(QString key_filename)
 {
-    QFileInfo keyFile(key);
+    QFileInfo keyFile(key_filename);
     if(!keyFile.exists() || !Utils::tarsnapVersionMinimum("1.0.37"))
     {
         DEBUG << "Invalid key path or tarsnap version lower than 1.0.37.";
@@ -377,10 +377,10 @@ void TaskManager::getKeyId(QString key)
     }
     TarsnapTask *keymgmtTask = new TarsnapTask();
     QStringList  args;
-    args << "--print-key-id" << key;
+    args << "--print-key-id" << key_filename;
     keymgmtTask->setCommand(makeTarsnapCommand(CMD_TARSNAPKEYMGMT));
     keymgmtTask->setArguments(args);
-    keymgmtTask->setData(key);
+    keymgmtTask->setData(key_filename);
     connect(keymgmtTask, &TarsnapTask::finished, this,
             &TaskManager::getKeyIdFinished, QUEUED);
     queueTask(keymgmtTask);
@@ -927,19 +927,20 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
 void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString stdOut,
                                    QString stdErr)
 {
-    QString key = data.toString();
+    QString key_filename = data.toString();
     if(exitCode == SUCCESS)
     {
         bool ok = false;
-        int  id = stdOut.toInt(&ok);
+        // qulonglong is the same as quint64.
+        quint64 id = stdOut.toULongLong(&ok);
         if(ok)
-            emit keyId(key, id);
+            emit keyId(key_filename, id);
         else
-            DEBUG << "Invalid output from tarsnap-keymgmt for key " << key;
+            DEBUG << "Invalid output from tarsnap-keymgmt for key " << key_filename;
     }
     else
     {
-        DEBUG << "Failed to get the id for key " << key;
+        DEBUG << "Failed to get the id for key " << key_filename;
         parseError(stdErr);
     }
 }

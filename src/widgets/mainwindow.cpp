@@ -847,7 +847,7 @@ void MainWindow::aboutButtonClicked()
 }
 
 void MainWindow::aboutWindowClosed(int result) {
-    (void)result; /* UNUSED */
+    Q_UNUSED(result)
     _ui.aboutButton->setChecked(false);
 }
 

@@ -435,6 +435,8 @@ MainWindow::MainWindow(QWidget *parent)
         QDesktopServices::openUrl(
             QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
     });
+    connect(&_aboutWindow, &QDialog::finished, this,
+            &MainWindow::aboutWindowClosed);
 }
 
 MainWindow::~MainWindow()
@@ -841,8 +843,12 @@ void MainWindow::createJobClicked()
 
 void MainWindow::aboutButtonClicked()
 {
-    _ui.aboutButton->setChecked(!_ui.aboutButton->isChecked());
     _aboutWindow.setVisible(_ui.aboutButton->isChecked());
+}
+
+void MainWindow::aboutWindowClosed(int result) {
+    Q_UNUSED(result)
+    _ui.aboutButton->setChecked(false);
 }
 
 void MainWindow::mainTabChanged(int index)

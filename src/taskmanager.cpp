@@ -121,7 +121,8 @@ void TaskManager::getArchives()
     TarsnapTask *listArchivesTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
-    args << "--list-archives" << "-vv";
+    args << "--list-archives"
+         << "-vv";
     listArchivesTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     listArchivesTask->setArguments(args);
     listArchivesTask->setTruncateLogOutput(true);
@@ -349,7 +350,8 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     }
     if(!options.files.isEmpty())
     {
-        args << "-T" << "-";
+        args << "-T"
+             << "-";
         restore->setStdIn(options.files.join(QChar('\n')));
     }
     args << "-f" << archive->name();
@@ -938,7 +940,8 @@ void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString stdOut,
         if(ok)
             emit keyId(key_filename, id);
         else
-            DEBUG << "Invalid output from tarsnap-keymgmt for key " << key_filename;
+            DEBUG << "Invalid output from tarsnap-keymgmt for key "
+                  << key_filename;
     }
     else
     {

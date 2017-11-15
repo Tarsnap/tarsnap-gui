@@ -338,7 +338,8 @@ void SetupDialog::registerMachine()
             + ".key";
     }
 
-    DEBUG << "Registration details >>\n" << _tarsnapDir << ::endl
+    DEBUG << "Registration details >>\n"
+          << _tarsnapDir << ::endl
           << _appDataDir << ::endl
           << _tarsnapKeyFile << ::endl
           << _tarsnapCacheDir;

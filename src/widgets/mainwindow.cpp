@@ -1048,8 +1048,8 @@ void MainWindow::enableJobScheduling()
     question.setText(
         tr("Tarsnap GUI will be added to the current user's crontab."));
     question.setInformativeText(tr("To ensure proper behavior please review the"
-                                " lines to be added by pressing Show Details"
-                                " before proceeding."));
+                                   " lines to be added by pressing Show"
+                                   " Details before proceeding."));
     question.setDetailedText(cronBlock);
     question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
     question.setDefaultButton(QMessageBox::Cancel);

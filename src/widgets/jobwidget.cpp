@@ -158,11 +158,11 @@ void JobWidget::saveNew()
     if(!_job->archives().isEmpty())
     {
         auto confirm =
-                QMessageBox::question(this, "Add job",
-                                      tr("Assign %1 found archives to this"
-                                         " Job?").arg(_job->archives().count()),
-                                      QMessageBox::Yes | QMessageBox::No,
-                                      QMessageBox::No);
+            QMessageBox::question(this, "Add job",
+                                  tr("Assign %1 found archives to this Job?")
+                                      .arg(_job->archives().count()),
+                                  QMessageBox::Yes | QMessageBox::No,
+                                  QMessageBox::No);
         QList<ArchivePtr> empty;
         if(confirm == QMessageBox::No)
             _job->setArchives(empty);

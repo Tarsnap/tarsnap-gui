@@ -408,12 +408,12 @@ void SetupDialog::commitSettings(bool skipped)
 
     if(!skipped)
     {
-        settings.setValue("app/app_data",    _appDataDir);
-        settings.setValue("tarsnap/path",    _tarsnapDir);
+        settings.setValue("app/app_data", _appDataDir);
+        settings.setValue("tarsnap/path", _tarsnapDir);
         settings.setValue("tarsnap/version", _tarsnapVersion);
-        settings.setValue("tarsnap/cache",   _tarsnapCacheDir);
-        settings.setValue("tarsnap/key",     _tarsnapKeyFile);
-        settings.setValue("tarsnap/user",    _ui.tarsnapUserLineEdit->text());
+        settings.setValue("tarsnap/cache", _tarsnapCacheDir);
+        settings.setValue("tarsnap/key", _tarsnapKeyFile);
+        settings.setValue("tarsnap/user", _ui.tarsnapUserLineEdit->text());
         settings.setValue("tarsnap/machine", _ui.machineNameLineEdit->text());
     }
     settings.sync();

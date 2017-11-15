@@ -71,7 +71,8 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
         }
         else
         {
-            _ui.filesListWidget->addItems(_archive->contents().split(QChar('\n')));
+            _ui.filesListWidget->addItems(
+                _archive->contents().split(QChar('\n')));
             _ui.filesListWidget->show();
             adjustSize();
         }

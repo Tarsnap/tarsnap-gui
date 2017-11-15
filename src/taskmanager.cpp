@@ -312,7 +312,8 @@ void TaskManager::nuke()
     queueTask(nuke, true);
 }
 
-void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options)
+void TaskManager::restoreArchive(ArchivePtr            archive,
+                                 ArchiveRestoreOptions options)
 {
     if(archive.isNull())
     {
@@ -362,8 +363,8 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
             &TaskManager::restoreArchiveFinished, QUEUED);
     connect(restore, &TarsnapTask::started, this,
             [=]() {
-                emit message(
-                    tr("Restoring from archive <i>%1</i>...").arg(archive->name()));
+                emit message(tr("Restoring from archive <i>%1</i>...")
+                                 .arg(archive->name()));
             },
             QUEUED);
     queueTask(restore);
@@ -802,7 +803,8 @@ void TaskManager::fsckFinished(QVariant data, int exitCode, QString stdOut,
     }
     else
     {
-        emit message(tr("Cache repair failed. Hover mouse for details."), stdErr);
+        emit message(tr("Cache repair failed. Hover mouse for details."),
+                     stdErr);
         parseError(stdErr);
     }
     getArchives();
@@ -973,7 +975,8 @@ void TaskManager::startTask(TarsnapTask *task)
         else
             return;
     }
-    connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask, QUEUED);
+    connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask,
+            QUEUED);
     _runningTasks.append(task);
     task->setAutoDelete(false);
     _threadPool->start(task);

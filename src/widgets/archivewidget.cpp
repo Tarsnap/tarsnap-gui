@@ -22,8 +22,9 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     _ui.archiveContentsTableView->setModel(&_proxyModel);
     _ui.archiveContentsTableView->setContextMenuPolicy(Qt::CustomContextMenu);
     _fileMenu.addAction(_ui.actionRestoreFiles);
-    connect(_ui.archiveContentsTableView, &QTableView::customContextMenuRequested,
-            this, &ArchiveWidget::showContextMenu);
+    connect(_ui.archiveContentsTableView,
+            &QTableView::customContextMenuRequested, this,
+            &ArchiveWidget::showContextMenu);
     connect(_ui.actionRestoreFiles, &QAction::triggered, this,
             &ArchiveWidget::restoreFiles);
     connect(_ui.archiveContentsTableView, &QTableView::activated, this,
@@ -171,7 +172,8 @@ void ArchiveWidget::changeEvent(QEvent *event)
 
 void ArchiveWidget::showContextMenu(const QPoint &pos)
 {
-    QPoint globalPos = _ui.archiveContentsTableView->viewport()->mapToGlobal(pos);
+    QPoint globalPos =
+        _ui.archiveContentsTableView->viewport()->mapToGlobal(pos);
     _fileMenu.exec(globalPos);
 }
 

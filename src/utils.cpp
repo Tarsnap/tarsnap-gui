@@ -76,9 +76,11 @@ QString Utils::humanBytes(quint64 bytes, int fieldWidth)
     if(bytes < unit)
         return QString::number(bytes) + " B";
     int     exp = static_cast<int>(log(bytes) / log(unit));
-    QString pre =
-        QString(IEC ? "KMGTPE" : "kMGTPE").at(exp - 1) + QString(IEC ? "i" : "");
-    return QString("%1 %2B").arg(bytes / pow(unit, exp), fieldWidth, 'f', 2).arg(pre);
+    QString pre = QString(IEC ? "KMGTPE" : "kMGTPE").at(exp - 1)
+                  + QString(IEC ? "i" : "");
+    return QString("%1 %2B")
+        .arg(bytes / pow(unit, exp), fieldWidth, 'f', 2)
+        .arg(pre);
 }
 
 QString Utils::validateTarsnapCache(QString path)
@@ -112,7 +114,8 @@ QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
     if(!path.isEmpty())
         searchPaths << path;
 
-    QString executable = QStandardPaths::findExecutable(CMD_TARSNAP, searchPaths);
+    QString executable =
+        QStandardPaths::findExecutable(CMD_TARSNAP, searchPaths);
     if(executable.isEmpty() || !QFileInfo(executable).isReadable()
        || !QFileInfo(executable).isExecutable())
         return "";

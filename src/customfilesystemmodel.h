@@ -60,7 +60,8 @@ private:
     void setDataInternal(const QModelIndex &index, const QVariant &value);
 
     // Sets the index to the desired state (if it is not already).
-    void setIndexCheckState(const QModelIndex &index, const Qt::CheckState state);
+    void setIndexCheckState(const QModelIndex &  index,
+                            const Qt::CheckState state);
 
     // Checks that any&all siblings are unchecked.
     bool hasAllSiblingsUnchecked(const QModelIndex &index);

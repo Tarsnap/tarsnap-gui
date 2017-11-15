@@ -22,7 +22,8 @@ BackupTask::BackupTask()
 {
     QSettings settings;
     setOptionPreservePaths(
-        settings.value("tarsnap/preserve_pathnames", optionPreservePaths()).toBool());
+        settings.value("tarsnap/preserve_pathnames", optionPreservePaths())
+            .toBool());
     setOptionTraverseMount(
         settings.value("tarsnap/traverse_mount", optionTraverseMount()).toBool());
     setOptionFollowSymLinks(
@@ -35,7 +36,8 @@ BackupTask::BackupTask()
     setOptionSkipSystem(
         settings.value("app/skip_system_enabled", optionSkipSystem()).toBool());
     setOptionSkipSystemFiles(
-        settings.value("app/skip_system_files", optionSkipSystemFiles()).toString());
+        settings.value("app/skip_system_files", optionSkipSystemFiles())
+            .toString());
 }
 
 QString BackupTask::name() const

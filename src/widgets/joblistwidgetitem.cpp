@@ -39,7 +39,8 @@ void JobListWidgetItem::setJob(const JobPtr &job)
 
     _job = job;
 
-    connect(_job.data(), &Job::changed, this, &JobListWidgetItem::update, QUEUED);
+    connect(_job.data(), &Job::changed, this, &JobListWidgetItem::update,
+            QUEUED);
 
     _ui.nameLabel->setText(_job->name());
     if(_job->archives().isEmpty())

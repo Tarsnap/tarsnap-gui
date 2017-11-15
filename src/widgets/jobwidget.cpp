@@ -64,8 +64,9 @@ JobWidget::JobWidget(QWidget *parent) : QWidget(parent), _saveEnabled(false)
             settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
                 .toString());
     });
-    connect(_ui.archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
-            this, &JobWidget::showArchiveListMenu);
+    connect(_ui.archiveListWidget,
+            &ArchiveListWidget::customContextMenuRequested, this,
+            &JobWidget::showArchiveListMenu);
     connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::deleteSelectedItems);
     connect(_ui.actionRestore, &QAction::triggered, _ui.archiveListWidget,
@@ -88,7 +89,8 @@ void JobWidget::setJob(const JobPtr &job)
     if(_job)
     {
         _job->removeWatcher();
-        disconnect(_job.data(), &Job::fsEvent, this, &JobWidget::fsEventReceived);
+        disconnect(_job.data(), &Job::fsEvent, this,
+                   &JobWidget::fsEventReceived);
         disconnect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
         disconnect(_job.data(), &Job::purged, this, &JobWidget::collapse);
     }

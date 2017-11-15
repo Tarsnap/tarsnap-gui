@@ -257,8 +257,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.archiveDetailsWidget, &ArchiveWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
 
-    connect(_ui.archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
-            this, &MainWindow::showArchiveListMenu);
+    connect(_ui.archiveListWidget,
+            &ArchiveListWidget::customContextMenuRequested, this,
+            &MainWindow::showArchiveListMenu);
     connect(_ui.actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
     connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
@@ -374,7 +375,8 @@ MainWindow::MainWindow(QWidget *parent)
         _ui.addJobButton->show();
     });
     connect(_ui.actionFilterArchives, &QAction::triggered, [&]() {
-        _ui.archivesFilterFrame->setVisible(!_ui.archivesFilterFrame->isVisible());
+        _ui.archivesFilterFrame->setVisible(
+            !_ui.archivesFilterFrame->isVisible());
         if(_ui.archivesFilter->isVisible())
             _ui.archivesFilter->setFocus();
         else
@@ -492,7 +494,8 @@ void MainWindow::loadSettings()
         settings.value("app/skip_nodump", DEFAULT_SKIP_NODUMP).toBool());
     _ui.downloadsDirLineEdit->setText(
         settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString());
-    _ui.appDataDirLineEdit->setText(settings.value("app/app_data", "").toString());
+    _ui.appDataDirLineEdit->setText(
+        settings.value("app/app_data", "").toString());
     _ui.notificationsCheckBox->setChecked(
         settings.value("app/notifications", true).toBool());
     _ui.limitUploadSpinBox->setValue(
@@ -1027,8 +1030,8 @@ void MainWindow::enableJobScheduling()
     cronLine =
         cronLine
             .arg(env.contains("SCREEN") ? "SCREEN=" + env.value("SCREEN") : "")
-            .arg(env.contains("DISPLAY")
-                     ? "DISPLAY=" + env.value("DISPLAY") : "")
+            .arg(env.contains("DISPLAY") ? "DISPLAY=" + env.value("DISPLAY")
+                                         : "")
             .arg(env.contains("XAUTHORITY")
                      ? "XAUTHORITY=" + env.value("XAUTHORITY")
                      : "")
@@ -1477,7 +1480,8 @@ void MainWindow::appendToConsoleLog(const QString &log)
         cursor.movePosition(QTextCursor::NextBlock);
     }
     QTextBlockFormat bf;
-    if(cursor.blockFormat().background().color() == qApp->palette().base().color())
+    if(cursor.blockFormat().background().color()
+       == qApp->palette().base().color())
         bf.setBackground(QBrush(qApp->palette().alternateBase().color()));
     else
         bf.setBackground(QBrush(qApp->palette().base().color()));
@@ -1951,20 +1955,22 @@ void MainWindow::updateUi()
                                      _ui.mainTabWidget->tabToolTip(0).arg(
                                          _ui.actionGoBackup->shortcut().toString(
                                              QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(1,
-                                     _ui.mainTabWidget->tabToolTip(1).arg(
-                                         _ui.actionGoArchives->shortcut().toString(
+    _ui.mainTabWidget->setTabToolTip(
+        1, _ui.mainTabWidget->tabToolTip(1).arg(
+               _ui.actionGoArchives->shortcut().toString(
+                   QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(2,
+                                     _ui.mainTabWidget->tabToolTip(2).arg(
+                                         _ui.actionGoJobs->shortcut().toString(
                                              QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(2, _ui.mainTabWidget->tabToolTip(2).arg(
-                                            _ui.actionGoJobs->shortcut().toString(
-                                                QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(3,
-                                     _ui.mainTabWidget->tabToolTip(3).arg(
-                                         _ui.actionGoSettings->shortcut().toString(
+    _ui.mainTabWidget->setTabToolTip(
+        3, _ui.mainTabWidget->tabToolTip(3).arg(
+               _ui.actionGoSettings->shortcut().toString(
+                   QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(4,
+                                     _ui.mainTabWidget->tabToolTip(4).arg(
+                                         _ui.actionGoHelp->shortcut().toString(
                                              QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(4, _ui.mainTabWidget->tabToolTip(4).arg(
-                                            _ui.actionGoHelp->shortcut().toString(
-                                                QKeySequence::NativeText)));
 
     _ui.actionBackupNow->setToolTip(_ui.actionBackupNow->toolTip().arg(
         _ui.actionBackupNow->shortcut().toString(QKeySequence::NativeText)));

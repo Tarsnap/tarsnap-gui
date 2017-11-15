@@ -84,7 +84,8 @@ bool CoreApplication::initialize()
 
     if(!_appDataDir.isEmpty())
     {
-        settings.setPath(QSettings::IniFormat, QSettings::UserScope, _appDataDir);
+        settings.setPath(QSettings::IniFormat, QSettings::UserScope,
+                         _appDataDir);
         settings.setDefaultFormat(QSettings::IniFormat);
     }
 

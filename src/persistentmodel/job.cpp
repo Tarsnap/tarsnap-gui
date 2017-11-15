@@ -19,7 +19,8 @@ Job::Job(QObject *parent)
     // Load values from settings.
     QSettings settings;
     setOptionPreservePaths(
-        settings.value("tarsnap/preserve_pathnames", optionPreservePaths()).toBool());
+        settings.value("tarsnap/preserve_pathnames", optionPreservePaths())
+            .toBool());
     setOptionTraverseMount(
         settings.value("tarsnap/traverse_mount", optionTraverseMount()).toBool());
     setOptionFollowSymLinks(
@@ -356,7 +357,8 @@ void Job::load()
         _optionSkipFiles =
             query.value(query.record().indexOf("optionSkipFiles")).toBool();
         _optionSkipFilesPatterns =
-            query.value(query.record().indexOf("optionSkipFilesPatterns")).toString();
+            query.value(query.record().indexOf("optionSkipFilesPatterns"))
+                .toString();
         _optionSkipNoDump =
             query.value(query.record().indexOf("optionSkipNoDump")).toBool();
         _settingShowHidden =

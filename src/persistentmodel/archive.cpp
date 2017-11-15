@@ -130,10 +130,12 @@ void Archive::load()
         _sizeUniqueTotal =
             query.value(query.record().indexOf("sizeUniqueTotal")).toULongLong();
         _sizeUniqueCompressed =
-            query.value(query.record().indexOf("sizeUniqueCompressed")).toULongLong();
+            query.value(query.record().indexOf("sizeUniqueCompressed"))
+                .toULongLong();
         _command = query.value(query.record().indexOf("command")).toString();
-        _contents = query.value(query.record().indexOf("contents")).toByteArray();
-        _jobRef   = query.value(query.record().indexOf("jobRef")).toString();
+        _contents =
+            query.value(query.record().indexOf("contents")).toByteArray();
+        _jobRef = query.value(query.record().indexOf("jobRef")).toString();
         setObjectKey(_name);
     }
     else

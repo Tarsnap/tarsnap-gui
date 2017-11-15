@@ -95,7 +95,8 @@ void TarsnapAccount::parseCredit(QString csv)
 {
     if(csv.isEmpty() || !csv.startsWith("RECTYPE"))
         return;
-    QRegExp lastBalanceRx("^(Balance.+)$", Qt::CaseInsensitive, QRegExp::RegExp2);
+    QRegExp lastBalanceRx("^(Balance.+)$", Qt::CaseInsensitive,
+                          QRegExp::RegExp2);
     QString lastBalance;
     foreach(QString line, csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts))
     {
@@ -135,7 +136,8 @@ void TarsnapAccount::displayCSVTable(QString csv, QString title)
     if(lines.count() <= 1)
         return;
 
-    QStringList columnHeaders = lines.first().split(',', QString::SkipEmptyParts);
+    QStringList columnHeaders =
+        lines.first().split(',', QString::SkipEmptyParts);
     lines.removeFirst();
 
     QDialog *csvDialog = new QDialog(this);
@@ -189,7 +191,8 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
     {
         QMessageBox::warning(
             this, tr("Invalid password"),
-            tr("Password for account %1 is incorrect; please try again.").arg(_user));
+            tr("Password for account %1 is incorrect; please try again.")
+                .arg(_user));
     }
     else if(warn
             && data.contains("No user exists with the provided email "

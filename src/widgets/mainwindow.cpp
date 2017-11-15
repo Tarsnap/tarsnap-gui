@@ -391,14 +391,12 @@ MainWindow::MainWindow(QWidget *parent)
             _ui.archiveListWidget, &ArchiveListWidget::setFilter);
     connect(_ui.jobsFilter, &QComboBox::editTextChanged, _ui.jobListWidget,
             &JobListWidget::setFilter);
-    connect(_ui.archivesFilter,
-            static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this,
-            [&](){_ui.archiveListWidget->setFocus();});
-    connect(_ui.jobsFilter,
-            static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this,
-            [&](){_ui.jobListWidget->setFocus();});
+    connect(_ui.archivesFilter, static_cast<void (QComboBox::*)(int)>(
+                                    &QComboBox::currentIndexChanged),
+            this, [&]() { _ui.archiveListWidget->setFocus(); });
+    connect(_ui.jobsFilter, static_cast<void (QComboBox::*)(int)>(
+                                &QComboBox::currentIndexChanged),
+            this, [&]() { _ui.jobListWidget->setFocus(); });
     connect(_ui.languageComboBox, &QComboBox::currentTextChanged, this,
             [&](const QString language) {
                 if(!language.isEmpty())

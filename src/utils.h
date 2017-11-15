@@ -46,7 +46,6 @@ const QStringList DEFAULT_JOBS{"Desktop", "Documents", "Pictures", "Movies",
 #define APPDATA QStandardPaths::DataLocation
 #endif
 
-
 #define CRON_LINE "*/30 * * * * /usr/bin/env %1 %2 %3 %4 --jobs"
 #define CRON_MARKER_BEGIN "#BEGIN Tarsnap GUI - DO NOT EDIT THIS BLOCK MANUALLY"
 #define CRON_MARKER_END "#END Tarsnap GUI - DO NOT EDIT THIS BLOCK MANUALLY"

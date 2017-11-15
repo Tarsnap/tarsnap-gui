@@ -99,7 +99,8 @@ void JobListWidget::inspectItem()
 {
     if(sender())
     {
-        emit displayJobDetails(qobject_cast<JobListWidgetItem *>(sender())->job());
+        emit displayJobDetails(
+            qobject_cast<JobListWidgetItem *>(sender())->job());
     }
 }
 

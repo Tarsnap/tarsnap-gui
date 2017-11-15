@@ -117,3 +117,10 @@ osx {
     ICON = resources/icons/tarsnap.icns
     TARGET = Tarsnap
 }
+
+format.commands = find . -name \"*.h\"   -not -path \"*/ui_*.h\" | \
+			xargs clang-format -i ; \
+                  find . -name \"*.cpp\" -not -path \"*/moc_*.cpp\" \
+                        -not -path \"*/qrc_resources.cpp\" | \
+			xargs clang-format -i ;
+QMAKE_EXTRA_TARGETS += format

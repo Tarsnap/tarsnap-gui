@@ -338,7 +338,8 @@ void SetupDialog::registerMachine()
             + ".key";
     }
 
-    DEBUG << "Registration details >>\n" << _tarsnapDir << ::endl
+    DEBUG << "Registration details >>\n"
+          << _tarsnapDir << ::endl
           << _appDataDir << ::endl
           << _tarsnapKeyFile << ::endl
           << _tarsnapCacheDir;
@@ -357,7 +358,8 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
         _ui.statusLabel->clear();
         _ui.doneKeyFileNameLabel->setText(
             QString("<a href=\"%1\">%2</a>")
-                .arg(QUrl::fromLocalFile(QFileInfo(_tarsnapKeyFile).absolutePath())
+                .arg(QUrl::fromLocalFile(
+                         QFileInfo(_tarsnapKeyFile).absolutePath())
                          .toString())
                 .arg(_tarsnapKeyFile));
         _ui.nextButton->setEnabled(true);
@@ -407,12 +409,12 @@ void SetupDialog::commitSettings(bool skipped)
 
     if(!skipped)
     {
-        settings.setValue("app/app_data",    _appDataDir);
-        settings.setValue("tarsnap/path",    _tarsnapDir);
+        settings.setValue("app/app_data", _appDataDir);
+        settings.setValue("tarsnap/path", _tarsnapDir);
         settings.setValue("tarsnap/version", _tarsnapVersion);
-        settings.setValue("tarsnap/cache",   _tarsnapCacheDir);
-        settings.setValue("tarsnap/key",     _tarsnapKeyFile);
-        settings.setValue("tarsnap/user",    _ui.tarsnapUserLineEdit->text());
+        settings.setValue("tarsnap/cache", _tarsnapCacheDir);
+        settings.setValue("tarsnap/key", _tarsnapKeyFile);
+        settings.setValue("tarsnap/user", _ui.tarsnapUserLineEdit->text());
         settings.setValue("tarsnap/machine", _ui.machineNameLineEdit->text());
     }
     settings.sync();

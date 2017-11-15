@@ -11,7 +11,7 @@
  * \ingroup widgets-specialized
  * \brief The SetupDialog is a QDialog which guides the user
  * through configuring the essential options of this app.
-*/
+ */
 class SetupDialog : public QDialog
 {
     Q_OBJECT

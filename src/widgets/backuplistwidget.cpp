@@ -158,7 +158,7 @@ void BackupListWidget::recomputeListTotals()
         if(backupItem && (backupItem->count() != 0))
         {
             items += backupItem->count();
-            size  += backupItem->size();
+            size += backupItem->size();
         }
     }
     emit itemTotals(items, size);

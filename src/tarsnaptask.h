@@ -21,6 +21,7 @@ public:
     void interrupt();
     void cancel();
     bool waitForTask();
+
     QProcess::ProcessState taskStatus();
 
     QString command() const;

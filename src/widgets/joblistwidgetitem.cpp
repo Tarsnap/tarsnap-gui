@@ -39,14 +39,18 @@ void JobListWidgetItem::setJob(const JobPtr &job)
 
     _job = job;
 
-    connect(_job.data(), &Job::changed, this, &JobListWidgetItem::update, QUEUED);
+    connect(_job.data(), &Job::changed, this, &JobListWidgetItem::update,
+            QUEUED);
 
     _ui.nameLabel->setText(_job->name());
     if(_job->archives().isEmpty())
         _ui.lastBackupLabel->setText(tr("No backups"));
     else
+    {
+        QDateTime timestamp = _job->archives().first()->timestamp();
         _ui.lastBackupLabel->setText(
-            _job->archives().first()->timestamp().toString(Qt::DefaultLocaleShortDate));
+            timestamp.toString(Qt::DefaultLocaleShortDate));
+    }
 
     QString detail;
     QString str =

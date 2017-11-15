@@ -27,8 +27,8 @@ public:
 public slots:
     //! Load saved application settings.
     void loadSettings();
-    //! Initialization routines: Check days elapsed since last credit update, application paths,
-    //! and update archive list.
+    //! Initialization routines: Check days elapsed since last credit update,
+    //! application paths, and update archive list.
     void initialize();
     //! Set the statusbar message.
     //! \param message: display this text

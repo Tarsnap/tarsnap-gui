@@ -257,8 +257,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.archiveDetailsWidget, &ArchiveWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
 
-    connect(_ui.archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
-            this, &MainWindow::showArchiveListMenu);
+    connect(_ui.archiveListWidget,
+            &ArchiveListWidget::customContextMenuRequested, this,
+            &MainWindow::showArchiveListMenu);
     connect(_ui.actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
     connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
@@ -374,7 +375,8 @@ MainWindow::MainWindow(QWidget *parent)
         _ui.addJobButton->show();
     });
     connect(_ui.actionFilterArchives, &QAction::triggered, [&]() {
-        _ui.archivesFilterFrame->setVisible(!_ui.archivesFilterFrame->isVisible());
+        _ui.archivesFilterFrame->setVisible(
+            !_ui.archivesFilterFrame->isVisible());
         if(_ui.archivesFilter->isVisible())
             _ui.archivesFilter->setFocus();
         else
@@ -391,14 +393,12 @@ MainWindow::MainWindow(QWidget *parent)
             _ui.archiveListWidget, &ArchiveListWidget::setFilter);
     connect(_ui.jobsFilter, &QComboBox::editTextChanged, _ui.jobListWidget,
             &JobListWidget::setFilter);
-    connect(_ui.archivesFilter,
-            static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this,
-            [&](){_ui.archiveListWidget->setFocus();});
-    connect(_ui.jobsFilter,
-            static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this,
-            [&](){_ui.jobListWidget->setFocus();});
+    connect(_ui.archivesFilter, static_cast<void (QComboBox::*)(int)>(
+                                    &QComboBox::currentIndexChanged),
+            this, [&]() { _ui.archiveListWidget->setFocus(); });
+    connect(_ui.jobsFilter, static_cast<void (QComboBox::*)(int)>(
+                                &QComboBox::currentIndexChanged),
+            this, [&]() { _ui.jobListWidget->setFocus(); });
     connect(_ui.languageComboBox, &QComboBox::currentTextChanged, this,
             [&](const QString language) {
                 if(!language.isEmpty())
@@ -449,7 +449,8 @@ void MainWindow::loadSettings()
     _ui.accountCreditLabel->setText(
         settings.value("tarsnap/credit", tr("click login button")).toString());
     _ui.machineActivity->setText(
-        settings.value("tarsnap/machine_activity", tr("click login button")).toString());
+        settings.value("tarsnap/machine_activity", tr("click login button"))
+            .toString());
     _ui.accountUserLineEdit->setText(
         settings.value("tarsnap/user", "").toString());
     _ui.accountMachineKeyLineEdit->setText(
@@ -461,15 +462,20 @@ void MainWindow::loadSettings()
     _ui.tarsnapCacheLineEdit->setText(
         settings.value("tarsnap/cache", "").toString());
     _ui.aggressiveNetworkingCheckBox->setChecked(
-        settings.value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING).toBool());
+        settings
+            .value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING)
+            .toBool());
     _ui.traverseMountCheckBox->setChecked(
         settings.value("tarsnap/traverse_mount", DEFAULT_TRAVERSE_MOUNT).toBool());
     _ui.followSymLinksCheckBox->setChecked(
-        settings.value("tarsnap/follow_symlinks", DEFAULT_FOLLOW_SYMLINKS).toBool());
+        settings.value("tarsnap/follow_symlinks", DEFAULT_FOLLOW_SYMLINKS)
+            .toBool());
     _ui.preservePathsCheckBox->setChecked(
-        settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES).toBool());
+        settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES)
+            .toBool());
     _ui.ignoreConfigCheckBox->setChecked(
-        settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG).toBool());
+        settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG)
+            .toBool());
     _ui.simulationCheckBox->setChecked(
         settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
     _ui.simulationIcon->setVisible(_ui.simulationCheckBox->isChecked());
@@ -478,29 +484,32 @@ void MainWindow::loadSettings()
     _ui.skipFilesSizeSpinBox->setValue(
         settings.value("app/skip_files_size", DEFAULT_SKIP_FILES_SIZE).toInt());
     _ui.skipSystemJunkCheckBox->setChecked(
-        settings.value("app/skip_system_enabled", DEFAULT_SKIP_SYSTEM_ENABLED).toBool());
+        settings.value("app/skip_system_enabled", DEFAULT_SKIP_SYSTEM_ENABLED)
+            .toBool());
     _ui.skipSystemLineEdit->setEnabled(_ui.skipSystemJunkCheckBox->isChecked());
     _ui.skipSystemLineEdit->setText(
-        settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES).toString());
+        settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
+            .toString());
     _ui.skipNoDumpCheckBox->setChecked(
         settings.value("app/skip_nodump", DEFAULT_SKIP_NODUMP).toBool());
     _ui.downloadsDirLineEdit->setText(
         settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString());
-    _ui.appDataDirLineEdit->setText(settings.value("app/app_data", "").toString());
+    _ui.appDataDirLineEdit->setText(
+        settings.value("app/app_data", "").toString());
     _ui.notificationsCheckBox->setChecked(
         settings.value("app/notifications", true).toBool());
     _ui.limitUploadSpinBox->setValue(
         settings.value("app/limit_upload", 0).toInt());
     _ui.limitDownloadSpinBox->setValue(
-                settings.value("app/limit_download", 0).toInt());
+        settings.value("app/limit_download", 0).toInt());
     _ui.actionShowArchivesTabHeader->setChecked(
-                settings.value("app/archives_header_enabled", true).toBool());
+        settings.value("app/archives_header_enabled", true).toBool());
     _ui.archivesHeader->setVisible(_ui.actionShowArchivesTabHeader->isChecked());
     _ui.actionShowJobsTabHeader->setChecked(
-                settings.value("app/jobs_header_enabled", true).toBool());
+        settings.value("app/jobs_header_enabled", true).toBool());
     _ui.jobsHeader->setVisible(_ui.actionShowJobsTabHeader->isChecked());
     _ui.saveConsoleLogCheckBox->setChecked(
-                settings.value("app/save_console_log", false).toBool());
+        settings.value("app/save_console_log", false).toBool());
     _ui.saveConsoleLogLineEdit->setText(ConsoleLog::getLogFile());
 
     if(settings.value("app/default_jobs_dismissed", false).toBool())
@@ -708,8 +717,7 @@ void MainWindow::setupMenuBar()
 
     QAction *actionAbout = new QAction(this);
     actionAbout->setMenuRole(QAction::AboutRole);
-    connect(actionAbout, &QAction::triggered, &_aboutWindow,
-            &QDialog::show);
+    connect(actionAbout, &QAction::triggered, &_aboutWindow, &QDialog::show);
     QAction *actionSettings = new QAction(this);
     actionSettings->setMenuRole(QAction::PreferencesRole);
     connect(actionSettings, &QAction::triggered, _ui.actionGoSettings,
@@ -1008,32 +1016,40 @@ void MainWindow::enableJobScheduling()
     rx.setMinimal(true);
     if(-1 != rx.indexIn(currentCrontab))
     {
-        QMessageBox::critical(this, tr("Job scheduling"),
-                              tr("Looks like scheduling is already enabled for the"
-                              " current user's crontab. Nothing to do."
-                              "\n%1").arg(CRON_MARKER_HELP));
+        QMessageBox::critical(
+            this, tr("Job scheduling"),
+            tr("Looks like scheduling is already enabled for the"
+               " current user's crontab. Nothing to do."
+               "\n%1")
+                .arg(CRON_MARKER_HELP));
         return;
     }
 
-    QString cronLine(CRON_LINE);
+    QString             cronLine(CRON_LINE);
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    cronLine = cronLine.arg(env.contains("SCREEN") ? "SCREEN=" + env.value("SCREEN") : "")
-                       .arg(env.contains("DISPLAY") ? "DISPLAY=" + env.value("DISPLAY") : "")
-                       .arg(env.contains("XAUTHORITY") ? "XAUTHORITY=" + env.value("XAUTHORITY") : "")
-                       .arg(QCoreApplication::applicationFilePath());
+    cronLine =
+        cronLine
+            .arg(env.contains("SCREEN") ? "SCREEN=" + env.value("SCREEN") : "")
+            .arg(env.contains("DISPLAY") ? "DISPLAY=" + env.value("DISPLAY")
+                                         : "")
+            .arg(env.contains("XAUTHORITY")
+                     ? "XAUTHORITY=" + env.value("XAUTHORITY")
+                     : "")
+            .arg(QCoreApplication::applicationFilePath());
 
     QString cronBlock("\n%1\n%2\n%3\n%4\n");
     cronBlock = cronBlock.arg(CRON_MARKER_BEGIN)
-                         .arg(CRON_MARKER_HELP)
-                         .arg(cronLine)
-                         .arg(CRON_MARKER_END);
+                    .arg(CRON_MARKER_HELP)
+                    .arg(cronLine)
+                    .arg(CRON_MARKER_END);
 
     QMessageBox question(this);
     question.setIcon(QMessageBox::Question);
-    question.setText(tr("Tarsnap GUI will be added to the current user's crontab."));
+    question.setText(
+        tr("Tarsnap GUI will be added to the current user's crontab."));
     question.setInformativeText(tr("To ensure proper behavior please review the"
-                                " lines to be added by pressing Show Details"
-                                " before proceeding."));
+                                   " lines to be added by pressing Show"
+                                   " Details before proceeding."));
     question.setDetailedText(cronBlock);
     question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
     question.setDefaultButton(QMessageBox::Cancel);
@@ -1464,12 +1480,16 @@ void MainWindow::appendToConsoleLog(const QString &log)
         cursor.movePosition(QTextCursor::NextBlock);
     }
     QTextBlockFormat bf;
-    if(cursor.blockFormat().background().color() == qApp->palette().base().color())
+    if(cursor.blockFormat().background().color()
+       == qApp->palette().base().color())
         bf.setBackground(QBrush(qApp->palette().alternateBase().color()));
     else
         bf.setBackground(QBrush(qApp->palette().base().color()));
     cursor.mergeBlockFormat(bf);
-    cursor.insertText(QString("[%1] %2\n").arg(QDateTime::currentDateTime().toString(Qt::DefaultLocaleShortDate)).arg(log));
+    cursor.insertText(QString("[%1] %2\n")
+                          .arg(QDateTime::currentDateTime().toString(
+                              Qt::DefaultLocaleShortDate))
+                          .arg(log));
     _ui.consoleLog->moveCursor(QTextCursor::End);
     _ui.consoleLog->ensureCursorVisible();
 }
@@ -1921,33 +1941,34 @@ void MainWindow::addDefaultJobs()
 void MainWindow::updateUi()
 {
     // Keyboard shortcuts
-    _ui.helpTabText->setHtml(_helpTabHTML
-                                        .arg(QKeySequence(Qt::ControlModifier)
-                                             .toString(QKeySequence::NativeText))
-                                        .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
-                                             .toString(QKeySequence::NativeText))
-                                        .arg(QKeySequence(Qt::Key_Backspace)
-                                             .toString(QKeySequence::NativeText))
-                                        .arg(QKeySequence(Qt::Key_Delete)
-                                             .toString(QKeySequence::NativeText)));
+    _ui.helpTabText->setHtml(
+        _helpTabHTML
+            .arg(QKeySequence(Qt::ControlModifier)
+                     .toString(QKeySequence::NativeText))
+            .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
+                     .toString(QKeySequence::NativeText))
+            .arg(QKeySequence(Qt::Key_Backspace).toString(QKeySequence::NativeText))
+            .arg(QKeySequence(Qt::Key_Delete).toString(QKeySequence::NativeText)));
     _ui.mainTabWidget->setTabToolTip(0,
                                      _ui.mainTabWidget->tabToolTip(0).arg(
                                          _ui.actionGoBackup->shortcut().toString(
                                              QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(1,
-                                     _ui.mainTabWidget->tabToolTip(1).arg(
-                                         _ui.actionGoArchives->shortcut().toString(
+    _ui.mainTabWidget->setTabToolTip(
+        1, _ui.mainTabWidget->tabToolTip(1).arg(
+               _ui.actionGoArchives->shortcut().toString(
+                   QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(2,
+                                     _ui.mainTabWidget->tabToolTip(2).arg(
+                                         _ui.actionGoJobs->shortcut().toString(
                                              QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(2, _ui.mainTabWidget->tabToolTip(2).arg(
-                                            _ui.actionGoJobs->shortcut().toString(
-                                                QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(3,
-                                     _ui.mainTabWidget->tabToolTip(3).arg(
-                                         _ui.actionGoSettings->shortcut().toString(
+    _ui.mainTabWidget->setTabToolTip(
+        3, _ui.mainTabWidget->tabToolTip(3).arg(
+               _ui.actionGoSettings->shortcut().toString(
+                   QKeySequence::NativeText)));
+    _ui.mainTabWidget->setTabToolTip(4,
+                                     _ui.mainTabWidget->tabToolTip(4).arg(
+                                         _ui.actionGoHelp->shortcut().toString(
                                              QKeySequence::NativeText)));
-    _ui.mainTabWidget->setTabToolTip(4, _ui.mainTabWidget->tabToolTip(4).arg(
-                                            _ui.actionGoHelp->shortcut().toString(
-                                                QKeySequence::NativeText)));
 
     _ui.actionBackupNow->setToolTip(_ui.actionBackupNow->toolTip().arg(
         _ui.actionBackupNow->shortcut().toString(QKeySequence::NativeText)));

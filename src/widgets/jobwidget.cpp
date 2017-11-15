@@ -30,8 +30,8 @@ JobWidget::JobWidget(QWidget *parent) : QWidget(parent), _saveEnabled(false)
             save();
     });
 
-    connect(_ui.scheduleComboBox,
-            static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+    connect(_ui.scheduleComboBox, static_cast<void (QComboBox::*)(int)>(
+                                      &QComboBox::currentIndexChanged),
             this, &JobWidget::save);
     connect(_ui.preservePathsCheckBox, &QCheckBox::toggled, this,
             &JobWidget::save);
@@ -64,8 +64,9 @@ JobWidget::JobWidget(QWidget *parent) : QWidget(parent), _saveEnabled(false)
             settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
                 .toString());
     });
-    connect(_ui.archiveListWidget, &ArchiveListWidget::customContextMenuRequested,
-            this, &JobWidget::showArchiveListMenu);
+    connect(_ui.archiveListWidget,
+            &ArchiveListWidget::customContextMenuRequested, this,
+            &JobWidget::showArchiveListMenu);
     connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
             &ArchiveListWidget::deleteSelectedItems);
     connect(_ui.actionRestore, &QAction::triggered, _ui.archiveListWidget,
@@ -88,7 +89,8 @@ void JobWidget::setJob(const JobPtr &job)
     if(_job)
     {
         _job->removeWatcher();
-        disconnect(_job.data(), &Job::fsEvent, this, &JobWidget::fsEventReceived);
+        disconnect(_job.data(), &Job::fsEvent, this,
+                   &JobWidget::fsEventReceived);
         disconnect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
         disconnect(_job.data(), &Job::purged, this, &JobWidget::collapse);
     }
@@ -131,7 +133,8 @@ void JobWidget::save()
         _job->setUrls(_ui.jobTreeWidget->getSelectedUrls());
         _job->removeWatcher();
         _job->installWatcher();
-        _job->setOptionScheduledEnabled(static_cast<JobSchedule>(_ui.scheduleComboBox->currentIndex()));
+        _job->setOptionScheduledEnabled(
+            static_cast<JobSchedule>(_ui.scheduleComboBox->currentIndex()));
         _job->setOptionPreservePaths(_ui.preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui.traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui.followSymLinksCheckBox->isChecked());
@@ -157,11 +160,11 @@ void JobWidget::saveNew()
     if(!_job->archives().isEmpty())
     {
         auto confirm =
-                QMessageBox::question(this, "Add job",
-                                      tr("Assign %1 found archives to this"
-                                         " Job?").arg(_job->archives().count()),
-                                      QMessageBox::Yes | QMessageBox::No,
-                                      QMessageBox::No);
+            QMessageBox::question(this, "Add job",
+                                  tr("Assign %1 found archives to this Job?")
+                                      .arg(_job->archives().count()),
+                                  QMessageBox::Yes | QMessageBox::No,
+                                  QMessageBox::No);
         QList<ArchivePtr> empty;
         if(confirm == QMessageBox::No)
             _job->setArchives(empty);
@@ -182,7 +185,8 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
         _ui.infoLabel->setStyleSheet("");
         _ui.infoLabel->setText(tr("Found %1 unassigned archives matching this"
                                   " Job description. Go to Archives tab below"
-                                  " to review.").arg(archives.count()));
+                                  " to review.")
+                                   .arg(archives.count()));
         _ui.infoLabel->show();
         _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
                                      true);

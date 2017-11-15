@@ -59,8 +59,9 @@ bool PersistentStore::init()
         {
             _db.close();
             DEBUG << "Invalid PersistentStore DB found. Attempting to recover.";
-            QString newName(dbUrl + "." +
-                            QString::number(QDateTime::currentMSecsSinceEpoch()));
+            QString newName(
+                dbUrl + "."
+                + QString::number(QDateTime::currentMSecsSinceEpoch()));
             if(!QFile::rename(dbUrl, newName))
             {
                 DEBUG << "Failed to rename current invalid PersistentStore DB. "
@@ -213,6 +214,12 @@ bool PersistentStore::runQuery(QSqlQuery query)
     return result;
 }
 
+/*
+ * The below "if((result =" lines don't play well with clang-format.
+ * In intend to rewrite them once I have a test suite for checking the
+ * version upgrading.
+ */
+/* clang-format off */
 bool PersistentStore::upgradeVersion0()
 {
     bool      result = false;
@@ -306,3 +313,4 @@ bool PersistentStore::upgradeVersion4()
     }
     return result;
 }
+/* clang-format on */

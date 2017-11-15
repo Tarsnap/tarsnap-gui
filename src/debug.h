@@ -36,24 +36,132 @@ public:
     }
     ~ConsoleLog() {}
 
-    inline ConsoleLog& operator<<(QChar t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }
-    inline ConsoleLog& operator<<(bool t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }
-    inline ConsoleLog& operator<<(char t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }
-    inline ConsoleLog& operator<<(signed short t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
-    inline ConsoleLog& operator<<(unsigned short t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
-    inline ConsoleLog& operator<<(signed int t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
-    inline ConsoleLog& operator<<(unsigned int t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
-    inline ConsoleLog& operator<<(signed long t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
-    inline ConsoleLog& operator<<(unsigned long t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
-    inline ConsoleLog& operator<<(qint64 t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
-    inline ConsoleLog& operator<<(quint64 t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
-    inline ConsoleLog& operator<<(float t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
-    inline ConsoleLog& operator<<(double t) { WARN << t; emit message(QString::number(t)); saveLogMessage(QString::number(t)); return *this; }
-    inline ConsoleLog& operator<<(const char* t) { WARN << t; emit message(QString::fromUtf8(t)); saveLogMessage(QString::fromUtf8(t)); return *this; }
-    inline ConsoleLog& operator<<(const QString& t) { WARN << t; emit message(t); saveLogMessage(t); return *this; }
-    inline ConsoleLog& operator<<(const QStringRef& t) { WARN << t; emit message(t.toString()); saveLogMessage(t.toString()); return *this; }
-    inline ConsoleLog& operator<<(QLatin1String t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }
-    inline ConsoleLog& operator<<(const QByteArray& t) { WARN << t; emit message(QString(t)); saveLogMessage(QString(t)); return *this; }
+    inline ConsoleLog &operator<<(QChar t)
+    {
+        WARN << t;
+        emit message(QString(t));
+        saveLogMessage(QString(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(bool t)
+    {
+        WARN << t;
+        emit message(QString(t));
+        saveLogMessage(QString(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(char t)
+    {
+        WARN << t;
+        emit message(QString(t));
+        saveLogMessage(QString(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(signed short t)
+    {
+        WARN << t;
+        emit message(QString::number(t));
+        saveLogMessage(QString::number(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(unsigned short t)
+    {
+        WARN << t;
+        emit message(QString::number(t));
+        saveLogMessage(QString::number(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(signed int t)
+    {
+        WARN << t;
+        emit message(QString::number(t));
+        saveLogMessage(QString::number(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(unsigned int t)
+    {
+        WARN << t;
+        emit message(QString::number(t));
+        saveLogMessage(QString::number(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(signed long t)
+    {
+        WARN << t;
+        emit message(QString::number(t));
+        saveLogMessage(QString::number(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(unsigned long t)
+    {
+        WARN << t;
+        emit message(QString::number(t));
+        saveLogMessage(QString::number(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(qint64 t)
+    {
+        WARN << t;
+        emit message(QString::number(t));
+        saveLogMessage(QString::number(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(quint64 t)
+    {
+        WARN << t;
+        emit message(QString::number(t));
+        saveLogMessage(QString::number(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(float t)
+    {
+        WARN << t;
+        emit message(QString::number(t));
+        saveLogMessage(QString::number(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(double t)
+    {
+        WARN << t;
+        emit message(QString::number(t));
+        saveLogMessage(QString::number(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(const char *t)
+    {
+        WARN << t;
+        emit message(QString::fromUtf8(t));
+        saveLogMessage(QString::fromUtf8(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(const QString &t)
+    {
+        WARN << t;
+        emit message(t);
+        saveLogMessage(t);
+        return *this;
+    }
+    inline ConsoleLog &operator<<(const QStringRef &t)
+    {
+        WARN << t;
+        emit message(t.toString());
+        saveLogMessage(t.toString());
+        return *this;
+    }
+    inline ConsoleLog &operator<<(QLatin1String t)
+    {
+        WARN << t;
+        emit message(QString(t));
+        saveLogMessage(QString(t));
+        return *this;
+    }
+    inline ConsoleLog &operator<<(const QByteArray &t)
+    {
+        WARN << t;
+        emit message(QString(t));
+        saveLogMessage(QString(t));
+        return *this;
+    }
 
     static QString getLogFile();
 

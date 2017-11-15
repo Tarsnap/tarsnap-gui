@@ -69,12 +69,13 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     }
 
     _backupTaskMap[backupTask->uuid()] = backupTask;
-    TarsnapTask *bTask = new TarsnapTask();
+    TarsnapTask *bTask                 = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
     QSettings settings;
-    if(settings.value("tarsnap/aggressive_networking",
-                      DEFAULT_AGGRESSIVE_NETWORKING).toBool())
+    if(settings
+           .value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING)
+           .toBool())
         args << "--aggressive-networking";
     if(backupTask->optionDryRun())
         args << "--dry-run";
@@ -121,7 +122,8 @@ void TaskManager::getArchives()
     TarsnapTask *listArchivesTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
-    args << "--list-archives" << "-vv";
+    args << "--list-archives"
+         << "-vv";
     listArchivesTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     listArchivesTask->setArguments(args);
     listArchivesTask->setTruncateLogOutput(true);
@@ -202,8 +204,8 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     QStringList  args;
     initTarsnapArgs(args);
     QSettings settings;
-    if(settings.value("tarsnap/preserve_pathnames",
-                      DEFAULT_PRESERVE_PATHNAMES).toBool())
+    if(settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES)
+           .toBool())
         args << "-P";
     args << "-tv"
          << "-f" << archive->name();
@@ -311,7 +313,8 @@ void TaskManager::nuke()
     queueTask(nuke, true);
 }
 
-void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options)
+void TaskManager::restoreArchive(ArchivePtr            archive,
+                                 ArchiveRestoreOptions options)
 {
     if(archive.isNull())
     {
@@ -349,7 +352,8 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
     }
     if(!options.files.isEmpty())
     {
-        args << "-T" << "-";
+        args << "-T"
+             << "-";
         restore->setStdIn(options.files.join(QChar('\n')));
     }
     args << "-f" << archive->name();
@@ -360,8 +364,8 @@ void TaskManager::restoreArchive(ArchivePtr archive, ArchiveRestoreOptions optio
             &TaskManager::restoreArchiveFinished, QUEUED);
     connect(restore, &TarsnapTask::started, this,
             [=]() {
-                emit message(
-                    tr("Restoring from archive <i>%1</i>...").arg(archive->name()));
+                emit message(tr("Restoring from archive <i>%1</i>...")
+                                 .arg(archive->name()));
             },
             QUEUED);
     queueTask(restore);
@@ -449,7 +453,9 @@ void TaskManager::runScheduledJobs()
     {
         doWeekly         = true;
         QDate nextSunday = now.addDays(1);
-        for(; nextSunday.dayOfWeek() != 7; nextSunday = nextSunday.addDays(1));
+        for(; nextSunday.dayOfWeek() != 7; nextSunday = nextSunday.addDays(1))
+            /* Do nothing. */
+            ;
         settings.setValue("app/next_weekly_timestamp", nextSunday);
     }
     if(!nextMonthly.isValid() || (nextMonthly <= now))
@@ -726,7 +732,8 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
     }
 
     emit message(tr("Fetching contents for archive <i>%1</i>... done.")
-                 .arg(archive->name()), detailText);
+                     .arg(archive->name()),
+                 detailText);
 
     archive->setContents(stdOut);
     archive->save();
@@ -797,7 +804,8 @@ void TaskManager::fsckFinished(QVariant data, int exitCode, QString stdOut,
     }
     else
     {
-        emit message(tr("Cache repair failed. Hover mouse for details."), stdErr);
+        emit message(tr("Cache repair failed. Hover mouse for details."),
+                     stdErr);
         parseError(stdErr);
     }
     getArchives();
@@ -936,7 +944,8 @@ void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString stdOut,
         if(ok)
             emit keyId(key_filename, id);
         else
-            DEBUG << "Invalid output from tarsnap-keymgmt for key " << key_filename;
+            DEBUG << "Invalid output from tarsnap-keymgmt for key "
+                  << key_filename;
     }
     else
     {
@@ -967,7 +976,8 @@ void TaskManager::startTask(TarsnapTask *task)
         else
             return;
     }
-    connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask, QUEUED);
+    connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask,
+            QUEUED);
     _runningTasks.append(task);
     task->setAutoDelete(false);
     _threadPool->start(task);
@@ -1188,8 +1198,8 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
         {
             emit message(tr("Job <i>%1</i> deleted. Deleting %2 associated "
                             "archives next...")
-                         .arg(job->name())
-                         .arg(job->archives().count()));
+                             .arg(job->name())
+                             .arg(job->archives().count()));
             deleteArchives(job->archives());
         }
         else
@@ -1201,7 +1211,7 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
 
 void TaskManager::loadJobArchives()
 {
-    Job *job = qobject_cast<Job *>(sender());
+    Job *             job = qobject_cast<Job *>(sender());
     QList<ArchivePtr> archives;
     foreach(ArchivePtr archive, _archiveMap)
     {

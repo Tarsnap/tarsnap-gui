@@ -59,8 +59,9 @@ bool PersistentStore::init()
         {
             _db.close();
             DEBUG << "Invalid PersistentStore DB found. Attempting to recover.";
-            QString newName(dbUrl + "." +
-                            QString::number(QDateTime::currentMSecsSinceEpoch()));
+            QString newName(
+                dbUrl + "."
+                + QString::number(QDateTime::currentMSecsSinceEpoch()));
             if(!QFile::rename(dbUrl, newName))
             {
                 DEBUG << "Failed to rename current invalid PersistentStore DB. "

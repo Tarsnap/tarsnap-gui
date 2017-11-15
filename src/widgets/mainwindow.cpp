@@ -449,7 +449,8 @@ void MainWindow::loadSettings()
     _ui.accountCreditLabel->setText(
         settings.value("tarsnap/credit", tr("click login button")).toString());
     _ui.machineActivity->setText(
-        settings.value("tarsnap/machine_activity", tr("click login button")).toString());
+        settings.value("tarsnap/machine_activity", tr("click login button"))
+            .toString());
     _ui.accountUserLineEdit->setText(
         settings.value("tarsnap/user", "").toString());
     _ui.accountMachineKeyLineEdit->setText(
@@ -461,15 +462,20 @@ void MainWindow::loadSettings()
     _ui.tarsnapCacheLineEdit->setText(
         settings.value("tarsnap/cache", "").toString());
     _ui.aggressiveNetworkingCheckBox->setChecked(
-        settings.value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING).toBool());
+        settings.value("tarsnap/aggressive_networking",
+            DEFAULT_AGGRESSIVE_NETWORKING).toBool());
     _ui.traverseMountCheckBox->setChecked(
-        settings.value("tarsnap/traverse_mount", DEFAULT_TRAVERSE_MOUNT).toBool());
+        settings.value("tarsnap/traverse_mount",
+            DEFAULT_TRAVERSE_MOUNT).toBool());
     _ui.followSymLinksCheckBox->setChecked(
-        settings.value("tarsnap/follow_symlinks", DEFAULT_FOLLOW_SYMLINKS).toBool());
+        settings.value("tarsnap/follow_symlinks",
+            DEFAULT_FOLLOW_SYMLINKS).toBool());
     _ui.preservePathsCheckBox->setChecked(
-        settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES).toBool());
+        settings.value("tarsnap/preserve_pathnames",
+            DEFAULT_PRESERVE_PATHNAMES).toBool());
     _ui.ignoreConfigCheckBox->setChecked(
-        settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG).toBool());
+        settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG)
+            .toBool());
     _ui.simulationCheckBox->setChecked(
         settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
     _ui.simulationIcon->setVisible(_ui.simulationCheckBox->isChecked());
@@ -478,10 +484,12 @@ void MainWindow::loadSettings()
     _ui.skipFilesSizeSpinBox->setValue(
         settings.value("app/skip_files_size", DEFAULT_SKIP_FILES_SIZE).toInt());
     _ui.skipSystemJunkCheckBox->setChecked(
-        settings.value("app/skip_system_enabled", DEFAULT_SKIP_SYSTEM_ENABLED).toBool());
+        settings.value("app/skip_system_enabled", DEFAULT_SKIP_SYSTEM_ENABLED)
+            .toBool());
     _ui.skipSystemLineEdit->setEnabled(_ui.skipSystemJunkCheckBox->isChecked());
     _ui.skipSystemLineEdit->setText(
-        settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES).toString());
+        settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
+            .toString());
     _ui.skipNoDumpCheckBox->setChecked(
         settings.value("app/skip_nodump", DEFAULT_SKIP_NODUMP).toBool());
     _ui.downloadsDirLineEdit->setText(
@@ -1030,7 +1038,8 @@ void MainWindow::enableJobScheduling()
 
     QMessageBox question(this);
     question.setIcon(QMessageBox::Question);
-    question.setText(tr("Tarsnap GUI will be added to the current user's crontab."));
+    question.setText(
+        tr("Tarsnap GUI will be added to the current user's crontab."));
     question.setInformativeText(tr("To ensure proper behavior please review the"
                                 " lines to be added by pressing Show Details"
                                 " before proceeding."));
@@ -1469,7 +1478,10 @@ void MainWindow::appendToConsoleLog(const QString &log)
     else
         bf.setBackground(QBrush(qApp->palette().base().color()));
     cursor.mergeBlockFormat(bf);
-    cursor.insertText(QString("[%1] %2\n").arg(QDateTime::currentDateTime().toString(Qt::DefaultLocaleShortDate)).arg(log));
+    cursor.insertText(QString("[%1] %2\n")
+                          .arg(QDateTime::currentDateTime().toString(
+                              Qt::DefaultLocaleShortDate))
+                          .arg(log));
     _ui.consoleLog->moveCursor(QTextCursor::End);
     _ui.consoleLog->ensureCursorVisible();
 }

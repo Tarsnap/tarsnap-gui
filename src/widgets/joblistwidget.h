@@ -72,8 +72,8 @@ private slots:
     void deleteItem();
 
 private:
-    void execDeleteJob(JobListWidgetItem *jobItem);
     int  visibleItemsCount();
+    void execDeleteJob(JobListWidgetItem *jobItem);
 
     QRegExp _filter;
 };

@@ -65,8 +65,8 @@ private slots:
     void removeItem();
 
 private:
-    void insertArchive(ArchivePtr archive, int pos);
     int  visibleItemsCount();
+    void insertArchive(ArchivePtr archive, int pos);
 
     QRegExp _filter;
 };

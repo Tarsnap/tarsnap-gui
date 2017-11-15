@@ -73,8 +73,9 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     QStringList  args;
     initTarsnapArgs(args);
     QSettings settings;
-    if(settings.value("tarsnap/aggressive_networking",
-                      DEFAULT_AGGRESSIVE_NETWORKING).toBool())
+    if(settings
+           .value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING)
+           .toBool())
         args << "--aggressive-networking";
     if(backupTask->optionDryRun())
         args << "--dry-run";

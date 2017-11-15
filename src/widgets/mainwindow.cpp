@@ -462,17 +462,17 @@ void MainWindow::loadSettings()
     _ui.tarsnapCacheLineEdit->setText(
         settings.value("tarsnap/cache", "").toString());
     _ui.aggressiveNetworkingCheckBox->setChecked(
-        settings.value("tarsnap/aggressive_networking",
-            DEFAULT_AGGRESSIVE_NETWORKING).toBool());
+        settings
+            .value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING)
+            .toBool());
     _ui.traverseMountCheckBox->setChecked(
-        settings.value("tarsnap/traverse_mount",
-            DEFAULT_TRAVERSE_MOUNT).toBool());
+        settings.value("tarsnap/traverse_mount", DEFAULT_TRAVERSE_MOUNT).toBool());
     _ui.followSymLinksCheckBox->setChecked(
-        settings.value("tarsnap/follow_symlinks",
-            DEFAULT_FOLLOW_SYMLINKS).toBool());
+        settings.value("tarsnap/follow_symlinks", DEFAULT_FOLLOW_SYMLINKS)
+            .toBool());
     _ui.preservePathsCheckBox->setChecked(
-        settings.value("tarsnap/preserve_pathnames",
-            DEFAULT_PRESERVE_PATHNAMES).toBool());
+        settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES)
+            .toBool());
     _ui.ignoreConfigCheckBox->setChecked(
         settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG)
             .toBool());
@@ -1947,10 +1947,8 @@ void MainWindow::updateUi()
                      .toString(QKeySequence::NativeText))
             .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
                      .toString(QKeySequence::NativeText))
-            .arg(QKeySequence(Qt::Key_Backspace)
-                     .toString(QKeySequence::NativeText))
-            .arg(QKeySequence(Qt::Key_Delete)
-                     .toString(QKeySequence::NativeText)));
+            .arg(QKeySequence(Qt::Key_Backspace).toString(QKeySequence::NativeText))
+            .arg(QKeySequence(Qt::Key_Delete).toString(QKeySequence::NativeText)));
     _ui.mainTabWidget->setTabToolTip(0,
                                      _ui.mainTabWidget->tabToolTip(0).arg(
                                          _ui.actionGoBackup->shortcut().toString(

@@ -69,7 +69,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     }
 
     _backupTaskMap[backupTask->uuid()] = backupTask;
-    TarsnapTask *bTask = new TarsnapTask();
+    TarsnapTask *bTask                 = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
     QSettings settings;
@@ -203,8 +203,8 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     QStringList  args;
     initTarsnapArgs(args);
     QSettings settings;
-    if(settings.value("tarsnap/preserve_pathnames",
-                      DEFAULT_PRESERVE_PATHNAMES).toBool())
+    if(settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES)
+           .toBool())
         args << "-P";
     args << "-tv"
          << "-f" << archive->name();
@@ -730,7 +730,8 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
     }
 
     emit message(tr("Fetching contents for archive <i>%1</i>... done.")
-                 .arg(archive->name()), detailText);
+                     .arg(archive->name()),
+                 detailText);
 
     archive->setContents(stdOut);
     archive->save();
@@ -1193,8 +1194,8 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
         {
             emit message(tr("Job <i>%1</i> deleted. Deleting %2 associated "
                             "archives next...")
-                         .arg(job->name())
-                         .arg(job->archives().count()));
+                             .arg(job->name())
+                             .arg(job->archives().count()));
             deleteArchives(job->archives());
         }
         else
@@ -1206,7 +1207,7 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
 
 void TaskManager::loadJobArchives()
 {
-    Job *job = qobject_cast<Job *>(sender());
+    Job *             job = qobject_cast<Job *>(sender());
     QList<ArchivePtr> archives;
     foreach(ArchivePtr archive, _archiveMap)
     {

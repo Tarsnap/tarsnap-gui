@@ -131,7 +131,8 @@ void JobWidget::save()
         _job->setUrls(_ui.jobTreeWidget->getSelectedUrls());
         _job->removeWatcher();
         _job->installWatcher();
-        _job->setOptionScheduledEnabled(static_cast<JobSchedule>(_ui.scheduleComboBox->currentIndex()));
+        _job->setOptionScheduledEnabled(
+            static_cast<JobSchedule>(_ui.scheduleComboBox->currentIndex()));
         _job->setOptionPreservePaths(_ui.preservePathsCheckBox->isChecked());
         _job->setOptionTraverseMount(_ui.traverseMountCheckBox->isChecked());
         _job->setOptionFollowSymLinks(_ui.followSymLinksCheckBox->isChecked());
@@ -182,7 +183,8 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
         _ui.infoLabel->setStyleSheet("");
         _ui.infoLabel->setText(tr("Found %1 unassigned archives matching this"
                                   " Job description. Go to Archives tab below"
-                                  " to review.").arg(archives.count()));
+                                  " to review.")
+                                   .arg(archives.count()));
         _ui.infoLabel->show();
         _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
                                      true);

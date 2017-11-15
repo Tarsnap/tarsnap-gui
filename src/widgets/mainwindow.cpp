@@ -500,15 +500,15 @@ void MainWindow::loadSettings()
     _ui.limitUploadSpinBox->setValue(
         settings.value("app/limit_upload", 0).toInt());
     _ui.limitDownloadSpinBox->setValue(
-                settings.value("app/limit_download", 0).toInt());
+        settings.value("app/limit_download", 0).toInt());
     _ui.actionShowArchivesTabHeader->setChecked(
-                settings.value("app/archives_header_enabled", true).toBool());
+        settings.value("app/archives_header_enabled", true).toBool());
     _ui.archivesHeader->setVisible(_ui.actionShowArchivesTabHeader->isChecked());
     _ui.actionShowJobsTabHeader->setChecked(
-                settings.value("app/jobs_header_enabled", true).toBool());
+        settings.value("app/jobs_header_enabled", true).toBool());
     _ui.jobsHeader->setVisible(_ui.actionShowJobsTabHeader->isChecked());
     _ui.saveConsoleLogCheckBox->setChecked(
-                settings.value("app/save_console_log", false).toBool());
+        settings.value("app/save_console_log", false).toBool());
     _ui.saveConsoleLogLineEdit->setText(ConsoleLog::getLogFile());
 
     if(settings.value("app/default_jobs_dismissed", false).toBool())
@@ -1016,25 +1016,32 @@ void MainWindow::enableJobScheduling()
     rx.setMinimal(true);
     if(-1 != rx.indexIn(currentCrontab))
     {
-        QMessageBox::critical(this, tr("Job scheduling"),
-                              tr("Looks like scheduling is already enabled for the"
-                              " current user's crontab. Nothing to do."
-                              "\n%1").arg(CRON_MARKER_HELP));
+        QMessageBox::critical(
+            this, tr("Job scheduling"),
+            tr("Looks like scheduling is already enabled for the"
+               " current user's crontab. Nothing to do."
+               "\n%1")
+                .arg(CRON_MARKER_HELP));
         return;
     }
 
-    QString cronLine(CRON_LINE);
+    QString             cronLine(CRON_LINE);
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    cronLine = cronLine.arg(env.contains("SCREEN") ? "SCREEN=" + env.value("SCREEN") : "")
-                       .arg(env.contains("DISPLAY") ? "DISPLAY=" + env.value("DISPLAY") : "")
-                       .arg(env.contains("XAUTHORITY") ? "XAUTHORITY=" + env.value("XAUTHORITY") : "")
-                       .arg(QCoreApplication::applicationFilePath());
+    cronLine =
+        cronLine
+            .arg(env.contains("SCREEN") ? "SCREEN=" + env.value("SCREEN") : "")
+            .arg(env.contains("DISPLAY")
+                     ? "DISPLAY=" + env.value("DISPLAY") : "")
+            .arg(env.contains("XAUTHORITY")
+                     ? "XAUTHORITY=" + env.value("XAUTHORITY")
+                     : "")
+            .arg(QCoreApplication::applicationFilePath());
 
     QString cronBlock("\n%1\n%2\n%3\n%4\n");
     cronBlock = cronBlock.arg(CRON_MARKER_BEGIN)
-                         .arg(CRON_MARKER_HELP)
-                         .arg(cronLine)
-                         .arg(CRON_MARKER_END);
+                    .arg(CRON_MARKER_HELP)
+                    .arg(cronLine)
+                    .arg(CRON_MARKER_END);
 
     QMessageBox question(this);
     question.setIcon(QMessageBox::Question);
@@ -1933,15 +1940,16 @@ void MainWindow::addDefaultJobs()
 void MainWindow::updateUi()
 {
     // Keyboard shortcuts
-    _ui.helpTabText->setHtml(_helpTabHTML
-                                        .arg(QKeySequence(Qt::ControlModifier)
-                                             .toString(QKeySequence::NativeText))
-                                        .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
-                                             .toString(QKeySequence::NativeText))
-                                        .arg(QKeySequence(Qt::Key_Backspace)
-                                             .toString(QKeySequence::NativeText))
-                                        .arg(QKeySequence(Qt::Key_Delete)
-                                             .toString(QKeySequence::NativeText)));
+    _ui.helpTabText->setHtml(
+        _helpTabHTML
+            .arg(QKeySequence(Qt::ControlModifier)
+                     .toString(QKeySequence::NativeText))
+            .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
+                     .toString(QKeySequence::NativeText))
+            .arg(QKeySequence(Qt::Key_Backspace)
+                     .toString(QKeySequence::NativeText))
+            .arg(QKeySequence(Qt::Key_Delete)
+                     .toString(QKeySequence::NativeText)));
     _ui.mainTabWidget->setTabToolTip(0,
                                      _ui.mainTabWidget->tabToolTip(0).arg(
                                          _ui.actionGoBackup->shortcut().toString(

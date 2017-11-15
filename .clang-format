@@ -12,7 +12,7 @@ AccessModifierOffset: -4
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 AlignConsecutiveDeclarations: true
 AlignConsecutiveAssignments: true
-PenaltyExcessCharacter: 10
+PenaltyExcessCharacter: 20
 PenaltyBreakBeforeFirstCallParameter: 100
 PenaltyBreakFirstLessLess: 100
 PenaltyBreakString: 100

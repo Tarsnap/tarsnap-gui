@@ -35,15 +35,8 @@
 #define DEFAULT_DOWNLOADS                                                      \
     QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
 
-const QStringList DEFAULT_JOBS {
-    "Desktop",
-    "Documents",
-    "Pictures",
-    "Movies",
-    "Videos",
-    "Music",
-    "Work"
-};
+const QStringList DEFAULT_JOBS{"Desktop", "Documents", "Pictures", "Movies",
+                               "Videos",  "Music",     "Work"};
 
 #define QUEUED Qt::QueuedConnection
 

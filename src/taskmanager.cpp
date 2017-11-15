@@ -449,7 +449,9 @@ void TaskManager::runScheduledJobs()
     {
         doWeekly         = true;
         QDate nextSunday = now.addDays(1);
-        for(; nextSunday.dayOfWeek() != 7; nextSunday = nextSunday.addDays(1));
+        for(; nextSunday.dayOfWeek() != 7; nextSunday = nextSunday.addDays(1))
+            /* Do nothing. */
+            ;
         settings.setValue("app/next_weekly_timestamp", nextSunday);
     }
     if(!nextMonthly.isValid() || (nextMonthly <= now))

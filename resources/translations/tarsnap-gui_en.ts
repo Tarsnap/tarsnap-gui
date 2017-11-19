@@ -327,7 +327,7 @@ Add anyway?</source>
     <name>CoreApplication</name>
     <message>
         <location filename="../../src/coreapplication.cpp" line="54"/>
-        <source>Tarsnap GUI - Online backups for the truly lazy</source>
+        <source>Tarsnap GUI - Online backups for the truly paranoid (yet graphically inclined)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

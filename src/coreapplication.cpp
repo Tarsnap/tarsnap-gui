@@ -51,7 +51,8 @@ void CoreApplication::parseArgs()
 {
     QCommandLineParser parser;
     parser.setApplicationDescription(
-        tr("Tarsnap GUI - Online backups for the truly lazy"));
+        tr("Tarsnap GUI - Online backups for the truly paranoid "
+           "(yet graphically inclined)"));
     parser.addHelpOption();
     parser.addVersionOption();
     QCommandLineOption jobsOption(QStringList() << "j"

@@ -173,6 +173,12 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
      </item>
      <item row="1" column="2">
       <widget class="QLabel" name="titleLabel">
+       <property name="minimumSize">
+        <size>
+         <width>233</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>Abyssinica SIL</family>
@@ -180,7 +186,7 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
         </font>
        </property>
        <property name="text">
-        <string>Setup wizard</string>
+        <string>Command-line utilities</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -192,11 +198,8 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
      </item>
      <item row="0" column="0" rowspan="2">
       <widget class="QLabel" name="iconLabel">
-       <property name="styleSheet">
-        <string notr="true">QLabel {
-image: url(:/icons/tarsnap-logo.png);
-min-width: 200px;
-}</string>
+       <property name="pixmap">
+        <pixmap resource="../resources/resources.qrc">:/icons/tarsnap-header-half.png</pixmap>
        </property>
       </widget>
      </item>

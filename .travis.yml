@@ -1,0 +1,10 @@
+language: cpp
+sudo: false
+dist: trusty
+script:
+  - make
+addons:
+  apt:
+    packages: qtbase5-dev
+before_install:
+  - QT_SELECT=qt5 qmake

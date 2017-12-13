@@ -2,7 +2,7 @@ language: cpp
 sudo: false
 dist: trusty
 script:
-  - make
+  - make && make test
 addons:
   apt:
     packages: qtbase5-dev

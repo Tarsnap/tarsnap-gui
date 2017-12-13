@@ -126,6 +126,8 @@ DISTFILES += .astylerc
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
+UNIT_TESTS = tests/customfilesystemmodel
+
 osx {
     LIBS += -framework Foundation
     ICON = resources/icons/tarsnap.icns
@@ -138,3 +140,15 @@ format.commands = find . -name \"*.h\"   -not -path \"*/ui_*.h\" | \
                         -not -path \"*/qrc_resources.cpp\" | \
 			xargs clang-format -i ;
 QMAKE_EXTRA_TARGETS += format
+
+test.commands =		for D in $${UNIT_TESTS}; do			\
+				cd \$\${D} && \${QMAKE} && make test;	\
+			done
+
+# Yes, this also does distclean
+test_clean.commands =	for D in $${UNIT_TESTS}; do			\
+				cd \$\${D} && make distclean;		\
+			done
+clean.depends += test_clean
+
+QMAKE_EXTRA_TARGETS += test test_clean clean

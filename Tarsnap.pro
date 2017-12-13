@@ -121,7 +121,7 @@ DISTFILES += \
     INSTALL \
     CHANGELOG
 
-DISTFILES += .astylerc
+DISTFILES += .clang-format
 
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts

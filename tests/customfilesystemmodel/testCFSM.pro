@@ -10,6 +10,10 @@ SOURCES = testCFSM.cpp \
 	../../src/customfilesystemmodel.cpp \
 	main.cpp
 
-test.commands = ./testCFSM -platform offscreen
-test.depends = testCFSM
+osx {
+    LIBS += -framework Foundation
+}
+
+test.commands = ./${TARGET} -platform offscreen
+test.depends = ${TARGET}
 QMAKE_EXTRA_TARGETS += test

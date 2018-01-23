@@ -9,9 +9,11 @@
 #include <QTimer>
 
 #define SUCCESS 0
-#define SCHEDULED_JOBS_SLEEP 3
+#define SCHEDULED_JOBS_SLEEP 30
+#define TARSNAP_SITE "http://www.tarsnap.com/"
 
-TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
+TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance()),
+    _nam(this)
 {
 }
 
@@ -432,9 +434,49 @@ void TaskManager::findMatchingArchives(QString jobPrefix)
 
 void TaskManager::runScheduledJobs()
 {
-    // sleep for a short while just to take an extra assurance that network is
-    // up
-    QThread::sleep(SCHEDULED_JOBS_SLEEP);
+    // Verify connectivity to the tarsnap servers before executing the
+    // scheduled backups
+    QNetworkReply *reply = tarsnapHeadRequest(TARSNAP_SITE);
+    connect(reply, &QNetworkReply::finished, [=]() {
+        // Do we have a reply for the HTTP HEAD request, if yes proceed with
+        // backup
+        if(reply->rawHeaderList().count())
+        {
+            this->executeScheduledJobs();
+            reply->close();
+            reply->deleteLater();
+            return;
+        }
+        // sleep for a short while to allow for automatically joined
+        // networks to connect and try again
+        QThread::sleep(SCHEDULED_JOBS_SLEEP);
+        QNetworkReply *reply = tarsnapHeadRequest(TARSNAP_SITE);
+        connect(reply, &QNetworkReply::finished, [=]() {
+            if(reply->rawHeaderList().count())
+            {
+                this->executeScheduledJobs();
+                reply->close();
+                reply->deleteLater();
+                return;
+            }
+            QString title(tr("Scheduled jobs not executed (cannot reach server)."));
+            QString body(tr("Please check your internet connectivity and try"
+                            " again."));
+            emit message(title, body);
+            emit displayNotification(title + "\n" + body);
+            // Quit with a delay to allow for the system notifications
+            // to go through
+            QTimer *quitTimer = new QTimer(this);
+            quitTimer->setSingleShot(true);
+            connect(quitTimer, &QTimer::timeout, qApp,
+                    QCoreApplication::quit);
+            quitTimer->start(1000);
+        });
+    });
+}
+
+void TaskManager::executeScheduledJobs()
+{
     loadJobs();
     QSettings settings;
     QDate     now(QDate::currentDate());
@@ -1148,6 +1190,15 @@ void TaskManager::initTarsnapArgs(QStringList &args)
     if(settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG)
            .toBool())
         args.prepend("--no-default-config");
+}
+
+QNetworkReply* TaskManager::tarsnapHeadRequest(QString url)
+{
+    QNetworkRequest request;
+    request.setUrl(url);
+    request.setRawHeader("User-Agent",
+        (qApp->applicationName() + " " + qApp->applicationVersion()).toLatin1());
+    return _nam.head(request);
 }
 
 void TaskManager::loadJobs()

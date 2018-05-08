@@ -16,6 +16,10 @@ class SetupDialog : public QDialog
 {
     Q_OBJECT
 
+#ifdef QT_TESTLIB_LIB
+    friend class TestSetupWizard;
+#endif
+
 public:
     /// Constructor.
     explicit SetupDialog(QWidget *parent = nullptr);

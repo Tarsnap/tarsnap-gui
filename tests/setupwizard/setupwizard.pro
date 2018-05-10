@@ -20,6 +20,7 @@ SOURCES += testsetupwizard.cpp				\
 
 # XDG_CONFIG_HOME allows use to create a temporary config file in this
 # directory, without messing up the user-wide config file.
-test.commands = XDG_CONFIG_HOME=. ./${TARGET}
+# HACK: removing the target is an ugly hack to imitate .PHONY in the Makefile.
+test.commands = XDG_CONFIG_HOME=. ./${TARGET} ; rm -f ${TARGET}
 test.depends = ${TARGET}
 QMAKE_EXTRA_TARGETS += test

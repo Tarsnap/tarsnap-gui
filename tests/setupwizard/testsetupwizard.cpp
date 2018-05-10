@@ -12,6 +12,7 @@ public:
 
 private slots:
     void normal_install();
+    void cli();
 
 private:
 };
@@ -64,6 +65,40 @@ void TestSetupWizard::normal_install()
     // Page 4
     QVERIFY(ui.titleLabel->text() == "Setup complete!");
     QTest::mouseClick(ui.nextButton, Qt::LeftButton);
+
+    delete setupWizard;
+}
+
+void TestSetupWizard::cli()
+{
+    SetupDialog *   setupWizard = new SetupDialog();
+    Ui::SetupDialog ui          = setupWizard->_ui;
+    QSignalSpy      sig_cli(setupWizard, SIGNAL(getTarsnapVersion(QString)));
+
+    QTest::mouseClick(ui.nextButton, Qt::LeftButton);
+    QVERIFY(ui.titleLabel->text() == "Command-line utilities");
+
+    // App data directory
+    ui.appDataPathLineEdit->setText("fake-dir");
+    QVERIFY(ui.advancedValidationLabel->text()
+            == "Invalid App data directory set.");
+    ui.appDataPathLineEdit->setText("/tmp");
+
+    // Cache directory
+    ui.tarsnapCacheLineEdit->setText("fake-dir");
+    QVERIFY(ui.advancedValidationLabel->text()
+            == "Invalid Tarsnap cache directory set.");
+    ui.tarsnapCacheLineEdit->setText("/tmp");
+
+    // Tarsnap CLI directory
+    ui.tarsnapPathLineEdit->setText("fake-dir");
+    QVERIFY(ui.advancedValidationLabel->text().contains(
+        "Tarsnap utilities not found."));
+    ui.tarsnapPathLineEdit->setText("/tmp");
+
+    // Fake detecting the binaries
+    setupWizard->setTarsnapVersion("X.Y.Z.");
+    QVERIFY(ui.advancedValidationLabel->text().contains("Tarsnap CLI version"));
 
     delete setupWizard;
 }

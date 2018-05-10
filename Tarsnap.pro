@@ -126,7 +126,8 @@ DISTFILES += .clang-format
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
-UNIT_TESTS = tests/customfilesystemmodel
+UNIT_TESTS =	tests/customfilesystemmodel	\
+		tests/setupwizard
 
 osx {
     LIBS += -framework Foundation
@@ -142,12 +143,12 @@ format.commands = find . -name \"*.h\"   -not -path \"*/ui_*.h\" | \
 QMAKE_EXTRA_TARGETS += format
 
 test.commands =		for D in $${UNIT_TESTS}; do			\
-				cd \$\${D} && \${QMAKE} && make test;	\
+				(cd \$\${D} && \${QMAKE} && make test);	\
 			done
 
 # Yes, this also does distclean
 test_clean.commands =	for D in $${UNIT_TESTS}; do			\
-				cd \$\${D} && make distclean;		\
+				(cd \$\${D} && make distclean);		\
 			done
 clean.depends += test_clean
 

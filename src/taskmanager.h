@@ -16,6 +16,8 @@
 #include <QThreadPool>
 #include <QUrl>
 #include <QUuid>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 /*!
  * \ingroup background-tasks
@@ -151,6 +153,8 @@ private slots:
     void startTask(TarsnapTask *task);
     void dequeueTask();
 
+    void executeScheduledJobs();
+
 private:
     void parseError(QString tarsnapOutput);
     void parseGlobalStats(QString tarsnapOutput);
@@ -158,6 +162,7 @@ private:
                            ArchivePtr archive);
     QString makeTarsnapCommand(QString cmd);
     void initTarsnapArgs(QStringList &args);
+    QNetworkReply* tarsnapHeadRequest(QString url);
 
     QMap<QUuid, BackupTaskPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>  _archiveMap;
@@ -165,6 +170,7 @@ private:
     QQueue<TarsnapTask *> _taskQueue; // mutually exclusive tasks
     QThreadPool *         _threadPool;
     QMap<QString, JobPtr> _jobMap;
+    QNetworkAccessManager _nam;
 };
 
 #endif // TASKMANAGER_H

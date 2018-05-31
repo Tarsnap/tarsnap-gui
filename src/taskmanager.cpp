@@ -6,10 +6,15 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QSettings>
+#include <QTcpSocket>
 #include <QTimer>
 
 #define SUCCESS 0
-#define SCHEDULED_JOBS_SLEEP 3
+
+#define NETWORK_HOST "v1-0-0-server.tarsnap.com"
+#define NETWORK_PORT 9279
+#define NETWORK_UP_SLEEP 60
+#define NETWORK_UP_ATTEMPTS 3
 
 TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
 {
@@ -430,11 +435,42 @@ void TaskManager::findMatchingArchives(QString jobPrefix)
     emit matchingArchives(matching);
 }
 
+bool TaskManager::waitForOnline()
+{
+    for(int i = 0; i < NETWORK_UP_ATTEMPTS; i++)
+    {
+        QTcpSocket sock;
+        sock.connectToHost(NETWORK_HOST, NETWORK_PORT);
+        // Multiple calls to waitForConnected() do not accumulate time, so we
+        // use ::sleep() below.
+        if(sock.waitForConnected(500))
+        {
+            sock.disconnectFromHost();
+            return true;
+        }
+        // Wait a bit, then try again
+        if(i < NETWORK_UP_ATTEMPTS - 1)
+            QThread::sleep(NETWORK_UP_SLEEP);
+    }
+    warnNotOnline();
+    return false;
+}
+
+void TaskManager::warnNotOnline()
+{
+    QString title(tr("Scheduled jobs not executed (cannot reach server)."));
+    QString body(tr("Please check your internet connectivity and try again."));
+    emit    message(title, body);
+    emit    displayNotification(title + "\n" + body);
+    // Quit with a delay to allow for the system notifications to go through
+    QTimer *quitTimer = new QTimer(this);
+    quitTimer->setSingleShot(true);
+    connect(quitTimer, &QTimer::timeout, qApp, QCoreApplication::quit);
+    quitTimer->start(1000);
+}
+
 void TaskManager::runScheduledJobs()
 {
-    // sleep for a short while just to take an extra assurance that network is
-    // up
-    QThread::sleep(SCHEDULED_JOBS_SLEEP);
     loadJobs();
     QSettings settings;
     QDate     now(QDate::currentDate());
@@ -478,13 +514,21 @@ void TaskManager::runScheduledJobs()
     bool nothingToDo = true;
     foreach(JobPtr job, _jobMap)
     {
+        // Do we need to run any jobs?
         if((doDaily && (job->optionScheduledEnabled() == JobSchedule::Daily))
            || (doWeekly && (job->optionScheduledEnabled() == JobSchedule::Weekly))
            || (doMonthly
                && (job->optionScheduledEnabled() == JobSchedule::Monthly)))
         {
+            // Before the first job...
+            if(nothingToDo) {
+                // ... we have a job now
+                nothingToDo = false;
+                // ... check & wait for an internet connection
+                if(!waitForOnline())
+                    return;
+            }
             backupNow(job->createBackupTask());
-            nothingToDo = false;
         }
     }
     if(nothingToDo)

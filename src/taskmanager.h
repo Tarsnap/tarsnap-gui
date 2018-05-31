@@ -158,6 +158,8 @@ private:
                            ArchivePtr archive);
     QString makeTarsnapCommand(QString cmd);
     void initTarsnapArgs(QStringList &args);
+    bool waitForOnline();
+    void warnNotOnline();
 
     QMap<QUuid, BackupTaskPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>  _archiveMap;

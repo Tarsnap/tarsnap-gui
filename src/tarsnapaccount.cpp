@@ -2,6 +2,7 @@
 #include "debug.h"
 #include "utils.h"
 
+#include <QHeaderView>
 #include <QMessageBox>
 #include <QNetworkReply>
 #include <QNetworkRequest>

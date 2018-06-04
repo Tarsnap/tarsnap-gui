@@ -1,3 +1,9 @@
+Version 1.0.1
+-------------
+
+This fixes build problems with Qt 5.10 and 5.11.
+
+
 Version 1.0
 -----------
 

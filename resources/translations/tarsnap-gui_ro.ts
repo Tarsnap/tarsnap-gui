@@ -3500,8 +3500,8 @@ Aborting operation.</source>
     </message>
     <message>
         <location filename="../../forms/aboutwidget.ui" line="73"/>
-        <source>© 2014-2017 Tarsnap Backup Inc. All rights reserved.</source>
-        <translation>© 2014-2017 Tarsnap Backup Inc. Toate drepturile rezervate.</translation>
+        <source>© 2014-2018 Tarsnap Backup Inc. All rights reserved.</source>
+        <translation>© 2014-2018 Tarsnap Backup Inc. Toate drepturile rezervate.</translation>
     </message>
     <message>
         <source>© 2014-2016 Tarsnap Backup Inc. All rights reserved.</source>

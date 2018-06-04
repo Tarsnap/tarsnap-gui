@@ -3121,7 +3121,7 @@ Aborting operation.</source>
     </message>
     <message>
         <location filename="../../forms/aboutwidget.ui" line="73"/>
-        <source>© 2014-2017 Tarsnap Backup Inc. All rights reserved.</source>
+        <source>© 2014-2018 Tarsnap Backup Inc. All rights reserved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

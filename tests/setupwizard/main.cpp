@@ -19,7 +19,7 @@ private:
 
 TestSetupWizard::TestSetupWizard()
 {
-    QCoreApplication::setOrganizationName("test-config");
+    QCoreApplication::setOrganizationName(TEST_NAME);
 }
 
 TestSetupWizard::~TestSetupWizard()

@@ -13,7 +13,7 @@ HEADERS  +=						\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/setupdialog.h
 
-SOURCES += testsetupwizard.cpp				\
+SOURCES += main.cpp					\
 	../../src/utils.cpp				\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/setupdialog.cpp

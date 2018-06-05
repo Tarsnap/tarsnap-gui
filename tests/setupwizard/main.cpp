@@ -104,4 +104,4 @@ void TestSetupWizard::cli()
 }
 
 QTEST_MAIN(TestSetupWizard)
-#include "testsetupwizard.moc"
+#include "main.moc"

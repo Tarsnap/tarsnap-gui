@@ -147,7 +147,10 @@ TEST_HOME = /tmp/tarsnap-gui-test
 test_home_prep.commands = rm -rf "$${TEST_HOME}"
 
 test.commands =		for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && \${QMAKE} && \${MAKE} test); \
+				(cd \$\${D} && \${QMAKE} && \${MAKE});	\
+			done;						\
+			for D in $${UNIT_TESTS}; do			\
+				(cd \$\${D} && \${MAKE} test);		\
 			done
 test.depends = test_home_prep
 

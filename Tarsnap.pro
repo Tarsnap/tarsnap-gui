@@ -127,7 +127,9 @@ TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
 UNIT_TESTS =	tests/customfilesystemmodel	\
-		tests/setupwizard
+		tests/mainwindow		\
+		tests/setupwizard		\
+		tests/taskmanager
 
 osx {
     LIBS += -framework Foundation
@@ -142,14 +144,25 @@ format.commands = find . -name \"*.h\"   -not -path \"*/ui_*.h\" | \
 			xargs clang-format -i ;
 QMAKE_EXTRA_TARGETS += format
 
+# The same variable is used in individual tests
+TEST_HOME = /tmp/tarsnap-gui-test
+test_home_prep.commands = rm -rf "$${TEST_HOME}"
+
 test.commands =		for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && \${QMAKE} && make test);	\
+				(cd \$\${D} && \${QMAKE} && \${MAKE});	\
+			done;						\
+			for D in $${UNIT_TESTS}; do			\
+				(cd \$\${D} && \${MAKE} test);		\
+				if \[ \$\$? -gt "0" \]; then		\
+					exit \$\$?;			\
+				fi;					\
 			done
+test.depends = test_home_prep
 
 # Yes, this also does distclean
 test_clean.commands =	for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && make distclean);		\
+				(cd \$\${D} && \${MAKE} distclean);	\
 			done
 clean.depends += test_clean
 
-QMAKE_EXTRA_TARGETS += test test_clean clean
+QMAKE_EXTRA_TARGETS += test test_clean clean test_home_prep

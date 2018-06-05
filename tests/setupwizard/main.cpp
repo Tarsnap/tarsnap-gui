@@ -19,7 +19,7 @@ private:
 
 TestSetupWizard::TestSetupWizard()
 {
-    QCoreApplication::setOrganizationName("test-config");
+    QCoreApplication::setOrganizationName(TEST_NAME);
 }
 
 TestSetupWizard::~TestSetupWizard()
@@ -104,4 +104,4 @@ void TestSetupWizard::cli()
 }
 
 QTEST_MAIN(TestSetupWizard)
-#include "testsetupwizard.moc"
+#include "main.moc"

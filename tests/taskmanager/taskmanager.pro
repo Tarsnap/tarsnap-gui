@@ -2,21 +2,31 @@ QT += testlib core gui widgets sql network
 CONFIG += c++11
 
 TEMPLATE = app
-TARGET = test-setupwizard
+TARGET = test-taskmanager
 
-INCLUDEPATH += . ../../src/ ../../src/widgets/
-
-FORMS += ../../forms/setupdialog.ui
+INCLUDEPATH += . ../../src/
 
 HEADERS  +=						\
+	../../src/persistentmodel/archive.h		\
+	../../src/persistentmodel/job.h			\
+	../../src/persistentmodel/persistentobject.h	\
+	../../src/persistentmodel/persistentstore.h	\
+	../../src/backuptask.h				\
+	../../src/debug.h				\
+	../../src/tarsnaptask.h				\
 	../../src/utils.h				\
-	../../src/widgets/elidedlabel.h			\
-	../../src/widgets/setupdialog.h
+	../../src/taskmanager.h
 
 SOURCES += main.cpp					\
+	../../src/persistentmodel/archive.cpp		\
+	../../src/persistentmodel/job.cpp		\
+	../../src/persistentmodel/persistentobject.cpp	\
+	../../src/persistentmodel/persistentstore.cpp	\
+	../../src/backuptask.cpp			\
+	../../src/debug.cpp				\
+	../../src/tarsnaptask.cpp			\
 	../../src/utils.cpp				\
-	../../src/widgets/elidedlabel.cpp		\
-	../../src/widgets/setupdialog.cpp
+	../../src/taskmanager.cpp
 
 TEST_HOME = /tmp/tarsnap-gui-test
 DEFINES += "TEST_NAME=\\\"$${TARGET}\\\""

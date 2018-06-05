@@ -142,9 +142,14 @@ format.commands = find . -name \"*.h\"   -not -path \"*/ui_*.h\" | \
 			xargs clang-format -i ;
 QMAKE_EXTRA_TARGETS += format
 
+# The same variable is used in individual tests
+TEST_HOME = /tmp/tarsnap-gui-test
+test_home_prep.commands = rm -rf "$${TEST_HOME}"
+
 test.commands =		for D in $${UNIT_TESTS}; do			\
 				(cd \$\${D} && \${QMAKE} && make test);	\
 			done
+test.depends = test_home_prep
 
 # Yes, this also does distclean
 test_clean.commands =	for D in $${UNIT_TESTS}; do			\
@@ -152,4 +157,4 @@ test_clean.commands =	for D in $${UNIT_TESTS}; do			\
 			done
 clean.depends += test_clean
 
-QMAKE_EXTRA_TARGETS += test test_clean clean
+QMAKE_EXTRA_TARGETS += test test_clean clean test_home_prep

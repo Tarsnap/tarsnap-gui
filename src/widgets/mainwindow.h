@@ -152,6 +152,7 @@ private slots:
     void addDefaultJobs();
     void createJobClicked();
     void aboutButtonClicked();
+    void aboutMenuClicked();
     void mainTabChanged(int index);
     void validateBackupTab();
     void enableJobScheduling();

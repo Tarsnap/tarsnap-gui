@@ -60,9 +60,6 @@ MainWindow::MainWindow(QWidget *parent)
     _helpTabHTML = QTextStream(&helpTabFile).readAll();
     helpTabFile.close();
 
-#ifdef Q_OS_OSX
-    _ui.aboutButton->hide();
-#endif
     // --
 
     updateUi();
@@ -720,7 +717,7 @@ void MainWindow::setupMenuBar()
     QAction *actionAbout = new QAction(this);
     actionAbout->setMenuRole(QAction::AboutRole);
     connect(actionAbout, &QAction::triggered, this,
-            &MainWindow::aboutButtonClicked);
+            &MainWindow::aboutMenuClicked);
     QAction *actionSettings = new QAction(this);
     actionSettings->setMenuRole(QAction::PreferencesRole);
     connect(actionSettings, &QAction::triggered, _ui.actionGoSettings,
@@ -852,7 +849,15 @@ void MainWindow::createJobClicked()
 
 void MainWindow::aboutButtonClicked()
 {
+    // This functions as a toggle button
     _aboutWindow.setVisible(_ui.aboutButton->isChecked());
+}
+
+void MainWindow::aboutMenuClicked()
+{
+    // This always displays the About window
+    _ui.aboutButton->setChecked(true);
+    _aboutWindow.setVisible(true);
 }
 
 void MainWindow::aboutWindowClosed(int result)

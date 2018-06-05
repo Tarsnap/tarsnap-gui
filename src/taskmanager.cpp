@@ -521,7 +521,8 @@ void TaskManager::runScheduledJobs()
                && (job->optionScheduledEnabled() == JobSchedule::Monthly)))
         {
             // Before the first job...
-            if(nothingToDo) {
+            if(nothingToDo)
+            {
                 // ... we have a job now
                 nothingToDo = false;
                 // ... check & wait for an internet connection

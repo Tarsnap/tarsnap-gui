@@ -127,6 +127,7 @@ TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
 UNIT_TESTS =	tests/customfilesystemmodel	\
+		tests/mainwindow		\
 		tests/setupwizard		\
 		tests/taskmanager
 

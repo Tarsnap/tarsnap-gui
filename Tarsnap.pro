@@ -147,13 +147,13 @@ TEST_HOME = /tmp/tarsnap-gui-test
 test_home_prep.commands = rm -rf "$${TEST_HOME}"
 
 test.commands =		for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && \${QMAKE} && make test);	\
+				(cd \$\${D} && \${QMAKE} && \${MAKE} test); \
 			done
 test.depends = test_home_prep
 
 # Yes, this also does distclean
 test_clean.commands =	for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && make distclean);		\
+				(cd \$\${D} && \${MAKE} distclean);	\
 			done
 clean.depends += test_clean
 

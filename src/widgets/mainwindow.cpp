@@ -145,8 +145,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Settings pane
     loadSettings();
-    connect(_ui.aboutButton, &QPushButton::clicked, &_aboutWindow,
-            &QDialog::show);
+    connect(_ui.aboutButton, &QPushButton::clicked, this,
+            &MainWindow::aboutButtonClicked);
     connect(_ui.accountUserLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
     connect(_ui.accountMachineLineEdit, &QLineEdit::editingFinished, this,
@@ -435,6 +435,8 @@ MainWindow::MainWindow(QWidget *parent)
         QDesktopServices::openUrl(
             QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
     });
+    connect(&_aboutWindow, &QDialog::finished, this,
+            &MainWindow::aboutWindowClosed);
 }
 
 MainWindow::~MainWindow()
@@ -717,7 +719,8 @@ void MainWindow::setupMenuBar()
 
     QAction *actionAbout = new QAction(this);
     actionAbout->setMenuRole(QAction::AboutRole);
-    connect(actionAbout, &QAction::triggered, &_aboutWindow, &QDialog::show);
+    connect(actionAbout, &QAction::triggered, this,
+            &MainWindow::aboutButtonClicked);
     QAction *actionSettings = new QAction(this);
     actionSettings->setMenuRole(QAction::PreferencesRole);
     connect(actionSettings, &QAction::triggered, _ui.actionGoSettings,
@@ -845,6 +848,17 @@ void MainWindow::createJobClicked()
     _ui.addJobButton->setEnabled(true);
     _ui.addJobButton->setText(tr("Save"));
     _ui.addJobButton->setProperty("save", true);
+}
+
+void MainWindow::aboutButtonClicked()
+{
+    _aboutWindow.setVisible(_ui.aboutButton->isChecked());
+}
+
+void MainWindow::aboutWindowClosed(int result)
+{
+    Q_UNUSED(result)
+    _ui.aboutButton->setChecked(false);
 }
 
 void MainWindow::mainTabChanged(int index)

@@ -93,7 +93,7 @@ void ArchiveWidget::updateDetails()
             _ui.archiveJobLabel->hide();
             _ui.archiveJobLabelField->hide();
             _ui.archiveIconLabel->setStyleSheet(
-                "image: url(:/icons/tarsnap-icon-big.png)");
+                "image: url(:/logos/tarsnap-icon-big.png)");
         }
         else
         {

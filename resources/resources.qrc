@@ -28,26 +28,26 @@
         <file>icons/magnifying-glass@2x.png</file>
         <file>icons/reload.png</file>
         <file>icons/reload@2x.png</file>
-        <file>icons/tarsnap-header.png</file>
-        <file>icons/tarsnap-header@2x.png</file>
-        <file>icons/tarsnap-header-half.png</file>
-        <file>icons/tarsnap-header-half@2x.png</file>
-        <file>icons/tarsnap-icon-big.png</file>
-        <file>icons/tarsnap-icon.png</file>
-        <file>icons/tarsnap-icon@2x.png</file>
         <file>icons/trash.png</file>
         <file>icons/trash@2x.png</file>
-        <file>icons/tarsnap-logo@2x.png</file>
-        <file>icons/tarsnap-logo.png</file>
         <file>icons/bolt.png</file>
         <file>icons/bolt@2x.png</file>
         <file>icons/home.png</file>
         <file>icons/home@2x.png</file>
         <file>icons/collapse-down.png</file>
         <file>icons/collapse-down@2x.png</file>
-        <file>icons/tarsnap-logo-icon.png</file>
-        <file>icons/tarsnap-logo-icon@2x.png</file>
         <file>icons/hard-drive-big.png</file>
+        <file>logos/tarsnap-header.png</file>
+        <file>logos/tarsnap-header@2x.png</file>
+        <file>logos/tarsnap-header-half.png</file>
+        <file>logos/tarsnap-header-half@2x.png</file>
+        <file>logos/tarsnap-header-h29.png</file>
+        <file>logos/tarsnap-header-h29@2x.png</file>
+        <file>logos/tarsnap-icon-big.png</file>
+        <file>logos/tarsnap-icon.png</file>
+        <file>logos/tarsnap-icon@2x.png</file>
+        <file>logos/tarsnap-icon-h29.png</file>
+        <file>logos/tarsnap-icon-h29@2x.png</file>
         <file>text/help-tab.xml</file>
         <file>translations/tarsnap-gui_ro.qm</file>
         <file>translations/tarsnap-gui_en.qm</file>

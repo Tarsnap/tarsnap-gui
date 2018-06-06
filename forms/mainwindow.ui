@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../resources/resources.qrc">
-    <normaloff>:/icons/tarsnap-icon-big.png</normaloff>:/icons/tarsnap-icon-big.png</iconset>
+    <normaloff>:/logos/tarsnap-icon-big.png</normaloff>:/logos/tarsnap-icon-big.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="mainLayout">
    <property name="spacing">
@@ -2661,7 +2661,7 @@ border: none;
   <action name="actionBackupAllJobs">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+     <normaloff>:/logos/tarsnap-icon.png</normaloff>:/logos/tarsnap-icon.png</iconset>
    </property>
    <property name="text">
     <string>Backup all Jobs</string>
@@ -2770,7 +2770,7 @@ border: none;
   <action name="actionJobBackup">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+     <normaloff>:/logos/tarsnap-icon.png</normaloff>:/logos/tarsnap-icon.png</iconset>
    </property>
    <property name="text">
     <string>Backup</string>
@@ -2830,7 +2830,7 @@ border: none;
   <action name="actionBackupNow">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/tarsnap-icon.png</normaloff>:/icons/tarsnap-icon.png</iconset>
+     <normaloff>:/logos/tarsnap-icon.png</normaloff>:/logos/tarsnap-icon.png</iconset>
    </property>
    <property name="text">
     <string>Backup</string>

@@ -318,7 +318,7 @@
        </property>
        <property name="styleSheet">
         <string notr="true">#archiveIconLabel {
-image: url(:/icons/tarsnap-icon-big.png);
+image: url(:/logos/tarsnap-icon-big.png);
 }</string>
        </property>
        <property name="textInteractionFlags">

@@ -199,7 +199,7 @@ background-image: url(&quot;:/icons/light-toast.png&quot;);
      <item row="0" column="0" rowspan="2">
       <widget class="QLabel" name="iconLabel">
        <property name="pixmap">
-        <pixmap resource="../resources/resources.qrc">:/icons/tarsnap-header-half.png</pixmap>
+        <pixmap resource="../resources/resources.qrc">:/logos/tarsnap-header-half.png</pixmap>
        </property>
       </widget>
      </item>

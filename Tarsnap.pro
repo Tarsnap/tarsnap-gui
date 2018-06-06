@@ -133,7 +133,7 @@ UNIT_TESTS =	tests/customfilesystemmodel	\
 
 osx {
     LIBS += -framework Foundation
-    ICON = resources/icons/tarsnap.icns
+    ICON = resources/logos/tarsnap.icns
     TARGET = Tarsnap
 }
 

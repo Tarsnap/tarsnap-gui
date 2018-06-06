@@ -33,7 +33,7 @@
      </property>
      <property name="styleSheet">
       <string notr="true">#tarsnapLogo {
-image:url(:/icons/tarsnap-header.png);
+image:url(:/logos/tarsnap-header.png);
 }</string>
      </property>
     </widget>

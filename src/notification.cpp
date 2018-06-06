@@ -5,7 +5,7 @@
 
 Notification::Notification(QSystemTrayIcon *parent) : QSystemTrayIcon(parent)
 {
-    setIcon(QIcon(":/icons/tarsnap-icon-big.png"));
+    setIcon(QIcon(":/logos/tarsnap-icon-big.png"));
 }
 
 void Notification::displayNotification(QString message)

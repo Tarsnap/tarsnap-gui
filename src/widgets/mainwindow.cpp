@@ -599,17 +599,17 @@ void MainWindow::paintEvent(QPaintEvent *)
     int remaining_width = frameGeometry().width() - _minWidth + MAIN_LOGO_FUDGE;
 
     // Compare with the width of the png files.
-    QPixmap logoPixmap(":/icons/tarsnap-logo.png");
-    QPixmap iconPixmap(":/icons/tarsnap-logo-icon.png");
+    QPixmap logoPixmap(":/logos/tarsnap-logo.png");
+    QPixmap iconPixmap(":/logos/tarsnap-logo-icon.png");
     if(remaining_width > logoPixmap.width())
     {
-        QIcon icon(":/icons/tarsnap-logo.png");
+        QIcon icon(":/logos/tarsnap-logo.png");
         icon.paint(&p, width() - logoPixmap.width() - MAIN_LOGO_RIGHT_MARGIN, 3,
                    logoPixmap.width(), logoPixmap.height());
     }
     else if(remaining_width > iconPixmap.width())
     {
-        QIcon icon(":/icons/tarsnap-logo-icon.png");
+        QIcon icon(":/logos/tarsnap-logo-icon.png");
         icon.paint(&p, width() - iconPixmap.width() - MAIN_LOGO_RIGHT_MARGIN, 3,
                    iconPixmap.width(), iconPixmap.height());
     }

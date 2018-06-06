@@ -153,8 +153,9 @@ test.commands =		for D in $${UNIT_TESTS}; do			\
 			done;						\
 			for D in $${UNIT_TESTS}; do			\
 				(cd \$\${D} && \${MAKE} test);		\
-				if \[ \$\$? -gt "0" \]; then		\
-					exit \$\$?;			\
+				err=\$\$?;				\
+				if \[ \$\${err} -gt "0" \]; then	\
+					exit \$\${err};			\
 				fi;					\
 			done
 test.depends = test_home_prep

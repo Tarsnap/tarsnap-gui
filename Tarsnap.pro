@@ -161,7 +161,8 @@ test.depends = test_home_prep
 
 # Yes, this also does distclean
 test_clean.commands =	for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && \${MAKE} distclean);	\
+				(cd \$\${D} && \${QMAKE} &&		\
+				    \${MAKE} distclean);		\
 			done
 clean.depends += test_clean
 

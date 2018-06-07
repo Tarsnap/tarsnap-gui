@@ -144,7 +144,7 @@ void TestMainWindow::quit_simple()
     sig_getTaskInfo.clear();
 
     // Fake getting a reply which says there's no tasks.
-    mainwindow->displayStopTasksDialog(false, 0, 0);
+    mainwindow->closeWithTaskInfo(false, 0, 0);
 
     // After quitting, we don't respond to more events.
     mainwindow->closeEvent(new QCloseEvent());
@@ -162,7 +162,7 @@ void TestMainWindow::quit_tasks()
 
     // Fake getting a response to a closeEvent (not sent in this test) which
     // says that there's running tasks, but cancel the quitting.
-    QMetaObject::invokeMethod(mainwindow, "displayStopTasksDialog",
+    QMetaObject::invokeMethod(mainwindow, "closeWithTaskInfo",
                               Qt::QueuedConnection, Q_ARG(bool, true),
                               Q_ARG(int, 1), Q_ARG(int, 1));
     QMetaObject::invokeMethod(&mainwindow->_stopTasksDialog, "close",
@@ -178,9 +178,9 @@ void TestMainWindow::quit_tasks()
     // Quit the app
     // FIXME: sending an "accept" is a hack because the task-specific choices
     // (e.g., stop tasks, run in background) are only added to the dialog box
-    // after MainWindow receives the displayStopTasksDialog, so we can't
+    // after MainWindow receives the closeWithTaskInfo, so we can't
     // "queue up" sending a message to one of those objects.
-    QMetaObject::invokeMethod(mainwindow, "displayStopTasksDialog",
+    QMetaObject::invokeMethod(mainwindow, "closeWithTaskInfo",
                               Qt::QueuedConnection, Q_ARG(bool, true),
                               Q_ARG(int, 1), Q_ARG(int, 1));
     QMetaObject::invokeMethod(&mainwindow->_stopTasksDialog, "accept",

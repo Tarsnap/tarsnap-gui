@@ -47,11 +47,9 @@ public slots:
     void updateTarsnapVersion(QString versionString);
     //! Display (and raise) the MainWindow (if minimized or hidden).
     void notificationRaise();
-    //! Prompt user to clarify whether to stop background tasks; if so,
-    //! quits the app. Also used when quitting the application while active
-    //! or background tasks are queued.
-    void displayStopTasksDialog(bool backupTaskRunning, int runningTasks,
-                                int queuedTasks);
+    //! We received information about tasks after receiving a closeEvent.
+    void closeWithTaskInfo(bool backupTaskRunning, int runningTasks,
+                           int queuedTasks);
     //! Display an explanation of a tarsnap CLI error.
     void tarsnapError(TarsnapError error);
     //! Append a new entry to the journal.
@@ -177,6 +175,11 @@ private:
     void updateUi();
     // Load saved application settings.
     void loadSettings();
+    // Prompt user to clarify whether to stop background tasks; if so, quits
+    // the app.  Also used when quitting the application while active or
+    // background tasks are queued.
+    void displayStopTasksDialog(bool backupTaskRunning, int runningTasks,
+                                int queuedTasks);
 };
 
 #endif // MAINWINDOW_H

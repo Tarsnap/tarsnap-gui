@@ -682,9 +682,17 @@ void MainWindow::closeEvent(QCloseEvent *event)
     else
     {
         _aboutToQuit = true;
+        // Find out if there's any running or queued tasks, so that we can
+        // ask the user what to do (if necessary).
         emit getTaskInfo();
         event->ignore();
     }
+}
+
+void MainWindow::closeWithTaskInfo(bool backupTaskRunning, int runningTasks,
+                                   int queuedTasks)
+{
+    displayStopTasksDialog(backupTaskRunning, runningTasks, queuedTasks);
 }
 
 void MainWindow::changeEvent(QEvent *event)

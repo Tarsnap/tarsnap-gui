@@ -78,6 +78,8 @@ public slots:
     void getKeyId(QString key_filename);
     //! Ensure that the cache directory has been created.
     void initializeCache();
+    //! Search for all matching Archive objects which were created by a Job.
+    //! \param jobPrefix: prefix of the Archive names to match.
     void findMatchingArchives(QString jobPrefix);
 
 signals:
@@ -88,8 +90,10 @@ signals:
     void tarsnapVersion(QString versionString);
     //! Result of tarsnap-keygen.
     void registerMachineStatus(TaskStatus status, QString reason);
-    //! A list of all Archives.
+    //! A list of all Archive objects.
     void archiveList(QList<ArchivePtr> archives);
+    //! A new Archive was created by \ref backupNow or discovered via
+    //! \ref getArchives.
     void addArchive(ArchivePtr archive);
     //! Result of tarsnap --print-stats.
     void overallStats(quint64 sizeTotal, quint64 sizeCompressed,
@@ -114,6 +118,7 @@ signals:
     //! \param key_filename: the filename.
     //! \param id: the 64-bit unsigned integer representing the key.
     void keyId(QString key_filename, quint64 id);
+    //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);
 
 private slots:

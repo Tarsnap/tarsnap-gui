@@ -75,8 +75,11 @@ signals:
     void backupNow(BackupTaskPtr backupTask);
     //! Begin tarsnap --list-archives
     void getArchives();
+    //! Passes the list of all Archive objects to the ArchiveListWidget.
     void archiveList(QList<ArchivePtr> archives);
+    //! Passes the creation of a new Archive to the ArchiveListWidget.
     void addArchive(ArchivePtr archive);
+    //! Passes info from the ArchiveListWidget or JobWidget to the TaskManager.
     void deleteArchives(QList<ArchivePtr> archives);
     //! Begin tarsnap --print-stats -f \<name\>
     void loadArchiveStats(ArchivePtr archive);
@@ -95,19 +98,25 @@ signals:
     //! and run the setup wizard again.
     void runSetupWizard();
     void stopTasks(bool interrupt, bool running, bool queued);
+    //! Passes the list of all Job objects to the JobListWidget.
     void jobList(QMap<QString, JobPtr>);
+    //! Notifies about a deleted job from the JobWidget or JobListWidget.
     void deleteJob(JobPtr job, bool purgeArchives);
     //! Begin tarsnap --version
     void getTarsnapVersion(QString tarsnapPath);
     //! Query whether there are any running tasks; will trigger a taskInfo
     //! signal which is received by \ref displayStopTasksDialog.
     void getTaskInfo();
+    //! Passes info from the JobWidget to the TaskManager.
     void jobAdded(JobPtr job);
     //! Clear all Journal entries.
     void clearJournal();
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
     void getKeyId(QString key_filename);
+    //! Search for all matching Archive objects which were created by a Job.
+    //! \param jobPrefix: prefix of the Archive names to match.
     void findMatchingArchives(QString jobPrefix);
+    //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);
 
 protected:

@@ -95,7 +95,7 @@ signals:
     //! and run the setup wizard again.
     void runSetupWizard();
     void stopTasks(bool interrupt, bool running, bool queued);
-    void jobsList(QMap<QString, JobPtr>);
+    void jobList(QMap<QString, JobPtr>);
     void deleteJob(JobPtr job, bool purgeArchives);
     //! Begin tarsnap --version
     void getTarsnapVersion(QString tarsnapPath);

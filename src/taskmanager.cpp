@@ -1222,7 +1222,7 @@ void TaskManager::loadJobs()
             _jobMap[job->name()] = job;
         } while(query.next());
     }
-    emit jobsList(_jobMap);
+    emit jobList(_jobMap);
 }
 
 void TaskManager::deleteJob(JobPtr job, bool purgeArchives)

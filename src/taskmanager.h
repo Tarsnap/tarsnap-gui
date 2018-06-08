@@ -96,7 +96,7 @@ signals:
                       quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed,
                       quint64 archiveCount);
     //! A list of all Jobs.
-    void jobsList(QMap<QString, JobPtr> jobs);
+    void jobList(QMap<QString, JobPtr> jobs);
     //! A status message should be shown to the user.
     //! \param msg: main text to display.
     //! \param detail: display this text as a mouse-over tooltip.

@@ -202,8 +202,8 @@ void CoreApplication::showMainWindow()
             &CoreApplication::reinit, QUEUED);
     connect(_mainWindow, &MainWindow::stopTasks, &_taskManager,
             &TaskManager::stopTasks, QUEUED);
-    connect(&_taskManager, &TaskManager::jobsList, _mainWindow,
-            &MainWindow::jobsList, QUEUED);
+    connect(&_taskManager, &TaskManager::jobList, _mainWindow,
+            &MainWindow::jobList, QUEUED);
     connect(_mainWindow, &MainWindow::deleteJob, &_taskManager,
             &TaskManager::deleteJob, QUEUED);
     connect(_mainWindow, &MainWindow::getTaskInfo, &_taskManager,

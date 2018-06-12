@@ -20,6 +20,7 @@ public:
     ~TestMainWindow();
 
 private slots:
+    void initTestCase();
     void about_window();
 
 private:
@@ -32,6 +33,15 @@ TestMainWindow::TestMainWindow()
 
 TestMainWindow::~TestMainWindow()
 {
+}
+
+void TestMainWindow::initTestCase()
+{
+    IF_NOT_VISUAL
+    {
+        // Use a custom message handler to filter out unwanted messages
+        orig_message_handler = qInstallMessageHandler(offscreenMessageOutput);
+    }
 }
 
 static QAction *get_menubar_about(QMenuBar *menubar)

@@ -22,6 +22,7 @@ FORMS +=							\
 RESOURCES += ../../resources/resources.qrc
 
 HEADERS  +=						\
+	../../tests/qtest-platform.h			\
 	../../src/debug.h				\
 	../../src/utils.h				\
 	../../src/widgets/backuplistwidget.h		\

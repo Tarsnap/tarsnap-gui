@@ -1,6 +1,15 @@
 #include <QtTest/QtTest>
 
+#include "../qtest-platform.h"
+
 #include "setupdialog.h"
+
+#define VISUAL_INIT                                                            \
+    IF_VISUAL                                                                  \
+    {                                                                          \
+        setupWizard->show();                                                   \
+        VISUAL_WAIT;                                                           \
+    }
 
 class TestSetupWizard : public QObject
 {
@@ -36,9 +45,12 @@ void TestSetupWizard::normal_install()
                                                           QString, QString,
                                                           QString, QString)));
 
+    VISUAL_INIT;
+
     // Page 1
     QVERIFY(ui.titleLabel->text() == "Setup wizard");
     QTest::mouseClick(ui.nextButton, Qt::LeftButton);
+    VISUAL_WAIT;
 
     // Page 2
     QVERIFY(ui.titleLabel->text() == "Command-line utilities");
@@ -47,6 +59,7 @@ void TestSetupWizard::normal_install()
     setupWizard->setTarsnapVersion("X.Y.Z");
     QVERIFY(ui.advancedValidationLabel->text().contains("Tarsnap CLI version"));
     QTest::mouseClick(ui.nextButton, Qt::LeftButton);
+    VISUAL_WAIT;
 
     // Page 3
     QVERIFY(ui.titleLabel->text() == "Register with server");
@@ -61,10 +74,12 @@ void TestSetupWizard::normal_install()
     QVERIFY(sig_register.takeFirst().at(3).toString()
             == QString("pretend.key"));
     setupWizard->registerMachineStatus(TaskStatus::Completed, "");
+    VISUAL_WAIT;
 
     // Page 4
     QVERIFY(ui.titleLabel->text() == "Setup complete!");
     QTest::mouseClick(ui.nextButton, Qt::LeftButton);
+    VISUAL_WAIT;
 
     delete setupWizard;
 }
@@ -75,30 +90,39 @@ void TestSetupWizard::cli()
     Ui::SetupDialog ui          = setupWizard->_ui;
     QSignalSpy      sig_cli(setupWizard, SIGNAL(getTarsnapVersion(QString)));
 
+    VISUAL_INIT;
+
+    // Advanced to CLI page and expand advanced options
     QTest::mouseClick(ui.nextButton, Qt::LeftButton);
     QVERIFY(ui.titleLabel->text() == "Command-line utilities");
+    ui.advancedCLIButton->click();
+    VISUAL_WAIT;
 
     // App data directory
     ui.appDataPathLineEdit->setText("fake-dir");
     QVERIFY(ui.advancedValidationLabel->text()
             == "Invalid App data directory set.");
+    VISUAL_WAIT;
     ui.appDataPathLineEdit->setText("/tmp");
 
     // Cache directory
     ui.tarsnapCacheLineEdit->setText("fake-dir");
     QVERIFY(ui.advancedValidationLabel->text()
             == "Invalid Tarsnap cache directory set.");
+    VISUAL_WAIT;
     ui.tarsnapCacheLineEdit->setText("/tmp");
 
     // Tarsnap CLI directory
     ui.tarsnapPathLineEdit->setText("fake-dir");
     QVERIFY(ui.advancedValidationLabel->text().contains(
         "Tarsnap utilities not found."));
+    VISUAL_WAIT;
     ui.tarsnapPathLineEdit->setText("/tmp");
 
     // Fake detecting the binaries
     setupWizard->setTarsnapVersion("X.Y.Z.");
     QVERIFY(ui.advancedValidationLabel->text().contains("Tarsnap CLI version"));
+    VISUAL_WAIT;
 
     delete setupWizard;
 }

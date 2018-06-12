@@ -126,10 +126,11 @@ DISTFILES += .clang-format
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
+# These are approximately in order of least to most complicated
 UNIT_TESTS =	tests/customfilesystemmodel	\
-		tests/mainwindow		\
+		tests/taskmanager		\
 		tests/setupwizard		\
-		tests/taskmanager
+		tests/mainwindow
 
 osx {
     LIBS += -framework Foundation

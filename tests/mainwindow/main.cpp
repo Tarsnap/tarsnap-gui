@@ -25,6 +25,24 @@ TestMainWindow::~TestMainWindow()
 {
 }
 
+static QAction *get_menubar_about(QMenuBar *menubar)
+{
+    foreach(QAction *action, menubar->actions())
+    {
+        if(action->menu())
+        {
+            foreach(QAction *subaction, action->menu()->actions())
+            {
+                if(subaction->menuRole() == QAction::AboutRole)
+                {
+                    return subaction;
+                }
+            }
+        }
+    }
+    return (nullptr);
+}
+
 void TestMainWindow::about_window()
 {
     MainWindow *   mainwindow = new MainWindow();
@@ -54,41 +72,28 @@ void TestMainWindow::about_window()
     QVERIFY(mainwindow->_aboutWindow.isVisible() == false);
     QVERIFY(ui.aboutButton->isChecked() == false);
 
-#ifdef Q_OS_OSX
-    // find "About Tarsnap" menu item
-    QAction *menuAction = nullptr;
-    foreach(QAction *action, mainwindow->_menuBar->actions())
+    // Test the "About Tarsnap" menubar item, if applicable.
+    if(mainwindow->_menuBar != nullptr)
     {
-        if(action->menu())
-        {
-            foreach(QAction *subaction, action->menu()->actions())
-            {
-                if(subaction->menuRole() == QAction::AboutRole)
-                {
-                    menuAction = subaction;
-                    break;
-                }
-            }
-        }
+        // find "About Tarsnap" menu item
+        QAction *menuAction = get_menubar_about(mainwindow->_menuBar);
+        QVERIFY(menuAction != nullptr);
+
+        // Becomes visible using the menu bar action
+        menuAction->trigger();
+        QVERIFY(mainwindow->_aboutWindow.isVisible() == true);
+        QVERIFY(ui.aboutButton->isChecked() == true);
+
+        // Stay visible even when clicking the menu bar action again
+        menuAction->trigger();
+        QVERIFY(mainwindow->_aboutWindow.isVisible() == true);
+        QVERIFY(ui.aboutButton->isChecked() == true);
+
+        // Becomes invisible by clicking the Help->About button
+        ui.aboutButton->click();
+        QVERIFY(mainwindow->_aboutWindow.isVisible() == false);
+        QVERIFY(ui.aboutButton->isChecked() == false);
     }
-
-    QVERIFY(menuAction != nullptr);
-
-    // Becomes visible using the menu bar action
-    menuAction->trigger();
-    QVERIFY(mainwindow->_aboutWindow.isVisible() == true);
-    QVERIFY(ui.aboutButton->isChecked() == true);
-
-    // Stay visible even when clicking the menu bar action again
-    menuAction->trigger();
-    QVERIFY(mainwindow->_aboutWindow.isVisible() == true);
-    QVERIFY(ui.aboutButton->isChecked() == true);
-
-    // Becomes invisible by clicking the Help->About button
-    ui.aboutButton->click();
-    QVERIFY(mainwindow->_aboutWindow.isVisible() == false);
-    QVERIFY(ui.aboutButton->isChecked() == false);
-#endif
 
     delete mainwindow;
 }

@@ -20,6 +20,7 @@ public:
     ~TestSetupWizard();
 
 private slots:
+    void initTestCase();
     void normal_install();
     void cli();
 
@@ -33,6 +34,15 @@ TestSetupWizard::TestSetupWizard()
 
 TestSetupWizard::~TestSetupWizard()
 {
+}
+
+void TestSetupWizard::initTestCase()
+{
+    IF_NOT_VISUAL
+    {
+        // Use a custom message handler to filter out unwanted messages
+        orig_message_handler = qInstallMessageHandler(offscreenMessageOutput);
+    }
 }
 
 void TestSetupWizard::normal_install()

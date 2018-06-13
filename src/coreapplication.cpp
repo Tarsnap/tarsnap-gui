@@ -77,7 +77,7 @@ void CoreApplication::parseArgs()
     _appDataDir = parser.value(appDataOption);
 }
 
-bool CoreApplication::initialize()
+bool CoreApplication::initializeCore()
 {
     parseArgs();
 
@@ -235,7 +235,7 @@ void CoreApplication::showMainWindow()
     connect(&_taskManager, &TaskManager::matchingArchives, _mainWindow,
             &MainWindow::matchingArchives, QUEUED);
 
-    QMetaObject::invokeMethod(_mainWindow, "initialize", QUEUED);
+    QMetaObject::invokeMethod(_mainWindow, "initializeMainWindow", QUEUED);
     QMetaObject::invokeMethod(&_taskManager, "loadArchives", QUEUED);
     QMetaObject::invokeMethod(&_taskManager, "loadJobs", QUEUED);
     QMetaObject::invokeMethod(&_journal, "getJournal", QUEUED);
@@ -268,5 +268,5 @@ bool CoreApplication::reinit()
         defaultSettings.sync();
     }
 
-    return initialize();
+    return initializeCore();
 }

@@ -5,9 +5,9 @@
 
 int main(int argc, char *argv[])
 {
-    ConsoleLog::instance().initialize();
+    ConsoleLog::instance().initializeConsoleLog();
     CoreApplication app(argc, argv);
-    if(app.initialize())
+    if(app.initializeCore())
         return app.exec();
     else
         return EXIT_SUCCESS;

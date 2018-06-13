@@ -33,7 +33,7 @@ public slots:
     void loadSettings();
     //! Initialization routines: Check days elapsed since last credit update,
     //! application paths, and update archive list.
-    void initialize();
+    void initializeMainWindow();
     //! Set the statusbar message.
     //! \param message: display this text
     //! \param detail: display this text as a mouse-over tooltip.

@@ -9,6 +9,7 @@ INCLUDEPATH += . ../../src/ ../../src/widgets/
 FORMS += ../../forms/setupdialog.ui
 
 HEADERS  +=						\
+	../../tests/qtest-platform.h			\
 	../../src/utils.h				\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/setupdialog.h

@@ -179,6 +179,7 @@ private:
     bool           _aboutToQuit;
     QString        _helpTabHTML;
     QDialog        _aboutWindow;
+    QMessageBox    _stopTasksDialog;
 
     void updateUi();
 };

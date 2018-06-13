@@ -29,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
       _nukeTimerCount(0),
       _nukeCountdown(this),
       _tarsnapAccount(this),
-      _aboutToQuit(false)
+      _aboutToQuit(false),
+      _stopTasksDialog(this)
 {
     connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
             &MainWindow::appendToConsoleLog);
@@ -1757,7 +1758,6 @@ void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
         }
     }
 
-    QMessageBox _stopTasksDialog(this);
     _stopTasksDialog.setText(tr("There are %1 running tasks and %2 queued.")
                                  .arg(runningTasks)
                                  .arg(queuedTasks));

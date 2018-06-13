@@ -29,11 +29,9 @@ public:
     ~MainWindow();
 
 public slots:
-    //! Load saved application settings.
-    void loadSettings();
     //! Initialization routines: Check days elapsed since last credit update,
     //! application paths, and update archive list.
-    void initialize();
+    void initializeMainWindow();
     //! Set the statusbar message.
     //! \param message: display this text
     //! \param detail: display this text as a mouse-over tooltip.
@@ -65,10 +63,6 @@ public slots:
     void saveKeyId(QString key_filename, quint64 id);
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
-    //! Indicate that the "About" window was closed.  This is needed in case a
-    //! user closes that window (instead of clicking on the "About" button
-    //! again).
-    void aboutWindowClosed(int result);
 
 signals:
     //! Begin tarsnap -c -f \<name\>
@@ -166,6 +160,10 @@ private slots:
     void validateBackupTab();
     void enableJobScheduling();
     void disableJobScheduling();
+    // Indicate that the "About" window was closed.  This is needed in case a
+    // user closes that window (instead of clicking on the "About" button
+    // again).
+    void aboutWindowClosed(int result);
 
 private:
     Ui::MainWindow _ui;
@@ -182,6 +180,8 @@ private:
     QMessageBox    _stopTasksDialog;
 
     void updateUi();
+    // Load saved application settings.
+    void loadSettings();
 };
 
 #endif // MAINWINDOW_H

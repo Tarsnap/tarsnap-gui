@@ -24,15 +24,13 @@ public:
     CoreApplication(int &argc, char **argv);
     ~CoreApplication();
 
-    //! Parses command-line args.
-    void parseArgs();
     //! Initializes the QSettings, Translator, PersistentStore, and launches
     //! the Setup wizard (if necessary).
-    bool initialize();
+    bool initializeCore();
 
-public slots:
+private slots:
     //! Removes the MainWindow (if it exists), resets the PersistentStore
-    //! and app Settings, then runs initialize().  Used as a preliminary
+    //! and app Settings, then runs initializeCore().  Used as a preliminary
     //! step before the SetupWizard.
     bool reinit();
     //! Creates a MainWindow.
@@ -46,6 +44,8 @@ private:
     Journal      _journal;
     bool         _jobsOption;
     QString      _appDataDir;
+
+    void parseArgs();
 };
 
 #endif // COREAPPLICATION_H

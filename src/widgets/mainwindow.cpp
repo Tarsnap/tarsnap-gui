@@ -532,7 +532,7 @@ void MainWindow::loadSettings()
     restoreGeometry(settings.value("app/window_geometry").toByteArray());
 }
 
-void MainWindow::initialize()
+void MainWindow::initializeMainWindow()
 {
     QSettings settings;
     // Check if we should show a "credit might be out of date" warning.

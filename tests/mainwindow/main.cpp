@@ -22,6 +22,7 @@ public:
 private slots:
     void initTestCase();
     void about_window();
+    void quit_simple();
 
 private:
 };
@@ -125,6 +126,28 @@ void TestMainWindow::about_window()
         QVERIFY(ui.aboutButton->isChecked() == false);
         VISUAL_WAIT;
     }
+
+    delete mainwindow;
+}
+
+void TestMainWindow::quit_simple()
+{
+    MainWindow *mainwindow = new MainWindow();
+    QSignalSpy  sig_getTaskInfo(mainwindow, SIGNAL(getTaskInfo()));
+
+    VISUAL_INIT;
+
+    // If we try to close the window, we emit a getTaskInfo instead
+    mainwindow->closeEvent(new QCloseEvent());
+    QVERIFY(sig_getTaskInfo.count() == 1);
+    sig_getTaskInfo.clear();
+
+    // Fake getting a reply which says there's no tasks.
+    mainwindow->displayStopTasksDialog(false, 0, 0);
+
+    // After quitting, we don't respond to more events.
+    mainwindow->closeEvent(new QCloseEvent());
+    QVERIFY(sig_getTaskInfo.count() == 0);
 
     delete mainwindow;
 }

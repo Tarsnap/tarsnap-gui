@@ -29,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
       _nukeTimerCount(0),
       _nukeCountdown(this),
       _tarsnapAccount(this),
-      _aboutToQuit(false)
+      _aboutToQuit(false),
+      _stopTasksDialog(this)
 {
     connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
             &MainWindow::appendToConsoleLog);
@@ -1757,13 +1758,12 @@ void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
         }
     }
 
-    QMessageBox msgBox(this);
-    msgBox.setText(tr("There are %1 running tasks and %2 queued.")
-                       .arg(runningTasks)
-                       .arg(queuedTasks));
-    msgBox.setInformativeText(tr("What do you want to do?"));
+    _stopTasksDialog.setText(tr("There are %1 running tasks and %2 queued.")
+                                 .arg(runningTasks)
+                                 .arg(queuedTasks));
+    _stopTasksDialog.setInformativeText(tr("What do you want to do?"));
 
-    QPushButton actionButton(&msgBox);
+    QPushButton actionButton(&_stopTasksDialog);
     actionButton.setText(tr("Choose action"));
     QMenu    actionMenu(&actionButton);
     QAction *interruptBackup = nullptr;
@@ -1800,15 +1800,15 @@ void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
         proceedBackground = actionMenu.addAction(tr("Proceed in background"));
         proceedBackground->setCheckable(true);
     }
-    QPushButton *cancel = msgBox.addButton(QMessageBox::Cancel);
-    msgBox.setDefaultButton(cancel);
-    connect(&actionMenu, &QMenu::triggered, &msgBox, &QDialog::accept,
+    QPushButton *cancel = _stopTasksDialog.addButton(QMessageBox::Cancel);
+    _stopTasksDialog.setDefaultButton(cancel);
+    connect(&actionMenu, &QMenu::triggered, &_stopTasksDialog, &QDialog::accept,
             Qt::QueuedConnection);
     actionButton.setMenu(&actionMenu);
-    msgBox.addButton(&actionButton, QMessageBox::ActionRole);
-    msgBox.exec();
+    _stopTasksDialog.addButton(&actionButton, QMessageBox::ActionRole);
+    _stopTasksDialog.exec();
 
-    if((msgBox.clickedButton() == cancel) && _aboutToQuit)
+    if((_stopTasksDialog.clickedButton() == cancel) && _aboutToQuit)
         _aboutToQuit = false;
 
     if(_aboutToQuit)

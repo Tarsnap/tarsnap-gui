@@ -22,6 +22,8 @@ public:
 private slots:
     void initTestCase();
     void about_window();
+    void quit_simple();
+    void quit_tasks();
 
 private:
 };
@@ -125,6 +127,70 @@ void TestMainWindow::about_window()
         QVERIFY(ui.aboutButton->isChecked() == false);
         VISUAL_WAIT;
     }
+
+    delete mainwindow;
+}
+
+void TestMainWindow::quit_simple()
+{
+    MainWindow *mainwindow = new MainWindow();
+    QSignalSpy  sig_getTaskInfo(mainwindow, SIGNAL(getTaskInfo()));
+
+    VISUAL_INIT;
+
+    // If we try to close the window, we emit a getTaskInfo instead
+    mainwindow->closeEvent(new QCloseEvent());
+    QVERIFY(sig_getTaskInfo.count() == 1);
+    sig_getTaskInfo.clear();
+
+    // Fake getting a reply which says there's no tasks.
+    mainwindow->displayStopTasksDialog(false, 0, 0);
+
+    // After quitting, we don't respond to more events.
+    mainwindow->closeEvent(new QCloseEvent());
+    QVERIFY(sig_getTaskInfo.count() == 0);
+
+    delete mainwindow;
+}
+
+void TestMainWindow::quit_tasks()
+{
+    MainWindow *mainwindow = new MainWindow();
+    QSignalSpy  sig_getTaskInfo(mainwindow, SIGNAL(getTaskInfo()));
+
+    VISUAL_INIT;
+
+    // Fake getting a response to a closeEvent (not sent in this test) which
+    // says that there's running tasks, but cancel the quitting.
+    QMetaObject::invokeMethod(mainwindow, "displayStopTasksDialog",
+                              Qt::QueuedConnection, Q_ARG(bool, true),
+                              Q_ARG(int, 1), Q_ARG(int, 1));
+    QMetaObject::invokeMethod(&mainwindow->_stopTasksDialog, "close",
+                              Qt::QueuedConnection);
+    VISUAL_WAIT;
+
+    // After cancelling the quit, we still respond to events
+    mainwindow->closeEvent(new QCloseEvent());
+    QVERIFY(sig_getTaskInfo.count() == 1);
+    sig_getTaskInfo.clear();
+    VISUAL_WAIT;
+
+    // Quit the app
+    // FIXME: sending an "accept" is a hack because the task-specific choices
+    // (e.g., stop tasks, run in background) are only added to the dialog box
+    // after MainWindow receives the displayStopTasksDialog, so we can't
+    // "queue up" sending a message to one of those objects.
+    QMetaObject::invokeMethod(mainwindow, "displayStopTasksDialog",
+                              Qt::QueuedConnection, Q_ARG(bool, true),
+                              Q_ARG(int, 1), Q_ARG(int, 1));
+    QMetaObject::invokeMethod(&mainwindow->_stopTasksDialog, "accept",
+                              Qt::QueuedConnection);
+    VISUAL_WAIT;
+
+    // After quitting, we don't respond to more events
+    mainwindow->closeEvent(new QCloseEvent());
+    QVERIFY(sig_getTaskInfo.count() == 0);
+    VISUAL_WAIT;
 
     delete mainwindow;
 }

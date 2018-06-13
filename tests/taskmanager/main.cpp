@@ -1,6 +1,7 @@
 #include <QtTest/QtTest>
 
 #include "taskmanager.h"
+#include "utils.h"
 
 #define TASK_CMDLINE_WAIT_MS 100
 
@@ -39,10 +40,16 @@ void TestTaskManager::get_version()
     QSignalSpy   sig_ver(task, SIGNAL(tarsnapVersion(QString)));
     QString      ver_str;
 
+    // If there's no tarsnap binary, skip this test.
+    if(Utils::findTarsnapClientInPath(QString(""), false).isEmpty())
+    {
+        QSKIP("No tarsnap binary found");
+    }
+
     // We start off with no version signal.
     QVERIFY(sig_ver.count() == 0);
 
-    // Get version number (assume it's in $PATH)
+    // Get version number
     task->getTarsnapVersion("");
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
     QVERIFY(sig_ver.count() == 1);

@@ -1,6 +1,7 @@
 #include <QtTest/QtTest>
 
 #include "../qtest-platform.h"
+#include "utils.h"
 
 #include "setupdialog.h"
 
@@ -56,6 +57,12 @@ void TestSetupWizard::normal_install()
                                                           QString, QString)));
 
     VISUAL_INIT;
+
+    // If there's no tarsnap binary, skip this test.
+    if(Utils::findTarsnapClientInPath(QString(""), false).isEmpty())
+    {
+        QSKIP("No tarsnap binary found");
+    }
 
     // Page 1
     QVERIFY(ui.titleLabel->text() == "Setup wizard");

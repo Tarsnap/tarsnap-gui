@@ -2316,7 +2316,7 @@ border-top: 2px groove darkgrey;
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="aboutButton">
+                <widget class="PopupPushButton" name="aboutButton">
                  <property name="text">
                   <string>About Tarsnap</string>
                  </property>
@@ -2956,6 +2956,11 @@ border: none;
    <extends>QWidget</extends>
    <header>widgets/archivewidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PopupPushButton</class>
+   <extends>QPushButton</extends>
+   <header>popuppushbutton.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

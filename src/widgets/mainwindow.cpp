@@ -143,8 +143,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Settings pane
     loadSettings();
-    connect(_ui.aboutButton, &QPushButton::clicked, this,
-            &MainWindow::aboutButtonClicked);
     connect(_ui.accountUserLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
     connect(_ui.accountMachineLineEdit, &QLineEdit::editingFinished, this,
@@ -433,8 +431,7 @@ MainWindow::MainWindow(QWidget *parent)
         QDesktopServices::openUrl(
             QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
     });
-    connect(&_aboutWindow, &QDialog::finished, this,
-            &MainWindow::aboutWindowClosed);
+    _ui.aboutButton->setPopup(&_aboutWindow);
 }
 
 MainWindow::~MainWindow()
@@ -848,23 +845,10 @@ void MainWindow::createJobClicked()
     _ui.addJobButton->setProperty("save", true);
 }
 
-void MainWindow::aboutButtonClicked()
-{
-    // This functions as a toggle button
-    _aboutWindow.setVisible(_ui.aboutButton->isChecked());
-}
-
 void MainWindow::aboutMenuClicked()
 {
     // This always displays the About window
     _ui.aboutButton->setChecked(true);
-    _aboutWindow.setVisible(true);
-}
-
-void MainWindow::aboutWindowClosed(int result)
-{
-    Q_UNUSED(result)
-    _ui.aboutButton->setChecked(false);
 }
 
 void MainWindow::mainTabChanged(int index)

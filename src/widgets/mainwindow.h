@@ -154,16 +154,11 @@ private slots:
     void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
     void createJobClicked();
-    void aboutButtonClicked();
     void aboutMenuClicked();
     void mainTabChanged(int index);
     void validateBackupTab();
     void enableJobScheduling();
     void disableJobScheduling();
-    // Indicate that the "About" window was closed.  This is needed in case a
-    // user closes that window (instead of clicking on the "About" button
-    // again).
-    void aboutWindowClosed(int result);
 
 private:
     Ui::MainWindow _ui;

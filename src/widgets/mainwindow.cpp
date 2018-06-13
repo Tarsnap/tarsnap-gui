@@ -305,7 +305,7 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::restoreArchive);
     connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
             &MainWindow::deleteJob);
-    connect(this, &MainWindow::jobsList, _ui.jobListWidget,
+    connect(this, &MainWindow::jobList, _ui.jobListWidget,
             &JobListWidget::setJobs);
     connect(_ui.jobListWidget, &JobListWidget::customContextMenuRequested, this,
             &MainWindow::showJobsListMenu);

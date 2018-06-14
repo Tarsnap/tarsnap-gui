@@ -36,6 +36,7 @@ HEADERS  +=						\
 	../../src/widgets/jobwidget.h			\
 	../../src/widgets/mainwindow.h			\
 	../../src/widgets/restoredialog.h		\
+	../../src/widgets/popuppushbutton.h		\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/busywidget.h			\
 	../../src/customfilesystemmodel.h		\
@@ -67,6 +68,7 @@ SOURCES += main.cpp					\
 	../../src/widgets/joblistwidgetitem.cpp		\
 	../../src/widgets/jobwidget.cpp			\
 	../../src/widgets/mainwindow.cpp		\
+	../../src/widgets/popuppushbutton.cpp		\
 	../../src/widgets/restoredialog.cpp		\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/busywidget.cpp		\

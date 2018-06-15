@@ -169,8 +169,11 @@ private:
     bool           _aboutToQuit;
     QString        _helpTabHTML;
     QDialog        _aboutWindow;
+    QDialog        _consoleWindow;
     QMessageBox    _stopTasksDialog;
     Scheduling     _scheduling;
+
+    QPlainTextEdit *_consoleLog;
 
     void updateUi();
     // Load saved application settings.

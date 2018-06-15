@@ -5,6 +5,7 @@
 #include "scheduling.h"
 #include "translator.h"
 #include "ui_aboutwidget.h"
+#include "ui_consolewidget.h"
 #include "utils.h"
 
 #include <QDateTime>
@@ -434,6 +435,12 @@ MainWindow::MainWindow(QWidget *parent)
             QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
     });
     _ui.aboutButton->setPopup(&_aboutWindow);
+
+    // Initialize console log
+    Ui::consoleWidget consoleUI;
+    consoleUI.setupUi(&_consoleWindow);
+    _consoleLog = consoleUI.log;
+    _ui.consoleButton->setPopup(&_consoleWindow);
 }
 
 MainWindow::~MainWindow()
@@ -1172,8 +1179,8 @@ void MainWindow::appendToJournalLog(LogEntry log)
 
 void MainWindow::appendToConsoleLog(const QString &log)
 {
-    QTextCursor cursor(_ui.consoleLog->document());
-    if(!_ui.consoleLog->document()->isEmpty())
+    QTextCursor cursor(_consoleLog->document());
+    if(!_consoleLog->document()->isEmpty())
     {
         cursor.movePosition(QTextCursor::End);
         cursor.insertBlock();
@@ -1190,8 +1197,8 @@ void MainWindow::appendToConsoleLog(const QString &log)
                           .arg(QDateTime::currentDateTime().toString(
                               Qt::DefaultLocaleShortDate))
                           .arg(log));
-    _ui.consoleLog->moveCursor(QTextCursor::End);
-    _ui.consoleLog->ensureCursorVisible();
+    _consoleLog->moveCursor(QTextCursor::End);
+    _consoleLog->ensureCursorVisible();
 }
 
 void MainWindow::setJournal(QVector<LogEntry> _log)

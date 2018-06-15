@@ -8,6 +8,7 @@ INCLUDEPATH += . ../../src/ ../../src/widgets/
 
 FORMS +=							\
 	../../forms/backuplistwidgetitem.ui			\
+	../../forms/consolewidget.ui				\
 	../../forms/mainwindow.ui				\
 	../../forms/restoredialog.ui				\
 	../../forms/filepickerdialog.ui				\

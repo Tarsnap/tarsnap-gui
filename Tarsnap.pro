@@ -105,6 +105,7 @@ INCLUDEPATH += src/widgets/ \
 
 FORMS    += \
     forms/backuplistwidgetitem.ui \
+    forms/consolewidget.ui \
     forms/setupdialog.ui \
     forms/mainwindow.ui \
     forms/restoredialog.ui \

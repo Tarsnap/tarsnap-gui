@@ -22,6 +22,7 @@ public:
 private slots:
     void initTestCase();
     void about_window();
+    void console_window();
     void quit_simple();
     void quit_tasks();
 
@@ -190,6 +191,46 @@ void TestMainWindow::quit_tasks()
     // After quitting, we don't respond to more events
     mainwindow->closeEvent(new QCloseEvent());
     QVERIFY(sig_getTaskInfo.count() == 0);
+    VISUAL_WAIT;
+
+    delete mainwindow;
+}
+
+void TestMainWindow::console_window()
+{
+    MainWindow *   mainwindow = new MainWindow();
+    Ui::MainWindow ui         = mainwindow->_ui;
+
+    VISUAL_INIT;
+
+    // Starts off not visible and the button is not pushed down
+    ui.actionGoHelp->trigger();
+    QVERIFY(mainwindow->_consoleWindow.isVisible() == false);
+    QVERIFY(ui.consoleButton->isChecked() == false);
+    VISUAL_WAIT;
+
+    // Becomes visible
+    ui.consoleButton->click();
+    QVERIFY(mainwindow->_consoleWindow.isVisible() == true);
+    QVERIFY(ui.consoleButton->isChecked() == true);
+    VISUAL_WAIT;
+
+    // Becomes invisible by clicking the button again
+    ui.consoleButton->click();
+    QVERIFY(mainwindow->_consoleWindow.isVisible() == false);
+    QVERIFY(ui.consoleButton->isChecked() == false);
+    VISUAL_WAIT;
+
+    // Becomes visible
+    ui.consoleButton->click();
+    QVERIFY(mainwindow->_consoleWindow.isVisible() == true);
+    QVERIFY(ui.consoleButton->isChecked() == true);
+    VISUAL_WAIT;
+
+    // Becomes invisible by closing the Console window
+    mainwindow->_consoleWindow.close();
+    QVERIFY(mainwindow->_consoleWindow.isVisible() == false);
+    QVERIFY(ui.consoleButton->isChecked() == false);
     VISUAL_WAIT;
 
     delete mainwindow;

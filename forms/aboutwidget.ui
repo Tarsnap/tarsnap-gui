@@ -10,6 +10,9 @@
     <height>386</height>
    </rect>
   </property>
+  <property name="windowTitle">
+   <string>About Tarsnap GUI</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>6</number>

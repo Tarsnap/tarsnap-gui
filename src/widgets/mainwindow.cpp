@@ -5,6 +5,7 @@
 #include "scheduling.h"
 #include "translator.h"
 #include "ui_aboutwidget.h"
+#include "ui_consolewidget.h"
 #include "utils.h"
 
 #include <QDateTime>
@@ -436,7 +437,10 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.aboutButton->setPopup(&_aboutWindow);
 
     // Initialize console log
-    _consoleLog = _ui.consoleLog;
+    Ui::consoleWidget consoleUI;
+    consoleUI.setupUi(&_consoleWindow);
+    _consoleLog = consoleUI.log;
+    _ui.consoleButton->setPopup(&_consoleWindow);
 }
 
 MainWindow::~MainWindow()

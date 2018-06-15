@@ -2244,7 +2244,7 @@ margin: 1px 0px 0px 6px;
           <attribute name="toolTip">
            <string>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
           </attribute>
-          <layout class="QVBoxLayout" name="helpTabLayout">
+          <layout class="QVBoxLayout" name="helpTabLayout" stretch="1">
            <property name="spacing">
             <number>3</number>
            </property>
@@ -2266,7 +2266,7 @@ margin: 1px 0px 0px 6px;
               <enum>Qt::Vertical</enum>
              </property>
              <widget class="QFrame" name="helpContainer">
-              <layout class="QVBoxLayout" name="verticalLayout">
+              <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
                <property name="spacing">
                 <number>0</number>
                </property>
@@ -2316,66 +2316,70 @@ border-top: 2px groove darkgrey;
                 </widget>
                </item>
                <item>
-                <widget class="PopupPushButton" name="aboutButton">
-                 <property name="text">
-                  <string>About Tarsnap</string>
+                <layout class="QHBoxLayout" name="helpButtons">
+                 <property name="spacing">
+                  <number>0</number>
                  </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-             <widget class="QGroupBox" name="helpConsoleGroupBox">
-              <property name="font">
-               <font>
-                <pointsize>-1</pointsize>
-               </font>
-              </property>
-              <property name="title">
-               <string>Console log</string>
-              </property>
-              <layout class="QVBoxLayout" name="consoleGroupBoxLayout">
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QPlainTextEdit" name="consoleLog">
-                 <property name="focusPolicy">
-                  <enum>Qt::ClickFocus</enum>
-                 </property>
-                 <property name="toolTip">
-                  <string>Console command log</string>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">#consoleLog
-{
-background: rgba(255,255,255,170);
-border-radius: 3px;
-font-family: Monospace, Monaco;
-font-size: 12px;
-}</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::NoFrame</enum>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
+                 <item>
+                  <spacer name="helpButtonLeftSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="PopupPushButton" name="aboutButton">
+                   <property name="text">
+                    <string>About Tarsnap</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="helpButtonMidSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="PopupPushButton" name="consoleButton">
+                   <property name="text">
+                    <string>Console Log</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="helpButtonRightSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -3018,6 +3022,7 @@ border: none;
   <tabstop>clearJournalButton</tabstop>
   <tabstop>runSetupWizard</tabstop>
   <tabstop>aboutButton</tabstop>
+  <tabstop>consoleButton</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "persistentmodel/journal.h"
+#include "scheduling.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
 #include "ui_mainwindow.h"
@@ -157,8 +158,6 @@ private slots:
     void aboutMenuClicked();
     void mainTabChanged(int index);
     void validateBackupTab();
-    void enableJobScheduling();
-    void disableJobScheduling();
 
 private:
     Ui::MainWindow _ui;
@@ -173,6 +172,7 @@ private:
     QString        _helpTabHTML;
     QDialog        _aboutWindow;
     QMessageBox    _stopTasksDialog;
+    Scheduling     _scheduling;
 
     void updateUi();
     // Load saved application settings.

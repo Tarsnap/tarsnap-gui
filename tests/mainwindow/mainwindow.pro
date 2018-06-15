@@ -40,6 +40,7 @@ HEADERS  +=						\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/busywidget.h			\
 	../../src/customfilesystemmodel.h		\
+	../../src/scheduling.h				\
 	../../src/taskmanager.h				\
 	../../src/tarsnaptask.h				\
 	../../src/persistentmodel/persistentstore.h	\
@@ -73,6 +74,7 @@ SOURCES += main.cpp					\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/busywidget.cpp		\
 	../../src/customfilesystemmodel.cpp		\
+	../../src/scheduling.cpp			\
 	../../src/taskmanager.cpp			\
 	../../src/tarsnaptask.cpp			\
 	../../src/persistentmodel/persistentstore.cpp	\

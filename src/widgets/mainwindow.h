@@ -172,6 +172,8 @@ private:
     QMessageBox    _stopTasksDialog;
     Scheduling     _scheduling;
 
+    QPlainTextEdit *_consoleLog;
+
     void updateUi();
     // Load saved application settings.
     void loadSettings();

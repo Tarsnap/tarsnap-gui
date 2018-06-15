@@ -22,7 +22,7 @@ Scheduling::~Scheduling()
 void Scheduling::enableJobScheduling()
 {
 #if defined(Q_OS_OSX)
-    auto confirm =
+    QMessageBox::StandardButton confirm =
         QMessageBox::question(parent, tr("Job scheduling"),
                               tr("Register Tarsnap GUI with the OS X"
                                  " Launchd service to run daily at 10am?"
@@ -87,7 +87,7 @@ void Scheduling::enableJobScheduling()
     }
 #elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
 
-    auto confirm =
+    QMessageBox::StandardButton confirm =
         QMessageBox::question(parent, tr("Job scheduling"),
                               tr("Register Tarsnap GUI with cron serivce?"
                                  "\nJobs that have scheduled backup"
@@ -198,7 +198,7 @@ void Scheduling::enableJobScheduling()
 void Scheduling::disableJobScheduling()
 {
 #if defined(Q_OS_OSX)
-    auto confirm =
+    QMessageBox::StandardButton confirm =
         QMessageBox::question(parent, tr("Job scheduling"),
                               tr("Unregister Tarsnap GUI from the OS X"
                                  " Launchd service? This will disable"
@@ -241,8 +241,9 @@ void Scheduling::disableJobScheduling()
         return;
     }
 #elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
-    auto confirm = QMessageBox::question(parent, "Confirm action",
-                                         "Unregister Tarsnap GUI from cron?");
+    QMessageBox::StandardButton confirm =
+        QMessageBox::question(parent, "Confirm action",
+                              "Unregister Tarsnap GUI from cron?");
     if(confirm != QMessageBox::Yes)
         return;
 

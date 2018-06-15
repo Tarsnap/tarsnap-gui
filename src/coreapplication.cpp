@@ -209,7 +209,7 @@ void CoreApplication::showMainWindow()
     connect(_mainWindow, &MainWindow::getTaskInfo, &_taskManager,
             &TaskManager::getTaskInfo, QUEUED);
     connect(&_taskManager, &TaskManager::taskInfo, _mainWindow,
-            &MainWindow::displayStopTasksDialog, QUEUED);
+            &MainWindow::closeWithTaskInfo, QUEUED);
     connect(_mainWindow, &MainWindow::jobAdded, &_taskManager,
             &TaskManager::addJob, QUEUED);
     connect(_mainWindow, &MainWindow::getKeyId, &_taskManager,

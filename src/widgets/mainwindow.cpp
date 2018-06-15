@@ -682,9 +682,33 @@ void MainWindow::closeEvent(QCloseEvent *event)
     else
     {
         _aboutToQuit = true;
+        // Find out if there's any running or queued tasks, so that we can
+        // ask the user what to do (if necessary).
         emit getTaskInfo();
         event->ignore();
     }
+}
+
+void MainWindow::closeWithTaskInfo(bool backupTaskRunning, int runningTasks,
+                                   int queuedTasks)
+{
+    if(!runningTasks && !queuedTasks)
+    {
+        if(_aboutToQuit)
+        {
+            qApp->quit();
+            return;
+        }
+        else
+        {
+            QMessageBox::information(
+                this, tr("Stop Tasks"),
+                tr("There are no running or queued tasks."));
+            return;
+        }
+    }
+
+    displayStopTasksDialog(backupTaskRunning, runningTasks, queuedTasks);
 }
 
 void MainWindow::changeEvent(QEvent *event)
@@ -1398,22 +1422,6 @@ void MainWindow::addJobClicked()
 void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
                                         int runningTasks, int queuedTasks)
 {
-    if(!runningTasks && !queuedTasks)
-    {
-        if(_aboutToQuit)
-        {
-            qApp->quit();
-            return;
-        }
-        else
-        {
-            QMessageBox::information(
-                this, tr("Stop Tasks"),
-                tr("There are no running or queued tasks."));
-            return;
-        }
-    }
-
     _stopTasksDialog.setText(tr("There are %1 running tasks and %2 queued.")
                                  .arg(runningTasks)
                                  .arg(queuedTasks));

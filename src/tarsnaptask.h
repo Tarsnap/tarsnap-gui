@@ -8,22 +8,41 @@
 #include <QUuid>
 #include <QVariant>
 
+/*!
+ * \ingroup background-tasks
+ * \brief The TarsnapTask is a QObject and QRunnable which executes a
+ * command-line command.
+ */
 class TarsnapTask : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
+    //! Constructor.
     explicit TarsnapTask();
     ~TarsnapTask();
 
+    //! Run the command previously given.  Blocks until completed (or
+    //! failed).
     void run();
+    //! If the QProcess is running, attempt to stop it with
+    //! QProcess::terminate().
+    //! \param kill: if QProcess:terminate() fails, use QProcess::kill().
     void stop(bool kill = false);
+    //! Send the QProcess a SIGQUIT.
+    //! \warning MacOS X only.  (?)
     void interrupt();
+    //! Emits \ref canceled.
+    //! \warning Does not actually cancel a running task!
     void cancel();
+    //! Blocks until the QProcess is finished.
     bool waitForTask();
 
+    //! Gets the state of the QProcess.
     QProcess::ProcessState taskStatus();
 
+    //! \name Getter/setter methods
+    //! @{
     QString command() const;
     void setCommand(const QString &command);
 
@@ -38,11 +57,18 @@ public:
 
     bool truncateLogOutput() const;
     void setTruncateLogOutput(bool truncateLogOutput);
+    //! @}
 
 signals:
+    //! Started running the QProcess.
     void started(QVariant data);
+    //! Finished running the QProcess.
+    //! \warning Is not emitted if the process crashed.
     void finished(QVariant data, int exitCode, QString stdOut, QString stdErr);
+    //! The QProcess was canceled.
     void canceled(QVariant data);
+    //! The QProcess failed to start, or finished (either with success or
+    //! failure.
     void dequeue();
 
 private slots:

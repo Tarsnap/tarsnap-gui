@@ -1,23 +1,14 @@
+### Compiling
+
 QT += testlib core gui widgets sql network
 CONFIG += c++11
 
 TEMPLATE = app
-TARGET = test-setupwizard
 
 INCLUDEPATH += . ../../src/ ../../src/widgets/
 
-FORMS += ../../forms/setupdialog.ui
 
-HEADERS  +=						\
-	../../tests/qtest-platform.h			\
-	../../src/utils.h				\
-	../../src/widgets/elidedlabel.h			\
-	../../src/widgets/setupdialog.h
-
-SOURCES += main.cpp					\
-	../../src/utils.cpp				\
-	../../src/widgets/elidedlabel.cpp		\
-	../../src/widgets/setupdialog.cpp
+### Stuff for tests
 
 TEST_HOME = /tmp/tarsnap-gui-test
 DEFINES += "TEST_NAME=\\\"$${TARGET}\\\""

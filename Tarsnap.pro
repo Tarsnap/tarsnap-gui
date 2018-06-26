@@ -133,6 +133,7 @@ TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
 
 # These are approximately in order of least to most complicated
 UNIT_TESTS =	tests/customfilesystemmodel	\
+		tests/task			\
 		tests/taskmanager		\
 		tests/setupwizard		\
 		tests/mainwindow

@@ -98,7 +98,7 @@ signals:
     //! Begin tarsnap --version
     void getTarsnapVersion(QString tarsnapPath);
     //! Query whether there are any running tasks; will trigger a taskInfo
-    //! signal which is received by \ref displayStopTasksDialog.
+    //! signal which is received by \ref closeWithTaskInfo.
     void getTaskInfo();
     //! Passes info from the JobWidget to the TaskManager.
     void jobAdded(JobPtr job);

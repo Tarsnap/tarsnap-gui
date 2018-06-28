@@ -15,31 +15,18 @@ class TestMainWindow : public QObject
 {
     Q_OBJECT
 
-public:
-    TestMainWindow();
-    ~TestMainWindow();
-
 private slots:
     void initTestCase();
     void about_window();
     void console_window();
     void quit_simple();
     void quit_tasks();
-
-private:
 };
-
-TestMainWindow::TestMainWindow()
-{
-    QCoreApplication::setOrganizationName(TEST_NAME);
-}
-
-TestMainWindow::~TestMainWindow()
-{
-}
 
 void TestMainWindow::initTestCase()
 {
+    QCoreApplication::setOrganizationName(TEST_NAME);
+
     IF_NOT_VISUAL
     {
         // Use a custom message handler to filter out unwanted messages

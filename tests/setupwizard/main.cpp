@@ -16,29 +16,16 @@ class TestSetupWizard : public QObject
 {
     Q_OBJECT
 
-public:
-    TestSetupWizard();
-    ~TestSetupWizard();
-
 private slots:
     void initTestCase();
     void normal_install();
     void cli();
-
-private:
 };
-
-TestSetupWizard::TestSetupWizard()
-{
-    QCoreApplication::setOrganizationName(TEST_NAME);
-}
-
-TestSetupWizard::~TestSetupWizard()
-{
-}
 
 void TestSetupWizard::initTestCase()
 {
+    QCoreApplication::setOrganizationName(TEST_NAME);
+
     IF_NOT_VISUAL
     {
         // Use a custom message handler to filter out unwanted messages

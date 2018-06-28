@@ -9,17 +9,12 @@ class TestTaskManager : public QObject
 {
     Q_OBJECT
 
-public:
-    TestTaskManager();
-    ~TestTaskManager();
-
 private slots:
+    void initTestCase();
     void get_version();
-
-private:
 };
 
-TestTaskManager::TestTaskManager()
+void TestTaskManager::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
@@ -28,10 +23,6 @@ TestTaskManager::TestTaskManager()
     task->getTarsnapVersion("");
     QTest::qWait(2 * TASK_CMDLINE_WAIT_MS);
     delete task;
-}
-
-TestTaskManager::~TestTaskManager()
-{
 }
 
 void TestTaskManager::get_version()

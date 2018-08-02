@@ -1,24 +1,52 @@
-#include <QApplication>
-#include <QCommandLineParser>
-#include <QStringList>
+#include <QtTest/QtTest>
 
 #include "testCFSM.h"
 
-int main(int argc, char *argv[])
+#include "scenario-num.h"
+
+class TestTask : public QObject
 {
-    QApplication       app(argc, argv);
-    QCommandLineParser parser;
-    parser.addPositionalArgument(
-        "scenario_num",
-        QCoreApplication::translate("main", "Run a single scenario."));
-    parser.process(app);
+    Q_OBJECT
 
-    // By default, run all scenarios
-    int               scenario_num = -1;
-    const QStringList args         = parser.positionalArguments();
-    if(args.size() > 0)
-        scenario_num = args.at(0).toInt();
+private slots:
+    void initTestCase();
+    void cleanupTestCase();
+    void runScenario();
+    void runScenario_data();
 
-    TestCFSM tester(scenario_num);
-    return app.exec();
+private:
+    TestCFSM *tester;
+};
+
+void TestTask::initTestCase()
+{
+    QCoreApplication::setOrganizationName(TEST_NAME);
+
+    tester = new TestCFSM();
 }
+
+void TestTask::cleanupTestCase()
+{
+    delete tester;
+}
+
+void TestTask::runScenario()
+{
+    QFETCH(int, scenario_number);
+    QVERIFY(tester->runScenario(scenario_number) == 0);
+}
+
+void TestTask::runScenario_data()
+{
+    QTest::addColumn<int>("scenario_number");
+
+    for(int i = 0; i < NUM_SCENARIOS; i++)
+    {
+        QString scenarioFilename =
+            QString("scenario-%1.txt").arg(i, 2, 10, QChar('0'));
+        QTest::newRow(scenarioFilename.toLatin1()) << i;
+    }
+}
+
+QTEST_MAIN(TestTask)
+#include "main.moc"

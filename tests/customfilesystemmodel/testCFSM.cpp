@@ -6,10 +6,9 @@
 #include "scenario-num.h"
 #include "testCFSM.h"
 
-TestCFSM::TestCFSM(int scenario_num)
+TestCFSM::TestCFSM()
 {
-    _scenario_num = scenario_num;
-    _rootDir      = QDir::currentPath() + QDir::separator() + "dirs";
+    _rootDir = QDir::currentPath() + QDir::separator() + "dirs";
 
     // Set up model.
     _model.setReadOnly(true);
@@ -20,10 +19,6 @@ TestCFSM::TestCFSM(int scenario_num)
     // scenario, but it is better than nothing.
     while(needToReadSubdirs(_rootDir))
         QCoreApplication::processEvents(0, 100);
-
-    // We need to start the tests from within the event loop, otherwise
-    // we get a deadlock when trying to quit.
-    QTimer::singleShot(10, this, SLOT(start()));
 }
 
 TestCFSM::~TestCFSM()
@@ -165,6 +160,7 @@ int TestCFSM::processResults(QTextStream &in)
 int TestCFSM::runScenario(const int num)
 {
     int result = -1;
+    _model.reset();
 
     QString scenarioFilename =
         QString("scenario-%1.txt").arg(num, 2, 10, QChar('0'));
@@ -227,39 +223,4 @@ void TestCFSM::printDir(const QString dirname, const int depth)
 void TestCFSM::printModel()
 {
     printDir(_model.rootPath(), 0);
-}
-
-void TestCFSM::start()
-{
-    // Run tests
-    int num_errors = 0;
-    if(_scenario_num >= 0)
-    {
-        if(runScenario(_scenario_num) != 0)
-            num_errors++;
-    }
-    else
-    {
-        for(int i = 0; i < NUM_SCENARIOS; i++)
-        {
-            _model.reset();
-            if(runScenario(i) != 0)
-                num_errors++;
-        }
-    }
-
-    // Notify user on stdout
-    QTextStream console(stdout);
-    if(num_errors == 0)
-    {
-        if(_scenario_num >= 0)
-            console << "Scenario " << _scenario_num << " successful." << endl;
-        else
-            console << "All " << NUM_SCENARIOS << " tests successful." << endl;
-    }
-    else
-        console << num_errors << " error(s) detected!" << endl;
-
-    // Output exit code
-    QApplication::exit(num_errors);
 }

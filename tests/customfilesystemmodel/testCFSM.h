@@ -12,20 +12,18 @@ class TestCFSM : public QObject
     Q_OBJECT
 
 public:
-    TestCFSM(int scenario_num);
+    TestCFSM();
     ~TestCFSM();
 
 public slots:
-    // Start running the test scenarios.
-    void start();
+    // Run the specified scenario.  Return 0 on success.
+    int runScenario(const int num);
 
 private:
     // The model we are testing.
     CustomFileSystemModel _model;
     // The root directory of the model.
     QString _rootDir;
-    // Allows running a single scenario
-    int _scenario_num;
 
     // Recursively checks for any unread subdirectories.
     // ASSUME: every directory must contain something.  See comment in .cpp
@@ -43,7 +41,6 @@ private:
     int processActions(QTextStream &in);
     // Returns 0 if success, 1 if a model error, 2 if an emit error.
     int processResults(QTextStream &in);
-    int runScenario(const int num);
 
     // For debugging and/or notifying of failed tests.
     void printModel();

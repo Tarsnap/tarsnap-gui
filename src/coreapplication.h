@@ -46,6 +46,7 @@ private:
     Journal      _journal;
     bool         _jobsOption;
     QString      _appDataDir;
+    bool         _checkOption;
 };
 
 #endif // COREAPPLICATION_H

@@ -213,11 +213,18 @@ void CoreApplication::parseArgs()
                                         "on the same machine (INI format is "
                                         "implied)."),
                                      tr("directory"));
+    QCommandLineOption checkOption(QStringList() << "check",
+                                   tr("Check that Tarsnap GUI is correctly "
+                                      "installed"));
+
     parser.addOption(jobsOption);
     parser.addOption(appDataOption);
+    parser.addOption(checkOption);
+
     parser.process(arguments());
     _jobsOption = parser.isSet(jobsOption);
     _appDataDir = parser.value(appDataOption);
+    _checkOption = parser.isSet(checkOption);
 }
 
 bool CoreApplication::initialize()
@@ -282,12 +289,16 @@ bool CoreApplication::initialize()
     // Make sure we have the path to the current Tarsnap-GUI binary
     int correctedPath = correctedSchedulingPath();
 
-    if(_jobsOption)
+    if(_jobsOption || _checkOption)
     {
         if(correctedPath == 0)
              DEBUG << tr(UPDATED_LAUNCHD_PATH_SHORT);
         else if(correctedPath == 1)
              DEBUG << tr(UPDATED_LAUNCHD_PATH_ERROR);
+
+        // We don't have anything else to do
+        if(_checkOption)
+            return false;
     }
 
     if(_jobsOption)

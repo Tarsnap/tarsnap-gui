@@ -7,6 +7,150 @@
 #include <QFontDatabase>
 #include <QMessageBox>
 
+#define UPDATED_LAUNCHD_PATH_LONG                                              \
+    "The OS X launchd scheduling service contained an out-of-date link to "    \
+    "Tarsnap GUI (did you upgrade it recently?).\n\nThis has been updated to " \
+    "point to the current Tarsnap GUI."
+
+#define UPDATED_LAUNCHD_PATH_SHORT "Updated launchd path to Tarsnap GUI"
+
+#define UPDATED_LAUNCHD_PATH_ERROR                                             \
+    "An error occurred while attempting to "                                   \
+    "update the OS X launchd path."
+
+#if defined(Q_OS_OSX)
+struct cmdinfo
+{
+    int        exit_code;
+    QByteArray stderr_msg;
+    QByteArray stdout_msg;
+};
+
+static struct cmdinfo runCmd(QString cmd, QStringList args,
+                             const QByteArray *stdin_msg = nullptr)
+{
+    QProcess       proc;
+    struct cmdinfo info;
+    proc.start(cmd, args);
+
+    // We can want stdin_msg to be empty but non-null; for example if we're
+    // disabling the scheduling and therefore writing an empty crontab file.
+    if(stdin_msg != nullptr)
+    {
+        proc.write(*stdin_msg);
+        proc.closeWriteChannel();
+    }
+    proc.waitForFinished(-1);
+
+    // Get exit code, working around QProcess not having a valid exitCode()
+    // if there's a crash.
+    info.exit_code = proc.exitCode();
+    if(proc.exitStatus() != QProcess::NormalExit)
+        info.exit_code = -1;
+
+    info.stderr_msg = proc.readAllStandardError();
+    info.stdout_msg = proc.readAllStandardOutput();
+
+    return (info);
+}
+
+// This is an awkward hack which is an intermediate step towards separating
+// the front-end and back-end code.  Return values:
+//   0: everything ok
+//   1: failed to load
+//   2: failed to start
+static int launchdLoad()
+{
+    struct cmdinfo pinfo;
+    QString        launchdPlistFileName =
+        QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist";
+
+    pinfo = runCmd("launchctl", QStringList() << "load" << launchdPlistFileName);
+    if(pinfo.exit_code != 0)
+        return (1);
+
+    pinfo = runCmd("launchctl", QStringList() << "start"
+                                              << "com.tarsnap.gui");
+    if(pinfo.exit_code != 0)
+        return (2);
+
+    return (0);
+}
+
+// Return values:
+//   0: everything ok
+//   1: failed to unload
+static int launchdUnload()
+{
+    struct cmdinfo pinfo;
+    QString        launchdPlistFileName =
+        QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist";
+
+    pinfo =
+        runCmd("launchctl", QStringList() << "unload" << launchdPlistFileName);
+    if(pinfo.exit_code != 0)
+        return (1);
+
+    return (0);
+}
+
+static bool launchdLoaded()
+{
+    struct cmdinfo pinfo;
+
+    pinfo = runCmd("launchctl", QStringList() << "list"
+                                              << "com.tarsnap.gui");
+    if(pinfo.exit_code != 0)
+        return (false);
+
+    return (true);
+}
+#endif
+
+// Returns:
+//     -1: no change
+//     0: changed successfully
+//     1: an error occurred
+static
+int correctedSchedulingPath()
+{
+#if defined(Q_OS_OSX)
+    QSettings launchdPlist(QDir::homePath()
+                               + "/Library/LaunchAgents/com.tarsnap.gui.plist",
+                           QSettings::NativeFormat);
+
+    // Bail if the file doesn't exist
+    if(!launchdPlist.contains("ProgramArguments"))
+        return (-1);
+
+    // Get path, bail if it still exists (we assume it's still executable)
+    QStringList args =
+        launchdPlist.value("ProgramArguments").value<QStringList>();
+    if(QFile::exists(args.at(0)))
+        return (-1);
+
+    // Update the path
+    args.replace(0, QCoreApplication::applicationFilePath().toLatin1());
+    launchdPlist.setValue("ProgramArguments", args);
+    launchdPlist.sync();
+
+    // Stop launchd script if it's loaded
+    if(launchdLoaded())
+    {
+        if(launchdUnload() != 0)
+            return (1);
+    }
+
+    // Load (and start) new program
+    if(launchdLoad() != 0)
+        return (1);
+
+    return (0);
+#else
+    return (-1);
+#endif
+}
+
 CoreApplication::CoreApplication(int &argc, char **argv)
     : QApplication(argc, argv),
       _mainWindow(nullptr),
@@ -135,6 +279,17 @@ bool CoreApplication::initialize()
 
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
+    // Make sure we have the path to the current Tarsnap-GUI binary
+    int correctedPath = correctedSchedulingPath();
+
+    if(_jobsOption)
+    {
+        if(correctedPath == 0)
+             DEBUG << tr(UPDATED_LAUNCHD_PATH_SHORT);
+        else if(correctedPath == 1)
+             DEBUG << tr(UPDATED_LAUNCHD_PATH_ERROR);
+    }
+
     if(_jobsOption)
     {
         setQuitLockEnabled(true);
@@ -146,6 +301,14 @@ bool CoreApplication::initialize()
     }
     else
     {
+        if(correctedPath == 0)
+            QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
+                                     tr(UPDATED_LAUNCHD_PATH_LONG));
+        else if(correctedPath == 1)
+            QMessageBox::information(nullptr,
+                                     tr("Failed to updated OS X launchd path"),
+                                     tr(UPDATED_LAUNCHD_PATH_ERROR));
+
         showMainWindow();
     }
 

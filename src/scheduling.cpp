@@ -45,6 +45,48 @@ static struct cmdinfo runCmd(QString cmd, QStringList args,
     return (info);
 }
 
+#if defined(Q_OS_OSX)
+// This is an awkward hack which is an intermediate step towards separating
+// the front-end and back-end code.  Return values:
+//   0: everything ok
+//   1: failed to load
+//   2: failed to start
+static int launchdLoad()
+{
+    struct cmdinfo pinfo;
+    QString        launchdPlistFileName =
+        QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist";
+
+    pinfo = runCmd("launchctl", QStringList() << "load" << launchdPlistFileName);
+    if(pinfo.exit_code != 0)
+        return (1);
+
+    pinfo = runCmd("launchctl", QStringList() << "start"
+                                              << "com.tarsnap.gui");
+    if(pinfo.exit_code != 0)
+        return (2);
+
+    return (0);
+}
+
+// Return values:
+//   0: everything ok
+//   1: failed to unload
+static int launchdUnload()
+{
+    struct cmdinfo pinfo;
+    QString        launchdPlistFileName =
+        QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist";
+
+    pinfo =
+        runCmd("launchctl", QStringList() << "unload" << launchdPlistFileName);
+    if(pinfo.exit_code != 0)
+        return (1);
+
+    return (0);
+}
+#endif
+
 Scheduling::Scheduling(QWidget *parent_new)
     : QObject(parent_new), parent(parent_new)
 {
@@ -96,26 +138,21 @@ void Scheduling::enableJobScheduling()
     launchdPlist.close();
     launchdPlistFile.close();
 
-    struct cmdinfo pinfo;
-    pinfo = runCmd("launchctl", QStringList() << "load"
-                                              << launchdPlistFile.fileName());
-    if(pinfo.exit_code != 0)
+    int ret = launchdLoad();
+    if(ret == 1)
     {
         QString msg(tr("Failed to load launchd service file."));
         DEBUG << msg;
         QMessageBox::critical(parent, tr("Job scheduling"), msg);
         return;
     }
-
-    pinfo = runCmd("launchctl", QStringList() << "start"
-                                              << "com.tarsnap.gui");
-    if(pinfo.exit_code != 0)
+    else if(ret == 2)
     {
         QString msg(tr("Failed to start launchd service."));
         DEBUG << msg;
         QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
     }
+
 #elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
 
     QMessageBox::StandardButton confirm =
@@ -245,10 +282,8 @@ void Scheduling::disableJobScheduling()
         return;
     }
 
-    struct cmdinfo pinfo;
-    pinfo = runCmd("launchctl", QStringList() << "unload"
-                                              << launchdPlistFile.fileName());
-    if(pinfo.exit_code != 0)
+    int ret = launchdUnload();
+    if(ret == 1)
     {
         QString msg(tr("Failed to unload launchd service."));
         DEBUG << msg;

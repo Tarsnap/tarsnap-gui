@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QObject>
 #include <QProcess>
+#include <QSettings>
 #include <QString>
 
 #include "debug.h"
@@ -84,6 +85,18 @@ static int launchdUnload()
         return (1);
 
     return (0);
+}
+
+static bool launchdLoaded()
+{
+    struct cmdinfo pinfo;
+
+    pinfo = runCmd("launchctl", QStringList() << "list"
+                                              << "com.tarsnap.gui");
+    if(pinfo.exit_code != 0)
+        return (false);
+
+    return (true);
 }
 #endif
 
@@ -401,5 +414,48 @@ void Scheduling::disableJobScheduling()
         QMessageBox::critical(parent, tr("Job scheduling"), msg);
         return;
     }
+#endif
+}
+
+// Returns:
+//     -1: no change
+//     0: changed successfully
+//     1: an error occurred
+int Scheduling::correctedSchedulingPath()
+{
+#if defined(Q_OS_OSX)
+    QSettings launchdPlist(QDir::homePath()
+                               + "/Library/LaunchAgents/com.tarsnap.gui.plist",
+                           QSettings::NativeFormat);
+
+    // Bail if the file doesn't exist
+    if(!launchdPlist.contains("ProgramArguments"))
+        return (-1);
+
+    // Get path, bail if it still exists (we assume it's still executable)
+    QStringList args =
+        launchdPlist.value("ProgramArguments").value<QStringList>();
+    if(QFile::exists(args.at(0)))
+        return (-1);
+
+    // Update the path
+    args.replace(0, QCoreApplication::applicationFilePath().toLatin1());
+    launchdPlist.setValue("ProgramArguments", args);
+    launchdPlist.sync();
+
+    // Stop launchd script if it's loaded
+    if(launchdLoaded())
+    {
+        if(launchdUnload() != 0)
+            return (1);
+    }
+
+    // Load (and start) new program
+    if(launchdLoad() != 0)
+        return (1);
+
+    return (0);
+#else
+    return (-1);
 #endif
 }

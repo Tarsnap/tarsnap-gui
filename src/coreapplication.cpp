@@ -7,6 +7,17 @@
 #include <QFontDatabase>
 #include <QMessageBox>
 
+#define UPDATED_LAUNCHD_PATH_LONG                                              \
+    "The OS X launchd scheduling service contained an out-of-date link to "    \
+    "Tarsnap GUI (did you upgrade it recently?).\n\nThis has been updated to " \
+    "point to the current Tarsnap GUI."
+
+#define UPDATED_LAUNCHD_PATH_SHORT "Updated launchd path to Tarsnap GUI"
+
+#define UPDATED_LAUNCHD_PATH_ERROR                                             \
+    "An error occurred while attempting to "                                   \
+    "update the OS X launchd path."
+
 CoreApplication::CoreApplication(int &argc, char **argv)
     : QApplication(argc, argv),
       _mainWindow(nullptr),
@@ -137,6 +148,17 @@ bool CoreApplication::initializeCore()
 
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
+    // Make sure we have the path to the current Tarsnap-GUI binary
+    int correctedPath = Scheduling::correctedSchedulingPath();
+
+    if(_jobsOption)
+    {
+        if(correctedPath == 0)
+            DEBUG << tr(UPDATED_LAUNCHD_PATH_SHORT);
+        else if(correctedPath == 1)
+            DEBUG << tr(UPDATED_LAUNCHD_PATH_ERROR);
+    }
+
     if(_jobsOption)
     {
         setQuitLockEnabled(true);
@@ -148,6 +170,14 @@ bool CoreApplication::initializeCore()
     }
     else
     {
+        if(correctedPath == 0)
+            QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
+                                     tr(UPDATED_LAUNCHD_PATH_LONG));
+        else if(correctedPath == 1)
+            QMessageBox::information(nullptr,
+                                     tr("Failed to updated OS X launchd path"),
+                                     tr(UPDATED_LAUNCHD_PATH_ERROR));
+
         showMainWindow();
     }
 

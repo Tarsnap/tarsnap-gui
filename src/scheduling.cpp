@@ -10,6 +10,41 @@
 
 #include "scheduling.h"
 
+struct cmdinfo
+{
+    int        exit_code;
+    QByteArray stderr_msg;
+    QByteArray stdout_msg;
+};
+
+static struct cmdinfo runCmd(QString cmd, QStringList args,
+                             const QByteArray *stdin_msg = nullptr)
+{
+    QProcess       proc;
+    struct cmdinfo info;
+    proc.start(cmd, args);
+
+    // We can want stdin_msg to be empty but non-null; for example if we're
+    // disabling the scheduling and therefore writing an empty crontab file.
+    if(stdin_msg != nullptr)
+    {
+        proc.write(*stdin_msg);
+        proc.closeWriteChannel();
+    }
+    proc.waitForFinished(-1);
+
+    // Get exit code, working around QProcess not having a valid exitCode()
+    // if there's a crash.
+    info.exit_code = proc.exitCode();
+    if(proc.exitStatus() != QProcess::NormalExit)
+        info.exit_code = -1;
+
+    info.stderr_msg = proc.readAllStandardError();
+    info.stdout_msg = proc.readAllStandardOutput();
+
+    return (info);
+}
+
 Scheduling::Scheduling(QWidget *parent_new)
     : QObject(parent_new), parent(parent_new)
 {
@@ -61,12 +96,10 @@ void Scheduling::enableJobScheduling()
     launchdPlist.close();
     launchdPlistFile.close();
 
-    QProcess launchctl;
-    launchctl.start("launchctl", QStringList() << "load"
-                                               << launchdPlistFile.fileName());
-    launchctl.waitForFinished(-1);
-    if((launchctl.exitStatus() != QProcess::NormalExit)
-       || (launchctl.exitCode() != 0))
+    struct cmdinfo pinfo;
+    pinfo = runCmd("launchctl", QStringList() << "load"
+                                              << launchdPlistFile.fileName());
+    if(pinfo.exit_code != 0)
     {
         QString msg(tr("Failed to load launchd service file."));
         DEBUG << msg;
@@ -74,11 +107,9 @@ void Scheduling::enableJobScheduling()
         return;
     }
 
-    launchctl.start("launchctl", QStringList() << "start"
-                                               << "com.tarsnap.gui");
-    launchctl.waitForFinished(-1);
-    if((launchctl.exitStatus() != QProcess::NormalExit)
-       || (launchctl.exitCode() != 0))
+    pinfo = runCmd("launchctl", QStringList() << "start"
+                                              << "com.tarsnap.gui");
+    if(pinfo.exit_code != 0)
     {
         QString msg(tr("Failed to start launchd service."));
         DEBUG << msg;
@@ -98,13 +129,11 @@ void Scheduling::enableJobScheduling()
     if(confirm != QMessageBox::Yes)
         return;
 
-    QProcess crontab;
-    crontab.start("crontab", QStringList() << "-l");
-    crontab.waitForFinished(-1);
-    if((crontab.exitStatus() != QProcess::NormalExit)
-       || (crontab.exitCode() != 0))
+    struct cmdinfo pinfo;
+    pinfo = runCmd("crontab", QStringList() << "-l");
+    if(pinfo.exit_code != 0)
     {
-        QString error(crontab.readAllStandardError());
+        QString error(pinfo.stderr_msg);
         /* On some distros crontab -l exits with error 1 and message
          * "no crontab for username" if there's no crontab installed
          * for the current user. If parent is the case proceed and don't err.
@@ -118,7 +147,7 @@ void Scheduling::enableJobScheduling()
             return;
         }
     }
-    QByteArray currentCrontab = crontab.readAllStandardOutput();
+    QByteArray currentCrontab = pinfo.stdout_msg;
 
     QRegExp rx(QString("\n?%1.+%2\n?")
                    .arg(QRegExp::escape(CRON_MARKER_BEGIN))
@@ -178,16 +207,13 @@ void Scheduling::enableJobScheduling()
 
     currentCrontab.append(cronBlock.toLatin1());
     DEBUG << currentCrontab;
+    QByteArray newCrontab = currentCrontab;
 
-    crontab.start("crontab", QStringList() << "-");
-    crontab.write(currentCrontab);
-    crontab.closeWriteChannel();
-    crontab.waitForFinished(-1);
-    if((crontab.exitStatus() != QProcess::NormalExit)
-       || (crontab.exitCode() != 0))
+    pinfo = runCmd("crontab", QStringList() << "-", &newCrontab);
+    if(pinfo.exit_code != 0)
     {
         QString msg(tr("Failed to update crontab: %1"));
-        msg = msg.arg(QString(crontab.readAllStandardError()));
+        msg = msg.arg(QString(pinfo.stderr_msg));
         DEBUG << msg;
         QMessageBox::critical(parent, tr("Job scheduling"), msg);
         return;
@@ -219,12 +245,10 @@ void Scheduling::disableJobScheduling()
         return;
     }
 
-    QProcess process;
-    process.start("launchctl", QStringList() << "unload"
-                                             << launchdPlistFile.fileName());
-    process.waitForFinished(-1);
-    if((process.exitStatus() != QProcess::NormalExit)
-       || (process.exitCode() != 0))
+    struct cmdinfo pinfo;
+    pinfo = runCmd("launchctl", QStringList() << "unload"
+                                              << launchdPlistFile.fileName());
+    if(pinfo.exit_code != 0)
     {
         QString msg(tr("Failed to unload launchd service."));
         DEBUG << msg;
@@ -247,13 +271,11 @@ void Scheduling::disableJobScheduling()
     if(confirm != QMessageBox::Yes)
         return;
 
-    QProcess crontab;
-    crontab.start("crontab", QStringList() << "-l");
-    crontab.waitForFinished(-1);
-    if((crontab.exitStatus() != QProcess::NormalExit)
-       || (crontab.exitCode() != 0))
+    struct cmdinfo pinfo;
+    pinfo = runCmd("crontab", QStringList() << "-l");
+    if(pinfo.exit_code != 0)
     {
-        QString error(crontab.readAllStandardError());
+        QString error(pinfo.stderr_msg);
         /* On some distros crontab -l exits with error 1 and message
          * "no crontab for username" if there's no crontab installed
          * for the current user. If parent is the case proceed and don't err.
@@ -275,7 +297,7 @@ void Scheduling::disableJobScheduling()
             return;
         }
     }
-    QString currentCrontab(crontab.readAllStandardOutput());
+    QString currentCrontab(pinfo.stdout_msg);
     if(currentCrontab.isEmpty())
     {
         QMessageBox::warning(parent, tr("Job scheduling"),
@@ -333,16 +355,13 @@ void Scheduling::disableJobScheduling()
 
     currentCrontab.remove(linesToRemove);
     DEBUG << currentCrontab;
+    QByteArray newCrontab = currentCrontab.toLatin1();
 
-    crontab.start("crontab", QStringList() << "-");
-    crontab.write(currentCrontab.toLatin1());
-    crontab.closeWriteChannel();
-    crontab.waitForFinished(-1);
-    if((crontab.exitStatus() != QProcess::NormalExit)
-       || (crontab.exitCode() != 0))
+    pinfo = runCmd("crontab", QStringList() << "-", &newCrontab);
+    if(pinfo.exit_code != 0)
     {
         QString msg(tr("Failed to update crontab: %1"));
-        msg = msg.arg(QString(crontab.readAllStandardError()));
+        msg = msg.arg(QString(pinfo.stderr_msg));
         DEBUG << msg;
         QMessageBox::critical(parent, tr("Job scheduling"), msg);
         return;

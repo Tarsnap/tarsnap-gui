@@ -275,7 +275,7 @@ void Job::save()
             "optionTraverseMount=?, optionFollowSymLinks=?, "
             "optionSkipFilesSize=?, "
             "optionSkipFiles=?, optionSkipFilesPatterns=?, optionSkipNoDump=?, "
-            "settingShowHidden=?, settingShowSystem=?, settingHideSymlinks=?"
+            "settingShowHidden=?, settingShowSystem=?, settingHideSymlinks=? "
             "where name=?");
     else
         queryString = QLatin1String(

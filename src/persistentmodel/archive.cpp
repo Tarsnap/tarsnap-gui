@@ -58,7 +58,7 @@ void Archive::save()
                           " sizeCompressed=?, sizeUniqueTotal=?,"
                           " sizeUniqueCompressed=?, command=?, contents=?,"
                           " jobRef=?"
-                          "  where name=?");
+                          " where name=?");
     }
     else
     {

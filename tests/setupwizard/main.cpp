@@ -48,6 +48,7 @@ void TestSetupWizard::normal_install()
     // If there's no tarsnap binary, skip this test.
     if(Utils::findTarsnapClientInPath(QString(""), false).isEmpty())
     {
+        delete setupWizard;
         QSKIP("No tarsnap binary found");
     }
 

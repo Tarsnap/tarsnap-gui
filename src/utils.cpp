@@ -108,17 +108,20 @@ QString Utils::validateAppDataDir(QString path)
 QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
 {
     QStringList searchPaths;
+    QString     executable;
 
     if(!path.isEmpty())
         searchPaths << path;
 
-    QString executable = QStandardPaths::findExecutable(CMD_TARSNAP, searchPaths);
+    executable = QStandardPaths::findExecutable(CMD_TARSNAP, searchPaths);
     if(executable.isEmpty() || !QFileInfo(executable).isReadable()
        || !QFileInfo(executable).isExecutable())
         return "";
     else if(keygenToo)
+    {
         executable =
             QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, searchPaths);
+    }
 
     if(executable.isEmpty() || !QFileInfo(executable).isReadable()
        || !QFileInfo(executable).isExecutable())

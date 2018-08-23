@@ -270,21 +270,21 @@ void Job::save()
     QString queryString;
     if(exists)
         queryString = QLatin1String(
-            "update jobs set name=?, urls=?, optionScheduledEnabled=?, "
-            "optionPreservePaths=?, "
-            "optionTraverseMount=?, optionFollowSymLinks=?, "
-            "optionSkipFilesSize=?, "
-            "optionSkipFiles=?, optionSkipFilesPatterns=?, optionSkipNoDump=?, "
-            "settingShowHidden=?, settingShowSystem=?, settingHideSymlinks=? "
-            "where name=?");
+            "update jobs set name=?, urls=?, optionScheduledEnabled=?,"
+            " optionPreservePaths=?,"
+            " optionTraverseMount=?, optionFollowSymLinks=?,"
+            " optionSkipFilesSize=?,"
+            " optionSkipFiles=?, optionSkipFilesPatterns=?, optionSkipNoDump=?,"
+            " settingShowHidden=?, settingShowSystem=?, settingHideSymlinks=?"
+            " where name=?");
     else
         queryString = QLatin1String(
-            "insert into jobs(name, urls, optionScheduledEnabled, "
-            "optionPreservePaths, optionTraverseMount, "
-            "optionFollowSymLinks, optionSkipFilesSize, optionSkipFiles, "
-            "optionSkipFilesPatterns, optionSkipNoDump, settingShowHidden, "
-            "settingShowSystem, settingHideSymlinks) values(?, ?, ?, ?, ?, "
-            "?, ?, ?, ?, ?, ?, ?, ?)");
+            "insert into jobs(name, urls, optionScheduledEnabled,"
+            " optionPreservePaths, optionTraverseMount,"
+            " optionFollowSymLinks, optionSkipFilesSize, optionSkipFiles,"
+            " optionSkipFilesPatterns, optionSkipNoDump, settingShowHidden,"
+            " settingShowSystem, settingHideSymlinks)"
+            " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     // Get database instance and create query object.
     PersistentStore &store = getStore();

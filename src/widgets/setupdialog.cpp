@@ -21,6 +21,8 @@ SetupDialog::SetupDialog(QWidget *parent)
     // validateAdvancedSetupPage() to avoid calling that function
     // unnecessarily.
     _tarsnapDir = Utils::findTarsnapClientInPath("", true);
+    if (_tarsnapDir == "")
+      _tarsnapDir = "/usr/local/bin";
     _ui.tarsnapPathLineEdit->setText(_tarsnapDir);
     _ui.machineNameLineEdit->setText(QHostInfo::localHostName());
     _ui.wizardStackedWidget->setCurrentWidget(_ui.welcomePage);

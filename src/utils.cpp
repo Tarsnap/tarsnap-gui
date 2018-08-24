@@ -114,6 +114,13 @@ QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
         searchPaths << path;
 
     executable = QStandardPaths::findExecutable(CMD_TARSNAP, searchPaths);
+#if defined(Q_OS_OSX)
+    // If we haven't found the command in the default PATH, look
+    // in /usr/local/bin because that's where brew puts it.
+    QStringList brew_bin = {"/usr/local/bin"};
+    if(executable.isEmpty() && searchPaths.isEmpty())
+        executable = QStandardPaths::findExecutable(CMD_TARSNAP, brew_bin);
+#endif
     if(executable.isEmpty() || !QFileInfo(executable).isReadable()
        || !QFileInfo(executable).isExecutable())
         return "";
@@ -121,6 +128,11 @@ QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
     {
         executable =
             QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, searchPaths);
+#if defined(Q_OS_OSX)
+        if(executable.isEmpty() && searchPaths.isEmpty())
+            executable =
+                QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, brew_bin);
+#endif
     }
 
     if(executable.isEmpty() || !QFileInfo(executable).isReadable()

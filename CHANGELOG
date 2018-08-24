@@ -1,3 +1,19 @@
+Version 1.0.2
+-------------
+
+This adds two new features for MacOS X:
+
+* Adds a --check option to update the MacOS X launchd path (in case the app's
+  path changed, for example during a brew update).
+* Automatically searches for the tarsnap CLI in /usr/local/bin (which is where
+  brew puts it, but this directory is not added to the $PATH for GUI apps).
+
+It also includes two bugfixes:
+
+* The MacOS X app->"get info" now displays the version number.
+* An existing job's options can now be saved to disk.
+
+
 Version 1.0.1
 -------------
 

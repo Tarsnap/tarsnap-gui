@@ -14,7 +14,8 @@ TarsnapTask::TarsnapTask()
     : QObject(),
       _id(QUuid::createUuid()),
       _process(nullptr),
-      _truncateLogOutput(false)
+      _truncateLogOutput(false),
+      _exitCode(EXIT_NO_MEANING)
 {
 }
 
@@ -43,6 +44,7 @@ void TarsnapTask::run()
     }
     else
     {
+        _exitCode = EXIT_DID_NOT_START;
         processError();
         goto cleanup;
     }
@@ -167,8 +169,8 @@ void TarsnapTask::processFinished()
     {
     case QProcess::NormalExit:
     {
-        emit finished(_data, _process->exitCode(), QString(_stdOut),
-                      QString(_stdErr));
+        _exitCode = _process->exitCode();
+        emit finished(_data, _exitCode, QString(_stdOut), QString(_stdErr));
 
         // Truncate LOG output
         QByteArray stdOut(_stdOut);
@@ -188,7 +190,7 @@ void TarsnapTask::processFinished()
 
         LOG << tr("Task %1 finished with exit code %2:\n[%3 %4]\n%5")
                    .arg(_id.toString())
-                   .arg(_process->exitCode())
+                   .arg(_exitCode)
                    .arg(_command)
                    .arg(Utils::quoteCommandLine(_arguments))
                    .arg(QString(stdOut + _stdErr));
@@ -196,6 +198,7 @@ void TarsnapTask::processFinished()
     }
     case QProcess::CrashExit:
     {
+        _exitCode = EXIT_CRASHED;
         processError();
         break;
     }
@@ -209,9 +212,10 @@ void TarsnapTask::processError()
                .arg(_id.toString())
                .arg(_process->error())
                .arg(_process->errorString())
-               .arg(_process->exitCode())
+               .arg(_exitCode)
                .arg(_command)
                .arg(Utils::quoteCommandLine(_arguments))
                .arg(QString(_stdOut + _stdErr).trimmed());
+    emit finished(_data, _exitCode, QString(_stdOut), QString(_stdErr));
     cancel();
 }

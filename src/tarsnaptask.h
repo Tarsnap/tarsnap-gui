@@ -8,6 +8,14 @@
 #include <QUuid>
 #include <QVariant>
 
+/*
+ * Normal exit codes are non-negative, but since we're just passing around
+ * an int, we might as well use negative values for special meanings.
+ */
+#define EXIT_NO_MEANING (-1)
+#define EXIT_CRASHED (-2)
+#define EXIT_DID_NOT_START (-3)
+
 /*!
  * \ingroup background-tasks
  * \brief The TarsnapTask is a QObject and QRunnable which executes a
@@ -62,8 +70,7 @@ public:
 signals:
     //! Started running the QProcess.
     void started(QVariant data);
-    //! Finished running the QProcess.
-    //! \warning Is not emitted if the process crashed.
+    //! Finished, crashed, or could not start running the QProcess.
     void finished(QVariant data, int exitCode, QString stdOut, QString stdErr);
     //! The QProcess was canceled.
     void canceled(QVariant data);
@@ -88,6 +95,7 @@ private:
     QStringList      _arguments;
     bool             _truncateLogOutput;
     QEventLoopLocker _lock;
+    int              _exitCode;
 };
 
 #endif // TARSNAPTASK_H

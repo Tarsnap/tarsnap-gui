@@ -11,6 +11,8 @@ private slots:
     void sleep_ok();
     void sleep_fail();
     void sleep_crash();
+    void sleep_filenotfound();
+    void cmd_filenotfound();
 
 private:
     QString get_script(QString scriptname);
@@ -68,8 +70,32 @@ void TestTask::sleep_fail()
 void TestTask::sleep_crash()
 {
     RUN_SCRIPT("sleep-1-crash.sh");
-    // Due to the crash, we did *not* get a "finished" signal.
-    QVERIFY(sig_fin.count() == 0);
+    // Despite the crash, we should still get a "finished" signal.
+    QVERIFY(sig_fin.count() == 1);
+    QVERIFY(sig_fin.takeFirst().at(1).toInt() == EXIT_CRASHED);
+}
+
+void TestTask::sleep_filenotfound()
+{
+    // This script should not exist.
+    RUN_SCRIPT("sleep-1-filenotfound.sh");
+    // We got a "finished" signal, with sh exit code 127 ("command not found").
+    QVERIFY(sig_fin.count() == 1);
+    QVERIFY(sig_fin.takeFirst().at(1).toInt() == 127);
+}
+
+void TestTask::cmd_filenotfound()
+{
+    TarsnapTask *task = new TarsnapTask();
+    QSignalSpy   sig_started(task, SIGNAL(started(QVariant)));
+    QSignalSpy sig_fin(task, SIGNAL(finished(QVariant, int, QString, QString)));
+    QSignalSpy sig_dequeue(task, SIGNAL(dequeue()));
+
+    task->setCommand("/fake/dir/fake-cmd");
+    task->run();
+    // We got a "finished" signal, with exit code EXIT_DID_NOT_START.
+    QVERIFY(sig_fin.count() == 1);
+    QVERIFY(sig_fin.takeFirst().at(1).toInt() == EXIT_DID_NOT_START);
 }
 
 QTEST_MAIN(TestTask)

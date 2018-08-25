@@ -15,6 +15,8 @@ enum TaskStatus
     Paused
 };
 
+Q_DECLARE_METATYPE(TaskStatus);
+
 class BackupTask;
 
 typedef QSharedPointer<BackupTask> BackupTaskPtr;

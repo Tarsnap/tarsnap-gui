@@ -11,6 +11,7 @@ private slots:
     void sleep_ok();
     void sleep_fail();
     void sleep_crash();
+    void sleep_filenotfound();
 
 private:
     QString get_script(QString scriptname);
@@ -71,6 +72,15 @@ void TestTask::sleep_crash()
     // Despite the crash, we should still get a "finished" signal.
     QVERIFY(sig_fin.count() == 1);
     QVERIFY(sig_fin.takeFirst().at(1).toInt() == EXIT_CRASHED);
+}
+
+void TestTask::sleep_filenotfound()
+{
+    // This script should not exist.
+    RUN_SCRIPT("sleep-1-filenotfound.sh");
+    // We got a "finished" signal, with sh exit code 127 ("command not found").
+    QVERIFY(sig_fin.count() == 1);
+    QVERIFY(sig_fin.takeFirst().at(1).toInt() == 127);
 }
 
 QTEST_MAIN(TestTask)

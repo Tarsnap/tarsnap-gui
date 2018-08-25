@@ -68,8 +68,9 @@ void TestTask::sleep_fail()
 void TestTask::sleep_crash()
 {
     RUN_SCRIPT("sleep-1-crash.sh");
-    // Due to the crash, we did *not* get a "finished" signal.
-    QVERIFY(sig_fin.count() == 0);
+    // Despite the crash, we should still get a "finished" signal.
+    QVERIFY(sig_fin.count() == 1);
+    QVERIFY(sig_fin.takeFirst().at(1).toInt() == EXIT_CRASHED);
 }
 
 QTEST_MAIN(TestTask)

@@ -216,5 +216,6 @@ void TarsnapTask::processError()
                .arg(_command)
                .arg(Utils::quoteCommandLine(_arguments))
                .arg(QString(_stdOut + _stdErr).trimmed());
+    emit finished(_data, _exitCode, QString(_stdOut), QString(_stdErr));
     cancel();
 }

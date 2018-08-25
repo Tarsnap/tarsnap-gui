@@ -70,8 +70,7 @@ public:
 signals:
     //! Started running the QProcess.
     void started(QVariant data);
-    //! Finished running the QProcess.
-    //! \warning Is not emitted if the process crashed.
+    //! Finished, crashed, or could not start running the QProcess.
     void finished(QVariant data, int exitCode, QString stdOut, QString stdErr);
     //! The QProcess was canceled.
     void canceled(QVariant data);

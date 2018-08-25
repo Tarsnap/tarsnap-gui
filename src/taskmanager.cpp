@@ -637,7 +637,16 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
     if(exitCode == SUCCESS)
         emit registerMachineStatus(TaskStatus::Completed, stdOut);
     else
+    {
+        if(stdErr.isEmpty())
+        {
+            if(exitCode == EXIT_DID_NOT_START)
+                stdErr = "Could not launch the command-line program";
+            else if(exitCode == EXIT_CRASHED)
+                stdErr = "Crash occurred in the command-line program";
+        }
         emit registerMachineStatus(TaskStatus::Failed, stdErr);
+    }
 }
 
 void TaskManager::getArchiveListFinished(QVariant data, int exitCode,

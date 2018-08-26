@@ -15,6 +15,10 @@ class TarsnapGui < Formula
     prefix.install "Tarsnap.app"
   end
 
+  def post_install
+    system "#{opt_prefix}/Tarsnap.app/Contents/MacOS/Tarsnap", "--check"
+  end
+
   test do
     system "#{opt_prefix}/Tarsnap.app/Contents/MacOS/Tarsnap", "--version"
   end

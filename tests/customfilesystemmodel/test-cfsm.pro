@@ -5,7 +5,7 @@ HEADERS	+=						\
 	scenario-num.h					\
 	../../src/customfilesystemmodel.h
 
-SOURCES	+= main.cpp					\
+SOURCES	+= test-cfsm.cpp				\
 	testCFSM.cpp					\
 	../../src/customfilesystemmodel.cpp
 

@@ -11,7 +11,7 @@ HEADERS  +=						\
 	../../src/utils.h				\
 	../../src/taskmanager.h
 
-SOURCES += main.cpp					\
+SOURCES += test-taskmanager.cpp				\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\

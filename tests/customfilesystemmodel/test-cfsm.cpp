@@ -49,4 +49,4 @@ void TestTask::runScenario_data()
 }
 
 QTEST_MAIN(TestTask)
-#include "main.moc"
+#include "test-cfsm.moc"

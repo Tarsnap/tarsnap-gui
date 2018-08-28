@@ -99,4 +99,4 @@ void TestTask::cmd_filenotfound()
 }
 
 QTEST_MAIN(TestTask)
-#include "main.moc"
+#include "test-task.moc"

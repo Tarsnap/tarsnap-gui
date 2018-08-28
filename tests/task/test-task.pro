@@ -5,7 +5,7 @@ HEADERS  +=						\
 	../../src/utils.h				\
 	../../src/tarsnaptask.h
 
-SOURCES += main.cpp					\
+SOURCES += test-task.cpp				\
 	../../src/debug.cpp				\
 	../../src/utils.cpp				\
 	../../src/tarsnaptask.cpp

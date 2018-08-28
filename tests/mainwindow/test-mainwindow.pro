@@ -51,7 +51,7 @@ HEADERS  +=						\
 	../../src/filetablemodel.h			\
 	../../src/translator.h
 
-SOURCES += main.cpp					\
+SOURCES += test-mainwindow.cpp				\
 	../../src/debug.cpp				\
 	../../src/utils.cpp				\
 	../../src/widgets/backuplistwidget.cpp		\

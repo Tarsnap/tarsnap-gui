@@ -224,4 +224,4 @@ void TestMainWindow::console_window()
 }
 
 QTEST_MAIN(TestMainWindow)
-#include "main.moc"
+#include "test-mainwindow.moc"

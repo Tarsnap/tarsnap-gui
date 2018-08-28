@@ -1,11 +1,18 @@
 ### Compiling
 
 QT += testlib core gui widgets sql network
-CONFIG += c++11
+CONFIG += c++11 debug
 
 TEMPLATE = app
 
 INCLUDEPATH += . ../../src/ ../../src/widgets/
+
+
+### Shared build-dir
+
+UI_DIR      = ../build/
+MOC_DIR     = ../build/
+OBJECTS_DIR = ../build/
 
 
 ### Stuff for tests

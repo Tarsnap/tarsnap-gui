@@ -131,12 +131,13 @@ DISTFILES += .clang-format
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
-# These are approximately in order of least to most complicated
-UNIT_TESTS =	tests/customfilesystemmodel	\
-		tests/task			\
-		tests/taskmanager		\
+# Start off with tests which require the most compilation units, in order
+# to maximize the benefits of parallel builds.
+UNIT_TESTS =	tests/mainwindow		\
 		tests/setupwizard		\
-		tests/mainwindow
+		tests/taskmanager		\
+		tests/customfilesystemmodel	\
+		tests/task
 
 osx {
     LIBS += -framework Foundation

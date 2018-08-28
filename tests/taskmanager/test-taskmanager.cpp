@@ -116,4 +116,4 @@ void TestTaskManager::fail_registerMachine_key_permissions()
 }
 
 QTEST_MAIN(TestTaskManager)
-#include "main.moc"
+#include "test-taskmanager.moc"

@@ -27,7 +27,9 @@ class ConsoleLog : public QObject
 public:
     static void initializeConsoleLog()
     {
+#if defined(QT_DEBUG)
         qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}");
+#endif
     }
     static ConsoleLog &instance()
     {

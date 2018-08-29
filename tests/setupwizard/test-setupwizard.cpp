@@ -59,13 +59,12 @@ void TestSetupWizard::normal_install()
     // Pretend that we already have a key
     setupWizard->restoreYes();
     ui.restoreYesButton->setChecked(true);
-    ui.machineKeyCombo->setCurrentText("pretend.key");
+    ui.machineKeyCombo->setCurrentText("fake.key");
     ui.nextButton->setEnabled(true);
     QTest::mouseClick(ui.nextButton, Qt::LeftButton);
     // Check results of registration
     QVERIFY(sig_register.count() == 1);
-    QVERIFY(sig_register.takeFirst().at(3).toString()
-            == QString("pretend.key"));
+    QVERIFY(sig_register.takeFirst().at(3).toString() == QString("fake.key"));
     setupWizard->registerMachineStatus(TaskStatus::Completed, "");
     VISUAL_WAIT;
 

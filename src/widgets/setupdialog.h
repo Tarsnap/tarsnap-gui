@@ -2,7 +2,8 @@
 #define SETUPDIALOG_H
 
 #include "ui_setupdialog.h"
-#include <taskmanager.h>
+
+#include <taskstatus.h>
 
 #include <QDialog>
 #include <QMovie>

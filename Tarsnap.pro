@@ -98,6 +98,7 @@ HEADERS  += \
     src/persistentmodel/journal.h \
     src/widgets/archivewidget.h \
     src/filetablemodel.h \
+    src/taskstatus.h \
     src/translator.h
 
 INCLUDEPATH += src/widgets/ \

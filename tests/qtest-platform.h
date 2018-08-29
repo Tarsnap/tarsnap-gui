@@ -24,10 +24,9 @@
     }
 
 // Filter out unwanted messages arising from -platform "offscreen"
-static QtMessageHandler orig_message_handler;
-static void offscreenMessageOutput(QtMsgType                 type,
-                                   const QMessageLogContext &context,
-                                   const QString &           msg)
+QtMessageHandler orig_message_handler;
+void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
+                            const QString &msg)
 {
     switch(type)
     {

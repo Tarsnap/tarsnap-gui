@@ -12,6 +12,7 @@ INCLUDEPATH += . ../../src/ ../../src/widgets/
 
 UI_DIR      = ../build/
 MOC_DIR     = ../build/
+RCC_DIR     = ../build/
 OBJECTS_DIR = ../build/
 
 

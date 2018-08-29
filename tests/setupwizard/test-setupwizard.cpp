@@ -35,6 +35,8 @@ void TestSetupWizard::initTestCase()
 
 void TestSetupWizard::normal_install()
 {
+    TARSNAP_CLI_OR_SKIP;
+
     SetupDialog *   setupWizard = new SetupDialog();
     Ui::SetupDialog ui          = setupWizard->_ui;
     QSignalSpy      sig_cli(setupWizard, SIGNAL(getTarsnapVersion(QString)));
@@ -44,13 +46,6 @@ void TestSetupWizard::normal_install()
                                                           QString, QString)));
 
     VISUAL_INIT;
-
-    // If there's no tarsnap binary, skip this test.
-    if(Utils::findTarsnapClientInPath(QString(""), false).isEmpty())
-    {
-        delete setupWizard;
-        QSKIP("No tarsnap binary found");
-    }
 
     // Page 1
     QVERIFY(ui.titleLabel->text() == "Setup wizard");

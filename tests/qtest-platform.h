@@ -4,6 +4,8 @@
 #include <QApplication>
 #include <QTest>
 
+#include "utils.h"
+
 // If we're running with a GUI (i.e. X11), we can watch the app doing tests
 #define IF_VISUAL if(QApplication::platformName() != "offscreen")
 #define IF_NOT_VISUAL if(!(QApplication::platformName() != "offscreen"))
@@ -34,5 +36,15 @@ static void offscreenMessageOutput(QtMsgType                 type,
         orig_message_handler(type, context, msg);
     }
 }
+
+// Find tarsnap and tarsnap-keygen in $PATH, or skip the test
+#define TARSNAP_CLI_OR_SKIP                                                    \
+    QString tarsnapPath;                                                       \
+    do                                                                         \
+    {                                                                          \
+        tarsnapPath = Utils::findTarsnapClientInPath(QString(""), true);       \
+        if(tarsnapPath.isEmpty())                                              \
+            QSKIP("No tarsnap binary found");                                  \
+    } while(0)
 
 #endif

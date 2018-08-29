@@ -1362,7 +1362,9 @@ void MainWindow::runSetupWizardClicked()
     auto confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Reset current app settings, job definitions "
-                                 "and run the setup wizard?"));
+                                 "and run the setup wizard?"),
+                              (QMessageBox::Yes | QMessageBox::No),
+                              QMessageBox::No);
     if(confirm == QMessageBox::Yes)
         emit runSetupWizard();
 }

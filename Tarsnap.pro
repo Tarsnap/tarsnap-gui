@@ -164,6 +164,10 @@ test_home_prep.commands = @rm -rf "$${TEST_HOME}"
 test.commands =		@echo "Compiling tests...";			\
 			for D in $${UNIT_TESTS}; do			\
 				(cd \$\${D} && \${QMAKE} && \${MAKE} -s); \
+				err=\$\$?;				\
+				if \[ \$\${err} -gt "0" \]; then	\
+					exit \$\${err};			\
+				fi;					\
 			done;						\
 			echo "Running tests...";			\
 			for D in $${UNIT_TESTS}; do			\

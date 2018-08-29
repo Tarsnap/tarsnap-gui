@@ -159,13 +159,15 @@ QMAKE_EXTRA_TARGETS += format
 
 # The same variable is used in individual tests
 TEST_HOME = /tmp/tarsnap-gui-test
-test_home_prep.commands = rm -rf "$${TEST_HOME}"
+test_home_prep.commands = @rm -rf "$${TEST_HOME}"
 
-test.commands =		for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && \${QMAKE} && \${MAKE});	\
-			done;						\
+test.commands =		@echo "Compiling tests...";			\
 			for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && \${MAKE} test);		\
+				(cd \$\${D} && \${QMAKE} && \${MAKE} -s); \
+			done;						\
+			echo "Running tests...";			\
+			for D in $${UNIT_TESTS}; do			\
+				(cd \$\${D} && \${MAKE} test -s);	\
 				err=\$\$?;				\
 				if \[ \$\${err} -gt "0" \]; then	\
 					exit \$\${err};			\

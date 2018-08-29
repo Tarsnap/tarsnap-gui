@@ -132,6 +132,12 @@ DISTFILES += .clang-format
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
+# Cleaner source directory
+UI_DIR      = build/
+MOC_DIR     = build/
+RCC_DIR     = build/
+OBJECTS_DIR = build/
+
 # Start off with tests which require the most compilation units, in order
 # to maximize the benefits of parallel builds.
 UNIT_TESTS =	tests/mainwindow		\

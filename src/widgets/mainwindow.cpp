@@ -1034,7 +1034,6 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
 
 void MainWindow::commitSettings()
 {
-    DEBUG << "COMMIT SETTINGS";
     QSettings settings;
     settings.setValue("tarsnap/path", _ui.tarsnapPathLineEdit->text());
     settings.setValue("tarsnap/cache", _ui.tarsnapCacheLineEdit->text());

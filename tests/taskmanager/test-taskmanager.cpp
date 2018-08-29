@@ -13,7 +13,7 @@ private slots:
     void initTestCase();
     void get_version();
     void fail_registerMachine_command_not_found();
-    void fail_registerMachine_key_permissions();
+    void fail_registerMachine_empty_key();
 };
 
 void TestTaskManager::initTestCase()
@@ -89,17 +89,25 @@ void TestTaskManager::fail_registerMachine_command_not_found()
     delete task;
 }
 
-void TestTaskManager::fail_registerMachine_key_permissions()
+void TestTaskManager::fail_registerMachine_empty_key()
 {
     TaskManager *task = new TaskManager();
     QSignalSpy sig_reg(task, SIGNAL(registerMachineStatus(TaskStatus, QString)));
     QVariantList response;
     TaskStatus   status;
     QString      reason;
+    QString      tarsnapPath;
+
+    // If there's no tarsnap binary, skip this test.
+    tarsnapPath = Utils::findTarsnapClientInPath(QString(""), false);
+    if(tarsnapPath.isEmpty())
+    {
+        QSKIP("No tarsnap binary found");
+    }
 
     // Fail to register with a key that doesn't support --fsck-prune.
     task->registerMachine("fake-user", "fake-password", "fake-machine",
-                          "read-only-nopasswd.key", "/usr/bin",
+                          "empty.key", tarsnapPath,
                           "/tmp/gui-test-tarsnap-cache");
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
@@ -109,8 +117,7 @@ void TestTaskManager::fail_registerMachine_key_permissions()
     status   = response.at(0).value<TaskStatus>();
     reason   = response.at(1).toString();
     QVERIFY(status == TaskStatus::Failed);
-    QVERIFY(reason.contains(
-        "tarsnap: The delete authorization key is required for --fsck-prune"));
+    QVERIFY(reason.contains("tarsnap: Key file has unreasonable size"));
 
     delete task;
 }

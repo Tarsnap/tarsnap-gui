@@ -1,5 +1,7 @@
 #include <QtTest/QtTest>
 
+#include "../qtest-platform.h"
+
 #include "taskmanager.h"
 #include "utils.h"
 
@@ -29,15 +31,11 @@ void TestTaskManager::initTestCase()
 
 void TestTaskManager::get_version()
 {
+    TARSNAP_CLI_OR_SKIP;
+
     TaskManager *task = new TaskManager();
     QSignalSpy   sig_ver(task, SIGNAL(tarsnapVersion(QString)));
     QString      ver_str;
-
-    // If there's no tarsnap binary, skip this test.
-    if(Utils::findTarsnapClientInPath(QString(""), false).isEmpty())
-    {
-        QSKIP("No tarsnap binary found");
-    }
 
     // We start off with no version signal.
     QVERIFY(sig_ver.count() == 0);
@@ -91,19 +89,13 @@ void TestTaskManager::fail_registerMachine_command_not_found()
 
 void TestTaskManager::fail_registerMachine_empty_key()
 {
+    TARSNAP_CLI_OR_SKIP;
+
     TaskManager *task = new TaskManager();
     QSignalSpy sig_reg(task, SIGNAL(registerMachineStatus(TaskStatus, QString)));
     QVariantList response;
     TaskStatus   status;
     QString      reason;
-    QString      tarsnapPath;
-
-    // If there's no tarsnap binary, skip this test.
-    tarsnapPath = Utils::findTarsnapClientInPath(QString(""), false);
-    if(tarsnapPath.isEmpty())
-    {
-        QSKIP("No tarsnap binary found");
-    }
 
     // Fail to register with a key that doesn't support --fsck-prune.
     task->registerMachine("fake-user", "fake-password", "fake-machine",

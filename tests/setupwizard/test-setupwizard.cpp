@@ -5,13 +5,6 @@
 
 #include "setupdialog.h"
 
-#define VISUAL_INIT                                                            \
-    IF_VISUAL                                                                  \
-    {                                                                          \
-        setupWizard->show();                                                   \
-        VISUAL_WAIT;                                                           \
-    }
-
 class TestSetupWizard : public QObject
 {
     Q_OBJECT
@@ -35,6 +28,8 @@ void TestSetupWizard::initTestCase()
 
 void TestSetupWizard::normal_install()
 {
+    TARSNAP_CLI_OR_SKIP;
+
     SetupDialog *   setupWizard = new SetupDialog();
     Ui::SetupDialog ui          = setupWizard->_ui;
     QSignalSpy      sig_cli(setupWizard, SIGNAL(getTarsnapVersion(QString)));
@@ -43,14 +38,7 @@ void TestSetupWizard::normal_install()
                                                           QString, QString,
                                                           QString, QString)));
 
-    VISUAL_INIT;
-
-    // If there's no tarsnap binary, skip this test.
-    if(Utils::findTarsnapClientInPath(QString(""), false).isEmpty())
-    {
-        delete setupWizard;
-        QSKIP("No tarsnap binary found");
-    }
+    VISUAL_INIT(setupWizard);
 
     // Page 1
     QVERIFY(ui.titleLabel->text() == "Setup wizard");
@@ -71,13 +59,12 @@ void TestSetupWizard::normal_install()
     // Pretend that we already have a key
     setupWizard->restoreYes();
     ui.restoreYesButton->setChecked(true);
-    ui.machineKeyCombo->setCurrentText("pretend.key");
+    ui.machineKeyCombo->setCurrentText("fake.key");
     ui.nextButton->setEnabled(true);
     QTest::mouseClick(ui.nextButton, Qt::LeftButton);
     // Check results of registration
     QVERIFY(sig_register.count() == 1);
-    QVERIFY(sig_register.takeFirst().at(3).toString()
-            == QString("pretend.key"));
+    QVERIFY(sig_register.takeFirst().at(3).toString() == QString("fake.key"));
     setupWizard->registerMachineStatus(TaskStatus::Completed, "");
     VISUAL_WAIT;
 
@@ -95,7 +82,7 @@ void TestSetupWizard::cli()
     Ui::SetupDialog ui          = setupWizard->_ui;
     QSignalSpy      sig_cli(setupWizard, SIGNAL(getTarsnapVersion(QString)));
 
-    VISUAL_INIT;
+    VISUAL_INIT(setupWizard);
 
     // Advanced to CLI page and expand advanced options
     QTest::mouseClick(ui.nextButton, Qt::LeftButton);
@@ -133,4 +120,4 @@ void TestSetupWizard::cli()
 }
 
 QTEST_MAIN(TestSetupWizard)
-#include "main.moc"
+#include "test-setupwizard.moc"

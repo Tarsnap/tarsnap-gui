@@ -94,8 +94,7 @@ SetupDialog::SetupDialog(QWidget *parent)
     connect(_ui.browseKeyButton, &QPushButton::clicked, this,
             &SetupDialog::registerHaveKeyBrowse);
 
-    _ui.titleLabel->setText(tr("Setup wizard"));
-    _ui.backButton->setText(tr("Skip wizard"));
+    wizardPageChanged(0);
 }
 
 SetupDialog::~SetupDialog()

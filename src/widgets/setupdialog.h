@@ -72,7 +72,6 @@ private slots:
 
 private:
     Ui::SetupDialog _ui;
-    QPoint          _windowDragPos;
     QMovie          _loadingAnimation;
 
     QString _tarsnapDir;

@@ -94,8 +94,7 @@ SetupDialog::SetupDialog(QWidget *parent)
     connect(_ui.browseKeyButton, &QPushButton::clicked, this,
             &SetupDialog::registerHaveKeyBrowse);
 
-    _ui.titleLabel->setText(tr("Setup wizard"));
-    _ui.backButton->setText(tr("Skip wizard"));
+    wizardPageChanged(0);
 }
 
 SetupDialog::~SetupDialog()
@@ -313,9 +312,12 @@ bool SetupDialog::validateRegisterPage()
 
 void SetupDialog::registerHaveKeyBrowse()
 {
+    QString keyFilter = tr("Tarsnap key files (*.key *.keys)");
     QString existingMachineKey =
         QFileDialog::getOpenFileName(this,
-                                     tr("Browse for existing machine key"));
+                                     tr("Browse for existing machine key"), "",
+                                     tr("All files (*);;") + keyFilter,
+                                     &keyFilter);
     if(!existingMachineKey.isEmpty())
         _ui.machineKeyCombo->setCurrentText(existingMachineKey);
 }
@@ -338,12 +340,6 @@ void SetupDialog::registerMachine()
             + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
             + ".key";
     }
-
-    DEBUG << "Registration details >>\n"
-          << _tarsnapDir << ::endl
-          << _appDataDir << ::endl
-          << _tarsnapKeyFile << ::endl
-          << _tarsnapCacheDir;
 
     emit requestRegisterMachine(_ui.tarsnapUserLineEdit->text(),
                                 _ui.tarsnapPasswordLineEdit->text(),
@@ -403,8 +399,6 @@ void SetupDialog::setTarsnapVersion(QString versionString)
 void SetupDialog::commitSettings(bool skipped)
 {
     QSettings settings;
-
-    DEBUG << "Settings location is " << settings.fileName();
 
     settings.setValue("app/wizard_done", true);
 

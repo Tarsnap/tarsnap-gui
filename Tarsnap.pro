@@ -98,6 +98,7 @@ HEADERS  += \
     src/persistentmodel/journal.h \
     src/widgets/archivewidget.h \
     src/filetablemodel.h \
+    src/taskstatus.h \
     src/translator.h
 
 INCLUDEPATH += src/widgets/ \
@@ -144,7 +145,7 @@ osx {
     ICON = resources/logos/tarsnap.icns
     TARGET = Tarsnap
 
-    # Add VERSION to the app bundle.  (Why doesn't qmake do this?)
+    # Add VERSION to the app bundle.  (I wish that qmake did this!)
     INFO_PLIST_PATH = $$shell_quote($${OUT_PWD}/$${TARGET}.app/Contents/Info.plist)
     QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleGetInfoString $${VERSION}\" $${INFO_PLIST_PATH} ;
 }
@@ -158,13 +159,19 @@ QMAKE_EXTRA_TARGETS += format
 
 # The same variable is used in individual tests
 TEST_HOME = /tmp/tarsnap-gui-test
-test_home_prep.commands = rm -rf "$${TEST_HOME}"
+test_home_prep.commands = @rm -rf "$${TEST_HOME}"
 
-test.commands =		for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && \${QMAKE} && \${MAKE});	\
-			done;						\
+test.commands =		@echo "Compiling tests...";			\
 			for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && \${MAKE} test);		\
+				(cd \$\${D} && \${QMAKE} && \${MAKE} -s); \
+				err=\$\$?;				\
+				if \[ \$\${err} -gt "0" \]; then	\
+					exit \$\${err};			\
+				fi;					\
+			done;						\
+			echo "Running tests...";			\
+			for D in $${UNIT_TESTS}; do			\
+				(cd \$\${D} && \${MAKE} test -s);	\
 				err=\$\$?;				\
 				if \[ \$\${err} -gt "0" \]; then	\
 					exit \$\${err};			\

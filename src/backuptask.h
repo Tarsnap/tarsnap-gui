@@ -5,17 +5,7 @@
 
 #include <QObject>
 
-enum TaskStatus
-{
-    Initialized,
-    Queued,
-    Running,
-    Completed,
-    Failed,
-    Paused
-};
-
-Q_DECLARE_METATYPE(TaskStatus);
+#include "taskstatus.h"
 
 class BackupTask;
 

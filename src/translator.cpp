@@ -20,9 +20,6 @@ void Translator::translateApp(QApplication *app, QString lang)
     if(!app)
         return;
 
-    DEBUG << "System language is "
-          << QLocale::languageToString(QLocale().language());
-
     if(lang == LANG_AUTO)
         lang = QLocale::languageToString(QLocale().language());
 

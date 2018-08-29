@@ -4,13 +4,6 @@
 
 #include "mainwindow.h"
 
-#define VISUAL_INIT                                                            \
-    IF_VISUAL                                                                  \
-    {                                                                          \
-        mainwindow->show();                                                    \
-        VISUAL_WAIT;                                                           \
-    }
-
 class TestMainWindow : public QObject
 {
     Q_OBJECT
@@ -57,7 +50,7 @@ void TestMainWindow::about_window()
     MainWindow *   mainwindow = new MainWindow();
     Ui::MainWindow ui         = mainwindow->_ui;
 
-    VISUAL_INIT;
+    VISUAL_INIT(mainwindow);
 
     // Starts off not visible and the button is not pushed down
     ui.actionGoHelp->trigger();
@@ -124,7 +117,7 @@ void TestMainWindow::quit_simple()
     MainWindow *mainwindow = new MainWindow();
     QSignalSpy  sig_getTaskInfo(mainwindow, SIGNAL(getTaskInfo()));
 
-    VISUAL_INIT;
+    VISUAL_INIT(mainwindow);
 
     // If we try to close the window, we emit a getTaskInfo instead
     mainwindow->closeEvent(new QCloseEvent());
@@ -146,7 +139,7 @@ void TestMainWindow::quit_tasks()
     MainWindow *mainwindow = new MainWindow();
     QSignalSpy  sig_getTaskInfo(mainwindow, SIGNAL(getTaskInfo()));
 
-    VISUAL_INIT;
+    VISUAL_INIT(mainwindow);
 
     // Fake getting a response to a closeEvent (not sent in this test) which
     // says that there's running tasks, but cancel the quitting.
@@ -188,7 +181,7 @@ void TestMainWindow::console_window()
     MainWindow *   mainwindow = new MainWindow();
     Ui::MainWindow ui         = mainwindow->_ui;
 
-    VISUAL_INIT;
+    VISUAL_INIT(mainwindow);
 
     // Starts off not visible and the button is not pushed down
     ui.actionGoHelp->trigger();

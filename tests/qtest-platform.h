@@ -16,6 +16,13 @@
         IF_VISUAL { QTest::qWait(750); }                                       \
     } while(0)
 
+#define VISUAL_INIT(gui_obj)                                                   \
+    IF_VISUAL                                                                  \
+    {                                                                          \
+        gui_obj->show();                                                       \
+        VISUAL_WAIT;                                                           \
+    }
+
 // Filter out unwanted messages arising from -platform "offscreen"
 static QtMessageHandler orig_message_handler;
 static void offscreenMessageOutput(QtMsgType                 type,

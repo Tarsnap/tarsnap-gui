@@ -5,13 +5,6 @@
 
 #include "setupdialog.h"
 
-#define VISUAL_INIT                                                            \
-    IF_VISUAL                                                                  \
-    {                                                                          \
-        setupWizard->show();                                                   \
-        VISUAL_WAIT;                                                           \
-    }
-
 class TestSetupWizard : public QObject
 {
     Q_OBJECT
@@ -45,7 +38,7 @@ void TestSetupWizard::normal_install()
                                                           QString, QString,
                                                           QString, QString)));
 
-    VISUAL_INIT;
+    VISUAL_INIT(setupWizard);
 
     // Page 1
     QVERIFY(ui.titleLabel->text() == "Setup wizard");
@@ -90,7 +83,7 @@ void TestSetupWizard::cli()
     Ui::SetupDialog ui          = setupWizard->_ui;
     QSignalSpy      sig_cli(setupWizard, SIGNAL(getTarsnapVersion(QString)));
 
-    VISUAL_INIT;
+    VISUAL_INIT(setupWizard);
 
     // Advanced to CLI page and expand advanced options
     QTest::mouseClick(ui.nextButton, Qt::LeftButton);

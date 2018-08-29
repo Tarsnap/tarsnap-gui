@@ -145,7 +145,7 @@ osx {
     ICON = resources/logos/tarsnap.icns
     TARGET = Tarsnap
 
-    # Add VERSION to the app bundle.  (Why doesn't qmake do this?)
+    # Add VERSION to the app bundle.  (I wish that qmake did this!)
     INFO_PLIST_PATH = $$shell_quote($${OUT_PWD}/$${TARGET}.app/Contents/Info.plist)
     QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleGetInfoString $${VERSION}\" $${INFO_PLIST_PATH} ;
 }

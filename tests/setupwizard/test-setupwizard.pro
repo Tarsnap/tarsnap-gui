@@ -8,7 +8,7 @@ HEADERS  +=						\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/setupdialog.h
 
-SOURCES += main.cpp					\
+SOURCES += test-setupwizard.cpp				\
 	../../src/utils.cpp				\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/setupdialog.cpp

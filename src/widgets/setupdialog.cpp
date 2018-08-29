@@ -313,9 +313,12 @@ bool SetupDialog::validateRegisterPage()
 
 void SetupDialog::registerHaveKeyBrowse()
 {
+    QString keyFilter = tr("Tarsnap key files (*.key *.keys)");
     QString existingMachineKey =
         QFileDialog::getOpenFileName(this,
-                                     tr("Browse for existing machine key"));
+                                     tr("Browse for existing machine key"), "",
+                                     tr("All files (*);;") + keyFilter,
+                                     &keyFilter);
     if(!existingMachineKey.isEmpty())
         _ui.machineKeyCombo->setCurrentText(existingMachineKey);
 }

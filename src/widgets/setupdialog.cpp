@@ -341,12 +341,6 @@ void SetupDialog::registerMachine()
             + ".key";
     }
 
-    DEBUG << "Registration details >>\n"
-          << _tarsnapDir << ::endl
-          << _appDataDir << ::endl
-          << _tarsnapKeyFile << ::endl
-          << _tarsnapCacheDir;
-
     emit requestRegisterMachine(_ui.tarsnapUserLineEdit->text(),
                                 _ui.tarsnapPasswordLineEdit->text(),
                                 _ui.machineNameLineEdit->text(),
@@ -405,8 +399,6 @@ void SetupDialog::setTarsnapVersion(QString versionString)
 void SetupDialog::commitSettings(bool skipped)
 {
     QSettings settings;
-
-    DEBUG << "Settings location is " << settings.fileName();
 
     settings.setValue("app/wizard_done", true);
 

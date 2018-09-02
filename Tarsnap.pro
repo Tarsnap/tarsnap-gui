@@ -156,11 +156,8 @@ osx {
     QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleGetInfoString $${VERSION}\" $${INFO_PLIST_PATH} ;
 }
 
-format.commands = find . -name \"*.h\"   -not -path \"*/ui_*.h\" | \
-			xargs clang-format -i ; \
-                  find . -name \"*.cpp\" -not -path \"*/moc_*.cpp\" \
-                        -not -path \"*/qrc_resources.cpp\" | \
-			xargs clang-format -i ;
+format.commands = find src/ tests/ -name \"*.h\" -or -name \"*.cpp\" |	\
+			xargs clang-format -i
 QMAKE_EXTRA_TARGETS += format
 
 # The same variable is used in individual tests

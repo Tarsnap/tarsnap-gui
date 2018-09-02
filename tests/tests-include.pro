@@ -10,10 +10,10 @@ INCLUDEPATH += . ../../src/ ../../src/widgets/
 
 ### Shared build-dir
 
-UI_DIR      = ../build/
-MOC_DIR     = ../build/
-RCC_DIR     = ../build/
-OBJECTS_DIR = ../build/
+UI_DIR      = ../../build/tests/
+MOC_DIR     = ../../build/tests/
+RCC_DIR     = ../../build/tests/
+OBJECTS_DIR = ../../build/tests/
 
 
 ### Stuff for tests

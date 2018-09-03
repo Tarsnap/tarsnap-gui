@@ -2,9 +2,9 @@
 #define TASKMANAGER_H
 
 #include "backuptask.h"
-#include "error.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
+#include "tarsnaperror.h"
 #include "tarsnaptask.h"
 
 #include <QDateTime>

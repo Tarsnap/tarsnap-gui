@@ -29,6 +29,10 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 #QMAKE_TARGET_COPYRIGHT = copyright Tarsnap Backup Inc.
 
 SOURCES += \
+    libcperciva/util/getopt.c \
+    libcperciva/util/warnp.c \
+    lib/util/optparse.c \
+    lib/util/optparse_helper.c \
     src/main.cpp \
     src/coreapplication.cpp \
     src/debug.cpp \
@@ -65,6 +69,10 @@ SOURCES += \
     src/translator.cpp
 
 HEADERS  += \
+    libcperciva/util/getopt.h \
+    libcperciva/util/warnp.h \
+    lib/util/optparse.h \
+    lib/util/optparse_helper.h \
     src/coreapplication.h \
     src/debug.h \
     src/utils.h \
@@ -102,6 +110,8 @@ HEADERS  += \
     src/translator.h
 
 INCLUDEPATH += src/widgets/ \
+            += libcperciva/util/ \
+            += lib/util/ \
             += src/
 
 FORMS    += \

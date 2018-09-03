@@ -21,17 +21,12 @@ HEADERS  +=						\
 	../../src/customfilesystemmodel.h		\
 	../../src/debug.h				\
 	../../src/filetablemodel.h			\
-	../../src/notification.h			\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
-	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\
 	../../src/tarsnapaccount.h			\
-	../../src/tarsnaperror.h			\
-	../../src/tarsnaptask.h				\
-	../../src/taskmanager.h				\
 	../../src/translator.h				\
 	../../src/utils.h				\
 	../../src/widgets/archivelistwidget.h		\
@@ -56,16 +51,12 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/debug.cpp				\
 	../../src/filetablemodel.cpp			\
-	../../src/notification.cpp			\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
-	../../src/persistentmodel/journal.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
 	../../src/scheduling.cpp			\
 	../../src/tarsnapaccount.cpp			\
-	../../src/tarsnaptask.cpp			\
-	../../src/taskmanager.cpp			\
 	../../src/translator.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/archivelistwidget.cpp		\

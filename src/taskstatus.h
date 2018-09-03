@@ -1,6 +1,8 @@
 #ifndef TASKSTATUS_H
 #define TASKSTATUS_H
 
+#include <QMetaType>
+
 enum TaskStatus
 {
     Initialized,

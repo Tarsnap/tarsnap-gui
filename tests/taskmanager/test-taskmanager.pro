@@ -1,25 +1,25 @@
 TARGET = test-taskmanager
 
 HEADERS  +=						\
+	../../src/backuptask.h				\
+	../../src/debug.h				\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
-	../../src/backuptask.h				\
-	../../src/debug.h				\
 	../../src/tarsnaptask.h				\
-	../../src/utils.h				\
-	../../src/taskmanager.h
+	../../src/taskmanager.h				\
+	../../src/utils.h
 
 SOURCES += test-taskmanager.cpp				\
+	../../src/backuptask.cpp			\
+	../../src/debug.cpp				\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
-	../../src/backuptask.cpp			\
-	../../src/debug.cpp				\
 	../../src/tarsnaptask.cpp			\
-	../../src/utils.cpp				\
-	../../src/taskmanager.cpp
+	../../src/taskmanager.cpp			\
+	../../src/utils.cpp
 
 include(../tests-include.pro)

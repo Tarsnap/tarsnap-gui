@@ -1,12 +1,12 @@
 TARGET = test-cfsm
 
 HEADERS	+=						\
-	testCFSM.h					\
+	../../src/customfilesystemmodel.h		\
 	scenario-num.h					\
-	../../src/customfilesystemmodel.h
+	testCFSM.h
 
 SOURCES	+= test-cfsm.cpp				\
-	testCFSM.cpp					\
-	../../src/customfilesystemmodel.cpp
+	../../src/customfilesystemmodel.cpp		\
+	testCFSM.cpp
 
 include(../tests-include.pro)

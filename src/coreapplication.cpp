@@ -4,6 +4,8 @@
 #include "utils.h"
 #include "widgets/setupdialog.h"
 
+#include <assert.h>
+
 #include <QFontDatabase>
 #include <QMessageBox>
 
@@ -18,12 +20,18 @@
     "An error occurred while attempting to "                                   \
     "update the OS X launchd path."
 
-CoreApplication::CoreApplication(int &argc, char **argv)
-    : QApplication(argc, argv),
-      _mainWindow(nullptr),
-      _notification(),
-      _jobsOption(false)
+CoreApplication::CoreApplication(int &argc, char **argv, struct optparse *opt)
+    : QApplication(argc, argv), _mainWindow(nullptr), _notification()
 {
+    // Sanity check
+    assert(opt != NULL);
+
+    // Get values from optparse.  The (x == 1) is probably unnecessary, but
+    // better safe than sorry!
+    _jobsOption  = (opt->jobs == 1);
+    _checkOption = (opt->check == 1);
+    _appDataDir  = opt->appdata;
+
     setQuitOnLastWindowClosed(false);
     setQuitLockEnabled(false);
     setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -58,47 +66,8 @@ CoreApplication::~CoreApplication()
     _managerThread.wait();
 }
 
-void CoreApplication::parseArgs()
-{
-    QCommandLineParser parser;
-    parser.setApplicationDescription(
-        tr("Tarsnap GUI - Online backups for the truly paranoid "
-           "(yet graphically inclined)"));
-    parser.addHelpOption();
-    parser.addVersionOption();
-    QCommandLineOption jobsOption(QStringList() << "j"
-                                                << "jobs",
-                                  tr("Executes all Jobs sequentially that have "
-                                     "the \'Automatic backup schedule\' "
-                                     "option enabled."
-                                     " The application runs headless and "
-                                     "useful information is printed to "
-                                     "standard out and error."));
-    QCommandLineOption appDataOption(QStringList() << "a"
-                                                   << "appdata",
-                                     tr("Use the specified app data directory."
-                                        " Useful for multiple configurations "
-                                        "on the same machine (INI format is "
-                                        "implied)."),
-                                     tr("directory"));
-    QCommandLineOption checkOption(QStringList() << "check",
-                                   tr("Check that Tarsnap GUI is correctly "
-                                      "installed"));
-
-    parser.addOption(jobsOption);
-    parser.addOption(appDataOption);
-    parser.addOption(checkOption);
-
-    parser.process(arguments());
-    _jobsOption  = parser.isSet(jobsOption);
-    _appDataDir  = parser.value(appDataOption);
-    _checkOption = parser.isSet(checkOption);
-}
-
 bool CoreApplication::initializeCore()
 {
-    parseArgs();
-
     QSettings settings;
 
     if(!_appDataDir.isEmpty())

@@ -28,114 +28,114 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 #QMAKE_TARGET_DESCRIPTION = GUI frontend for Tarsnap
 #QMAKE_TARGET_COPYRIGHT = copyright Tarsnap Backup Inc.
 
-SOURCES += \
-    libcperciva/util/getopt.c \
-    libcperciva/util/warnp.c \
-    lib/util/optparse.c \
-    lib/util/optparse_helper.c \
-    src/main.cpp \
-    src/coreapplication.cpp \
-    src/debug.cpp \
-    src/utils.cpp \
-    src/widgets/backuplistwidget.cpp \
-    src/widgets/backuplistwidgetitem.cpp \
-    src/widgets/archivelistwidget.cpp \
-    src/widgets/archivelistwidgetitem.cpp \
-    src/widgets/filepickerdialog.cpp \
-    src/widgets/filepickerwidget.cpp \
-    src/widgets/joblistwidget.cpp \
-    src/widgets/joblistwidgetitem.cpp \
-    src/widgets/jobwidget.cpp \
-    src/widgets/mainwindow.cpp \
-    src/widgets/restoredialog.cpp \
-    src/widgets/setupdialog.cpp \
-    src/widgets/popuppushbutton.cpp \
-    src/widgets/elidedlabel.cpp \
-    src/widgets/busywidget.cpp \
-    src/customfilesystemmodel.cpp \
-    src/scheduling.cpp \
-    src/taskmanager.cpp \
-    src/tarsnaptask.cpp \
-    src/persistentmodel/persistentstore.cpp \
-    src/persistentmodel/persistentobject.cpp \
-    src/persistentmodel/archive.cpp \
-    src/persistentmodel/job.cpp \
-    src/backuptask.cpp \
-    src/tarsnapaccount.cpp \
-    src/notification.cpp \
-    src/persistentmodel/journal.cpp \
-    src/widgets/archivewidget.cpp \
-    src/filetablemodel.cpp \
-    src/translator.cpp
+SOURCES +=						\
+	lib/util/optparse.c				\
+	lib/util/optparse_helper.c			\
+	libcperciva/util/getopt.c			\
+	libcperciva/util/warnp.c			\
+	src/backuptask.cpp				\
+	src/coreapplication.cpp				\
+	src/customfilesystemmodel.cpp			\
+	src/debug.cpp					\
+	src/filetablemodel.cpp				\
+	src/main.cpp					\
+	src/notification.cpp				\
+	src/persistentmodel/archive.cpp			\
+	src/persistentmodel/job.cpp			\
+	src/persistentmodel/journal.cpp			\
+	src/persistentmodel/persistentobject.cpp	\
+	src/persistentmodel/persistentstore.cpp		\
+	src/scheduling.cpp				\
+	src/tarsnapaccount.cpp				\
+	src/tarsnaptask.cpp				\
+	src/taskmanager.cpp				\
+	src/translator.cpp				\
+	src/utils.cpp					\
+	src/widgets/archivelistwidget.cpp		\
+	src/widgets/archivelistwidgetitem.cpp		\
+	src/widgets/archivewidget.cpp			\
+	src/widgets/backuplistwidget.cpp		\
+	src/widgets/backuplistwidgetitem.cpp		\
+	src/widgets/busywidget.cpp			\
+	src/widgets/elidedlabel.cpp			\
+	src/widgets/filepickerdialog.cpp		\
+	src/widgets/filepickerwidget.cpp		\
+	src/widgets/joblistwidget.cpp			\
+	src/widgets/joblistwidgetitem.cpp		\
+	src/widgets/jobwidget.cpp			\
+	src/widgets/mainwindow.cpp			\
+	src/widgets/popuppushbutton.cpp			\
+	src/widgets/restoredialog.cpp			\
+	src/widgets/setupdialog.cpp
 
-HEADERS  += \
-    libcperciva/util/getopt.h \
-    libcperciva/util/warnp.h \
-    lib/util/optparse.h \
-    lib/util/optparse_helper.h \
-    src/coreapplication.h \
-    src/debug.h \
-    src/utils.h \
-    src/widgets/backuplistwidget.h \
-    src/widgets/backuplistwidgetitem.h \
-    src/widgets/archivelistwidget.h \
-    src/widgets/archivelistwidgetitem.h \
-    src/widgets/filepickerdialog.h \
-    src/widgets/filepickerwidget.h \
-    src/widgets/joblistwidget.h \
-    src/widgets/joblistwidgetitem.h \
-    src/widgets/jobwidget.h \
-    src/widgets/mainwindow.h \
-    src/widgets/restoredialog.h \
-    src/widgets/setupdialog.h \
-    src/widgets/popuppushbutton.h \
-    src/widgets/elidedlabel.h \
-    src/widgets/busywidget.h \
-    src/customfilesystemmodel.h \
-    src/taskmanager.h \
-    src/scheduling.h \
-    src/tarsnaptask.h \
-    src/persistentmodel/persistentstore.h \
-    src/persistentmodel/persistentobject.h \
-    src/persistentmodel/archive.h \
-    src/persistentmodel/job.h \
-    src/backuptask.h \
-    src/tarsnapaccount.h \
-    src/notification.h \
-    src/tarsnaperror.h \
-    src/persistentmodel/journal.h \
-    src/widgets/archivewidget.h \
-    src/filetablemodel.h \
-    src/taskstatus.h \
-    src/translator.h
+HEADERS +=						\
+	lib/util/optparse.h				\
+	lib/util/optparse_helper.h			\
+	libcperciva/util/getopt.h			\
+	libcperciva/util/warnp.h			\
+	src/backuptask.h				\
+	src/coreapplication.h				\
+	src/customfilesystemmodel.h			\
+	src/debug.h					\
+	src/filetablemodel.h				\
+	src/notification.h				\
+	src/persistentmodel/archive.h			\
+	src/persistentmodel/job.h			\
+	src/persistentmodel/journal.h			\
+	src/persistentmodel/persistentobject.h		\
+	src/persistentmodel/persistentstore.h		\
+	src/scheduling.h				\
+	src/tarsnapaccount.h				\
+	src/tarsnaperror.h				\
+	src/tarsnaptask.h				\
+	src/taskmanager.h				\
+	src/taskstatus.h				\
+	src/translator.h				\
+	src/utils.h					\
+	src/widgets/archivelistwidget.h			\
+	src/widgets/archivelistwidgetitem.h		\
+	src/widgets/archivewidget.h			\
+	src/widgets/backuplistwidget.h			\
+	src/widgets/backuplistwidgetitem.h		\
+	src/widgets/busywidget.h			\
+	src/widgets/elidedlabel.h			\
+	src/widgets/filepickerdialog.h			\
+	src/widgets/filepickerwidget.h			\
+	src/widgets/joblistwidget.h			\
+	src/widgets/joblistwidgetitem.h			\
+	src/widgets/jobwidget.h				\
+	src/widgets/mainwindow.h			\
+	src/widgets/popuppushbutton.h			\
+	src/widgets/restoredialog.h			\
+	src/widgets/setupdialog.h
 
-INCLUDEPATH += src/widgets/ \
-            += libcperciva/util/ \
-            += lib/util/ \
-            += src/
+INCLUDEPATH += src/widgets/				\
+		+= libcperciva/util/			\
+		+= lib/util/				\
+		+= src/
 
-FORMS    += \
-    forms/backuplistwidgetitem.ui \
-    forms/consolewidget.ui \
-    forms/setupdialog.ui \
-    forms/mainwindow.ui \
-    forms/restoredialog.ui \
-    forms/filepickerdialog.ui \
-    forms/filepickerwidget.ui \
-    forms/jobwidget.ui \
-    forms/aboutwidget.ui \
-    forms/logindialog.ui \
-    forms/archivewidget.ui \
-    forms/archivelistwidgetitem.ui \
-    forms/joblistwidgetitem.ui
+FORMS +=						\
+	forms/aboutwidget.ui				\
+	forms/archivelistwidgetitem.ui			\
+	forms/archivewidget.ui				\
+	forms/backuplistwidgetitem.ui			\
+	forms/consolewidget.ui				\
+	forms/filepickerdialog.ui			\
+	forms/filepickerwidget.ui			\
+	forms/joblistwidgetitem.ui			\
+	forms/jobwidget.ui				\
+	forms/logindialog.ui				\
+	forms/mainwindow.ui				\
+	forms/restoredialog.ui				\
+	forms/setupdialog.ui
 
 RESOURCES += resources/resources.qrc
 
-DISTFILES += \
-    COPYING \
-    README \
-    INSTALL \
-    CHANGELOG
+DISTFILES +=						\
+	CHANGELOG					\
+	COPYING						\
+	INSTALL						\
+	README
 
 DISTFILES += .clang-format
 
@@ -150,11 +150,12 @@ OBJECTS_DIR = build/gui/
 
 # Start off with tests which require the most compilation units, in order
 # to maximize the benefits of parallel builds.
-UNIT_TESTS =	tests/mainwindow		\
-		tests/setupwizard		\
-		tests/taskmanager		\
-		tests/customfilesystemmodel	\
-		tests/task
+UNIT_TESTS =						\
+	tests/mainwindow				\
+	tests/setupwizard				\
+	tests/taskmanager				\
+	tests/customfilesystemmodel			\
+	tests/task
 
 osx {
     LIBS += -framework Foundation

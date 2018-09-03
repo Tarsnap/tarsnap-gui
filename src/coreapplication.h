@@ -6,6 +6,10 @@
 #include "taskmanager.h"
 #include "widgets/mainwindow.h"
 
+extern "C" {
+#include "optparse.h"
+}
+
 #include <QApplication>
 #include <QObject>
 #include <QSettings>
@@ -21,7 +25,7 @@ class CoreApplication : public QApplication
 
 public:
     //! Constructor.
-    CoreApplication(int &argc, char **argv);
+    CoreApplication(int &argc, char **argv, struct optparse *opt);
     ~CoreApplication();
 
     //! Initializes the QSettings, Translator, PersistentStore, and launches

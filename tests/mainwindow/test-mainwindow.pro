@@ -45,7 +45,7 @@ HEADERS  +=						\
 	../../src/backuptask.h				\
 	../../src/tarsnapaccount.h			\
 	../../src/notification.h			\
-	../../src/error.h				\
+	../../src/tarsnaperror.h			\
 	../../src/persistentmodel/journal.h		\
 	../../src/widgets/archivewidget.h		\
 	../../src/filetablemodel.h			\

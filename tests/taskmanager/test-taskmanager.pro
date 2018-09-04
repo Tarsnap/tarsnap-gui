@@ -1,4 +1,5 @@
 TARGET = test-taskmanager
+QT = core sql network
 
 HEADERS  +=						\
 	../../src/backuptask.h				\

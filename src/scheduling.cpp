@@ -1,6 +1,4 @@
-#include <QAbstractButton>
 #include <QCoreApplication>
-#include <QMessageBox>
 #include <QObject>
 #include <QProcess>
 #include <QSettings>
@@ -10,6 +8,17 @@
 #include "utils.h"
 
 #include "scheduling.h"
+
+#define UPDATED_LAUNCHD_PATH_LONG                                              \
+    "The OS X launchd scheduling service contained an out-of-date link to "    \
+    "Tarsnap GUI (did you upgrade it recently?).\n\nThis has been updated to " \
+    "point to the current Tarsnap GUI."
+
+#define UPDATED_LAUNCHD_PATH_SHORT "Updated launchd path to Tarsnap GUI"
+
+#define UPDATED_LAUNCHD_PATH_ERROR                                             \
+    "An error occurred while attempting to "                                   \
+    "update the OS X launchd path."
 
 struct cmdinfo
 {
@@ -46,7 +55,6 @@ static struct cmdinfo runCmd(QString cmd, QStringList args,
     return (info);
 }
 
-#if defined(Q_OS_OSX)
 // This is an awkward hack which is an intermediate step towards separating
 // the front-end and back-end code.  Return values:
 //   0: everything ok
@@ -87,6 +95,7 @@ static int launchdUnload()
     return (0);
 }
 
+#if defined(Q_OS_OSX)
 static bool launchdLoaded()
 {
     struct cmdinfo pinfo;
@@ -100,29 +109,9 @@ static bool launchdLoaded()
 }
 #endif
 
-Scheduling::Scheduling(QWidget *parent_new)
-    : QObject(parent_new), parent(parent_new)
+struct scheduleinfo launchdEnable()
 {
-}
-
-Scheduling::~Scheduling()
-{
-}
-
-void Scheduling::enableJobScheduling()
-{
-#if defined(Q_OS_OSX)
-    QMessageBox::StandardButton confirm =
-        QMessageBox::question(parent, tr("Job scheduling"),
-                              tr("Register Tarsnap GUI with the OS X"
-                                 " Launchd service to run daily at 10am?"
-                                 "\n\nJobs that have scheduled backup"
-                                 " turned on will be backed up according"
-                                 " to the Daily, Weekly or Monthly"
-                                 " schedule. \n\n%1")
-                                  .arg(CRON_MARKER_HELP));
-    if(confirm != QMessageBox::Yes)
-        return;
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
 
     QFile launchdPlist(":/com.tarsnap.gui.plist");
     launchdPlist.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -130,19 +119,19 @@ void Scheduling::enableJobScheduling()
                            + "/Library/LaunchAgents/com.tarsnap.gui.plist");
     if(launchdPlistFile.exists())
     {
-        QMessageBox::critical(parent, tr("Job scheduling"),
-                              tr("Looks like scheduling is already enabled."
-                                 " Nothing to do.\n\n%1")
-                                  .arg(CRON_MARKER_HELP));
-        return;
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Looks like scheduling is already enabled."
+                                   " Nothing to do.\n\n%1")
+                           .arg(CRON_MARKER_HELP);
+        return info;
     }
     if(!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        QString msg(tr("Failed to write service file %1. Aborting operation."));
-        msg = msg.arg(launchdPlistFile.fileName());
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Failed to write service file %1. Aborting operation.")
+                .arg(launchdPlistFile.fileName());
+        return info;
     }
     launchdPlistFile.write(
         launchdPlist.readAll()
@@ -154,30 +143,56 @@ void Scheduling::enableJobScheduling()
     int ret = launchdLoad();
     if(ret == 1)
     {
-        QString msg(tr("Failed to load launchd service file."));
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Failed to load launchd service file.");
+        return info;
     }
     else if(ret == 2)
     {
-        QString msg(tr("Failed to start launchd service."));
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Failed to start launchd service file.");
+        return info;
+    }
+    return info;
+}
+
+struct scheduleinfo launchdDisable()
+{
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
+
+    QFile launchdPlistFile(QDir::homePath()
+                           + "/Library/LaunchAgents/com.tarsnap.gui.plist");
+    if(!launchdPlistFile.exists())
+    {
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Launchd service file not found:\n%1\n Nothing to do.")
+                .arg(launchdPlistFile.fileName());
+        return info;
     }
 
-#elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
+    int ret = launchdUnload();
+    if(ret == 1)
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Failed to unload launchd service.");
+        return info;
+    }
 
-    QMessageBox::StandardButton confirm =
-        QMessageBox::question(parent, tr("Job scheduling"),
-                              tr("Register Tarsnap GUI with cron serivce?"
-                                 "\nJobs that have scheduled backup"
-                                 " turned on will be backed up according"
-                                 " to the Daily, Weekly or Monthly"
-                                 " schedule. \n\n%1")
-                                  .arg(CRON_MARKER_HELP));
-    if(confirm != QMessageBox::Yes)
-        return;
+    if(!launchdPlistFile.remove())
+    {
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Cannot remove service file:\n%1\nAborting operation.")
+                .arg(launchdPlistFile.fileName());
+        return info;
+    }
+    return info;
+}
+
+struct scheduleinfo cronEnable()
+{
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
 
     struct cmdinfo pinfo;
     pinfo = runCmd("crontab", QStringList() << "-l");
@@ -190,14 +205,13 @@ void Scheduling::enableJobScheduling()
          */
         if(-1 == error.indexOf(QRegExp("^(crontab: )?no crontab for")))
         {
-            QString msg(tr("Failed to list current crontab: %1"));
-            msg = msg.arg(error);
-            DEBUG << msg;
-            QMessageBox::critical(parent, tr("Job scheduling"), msg);
-            return;
+            info.status = SCHEDULE_ERROR;
+            info.message =
+                QObject::tr("Failed to list current crontab: %1").arg(error);
+            return info;
         }
     }
-    QByteArray currentCrontab = pinfo.stdout_msg;
+    QString currentCrontab(pinfo.stdout_msg);
 
     QRegExp rx(QString("\n?%1.+%2\n?")
                    .arg(QRegExp::escape(CRON_MARKER_BEGIN))
@@ -205,13 +219,13 @@ void Scheduling::enableJobScheduling()
     rx.setMinimal(true);
     if(-1 != rx.indexIn(currentCrontab))
     {
-        QMessageBox::critical(
-            parent, tr("Job scheduling"),
-            tr("Looks like scheduling is already enabled for the"
-               " current user's crontab. Nothing to do."
-               "\n%1")
-                .arg(CRON_MARKER_HELP));
-        return;
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Looks like scheduling is already enabled for the"
+                        " current user's crontab. Nothing to do."
+                        "\n%1")
+                .arg(CRON_MARKER_HELP);
+        return info;
     }
 
     QString             cronLine(CRON_LINE);
@@ -232,94 +246,37 @@ void Scheduling::enableJobScheduling()
                     .arg(cronLine)
                     .arg(CRON_MARKER_END);
 
-    QMessageBox question(parent);
-    question.setIcon(QMessageBox::Question);
-    question.setText(
-        tr("Tarsnap GUI will be added to the current user's crontab."));
-    question.setInformativeText(tr("To ensure proper behavior please review the"
-                                   " lines to be added by pressing Show"
-                                   " Details before proceeding."));
-    question.setDetailedText(cronBlock);
-    question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
-    question.setDefaultButton(QMessageBox::Cancel);
-    // Workaround for activating Show details by default
-    foreach(QAbstractButton *button, question.buttons())
-    {
-        if(question.buttonRole(button) == QMessageBox::ActionRole)
-        {
-            button->click();
-            break;
-        }
-    }
-    int proceed = question.exec();
-    if(proceed == QMessageBox::Cancel)
-        return;
+    info.status  = SCHEDULE_NEED_INFO;
+    info.message = cronBlock;
+    info.extra   = currentCrontab;
+
+    return info;
+}
+
+struct scheduleinfo cronEnable_p2(QString cronBlock, QString currentCrontab)
+{
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
+    struct cmdinfo      pinfo;
 
     currentCrontab.append(cronBlock.toLatin1());
-    DEBUG << currentCrontab;
-    QByteArray newCrontab = currentCrontab;
+    QByteArray newCrontab = currentCrontab.toLatin1();
 
     pinfo = runCmd("crontab", QStringList() << "-", &newCrontab);
     if(pinfo.exit_code != 0)
     {
-        QString msg(tr("Failed to update crontab: %1"));
-        msg = msg.arg(QString(pinfo.stderr_msg));
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Failed to update crontab: %1")
+                           .arg(QString(pinfo.stderr_msg));
+        return info;
     }
-#endif
+    return info;
 }
 
-void Scheduling::disableJobScheduling()
+struct scheduleinfo cronDisable()
 {
-#if defined(Q_OS_OSX)
-    QMessageBox::StandardButton confirm =
-        QMessageBox::question(parent, tr("Job scheduling"),
-                              tr("Unregister Tarsnap GUI from the OS X"
-                                 " Launchd service? This will disable"
-                                 " automatic Job backup scheduling."
-                                 "\n\n%1")
-                                  .arg(CRON_MARKER_HELP));
-    if(confirm != QMessageBox::Yes)
-        return;
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
+    struct cmdinfo      pinfo;
 
-    QFile launchdPlistFile(QDir::homePath()
-                           + "/Library/LaunchAgents/com.tarsnap.gui.plist");
-    if(!launchdPlistFile.exists())
-    {
-        QString msg(tr("Launchd service file not found:\n%1\n Nothing to do."));
-        msg = msg.arg(launchdPlistFile.fileName());
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
-    }
-
-    int ret = launchdUnload();
-    if(ret == 1)
-    {
-        QString msg(tr("Failed to unload launchd service."));
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
-    }
-
-    if(!launchdPlistFile.remove())
-    {
-        QString msg(tr("Cannot remove service file:\n%1\nAborting operation."));
-        msg = msg.arg(launchdPlistFile.fileName());
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
-    }
-#elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
-    QMessageBox::StandardButton confirm =
-        QMessageBox::question(parent, "Confirm action",
-                              "Unregister Tarsnap GUI from cron?");
-    if(confirm != QMessageBox::Yes)
-        return;
-
-    struct cmdinfo pinfo;
     pinfo = runCmd("crontab", QStringList() << "-l");
     if(pinfo.exit_code != 0)
     {
@@ -330,32 +287,32 @@ void Scheduling::disableJobScheduling()
          */
         if(error.startsWith(QLatin1String("no crontab for")))
         {
-            QMessageBox::warning(parent, tr("Job scheduling"),
-                                 tr("There's no crontab for the current user."
-                                    " Nothing to do.\n\n%1")
-                                     .arg(CRON_MARKER_HELP));
-            return;
+            info.status = SCHEDULE_ERROR;
+            info.message =
+                QObject::tr("There's no crontab for the current user."
+                            " Nothing to do.\n\n%1")
+                    .arg(CRON_MARKER_HELP);
+            return info;
         }
         else
         {
-            QString msg(tr("Failed to list current crontab: %1"));
-            msg = msg.arg(error);
-            DEBUG << msg;
-            QMessageBox::critical(parent, tr("Job scheduling"), msg);
-            return;
+            info.status = SCHEDULE_ERROR;
+            info.message =
+                QObject::tr("Failed to list current crontab: %1").arg(error);
+            return info;
         }
     }
     QString currentCrontab(pinfo.stdout_msg);
     if(currentCrontab.isEmpty())
     {
-        QMessageBox::warning(parent, tr("Job scheduling"),
-                             tr("Looks like the crontab for the current user is"
-                                " empty. Nothing to do.\n\n%1")
-                                 .arg(CRON_MARKER_HELP));
-        return;
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Looks like the crontab for the current user is"
+                        " empty. Nothing to do.\n\n%1")
+                .arg(CRON_MARKER_HELP);
+        return info;
     }
 
-    DEBUG << currentCrontab;
     QRegExp rx(QString("\n?%1.+%2\n?")
                    .arg(QRegExp::escape(CRON_MARKER_BEGIN))
                    .arg(QRegExp::escape(CRON_MARKER_END)));
@@ -370,36 +327,23 @@ void Scheduling::disableJobScheduling()
 
     if(linesToRemove.isEmpty())
     {
-        QMessageBox::warning(parent, tr("Job scheduling"),
-                             tr("Looks like Job scheduling hasn't been enabled"
-                                " yet. Nothing to do. \n\n%1")
-                                 .arg(CRON_MARKER_HELP));
-        return;
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Looks like Job scheduling hasn't been enabled"
+                        " yet. Nothing to do. \n\n%1")
+                .arg(CRON_MARKER_HELP);
+        return info;
     }
+    info.status  = SCHEDULE_NEED_INFO;
+    info.message = linesToRemove;
+    info.extra   = currentCrontab;
+    return info;
+}
 
-    QMessageBox question(parent);
-    question.setIcon(QMessageBox::Question);
-    question.setText(tr("Tarsnap GUI will be removed from the current user's"
-                        " crontab."));
-    question.setInformativeText(
-        tr("To ensure proper behavior please review the"
-           " lines to be removed by pressing Show Details"
-           " before proceeding."));
-    question.setDetailedText(linesToRemove);
-    question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
-    question.setDefaultButton(QMessageBox::Cancel);
-    // Workaround for activating Show details by default
-    foreach(QAbstractButton *button, question.buttons())
-    {
-        if(question.buttonRole(button) == QMessageBox::ActionRole)
-        {
-            button->click();
-            break;
-        }
-    }
-    int proceed = question.exec();
-    if(proceed == QMessageBox::Cancel)
-        return;
+struct scheduleinfo cronDisable_p2(QString linesToRemove, QString currentCrontab)
+{
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
+    struct cmdinfo      pinfo;
 
     currentCrontab.remove(linesToRemove);
     DEBUG << currentCrontab;
@@ -408,21 +352,17 @@ void Scheduling::disableJobScheduling()
     pinfo = runCmd("crontab", QStringList() << "-", &newCrontab);
     if(pinfo.exit_code != 0)
     {
-        QString msg(tr("Failed to update crontab: %1"));
-        msg = msg.arg(QString(pinfo.stderr_msg));
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Failed to update crontab: %1")
+                           .arg(QString(pinfo.stderr_msg));
+        return info;
     }
-#endif
+    return info;
 }
 
-// Returns:
-//     -1: no change
-//     0: changed successfully
-//     1: an error occurred
-int Scheduling::correctedSchedulingPath()
+struct scheduleinfo correctedSchedulingPath()
 {
+    struct scheduleinfo info = {SCHEDULE_NOTHING_HAPPENED, "", ""};
 #if defined(Q_OS_OSX)
     QSettings launchdPlist(QDir::homePath()
                                + "/Library/LaunchAgents/com.tarsnap.gui.plist",
@@ -430,13 +370,21 @@ int Scheduling::correctedSchedulingPath()
 
     // Bail if the file doesn't exist
     if(!launchdPlist.contains("ProgramArguments"))
-        return (-1);
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr(UPDATED_LAUNCHD_PATH_ERROR);
+        return (info);
+    }
 
     // Get path, bail if it still exists (we assume it's still executable)
     QStringList args =
         launchdPlist.value("ProgramArguments").value<QStringList>();
     if(QFile::exists(args.at(0)))
-        return (-1);
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr(UPDATED_LAUNCHD_PATH_ERROR);
+        return (info);
+    }
 
     // Update the path
     args.replace(0, QCoreApplication::applicationFilePath().toLatin1());
@@ -447,15 +395,26 @@ int Scheduling::correctedSchedulingPath()
     if(launchdLoaded())
     {
         if(launchdUnload() != 0)
-            return (1);
+        {
+            info.status  = SCHEDULE_ERROR;
+            info.message = QObject::tr(UPDATED_LAUNCHD_PATH_ERROR);
+            return (info);
+        }
     }
 
     // Load (and start) new program
     if(launchdLoad() != 0)
-        return (1);
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr(UPDATED_LAUNCHD_PATH_ERROR);
+        return (info);
+    }
 
+    info.status  = SCHEDULE_OK;
+    info.message = tr(UPDATED_LAUNCHD_PATH_LONG);
+    info.extra   = tr(UPDATED_LAUNCHED_PATH_SHORT);
     return (0);
 #else
-    return (-1);
+    return (info);
 #endif
 }

@@ -1,4 +1,5 @@
 TARGET = test-cfsm
+QT = core widgets
 
 HEADERS	+=						\
 	../../src/customfilesystemmodel.h		\

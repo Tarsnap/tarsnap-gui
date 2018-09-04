@@ -6,9 +6,13 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QFileInfo>
-#include <QHostInfo>
 #include <QSettings>
 #include <QStandardPaths>
+
+// This is used for QHostInfo::localHostName().  It could be replaced with
+// QSysInfo::machineHostName() to remove the dependency on the Qt network
+// library, but only if we require Qt 5.6+.
+#include <QHostInfo>
 
 SetupDialog::SetupDialog(QWidget *parent)
     : QDialog(parent), _loadingAnimation(":/icons/loading.gif")

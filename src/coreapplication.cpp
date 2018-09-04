@@ -9,17 +9,6 @@
 #include <QFontDatabase>
 #include <QMessageBox>
 
-#define UPDATED_LAUNCHD_PATH_LONG                                              \
-    "The OS X launchd scheduling service contained an out-of-date link to "    \
-    "Tarsnap GUI (did you upgrade it recently?).\n\nThis has been updated to " \
-    "point to the current Tarsnap GUI."
-
-#define UPDATED_LAUNCHD_PATH_SHORT "Updated launchd path to Tarsnap GUI"
-
-#define UPDATED_LAUNCHD_PATH_ERROR                                             \
-    "An error occurred while attempting to "                                   \
-    "update the OS X launchd path."
-
 CoreApplication::CoreApplication(int &argc, char **argv, struct optparse *opt)
     : QApplication(argc, argv), _mainWindow(nullptr), _notification()
 {
@@ -125,14 +114,14 @@ bool CoreApplication::initializeCore()
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
     // Make sure we have the path to the current Tarsnap-GUI binary
-    int correctedPath = Scheduling::correctedSchedulingPath();
+    struct scheduleinfo correctedPath = correctedSchedulingPath();
 
     if(_jobsOption || _checkOption)
     {
-        if(correctedPath == 0)
-            DEBUG << tr(UPDATED_LAUNCHD_PATH_SHORT);
-        else if(correctedPath == 1)
-            DEBUG << tr(UPDATED_LAUNCHD_PATH_ERROR);
+        if(correctedPath.status == SCHEDULE_OK)
+            DEBUG << correctedPath.extra;
+        else if(correctedPath.status == SCHEDULE_ERROR)
+            DEBUG << correctedPath.message;
 
         // We don't have anything else to do
         if(_checkOption)
@@ -150,13 +139,13 @@ bool CoreApplication::initializeCore()
     }
     else
     {
-        if(correctedPath == 0)
+        if(correctedPath.status == SCHEDULE_OK)
             QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
-                                     tr(UPDATED_LAUNCHD_PATH_LONG));
-        else if(correctedPath == 1)
+                                     correctedPath.message);
+        else if(correctedPath.status == SCHEDULE_ERROR)
             QMessageBox::information(nullptr,
                                      tr("Failed to updated OS X launchd path"),
-                                     tr(UPDATED_LAUNCHD_PATH_ERROR));
+                                     correctedPath.message);
 
         showMainWindow();
     }

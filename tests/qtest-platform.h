@@ -1,10 +1,13 @@
 #ifndef QTEST_PLATFORM_H
 #define QTEST_PLATFORM_H
 
-#include <QApplication>
 #include <QTest>
 
 #include "utils.h"
+
+// Only relevant for running a gui test with -platform offscreen
+#ifdef QT_GUI_LIB
+#include <QApplication>
 
 // If we're running with a GUI (i.e. X11), we can watch the app doing tests
 #define IF_VISUAL if(QApplication::platformName() != "offscreen")
@@ -42,6 +45,7 @@ void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
         orig_message_handler(type, context, msg);
     }
 }
+#endif /* end gui-related code */
 
 // Find tarsnap and tarsnap-keygen in $PATH, or skip the test
 #define TARSNAP_CLI_OR_SKIP                                                    \

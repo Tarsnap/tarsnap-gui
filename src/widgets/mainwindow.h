@@ -156,6 +156,8 @@ private slots:
     void aboutMenuClicked();
     void mainTabChanged(int index);
     void validateBackupTab();
+    void enableJobSchedulingButtonClicked();
+    void disableJobSchedulingButtonClicked();
 
 private:
     Ui::MainWindow _ui;
@@ -171,7 +173,6 @@ private:
     QDialog        _aboutWindow;
     QDialog        _consoleWindow;
     QMessageBox    _stopTasksDialog;
-    Scheduling     _scheduling;
 
     QPlainTextEdit *_consoleLog;
 

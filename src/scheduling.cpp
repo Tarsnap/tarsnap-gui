@@ -29,6 +29,7 @@ struct scheduleinfo
 {
     schedulestatus status;
     QString        message;
+    QString        extra;
 };
 
 static struct cmdinfo runCmd(QString cmd, QStringList args,
@@ -114,7 +115,7 @@ static bool launchdLoaded()
 
 static struct scheduleinfo launchdEnable()
 {
-    struct scheduleinfo info = {SCHEDULE_OK, ""};
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
 
     QFile launchdPlist(":/com.tarsnap.gui.plist");
     launchdPlist.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -161,7 +162,7 @@ static struct scheduleinfo launchdEnable()
 
 static struct scheduleinfo launchdDisable()
 {
-    struct scheduleinfo info = {SCHEDULE_OK, ""};
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
 
     QFile launchdPlistFile(QDir::homePath()
                            + "/Library/LaunchAgents/com.tarsnap.gui.plist");
@@ -194,6 +195,178 @@ static struct scheduleinfo launchdDisable()
 }
 
 #endif
+
+static struct scheduleinfo cronEnable()
+{
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
+
+    struct cmdinfo pinfo;
+    pinfo = runCmd("crontab", QStringList() << "-l");
+    if(pinfo.exit_code != 0)
+    {
+        QString error(pinfo.stderr_msg);
+        /* On some distros crontab -l exits with error 1 and message
+         * "no crontab for username" if there's no crontab installed
+         * for the current user. If parent is the case proceed and don't err.
+         */
+        if(-1 == error.indexOf(QRegExp("^(crontab: )?no crontab for")))
+        {
+            info.status = SCHEDULE_ERROR;
+            info.message =
+                QObject::tr("Failed to list current crontab: %1").arg(error);
+            return info;
+        }
+    }
+    QString currentCrontab(pinfo.stdout_msg);
+
+    QRegExp rx(QString("\n?%1.+%2\n?")
+                   .arg(QRegExp::escape(CRON_MARKER_BEGIN))
+                   .arg(QRegExp::escape(CRON_MARKER_END)));
+    rx.setMinimal(true);
+    if(-1 != rx.indexIn(currentCrontab))
+    {
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Looks like scheduling is already enabled for the"
+                        " current user's crontab. Nothing to do."
+                        "\n%1")
+                .arg(CRON_MARKER_HELP);
+        return info;
+    }
+
+    QString             cronLine(CRON_LINE);
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    cronLine =
+        cronLine
+            .arg(env.contains("SCREEN") ? "SCREEN=" + env.value("SCREEN") : "")
+            .arg(env.contains("DISPLAY") ? "DISPLAY=" + env.value("DISPLAY")
+                                         : "")
+            .arg(env.contains("XAUTHORITY")
+                     ? "XAUTHORITY=" + env.value("XAUTHORITY")
+                     : "")
+            .arg(QCoreApplication::applicationFilePath());
+
+    QString cronBlock("\n%1\n%2\n%3\n%4\n");
+    cronBlock = cronBlock.arg(CRON_MARKER_BEGIN)
+                    .arg(CRON_MARKER_HELP)
+                    .arg(cronLine)
+                    .arg(CRON_MARKER_END);
+
+    info.status  = SCHEDULE_NEED_INFO;
+    info.message = cronBlock;
+    info.extra   = currentCrontab;
+
+    return info;
+}
+
+static struct scheduleinfo cronEnable_p2(QString cronBlock,
+                                         QString currentCrontab)
+{
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
+    struct cmdinfo      pinfo;
+
+    currentCrontab.append(cronBlock.toLatin1());
+    QByteArray newCrontab = currentCrontab.toLatin1();
+
+    pinfo = runCmd("crontab", QStringList() << "-", &newCrontab);
+    if(pinfo.exit_code != 0)
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Failed to update crontab: %1")
+                           .arg(QString(pinfo.stderr_msg));
+        return info;
+    }
+    return info;
+}
+
+static struct scheduleinfo cronDisable()
+{
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
+    struct cmdinfo      pinfo;
+
+    pinfo = runCmd("crontab", QStringList() << "-l");
+    if(pinfo.exit_code != 0)
+    {
+        QString error(pinfo.stderr_msg);
+        /* On some distros crontab -l exits with error 1 and message
+         * "no crontab for username" if there's no crontab installed
+         * for the current user. If parent is the case proceed and don't err.
+         */
+        if(error.startsWith(QLatin1String("no crontab for")))
+        {
+            info.status = SCHEDULE_ERROR;
+            info.message =
+                QObject::tr("There's no crontab for the current user."
+                            " Nothing to do.\n\n%1")
+                    .arg(CRON_MARKER_HELP);
+            return info;
+        }
+        else
+        {
+            info.status = SCHEDULE_ERROR;
+            info.message =
+                QObject::tr("Failed to list current crontab: %1").arg(error);
+            return info;
+        }
+    }
+    QString currentCrontab(pinfo.stdout_msg);
+    if(currentCrontab.isEmpty())
+    {
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Looks like the crontab for the current user is"
+                        " empty. Nothing to do.\n\n%1")
+                .arg(CRON_MARKER_HELP);
+        return info;
+    }
+
+    QRegExp rx(QString("\n?%1.+%2\n?")
+                   .arg(QRegExp::escape(CRON_MARKER_BEGIN))
+                   .arg(QRegExp::escape(CRON_MARKER_END)));
+    //    rx.setMinimal(true);
+    QString linesToRemove;
+    int     pos = 0;
+    while((pos = rx.indexIn(currentCrontab, pos)) != -1)
+    {
+        linesToRemove += rx.cap();
+        pos += rx.matchedLength();
+    }
+
+    if(linesToRemove.isEmpty())
+    {
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Looks like Job scheduling hasn't been enabled"
+                        " yet. Nothing to do. \n\n%1")
+                .arg(CRON_MARKER_HELP);
+        return info;
+    }
+    info.status  = SCHEDULE_NEED_INFO;
+    info.message = linesToRemove;
+    info.extra   = currentCrontab;
+    return info;
+}
+
+static struct scheduleinfo cronDisable_p2(QString linesToRemove,
+                                          QString currentCrontab)
+{
+    struct scheduleinfo info = {SCHEDULE_OK, "", ""};
+    struct cmdinfo      pinfo;
+
+    currentCrontab.remove(linesToRemove);
+    DEBUG << currentCrontab;
+    QByteArray newCrontab = currentCrontab.toLatin1();
+
+    pinfo = runCmd("crontab", QStringList() << "-", &newCrontab);
+    if(pinfo.exit_code != 0)
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Failed to update crontab: %1")
+                           .arg(QString(pinfo.stderr_msg));
+        return info;
+    }
+    return info;
+}
 
 Scheduling::Scheduling(QWidget *parent_new)
     : QObject(parent_new), parent(parent_new)
@@ -239,66 +412,28 @@ void Scheduling::enableJobScheduling()
     if(confirm != QMessageBox::Yes)
         return;
 
-    struct cmdinfo pinfo;
-    pinfo = runCmd("crontab", QStringList() << "-l");
-    if(pinfo.exit_code != 0)
+    struct scheduleinfo info = cronEnable();
+    if(info.status == SCHEDULE_ERROR)
     {
-        QString error(pinfo.stderr_msg);
-        /* On some distros crontab -l exits with error 1 and message
-         * "no crontab for username" if there's no crontab installed
-         * for the current user. If parent is the case proceed and don't err.
-         */
-        if(-1 == error.indexOf(QRegExp("^(crontab: )?no crontab for")))
-        {
-            QString msg(tr("Failed to list current crontab: %1"));
-            msg = msg.arg(error);
-            DEBUG << msg;
-            QMessageBox::critical(parent, tr("Job scheduling"), msg);
-            return;
-        }
-    }
-    QByteArray currentCrontab = pinfo.stdout_msg;
-
-    QRegExp rx(QString("\n?%1.+%2\n?")
-                   .arg(QRegExp::escape(CRON_MARKER_BEGIN))
-                   .arg(QRegExp::escape(CRON_MARKER_END)));
-    rx.setMinimal(true);
-    if(-1 != rx.indexIn(currentCrontab))
-    {
-        QMessageBox::critical(
-            parent, tr("Job scheduling"),
-            tr("Looks like scheduling is already enabled for the"
-               " current user's crontab. Nothing to do."
-               "\n%1")
-                .arg(CRON_MARKER_HELP));
+        QMessageBox::critical(parent, tr("Job scheduling"), info.message);
         return;
     }
-
-    QString             cronLine(CRON_LINE);
-    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    cronLine =
-        cronLine
-            .arg(env.contains("SCREEN") ? "SCREEN=" + env.value("SCREEN") : "")
-            .arg(env.contains("DISPLAY") ? "DISPLAY=" + env.value("DISPLAY")
-                                         : "")
-            .arg(env.contains("XAUTHORITY")
-                     ? "XAUTHORITY=" + env.value("XAUTHORITY")
-                     : "")
-            .arg(QCoreApplication::applicationFilePath());
-
-    QString cronBlock("\n%1\n%2\n%3\n%4\n");
-    cronBlock = cronBlock.arg(CRON_MARKER_BEGIN)
-                    .arg(CRON_MARKER_HELP)
-                    .arg(cronLine)
-                    .arg(CRON_MARKER_END);
+    else if(info.status == SCHEDULE_OK)
+    {
+        QMessageBox::critical(parent, tr("Job scheduling"),
+                              "Unknown error in scheduling code.");
+        return;
+    }
+    QString cronBlock = info.message;
 
     QMessageBox question(parent);
     question.setIcon(QMessageBox::Question);
-    question.setText(
-        tr("Tarsnap GUI will be added to the current user's crontab."));
-    question.setInformativeText(tr("To ensure proper behavior please review the"
-                                   " lines to be added by pressing Show"
-                                   " Details before proceeding."));
+    question.setText(QObject::tr(
+        "Tarsnap GUI will be added to the current user's crontab."));
+    question.setInformativeText(
+        QObject::tr("To ensure proper behavior please review the"
+                    " lines to be added by pressing Show"
+                    " Details before proceeding."));
     question.setDetailedText(cronBlock);
     question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
     question.setDefaultButton(QMessageBox::Cancel);
@@ -315,17 +450,10 @@ void Scheduling::enableJobScheduling()
     if(proceed == QMessageBox::Cancel)
         return;
 
-    currentCrontab.append(cronBlock.toLatin1());
-    DEBUG << currentCrontab;
-    QByteArray newCrontab = currentCrontab;
-
-    pinfo = runCmd("crontab", QStringList() << "-", &newCrontab);
-    if(pinfo.exit_code != 0)
+    struct scheduleinfo info_p2 = cronEnable_p2(cronBlock, info.extra);
+    if(info_p2.status != SCHEDULE_OK)
     {
-        QString msg(tr("Failed to update crontab: %1"));
-        msg = msg.arg(QString(pinfo.stderr_msg));
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
+        QMessageBox::critical(parent, tr("Job scheduling"), info.message);
         return;
     }
 #endif
@@ -358,63 +486,19 @@ void Scheduling::disableJobScheduling()
     if(confirm != QMessageBox::Yes)
         return;
 
-    struct cmdinfo pinfo;
-    pinfo = runCmd("crontab", QStringList() << "-l");
-    if(pinfo.exit_code != 0)
+    struct scheduleinfo info = cronDisable();
+    if(info.status == SCHEDULE_ERROR)
     {
-        QString error(pinfo.stderr_msg);
-        /* On some distros crontab -l exits with error 1 and message
-         * "no crontab for username" if there's no crontab installed
-         * for the current user. If parent is the case proceed and don't err.
-         */
-        if(error.startsWith(QLatin1String("no crontab for")))
-        {
-            QMessageBox::warning(parent, tr("Job scheduling"),
-                                 tr("There's no crontab for the current user."
-                                    " Nothing to do.\n\n%1")
-                                     .arg(CRON_MARKER_HELP));
-            return;
-        }
-        else
-        {
-            QString msg(tr("Failed to list current crontab: %1"));
-            msg = msg.arg(error);
-            DEBUG << msg;
-            QMessageBox::critical(parent, tr("Job scheduling"), msg);
-            return;
-        }
-    }
-    QString currentCrontab(pinfo.stdout_msg);
-    if(currentCrontab.isEmpty())
-    {
-        QMessageBox::warning(parent, tr("Job scheduling"),
-                             tr("Looks like the crontab for the current user is"
-                                " empty. Nothing to do.\n\n%1")
-                                 .arg(CRON_MARKER_HELP));
+        QMessageBox::critical(parent, tr("Job scheduling"), info.message);
         return;
     }
-
-    DEBUG << currentCrontab;
-    QRegExp rx(QString("\n?%1.+%2\n?")
-                   .arg(QRegExp::escape(CRON_MARKER_BEGIN))
-                   .arg(QRegExp::escape(CRON_MARKER_END)));
-    //    rx.setMinimal(true);
-    QString linesToRemove;
-    int     pos = 0;
-    while((pos = rx.indexIn(currentCrontab, pos)) != -1)
+    else if(info.status == SCHEDULE_OK)
     {
-        linesToRemove += rx.cap();
-        pos += rx.matchedLength();
-    }
-
-    if(linesToRemove.isEmpty())
-    {
-        QMessageBox::warning(parent, tr("Job scheduling"),
-                             tr("Looks like Job scheduling hasn't been enabled"
-                                " yet. Nothing to do. \n\n%1")
-                                 .arg(CRON_MARKER_HELP));
+        QMessageBox::critical(parent, tr("Job scheduling"),
+                              "Unknown error in scheduling code.");
         return;
     }
+    QString linesToRemove = info.message;
 
     QMessageBox question(parent);
     question.setIcon(QMessageBox::Question);
@@ -440,17 +524,10 @@ void Scheduling::disableJobScheduling()
     if(proceed == QMessageBox::Cancel)
         return;
 
-    currentCrontab.remove(linesToRemove);
-    DEBUG << currentCrontab;
-    QByteArray newCrontab = currentCrontab.toLatin1();
-
-    pinfo = runCmd("crontab", QStringList() << "-", &newCrontab);
-    if(pinfo.exit_code != 0)
+    struct scheduleinfo info_p2 = cronDisable_p2(linesToRemove, info.extra);
+    if(info_p2.status != SCHEDULE_OK)
     {
-        QString msg(tr("Failed to update crontab: %1"));
-        msg = msg.arg(QString(pinfo.stderr_msg));
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
+        QMessageBox::critical(parent, tr("Job scheduling"), info.message);
         return;
     }
 #endif

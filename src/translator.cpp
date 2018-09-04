@@ -15,7 +15,7 @@ Translator &Translator::instance()
     return instance;
 }
 
-void Translator::translateApp(QApplication *app, QString lang)
+void Translator::translateApp(QCoreApplication *app, QString lang)
 {
     if(!app)
         return;

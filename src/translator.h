@@ -1,7 +1,9 @@
 #ifndef TRANSLATOR_H
 #define TRANSLATOR_H
 
-#include <QApplication>
+#include <QCoreApplication>
+#include <QMap>
+#include <QString>
 #include <QTranslator>
 
 #define LANG_AUTO "Auto"
@@ -10,7 +12,7 @@ class Translator
 {
 public:
     static Translator &instance();
-    void translateApp(QApplication *app, QString lang);
+    void translateApp(QCoreApplication *app, QString lang);
     QStringList languageList();
 
 private:

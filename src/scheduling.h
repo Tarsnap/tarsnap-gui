@@ -4,6 +4,28 @@
 #include <QObject>
 #include <QWidget>
 
+enum schedulestatus
+{
+    SCHEDULE_OK,
+    SCHEDULE_ERROR,
+    SCHEDULE_NEED_INFO
+};
+
+struct scheduleinfo
+{
+    schedulestatus status;
+    QString        message;
+    QString        extra;
+};
+
+struct scheduleinfo launchdEnable();
+struct scheduleinfo launchdDisable();
+struct scheduleinfo cronEnable();
+struct scheduleinfo cronEnable_p2(QString cronBlock, QString currentCrontab);
+struct scheduleinfo cronDisable();
+struct scheduleinfo cronDisable_p2(QString linesToRemove,
+                                   QString currentCrontab);
+
 /*!
  * \ingroup Misc
  * \brief The Scheduling QObject handles scheduling tasks.

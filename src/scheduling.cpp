@@ -18,20 +18,6 @@ struct cmdinfo
     QByteArray stdout_msg;
 };
 
-enum schedulestatus
-{
-    SCHEDULE_OK,
-    SCHEDULE_ERROR,
-    SCHEDULE_NEED_INFO
-};
-
-struct scheduleinfo
-{
-    schedulestatus status;
-    QString        message;
-    QString        extra;
-};
-
 static struct cmdinfo runCmd(QString cmd, QStringList args,
                              const QByteArray *stdin_msg = nullptr)
 {
@@ -60,7 +46,6 @@ static struct cmdinfo runCmd(QString cmd, QStringList args,
     return (info);
 }
 
-#if defined(Q_OS_OSX)
 // This is an awkward hack which is an intermediate step towards separating
 // the front-end and back-end code.  Return values:
 //   0: everything ok
@@ -101,6 +86,7 @@ static int launchdUnload()
     return (0);
 }
 
+#if defined(Q_OS_OSX)
 static bool launchdLoaded()
 {
     struct cmdinfo pinfo;
@@ -112,8 +98,9 @@ static bool launchdLoaded()
 
     return (true);
 }
+#endif
 
-static struct scheduleinfo launchdEnable()
+struct scheduleinfo launchdEnable()
 {
     struct scheduleinfo info = {SCHEDULE_OK, "", ""};
 
@@ -160,7 +147,7 @@ static struct scheduleinfo launchdEnable()
     return info;
 }
 
-static struct scheduleinfo launchdDisable()
+struct scheduleinfo launchdDisable()
 {
     struct scheduleinfo info = {SCHEDULE_OK, "", ""};
 
@@ -194,9 +181,7 @@ static struct scheduleinfo launchdDisable()
     return info;
 }
 
-#endif
-
-static struct scheduleinfo cronEnable()
+struct scheduleinfo cronEnable()
 {
     struct scheduleinfo info = {SCHEDULE_OK, "", ""};
 
@@ -259,8 +244,7 @@ static struct scheduleinfo cronEnable()
     return info;
 }
 
-static struct scheduleinfo cronEnable_p2(QString cronBlock,
-                                         QString currentCrontab)
+struct scheduleinfo cronEnable_p2(QString cronBlock, QString currentCrontab)
 {
     struct scheduleinfo info = {SCHEDULE_OK, "", ""};
     struct cmdinfo      pinfo;
@@ -279,7 +263,7 @@ static struct scheduleinfo cronEnable_p2(QString cronBlock,
     return info;
 }
 
-static struct scheduleinfo cronDisable()
+struct scheduleinfo cronDisable()
 {
     struct scheduleinfo info = {SCHEDULE_OK, "", ""};
     struct cmdinfo      pinfo;
@@ -347,8 +331,7 @@ static struct scheduleinfo cronDisable()
     return info;
 }
 
-static struct scheduleinfo cronDisable_p2(QString linesToRemove,
-                                          QString currentCrontab)
+struct scheduleinfo cronDisable_p2(QString linesToRemove, QString currentCrontab)
 {
     struct scheduleinfo info = {SCHEDULE_OK, "", ""};
     struct cmdinfo      pinfo;

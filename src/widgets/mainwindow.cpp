@@ -227,10 +227,10 @@ MainWindow::MainWindow(QWidget *parent)
             [&]() { _tarsnapAccount.getAccountInfo(false, true); });
     connect(_ui.clearJournalButton, &QPushButton::clicked, this,
             &MainWindow::clearJournalClicked);
-    connect(_ui.enableSchedulingButton, &QPushButton::clicked, &_scheduling,
-            &Scheduling::enableJobScheduling);
-    connect(_ui.disableSchedulingButton, &QPushButton::clicked, &_scheduling,
-            &Scheduling::disableJobScheduling);
+    connect(_ui.enableSchedulingButton, &QPushButton::clicked, this,
+            &MainWindow::enableJobSchedulingButtonClicked);
+    connect(_ui.disableSchedulingButton, &QPushButton::clicked, this,
+            &MainWindow::disableJobSchedulingButtonClicked);
 
     // Archives pane
     _ui.archiveListWidget->addAction(_ui.actionRefresh);
@@ -1627,6 +1627,16 @@ void MainWindow::addDefaultJobs()
     settings.setValue("app/default_jobs_dismissed", true);
     _ui.defaultJobs->hide();
     _ui.addJobButton->show();
+}
+
+void MainWindow::enableJobSchedulingButtonClicked()
+{
+    _scheduling.enableJobScheduling();
+}
+
+void MainWindow::disableJobSchedulingButtonClicked()
+{
+    _scheduling.disableJobScheduling();
 }
 
 void MainWindow::updateUi()

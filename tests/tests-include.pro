@@ -1,6 +1,6 @@
 ### Compiling
 
-QT += testlib core gui widgets sql network
+QT += testlib
 CONFIG += c++11 debug
 
 TEMPLATE = app

@@ -1,4 +1,5 @@
 TARGET = test-setupwizard
+QT = core gui widgets network
 
 FORMS += ../../forms/setupdialog.ui
 

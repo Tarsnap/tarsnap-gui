@@ -1,4 +1,5 @@
 TARGET = test-task
+QT = core
 
 HEADERS  +=						\
 	../../src/debug.h				\

@@ -1,4 +1,5 @@
 TARGET = test-mainwindow
+QT = core gui widgets network sql
 
 FORMS +=							\
 	../../forms/aboutwidget.ui				\

@@ -18,6 +18,19 @@ struct cmdinfo
     QByteArray stdout_msg;
 };
 
+enum schedulestatus
+{
+    SCHEDULE_OK,
+    SCHEDULE_ERROR,
+    SCHEDULE_NEED_INFO
+};
+
+struct scheduleinfo
+{
+    schedulestatus status;
+    QString        message;
+};
+
 static struct cmdinfo runCmd(QString cmd, QStringList args,
                              const QByteArray *stdin_msg = nullptr)
 {
@@ -98,6 +111,88 @@ static bool launchdLoaded()
 
     return (true);
 }
+
+static struct scheduleinfo launchdEnable()
+{
+    struct scheduleinfo info = {SCHEDULE_OK, ""};
+
+    QFile launchdPlist(":/com.tarsnap.gui.plist");
+    launchdPlist.open(QIODevice::ReadOnly | QIODevice::Text);
+    QFile launchdPlistFile(QDir::homePath()
+                           + "/Library/LaunchAgents/com.tarsnap.gui.plist");
+    if(launchdPlistFile.exists())
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Looks like scheduling is already enabled."
+                                   " Nothing to do.\n\n%1")
+                           .arg(CRON_MARKER_HELP);
+        return info;
+    }
+    if(!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Failed to write service file %1. Aborting operation.")
+                .arg(launchdPlistFile.fileName());
+        return info;
+    }
+    launchdPlistFile.write(
+        launchdPlist.readAll()
+            .replace("%1", QCoreApplication::applicationFilePath().toLatin1())
+            .replace("%2", QDir::homePath().toLatin1()));
+    launchdPlist.close();
+    launchdPlistFile.close();
+
+    int ret = launchdLoad();
+    if(ret == 1)
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Failed to load launchd service file.");
+        return info;
+    }
+    else if(ret == 2)
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Failed to start launchd service file.");
+        return info;
+    }
+    return info;
+}
+
+static struct scheduleinfo launchdDisable()
+{
+    struct scheduleinfo info = {SCHEDULE_OK, ""};
+
+    QFile launchdPlistFile(QDir::homePath()
+                           + "/Library/LaunchAgents/com.tarsnap.gui.plist");
+    if(!launchdPlistFile.exists())
+    {
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Launchd service file not found:\n%1\n Nothing to do.")
+                .arg(launchdPlistFile.fileName());
+        return info;
+    }
+
+    int ret = launchdUnload();
+    if(ret == 1)
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr("Failed to unload launchd service.");
+        return info;
+    }
+
+    if(!launchdPlistFile.remove())
+    {
+        info.status = SCHEDULE_ERROR;
+        info.message =
+            QObject::tr("Cannot remove service file:\n%1\nAborting operation.")
+                .arg(launchdPlistFile.fileName());
+        return info;
+    }
+    return info;
+}
+
 #endif
 
 Scheduling::Scheduling(QWidget *parent_new)
@@ -124,46 +219,11 @@ void Scheduling::enableJobScheduling()
     if(confirm != QMessageBox::Yes)
         return;
 
-    QFile launchdPlist(":/com.tarsnap.gui.plist");
-    launchdPlist.open(QIODevice::ReadOnly | QIODevice::Text);
-    QFile launchdPlistFile(QDir::homePath()
-                           + "/Library/LaunchAgents/com.tarsnap.gui.plist");
-    if(launchdPlistFile.exists())
+    struct info = launchdEnable();
+    if(info.status != SCHEDULE_OK)
     {
-        QMessageBox::critical(parent, tr("Job scheduling"),
-                              tr("Looks like scheduling is already enabled."
-                                 " Nothing to do.\n\n%1")
-                                  .arg(CRON_MARKER_HELP));
+        QMessageBox::critical(parent, tr("Job scheduling"), status.message);
         return;
-    }
-    if(!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        QString msg(tr("Failed to write service file %1. Aborting operation."));
-        msg = msg.arg(launchdPlistFile.fileName());
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
-    }
-    launchdPlistFile.write(
-        launchdPlist.readAll()
-            .replace("%1", QCoreApplication::applicationFilePath().toLatin1())
-            .replace("%2", QDir::homePath().toLatin1()));
-    launchdPlist.close();
-    launchdPlistFile.close();
-
-    int ret = launchdLoad();
-    if(ret == 1)
-    {
-        QString msg(tr("Failed to load launchd service file."));
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
-    }
-    else if(ret == 2)
-    {
-        QString msg(tr("Failed to start launchd service."));
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
     }
 
 #elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
@@ -284,34 +344,13 @@ void Scheduling::disableJobScheduling()
     if(confirm != QMessageBox::Yes)
         return;
 
-    QFile launchdPlistFile(QDir::homePath()
-                           + "/Library/LaunchAgents/com.tarsnap.gui.plist");
-    if(!launchdPlistFile.exists())
+    struct info = launchdDisable();
+    if(info.status != SCHEDULE_OK)
     {
-        QString msg(tr("Launchd service file not found:\n%1\n Nothing to do."));
-        msg = msg.arg(launchdPlistFile.fileName());
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
+        QMessageBox::critical(parent, tr("Job scheduling"), status.message);
         return;
     }
 
-    int ret = launchdUnload();
-    if(ret == 1)
-    {
-        QString msg(tr("Failed to unload launchd service."));
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
-    }
-
-    if(!launchdPlistFile.remove())
-    {
-        QString msg(tr("Cannot remove service file:\n%1\nAborting operation."));
-        msg = msg.arg(launchdPlistFile.fileName());
-        DEBUG << msg;
-        QMessageBox::critical(parent, tr("Job scheduling"), msg);
-        return;
-    }
 #elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
     QMessageBox::StandardButton confirm =
         QMessageBox::question(parent, "Confirm action",

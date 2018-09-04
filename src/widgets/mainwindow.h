@@ -173,7 +173,6 @@ private:
     QDialog        _aboutWindow;
     QDialog        _consoleWindow;
     QMessageBox    _stopTasksDialog;
-    Scheduling     _scheduling;
 
     QPlainTextEdit *_consoleLog;
 

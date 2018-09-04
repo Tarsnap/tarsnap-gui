@@ -32,8 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
       _nukeCountdown(this),
       _tarsnapAccount(this),
       _aboutToQuit(false),
-      _stopTasksDialog(this),
-      _scheduling(this)
+      _stopTasksDialog(this)
 {
     connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
             &MainWindow::appendToConsoleLog);

@@ -349,23 +349,6 @@ struct scheduleinfo cronDisable_p2(QString linesToRemove, QString currentCrontab
     return info;
 }
 
-Scheduling::Scheduling(QWidget *parent_new)
-    : QObject(parent_new), parent(parent_new)
-{
-}
-
-Scheduling::~Scheduling()
-{
-}
-
-void Scheduling::enableJobScheduling()
-{
-}
-
-void Scheduling::disableJobScheduling()
-{
-}
-
 // Returns:
 //     -1: no change
 //     0: changed successfully

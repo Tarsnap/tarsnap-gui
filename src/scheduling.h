@@ -1,8 +1,7 @@
 #ifndef SCHEDULING_H
 #define SCHEDULING_H
 
-#include <QObject>
-#include <QWidget>
+#include <QString>
 
 enum schedulestatus
 {
@@ -31,28 +30,5 @@ struct scheduleinfo cronDisable_p2(QString linesToRemove,
 //!   \return 0 executable path was corrected
 //!   \return 1 error
 int correctedSchedulingPath();
-
-/*!
- * \ingroup Misc
- * \brief The Scheduling QObject handles scheduling tasks.
- */
-class Scheduling : public QObject
-{
-    Q_OBJECT
-
-public:
-    //! Constructor.
-    Scheduling(QWidget *parent = nullptr);
-    ~Scheduling();
-
-public slots:
-    //! Set up launchd or cron jobs
-    void enableJobScheduling();
-    //! Disable launchd or cron jobs
-    void disableJobScheduling();
-
-private:
-    QWidget *parent;
-};
 
 #endif

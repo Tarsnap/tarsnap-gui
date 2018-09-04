@@ -26,6 +26,12 @@ struct scheduleinfo cronDisable();
 struct scheduleinfo cronDisable_p2(QString linesToRemove,
                                    QString currentCrontab);
 
+//! Check and update (if necessary) the path to the Tarsnap-GUI binary
+//!   \return -1 no change occurred
+//!   \return 0 executable path was corrected
+//!   \return 1 error
+int correctedSchedulingPath();
+
 /*!
  * \ingroup Misc
  * \brief The Scheduling QObject handles scheduling tasks.
@@ -38,12 +44,6 @@ public:
     //! Constructor.
     Scheduling(QWidget *parent = nullptr);
     ~Scheduling();
-
-    //! Check and update (if necessary) the path to the Tarsnap-GUI binary
-    //!   \return -1 no change occurred
-    //!   \return 0 executable path was corrected
-    //!   \return 1 error
-    static int correctedSchedulingPath();
 
 public slots:
     //! Set up launchd or cron jobs

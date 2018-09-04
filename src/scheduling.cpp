@@ -1,6 +1,4 @@
-#include <QAbstractButton>
 #include <QCoreApplication>
-#include <QMessageBox>
 #include <QObject>
 #include <QProcess>
 #include <QSettings>
@@ -372,7 +370,7 @@ void Scheduling::disableJobScheduling()
 //     -1: no change
 //     0: changed successfully
 //     1: an error occurred
-int Scheduling::correctedSchedulingPath()
+int correctedSchedulingPath()
 {
 #if defined(Q_OS_OSX)
     QSettings launchdPlist(QDir::homePath()

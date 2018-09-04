@@ -125,7 +125,7 @@ bool CoreApplication::initializeCore()
     QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
     // Make sure we have the path to the current Tarsnap-GUI binary
-    int correctedPath = Scheduling::correctedSchedulingPath();
+    int correctedPath = correctedSchedulingPath();
 
     if(_jobsOption || _checkOption)
     {

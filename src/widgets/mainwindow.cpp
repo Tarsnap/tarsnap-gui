@@ -1644,10 +1644,10 @@ void MainWindow::enableJobSchedulingButtonClicked()
     if(confirm != QMessageBox::Yes)
         return;
 
-    struct info = launchdEnable();
+    struct scheduleinfo info = launchdEnable();
     if(info.status != SCHEDULE_OK)
     {
-        QMessageBox::critical(this, tr("Job scheduling"), status.message);
+        QMessageBox::critical(this, tr("Job scheduling"), info.message);
         return;
     }
 
@@ -1724,10 +1724,10 @@ void MainWindow::disableJobSchedulingButtonClicked()
     if(confirm != QMessageBox::Yes)
         return;
 
-    struct info = launchdDisable();
+    struct scheduleinfo info = launchdDisable();
     if(info.status != SCHEDULE_OK)
     {
-        QMessageBox::critical(this, tr("Job scheduling"), status.message);
+        QMessageBox::critical(this, tr("Job scheduling"), info.message);
         return;
     }
 

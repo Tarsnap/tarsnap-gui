@@ -49,8 +49,6 @@ private:
     bool         _jobsOption;
     QString      _appDataDir;
     bool         _checkOption;
-
-    void parseArgs();
 };
 
 #endif // COREAPPLICATION_H

@@ -7,7 +7,8 @@ enum schedulestatus
 {
     SCHEDULE_OK,
     SCHEDULE_ERROR,
-    SCHEDULE_NEED_INFO
+    SCHEDULE_NEED_INFO,
+    SCHEDULE_NOTHING_HAPPENED
 };
 
 struct scheduleinfo
@@ -26,9 +27,6 @@ struct scheduleinfo cronDisable_p2(QString linesToRemove,
                                    QString currentCrontab);
 
 //! Check and update (if necessary) the path to the Tarsnap-GUI binary
-//!   \return -1 no change occurred
-//!   \return 0 executable path was corrected
-//!   \return 1 error
-int correctedSchedulingPath();
+struct scheduleinfo correctedSchedulingPath();
 
 #endif

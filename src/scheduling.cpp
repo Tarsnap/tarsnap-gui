@@ -9,6 +9,17 @@
 
 #include "scheduling.h"
 
+#define UPDATED_LAUNCHD_PATH_LONG                                              \
+    "The OS X launchd scheduling service contained an out-of-date link to "    \
+    "Tarsnap GUI (did you upgrade it recently?).\n\nThis has been updated to " \
+    "point to the current Tarsnap GUI."
+
+#define UPDATED_LAUNCHD_PATH_SHORT "Updated launchd path to Tarsnap GUI"
+
+#define UPDATED_LAUNCHD_PATH_ERROR                                             \
+    "An error occurred while attempting to "                                   \
+    "update the OS X launchd path."
+
 struct cmdinfo
 {
     int        exit_code;
@@ -349,12 +360,9 @@ struct scheduleinfo cronDisable_p2(QString linesToRemove, QString currentCrontab
     return info;
 }
 
-// Returns:
-//     -1: no change
-//     0: changed successfully
-//     1: an error occurred
-int correctedSchedulingPath()
+struct scheduleinfo correctedSchedulingPath()
 {
+    struct scheduleinfo info = {SCHEDULE_NOTHING_HAPPENED, "", ""};
 #if defined(Q_OS_OSX)
     QSettings launchdPlist(QDir::homePath()
                                + "/Library/LaunchAgents/com.tarsnap.gui.plist",
@@ -362,13 +370,21 @@ int correctedSchedulingPath()
 
     // Bail if the file doesn't exist
     if(!launchdPlist.contains("ProgramArguments"))
-        return (-1);
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr(UPDATED_LAUNCHD_PATH_ERROR);
+        return (info);
+    }
 
     // Get path, bail if it still exists (we assume it's still executable)
     QStringList args =
         launchdPlist.value("ProgramArguments").value<QStringList>();
     if(QFile::exists(args.at(0)))
-        return (-1);
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr(UPDATED_LAUNCHD_PATH_ERROR);
+        return (info);
+    }
 
     // Update the path
     args.replace(0, QCoreApplication::applicationFilePath().toLatin1());
@@ -379,15 +395,26 @@ int correctedSchedulingPath()
     if(launchdLoaded())
     {
         if(launchdUnload() != 0)
-            return (1);
+        {
+            info.status  = SCHEDULE_ERROR;
+            info.message = QObject::tr(UPDATED_LAUNCHD_PATH_ERROR);
+            return (info);
+        }
     }
 
     // Load (and start) new program
     if(launchdLoad() != 0)
-        return (1);
+    {
+        info.status  = SCHEDULE_ERROR;
+        info.message = QObject::tr(UPDATED_LAUNCHD_PATH_ERROR);
+        return (info);
+    }
 
+    info.status  = SCHEDULE_OK;
+    info.message = tr(UPDATED_LAUNCHD_PATH_LONG);
+    info.extra   = tr(UPDATED_LAUNCHED_PATH_SHORT);
     return (0);
 #else
-    return (-1);
+    return (info);
 #endif
 }

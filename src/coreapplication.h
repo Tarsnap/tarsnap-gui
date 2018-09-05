@@ -54,6 +54,8 @@ private:
     bool         _jobsOption;
     QString      _appDataDir;
     bool         _checkOption;
+
+    bool runSetupWizard();
 };
 
 #endif // COREAPPLICATION_H

@@ -56,26 +56,7 @@ bool CoreApplication::initializeCore()
     bool wizardDone = settings.value("app/wizard_done", false).toBool();
     if(!wizardDone)
     {
-        // Show the first time setup dialog
-        SetupDialog wizard;
-        connect(&wizard, &SetupDialog::getTarsnapVersion, &_taskManager,
-                &TaskManager::getTarsnapVersion);
-        connect(&_taskManager, &TaskManager::tarsnapVersion, &wizard,
-                &SetupDialog::setTarsnapVersion);
-        connect(&wizard, &SetupDialog::requestRegisterMachine, &_taskManager,
-                &TaskManager::registerMachine);
-        connect(&_taskManager, &TaskManager::registerMachineStatus, &wizard,
-                &SetupDialog::registerMachineStatus);
-        connect(&wizard, &SetupDialog::initializeCache, &_taskManager,
-                &TaskManager::initializeCache);
-        connect(&_taskManager, &TaskManager::idle, &wizard,
-                &SetupDialog::updateLoadingAnimation);
-
-        if(QDialog::Rejected == wizard.exec())
-        {
-            quit();       // if we're running in the loop
-            return false; // if called from main
-        }
+        return runSetupWizard();
     }
 
     if(settings.value("tarsnap/dry_run", false).toBool())
@@ -265,4 +246,29 @@ void CoreApplication::reinit()
     }
 
     initializeCore();
+}
+
+bool CoreApplication::runSetupWizard()
+{
+    // Show the first time setup dialog
+    SetupDialog wizard;
+    connect(&wizard, &SetupDialog::getTarsnapVersion, &_taskManager,
+            &TaskManager::getTarsnapVersion);
+    connect(&_taskManager, &TaskManager::tarsnapVersion, &wizard,
+            &SetupDialog::setTarsnapVersion);
+    connect(&wizard, &SetupDialog::requestRegisterMachine, &_taskManager,
+            &TaskManager::registerMachine);
+    connect(&_taskManager, &TaskManager::registerMachineStatus, &wizard,
+            &SetupDialog::registerMachineStatus);
+    connect(&wizard, &SetupDialog::initializeCache, &_taskManager,
+            &TaskManager::initializeCache);
+    connect(&_taskManager, &TaskManager::idle, &wizard,
+            &SetupDialog::updateLoadingAnimation);
+
+    if(QDialog::Rejected == wizard.exec())
+    {
+        quit();       // if we're running in the loop
+        return false; // if called from main
+    }
+    return true;
 }

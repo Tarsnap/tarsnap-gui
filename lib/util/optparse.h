@@ -3,7 +3,7 @@
 
 /* Command-line options. */
 struct optparse {
-	char * appdata;
+	char * configdata;
 	int jobs;
 	int check;
 };

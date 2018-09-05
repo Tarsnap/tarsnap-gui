@@ -70,6 +70,11 @@ bool CoreApplication::initializeCore()
                              tr("Simulation mode is enabled.  Archives will"
                                 " not be uploaded to the Tarsnap server."
                                 "  Disable in Settings -> Backup."));
+        if(_jobsOption)
+        {
+            // There's no point trying to automatically process jobs.
+            return false;
+        }
     }
 
     // Make sure we have the path to the current Tarsnap-GUI binary

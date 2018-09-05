@@ -30,7 +30,12 @@ public:
 
     //! Initializes the QSettings, Translator, PersistentStore, and launches
     //! the Setup wizard (if necessary).
+    //! \return True if the initialization was successful.
     bool initializeCore();
+
+    //! Pass control to the QEventLoop.
+    //! \return True if the calling function should call app.exec().
+    bool runMainLoop();
 
 private slots:
     //! Removes the MainWindow (if it exists), resets the PersistentStore

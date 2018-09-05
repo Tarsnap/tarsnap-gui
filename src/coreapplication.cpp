@@ -104,12 +104,34 @@ bool CoreApplication::initializeCore()
         if(correctedPath.status == SCHEDULE_OK)
             DEBUG << correctedPath.extra;
         else if(correctedPath.status == SCHEDULE_ERROR)
+        {
             DEBUG << correctedPath.message;
+            return false;
+        }
 
         // We don't have anything else to do
         if(_checkOption)
-            return false;
+            return true;
     }
+
+    if(!_jobsOption)
+    {
+        if(correctedPath.status == SCHEDULE_OK)
+            QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
+                                     correctedPath.message);
+        else if(correctedPath.status == SCHEDULE_ERROR)
+            QMessageBox::information(nullptr,
+                                     tr("Failed to updated OS X launchd path"),
+                                     correctedPath.message);
+    }
+    return true;
+}
+
+bool CoreApplication::runMainLoop()
+{
+    // Nothing to do.
+    if(_checkOption)
+        return false;
 
     if(_jobsOption)
     {
@@ -122,14 +144,6 @@ bool CoreApplication::initializeCore()
     }
     else
     {
-        if(correctedPath.status == SCHEDULE_OK)
-            QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
-                                     correctedPath.message);
-        else if(correctedPath.status == SCHEDULE_ERROR)
-            QMessageBox::information(nullptr,
-                                     tr("Failed to updated OS X launchd path"),
-                                     correctedPath.message);
-
         showMainWindow();
     }
 

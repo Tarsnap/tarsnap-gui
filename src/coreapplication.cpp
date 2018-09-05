@@ -1,5 +1,6 @@
 #include "coreapplication.h"
 #include "debug.h"
+#include "init-shared.h"
 #include "translator.h"
 #include "utils.h"
 #include "widgets/setupdialog.h"
@@ -21,30 +22,12 @@ CoreApplication::CoreApplication(int &argc, char **argv, struct optparse *opt)
     _checkOption = (opt->check == 1);
     _appDataDir  = opt->appdata;
 
-    setQuitOnLastWindowClosed(false);
-    setQuitLockEnabled(false);
-    setAttribute(Qt::AA_UseHighDpiPixmaps);
+    init_shared(this);
 
-    qRegisterMetaType<TaskStatus>("TaskStatus");
-    qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
-    qRegisterMetaType<BackupTaskPtr>("BackupTaskPtr");
-    qRegisterMetaType<QList<ArchivePtr>>("QList<ArchivePtr >");
-    qRegisterMetaType<ArchivePtr>("ArchivePtr");
-    qRegisterMetaType<ArchiveRestoreOptions>("ArchiveRestoreOptions");
-    qRegisterMetaType<QSqlQuery>("QSqlQuery");
-    qRegisterMetaType<JobPtr>("JobPtr");
-    qRegisterMetaType<QMap<QString, JobPtr>>("QMap<QString, JobPtr>");
+    setQuitOnLastWindowClosed(false);
+
     qRegisterMetaType<QSystemTrayIcon::ActivationReason>(
         "QSystemTrayIcon::ActivationReason");
-    qRegisterMetaType<TarsnapError>("TarsnapError");
-    qRegisterMetaType<LogEntry>("LogEntry");
-    qRegisterMetaType<QVector<LogEntry>>("QVector<LogEntry>");
-    qRegisterMetaType<QVector<File>>("QVector<File>");
-
-    QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
-    QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
-    QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
-    QCoreApplication::setApplicationVersion(APP_VERSION);
 }
 
 CoreApplication::~CoreApplication()

@@ -216,7 +216,7 @@ bool PersistentStore::runQuery(QSqlQuery query)
 
 /*
  * The below "if((result =" lines don't play well with clang-format.
- * In intend to rewrite them once I have a test suite for checking the
+ * I intend to rewrite them once I have a test suite for checking the
  * version upgrading.
  */
 /* clang-format off */

@@ -49,44 +49,25 @@ bool CoreApplication::initializeCore()
         settings.setDefaultFormat(QSettings::IniFormat);
     }
 
-    // Set up the translator.
-    Translator &translator = Translator::instance();
-    translator.translateApp(this,
-                            settings.value("app/language", LANG_AUTO).toString());
+    struct init_info info = init_shared_core(this);
 
-    // Run the setup wizard (if necessary).  This uses the translator, and
-    // can be tested with:
-    //    $ LANGUAGE=ro ./tarsnap-gui
-    bool wizardDone = settings.value("app/wizard_done", false).toBool();
-    if(!wizardDone)
-    {
+    if(info.status == INIT_NEEDS_SETUP)
         return runSetupWizard();
-    }
-
-    // Warn about --dry-run before trying to run --jobs.
-    if(settings.value("tarsnap/dry_run", false).toBool())
+    else if(info.status == INIT_DRY_RUN)
     {
-        QMessageBox::warning(nullptr, tr("Tarsnap warning"),
-                             tr("Simulation mode is enabled.  Archives will"
-                                " not be uploaded to the Tarsnap server."
-                                "  Disable in Settings -> Backup."));
+        QMessageBox::warning(nullptr, tr("Tarsnap warning"), info.message);
+        // There's no point trying to automatically process jobs.
         if(_jobsOption)
-        {
-            // There's no point trying to automatically process jobs.
             return false;
-        }
     }
-
-    // Make sure we have the path to the current Tarsnap-GUI binary
-    struct scheduleinfo correctedPath = correctedSchedulingPath();
 
     if(_jobsOption || _checkOption)
     {
-        if(correctedPath.status == SCHEDULE_OK)
-            DEBUG << correctedPath.extra;
-        else if(correctedPath.status == SCHEDULE_ERROR)
+        if(info.status == INIT_SCHEDULE_OK)
+            DEBUG << info.extra;
+        else if(info.status == INIT_SCHEDULE_ERROR)
         {
-            DEBUG << correctedPath.message;
+            DEBUG << info.message;
             return false;
         }
 
@@ -97,13 +78,13 @@ bool CoreApplication::initializeCore()
 
     if(!_jobsOption)
     {
-        if(correctedPath.status == SCHEDULE_OK)
+        if(info.status == INIT_SCHEDULE_OK)
             QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
-                                     correctedPath.message);
-        else if(correctedPath.status == SCHEDULE_ERROR)
+                                     info.message);
+        else if(info.status == INIT_SCHEDULE_ERROR)
             QMessageBox::information(nullptr,
                                      tr("Failed to updated OS X launchd path"),
-                                     correctedPath.message);
+                                     info.message);
     }
     return true;
 }

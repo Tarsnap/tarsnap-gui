@@ -1,3 +1,13 @@
+Version 1.1.0 (unreleased)
+--------------------------
+
+New features:
+* Checks for a network connection before attempting to back up an archive.
+
+Fixes:
+* Many small "corner case" fixes due to our new test suite.
+
+
 Version 1.0.2
 -------------
 

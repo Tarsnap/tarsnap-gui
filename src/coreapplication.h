@@ -30,13 +30,18 @@ public:
 
     //! Initializes the QSettings, Translator, PersistentStore, and launches
     //! the Setup wizard (if necessary).
+    //! \return True if the initialization was successful.
     bool initializeCore();
+
+    //! Pass control to the QEventLoop.
+    //! \return True if the calling function should call app.exec().
+    bool runMainLoop();
 
 private slots:
     //! Removes the MainWindow (if it exists), resets the PersistentStore
     //! and app Settings, then runs initializeCore().  Used as a preliminary
     //! step before the SetupWizard.
-    bool reinit();
+    void reinit();
     //! Creates a MainWindow.
     void showMainWindow();
 
@@ -49,6 +54,8 @@ private:
     bool         _jobsOption;
     QString      _appDataDir;
     bool         _checkOption;
+
+    bool runSetupWizard();
 };
 
 #endif // COREAPPLICATION_H

@@ -12,16 +12,25 @@ int main(int argc, char *argv[])
 {
     struct optparse *opt;
 
+    // Initialize debug messages.
     WARNP_INIT;
+    ConsoleLog::instance().initializeConsoleLog();
 
+    // Parse command-line arguments
     if((opt = optparse_parse(argc, argv)) == NULL)
         exit(1);
 
-    ConsoleLog::instance().initializeConsoleLog();
+    // Basic initialization that cannot fail.
     CoreApplication app(argc, argv, opt);
     optparse_free(opt);
-    if(app.initializeCore())
-        return app.exec();
+
+    // Run more complicated initialization.
+    if(!app.initializeCore())
+        return EXIT_FAILURE;
+
+    // If we want the GUI or have any tasks, do them.
+    if(app.runMainLoop())
+        return (app.exec());
     else
         return EXIT_SUCCESS;
 }

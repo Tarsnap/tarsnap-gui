@@ -38,6 +38,7 @@ SOURCES +=						\
 	src/customfilesystemmodel.cpp			\
 	src/debug.cpp					\
 	src/filetablemodel.cpp				\
+	src/init-shared.cpp				\
 	src/main.cpp					\
 	src/notification.cpp				\
 	src/persistentmodel/archive.cpp			\
@@ -78,6 +79,7 @@ HEADERS +=						\
 	src/customfilesystemmodel.h			\
 	src/debug.h					\
 	src/filetablemodel.h				\
+	src/init-shared.h				\
 	src/notification.h				\
 	src/persistentmodel/archive.h			\
 	src/persistentmodel/job.h			\

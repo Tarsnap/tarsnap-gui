@@ -1,5 +1,6 @@
 #include "coreapplication.h"
 #include "debug.h"
+#include "init-shared.h"
 #include "translator.h"
 #include "utils.h"
 #include "widgets/setupdialog.h"
@@ -21,30 +22,12 @@ CoreApplication::CoreApplication(int &argc, char **argv, struct optparse *opt)
     _checkOption = (opt->check == 1);
     _appDataDir  = opt->appdata;
 
-    setQuitOnLastWindowClosed(false);
-    setQuitLockEnabled(false);
-    setAttribute(Qt::AA_UseHighDpiPixmaps);
+    init_shared(this);
 
-    qRegisterMetaType<TaskStatus>("TaskStatus");
-    qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
-    qRegisterMetaType<BackupTaskPtr>("BackupTaskPtr");
-    qRegisterMetaType<QList<ArchivePtr>>("QList<ArchivePtr >");
-    qRegisterMetaType<ArchivePtr>("ArchivePtr");
-    qRegisterMetaType<ArchiveRestoreOptions>("ArchiveRestoreOptions");
-    qRegisterMetaType<QSqlQuery>("QSqlQuery");
-    qRegisterMetaType<JobPtr>("JobPtr");
-    qRegisterMetaType<QMap<QString, JobPtr>>("QMap<QString, JobPtr>");
+    setQuitOnLastWindowClosed(false);
+
     qRegisterMetaType<QSystemTrayIcon::ActivationReason>(
         "QSystemTrayIcon::ActivationReason");
-    qRegisterMetaType<TarsnapError>("TarsnapError");
-    qRegisterMetaType<LogEntry>("LogEntry");
-    qRegisterMetaType<QVector<LogEntry>>("QVector<LogEntry>");
-    qRegisterMetaType<QVector<File>>("QVector<File>");
-
-    QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
-    QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
-    QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
-    QCoreApplication::setApplicationVersion(APP_VERSION);
 }
 
 CoreApplication::~CoreApplication()
@@ -66,67 +49,62 @@ bool CoreApplication::initializeCore()
         settings.setDefaultFormat(QSettings::IniFormat);
     }
 
-    Translator &translator = Translator::instance();
-    translator.translateApp(this,
-                            settings.value("app/language", LANG_AUTO).toString());
+    struct init_info info = init_shared_core(this);
 
-    bool wizardDone = settings.value("app/wizard_done", false).toBool();
-    if(!wizardDone)
+    if(info.status == INIT_NEEDS_SETUP)
+        return runSetupWizard();
+    else if(info.status == INIT_DRY_RUN)
     {
-        // Show the first time setup dialog
-        SetupDialog wizard;
-        connect(&wizard, &SetupDialog::getTarsnapVersion, &_taskManager,
-                &TaskManager::getTarsnapVersion);
-        connect(&_taskManager, &TaskManager::tarsnapVersion, &wizard,
-                &SetupDialog::setTarsnapVersion);
-        connect(&wizard, &SetupDialog::requestRegisterMachine, &_taskManager,
-                &TaskManager::registerMachine);
-        connect(&_taskManager, &TaskManager::registerMachineStatus, &wizard,
-                &SetupDialog::registerMachineStatus);
-        connect(&wizard, &SetupDialog::initializeCache, &_taskManager,
-                &TaskManager::initializeCache);
-        connect(&_taskManager, &TaskManager::idle, &wizard,
-                &SetupDialog::updateLoadingAnimation);
+        QMessageBox::warning(nullptr, tr("Tarsnap warning"), info.message);
+        // There's no point trying to automatically process jobs.
+        if(_jobsOption)
+            return false;
+    }
 
-        if(QDialog::Rejected == wizard.exec())
+    if(_jobsOption || _checkOption)
+    {
+        if(info.status == INIT_SCHEDULE_OK)
+            DEBUG << info.extra;
+        else if(info.status == INIT_SCHEDULE_ERROR)
         {
-            quit();       // if we're running in the loop
-            return false; // if called from main
+            DEBUG << info.message;
+            return false;
         }
+
+        // We don't have anything else to do
+        if(_checkOption)
+            return true;
     }
 
-    if(settings.value("tarsnap/dry_run", false).toBool())
+    if(!_jobsOption)
     {
-        QMessageBox::warning(nullptr, tr("Tarsnap warning"),
-                             tr("Simulation mode is enabled. Archives will not"
-                                " be uploaded to the Tarsnap server. Disable"
-                                " in Settings -> Backup."));
+        if(info.status == INIT_SCHEDULE_OK)
+            QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
+                                     info.message);
+        else if(info.status == INIT_SCHEDULE_ERROR)
+            QMessageBox::information(nullptr,
+                                     tr("Failed to updated OS X launchd path"),
+                                     info.message);
     }
+    return true;
+}
+
+bool CoreApplication::runMainLoop()
+{
+    // Nothing to do.
+    if(_checkOption)
+        return false;
 
     // Initialize the PersistentStore early
     PersistentStore::instance();
+
+    // Queue loading the journal when we have an event loop.
+    QMetaObject::invokeMethod(&_journal, "load", QUEUED);
 
     connect(&_taskManager, &TaskManager::displayNotification, &_notification,
             &Notification::displayNotification, QUEUED);
     connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
             QUEUED);
-
-    QMetaObject::invokeMethod(&_journal, "load", QUEUED);
-
-    // Make sure we have the path to the current Tarsnap-GUI binary
-    struct scheduleinfo correctedPath = correctedSchedulingPath();
-
-    if(_jobsOption || _checkOption)
-    {
-        if(correctedPath.status == SCHEDULE_OK)
-            DEBUG << correctedPath.extra;
-        else if(correctedPath.status == SCHEDULE_ERROR)
-            DEBUG << correctedPath.message;
-
-        // We don't have anything else to do
-        if(_checkOption)
-            return false;
-    }
 
     if(_jobsOption)
     {
@@ -139,14 +117,6 @@ bool CoreApplication::initializeCore()
     }
     else
     {
-        if(correctedPath.status == SCHEDULE_OK)
-            QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
-                                     correctedPath.message);
-        else if(correctedPath.status == SCHEDULE_ERROR)
-            QMessageBox::information(nullptr,
-                                     tr("Failed to updated OS X launchd path"),
-                                     correctedPath.message);
-
         showMainWindow();
     }
 
@@ -242,7 +212,7 @@ void CoreApplication::showMainWindow()
     _mainWindow->show();
 }
 
-bool CoreApplication::reinit()
+void CoreApplication::reinit()
 {
     disconnect(&_taskManager, &TaskManager::displayNotification, &_notification,
                &Notification::displayNotification);
@@ -267,5 +237,30 @@ bool CoreApplication::reinit()
         defaultSettings.sync();
     }
 
-    return initializeCore();
+    initializeCore();
+}
+
+bool CoreApplication::runSetupWizard()
+{
+    // Show the first time setup dialog
+    SetupDialog wizard;
+    connect(&wizard, &SetupDialog::getTarsnapVersion, &_taskManager,
+            &TaskManager::getTarsnapVersion);
+    connect(&_taskManager, &TaskManager::tarsnapVersion, &wizard,
+            &SetupDialog::setTarsnapVersion);
+    connect(&wizard, &SetupDialog::requestRegisterMachine, &_taskManager,
+            &TaskManager::registerMachine);
+    connect(&_taskManager, &TaskManager::registerMachineStatus, &wizard,
+            &SetupDialog::registerMachineStatus);
+    connect(&wizard, &SetupDialog::initializeCache, &_taskManager,
+            &TaskManager::initializeCache);
+    connect(&_taskManager, &TaskManager::idle, &wizard,
+            &SetupDialog::updateLoadingAnimation);
+
+    if(QDialog::Rejected == wizard.exec())
+    {
+        quit();       // if we're running in the loop
+        return false; // if called from main
+    }
+    return true;
 }

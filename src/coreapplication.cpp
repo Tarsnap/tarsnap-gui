@@ -49,22 +49,27 @@ bool CoreApplication::initializeCore()
         settings.setDefaultFormat(QSettings::IniFormat);
     }
 
+    // Set up the translator.
     Translator &translator = Translator::instance();
     translator.translateApp(this,
                             settings.value("app/language", LANG_AUTO).toString());
 
+    // Run the setup wizard (if necessary).  This uses the translator, and
+    // can be tested with:
+    //    $ LANGUAGE=ro ./tarsnap-gui
     bool wizardDone = settings.value("app/wizard_done", false).toBool();
     if(!wizardDone)
     {
         return runSetupWizard();
     }
 
+    // Warn about --dry-run before trying to run --jobs.
     if(settings.value("tarsnap/dry_run", false).toBool())
     {
         QMessageBox::warning(nullptr, tr("Tarsnap warning"),
-                             tr("Simulation mode is enabled. Archives will not"
-                                " be uploaded to the Tarsnap server. Disable"
-                                " in Settings -> Backup."));
+                             tr("Simulation mode is enabled.  Archives will"
+                                " not be uploaded to the Tarsnap server."
+                                "  Disable in Settings -> Backup."));
     }
 
     // Make sure we have the path to the current Tarsnap-GUI binary

@@ -41,7 +41,7 @@ private slots:
     //! Removes the MainWindow (if it exists), resets the PersistentStore
     //! and app Settings, then runs initializeCore().  Used as a preliminary
     //! step before the SetupWizard.
-    bool reinit();
+    void reinit();
     //! Creates a MainWindow.
     void showMainWindow();
 

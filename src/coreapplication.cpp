@@ -239,7 +239,7 @@ void CoreApplication::showMainWindow()
     _mainWindow->show();
 }
 
-bool CoreApplication::reinit()
+void CoreApplication::reinit()
 {
     disconnect(&_taskManager, &TaskManager::displayNotification, &_notification,
                &Notification::displayNotification);
@@ -264,5 +264,5 @@ bool CoreApplication::reinit()
         defaultSettings.sync();
     }
 
-    return initializeCore();
+    initializeCore();
 }

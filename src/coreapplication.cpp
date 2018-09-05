@@ -67,16 +67,6 @@ bool CoreApplication::initializeCore()
                                 " in Settings -> Backup."));
     }
 
-    // Initialize the PersistentStore early
-    PersistentStore::instance();
-
-    connect(&_taskManager, &TaskManager::displayNotification, &_notification,
-            &Notification::displayNotification, QUEUED);
-    connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
-            QUEUED);
-
-    QMetaObject::invokeMethod(&_journal, "load", QUEUED);
-
     // Make sure we have the path to the current Tarsnap-GUI binary
     struct scheduleinfo correctedPath = correctedSchedulingPath();
 
@@ -113,6 +103,17 @@ bool CoreApplication::runMainLoop()
     // Nothing to do.
     if(_checkOption)
         return false;
+
+    // Initialize the PersistentStore early
+    PersistentStore::instance();
+
+    // Queue loading the journal when we have an event loop.
+    QMetaObject::invokeMethod(&_journal, "load", QUEUED);
+
+    connect(&_taskManager, &TaskManager::displayNotification, &_notification,
+            &Notification::displayNotification, QUEUED);
+    connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
+            QUEUED);
 
     if(_jobsOption)
     {

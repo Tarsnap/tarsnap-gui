@@ -8,11 +8,13 @@
 #include <QMessageBox>
 #include <QMimeData>
 #include <QSettings>
+#include <QStringList>
 
 BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
 {
     QSettings   settings;
-    QStringList urls = settings.value("app/backup_list").toStringList();
+    QStringList urls =
+        settings.value("app/backup_list", QStringList()).toStringList();
     if(!urls.isEmpty())
     {
         QList<QUrl> urllist;

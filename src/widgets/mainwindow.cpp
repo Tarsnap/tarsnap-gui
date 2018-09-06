@@ -534,7 +534,10 @@ void MainWindow::loadSettings()
     _ui.languageComboBox->setCurrentText(
         settings.value("app/language", LANG_AUTO).toString());
 
-    restoreGeometry(settings.value("app/window_geometry").toByteArray());
+    QByteArray geometry =
+        settings.value("app/window_geometry", "").toByteArray();
+    if(!geometry.isEmpty())
+        restoreGeometry(geometry);
 }
 
 void MainWindow::initializeMainWindow()

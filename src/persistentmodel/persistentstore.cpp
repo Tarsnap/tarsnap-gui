@@ -17,7 +17,7 @@ bool PersistentStore::init()
 
     // Get application data directory and database filename.
     QSettings settings;
-    QString   appdata = settings.value("app/app_data").toString();
+    QString   appdata = settings.value("app/app_data", "").toString();
     if(appdata.isEmpty())
     {
         DEBUG << "Error creating the PersistentStore: app.appdata not set.";

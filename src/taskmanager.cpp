@@ -398,7 +398,7 @@ void TaskManager::getKeyId(QString key_filename)
 void TaskManager::initializeCache()
 {
     QSettings settings;
-    QString   tarsnapCacheDir = settings.value("tarsnap/cache").toString();
+    QString   tarsnapCacheDir = settings.value("tarsnap/cache", "").toString();
     QDir      cacheDir(tarsnapCacheDir);
     if(!tarsnapCacheDir.isEmpty()
        && !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count())
@@ -474,12 +474,13 @@ void TaskManager::runScheduledJobs()
     loadJobs();
     QSettings settings;
     QDate     now(QDate::currentDate());
-    QDate     nextDaily  = settings.value("app/next_daily_timestamp").toDate();
-    QDate     nextWeekly = settings.value("app/next_weekly_timestamp").toDate();
-    QDate nextMonthly = settings.value("app/next_monthly_timestamp").toDate();
-    bool  doDaily     = false;
-    bool  doWeekly    = false;
-    bool  doMonthly   = false;
+    QDate nextDaily  = settings.value("app/next_daily_timestamp", "").toDate();
+    QDate nextWeekly = settings.value("app/next_weekly_timestamp", "").toDate();
+    QDate nextMonthly =
+        settings.value("app/next_monthly_timestamp", "").toDate();
+    bool doDaily   = false;
+    bool doWeekly  = false;
+    bool doMonthly = false;
     if(!nextDaily.isValid() || (nextDaily <= now))
     {
         doDaily = true;
@@ -504,13 +505,13 @@ void TaskManager::runScheduledJobs()
     settings.sync();
     DEBUG << "Daily: " << doDaily;
     DEBUG << "Next daily: "
-          << settings.value("app/next_daily_timestamp").toDate().toString();
+          << settings.value("app/next_daily_timestamp", "").toDate().toString();
     DEBUG << "Weekly: " << doWeekly;
     DEBUG << "Next weekly: "
-          << settings.value("app/next_weekly_timestamp").toDate().toString();
+          << settings.value("app/next_weekly_timestamp", "").toDate().toString();
     DEBUG << "Monthly: " << doWeekly;
     DEBUG << "Next monthly: "
-          << settings.value("app/next_monthly_timestamp").toDate().toString();
+          << settings.value("app/next_monthly_timestamp", "").toDate().toString();
     bool nothingToDo = true;
     foreach(JobPtr job, _jobMap)
     {
@@ -1171,7 +1172,7 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput,
 QString TaskManager::makeTarsnapCommand(QString cmd)
 {
     QSettings settings;
-    QString   _tarsnapDir = settings.value("tarsnap/path").toString();
+    QString   _tarsnapDir = settings.value("tarsnap/path", "").toString();
     if(_tarsnapDir.isEmpty())
         return cmd;
     else
@@ -1181,10 +1182,10 @@ QString TaskManager::makeTarsnapCommand(QString cmd)
 void TaskManager::initTarsnapArgs(QStringList &args)
 {
     QSettings settings;
-    QString   tarsnapKeyFile = settings.value("tarsnap/key").toString();
+    QString   tarsnapKeyFile = settings.value("tarsnap/key", "").toString();
     if(!tarsnapKeyFile.isEmpty())
         args << "--keyfile" << tarsnapKeyFile;
-    QString tarsnapCacheDir = settings.value("tarsnap/cache").toString();
+    QString tarsnapCacheDir = settings.value("tarsnap/cache", "").toString();
     if(!tarsnapCacheDir.isEmpty())
         args << "--cachedir" << tarsnapCacheDir;
     int download_rate_kbps = settings.value("app/limit_download", 0).toInt();

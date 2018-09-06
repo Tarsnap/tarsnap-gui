@@ -7,7 +7,7 @@
 void ConsoleLog::saveLogMessage(QString msg)
 {
     QSettings settings;
-    if(!settings.value("app/save_console_log").toBool())
+    if(!settings.value("app/save_console_log", false).toBool())
         return;
 
     QFile logFile(getLogFile());
@@ -27,7 +27,7 @@ QString ConsoleLog::getLogFile()
     QString logFileUrl;
 
     QSettings settings;
-    QString   appdata = settings.value("app/app_data").toString();
+    QString   appdata = settings.value("app/app_data", "").toString();
     if(appdata.isEmpty())
     {
         DEBUG << "Error saving Console Log message: app/app_data dir not set.";

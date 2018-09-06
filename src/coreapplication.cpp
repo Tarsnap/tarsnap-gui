@@ -237,7 +237,13 @@ void CoreApplication::reinit()
         defaultSettings.sync();
     }
 
-    initializeCore();
+    if(!initializeCore())
+    {
+        QMessageBox::critical(nullptr, tr("Failed to launch application"),
+                              tr("An unknown error occurred."));
+        exit(EXIT_FAILURE);
+    }
+    showMainWindow();
 }
 
 bool CoreApplication::runSetupWizard()

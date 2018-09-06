@@ -20,7 +20,7 @@ CoreApplication::CoreApplication(int &argc, char **argv, struct optparse *opt)
     // better safe than sorry!
     _jobsOption  = (opt->jobs == 1);
     _checkOption = (opt->check == 1);
-    _appDataDir  = opt->appdata;
+    _configDataDir  = opt->configdata;
 
     init_shared(this);
 
@@ -42,10 +42,10 @@ bool CoreApplication::initializeCore()
 {
     QSettings settings;
 
-    if(!_appDataDir.isEmpty())
+    if(!_configDataDir.isEmpty())
     {
         settings.setPath(QSettings::IniFormat, QSettings::UserScope,
-                         _appDataDir);
+                         _configDataDir);
         settings.setDefaultFormat(QSettings::IniFormat);
     }
 

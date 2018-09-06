@@ -20,6 +20,7 @@ static const struct args ARGS[] = {
 	    " 'Automatic backup schedule' option enabled.  The application"
 	    " runs headless and useful information is printed to the standard"
 	    " out and error." },
+	/* TODO: this will likely be renamed to --config */
 	{ "-a", "--appdata", "<directory>", "Use the specified app data"
 	    " directory.  Useful for multiple configurations on the same"
 	    " machine (INI format is implied)." },
@@ -41,7 +42,7 @@ optparse_init()
 
 	/* Initialize structure. */
 	memset(opt, 0, sizeof(struct optparse));
-	opt->appdata = NULL;
+	opt->configdata = NULL;
 
 	/* Success! */
 	return (opt);
@@ -90,9 +91,9 @@ optparse_parse(int argc, char **argv)
 			break;
 		GETOPT_OPTARG("-a"):
 		GETOPT_OPTARG("--appdata"):
-			if (opt->appdata != NULL)
+			if (opt->configdata != NULL)
 				OPT_ALREADY_GIVEN("--appdata");
-			if ((opt->appdata = strdup(optarg)) == NULL)
+			if ((opt->configdata = strdup(optarg)) == NULL)
 				OPT_MEM_FAIL(ch);
 			break;
 		GETOPT_MISSING_ARG:
@@ -144,6 +145,6 @@ optparse_free(struct optparse * opt)
 	if (opt == NULL)
 		return;
 
-	free(opt->appdata);
+	free(opt->configdata);
 	free(opt);
 }

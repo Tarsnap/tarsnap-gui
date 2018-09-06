@@ -52,7 +52,7 @@ private:
     QThread      _managerThread;
     Journal      _journal;
     bool         _jobsOption;
-    QString      _appDataDir;
+    QString      _configDataDir;
     bool         _checkOption;
 
     bool runSetupWizard();

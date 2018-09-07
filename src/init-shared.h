@@ -23,9 +23,9 @@ struct init_info
     //! Indicates any problems or actions required.
     init_status status;
     //! If there is a problem, what's the message?
-    QString     message;
+    QString message;
     //! Extra string for special cases.  See code.
-    QString     extra;
+    QString extra;
 };
 
 /**

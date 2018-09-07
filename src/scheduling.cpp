@@ -368,13 +368,9 @@ struct scheduleinfo correctedSchedulingPath()
                                + "/Library/LaunchAgents/com.tarsnap.gui.plist",
                            QSettings::NativeFormat);
 
-    // Bail if the file doesn't exist
+    // Bail if the file doesn't exist, but this isn't an error.
     if(!launchdPlist.contains("ProgramArguments"))
-    {
-        info.status  = SCHEDULE_ERROR;
-        info.message = QObject::tr(UPDATED_LAUNCHD_PATH_ERROR);
         return (info);
-    }
 
     // Get path, bail if it still exists (we assume it's still executable)
     QStringList args =

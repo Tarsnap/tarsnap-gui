@@ -1,12 +1,13 @@
-#ifndef INIT_CORE_H
-#define INIT_CORE_H
+#ifndef INIT_SHARED_H
+#define INIT_SHARED_H
 
 #include <QCoreApplication>
 
-/*! \file init-core.h
+/*! \file init-shared.h
     \brief Shared init code that doesn't depend on the gui.
  */
 
+//! Status of \ref init_shared_core().
 enum init_status
 {
     INIT_OK,
@@ -16,10 +17,14 @@ enum init_status
     INIT_SCHEDULE_ERROR
 };
 
+//! Return value of \ref init_shared_core().
 struct init_info
 {
+    //! Indicates any problems or actions required.
     init_status status;
+    //! If there is a problem, what's the message?
     QString     message;
+    //! Extra string for special cases.  See code.
     QString     extra;
 };
 

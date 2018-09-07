@@ -411,9 +411,9 @@ struct scheduleinfo correctedSchedulingPath()
     }
 
     info.status  = SCHEDULE_OK;
-    info.message = tr(UPDATED_LAUNCHD_PATH_LONG);
-    info.extra   = tr(UPDATED_LAUNCHED_PATH_SHORT);
-    return (0);
+    info.message = QObject::tr(UPDATED_LAUNCHD_PATH_LONG);
+    info.extra   = QObject::tr(UPDATED_LAUNCHD_PATH_SHORT);
+    return (info);
 #else
     return (info);
 #endif

@@ -27,7 +27,7 @@ TEST_ENV =	XDG_CONFIG_HOME=$${TEST_HOME}		\
 		XDG_CACHE_HOME=$${TEST_HOME}		\
 		XDG_DATA_HOME=$${TEST_HOME}
 
-contains(QT, gui) {
+contains(QT, gui) || contains(QT, widgets) {
 	test.commands = $${TEST_ENV} ./${TARGET} -platform offscreen
 } else {
 	test.commands = $${TEST_ENV} ./${TARGET}

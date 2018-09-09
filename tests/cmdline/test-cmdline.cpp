@@ -15,6 +15,9 @@ class TestCmdline : public QObject
 
 private slots:
     void initTestCase();
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
+    void normal_init();
+#endif
     void appdir_init();
 };
 
@@ -27,9 +30,9 @@ void TestCmdline::initTestCase()
     WARNP_INIT;
 }
 
-// This is not yet cross-platform because OSX uses a .plist file.  That will
-// be fixed soon with the upcoming TSettings change.
-#if 0
+// FIXME: this is not yet cross-platform because OSX uses a .plist file.  That
+// will be fixed soon with the upcoming TSettings change.
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 void TestCmdline::normal_init()
 {
     struct optparse *opt;
@@ -37,7 +40,7 @@ void TestCmdline::normal_init()
     // Create command-line arguments
     int   argc = 1;
     char *argv[1];
-    argv[0] = strdup("./test-cli");
+    argv[0] = strdup("./test-cmdline");
 
     // Parse command-line arguments
     if((opt = optparse_parse(argc, argv)) == NULL)

@@ -125,6 +125,12 @@ bool PersistentStore::init()
     if(create)
     {
         QFile dbTemplate(":/dbtemplate.db");
+
+        // Create the directory for the db (if necessary)
+        QDir dbDir = dbFileInfo.absoluteDir();
+        if(!dbDir.exists())
+            dbDir.mkpath(dbDir.absolutePath());
+
         if(!dbTemplate.copy(dbUrl))
         {
             DEBUG << "Failed to create the PersistentStore DB.";

@@ -89,7 +89,7 @@ bool CoreApplication::initializeCore()
     return true;
 }
 
-bool CoreApplication::runMainLoop()
+bool CoreApplication::prepMainLoop()
 {
     // Nothing to do.
     if(_checkOption)

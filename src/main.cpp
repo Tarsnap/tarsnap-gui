@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
 
     // If we want the GUI or have any tasks, do them.
-    if(app.runMainLoop())
+    if(app.prepMainLoop())
         return (app.exec());
     else
         return EXIT_SUCCESS;

@@ -16,7 +16,7 @@ extern "C" {
 
 /*!
  * \ingroup misc
- * \brief the CoreApplication is a QApplication which launches the MainWindow,
+ * \brief The CoreApplication is a QApplication which launches the MainWindow,
  * SetupWindow (if applicable), and manages background tasks.
  */
 class CoreApplication : public QApplication
@@ -33,9 +33,9 @@ public:
     //! \return True if the initialization was successful.
     bool initializeCore();
 
-    //! Pass control to the QEventLoop.
+    //! Prepare to pass control to the QEventLoop.
     //! \return True if the calling function should call app.exec().
-    bool runMainLoop();
+    bool prepMainLoop();
 
 private slots:
     //! Removes the MainWindow (if it exists), resets the PersistentStore

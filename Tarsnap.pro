@@ -154,6 +154,7 @@ OBJECTS_DIR = build/gui/
 # to maximize the benefits of parallel builds.
 UNIT_TESTS =						\
 	tests/mainwindow				\
+	tests/cmdline					\
 	tests/setupwizard				\
 	tests/taskmanager				\
 	tests/customfilesystemmodel			\

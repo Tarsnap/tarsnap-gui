@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>dbtemplate.db</file>
+        <file>com.tarsnap.gui.plist</file>
+        <file>translations/tarsnap-gui_ro.qm</file>
+        <file>translations/tarsnap-gui_en.qm</file>
+    </qresource>
+</RCC>

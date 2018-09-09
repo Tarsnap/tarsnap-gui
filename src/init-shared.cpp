@@ -38,10 +38,13 @@ static void init_no_app()
 
 static void init_no_explicit_app()
 {
+#ifndef QT_TESTLIB_LIB
+    // Don't do this for the tests, since we want them to have unique names.
     QCoreApplication::setOrganizationName(QLatin1String("Tarsnap Backup Inc."));
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
     QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
     QCoreApplication::setApplicationVersion(APP_VERSION);
+#endif
 }
 
 /**

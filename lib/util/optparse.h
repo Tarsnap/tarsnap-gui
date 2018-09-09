@@ -13,7 +13,7 @@ struct optparse {
  * Parse the command line and return options, setting up default
  * values as necessary.  Return NULL upon error.
  */
-struct optparse * optparse_parse(int, char **);
+struct optparse * optparse_parse(int, char * const []);
 
 /**
  * optparse_free(opt):

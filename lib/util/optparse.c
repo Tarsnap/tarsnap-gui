@@ -57,7 +57,7 @@ err0:
  * values as necessary.  Return NULL upon error.
  */
 struct optparse *
-optparse_parse(int argc, char **argv)
+optparse_parse(int argc, char * const argv[])
 {
 	struct optparse * opt;
 	const char * ch;

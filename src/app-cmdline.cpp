@@ -16,7 +16,7 @@ AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
     // Get values from optparse.  The (x == 1) is probably unnecessary, but
     // better safe than sorry!
     _checkOption = (opt->check == 1);
-    _appDataDir  = opt->appdata;
+    _configDir   = opt->config_dir;
 
     init_shared(this);
 }
@@ -29,16 +29,7 @@ AppCmdline::~AppCmdline()
 
 bool AppCmdline::initializeCore()
 {
-    QSettings settings;
-
-    if(!_appDataDir.isEmpty())
-    {
-        settings.setPath(QSettings::IniFormat, QSettings::UserScope,
-                         _appDataDir);
-        settings.setDefaultFormat(QSettings::IniFormat);
-    }
-
-    struct init_info info = init_shared_core(this);
+    struct init_info info = init_shared_core(this, _configDir);
 
     switch(info.status)
     {

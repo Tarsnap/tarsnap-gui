@@ -20,7 +20,7 @@ CoreApplication::CoreApplication(int &argc, char **argv, struct optparse *opt)
     // better safe than sorry!
     _jobsOption  = (opt->jobs == 1);
     _checkOption = (opt->check == 1);
-    _appDataDir  = opt->appdata;
+    _configDir   = opt->config_dir;
 
     init_shared(this);
 
@@ -40,16 +40,7 @@ CoreApplication::~CoreApplication()
 
 bool CoreApplication::initializeCore()
 {
-    QSettings settings;
-
-    if(!_appDataDir.isEmpty())
-    {
-        settings.setPath(QSettings::IniFormat, QSettings::UserScope,
-                         _appDataDir);
-        settings.setDefaultFormat(QSettings::IniFormat);
-    }
-
-    struct init_info info = init_shared_core(this);
+    struct init_info info = init_shared_core(this, _configDir);
 
     if(info.status == INIT_NEEDS_SETUP)
         return runSetupWizard();

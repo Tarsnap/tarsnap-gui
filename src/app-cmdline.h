@@ -37,7 +37,7 @@ private:
     TaskManager _taskManager;
     QThread     _managerThread;
     Journal     _journal;
-    QString     _appDataDir;
+    QString     _configDir;
     bool        _checkOption;
 };
 

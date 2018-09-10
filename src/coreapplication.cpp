@@ -40,15 +40,7 @@ CoreApplication::~CoreApplication()
 
 bool CoreApplication::initializeCore()
 {
-    QSettings settings;
-
-    if(!_configDir.isEmpty())
-    {
-        settings.setPath(QSettings::IniFormat, QSettings::UserScope, _configDir);
-        settings.setDefaultFormat(QSettings::IniFormat);
-    }
-
-    struct init_info info = init_shared_core(this);
+    struct init_info info = init_shared_core(this, _configDir);
 
     if(info.status == INIT_NEEDS_SETUP)
         return runSetupWizard();

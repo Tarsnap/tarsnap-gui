@@ -36,6 +36,6 @@ void init_shared(QCoreApplication *app);
 /**
  * Initialization shared between GUI and non-GUI.  Can fail and report messages.
  */
-struct init_info init_shared_core(QCoreApplication *app);
+struct init_info init_shared_core(QCoreApplication *app, QString configDir);
 
 #endif

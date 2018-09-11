@@ -33,8 +33,8 @@ SOURCES +=						\
 	lib/util/optparse_helper.c			\
 	libcperciva/util/getopt.c			\
 	libcperciva/util/warnp.c			\
+	src/app-gui.cpp					\
 	src/backuptask.cpp				\
-	src/coreapplication.cpp				\
 	src/customfilesystemmodel.cpp			\
 	src/debug.cpp					\
 	src/filetablemodel.cpp				\
@@ -74,8 +74,8 @@ HEADERS +=						\
 	lib/util/optparse_helper.h			\
 	libcperciva/util/getopt.h			\
 	libcperciva/util/warnp.h			\
+	src/app-gui.h					\
 	src/backuptask.h				\
-	src/coreapplication.h				\
 	src/customfilesystemmodel.h			\
 	src/debug.h					\
 	src/filetablemodel.h				\

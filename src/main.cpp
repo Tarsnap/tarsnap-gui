@@ -1,4 +1,4 @@
-#include "coreapplication.h"
+#include "app-gui.h"
 #include "debug.h"
 
 extern "C" {
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
         exit(1);
 
     // Basic initialization that cannot fail.
-    CoreApplication app(argc, argv, opt);
+    AppGui app(argc, argv, opt);
     optparse_free(opt);
 
     // Run more complicated initialization.

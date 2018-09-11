@@ -1,5 +1,5 @@
-#ifndef COREAPPLICATION_H
-#define COREAPPLICATION_H
+#ifndef APP_GUI_H
+#define APP_GUI_H
 
 #include "notification.h"
 #include "persistentmodel/journal.h"
@@ -16,17 +16,17 @@ extern "C" {
 
 /*!
  * \ingroup misc
- * \brief The CoreApplication is a QApplication which launches the MainWindow,
+ * \brief The AppGui is a QApplication which launches the MainWindow,
  * SetupWindow (if applicable), and manages background tasks.
  */
-class CoreApplication : public QApplication
+class AppGui : public QApplication
 {
     Q_OBJECT
 
 public:
     //! Constructor.
-    CoreApplication(int &argc, char **argv, struct optparse *opt);
-    ~CoreApplication();
+    AppGui(int &argc, char **argv, struct optparse *opt);
+    ~AppGui();
 
     //! Initializes the QSettings, Translator, PersistentStore, and launches
     //! the Setup wizard (if necessary).
@@ -58,4 +58,4 @@ private:
     bool runSetupWizard();
 };
 
-#endif // COREAPPLICATION_H
+#endif // APP_GUI_H

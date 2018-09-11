@@ -1,4 +1,4 @@
-#include "coreapplication.h"
+#include "app-gui.h"
 #include "debug.h"
 #include "init-shared.h"
 #include "translator.h"
@@ -10,7 +10,7 @@
 #include <QFontDatabase>
 #include <QMessageBox>
 
-CoreApplication::CoreApplication(int &argc, char **argv, struct optparse *opt)
+AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
     : QApplication(argc, argv), _mainWindow(nullptr), _notification()
 {
     // Sanity check
@@ -30,7 +30,7 @@ CoreApplication::CoreApplication(int &argc, char **argv, struct optparse *opt)
         "QSystemTrayIcon::ActivationReason");
 }
 
-CoreApplication::~CoreApplication()
+AppGui::~AppGui()
 {
     if(_mainWindow)
         delete _mainWindow;
@@ -38,7 +38,7 @@ CoreApplication::~CoreApplication()
     _managerThread.wait();
 }
 
-bool CoreApplication::initializeCore()
+bool AppGui::initializeCore()
 {
     struct init_info info = init_shared_core(this, _configDir);
 
@@ -80,7 +80,7 @@ bool CoreApplication::initializeCore()
     return true;
 }
 
-bool CoreApplication::prepMainLoop()
+bool AppGui::prepMainLoop()
 {
     // Nothing to do.
     if(_checkOption)
@@ -101,9 +101,9 @@ bool CoreApplication::prepMainLoop()
     {
         setQuitLockEnabled(true);
         connect(&_notification, &Notification::activated, this,
-                &CoreApplication::showMainWindow, QUEUED);
+                &AppGui::showMainWindow, QUEUED);
         connect(&_notification, &Notification::messageClicked, this,
-                &CoreApplication::showMainWindow, QUEUED);
+                &AppGui::showMainWindow, QUEUED);
         QMetaObject::invokeMethod(&_taskManager, "runScheduledJobs", QUEUED);
     }
     else
@@ -114,16 +114,16 @@ bool CoreApplication::prepMainLoop()
     return true;
 }
 
-void CoreApplication::showMainWindow()
+void AppGui::showMainWindow()
 {
     if(_mainWindow != nullptr)
         return;
 
     setQuitLockEnabled(false);
     disconnect(&_notification, &Notification::activated, this,
-               &CoreApplication::showMainWindow);
+               &AppGui::showMainWindow);
     disconnect(&_notification, &Notification::messageClicked, this,
-               &CoreApplication::showMainWindow);
+               &AppGui::showMainWindow);
 
     _mainWindow = new MainWindow();
     Q_ASSERT(_mainWindow != nullptr);
@@ -158,8 +158,8 @@ void CoreApplication::showMainWindow()
             &TaskManager::nuke, QUEUED);
     connect(_mainWindow, &MainWindow::restoreArchive, &_taskManager,
             &TaskManager::restoreArchive, QUEUED);
-    connect(_mainWindow, &MainWindow::runSetupWizard, this,
-            &CoreApplication::reinit, QUEUED);
+    connect(_mainWindow, &MainWindow::runSetupWizard, this, &AppGui::reinit,
+            QUEUED);
     connect(_mainWindow, &MainWindow::stopTasks, &_taskManager,
             &TaskManager::stopTasks, QUEUED);
     connect(&_taskManager, &TaskManager::jobList, _mainWindow,
@@ -203,7 +203,7 @@ void CoreApplication::showMainWindow()
     _mainWindow->show();
 }
 
-void CoreApplication::reinit()
+void AppGui::reinit()
 {
     disconnect(&_taskManager, &TaskManager::displayNotification, &_notification,
                &Notification::displayNotification);
@@ -237,7 +237,7 @@ void CoreApplication::reinit()
     showMainWindow();
 }
 
-bool CoreApplication::runSetupWizard()
+bool AppGui::runSetupWizard()
 {
     // Show the first time setup dialog
     SetupDialog wizard;

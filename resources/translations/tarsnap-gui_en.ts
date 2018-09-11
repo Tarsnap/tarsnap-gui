@@ -326,32 +326,32 @@ Add anyway?</source>
 <context>
     <name>CoreApplication</name>
     <message>
-        <location filename="../../src/coreapplication.cpp" line="54"/>
+        <location filename="../../src/app-gui.cpp" line="54"/>
         <source>Tarsnap GUI - Online backups for the truly paranoid (yet graphically inclined)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/coreapplication.cpp" line="59"/>
+        <location filename="../../src/app-gui.cpp" line="59"/>
         <source>Executes all Jobs sequentially that have the &apos;Automatic backup schedule&apos; option enabled. The application runs headless and useful information is printed to standard out and error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/coreapplication.cpp" line="67"/>
+        <location filename="../../src/app-gui.cpp" line="67"/>
         <source>Use the specified app data directory. Useful for multiple configurations on the same machine (INI format is implied).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/coreapplication.cpp" line="71"/>
+        <location filename="../../src/app-gui.cpp" line="71"/>
         <source>directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/coreapplication.cpp" line="122"/>
+        <location filename="../../src/app-gui.cpp" line="122"/>
         <source>Tarsnap warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/coreapplication.cpp" line="123"/>
+        <location filename="../../src/app-gui.cpp" line="123"/>
         <source>Simulation mode is enabled. Archives will not be uploaded to the Tarsnap server. Disable in Settings -&gt; Backup.</source>
         <translation type="unfinished"></translation>
     </message>

@@ -34,8 +34,13 @@ struct init_info
 void init_shared(QCoreApplication *app);
 
 /**
+ * Configures the app-wide Settings.  Can fail and report messages.
+ */
+struct init_info init_shared_settings(QString configDir);
+
+/**
  * Initialization shared between GUI and non-GUI.  Can fail and report messages.
  */
-struct init_info init_shared_core(QCoreApplication *app, QString configDir);
+struct init_info init_shared_core(QCoreApplication *app);
 
 #endif

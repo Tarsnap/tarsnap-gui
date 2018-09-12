@@ -29,7 +29,13 @@ AppCmdline::~AppCmdline()
 
 bool AppCmdline::initializeCore()
 {
-    struct init_info info = init_shared_core(this, _configDir);
+    struct init_info info;
+
+    // Set up Settings.  No message yet.
+    info = init_shared_settings(_configDir);
+
+    // Set up the Translator, check --dry-run, update scheduling path.
+    info = init_shared_core(this);
 
     switch(info.status)
     {

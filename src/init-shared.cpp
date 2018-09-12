@@ -60,10 +60,12 @@ void init_shared(QCoreApplication *app)
 }
 
 /**
- * Initialization shared between GUI and non-GUI.  Can fail and report messages.
+ * Configures the app-wide Settings.  Can fail and report messages.
  */
-struct init_info init_shared_core(QCoreApplication *app, QString configDir)
+struct init_info init_shared_settings(QString configDir)
 {
+    struct init_info info = {INIT_OK, "", ""};
+
     // Handle soon-to-be-deprecated --appdata argument.  Must be done before
     // instantiating any settings object.
     if(!configDir.isEmpty())
@@ -73,6 +75,14 @@ struct init_info init_shared_core(QCoreApplication *app, QString configDir)
         QSettings::setDefaultFormat(QSettings::IniFormat);
     }
 
+    return info;
+}
+
+/**
+ * Initialization shared between GUI and non-GUI.  Can fail and report messages.
+ */
+struct init_info init_shared_core(QCoreApplication *app)
+{
     struct init_info info = {INIT_OK, "", ""};
     QSettings        settings;
 

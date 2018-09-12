@@ -40,7 +40,13 @@ AppGui::~AppGui()
 
 bool AppGui::initializeCore()
 {
-    struct init_info info = init_shared_core(this, _configDir);
+    struct init_info info;
+
+    // Set up Settings.  No message yet.
+    info = init_shared_settings(_configDir);
+
+    // Set up the Translator, check --dry-run, update scheduling path.
+    info = init_shared_core(this);
 
     if(info.status == INIT_NEEDS_SETUP)
         return runSetupWizard();

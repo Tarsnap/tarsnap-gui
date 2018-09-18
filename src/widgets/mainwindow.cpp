@@ -1856,3 +1856,9 @@ void MainWindow::updateSimulationIcon(int state)
         _ui.simulationIcon->show();
     }
 }
+
+void MainWindow::updateNumTasks(int runningTasks, int queuedTasks)
+{
+    _runningTasks = runningTasks;
+    _queuedTasks  = queuedTasks;
+}

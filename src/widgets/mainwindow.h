@@ -65,6 +65,8 @@ public slots:
 
     //! Update the simulation icon.
     void updateSimulationIcon(int state);
+    //! Update the number of tasks;
+    void updateNumTasks(int numRunning, int numQueued);
 
 signals:
     //! Begin tarsnap -c -f \<name\>
@@ -176,6 +178,8 @@ private:
     QDialog        _aboutWindow;
     QDialog        _consoleWindow;
     QMessageBox    _stopTasksDialog;
+    int            _runningTasks;
+    int            _queuedTasks;
 
     QPlainTextEdit *_consoleLog;
 

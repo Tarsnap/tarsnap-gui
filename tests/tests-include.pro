@@ -29,8 +29,11 @@ TEST_ENV =	XDG_CONFIG_HOME=$${TEST_HOME}		\
 
 contains(QT, gui) || contains(QT, widgets) {
 	test.commands = $${TEST_ENV} ./${TARGET} -platform offscreen
+	test_visual.depends = ${TARGET} test_home_prep
+	test_visual.commands = $${TEST_ENV} ./${TARGET}
 } else {
 	test.commands = $${TEST_ENV} ./${TARGET}
 }
+
 test.depends = ${TARGET} test_home_prep
-QMAKE_EXTRA_TARGETS += test test_home_prep
+QMAKE_EXTRA_TARGETS += test test_visual test_home_prep

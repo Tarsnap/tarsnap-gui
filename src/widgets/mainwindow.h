@@ -63,6 +63,9 @@ public slots:
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
 
+    //! Update the simulation icon.
+    void updateSimulationIcon(int state);
+
 signals:
     //! Begin tarsnap -c -f \<name\>
     void backupNow(BackupTaskPtr backupTask);

@@ -345,17 +345,8 @@ MainWindow::MainWindow(QWidget *parent)
         else
             _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
     });
-    connect(_ui.simulationCheckBox, &QCheckBox::stateChanged, [&](int state) {
-        if(state == Qt::Unchecked)
-        {
-            emit getArchives();
-            _ui.simulationIcon->hide();
-        }
-        else
-        {
-            _ui.simulationIcon->show();
-        }
-    });
+    connect(_ui.simulationCheckBox, &QCheckBox::stateChanged, this,
+            &MainWindow::updateSimulationIcon);
     connect(_ui.repairCacheButton, &QPushButton::clicked, this,
             [&]() { emit repairCache(true); });
     connect(_ui.skipSystemDefaultsButton, &QPushButton::clicked, [&]() {
@@ -483,7 +474,6 @@ void MainWindow::loadSettings()
             .toBool());
     _ui.simulationCheckBox->setChecked(
         settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
-    _ui.simulationIcon->setVisible(_ui.simulationCheckBox->isChecked());
     _ui.iecPrefixesCheckBox->setChecked(
         settings.value("app/iec_prefixes", false).toBool());
     _ui.skipFilesSizeSpinBox->setValue(
@@ -527,6 +517,9 @@ void MainWindow::loadSettings()
         _ui.defaultJobs->show();
         _ui.addJobButton->hide();
     }
+
+    _ui.simulationIcon->setVisible(
+        settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
 
     Translator &translator = Translator::instance();
     _ui.languageComboBox->addItem(LANG_AUTO);
@@ -1849,4 +1842,17 @@ void MainWindow::updateUi()
         _ui.addJobButton->setText(tr("Save"));
     else
         _ui.addJobButton->setText(tr("Add job"));
+}
+
+void MainWindow::updateSimulationIcon(int state)
+{
+    if(state == Qt::Unchecked)
+    {
+        emit getArchives();
+        _ui.simulationIcon->hide();
+    }
+    else
+    {
+        _ui.simulationIcon->show();
+    }
 }

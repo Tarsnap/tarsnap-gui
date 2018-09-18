@@ -4,6 +4,7 @@
 #include "ui_logindialog.h"
 
 #include <QDialog>
+#include <QMessageBox>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
@@ -39,6 +40,8 @@ private:
     QString               _user;
     QString               _machine;
     quint64               _machineId;
+
+    QMessageBox _popup;
 };
 
 #endif // TARSNAPACCOUNT_H

@@ -24,6 +24,9 @@ TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _nam(this)
     connect(_ui.passwordLineEdit, &QLineEdit::textEdited, this, [&]() {
         _ui.loginButton->setEnabled(!_ui.passwordLineEdit->text().isEmpty());
     });
+
+    _popup.setParent(this->parentWidget());
+    _popup.setWindowModality(Qt::NonModal);
 }
 
 TarsnapAccount::~TarsnapAccount()
@@ -42,17 +45,21 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
     }
     else
     {
-        QMessageBox::warning(
-            this->parentWidget(), tr("Warning"),
+        _popup.setWindowTitle(tr("Warning"));
+        _popup.setIcon(QMessageBox::Warning);
+        _popup.setText(
             tr("You need Tarsnap CLI utils version 1.0.37 to "
                "be able to fetch machine activity. "
                "You have version %1.")
                 .arg(settings.value("tarsnap/version", "").toString()));
+        _popup.exec();
     }
     if(_user.isEmpty() || _machine.isEmpty())
     {
-        QMessageBox::warning(this->parentWidget(), tr("Warning"),
-                             tr("Tarsnap user and machine name must be set."));
+        _popup.setWindowTitle(tr("Warning"));
+        _popup.setIcon(QMessageBox::Warning);
+        _popup.setText(tr("Tarsnap user and machine name must be set."));
+        _popup.exec();
         return;
     }
     _ui.textLabel->setText(tr("Type password for account %1:").arg(_user));
@@ -190,18 +197,21 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
     QByteArray data = reply->readAll();
     if(warn && data.contains("Password is incorrect; please try again."))
     {
-        QMessageBox::warning(
-            this, tr("Invalid password"),
+        _popup.setWindowTitle(tr("Invalid password"));
+        _popup.setIcon(QMessageBox::Warning);
+        _popup.setText(
             tr("Password for account %1 is incorrect; please try again.")
                 .arg(_user));
+        _popup.exec();
     }
     else if(warn
             && data.contains("No user exists with the provided email "
                              "address; please try again."))
     {
-        QMessageBox::warning(
-            this, tr("Invalid username"),
-            tr("Account %1 is invalid; please try again.").arg(_user));
+        _popup.setWindowTitle(tr("Invalid password"));
+        _popup.setIcon(QMessageBox::Warning);
+        _popup.setText(tr("Account %1 is invalid; please try again.").arg(_user));
+        _popup.exec();
     }
     reply->close();
     reply->deleteLater();

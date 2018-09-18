@@ -1345,7 +1345,7 @@ void MainWindow::nukeArchivesButtonClicked()
 
 void MainWindow::runSetupWizardClicked()
 {
-    if(_ui.busyWidget->isVisible())
+    if((_runningTasks + _queuedTasks) > 0)
     {
         QMessageBox::warning(this, tr("Confirm action"),
                              tr("Tasks are currently running. Please "

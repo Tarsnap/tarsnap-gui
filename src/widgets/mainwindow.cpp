@@ -32,7 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
       _nukeCountdown(this),
       _tarsnapAccount(this),
       _aboutToQuit(false),
-      _stopTasksDialog(this)
+      _stopTasksDialog(this),
+      _nukeInput(this)
 {
     connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
             &MainWindow::appendToConsoleLog);
@@ -1313,17 +1314,22 @@ void MainWindow::appDataButtonClicked()
 void MainWindow::nukeArchivesButtonClicked()
 {
     const QString confirmationText = tr("No Tomorrow");
-    bool          ok               = false;
-    QString       userText         = QInputDialog::getText(
-        this, tr("Nuke all archives?"),
+
+    // Set up nuke confirmation
+    _nukeInput.setWindowTitle(tr("Nuke all archives?"));
+    _nukeInput.setLabelText(
         tr("This action will <b>delete all (%1) archives</b> stored for this "
            "key."
            "<br /><br />To confirm, type '%2' and press OK."
            "<br /><br /><i>Warning: This action cannot be undone. "
            "All archives will be <b>lost forever</b></i>.")
-            .arg(_ui.accountArchivesCountLabel->text(), confirmationText),
-        QLineEdit::Normal, "", &ok);
-    if(ok && (confirmationText == userText))
+            .arg(_ui.accountArchivesCountLabel->text(), confirmationText));
+    _nukeInput.setInputMode(QInputDialog::TextInput);
+
+    // Run nuke confirmation
+    bool ok = _nukeInput.exec();
+
+    if(ok && (confirmationText == _nukeInput.textValue()))
     {
         _nukeTimerCount = NUKE_SECONDS_DELAY;
         _nukeCountdown.setWindowTitle(

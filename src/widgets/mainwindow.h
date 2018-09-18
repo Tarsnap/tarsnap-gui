@@ -7,6 +7,7 @@
 #include "taskmanager.h"
 #include "ui_mainwindow.h"
 
+#include <QInputDialog>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QTimer>
@@ -180,6 +181,7 @@ private:
     QMessageBox    _stopTasksDialog;
     int            _runningTasks;
     int            _queuedTasks;
+    QInputDialog   _nukeInput;
 
     QPlainTextEdit *_consoleLog;
 

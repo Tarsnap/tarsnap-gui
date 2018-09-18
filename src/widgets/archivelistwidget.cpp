@@ -70,11 +70,12 @@ void ArchiveListWidget::deleteItem()
     if(archiveItem)
     {
         ArchivePtr archive = archiveItem->archive();
-        auto       confirm = QMessageBox::question(this, tr("Confirm delete"),
-                                             tr("Are you sure you want to "
-                                                "delete archive %1 "
-                                                "(this cannot be undone)?")
-                                                 .arg(archive->name()));
+
+        QMessageBox::StandardButton confirm =
+            QMessageBox::question(this, tr("Confirm delete"),
+                                  tr("Are you sure you want to delete"
+                                     " archive %1 (this cannot be undone)?")
+                                      .arg(archive->name()));
         if(confirm == QMessageBox::Yes)
         {
             QList<ArchivePtr> archiveList;
@@ -101,8 +102,9 @@ void ArchiveListWidget::deleteSelectedItems()
             selectedListItems << archiveItem;
     }
 
-    int  selectedItemsCount = selectedItems().count();
-    auto confirm =
+    int selectedItemsCount = selectedItems().count();
+
+    QMessageBox::StandardButton confirm =
         QMessageBox::question(this, tr("Confirm delete"),
                               tr("Are you sure you want to delete %1 "
                                  "selected archive(s) "

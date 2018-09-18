@@ -159,7 +159,7 @@ void JobWidget::saveNew()
     _job->setName(_ui.jobNameLineEdit->text());
     if(!_job->archives().isEmpty())
     {
-        auto confirm =
+        QMessageBox::StandardButton confirm =
             QMessageBox::question(this, "Add job",
                                   tr("Assign %1 found archives to this Job?")
                                       .arg(_job->archives().count()),

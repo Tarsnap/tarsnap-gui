@@ -1236,7 +1236,7 @@ void MainWindow::backupJob(JobPtr job)
         }
         else
         {
-            auto confirm = QMessageBox::question(
+            QMessageBox::StandardButton confirm = QMessageBox::question(
                 this, tr("Job warning"),
                 tr("Some backup paths for Job %1 are not"
                    " accessible anymore and thus backup may"
@@ -1360,7 +1360,7 @@ void MainWindow::runSetupWizardClicked()
                                 "completion and try again."));
         return;
     }
-    auto confirm =
+    QMessageBox::StandardButton confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Reset current app settings, job definitions "
                                  "and run the setup wizard?"),
@@ -1507,7 +1507,7 @@ void MainWindow::tarsnapError(TarsnapError error)
     {
     case TarsnapError::CacheError:
     {
-        auto confirm =
+        QMessageBox::StandardButton confirm =
             QMessageBox::critical(this, tr("Tarsnap error"),
                                   tr("The tarsnap cache directory is"
                                      " either missing or is broken."
@@ -1563,7 +1563,7 @@ void MainWindow::updateLastMachineActivity(QStringList activityFields)
 
 void MainWindow::clearJournalClicked()
 {
-    auto confirm =
+    QMessageBox::StandardButton confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Clear journal log? All entries will "
                                  "be deleted forever."));

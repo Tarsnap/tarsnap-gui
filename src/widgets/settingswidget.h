@@ -1,6 +1,7 @@
 #ifndef SETTINGSWIDGET_H
 #define SETTINGSWIDGET_H
 
+#include "confirmationdialog.h"
 #include "scheduling.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
@@ -85,8 +86,9 @@ private slots:
     bool validateMachineKeyPath();
     void accountMachineUseHostnameButtonClicked();
     void accountMachineKeyBrowseButtonClicked();
-    void nukeTimerFired();
     void nukeArchivesButtonClicked();
+    void nukeConfirmed();
+    void nukeCancelled();
     // For the Backup tab
     void updateSimulationIcon(int state);
     void enableJobSchedulingButtonClicked();
@@ -109,11 +111,8 @@ private:
     void loadSettings();
 
     // For the Account tab
-    QTimer         _nukeTimer;
-    int            _nukeTimerCount;
-    QMessageBox    _nukeCountdown;
-    TarsnapAccount _tarsnapAccount;
-    QInputDialog   _nukeInput;
+    ConfirmationDialog _nukeConfirmationDialog;
+    TarsnapAccount     _tarsnapAccount;
 
     // For the Application tab
     int _runningTasks;

@@ -59,6 +59,7 @@ SOURCES +=						\
 	src/widgets/backuplistwidget.cpp		\
 	src/widgets/backuplistwidgetitem.cpp		\
 	src/widgets/busywidget.cpp			\
+	src/widgets/confirmationdialog.cpp		\
 	src/widgets/elidedlabel.cpp			\
 	src/widgets/filepickerdialog.cpp		\
 	src/widgets/filepickerwidget.cpp		\
@@ -103,6 +104,7 @@ HEADERS +=						\
 	src/widgets/backuplistwidget.h			\
 	src/widgets/backuplistwidgetitem.h		\
 	src/widgets/busywidget.h			\
+	src/widgets/confirmationdialog.h		\
 	src/widgets/elidedlabel.h			\
 	src/widgets/filepickerdialog.h			\
 	src/widgets/filepickerwidget.h			\

@@ -20,11 +20,7 @@
 #define NUKE_SECONDS_DELAY 8
 
 SettingsWidget::SettingsWidget(QWidget *parent)
-    : QWidget(parent),
-      _nukeTimerCount(0),
-      _nukeCountdown(this),
-      _tarsnapAccount(this),
-      _nukeInput(this)
+    : QWidget(parent), _nukeConfirmationDialog(this), _tarsnapAccount(this)
 {
 
     // Ui initialization
@@ -35,12 +31,6 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     _ui.outOfDateNoticeLabel->hide();
 
     /* Account tab */
-
-    // Nuke widget setup
-    _nukeCountdown.setIcon(QMessageBox::Critical);
-    _nukeCountdown.setStandardButtons(QMessageBox::Cancel);
-    connect(&_nukeTimer, &QTimer::timeout, this,
-            &SettingsWidget::nukeTimerFired);
 
     // Settings
     connect(_ui.accountUserLineEdit, &QLineEdit::editingFinished, this,
@@ -57,6 +47,10 @@ SettingsWidget::SettingsWidget(QWidget *parent)
             &SettingsWidget::accountMachineKeyBrowseButtonClicked);
     connect(_ui.nukeArchivesButton, &QPushButton::clicked, this,
             &SettingsWidget::nukeArchivesButtonClicked);
+    connect(&_nukeConfirmationDialog, &ConfirmationDialog::confirmed, this,
+            &SettingsWidget::nukeConfirmed);
+    connect(&_nukeConfirmationDialog, &ConfirmationDialog::cancelled, this,
+            &SettingsWidget::nukeCancelled);
     connect(&_tarsnapAccount, &TarsnapAccount::accountCredit, this,
             &SettingsWidget::updateAccountCredit);
     connect(&_tarsnapAccount, &TarsnapAccount::getKeyId, this,
@@ -417,58 +411,31 @@ void SettingsWidget::accountMachineKeyBrowseButtonClicked()
     }
 }
 
-void SettingsWidget::nukeTimerFired()
-{
-    if(_nukeTimerCount <= 1)
-    {
-        _nukeTimer.stop();
-        _nukeCountdown.accept();
-        emit nukeArchives();
-    }
-    else
-    {
-        --_nukeTimerCount;
-        _nukeCountdown.setText(
-            tr("Purging all archives in %1 seconds...").arg(_nukeTimerCount));
-    }
-}
-
 void SettingsWidget::nukeArchivesButtonClicked()
 {
     const QString confirmationText = tr("No Tomorrow");
 
     // Set up nuke confirmation
-    _nukeInput.setWindowTitle(tr("Nuke all archives?"));
-    _nukeInput.setLabelText(
+    _nukeConfirmationDialog.start(
+        tr("Nuke all archives?"),
         tr("This action will <b>delete all (%1) archives</b> stored for this "
            "key."
            "<br /><br />To confirm, type '%2' and press OK."
            "<br /><br /><i>Warning: This action cannot be undone. "
            "All archives will be <b>lost forever</b></i>.")
-            .arg(_ui.accountArchivesCountLabel->text(), confirmationText));
-    _nukeInput.setInputMode(QInputDialog::TextInput);
+            .arg(_ui.accountArchivesCountLabel->text(), confirmationText),
+        confirmationText, 8, tr("Deleting all archives: press Cancel to abort"),
+        tr("Purging all archives in %1 seconds..."));
+}
 
-    // Run nuke confirmation
-    bool ok = _nukeInput.exec();
+void SettingsWidget::nukeConfirmed()
+{
+    emit nukeArchives();
+}
 
-    if(ok && (confirmationText == _nukeInput.textValue()))
-    {
-        _nukeTimerCount = NUKE_SECONDS_DELAY;
-        _nukeCountdown.setWindowTitle(
-            tr("Deleting all archives: press Cancel to abort"));
-        _nukeCountdown.setText(
-            tr("Purging all archives in %1 seconds...").arg(_nukeTimerCount));
-        _nukeTimer.start(1000);
-        if(QMessageBox::Cancel == _nukeCountdown.exec())
-        {
-            _nukeTimer.stop();
-            newStatusMessage(tr("Nuke cancelled."), "");
-        }
-    }
-    else
-    {
-        newStatusMessage(tr("Nuke cancelled."), "");
-    }
+void SettingsWidget::nukeCancelled()
+{
+    newStatusMessage(tr("Nuke cancelled."), "");
 }
 
 void SettingsWidget::updateAccountCredit(qreal credit, QDate date)

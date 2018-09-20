@@ -34,6 +34,7 @@ signals:
     void cancelled();
 
 private slots:
+    void validateConfirmationText(const QString &text);
     void timerFired();
 
 private:

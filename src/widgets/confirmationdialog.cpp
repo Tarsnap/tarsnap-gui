@@ -14,6 +14,14 @@ ConfirmationDialog::ConfirmationDialog(QWidget *parent)
     connect(&_timer, &QTimer::timeout, this, &ConfirmationDialog::timerFired);
 }
 
+void ConfirmationDialog::validateConfirmationText(const QString &text)
+{
+    if(text == _confirmationText)
+        _inputDialog.setOkButtonText("Confirm nuke");
+    else
+        _inputDialog.setOkButtonText("Not confirmed");
+}
+
 void ConfirmationDialog::timerFired()
 {
     if(_countdownSeconds <= 1)
@@ -36,6 +44,7 @@ void ConfirmationDialog::start(QString startTitle, QString startText,
 {
     _inputDialog.setWindowTitle(startTitle);
     _inputDialog.setLabelText(startText);
+    _inputDialog.setOkButtonText("Not confirmed");
     _confirmationText = confirmationText;
 
     // Get text from user

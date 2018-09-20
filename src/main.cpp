@@ -1,6 +1,9 @@
 #include "app-cmdline.h"
-#include "app-gui.h"
 #include "debug.h"
+
+#ifdef QT_GUI_LIB
+#include "app-gui.h"
+#endif
 
 extern "C" {
 #include "optparse.h"
@@ -24,6 +27,7 @@ int main(int argc, char *argv[])
     // Should we use the gui or non-gui app?
     if(opt->check == 0)
     {
+#ifdef QT_GUI_LIB
         // Basic initialization that cannot fail.
         AppGui app(argc, argv, opt);
         optparse_free(opt);
@@ -37,6 +41,11 @@ int main(int argc, char *argv[])
             return (app.exec());
         else
             return EXIT_SUCCESS;
+#else
+        qDebug() << "This binary does not support GUI operations.  Try:\n\t"
+                 << argv[0] << "-h";
+        exit(1);
+#endif
     }
     else
     {

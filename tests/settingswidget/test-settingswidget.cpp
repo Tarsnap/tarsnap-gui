@@ -13,6 +13,7 @@ class TestSettingsWidget : public QObject
 private slots:
     void initTestCase();
     void account();
+    void backup();
 };
 
 void TestSettingsWidget::initTestCase()
@@ -81,6 +82,33 @@ void TestSettingsWidget::account()
     QVERIFY(settings.value("tarsnap/user", "") == QString("edited-user"));
     QVERIFY(settings.value("tarsnap/machine", "") == QString("edited-mn"));
     QVERIFY(settings.value("tarsnap/key", "") == QString("edited-mk"));
+
+    delete settingsWidget;
+}
+
+void TestSettingsWidget::backup()
+{
+    SettingsWidget *   settingsWidget = new SettingsWidget();
+    Ui::SettingsWidget ui             = settingsWidget->_ui;
+
+    VISUAL_INIT(settingsWidget);
+
+    // Switch to Backup tab.
+    ui.settingsToolbox->setCurrentIndex(1);
+    VISUAL_WAIT;
+
+    // Toggle some options.
+    ui.preservePathsCheckBox->setChecked(false);
+    ui.skipNoDumpCheckBox->setChecked(true);
+    ui.simulationCheckBox->setChecked(true);
+    VISUAL_WAIT;
+
+    // Check saved settings.  These are ready due to not using setText().
+    QSettings settings;
+
+    QVERIFY(settings.value("tarsnap/preserve_pathnames", "").toBool() == false);
+    QVERIFY(settings.value("app/skip_nodump", "").toBool() == true);
+    QVERIFY(settings.value("tarsnap/dry_run", "").toBool() == true);
 
     delete settingsWidget;
 }

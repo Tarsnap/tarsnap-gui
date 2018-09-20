@@ -4,6 +4,7 @@
 #include "../qtest-platform.h"
 #include "utils.h"
 
+#include "confirmationdialog.h"
 #include "settingswidget.h"
 
 class TestSettingsWidget : public QObject
@@ -62,9 +63,11 @@ void TestSettingsWidget::account()
     // Nuke button, reject dialog.
     QMetaObject::invokeMethod(ui.nukeArchivesButton, "clicked",
                               Qt::QueuedConnection);
-    QMetaObject::invokeMethod(&settingsWidget->_nukeInput, "reject",
-                              Qt::QueuedConnection);
+    QMetaObject::invokeMethod(&settingsWidget->_nukeConfirmationDialog._inputDialog,
+                              "reject", Qt::QueuedConnection);
     QTest::qWait(200);
+    QVERIFY(sig_status.takeFirst().at(0).toString()
+            == QString("Nuke confirmation requested."));
     QVERIFY(sig_status.takeFirst().at(0).toString()
             == QString("Nuke cancelled."));
     VISUAL_WAIT;

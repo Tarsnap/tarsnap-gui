@@ -10,6 +10,7 @@ HEADERS  +=						\
 	../../src/tarsnapaccount.h			\
 	../../src/translator.h				\
 	../../src/utils.h				\
+	../../src/widgets/confirmationdialog.h		\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/settingswidget.h		\
 	../../tests/qtest-platform.h
@@ -20,6 +21,7 @@ SOURCES += test-settingswidget.cpp			\
 	../../src/tarsnapaccount.cpp			\
 	../../src/translator.cpp			\
 	../../src/utils.cpp				\
+	../../src/widgets/confirmationdialog.cpp	\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/settingswidget.cpp
 

@@ -14,6 +14,7 @@ private slots:
     void initTestCase();
     void account();
     void backup();
+    void application();
 };
 
 void TestSettingsWidget::initTestCase()
@@ -109,6 +110,29 @@ void TestSettingsWidget::backup()
     QVERIFY(settings.value("tarsnap/preserve_pathnames", "").toBool() == false);
     QVERIFY(settings.value("app/skip_nodump", "").toBool() == true);
     QVERIFY(settings.value("tarsnap/dry_run", "").toBool() == true);
+
+    delete settingsWidget;
+}
+
+void TestSettingsWidget::application()
+{
+    SettingsWidget *   settingsWidget = new SettingsWidget();
+    Ui::SettingsWidget ui             = settingsWidget->_ui;
+
+    VISUAL_INIT(settingsWidget);
+
+    // Switch to Application tab.
+    ui.settingsToolbox->setCurrentIndex(2);
+    VISUAL_WAIT;
+
+    // Toggle some options.
+    ui.notificationsCheckBox->setChecked(false);
+    VISUAL_WAIT;
+
+    // Check saved settings.  These are ready due to not using setText().
+    QSettings settings;
+
+    QVERIFY(settings.value("app/notifications", "").toBool() == false);
 
     delete settingsWidget;
 }

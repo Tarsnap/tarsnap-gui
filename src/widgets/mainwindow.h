@@ -3,6 +3,7 @@
 
 #include "persistentmodel/journal.h"
 #include "scheduling.h"
+#include "settingswidget.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
 #include "ui_mainwindow.h"
@@ -184,6 +185,7 @@ private:
     QInputDialog   _nukeInput;
 
     QPlainTextEdit *_consoleLog;
+    SettingsWidget  _settingsWidget;
 
     void updateUi();
     // Load saved application settings.
@@ -193,6 +195,8 @@ private:
     // background tasks are queued.
     void displayStopTasksDialog(bool backupTaskRunning, int runningTasks,
                                 int queuedTasks);
+
+    void connectSettingsWidget();
 };
 
 #endif // MAINWINDOW_H

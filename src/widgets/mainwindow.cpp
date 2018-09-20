@@ -33,7 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
       _tarsnapAccount(this),
       _aboutToQuit(false),
       _stopTasksDialog(this),
-      _nukeInput(this)
+      _nukeInput(this),
+      _settingsWidget(this)
 {
     connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
             &MainWindow::appendToConsoleLog);
@@ -54,6 +55,10 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.outOfDateNoticeLabel->hide();
     _ui.archivesFilterFrame->hide();
     _ui.jobsFilterFrame->hide();
+
+    _ui.settingsTabVerticalLayout->insertWidget(0, &_settingsWidget);
+
+    connectSettingsWidget();
 
     // Initialize the Help tab text
     QFile helpTabFile(":/text/help-tab.xml");
@@ -536,6 +541,8 @@ void MainWindow::loadSettings()
 
 void MainWindow::initializeMainWindow()
 {
+    _settingsWidget.initializeSettingsWidget();
+
     QSettings settings;
     // Check if we should show a "credit might be out of date" warning.
     QDate creditDate = settings.value("tarsnap/credit_date", QDate()).toDate();
@@ -1867,4 +1874,8 @@ void MainWindow::updateNumTasks(int runningTasks, int queuedTasks)
 {
     _runningTasks = runningTasks;
     _queuedTasks  = queuedTasks;
+}
+
+void MainWindow::connectSettingsWidget()
+{
 }

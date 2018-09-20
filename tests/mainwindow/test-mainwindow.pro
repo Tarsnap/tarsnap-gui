@@ -13,7 +13,8 @@ FORMS +=							\
 	../../forms/jobwidget.ui				\
 	../../forms/logindialog.ui				\
 	../../forms/mainwindow.ui				\
-	../../forms/restoredialog.ui
+	../../forms/restoredialog.ui				\
+	../../forms/settingswidget.ui
 
 RESOURCES += ../../resources/resources.qrc
 
@@ -45,6 +46,7 @@ HEADERS  +=						\
 	../../src/widgets/mainwindow.h			\
 	../../src/widgets/popuppushbutton.h		\
 	../../src/widgets/restoredialog.h		\
+	../../src/widgets/settingswidget.h		\
 	../../tests/qtest-platform.h
 
 SOURCES += test-mainwindow.cpp				\
@@ -74,6 +76,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/widgets/jobwidget.cpp			\
 	../../src/widgets/mainwindow.cpp		\
 	../../src/widgets/popuppushbutton.cpp		\
-	../../src/widgets/restoredialog.cpp
+	../../src/widgets/restoredialog.cpp		\
+	../../src/widgets/settingswidget.cpp
 
 include(../tests-include.pro)

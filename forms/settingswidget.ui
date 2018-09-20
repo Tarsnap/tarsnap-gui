@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SettingsWidget</class>
+ <widget class="QWidget" name="SettingsWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>455</width>
+    <height>356</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="settingsWidgetVerticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QToolBox" name="settingsToolbox">
+     <property name="styleSheet">
+      <string notr="true">QToolBox::tab {
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+					stop: 0 rgba(85,164,216,225), stop: 0.8 rgba(85,164,216,225),
+					stop: 0.9 rgba(46,141,204,255), stop: 1.0 rgba(46,141,204,255));
+border-radius: 2px;
+border: 1px solid #ECF0F1;
+color: white;
+font-size: 13px;
+padding-left: 6px;
+}
+
+QToolBox::tab:selected {
+background: rgba(64,152,212,255);
+color: white;
+border: 1px solid white;
+}</string>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="settingsAccountPage">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>456</width>
+        <height>341</height>
+       </rect>
+      </property>
+      <attribute name="label">
+       <string>Account</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="settingsAccountVerticalLayout">
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="settingsBackupPage">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>577</width>
+        <height>373</height>
+       </rect>
+      </property>
+      <attribute name="label">
+       <string>Backup</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="settingsBackupVerticalLayout">
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="settingsApplicationPage">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>455</width>
+        <height>356</height>
+       </rect>
+      </property>
+      <attribute name="label">
+       <string>Application</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="settingsApplicationVerticalLayout">
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

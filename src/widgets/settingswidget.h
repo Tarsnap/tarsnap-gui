@@ -53,6 +53,10 @@ signals:
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
     void getKeyId(QString key_filename);
 
+    // For the Backup tab
+    //! Show the simulation status
+    void newSimulationStatus(int state);
+
 private slots:
     // For the Account tab
     void commitSettings();
@@ -63,6 +67,10 @@ private slots:
     void accountMachineKeyBrowseButtonClicked();
     void nukeTimerFired();
     void nukeArchivesButtonClicked();
+    // For the Backup tab
+    void updateSimulationIcon(int state);
+    void enableJobSchedulingButtonClicked();
+    void disableJobSchedulingButtonClicked();
 
 private:
     Ui::SettingsWidget _ui;

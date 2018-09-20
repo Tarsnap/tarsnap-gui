@@ -155,8 +155,6 @@ private slots:
     void aboutMenuClicked();
     void mainTabChanged(int index);
     void validateBackupTab();
-    void enableJobSchedulingButtonClicked();
-    void disableJobSchedulingButtonClicked();
 
 private:
     Ui::MainWindow _ui;

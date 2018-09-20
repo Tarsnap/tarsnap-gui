@@ -145,8 +145,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::commitSettings);
     connect(_ui.tarsnapCacheLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
-    connect(_ui.aggressiveNetworkingCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
     connect(_ui.tarsnapPathLineEdit, &QLineEdit::textChanged, this,
             &MainWindow::validateTarsnapPath);
     connect(_ui.tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
@@ -157,29 +155,7 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::commitSettings);
     connect(_ui.notificationsCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui.preservePathsCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
     connect(_ui.downloadsDirLineEdit, &QLineEdit::editingFinished, this,
-            &MainWindow::commitSettings);
-    connect(_ui.traverseMountCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
-    connect(_ui.followSymLinksCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
-    connect(_ui.skipFilesSizeSpinBox, &QSpinBox::editingFinished, this,
-            &MainWindow::commitSettings);
-    connect(_ui.skipSystemJunkCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
-    connect(_ui.skipSystemLineEdit, &QLineEdit::editingFinished, this,
-            &MainWindow::commitSettings);
-    connect(_ui.skipNoDumpCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
-    connect(_ui.simulationCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
-    connect(_ui.ignoreConfigCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
-    connect(_ui.limitUploadSpinBox, &QSpinBox::editingFinished, this,
-            &MainWindow::commitSettings);
-    connect(_ui.limitDownloadSpinBox, &QSpinBox::editingFinished, this,
             &MainWindow::commitSettings);
     connect(_ui.saveConsoleLogCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
@@ -196,10 +172,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::downloadsDirBrowseButtonClicked);
     connect(_ui.clearJournalButton, &QPushButton::clicked, this,
             &MainWindow::clearJournalClicked);
-    connect(_ui.enableSchedulingButton, &QPushButton::clicked, this,
-            &MainWindow::enableJobSchedulingButtonClicked);
-    connect(_ui.disableSchedulingButton, &QPushButton::clicked, this,
-            &MainWindow::disableJobSchedulingButtonClicked);
 
     // Archives pane
     _ui.archiveListWidget->addAction(_ui.actionRefresh);
@@ -315,13 +287,8 @@ MainWindow::MainWindow(QWidget *parent)
         else
             _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
     });
-    connect(_ui.simulationCheckBox, &QCheckBox::stateChanged, this,
-            &MainWindow::updateSimulationIcon);
     connect(_ui.repairCacheButton, &QPushButton::clicked, this,
             [&]() { emit repairCache(true); });
-    connect(_ui.skipSystemDefaultsButton, &QPushButton::clicked, [&]() {
-        _ui.skipSystemLineEdit->setText(DEFAULT_SKIP_SYSTEM_FILES);
-    });
     connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
         QMessageBox::information(this, QApplication::applicationName(),
                                  tr("The new size notation will take global "
@@ -416,46 +383,14 @@ void MainWindow::loadSettings()
         settings.value("tarsnap/path", "").toString());
     _ui.tarsnapCacheLineEdit->setText(
         settings.value("tarsnap/cache", "").toString());
-    _ui.aggressiveNetworkingCheckBox->setChecked(
-        settings
-            .value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING)
-            .toBool());
-    _ui.traverseMountCheckBox->setChecked(
-        settings.value("tarsnap/traverse_mount", DEFAULT_TRAVERSE_MOUNT).toBool());
-    _ui.followSymLinksCheckBox->setChecked(
-        settings.value("tarsnap/follow_symlinks", DEFAULT_FOLLOW_SYMLINKS)
-            .toBool());
-    _ui.preservePathsCheckBox->setChecked(
-        settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES)
-            .toBool());
-    _ui.ignoreConfigCheckBox->setChecked(
-        settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG)
-            .toBool());
-    _ui.simulationCheckBox->setChecked(
-        settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
     _ui.iecPrefixesCheckBox->setChecked(
         settings.value("app/iec_prefixes", false).toBool());
-    _ui.skipFilesSizeSpinBox->setValue(
-        settings.value("app/skip_files_size", DEFAULT_SKIP_FILES_SIZE).toInt());
-    _ui.skipSystemJunkCheckBox->setChecked(
-        settings.value("app/skip_system_enabled", DEFAULT_SKIP_SYSTEM_ENABLED)
-            .toBool());
-    _ui.skipSystemLineEdit->setEnabled(_ui.skipSystemJunkCheckBox->isChecked());
-    _ui.skipSystemLineEdit->setText(
-        settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
-            .toString());
-    _ui.skipNoDumpCheckBox->setChecked(
-        settings.value("app/skip_nodump", DEFAULT_SKIP_NODUMP).toBool());
     _ui.downloadsDirLineEdit->setText(
         settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString());
     _ui.appDataDirLineEdit->setText(
         settings.value("app/app_data", "").toString());
     _ui.notificationsCheckBox->setChecked(
         settings.value("app/notifications", true).toBool());
-    _ui.limitUploadSpinBox->setValue(
-        settings.value("app/limit_upload", 0).toInt());
-    _ui.limitDownloadSpinBox->setValue(
-        settings.value("app/limit_download", 0).toInt());
     _ui.actionShowArchivesTabHeader->setChecked(
         settings.value("app/archives_header_enabled", true).toBool());
     _ui.archivesHeader->setVisible(_ui.actionShowArchivesTabHeader->isChecked());
@@ -946,29 +881,11 @@ void MainWindow::commitSettings()
     QSettings settings;
     settings.setValue("tarsnap/path", _ui.tarsnapPathLineEdit->text());
     settings.setValue("tarsnap/cache", _ui.tarsnapCacheLineEdit->text());
-    settings.setValue("tarsnap/aggressive_networking",
-                      _ui.aggressiveNetworkingCheckBox->isChecked());
-    settings.setValue("tarsnap/preserve_pathnames",
-                      _ui.preservePathsCheckBox->isChecked());
-    settings.setValue("tarsnap/traverse_mount",
-                      _ui.traverseMountCheckBox->isChecked());
-    settings.setValue("tarsnap/follow_symlinks",
-                      _ui.followSymLinksCheckBox->isChecked());
-    settings.setValue("tarsnap/no_default_config",
-                      _ui.ignoreConfigCheckBox->isChecked());
-    settings.setValue("tarsnap/dry_run", _ui.simulationCheckBox->isChecked());
     settings.setValue("app/iec_prefixes", _ui.iecPrefixesCheckBox->isChecked());
-    settings.setValue("app/skip_files_size", _ui.skipFilesSizeSpinBox->value());
-    settings.setValue("app/skip_system_enabled",
-                      _ui.skipSystemJunkCheckBox->isChecked());
-    settings.setValue("app/skip_system_files", _ui.skipSystemLineEdit->text());
-    settings.setValue("app/skip_nodump", _ui.skipNoDumpCheckBox->isChecked());
     settings.setValue("app/downloads_dir", _ui.downloadsDirLineEdit->text());
     settings.setValue("app/app_data", _ui.appDataDirLineEdit->text());
     settings.setValue("app/notifications",
                       _ui.notificationsCheckBox->isChecked());
-    settings.setValue("app/limit_upload", _ui.limitUploadSpinBox->value());
-    settings.setValue("app/limit_download", _ui.limitDownloadSpinBox->value());
     settings.setValue("app/window_geometry", saveGeometry());
     settings.setValue("app/language", _ui.languageComboBox->currentText());
     settings.setValue("app/archives_header_enabled",
@@ -1417,162 +1334,6 @@ void MainWindow::addDefaultJobs()
     _ui.addJobButton->show();
 }
 
-void MainWindow::enableJobSchedulingButtonClicked()
-{
-#if defined(Q_OS_OSX)
-    QMessageBox::StandardButton confirm =
-        QMessageBox::question(this, tr("Job scheduling"),
-                              tr("Register Tarsnap GUI with the OS X"
-                                 " Launchd service to run daily at 10am?"
-                                 "\n\nJobs that have scheduled backup"
-                                 " turned on will be backed up according"
-                                 " to the Daily, Weekly or Monthly"
-                                 " schedule. \n\n%1")
-                                  .arg(CRON_MARKER_HELP));
-    if(confirm != QMessageBox::Yes)
-        return;
-
-    struct scheduleinfo info = launchdEnable();
-    if(info.status != SCHEDULE_OK)
-    {
-        QMessageBox::critical(this, tr("Job scheduling"), info.message);
-        return;
-    }
-
-#elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
-
-    QMessageBox::StandardButton confirm =
-        QMessageBox::question(this, tr("Job scheduling"),
-                              tr("Register Tarsnap GUI with cron serivce?"
-                                 "\nJobs that have scheduled backup"
-                                 " turned on will be backed up according"
-                                 " to the Daily, Weekly or Monthly"
-                                 " schedule. \n\n%1")
-                                  .arg(CRON_MARKER_HELP));
-    if(confirm != QMessageBox::Yes)
-        return;
-
-    struct scheduleinfo info = cronEnable();
-    if(info.status == SCHEDULE_ERROR)
-    {
-        QMessageBox::critical(this, tr("Job scheduling"), info.message);
-        return;
-    }
-    else if(info.status == SCHEDULE_OK)
-    {
-        QMessageBox::critical(this, tr("Job scheduling"),
-                              "Unknown error in scheduling code.");
-        return;
-    }
-    QString cronBlock = info.message;
-
-    QMessageBox question(this);
-    question.setIcon(QMessageBox::Question);
-    question.setText(QObject::tr(
-        "Tarsnap GUI will be added to the current user's crontab."));
-    question.setInformativeText(
-        QObject::tr("To ensure proper behavior please review the"
-                    " lines to be added by pressing Show"
-                    " Details before proceeding."));
-    question.setDetailedText(cronBlock);
-    question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
-    question.setDefaultButton(QMessageBox::Cancel);
-    // Workaround for activating Show details by default
-    foreach(QAbstractButton *button, question.buttons())
-    {
-        if(question.buttonRole(button) == QMessageBox::ActionRole)
-        {
-            button->click();
-            break;
-        }
-    }
-    int proceed = question.exec();
-    if(proceed == QMessageBox::Cancel)
-        return;
-
-    struct scheduleinfo info_p2 = cronEnable_p2(cronBlock, info.extra);
-    if(info_p2.status != SCHEDULE_OK)
-    {
-        QMessageBox::critical(this, tr("Job scheduling"), info.message);
-        return;
-    }
-#endif
-}
-
-void MainWindow::disableJobSchedulingButtonClicked()
-{
-#if defined(Q_OS_OSX)
-    QMessageBox::StandardButton confirm =
-        QMessageBox::question(this, tr("Job scheduling"),
-                              tr("Unregister Tarsnap GUI from the OS X"
-                                 " Launchd service? This will disable"
-                                 " automatic Job backup scheduling."
-                                 "\n\n%1")
-                                  .arg(CRON_MARKER_HELP));
-    if(confirm != QMessageBox::Yes)
-        return;
-
-    struct scheduleinfo info = launchdDisable();
-    if(info.status != SCHEDULE_OK)
-    {
-        QMessageBox::critical(this, tr("Job scheduling"), info.message);
-        return;
-    }
-
-#elif defined(Q_OS_LINUX) || defined(Q_OS_BSD4)
-    QMessageBox::StandardButton confirm =
-        QMessageBox::question(this, "Confirm action",
-                              "Unregister Tarsnap GUI from cron?");
-    if(confirm != QMessageBox::Yes)
-        return;
-
-    struct scheduleinfo info = cronDisable();
-    if(info.status == SCHEDULE_ERROR)
-    {
-        QMessageBox::critical(this, tr("Job scheduling"), info.message);
-        return;
-    }
-    else if(info.status == SCHEDULE_OK)
-    {
-        QMessageBox::critical(this, tr("Job scheduling"),
-                              "Unknown error in scheduling code.");
-        return;
-    }
-    QString linesToRemove = info.message;
-
-    QMessageBox question(this);
-    question.setIcon(QMessageBox::Question);
-    question.setText(tr("Tarsnap GUI will be removed from the current user's"
-                        " crontab."));
-    question.setInformativeText(
-        tr("To ensure proper behavior please review the"
-           " lines to be removed by pressing Show Details"
-           " before proceeding."));
-    question.setDetailedText(linesToRemove);
-    question.setStandardButtons(QMessageBox::Cancel | QMessageBox::Yes);
-    question.setDefaultButton(QMessageBox::Cancel);
-    // Workaround for activating Show details by default
-    foreach(QAbstractButton *button, question.buttons())
-    {
-        if(question.buttonRole(button) == QMessageBox::ActionRole)
-        {
-            button->click();
-            break;
-        }
-    }
-    int proceed = question.exec();
-    if(proceed == QMessageBox::Cancel)
-        return;
-
-    struct scheduleinfo info_p2 = cronDisable_p2(linesToRemove, info.extra);
-    if(info_p2.status != SCHEDULE_OK)
-    {
-        QMessageBox::critical(this, tr("Job scheduling"), info.message);
-        return;
-    }
-#endif
-}
-
 void MainWindow::updateUi()
 {
     // Keyboard shortcuts
@@ -1680,4 +1441,6 @@ void MainWindow::connectSettingsWidget()
             &MainWindow::updateStatusMessage);
     connect(&_settingsWidget, &SettingsWidget::getKeyId, this,
             &MainWindow::getKeyId);
+    connect(&_settingsWidget, &SettingsWidget::newSimulationStatus, this,
+            &MainWindow::updateSimulationIcon);
 }

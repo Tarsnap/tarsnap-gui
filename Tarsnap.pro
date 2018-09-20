@@ -166,6 +166,8 @@ UNIT_TESTS =						\
 	tests/customfilesystemmodel			\
 	tests/task
 
+BUILD_ONLY_TESTS = tests/cli
+
 osx {
     LIBS += -framework Foundation
     ICON = resources/logos/tarsnap.icns
@@ -185,7 +187,7 @@ TEST_HOME = /tmp/tarsnap-gui-test
 test_home_prep.commands = @rm -rf "$${TEST_HOME}"
 
 test.commands =		@echo "Compiling tests...";			\
-			for D in $${UNIT_TESTS}; do			\
+			for D in $${UNIT_TESTS} $${BUILD_ONLY_TESTS}; do \
 				(cd \$\${D} && \${QMAKE} && \${MAKE} -s); \
 				err=\$\$?;				\
 				if \[ \$\${err} -gt "0" \]; then	\

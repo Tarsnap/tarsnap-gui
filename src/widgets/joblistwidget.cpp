@@ -24,7 +24,7 @@ void JobListWidget::backupSelectedItems()
     if(selectedItems().isEmpty())
         return;
 
-    auto confirm =
+    QMessageBox::StandardButton confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Initiate backup for the %1 selected job(s)?")
                                   .arg(selectedItems().count()));
@@ -135,19 +135,20 @@ void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
         return;
     }
 
-    JobPtr job     = jobItem->job();
-    auto   confirm = QMessageBox::question(this, tr("Confirm action"),
-                                         tr("Are you sure you want to "
-                                            "delete job \"%1\" "
-                                            "(this cannot be undone)?")
-                                             .arg(job->name()));
+    JobPtr job = jobItem->job();
+
+    QMessageBox::StandardButton confirm =
+        QMessageBox::question(this, tr("Confirm action"),
+                              tr("Are you sure you want to delete job \"%1\" "
+                                 "(this cannot be undone)?")
+                                  .arg(job->name()));
     if(confirm != QMessageBox::Yes)
         return;
 
     bool purgeArchives = false;
     if(!job->archives().isEmpty())
     {
-        auto delArchives =
+        QMessageBox::StandardButton delArchives =
             QMessageBox::question(this, tr("Confirm action"),
                                   tr("Also delete %1 archives "
                                      "belonging to this job "

@@ -86,6 +86,8 @@ signals:
     // Tarsnap task notifications
     //! Are there no running tasks?
     void idle(bool status);
+    //! Give number of tasks.
+    void numTasks(int runningTasks, int queuedTasks);
     //! Result of tarsnap --version.
     void tarsnapVersion(QString versionString);
     //! Result of tarsnap-keygen.

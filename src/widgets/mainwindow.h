@@ -7,6 +7,7 @@
 #include "taskmanager.h"
 #include "ui_mainwindow.h"
 
+#include <QInputDialog>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QTimer>
@@ -62,6 +63,11 @@ public slots:
     void saveKeyId(QString key_filename, quint64 id);
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
+
+    //! Update the simulation icon.
+    void updateSimulationIcon(int state);
+    //! Update the number of tasks;
+    void updateNumTasks(int numRunning, int numQueued);
 
 signals:
     //! Begin tarsnap -c -f \<name\>
@@ -173,6 +179,9 @@ private:
     QDialog        _aboutWindow;
     QDialog        _consoleWindow;
     QMessageBox    _stopTasksDialog;
+    int            _runningTasks;
+    int            _queuedTasks;
+    QInputDialog   _nukeInput;
 
     QPlainTextEdit *_consoleLog;
 

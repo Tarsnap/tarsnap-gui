@@ -32,7 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
       _nukeCountdown(this),
       _tarsnapAccount(this),
       _aboutToQuit(false),
-      _stopTasksDialog(this)
+      _stopTasksDialog(this),
+      _nukeInput(this)
 {
     connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
             &MainWindow::appendToConsoleLog);
@@ -345,17 +346,8 @@ MainWindow::MainWindow(QWidget *parent)
         else
             _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
     });
-    connect(_ui.simulationCheckBox, &QCheckBox::stateChanged, [&](int state) {
-        if(state == Qt::Unchecked)
-        {
-            emit getArchives();
-            _ui.simulationIcon->hide();
-        }
-        else
-        {
-            _ui.simulationIcon->show();
-        }
-    });
+    connect(_ui.simulationCheckBox, &QCheckBox::stateChanged, this,
+            &MainWindow::updateSimulationIcon);
     connect(_ui.repairCacheButton, &QPushButton::clicked, this,
             [&]() { emit repairCache(true); });
     connect(_ui.skipSystemDefaultsButton, &QPushButton::clicked, [&]() {
@@ -483,7 +475,6 @@ void MainWindow::loadSettings()
             .toBool());
     _ui.simulationCheckBox->setChecked(
         settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
-    _ui.simulationIcon->setVisible(_ui.simulationCheckBox->isChecked());
     _ui.iecPrefixesCheckBox->setChecked(
         settings.value("app/iec_prefixes", false).toBool());
     _ui.skipFilesSizeSpinBox->setValue(
@@ -527,6 +518,9 @@ void MainWindow::loadSettings()
         _ui.defaultJobs->show();
         _ui.addJobButton->hide();
     }
+
+    _ui.simulationIcon->setVisible(
+        settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
 
     Translator &translator = Translator::instance();
     _ui.languageComboBox->addItem(LANG_AUTO);
@@ -1236,7 +1230,7 @@ void MainWindow::backupJob(JobPtr job)
         }
         else
         {
-            auto confirm = QMessageBox::question(
+            QMessageBox::StandardButton confirm = QMessageBox::question(
                 this, tr("Job warning"),
                 tr("Some backup paths for Job %1 are not"
                    " accessible anymore and thus backup may"
@@ -1320,17 +1314,22 @@ void MainWindow::appDataButtonClicked()
 void MainWindow::nukeArchivesButtonClicked()
 {
     const QString confirmationText = tr("No Tomorrow");
-    bool          ok               = false;
-    QString       userText         = QInputDialog::getText(
-        this, tr("Nuke all archives?"),
+
+    // Set up nuke confirmation
+    _nukeInput.setWindowTitle(tr("Nuke all archives?"));
+    _nukeInput.setLabelText(
         tr("This action will <b>delete all (%1) archives</b> stored for this "
            "key."
            "<br /><br />To confirm, type '%2' and press OK."
            "<br /><br /><i>Warning: This action cannot be undone. "
            "All archives will be <b>lost forever</b></i>.")
-            .arg(_ui.accountArchivesCountLabel->text(), confirmationText),
-        QLineEdit::Normal, "", &ok);
-    if(ok && (confirmationText == userText))
+            .arg(_ui.accountArchivesCountLabel->text(), confirmationText));
+    _nukeInput.setInputMode(QInputDialog::TextInput);
+
+    // Run nuke confirmation
+    bool ok = _nukeInput.exec();
+
+    if(ok && (confirmationText == _nukeInput.textValue()))
     {
         _nukeTimerCount = NUKE_SECONDS_DELAY;
         _nukeCountdown.setWindowTitle(
@@ -1352,7 +1351,7 @@ void MainWindow::nukeArchivesButtonClicked()
 
 void MainWindow::runSetupWizardClicked()
 {
-    if(_ui.busyWidget->isVisible())
+    if((_runningTasks + _queuedTasks) > 0)
     {
         QMessageBox::warning(this, tr("Confirm action"),
                              tr("Tasks are currently running. Please "
@@ -1360,7 +1359,7 @@ void MainWindow::runSetupWizardClicked()
                                 "completion and try again."));
         return;
     }
-    auto confirm =
+    QMessageBox::StandardButton confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Reset current app settings, job definitions "
                                  "and run the setup wizard?"),
@@ -1507,7 +1506,7 @@ void MainWindow::tarsnapError(TarsnapError error)
     {
     case TarsnapError::CacheError:
     {
-        auto confirm =
+        QMessageBox::StandardButton confirm =
             QMessageBox::critical(this, tr("Tarsnap error"),
                                   tr("The tarsnap cache directory is"
                                      " either missing or is broken."
@@ -1563,7 +1562,7 @@ void MainWindow::updateLastMachineActivity(QStringList activityFields)
 
 void MainWindow::clearJournalClicked()
 {
-    auto confirm =
+    QMessageBox::StandardButton confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Clear journal log? All entries will "
                                  "be deleted forever."));
@@ -1849,4 +1848,23 @@ void MainWindow::updateUi()
         _ui.addJobButton->setText(tr("Save"));
     else
         _ui.addJobButton->setText(tr("Add job"));
+}
+
+void MainWindow::updateSimulationIcon(int state)
+{
+    if(state == Qt::Unchecked)
+    {
+        emit getArchives();
+        _ui.simulationIcon->hide();
+    }
+    else
+    {
+        _ui.simulationIcon->show();
+    }
+}
+
+void MainWindow::updateNumTasks(int runningTasks, int queuedTasks)
+{
+    _runningTasks = runningTasks;
+    _queuedTasks  = queuedTasks;
 }

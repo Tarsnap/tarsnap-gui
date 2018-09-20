@@ -154,6 +154,8 @@ void AppGui::showMainWindow()
             &TaskManager::getArchiveContents, QUEUED);
     connect(&_taskManager, &TaskManager::idle, _mainWindow,
             &MainWindow::updateLoadingAnimation, QUEUED);
+    connect(&_taskManager, &TaskManager::numTasks, _mainWindow,
+            &MainWindow::updateNumTasks, QUEUED);
     connect(_mainWindow, &MainWindow::getOverallStats, &_taskManager,
             &TaskManager::getOverallStats, QUEUED);
     connect(&_taskManager, &TaskManager::overallStats, _mainWindow,

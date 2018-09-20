@@ -12,6 +12,10 @@ class TarsnapAccount : public QDialog
 {
     Q_OBJECT
 
+#ifdef QT_TESTLIB_LIB
+    friend class TestSettingsWidget;
+#endif
+
 public:
     explicit TarsnapAccount(QWidget *parent = nullptr);
     ~TarsnapAccount();

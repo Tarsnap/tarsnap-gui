@@ -160,6 +160,7 @@ OBJECTS_DIR = build/gui/
 UNIT_TESTS =						\
 	tests/mainwindow				\
 	tests/cmdline					\
+	tests/settingswidget				\
 	tests/setupwizard				\
 	tests/taskmanager				\
 	tests/customfilesystemmodel			\

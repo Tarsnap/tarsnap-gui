@@ -68,6 +68,7 @@ SOURCES +=						\
 	src/widgets/mainwindow.cpp			\
 	src/widgets/popuppushbutton.cpp			\
 	src/widgets/restoredialog.cpp			\
+	src/widgets/settingswidget.cpp			\
 	src/widgets/setupdialog.cpp
 
 HEADERS +=						\
@@ -111,6 +112,7 @@ HEADERS +=						\
 	src/widgets/mainwindow.h			\
 	src/widgets/popuppushbutton.h			\
 	src/widgets/restoredialog.h			\
+	src/widgets/settingswidget.h			\
 	src/widgets/setupdialog.h
 
 INCLUDEPATH += src/widgets/				\
@@ -131,6 +133,7 @@ FORMS +=						\
 	forms/logindialog.ui				\
 	forms/mainwindow.ui				\
 	forms/restoredialog.ui				\
+	forms/settingswidget.ui				\
 	forms/setupdialog.ui
 
 RESOURCES += resources/resources.qrc
@@ -157,6 +160,7 @@ OBJECTS_DIR = build/gui/
 UNIT_TESTS =						\
 	tests/mainwindow				\
 	tests/cmdline					\
+	tests/settingswidget				\
 	tests/setupwizard				\
 	tests/taskmanager				\
 	tests/customfilesystemmodel			\

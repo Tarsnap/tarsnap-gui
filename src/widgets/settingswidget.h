@@ -4,6 +4,7 @@
 #include "scheduling.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
+#include "translator.h"
 #include "ui_settingswidget.h"
 
 #include <QInputDialog>
@@ -31,6 +32,10 @@ public:
     // For the Account tab
     void getAccountInfo();
 
+    // For the Application tab
+    //! Update the number of tasks;
+    void updateNumTasks(int numRunning, int numQueued);
+
 public slots:
     //! Initialization routines.
     void initializeSettingsWidget();
@@ -42,6 +47,10 @@ public slots:
                              quint64 sizeUniqueCompressed, quint64 archiveCount);
     //! Save the Tarsnap key ID.
     void saveKeyId(QString key_filename, quint64 id);
+
+    //! For the Application tab
+    //! Update the Tarsnap version number, and store it in the settings.
+    void updateTarsnapVersion(QString versionString);
 
 signals:
     // For the Account tab
@@ -57,6 +66,17 @@ signals:
     //! Show the simulation status
     void newSimulationStatus(int state);
 
+    // For the Application tab
+    //! Begin tarsnap --fsck or --fsck-prune
+    void repairCache(bool prune);
+    //! Clear all Journal entries.
+    void clearJournal();
+    //! The user has confirmed that the settings can be wiped; go ahead
+    //! and run the setup wizard again.
+    void runSetupWizard();
+    //! Begin tarsnap --version
+    void getTarsnapVersion(QString tarsnapPath);
+
 private slots:
     // For the Account tab
     void commitSettings();
@@ -71,6 +91,16 @@ private slots:
     void updateSimulationIcon(int state);
     void enableJobSchedulingButtonClicked();
     void disableJobSchedulingButtonClicked();
+    // For the Application tab
+    void clearJournalClicked();
+    bool validateTarsnapPath();
+    bool validateTarsnapCache();
+    bool validateAppDataDir();
+    void tarsnapPathBrowseButtonClicked();
+    void tarsnapCacheBrowseButton();
+    void appDataButtonClicked();
+    void runSetupWizardClicked();
+    void downloadsDirBrowseButtonClicked();
 
 private:
     Ui::SettingsWidget _ui;
@@ -84,6 +114,10 @@ private:
     QMessageBox    _nukeCountdown;
     TarsnapAccount _tarsnapAccount;
     QInputDialog   _nukeInput;
+
+    // For the Application tab
+    int _runningTasks;
+    int _queuedTasks;
 };
 
 #endif // SETTINGSWIDGET_H

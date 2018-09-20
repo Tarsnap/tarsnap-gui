@@ -1,5 +1,7 @@
 #include "settingswidget.h"
 
+#include "debug.h"
+#include "translator.h"
 #include "utils.h"
 
 #include <QDateTime>
@@ -105,6 +107,64 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     connect(_ui.skipSystemDefaultsButton, &QPushButton::clicked, [&]() {
         _ui.skipSystemLineEdit->setText(DEFAULT_SKIP_SYSTEM_FILES);
     });
+
+    /* Application tab */
+    connect(_ui.tarsnapPathLineEdit, &QLineEdit::editingFinished, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui.tarsnapCacheLineEdit, &QLineEdit::editingFinished, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui.tarsnapPathLineEdit, &QLineEdit::textChanged, this,
+            &SettingsWidget::validateTarsnapPath);
+    connect(_ui.tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
+            &SettingsWidget::validateTarsnapCache);
+    connect(_ui.appDataDirLineEdit, &QLineEdit::textChanged, this,
+            &SettingsWidget::validateAppDataDir);
+    connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui.notificationsCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui.downloadsDirLineEdit, &QLineEdit::editingFinished, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui.saveConsoleLogCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+
+    connect(_ui.tarsnapPathBrowseButton, &QPushButton::clicked, this,
+            &SettingsWidget::tarsnapPathBrowseButtonClicked);
+    connect(_ui.tarsnapCacheBrowseButton, &QPushButton::clicked, this,
+            &SettingsWidget::tarsnapCacheBrowseButton);
+    connect(_ui.appDataDirBrowseButton, &QPushButton::clicked, this,
+            &SettingsWidget::appDataButtonClicked);
+    connect(_ui.runSetupWizard, &QPushButton::clicked, this,
+            &SettingsWidget::runSetupWizardClicked);
+    connect(_ui.downloadsDirBrowseButton, &QPushButton::clicked, this,
+            &SettingsWidget::downloadsDirBrowseButtonClicked);
+    connect(_ui.clearJournalButton, &QPushButton::clicked, this,
+            &SettingsWidget::clearJournalClicked);
+
+    connect(_ui.downloadsDirLineEdit, &QLineEdit::textChanged, [&]() {
+        QFileInfo file(_ui.downloadsDirLineEdit->text());
+        if(file.exists() && file.isDir() && file.isWritable())
+            _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
+        else
+            _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
+    });
+    connect(_ui.repairCacheButton, &QPushButton::clicked, this,
+            [&]() { emit repairCache(true); });
+    connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
+        QMessageBox::information(this, QApplication::applicationName(),
+                                 tr("The new size notation will take global "
+                                    "effect on application restart."));
+    });
+
+    connect(_ui.languageComboBox, &QComboBox::currentTextChanged, this,
+            [&](const QString language) {
+                if(!language.isEmpty())
+                {
+                    this->commitSettings();
+                    Translator &translator = Translator::instance();
+                    translator.translateApp(qApp, language);
+                }
+            });
 }
 
 void SettingsWidget::initializeSettingsWidget()
@@ -136,6 +196,30 @@ void SettingsWidget::initializeSettingsWidget()
         QMessageBox::critical(this, tr("Tarsnap error"),
                               tr("Machine key file not found. Go to "
                                  " Settings -> Account page to fix that."));
+    }
+
+    /* Application tab */
+
+    // Validate applications paths.
+    if(!validateTarsnapPath())
+    {
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Tarsnap CLI utilities not found. Go to "
+                                 " Settings -> Application page to fix that."));
+    }
+
+    if(!validateTarsnapCache())
+    {
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Tarsnap cache dir is invalid. Go to "
+                                 " Settings -> Application page to fix that."));
+    }
+
+    if(!validateAppDataDir())
+    {
+        QMessageBox::critical(this, tr("Tarsnap error"),
+                              tr("Application data dir is invalid. Go to "
+                                 " Settings -> Application page to fix that."));
     }
 }
 
@@ -189,6 +273,29 @@ void SettingsWidget::loadSettings()
         settings.value("app/limit_upload", 0).toInt());
     _ui.limitDownloadSpinBox->setValue(
         settings.value("app/limit_download", 0).toInt());
+
+    /* Application tab */
+    _ui.tarsnapPathLineEdit->setText(
+        settings.value("tarsnap/path", "").toString());
+    _ui.tarsnapCacheLineEdit->setText(
+        settings.value("tarsnap/cache", "").toString());
+    _ui.iecPrefixesCheckBox->setChecked(
+        settings.value("app/iec_prefixes", false).toBool());
+    _ui.downloadsDirLineEdit->setText(
+        settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString());
+    _ui.appDataDirLineEdit->setText(
+        settings.value("app/app_data", "").toString());
+    _ui.notificationsCheckBox->setChecked(
+        settings.value("app/notifications", true).toBool());
+    _ui.saveConsoleLogCheckBox->setChecked(
+        settings.value("app/save_console_log", false).toBool());
+    _ui.saveConsoleLogLineEdit->setText(ConsoleLog::getLogFile());
+
+    Translator &translator = Translator::instance();
+    _ui.languageComboBox->addItem(LANG_AUTO);
+    _ui.languageComboBox->addItems(translator.languageList());
+    _ui.languageComboBox->setCurrentText(
+        settings.value("app/language", LANG_AUTO).toString());
 }
 
 void SettingsWidget::commitSettings()
@@ -220,6 +327,18 @@ void SettingsWidget::commitSettings()
 
     settings.setValue("app/limit_upload", _ui.limitUploadSpinBox->value());
     settings.setValue("app/limit_download", _ui.limitDownloadSpinBox->value());
+
+    /* Application tab */
+    settings.setValue("tarsnap/path", _ui.tarsnapPathLineEdit->text());
+    settings.setValue("tarsnap/cache", _ui.tarsnapCacheLineEdit->text());
+    settings.setValue("app/iec_prefixes", _ui.iecPrefixesCheckBox->isChecked());
+    settings.setValue("app/downloads_dir", _ui.downloadsDirLineEdit->text());
+    settings.setValue("app/app_data", _ui.appDataDirLineEdit->text());
+    settings.setValue("app/notifications",
+                      _ui.notificationsCheckBox->isChecked());
+    settings.setValue("app/language", _ui.languageComboBox->currentText());
+    settings.setValue("app/save_console_log",
+                      _ui.saveConsoleLogCheckBox->isChecked());
 
     settings.sync();
 }
@@ -541,4 +660,141 @@ void SettingsWidget::disableJobSchedulingButtonClicked()
         return;
     }
 #endif
+}
+
+void SettingsWidget::updateTarsnapVersion(QString versionString)
+{
+    _ui.tarsnapVersionLabel->setText(versionString);
+    QSettings settings;
+    settings.setValue("tarsnap/version", versionString);
+}
+
+bool SettingsWidget::validateTarsnapPath()
+{
+    if(Utils::findTarsnapClientInPath(_ui.tarsnapPathLineEdit->text()).isEmpty())
+    {
+        _ui.tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        _ui.tarsnapVersionLabel->clear();
+        return false;
+    }
+    else
+    {
+        _ui.tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        emit getTarsnapVersion(_ui.tarsnapPathLineEdit->text());
+        return true;
+    }
+}
+
+bool SettingsWidget::validateTarsnapCache()
+{
+    if(Utils::validateTarsnapCache(_ui.tarsnapCacheLineEdit->text()).isEmpty())
+    {
+        _ui.tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        return false;
+    }
+    else
+    {
+        _ui.tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        return true;
+    }
+}
+
+bool SettingsWidget::validateAppDataDir()
+{
+    if(Utils::validateAppDataDir(_ui.appDataDirLineEdit->text()).isEmpty())
+    {
+        _ui.appDataDirLineEdit->setStyleSheet("QLineEdit {color: red;}");
+        return false;
+    }
+    else
+    {
+        _ui.appDataDirLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        return true;
+    }
+}
+
+void SettingsWidget::tarsnapPathBrowseButtonClicked()
+{
+    QString tarsnapPath =
+        QFileDialog::getExistingDirectory(this, tr("Find Tarsnap client"),
+                                          _ui.tarsnapPathLineEdit->text());
+    if(!tarsnapPath.isEmpty())
+    {
+        _ui.tarsnapPathLineEdit->setText(tarsnapPath);
+        commitSettings();
+    }
+}
+
+void SettingsWidget::tarsnapCacheBrowseButton()
+{
+    QString tarsnapCacheDir =
+        QFileDialog::getExistingDirectory(this, tr("Tarsnap cache location"),
+                                          _ui.tarsnapCacheLineEdit->text());
+    if(!tarsnapCacheDir.isEmpty())
+    {
+        _ui.tarsnapCacheLineEdit->setText(tarsnapCacheDir);
+        commitSettings();
+    }
+}
+
+void SettingsWidget::appDataButtonClicked()
+{
+    QString appDataDir =
+        QFileDialog::getExistingDirectory(this,
+                                          tr("App data directory location"),
+                                          _ui.appDataDirLineEdit->text());
+    if(!appDataDir.isEmpty())
+    {
+        _ui.appDataDirLineEdit->setText(appDataDir);
+        commitSettings();
+    }
+}
+
+void SettingsWidget::runSetupWizardClicked()
+{
+    if((_runningTasks + _queuedTasks) > 0)
+    {
+        QMessageBox::warning(this, tr("Confirm action"),
+                             tr("Tasks are currently running. Please "
+                                "stop executing tasks or wait for "
+                                "completion and try again."));
+        return;
+    }
+    QMessageBox::StandardButton confirm =
+        QMessageBox::question(this, tr("Confirm action"),
+                              tr("Reset current app settings, job definitions "
+                                 "and run the setup wizard?"),
+                              (QMessageBox::Yes | QMessageBox::No),
+                              QMessageBox::No);
+    if(confirm == QMessageBox::Yes)
+        emit runSetupWizard();
+}
+
+void SettingsWidget::downloadsDirBrowseButtonClicked()
+{
+    QString downDir =
+        QFileDialog::getExistingDirectory(this,
+                                          tr("Browse for downloads directory"),
+                                          DEFAULT_DOWNLOADS);
+    if(!downDir.isEmpty())
+    {
+        _ui.downloadsDirLineEdit->setText(downDir);
+        commitSettings();
+    }
+}
+
+void SettingsWidget::clearJournalClicked()
+{
+    QMessageBox::StandardButton confirm =
+        QMessageBox::question(this, tr("Confirm action"),
+                              tr("Clear journal log? All entries will "
+                                 "be deleted forever."));
+    if(confirm == QMessageBox::Yes)
+        emit clearJournal();
+}
+
+void SettingsWidget::updateNumTasks(int runningTasks, int queuedTasks)
+{
+    _runningTasks = runningTasks;
+    _queuedTasks  = queuedTasks;
 }

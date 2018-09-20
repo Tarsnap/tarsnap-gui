@@ -141,37 +141,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Settings pane
     loadSettings();
-    connect(_ui.tarsnapPathLineEdit, &QLineEdit::editingFinished, this,
-            &MainWindow::commitSettings);
-    connect(_ui.tarsnapCacheLineEdit, &QLineEdit::editingFinished, this,
-            &MainWindow::commitSettings);
-    connect(_ui.tarsnapPathLineEdit, &QLineEdit::textChanged, this,
-            &MainWindow::validateTarsnapPath);
-    connect(_ui.tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
-            &MainWindow::validateTarsnapCache);
-    connect(_ui.appDataDirLineEdit, &QLineEdit::textChanged, this,
-            &MainWindow::validateAppDataDir);
-    connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
-    connect(_ui.notificationsCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
-    connect(_ui.downloadsDirLineEdit, &QLineEdit::editingFinished, this,
-            &MainWindow::commitSettings);
-    connect(_ui.saveConsoleLogCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::commitSettings);
-
-    connect(_ui.tarsnapPathBrowseButton, &QPushButton::clicked, this,
-            &MainWindow::tarsnapPathBrowseButtonClicked);
-    connect(_ui.tarsnapCacheBrowseButton, &QPushButton::clicked, this,
-            &MainWindow::tarsnapCacheBrowseButton);
-    connect(_ui.appDataDirBrowseButton, &QPushButton::clicked, this,
-            &MainWindow::appDataButtonClicked);
-    connect(_ui.runSetupWizard, &QPushButton::clicked, this,
-            &MainWindow::runSetupWizardClicked);
-    connect(_ui.downloadsDirBrowseButton, &QPushButton::clicked, this,
-            &MainWindow::downloadsDirBrowseButtonClicked);
-    connect(_ui.clearJournalButton, &QPushButton::clicked, this,
-            &MainWindow::clearJournalClicked);
 
     // Archives pane
     _ui.archiveListWidget->addAction(_ui.actionRefresh);
@@ -280,20 +249,6 @@ MainWindow::MainWindow(QWidget *parent)
                     _ui.appendTimestampCheckBox->setChecked(false);
                 validateBackupTab();
             });
-    connect(_ui.downloadsDirLineEdit, &QLineEdit::textChanged, [&]() {
-        QFileInfo file(_ui.downloadsDirLineEdit->text());
-        if(file.exists() && file.isDir() && file.isWritable())
-            _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
-        else
-            _ui.downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
-    });
-    connect(_ui.repairCacheButton, &QPushButton::clicked, this,
-            [&]() { emit repairCache(true); });
-    connect(_ui.iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
-        QMessageBox::information(this, QApplication::applicationName(),
-                                 tr("The new size notation will take global "
-                                    "effect on application restart."));
-    });
     connect(_ui.dismissButton, &QPushButton::clicked, [&]() {
         QSettings settings;
         settings.setValue("app/default_jobs_dismissed", true);
@@ -325,15 +280,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.jobsFilter, static_cast<void (QComboBox::*)(int)>(
                                 &QComboBox::currentIndexChanged),
             this, [&]() { _ui.jobListWidget->setFocus(); });
-    connect(_ui.languageComboBox, &QComboBox::currentTextChanged, this,
-            [&](const QString language) {
-                if(!language.isEmpty())
-                {
-                    this->commitSettings();
-                    Translator &translator = Translator::instance();
-                    translator.translateApp(qApp, language);
-                }
-            });
     connect(_ui.archiveListWidget, &ArchiveListWidget::countChanged, this,
             [&](int total, int visible) {
                 _ui.archivesCountLabel->setText(
@@ -379,27 +325,12 @@ void MainWindow::loadSettings()
 {
     QSettings settings;
 
-    _ui.tarsnapPathLineEdit->setText(
-        settings.value("tarsnap/path", "").toString());
-    _ui.tarsnapCacheLineEdit->setText(
-        settings.value("tarsnap/cache", "").toString());
-    _ui.iecPrefixesCheckBox->setChecked(
-        settings.value("app/iec_prefixes", false).toBool());
-    _ui.downloadsDirLineEdit->setText(
-        settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString());
-    _ui.appDataDirLineEdit->setText(
-        settings.value("app/app_data", "").toString());
-    _ui.notificationsCheckBox->setChecked(
-        settings.value("app/notifications", true).toBool());
     _ui.actionShowArchivesTabHeader->setChecked(
         settings.value("app/archives_header_enabled", true).toBool());
     _ui.archivesHeader->setVisible(_ui.actionShowArchivesTabHeader->isChecked());
     _ui.actionShowJobsTabHeader->setChecked(
         settings.value("app/jobs_header_enabled", true).toBool());
     _ui.jobsHeader->setVisible(_ui.actionShowJobsTabHeader->isChecked());
-    _ui.saveConsoleLogCheckBox->setChecked(
-        settings.value("app/save_console_log", false).toBool());
-    _ui.saveConsoleLogLineEdit->setText(ConsoleLog::getLogFile());
 
     if(settings.value("app/default_jobs_dismissed", false).toBool())
     {
@@ -415,12 +346,6 @@ void MainWindow::loadSettings()
     _ui.simulationIcon->setVisible(
         settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
 
-    Translator &translator = Translator::instance();
-    _ui.languageComboBox->addItem(LANG_AUTO);
-    _ui.languageComboBox->addItems(translator.languageList());
-    _ui.languageComboBox->setCurrentText(
-        settings.value("app/language", LANG_AUTO).toString());
-
     QByteArray geometry =
         settings.value("app/window_geometry", "").toByteArray();
     if(!geometry.isEmpty())
@@ -432,28 +357,6 @@ void MainWindow::initializeMainWindow()
     _settingsWidget.initializeSettingsWidget();
 
     QSettings settings;
-
-    // Validate applications paths.
-    if(!validateTarsnapPath())
-    {
-        QMessageBox::critical(this, tr("Tarsnap error"),
-                              tr("Tarsnap CLI utilities not found. Go to "
-                                 " Settings -> Application page to fix that."));
-    }
-
-    if(!validateTarsnapCache())
-    {
-        QMessageBox::critical(this, tr("Tarsnap error"),
-                              tr("Tarsnap cache dir is invalid. Go to "
-                                 " Settings -> Application page to fix that."));
-    }
-
-    if(!validateAppDataDir())
-    {
-        QMessageBox::critical(this, tr("Tarsnap error"),
-                              tr("Application data dir is invalid. Go to "
-                                 " Settings -> Application page to fix that."));
-    }
 
     // Update list of archives (unless we're doing a dry run).
     if(!settings.value("tarsnap/dry_run", false).toBool())
@@ -704,13 +607,6 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui.busyWidget->animate();
 }
 
-void MainWindow::updateTarsnapVersion(QString versionString)
-{
-    _ui.tarsnapVersionLabel->setText(versionString);
-    QSettings settings;
-    settings.setValue("tarsnap/version", versionString);
-}
-
 void MainWindow::createJobClicked()
 {
     JobPtr job(new Job());
@@ -879,66 +775,12 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
 void MainWindow::commitSettings()
 {
     QSettings settings;
-    settings.setValue("tarsnap/path", _ui.tarsnapPathLineEdit->text());
-    settings.setValue("tarsnap/cache", _ui.tarsnapCacheLineEdit->text());
-    settings.setValue("app/iec_prefixes", _ui.iecPrefixesCheckBox->isChecked());
-    settings.setValue("app/downloads_dir", _ui.downloadsDirLineEdit->text());
-    settings.setValue("app/app_data", _ui.appDataDirLineEdit->text());
-    settings.setValue("app/notifications",
-                      _ui.notificationsCheckBox->isChecked());
     settings.setValue("app/window_geometry", saveGeometry());
-    settings.setValue("app/language", _ui.languageComboBox->currentText());
     settings.setValue("app/archives_header_enabled",
                       _ui.actionShowArchivesTabHeader->isChecked());
     settings.setValue("app/jobs_header_enabled",
                       _ui.actionShowJobsTabHeader->isChecked());
-    settings.setValue("app/save_console_log",
-                      _ui.saveConsoleLogCheckBox->isChecked());
     settings.sync();
-}
-
-bool MainWindow::validateTarsnapPath()
-{
-    if(Utils::findTarsnapClientInPath(_ui.tarsnapPathLineEdit->text()).isEmpty())
-    {
-        _ui.tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
-        _ui.tarsnapVersionLabel->clear();
-        return false;
-    }
-    else
-    {
-        _ui.tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: black;}");
-        emit getTarsnapVersion(_ui.tarsnapPathLineEdit->text());
-        return true;
-    }
-}
-
-bool MainWindow::validateTarsnapCache()
-{
-    if(Utils::validateTarsnapCache(_ui.tarsnapCacheLineEdit->text()).isEmpty())
-    {
-        _ui.tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: red;}");
-        return false;
-    }
-    else
-    {
-        _ui.tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: black;}");
-        return true;
-    }
-}
-
-bool MainWindow::validateAppDataDir()
-{
-    if(Utils::validateAppDataDir(_ui.appDataDirLineEdit->text()).isEmpty())
-    {
-        _ui.appDataDirLineEdit->setStyleSheet("QLineEdit {color: red;}");
-        return false;
-    }
-    else
-    {
-        _ui.appDataDirLineEdit->setStyleSheet("QLineEdit {color: black;}");
-        return true;
-    }
 }
 
 void MainWindow::appendToJournalLog(LogEntry log)
@@ -1038,76 +880,6 @@ void MainWindow::browseForBackupItems()
     picker.setSelectedUrls(_ui.backupListWidget->itemUrls());
     if(picker.exec())
         _ui.backupListWidget->setItemsWithUrls(picker.getSelectedUrls());
-}
-
-void MainWindow::tarsnapPathBrowseButtonClicked()
-{
-    QString tarsnapPath =
-        QFileDialog::getExistingDirectory(this, tr("Find Tarsnap client"),
-                                          _ui.tarsnapPathLineEdit->text());
-    if(!tarsnapPath.isEmpty())
-    {
-        _ui.tarsnapPathLineEdit->setText(tarsnapPath);
-        commitSettings();
-    }
-}
-
-void MainWindow::tarsnapCacheBrowseButton()
-{
-    QString tarsnapCacheDir =
-        QFileDialog::getExistingDirectory(this, tr("Tarsnap cache location"),
-                                          _ui.tarsnapCacheLineEdit->text());
-    if(!tarsnapCacheDir.isEmpty())
-    {
-        _ui.tarsnapCacheLineEdit->setText(tarsnapCacheDir);
-        commitSettings();
-    }
-}
-
-void MainWindow::appDataButtonClicked()
-{
-    QString appDataDir =
-        QFileDialog::getExistingDirectory(this,
-                                          tr("App data directory location"),
-                                          _ui.appDataDirLineEdit->text());
-    if(!appDataDir.isEmpty())
-    {
-        _ui.appDataDirLineEdit->setText(appDataDir);
-        commitSettings();
-    }
-}
-
-void MainWindow::runSetupWizardClicked()
-{
-    if((_runningTasks + _queuedTasks) > 0)
-    {
-        QMessageBox::warning(this, tr("Confirm action"),
-                             tr("Tasks are currently running. Please "
-                                "stop executing tasks or wait for "
-                                "completion and try again."));
-        return;
-    }
-    QMessageBox::StandardButton confirm =
-        QMessageBox::question(this, tr("Confirm action"),
-                              tr("Reset current app settings, job definitions "
-                                 "and run the setup wizard?"),
-                              (QMessageBox::Yes | QMessageBox::No),
-                              QMessageBox::No);
-    if(confirm == QMessageBox::Yes)
-        emit runSetupWizard();
-}
-
-void MainWindow::downloadsDirBrowseButtonClicked()
-{
-    QString downDir =
-        QFileDialog::getExistingDirectory(this,
-                                          tr("Browse for downloads directory"),
-                                          DEFAULT_DOWNLOADS);
-    if(!downDir.isEmpty())
-    {
-        _ui.downloadsDirLineEdit->setText(downDir);
-        commitSettings();
-    }
 }
 
 void MainWindow::displayJobDetails(JobPtr job)
@@ -1264,16 +1036,6 @@ void MainWindow::tarsnapError(TarsnapError error)
     }
 }
 
-void MainWindow::clearJournalClicked()
-{
-    QMessageBox::StandardButton confirm =
-        QMessageBox::question(this, tr("Confirm action"),
-                              tr("Clear journal log? All entries will "
-                                 "be deleted forever."));
-    if(confirm == QMessageBox::Yes)
-        emit clearJournal();
-}
-
 void MainWindow::showArchiveListMenu(const QPoint &pos)
 {
     QPoint globalPos = _ui.archiveListWidget->viewport()->mapToGlobal(pos);
@@ -1413,6 +1175,8 @@ void MainWindow::updateNumTasks(int runningTasks, int queuedTasks)
 {
     _runningTasks = runningTasks;
     _queuedTasks  = queuedTasks;
+
+    _settingsWidget.updateNumTasks(runningTasks, queuedTasks);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
@@ -1432,6 +1196,12 @@ void MainWindow::saveKeyId(QString key, quint64 id)
     _settingsWidget.saveKeyId(key, id);
 }
 
+// We can't connect a slot to a slot (fair enough), so we pass this through.
+void MainWindow::updateTarsnapVersion(QString versionString)
+{
+    _settingsWidget.updateTarsnapVersion(versionString);
+}
+
 void MainWindow::connectSettingsWidget()
 {
     // Get info from SettingsWidget
@@ -1443,4 +1213,12 @@ void MainWindow::connectSettingsWidget()
             &MainWindow::getKeyId);
     connect(&_settingsWidget, &SettingsWidget::newSimulationStatus, this,
             &MainWindow::updateSimulationIcon);
+    connect(&_settingsWidget, &SettingsWidget::clearJournal, this,
+            &MainWindow::clearJournal);
+    connect(&_settingsWidget, &SettingsWidget::runSetupWizard, this,
+            &MainWindow::runSetupWizard);
+    connect(&_settingsWidget, &SettingsWidget::getTarsnapVersion, this,
+            &MainWindow::getTarsnapVersion);
+    connect(&_settingsWidget, &SettingsWidget::repairCache, this,
+            &MainWindow::repairCache);
 }

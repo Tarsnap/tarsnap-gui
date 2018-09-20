@@ -67,6 +67,8 @@ void TestSettingsWidget::account()
                               "reject", Qt::QueuedConnection);
     QTest::qWait(200);
     QVERIFY(sig_status.takeFirst().at(0).toString()
+            == QString("Nuke confirmation requested."));
+    QVERIFY(sig_status.takeFirst().at(0).toString()
             == QString("Nuke cancelled."));
     VISUAL_WAIT;
 

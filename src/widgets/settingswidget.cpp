@@ -415,6 +415,8 @@ void SettingsWidget::nukeArchivesButtonClicked()
 {
     const QString confirmationText = tr("No Tomorrow");
 
+    newStatusMessage(tr("Nuke confirmation requested."), "");
+
     // Set up nuke confirmation
     _nukeConfirmationDialog.start(
         tr("Nuke all archives?"),

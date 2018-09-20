@@ -42,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
     validateBackupTab();
-    _ui.settingsToolbox->setCurrentWidget(_ui.settingsAccountPage);
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
     _ui.archiveDetailsWidget->hide();

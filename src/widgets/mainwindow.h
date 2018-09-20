@@ -8,7 +8,6 @@
 #include "taskmanager.h"
 #include "ui_mainwindow.h"
 
-#include <QInputDialog>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QTimer>
@@ -134,27 +133,20 @@ private slots:
     void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void commitSettings();
-    bool validateMachineKeyPath();
     bool validateTarsnapPath();
     bool validateTarsnapCache();
     bool validateAppDataDir();
-    void nukeTimerFired();
     void browseForBackupItems();
     void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();
-    void accountMachineUseHostnameButtonClicked();
-    void accountMachineKeyBrowseButtonClicked();
     void tarsnapPathBrowseButtonClicked();
     void tarsnapCacheBrowseButton();
     void appDataButtonClicked();
-    void nukeArchivesButtonClicked();
     void runSetupWizardClicked();
     void downloadsDirBrowseButtonClicked();
     void displayJobDetails(JobPtr job);
     void hideJobDetails();
     void addJobClicked();
-    void updateAccountCredit(qreal credit, QDate date);
-    void updateLastMachineActivity(QStringList activityFields);
     void clearJournalClicked();
     void showArchiveListMenu(const QPoint &pos);
     void showJobsListMenu(const QPoint &pos);
@@ -171,10 +163,6 @@ private:
     int            _minWidth;
     QMenuBar *     _menuBar;
     QString        _lastTimestamp;
-    QTimer         _nukeTimer;
-    int            _nukeTimerCount;
-    QMessageBox    _nukeCountdown;
-    TarsnapAccount _tarsnapAccount;
     bool           _aboutToQuit;
     QString        _helpTabHTML;
     QDialog        _aboutWindow;

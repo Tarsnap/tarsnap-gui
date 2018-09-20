@@ -20,7 +20,6 @@
 #include <QSharedPointer>
 #include <QShortcut>
 
-#define NUKE_SECONDS_DELAY 8
 #define MAIN_LOGO_RIGHT_MARGIN 5
 #define MAIN_LOGO_FUDGE 3
 
@@ -28,12 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
       _minWidth(0),
       _menuBar(nullptr),
-      _nukeTimerCount(0),
-      _nukeCountdown(this),
-      _tarsnapAccount(this),
       _aboutToQuit(false),
       _stopTasksDialog(this),
-      _nukeInput(this),
       _settingsWidget(this)
 {
     connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
@@ -52,7 +47,6 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.journalLog->hide();
     _ui.archiveDetailsWidget->hide();
     _ui.jobDetailsWidget->hide();
-    _ui.outOfDateNoticeLabel->hide();
     _ui.archivesFilterFrame->hide();
     _ui.jobsFilterFrame->hide();
 
@@ -73,10 +67,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     updateUi();
 
-    // Nuke widget setup
-    _nukeCountdown.setIcon(QMessageBox::Critical);
-    _nukeCountdown.setStandardButtons(QMessageBox::Cancel);
-    connect(&_nukeTimer, &QTimer::timeout, this, &MainWindow::nukeTimerFired);
     // --
 
     // Ui actions setup
@@ -84,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
     connect(_ui.actionRefreshAccount, &QAction::triggered, this,
-            [&]() { _tarsnapAccount.getAccountInfo(); });
+            [&]() { _settingsWidget.getAccountInfo(); });
     addAction(_ui.actionGoBackup);
     addAction(_ui.actionGoArchives);
     addAction(_ui.actionGoJobs);
@@ -151,20 +141,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Settings pane
     loadSettings();
-    connect(_ui.accountUserLineEdit, &QLineEdit::editingFinished, this,
-            &MainWindow::commitSettings);
-    connect(_ui.accountMachineLineEdit, &QLineEdit::editingFinished, this,
-            &MainWindow::commitSettings);
-    connect(_ui.accountMachineKeyLineEdit, &QLineEdit::editingFinished, this,
-            &MainWindow::commitSettings);
     connect(_ui.tarsnapPathLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
     connect(_ui.tarsnapCacheLineEdit, &QLineEdit::editingFinished, this,
             &MainWindow::commitSettings);
     connect(_ui.aggressiveNetworkingCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
-    connect(_ui.accountMachineKeyLineEdit, &QLineEdit::textChanged, this,
-            &MainWindow::validateMachineKeyPath);
     connect(_ui.tarsnapPathLineEdit, &QLineEdit::textChanged, this,
             &MainWindow::validateTarsnapPath);
     connect(_ui.tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
@@ -202,34 +184,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.saveConsoleLogCheckBox, &QCheckBox::toggled, this,
             &MainWindow::commitSettings);
 
-    connect(_ui.accountMachineUseHostnameButton, &QPushButton::clicked, this,
-            &MainWindow::accountMachineUseHostnameButtonClicked);
-    connect(_ui.accountMachineKeyBrowseButton, &QPushButton::clicked, this,
-            &MainWindow::accountMachineKeyBrowseButtonClicked);
     connect(_ui.tarsnapPathBrowseButton, &QPushButton::clicked, this,
             &MainWindow::tarsnapPathBrowseButtonClicked);
     connect(_ui.tarsnapCacheBrowseButton, &QPushButton::clicked, this,
             &MainWindow::tarsnapCacheBrowseButton);
     connect(_ui.appDataDirBrowseButton, &QPushButton::clicked, this,
             &MainWindow::appDataButtonClicked);
-    connect(_ui.nukeArchivesButton, &QPushButton::clicked, this,
-            &MainWindow::nukeArchivesButtonClicked);
     connect(_ui.runSetupWizard, &QPushButton::clicked, this,
             &MainWindow::runSetupWizardClicked);
     connect(_ui.downloadsDirBrowseButton, &QPushButton::clicked, this,
             &MainWindow::downloadsDirBrowseButtonClicked);
-    connect(&_tarsnapAccount, &TarsnapAccount::accountCredit, this,
-            &MainWindow::updateAccountCredit);
-    connect(&_tarsnapAccount, &TarsnapAccount::getKeyId, this,
-            &MainWindow::getKeyId);
-    connect(_ui.updateAccountButton, &QPushButton::clicked,
-            _ui.actionRefreshAccount, &QAction::trigger);
-    connect(&_tarsnapAccount, &TarsnapAccount::lastMachineActivity, this,
-            &MainWindow::updateLastMachineActivity);
-    connect(_ui.accountActivityShowButton, &QPushButton::clicked,
-            [&]() { _tarsnapAccount.getAccountInfo(true, false); });
-    connect(_ui.machineActivityShowButton, &QPushButton::clicked,
-            [&]() { _tarsnapAccount.getAccountInfo(false, true); });
     connect(_ui.clearJournalButton, &QPushButton::clicked, this,
             &MainWindow::clearJournalClicked);
     connect(_ui.enableSchedulingButton, &QPushButton::clicked, this,
@@ -448,17 +412,6 @@ void MainWindow::loadSettings()
 {
     QSettings settings;
 
-    _ui.accountCreditLabel->setText(
-        settings.value("tarsnap/credit", tr("click login button")).toString());
-    _ui.machineActivity->setText(
-        settings.value("tarsnap/machine_activity", tr("click login button"))
-            .toString());
-    _ui.accountUserLineEdit->setText(
-        settings.value("tarsnap/user", "").toString());
-    _ui.accountMachineKeyLineEdit->setText(
-        settings.value("tarsnap/key", "").toString());
-    _ui.accountMachineLineEdit->setText(
-        settings.value("tarsnap/machine", "").toString());
     _ui.tarsnapPathLineEdit->setText(
         settings.value("tarsnap/path", "").toString());
     _ui.tarsnapCacheLineEdit->setText(
@@ -544,23 +497,6 @@ void MainWindow::initializeMainWindow()
     _settingsWidget.initializeSettingsWidget();
 
     QSettings settings;
-    // Check if we should show a "credit might be out of date" warning.
-    QDate creditDate = settings.value("tarsnap/credit_date", QDate()).toDate();
-    if(creditDate.isValid())
-    {
-        _ui.accountCreditLabel->setToolTip(creditDate.toString());
-        qint64 daysElapsed = creditDate.daysTo(QDate::currentDate());
-        if(daysElapsed > 10)
-        {
-            _ui.outOfDateNoticeLabel->setText(
-                _ui.outOfDateNoticeLabel->text().arg(daysElapsed));
-            _ui.outOfDateNoticeLabel->show();
-        }
-        else
-        {
-            _ui.outOfDateNoticeLabel->hide();
-        }
-    }
 
     // Validate applications paths.
     if(!validateTarsnapPath())
@@ -568,13 +504,6 @@ void MainWindow::initializeMainWindow()
         QMessageBox::critical(this, tr("Tarsnap error"),
                               tr("Tarsnap CLI utilities not found. Go to "
                                  " Settings -> Application page to fix that."));
-    }
-
-    if(!validateMachineKeyPath())
-    {
-        QMessageBox::critical(this, tr("Tarsnap error"),
-                              tr("Machine key file not found. Go to "
-                                 " Settings -> Account page to fix that."));
     }
 
     if(!validateTarsnapCache())
@@ -840,29 +769,6 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui.busyWidget->animate();
 }
 
-void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
-                                     quint64 sizeUniqueTotal,
-                                     quint64 sizeUniqueCompressed,
-                                     quint64 archiveCount)
-{
-    QString tooltip(tr("\t\tTotal size\tCompressed size\n"
-                       "all archives\t%1\t\t%2\n"
-                       "unique data\t%3\t\t%4")
-                        .arg(sizeTotal)
-                        .arg(sizeCompressed)
-                        .arg(sizeUniqueTotal)
-                        .arg(sizeUniqueCompressed));
-    _ui.accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal));
-    _ui.accountTotalSizeLabel->setToolTip(tooltip);
-    _ui.accountActualSizeLabel->setText(Utils::humanBytes(sizeUniqueCompressed));
-    _ui.accountActualSizeLabel->setToolTip(tooltip);
-    quint64 storageSaved =
-        sizeTotal >= sizeUniqueCompressed ? sizeTotal - sizeUniqueCompressed : 0;
-    _ui.accountStorageSavedLabel->setText(Utils::humanBytes(storageSaved));
-    _ui.accountStorageSavedLabel->setToolTip(tooltip);
-    _ui.accountArchivesCountLabel->setText(QString::number(archiveCount));
-}
-
 void MainWindow::updateTarsnapVersion(QString versionString)
 {
     _ui.tarsnapVersionLabel->setText(versionString);
@@ -1040,9 +946,6 @@ void MainWindow::commitSettings()
     QSettings settings;
     settings.setValue("tarsnap/path", _ui.tarsnapPathLineEdit->text());
     settings.setValue("tarsnap/cache", _ui.tarsnapCacheLineEdit->text());
-    settings.setValue("tarsnap/key", _ui.accountMachineKeyLineEdit->text());
-    settings.setValue("tarsnap/machine", _ui.accountMachineLineEdit->text());
-    settings.setValue("tarsnap/user", _ui.accountUserLineEdit->text());
     settings.setValue("tarsnap/aggressive_networking",
                       _ui.aggressiveNetworkingCheckBox->isChecked());
     settings.setValue("tarsnap/preserve_pathnames",
@@ -1075,23 +978,6 @@ void MainWindow::commitSettings()
     settings.setValue("app/save_console_log",
                       _ui.saveConsoleLogCheckBox->isChecked());
     settings.sync();
-}
-
-bool MainWindow::validateMachineKeyPath()
-{
-    QFileInfo machineKeyFile(_ui.accountMachineKeyLineEdit->text());
-    if(machineKeyFile.exists() && machineKeyFile.isFile()
-       && machineKeyFile.isReadable())
-    {
-        _ui.accountMachineKeyLineEdit->setStyleSheet(
-            "QLineEdit {color: black;}");
-        return true;
-    }
-    else
-    {
-        _ui.accountMachineKeyLineEdit->setStyleSheet("QLineEdit {color: red;}");
-        return false;
-    }
 }
 
 bool MainWindow::validateTarsnapPath()
@@ -1135,22 +1021,6 @@ bool MainWindow::validateAppDataDir()
     {
         _ui.appDataDirLineEdit->setStyleSheet("QLineEdit {color: black;}");
         return true;
-    }
-}
-
-void MainWindow::nukeTimerFired()
-{
-    if(_nukeTimerCount <= 1)
-    {
-        _nukeTimer.stop();
-        _nukeCountdown.accept();
-        emit nukeArchives();
-    }
-    else
-    {
-        --_nukeTimerCount;
-        _nukeCountdown.setText(
-            tr("Purging all archives in %1 seconds...").arg(_nukeTimerCount));
     }
 }
 
@@ -1210,16 +1080,6 @@ void MainWindow::setJournal(QVector<LogEntry> _log)
         appendToJournalLog(entry);
 }
 
-void MainWindow::saveKeyId(QString key, quint64 id)
-{
-    if(key == _ui.accountMachineKeyLineEdit->text())
-    {
-        QSettings settings;
-        settings.setValue("tarsnap/key_id", id);
-        settings.sync();
-    }
-}
-
 void MainWindow::backupJob(JobPtr job)
 {
     if(!job)
@@ -1263,24 +1123,6 @@ void MainWindow::browseForBackupItems()
         _ui.backupListWidget->setItemsWithUrls(picker.getSelectedUrls());
 }
 
-void MainWindow::accountMachineUseHostnameButtonClicked()
-{
-    _ui.accountMachineLineEdit->setText(QHostInfo::localHostName());
-    commitSettings();
-}
-
-void MainWindow::accountMachineKeyBrowseButtonClicked()
-{
-    QString key =
-        QFileDialog::getOpenFileName(this,
-                                     tr("Browse for existing machine key"));
-    if(!key.isEmpty())
-    {
-        _ui.accountMachineKeyLineEdit->setText(key);
-        commitSettings();
-    }
-}
-
 void MainWindow::tarsnapPathBrowseButtonClicked()
 {
     QString tarsnapPath =
@@ -1315,44 +1157,6 @@ void MainWindow::appDataButtonClicked()
     {
         _ui.appDataDirLineEdit->setText(appDataDir);
         commitSettings();
-    }
-}
-
-void MainWindow::nukeArchivesButtonClicked()
-{
-    const QString confirmationText = tr("No Tomorrow");
-
-    // Set up nuke confirmation
-    _nukeInput.setWindowTitle(tr("Nuke all archives?"));
-    _nukeInput.setLabelText(
-        tr("This action will <b>delete all (%1) archives</b> stored for this "
-           "key."
-           "<br /><br />To confirm, type '%2' and press OK."
-           "<br /><br /><i>Warning: This action cannot be undone. "
-           "All archives will be <b>lost forever</b></i>.")
-            .arg(_ui.accountArchivesCountLabel->text(), confirmationText));
-    _nukeInput.setInputMode(QInputDialog::TextInput);
-
-    // Run nuke confirmation
-    bool ok = _nukeInput.exec();
-
-    if(ok && (confirmationText == _nukeInput.textValue()))
-    {
-        _nukeTimerCount = NUKE_SECONDS_DELAY;
-        _nukeCountdown.setWindowTitle(
-            tr("Deleting all archives: press Cancel to abort"));
-        _nukeCountdown.setText(
-            tr("Purging all archives in %1 seconds...").arg(_nukeTimerCount));
-        _nukeTimer.start(1000);
-        if(QMessageBox::Cancel == _nukeCountdown.exec())
-        {
-            _nukeTimer.stop();
-            updateStatusMessage(tr("Nuke cancelled."));
-        }
-    }
-    else
-    {
-        updateStatusMessage(tr("Nuke cancelled."));
     }
 }
 
@@ -1541,30 +1345,6 @@ void MainWindow::tarsnapError(TarsnapError error)
         break;
     }
     }
-}
-
-void MainWindow::updateAccountCredit(qreal credit, QDate date)
-{
-    QSettings settings;
-    settings.setValue("tarsnap/credit", QString::number(credit, 'f', 18));
-    settings.setValue("tarsnap/credit_date", date);
-    _ui.accountCreditLabel->setText(QString::number(credit, 'f', 18));
-    _ui.accountCreditLabel->setToolTip(date.toString());
-    _ui.outOfDateNoticeLabel->hide();
-}
-
-void MainWindow::updateLastMachineActivity(QStringList activityFields)
-{
-    if(activityFields.size() < 2)
-        return;
-    QString   machineActivity = activityFields[0] + ' ' + activityFields[1];
-    QSettings settings;
-    settings.setValue("tarsnap/machine_activity", machineActivity);
-    _ui.machineActivity->setText(machineActivity);
-    _ui.machineActivity->setToolTip(activityFields.join(' '));
-    _ui.machineActivity->resize(_ui.machineActivity->fontMetrics().width(
-                                    _ui.machineActivity->text()),
-                                _ui.machineActivity->sizeHint().height());
 }
 
 void MainWindow::clearJournalClicked()
@@ -1845,8 +1625,6 @@ void MainWindow::updateUi()
         _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
     _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip().arg(
         _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
-    _ui.updateAccountButton->setToolTip(_ui.updateAccountButton->toolTip().arg(
-        _ui.actionRefreshAccount->shortcut().toString(QKeySequence::NativeText)));
     // --
 
     setupMenuBar();
@@ -1876,6 +1654,30 @@ void MainWindow::updateNumTasks(int runningTasks, int queuedTasks)
     _queuedTasks  = queuedTasks;
 }
 
+// We can't connect a slot to a slot (fair enough), so we pass this through.
+void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
+                                     quint64 sizeUniqueTotal,
+                                     quint64 sizeUniqueCompressed,
+                                     quint64 archiveCount)
+{
+    _settingsWidget.overallStatsChanged(sizeTotal, sizeCompressed,
+                                        sizeUniqueTotal, sizeUniqueCompressed,
+                                        archiveCount);
+}
+
+// We can't connect a slot to a slot (fair enough), so we pass this through.
+void MainWindow::saveKeyId(QString key, quint64 id)
+{
+    _settingsWidget.saveKeyId(key, id);
+}
+
 void MainWindow::connectSettingsWidget()
 {
+    // Get info from SettingsWidget
+    connect(&_settingsWidget, &SettingsWidget::nukeArchives, this,
+            &MainWindow::nukeArchives);
+    connect(&_settingsWidget, &SettingsWidget::newStatusMessage, this,
+            &MainWindow::updateStatusMessage);
+    connect(&_settingsWidget, &SettingsWidget::getKeyId, this,
+            &MainWindow::getKeyId);
 }

@@ -159,7 +159,6 @@ private:
     QMessageBox    _stopTasksDialog;
     int            _runningTasks;
     int            _queuedTasks;
-    QInputDialog   _nukeInput;
 
     QPlainTextEdit *_consoleLog;
     SettingsWidget  _settingsWidget;

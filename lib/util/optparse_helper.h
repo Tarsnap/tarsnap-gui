@@ -12,22 +12,21 @@ struct args {
 };
 
 /**
- * print_help(description, args, num_args):
+ * print_help(stream, description, args, num_args):
  * Print a --help message with a one-line ${description} and ${num_args}
  * nicely formatted arguments ${args}.
  */
-void print_help(FILE * stream, const char *, const struct args *, const size_t);
-
+void print_help(FILE *, const char *, const struct args *, const size_t);
 
 /* Simplify error-handling in the command-line parse loop. */
 #define OPT_EPARSE(opt, arg) do {					\
-        warnp("Error parsing argument: %s %s", opt, arg);		\
-        exit(1);							\
+	warnp("Error parsing argument: %s %s", opt, arg);		\
+	exit(1);							\
 } while (0)
 
 #define OPT_MEM_FAIL(opt) do {						\
-        warnp("Failed to allocate memory while parsing argument: %s", opt); \
-        exit(1);							\
+	warnp("Failed to allocate memory while parsing argument: %s", opt); \
+	exit(1);							\
 } while (0)
 
 #define OPT_ALREADY_GIVEN(opt) do {					\

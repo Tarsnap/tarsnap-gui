@@ -21,6 +21,7 @@ print_wordwrap(FILE * stream, const char * text, const int startpos)
 	endpos = text + strlen(text);
 
 	while ((word < endpos)) {
+		/* Find length of next word. */
 		if ((space = strchr(word, ' ')) == NULL)
 			space = endpos;
 		int wordlen = space - word;
@@ -38,11 +39,12 @@ print_wordwrap(FILE * stream, const char * text, const int startpos)
 			linepos += wordlen;
 			first_on_line = 0;
 		} else {
-			/* Print a space, then the first word. */
+			/* Print a space, then the next word. */
 			fprintf(stream, " %.*s", wordlen, word);
 			linepos += wordlen + 1;
 		}
 
+		/* Advance to after the word we just printed. */
 		word += wordlen + 1;
 	}
 }
@@ -76,36 +78,33 @@ print_help(FILE * stream, const char * description, const struct args * args,
 	for (i = 0; i < num_args; i++) {
 		remaining = longest;
 
+		/* Initial indent. */
 		fprintf(stream, "  ");
 		remaining -= 2;
 
-		fprintf(stream, "%s", args[i].arg_short);
+		/* Print short, long, and optarg (if applicable). */
 		if((length = strlen(args[i].arg_short)) > 0) {
-			fprintf(stream, ", ");
+			fprintf(stream, "%s, ", args[i].arg_short);
 			remaining -= (length + 2);
 		}
-
-		fprintf(stream, "%s", args[i].arg_long);
 		if((length = strlen(args[i].arg_long)) > 0) {
-			fprintf(stream, " ");
+			fprintf(stream, "%s ", args[i].arg_long);
 			remaining -= (length + 1);
 		}
-
-		fprintf(stream, "%s", args[i].arg_optarg);
 		if((length = strlen(args[i].arg_optarg)) > 0) {
-			fprintf(stream, "  ");
+			fprintf(stream, "%s  ", args[i].arg_optarg);
 			remaining -= (length + 2);
 		}
 
+		/* Align the description with the longest set of args. */
 		assert(remaining <= longest);
-
 		if(remaining > 0)
 			fprintf(stream, "%*c", (int)remaining, ' ');
 
+		/* Print the description. */
 		print_wordwrap(stream, args[i].arg_explain, longest);
 		
+		/* End of this entry. */
 		fprintf(stream, "\n");
 	}
 }
-
-

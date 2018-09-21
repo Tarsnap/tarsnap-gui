@@ -47,12 +47,16 @@ void TestSettingsWidget::account()
     QCOMPARE(ui.accountStorageSavedLabel->text(), QString("3 B"));
     VISUAL_WAIT;
 
+#if !defined(Q_OS_OSX)
     // Trigger an error message that we have to click away.
     QMetaObject::invokeMethod(ui.updateAccountButton, "clicked",
                               Qt::QueuedConnection);
     QMetaObject::invokeMethod(&tarsnapAccount->_popup, "close",
                               Qt::QueuedConnection);
     VISUAL_WAIT;
+#else
+    (void)tarsnapAccount;
+#endif
 
     // Set username, machine name, key.
     ui.accountUserLineEdit->setText("edited-user");

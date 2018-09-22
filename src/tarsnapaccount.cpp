@@ -208,7 +208,7 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
             && data.contains("No user exists with the provided email "
                              "address; please try again."))
     {
-        _popup.setWindowTitle(tr("Invalid password"));
+        _popup.setWindowTitle(tr("Invalid username"));
         _popup.setIcon(QMessageBox::Warning);
         _popup.setText(tr("Account %1 is invalid; please try again.").arg(_user));
         _popup.exec();

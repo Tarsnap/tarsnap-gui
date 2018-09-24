@@ -264,15 +264,19 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Simulation mode is enabled. Archives will not be uploaded to the Tarsnap server. Disable in Settings -&gt; Backup.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Updated OS X launchd path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to launch application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An unknown error occurred.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1783,6 +1787,10 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
 </context>
 <context>
     <name>QObject</name>
+    <message>
+        <source>Simulation mode is enabled.  Archives will not be uploaded to the Tarsnap server.  Disable in Settings -&gt; Backup.</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>Looks like scheduling is already enabled. Nothing to do.
 

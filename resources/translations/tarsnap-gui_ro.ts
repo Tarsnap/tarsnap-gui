@@ -270,15 +270,19 @@ Adaugă oricum?</translation>
         <translation>Avertisment</translation>
     </message>
     <message>
-        <source>Simulation mode is enabled. Archives will not be uploaded to the Tarsnap server. Disable in Settings -&gt; Backup.</source>
-        <translation>Modul simulare este activat. Arhivele noi nu vor fi încărcate pe serverul Tarsnap. Dezactivează în Setări -&gt; Backup.</translation>
-    </message>
-    <message>
         <source>Updated OS X launchd path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to launch application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An unknown error occurred.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1799,6 +1803,10 @@ Joburile care au activată execuția programată vor fi executate conform setăr
 </context>
 <context>
     <name>QObject</name>
+    <message>
+        <source>Simulation mode is enabled.  Archives will not be uploaded to the Tarsnap server.  Disable in Settings -&gt; Backup.</source>
+        <translation>Modul simulare este activat. Arhivele noi nu vor fi încărcate pe serverul Tarsnap. Dezactivează în Setări -&gt; Backup.</translation>
+    </message>
     <message>
         <source>Looks like scheduling is already enabled. Nothing to do.
 

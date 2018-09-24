@@ -260,7 +260,7 @@ Add anyway?</source>
 <context>
     <name>CoreApplication</name>
     <message>
-        <source>Tarsnap GUI - Online backups for the truly lazy</source>
+        <source>Tarsnap GUI - Online backups for the truly paranoid (yet graphically inclined)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2426,6 +2426,14 @@ Aborting operation.</source>
         <source>Error: Failed to get Tarsnap version.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scheduled jobs not executed (cannot reach server).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please check your internet connectivity and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>aboutWidget</name>
@@ -2442,7 +2450,7 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>© 2014-2017 Tarsnap Backup Inc. All rights reserved.</source>
+        <source>© 2014-2018 Tarsnap Backup Inc. All rights reserved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

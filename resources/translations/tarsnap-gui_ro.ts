@@ -266,7 +266,7 @@ Adaugă oricum?</translation>
 <context>
     <name>CoreApplication</name>
     <message>
-        <source>Tarsnap GUI - Online backups for the truly lazy</source>
+        <source>Tarsnap GUI - Online backups for the truly paranoid (yet graphically inclined)</source>
         <translation></translation>
     </message>
     <message>
@@ -2469,6 +2469,14 @@ Aborting operation.</source>
         <source>Error: Failed to get Tarsnap version.</source>
         <translation>Eroare la obținerea versiunii utilitarelor la linia de comandă Tarsnap.</translation>
     </message>
+    <message>
+        <source>Scheduled jobs not executed (cannot reach server).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please check your internet connectivity and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>aboutWidget</name>
@@ -2485,8 +2493,8 @@ Aborting operation.</source>
         <translation>Verifică actualizare</translation>
     </message>
     <message>
-        <source>© 2014-2017 Tarsnap Backup Inc. All rights reserved.</source>
-        <translation>© 2014-2017 Tarsnap Backup Inc. Toate drepturile rezervate.</translation>
+        <source>© 2014-2018 Tarsnap Backup Inc. All rights reserved.</source>
+        <translation>© 2014-2018 Tarsnap Backup Inc. Toate drepturile rezervate.</translation>
     </message>
     <message>
         <source>This software is released under the BSD 2-clause license.

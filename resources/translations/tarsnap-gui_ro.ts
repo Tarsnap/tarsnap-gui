@@ -41,12 +41,6 @@ For your information, there&apos;s a purge action in Settings -&gt; Account page
 Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Nuke din Setări -&gt; Cont.</translation>
     </message>
     <message>
-        <source>Are you sure you want to delete all of your archives?
-For your information, there&apos;s a purge action in Settings -&gt; Advanced page that achieves the same thing but more efficiently.</source>
-        <translation type="vanished">Ești sigur că dorești să ștergi toate arhivele?
-Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge din Setări -&gt; Avansat.</translation>
-    </message>
-    <message>
         <location filename="../../src/widgets/archivelistwidget.cpp" line="133"/>
         <source>This will permanently delete the %1 selected archives. Proceed?</source>
         <translation>Procedez cu ștergerea definitiva a %1 arhive selectate?</translation>
@@ -58,14 +52,6 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
         <location filename="../../forms/archivelistwidgetitem.ui" line="17"/>
         <source>Form</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Display Archive details</source>
-        <translation type="vanished">Arată detalii Arhivă</translation>
-    </message>
-    <message>
-        <source>Display Job details</source>
-        <translation type="vanished">Arată detalii Job</translation>
     </message>
     <message>
         <location filename="../../forms/archivelistwidgetitem.ui" line="102"/>
@@ -240,10 +226,6 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Purge d
         <translation>Dimensiune actuală pe serverele Tarsnap</translation>
     </message>
     <message>
-        <source>This archive was interrupted and may be incomplete</source>
-        <translation type="vanished">Această arhivă a fost intreruptă și este posibil să fie incompletă</translation>
-    </message>
-    <message>
         <location filename="../../forms/archivewidget.ui" line="389"/>
         <source>Contents</source>
         <translation>Conținut</translation>
@@ -342,10 +324,6 @@ Adaugă oricum?</translation>
         <translation>Deschide acest element în Managerul de Fișiere nativ</translation>
     </message>
     <message>
-        <source> items totalling </source>
-        <translation type="vanished"> elemente cu dimensiunea totală  </translation>
-    </message>
-    <message>
         <location filename="../../src/widgets/backuplistwidgetitem.cpp" line="101"/>
         <source> items, </source>
         <translation> elemente, </translation>
@@ -382,10 +360,6 @@ Adaugă oricum?</translation>
         <location filename="../../src/coreapplication.cpp" line="123"/>
         <source>Simulation mode is enabled. Archives will not be uploaded to the Tarsnap server. Disable in Settings -&gt; Backup.</source>
         <translation>Modul simulare este activat. Arhivele noi nu vor fi încărcate pe serverul Tarsnap. Dezactivează în Setări -&gt; Backup.</translation>
-    </message>
-    <message>
-        <source>Simulation mode is enabled. Archives will not be uploaded to the Tarsnap server. Disable in Settings -&gt; Advanced.</source>
-        <translation type="vanished">Modul de simulare este activat. Arhivele noi nu vor fi încarcate pe serverul Tarsnap. Dezactivează în Setari -&gt; Avansat.</translation>
     </message>
 </context>
 <context>
@@ -631,10 +605,6 @@ Adaugă oricum?</translation>
         <translation></translation>
     </message>
     <message>
-        <source>No backup done yet</source>
-        <translation type="vanished">Niciun backup efectuat</translation>
-    </message>
-    <message>
         <location filename="../../src/widgets/joblistwidgetitem.cpp" line="46"/>
         <source>No backups</source>
         <translation>Niciun backup</translation>
@@ -734,10 +704,6 @@ Adaugă oricum?</translation>
         <translation>Traversează dispozitivele montate</translation>
     </message>
     <message>
-        <source>Skip files larger than:</source>
-        <translation type="vanished">Exclude fișierele cu dimensiunea mai mare de:</translation>
-    </message>
-    <message>
         <location filename="../../forms/jobwidget.ui" line="344"/>
         <source>If checked all symbolic links will be followed when creating an archive</source>
         <translation>Urmărește legăturile simbolice la crearea arhivelor</translation>
@@ -751,10 +717,6 @@ Adaugă oricum?</translation>
         <location filename="../../forms/jobwidget.ui" line="427"/>
         <source>Tarsnap will skip these file patterns for this Job</source>
         <translation>Exclude fișierele ce îndeplinesc șabloanele specificate</translation>
-    </message>
-    <message>
-        <source>Skip file patterns:</source>
-        <translation type="vanished">Șabloane de excludere a fișierelor:</translation>
     </message>
     <message>
         <location filename="../../forms/jobwidget.ui" line="373"/>
@@ -795,14 +757,6 @@ Adaugă oricum?</translation>
         <location filename="../../forms/jobwidget.ui" line="334"/>
         <source>Preserve pathnames</source>
         <translation>Păstrează căi fișiere absolute</translation>
-    </message>
-    <message>
-        <source>Enable to include this job in automatic scheduled jobs execution via the --jobs option</source>
-        <translation type="vanished">Activează programarea execuției automate pentru acest Job</translation>
-    </message>
-    <message>
-        <source>Include in scheduled backups</source>
-        <translation type="vanished">Activează programarea execuției automate</translation>
     </message>
     <message>
         <location filename="../../forms/jobwidget.ui" line="354"/>
@@ -963,17 +917,9 @@ Adaugă oricum?</translation>
         <translation>Adaugå fișiere și directoare folosind Navigatorul de Fișiere &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:normal;&quot;&gt;Drag and drop files or directories to back up, or use the &lt;/span&gt;&lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; font-style:normal; text-decoration: underline; color:#0000ff;&quot;&gt;File browser&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:normal;&quot;&gt;Plasează fișiere și directoare prin funcția &quot;drag &amp; drop&quot; sau folosește &lt;/span&gt;&lt;a href=&quot;.&quot;&gt;&lt;span style=&quot; font-style:normal; text-decoration: underline; color:#0000ff;&quot;&gt;Navigatorul de fișiere&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="248"/>
         <source>Resulting Archive name</source>
         <translation>Numele Arhivei</translation>
-    </message>
-    <message>
-        <source>backup name</source>
-        <translation type="vanished">nume backup</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="270"/>
@@ -1010,10 +956,6 @@ Adaugă oricum?</translation>
         <location filename="../../forms/mainwindow.ui" line="572"/>
         <source>Archive list</source>
         <translation>Listă arhive</translation>
-    </message>
-    <message>
-        <source>Archive details</source>
-        <translation type="vanished">Detalii Arhivă</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="628"/>
@@ -1137,14 +1079,6 @@ Adaugă oricum?</translation>
         <translation>Credit:</translation>
     </message>
     <message>
-        <source>Click update button</source>
-        <translation type="vanished">Necesită actualizare</translation>
-    </message>
-    <message>
-        <source>click update button</source>
-        <translation type="vanished">necesită actualizare</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="1252"/>
         <source>Show account activity, requires Tarsnap login</source>
         <translation>Arată activitatea contului, necesită logare cu credențiale</translation>
@@ -1175,34 +1109,14 @@ Adaugă oricum?</translation>
         <translation>(arată activitate dispozitiv)</translation>
     </message>
     <message>
-        <source>Displayed credit might be out of date, click update button to fetch latest account details</source>
-        <translation type="vanished">Creditul afișat ar putea fi expirat, faceți click pe butonul Actualizare pentru a prelua ultimele detalii despre cont </translation>
-    </message>
-    <message>
-        <source>Credit and machine activity is %1 days old. Click update to fetch latest details.</source>
-        <translation type="vanished">Creditul și activitatea dispozitivului au fost preluate cu %1 zile în urma. Fă click pe butonul update pentru a actualiza.</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="1488"/>
         <source>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation>Efectuați înregistrare cu credențiale Tarsnap pentru a actualiza creditul și activitatea dispozitiv &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <source>Update credit and machine activity</source>
-        <translation type="vanished">Actualizează creditul și activitatea dispozitiv</translation>
-    </message>
-    <message>
-        <source>Tarsnap user:</source>
-        <translation type="vanished">Utilizator Tarsnap:</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="1442"/>
         <source>E-mail address used to register on Tarsnap.com</source>
         <translation>De regulă, adresa de email folosită la înregistrarea pe siteul Tarsnap</translation>
-    </message>
-    <message>
-        <source>Machine name:</source>
-        <translation type="vanished">Nume dispozitiv:</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="1452"/>
@@ -1218,10 +1132,6 @@ Adaugă oricum?</translation>
         <location filename="../../forms/mainwindow.ui" line="1387"/>
         <source>hostname</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Machine key:</source>
-        <translation type="vanished">Cheie dispozitiv:</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="1465"/>
@@ -1261,10 +1171,6 @@ Adaugă oricum?</translation>
         <location filename="../../forms/mainwindow.ui" line="2081"/>
         <source>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</source>
         <translation>Standardul SI folosește prefixuri octet folosind baza 10, iar standardul IEC baza 2</translation>
-    </message>
-    <message>
-        <source>Use IEC notation for displaying sizes (default is SI)</source>
-        <translation type="vanished">Folosește notația IEC pentru dimensiuni in octeți (implicit se afișeaza folosind notația SI)</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="1598"/>
@@ -1317,10 +1223,6 @@ Adaugă oricum?</translation>
         <translation>Exclude fișierele marcate cu atributul &quot;nodump&quot;</translation>
     </message>
     <message>
-        <source>Skip files larger than:</source>
-        <translation type="vanished">Exclude fișierele cu dimensiunea mai mare de:</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="1732"/>
         <source>Do not include files of size equal or greater than the specified value in backups</source>
         <translation>Exclude fișierele cu dimensiune egală sau mai mare decât cea specificată</translation>
@@ -1343,10 +1245,6 @@ Adaugă oricum?</translation>
         <translation>Exclude fișierele ce îndeplinesc șabloanele specificate la crearea arhivelor</translation>
     </message>
     <message>
-        <source>Skip system junk:</source>
-        <translation type="vanished">Șabloane de excludere a fișierelor:</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="1657"/>
         <source>Shell globbing patterns can be used, the list is colon separated</source>
         <translation>Se pot folosi &quot;shell globbing patterns&quot;, lista este separată de simbolul &quot;:&quot;</translation>
@@ -1362,10 +1260,6 @@ Adaugă oricum?</translation>
         <translation>Valoare implicită</translation>
     </message>
     <message>
-        <source>Downloads directory:</source>
-        <translation type="vanished">Director descărcări:</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="2032"/>
         <source>The directory where archives are restored to by default</source>
         <translation>Directorul folosit implicit pentru restaurarea arhivelor</translation>
@@ -1374,10 +1268,6 @@ Adaugă oricum?</translation>
         <location filename="../../forms/mainwindow.ui" line="2143"/>
         <source>Browse for Downloads directory</source>
         <translation>Schimbă director descărcări</translation>
-    </message>
-    <message>
-        <source>Limit upload bandwidth:</source>
-        <translation type="vanished">Limită lațime de bandă la încarcare: </translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="1769"/>
@@ -1391,21 +1281,9 @@ Adaugă oricum?</translation>
         <translation></translation>
     </message>
     <message>
-        <source>Limit download bandwidth:</source>
-        <translation type="vanished">Limitează lățimea de bandă la descărcare: </translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="1576"/>
         <source>Limit download bandwidth rate to kilobits per second</source>
         <translation>Limitează lățimea de bandă la descărcare în kilo-biți pe secundă</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="vanished">Limbă:</translation>
-    </message>
-    <message>
-        <source>Advanced</source>
-        <translation type="vanished">Setări avansate</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="1960"/>
@@ -1416,10 +1294,6 @@ Adaugă oricum?</translation>
         <location filename="../../forms/mainwindow.ui" line="2166"/>
         <source>Tarsnap caches information about what it has uploaded in a local directory</source>
         <translation>Tarsnap folosește un director local &quot;cache&quot; pentru a stoca informații de lucru</translation>
-    </message>
-    <message>
-        <source>Tarsnap cache directory:</source>
-        <translation type="vanished">Directorul &quot;cache&quot; Tarsnap:</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="1560"/>
@@ -1483,17 +1357,9 @@ Adaugă oricum?</translation>
         <translation>Directorul de date al aplicației este folosit pentru a stoca setările și datele aplicației</translation>
     </message>
     <message>
-        <source>App data directory:</source>
-        <translation type="vanished">Directorul de date al aplicației:</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="1501"/>
         <source>Nukes all archives stored for the current key from the Tarsnap server</source>
         <translation>Șterge toate arhivele stocate pentru cheia curentă de pe serverele Tarsnap</translation>
-    </message>
-    <message>
-        <source>Purge archives</source>
-        <translation type="vanished">Șterge toate arhivele </translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="2114"/>
@@ -1510,10 +1376,6 @@ Adaugă oricum?</translation>
         <location filename="../../forms/mainwindow.ui" line="1941"/>
         <source>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</source>
         <translation>Utilitarele la linia de comandă sunt folosite pentru a comunica cu serviciul Tarsnap</translation>
-    </message>
-    <message>
-        <source>Tarsnap client directory:</source>
-        <translation type="vanished">Utilitarele la linia de comandă Tarsnap:</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="2002"/>
@@ -1692,21 +1554,9 @@ Adaugă oricum?</translation>
         <translation>Comută la panoul Ajutor &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <source>Tarsnap help</source>
-        <translation type="vanished">Ajutor Tarsnap</translation>
-    </message>
-    <message>
-        <source>General help</source>
-        <translation type="vanished">Ajutor general</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="2321"/>
         <source>About Tarsnap</source>
         <translation>Despre Tarsnap</translation>
-    </message>
-    <message>
-        <source>Keyboard shortcuts</source>
-        <translation type="vanished">Comenzi tastatură</translation>
     </message>
     <message>
         <location filename="../../forms/mainwindow.ui" line="2297"/>
@@ -2028,10 +1878,6 @@ Adaugă oricum?</translation>
         <translation>Afișează/ascunde antent pentru panoul Joburi</translation>
     </message>
     <message>
-        <source>Filter and search Archives list</source>
-        <translation type="vanished">Filtrează și caută în lista de Arhive</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="485"/>
         <location filename="../../forms/mainwindow.ui" line="715"/>
         <location filename="../../forms/mainwindow.ui" line="2827"/>
@@ -2065,10 +1911,6 @@ Adaugă oricum?</translation>
         <translation></translation>
     </message>
     <message>
-        <source>Filter and search Jobs list</source>
-        <translation type="vanished">Filtrează și caută în lista de Joburi</translation>
-    </message>
-    <message>
         <location filename="../../forms/mainwindow.ui" line="2880"/>
         <source>Add file(s)</source>
         <translation>Adaugă fișiere</translation>
@@ -2094,18 +1936,6 @@ Adaugă oricum?</translation>
         <location filename="../../src/widgets/mainwindow.cpp" line="1615"/>
         <source>Deleting all archives: press Cancel to abort</source>
         <translation>Se șterg toate arhivele: apasă Anulare pentru a renunța</translation>
-    </message>
-    <message>
-        <source>Job &lt;i&gt;%1&lt;/i&gt; deleted. Deleting %2 associated archives next...</source>
-        <translation type="vanished">Jobul &lt;i&gt;%1&lt;/i&gt; a fost șters. Se șterg %2 arhive asociate în pasul următor...</translation>
-    </message>
-    <message>
-        <source>Job &lt;i&gt;%1&lt;/i&gt; deleted.</source>
-        <translation type="vanished">Jobul &lt;i&gt;%1&lt;/i&gt; a fost șters.</translation>
-    </message>
-    <message>
-        <source>Job &lt;i&gt;%1&lt;/i&gt; added.</source>
-        <translation type="vanished">Jobul &lt;i&gt;%1&lt;/i&gt; a fost adăugat.</translation>
     </message>
     <message>
         <location filename="../../src/widgets/mainwindow.cpp" line="367"/>
@@ -2138,18 +1968,6 @@ Adaugă oricum?</translation>
         <location filename="../../src/widgets/mainwindow.cpp" line="1823"/>
         <source>Tarsnap error</source>
         <translation>Eroare Tarsnap</translation>
-    </message>
-    <message>
-        <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Advanced page to fix that.</source>
-        <translation type="vanished">Utilitarele la linia de comandă Tarsnap nu au fost găsite. Navighează la panoul Setări -&gt; Avansat pentru a remedia.</translation>
-    </message>
-    <message>
-        <source>Machine key file not found. Go to  Settings -&gt; Tarsnap page to fix that.</source>
-        <translation type="vanished">Cheia Tarsnap pentru acest dispozitiv nu a fost găsită. Navighează la panoul Setări -&gt; Tarsnap pentru a remedia.</translation>
-    </message>
-    <message>
-        <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Advanced page to fix that.</source>
-        <translation type="vanished">Directorul &quot;cache&quot; Tarsnap este invalid. Navighează la panoul Setări -&gt; Avansat pentru a remedia.</translation>
     </message>
     <message>
         <location filename="../../src/widgets/mainwindow.cpp" line="720"/>
@@ -2215,23 +2033,11 @@ unique data	%3		%4</source>
         <translation></translation>
     </message>
     <message>
-        <source>Tarsnap version </source>
-        <translation type="vanished">Versiune Tarsnap</translation>
-    </message>
-    <message>
-        <source> detected</source>
-        <translation type="vanished"> detectată</translation>
-    </message>
-    <message>
         <location filename="../../src/widgets/mainwindow.cpp" line="838"/>
         <location filename="../../src/widgets/mainwindow.cpp" line="1703"/>
         <location filename="../../src/widgets/mainwindow.cpp" line="1985"/>
         <source>Save</source>
         <translation>Salvează</translation>
-    </message>
-    <message>
-        <source>version </source>
-        <translation type="vanished">versiune</translation>
     </message>
     <message>
         <location filename="../../src/widgets/mainwindow.cpp" line="1244"/>
@@ -2300,17 +2106,9 @@ unique data	%3		%4</source>
         <translation></translation>
     </message>
     <message>
-        <source>Purge all archives?</source>
-        <translation type="vanished">Elimin toate arhivele?</translation>
-    </message>
-    <message>
         <location filename="../../src/widgets/mainwindow.cpp" line="1604"/>
         <source>This action will &lt;b&gt;delete all (%1) archives&lt;/b&gt; stored for this key.&lt;br /&gt;&lt;br /&gt;To confirm, type &apos;%2&apos; and press OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Warning: This action cannot be undone. All archives will be &lt;b&gt;lost forever&lt;/b&gt;&lt;/i&gt;.</source>
         <translation>Această acțiune &lt;b&gt;va șterge toate cele (%1) arhive&lt;/b&gt; stocate pentru cheia curentă.&lt;br /&gt;&lt;br /&gt;Pentru a confirma, tastează &apos;%2&apos; și apasă butonul OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Avertisment: Această acțiune este ireversibilă. Arhivele vor fi șterse &lt;b&gt;definitiv&lt;/b&gt;, fără posibilitatea de a le recupera&lt;/i&gt;.</translation>
-    </message>
-    <message>
-        <source>Purge cancelled.</source>
-        <translation type="vanished">Eliminare arhive anulată.</translation>
     </message>
     <message>
         <location filename="../../src/widgets/mainwindow.cpp" line="551"/>
@@ -2618,10 +2416,6 @@ Aborting operation.</source>
         <translation>Eroare la conectarea în rețea. Vă rugam să verificați conectivitatea dumneavoastra și accesul la internet.</translation>
     </message>
     <message>
-        <source>Cache repair failed. It might be worth trying the &apos;Repair cache&apos; button in Settings -&gt;  Advanced.</source>
-        <translation type="vanished">Operațiunea de reparație a directorului cache a eșuat. Poți încerca din nou folosind butonul &quot;Repară director cache&quot; din panoul Setări -&gt; Avansat. </translation>
-    </message>
-    <message>
         <location filename="../../src/widgets/mainwindow.cpp" line="1861"/>
         <source>Clear journal log? All entries will be deleted forever.</source>
         <translation>Dorești să golești Jurnalul de activitați? Toate intrările vor fi sterse fără posibilitate de recuperare.</translation>
@@ -2742,18 +2536,6 @@ Aborting operation.</source>
         <translation>Restaurează</translation>
     </message>
     <message>
-        <source>Restore archive &lt;b&gt;%1&lt;/b&gt; contents to specified directory? Any existing files will not be replaced by default. Use the options below to modify this behavior:</source>
-        <translation type="vanished">Restaurează conținutul arhivei &lt;b&gt;%1&lt;/b&gt; în directorul specificat? Fișierele existente pe disc nu vor fi suprascrise. Folosește opțiunile de mai jos pentru a modifica acest comportament: </translation>
-    </message>
-    <message>
-        <source>Download archive &lt;b&gt;%1&lt;/b&gt; contents as an uncompressed TAR archive.</source>
-        <translation type="vanished">Descarcă conținutul arhivei &lt;b&gt;%1&lt;/b&gt; ca fișier TAR necompresat.</translation>
-    </message>
-    <message>
-        <source>Restore archive &lt;b&gt;%1&lt;/b&gt; contents to original locations? Any existing files will not be replaced by default. Use the options below to modify this behavior:</source>
-        <translation type="vanished">Restaurează conținutul arhivei &lt;b&gt;%1&lt;/b&gt; folosind căile sursă ale fișierelor? Fișierele existente pe disc nu vor fi suprascrise. Folosește opțiunile de mai jos pentru a modifica acest comportament: </translation>
-    </message>
-    <message>
         <location filename="../../src/widgets/restoredialog.cpp" line="116"/>
         <source>Restore from archive &lt;b&gt;%1&lt;/b&gt; to specified directory? Any existing files will not be replaced by default. Use the options below to modify this behavior:</source>
         <translation>Restaurează din arhiva &lt;b&gt;%1&lt;/b&gt; în directorul specificat? Fișierele existente pe disc nu vor fi suprascrise. Folosește opțiunile de mai jos pentru a modifica acest comportament:</translation>
@@ -2823,22 +2605,10 @@ Aborting operation.</source>
         <translation>Alternativ, poți sări peste acest pas și să configurezi totul manual din panoul Setări al aplicației.</translation>
     </message>
     <message>
-        <source>Skip this Wizard</source>
-        <translation type="vanished">Sari peste Asistentul de configurare</translation>
-    </message>
-    <message>
         <location filename="../../src/widgets/setupdialog.cpp" line="97"/>
         <location filename="../../src/widgets/setupdialog.cpp" line="115"/>
         <source>Skip wizard</source>
         <translation>Sari peste</translation>
-    </message>
-    <message>
-        <source>Proceed to next step</source>
-        <translation type="vanished">Procedează la următorul pas</translation>
-    </message>
-    <message>
-        <source>Proceed</source>
-        <translation type="vanished">Procedează</translation>
     </message>
     <message>
         <location filename="../../forms/setupdialog.ui" line="329"/>
@@ -2950,30 +2720,6 @@ Aborting operation.</source>
         <translation>Înainte</translation>
     </message>
     <message>
-        <source>Are you using Tarsnap on this machine already, or did so in the past?</source>
-        <translation type="vanished">Folosești Tarsnap deja pe acest dispozitiv sau ai facut-o în trecut?</translation>
-    </message>
-    <message>
-        <source>If so, you can save time and money by using the same machine key, which allows Tarsnap to access the previously uploaded data.</source>
-        <translation type="vanished">Dacă da, poți economisi timp și bani folosind aceeași cheie dispozitiv, permițând Tarsnap să acceseze datele încărcate anterior.</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="vanished">Nu</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="vanished">Da</translation>
-    </message>
-    <message>
-        <source>Please use your Tarsnap account credentials to register this machine with the service and create a local key for this machine.</source>
-        <translation type="vanished">Completează folosind credențialele contului tău Tarsnap pentru a înregistra acest dispozitiv și a crea o cheie locală.</translation>
-    </message>
-    <message>
-        <source>Don&apos;t have an account? Register on &lt;a href=&quot;http://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt;, then come back.</source>
-        <translation type="vanished">Dacă nu ai un cont înregistrează-te pe website-ul &lt;a href=&quot;http://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; și ulterior folosește aceleași credențialele aici.</translation>
-    </message>
-    <message>
         <location filename="../../forms/setupdialog.ui" line="752"/>
         <source>Tarsnap user:</source>
         <translation>Utilizator Tarsnap:</translation>
@@ -3030,26 +2776,14 @@ Aborting operation.</source>
         <translation>numele acestui dispozitiv</translation>
     </message>
     <message>
-        <source>Machine key:</source>
-        <translation type="vanished">Cheie dispozitiv:</translation>
-    </message>
-    <message>
         <location filename="../../forms/setupdialog.ui" line="859"/>
         <source>this machine&apos;s keyfile</source>
         <translation>fișierul cheie dispozitiv</translation>
     </message>
     <message>
-        <source>Look for a machine key</source>
-        <translation type="vanished">Navighează după o cheie dispozitiv Tarsnap</translation>
-    </message>
-    <message>
         <location filename="../../forms/setupdialog.ui" line="900"/>
         <source>Browse for key</source>
         <translation>Schimbă cheie dispozitiv</translation>
-    </message>
-    <message>
-        <source>This may take a while, please be patient</source>
-        <translation type="vanished">Această acțiune poate dura, vă rugăm să aveți răbdare</translation>
     </message>
     <message>
         <location filename="../../src/widgets/setupdialog.cpp" line="126"/>
@@ -3077,10 +2811,6 @@ Aborting operation.</source>
         <translation>Dacă pierdeți fișierul cheie dispozitiv nu veți mai putea accesa datele arhivate!</translation>
     </message>
     <message>
-        <source>Setup wizard is complete, start using the app</source>
-        <translation type="vanished">Configurare aplicație finalizată</translation>
-    </message>
-    <message>
         <location filename="../../src/widgets/setupdialog.cpp" line="142"/>
         <source>Start using Tarsnap</source>
         <translation>Finalizare configurare</translation>
@@ -3089,10 +2819,6 @@ Aborting operation.</source>
         <location filename="../../src/widgets/setupdialog.cpp" line="120"/>
         <source>Command-line utilities</source>
         <translation>Utilitare la linia de comandă</translation>
-    </message>
-    <message>
-        <source>Machine key</source>
-        <translation type="vanished">Cheie dispozitiv</translation>
     </message>
     <message>
         <location filename="../../src/widgets/setupdialog.cpp" line="125"/>
@@ -3118,14 +2844,6 @@ Aborting operation.</source>
         <location filename="../../src/widgets/setupdialog.cpp" line="220"/>
         <source>App data location</source>
         <translation>Navighează după directorul de date al aplicației</translation>
-    </message>
-    <message>
-        <source>Please use your existing machine key and choose a machine name. </source>
-        <translation type="vanished">Vă rugăm să folosiți cheia dispozitiv existentă și să completați numele dispozitiv. </translation>
-    </message>
-    <message>
-        <source>The registration will also verify the archive integrity and consistency, so please be patient.</source>
-        <translation type="vanished">Vă rugăm să aveți răbdare cât timp procedura de înregistrare verifică integritatea și consistența arhivelor existente.</translation>
     </message>
     <message>
         <location filename="../../src/widgets/setupdialog.cpp" line="317"/>
@@ -3215,40 +2933,6 @@ Aborting operation.</source>
 <context>
     <name>TarsnapTask</name>
     <message>
-        <source>Executing command:
-[%1 %2]</source>
-        <translation type="vanished">Se execută comanda:
-[%1 %2]</translation>
-    </message>
-    <message>
-        <source>
-...
--- Output truncated by Tarsnap GUI --</source>
-        <translation type="vanished">
-...
--- Rezultat comandă trunchiat de Tarsnap GUI --</translation>
-    </message>
-    <message>
-        <source>Command finished with exit code %3 and output:
-[%1 %2]
-%4</source>
-        <translation type="vanished">Comandă finalizată cu codul de ieșire %3 și rezultat:
-[%1 %2]
-%4</translation>
-    </message>
-    <message>
-        <source>Command finished with exit code %3 and no output:
-[%1 %2]</source>
-        <translation type="vanished">Comandă finalizată cu codul de ieșire %3:
-[%1 %2]</translation>
-    </message>
-    <message>
-        <source>Tarsnap process error %1 (%2) occured (exit code %3):
-%4</source>
-        <translation type="vanished">Eroare proces Tarsnap %1 (%2) (cod ieșire %3):
-%4</translation>
-    </message>
-    <message>
         <location filename="../../src/tarsnaptask.cpp" line="33"/>
         <source>Task %1 started:
 [%2 %3]</source>
@@ -3303,10 +2987,6 @@ Aborting operation.</source>
         <translation>Se descarcă conținut pentru arhiva &lt;i&gt;%1&lt;/i&gt;...</translation>
     </message>
     <message>
-        <source>Archives purge initiated...</source>
-        <translation type="vanished">Eliminarea tuturor arhivelor a fost inițiată...</translation>
-    </message>
-    <message>
         <location filename="../../src/taskmanager.cpp" line="364"/>
         <source>Restoring from archive &lt;i&gt;%1&lt;/i&gt;...</source>
         <translation>Se restaurează din arhiva &lt;i&gt;%1&lt;/i&gt;...</translation>
@@ -3354,10 +3034,6 @@ Aborting operation.</source>
         <translation>Se descarcă conținut pentru arhiva &lt;i&gt;%1&lt;/i&gt;... finalizat.</translation>
     </message>
     <message>
-        <source>Error: Failed to delete archive from remote.</source>
-        <translation type="vanished">Eroare la ștergerea arhivei.</translation>
-    </message>
-    <message>
         <location filename="../../src/taskmanager.cpp" line="779"/>
         <source>Error: Failed to get stats from remote.</source>
         <translation>Eroare la descărcare statistici generale.</translation>
@@ -3371,14 +3047,6 @@ Aborting operation.</source>
         <location filename="../../src/taskmanager.cpp" line="800"/>
         <source>Cache repair failed. Hover mouse for details.</source>
         <translation>Eroare la repararea directorului &quot;cache&quot; Tarsnap.</translation>
-    </message>
-    <message>
-        <source>All archives purged successfully.</source>
-        <translation type="vanished">Toate arhivele au fost șterse cu succes.</translation>
-    </message>
-    <message>
-        <source>Archives purging failed. Hover mouse for details.</source>
-        <translation type="vanished">Eroare la ștergerea arhivelor.</translation>
     </message>
     <message>
         <location filename="../../src/taskmanager.cpp" line="294"/>
@@ -3480,10 +3148,6 @@ Aborting operation.</source>
 <context>
     <name>aboutWidget</name>
     <message>
-        <source>version </source>
-        <translation type="vanished">versiune</translation>
-    </message>
-    <message>
         <location filename="../../forms/aboutwidget.ui" line="44"/>
         <source>GUI version </source>
         <translation>Versiune aplicație </translation>
@@ -3502,10 +3166,6 @@ Aborting operation.</source>
         <location filename="../../forms/aboutwidget.ui" line="73"/>
         <source>© 2014-2017 Tarsnap Backup Inc. All rights reserved.</source>
         <translation>© 2014-2017 Tarsnap Backup Inc. Toate drepturile rezervate.</translation>
-    </message>
-    <message>
-        <source>© 2014-2016 Tarsnap Backup Inc. All rights reserved.</source>
-        <translation type="vanished">© 2014-2016 Tarsnap Backup Inc. Toate drepturile rezervate.</translation>
     </message>
     <message>
         <location filename="../../forms/aboutwidget.ui" line="89"/>

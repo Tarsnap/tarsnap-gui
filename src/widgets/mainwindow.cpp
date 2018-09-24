@@ -4,8 +4,6 @@
 #include "filepickerdialog.h"
 #include "scheduling.h"
 #include "translator.h"
-#include "ui_aboutwidget.h"
-#include "ui_consolewidget.h"
 #include "utils.h"
 
 #include <QDateTime>
@@ -54,15 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.helpTabLayout->insertWidget(0, &_helpWidget);
 
     connectSettingsWidget();
-
-    // Initialize the Help tab text
-    QFile helpTabFile(":/text/help-tab.xml");
-    if(!helpTabFile.open(QFile::ReadOnly | QIODevice::Text))
-    {
-        DEBUG << "Failed to load a resource file.";
-    }
-    _helpTabHTML = QTextStream(&helpTabFile).readAll();
-    helpTabFile.close();
 
     // --
 
@@ -296,25 +285,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.actionShowJobsTabHeader, &QAction::triggered,
             [&](bool checked) { _ui.jobsHeader->setVisible(checked); });
 
-    // Initialize About window
-    Ui::aboutWidget aboutUi;
-    aboutUi.setupUi(&_aboutWindow);
-    aboutUi.versionLabel->setText(tr("GUI version ")
-                                  + QCoreApplication::applicationVersion());
-    _aboutWindow.setWindowFlags(
-        (_aboutWindow.windowFlags() | Qt::CustomizeWindowHint)
-        & ~Qt::WindowMaximizeButtonHint);
-    connect(aboutUi.checkUpdateButton, &QPushButton::clicked, []() {
-        QDesktopServices::openUrl(
-            QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
-    });
-    _ui.aboutButton->setPopup(&_aboutWindow);
-
-    // Initialize console log
-    Ui::consoleWidget consoleUI;
-    consoleUI.setupUi(&_consoleWindow);
-    _consoleLog = consoleUI.log;
-    _ui.consoleButton->setPopup(&_consoleWindow);
+    _consoleLog = _helpWidget.getConsoleLog();
 }
 
 MainWindow::~MainWindow()
@@ -521,8 +492,8 @@ void MainWindow::setupMenuBar()
 
     QAction *actionAbout = new QAction(this);
     actionAbout->setMenuRole(QAction::AboutRole);
-    connect(actionAbout, &QAction::triggered, this,
-            &MainWindow::aboutMenuClicked);
+    connect(actionAbout, &QAction::triggered, &_helpWidget,
+            &HelpWidget::aboutMenuClicked);
     QAction *actionSettings = new QAction(this);
     actionSettings->setMenuRole(QAction::PreferencesRole);
     connect(actionSettings, &QAction::triggered, _ui.actionGoSettings,
@@ -620,12 +591,6 @@ void MainWindow::createJobClicked()
     _ui.addJobButton->setEnabled(true);
     _ui.addJobButton->setText(tr("Save"));
     _ui.addJobButton->setProperty("save", true);
-}
-
-void MainWindow::aboutMenuClicked()
-{
-    // This always displays the About window
-    _ui.aboutButton->setChecked(true);
 }
 
 void MainWindow::mainTabChanged(int index)
@@ -1103,14 +1068,6 @@ void MainWindow::addDefaultJobs()
 void MainWindow::updateUi()
 {
     // Keyboard shortcuts
-    _ui.helpTabText->setHtml(
-        _helpTabHTML
-            .arg(QKeySequence(Qt::ControlModifier)
-                     .toString(QKeySequence::NativeText))
-            .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
-                     .toString(QKeySequence::NativeText))
-            .arg(QKeySequence(Qt::Key_Backspace).toString(QKeySequence::NativeText))
-            .arg(QKeySequence(Qt::Key_Delete).toString(QKeySequence::NativeText)));
     _ui.mainTabWidget->setTabToolTip(0,
                                      _ui.mainTabWidget->tabToolTip(0).arg(
                                          _ui.actionGoBackup->shortcut().toString(

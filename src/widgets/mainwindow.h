@@ -144,7 +144,6 @@ private slots:
     void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
     void createJobClicked();
-    void aboutMenuClicked();
     void mainTabChanged(int index);
     void validateBackupTab();
 
@@ -154,9 +153,6 @@ private:
     QMenuBar *     _menuBar;
     QString        _lastTimestamp;
     bool           _aboutToQuit;
-    QString        _helpTabHTML;
-    QDialog        _aboutWindow;
-    QDialog        _consoleWindow;
     QMessageBox    _stopTasksDialog;
     int            _runningTasks;
     int            _queuedTasks;

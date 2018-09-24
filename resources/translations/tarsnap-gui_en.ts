@@ -809,98 +809,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>On the Tarsnap servers, this is what you&apos;re paying for</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Actual usage:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Number of Archives stored for this Machine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Archive count:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bytes reduced by deduplication and compression</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bytes economy:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Real size of all stored archives (before compression and deduplication)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total backup size:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Credit left on Tarsnap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Credit:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show account activity, requires Tarsnap login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(show account activity)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Last activity recorded by Tarsnap for this machine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine activity:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show machine activity, requires Tarsnap login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(show machine activity)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E-mail address used to register on Tarsnap.com</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Name used for this machine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set machine name to host name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap key used for this machine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for a machine key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>change</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1065,10 +973,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nukes all archives stored for the current key from the Tarsnap server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Directory to use for app data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1102,38 +1006,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>archive name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Click login button to update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Displayed credit might be out of date, click login button to fetch latest account details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Credit and machine activity is %1 days old. Click login to update.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap user</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nuke archives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1999,11 +1871,155 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Number of Archives stored for this Machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive count:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Real size of all stored archives (before compression and deduplication)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total backup size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On the Tarsnap servers, this is what you&apos;re paying for</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actual usage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bytes reduced by deduplication and compression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bytes economy:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Credit left on Tarsnap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Credit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click login button to update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show account activity, requires Tarsnap login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(show account activity)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last activity recorded by Tarsnap for this machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Machine activity:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show machine activity, requires Tarsnap login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(show machine activity)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Displayed credit might be out of date, click login button to fetch latest account details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Credit and machine activity is %1 days old. Click login to update.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set machine name to host name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Machine name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for a machine key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E-mail address used to register on Tarsnap.com</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name used for this machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap key used for this machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Machine key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nukes all archives stored for the current key from the Tarsnap server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nuke archives</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update account details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Tarsnap account details from website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+U</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

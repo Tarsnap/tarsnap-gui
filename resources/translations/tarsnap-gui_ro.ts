@@ -815,98 +815,6 @@ Adaugă oricum?</translation>
         <translation>Setări cont</translation>
     </message>
     <message>
-        <source>On the Tarsnap servers, this is what you&apos;re paying for</source>
-        <translation>Mărime date pe serverele Tarsnap, consum plătit</translation>
-    </message>
-    <message>
-        <source>Actual usage:</source>
-        <translation>Consum actual de date:</translation>
-    </message>
-    <message>
-        <source>Number of Archives stored for this Machine</source>
-        <translation>Numărul de Arhive stocate pentru această mașină</translation>
-    </message>
-    <message>
-        <source>Archive count:</source>
-        <translation>Număr Arhive:</translation>
-    </message>
-    <message>
-        <source>Bytes reduced by deduplication and compression</source>
-        <translation>Octeți salvați în urma deduplicării și a compresiei</translation>
-    </message>
-    <message>
-        <source>Bytes economy:</source>
-        <translation>Economie în octeți:</translation>
-    </message>
-    <message>
-        <source>Real size of all stored archives (before compression and deduplication)</source>
-        <translation>Mărimea actuală a tuturor arhivelor (înainte de compresie și deduplicare)</translation>
-    </message>
-    <message>
-        <source>Total backup size:</source>
-        <translation>Mărime totală backup:</translation>
-    </message>
-    <message>
-        <source>Credit left on Tarsnap</source>
-        <translation>Credit Tarsnap rămas</translation>
-    </message>
-    <message>
-        <source>Credit:</source>
-        <translation>Credit:</translation>
-    </message>
-    <message>
-        <source>Show account activity, requires Tarsnap login</source>
-        <translation>Arată activitatea contului, necesită logare cu credențiale</translation>
-    </message>
-    <message>
-        <source>(show account activity)</source>
-        <translation>(arată activitate cont)</translation>
-    </message>
-    <message>
-        <source>Last activity recorded by Tarsnap for this machine</source>
-        <translation>Ultima activitate înregistrată de Tarsnap pentru acest dispozitiv</translation>
-    </message>
-    <message>
-        <source>Machine activity:</source>
-        <translation>Activitate dispozitiv:</translation>
-    </message>
-    <message>
-        <source>Show machine activity, requires Tarsnap login</source>
-        <translation>Arată activitate dispozitiv, necesită logare cu credențiale</translation>
-    </message>
-    <message>
-        <source>(show machine activity)</source>
-        <translation>(arată activitate dispozitiv)</translation>
-    </message>
-    <message>
-        <source>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Efectuați înregistrare cu credențiale Tarsnap pentru a actualiza creditul și activitatea dispozitiv &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>E-mail address used to register on Tarsnap.com</source>
-        <translation>De regulă, adresa de email folosită la înregistrarea pe siteul Tarsnap</translation>
-    </message>
-    <message>
-        <source>Name used for this machine</source>
-        <translation>Numele utilizator pentru acest dispozitiv</translation>
-    </message>
-    <message>
-        <source>Set machine name to host name</source>
-        <translation>Setează nume dispozitiv automat (folosind &quot;hostname&quot;)</translation>
-    </message>
-    <message>
-        <source>hostname</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Tarsnap key used for this machine</source>
-        <translation>Cheia Tarsnap folosită pentru acest dispozitiv</translation>
-    </message>
-    <message>
-        <source>Browse for a machine key</source>
-        <translation>Schimbă cheie dispozitiv</translation>
-    </message>
-    <message>
         <source>change</source>
         <translation>schimbă</translation>
     </message>
@@ -1071,10 +979,6 @@ Adaugă oricum?</translation>
         <translation>Directorul de date al aplicației este folosit pentru a stoca setările și datele aplicației</translation>
     </message>
     <message>
-        <source>Nukes all archives stored for the current key from the Tarsnap server</source>
-        <translation>Șterge toate arhivele stocate pentru cheia curentă de pe serverele Tarsnap</translation>
-    </message>
-    <message>
         <source>Directory to use for app data</source>
         <translation>Directorul de date al aplicației</translation>
     </message>
@@ -1109,38 +1013,6 @@ Adaugă oricum?</translation>
     <message>
         <source>archive name</source>
         <translation>nume arhivă</translation>
-    </message>
-    <message>
-        <source>Click login button to update</source>
-        <translation>Execută Autentificare pentru actualizare</translation>
-    </message>
-    <message>
-        <source>Displayed credit might be out of date, click login button to fetch latest account details</source>
-        <translation>Creditul afișat ar putea fi expirat, faceți click pe butonul Autentificare pentru a prelua ultimele detalii despre cont</translation>
-    </message>
-    <message>
-        <source>Credit and machine activity is %1 days old. Click login to update.</source>
-        <translation>Creditul și activitatea dispozitivului au fost preluate cu %1 zile în urmă. Fă click pe butonul Autentificare pentru actualizare.</translation>
-    </message>
-    <message>
-        <source>Machine name</source>
-        <translation>Nume dispozitiv</translation>
-    </message>
-    <message>
-        <source>Tarsnap user</source>
-        <translation>Utilizator Tarsnap</translation>
-    </message>
-    <message>
-        <source>Machine key</source>
-        <translation>Cheie dispozitiv</translation>
-    </message>
-    <message>
-        <source>login</source>
-        <translation>autentificare</translation>
-    </message>
-    <message>
-        <source>Nuke archives</source>
-        <translation>Șterge toate arhivele</translation>
     </message>
     <message>
         <source>Limit upload bandwidth</source>
@@ -2028,12 +1900,156 @@ Aborting operation.</source>
         <translation type="unfinished">Setări cont</translation>
     </message>
     <message>
+        <source>Number of Archives stored for this Machine</source>
+        <translation type="unfinished">Numărul de Arhive stocate pentru această mașină</translation>
+    </message>
+    <message>
+        <source>Archive count:</source>
+        <translation type="unfinished">Număr Arhive:</translation>
+    </message>
+    <message>
+        <source>Real size of all stored archives (before compression and deduplication)</source>
+        <translation type="unfinished">Mărimea actuală a tuturor arhivelor (înainte de compresie și deduplicare)</translation>
+    </message>
+    <message>
+        <source>Total backup size:</source>
+        <translation type="unfinished">Mărime totală backup:</translation>
+    </message>
+    <message>
+        <source>On the Tarsnap servers, this is what you&apos;re paying for</source>
+        <translation type="unfinished">Mărime date pe serverele Tarsnap, consum plătit</translation>
+    </message>
+    <message>
+        <source>Actual usage:</source>
+        <translation type="unfinished">Consum actual de date:</translation>
+    </message>
+    <message>
+        <source>Bytes reduced by deduplication and compression</source>
+        <translation type="unfinished">Octeți salvați în urma deduplicării și a compresiei</translation>
+    </message>
+    <message>
+        <source>Bytes economy:</source>
+        <translation type="unfinished">Economie în octeți:</translation>
+    </message>
+    <message>
+        <source>Credit left on Tarsnap</source>
+        <translation type="unfinished">Credit Tarsnap rămas</translation>
+    </message>
+    <message>
+        <source>Credit:</source>
+        <translation type="unfinished">Credit:</translation>
+    </message>
+    <message>
+        <source>Click login button to update</source>
+        <translation type="unfinished">Execută Autentificare pentru actualizare</translation>
+    </message>
+    <message>
+        <source>Show account activity, requires Tarsnap login</source>
+        <translation type="unfinished">Arată activitatea contului, necesită logare cu credențiale</translation>
+    </message>
+    <message>
+        <source>(show account activity)</source>
+        <translation type="unfinished">(arată activitate cont)</translation>
+    </message>
+    <message>
+        <source>Last activity recorded by Tarsnap for this machine</source>
+        <translation type="unfinished">Ultima activitate înregistrată de Tarsnap pentru acest dispozitiv</translation>
+    </message>
+    <message>
+        <source>Machine activity:</source>
+        <translation type="unfinished">Activitate dispozitiv:</translation>
+    </message>
+    <message>
+        <source>Show machine activity, requires Tarsnap login</source>
+        <translation type="unfinished">Arată activitate dispozitiv, necesită logare cu credențiale</translation>
+    </message>
+    <message>
+        <source>(show machine activity)</source>
+        <translation type="unfinished">(arată activitate dispozitiv)</translation>
+    </message>
+    <message>
+        <source>Displayed credit might be out of date, click login button to fetch latest account details</source>
+        <translation type="unfinished">Creditul afișat ar putea fi expirat, faceți click pe butonul Autentificare pentru a prelua ultimele detalii despre cont</translation>
+    </message>
+    <message>
+        <source>Credit and machine activity is %1 days old. Click login to update.</source>
+        <translation type="unfinished">Creditul și activitatea dispozitivului au fost preluate cu %1 zile în urmă. Fă click pe butonul Autentificare pentru actualizare.</translation>
+    </message>
+    <message>
+        <source>Set machine name to host name</source>
+        <translation type="unfinished">Setează nume dispozitiv automat (folosind &quot;hostname&quot;)</translation>
+    </message>
+    <message>
+        <source>hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Machine name</source>
+        <translation type="unfinished">Nume dispozitiv</translation>
+    </message>
+    <message>
+        <source>Browse for a machine key</source>
+        <translation type="unfinished">Schimbă cheie dispozitiv</translation>
+    </message>
+    <message>
+        <source>change</source>
+        <translation type="unfinished">schimbă</translation>
+    </message>
+    <message>
+        <source>Tarsnap user</source>
+        <translation type="unfinished">Utilizator Tarsnap</translation>
+    </message>
+    <message>
+        <source>E-mail address used to register on Tarsnap.com</source>
+        <translation type="unfinished">De regulă, adresa de email folosită la înregistrarea pe siteul Tarsnap</translation>
+    </message>
+    <message>
+        <source>Name used for this machine</source>
+        <translation type="unfinished">Numele utilizator pentru acest dispozitiv</translation>
+    </message>
+    <message>
+        <source>Tarsnap key used for this machine</source>
+        <translation type="unfinished">Cheia Tarsnap folosită pentru acest dispozitiv</translation>
+    </message>
+    <message>
+        <source>Machine key</source>
+        <translation type="unfinished">Cheie dispozitiv</translation>
+    </message>
+    <message>
+        <source>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished">Efectuați înregistrare cu credențiale Tarsnap pentru a actualiza creditul și activitatea dispozitiv &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>login</source>
+        <translation type="unfinished">autentificare</translation>
+    </message>
+    <message>
+        <source>Nukes all archives stored for the current key from the Tarsnap server</source>
+        <translation type="unfinished">Șterge toate arhivele stocate pentru cheia curentă de pe serverele Tarsnap</translation>
+    </message>
+    <message>
+        <source>Nuke archives</source>
+        <translation type="unfinished">Șterge toate arhivele</translation>
+    </message>
+    <message>
         <source>Backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Application</source>
         <translation type="unfinished">Setări aplicație</translation>
+    </message>
+    <message>
+        <source>Update account details</source>
+        <translation type="unfinished">Actualizează detalii cont</translation>
+    </message>
+    <message>
+        <source>Update Tarsnap account details from website</source>
+        <translation type="unfinished">Actualizează detalii cont Tarsnap de pe website</translation>
+    </message>
+    <message>
+        <source>Ctrl+U</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

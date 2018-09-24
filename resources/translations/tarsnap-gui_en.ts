@@ -260,27 +260,19 @@ Add anyway?</source>
 <context>
     <name>CoreApplication</name>
     <message>
-        <source>Tarsnap GUI - Online backups for the truly paranoid (yet graphically inclined)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Executes all Jobs sequentially that have the &apos;Automatic backup schedule&apos; option enabled. The application runs headless and useful information is printed to standard out and error.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use the specified app data directory. Useful for multiple configurations on the same machine (INI format is implied).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tarsnap warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Simulation mode is enabled. Archives will not be uploaded to the Tarsnap server. Disable in Settings -&gt; Backup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to updated OS X launchd path</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1233,14 +1225,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Console log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Console command log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Journal log</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1759,6 +1743,10 @@ unique data	%3		%4</source>
         <source>Clear journal log? All entries will be deleted forever.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Console Log</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RestoreDialog</name>
@@ -2223,6 +2211,14 @@ Aborting operation.</source>
         <source> detected.  ✔</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Tarsnap key files (*.key *.keys)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*);;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TarsnapAccount</name>
@@ -2465,6 +2461,17 @@ Built with the help of the following 3rd party components:</source>
         <source>* Qt SDK from http://www.qt.io/download-open-source/ - LGPL; Multi license
 * Icons by &quot;Open Iconic www.useiconic.com/open&quot; - MIT License
 * Loading icon from &quot;http://ajaxload.info&quot; - WTFPL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Tarsnap GUI</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>consoleWidget</name>
+    <message>
+        <source>Tarsnap Console Log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

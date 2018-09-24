@@ -266,28 +266,20 @@ Adaugă oricum?</translation>
 <context>
     <name>CoreApplication</name>
     <message>
-        <source>Tarsnap GUI - Online backups for the truly paranoid (yet graphically inclined)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Executes all Jobs sequentially that have the &apos;Automatic backup schedule&apos; option enabled. The application runs headless and useful information is printed to standard out and error.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Use the specified app data directory. Useful for multiple configurations on the same machine (INI format is implied).</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>directory</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Tarsnap warning</source>
         <translation>Avertisment</translation>
     </message>
     <message>
         <source>Simulation mode is enabled. Archives will not be uploaded to the Tarsnap server. Disable in Settings -&gt; Backup.</source>
         <translation>Modul simulare este activat. Arhivele noi nu vor fi încărcate pe serverul Tarsnap. Dezactivează în Setări -&gt; Backup.</translation>
+    </message>
+    <message>
+        <source>Updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1239,14 +1231,6 @@ Adaugă oricum?</translation>
         <translation>Listă comenzi tastatura</translation>
     </message>
     <message>
-        <source>Console log</source>
-        <translation>Jurnal consolă</translation>
-    </message>
-    <message>
-        <source>Console command log</source>
-        <translation>Jurnal de comandă al consolei</translation>
-    </message>
-    <message>
         <source>Journal log</source>
         <translation>Jurnal</translation>
     </message>
@@ -1766,6 +1750,10 @@ unique data	%3		%4</source>
         <source>Clear journal log? All entries will be deleted forever.</source>
         <translation>Dorești să golești Jurnalul de activitați? Toate intrările vor fi sterse fără posibilitate de recuperare.</translation>
     </message>
+    <message>
+        <source>Console Log</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RestoreDialog</name>
@@ -2257,6 +2245,14 @@ Aborting operation.</source>
         <source> detected.  ✔</source>
         <translation> detectate.  ✔</translation>
     </message>
+    <message>
+        <source>Tarsnap key files (*.key *.keys)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*);;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TarsnapAccount</name>
@@ -2510,6 +2506,17 @@ Deasemenea această aplicație a fost dezvoltată cu ajutorul următoarelor comp
 * Icons by &quot;Open Iconic www.useiconic.com/open&quot; - MIT License
 * Loading icon from &quot;http://ajaxload.info&quot; - WTFPL</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>About Tarsnap GUI</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>consoleWidget</name>
+    <message>
+        <source>Tarsnap Console Log</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

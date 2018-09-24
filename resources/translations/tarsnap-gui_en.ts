@@ -805,14 +805,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Account</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Application</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Drag and drop files or directories to back up, or use the File browser (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2020,6 +2012,10 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     </message>
     <message>
         <source>Clear journal log? All entries will be deleted forever.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nuke confirmation requested.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

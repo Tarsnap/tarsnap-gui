@@ -811,14 +811,6 @@ Adaugă oricum?</translation>
         <translation>Comută la panoul Setări &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <source>Account</source>
-        <translation>Setări cont</translation>
-    </message>
-    <message>
-        <source>Application</source>
-        <translation>Setări aplicație</translation>
-    </message>
-    <message>
         <source>Drag and drop files or directories to back up, or use the File browser (%1)</source>
         <translation>Plasează fișierele și directoarele de adăugat la lista de backup sau folosește Navigatorul (%1)</translation>
     </message>
@@ -2050,6 +2042,10 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <message>
         <source>Clear journal log? All entries will be deleted forever.</source>
         <translation type="unfinished">Dorești să golești Jurnalul de activitați? Toate intrările vor fi sterse fără posibilitate de recuperare.</translation>
+    </message>
+    <message>
+        <source>Nuke confirmation requested.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

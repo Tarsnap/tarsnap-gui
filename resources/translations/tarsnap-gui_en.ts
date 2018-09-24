@@ -1377,10 +1377,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deleting all archives: press Cancel to abort</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The new size notation will take global effect on application restart.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1390,10 +1386,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Jobs (%1/%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>click login button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1445,12 +1437,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>		Total size	Compressed size
-all archives	%1		%2
-unique data	%3		%4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1464,10 +1450,6 @@ unique data	%3		%4</source>
     </message>
     <message>
         <source>items</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Purging all archives in %1 seconds...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1487,10 +1469,6 @@ unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Browse for existing machine key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find Tarsnap client</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1503,19 +1481,7 @@ unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No Tomorrow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This action will &lt;b&gt;delete all (%1) archives&lt;/b&gt; stored for this key.&lt;br /&gt;&lt;br /&gt;To confirm, type &apos;%2&apos; and press OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Warning: This action cannot be undone. All archives will be &lt;b&gt;lost forever&lt;/b&gt;&lt;/i&gt;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Application page to fix that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine key file not found. Go to  Settings -&gt; Account page to fix that.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1561,14 +1527,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     </message>
     <message>
         <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nuke all archives?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nuke cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2020,6 +1978,52 @@ Aborting operation.</source>
     </message>
     <message>
         <source>Ctrl+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Machine key file not found. Go to  Settings -&gt; Account page to fix that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>click login button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>		Total size	Compressed size
+all archives	%1		%2
+unique data	%3		%4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for existing machine key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purging all archives in %1 seconds...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Tomorrow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nuke all archives?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This action will &lt;b&gt;delete all (%1) archives&lt;/b&gt; stored for this key.&lt;br /&gt;&lt;br /&gt;To confirm, type &apos;%2&apos; and press OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Warning: This action cannot be undone. All archives will be &lt;b&gt;lost forever&lt;/b&gt;&lt;/i&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting all archives: press Cancel to abort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nuke cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

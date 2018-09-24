@@ -1383,10 +1383,6 @@ Adaugă oricum?</translation>
         <translation>Navighează după director de adăugat la lista de Backup</translation>
     </message>
     <message>
-        <source>Deleting all archives: press Cancel to abort</source>
-        <translation>Se șterg toate arhivele: apasă Anulare pentru a renunța</translation>
-    </message>
-    <message>
         <source>The new size notation will take global effect on application restart.</source>
         <translation>Opțiunea de afișare a dimensiunilor va avea efect global la următoarea repornire a aplicației.</translation>
     </message>
@@ -1397,10 +1393,6 @@ Adaugă oricum?</translation>
     <message>
         <source>Jobs (%1/%2)</source>
         <translation>Joburi (%1/%2)</translation>
-    </message>
-    <message>
-        <source>click login button</source>
-        <translation>Execută Autentificare pentru actualizare</translation>
     </message>
     <message>
         <source>Tarsnap error</source>
@@ -1451,12 +1443,6 @@ Adaugă oricum?</translation>
         <translation>Website Tarsnap</translation>
     </message>
     <message>
-        <source>		Total size	Compressed size
-all archives	%1		%2
-unique data	%3		%4</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation>Salvează</translation>
     </message>
@@ -1471,10 +1457,6 @@ unique data	%3		%4</source>
     <message>
         <source>items</source>
         <translation>elemente</translation>
-    </message>
-    <message>
-        <source>Purging all archives in %1 seconds...</source>
-        <translation>Toate arhivele vor fi șterse în %1 secunde...</translation>
     </message>
     <message>
         <source>Job error</source>
@@ -1493,10 +1475,6 @@ unique data	%3		%4</source>
         <translation>Căile de backup anterior definite pentru Jobul %1 nu mai sunt accesibile. Backupul poate fi incomplet, procedez?</translation>
     </message>
     <message>
-        <source>Browse for existing machine key</source>
-        <translation>Navighează după o cheie dispozitiv Tarsnap</translation>
-    </message>
-    <message>
         <source>Find Tarsnap client</source>
         <translation>Navighează după utilitarele la linia de comandă Tarsnap</translation>
     </message>
@@ -1509,20 +1487,8 @@ unique data	%3		%4</source>
         <translation>Navighează după directorul de date al aplicației</translation>
     </message>
     <message>
-        <source>No Tomorrow</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>This action will &lt;b&gt;delete all (%1) archives&lt;/b&gt; stored for this key.&lt;br /&gt;&lt;br /&gt;To confirm, type &apos;%2&apos; and press OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Warning: This action cannot be undone. All archives will be &lt;b&gt;lost forever&lt;/b&gt;&lt;/i&gt;.</source>
-        <translation>Această acțiune &lt;b&gt;va șterge toate cele (%1) arhive&lt;/b&gt; stocate pentru cheia curentă.&lt;br /&gt;&lt;br /&gt;Pentru a confirma, tastează &apos;%2&apos; și apasă butonul OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Avertisment: Această acțiune este ireversibilă. Arhivele vor fi șterse &lt;b&gt;definitiv&lt;/b&gt;, fără posibilitatea de a le recupera&lt;/i&gt;.</translation>
-    </message>
-    <message>
         <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Application page to fix that.</source>
         <translation>Utilitarele la linia de comandă Tarsnap nu au fost găsite. Navighează la panoul Setări -&gt; Aplicație pentru a remedia.</translation>
-    </message>
-    <message>
-        <source>Machine key file not found. Go to  Settings -&gt; Account page to fix that.</source>
-        <translation>Cheia Tarsnap pentru acest dispozitiv nu a fost găsită. Navighează la panoul Setări -&gt; Cont pentru a remedia.</translation>
     </message>
     <message>
         <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
@@ -1577,14 +1543,6 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <message>
         <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
         <translation>Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent. Execută click pe Arată detalii.</translation>
-    </message>
-    <message>
-        <source>Nuke all archives?</source>
-        <translation>Ești sigur că dorești să ștergi toate arhivele?</translation>
-    </message>
-    <message>
-        <source>Nuke cancelled.</source>
-        <translation>Operațiunea de ștergere a arhivelor a fost anulată.</translation>
     </message>
     <message>
         <source>Confirm action</source>
@@ -2050,6 +2008,52 @@ Aborting operation.</source>
     <message>
         <source>Ctrl+U</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap error</source>
+        <translation type="unfinished">Eroare Tarsnap</translation>
+    </message>
+    <message>
+        <source>Machine key file not found. Go to  Settings -&gt; Account page to fix that.</source>
+        <translation type="unfinished">Cheia Tarsnap pentru acest dispozitiv nu a fost găsită. Navighează la panoul Setări -&gt; Cont pentru a remedia.</translation>
+    </message>
+    <message>
+        <source>click login button</source>
+        <translation type="unfinished">Execută Autentificare pentru actualizare</translation>
+    </message>
+    <message>
+        <source>		Total size	Compressed size
+all archives	%1		%2
+unique data	%3		%4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for existing machine key</source>
+        <translation type="unfinished">Navighează după o cheie dispozitiv Tarsnap</translation>
+    </message>
+    <message>
+        <source>Purging all archives in %1 seconds...</source>
+        <translation type="unfinished">Toate arhivele vor fi șterse în %1 secunde...</translation>
+    </message>
+    <message>
+        <source>No Tomorrow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nuke all archives?</source>
+        <translation type="unfinished">Ești sigur că dorești să ștergi toate arhivele?</translation>
+    </message>
+    <message>
+        <source>This action will &lt;b&gt;delete all (%1) archives&lt;/b&gt; stored for this key.&lt;br /&gt;&lt;br /&gt;To confirm, type &apos;%2&apos; and press OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Warning: This action cannot be undone. All archives will be &lt;b&gt;lost forever&lt;/b&gt;&lt;/i&gt;.</source>
+        <translation type="unfinished">Această acțiune &lt;b&gt;va șterge toate cele (%1) arhive&lt;/b&gt; stocate pentru cheia curentă.&lt;br /&gt;&lt;br /&gt;Pentru a confirma, tastează &apos;%2&apos; și apasă butonul OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Avertisment: Această acțiune este ireversibilă. Arhivele vor fi șterse &lt;b&gt;definitiv&lt;/b&gt;, fără posibilitatea de a le recupera&lt;/i&gt;.</translation>
+    </message>
+    <message>
+        <source>Deleting all archives: press Cancel to abort</source>
+        <translation type="unfinished">Se șterg toate arhivele: apasă Anulare pentru a renunța</translation>
+    </message>
+    <message>
+        <source>Nuke cancelled.</source>
+        <translation type="unfinished">Operațiunea de ștergere a arhivelor a fost anulată.</translation>
     </message>
 </context>
 <context>

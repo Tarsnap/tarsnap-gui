@@ -1,6 +1,8 @@
 .clang_complete
 *.user
 .DS_Store
+# compiled translation files
+resources/translations/*.qm
 # auto-generated Qt files
 Makefile
 .qmake.stash

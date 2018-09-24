@@ -148,8 +148,18 @@ DISTFILES +=						\
 
 DISTFILES += .clang-format
 
+# Handle translations
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
+
+qtPrepareTool(LRELEASE, lrelease)
+for(tsfile, TRANSLATIONS) {
+	qmfile = $$shadowed($$tsfile)
+	qmfile ~= s,.ts$,.qm,
+	qmdir = $$dirname(qmfile)
+	command = $$LRELEASE -removeidentical $$tsfile -qm $$qmfile
+	system($$command)|error("Failed to run: $$command")
+}
 
 # Cleaner source directory
 UI_DIR      = build/gui/

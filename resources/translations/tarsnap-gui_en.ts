@@ -1117,10 +1117,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The new size notation will take global effect on application restart.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Archives (%1/%2)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1209,47 +1205,7 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Find Tarsnap client</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap cache location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>App data directory location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Application page to fix that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Application data dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>GUI version </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Confirm action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tasks are currently running. Please stop executing tasks or wait for completion and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reset current app settings, job definitions and run the setup wizard?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for downloads directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1311,10 +1267,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Tarsnap encountered network errors. Please check your network connection and verify that internet access is available and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Clear journal log? All entries will be deleted forever.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1944,11 +1896,27 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>The new size notation will take global effect on application restart.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Tarsnap error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Machine key file not found. Go to  Settings -&gt; Account page to fix that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Application page to fix that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Application data dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2020,6 +1988,38 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     </message>
     <message>
         <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find Tarsnap client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap cache location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>App data directory location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tasks are currently running. Please stop executing tasks or wait for completion and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset current app settings, job definitions and run the setup wizard?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for downloads directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear journal log? All entries will be deleted forever.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

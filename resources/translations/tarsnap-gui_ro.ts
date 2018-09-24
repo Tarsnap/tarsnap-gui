@@ -1123,10 +1123,6 @@ Adaugă oricum?</translation>
         <translation>Navighează după director de adăugat la lista de Backup</translation>
     </message>
     <message>
-        <source>The new size notation will take global effect on application restart.</source>
-        <translation>Opțiunea de afișare a dimensiunilor va avea efect global la următoarea repornire a aplicației.</translation>
-    </message>
-    <message>
         <source>Archives (%1/%2)</source>
         <translation>Arhive (%1/%2)</translation>
     </message>
@@ -1215,48 +1211,8 @@ Adaugă oricum?</translation>
         <translation>Căile de backup anterior definite pentru Jobul %1 nu mai sunt accesibile. Backupul poate fi incomplet, procedez?</translation>
     </message>
     <message>
-        <source>Find Tarsnap client</source>
-        <translation>Navighează după utilitarele la linia de comandă Tarsnap</translation>
-    </message>
-    <message>
-        <source>Tarsnap cache location</source>
-        <translation>Navighează după directorul &quot;cache&quot; Tarsnap</translation>
-    </message>
-    <message>
-        <source>App data directory location</source>
-        <translation>Navighează după directorul de date al aplicației</translation>
-    </message>
-    <message>
-        <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Application page to fix that.</source>
-        <translation>Utilitarele la linia de comandă Tarsnap nu au fost găsite. Navighează la panoul Setări -&gt; Aplicație pentru a remedia.</translation>
-    </message>
-    <message>
-        <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
-        <translation>Directorul &quot;cache&quot; Tarsnap este invalid. Navighează la panoul Setări -&gt; Aplicație pentru a remedia.</translation>
-    </message>
-    <message>
-        <source>Application data dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
-        <translation>Directorul de date al aplicației este invalid. Navighează la panoul Setări -&gt; Aplicație pentru a remedia.</translation>
-    </message>
-    <message>
         <source>GUI version </source>
         <translation>Versiune aplicație </translation>
-    </message>
-    <message>
-        <source>Confirm action</source>
-        <translation>Confirmare acțiune</translation>
-    </message>
-    <message>
-        <source>Tasks are currently running. Please stop executing tasks or wait for completion and try again.</source>
-        <translation>Există activitați în curs de desfașurare. Vă rugăm să opriți aceste activitați sau să așteptați finalizarea acestora înainte de a proceda.</translation>
-    </message>
-    <message>
-        <source>Reset current app settings, job definitions and run the setup wizard?</source>
-        <translation>Resetează setările aplicației, joburile definite și rulează Asistentul de configurare?</translation>
-    </message>
-    <message>
-        <source>Browse for downloads directory</source>
-        <translation>Navighează după directorul descărcări</translation>
     </message>
     <message>
         <source>Add job</source>
@@ -1319,10 +1275,6 @@ Adaugă oricum?</translation>
     <message>
         <source>Tarsnap encountered network errors. Please check your network connection and verify that internet access is available and try again.</source>
         <translation>Eroare la conectarea în rețea. Vă rugam să verificați conectivitatea dumneavoastra și accesul la internet.</translation>
-    </message>
-    <message>
-        <source>Clear journal log? All entries will be deleted forever.</source>
-        <translation>Dorești să golești Jurnalul de activitați? Toate intrările vor fi sterse fără posibilitate de recuperare.</translation>
     </message>
     <message>
         <source>Console Log</source>
@@ -1964,12 +1916,28 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>The new size notation will take global effect on application restart.</source>
+        <translation type="unfinished">Opțiunea de afișare a dimensiunilor va avea efect global la următoarea repornire a aplicației.</translation>
+    </message>
+    <message>
         <source>Tarsnap error</source>
         <translation type="unfinished">Eroare Tarsnap</translation>
     </message>
     <message>
         <source>Machine key file not found. Go to  Settings -&gt; Account page to fix that.</source>
         <translation type="unfinished">Cheia Tarsnap pentru acest dispozitiv nu a fost găsită. Navighează la panoul Setări -&gt; Cont pentru a remedia.</translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Application page to fix that.</source>
+        <translation type="unfinished">Utilitarele la linia de comandă Tarsnap nu au fost găsite. Navighează la panoul Setări -&gt; Aplicație pentru a remedia.</translation>
+    </message>
+    <message>
+        <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
+        <translation type="unfinished">Directorul &quot;cache&quot; Tarsnap este invalid. Navighează la panoul Setări -&gt; Aplicație pentru a remedia.</translation>
+    </message>
+    <message>
+        <source>Application data dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
+        <translation type="unfinished">Directorul de date al aplicației este invalid. Navighează la panoul Setări -&gt; Aplicație pentru a remedia.</translation>
     </message>
     <message>
         <source>click login button</source>
@@ -2050,6 +2018,38 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <message>
         <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
         <translation type="unfinished">Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent. Execută click pe Arată detalii.</translation>
+    </message>
+    <message>
+        <source>Find Tarsnap client</source>
+        <translation type="unfinished">Localizare utilitare la linia de comandă</translation>
+    </message>
+    <message>
+        <source>Tarsnap cache location</source>
+        <translation type="unfinished">Directorul cache Tarsnap</translation>
+    </message>
+    <message>
+        <source>App data directory location</source>
+        <translation type="unfinished">Navighează după directorul de date al aplicației</translation>
+    </message>
+    <message>
+        <source>Confirm action</source>
+        <translation type="unfinished">Confirmare acțiune</translation>
+    </message>
+    <message>
+        <source>Tasks are currently running. Please stop executing tasks or wait for completion and try again.</source>
+        <translation type="unfinished">Există activitați în curs de desfașurare. Vă rugăm să opriți aceste activitați sau să așteptați finalizarea acestora înainte de a proceda.</translation>
+    </message>
+    <message>
+        <source>Reset current app settings, job definitions and run the setup wizard?</source>
+        <translation type="unfinished">Resetează setările aplicației, joburile definite și rulează Asistentul de configurare?</translation>
+    </message>
+    <message>
+        <source>Browse for downloads directory</source>
+        <translation type="unfinished">Navighează după directorul descărcări</translation>
+    </message>
+    <message>
+        <source>Clear journal log? All entries will be deleted forever.</source>
+        <translation type="unfinished">Dorești să golești Jurnalul de activitați? Toate intrările vor fi sterse fără posibilitate de recuperare.</translation>
     </message>
 </context>
 <context>

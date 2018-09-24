@@ -829,74 +829,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use multiple TCP connections to send data to the Tarsnap server, can improve network performance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Aggressive networking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Preseve absolute pathnames when backing up, by not removing leading slashes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Preserve pathnames globally</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cross mount points when creating archives</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Traverse mounted points</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If checked all symbolic links will be followed when creating an archive</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Follow symbolic links</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Not all filesystems support this attribute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Skip files flagged with nodump attribute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do not include files of size equal or greater than the specified value in backups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>disabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MiB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap will skip these files globally for backups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Shell globbing patterns can be used, the list is colon separated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fill with default system junk patterns</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>defaults</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The directory where archives are restored to by default</source>
         <translation type="unfinished"></translation>
     </message>
@@ -905,31 +837,11 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Limit upload bandwidth rate to kilobits per second</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>kbps</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Limit download bandwidth rate to kilobits per second</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Browse for Tarsnap CLI utilities directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Tarsnap caches information about what it has uploaded in a local directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Don&apos;t really create archives on the Tarsnap servers; just simulate doing so locally.  The resulted archives and archive statistics will be almost identical (typically within a few kB or a fraction of a percent) to the real deal.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Simulation mode (simulate creation of archives, useful for dry runs)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -993,10 +905,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Do not read the default configuration files tarsnap.conf and tarsnaprc</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Drag and drop files or directories to back up, or use the File browser (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1006,42 +914,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>archive name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Limit upload bandwidth</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ignore default configuration files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Skip operating system junk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Skip files larger than</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Limit download bandwidth</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with the platform scheduler to enable automatic Job backups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable Job scheduling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deregister Tarsnap GUI from the platform scheduler to disable automatic Job backups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disable Job scheduling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1962,6 +1834,134 @@ Aborting operation.</source>
     </message>
     <message>
         <source>Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t really create archives on the Tarsnap servers; just simulate doing so locally.  The resulted archives and archive statistics will be almost identical (typically within a few kB or a fraction of a percent) to the real deal.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simulation mode (simulate creation of archives, useful for dry runs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit download bandwidth rate to kilobits per second</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>kbps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use multiple TCP connections to send data to the Tarsnap server, can improve network performance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aggressive networking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not all filesystems support this attribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip files flagged with nodump attribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preseve absolute pathnames when backing up, by not removing leading slashes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preserve pathnames globally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit upload bandwidth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cross mount points when creating archives</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Traverse mounted points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shell globbing patterns can be used, the list is colon separated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not read the default configuration files tarsnap.conf and tarsnaprc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore default configuration files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill with default system junk patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap will skip these files globally for backups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip operating system junk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip files larger than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not include files of size equal or greater than the specified value in backups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MiB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit upload bandwidth rate to kilobits per second</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit download bandwidth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked all symbolic links will be followed when creating an archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Follow symbolic links</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with the platform scheduler to enable automatic Job backups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Job scheduling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deregister Tarsnap GUI from the platform scheduler to disable automatic Job backups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Job scheduling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

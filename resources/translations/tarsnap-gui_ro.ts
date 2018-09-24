@@ -835,74 +835,6 @@ Adaugă oricum?</translation>
         <translation>Standardul SI folosește prefixuri octet folosind baza 10, iar standardul IEC baza 2</translation>
     </message>
     <message>
-        <source>Use multiple TCP connections to send data to the Tarsnap server, can improve network performance</source>
-        <translation>Folosește conexiuni TCP multiple pentru a trimite date către serverele Tarsnap, poate îmbunătăți performanța transferului</translation>
-    </message>
-    <message>
-        <source>Aggressive networking</source>
-        <translation>Transfer agresiv</translation>
-    </message>
-    <message>
-        <source>Preseve absolute pathnames when backing up, by not removing leading slashes</source>
-        <translation>Păstrează căile fișier absolute la crearea arhivelor, nu îndepărta directorul rădăcină</translation>
-    </message>
-    <message>
-        <source>Preserve pathnames globally</source>
-        <translation>Păstrează căile fișier absolute</translation>
-    </message>
-    <message>
-        <source>Cross mount points when creating archives</source>
-        <translation>Traversează dispozitivele montate la crearea arhivelor</translation>
-    </message>
-    <message>
-        <source>Traverse mounted points</source>
-        <translation>Traversează dispozitivele montate</translation>
-    </message>
-    <message>
-        <source>If checked all symbolic links will be followed when creating an archive</source>
-        <translation>Urmărește legăturile simbolice la crearea arhivelor</translation>
-    </message>
-    <message>
-        <source>Follow symbolic links</source>
-        <translation>Urmărește legăturile simbolice</translation>
-    </message>
-    <message>
-        <source>Not all filesystems support this attribute</source>
-        <translation>Nu toate sistemele de fișiere suportă acest atribut</translation>
-    </message>
-    <message>
-        <source>Skip files flagged with nodump attribute</source>
-        <translation>Exclude fișierele marcate cu atributul &quot;nodump&quot;</translation>
-    </message>
-    <message>
-        <source>Do not include files of size equal or greater than the specified value in backups</source>
-        <translation>Exclude fișierele cu dimensiune egală sau mai mare decât cea specificată</translation>
-    </message>
-    <message>
-        <source>disabled</source>
-        <translation>dezactivat</translation>
-    </message>
-    <message>
-        <source>MiB</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Tarsnap will skip these files globally for backups</source>
-        <translation>Exclude fișierele ce îndeplinesc șabloanele specificate la crearea arhivelor</translation>
-    </message>
-    <message>
-        <source>Shell globbing patterns can be used, the list is colon separated</source>
-        <translation>Se pot folosi &quot;shell globbing patterns&quot;, lista este separată de simbolul &quot;:&quot;</translation>
-    </message>
-    <message>
-        <source>Fill with default system junk patterns</source>
-        <translation>Folosește șabloane implicite pentru sistemul actual</translation>
-    </message>
-    <message>
-        <source>defaults</source>
-        <translation>Valoare implicită</translation>
-    </message>
-    <message>
         <source>The directory where archives are restored to by default</source>
         <translation>Directorul folosit implicit pentru restaurarea arhivelor</translation>
     </message>
@@ -911,32 +843,12 @@ Adaugă oricum?</translation>
         <translation>Schimbă director descărcări</translation>
     </message>
     <message>
-        <source>Limit upload bandwidth rate to kilobits per second</source>
-        <translation>Limitează lățimea de bandă la încarcare în kilo-biți pe secundă</translation>
-    </message>
-    <message>
-        <source>kbps</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Limit download bandwidth rate to kilobits per second</source>
-        <translation>Limitează lățimea de bandă la descărcare în kilo-biți pe secundă</translation>
-    </message>
-    <message>
         <source>Browse for Tarsnap CLI utilities directory</source>
         <translation>Navighează după utilitarele la linia de comandă Tarsnap</translation>
     </message>
     <message>
         <source>Tarsnap caches information about what it has uploaded in a local directory</source>
         <translation>Tarsnap folosește un director local &quot;cache&quot; pentru a stoca informații de lucru</translation>
-    </message>
-    <message>
-        <source>Don&apos;t really create archives on the Tarsnap servers; just simulate doing so locally.  The resulted archives and archive statistics will be almost identical (typically within a few kB or a fraction of a percent) to the real deal.</source>
-        <translation>Simulează crearea de arhive local, fără transfer pe serverele Tarsnap. Arhivele rezultate vor fi aproape identice cu cele reale, funcție utilă la estimarea costurilor de stocare.</translation>
-    </message>
-    <message>
-        <source>Simulation mode (simulate creation of archives, useful for dry runs)</source>
-        <translation>Activează mod simulare (funcție utilă la estimarea costurilor de stocare)</translation>
     </message>
     <message>
         <source>Directory to use as Tarsnap cache</source>
@@ -999,10 +911,6 @@ Adaugă oricum?</translation>
         <translation>Schimbă</translation>
     </message>
     <message>
-        <source>Do not read the default configuration files tarsnap.conf and tarsnaprc</source>
-        <translation>Ignoră fișierele de configurare standard tarsnap.conf și tarsnaprc</translation>
-    </message>
-    <message>
         <source>Drag and drop files or directories to back up, or use the File browser (%1)</source>
         <translation>Plasează fișierele și directoarele de adăugat la lista de backup sau folosește Navigatorul (%1)</translation>
     </message>
@@ -1013,42 +921,6 @@ Adaugă oricum?</translation>
     <message>
         <source>archive name</source>
         <translation>nume arhivă</translation>
-    </message>
-    <message>
-        <source>Limit upload bandwidth</source>
-        <translation>Limită lățime de bandă la încarcare</translation>
-    </message>
-    <message>
-        <source>Ignore default configuration files</source>
-        <translation>Ignoră fișierele de configurare standard</translation>
-    </message>
-    <message>
-        <source>Skip operating system junk</source>
-        <translation>Șabloane de excludere a fișierelor</translation>
-    </message>
-    <message>
-        <source>Skip files larger than</source>
-        <translation>Exclude fișierele cu dimensiunea mai mare de</translation>
-    </message>
-    <message>
-        <source>Limit download bandwidth</source>
-        <translation>Limitează lățimea de bandă la descărcare</translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with the platform scheduler to enable automatic Job backups</source>
-        <translation>Înregistrează aplicația cu serviciul de programare al sistemului de operare? Această acțiune va activa programarea execuțiilor automate pentru Joburi.</translation>
-    </message>
-    <message>
-        <source>Enable Job scheduling</source>
-        <translation>Activează programarea execuției automate</translation>
-    </message>
-    <message>
-        <source>Deregister Tarsnap GUI from the platform scheduler to disable automatic Job backups</source>
-        <translation>Dorești anularea înregistrării aplicației cu serviciul de programare al sistemului de operare? Această acțiune va dezactiva programarea execuțiilor automate pentru Joburi.</translation>
-    </message>
-    <message>
-        <source>Disable Job scheduling</source>
-        <translation>Dezactivează programarea execuției automate</translation>
     </message>
     <message>
         <source>Clear Journal log of all entries</source>
@@ -1992,6 +1864,134 @@ Aborting operation.</source>
     <message>
         <source>Backup</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t really create archives on the Tarsnap servers; just simulate doing so locally.  The resulted archives and archive statistics will be almost identical (typically within a few kB or a fraction of a percent) to the real deal.</source>
+        <translation type="unfinished">Simulează crearea de arhive local, fără transfer pe serverele Tarsnap. Arhivele rezultate vor fi aproape identice cu cele reale, funcție utilă la estimarea costurilor de stocare.</translation>
+    </message>
+    <message>
+        <source>Simulation mode (simulate creation of archives, useful for dry runs)</source>
+        <translation type="unfinished">Activează mod simulare (funcție utilă la estimarea costurilor de stocare)</translation>
+    </message>
+    <message>
+        <source>Limit download bandwidth rate to kilobits per second</source>
+        <translation type="unfinished">Limitează lățimea de bandă la descărcare în kilo-biți pe secundă</translation>
+    </message>
+    <message>
+        <source>disabled</source>
+        <translation type="unfinished">dezactivat</translation>
+    </message>
+    <message>
+        <source>kbps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use multiple TCP connections to send data to the Tarsnap server, can improve network performance</source>
+        <translation type="unfinished">Folosește conexiuni TCP multiple pentru a trimite date către serverele Tarsnap, poate îmbunătăți performanța transferului</translation>
+    </message>
+    <message>
+        <source>Aggressive networking</source>
+        <translation type="unfinished">Transfer agresiv</translation>
+    </message>
+    <message>
+        <source>Not all filesystems support this attribute</source>
+        <translation type="unfinished">Nu toate sistemele de fișiere suportă acest atribut</translation>
+    </message>
+    <message>
+        <source>Skip files flagged with nodump attribute</source>
+        <translation type="unfinished">Exclude fișierele marcate cu atributul &quot;nodump&quot;</translation>
+    </message>
+    <message>
+        <source>Preseve absolute pathnames when backing up, by not removing leading slashes</source>
+        <translation type="unfinished">Păstrează căile fișier absolute la crearea arhivelor, nu îndepărta directorul rădăcină</translation>
+    </message>
+    <message>
+        <source>Preserve pathnames globally</source>
+        <translation type="unfinished">Păstrează căile fișier absolute</translation>
+    </message>
+    <message>
+        <source>Limit upload bandwidth</source>
+        <translation type="unfinished">Limită lățime de bandă la încarcare</translation>
+    </message>
+    <message>
+        <source>Cross mount points when creating archives</source>
+        <translation type="unfinished">Traversează dispozitivele montate la crearea arhivelor</translation>
+    </message>
+    <message>
+        <source>Traverse mounted points</source>
+        <translation type="unfinished">Traversează dispozitivele montate</translation>
+    </message>
+    <message>
+        <source>Shell globbing patterns can be used, the list is colon separated</source>
+        <translation type="unfinished">Se pot folosi &quot;shell globbing patterns&quot;, lista este separată de simbolul &quot;:&quot;</translation>
+    </message>
+    <message>
+        <source>Do not read the default configuration files tarsnap.conf and tarsnaprc</source>
+        <translation type="unfinished">Ignoră fișierele de configurare standard tarsnap.conf și tarsnaprc</translation>
+    </message>
+    <message>
+        <source>Ignore default configuration files</source>
+        <translation type="unfinished">Ignoră fișierele de configurare standard</translation>
+    </message>
+    <message>
+        <source>Fill with default system junk patterns</source>
+        <translation type="unfinished">Folosește șabloane implicite pentru sistemul actual</translation>
+    </message>
+    <message>
+        <source>defaults</source>
+        <translation type="unfinished">Valoare implicită</translation>
+    </message>
+    <message>
+        <source>Tarsnap will skip these files globally for backups</source>
+        <translation type="unfinished">Exclude fișierele ce îndeplinesc șabloanele specificate la crearea arhivelor</translation>
+    </message>
+    <message>
+        <source>Skip operating system junk</source>
+        <translation type="unfinished">Șabloane de excludere a fișierelor</translation>
+    </message>
+    <message>
+        <source>Skip files larger than</source>
+        <translation type="unfinished">Exclude fișierele cu dimensiunea mai mare de</translation>
+    </message>
+    <message>
+        <source>Do not include files of size equal or greater than the specified value in backups</source>
+        <translation type="unfinished">Exclude fișierele cu dimensiune egală sau mai mare decât cea specificată</translation>
+    </message>
+    <message>
+        <source>MiB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit upload bandwidth rate to kilobits per second</source>
+        <translation type="unfinished">Limitează lățimea de bandă la încarcare în kilo-biți pe secundă</translation>
+    </message>
+    <message>
+        <source>Limit download bandwidth</source>
+        <translation type="unfinished">Limitează lățimea de bandă la descărcare</translation>
+    </message>
+    <message>
+        <source>If checked all symbolic links will be followed when creating an archive</source>
+        <translation type="unfinished">Urmărește legăturile simbolice la crearea arhivelor</translation>
+    </message>
+    <message>
+        <source>Follow symbolic links</source>
+        <translation type="unfinished">Urmărește legăturile simbolice</translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with the platform scheduler to enable automatic Job backups</source>
+        <translation type="unfinished">Înregistrează aplicația cu serviciul de programare al sistemului de operare? Această acțiune va activa programarea execuțiilor automate pentru Joburi.</translation>
+    </message>
+    <message>
+        <source>Enable Job scheduling</source>
+        <translation type="unfinished">Activează programarea execuției automate</translation>
+    </message>
+    <message>
+        <source>Deregister Tarsnap GUI from the platform scheduler to disable automatic Job backups</source>
+        <translation type="unfinished">Dorești anularea înregistrării aplicației cu serviciul de programare al sistemului de operare? Această acțiune va dezactiva programarea execuțiilor automate pentru Joburi.</translation>
+    </message>
+    <message>
+        <source>Disable Job scheduling</source>
+        <translation type="unfinished">Dezactivează programarea execuției automate</translation>
     </message>
     <message>
         <source>Application</source>

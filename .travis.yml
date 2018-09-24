@@ -3,7 +3,7 @@ sudo: false
 dist: trusty
 addons:
   apt:
-    packages: qtbase5-dev
+    packages: qtbase5-dev qttools5-dev-tools
 before_install:
   - QT_SELECT=qt5 qmake
 # FIXME: disable `make test` for now, because Travis-CI's Qt installation is

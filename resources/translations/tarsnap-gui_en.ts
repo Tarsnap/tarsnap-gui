@@ -1671,112 +1671,6 @@ unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Job scheduling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
-
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Looks like scheduling is already enabled. Nothing to do.
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to write service file %1. Aborting operation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to load launchd service file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to start launchd service.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with cron serivce?
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to list current crontab: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Looks like scheduling is already enabled for the current user&apos;s crontab. Nothing to do.
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap GUI will be added to the current user&apos;s crontab.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To ensure proper behavior please review the lines to be added by pressing Show Details before proceeding.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to update crontab: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Launchd service file not found:
-%1
- Nothing to do.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to unload launchd service.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot remove service file:
-%1
-Aborting operation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There&apos;s no crontab for the current user. Nothing to do.
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Looks like the crontab for the current user is empty. Nothing to do.
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do. 
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Nuke all archives?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1990,6 +1884,115 @@ Aborting operation.</source>
     </message>
     <message>
         <source>Set archive file name</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Scheduling</name>
+    <message>
+        <source>Job scheduling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
+
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looks like scheduling is already enabled. Nothing to do.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to write service file %1. Aborting operation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load launchd service file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to start launchd service.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with cron serivce?
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to list current crontab: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looks like scheduling is already enabled for the current user&apos;s crontab. Nothing to do.
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap GUI will be added to the current user&apos;s crontab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To ensure proper behavior please review the lines to be added by pressing Show Details before proceeding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to update crontab: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Launchd service file not found:
+%1
+ Nothing to do.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to unload launchd service.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove service file:
+%1
+Aborting operation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There&apos;s no crontab for the current user. Nothing to do.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looks like the crontab for the current user is empty. Nothing to do.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do. 
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

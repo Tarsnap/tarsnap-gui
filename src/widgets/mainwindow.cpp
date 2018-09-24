@@ -493,6 +493,9 @@ void MainWindow::changeEvent(QEvent *event)
     {
         _ui.retranslateUi(this);
         updateUi();
+
+        // Clear previous-language status message
+        updateStatusMessage("", "");
     }
     QWidget::changeEvent(event);
 }

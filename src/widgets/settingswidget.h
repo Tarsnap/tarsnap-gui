@@ -78,6 +78,10 @@ signals:
     //! Begin tarsnap --version
     void getTarsnapVersion(QString tarsnapPath);
 
+protected:
+    //! Handles translation change of language.
+    void changeEvent(QEvent *event);
+
 private slots:
     // For the Account tab
     void commitSettings();

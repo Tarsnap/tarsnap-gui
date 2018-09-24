@@ -337,6 +337,16 @@ void SettingsWidget::commitSettings()
     settings.sync();
 }
 
+void SettingsWidget::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+    {
+        _ui.retranslateUi(this);
+        updateUi();
+    }
+    QWidget::changeEvent(event);
+}
+
 void SettingsWidget::getAccountInfo()
 {
     _tarsnapAccount.getAccountInfo();

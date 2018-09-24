@@ -2,6 +2,29 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ro_RO">
 <context>
+    <name>AppGui</name>
+    <message>
+        <source>Tarsnap warning</source>
+        <translation type="unfinished">Avertisment</translation>
+    </message>
+    <message>
+        <source>Updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to launch application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An unknown error occurred.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Archive</name>
     <message>
         <source>		Total size	Compressed size
@@ -261,29 +284,6 @@ Adaugă oricum?</translation>
     <message>
         <source> items, </source>
         <translation> elemente, </translation>
-    </message>
-</context>
-<context>
-    <name>CoreApplication</name>
-    <message>
-        <source>Tarsnap warning</source>
-        <translation>Avertisment</translation>
-    </message>
-    <message>
-        <source>Updated OS X launchd path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to updated OS X launchd path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to launch application</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>An unknown error occurred.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2019,6 +2019,21 @@ Aborting operation.</source>
     <message>
         <source>Set archive file name</source>
         <translation>Selectează fișier arhivă TAR rezultat</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsWidget</name>
+    <message>
+        <source>Account</source>
+        <translation type="unfinished">Setări cont</translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Application</source>
+        <translation type="unfinished">Setări aplicație</translation>
     </message>
 </context>
 <context>

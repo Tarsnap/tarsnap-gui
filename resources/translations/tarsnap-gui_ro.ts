@@ -384,6 +384,25 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>HelpWidget</name>
+    <message>
+        <source>Keyboard shortcuts list</source>
+        <translation type="unfinished">Listă comenzi tastatura</translation>
+    </message>
+    <message>
+        <source>About Tarsnap</source>
+        <translation type="unfinished">Despre Tarsnap</translation>
+    </message>
+    <message>
+        <source>Console Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GUI version </source>
+        <translation type="unfinished">Versiune aplicație </translation>
+    </message>
+</context>
+<context>
     <name>JobListWidget</name>
     <message>
         <source>Confirm action</source>
@@ -831,14 +850,6 @@ Adaugă oricum?</translation>
         <translation>Comută la panoul Ajutor &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <source>About Tarsnap</source>
-        <translation>Despre Tarsnap</translation>
-    </message>
-    <message>
-        <source>Keyboard shortcuts list</source>
-        <translation>Listă comenzi tastatura</translation>
-    </message>
-    <message>
         <source>Journal log</source>
         <translation>Jurnal</translation>
     </message>
@@ -1203,10 +1214,6 @@ Adaugă oricum?</translation>
         <translation>Căile de backup anterior definite pentru Jobul %1 nu mai sunt accesibile. Backupul poate fi incomplet, procedez?</translation>
     </message>
     <message>
-        <source>GUI version </source>
-        <translation>Versiune aplicație </translation>
-    </message>
-    <message>
         <source>Add job</source>
         <translation>Adaugă job</translation>
     </message>
@@ -1267,10 +1274,6 @@ Adaugă oricum?</translation>
     <message>
         <source>Tarsnap encountered network errors. Please check your network connection and verify that internet access is available and try again.</source>
         <translation>Eroare la conectarea în rețea. Vă rugam să verificați conectivitatea dumneavoastra și accesul la internet.</translation>
-    </message>
-    <message>
-        <source>Console Log</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

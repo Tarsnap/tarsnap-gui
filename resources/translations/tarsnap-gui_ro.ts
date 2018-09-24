@@ -1661,6 +1661,48 @@ unique data	%3		%4</source>
         <translation>Versiune aplicație </translation>
     </message>
     <message>
+        <source>Job scheduling</source>
+        <translation>Programarea execuției automate</translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
+
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
+
+%1</source>
+        <translation>Dorești înregistrarea aplicației cu serviciul macOS Launchd pentru execuție zilnică la ora 10am?
+
+Joburile care au activată execuția programată vor fi executate conform setării de frecventă, respectiv Zilnic, Săptămânal sau Lunar. 
+
+%1</translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with cron serivce?
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
+
+%1</source>
+        <translation>Dorești înregistrarea aplicației cu serviciul CRON?
+Joburile care au activată execuția programată vor fi executate conform setării de frecventă, respectiv Zilnic, Săptămânal sau Lunar. 
+
+%1</translation>
+    </message>
+    <message>
+        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
+
+%1</source>
+        <translation>Dorești anularea înregistrării aplicației cu serviciul macOS Launchd? Această acțiune va dezactiva programarea execuțiilor automate pentru Joburi.
+
+%1</translation>
+    </message>
+    <message>
+        <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
+        <translation>Înregistrarea aplicației cu serviciul CRON pentru utilizatorul curent va fi anulată.</translation>
+    </message>
+    <message>
+        <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
+        <translation>Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent. Execută click pe Arată detalii.</translation>
+    </message>
+    <message>
         <source>Nuke all archives?</source>
         <translation>Ești sigur că dorești să ștergi toate arhivele?</translation>
     </message>
@@ -1753,6 +1795,95 @@ unique data	%3		%4</source>
     <message>
         <source>Console Log</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Looks like scheduling is already enabled. Nothing to do.
+
+%1</source>
+        <translation type="unfinished">Serviciul execuție programată este deja activat.
+
+%1</translation>
+    </message>
+    <message>
+        <source>Failed to write service file %1. Aborting operation.</source>
+        <translation type="unfinished">Eroare la salvarea fișierului Launchd %1. Operațiune anulată.</translation>
+    </message>
+    <message>
+        <source>Failed to load launchd service file.</source>
+        <translation type="unfinished">Eroare la încărcarea fișierului Launchd. Operațiune anulată.</translation>
+    </message>
+    <message>
+        <source>Failed to start launchd service file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Launchd service file not found:
+%1
+ Nothing to do.</source>
+        <translation type="unfinished">Fișierul de serviciu Launchd nu a fost găsit:
+%1
+ Operațiune anulată.</translation>
+    </message>
+    <message>
+        <source>Failed to unload launchd service.</source>
+        <translation type="unfinished">Eroare la anularea serviciului Launchd.</translation>
+    </message>
+    <message>
+        <source>Cannot remove service file:
+%1
+Aborting operation.</source>
+        <translation type="unfinished">Fișierul de serviciu Launchd nu a putut fi șters:
+%1
+ Operațiune anulată.</translation>
+    </message>
+    <message>
+        <source>Failed to list current crontab: %1</source>
+        <translation type="unfinished">Eroare la listarea crontab-ului curent: %1</translation>
+    </message>
+    <message>
+        <source>Looks like scheduling is already enabled for the current user&apos;s crontab. Nothing to do.
+%1</source>
+        <translation type="unfinished">Serviciul execuție programată este deja activat pentru utilizatorul curent.
+%1</translation>
+    </message>
+    <message>
+        <source>Failed to update crontab: %1</source>
+        <translation type="unfinished">Eroare la actualizarea fișierului crontab: %1</translation>
+    </message>
+    <message>
+        <source>There&apos;s no crontab for the current user. Nothing to do.
+
+%1</source>
+        <translation type="unfinished">Fișier crontab inexistent pentru utilizatorul curent. Operațiune anulată.
+
+%1</translation>
+    </message>
+    <message>
+        <source>Looks like the crontab for the current user is empty. Nothing to do.
+
+%1</source>
+        <translation type="unfinished">Fișierul crontab este gol pentru utilizatorul curent. Operațiune anulată.
+
+%1</translation>
+    </message>
+    <message>
+        <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do. 
+
+%1</source>
+        <translation type="unfinished">Serviciul execuție programată nu a fost activat. Operațiune anulată.
+
+%1</translation>
+    </message>
+    <message>
+        <source>Tarsnap GUI will be added to the current user&apos;s crontab.</source>
+        <translation type="unfinished">Aplicația va fi înregistrată folosind serviciul CRON pentru utilizatorul curent.</translation>
+    </message>
+    <message>
+        <source>To ensure proper behavior please review the lines to be added by pressing Show Details before proceeding.</source>
+        <translation type="unfinished">Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent.</translation>
     </message>
 </context>
 <context>
@@ -1880,137 +2011,6 @@ unique data	%3		%4</source>
     <message>
         <source>Set archive file name</source>
         <translation>Selectează fișier arhivă TAR rezultat</translation>
-    </message>
-</context>
-<context>
-    <name>Scheduling</name>
-    <message>
-        <source>Job scheduling</source>
-        <translation type="unfinished">Programarea execuției automate</translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
-
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
-
-%1</source>
-        <translation type="unfinished">Dorești înregistrarea aplicației cu serviciul macOS Launchd pentru execuție zilnică la ora 10am?
-
-Joburile care au activată execuția programată vor fi executate conform setării de frecventă, respectiv Zilnic, Săptămânal sau Lunar. 
-
-%1</translation>
-    </message>
-    <message>
-        <source>Looks like scheduling is already enabled. Nothing to do.
-
-%1</source>
-        <translation type="unfinished">Serviciul execuție programată este deja activat.
-
-%1</translation>
-    </message>
-    <message>
-        <source>Failed to write service file %1. Aborting operation.</source>
-        <translation type="unfinished">Eroare la salvarea fișierului Launchd %1. Operațiune anulată.</translation>
-    </message>
-    <message>
-        <source>Failed to load launchd service file.</source>
-        <translation type="unfinished">Eroare la încărcarea fișierului Launchd. Operațiune anulată.</translation>
-    </message>
-    <message>
-        <source>Failed to start launchd service.</source>
-        <translation type="unfinished">Eroare la pornirea serviciului Launchd.</translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with cron serivce?
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
-
-%1</source>
-        <translation type="unfinished">Dorești înregistrarea aplicației cu serviciul CRON?
-Joburile care au activată execuția programată vor fi executate conform setării de frecventă, respectiv Zilnic, Săptămânal sau Lunar. 
-
-%1</translation>
-    </message>
-    <message>
-        <source>Failed to list current crontab: %1</source>
-        <translation type="unfinished">Eroare la listarea crontab-ului curent: %1</translation>
-    </message>
-    <message>
-        <source>Looks like scheduling is already enabled for the current user&apos;s crontab. Nothing to do.
-%1</source>
-        <translation type="unfinished">Serviciul execuție programată este deja activat pentru utilizatorul curent.
-%1</translation>
-    </message>
-    <message>
-        <source>Tarsnap GUI will be added to the current user&apos;s crontab.</source>
-        <translation type="unfinished">Aplicația va fi înregistrată folosind serviciul CRON pentru utilizatorul curent.</translation>
-    </message>
-    <message>
-        <source>To ensure proper behavior please review the lines to be added by pressing Show Details before proceeding.</source>
-        <translation type="unfinished">Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent.</translation>
-    </message>
-    <message>
-        <source>Failed to update crontab: %1</source>
-        <translation type="unfinished">Eroare la actualizarea fișierului crontab: %1</translation>
-    </message>
-    <message>
-        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
-
-%1</source>
-        <translation type="unfinished">Dorești anularea înregistrării aplicației cu serviciul macOS Launchd? Această acțiune va dezactiva programarea execuțiilor automate pentru Joburi.
-
-%1</translation>
-    </message>
-    <message>
-        <source>Launchd service file not found:
-%1
- Nothing to do.</source>
-        <translation type="unfinished">Fișierul de serviciu Launchd nu a fost găsit:
-%1
- Operațiune anulată.</translation>
-    </message>
-    <message>
-        <source>Failed to unload launchd service.</source>
-        <translation type="unfinished">Eroare la anularea serviciului Launchd.</translation>
-    </message>
-    <message>
-        <source>Cannot remove service file:
-%1
-Aborting operation.</source>
-        <translation type="unfinished">Fișierul de serviciu Launchd nu a putut fi șters:
-%1
- Operațiune anulată.</translation>
-    </message>
-    <message>
-        <source>There&apos;s no crontab for the current user. Nothing to do.
-
-%1</source>
-        <translation type="unfinished">Fișier crontab inexistent pentru utilizatorul curent. Operațiune anulată.
-
-%1</translation>
-    </message>
-    <message>
-        <source>Looks like the crontab for the current user is empty. Nothing to do.
-
-%1</source>
-        <translation type="unfinished">Fișierul crontab este gol pentru utilizatorul curent. Operațiune anulată.
-
-%1</translation>
-    </message>
-    <message>
-        <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do. 
-
-%1</source>
-        <translation type="unfinished">Serviciul execuție programată nu a fost activat. Operațiune anulată.
-
-%1</translation>
-    </message>
-    <message>
-        <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
-        <translation type="unfinished">Înregistrarea aplicației cu serviciul CRON pentru utilizatorul curent va fi anulată.</translation>
-    </message>
-    <message>
-        <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
-        <translation type="unfinished">Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent. Execută click pe Arată detalii.</translation>
     </message>
 </context>
 <context>

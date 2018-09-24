@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "helpwidget.h"
 #include "persistentmodel/journal.h"
 #include "scheduling.h"
 #include "settingswidget.h"
@@ -143,7 +144,6 @@ private slots:
     void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
     void createJobClicked();
-    void aboutMenuClicked();
     void mainTabChanged(int index);
     void validateBackupTab();
 
@@ -153,15 +153,14 @@ private:
     QMenuBar *     _menuBar;
     QString        _lastTimestamp;
     bool           _aboutToQuit;
-    QString        _helpTabHTML;
-    QDialog        _aboutWindow;
-    QDialog        _consoleWindow;
     QMessageBox    _stopTasksDialog;
     int            _runningTasks;
     int            _queuedTasks;
 
     QPlainTextEdit *_consoleLog;
-    SettingsWidget  _settingsWidget;
+
+    SettingsWidget _settingsWidget;
+    HelpWidget     _helpWidget;
 
     void updateUi();
     // Load saved application settings.

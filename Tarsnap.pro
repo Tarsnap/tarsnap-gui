@@ -63,6 +63,7 @@ SOURCES +=						\
 	src/widgets/elidedlabel.cpp			\
 	src/widgets/filepickerdialog.cpp		\
 	src/widgets/filepickerwidget.cpp		\
+	src/widgets/helpwidget.cpp			\
 	src/widgets/joblistwidget.cpp			\
 	src/widgets/joblistwidgetitem.cpp		\
 	src/widgets/jobwidget.cpp			\
@@ -108,6 +109,7 @@ HEADERS +=						\
 	src/widgets/elidedlabel.h			\
 	src/widgets/filepickerdialog.h			\
 	src/widgets/filepickerwidget.h			\
+	src/widgets/helpwidget.h			\
 	src/widgets/joblistwidget.h			\
 	src/widgets/joblistwidgetitem.h			\
 	src/widgets/jobwidget.h				\
@@ -130,6 +132,7 @@ FORMS +=						\
 	forms/consolewidget.ui				\
 	forms/filepickerdialog.ui			\
 	forms/filepickerwidget.ui			\
+	forms/helpwidget.ui				\
 	forms/joblistwidgetitem.ui			\
 	forms/jobwidget.ui				\
 	forms/logindialog.ui				\

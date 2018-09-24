@@ -2,6 +2,7 @@
 
 #include "../qtest-platform.h"
 
+#include "helpwidget.h"
 #include "mainwindow.h"
 
 class TestMainWindow : public QObject
@@ -48,37 +49,39 @@ static QAction *get_menubar_about(QMenuBar *menubar)
 void TestMainWindow::about_window()
 {
     MainWindow *   mainwindow = new MainWindow();
-    Ui::MainWindow ui         = mainwindow->_ui;
+    HelpWidget *   help       = &mainwindow->_helpWidget;
+    Ui::MainWindow ui_main    = mainwindow->_ui;
+    Ui::HelpWidget ui         = help->_ui;
 
     VISUAL_INIT(mainwindow);
 
     // Starts off not visible and the button is not pushed down
-    ui.actionGoHelp->trigger();
-    QVERIFY(mainwindow->_aboutWindow.isVisible() == false);
+    ui_main.actionGoHelp->trigger();
+    QVERIFY(help->_aboutWindow.isVisible() == false);
     QVERIFY(ui.aboutButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
     ui.aboutButton->click();
-    QVERIFY(mainwindow->_aboutWindow.isVisible() == true);
+    QVERIFY(help->_aboutWindow.isVisible() == true);
     QVERIFY(ui.aboutButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by clicking the button again
     ui.aboutButton->click();
-    QVERIFY(mainwindow->_aboutWindow.isVisible() == false);
+    QVERIFY(help->_aboutWindow.isVisible() == false);
     QVERIFY(ui.aboutButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
     ui.aboutButton->click();
-    QVERIFY(mainwindow->_aboutWindow.isVisible() == true);
+    QVERIFY(help->_aboutWindow.isVisible() == true);
     QVERIFY(ui.aboutButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by closing the About window
-    mainwindow->_aboutWindow.close();
-    QVERIFY(mainwindow->_aboutWindow.isVisible() == false);
+    help->_aboutWindow.close();
+    QVERIFY(help->_aboutWindow.isVisible() == false);
     QVERIFY(ui.aboutButton->isChecked() == false);
     VISUAL_WAIT;
 
@@ -92,19 +95,19 @@ void TestMainWindow::about_window()
 
         // Becomes visible using the menu bar action
         menuAction->trigger();
-        QVERIFY(mainwindow->_aboutWindow.isVisible() == true);
+        QVERIFY(help->_aboutWindow.isVisible() == true);
         QVERIFY(ui.aboutButton->isChecked() == true);
         VISUAL_WAIT;
 
         // Stay visible even when clicking the menu bar action again
         menuAction->trigger();
-        QVERIFY(mainwindow->_aboutWindow.isVisible() == true);
+        QVERIFY(help->_aboutWindow.isVisible() == true);
         QVERIFY(ui.aboutButton->isChecked() == true);
         VISUAL_WAIT;
 
         // Becomes invisible by clicking the Help->About button
         ui.aboutButton->click();
-        QVERIFY(mainwindow->_aboutWindow.isVisible() == false);
+        QVERIFY(help->_aboutWindow.isVisible() == false);
         QVERIFY(ui.aboutButton->isChecked() == false);
         VISUAL_WAIT;
     }
@@ -179,37 +182,39 @@ void TestMainWindow::quit_tasks()
 void TestMainWindow::console_window()
 {
     MainWindow *   mainwindow = new MainWindow();
-    Ui::MainWindow ui         = mainwindow->_ui;
+    HelpWidget *   help       = &mainwindow->_helpWidget;
+    Ui::MainWindow ui_main    = mainwindow->_ui;
+    Ui::HelpWidget ui         = help->_ui;
 
     VISUAL_INIT(mainwindow);
 
     // Starts off not visible and the button is not pushed down
-    ui.actionGoHelp->trigger();
-    QVERIFY(mainwindow->_consoleWindow.isVisible() == false);
+    ui_main.actionGoHelp->trigger();
+    QVERIFY(help->_consoleWindow.isVisible() == false);
     QVERIFY(ui.consoleButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
     ui.consoleButton->click();
-    QVERIFY(mainwindow->_consoleWindow.isVisible() == true);
+    QVERIFY(help->_consoleWindow.isVisible() == true);
     QVERIFY(ui.consoleButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by clicking the button again
     ui.consoleButton->click();
-    QVERIFY(mainwindow->_consoleWindow.isVisible() == false);
+    QVERIFY(help->_consoleWindow.isVisible() == false);
     QVERIFY(ui.consoleButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
     ui.consoleButton->click();
-    QVERIFY(mainwindow->_consoleWindow.isVisible() == true);
+    QVERIFY(help->_consoleWindow.isVisible() == true);
     QVERIFY(ui.consoleButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by closing the Console window
-    mainwindow->_consoleWindow.close();
-    QVERIFY(mainwindow->_consoleWindow.isVisible() == false);
+    help->_consoleWindow.close();
+    QVERIFY(help->_consoleWindow.isVisible() == false);
     QVERIFY(ui.consoleButton->isChecked() == false);
     VISUAL_WAIT;
 

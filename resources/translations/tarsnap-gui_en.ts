@@ -378,6 +378,25 @@ Add anyway?</source>
     </message>
 </context>
 <context>
+    <name>HelpWidget</name>
+    <message>
+        <source>Keyboard shortcuts list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Tarsnap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Console Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GUI version </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>JobListWidget</name>
     <message>
         <source>Confirm action</source>
@@ -825,14 +844,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>About Tarsnap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Keyboard shortcuts list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Journal log</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1197,10 +1208,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>GUI version </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add job</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1259,10 +1266,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Tarsnap encountered network errors. Please check your network connection and verify that internet access is available and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Console Log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -2,6 +2,29 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>AppGui</name>
+    <message>
+        <source>Tarsnap warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to launch application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An unknown error occurred.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Archive</name>
     <message>
         <source>		Total size	Compressed size
@@ -254,33 +277,6 @@ Add anyway?</source>
     </message>
     <message>
         <source> items, </source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>CoreApplication</name>
-    <message>
-        <source>Tarsnap GUI - Online backups for the truly lazy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Executes all Jobs sequentially that have the &apos;Automatic backup schedule&apos; option enabled. The application runs headless and useful information is printed to standard out and error.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use the specified app data directory. Useful for multiple configurations on the same machine (INI format is implied).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap warning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Simulation mode is enabled. Archives will not be uploaded to the Tarsnap server. Disable in Settings -&gt; Backup.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -809,294 +805,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Account</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>On the Tarsnap servers, this is what you&apos;re paying for</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Actual usage:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Number of Archives stored for this Machine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Archive count:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bytes reduced by deduplication and compression</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bytes economy:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Real size of all stored archives (before compression and deduplication)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total backup size:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Credit left on Tarsnap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Credit:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show account activity, requires Tarsnap login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(show account activity)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Last activity recorded by Tarsnap for this machine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine activity:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show machine activity, requires Tarsnap login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(show machine activity)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E-mail address used to register on Tarsnap.com</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Name used for this machine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set machine name to host name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap key used for this machine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for a machine key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>change</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Application</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Control whether desktop notifications are displayed or not; only for supported platforms</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show desktop notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use multiple TCP connections to send data to the Tarsnap server, can improve network performance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Aggressive networking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Preseve absolute pathnames when backing up, by not removing leading slashes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Preserve pathnames globally</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cross mount points when creating archives</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Traverse mounted points</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If checked all symbolic links will be followed when creating an archive</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Follow symbolic links</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Not all filesystems support this attribute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Skip files flagged with nodump attribute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do not include files of size equal or greater than the specified value in backups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>disabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MiB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap will skip these files globally for backups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Shell globbing patterns can be used, the list is colon separated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fill with default system junk patterns</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>defaults</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The directory where archives are restored to by default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for Downloads directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Limit upload bandwidth rate to kilobits per second</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>kbps</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Limit download bandwidth rate to kilobits per second</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for Tarsnap CLI utilities directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap caches information about what it has uploaded in a local directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Don&apos;t really create archives on the Tarsnap servers; just simulate doing so locally.  The resulted archives and archive statistics will be almost identical (typically within a few kB or a fraction of a percent) to the real deal.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Simulation mode (simulate creation of archives, useful for dry runs)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Directory to use as Tarsnap cache</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap cache directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Repair cache</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for Tarsnap cache directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reset app settings and run Setup Wizard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Run setup wizard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Directory where the Tarsnap CLI utilities reside</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap client utilities directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The app data directory is used to store application settings and data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nukes all archives stored for the current key from the Tarsnap server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Directory to use for app data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>App data directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap CLI utilities version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for app data directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do not read the default configuration files tarsnap.conf and tarsnaprc</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Drag and drop files or directories to back up, or use the File browser (%1)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1106,114 +814,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>archive name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Click login button to update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Displayed credit might be out of date, click login button to fetch latest account details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Credit and machine activity is %1 days old. Click login to update.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap user</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nuke archives</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Limit upload bandwidth</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ignore default configuration files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Skip operating system junk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Skip files larger than</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Limit download bandwidth</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with the platform scheduler to enable automatic Job backups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable Job scheduling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deregister Tarsnap GUI from the platform scheduler to disable automatic Job backups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disable Job scheduling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Clear Journal log of all entries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Clear journal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save Console Log to file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap client directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap command-line utilities version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap client version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default restore directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display byte sizes in IEC notation (default is SI)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Downloads directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1230,14 +830,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Keyboard shortcuts list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Console log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Console command log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1517,23 +1109,11 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deleting all archives: press Cancel to abort</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The new size notation will take global effect on application restart.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Archives (%1/%2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Jobs (%1/%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>click login button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1585,12 +1165,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>		Total size	Compressed size
-all archives	%1		%2
-unique data	%3		%4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1604,10 +1178,6 @@ unique data	%3		%4</source>
     </message>
     <message>
         <source>items</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Purging all archives in %1 seconds...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1627,177 +1197,7 @@ unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Browse for existing machine key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Find Tarsnap client</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap cache location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>App data directory location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No Tomorrow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This action will &lt;b&gt;delete all (%1) archives&lt;/b&gt; stored for this key.&lt;br /&gt;&lt;br /&gt;To confirm, type &apos;%2&apos; and press OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Warning: This action cannot be undone. All archives will be &lt;b&gt;lost forever&lt;/b&gt;&lt;/i&gt;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Application page to fix that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine key file not found. Go to  Settings -&gt; Account page to fix that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Application data dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>GUI version </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Job scheduling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
-
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Looks like scheduling is already enabled. Nothing to do.
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to write service file %1. Aborting operation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to load launchd service file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to start launchd service.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with cron serivce?
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to list current crontab: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Looks like scheduling is already enabled for the current user&apos;s crontab. Nothing to do.
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap GUI will be added to the current user&apos;s crontab.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To ensure proper behavior please review the lines to be added by pressing Show Details before proceeding.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to update crontab: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Launchd service file not found:
-%1
- Nothing to do.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to unload launchd service.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot remove service file:
-%1
-Aborting operation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There&apos;s no crontab for the current user. Nothing to do.
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Looks like the crontab for the current user is empty. Nothing to do.
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do. 
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nuke all archives?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nuke cancelled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Confirm action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tasks are currently running. Please stop executing tasks or wait for completion and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reset current app settings, job definitions and run the setup wizard?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for downloads directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1862,7 +1262,87 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clear journal log? All entries will be deleted forever.</source>
+        <source>Console Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Simulation mode is enabled.  Archives will not be uploaded to the Tarsnap server.  Disable in Settings -&gt; Backup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looks like scheduling is already enabled. Nothing to do.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to write service file %1. Aborting operation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load launchd service file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to start launchd service file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Launchd service file not found:
+%1
+ Nothing to do.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to unload launchd service.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove service file:
+%1
+Aborting operation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to list current crontab: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looks like scheduling is already enabled for the current user&apos;s crontab. Nothing to do.
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to update crontab: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There&apos;s no crontab for the current user. Nothing to do.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looks like the crontab for the current user is empty. Nothing to do.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do. 
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap GUI will be added to the current user&apos;s crontab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To ensure proper behavior please review the lines to be added by pressing Show Details before proceeding.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1990,6 +1470,552 @@ Aborting operation.</source>
     </message>
     <message>
         <source>Set archive file name</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsWidget</name>
+    <message>
+        <source>Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Archives stored for this Machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive count:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Real size of all stored archives (before compression and deduplication)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total backup size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On the Tarsnap servers, this is what you&apos;re paying for</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actual usage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bytes reduced by deduplication and compression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bytes economy:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Credit left on Tarsnap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Credit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click login button to update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show account activity, requires Tarsnap login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(show account activity)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last activity recorded by Tarsnap for this machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Machine activity:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show machine activity, requires Tarsnap login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(show machine activity)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Displayed credit might be out of date, click login button to fetch latest account details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Credit and machine activity is %1 days old. Click login to update.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set machine name to host name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Machine name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for a machine key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E-mail address used to register on Tarsnap.com</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name used for this machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap key used for this machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Machine key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Login to Tarsnap website to update credit and machine activity &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nukes all archives stored for the current key from the Tarsnap server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nuke archives</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t really create archives on the Tarsnap servers; just simulate doing so locally.  The resulted archives and archive statistics will be almost identical (typically within a few kB or a fraction of a percent) to the real deal.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simulation mode (simulate creation of archives, useful for dry runs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit download bandwidth rate to kilobits per second</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>kbps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use multiple TCP connections to send data to the Tarsnap server, can improve network performance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aggressive networking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not all filesystems support this attribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip files flagged with nodump attribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preseve absolute pathnames when backing up, by not removing leading slashes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preserve pathnames globally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit upload bandwidth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cross mount points when creating archives</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Traverse mounted points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shell globbing patterns can be used, the list is colon separated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not read the default configuration files tarsnap.conf and tarsnaprc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore default configuration files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill with default system junk patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap will skip these files globally for backups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip operating system junk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip files larger than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not include files of size equal or greater than the specified value in backups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MiB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit upload bandwidth rate to kilobits per second</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit download bandwidth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked all symbolic links will be followed when creating an archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Follow symbolic links</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with the platform scheduler to enable automatic Job backups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Job scheduling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deregister Tarsnap GUI from the platform scheduler to disable automatic Job backups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Job scheduling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear Journal log of all entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear journal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Console Log to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directory where the Tarsnap CLI utilities reside</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap client utilities directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repair cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap client directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for Tarsnap CLI utilities directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap command-line utilities version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap client version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control whether desktop notifications are displayed or not; only for supported platforms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show desktop notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI utilities version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The app data directory is used to store application settings and data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>App data directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The directory where archives are restored to by default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default restore directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for Tarsnap cache directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display byte sizes in IEC notation (default is SI)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for app data directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directory to use for app data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloads directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for Downloads directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap caches information about what it has uploaded in a local directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap cache directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directory to use as Tarsnap cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset app settings and run Setup Wizard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Run setup wizard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update account details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Tarsnap account details from website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The new size notation will take global effect on application restart.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Machine key file not found. Go to  Settings -&gt; Account page to fix that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI utilities not found. Go to  Settings -&gt; Application page to fix that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap cache dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Application data dir is invalid. Go to  Settings -&gt; Application page to fix that.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>click login button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>		Total size	Compressed size
+all archives	%1		%2
+unique data	%3		%4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for existing machine key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Purging all archives in %1 seconds...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Tomorrow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nuke all archives?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This action will &lt;b&gt;delete all (%1) archives&lt;/b&gt; stored for this key.&lt;br /&gt;&lt;br /&gt;To confirm, type &apos;%2&apos; and press OK.&lt;br /&gt;&lt;br /&gt;&lt;i&gt;Warning: This action cannot be undone. All archives will be &lt;b&gt;lost forever&lt;/b&gt;&lt;/i&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting all archives: press Cancel to abort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nuke cancelled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Job scheduling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
+
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with cron serivce?
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find Tarsnap client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap cache location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>App data directory location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tasks are currently running. Please stop executing tasks or wait for completion and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset current app settings, job definitions and run the setup wizard?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for downloads directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear journal log? All entries will be deleted forever.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nuke confirmation requested.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2220,6 +2246,14 @@ Aborting operation.</source>
         <source> detected.  ✔</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Tarsnap key files (*.key *.keys)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*);;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TarsnapAccount</name>
@@ -2426,6 +2460,14 @@ Aborting operation.</source>
         <source>Error: Failed to get Tarsnap version.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scheduled jobs not executed (cannot reach server).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please check your internet connectivity and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>aboutWidget</name>
@@ -2442,7 +2484,7 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>© 2014-2017 Tarsnap Backup Inc. All rights reserved.</source>
+        <source>© 2014-2018 Tarsnap Backup Inc. All rights reserved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2454,6 +2496,17 @@ Built with the help of the following 3rd party components:</source>
         <source>* Qt SDK from http://www.qt.io/download-open-source/ - LGPL; Multi license
 * Icons by &quot;Open Iconic www.useiconic.com/open&quot; - MIT License
 * Loading icon from &quot;http://ajaxload.info&quot; - WTFPL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Tarsnap GUI</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>consoleWidget</name>
+    <message>
+        <source>Tarsnap Console Log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

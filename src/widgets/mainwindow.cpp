@@ -29,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
       _menuBar(nullptr),
       _aboutToQuit(false),
       _stopTasksDialog(this),
-      _settingsWidget(this)
+      _settingsWidget(this),
+      _helpWidget(this)
 {
     connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
             &MainWindow::appendToConsoleLog);
@@ -50,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.jobsFilterFrame->hide();
 
     _ui.settingsTabVerticalLayout->insertWidget(0, &_settingsWidget);
+    _ui.helpTabLayout->insertWidget(0, &_helpWidget);
 
     connectSettingsWidget();
 

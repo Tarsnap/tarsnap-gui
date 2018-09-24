@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "helpwidget.h"
 #include "persistentmodel/journal.h"
 #include "scheduling.h"
 #include "settingswidget.h"
@@ -161,7 +162,9 @@ private:
     int            _queuedTasks;
 
     QPlainTextEdit *_consoleLog;
-    SettingsWidget  _settingsWidget;
+
+    SettingsWidget _settingsWidget;
+    HelpWidget     _helpWidget;
 
     void updateUi();
     // Load saved application settings.

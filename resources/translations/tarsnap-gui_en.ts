@@ -327,7 +327,7 @@ Add anyway?</source>
     <name>CoreApplication</name>
     <message>
         <location filename="../../src/coreapplication.cpp" line="54"/>
-        <source>Tarsnap GUI - Online backups for the truly paranoid (yet graphically inclined)</source>
+        <source>Tarsnap GUI - Online backups for the truly lazy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3121,7 +3121,7 @@ Aborting operation.</source>
     </message>
     <message>
         <location filename="../../forms/aboutwidget.ui" line="73"/>
-        <source>© 2014-2018 Tarsnap Backup Inc. All rights reserved.</source>
+        <source>© 2014-2017 Tarsnap Backup Inc. All rights reserved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

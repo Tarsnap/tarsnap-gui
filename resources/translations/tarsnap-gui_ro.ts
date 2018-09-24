@@ -355,7 +355,7 @@ Adaugă oricum?</translation>
     <name>CoreApplication</name>
     <message>
         <location filename="../../src/coreapplication.cpp" line="54"/>
-        <source>Tarsnap GUI - Online backups for the truly paranoid (yet graphically inclined)</source>
+        <source>Tarsnap GUI - Online backups for the truly lazy</source>
         <translation></translation>
     </message>
     <message>
@@ -3500,8 +3500,8 @@ Aborting operation.</source>
     </message>
     <message>
         <location filename="../../forms/aboutwidget.ui" line="73"/>
-        <source>© 2014-2018 Tarsnap Backup Inc. All rights reserved.</source>
-        <translation>© 2014-2018 Tarsnap Backup Inc. Toate drepturile rezervate.</translation>
+        <source>© 2014-2017 Tarsnap Backup Inc. All rights reserved.</source>
+        <translation>© 2014-2017 Tarsnap Backup Inc. Toate drepturile rezervate.</translation>
     </message>
     <message>
         <source>© 2014-2016 Tarsnap Backup Inc. All rights reserved.</source>

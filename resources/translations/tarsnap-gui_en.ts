@@ -809,99 +809,7 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>change</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Application</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Control whether desktop notifications are displayed or not; only for supported platforms</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show desktop notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The directory where archives are restored to by default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for Downloads directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for Tarsnap CLI utilities directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap caches information about what it has uploaded in a local directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Directory to use as Tarsnap cache</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap cache directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Repair cache</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for Tarsnap cache directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reset app settings and run Setup Wizard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Run setup wizard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Directory where the Tarsnap CLI utilities reside</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap client utilities directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The app data directory is used to store application settings and data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Directory to use for app data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>App data directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap CLI utilities version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Browse for app data directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -914,46 +822,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>archive name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Clear Journal log of all entries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Clear journal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save Console Log to file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap client directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap command-line utilities version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap client version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default restore directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display byte sizes in IEC notation (default is SI)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Downloads directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1933,6 +1801,134 @@ Aborting operation.</source>
     </message>
     <message>
         <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear Journal log of all entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear journal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Console Log to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directory where the Tarsnap CLI utilities reside</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap client utilities directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repair cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap client directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for Tarsnap CLI utilities directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap command-line utilities version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap client version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control whether desktop notifications are displayed or not; only for supported platforms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show desktop notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI utilities version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The app data directory is used to store application settings and data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>App data directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The directory where archives are restored to by default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default restore directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for Tarsnap cache directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display byte sizes in IEC notation (default is SI)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for app data directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directory to use for app data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloads directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for Downloads directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap caches information about what it has uploaded in a local directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap cache directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directory to use as Tarsnap cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset app settings and run Setup Wizard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Run setup wizard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

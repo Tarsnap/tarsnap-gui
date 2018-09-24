@@ -815,100 +815,8 @@ Adaugă oricum?</translation>
         <translation>Setări cont</translation>
     </message>
     <message>
-        <source>change</source>
-        <translation>schimbă</translation>
-    </message>
-    <message>
         <source>Application</source>
         <translation>Setări aplicație</translation>
-    </message>
-    <message>
-        <source>Control whether desktop notifications are displayed or not; only for supported platforms</source>
-        <translation>Controlează dacă notificările desktop sunt afișate; doar pentru platformele suportate</translation>
-    </message>
-    <message>
-        <source>Show desktop notifications</source>
-        <translation>Arată notificări desktop</translation>
-    </message>
-    <message>
-        <source>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</source>
-        <translation>Standardul SI folosește prefixuri octet folosind baza 10, iar standardul IEC baza 2</translation>
-    </message>
-    <message>
-        <source>The directory where archives are restored to by default</source>
-        <translation>Directorul folosit implicit pentru restaurarea arhivelor</translation>
-    </message>
-    <message>
-        <source>Browse for Downloads directory</source>
-        <translation>Schimbă director descărcări</translation>
-    </message>
-    <message>
-        <source>Browse for Tarsnap CLI utilities directory</source>
-        <translation>Navighează după utilitarele la linia de comandă Tarsnap</translation>
-    </message>
-    <message>
-        <source>Tarsnap caches information about what it has uploaded in a local directory</source>
-        <translation>Tarsnap folosește un director local &quot;cache&quot; pentru a stoca informații de lucru</translation>
-    </message>
-    <message>
-        <source>Directory to use as Tarsnap cache</source>
-        <translation>Directorul cache local folosit de Tarsnap</translation>
-    </message>
-    <message>
-        <source>Tarsnap cache directory</source>
-        <translation>Directorul cache Tarsnap</translation>
-    </message>
-    <message>
-        <source>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</source>
-        <translation>Repară posibilele probleme cu directorul cache folosind comanda &quot;--fsck&quot;</translation>
-    </message>
-    <message>
-        <source>Repair cache</source>
-        <translation>Repară director cache</translation>
-    </message>
-    <message>
-        <source>Browse for Tarsnap cache directory</source>
-        <translation>Schimbă director cache Tarsnap</translation>
-    </message>
-    <message>
-        <source>Reset app settings and run Setup Wizard</source>
-        <translation>Resetează aplicația la valorile standard și rulează Asistentul de Configurare</translation>
-    </message>
-    <message>
-        <source>Run setup wizard</source>
-        <translation>Rulează asistentul de configurare</translation>
-    </message>
-    <message>
-        <source>Directory where the Tarsnap CLI utilities reside</source>
-        <translation>Directorul unde se regăsesc utilitarele la linia de comandă Tarsnap</translation>
-    </message>
-    <message>
-        <source>Tarsnap client utilities directory</source>
-        <translation>Utilitarele la linia de comandă Tarsnap</translation>
-    </message>
-    <message>
-        <source>The app data directory is used to store application settings and data</source>
-        <translation>Directorul de date al aplicației este folosit pentru a stoca setările și datele aplicației</translation>
-    </message>
-    <message>
-        <source>Directory to use for app data</source>
-        <translation>Directorul de date al aplicației</translation>
-    </message>
-    <message>
-        <source>App data directory</source>
-        <translation>Directorul de date al aplicației</translation>
-    </message>
-    <message>
-        <source>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</source>
-        <translation>Utilitarele la linia de comandă sunt folosite pentru a comunica cu serviciul Tarsnap</translation>
-    </message>
-    <message>
-        <source>Tarsnap CLI utilities version</source>
-        <translation>Versiune utilitare la linia de comandă</translation>
-    </message>
-    <message>
-        <source>Browse for app data directory</source>
-        <translation>Schimbă</translation>
     </message>
     <message>
         <source>Drag and drop files or directories to back up, or use the File browser (%1)</source>
@@ -921,46 +829,6 @@ Adaugă oricum?</translation>
     <message>
         <source>archive name</source>
         <translation>nume arhivă</translation>
-    </message>
-    <message>
-        <source>Clear Journal log of all entries</source>
-        <translation>Elimină toate intrarile din Jurnal</translation>
-    </message>
-    <message>
-        <source>Clear journal</source>
-        <translation>Golește jurnal</translation>
-    </message>
-    <message>
-        <source>Save Console Log to file</source>
-        <translation>Salvează Jurnal consolă în fișier</translation>
-    </message>
-    <message>
-        <source>Language</source>
-        <translation>Limbă</translation>
-    </message>
-    <message>
-        <source>Tarsnap client directory</source>
-        <translation>Utilitarele la linia de comandă Tarsnap</translation>
-    </message>
-    <message>
-        <source>Tarsnap command-line utilities version</source>
-        <translation>Versiune utilitare la linia de comandă</translation>
-    </message>
-    <message>
-        <source>Tarsnap client version</source>
-        <translation>Versiune utilitare la linia de comandă</translation>
-    </message>
-    <message>
-        <source>Default restore directory</source>
-        <translation>Director de bază la restaurare</translation>
-    </message>
-    <message>
-        <source>Display byte sizes in IEC notation (default is SI)</source>
-        <translation>Folosește notația IEC pentru dimensiuni în octeți (implicit se afișează notația SI)</translation>
-    </message>
-    <message>
-        <source>Downloads directory</source>
-        <translation>Director descărcări</translation>
     </message>
     <message>
         <source>Help</source>
@@ -1954,6 +1822,134 @@ Aborting operation.</source>
     <message>
         <source>Application</source>
         <translation type="unfinished">Setări aplicație</translation>
+    </message>
+    <message>
+        <source>Clear Journal log of all entries</source>
+        <translation type="unfinished">Elimină toate intrarile din Jurnal</translation>
+    </message>
+    <message>
+        <source>Clear journal</source>
+        <translation type="unfinished">Golește jurnal</translation>
+    </message>
+    <message>
+        <source>Save Console Log to file</source>
+        <translation type="unfinished">Salvează Jurnal consolă în fișier</translation>
+    </message>
+    <message>
+        <source>Directory where the Tarsnap CLI utilities reside</source>
+        <translation type="unfinished">Directorul unde se regăsesc utilitarele la linia de comandă Tarsnap</translation>
+    </message>
+    <message>
+        <source>Tarsnap client utilities directory</source>
+        <translation type="unfinished">Utilitarele la linia de comandă Tarsnap</translation>
+    </message>
+    <message>
+        <source>Runs tarsnap --fsck, useful for fixing Tarsnap cache inconsistencies</source>
+        <translation type="unfinished">Repară posibilele probleme cu directorul cache folosind comanda &quot;--fsck&quot;</translation>
+    </message>
+    <message>
+        <source>Repair cache</source>
+        <translation type="unfinished">Repară director cache</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished">Limbă</translation>
+    </message>
+    <message>
+        <source>The Tarsnap command-line utilities are used to communicate with the Tarsnap service</source>
+        <translation type="unfinished">Utilitarele la linia de comandă sunt folosite pentru a comunica cu serviciul Tarsnap</translation>
+    </message>
+    <message>
+        <source>Tarsnap client directory</source>
+        <translation type="unfinished">Utilitarele la linia de comandă Tarsnap</translation>
+    </message>
+    <message>
+        <source>Browse for Tarsnap CLI utilities directory</source>
+        <translation type="unfinished">Navighează după utilitarele la linia de comandă Tarsnap</translation>
+    </message>
+    <message>
+        <source>Tarsnap command-line utilities version</source>
+        <translation type="unfinished">Versiune utilitare la linia de comandă</translation>
+    </message>
+    <message>
+        <source>Tarsnap client version</source>
+        <translation type="unfinished">Versiune utilitare la linia de comandă</translation>
+    </message>
+    <message>
+        <source>Control whether desktop notifications are displayed or not; only for supported platforms</source>
+        <translation type="unfinished">Controlează dacă notificările desktop sunt afișate; doar pentru platformele suportate</translation>
+    </message>
+    <message>
+        <source>Show desktop notifications</source>
+        <translation type="unfinished">Arată notificări desktop</translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI utilities version</source>
+        <translation type="unfinished">Versiune utilitare la linia de comandă</translation>
+    </message>
+    <message>
+        <source>The app data directory is used to store application settings and data</source>
+        <translation type="unfinished">Directorul de date al aplicației este folosit pentru a stoca setările și datele aplicației</translation>
+    </message>
+    <message>
+        <source>App data directory</source>
+        <translation type="unfinished">Directorul de date al aplicației</translation>
+    </message>
+    <message>
+        <source>The directory where archives are restored to by default</source>
+        <translation type="unfinished">Directorul folosit implicit pentru restaurarea arhivelor</translation>
+    </message>
+    <message>
+        <source>Default restore directory</source>
+        <translation type="unfinished">Director de bază la restaurare</translation>
+    </message>
+    <message>
+        <source>Browse for Tarsnap cache directory</source>
+        <translation type="unfinished">Schimbă director cache Tarsnap</translation>
+    </message>
+    <message>
+        <source>SI notation implies byte prefixes using base 10 whereas the IEC standard is base 2</source>
+        <translation type="unfinished">Standardul SI folosește prefixuri octet folosind baza 10, iar standardul IEC baza 2</translation>
+    </message>
+    <message>
+        <source>Display byte sizes in IEC notation (default is SI)</source>
+        <translation type="unfinished">Folosește notația IEC pentru dimensiuni în octeți (implicit se afișează notația SI)</translation>
+    </message>
+    <message>
+        <source>Browse for app data directory</source>
+        <translation type="unfinished">Schimbă</translation>
+    </message>
+    <message>
+        <source>Directory to use for app data</source>
+        <translation type="unfinished">Directorul de date al aplicației</translation>
+    </message>
+    <message>
+        <source>Downloads directory</source>
+        <translation type="unfinished">Director descărcări</translation>
+    </message>
+    <message>
+        <source>Browse for Downloads directory</source>
+        <translation type="unfinished">Schimbă director descărcări</translation>
+    </message>
+    <message>
+        <source>Tarsnap caches information about what it has uploaded in a local directory</source>
+        <translation type="unfinished">Tarsnap folosește un director local &quot;cache&quot; pentru a stoca informații de lucru</translation>
+    </message>
+    <message>
+        <source>Tarsnap cache directory</source>
+        <translation type="unfinished">Directorul cache Tarsnap</translation>
+    </message>
+    <message>
+        <source>Directory to use as Tarsnap cache</source>
+        <translation type="unfinished">Directorul cache local folosit de Tarsnap</translation>
+    </message>
+    <message>
+        <source>Reset app settings and run Setup Wizard</source>
+        <translation type="unfinished">Resetează aplicația la valorile standard și rulează Asistentul de Configurare</translation>
+    </message>
+    <message>
+        <source>Run setup wizard</source>
+        <translation type="unfinished">Rulează asistentul de configurare</translation>
     </message>
     <message>
         <source>Update account details</source>

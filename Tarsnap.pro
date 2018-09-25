@@ -195,7 +195,8 @@ osx {
 
 format.commands = find src/ tests/ -name \"*.h\" -or -name \"*.cpp\" |	\
 			xargs clang-format -i
-QMAKE_EXTRA_TARGETS += format
+update_translations.commands = lupdate -locations none -no-obsolete Tarsnap.pro
+QMAKE_EXTRA_TARGETS += format update_translations
 
 # The same variable is used in individual tests
 TEST_HOME = /tmp/tarsnap-gui-test

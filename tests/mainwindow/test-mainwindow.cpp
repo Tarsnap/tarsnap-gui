@@ -7,6 +7,8 @@
 
 #include "persistentmodel/archive.h"
 
+#include <TSettings.h>
+
 class TestMainWindow : public QObject
 {
     Q_OBJECT
@@ -229,6 +231,8 @@ void TestMainWindow::console_window()
 
 void TestMainWindow::tab_navigation()
 {
+    HANDLE_IGNORING_XDG_HOME;
+
     MainWindow *   mainwindow = new MainWindow();
     Ui::MainWindow ui         = mainwindow->_ui;
 
@@ -256,7 +260,6 @@ void TestMainWindow::tab_navigation()
     VISUAL_WAIT;
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
 
-#if !defined(Q_OS_OSX)
     // Add a Job
     mainwindow->displayTab(ui.jobsTab);
     ui.backupNameLineEdit->setText("test-job");
@@ -289,7 +292,6 @@ void TestMainWindow::tab_navigation()
     mainwindow->displayJobDetails(job);
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
     VISUAL_WAIT;
-#endif
 
     delete mainwindow;
 }

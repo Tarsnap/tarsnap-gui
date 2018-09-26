@@ -5,7 +5,7 @@ CONFIG += c++11 debug
 
 TEMPLATE = app
 
-INCLUDEPATH += . ../../src/ ../../src/widgets/
+INCLUDEPATH += . ../../src/ ../../src/widgets/ ../../lib/core/
 
 
 ### Shared build-dir

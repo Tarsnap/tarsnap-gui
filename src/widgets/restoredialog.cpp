@@ -4,7 +4,8 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <QSettings>
+
+#include <TSettings.h>
 
 RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
                              QStringList files)
@@ -13,7 +14,7 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
     setAttribute(Qt::WA_DeleteOnClose, true);
     _ui.setupUi(this);
 
-    QSettings settings;
+    TSettings settings;
     _downDir = settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString();
     _ui.baseDirLineEdit->setText(_downDir);
     _ui.baseDirLineEdit->hide();

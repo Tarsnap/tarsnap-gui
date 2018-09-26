@@ -3,7 +3,8 @@
 
 #include <QFile>
 #include <QFileInfo>
-#include <QSettings>
+
+#include <TSettings.h>
 
 PersistentStore::PersistentStore(QObject *parent)
     : QObject(parent), _initialized(false)
@@ -16,7 +17,7 @@ bool PersistentStore::init()
     QMutexLocker locker(&_mutex);
 
     // Get application data directory and database filename.
-    QSettings settings;
+    TSettings settings;
     QString   appdata = settings.value("app/app_data", "").toString();
     if(appdata.isEmpty())
     {

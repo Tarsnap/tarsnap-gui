@@ -1,7 +1,8 @@
 #include "notification.h"
 
 #include <QCoreApplication>
-#include <QSettings>
+
+#include <TSettings.h>
 
 Notification::Notification(QSystemTrayIcon *parent) : QSystemTrayIcon(parent)
 {
@@ -10,7 +11,7 @@ Notification::Notification(QSystemTrayIcon *parent) : QSystemTrayIcon(parent)
 
 void Notification::displayNotification(QString message)
 {
-    QSettings settings;
+    TSettings settings;
     if(settings.value("app/notifications", true).toBool()
        && isSystemTrayAvailable())
     {

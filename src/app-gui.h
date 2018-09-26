@@ -12,7 +12,6 @@ extern "C" {
 
 #include <QApplication>
 #include <QObject>
-#include <QSettings>
 
 /*!
  * \ingroup misc
@@ -28,7 +27,7 @@ public:
     AppGui(int &argc, char **argv, struct optparse *opt);
     ~AppGui();
 
-    //! Initializes the QSettings, Translator, PersistentStore, and launches
+    //! Initializes the Settings, Translator, PersistentStore, and launches
     //! the Setup wizard (if necessary).
     //! \return True if the initialization was successful.
     bool initializeCore();

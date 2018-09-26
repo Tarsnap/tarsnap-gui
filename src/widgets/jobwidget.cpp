@@ -6,6 +6,8 @@
 #include <QMenu>
 #include <QMessageBox>
 
+#include <TSettings.h>
+
 JobWidget::JobWidget(QWidget *parent) : QWidget(parent), _saveEnabled(false)
 {
     _ui.setupUi(this);
@@ -59,7 +61,7 @@ JobWidget::JobWidget(QWidget *parent) : QWidget(parent), _saveEnabled(false)
     connect(_ui.archiveListWidget, &ArchiveListWidget::deleteArchives, this,
             &JobWidget::deleteJobArchives);
     connect(_ui.skipFilesDefaultsButton, &QPushButton::clicked, [&]() {
-        QSettings settings;
+        TSettings settings;
         _ui.skipFilesLineEdit->setText(
             settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
                 .toString());

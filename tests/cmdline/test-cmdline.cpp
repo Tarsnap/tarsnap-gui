@@ -4,6 +4,8 @@
 
 #include "app-cmdline.h"
 
+#include <TSettings.h>
+
 extern "C" {
 #include "optparse.h"
 #include "warnp.h"
@@ -15,9 +17,8 @@ class TestCmdline : public QObject
 
 private slots:
     void initTestCase();
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
+    void init();
     void normal_init();
-#endif
     void appdir_init();
 };
 
@@ -30,12 +31,17 @@ void TestCmdline::initTestCase()
     WARNP_INIT;
 }
 
-// FIXME: this is not yet cross-platform because OSX uses a .plist file.  That
-// will be fixed soon with the upcoming TSettings change.
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
+void TestCmdline::init()
+{
+    // Reset TSettings
+    TSettings::destroy();
+}
+
 void TestCmdline::normal_init()
 {
     struct optparse *opt;
+
+    HANDLE_IGNORING_XDG_HOME;
 
     // Create command-line arguments
     int   argc = 1;
@@ -55,10 +61,9 @@ void TestCmdline::normal_init()
         QFAIL("Could not initialize app");
 
     // Check that it read the right config file.
-    QSettings settings;
+    TSettings settings;
     QVERIFY(settings.value("tarsnap/user", "") == "normal_init");
 }
-#endif
 
 void TestCmdline::appdir_init()
 {
@@ -84,7 +89,7 @@ void TestCmdline::appdir_init()
         QFAIL("Could not initialize app");
 
     // Check that it read the right config file.
-    QSettings settings;
+    TSettings settings;
     QVERIFY(settings.value("tarsnap/user", "") == "appdata_init");
 }
 

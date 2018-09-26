@@ -1,7 +1,8 @@
 #include "archivestabwidget.h"
 
-#include <QSettings>
 #include <QWidget>
+
+#include <TSettings.h>
 
 ArchivesTabWidget::ArchivesTabWidget(QWidget *parent) : QWidget(parent)
 {
@@ -82,7 +83,7 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent) : QWidget(parent)
 
 void ArchivesTabWidget::loadSettings()
 {
-    QSettings settings;
+    TSettings settings;
     _ui.actionShowArchivesTabHeader->setChecked(
         settings.value("app/archives_header_enabled", true).toBool());
     _ui.archivesHeader->setVisible(_ui.actionShowArchivesTabHeader->isChecked());
@@ -90,7 +91,7 @@ void ArchivesTabWidget::loadSettings()
 
 void ArchivesTabWidget::commitSettings()
 {
-    QSettings settings;
+    TSettings settings;
 
     settings.sync();
 }

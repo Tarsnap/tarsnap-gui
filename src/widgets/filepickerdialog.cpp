@@ -1,6 +1,6 @@
 #include "filepickerdialog.h"
 
-#include <QSettings>
+#include <TSettings.h>
 
 FilePickerDialog::FilePickerDialog(QWidget *parent) : QDialog(parent)
 {
@@ -14,7 +14,7 @@ FilePickerDialog::FilePickerDialog(QWidget *parent) : QDialog(parent)
             &FilePickerDialog::accept);
 
     // Load last browsed file url.
-    QSettings settings;
+    TSettings settings;
     _ui.filePickerWidget->setCurrentPath(
         settings.value("app/file_browse_last", QDir::homePath()).toString());
 }
@@ -22,7 +22,7 @@ FilePickerDialog::FilePickerDialog(QWidget *parent) : QDialog(parent)
 FilePickerDialog::~FilePickerDialog()
 {
     // Save last browsed file url.
-    QSettings settings;
+    TSettings settings;
     settings.setValue("app/file_browse_last",
                       _ui.filePickerWidget->getCurrentPath());
 }

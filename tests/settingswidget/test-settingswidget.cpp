@@ -1,10 +1,12 @@
-#include <QSettings>
 #include <QtTest/QtTest>
 
 #include "../qtest-platform.h"
 #include "utils.h"
 
 #include "confirmationdialog.h"
+
+#include <TSettings.h>
+
 #include "settingswidget.h"
 
 class TestSettingsWidget : public QObject
@@ -31,6 +33,8 @@ void TestSettingsWidget::initTestCase()
 
 void TestSettingsWidget::account()
 {
+    HANDLE_IGNORING_XDG_HOME;
+
     SettingsWidget *   settingsWidget = new SettingsWidget();
     Ui::SettingsWidget ui             = settingsWidget->_ui;
     TarsnapAccount *   tarsnapAccount = &settingsWidget->_tarsnapAccount;
@@ -47,16 +51,12 @@ void TestSettingsWidget::account()
     QCOMPARE(ui.accountStorageSavedLabel->text(), QString("3 B"));
     VISUAL_WAIT;
 
-#if !defined(Q_OS_OSX)
     // Trigger an error message that we have to click away.
     QMetaObject::invokeMethod(ui.updateAccountButton, "clicked",
                               Qt::QueuedConnection);
     QMetaObject::invokeMethod(&tarsnapAccount->_popup, "close",
                               Qt::QueuedConnection);
     VISUAL_WAIT;
-#else
-    (void)tarsnapAccount;
-#endif
 
     // Set username, machine name, key.
     ui.accountUserLineEdit->setText("edited-user");
@@ -85,7 +85,7 @@ void TestSettingsWidget::account()
     settingsWidget->commitSettings();
 
     // Check saved settings
-    QSettings settings;
+    TSettings settings;
 
     QVERIFY(settings.value("tarsnap/user", "") == QString("edited-user"));
     QVERIFY(settings.value("tarsnap/machine", "") == QString("edited-mn"));
@@ -112,7 +112,7 @@ void TestSettingsWidget::backup()
     VISUAL_WAIT;
 
     // Check saved settings.  These are ready due to not using setText().
-    QSettings settings;
+    TSettings settings;
 
     QVERIFY(settings.value("tarsnap/preserve_pathnames", "").toBool() == false);
     QVERIFY(settings.value("app/skip_nodump", "").toBool() == true);
@@ -137,7 +137,7 @@ void TestSettingsWidget::application()
     VISUAL_WAIT;
 
     // Check saved settings.  These are ready due to not using setText().
-    QSettings settings;
+    TSettings settings;
 
     QVERIFY(settings.value("app/notifications", "").toBool() == false);
 

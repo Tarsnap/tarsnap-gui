@@ -4,6 +4,8 @@
 
 #include <QFileInfo>
 
+#include <TSettings.h>
+
 #define MB 1048576ULL
 
 BackupTask::BackupTask()
@@ -20,7 +22,7 @@ BackupTask::BackupTask()
       _status(TaskStatus::Initialized),
       _exitCode(0)
 {
-    QSettings settings;
+    TSettings settings;
     setOptionPreservePaths(
         settings.value("tarsnap/preserve_pathnames", optionPreservePaths())
             .toBool());

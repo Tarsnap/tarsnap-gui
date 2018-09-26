@@ -2,6 +2,7 @@ TARGET = test-taskmanager
 QT = core sql network
 
 HEADERS  +=						\
+	../../lib/core/TSettings.h			\
 	../../src/backuptask.h				\
 	../../src/debug.h				\
 	../../src/persistentmodel/archive.h		\
@@ -13,6 +14,7 @@ HEADERS  +=						\
 	../../src/utils.h
 
 SOURCES += test-taskmanager.cpp				\
+	../../lib/core/TSettings.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/debug.cpp				\
 	../../src/persistentmodel/archive.cpp		\

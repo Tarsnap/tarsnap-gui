@@ -10,7 +10,6 @@ extern "C" {
 
 #include <QCoreApplication>
 #include <QObject>
-#include <QSettings>
 
 /*!
  * \ingroup misc
@@ -25,7 +24,7 @@ public:
     AppCmdline(int &argc, char **argv, struct optparse *opt);
     ~AppCmdline();
 
-    //! Initializes the QSettings, Translator, PersistentStore, and launches
+    //! Initializes the Settings, Translator, PersistentStore, and launches
     //! the Setup wizard (if necessary).
     bool initializeCore();
 

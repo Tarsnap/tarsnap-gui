@@ -31,8 +31,10 @@ bool AppCmdline::initializeCore()
 {
     struct init_info info;
 
-    // Set up Settings.  No message yet.
+    // Set up Settings.
     info = init_shared_settings(_configDir);
+    if(info.status == INIT_SETTINGS_RENAMED)
+        DEBUG << info.message;
 
     // Set up the Translator, check --dry-run, update scheduling path.
     info = init_shared_core(this);
@@ -53,6 +55,9 @@ bool AppCmdline::initializeCore()
         // info.message contains longer text intended for a GUI message box.
         DEBUG << info.extra;
         break;
+    case INIT_SETTINGS_RENAMED:
+        DEBUG << "Got INIT_SETTINGS_RENAMED; should not happen here!";
+        return false;
     }
 
     // We don't have anything else to do

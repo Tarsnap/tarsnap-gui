@@ -5,9 +5,10 @@
 
 #include <QDir>
 #include <QFileInfo>
-#include <QSettings>
 #include <QTcpSocket>
 #include <QTimer>
+
+#include <TSettings.h>
 
 #define SUCCESS 0
 
@@ -77,7 +78,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     TarsnapTask *bTask                 = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
-    QSettings settings;
+    TSettings settings;
     if(settings
            .value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING)
            .toBool())
@@ -208,7 +209,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     TarsnapTask *contentsTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
-    QSettings settings;
+    TSettings settings;
     if(settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES)
            .toBool())
         args << "-P";
@@ -332,7 +333,7 @@ void TaskManager::restoreArchive(ArchivePtr            archive,
     initTarsnapArgs(args);
     if(options.optionRestore)
     {
-        QSettings settings;
+        TSettings settings;
         args << "-x"
              << "-P"
              << "-C"
@@ -397,7 +398,7 @@ void TaskManager::getKeyId(QString key_filename)
 
 void TaskManager::initializeCache()
 {
-    QSettings settings;
+    TSettings settings;
     QString   tarsnapCacheDir = settings.value("tarsnap/cache", "").toString();
     QDir      cacheDir(tarsnapCacheDir);
     if(!tarsnapCacheDir.isEmpty()
@@ -472,7 +473,7 @@ void TaskManager::warnNotOnline()
 void TaskManager::runScheduledJobs()
 {
     loadJobs();
-    QSettings settings;
+    TSettings settings;
     QDate     now(QDate::currentDate());
     QDate nextDaily  = settings.value("app/next_daily_timestamp", "").toDate();
     QDate nextWeekly = settings.value("app/next_weekly_timestamp", "").toDate();
@@ -1173,7 +1174,7 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput,
 
 QString TaskManager::makeTarsnapCommand(QString cmd)
 {
-    QSettings settings;
+    TSettings settings;
     QString   _tarsnapDir = settings.value("tarsnap/path", "").toString();
     if(_tarsnapDir.isEmpty())
         return cmd;
@@ -1183,7 +1184,7 @@ QString TaskManager::makeTarsnapCommand(QString cmd)
 
 void TaskManager::initTarsnapArgs(QStringList &args)
 {
-    QSettings settings;
+    TSettings settings;
     QString   tarsnapKeyFile = settings.value("tarsnap/key", "").toString();
     if(!tarsnapKeyFile.isEmpty())
         args << "--keyfile" << tarsnapKeyFile;

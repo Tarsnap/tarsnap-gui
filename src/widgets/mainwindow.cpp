@@ -13,9 +13,10 @@
 #include <QInputDialog>
 #include <QMenu>
 #include <QPainter>
-#include <QSettings>
 #include <QSharedPointer>
 #include <QShortcut>
+
+#include <TSettings.h>
 
 #define MAIN_LOGO_RIGHT_MARGIN 5
 #define MAIN_LOGO_FUDGE 3
@@ -219,7 +220,7 @@ MainWindow::MainWindow(QWidget *parent)
                 validateBackupTab();
             });
     connect(_ui.dismissButton, &QPushButton::clicked, [&]() {
-        QSettings settings;
+        TSettings settings;
         settings.setValue("app/default_jobs_dismissed", true);
         _ui.defaultJobs->hide();
         _ui.addJobButton->show();
@@ -254,7 +255,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadSettings()
 {
-    QSettings settings;
+    TSettings settings;
 
     _ui.actionShowJobsTabHeader->setChecked(
         settings.value("app/jobs_header_enabled", true).toBool());
@@ -284,7 +285,7 @@ void MainWindow::initializeMainWindow()
 {
     _settingsWidget.initializeSettingsWidget();
 
-    QSettings settings;
+    TSettings settings;
 
     // Update list of archives (unless we're doing a dry run).
     if(!settings.value("tarsnap/dry_run", false).toBool())
@@ -666,7 +667,7 @@ void MainWindow::updateStatusMessage(QString message, QString detail)
 
 void MainWindow::commitSettings()
 {
-    QSettings settings;
+    TSettings settings;
     settings.setValue("app/window_geometry", saveGeometry());
     settings.setValue("app/archives_header_enabled",
                       _ui.actionShowArchivesTabHeader->isChecked());
@@ -949,7 +950,7 @@ void MainWindow::showJobsListMenu(const QPoint &pos)
 
 void MainWindow::addDefaultJobs()
 {
-    QSettings settings;
+    TSettings settings;
     foreach(QString path, DEFAULT_JOBS)
     {
         QDir dir(QDir::home());

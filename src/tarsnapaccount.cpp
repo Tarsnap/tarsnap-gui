@@ -6,8 +6,9 @@
 #include <QMessageBox>
 #include <QNetworkReply>
 #include <QNetworkRequest>
-#include <QSettings>
 #include <QTableWidget>
+
+#include <TSettings.h>
 
 #define URL_ACTIVITY                                                           \
     "https://www.tarsnap.com/"                                                 \
@@ -36,7 +37,7 @@ TarsnapAccount::~TarsnapAccount()
 void TarsnapAccount::getAccountInfo(bool displayActivity,
                                     bool displayMachineActivity)
 {
-    QSettings settings;
+    TSettings settings;
     _user    = settings.value("tarsnap/user", "").toString();
     _machine = settings.value("tarsnap/machine", "").toString();
     if(Utils::tarsnapVersionMinimum("1.0.37"))

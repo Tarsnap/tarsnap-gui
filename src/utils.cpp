@@ -1,10 +1,11 @@
 #include "utils.h"
 
 #include <QDebug>
-#include <QSettings>
 #include <QStandardPaths>
 
 #include <math.h>
+
+#include <TSettings.h>
 
 using namespace Utils;
 
@@ -70,7 +71,7 @@ quint64 GetDirInfoTask::getDirCount(QDir dir)
 
 QString Utils::humanBytes(quint64 bytes, int fieldWidth)
 {
-    QSettings settings;
+    TSettings settings;
     bool      IEC  = settings.value("app/iec_prefixes", false).toBool();
     quint64   unit = IEC ? 1024 : 1000;
     if(bytes < unit)
@@ -160,7 +161,7 @@ QFileInfoList Utils::findKeysInPath(QString path)
 
 bool Utils::tarsnapVersionMinimum(const QString &minVersion)
 {
-    QSettings settings;
+    TSettings settings;
     QString   tarsnapVersion = settings.value("tarsnap/version", "").toString();
     QRegExp   versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
     return (-1 != versionRx.indexIn(tarsnapVersion))

@@ -2,6 +2,8 @@
 #include "debug.h"
 #include "utils.h"
 
+#include <TSettings.h>
+
 Job::Job(QObject *parent)
     : QObject(parent),
       _optionScheduledEnabled(JobSchedule::Disabled),
@@ -17,7 +19,7 @@ Job::Job(QObject *parent)
       _settingHideSymlinks(false)
 {
     // Load values from settings.
-    QSettings settings;
+    TSettings settings;
     setOptionPreservePaths(
         settings.value("tarsnap/preserve_pathnames", optionPreservePaths())
             .toBool());

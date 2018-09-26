@@ -15,6 +15,8 @@
 #include <QUrl>
 #include <QVector>
 
+#include <TSettings.h>
+
 /*
  * It's unnecessary from a programming standpoint to put these in a separate
  * function, but it helps me keep track of how the various Qt layers work.
@@ -84,7 +86,7 @@ struct init_info init_shared_settings(QString configDir)
 struct init_info init_shared_core(QCoreApplication *app)
 {
     struct init_info info = {INIT_OK, "", ""};
-    QSettings        settings;
+    TSettings        settings;
 
     // Set up the translator.
     Translator &translator = Translator::instance();

@@ -7,12 +7,13 @@
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QMimeData>
-#include <QSettings>
 #include <QStringList>
+
+#include <TSettings.h>
 
 BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
 {
-    QSettings   settings;
+    TSettings   settings;
     QStringList urls =
         settings.value("app/backup_list", QStringList()).toStringList();
     if(!urls.isEmpty())
@@ -38,7 +39,7 @@ BackupListWidget::~BackupListWidget()
             static_cast<BackupListWidgetItem *>(item(i));
         urls << backupItem->url().toString(QUrl::FullyEncoded);
     }
-    QSettings settings;
+    TSettings settings;
     settings.setValue("app/backup_list", urls);
     settings.sync();
     clear();

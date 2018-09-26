@@ -4,6 +4,8 @@
 #include "translator.h"
 #include "utils.h"
 
+#include <TSettings.h>
+
 #include <QDateTime>
 #include <QDesktopServices>
 #include <QDir>
@@ -12,7 +14,6 @@
 #include <QInputDialog>
 #include <QMenu>
 #include <QPainter>
-#include <QSettings>
 #include <QSharedPointer>
 #include <QShortcut>
 #include <QWidget>
@@ -163,7 +164,7 @@ SettingsWidget::SettingsWidget(QWidget *parent)
 
 void SettingsWidget::initializeSettingsWidget()
 {
-    QSettings settings;
+    TSettings settings;
 
     /* Account tab */
 
@@ -219,7 +220,7 @@ void SettingsWidget::initializeSettingsWidget()
 
 void SettingsWidget::loadSettings()
 {
-    QSettings settings;
+    TSettings settings;
 
     /* Account tab */
     _ui.accountCreditLabel->setText(
@@ -294,7 +295,7 @@ void SettingsWidget::loadSettings()
 
 void SettingsWidget::commitSettings()
 {
-    QSettings settings;
+    TSettings settings;
 
     /* Account tab */
     settings.setValue("tarsnap/key", _ui.accountMachineKeyLineEdit->text());
@@ -397,7 +398,7 @@ void SettingsWidget::saveKeyId(QString key, quint64 id)
 {
     if(key == _ui.accountMachineKeyLineEdit->text())
     {
-        QSettings settings;
+        TSettings settings;
         settings.setValue("tarsnap/key_id", id);
         settings.sync();
     }
@@ -452,7 +453,7 @@ void SettingsWidget::nukeCancelled()
 
 void SettingsWidget::updateAccountCredit(qreal credit, QDate date)
 {
-    QSettings settings;
+    TSettings settings;
     settings.setValue("tarsnap/credit", QString::number(credit, 'f', 18));
     settings.setValue("tarsnap/credit_date", date);
     _ui.accountCreditLabel->setText(QString::number(credit, 'f', 18));
@@ -465,7 +466,7 @@ void SettingsWidget::updateLastMachineActivity(QStringList activityFields)
     if(activityFields.size() < 2)
         return;
     QString   machineActivity = activityFields[0] + ' ' + activityFields[1];
-    QSettings settings;
+    TSettings settings;
     settings.setValue("tarsnap/machine_activity", machineActivity);
     _ui.machineActivity->setText(machineActivity);
     _ui.machineActivity->setToolTip(activityFields.join(' '));
@@ -644,7 +645,7 @@ void SettingsWidget::disableJobSchedulingButtonClicked()
 void SettingsWidget::updateTarsnapVersion(QString versionString)
 {
     _ui.tarsnapVersionLabel->setText(versionString);
-    QSettings settings;
+    TSettings settings;
     settings.setValue("tarsnap/version", versionString);
 }
 

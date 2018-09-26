@@ -57,4 +57,16 @@ void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
             QSKIP("No tarsnap binary found");                                  \
     } while(0)
 
+// Deal with platforms which ignore $XDG_*_HOME environment vars
+#if defined(Q_OS_MACOS)
+#define HANDLE_IGNORING_XDG_HOME                                               \
+    do                                                                         \
+    {                                                                          \
+        TSettings::setFilename("/tmp/tarsnap-gui-test/" TEST_NAME              \
+                               "/" TEST_NAME ".conf");                         \
+    } while(0)
+#else
+#define HANDLE_IGNORING_XDG_HOME
+#endif
+
 #endif

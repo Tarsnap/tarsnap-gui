@@ -10,6 +10,8 @@
 #include <QFontDatabase>
 #include <QMessageBox>
 
+#include <TSettings.h>
+
 AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
     : QApplication(argc, argv), _mainWindow(nullptr), _notification()
 {
@@ -36,6 +38,7 @@ AppGui::~AppGui()
         delete _mainWindow;
     _managerThread.quit();
     _managerThread.wait();
+    TSettings::destroy();
 }
 
 bool AppGui::initializeCore()
@@ -227,13 +230,11 @@ void AppGui::reinit()
     PersistentStore &store = PersistentStore::instance();
     store.purge();
 
-    QSettings settings;
-    settings.setDefaultFormat(QSettings::NativeFormat);
-    QSettings defaultSettings;
-    if(defaultSettings.contains("app/wizard_done"))
+    TSettings settings;
+    if(settings.contains("app/wizard_done"))
     {
-        defaultSettings.clear();
-        defaultSettings.sync();
+        settings.getQSettings()->clear();
+        settings.sync();
     }
 
     if(!initializeCore())

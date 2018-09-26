@@ -236,6 +236,93 @@ For your information, there&apos;s a purge action in Settings -&gt; Account page
     </message>
 </context>
 <context>
+    <name>ArchivesTabWidget</name>
+    <message>
+        <source>Archives</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search and filter the Archives list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Archives tab header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/hide the Archives tab header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter and search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search and filter Archives list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload archives list from Tarsnap server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete archive(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inspect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inspect archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archives (%1/%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BackupListWidget</name>
     <message>
         <source>Confirm action</source>
@@ -764,14 +851,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Search and filter the Archives list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Archive list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Jobs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1117,10 +1196,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Browse for directory to add to the Backup list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Archives (%1/%2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

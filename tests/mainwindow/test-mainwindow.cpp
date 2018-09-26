@@ -5,7 +5,7 @@
 #include "helpwidget.h"
 #include "mainwindow.h"
 
-#include "archive.h"
+#include "persistentmodel/archive.h"
 
 class TestMainWindow : public QObject
 {

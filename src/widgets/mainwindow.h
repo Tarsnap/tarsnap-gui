@@ -162,6 +162,9 @@ private:
     SettingsWidget _settingsWidget;
     HelpWidget     _helpWidget;
 
+    //! Switch to displaying a specific tab.
+    void displayTab(QWidget *widget);
+
     void updateUi();
     // Load saved application settings.
     void loadSettings();

@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
+    displayTab(_ui.backupTab);
     validateBackupTab();
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
@@ -71,15 +71,15 @@ MainWindow::MainWindow(QWidget *parent)
     addAction(_ui.actionGoSettings);
     addAction(_ui.actionGoHelp);
     connect(_ui.actionGoBackup, &QAction::triggered,
-            [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.backupTab); });
+            [&]() { displayTab(_ui.backupTab); });
     connect(_ui.actionGoArchives, &QAction::triggered,
-            [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.archivesTab); });
+            [&]() { displayTab(_ui.archivesTab); });
     connect(_ui.actionGoJobs, &QAction::triggered,
-            [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.jobsTab); });
+            [&]() { displayTab(_ui.jobsTab); });
     connect(_ui.actionGoSettings, &QAction::triggered,
-            [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.settingsTab); });
+            [&]() { displayTab(_ui.settingsTab); });
     connect(_ui.actionGoHelp, &QAction::triggered,
-            [&]() { _ui.mainTabWidget->setCurrentWidget(_ui.helpTab); });
+            [&]() { displayTab(_ui.helpTab); });
     addAction(_ui.actionShowJournal);
     _ui.expandJournalButton->setDefaultAction(_ui.actionShowJournal);
     connect(_ui.actionShowJournal, &QAction::toggled, _ui.journalLog,
@@ -693,8 +693,7 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
     if(!_ui.archiveDetailsWidget->isVisible())
         _ui.archiveDetailsWidget->show();
 
-    if(_ui.mainTabWidget->currentWidget() != _ui.archivesTab)
-        _ui.mainTabWidget->setCurrentWidget(_ui.archivesTab);
+    displayTab(_ui.archivesTab);
 }
 
 void MainWindow::appendTimestampCheckBoxToggled(bool checked)
@@ -841,8 +840,8 @@ void MainWindow::backupJob(JobPtr job)
 
 void MainWindow::browseForBackupItems()
 {
-    if(_ui.mainTabWidget->currentWidget() != _ui.backupTab)
-        _ui.mainTabWidget->setCurrentWidget(_ui.backupTab);
+    displayTab(_ui.backupTab);
+
     FilePickerDialog picker(this);
     connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded, &picker,
             &FilePickerDialog::selectUrl);
@@ -860,8 +859,8 @@ void MainWindow::displayJobDetails(JobPtr job)
     hideJobDetails();
     _ui.jobDetailsWidget->setJob(job);
     _ui.jobDetailsWidget->show();
-    if(_ui.mainTabWidget->currentWidget() != _ui.jobsTab)
-        _ui.mainTabWidget->setCurrentWidget(_ui.jobsTab);
+
+    displayTab(_ui.jobsTab);
 }
 
 void MainWindow::hideJobDetails()
@@ -1182,4 +1181,10 @@ void MainWindow::connectSettingsWidget()
             &MainWindow::getTarsnapVersion);
     connect(&_settingsWidget, &SettingsWidget::repairCache, this,
             &MainWindow::repairCache);
+}
+
+void MainWindow::displayTab(QWidget *widget)
+{
+    if(_ui.mainTabWidget->currentWidget() != widget)
+        _ui.mainTabWidget->setCurrentWidget(widget);
 }

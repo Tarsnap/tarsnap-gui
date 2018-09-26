@@ -1,10 +1,12 @@
-#include <QSettings>
 #include <QtTest/QtTest>
 
 #include "../qtest-platform.h"
 #include "utils.h"
 
 #include "confirmationdialog.h"
+
+#include <TSettings.h>
+
 #include "settingswidget.h"
 
 class TestSettingsWidget : public QObject
@@ -85,7 +87,7 @@ void TestSettingsWidget::account()
     settingsWidget->commitSettings();
 
     // Check saved settings
-    QSettings settings;
+    TSettings settings;
 
     QVERIFY(settings.value("tarsnap/user", "") == QString("edited-user"));
     QVERIFY(settings.value("tarsnap/machine", "") == QString("edited-mn"));
@@ -112,7 +114,7 @@ void TestSettingsWidget::backup()
     VISUAL_WAIT;
 
     // Check saved settings.  These are ready due to not using setText().
-    QSettings settings;
+    TSettings settings;
 
     QVERIFY(settings.value("tarsnap/preserve_pathnames", "").toBool() == false);
     QVERIFY(settings.value("app/skip_nodump", "").toBool() == true);
@@ -137,7 +139,7 @@ void TestSettingsWidget::application()
     VISUAL_WAIT;
 
     // Check saved settings.  These are ready due to not using setText().
-    QSettings settings;
+    TSettings settings;
 
     QVERIFY(settings.value("app/notifications", "").toBool() == false);
 

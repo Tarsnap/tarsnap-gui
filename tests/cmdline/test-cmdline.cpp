@@ -4,6 +4,8 @@
 
 #include "app-cmdline.h"
 
+#include <TSettings.h>
+
 extern "C" {
 #include "optparse.h"
 #include "warnp.h"
@@ -15,6 +17,7 @@ class TestCmdline : public QObject
 
 private slots:
     void initTestCase();
+    void init();
 #if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
     void normal_init();
 #endif
@@ -28,6 +31,12 @@ void TestCmdline::initTestCase()
     // Initialize debug messages.
     const char *argv[] = {"test-cmdline"};
     WARNP_INIT;
+}
+
+void TestCmdline::init()
+{
+    // Reset TSettings
+    TSettings::destroy();
 }
 
 // FIXME: this is not yet cross-platform because OSX uses a .plist file.  That
@@ -55,7 +64,7 @@ void TestCmdline::normal_init()
         QFAIL("Could not initialize app");
 
     // Check that it read the right config file.
-    QSettings settings;
+    TSettings settings;
     QVERIFY(settings.value("tarsnap/user", "") == "normal_init");
 }
 #endif
@@ -84,7 +93,7 @@ void TestCmdline::appdir_init()
         QFAIL("Could not initialize app");
 
     // Check that it read the right config file.
-    QSettings settings;
+    TSettings settings;
     QVERIFY(settings.value("tarsnap/user", "") == "appdata_init");
 }
 

@@ -143,7 +143,6 @@ private slots:
     void displayJobDetails(JobPtr job);
     void hideJobDetails();
     void addJobClicked();
-    void showArchiveListMenu(const QPoint &pos);
     void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
     void createJobClicked();

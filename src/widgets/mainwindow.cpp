@@ -37,16 +37,13 @@ MainWindow::MainWindow(QWidget *parent)
     // Ui initialization
     _ui.setupUi(this);
     _ui.backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     displayTab(_ui.backupTab);
     validateBackupTab();
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
-    _ui.archiveDetailsWidget->hide();
     _ui.jobDetailsWidget->hide();
-    _ui.archivesFilterFrame->hide();
     _ui.jobsFilterFrame->hide();
 
     _ui.archivesVerticalLayout->insertWidget(0, &_archivesTabWidget);
@@ -137,40 +134,18 @@ MainWindow::MainWindow(QWidget *parent)
     loadSettings();
 
     // Archives pane
-    _ui.archiveListWidget->addAction(_ui.actionRefresh);
-    _ui.archiveListWidget->addAction(_ui.actionInspect);
-    _ui.archiveListWidget->addAction(_ui.actionDelete);
-    _ui.archiveListWidget->addAction(_ui.actionRestore);
-    _ui.archiveListWidget->addAction(_ui.actionFilterArchives);
-    _ui.archivesFilterButton->setDefaultAction(_ui.actionFilterArchives);
-    connect(this, &MainWindow::archiveList, _ui.archiveListWidget,
-            &ArchiveListWidget::setArchives);
-    connect(this, &MainWindow::addArchive, _ui.archiveListWidget,
-            &ArchiveListWidget::addArchive);
-    connect(_ui.archiveListWidget, &ArchiveListWidget::inspectArchive, this,
-            &MainWindow::displayInspectArchive);
-    connect(_ui.archiveListWidget, &ArchiveListWidget::deleteArchives, this,
-            &MainWindow::deleteArchives);
-    connect(_ui.archiveListWidget, &ArchiveListWidget::restoreArchive, this,
-            &MainWindow::restoreArchive);
-    connect(_ui.archiveListWidget, &ArchiveListWidget::displayJobDetails,
-            _ui.jobListWidget, &JobListWidget::inspectJobByRef);
-    connect(_ui.archiveDetailsWidget, &ArchiveWidget::jobClicked,
-            _ui.jobListWidget, &JobListWidget::inspectJobByRef);
-    connect(_ui.archiveDetailsWidget, &ArchiveWidget::restoreArchive, this,
-            &MainWindow::restoreArchive);
+    connect(this, &MainWindow::archiveList, &_archivesTabWidget,
+            &ArchivesTabWidget::archiveList);
+    connect(this, &MainWindow::addArchive, &_archivesTabWidget,
+            &ArchivesTabWidget::addArchive);
 
-    connect(_ui.archiveListWidget,
-            &ArchiveListWidget::customContextMenuRequested, this,
-            &MainWindow::showArchiveListMenu);
+    connect(&_archivesTabWidget, &ArchivesTabWidget::jobClicked,
+            _ui.jobListWidget, &JobListWidget::inspectJobByRef);
+    connect(&_archivesTabWidget, &ArchivesTabWidget::displayJobDetails,
+            _ui.jobListWidget, &JobListWidget::inspectJobByRef);
+
     connect(_ui.actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
-    connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
-            &ArchiveListWidget::deleteSelectedItems);
-    connect(_ui.actionRestore, &QAction::triggered, _ui.archiveListWidget,
-            &ArchiveListWidget::restoreSelectedItem);
-    connect(_ui.actionInspect, &QAction::triggered, _ui.archiveListWidget,
-            &ArchiveListWidget::inspectSelectedItem);
 
     // Jobs pane
     _ui.jobListWidget->addAction(_ui.actionJobBackup);
@@ -249,14 +224,6 @@ MainWindow::MainWindow(QWidget *parent)
         _ui.defaultJobs->hide();
         _ui.addJobButton->show();
     });
-    connect(_ui.actionFilterArchives, &QAction::triggered, [&]() {
-        _ui.archivesFilterFrame->setVisible(
-            !_ui.archivesFilterFrame->isVisible());
-        if(_ui.archivesFilter->isVisible())
-            _ui.archivesFilter->setFocus();
-        else
-            _ui.archivesFilter->clearEditText();
-    });
     connect(_ui.actionFilterJobs, &QAction::triggered, [&]() {
         _ui.jobsFilterFrame->setVisible(!_ui.jobsFilterFrame->isVisible());
         if(_ui.jobsFilter->isVisible())
@@ -264,28 +231,16 @@ MainWindow::MainWindow(QWidget *parent)
         else
             _ui.jobsFilter->clearEditText();
     });
-    connect(_ui.archivesFilter, &QComboBox::editTextChanged,
-            _ui.archiveListWidget, &ArchiveListWidget::setFilter);
     connect(_ui.jobsFilter, &QComboBox::editTextChanged, _ui.jobListWidget,
             &JobListWidget::setFilter);
-    connect(_ui.archivesFilter, static_cast<void (QComboBox::*)(int)>(
-                                    &QComboBox::currentIndexChanged),
-            this, [&]() { _ui.archiveListWidget->setFocus(); });
     connect(_ui.jobsFilter, static_cast<void (QComboBox::*)(int)>(
                                 &QComboBox::currentIndexChanged),
             this, [&]() { _ui.jobListWidget->setFocus(); });
-    connect(_ui.archiveListWidget, &ArchiveListWidget::countChanged, this,
-            [&](int total, int visible) {
-                _ui.archivesCountLabel->setText(
-                    tr("Archives (%1/%2)").arg(visible).arg(total));
-            });
     connect(_ui.jobListWidget, &JobListWidget::countChanged, this,
             [&](int total, int visible) {
                 _ui.jobsCountLabel->setText(
                     tr("Jobs (%1/%2)").arg(visible).arg(total));
             });
-    connect(_ui.actionShowArchivesTabHeader, &QAction::triggered,
-            [&](bool checked) { _ui.archivesHeader->setVisible(checked); });
     connect(_ui.actionShowJobsTabHeader, &QAction::triggered,
             [&](bool checked) { _ui.jobsHeader->setVisible(checked); });
 
@@ -301,9 +256,6 @@ void MainWindow::loadSettings()
 {
     QSettings settings;
 
-    _ui.actionShowArchivesTabHeader->setChecked(
-        settings.value("app/archives_header_enabled", true).toBool());
-    _ui.archivesHeader->setVisible(_ui.actionShowArchivesTabHeader->isChecked());
     _ui.actionShowJobsTabHeader->setChecked(
         settings.value("app/jobs_header_enabled", true).toBool());
     _ui.jobsHeader->setVisible(_ui.actionShowJobsTabHeader->isChecked());
@@ -373,27 +325,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Escape:
-        if(_ui.mainTabWidget->currentWidget() == _ui.archivesTab)
-        {
-            if(_ui.archiveDetailsWidget->isVisible())
-            {
-                _ui.archiveDetailsWidget->close();
-                return;
-            }
-            if(_ui.archivesFilter->isVisible())
-            {
-                if(_ui.archivesFilter->currentText().isEmpty())
-                {
-                    _ui.actionFilterArchives->trigger();
-                }
-                else
-                {
-                    _ui.archivesFilter->clearEditText();
-                    _ui.archivesFilter->setFocus();
-                }
-                return;
-            }
-        }
         if(_ui.mainTabWidget->currentWidget() == _ui.jobsTab)
         {
             if(_ui.jobDetailsWidget->isVisible())
@@ -685,19 +616,8 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 
 void MainWindow::displayInspectArchive(ArchivePtr archive)
 {
-    if(archive->sizeTotal() == 0)
-        emit loadArchiveStats(archive);
-
-    if(archive->contents().count() == 0)
-        emit loadArchiveContents(archive);
-
-    _ui.archiveListWidget->selectArchive(archive);
-
-    _ui.archiveDetailsWidget->setArchive(archive);
-    if(!_ui.archiveDetailsWidget->isVisible())
-        _ui.archiveDetailsWidget->show();
-
     displayTab(_ui.archivesTab);
+    _archivesTabWidget.displayInspectArchive(archive);
 }
 
 void MainWindow::appendTimestampCheckBoxToggled(bool checked)
@@ -1006,23 +926,6 @@ void MainWindow::tarsnapError(TarsnapError error)
     }
 }
 
-void MainWindow::showArchiveListMenu(const QPoint &pos)
-{
-    QPoint globalPos = _ui.archiveListWidget->viewport()->mapToGlobal(pos);
-    QMenu  archiveListMenu(_ui.archiveListWidget);
-    if(!_ui.archiveListWidget->selectedItems().isEmpty())
-    {
-        if(_ui.archiveListWidget->selectedItems().count() == 1)
-        {
-            archiveListMenu.addAction(_ui.actionInspect);
-            archiveListMenu.addAction(_ui.actionRestore);
-        }
-        archiveListMenu.addAction(_ui.actionDelete);
-    }
-    archiveListMenu.addAction(_ui.actionRefresh);
-    archiveListMenu.exec(globalPos);
-}
-
 void MainWindow::showJobsListMenu(const QPoint &pos)
 {
     QPoint globalPos = _ui.jobListWidget->viewport()->mapToGlobal(pos);
@@ -1102,10 +1005,6 @@ void MainWindow::updateUi()
         _ui.actionStopTasks->shortcut().toString(QKeySequence::NativeText)));
     _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip().arg(
         _ui.actionAddJob->shortcut().toString(QKeySequence::NativeText)));
-    _ui.actionFilterArchives->setToolTip(_ui.actionFilterArchives->toolTip().arg(
-        _ui.actionFilterArchives->shortcut().toString(QKeySequence::NativeText)));
-    _ui.archivesFilter->setToolTip(_ui.archivesFilter->toolTip().arg(
-        _ui.actionFilterArchives->shortcut().toString(QKeySequence::NativeText)));
     _ui.actionFilterJobs->setToolTip(_ui.actionFilterJobs->toolTip().arg(
         _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
     _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip().arg(

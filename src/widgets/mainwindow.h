@@ -1,11 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "filepickerdialog.h"
+#include "archivestabwidget.h"
 #include "helpwidget.h"
+#include "settingswidget.h"
+
+#include "filepickerdialog.h"
 #include "persistentmodel/journal.h"
 #include "scheduling.h"
-#include "settingswidget.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
 #include "ui_mainwindow.h"
@@ -162,8 +164,9 @@ private:
 
     QPlainTextEdit *_consoleLog;
 
-    SettingsWidget _settingsWidget;
-    HelpWidget     _helpWidget;
+    ArchivesTabWidget _archivesTabWidget;
+    SettingsWidget    _settingsWidget;
+    HelpWidget        _helpWidget;
 
     //! Switch to displaying a specific tab.
     void displayTab(QWidget *widget);

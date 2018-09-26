@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
       _aboutToQuit(false),
       _stopTasksDialog(this),
       _filePickerDialog(this),
+      _archivesTabWidget(this),
       _settingsWidget(this),
       _helpWidget(this)
 {
@@ -48,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.archivesFilterFrame->hide();
     _ui.jobsFilterFrame->hide();
 
+    _ui.archivesVerticalLayout->insertWidget(0, &_archivesTabWidget);
     _ui.settingsTabVerticalLayout->insertWidget(0, &_settingsWidget);
     _ui.helpTabLayout->insertWidget(0, &_helpWidget);
 

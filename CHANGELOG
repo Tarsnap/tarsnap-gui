@@ -1,6 +1,12 @@
 Version 1.1.0 (unreleased)
 --------------------------
 
+Change of behaviour:
+* On MacOS X, the config file has a new filename and is always saved in INI
+  format (allowing easy access via a text editor).  The old config file will be
+  renamed to "OLDNAME.DATE.bak" (the exact filename will be displayed in the
+  start-up message when first running this version of Tarsnap-GUI).
+
 New features:
 * Checks for a network connection before attempting to back up an archive.
 

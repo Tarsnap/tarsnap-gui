@@ -22,9 +22,11 @@ public:
     //! Constructor.
     explicit HelpWidget(QWidget *parent = nullptr);
 
+    //! Get a pointer to the console log.
     QPlainTextEdit *getConsoleLog();
 
 public slots:
+    //! The "about" app menu item was clicked.
     void aboutMenuClicked();
 
 protected:

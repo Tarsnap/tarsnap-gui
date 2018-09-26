@@ -31,6 +31,7 @@ public:
     explicit SettingsWidget(QWidget *parent = nullptr);
 
     // For the Account tab
+    //! Make TarsnapAccount update the account info from the Tarsnap servers.
     void getAccountInfo();
 
     // For the Application tab

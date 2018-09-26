@@ -4,6 +4,8 @@
 #include "../qtest-platform.h"
 #include "utils.h"
 
+#include <TSettings.h>
+
 #include "setupdialog.h"
 
 //! Compares all the keys in two QSettings files.
@@ -132,9 +134,9 @@ void TestSetupWizard::normal_install()
     VISUAL_WAIT;
 
     // Check resulting init file.  The first can be in any format (for now).
-    QSettings settings;
+    TSettings settings;
     QSettings target("after-test.conf", QSettings::IniFormat);
-    QVERIFY(compareSettings(&settings, &target));
+    QVERIFY(compareSettings(settings.getQSettings(), &target));
 
     delete setupWizard;
 }

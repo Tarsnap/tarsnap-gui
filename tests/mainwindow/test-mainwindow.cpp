@@ -256,6 +256,7 @@ void TestMainWindow::tab_navigation()
     VISUAL_WAIT;
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
 
+#if !defined(Q_OS_OSX)
     // Add a Job
     mainwindow->displayTab(ui.jobsTab);
     ui.backupNameLineEdit->setText("test-job");
@@ -288,6 +289,7 @@ void TestMainWindow::tab_navigation()
     mainwindow->displayJobDetails(job);
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
     VISUAL_WAIT;
+#endif
 
     delete mainwindow;
 }

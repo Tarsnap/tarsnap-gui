@@ -5,6 +5,8 @@
 #include "helpwidget.h"
 #include "mainwindow.h"
 
+#include "archive.h"
+
 class TestMainWindow : public QObject
 {
     Q_OBJECT
@@ -15,6 +17,7 @@ private slots:
     void console_window();
     void quit_simple();
     void quit_tasks();
+    void tab_navigation();
 };
 
 void TestMainWindow::initTestCase()
@@ -26,6 +29,9 @@ void TestMainWindow::initTestCase()
         // Use a custom message handler to filter out unwanted messages
         orig_message_handler = qInstallMessageHandler(offscreenMessageOutput);
     }
+
+    // Initialization normally done in init_shared.cpp's init_no_app()
+    qRegisterMetaType<QVector<File>>("QVector<File>");
 }
 
 static QAction *get_menubar_about(QMenuBar *menubar)
@@ -216,6 +222,71 @@ void TestMainWindow::console_window()
     help->_consoleWindow.close();
     QVERIFY(help->_consoleWindow.isVisible() == false);
     QVERIFY(ui.consoleButton->isChecked() == false);
+    VISUAL_WAIT;
+
+    delete mainwindow;
+}
+
+void TestMainWindow::tab_navigation()
+{
+    MainWindow *   mainwindow = new MainWindow();
+    Ui::MainWindow ui         = mainwindow->_ui;
+
+    VISUAL_INIT(mainwindow);
+
+    // Switch between tabs
+    // Unfortunately we can't test the Ctrl+X keyboard shortcuts, because
+    // QTest::keyClick() doesn't work with -platform offscreen.
+    mainwindow->displayTab(ui.archivesTab);
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.archivesTab);
+    VISUAL_WAIT;
+
+    mainwindow->displayTab(ui.helpTab);
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.helpTab);
+    VISUAL_WAIT;
+
+    // Switch tabs via other methods.
+    // The previous test should not end on the backup tab.
+    QVERIFY(ui.mainTabWidget->currentWidget() != ui.backupTab);
+    QMetaObject::invokeMethod(mainwindow, "browseForBackupItems",
+                              Qt::QueuedConnection);
+    QMetaObject::invokeMethod(&mainwindow->_filePickerDialog, "close",
+                              Qt::QueuedConnection);
+    QTest::qWait(100);
+    VISUAL_WAIT;
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
+
+    // Add a Job
+    mainwindow->displayTab(ui.jobsTab);
+    ui.backupNameLineEdit->setText("test-job");
+    ui.backupListWidget->setItemsWithUrls(
+        QList<QUrl>() << QUrl("file:///tmp/tarsnap-gui-test"));
+    mainwindow->createJobClicked();
+    mainwindow->addJobClicked();
+    JobPtr job = ((JobListWidgetItem *)ui.jobListWidget->currentItem())->job();
+    VISUAL_WAIT;
+
+    // Add an Archive
+    mainwindow->displayTab(ui.archivesTab);
+    ArchivePtr archive(new Archive);
+    archive->setName("Job_test-job_archive1");
+    mainwindow->addArchive(archive);
+    archive->setJobRef("test-job");
+    VISUAL_WAIT;
+
+    // Link them
+    job->setArchives(QList<ArchivePtr>() << archive);
+
+    // Switch back and forth between the job and archive.
+    mainwindow->displayTab(ui.backupTab);
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
+    VISUAL_WAIT;
+
+    mainwindow->displayInspectArchive(archive);
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.archivesTab);
+    VISUAL_WAIT;
+    mainwindow->displayJobDetails(job);
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
     VISUAL_WAIT;
 
     delete mainwindow;

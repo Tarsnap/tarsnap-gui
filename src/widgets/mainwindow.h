@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "filepickerdialog.h"
 #include "helpwidget.h"
 #include "persistentmodel/journal.h"
 #include "scheduling.h"
@@ -157,10 +158,15 @@ private:
     int            _runningTasks;
     int            _queuedTasks;
 
+    FilePickerDialog _filePickerDialog;
+
     QPlainTextEdit *_consoleLog;
 
     SettingsWidget _settingsWidget;
     HelpWidget     _helpWidget;
+
+    //! Switch to displaying a specific tab.
+    void displayTab(QWidget *widget);
 
     void updateUi();
     // Load saved application settings.

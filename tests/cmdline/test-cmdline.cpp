@@ -18,9 +18,7 @@ class TestCmdline : public QObject
 private slots:
     void initTestCase();
     void init();
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
     void normal_init();
-#endif
     void appdir_init();
 };
 
@@ -39,12 +37,11 @@ void TestCmdline::init()
     TSettings::destroy();
 }
 
-// FIXME: this is not yet cross-platform because OSX uses a .plist file.  That
-// will be fixed soon with the upcoming TSettings change.
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 void TestCmdline::normal_init()
 {
     struct optparse *opt;
+
+    HANDLE_IGNORING_XDG_HOME;
 
     // Create command-line arguments
     int   argc = 1;
@@ -67,7 +64,6 @@ void TestCmdline::normal_init()
     TSettings settings;
     QVERIFY(settings.value("tarsnap/user", "") == "normal_init");
 }
-#endif
 
 void TestCmdline::appdir_init()
 {

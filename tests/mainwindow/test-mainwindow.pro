@@ -91,8 +91,5 @@ SOURCES += test-mainwindow.cpp				\
 
 include(../tests-include.pro)
 
-# Add to normal definition for Unix (other than OSX) tests
-unix:!macx {
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
 	cp -r confdir/* "$${TEST_HOME}/$${TARGET}"
-}

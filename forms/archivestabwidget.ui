@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ArchivesTabWidget</class>
+ <widget class="QWidget" name="ArchivesTabWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>455</width>
+    <height>356</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="archivesTabWidgetVerticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="archivesHeader">
+     <property name="styleSheet">
+      <string notr="true">#archivesHeader {
+background: rgba(246,246,246,255);
+margin-bottom: -1px;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <layout class="QHBoxLayout" name="archivesHeaderHL">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>3</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>3</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="archivesCountLabel">
+        <property name="text">
+         <string>Archives</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="archivesFilterButton">
+        <property name="minimumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QToolButton {
+border: transparent;
+padding: 2px;
+}
+
+QToolButton:checked {
+border: 1px solid darkgrey;
+}</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources/resources.qrc">
+          <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+F</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="archivesFilterFrame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <layout class="QHBoxLayout" name="archivesFilterFrameLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QComboBox" name="archivesFilter">
+        <property name="toolTip">
+         <string>Search and filter the Archives list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QComboBox {
+border: none;
+padding-right: 6px;
+padding-left: 6px;
+}
+
+QComboBox::drop-down {
+border: none;
+padding-right: 6px;
+}
+
+QComboBox::down-arrow {
+image:url(:/icons/caret-bottom.png);
+}
+
+QComboBox::down-arrow:on {
+top: 1px;
+left: 1px;
+}</string>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="archivesWidget" native="true">
+     <layout class="QVBoxLayout" name="archivesWidgetVerticalLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QSplitter" name="archivesSplitter">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <widget class="ArchiveListWidget" name="archiveListWidget">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
+         <property name="toolTip">
+          <string>Archive list</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#archiveListWidget::item
+{
+height: 33px;
+selection-background-color: rgba(177,214,255,150);
+}</string>
+         </property>
+         <property name="tabKeyNavigation">
+          <bool>false</bool>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
+         <property name="verticalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
+         <property name="horizontalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
+         <property name="layoutMode">
+          <enum>QListView::Batched</enum>
+         </property>
+         <property name="uniformItemSizes">
+          <bool>true</bool>
+         </property>
+         <property name="batchSize">
+          <number>20</number>
+         </property>
+        </widget>
+        <widget class="ArchiveWidget" name="archiveDetailsWidget" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#archiveWidget {
+/*background: transparent;*/
+}</string>
+         </property>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+  <action name="actionShowArchivesTabHeader">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Archives tab header</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide the Archives tab header</string>
+   </property>
+  </action>
+  <action name="actionFilterArchives">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+   </property>
+   <property name="text">
+    <string>Filter and search</string>
+   </property>
+   <property name="toolTip">
+    <string>Search and filter Archives list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionRefresh">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/reload.png</normaloff>:/icons/reload.png</iconset>
+   </property>
+   <property name="text">
+    <string>Refresh</string>
+   </property>
+   <property name="toolTip">
+    <string>Reload archives list from Tarsnap server</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/trash.png</normaloff>:/icons/trash.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete archive(s)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionInspect">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
+   </property>
+   <property name="text">
+    <string>Inspect</string>
+   </property>
+   <property name="toolTip">
+    <string>Inspect archive</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionRestore">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Restore</string>
+   </property>
+   <property name="toolTip">
+    <string>Restore Archive</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ArchiveListWidget</class>
+   <extends>QListWidget</extends>
+   <header>widgets/archivelistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ArchiveWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/archivewidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>archivesFilterButton</tabstop>
+  <tabstop>archivesFilter</tabstop>
+  <tabstop>archiveListWidget</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

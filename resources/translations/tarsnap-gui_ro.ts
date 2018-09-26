@@ -239,6 +239,93 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Nuke di
     </message>
 </context>
 <context>
+    <name>ArchivesTabWidget</name>
+    <message>
+        <source>Archives</source>
+        <translation type="unfinished">Arhive</translation>
+    </message>
+    <message>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search and filter the Archives list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished">Caută și filtrează în lista de Arhive, se pot folosi &quot;shell globbing patterns&quot; &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Archive list</source>
+        <translation type="unfinished">Listă arhive</translation>
+    </message>
+    <message>
+        <source>Show Archives tab header</source>
+        <translation type="unfinished">Afișează antent pentru panoul Arhive</translation>
+    </message>
+    <message>
+        <source>Show/hide the Archives tab header</source>
+        <translation type="unfinished">Afișează/ascunde antent pentru panoul Arhive</translation>
+    </message>
+    <message>
+        <source>Filter and search</source>
+        <translation type="unfinished">Filtrează și caută</translation>
+    </message>
+    <message>
+        <source>Search and filter Archives list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished">Caută și filtrează în lista de Arhive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished">Actualizează</translation>
+    </message>
+    <message>
+        <source>Reload archives list from Tarsnap server</source>
+        <translation type="unfinished">Actualizează lista de arhive de pe serverele Tarsnap</translation>
+    </message>
+    <message>
+        <source>Ctrl+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Șterge</translation>
+    </message>
+    <message>
+        <source>Delete archive(s)</source>
+        <translation type="unfinished">Șterge arhive</translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inspect</source>
+        <translation type="unfinished">Detalii</translation>
+    </message>
+    <message>
+        <source>Inspect archive</source>
+        <translation type="unfinished">Detalii Arhivă</translation>
+    </message>
+    <message>
+        <source>Ctrl+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore</source>
+        <translation type="unfinished">Restaurează</translation>
+    </message>
+    <message>
+        <source>Restore Archive</source>
+        <translation type="unfinished">Restaurează Arhivă</translation>
+    </message>
+    <message>
+        <source>Ctrl+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archives (%1/%2)</source>
+        <translation type="unfinished">Arhive (%1/%2)</translation>
+    </message>
+</context>
+<context>
     <name>BackupListWidget</name>
     <message>
         <source>Confirm action</source>
@@ -770,14 +857,6 @@ Adaugă oricum?</translation>
         <translation>Comută la panoul Arhive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <source>Search and filter the Archives list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Caută și filtrează în lista de Arhive, se pot folosi &quot;shell globbing patterns&quot; &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>Archive list</source>
-        <translation>Listă arhive</translation>
-    </message>
-    <message>
         <source>Jobs</source>
         <translation>Joburi</translation>
     </message>
@@ -1124,10 +1203,6 @@ Adaugă oricum?</translation>
     <message>
         <source>Browse for directory to add to the Backup list</source>
         <translation>Navighează după director de adăugat la lista de Backup</translation>
-    </message>
-    <message>
-        <source>Archives (%1/%2)</source>
-        <translation>Arhive (%1/%2)</translation>
     </message>
     <message>
         <source>Jobs (%1/%2)</source>

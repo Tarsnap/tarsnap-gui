@@ -4,6 +4,7 @@ QT = core gui widgets network sql
 FORMS +=							\
 	../../forms/aboutwidget.ui				\
 	../../forms/archivelistwidgetitem.ui			\
+	../../forms/archivestabwidget.ui			\
 	../../forms/archivewidget.ui				\
 	../../forms/backuplistwidgetitem.ui			\
 	../../forms/consolewidget.ui				\
@@ -34,6 +35,7 @@ HEADERS  +=						\
 	../../src/utils.h				\
 	../../src/widgets/archivelistwidget.h		\
 	../../src/widgets/archivelistwidgetitem.h	\
+	../../src/widgets/archivestabwidget.h		\
 	../../src/widgets/archivewidget.h		\
 	../../src/widgets/backuplistwidget.h		\
 	../../src/widgets/backuplistwidgetitem.h	\
@@ -67,6 +69,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/utils.cpp				\
 	../../src/widgets/archivelistwidget.cpp		\
 	../../src/widgets/archivelistwidgetitem.cpp	\
+	../../src/widgets/archivestabwidget.cpp		\
 	../../src/widgets/archivewidget.cpp		\
 	../../src/widgets/backuplistwidget.cpp		\
 	../../src/widgets/backuplistwidgetitem.cpp	\

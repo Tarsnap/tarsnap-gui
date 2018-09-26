@@ -5,6 +5,7 @@ FORMS += ../../forms/settingswidget.ui			\
 	../../forms/logindialog.ui
 
 HEADERS  +=						\
+	../../lib/core/TSettings.h			\
 	../../src/debug.h				\
 	../../src/scheduling.h				\
 	../../src/tarsnapaccount.h			\
@@ -16,6 +17,7 @@ HEADERS  +=						\
 	../../tests/qtest-platform.h
 
 SOURCES += test-settingswidget.cpp			\
+	../../lib/core/TSettings.cpp			\
 	../../src/debug.cpp				\
 	../../src/scheduling.cpp			\
 	../../src/tarsnapaccount.cpp			\

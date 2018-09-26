@@ -7,7 +7,8 @@ TEMPLATE = app
 VERSION = test
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-SOURCES += test-cmdline.cpp					\
+SOURCES += test-cmdline.cpp				\
+	../../lib/core/TSettings.cpp			\
 	../../lib/util/optparse.c			\
 	../../lib/util/optparse_helper.c		\
 	../../libcperciva/util/getopt.c			\
@@ -29,6 +30,7 @@ SOURCES += test-cmdline.cpp					\
 	../../src/utils.cpp
 
 HEADERS +=						\
+	../../lib/core/TSettings.h			\
 	../../lib/util/optparse.h			\
 	../../lib/util/optparse_helper.h		\
 	../../libcperciva/util/getopt.h			\

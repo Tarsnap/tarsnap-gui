@@ -21,6 +21,7 @@ FORMS +=							\
 RESOURCES += ../../resources/resources.qrc
 
 HEADERS  +=						\
+	../../lib/core/TSettings.h			\
 	../../src/backuptask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/debug.h				\
@@ -55,6 +56,7 @@ HEADERS  +=						\
 	../../tests/qtest-platform.h
 
 SOURCES += test-mainwindow.cpp				\
+	../../lib/core/TSettings.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/debug.cpp				\

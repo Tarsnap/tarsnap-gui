@@ -9,6 +9,7 @@ VERSION = test
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 SOURCES +=						\
+	../../lib/core/TSettings.cpp			\
 	../../lib/util/optparse.c			\
 	../../lib/util/optparse_helper.c		\
 	../../libcperciva/util/getopt.c			\
@@ -31,6 +32,7 @@ SOURCES +=						\
 	../../src/utils.cpp
 
 HEADERS +=						\
+	../../lib/core/TSettings.h			\
 	../../lib/util/optparse.h			\
 	../../lib/util/optparse_helper.h		\
 	../../libcperciva/util/getopt.h			\
@@ -55,6 +57,7 @@ HEADERS +=						\
 
 INCLUDEPATH += \
             += ../../libcperciva/util/ \
+            += ../../lib/core/ \
             += ../../lib/util/ \
             += ../../src/
 

@@ -45,8 +45,10 @@ bool AppGui::initializeCore()
 {
     struct init_info info;
 
-    // Set up Settings.  No message yet.
+    // Set up Settings.
     info = init_shared_settings(_configDir);
+    if(info.status == INIT_SETTINGS_RENAMED)
+        QMessageBox::information(nullptr, tr("Tarsnap info"), info.message);
 
     // Set up the Translator, check --dry-run, update scheduling path.
     info = init_shared_core(this);

@@ -61,6 +61,60 @@ void init_shared(QCoreApplication *app)
     app->setAttribute(Qt::AA_UseHighDpiPixmaps);
 }
 
+static QString migrateSettings(QSettings *settingsOld, QSettings *settingsNew)
+{
+    // Copy old settings to new, by group.  (On OSX, QSettings contains a whole
+    // bunch of system-wide settings which we don't want to copy.)
+    QStringList groups = {"app", "tarsnap"};
+    for(QStringList::iterator g = groups.begin(); g != groups.end(); g++)
+    {
+        settingsOld->beginGroup(*g);
+        settingsNew->beginGroup(*g);
+        QStringList keys = settingsOld->childKeys();
+        for(QStringList::iterator i = keys.begin(); i != keys.end(); i++)
+        {
+            settingsNew->setValue(*i, settingsOld->value(*i));
+        }
+        settingsOld->endGroup();
+        settingsNew->endGroup();
+    }
+    settingsNew->sync();
+
+    // Rename old settings to prevent migrating it again.
+    QFile   fileOld(settingsOld->fileName());
+    QString renamed = settingsOld->fileName()
+                      + QDate::currentDate().toString(".yyyy-MMM-dd.bak");
+
+    // Close the Setings to prevent it from re-writing the file.
+    delete settingsOld;
+    fileOld.rename(renamed);
+    return renamed;
+}
+
+static QString check_migrateSettings()
+{
+    // Get default settings file.
+    QSettings::setDefaultFormat(QSettings::NativeFormat);
+    QSettings *settingsOld = new QSettings();
+
+    // Shouldn't be necessary, but just in case.
+    TSettings::destroy();
+
+    // Get new settings file.  Must be done after getting the default one!
+    TSettings  tsettings;
+    QSettings *settingsNew = tsettings.getQSettings();
+
+    // Bail if we don't need to migrate anything.
+    if(QFileInfo::exists(settingsNew->fileName())
+       || !QFileInfo::exists(settingsOld->fileName()))
+    {
+        delete settingsOld;
+        return "";
+    }
+
+    return migrateSettings(settingsOld, settingsNew);
+}
+
 /**
  * Configures the app-wide Settings.  Can fail and report messages.
  */
@@ -75,6 +129,24 @@ struct init_info init_shared_settings(QString configDir)
         QSettings::setPath(QSettings::IniFormat, QSettings::UserScope,
                            configDir);
         QSettings::setDefaultFormat(QSettings::IniFormat);
+    }
+
+    // Migrate settings from old settings file to new (if applicable).
+    QString renamedOldSettings;
+    if(configDir.isEmpty())
+    {
+        renamedOldSettings = check_migrateSettings();
+    }
+
+    TSettings settings;
+
+    if(!renamedOldSettings.isEmpty())
+    {
+        info.status = INIT_SETTINGS_RENAMED;
+        info.message =
+            QString("Updated config file, new location:\n\n%1\n\nThe old file "
+                    "was renamed to:\n\n%2")
+                .arg(settings.getQSettings()->fileName(), renamedOldSettings);
     }
 
     return info;

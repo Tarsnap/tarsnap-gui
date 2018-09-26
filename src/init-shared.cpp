@@ -129,6 +129,9 @@ struct init_info init_shared_settings(QString configDir)
         QSettings::setPath(QSettings::IniFormat, QSettings::UserScope,
                            configDir);
         QSettings::setDefaultFormat(QSettings::IniFormat);
+        // Make sure that TSettings uses the right filename in this case.
+        QSettings defaultSettings;
+        TSettings::setFilename(defaultSettings.fileName());
     }
 
     // Migrate settings from old settings file to new (if applicable).

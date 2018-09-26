@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "backuplistwidgetitem.h"
 #include "debug.h"
-#include "filepickerdialog.h"
 #include "scheduling.h"
 #include "translator.h"
 #include "utils.h"
@@ -27,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
       _menuBar(nullptr),
       _aboutToQuit(false),
       _stopTasksDialog(this),
+      _filePickerDialog(this),
       _settingsWidget(this),
       _helpWidget(this)
 {
@@ -128,6 +128,8 @@ MainWindow::MainWindow(QWidget *parent)
         if(!url.isEmpty())
             _ui.backupListWidget->addItemWithUrl(url);
     });
+    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
+            &_filePickerDialog, &FilePickerDialog::selectUrl);
 
     // Settings pane
     loadSettings();
@@ -842,12 +844,10 @@ void MainWindow::browseForBackupItems()
 {
     displayTab(_ui.backupTab);
 
-    FilePickerDialog picker(this);
-    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded, &picker,
-            &FilePickerDialog::selectUrl);
-    picker.setSelectedUrls(_ui.backupListWidget->itemUrls());
-    if(picker.exec())
-        _ui.backupListWidget->setItemsWithUrls(picker.getSelectedUrls());
+    _filePickerDialog.setSelectedUrls(_ui.backupListWidget->itemUrls());
+    if(_filePickerDialog.exec())
+        _ui.backupListWidget->setItemsWithUrls(
+            _filePickerDialog.getSelectedUrls());
 }
 
 void MainWindow::displayJobDetails(JobPtr job)

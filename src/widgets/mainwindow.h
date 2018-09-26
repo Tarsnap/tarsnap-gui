@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "filepickerdialog.h"
 #include "helpwidget.h"
 #include "persistentmodel/journal.h"
 #include "scheduling.h"
@@ -156,6 +157,8 @@ private:
     QMessageBox    _stopTasksDialog;
     int            _runningTasks;
     int            _queuedTasks;
+
+    FilePickerDialog _filePickerDialog;
 
     QPlainTextEdit *_consoleLog;
 

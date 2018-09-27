@@ -130,6 +130,8 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
             &_filePickerDialog, &FilePickerDialog::selectUrl);
+    connect(this, &MainWindow::morphBackupIntoJob, this,
+            &MainWindow::createNewJob);
 
     // Settings pane
     loadSettings();
@@ -520,9 +522,15 @@ void MainWindow::updateLoadingAnimation(bool idle)
 
 void MainWindow::createJobClicked()
 {
+    emit morphBackupIntoJob(_ui.backupListWidget->itemUrls(),
+                            _ui.backupNameLineEdit->text());
+}
+
+void MainWindow::createNewJob(QList<QUrl> urls, QString name)
+{
     JobPtr job(new Job());
-    job->setUrls(_ui.backupListWidget->itemUrls());
-    job->setName(_ui.backupNameLineEdit->text());
+    job->setUrls(urls);
+    job->setName(name);
     displayJobDetails(job);
     _ui.addJobButton->setEnabled(true);
     _ui.addJobButton->setText(tr("Save"));

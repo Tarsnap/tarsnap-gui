@@ -73,6 +73,9 @@ public slots:
     //! Update the number of tasks;
     void updateNumTasks(int numRunning, int numQueued);
 
+    //! Create a new job from the Backup list.
+    void createNewJob(QList<QUrl> urls, QString name);
+
 signals:
     //! Begin tarsnap -c -f \<name\>
     void backupNow(BackupTaskPtr backupTask);
@@ -121,6 +124,8 @@ signals:
     void findMatchingArchives(QString jobPrefix);
     //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);
+    //! Create a new job with the given urls and name.
+    void morphBackupIntoJob(QList<QUrl> urls, QString name);
 
 protected:
     //! Draw the Tarsnap logo in the top-right corner.

@@ -110,7 +110,9 @@ void Job::removeWatcher()
     disconnect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this,
                &Job::fsEvent);
 
-    _fsWatcher.removePaths(_fsWatcher.files() + _fsWatcher.directories());
+    QStringList watching = _fsWatcher.files() + _fsWatcher.directories();
+    if(!watching.isEmpty())
+        _fsWatcher.removePaths(watching);
 }
 
 QList<ArchivePtr> Job::archives() const

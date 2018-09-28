@@ -270,10 +270,8 @@ void TestMainWindow::tab_navigation()
 
     // Add a Job
     mainwindow->displayTab(ui.jobsTab);
-    ui.backupNameLineEdit->setText("test-job");
-    ui.backupListWidget->setItemsWithUrls(QList<QUrl>()
-                                          << QUrl("file://" TEST_DIR));
-    mainwindow->createJobClicked();
+    mainwindow->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
+                             QString("test-job"));
     mainwindow->addJobClicked();
     JobPtr job = ((JobListWidgetItem *)ui.jobListWidget->currentItem())->job();
     VISUAL_WAIT;

@@ -15,6 +15,10 @@ class JobWidget : public QWidget
 {
     Q_OBJECT
 
+#ifdef QT_TESTLIB_LIB
+    friend class TestMainWindow;
+#endif
+
 public:
     //! Constructor.
     explicit JobWidget(QWidget *parent = nullptr);

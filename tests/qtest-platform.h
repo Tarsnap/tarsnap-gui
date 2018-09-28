@@ -62,8 +62,7 @@ void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
 #define HANDLE_IGNORING_XDG_HOME                                               \
     do                                                                         \
     {                                                                          \
-        TSettings::setFilename("/tmp/tarsnap-gui-test/" TEST_NAME              \
-                               "/" TEST_NAME ".conf");                         \
+        TSettings::setFilename(TEST_DIR "/" TEST_NAME ".conf");                \
     } while(0)
 #else
 #define HANDLE_IGNORING_XDG_HOME

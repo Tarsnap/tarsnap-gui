@@ -263,8 +263,8 @@ void TestMainWindow::tab_navigation()
     // Add a Job
     mainwindow->displayTab(ui.jobsTab);
     ui.backupNameLineEdit->setText("test-job");
-    ui.backupListWidget->setItemsWithUrls(
-        QList<QUrl>() << QUrl("file:///tmp/tarsnap-gui-test"));
+    ui.backupListWidget->setItemsWithUrls(QList<QUrl>()
+                                          << QUrl("file://" TEST_DIR));
     mainwindow->createJobClicked();
     mainwindow->addJobClicked();
     JobPtr job = ((JobListWidgetItem *)ui.jobListWidget->currentItem())->job();

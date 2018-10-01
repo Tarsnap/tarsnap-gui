@@ -96,6 +96,8 @@ void TestTask::cmd_filenotfound()
     // We got a "finished" signal, with exit code EXIT_DID_NOT_START.
     QVERIFY(sig_fin.count() == 1);
     QVERIFY(sig_fin.takeFirst().at(1).toInt() == EXIT_DID_NOT_START);
+
+    delete task;
 }
 
 QTEST_MAIN(TestTask)

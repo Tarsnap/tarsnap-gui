@@ -733,10 +733,10 @@ void MainWindow::appendToConsoleLog(const QString &log)
     _consoleLog->ensureCursorVisible();
 }
 
-void MainWindow::setJournal(QVector<LogEntry> _log)
+void MainWindow::setJournal(QVector<LogEntry> log)
 {
     _ui.journalLog->clear();
-    foreach(LogEntry entry, _log)
+    for(const LogEntry &entry : log)
         appendToJournalLog(entry);
 }
 
@@ -959,7 +959,7 @@ void MainWindow::showJobsListMenu(const QPoint &pos)
 void MainWindow::addDefaultJobs()
 {
     TSettings settings;
-    foreach(QString path, DEFAULT_JOBS)
+    for(const QString &path : DEFAULT_JOBS)
     {
         QDir dir(QDir::home());
         if(dir.cd(path))

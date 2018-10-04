@@ -23,6 +23,7 @@ TARGET = tarsnap-gui
 
 VERSION = 1.1.0-unreleased
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+DEFINES += QT_NO_FOREACH
 
 # Pick up extra flags from the environment
 QMAKE_CXXFLAGS += $$(CXXFLAGS)

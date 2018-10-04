@@ -47,7 +47,7 @@ void TestTaskManager::get_version()
     ver_str = sig_ver.takeFirst().at(0).toString();
 
     // Verify that it's a real version number
-    foreach(const QString part, ver_str.split("."))
+    for(const QString part : ver_str.split("."))
     {
         for(int i = 0; i < part.size(); i++)
         {

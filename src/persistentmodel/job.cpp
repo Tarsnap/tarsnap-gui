@@ -73,7 +73,7 @@ bool Job::validateUrls()
     if(_urls.isEmpty())
         return false;
     // Check that every file exists.
-    foreach(QUrl url, _urls)
+    for(const QUrl &url : _urls)
     {
         QFileInfo file(url.toLocalFile());
         if(!file.exists())
@@ -88,7 +88,7 @@ void Job::installWatcher()
             &Job::fsEvent);
     connect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this, &Job::fsEvent);
 
-    foreach(QUrl url, _urls)
+    for(const QUrl &url : _urls)
     {
         // Emit a signal if a file has changed.
         QFileInfo file(url.toLocalFile());
@@ -130,7 +130,7 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
                   return (a->timestamp() > b->timestamp());
               });
     // If any Archive is deleted, reload the list.
-    foreach(ArchivePtr archive, _archives)
+    for(const ArchivePtr &archive : _archives)
     {
         connect(archive.data(), &Archive::purged, this, &Job::loadArchives,
                 QUEUED);
@@ -300,10 +300,10 @@ void Job::save()
     }
     // Fill in missing value in query string.
     query.addBindValue(_name);
-    QStringList urls;
-    foreach(QUrl url, _urls)
-        urls << url.toString(QUrl::FullyEncoded);
-    query.addBindValue(urls.join('\n'));
+    QStringList query_urls;
+    for(const QUrl &url : _urls)
+        query_urls << url.toString(QUrl::FullyEncoded);
+    query.addBindValue(query_urls.join('\n'));
     query.addBindValue(_optionScheduledEnabled);
     query.addBindValue(_optionPreservePaths);
     query.addBindValue(_optionTraverseMount);

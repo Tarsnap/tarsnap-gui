@@ -97,7 +97,7 @@ QList<QUrl> FilePickerWidget::getSelectedUrls()
     // Construct a list of urls from the filePath QStrings.
     QList<QUrl>                  urls;
     QList<QPersistentModelIndex> indexList = _model.checkedIndexes();
-    foreach(QPersistentModelIndex index, indexList)
+    for(const QPersistentModelIndex &index : indexList)
         urls << QUrl::fromUserInput(_model.filePath(index));
     return urls;
 }
@@ -105,7 +105,7 @@ QList<QUrl> FilePickerWidget::getSelectedUrls()
 void FilePickerWidget::setSelectedUrls(const QList<QUrl> &urls)
 {
     _model.reset();
-    foreach(const QUrl url, urls)
+    for(const QUrl &url : urls)
     {
         _model.setData(_model.index(url.toLocalFile()), Qt::Checked,
                        Qt::CheckStateRole);

@@ -107,7 +107,8 @@ void TarsnapAccount::parseCredit(QString csv)
     QRegExp lastBalanceRx("^(Balance.+)$", Qt::CaseInsensitive,
                           QRegExp::RegExp2);
     QString lastBalance;
-    foreach(QString line, csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts))
+    for(const QString &line :
+        csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts))
     {
         if(0 == lastBalanceRx.indexIn(line))
             lastBalance = line;
@@ -166,9 +167,9 @@ void TarsnapAccount::displayCSVTable(QString csv, QString title)
     int row    = 0;
     int column = 0;
 
-    foreach(QString line, lines)
+    for(const QString &line : lines)
     {
-        foreach(QString entry, line.split(',', QString::KeepEmptyParts))
+        for(const QString &entry : line.split(',', QString::KeepEmptyParts))
         {
             table->setItem(row, column, new QTableWidgetItem(entry));
             column++;
@@ -228,7 +229,7 @@ void TarsnapAccount::networkError(QNetworkReply::NetworkError error)
 
 void TarsnapAccount::sslError(QList<QSslError> errors)
 {
-    foreach(QSslError error, errors)
+    for(const QSslError &error : errors)
     {
         DEBUG << error.errorString();
     }

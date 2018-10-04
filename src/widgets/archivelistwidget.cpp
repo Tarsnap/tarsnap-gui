@@ -36,7 +36,7 @@ void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
               });
     setUpdatesEnabled(false);
     clear();
-    foreach(ArchivePtr archive, archives)
+    for(const ArchivePtr &archive : archives)
         insertArchive(archive, count());
     setUpdatesEnabled(true);
 }
@@ -92,7 +92,7 @@ void ArchiveListWidget::deleteSelectedItems()
 
     QList<ArchiveListWidgetItem *> selectedListItems;
     // Any archives pending deletion in the selection? if so deny action
-    foreach(QListWidgetItem *item, selectedItems())
+    for(QListWidgetItem *item : selectedItems())
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(item);
@@ -142,7 +142,7 @@ void ArchiveListWidget::deleteSelectedItems()
     if(confirm == QMessageBox::Yes)
     {
         QList<ArchivePtr> archivesToDelete;
-        foreach(ArchiveListWidgetItem *archiveItem, selectedListItems)
+        for(ArchiveListWidgetItem *archiveItem : selectedListItems)
         {
             archivesToDelete.append(archiveItem->archive());
         }
@@ -241,7 +241,7 @@ void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
 int ArchiveListWidget::visibleItemsCount()
 {
     int count = 0;
-    foreach(QListWidgetItem *item, findItems("*", Qt::MatchWildcard))
+    for(QListWidgetItem *item : findItems("*", Qt::MatchWildcard))
     {
         if(item && !item->isHidden())
             count++;

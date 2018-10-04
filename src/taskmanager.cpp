@@ -101,11 +101,11 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
          << "--no-humanize-numbers"
          << "-c"
          << "-f" << backupTask->name();
-    foreach(QString exclude, backupTask->getExcludesList())
+    for(const QString &exclude : backupTask->getExcludesList())
     {
         args << "--exclude" << exclude;
     }
-    foreach(QUrl url, backupTask->urls())
+    for(const QUrl &url : backupTask->urls())
     {
         args << url.toLocalFile();
     }
@@ -238,7 +238,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
         return;
     }
 
-    foreach(ArchivePtr archive, archives)
+    for(const ArchivePtr &archive : archives)
         archive->setDeleteScheduled(true);
 
     TarsnapTask *delArchives = new TarsnapTask();
@@ -246,7 +246,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     initTarsnapArgs(args);
     args << "--print-stats"
          << "-d";
-    foreach(ArchivePtr archive, archives)
+    for(const ArchivePtr &archive : archives)
     {
         args << "-f" << archive->name();
     }
@@ -258,7 +258,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     connect(delArchives, &TarsnapTask::canceled, this,
             [=](QVariant data) {
                 QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
-                foreach(ArchivePtr archive, archives)
+                for(const ArchivePtr &archive : archives)
                     archive->setDeleteScheduled(false);
             },
             QUEUED);
@@ -427,7 +427,7 @@ void TaskManager::initializeCache()
 void TaskManager::findMatchingArchives(QString jobPrefix)
 {
     QList<ArchivePtr> matching;
-    foreach(ArchivePtr archive, _archiveMap)
+    for(const ArchivePtr &archive : _archiveMap)
     {
         if(archive->name().startsWith(jobPrefix + QChar('_'))
            && archive->jobRef().isEmpty())
@@ -514,7 +514,7 @@ void TaskManager::runScheduledJobs()
     DEBUG << "Next monthly: "
           << settings.value("app/next_monthly_timestamp", "").toDate().toString();
     bool nothingToDo = true;
-    foreach(JobPtr job, _jobMap)
+    for(const JobPtr &job : _jobMap)
     {
         // Do we need to run any jobs?
         if((doDaily && (job->optionScheduledEnabled() == JobSchedule::Daily))
@@ -561,7 +561,7 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
     }
     if(running)
     {
-        foreach(TarsnapTask *task, _runningTasks)
+        for(TarsnapTask *task : _runningTasks)
         {
             if(task)
                 task->stop();
@@ -617,7 +617,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
     backupTask->setArchive(archive);
     backupTask->setStatus(TaskStatus::Completed);
     _archiveMap.insert(archive->name(), archive);
-    foreach(JobPtr job, _jobMap)
+    for(const JobPtr &job : _jobMap)
     {
         if(job->objectKey() == archive->jobRef())
             emit job->loadArchives();
@@ -672,7 +672,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
 
     QMap<QString, ArchivePtr> _newArchiveMap;
     QStringList lines = stdOut.split('\n', QString::SkipEmptyParts);
-    foreach(QString line, lines)
+    for(const QString &line : lines)
     {
         QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");
         if(-1 != archiveDetailsRX.indexIn(line))
@@ -698,7 +698,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
                 archive->setTimestamp(timestamp);
                 archive->setCommand(archiveDetails[2]);
                 // Automagically set Job ownership
-                foreach(JobPtr job, _jobMap)
+                for(const JobPtr &job : _jobMap)
                 {
                     if(archive->name().startsWith(job->archivePrefix()))
                         archive->setJobRef(job->objectKey());
@@ -712,13 +712,13 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
         }
     }
     // Purge archives left in old _archiveMap (not mirrored by the remote)
-    foreach(ArchivePtr archive, _archiveMap)
+    for(const ArchivePtr &archive : _archiveMap)
     {
         archive->purge();
     }
     _archiveMap.clear();
     _archiveMap = _newArchiveMap;
-    foreach(JobPtr job, _jobMap)
+    for(const JobPtr &job : _jobMap)
     {
         emit job->loadArchives();
     }
@@ -808,14 +808,14 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
                          .arg(exitCode)
                          .arg(stdErr));
         parseError(stdErr);
-        foreach(ArchivePtr archive, archives)
+        for(const ArchivePtr &archive : archives)
             archive->setDeleteScheduled(false);
         return;
     }
 
     if(!archives.empty())
     {
-        foreach(ArchivePtr archive, archives)
+        for(const ArchivePtr &archive : archives)
         {
             _archiveMap.remove(archive->name());
             archive->purge();
@@ -1145,7 +1145,7 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput,
         uniqueSizeRX.setPattern("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
     }
     bool matched = false;
-    foreach(QString line, lines)
+    for(const QString &line : lines)
     {
         if(-1 != sizeRX.indexIn(line))
         {
@@ -1243,7 +1243,7 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
     if(job)
     {
         // Clear JobRef for assigned Archives.
-        foreach(ArchivePtr archive, job->archives())
+        for(const ArchivePtr &archive : job->archives())
         {
             archive->setJobRef("");
             archive->save();
@@ -1271,7 +1271,7 @@ void TaskManager::loadJobArchives()
 {
     Job *             job = qobject_cast<Job *>(sender());
     QList<ArchivePtr> archives;
-    foreach(ArchivePtr archive, _archiveMap)
+    for(const ArchivePtr &archive : _archiveMap)
     {
         if(archive->jobRef() == job->objectKey())
             archives << archive;
@@ -1284,7 +1284,7 @@ void TaskManager::getTaskInfo()
     bool backupTaskRunning = false;
     if(!_runningTasks.isEmpty() && !_backupTaskMap.isEmpty())
     {
-        foreach(TarsnapTask *task, _runningTasks)
+        for(TarsnapTask *task : _runningTasks)
         {
             if(task && _backupTaskMap.contains(task->data().toUuid()))
             {

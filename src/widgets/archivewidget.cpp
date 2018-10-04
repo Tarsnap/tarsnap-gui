@@ -184,7 +184,7 @@ void ArchiveWidget::restoreFiles()
     if(indexes.isEmpty())
         return;
     QStringList files;
-    foreach(QModelIndex index, indexes)
+    for(const QModelIndex &index : indexes)
         files << index.data().toString();
 
     RestoreDialog *restoreDialog = new RestoreDialog(this, _archive, files);

@@ -38,11 +38,11 @@ void TestMainWindow::initTestCase()
 
 static QAction *get_menubar_about(QMenuBar *menubar)
 {
-    foreach(QAction *action, menubar->actions())
+    for(QAction *action : menubar->actions())
     {
         if(action->menu())
         {
-            foreach(QAction *subaction, action->menu()->actions())
+            for(QAction *subaction : action->menu()->actions())
             {
                 if(subaction->menuRole() == QAction::AboutRole)
                 {

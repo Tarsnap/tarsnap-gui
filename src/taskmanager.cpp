@@ -257,15 +257,15 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
             &TaskManager::deleteArchivesFinished, QUEUED);
     connect(delArchives, &TarsnapTask::canceled, this,
             [=](QVariant data) {
-                QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
-                for(const ArchivePtr &archive : archives)
+                QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
+                for(const ArchivePtr &archive : d_archives)
                     archive->setDeleteScheduled(false);
             },
             QUEUED);
     connect(delArchives, &TarsnapTask::started, this,
             [=](QVariant data) {
-                QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
-                notifyArchivesDeleted(archives, false);
+                QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
+                notifyArchivesDeleted(d_archives, false);
             },
             QUEUED);
     queueTask(delArchives, true);

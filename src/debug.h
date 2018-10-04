@@ -100,8 +100,8 @@ public:
     }
     inline ConsoleLog &operator<<(float t)
     {
-        emit message(QString::number(t));
-        saveLogMessage(QString::number(t));
+        emit message(QString::number(static_cast<double>(t)));
+        saveLogMessage(QString::number(static_cast<double>(t)));
         return *this;
     }
     inline ConsoleLog &operator<<(double t)

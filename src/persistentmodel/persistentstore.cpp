@@ -119,6 +119,7 @@ bool PersistentStore::init()
                 DEBUG << "DB upgraded to version 4.";
                 version = 4;
             }
+            (void)version; /* not used beyond this point. */
         }
     }
 

@@ -437,7 +437,8 @@ void SettingsWidget::nukeArchivesButtonClicked()
            "<br /><br /><i>Warning: This action cannot be undone. "
            "All archives will be <b>lost forever</b></i>.")
             .arg(_ui.accountArchivesCountLabel->text(), confirmationText),
-        confirmationText, 8, tr("Deleting all archives: press Cancel to abort"),
+        confirmationText, NUKE_SECONDS_DELAY,
+        tr("Deleting all archives: press Cancel to abort"),
         tr("Purging all archives in %1 seconds..."));
 }
 

@@ -92,7 +92,7 @@ void ArchiveListWidget::deleteSelectedItems()
 
     QList<ArchiveListWidgetItem *> selectedListItems;
     // Any archives pending deletion in the selection? if so deny action
-    foreach(QListWidgetItem *item, selectedItems())
+    for(QListWidgetItem *item : selectedItems())
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(item);

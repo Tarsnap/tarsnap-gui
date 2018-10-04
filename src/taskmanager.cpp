@@ -815,7 +815,7 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
 
     if(!archives.empty())
     {
-        foreach(ArchivePtr archive, archives)
+        for(const ArchivePtr &archive : archives)
         {
             _archiveMap.remove(archive->name());
             archive->purge();
@@ -1271,7 +1271,7 @@ void TaskManager::loadJobArchives()
 {
     Job *             job = qobject_cast<Job *>(sender());
     QList<ArchivePtr> archives;
-    foreach(ArchivePtr archive, _archiveMap)
+    for(const ArchivePtr &archive : _archiveMap)
     {
         if(archive->jobRef() == job->objectKey())
             archives << archive;

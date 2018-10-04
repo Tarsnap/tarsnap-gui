@@ -12,7 +12,7 @@
 
 TarsnapTask::TarsnapTask()
     : QObject(),
-      _id(QUuid::createUuid()),
+      _uuid(QUuid::createUuid()),
       _process(nullptr),
       _truncateLogOutput(false),
       _exitCode(EXIT_NO_MEANING)
@@ -32,7 +32,7 @@ void TarsnapTask::run()
         _process->setStandardOutputFile(_stdOutFile);
 
     LOG << tr("Task %1 started:\n[%2 %3]")
-               .arg(_id.toString())
+               .arg(_uuid.toString())
                .arg(_process->program())
                .arg(Utils::quoteCommandLine(_process->arguments()));
 
@@ -189,7 +189,7 @@ void TarsnapTask::processFinished()
         }
 
         LOG << tr("Task %1 finished with exit code %2:\n[%3 %4]\n%5")
-                   .arg(_id.toString())
+                   .arg(_uuid.toString())
                    .arg(_exitCode)
                    .arg(_command)
                    .arg(Utils::quoteCommandLine(_arguments))
@@ -209,7 +209,7 @@ void TarsnapTask::processError()
 {
     LOG << tr("Task %1 finished with error %2 (%3) occured "
               "(exit code %4):\n[%5 %6]\n%7")
-               .arg(_id.toString())
+               .arg(_uuid.toString())
                .arg(_process->error())
                .arg(_process->errorString())
                .arg(_exitCode)

@@ -84,7 +84,7 @@ private slots:
     void processError();
 
 private:
-    QUuid            _id;
+    QUuid            _uuid;
     QVariant         _data; // caller supplied data
     QProcess *       _process;
     QByteArray       _stdOut;

@@ -9,6 +9,7 @@
 
 #include "scheduling.h"
 
+#if defined(Q_OS_OSX)
 #define UPDATED_LAUNCHD_PATH_LONG                                              \
     "The OS X launchd scheduling service contained an out-of-date link to "    \
     "Tarsnap GUI (did you upgrade it recently?).\n\nThis has been updated to " \
@@ -19,6 +20,7 @@
 #define UPDATED_LAUNCHD_PATH_ERROR                                             \
     "An error occurred while attempting to "                                   \
     "update the OS X launchd path."
+#endif
 
 struct cmdinfo
 {

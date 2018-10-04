@@ -23,6 +23,12 @@ TARGET = tarsnap-gui
 
 VERSION = 1.1.0-unreleased
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+
+# Pick up extra flags from the environment
+QMAKE_CXXFLAGS += $$(CXXFLAGS)
+QMAKE_CFLAGS += $$(CFLAGS)
+QMAKE_LFLAGS += $$(LDFLAGS)
+
 #QMAKE_TARGET_COMPANY = Tarsnap Backup Inc.
 #QMAKE_TARGET_PRODUCT = Tarsnap
 #QMAKE_TARGET_DESCRIPTION = GUI frontend for Tarsnap

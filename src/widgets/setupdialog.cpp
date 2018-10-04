@@ -372,6 +372,10 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
         _ui.statusLabel->setStyleSheet("#statusLabel { color: darkred; }");
         _ui.nextButton->setEnabled(true);
         break;
+    case Initialized:
+    case Queued:
+    case Running:
+    case Paused:
     default:
         break;
     }

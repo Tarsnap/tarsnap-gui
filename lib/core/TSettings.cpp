@@ -8,7 +8,7 @@
 static QString filename_next = "";
 
 // The actual settings.
-static QSettings *settings = NULL;
+static QSettings *settings = nullptr;
 
 // For safety
 static QMutex mutex;
@@ -22,10 +22,10 @@ void TSettings::destroy()
 {
     // Bail if we've already cleaned up, including after a mutex (in case a
     // different thread called this function already).
-    if(settings == NULL)
+    if(settings == nullptr)
         return;
     mutex.lock();
-    if(settings == NULL)
+    if(settings == nullptr)
     {
         mutex.unlock();
         return;
@@ -33,7 +33,7 @@ void TSettings::destroy()
 
     // Clean up, release mutex.
     delete settings;
-    settings      = NULL;
+    settings      = nullptr;
     filename_next = "";
     mutex.unlock();
 }
@@ -42,10 +42,10 @@ TSettings::TSettings()
 {
     // Bail if we already have an object, including after a mutex (in case a
     // different thread created this object already).
-    if(settings != NULL)
+    if(settings != nullptr)
         return;
     mutex.lock();
-    if(settings != NULL)
+    if(settings != nullptr)
     {
         mutex.unlock();
         return;

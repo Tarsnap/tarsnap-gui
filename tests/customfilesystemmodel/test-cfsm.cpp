@@ -3,7 +3,7 @@
 #include "run-scenario.h"
 #include "scenario-num.h"
 
-class TestTask : public QObject
+class TestCFSM : public QObject
 {
     Q_OBJECT
 
@@ -17,25 +17,25 @@ private:
     RunScenario *runner;
 };
 
-void TestTask::initTestCase()
+void TestCFSM::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
     runner = new RunScenario();
 }
 
-void TestTask::cleanupTestCase()
+void TestCFSM::cleanupTestCase()
 {
     delete runner;
 }
 
-void TestTask::runScenario()
+void TestCFSM::runScenario()
 {
     QFETCH(int, scenario_number);
     QVERIFY(runner->runScenario(scenario_number) == 0);
 }
 
-void TestTask::runScenario_data()
+void TestCFSM::runScenario_data()
 {
     QTest::addColumn<int>("scenario_number");
 
@@ -47,5 +47,5 @@ void TestTask::runScenario_data()
     }
 }
 
-QTEST_MAIN(TestTask)
+QTEST_MAIN(TestCFSM)
 #include "test-cfsm.moc"

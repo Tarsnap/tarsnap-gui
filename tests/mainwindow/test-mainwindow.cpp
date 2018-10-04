@@ -273,7 +273,8 @@ void TestMainWindow::tab_navigation()
     mainwindow->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
                              QString("test-job"));
     mainwindow->addJobClicked();
-    JobPtr job = ((JobListWidgetItem *)ui.jobListWidget->currentItem())->job();
+    JobPtr job =
+        static_cast<JobListWidgetItem *>(ui.jobListWidget->currentItem())->job();
     VISUAL_WAIT;
 
     // Add an Archive

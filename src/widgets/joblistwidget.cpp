@@ -31,7 +31,7 @@ void JobListWidget::backupSelectedItems()
     if(confirm != QMessageBox::Yes)
         return;
 
-    foreach(QListWidgetItem *item, selectedItems())
+    for(QListWidgetItem *item : selectedItems())
     {
         if(item->isSelected())
         {
@@ -165,7 +165,7 @@ void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
 int JobListWidget::visibleItemsCount()
 {
     int count = 0;
-    foreach(QListWidgetItem *item, findItems("*", Qt::MatchWildcard))
+    for(QListWidgetItem *item : findItems("*", Qt::MatchWildcard))
     {
         if(item && !item->isHidden())
             count++;

@@ -561,7 +561,7 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
     }
     if(running)
     {
-        foreach(TarsnapTask *task, _runningTasks)
+        for(TarsnapTask *task : _runningTasks)
         {
             if(task)
                 task->stop();
@@ -1284,7 +1284,7 @@ void TaskManager::getTaskInfo()
     bool backupTaskRunning = false;
     if(!_runningTasks.isEmpty() && !_backupTaskMap.isEmpty())
     {
-        foreach(TarsnapTask *task, _runningTasks)
+        for(TarsnapTask *task : _runningTasks)
         {
             if(task && _backupTaskMap.contains(task->data().toUuid()))
             {

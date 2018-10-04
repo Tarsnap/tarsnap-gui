@@ -1,5 +1,5 @@
-#ifndef TESTCFSM_H
-#define TESTCFSM_H
+#ifndef RUN_SCENARIO_H
+#define RUN_SCENARIO_H
 
 #include <QObject>
 #include <QString>
@@ -7,13 +7,13 @@
 
 #include "customfilesystemmodel.h"
 
-class TestCFSM : public QObject
+class RunScenario : public QObject
 {
     Q_OBJECT
 
 public:
-    TestCFSM();
-    ~TestCFSM();
+    RunScenario();
+    ~RunScenario();
 
 public slots:
     // Run the specified scenario.  Return 0 on success.

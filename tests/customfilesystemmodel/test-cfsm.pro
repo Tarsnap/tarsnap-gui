@@ -4,10 +4,10 @@ QT = core widgets
 HEADERS	+=						\
 	../../src/customfilesystemmodel.h		\
 	scenario-num.h					\
-	testCFSM.h
+	run-scenario.h
 
 SOURCES	+= test-cfsm.cpp				\
 	../../src/customfilesystemmodel.cpp		\
-	testCFSM.cpp
+	run-scenario.cpp
 
 include(../tests-include.pro)

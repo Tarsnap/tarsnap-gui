@@ -1,7 +1,6 @@
 #include <QtTest/QtTest>
 
-#include "testCFSM.h"
-
+#include "run-scenario.h"
 #include "scenario-num.h"
 
 class TestTask : public QObject
@@ -15,25 +14,25 @@ private slots:
     void runScenario_data();
 
 private:
-    TestCFSM *tester;
+    RunScenario *runner;
 };
 
 void TestTask::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
-    tester = new TestCFSM();
+    runner = new RunScenario();
 }
 
 void TestTask::cleanupTestCase()
 {
-    delete tester;
+    delete runner;
 }
 
 void TestTask::runScenario()
 {
     QFETCH(int, scenario_number);
-    QVERIFY(tester->runScenario(scenario_number) == 0);
+    QVERIFY(runner->runScenario(scenario_number) == 0);
 }
 
 void TestTask::runScenario_data()

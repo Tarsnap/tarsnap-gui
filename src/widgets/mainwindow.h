@@ -61,8 +61,8 @@ public slots:
     void appendToJournalLog(LogEntry log);
     //! Append a new entry to the console log.
     void appendToConsoleLog(const QString &log);
-    //! Reset the current Journal using _log.
-    void setJournal(QVector<LogEntry> _log);
+    //! Reset the current Journal using log.
+    void setJournal(QVector<LogEntry> log);
     //! Save the Tarsnap key ID.
     void saveKeyId(QString key_filename, quint64 id);
     //! Create a new archive from an existing Job.

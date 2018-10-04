@@ -733,10 +733,10 @@ void MainWindow::appendToConsoleLog(const QString &log)
     _consoleLog->ensureCursorVisible();
 }
 
-void MainWindow::setJournal(QVector<LogEntry> _log)
+void MainWindow::setJournal(QVector<LogEntry> log)
 {
     _ui.journalLog->clear();
-    foreach(LogEntry entry, _log)
+    foreach(LogEntry entry, log)
         appendToJournalLog(entry);
 }
 

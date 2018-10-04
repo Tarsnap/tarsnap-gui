@@ -9,30 +9,25 @@ class TestCFSM : public QObject
 
 private slots:
     void initTestCase();
-    void cleanupTestCase();
     void runScenario();
     void runScenario_data();
-
-private:
-    RunScenario *runner;
 };
 
 void TestCFSM::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
-
-    runner = new RunScenario();
-}
-
-void TestCFSM::cleanupTestCase()
-{
-    delete runner;
 }
 
 void TestCFSM::runScenario()
 {
     QFETCH(int, scenario_number);
+
+    RunScenario *runner;
+    runner = new RunScenario();
+
     QVERIFY(runner->runScenario(scenario_number) == 0);
+
+    delete runner;
 }
 
 void TestCFSM::runScenario_data()

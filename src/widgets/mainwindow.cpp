@@ -736,7 +736,7 @@ void MainWindow::appendToConsoleLog(const QString &log)
 void MainWindow::setJournal(QVector<LogEntry> log)
 {
     _ui.journalLog->clear();
-    foreach(LogEntry entry, log)
+    for(const LogEntry &entry : log)
         appendToJournalLog(entry);
 }
 

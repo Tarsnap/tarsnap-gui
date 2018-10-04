@@ -301,7 +301,7 @@ void Job::save()
     // Fill in missing value in query string.
     query.addBindValue(_name);
     QStringList query_urls;
-    foreach(QUrl url, _urls)
+    for(const QUrl &url : _urls)
         query_urls << url.toString(QUrl::FullyEncoded);
     query.addBindValue(query_urls.join('\n'));
     query.addBindValue(_optionScheduledEnabled);

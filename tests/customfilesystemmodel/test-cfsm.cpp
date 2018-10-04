@@ -1,42 +1,36 @@
 #include <QtTest/QtTest>
 
-#include "testCFSM.h"
-
+#include "run-scenario.h"
 #include "scenario-num.h"
 
-class TestTask : public QObject
+class TestCFSM : public QObject
 {
     Q_OBJECT
 
 private slots:
     void initTestCase();
-    void cleanupTestCase();
     void runScenario();
     void runScenario_data();
-
-private:
-    TestCFSM *tester;
 };
 
-void TestTask::initTestCase()
+void TestCFSM::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
-
-    tester = new TestCFSM();
 }
 
-void TestTask::cleanupTestCase()
-{
-    delete tester;
-}
-
-void TestTask::runScenario()
+void TestCFSM::runScenario()
 {
     QFETCH(int, scenario_number);
-    QVERIFY(tester->runScenario(scenario_number) == 0);
+
+    RunScenario *runner;
+    runner = new RunScenario();
+
+    QVERIFY(runner->runScenario(scenario_number) == 0);
+
+    delete runner;
 }
 
-void TestTask::runScenario_data()
+void TestCFSM::runScenario_data()
 {
     QTest::addColumn<int>("scenario_number");
 
@@ -48,5 +42,5 @@ void TestTask::runScenario_data()
     }
 }
 
-QTEST_MAIN(TestTask)
+QTEST_MAIN(TestCFSM)
 #include "test-cfsm.moc"

@@ -3,10 +3,9 @@
 #include <QTextStream>
 #include <QTimer>
 
-#include "scenario-num.h"
-#include "testCFSM.h"
+#include "run-scenario.h"
 
-TestCFSM::TestCFSM()
+RunScenario::RunScenario()
 {
     _rootDir = QDir::currentPath() + QDir::separator() + "dirs";
 
@@ -21,11 +20,11 @@ TestCFSM::TestCFSM()
         QCoreApplication::processEvents(0, 100);
 }
 
-TestCFSM::~TestCFSM()
+RunScenario::~RunScenario()
 {
 }
 
-bool TestCFSM::needToReadSubdirs(const QString dirname)
+bool RunScenario::needToReadSubdirs(const QString dirname)
 {
     bool        loadingMore = false;
     QModelIndex dir         = _model.index(dirname);
@@ -63,13 +62,13 @@ bool TestCFSM::needToReadSubdirs(const QString dirname)
 // The format of these lines in the scenario file is:
 // X filename
 // where X is a single character, followed by a space.
-QString TestCFSM::getRelname(const QString line)
+QString RunScenario::getRelname(const QString line)
 {
     QString relname = line.right(line.size() - 2);
     return relname;
 }
 
-QModelIndex TestCFSM::getIndex(const QString line)
+QModelIndex RunScenario::getIndex(const QString line)
 {
     QString     relname  = getRelname(line);
     QString     filename = QDir(_rootDir).filePath(relname);
@@ -77,13 +76,13 @@ QModelIndex TestCFSM::getIndex(const QString line)
     return index;
 }
 
-int TestCFSM::getLineState(const QString line)
+int RunScenario::getLineState(const QString line)
 {
     int state = line[0].digitValue();
     return state;
 }
 
-int TestCFSM::getCheckedStateInt(const QString line)
+int RunScenario::getCheckedStateInt(const QString line)
 {
     QString     relname  = line.right(line.size() - 2);
     QString     filename = QDir(_rootDir).filePath(relname);
@@ -92,7 +91,7 @@ int TestCFSM::getCheckedStateInt(const QString line)
     return state;
 }
 
-int TestCFSM::processActions(QTextStream &in)
+int RunScenario::processActions(QTextStream &in)
 {
     while(!in.atEnd())
     {
@@ -122,7 +121,7 @@ int TestCFSM::processActions(QTextStream &in)
 }
 
 // Returns 0 if success, 1 if a model error, 2 if an emit error.
-int TestCFSM::processResults(QTextStream &in)
+int RunScenario::processResults(QTextStream &in)
 {
     while(!in.atEnd())
     {
@@ -157,7 +156,7 @@ int TestCFSM::processResults(QTextStream &in)
     return (0);
 }
 
-int TestCFSM::runScenario(const int num)
+int RunScenario::runScenario(const int num)
 {
     int result = -1;
     _model.reset();
@@ -197,7 +196,7 @@ int TestCFSM::runScenario(const int num)
     return (result);
 }
 
-void TestCFSM::printDir(const QString dirname, const int depth)
+void RunScenario::printDir(const QString dirname, const int depth)
 {
     QTextStream console(stdout);
     QModelIndex index;
@@ -220,7 +219,7 @@ void TestCFSM::printDir(const QString dirname, const int depth)
     }
 }
 
-void TestCFSM::printModel()
+void RunScenario::printModel()
 {
     printDir(_model.rootPath(), 0);
 }

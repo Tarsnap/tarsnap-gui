@@ -66,14 +66,14 @@ static QString migrateSettings(QSettings *settingsOld, QSettings *settingsNew)
     // Copy old settings to new, by group.  (On OSX, QSettings contains a whole
     // bunch of system-wide settings which we don't want to copy.)
     QStringList groups = {"app", "tarsnap"};
-    for(QStringList::iterator g = groups.begin(); g != groups.end(); g++)
+    for(const QString &groupname : groups)
     {
-        settingsOld->beginGroup(*g);
-        settingsNew->beginGroup(*g);
+        settingsOld->beginGroup(groupname);
+        settingsNew->beginGroup(groupname);
         QStringList keys = settingsOld->childKeys();
-        for(QStringList::iterator i = keys.begin(); i != keys.end(); i++)
+        for(const QString &key : keys)
         {
-            settingsNew->setValue(*i, settingsOld->value(*i));
+            settingsNew->setValue(key, settingsOld->value(key));
         }
         settingsOld->endGroup();
         settingsNew->endGroup();

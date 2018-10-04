@@ -16,7 +16,7 @@ class FileTableModel : public QAbstractTableModel
 
 public:
     //! Constructor
-    FileTableModel(QObject *parent);
+    explicit FileTableModel(QObject *parent);
 
     //! Returns the number of files in the table.
     int rowCount(const QModelIndex &parent = QModelIndex()) const;

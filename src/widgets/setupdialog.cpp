@@ -37,7 +37,7 @@ SetupDialog::SetupDialog(QWidget *parent)
     _ui.appDataPathLineEdit->setText(_appDataDir);
 
     // find existing keys
-    foreach(QFileInfo file, Utils::findKeysInPath(_appDataDir))
+    for(const QFileInfo &file : Utils::findKeysInPath(_appDataDir))
         _ui.machineKeyCombo->addItem(file.canonicalFilePath());
 
     _tarsnapCacheDir =

@@ -19,7 +19,7 @@ BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
     if(!urls.isEmpty())
     {
         QList<QUrl> urllist;
-        foreach(QString url, urls)
+        for(const QString &url : urls)
             urllist << QUrl::fromUserInput(url);
         if(!urllist.isEmpty())
             QMetaObject::invokeMethod(this, "addItemsWithUrls", QUEUED,
@@ -59,7 +59,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
 
     QList<QUrl> urls    = itemUrls();
     bool        matches = false;
-    foreach(QUrl existingUrl, urls)
+    for(const QUrl &existingUrl : urls)
     {
         if(url == existingUrl)
         {
@@ -101,7 +101,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
 void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
 {
     setUpdatesEnabled(false);
-    foreach(QUrl url, urls)
+    for(const QUrl &url : urls)
         addItemWithUrl(url);
     recomputeListTotals();
     setUpdatesEnabled(true);

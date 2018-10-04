@@ -177,7 +177,7 @@ void JobListWidget::setJobs(QMap<QString, JobPtr> jobs)
 {
     setUpdatesEnabled(false);
     clear();
-    foreach(JobPtr job, jobs)
+    for(const JobPtr &job : jobs)
     {
         addJob(job);
     }

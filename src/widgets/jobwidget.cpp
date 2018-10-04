@@ -172,7 +172,7 @@ void JobWidget::saveNew()
             _job->setArchives(empty);
     }
     save();
-    foreach(ArchivePtr archive, _job->archives())
+    for(const ArchivePtr &archive : _job->archives())
     {
         archive->setJobRef(_job->objectKey());
         archive->save();
@@ -339,7 +339,7 @@ void JobWidget::showJobPathsWarn()
                     " details to list all backup paths for Job %1:")
                      .arg(_job->name()));
     QStringList urls;
-    foreach(QUrl url, _job->urls())
+    for(const QUrl &url : _job->urls())
         urls << url.toLocalFile();
     msg->setDetailedText(urls.join('\n'));
     msg->show();

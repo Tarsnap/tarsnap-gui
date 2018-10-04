@@ -36,7 +36,7 @@ void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
               });
     setUpdatesEnabled(false);
     clear();
-    foreach(ArchivePtr archive, archives)
+    for(const ArchivePtr &archive : archives)
         insertArchive(archive, count());
     setUpdatesEnabled(true);
 }

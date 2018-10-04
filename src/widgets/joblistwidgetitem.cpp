@@ -57,7 +57,7 @@ void JobListWidgetItem::setJob(const JobPtr &job)
         _job->archives().count() == 1 ? tr("archive") : tr("archives");
     detail.append(tr("%1 %2 totaling ").arg(_job->archives().count()).arg(str));
     quint64 totalSize = 0;
-    foreach(ArchivePtr archive, _job->archives())
+    for(const ArchivePtr &archive : _job->archives())
     {
         totalSize += archive->sizeTotal();
     }

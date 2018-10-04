@@ -168,7 +168,7 @@ QStringList BackupTask::getExcludesList()
 
     if(_optionSkipFilesSize)
     {
-        foreach(QUrl url, urls())
+        for(const QUrl &url : urls())
         {
             QFileInfo file(url.toLocalFile());
             if(file.isFile())

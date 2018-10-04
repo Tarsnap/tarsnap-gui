@@ -11,7 +11,7 @@ void ParseArchiveListingTask::run()
     // already stored in the Archive _contents when we created it.)
     QRegExp fileRx("^(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+)\\s+(\\S+"
                    "\\s+\\S+\\s+\\S+)\\s+(.+)$");
-    foreach(QString line, _listing.split('\n', QString::SkipEmptyParts))
+    for(const QString &line : _listing.split('\n', QString::SkipEmptyParts))
     {
         if(-1 != fileRx.indexIn(line))
         {

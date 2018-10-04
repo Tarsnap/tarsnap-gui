@@ -959,7 +959,7 @@ void MainWindow::showJobsListMenu(const QPoint &pos)
 void MainWindow::addDefaultJobs()
 {
     TSettings settings;
-    foreach(QString path, DEFAULT_JOBS)
+    for(const QString &path : DEFAULT_JOBS)
     {
         QDir dir(QDir::home());
         if(dir.cd(path))

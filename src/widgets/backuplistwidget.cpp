@@ -140,7 +140,10 @@ void BackupListWidget::removeItems()
     }
     else
     {
-        foreach(QListWidgetItem *item, selectedItems())
+        // I'm not 100% certain that the below loop doesn't modify this value,
+        // so I'm making a copy to be safe.
+        const QList<QListWidgetItem *> items = selectedItems();
+        for(QListWidgetItem *item : items)
         {
             if(item && item->isSelected())
                 delete item;

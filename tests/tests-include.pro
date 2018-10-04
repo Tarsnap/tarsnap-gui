@@ -8,6 +8,12 @@ TEMPLATE = app
 INCLUDEPATH += . ../../src/ ../../src/widgets/ ../../lib/core/
 
 
+# Pick up extra flags from the environment
+QMAKE_CXXFLAGS += $$(CXXFLAGS)
+QMAKE_CFLAGS += $$(CFLAGS)
+QMAKE_LFLAGS += $$(LDFLAGS)
+
+
 ### Shared build-dir
 
 UI_DIR      = ../../build/tests/

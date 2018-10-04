@@ -218,7 +218,14 @@ test_home_prep.commands = @rm -rf "$${TEST_HOME}"
 
 test.commands =		@echo "Compiling tests...";			\
 			for D in $${UNIT_TESTS} $${BUILD_ONLY_TESTS}; do \
-				(cd \$\${D} && \${QMAKE} && \${MAKE} -s); \
+				(cd \$\${D} &&				\
+					CFLAGS=\"$$(CFLAGS)\"		\
+					CXXFLAGS=\"$$(CXXFLAGS)\"	\
+					LDFLAGS=\"$$(LDFLAGS)\"		\
+					\${QMAKE} -spec $${QMAKESPEC}	\
+						QMAKE_CC=\"$${QMAKE_CC}\" \
+						QMAKE_CXX=\"$${QMAKE_CXX}\" \
+					&& \${MAKE} -s);		\
 				err=\$\$?;				\
 				if \[ \$\${err} -gt "0" \]; then	\
 					exit \$\${err};			\

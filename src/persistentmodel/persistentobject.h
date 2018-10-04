@@ -13,7 +13,7 @@ class PersistentObject
 public:
     //! Constructor.
     explicit PersistentObject();
-    ~PersistentObject();
+    virtual ~PersistentObject() = 0;
 
     //! Saves this object to the PersistentStore; creating or
     //! updating as appropriate.

@@ -37,11 +37,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Ui initialization
     _ui.setupUi(this);
-    _ui.backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     displayTab(_ui.backupTab);
-    validateBackupTab();
+    bool vbt = _backupTabWidget_validateBackupTab();
+    _ui.actionBackupNow->setEnabled(vbt);
+    _ui.actionBackupMorphIntoJob->setEnabled(vbt);
+
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
     _ui.jobDetailsWidget->hide();
@@ -96,40 +98,7 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     // Backup pane
-    _ui.backupButton->setDefaultAction(_ui.actionBackupNow);
-    _ui.backupButton->addAction(_ui.actionCreateJob);
-    connect(_ui.actionBackupNow, &QAction::triggered, this,
-            &MainWindow::backupButtonClicked);
-    connect(_ui.actionCreateJob, &QAction::triggered, this,
-            &MainWindow::createJobClicked);
-    connect(_ui.backupListWidget, &BackupListWidget::itemTotals, this,
-            &MainWindow::updateBackupItemTotals);
-    _ui.backupListWidget->addAction(_ui.actionBrowseItems);
-    _ui.backupListWidget->addAction(_ui.actionAddFiles);
-    _ui.backupListWidget->addAction(_ui.actionAddDirectory);
-    _ui.backupListWidget->addAction(_ui.actionClearList);
-    connect(_ui.actionClearList, &QAction::triggered, _ui.backupListWidget,
-            &BackupListWidget::clear);
-    connect(_ui.actionBrowseItems, &QAction::triggered, this,
-            &MainWindow::browseForBackupItems);
-    connect(_ui.backupListInfoLabel, &ElidedLabel::clicked,
-            _ui.actionBrowseItems, &QAction::trigger);
-    connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::appendTimestampCheckBoxToggled);
-    connect(_ui.actionAddFiles, &QAction::triggered, this, [&]() {
-        QList<QUrl> urls = QFileDialog::getOpenFileUrls(
-            this, tr("Browse for files to add to the Backup list"));
-        if(urls.count())
-            _ui.backupListWidget->addItemsWithUrls(urls);
-    });
-    connect(_ui.actionAddDirectory, &QAction::triggered, this, [&]() {
-        QUrl url = QFileDialog::getExistingDirectoryUrl(
-            this, tr("Browse for directory to add to the Backup list"));
-        if(!url.isEmpty())
-            _ui.backupListWidget->addItemWithUrl(url);
-    });
-    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
-            &_filePickerDialog, &FilePickerDialog::selectUrl);
+    _backupTabWidget_init();
     connect(this, &MainWindow::morphBackupIntoJob, this,
             &MainWindow::createNewJob);
 
@@ -215,12 +184,6 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.addJobButton->setMenu(addJobMenu);
 
     // lambda slots for misc UI updates
-    connect(_ui.backupNameLineEdit, &QLineEdit::textChanged,
-            [&](const QString text) {
-                if(text.isEmpty())
-                    _ui.appendTimestampCheckBox->setChecked(false);
-                validateBackupTab();
-            });
     connect(_ui.dismissButton, &QPushButton::clicked, [&]() {
         TSettings settings;
         settings.setValue("app/default_jobs_dismissed", true);
@@ -446,7 +409,7 @@ void MainWindow::setupMenuBar()
     backupMenu->addAction(_ui.actionClearList);
     backupMenu->addSeparator();
     backupMenu->addAction(_ui.actionBackupNow);
-    backupMenu->addAction(_ui.actionCreateJob);
+    backupMenu->addAction(_ui.actionBackupMorphIntoJob);
     QMenu *archivesMenu = _menuBar->addMenu(tr("&Archives"));
     archivesMenu->addAction(_ui.actionInspect);
     archivesMenu->addAction(_ui.actionRestore);
@@ -520,7 +483,7 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui.busyWidget->animate();
 }
 
-void MainWindow::createJobClicked()
+void MainWindow::backupMorphIntoJobClicked()
 {
     emit morphBackupIntoJob(_ui.backupListWidget->itemUrls(),
                             _ui.backupNameLineEdit->text());
@@ -543,13 +506,15 @@ void MainWindow::mainTabChanged(int index)
     if(_ui.mainTabWidget->currentWidget() == _ui.backupTab)
     {
         _ui.actionBrowseItems->setEnabled(true);
-        validateBackupTab();
+        bool vbt = _backupTabWidget_validateBackupTab();
+        _ui.actionBackupNow->setEnabled(vbt);
+        _ui.actionBackupMorphIntoJob->setEnabled(vbt);
     }
     else
     {
         _ui.actionBrowseItems->setEnabled(false);
         _ui.actionBackupNow->setEnabled(false);
-        _ui.actionCreateJob->setEnabled(false);
+        _ui.actionBackupMorphIntoJob->setEnabled(false);
     }
     if(_ui.mainTabWidget->currentWidget() == _ui.archivesTab)
     {
@@ -583,22 +548,6 @@ void MainWindow::mainTabChanged(int index)
     }
 }
 
-void MainWindow::validateBackupTab()
-{
-
-    if(!_ui.backupNameLineEdit->text().isEmpty()
-       && (_ui.backupListWidget->count() > 0))
-    {
-        _ui.actionBackupNow->setEnabled(true);
-        _ui.actionCreateJob->setEnabled(true);
-    }
-    else
-    {
-        _ui.actionBackupNow->setEnabled(false);
-        _ui.actionCreateJob->setEnabled(false);
-    }
-}
-
 void MainWindow::notificationRaise()
 {
     raise();
@@ -620,7 +569,9 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
     {
         _ui.backupDetailLabel->clear();
     }
-    validateBackupTab();
+    bool vbt = _backupTabWidget_validateBackupTab();
+    _ui.actionBackupNow->setEnabled(vbt);
+    _ui.actionBackupMorphIntoJob->setEnabled(vbt);
 }
 
 void MainWindow::displayInspectArchive(ArchivePtr archive)
@@ -775,10 +726,7 @@ void MainWindow::browseForBackupItems()
 {
     displayTab(_ui.backupTab);
 
-    _filePickerDialog.setSelectedUrls(_ui.backupListWidget->itemUrls());
-    if(_filePickerDialog.exec())
-        _ui.backupListWidget->setItemsWithUrls(
-            _filePickerDialog.getSelectedUrls());
+    _backupTabWidget_browseForBackupItems();
 }
 
 void MainWindow::displayJobDetails(JobPtr job)
@@ -1101,4 +1049,89 @@ void MainWindow::displayTab(QWidget *widget)
 {
     if(_ui.mainTabWidget->currentWidget() != widget)
         _ui.mainTabWidget->setCurrentWidget(widget);
+}
+
+bool MainWindow::_backupTabWidget_validateBackupTab()
+{
+    if(!_ui.backupNameLineEdit->text().isEmpty()
+       && (_ui.backupListWidget->count() > 0))
+        return true;
+    else
+        return false;
+}
+
+void MainWindow::_backupTabWidget_browseForBackupItems()
+{
+    _filePickerDialog.setSelectedUrls(_ui.backupListWidget->itemUrls());
+    if(_filePickerDialog.exec())
+        _ui.backupListWidget->setItemsWithUrls(
+            _filePickerDialog.getSelectedUrls());
+}
+
+void MainWindow::addFiles()
+{
+    QList<QUrl> urls = QFileDialog::getOpenFileUrls(
+        this, tr("Browse for files to add to the Backup list"));
+    if(urls.count())
+        _ui.backupListWidget->addItemsWithUrls(urls);
+}
+
+void MainWindow::addDirectory()
+{
+    QUrl url = QFileDialog::getExistingDirectoryUrl(
+        this, tr("Browse for directory to add to the Backup list"));
+    if(!url.isEmpty())
+        _ui.backupListWidget->addItemWithUrl(url);
+}
+
+void MainWindow::clearList()
+{
+    _ui.backupListWidget->clear();
+}
+
+void MainWindow::_backupTabWidget_init()
+{
+    _ui.backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+
+    // Messages between widgets on this tab
+    connect(_ui.backupListWidget, &BackupListWidget::itemTotals, this,
+            &MainWindow::updateBackupItemTotals);
+    connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
+            &MainWindow::appendTimestampCheckBoxToggled);
+    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
+            &_filePickerDialog, &FilePickerDialog::selectUrl);
+    connect(_ui.backupListInfoLabel, &ElidedLabel::clicked,
+            _ui.actionBrowseItems, &QAction::trigger);
+    connect(_ui.backupNameLineEdit, &QLineEdit::textChanged,
+            [&](const QString text) {
+                if(text.isEmpty())
+                    _ui.appendTimestampCheckBox->setChecked(false);
+                bool vbt = _backupTabWidget_validateBackupTab();
+                _ui.actionBackupNow->setEnabled(vbt);
+                _ui.actionBackupMorphIntoJob->setEnabled(vbt);
+            });
+
+    // Bottom-right button
+    _ui.backupButton->setDefaultAction(_ui.actionBackupNow);
+    _ui.backupButton->addAction(_ui.actionBackupMorphIntoJob);
+    connect(_ui.actionBackupNow, &QAction::triggered, this,
+            &MainWindow::backupButtonClicked);
+    connect(_ui.actionBackupMorphIntoJob, &QAction::triggered, this,
+            &MainWindow::backupMorphIntoJobClicked);
+
+    // Right-click context menu
+    _ui.backupListWidget->addAction(_ui.actionBrowseItems);
+    _ui.backupListWidget->addAction(_ui.actionAddFiles);
+    _ui.backupListWidget->addAction(_ui.actionAddDirectory);
+    _ui.backupListWidget->addAction(_ui.actionClearList);
+
+    // Handle the Backup-related actions
+    connect(_ui.actionBrowseItems, &QAction::triggered, this,
+            &MainWindow::browseForBackupItems);
+    connect(_ui.actionAddFiles, &QAction::triggered, this,
+            &MainWindow::addFiles);
+    connect(_ui.actionAddDirectory, &QAction::triggered, this,
+            &MainWindow::addDirectory);
+    connect(_ui.actionClearList, &QAction::triggered, this,
+            &MainWindow::clearList);
 }

@@ -1302,7 +1302,7 @@ border: none;
     <string>Ctrl+D</string>
    </property>
   </action>
-  <action name="actionCreateJob">
+  <action name="actionBackupMorphIntoJob">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
      <normaloff>:/icons/hard-drive.png</normaloff>:/icons/hard-drive.png</iconset>

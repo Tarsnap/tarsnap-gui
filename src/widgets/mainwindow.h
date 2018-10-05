@@ -139,31 +139,41 @@ protected:
 
 private slots:
     void setupMenuBar();
-    void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void commitSettings();
-    void browseForBackupItems();
-    void appendTimestampCheckBoxToggled(bool checked);
-    void backupButtonClicked();
     void displayJobDetails(JobPtr job);
     void hideJobDetails();
     void addJobClicked();
     void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
-    void createJobClicked();
     void mainTabChanged(int index);
-    void validateBackupTab();
+
+    // Backup tab
+    //! Open a file dialog to add (multiple) items.
+    void browseForBackupItems();
+    //! Open a file dialog to add (multiple) files (but not directories!).
+    void addFiles();
+    //! Open a file dialog to add (multiple) directories (but not files!).
+    void addDirectory();
+    //! Remove items from the backup list.
+    void clearList();
+
+    void updateBackupItemTotals(quint64 count, quint64 size);
+    void appendTimestampCheckBoxToggled(bool checked);
+    void backupButtonClicked();
+    void backupMorphIntoJobClicked();
 
 private:
     Ui::MainWindow _ui;
     int            _minWidth;
     QMenuBar *     _menuBar;
-    QString        _lastTimestamp;
     bool           _aboutToQuit;
     QMessageBox    _stopTasksDialog;
     int            _runningTasks;
     int            _queuedTasks;
 
+    // Backup tab
+    QString          _lastTimestamp;
     FilePickerDialog _filePickerDialog;
 
     QPlainTextEdit *_consoleLog;
@@ -185,6 +195,11 @@ private:
                                 int queuedTasks);
 
     void connectSettingsWidget();
+
+    // These are temporary functions to ease the BackupTabWidget refactoring.
+    bool _backupTabWidget_validateBackupTab();
+    void _backupTabWidget_browseForBackupItems();
+    void _backupTabWidget_init();
 };
 
 #endif // MAINWINDOW_H

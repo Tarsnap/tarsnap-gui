@@ -768,10 +768,7 @@ void MainWindow::browseForBackupItems()
 {
     displayTab(_ui.backupTab);
 
-    _filePickerDialog.setSelectedUrls(_ui.backupListWidget->itemUrls());
-    if(_filePickerDialog.exec())
-        _ui.backupListWidget->setItemsWithUrls(
-            _filePickerDialog.getSelectedUrls());
+    _backupTabWidget_browseForBackupItems();
 }
 
 void MainWindow::displayJobDetails(JobPtr job)
@@ -1103,4 +1100,12 @@ bool MainWindow::_backupTabWidget_validateBackupTab()
         return true;
     else
         return false;
+}
+
+void MainWindow::_backupTabWidget_browseForBackupItems()
+{
+    _filePickerDialog.setSelectedUrls(_ui.backupListWidget->itemUrls());
+    if(_filePickerDialog.exec())
+        _ui.backupListWidget->setItemsWithUrls(
+            _filePickerDialog.getSelectedUrls());
 }

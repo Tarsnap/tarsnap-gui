@@ -187,6 +187,7 @@ private:
 
     // These are temporary functions to ease the BackupTabWidget refactoring.
     bool _backupTabWidget_validateBackupTab();
+    void _backupTabWidget_browseForBackupItems();
 };
 
 #endif // MAINWINDOW_H

@@ -41,7 +41,10 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     displayTab(_ui.backupTab);
-    validateBackupTab();
+    bool vbt = _backupTabWidget_validateBackupTab();
+    _ui.actionBackupNow->setEnabled(vbt);
+    _ui.actionCreateJob->setEnabled(vbt);
+
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
     _ui.jobDetailsWidget->hide();
@@ -219,7 +222,9 @@ MainWindow::MainWindow(QWidget *parent)
             [&](const QString text) {
                 if(text.isEmpty())
                     _ui.appendTimestampCheckBox->setChecked(false);
-                validateBackupTab();
+                bool vbt = _backupTabWidget_validateBackupTab();
+                _ui.actionBackupNow->setEnabled(vbt);
+                _ui.actionCreateJob->setEnabled(vbt);
             });
     connect(_ui.dismissButton, &QPushButton::clicked, [&]() {
         TSettings settings;
@@ -543,7 +548,9 @@ void MainWindow::mainTabChanged(int index)
     if(_ui.mainTabWidget->currentWidget() == _ui.backupTab)
     {
         _ui.actionBrowseItems->setEnabled(true);
-        validateBackupTab();
+        bool vbt = _backupTabWidget_validateBackupTab();
+        _ui.actionBackupNow->setEnabled(vbt);
+        _ui.actionCreateJob->setEnabled(vbt);
     }
     else
     {
@@ -583,22 +590,6 @@ void MainWindow::mainTabChanged(int index)
     }
 }
 
-void MainWindow::validateBackupTab()
-{
-
-    if(!_ui.backupNameLineEdit->text().isEmpty()
-       && (_ui.backupListWidget->count() > 0))
-    {
-        _ui.actionBackupNow->setEnabled(true);
-        _ui.actionCreateJob->setEnabled(true);
-    }
-    else
-    {
-        _ui.actionBackupNow->setEnabled(false);
-        _ui.actionCreateJob->setEnabled(false);
-    }
-}
-
 void MainWindow::notificationRaise()
 {
     raise();
@@ -620,7 +611,9 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
     {
         _ui.backupDetailLabel->clear();
     }
-    validateBackupTab();
+    bool vbt = _backupTabWidget_validateBackupTab();
+    _ui.actionBackupNow->setEnabled(vbt);
+    _ui.actionCreateJob->setEnabled(vbt);
 }
 
 void MainWindow::displayInspectArchive(ArchivePtr archive)
@@ -1101,4 +1094,13 @@ void MainWindow::displayTab(QWidget *widget)
 {
     if(_ui.mainTabWidget->currentWidget() != widget)
         _ui.mainTabWidget->setCurrentWidget(widget);
+}
+
+bool MainWindow::_backupTabWidget_validateBackupTab()
+{
+    if(!_ui.backupNameLineEdit->text().isEmpty()
+       && (_ui.backupListWidget->count() > 0))
+        return true;
+    else
+        return false;
 }

@@ -152,7 +152,6 @@ private slots:
     void addDefaultJobs();
     void createJobClicked();
     void mainTabChanged(int index);
-    void validateBackupTab();
 
 private:
     Ui::MainWindow _ui;
@@ -185,6 +184,9 @@ private:
                                 int queuedTasks);
 
     void connectSettingsWidget();
+
+    // These are temporary functions to ease the BackupTabWidget refactoring.
+    bool _backupTabWidget_validateBackupTab();
 };
 
 #endif // MAINWINDOW_H

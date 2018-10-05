@@ -81,7 +81,13 @@ void TestTask::sleep_filenotfound()
     RUN_SCRIPT("sleep-1-filenotfound.sh");
     // We got a "finished" signal, with sh exit code 127 ("command not found").
     QVERIFY(sig_fin.count() == 1);
+#if defined(Q_OS_FREEBSD)
+    // Bug in FreeBSD
+    QVERIFY(sig_fin.takeFirst().at(1).toInt() == 2);
+#else
+    // POSIX standard error code for "command not found"
     QVERIFY(sig_fin.takeFirst().at(1).toInt() == 127);
+#endif
 }
 
 void TestTask::cmd_filenotfound()

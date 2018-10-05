@@ -898,7 +898,9 @@ void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
     else if(stopAll && stopAll->isChecked())
         emit stopTasks(false, true, true);
     else if(proceedBackground && proceedBackground->isChecked())
-        {} // Do nothing; it will happen due to code elsewhere
+    {
+        // Do nothing; it will happen due to code elsewhere
+    }
 }
 
 void MainWindow::tarsnapError(TarsnapError error)

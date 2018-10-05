@@ -142,7 +142,6 @@ private slots:
     void updateBackupItemTotals(quint64 count, quint64 size);
     void displayInspectArchive(ArchivePtr archive);
     void commitSettings();
-    void browseForBackupItems();
     void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();
     void displayJobDetails(JobPtr job);
@@ -152,6 +151,15 @@ private slots:
     void addDefaultJobs();
     void backupMorphIntoJobClicked();
     void mainTabChanged(int index);
+
+    //! Open a file dialog to add (multiple) items.
+    void browseForBackupItems();
+    //! Open a file dialog to add (multiple) files (but not directories!).
+    void addFiles();
+    //! Open a file dialog to add (multiple) directories (but not files!).
+    void addDirectory();
+    //! Remove items from the backup list.
+    void clearList();
 
 private:
     Ui::MainWindow _ui;

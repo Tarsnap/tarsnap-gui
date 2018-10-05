@@ -111,26 +111,18 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.backupListWidget->addAction(_ui.actionAddFiles);
     _ui.backupListWidget->addAction(_ui.actionAddDirectory);
     _ui.backupListWidget->addAction(_ui.actionClearList);
-    connect(_ui.actionClearList, &QAction::triggered, _ui.backupListWidget,
-            &BackupListWidget::clear);
+    connect(_ui.actionClearList, &QAction::triggered, this,
+            &MainWindow::clearList);
     connect(_ui.actionBrowseItems, &QAction::triggered, this,
             &MainWindow::browseForBackupItems);
     connect(_ui.backupListInfoLabel, &ElidedLabel::clicked,
             _ui.actionBrowseItems, &QAction::trigger);
     connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
             &MainWindow::appendTimestampCheckBoxToggled);
-    connect(_ui.actionAddFiles, &QAction::triggered, this, [&]() {
-        QList<QUrl> urls = QFileDialog::getOpenFileUrls(
-            this, tr("Browse for files to add to the Backup list"));
-        if(urls.count())
-            _ui.backupListWidget->addItemsWithUrls(urls);
-    });
-    connect(_ui.actionAddDirectory, &QAction::triggered, this, [&]() {
-        QUrl url = QFileDialog::getExistingDirectoryUrl(
-            this, tr("Browse for directory to add to the Backup list"));
-        if(!url.isEmpty())
-            _ui.backupListWidget->addItemWithUrl(url);
-    });
+    connect(_ui.actionAddFiles, &QAction::triggered, this,
+            &MainWindow::addFiles);
+    connect(_ui.actionAddDirectory, &QAction::triggered, this,
+            &MainWindow::addDirectory);
     connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
             &_filePickerDialog, &FilePickerDialog::selectUrl);
     connect(this, &MainWindow::morphBackupIntoJob, this,
@@ -1108,4 +1100,25 @@ void MainWindow::_backupTabWidget_browseForBackupItems()
     if(_filePickerDialog.exec())
         _ui.backupListWidget->setItemsWithUrls(
             _filePickerDialog.getSelectedUrls());
+}
+
+void MainWindow::addFiles()
+{
+    QList<QUrl> urls = QFileDialog::getOpenFileUrls(
+        this, tr("Browse for files to add to the Backup list"));
+    if(urls.count())
+        _ui.backupListWidget->addItemsWithUrls(urls);
+}
+
+void MainWindow::addDirectory()
+{
+    QUrl url = QFileDialog::getExistingDirectoryUrl(
+        this, tr("Browse for directory to add to the Backup list"));
+    if(!url.isEmpty())
+        _ui.backupListWidget->addItemWithUrl(url);
+}
+
+void MainWindow::clearList()
+{
+    _ui.backupListWidget->clear();
 }

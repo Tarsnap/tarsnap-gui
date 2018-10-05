@@ -150,7 +150,7 @@ private slots:
     void addJobClicked();
     void showJobsListMenu(const QPoint &pos);
     void addDefaultJobs();
-    void createJobClicked();
+    void backupMorphIntoJobClicked();
     void mainTabChanged(int index);
 
 private:

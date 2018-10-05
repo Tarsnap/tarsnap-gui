@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
     displayTab(_ui.backupTab);
     bool vbt = _backupTabWidget_validateBackupTab();
     _ui.actionBackupNow->setEnabled(vbt);
-    _ui.actionCreateJob->setEnabled(vbt);
+    _ui.actionBackupMorphIntoJob->setEnabled(vbt);
 
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
@@ -100,11 +100,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Backup pane
     _ui.backupButton->setDefaultAction(_ui.actionBackupNow);
-    _ui.backupButton->addAction(_ui.actionCreateJob);
+    _ui.backupButton->addAction(_ui.actionBackupMorphIntoJob);
     connect(_ui.actionBackupNow, &QAction::triggered, this,
             &MainWindow::backupButtonClicked);
-    connect(_ui.actionCreateJob, &QAction::triggered, this,
-            &MainWindow::createJobClicked);
+    connect(_ui.actionBackupMorphIntoJob, &QAction::triggered, this,
+            &MainWindow::backupMorphIntoJobClicked);
     connect(_ui.backupListWidget, &BackupListWidget::itemTotals, this,
             &MainWindow::updateBackupItemTotals);
     _ui.backupListWidget->addAction(_ui.actionBrowseItems);
@@ -224,7 +224,7 @@ MainWindow::MainWindow(QWidget *parent)
                     _ui.appendTimestampCheckBox->setChecked(false);
                 bool vbt = _backupTabWidget_validateBackupTab();
                 _ui.actionBackupNow->setEnabled(vbt);
-                _ui.actionCreateJob->setEnabled(vbt);
+                _ui.actionBackupMorphIntoJob->setEnabled(vbt);
             });
     connect(_ui.dismissButton, &QPushButton::clicked, [&]() {
         TSettings settings;
@@ -451,7 +451,7 @@ void MainWindow::setupMenuBar()
     backupMenu->addAction(_ui.actionClearList);
     backupMenu->addSeparator();
     backupMenu->addAction(_ui.actionBackupNow);
-    backupMenu->addAction(_ui.actionCreateJob);
+    backupMenu->addAction(_ui.actionBackupMorphIntoJob);
     QMenu *archivesMenu = _menuBar->addMenu(tr("&Archives"));
     archivesMenu->addAction(_ui.actionInspect);
     archivesMenu->addAction(_ui.actionRestore);
@@ -525,7 +525,7 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui.busyWidget->animate();
 }
 
-void MainWindow::createJobClicked()
+void MainWindow::backupMorphIntoJobClicked()
 {
     emit morphBackupIntoJob(_ui.backupListWidget->itemUrls(),
                             _ui.backupNameLineEdit->text());
@@ -550,13 +550,13 @@ void MainWindow::mainTabChanged(int index)
         _ui.actionBrowseItems->setEnabled(true);
         bool vbt = _backupTabWidget_validateBackupTab();
         _ui.actionBackupNow->setEnabled(vbt);
-        _ui.actionCreateJob->setEnabled(vbt);
+        _ui.actionBackupMorphIntoJob->setEnabled(vbt);
     }
     else
     {
         _ui.actionBrowseItems->setEnabled(false);
         _ui.actionBackupNow->setEnabled(false);
-        _ui.actionCreateJob->setEnabled(false);
+        _ui.actionBackupMorphIntoJob->setEnabled(false);
     }
     if(_ui.mainTabWidget->currentWidget() == _ui.archivesTab)
     {
@@ -613,7 +613,7 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
     }
     bool vbt = _backupTabWidget_validateBackupTab();
     _ui.actionBackupNow->setEnabled(vbt);
-    _ui.actionCreateJob->setEnabled(vbt);
+    _ui.actionBackupMorphIntoJob->setEnabled(vbt);
 }
 
 void MainWindow::displayInspectArchive(ArchivePtr archive)

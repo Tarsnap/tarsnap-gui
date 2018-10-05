@@ -23,6 +23,10 @@
         <source>An unknown error occurred.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Tarsnap info</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Archive</name>

@@ -20,6 +20,7 @@ private slots:
     void quit_simple();
     void quit_tasks();
     void tab_navigation();
+    void other_navigation();
 };
 
 void TestMainWindow::initTestCase()
@@ -238,13 +239,8 @@ void TestMainWindow::tab_navigation()
 
     VISUAL_INIT(mainwindow);
 
-#if defined(Q_OS_OSX)
-    // HACK: Load directory that we'll want for creating a Job.  This is
-    // slow to load on OSX (relative to the -platform offscreen test), so we
-    // add an extra delay.
-    ui.jobDetailsWidget->_ui.jobTreeWidget->_model.setRootPath(TEST_DIR);
-    QTest::qWait(1000);
-#endif
+    // Start in the Backup tab
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
 
     // Switch between tabs
     // Unfortunately we can't test the Ctrl+X keyboard shortcuts, because
@@ -253,20 +249,55 @@ void TestMainWindow::tab_navigation()
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.archivesTab);
     VISUAL_WAIT;
 
+    mainwindow->displayTab(ui.jobsTab);
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
+    VISUAL_WAIT;
+
+    mainwindow->displayTab(ui.settingsTab);
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.settingsTab);
+    VISUAL_WAIT;
+
     mainwindow->displayTab(ui.helpTab);
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.helpTab);
     VISUAL_WAIT;
 
-    // Switch tabs via other methods.
-    // The previous test should not end on the backup tab.
-    QVERIFY(ui.mainTabWidget->currentWidget() != ui.backupTab);
+    mainwindow->displayTab(ui.backupTab);
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
+    VISUAL_WAIT;
+
+    delete mainwindow;
+}
+
+void TestMainWindow::other_navigation()
+{
+    HANDLE_IGNORING_XDG_HOME;
+
+    MainWindow *   mainwindow = new MainWindow();
+    Ui::MainWindow ui         = mainwindow->_ui;
+
+    VISUAL_INIT(mainwindow);
+
+#if defined(Q_OS_OSX)
+    // HACK: Load directory that we'll want for creating a Job.  This is
+    // slow to load on OSX (relative to the -platform offscreen test), so we
+    // add an extra delay.
+    ui.jobDetailsWidget->_ui.jobTreeWidget->_model.setRootPath(TEST_DIR);
+    QTest::qWait(1000);
+#endif
+
+    // Switch to a different tab.
+    mainwindow->displayTab(ui.helpTab);
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.helpTab);
+    VISUAL_WAIT;
+
+    // Switch back to Backup tab
     QMetaObject::invokeMethod(mainwindow, "browseForBackupItems",
                               Qt::QueuedConnection);
     QMetaObject::invokeMethod(&mainwindow->_filePickerDialog, "close",
                               Qt::QueuedConnection);
     QTest::qWait(100);
-    VISUAL_WAIT;
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
+    VISUAL_WAIT;
 
     // Add a Job
     mainwindow->displayTab(ui.jobsTab);

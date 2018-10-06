@@ -304,8 +304,13 @@ void TestMainWindow::other_navigation()
     mainwindow->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
                              QString("test-job"));
     mainwindow->addJobClicked();
+
+    // Make sure that MainWindow has a job, then get a pointer to it.
+    QVERIFY(ui.jobListWidget->count() == 1);
+    QVERIFY(ui.jobListWidget->currentItem() != nullptr);
     JobPtr job =
         static_cast<JobListWidgetItem *>(ui.jobListWidget->currentItem())->job();
+    QVERIFY(job != nullptr);
     VISUAL_WAIT;
 
     // Add an Archive

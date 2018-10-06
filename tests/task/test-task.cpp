@@ -2,12 +2,16 @@
 
 #include "tarsnaptask.h"
 
+#include <TSettings.h>
+
 class TestTask : public QObject
 {
     Q_OBJECT
 
 private slots:
     void initTestCase();
+    void cleanupTestCase();
+
     void sleep_ok();
     void sleep_fail();
     void sleep_crash();
@@ -21,6 +25,13 @@ private:
 void TestTask::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
+}
+
+void TestTask::cleanupTestCase()
+{
+    // TSettings is used inside ConsoleLog (debug.cpp), which is used by
+    // TarsnapTask.
+    TSettings::destroy();
 }
 
 QString TestTask::get_script(QString scriptname)

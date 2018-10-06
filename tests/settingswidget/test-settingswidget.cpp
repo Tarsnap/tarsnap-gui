@@ -15,6 +15,8 @@ class TestSettingsWidget : public QObject
 
 private slots:
     void initTestCase();
+    void cleanupTestCase();
+
     void account();
     void backup();
     void application();
@@ -29,6 +31,11 @@ void TestSettingsWidget::initTestCase()
         // Use a custom message handler to filter out unwanted messages
         orig_message_handler = qInstallMessageHandler(offscreenMessageOutput);
     }
+}
+
+void TestSettingsWidget::cleanupTestCase()
+{
+    TSettings::destroy();
 }
 
 void TestSettingsWidget::account()

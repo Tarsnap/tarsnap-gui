@@ -138,6 +138,8 @@ void TestSetupWizard::normal_install()
     QSettings target("after-test.conf", QSettings::IniFormat);
     QVERIFY(compareSettings(settings.getQSettings(), &target));
 
+    // Clean up
+    TSettings::destroy();
     delete setupWizard;
 }
 

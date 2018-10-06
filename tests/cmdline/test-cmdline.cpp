@@ -18,6 +18,8 @@ class TestCmdline : public QObject
 private slots:
     void initTestCase();
     void init();
+    void cleanupTestCase();
+
     void normal_init();
     void appdir_init();
 };
@@ -34,6 +36,11 @@ void TestCmdline::initTestCase()
 void TestCmdline::init()
 {
     // Reset TSettings
+    TSettings::destroy();
+}
+
+void TestCmdline::cleanupTestCase()
+{
     TSettings::destroy();
 }
 

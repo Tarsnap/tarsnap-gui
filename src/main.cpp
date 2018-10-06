@@ -10,6 +10,8 @@ extern "C" {
 #include "warnp.h"
 }
 
+#include <TSettings.h>
+
 #include <stdlib.h>
 
 int main(int argc, char *argv[])
@@ -63,4 +65,7 @@ int main(int argc, char *argv[])
         else
             return EXIT_SUCCESS;
     }
+
+    // Clean up
+    TSettings::destroy();
 }

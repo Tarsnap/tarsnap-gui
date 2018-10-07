@@ -894,10 +894,9 @@ void MainWindow::updateUi()
 
     _ui.actionBackupNow->setToolTip(_ui.actionBackupNow->toolTip().arg(
         _ui.actionBackupNow->shortcut().toString(QKeySequence::NativeText)));
-    _ui.backupListInfoLabel->setToolTip(_ui.backupListInfoLabel->toolTip().arg(
-        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
-    _ui.backupListInfoLabel->setText(_ui.backupListInfoLabel->text().arg(
-        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+
+    _backupTabWidget_updateUi();
+
     _ui.actionShowJournal->setToolTip(_ui.actionShowJournal->toolTip().arg(
         _ui.actionShowJournal->shortcut().toString(QKeySequence::NativeText)));
     _ui.busyWidget->setToolTip(_ui.busyWidget->toolTip().arg(
@@ -1134,4 +1133,12 @@ void MainWindow::_backupTabWidget_init()
             &MainWindow::addDirectory);
     connect(_ui.actionClearList, &QAction::triggered, this,
             &MainWindow::clearList);
+}
+
+void MainWindow::_backupTabWidget_updateUi()
+{
+    _ui.backupListInfoLabel->setToolTip(_ui.backupListInfoLabel->toolTip().arg(
+        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+    _ui.backupListInfoLabel->setText(_ui.backupListInfoLabel->text().arg(
+        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
 }

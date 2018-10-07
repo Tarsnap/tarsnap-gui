@@ -5,6 +5,8 @@
 #include "taskmanager.h"
 #include "utils.h"
 
+#include <TSettings.h>
+
 #define TASK_CMDLINE_WAIT_MS 100
 
 class TestTaskManager : public QObject
@@ -13,6 +15,8 @@ class TestTaskManager : public QObject
 
 private slots:
     void initTestCase();
+    void cleanupTestCase();
+
     void get_version();
     void fail_registerMachine_command_not_found();
     void fail_registerMachine_empty_key();
@@ -27,6 +31,11 @@ void TestTaskManager::initTestCase()
     task->getTarsnapVersion("");
     QTest::qWait(2 * TASK_CMDLINE_WAIT_MS);
     delete task;
+}
+
+void TestTaskManager::cleanupTestCase()
+{
+    TSettings::destroy();
 }
 
 void TestTaskManager::get_version()

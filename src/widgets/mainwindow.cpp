@@ -37,7 +37,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Ui initialization
     _ui.setupUi(this);
-    _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     displayTab(_ui.backupTab);
     bool vbt = _backupTabWidget_validateBackupTab();
@@ -46,8 +45,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
-    _ui.jobDetailsWidget->hide();
-    _ui.jobsFilterFrame->hide();
 
     _ui.archivesVerticalLayout->insertWidget(0, &_archivesTabWidget);
     _ui.settingsTabVerticalLayout->insertWidget(0, &_settingsWidget);
@@ -118,93 +115,7 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::getArchives);
 
     // Jobs pane
-    _ui.jobListWidget->addAction(_ui.actionJobBackup);
-    _ui.jobListWidget->addAction(_ui.actionJobDelete);
-    _ui.jobListWidget->addAction(_ui.actionJobInspect);
-    _ui.jobListWidget->addAction(_ui.actionJobRestore);
-    _ui.jobListWidget->addAction(_ui.actionFilterJobs);
-    _ui.jobsFilterButton->setDefaultAction(_ui.actionFilterJobs);
-    connect(_ui.addJobButton, &QToolButton::clicked, this,
-            &MainWindow::addJobClicked);
-    connect(_ui.jobDetailsWidget, &JobWidget::collapse, this,
-            &MainWindow::hideJobDetails);
-    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, _ui.jobListWidget,
-            &JobListWidget::addJob);
-    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
-            &MainWindow::displayJobDetails);
-    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
-            &MainWindow::jobAdded);
-    connect(_ui.jobDetailsWidget, &JobWidget::inspectJobArchive, this,
-            &MainWindow::displayInspectArchive);
-    connect(_ui.jobDetailsWidget, &JobWidget::restoreJobArchive, this,
-            &MainWindow::restoreArchive);
-    connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives, this,
-            &MainWindow::deleteArchives);
-    connect(_ui.jobDetailsWidget, &JobWidget::enableSave, _ui.addJobButton,
-            &QToolButton::setEnabled);
-    connect(_ui.jobDetailsWidget, &JobWidget::backupJob, this,
-            &MainWindow::backupJob);
-    connect(_ui.jobDetailsWidget, &JobWidget::findMatchingArchives, this,
-            &MainWindow::findMatchingArchives);
-    connect(this, &MainWindow::matchingArchives, _ui.jobDetailsWidget,
-            &JobWidget::updateMatchingArchives);
-    connect(_ui.jobListWidget, &JobListWidget::displayJobDetails, this,
-            &MainWindow::displayJobDetails);
-    connect(_ui.jobListWidget, &JobListWidget::backupJob, this,
-            &MainWindow::backupJob);
-    connect(_ui.jobListWidget, &JobListWidget::restoreArchive, this,
-            &MainWindow::restoreArchive);
-    connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
-            &MainWindow::deleteJob);
-    connect(this, &MainWindow::jobList, _ui.jobListWidget,
-            &JobListWidget::setJobs);
-    connect(_ui.jobListWidget, &JobListWidget::customContextMenuRequested, this,
-            &MainWindow::showJobsListMenu);
-    connect(_ui.actionJobBackup, &QAction::triggered, _ui.jobListWidget,
-            &JobListWidget::backupSelectedItems);
-    connect(_ui.actionJobDelete, &QAction::triggered, _ui.jobListWidget,
-            &JobListWidget::deleteSelectedItem);
-    connect(_ui.actionJobRestore, &QAction::triggered, _ui.jobListWidget,
-            &JobListWidget::restoreSelectedItem);
-    connect(_ui.actionJobInspect, &QAction::triggered, _ui.jobListWidget,
-            &JobListWidget::inspectSelectedItem);
-    connect(_ui.sureButton, &QPushButton::clicked, this,
-            &MainWindow::addDefaultJobs);
-
-    _ui.jobListWidget->addAction(_ui.actionJobBackup);
-    _ui.jobListWidget->addAction(_ui.actionAddJob);
-    connect(_ui.actionAddJob, &QAction::triggered, this,
-            &MainWindow::addJobClicked);
-    QMenu *addJobMenu = new QMenu(_ui.addJobButton);
-    addJobMenu->addAction(_ui.actionBackupAllJobs);
-    connect(_ui.actionBackupAllJobs, &QAction::triggered, _ui.jobListWidget,
-            &JobListWidget::backupAllJobs);
-    _ui.addJobButton->setMenu(addJobMenu);
-
-    // lambda slots for misc UI updates
-    connect(_ui.dismissButton, &QPushButton::clicked, [&]() {
-        TSettings settings;
-        settings.setValue("app/default_jobs_dismissed", true);
-        _ui.defaultJobs->hide();
-        _ui.addJobButton->show();
-    });
-    connect(_ui.actionFilterJobs, &QAction::triggered, [&]() {
-        _ui.jobsFilterFrame->setVisible(!_ui.jobsFilterFrame->isVisible());
-        if(_ui.jobsFilter->isVisible())
-            _ui.jobsFilter->setFocus();
-        else
-            _ui.jobsFilter->clearEditText();
-    });
-    connect(_ui.jobsFilter, &QComboBox::editTextChanged, _ui.jobListWidget,
-            &JobListWidget::setFilter);
-    connect(_ui.jobsFilter, static_cast<void (QComboBox::*)(int)>(
-                                &QComboBox::currentIndexChanged),
-            this, [&]() { _ui.jobListWidget->setFocus(); });
-    connect(_ui.jobListWidget, &JobListWidget::countChanged, this,
-            [&](int total, int visible) {
-                _ui.jobsCountLabel->setText(
-                    tr("Jobs (%1/%2)").arg(visible).arg(total));
-            });
+    _jobsTabWidget_init();
 
     _consoleLog = _helpWidget.getConsoleLog();
 }
@@ -988,6 +899,118 @@ void MainWindow::_backupTabWidget_updateUi()
         _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
     _ui.backupListInfoLabel->setText(_ui.backupListInfoLabel->text().arg(
         _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+}
+
+void MainWindow::_jobsTabWidget_init()
+{
+    _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+
+    _ui.jobDetailsWidget->hide();
+    _ui.jobsFilterFrame->hide();
+
+    // Messages between widgets on this tab
+    connect(_ui.addJobButton, &QToolButton::clicked, this,
+            &MainWindow::addJobClicked);
+    connect(_ui.actionAddJob, &QAction::triggered, this,
+            &MainWindow::addJobClicked);
+
+    // "Default jobs" handling
+    connect(_ui.sureButton, &QPushButton::clicked, this,
+            &MainWindow::addDefaultJobs);
+    connect(_ui.dismissButton, &QPushButton::clicked, [&]() {
+        TSettings settings;
+        settings.setValue("app/default_jobs_dismissed", true);
+        _ui.defaultJobs->hide();
+        _ui.addJobButton->show();
+    });
+
+    // Jobs filter
+    _ui.jobsFilterButton->setDefaultAction(_ui.actionFilterJobs);
+    connect(_ui.actionFilterJobs, &QAction::triggered, [&]() {
+        _ui.jobsFilterFrame->setVisible(!_ui.jobsFilterFrame->isVisible());
+        if(_ui.jobsFilter->isVisible())
+            _ui.jobsFilter->setFocus();
+        else
+            _ui.jobsFilter->clearEditText();
+    });
+    connect(_ui.jobsFilter, &QComboBox::editTextChanged, _ui.jobListWidget,
+            &JobListWidget::setFilter);
+    connect(_ui.jobsFilter, static_cast<void (QComboBox::*)(int)>(
+                                &QComboBox::currentIndexChanged),
+            this, [&]() { _ui.jobListWidget->setFocus(); });
+
+    // Connections from the JobDetailsWidget
+    connect(_ui.jobDetailsWidget, &JobWidget::collapse, this,
+            &MainWindow::hideJobDetails);
+    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, _ui.jobListWidget,
+            &JobListWidget::addJob);
+    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
+            &MainWindow::displayJobDetails);
+    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
+            &MainWindow::jobAdded);
+    connect(_ui.jobDetailsWidget, &JobWidget::inspectJobArchive, this,
+            &MainWindow::displayInspectArchive);
+    connect(_ui.jobDetailsWidget, &JobWidget::restoreJobArchive, this,
+            &MainWindow::restoreArchive);
+    connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives, this,
+            &MainWindow::deleteArchives);
+    connect(_ui.jobDetailsWidget, &JobWidget::enableSave, _ui.addJobButton,
+            &QToolButton::setEnabled);
+    connect(_ui.jobDetailsWidget, &JobWidget::backupJob, this,
+            &MainWindow::backupJob);
+    connect(_ui.jobDetailsWidget, &JobWidget::findMatchingArchives, this,
+            &MainWindow::findMatchingArchives);
+
+    // Connections to the JobDetailsWidget
+    connect(this, &MainWindow::matchingArchives, _ui.jobDetailsWidget,
+            &JobWidget::updateMatchingArchives);
+
+    // Connections from the JobListWidget
+    connect(_ui.jobListWidget, &JobListWidget::displayJobDetails, this,
+            &MainWindow::displayJobDetails);
+    connect(_ui.jobListWidget, &JobListWidget::backupJob, this,
+            &MainWindow::backupJob);
+    connect(_ui.jobListWidget, &JobListWidget::restoreArchive, this,
+            &MainWindow::restoreArchive);
+    connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
+            &MainWindow::deleteJob);
+    connect(_ui.jobListWidget, &JobListWidget::customContextMenuRequested, this,
+            &MainWindow::showJobsListMenu);
+    connect(_ui.jobListWidget, &JobListWidget::countChanged, this,
+            [&](int total, int visible) {
+                _ui.jobsCountLabel->setText(
+                    tr("Jobs (%1/%2)").arg(visible).arg(total));
+            });
+
+    // connections to the JobListWidget
+    connect(this, &MainWindow::jobList, _ui.jobListWidget,
+            &JobListWidget::setJobs);
+
+    // Right-click context menu
+    _ui.jobListWidget->addAction(_ui.actionJobBackup);
+    _ui.jobListWidget->addAction(_ui.actionJobDelete);
+    _ui.jobListWidget->addAction(_ui.actionJobInspect);
+    _ui.jobListWidget->addAction(_ui.actionJobRestore);
+    _ui.jobListWidget->addAction(_ui.actionFilterJobs);
+    _ui.jobListWidget->addAction(_ui.actionJobBackup);
+    _ui.jobListWidget->addAction(_ui.actionAddJob);
+
+    //  addJobButton
+    QMenu *addJobMenu = new QMenu(_ui.addJobButton);
+    addJobMenu->addAction(_ui.actionBackupAllJobs);
+    connect(_ui.actionBackupAllJobs, &QAction::triggered, _ui.jobListWidget,
+            &JobListWidget::backupAllJobs);
+    _ui.addJobButton->setMenu(addJobMenu);
+
+    // Handle the Job-related actions
+    connect(_ui.actionJobBackup, &QAction::triggered, _ui.jobListWidget,
+            &JobListWidget::backupSelectedItems);
+    connect(_ui.actionJobDelete, &QAction::triggered, _ui.jobListWidget,
+            &JobListWidget::deleteSelectedItem);
+    connect(_ui.actionJobRestore, &QAction::triggered, _ui.jobListWidget,
+            &JobListWidget::restoreSelectedItem);
+    connect(_ui.actionJobInspect, &QAction::triggered, _ui.jobListWidget,
+            &JobListWidget::inspectSelectedItem);
 }
 
 void MainWindow::_jobsTabWidget_updateUi()

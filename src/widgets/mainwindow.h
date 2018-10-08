@@ -213,6 +213,7 @@ private:
     void _backupTabWidget_updateUi();
 
     // These are temporary functions to ease the JobsTabWidget refactoring.
+    void _jobsTabWidget_init();
     void _jobsTabWidget_updateUi();
 };
 

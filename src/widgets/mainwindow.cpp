@@ -196,24 +196,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Escape:
         if(_ui.mainTabWidget->currentWidget() == _ui.jobsTab)
         {
-            if(_ui.jobDetailsWidget->isVisible())
-            {
-                hideJobDetails();
-                return;
-            }
-            if(_ui.jobsFilter->isVisible())
-            {
-                if(_ui.jobsFilter->currentText().isEmpty())
-                {
-                    _ui.actionFilterJobs->trigger();
-                }
-                else
-                {
-                    _ui.jobsFilter->clearEditText();
-                    _ui.jobsFilter->setFocus();
-                }
-                return;
-            }
+            _jobsTabWidget_keyPressEvent(event);
         }
         if(_ui.journalLog->isVisible())
         {
@@ -1011,6 +994,34 @@ void MainWindow::_jobsTabWidget_init()
             &JobListWidget::restoreSelectedItem);
     connect(_ui.actionJobInspect, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::inspectSelectedItem);
+}
+
+void MainWindow::_jobsTabWidget_keyPressEvent(QKeyEvent *event)
+{
+    switch(event->key())
+    {
+    case Qt::Key_Escape:
+        if(_ui.jobDetailsWidget->isVisible())
+        {
+            hideJobDetails();
+            return;
+        }
+        if(_ui.jobsFilter->isVisible())
+        {
+            if(_ui.jobsFilter->currentText().isEmpty())
+            {
+                _ui.actionFilterJobs->trigger();
+            }
+            else
+            {
+                _ui.jobsFilter->clearEditText();
+                _ui.jobsFilter->setFocus();
+            }
+            return;
+        }
+    default:
+        QWidget::keyPressEvent(event);
+    }
 }
 
 void MainWindow::_jobsTabWidget_updateUi()

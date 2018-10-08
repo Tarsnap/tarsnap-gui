@@ -638,86 +638,6 @@ selection-background-color: rgba(177,214,255,150);
              </layout>
             </widget>
            </item>
-           <item alignment="Qt::AlignHCenter">
-            <widget class="QToolButton" name="addJobButton">
-             <property name="toolTip">
-              <string>Add a new Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QToolButton
-{
-background: rgba(64,152,212,255);
-border: 1px solid white;
-border-radius: 2px;
-color: white;
-font-size: 12px;
-padding-right: 24px;
-width: 100px;
-height: 20px;
-}
-
-QToolButton:hover {
-border: 1px solid grey;
-}
-
-QToolButton:pressed {
-border: 1px solid grey;
-background: white;
-color: black;
-padding-left: 2px;
-padding-top: 2px;
-}
-
-QToolButton:disabled
-{
-background: darkgrey;
-}
-
-QToolButton:focus
-{
-border: 1px solid grey;
-background: white;
-color: black;
-}
-
-QToolButton::menu-button
-{
-border-left: 1px solid white;
-margin-top: 1px;
-margin-bottom: 1px;
-width: 16px;
-margin-right: 4px;
-}
-
-QToolButton::menu-button:active
-{
-border-left: 1px solid grey;
-}
-
-QToolButton::menu-arrow:open {
-top: 1px;
-left: 1px;
-}
-
-QToolButton QMenu
-{
-text-align: center;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true"/>
-             </property>
-             <property name="popupMode">
-              <enum>QToolButton::MenuButtonPopup</enum>
-             </property>
-             <property name="toolButtonStyle">
-              <enum>Qt::ToolButtonTextOnly</enum>
-             </property>
-             <property name="save" stdset="0">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="settingsTab">
@@ -1338,7 +1258,6 @@ border: none;
   <tabstop>jobsFilterButton</tabstop>
   <tabstop>jobsFilter</tabstop>
   <tabstop>jobListWidget</tabstop>
-  <tabstop>addJobButton</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

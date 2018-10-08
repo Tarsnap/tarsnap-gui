@@ -65,8 +65,6 @@ public slots:
     void setJournal(QVector<LogEntry> log);
     //! Save the Tarsnap key ID.
     void saveKeyId(QString key_filename, quint64 id);
-    //! Create a new archive from an existing Job.
-    void backupJob(JobPtr job);
 
     //! Update the simulation icon.
     void updateSimulationIcon(int state);
@@ -104,30 +102,36 @@ signals:
     //! and run the setup wizard again.
     void runSetupWizard();
     void stopTasks(bool interrupt, bool running, bool queued);
-    //! Passes the list of all Job objects to the JobListWidget.
-    void jobList(QMap<QString, JobPtr>);
-    //! Notifies about a deleted job from the JobWidget or JobListWidget.
-    void deleteJob(JobPtr job, bool purgeArchives);
     //! Begin tarsnap --version
     void getTarsnapVersion(QString tarsnapPath);
     //! Query whether there are any running tasks; will trigger a taskInfo
     //! signal which is received by \ref closeWithTaskInfo.
     void getTaskInfo();
-    //! Passes info from the JobWidget to the TaskManager.
-    void jobAdded(JobPtr job);
     //! Clear all Journal entries.
     void clearJournal();
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
     void getKeyId(QString key_filename);
+
+    // Backup tab
+    //! Create a new job with the given urls and name.
+    void morphBackupIntoJob(QList<QUrl> urls, QString name);
+
+    // Job tab
+    //! Passes the list of all Job objects to the JobListWidget.
+    void jobList(QMap<QString, JobPtr>);
+    //! Notifies about a deleted job from the JobWidget or JobListWidget.
+    void deleteJob(JobPtr job, bool purgeArchives);
+    //! Passes info from the JobWidget to the TaskManager.
+    void jobAdded(JobPtr job);
     //! Search for all matching Archive objects which were created by a Job.
     //! \param jobPrefix: prefix of the Archive names to match.
     void findMatchingArchives(QString jobPrefix);
     //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);
 
-    // Backup tab
-    //! Create a new job with the given urls and name.
-    void morphBackupIntoJob(QList<QUrl> urls, QString name);
+    // Job tab
+    //! Display detailed information about a specific job.
+    void jobInspectByRef(QString jobRef);
 
 protected:
     //! Draw the Tarsnap logo in the top-right corner.
@@ -143,11 +147,6 @@ private slots:
     void setupMenuBar();
     void displayInspectArchive(ArchivePtr archive);
     void commitSettings();
-    void displayJobDetails(JobPtr job);
-    void hideJobDetails();
-    void addJobClicked();
-    void showJobsListMenu(const QPoint &pos);
-    void addDefaultJobs();
     void mainTabChanged(int index);
 
     // Backup tab - to be public
@@ -165,6 +164,18 @@ private slots:
     void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();
     void backupMorphIntoJobClicked();
+
+    // Jobs tab - to be public
+    //! Create a new job frmo teh Backup list.
+    void displayJobDetails(JobPtr job);
+    //! Create a new archive from an existing Job.
+    void backupJob(JobPtr job);
+
+    // Jobs tab - to be private
+    void hideJobDetails();
+    void addJobClicked();
+    void showJobsListMenu(const QPoint &pos);
+    void addDefaultJobs();
 
 private:
     Ui::MainWindow _ui;
@@ -204,6 +215,12 @@ private:
     void _backupTabWidget_browseForBackupItems();
     void _backupTabWidget_init();
     void _backupTabWidget_updateUi();
+
+    // These are temporary functions to ease the JobsTabWidget refactoring.
+    void _jobsTabWidget_init();
+    void _jobsTabWidget_updateUi();
+    void _jobsTabWidget_loadSettings();
+    void _jobsTabWidget_keyPressEvent(QKeyEvent *event);
 };
 
 #endif // MAINWINDOW_H

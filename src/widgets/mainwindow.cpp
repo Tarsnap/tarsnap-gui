@@ -93,8 +93,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::getTaskInfo);
     connect(_ui.busyWidget, &BusyWidget::clicked, _ui.actionStopTasks,
             &QAction::trigger);
-    addAction(_ui.actionShowArchivesTabHeader);
-    addAction(_ui.actionShowJobsTabHeader);
     // --
 
     // Backup pane
@@ -207,8 +205,6 @@ MainWindow::MainWindow(QWidget *parent)
                 _ui.jobsCountLabel->setText(
                     tr("Jobs (%1/%2)").arg(visible).arg(total));
             });
-    connect(_ui.actionShowJobsTabHeader, &QAction::triggered,
-            [&](bool checked) { _ui.jobsHeader->setVisible(checked); });
 
     _consoleLog = _helpWidget.getConsoleLog();
 }
@@ -221,10 +217,6 @@ MainWindow::~MainWindow()
 void MainWindow::loadSettings()
 {
     TSettings settings;
-
-    _ui.actionShowJobsTabHeader->setChecked(
-        settings.value("app/jobs_header_enabled", true).toBool());
-    _ui.jobsHeader->setVisible(_ui.actionShowJobsTabHeader->isChecked());
 
     if(settings.value("app/default_jobs_dismissed", false).toBool())
     {
@@ -460,8 +452,6 @@ void MainWindow::setupMenuBar()
     windowMenu->addAction(_ui.actionGoSettings);
     windowMenu->addAction(_ui.actionGoHelp);
     windowMenu->addAction(_ui.actionShowJournal);
-    windowMenu->addAction(_ui.actionShowArchivesTabHeader);
-    windowMenu->addAction(_ui.actionShowJobsTabHeader);
 
     QMenu *  helpMenu             = _menuBar->addMenu(tr("&Help"));
     QAction *actionTarsnapWebsite = new QAction(tr("Tarsnap Website"), this);
@@ -628,10 +618,6 @@ void MainWindow::commitSettings()
 {
     TSettings settings;
     settings.setValue("app/window_geometry", saveGeometry());
-    settings.setValue("app/archives_header_enabled",
-                      _ui.actionShowArchivesTabHeader->isChecked());
-    settings.setValue("app/jobs_header_enabled",
-                      _ui.actionShowJobsTabHeader->isChecked());
     settings.sync();
 }
 

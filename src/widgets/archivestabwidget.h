@@ -55,14 +55,12 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 
 private slots:
-    void commitSettings();
     void showArchiveListMenu(const QPoint &pos);
 
 private:
     Ui::ArchivesTabWidget _ui;
 
     void updateUi();
-    void loadSettings();
 };
 
 #endif // ARCHIVESTABWIDGET_H

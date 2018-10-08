@@ -473,17 +473,6 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui.busyWidget->animate();
 }
 
-void MainWindow::createNewJob(QList<QUrl> urls, QString name)
-{
-    JobPtr job(new Job());
-    job->setUrls(urls);
-    job->setName(name);
-    displayJobDetails(job);
-    _ui.addJobButton->setEnabled(true);
-    _ui.addJobButton->setText(tr("Save"));
-    _ui.addJobButton->setProperty("save", true);
-}
-
 void MainWindow::mainTabChanged(int index)
 {
     Q_UNUSED(index)
@@ -615,88 +604,11 @@ void MainWindow::setJournal(QVector<LogEntry> log)
         appendToJournalLog(entry);
 }
 
-void MainWindow::backupJob(JobPtr job)
-{
-    if(!job)
-        return;
-
-    if(!job->validateUrls())
-    {
-        if(job->urls().isEmpty())
-        {
-            QMessageBox::warning(this, tr("Job error"),
-                                 tr("Job %1 has no backup paths selected. "
-                                    "Nothing to back up.")
-                                     .arg(job->name()));
-            return;
-        }
-        else
-        {
-            QMessageBox::StandardButton confirm = QMessageBox::question(
-                this, tr("Job warning"),
-                tr("Some backup paths for Job %1 are not"
-                   " accessible anymore and thus backup may"
-                   " be incomplete."
-                   " Proceed with backup?")
-                    .arg(job->name()));
-            if(confirm != QMessageBox::Yes)
-                return;
-        }
-    }
-    emit backupNow(job->createBackupTask());
-}
-
 void MainWindow::browseForBackupItems()
 {
     displayTab(_ui.backupTab);
 
     _backupTabWidget_browseForBackupItems();
-}
-
-void MainWindow::displayJobDetails(JobPtr job)
-{
-    if(!job)
-        return;
-
-    _ui.jobListWidget->selectJob(job);
-    hideJobDetails();
-    _ui.jobDetailsWidget->setJob(job);
-    _ui.jobDetailsWidget->show();
-
-    displayTab(_ui.jobsTab);
-}
-
-void MainWindow::hideJobDetails()
-{
-    _ui.jobDetailsWidget->hide();
-    if(_ui.addJobButton->property("save").toBool())
-    {
-        _ui.addJobButton->setText(tr("Add job"));
-        _ui.addJobButton->setProperty("save", false);
-        _ui.addJobButton->setEnabled(true);
-    }
-}
-
-void MainWindow::addJobClicked()
-{
-    if(!_ui.addJobButton->isEnabled())
-        return;
-
-    if(_ui.addJobButton->property("save").toBool())
-    {
-        _ui.jobDetailsWidget->saveNew();
-        _ui.addJobButton->setText(tr("Add job"));
-        _ui.addJobButton->setProperty("save", false);
-        _ui.addJobButton->setEnabled(true);
-    }
-    else
-    {
-        JobPtr job(new Job());
-        displayJobDetails(job);
-        _ui.addJobButton->setEnabled(false);
-        _ui.addJobButton->setText(tr("Save"));
-        _ui.addJobButton->setProperty("save", true);
-    }
 }
 
 void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
@@ -809,49 +721,6 @@ void MainWindow::tarsnapError(TarsnapError error)
         break;
     }
     }
-}
-
-void MainWindow::showJobsListMenu(const QPoint &pos)
-{
-    QPoint globalPos = _ui.jobListWidget->viewport()->mapToGlobal(pos);
-    QMenu  jobListMenu(_ui.jobListWidget);
-    if(!_ui.jobListWidget->selectedItems().isEmpty())
-    {
-        jobListMenu.addAction(_ui.actionJobBackup);
-        if(_ui.jobListWidget->selectedItems().count() == 1)
-        {
-            jobListMenu.addAction(_ui.actionJobInspect);
-            jobListMenu.addAction(_ui.actionJobRestore);
-            jobListMenu.addAction(_ui.actionJobDelete);
-        }
-    }
-    else if(_ui.jobListWidget->count() != 0)
-    {
-        jobListMenu.addAction(_ui.actionBackupAllJobs);
-    }
-    jobListMenu.exec(globalPos);
-}
-
-void MainWindow::addDefaultJobs()
-{
-    TSettings settings;
-    for(const QString &path : DEFAULT_JOBS)
-    {
-        QDir dir(QDir::home());
-        if(dir.cd(path))
-        {
-            JobPtr job(new Job());
-            job->setName(dir.dirName());
-            QList<QUrl> urls;
-            urls << QUrl::fromUserInput(dir.canonicalPath());
-            job->setUrls(urls);
-            job->save();
-            _ui.jobDetailsWidget->jobAdded(job);
-        }
-    }
-    settings.setValue("app/default_jobs_dismissed", true);
-    _ui.defaultJobs->hide();
-    _ui.addJobButton->show();
 }
 
 void MainWindow::updateUi()
@@ -1135,4 +1004,135 @@ void MainWindow::_jobsTabWidget_updateUi()
         _ui.addJobButton->setText(tr("Save"));
     else
         _ui.addJobButton->setText(tr("Add job"));
+}
+
+void MainWindow::createNewJob(QList<QUrl> urls, QString name)
+{
+    JobPtr job(new Job());
+    job->setUrls(urls);
+    job->setName(name);
+    displayJobDetails(job);
+    _ui.addJobButton->setEnabled(true);
+    _ui.addJobButton->setText(tr("Save"));
+    _ui.addJobButton->setProperty("save", true);
+}
+
+void MainWindow::backupJob(JobPtr job)
+{
+    if(!job)
+        return;
+
+    if(!job->validateUrls())
+    {
+        if(job->urls().isEmpty())
+        {
+            QMessageBox::warning(this, tr("Job error"),
+                                 tr("Job %1 has no backup paths selected. "
+                                    "Nothing to back up.")
+                                     .arg(job->name()));
+            return;
+        }
+        else
+        {
+            QMessageBox::StandardButton confirm = QMessageBox::question(
+                this, tr("Job warning"),
+                tr("Some backup paths for Job %1 are not"
+                   " accessible anymore and thus backup may"
+                   " be incomplete."
+                   " Proceed with backup?")
+                    .arg(job->name()));
+            if(confirm != QMessageBox::Yes)
+                return;
+        }
+    }
+    emit backupNow(job->createBackupTask());
+}
+
+void MainWindow::displayJobDetails(JobPtr job)
+{
+    if(!job)
+        return;
+
+    _ui.jobListWidget->selectJob(job);
+    hideJobDetails();
+    _ui.jobDetailsWidget->setJob(job);
+    _ui.jobDetailsWidget->show();
+
+    displayTab(_ui.jobsTab);
+}
+
+void MainWindow::hideJobDetails()
+{
+    _ui.jobDetailsWidget->hide();
+    if(_ui.addJobButton->property("save").toBool())
+    {
+        _ui.addJobButton->setText(tr("Add job"));
+        _ui.addJobButton->setProperty("save", false);
+        _ui.addJobButton->setEnabled(true);
+    }
+}
+
+void MainWindow::addJobClicked()
+{
+    if(!_ui.addJobButton->isEnabled())
+        return;
+
+    if(_ui.addJobButton->property("save").toBool())
+    {
+        _ui.jobDetailsWidget->saveNew();
+        _ui.addJobButton->setText(tr("Add job"));
+        _ui.addJobButton->setProperty("save", false);
+        _ui.addJobButton->setEnabled(true);
+    }
+    else
+    {
+        JobPtr job(new Job());
+        displayJobDetails(job);
+        _ui.addJobButton->setEnabled(false);
+        _ui.addJobButton->setText(tr("Save"));
+        _ui.addJobButton->setProperty("save", true);
+    }
+}
+
+void MainWindow::showJobsListMenu(const QPoint &pos)
+{
+    QPoint globalPos = _ui.jobListWidget->viewport()->mapToGlobal(pos);
+    QMenu  jobListMenu(_ui.jobListWidget);
+    if(!_ui.jobListWidget->selectedItems().isEmpty())
+    {
+        jobListMenu.addAction(_ui.actionJobBackup);
+        if(_ui.jobListWidget->selectedItems().count() == 1)
+        {
+            jobListMenu.addAction(_ui.actionJobInspect);
+            jobListMenu.addAction(_ui.actionJobRestore);
+            jobListMenu.addAction(_ui.actionJobDelete);
+        }
+    }
+    else if(_ui.jobListWidget->count() != 0)
+    {
+        jobListMenu.addAction(_ui.actionBackupAllJobs);
+    }
+    jobListMenu.exec(globalPos);
+}
+
+void MainWindow::addDefaultJobs()
+{
+    TSettings settings;
+    for(const QString &path : DEFAULT_JOBS)
+    {
+        QDir dir(QDir::home());
+        if(dir.cd(path))
+        {
+            JobPtr job(new Job());
+            job->setName(dir.dirName());
+            QList<QUrl> urls;
+            urls << QUrl::fromUserInput(dir.canonicalPath());
+            job->setUrls(urls);
+            job->save();
+            _ui.jobDetailsWidget->jobAdded(job);
+        }
+    }
+    settings.setValue("app/default_jobs_dismissed", true);
+    _ui.defaultJobs->hide();
+    _ui.addJobButton->show();
 }

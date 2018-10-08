@@ -119,6 +119,10 @@ MainWindow::MainWindow(QWidget *parent)
     // Jobs pane
     _jobsTabWidget_init();
 
+    // Send menubar actions to the Jobs tab
+    connect(_ui.actionAddJob, &QAction::triggered, &_jobsTabWidget,
+            &JobsTabWidget::addJobClicked);
+
     _consoleLog = _helpWidget.getConsoleLog();
 }
 
@@ -892,12 +896,6 @@ void MainWindow::_jobsTabWidget_init()
     _ui.jobDetailsWidget->hide();
     _ui.jobsFilterFrame->hide();
 
-    // Messages between widgets on this tab
-    connect(_ui.addJobButton, &QToolButton::clicked, this,
-            &MainWindow::addJobClicked);
-    connect(_ui.actionAddJob, &QAction::triggered, this,
-            &MainWindow::addJobClicked);
-
     // Jobs filter
     _ui.jobsFilterButton->setDefaultAction(_ui.actionFilterJobs);
     connect(_ui.actionFilterJobs, &QAction::triggered, [&]() {
@@ -928,8 +926,10 @@ void MainWindow::_jobsTabWidget_init()
             &MainWindow::restoreArchive);
     connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives, this,
             &MainWindow::deleteArchives);
-    connect(_ui.jobDetailsWidget, &JobWidget::enableSave, _ui.addJobButton,
-            &QToolButton::setEnabled);
+    // connect(_ui.jobDetailsWidget, &JobWidget::enableSave, _ui.addJobButton,
+    //        &QToolButton::setEnabled);
+    connect(_ui.jobDetailsWidget, &JobWidget::enableSave,
+            _jobsTabWidget.temp_addJobButton(), &QToolButton::setEnabled);
     connect(_ui.jobDetailsWidget, &JobWidget::backupJob, this,
             &MainWindow::backupJob);
     connect(_ui.jobDetailsWidget, &JobWidget::findMatchingArchives, this,
@@ -970,11 +970,13 @@ void MainWindow::_jobsTabWidget_init()
     _ui.jobListWidget->addAction(_ui.actionAddJob);
 
     //  addJobButton
-    QMenu *addJobMenu = new QMenu(_ui.addJobButton);
+    // QMenu *addJobMenu = new QMenu(_ui.addJobButton);
+    QMenu *addJobMenu = new QMenu(_jobsTabWidget.temp_addJobButton());
     addJobMenu->addAction(_ui.actionBackupAllJobs);
     connect(_ui.actionBackupAllJobs, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::backupAllJobs);
-    _ui.addJobButton->setMenu(addJobMenu);
+    //_ui.addJobButton->setMenu(addJobMenu);
+    _jobsTabWidget.temp_addJobButton()->setMenu(addJobMenu);
 
     // External connections
     connect(this, &MainWindow::jobInspectByRef, _ui.jobListWidget,
@@ -991,10 +993,12 @@ void MainWindow::_jobsTabWidget_init()
             &JobListWidget::inspectSelectedItem);
 
     // Temp messages from JobsTabWidget
-    connect(&_jobsTabWidget, &JobsTabWidget::temp_addJobButton_show, this,
-            &MainWindow::temp_addJobButton_show);
     connect(&_jobsTabWidget, &JobsTabWidget::temp_jobDetailsWidget_jobAdded,
             this, &MainWindow::temp_jobDetailsWidget_jobAdded);
+    connect(&_jobsTabWidget, &JobsTabWidget::temp_jobDetailsWidget_saveNew,
+            this, &MainWindow::temp_jobDetailsWidget_saveNew);
+    connect(&_jobsTabWidget, &JobsTabWidget::temp_displayJobDetails, this,
+            &MainWindow::displayJobDetails);
 }
 
 void MainWindow::_jobsTabWidget_keyPressEvent(QKeyEvent *event)
@@ -1027,18 +1031,10 @@ void MainWindow::_jobsTabWidget_keyPressEvent(QKeyEvent *event)
 
 void MainWindow::_jobsTabWidget_updateUi()
 {
-    _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip().arg(
-        _ui.actionAddJob->shortcut().toString(QKeySequence::NativeText)));
-
     _ui.actionFilterJobs->setToolTip(_ui.actionFilterJobs->toolTip().arg(
         _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
     _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip().arg(
         _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
-
-    if(_ui.addJobButton->property("save").toBool())
-        _ui.addJobButton->setText(tr("Save"));
-    else
-        _ui.addJobButton->setText(tr("Add job"));
 }
 
 void MainWindow::createNewJob(QList<QUrl> urls, QString name)
@@ -1047,9 +1043,7 @@ void MainWindow::createNewJob(QList<QUrl> urls, QString name)
     job->setUrls(urls);
     job->setName(name);
     displayJobDetails(job);
-    _ui.addJobButton->setEnabled(true);
-    _ui.addJobButton->setText(tr("Save"));
-    _ui.addJobButton->setProperty("save", true);
+    _jobsTabWidget.createNewJob(urls, name);
 }
 
 void MainWindow::backupJob(JobPtr job)
@@ -1094,34 +1088,7 @@ void MainWindow::_jobsTabWidget_displayJobDetails(JobPtr job)
 void MainWindow::hideJobDetails()
 {
     _ui.jobDetailsWidget->hide();
-    if(_ui.addJobButton->property("save").toBool())
-    {
-        _ui.addJobButton->setText(tr("Add job"));
-        _ui.addJobButton->setProperty("save", false);
-        _ui.addJobButton->setEnabled(true);
-    }
-}
-
-void MainWindow::addJobClicked()
-{
-    if(!_ui.addJobButton->isEnabled())
-        return;
-
-    if(_ui.addJobButton->property("save").toBool())
-    {
-        _ui.jobDetailsWidget->saveNew();
-        _ui.addJobButton->setText(tr("Add job"));
-        _ui.addJobButton->setProperty("save", false);
-        _ui.addJobButton->setEnabled(true);
-    }
-    else
-    {
-        JobPtr job(new Job());
-        displayJobDetails(job);
-        _ui.addJobButton->setEnabled(false);
-        _ui.addJobButton->setText(tr("Save"));
-        _ui.addJobButton->setProperty("save", true);
-    }
+    _jobsTabWidget.hideJobDetails();
 }
 
 void MainWindow::showJobsListMenu(const QPoint &pos)
@@ -1145,15 +1112,12 @@ void MainWindow::showJobsListMenu(const QPoint &pos)
     jobListMenu.exec(globalPos);
 }
 
-void MainWindow::temp_addJobButton_show(bool show)
-{
-    if(show)
-        _ui.addJobButton->show();
-    else
-        _ui.addJobButton->hide();
-}
-
 void MainWindow::temp_jobDetailsWidget_jobAdded(JobPtr job)
 {
     _ui.jobDetailsWidget->jobAdded(job);
+}
+
+void MainWindow::temp_jobDetailsWidget_saveNew()
+{
+    _ui.jobDetailsWidget->saveNew();
 }

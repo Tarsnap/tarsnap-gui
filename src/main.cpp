@@ -17,6 +17,7 @@ extern "C" {
 int main(int argc, char *argv[])
 {
     struct optparse *opt;
+    int              ret;
 
     // Initialize debug messages.
     WARNP_INIT;
@@ -24,7 +25,10 @@ int main(int argc, char *argv[])
 
     // Parse command-line arguments
     if((opt = optparse_parse(argc, argv)) == NULL)
-        exit(1);
+    {
+        ret = EXIT_FAILURE;
+        goto done;
+    }
 
     // Should we use the gui or non-gui app?
     if(opt->check == 0)
@@ -36,13 +40,16 @@ int main(int argc, char *argv[])
 
         // Run more complicated initialization.
         if(!app.initializeCore())
-            return EXIT_FAILURE;
+        {
+            ret = EXIT_FAILURE;
+            goto done;
+        }
 
         // If we want the GUI or have any tasks, do them.
         if(app.prepMainLoop())
-            return (app.exec());
+            ret = app.exec();
         else
-            return EXIT_SUCCESS;
+            ret = EXIT_SUCCESS;
 #else
         qDebug() << "This binary does not support GUI operations.  Try:\n\t"
                  << argv[0] << "-h";
@@ -57,15 +64,21 @@ int main(int argc, char *argv[])
 
         // Run more complicated initialization.
         if(!app.initializeCore())
-            return EXIT_FAILURE;
+        {
+            ret = EXIT_FAILURE;
+            goto done;
+        }
 
         // If we want have any tasks, do them.
         if(app.prepMainLoop())
-            return (app.exec());
+            ret = app.exec();
         else
-            return EXIT_SUCCESS;
+            ret = EXIT_SUCCESS;
     }
 
+done:
     // Clean up
     TSettings::destroy();
+
+    return (ret);
 }

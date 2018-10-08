@@ -129,6 +129,10 @@ signals:
     //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);
 
+    // Job tab
+    //! Display detailed information about a specific job.
+    void jobInspectByRef(QString jobRef);
+
 protected:
     //! Draw the Tarsnap logo in the top-right corner.
     void paintEvent(QPaintEvent *);

@@ -106,10 +106,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::addArchive, &_archivesTabWidget,
             &ArchivesTabWidget::addArchive);
 
-    connect(&_archivesTabWidget, &ArchivesTabWidget::jobClicked,
-            _ui.jobListWidget, &JobListWidget::inspectJobByRef);
-    connect(&_archivesTabWidget, &ArchivesTabWidget::displayJobDetails,
-            _ui.jobListWidget, &JobListWidget::inspectJobByRef);
+    connect(&_archivesTabWidget, &ArchivesTabWidget::jobClicked, this,
+            &MainWindow::jobInspectByRef);
+    connect(&_archivesTabWidget, &ArchivesTabWidget::displayJobDetails, this,
+            &MainWindow::jobInspectByRef);
 
     connect(_ui.actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
@@ -973,6 +973,10 @@ void MainWindow::_jobsTabWidget_init()
     connect(_ui.actionBackupAllJobs, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::backupAllJobs);
     _ui.addJobButton->setMenu(addJobMenu);
+
+    // External connections
+    connect(this, &MainWindow::jobInspectByRef, _ui.jobListWidget,
+            &JobListWidget::inspectJobByRef);
 
     // Handle the Job-related actions
     connect(_ui.actionJobBackup, &QAction::triggered, _ui.jobListWidget,

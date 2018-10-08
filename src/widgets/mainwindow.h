@@ -204,6 +204,9 @@ private:
     void _backupTabWidget_browseForBackupItems();
     void _backupTabWidget_init();
     void _backupTabWidget_updateUi();
+
+    // These are temporary functions to ease the JobsTabWidget refactoring.
+    void _jobsTabWidget_updateUi();
 };
 
 #endif // MAINWINDOW_H

@@ -887,20 +887,12 @@ void MainWindow::updateUi()
         _ui.actionShowJournal->shortcut().toString(QKeySequence::NativeText)));
     _ui.busyWidget->setToolTip(_ui.busyWidget->toolTip().arg(
         _ui.actionStopTasks->shortcut().toString(QKeySequence::NativeText)));
-    _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip().arg(
-        _ui.actionAddJob->shortcut().toString(QKeySequence::NativeText)));
-    _ui.actionFilterJobs->setToolTip(_ui.actionFilterJobs->toolTip().arg(
-        _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
-    _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip().arg(
-        _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
+
+    _jobsTabWidget_updateUi();
+
     // --
 
     setupMenuBar();
-
-    if(_ui.addJobButton->property("save").toBool())
-        _ui.addJobButton->setText(tr("Save"));
-    else
-        _ui.addJobButton->setText(tr("Add job"));
 }
 
 void MainWindow::updateSimulationIcon(int state)
@@ -1127,4 +1119,20 @@ void MainWindow::_backupTabWidget_updateUi()
         _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
     _ui.backupListInfoLabel->setText(_ui.backupListInfoLabel->text().arg(
         _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+}
+
+void MainWindow::_jobsTabWidget_updateUi()
+{
+    _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip().arg(
+        _ui.actionAddJob->shortcut().toString(QKeySequence::NativeText)));
+
+    _ui.actionFilterJobs->setToolTip(_ui.actionFilterJobs->toolTip().arg(
+        _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
+    _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip().arg(
+        _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
+
+    if(_ui.addJobButton->property("save").toBool())
+        _ui.addJobButton->setText(tr("Save"));
+    else
+        _ui.addJobButton->setText(tr("Add job"));
 }

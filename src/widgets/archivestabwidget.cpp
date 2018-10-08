@@ -17,8 +17,6 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent) : QWidget(parent)
             &ArchiveListWidget::customContextMenuRequested, this,
             &ArchivesTabWidget::showArchiveListMenu);
 
-    loadSettings();
-
     _ui.archiveListWidget->addAction(_ui.actionRefresh);
     _ui.archiveListWidget->addAction(_ui.actionInspect);
     _ui.archiveListWidget->addAction(_ui.actionDelete);
@@ -67,9 +65,6 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent) : QWidget(parent)
                     tr("Archives (%1/%2)").arg(visible).arg(total));
             });
 
-    connect(_ui.actionShowArchivesTabHeader, &QAction::triggered,
-            [&](bool checked) { _ui.archivesHeader->setVisible(checked); });
-
     connect(this, &ArchivesTabWidget::archiveList, _ui.archiveListWidget,
             &ArchiveListWidget::setArchives);
     connect(this, &ArchivesTabWidget::addArchive, _ui.archiveListWidget,
@@ -79,21 +74,6 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent) : QWidget(parent)
             [&](QString jobRef) { emit jobClicked(jobRef); });
     connect(_ui.archiveListWidget, &ArchiveListWidget::displayJobDetails,
             [&](QString jobRef) { emit displayJobDetails(jobRef); });
-}
-
-void ArchivesTabWidget::loadSettings()
-{
-    TSettings settings;
-    _ui.actionShowArchivesTabHeader->setChecked(
-        settings.value("app/archives_header_enabled", true).toBool());
-    _ui.archivesHeader->setVisible(_ui.actionShowArchivesTabHeader->isChecked());
-}
-
-void ArchivesTabWidget::commitSettings()
-{
-    TSettings settings;
-
-    settings.sync();
 }
 
 void ArchivesTabWidget::changeEvent(QEvent *event)

@@ -3,6 +3,8 @@
 
 #include "ui_jobstabwidget.h"
 
+#include "persistentmodel/job.h"
+
 #include <QEvent>
 #include <QKeyEvent>
 #include <QWidget>
@@ -26,6 +28,10 @@ public:
 public slots:
 
 signals:
+    //! Temporary to ease the JobsTabWidget refactoring
+    void temp_addJobButton_show(bool show);
+    //! Temporary to ease the JobsTabWidget refactoring
+    void temp_jobDetailsWidget_jobAdded(JobPtr job);
 
 protected:
     //! Handles translation change of language.
@@ -34,6 +40,7 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 
 private slots:
+    void addDefaultJobs();
 
 private:
     Ui::JobsTabWidget _ui;

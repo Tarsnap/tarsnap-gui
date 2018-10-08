@@ -898,16 +898,6 @@ void MainWindow::_jobsTabWidget_init()
     connect(_ui.actionAddJob, &QAction::triggered, this,
             &MainWindow::addJobClicked);
 
-    // "Default jobs" handling
-    connect(_ui.sureButton, &QPushButton::clicked, this,
-            &MainWindow::addDefaultJobs);
-    connect(_ui.dismissButton, &QPushButton::clicked, [&]() {
-        TSettings settings;
-        settings.setValue("app/default_jobs_dismissed", true);
-        _ui.defaultJobs->hide();
-        _ui.addJobButton->show();
-    });
-
     // Jobs filter
     _ui.jobsFilterButton->setDefaultAction(_ui.actionFilterJobs);
     connect(_ui.actionFilterJobs, &QAction::triggered, [&]() {
@@ -1000,7 +990,11 @@ void MainWindow::_jobsTabWidget_init()
     connect(_ui.actionJobInspect, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::inspectSelectedItem);
 
-    _jobsTabWidget_loadSettings();
+    // Temp messages from JobsTabWidget
+    connect(&_jobsTabWidget, &JobsTabWidget::temp_addJobButton_show, this,
+            &MainWindow::temp_addJobButton_show);
+    connect(&_jobsTabWidget, &JobsTabWidget::temp_jobDetailsWidget_jobAdded,
+            this, &MainWindow::temp_jobDetailsWidget_jobAdded);
 }
 
 void MainWindow::_jobsTabWidget_keyPressEvent(QKeyEvent *event)
@@ -1028,22 +1022,6 @@ void MainWindow::_jobsTabWidget_keyPressEvent(QKeyEvent *event)
         }
     default:
         QWidget::keyPressEvent(event);
-    }
-}
-
-void MainWindow::_jobsTabWidget_loadSettings()
-{
-    TSettings settings;
-
-    if(settings.value("app/default_jobs_dismissed", false).toBool())
-    {
-        _ui.defaultJobs->hide();
-        _ui.addJobButton->show();
-    }
-    else
-    {
-        _ui.defaultJobs->show();
-        _ui.addJobButton->hide();
     }
 }
 
@@ -1167,24 +1145,15 @@ void MainWindow::showJobsListMenu(const QPoint &pos)
     jobListMenu.exec(globalPos);
 }
 
-void MainWindow::addDefaultJobs()
+void MainWindow::temp_addJobButton_show(bool show)
 {
-    TSettings settings;
-    for(const QString &path : DEFAULT_JOBS)
-    {
-        QDir dir(QDir::home());
-        if(dir.cd(path))
-        {
-            JobPtr job(new Job());
-            job->setName(dir.dirName());
-            QList<QUrl> urls;
-            urls << QUrl::fromUserInput(dir.canonicalPath());
-            job->setUrls(urls);
-            job->save();
-            _ui.jobDetailsWidget->jobAdded(job);
-        }
-    }
-    settings.setValue("app/default_jobs_dismissed", true);
-    _ui.defaultJobs->hide();
-    _ui.addJobButton->show();
+    if(show)
+        _ui.addJobButton->show();
+    else
+        _ui.addJobButton->hide();
+}
+
+void MainWindow::temp_jobDetailsWidget_jobAdded(JobPtr job)
+{
+    _ui.jobDetailsWidget->jobAdded(job);
 }

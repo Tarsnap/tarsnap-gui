@@ -177,7 +177,11 @@ private slots:
     void hideJobDetails();
     void addJobClicked();
     void showJobsListMenu(const QPoint &pos);
-    void addDefaultJobs();
+
+    // Accept temp message from JobsTabWidget
+    void temp_addJobButton_show(bool show);
+    // Accept temp message from JobsTabWidget
+    void temp_jobDetailsWidget_jobAdded(JobPtr job);
 
 private:
     Ui::MainWindow _ui;
@@ -222,7 +226,6 @@ private:
     // These are temporary functions to ease the JobsTabWidget refactoring.
     void _jobsTabWidget_init();
     void _jobsTabWidget_updateUi();
-    void _jobsTabWidget_loadSettings();
     void _jobsTabWidget_keyPressEvent(QKeyEvent *event);
     void _jobsTabWidget_displayJobDetails(JobPtr job);
 };

@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
       _stopTasksDialog(this),
       _filePickerDialog(this),
       _archivesTabWidget(this),
+      _jobsTabWidget(this),
       _settingsWidget(this),
       _helpWidget(this)
 {
@@ -47,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.journalLog->hide();
 
     _ui.archivesVerticalLayout->addWidget(&_archivesTabWidget);
+    _ui.jobsVerticalLayout->addWidget(&_jobsTabWidget);
     _ui.settingsTabVerticalLayout->addWidget(&_settingsWidget);
     _ui.helpTabLayout->addWidget(&_helpWidget);
 

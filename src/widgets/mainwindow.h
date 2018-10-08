@@ -3,6 +3,7 @@
 
 #include "archivestabwidget.h"
 #include "helpwidget.h"
+#include "jobstabwidget.h"
 #include "settingswidget.h"
 
 #include "filepickerdialog.h"
@@ -194,6 +195,7 @@ private:
     QPlainTextEdit *_consoleLog;
 
     ArchivesTabWidget _archivesTabWidget;
+    JobsTabWidget     _jobsTabWidget;
     SettingsWidget    _settingsWidget;
     HelpWidget        _helpWidget;
 

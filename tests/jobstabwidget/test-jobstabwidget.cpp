@@ -1,7 +1,6 @@
 #include <QtTest/QtTest>
 
 #include "../qtest-platform.h"
-#include "utils.h"
 
 #include <TSettings.h>
 

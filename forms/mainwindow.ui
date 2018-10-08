@@ -638,106 +638,6 @@ selection-background-color: rgba(177,214,255,150);
              </layout>
             </widget>
            </item>
-           <item>
-            <widget class="QWidget" name="defaultJobs" native="true">
-             <property name="styleSheet">
-              <string notr="true">#defaultJobs {
-background: rgba(64,152,212,255)
-}
-
-QLabel {
-color: white;
-}
-
-QPushButton {
-border: 1px solid white;
-background: transparent;
-color: white;
-padding: 4px;
-border-radius: 2px;
-}
-
-QPushButton:hover {
-border: 1px solid grey;
-}
-
-QPushButton:pressed {
-border: 1px solid grey;
-background: white;
-color: black;
-}</string>
-             </property>
-             <layout class="QVBoxLayout" name="defaultJobsVerticalLayout">
-              <property name="leftMargin">
-               <number>6</number>
-              </property>
-              <property name="topMargin">
-               <number>6</number>
-              </property>
-              <property name="rightMargin">
-               <number>6</number>
-              </property>
-              <property name="bottomMargin">
-               <number>6</number>
-              </property>
-              <item>
-               <widget class="QLabel" name="defaultJobsLabel">
-                <property name="text">
-                 <string>Would you like to automatically create a handful of predefined Jobs for commonly-used directories such as Desktop, Documents, and Pictures?</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QWidget" name="defaultJobsButtonsWidget" native="true">
-                <layout class="QHBoxLayout" name="defaultJobsButtonWidgetHorizontalLayout">
-                 <property name="leftMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                 <item>
-                  <widget class="QPushButton" name="dismissButton">
-                   <property name="text">
-                    <string>Dismiss</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="defaultJobsSpacer">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="sureButton">
-                   <property name="text">
-                    <string>Yes, create them</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
            <item alignment="Qt::AlignHCenter">
             <widget class="QToolButton" name="addJobButton">
              <property name="toolTip">
@@ -1438,8 +1338,6 @@ border: none;
   <tabstop>jobsFilterButton</tabstop>
   <tabstop>jobsFilter</tabstop>
   <tabstop>jobListWidget</tabstop>
-  <tabstop>dismissButton</tabstop>
-  <tabstop>sureButton</tabstop>
   <tabstop>addJobButton</tabstop>
  </tabstops>
  <resources>

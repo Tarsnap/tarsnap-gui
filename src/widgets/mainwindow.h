@@ -124,6 +124,8 @@ signals:
     void findMatchingArchives(QString jobPrefix);
     //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);
+
+    // Backup tab
     //! Create a new job with the given urls and name.
     void morphBackupIntoJob(QList<QUrl> urls, QString name);
 
@@ -148,7 +150,7 @@ private slots:
     void addDefaultJobs();
     void mainTabChanged(int index);
 
-    // Backup tab
+    // Backup tab - to be public
     //! Open a file dialog to add (multiple) items.
     void browseForBackupItems();
     //! Open a file dialog to add (multiple) files (but not directories!).
@@ -158,6 +160,7 @@ private slots:
     //! Remove items from the backup list.
     void clearList();
 
+    // Backup tab - to be private
     void updateBackupItemTotals(quint64 count, quint64 size);
     void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();
@@ -200,6 +203,7 @@ private:
     bool _backupTabWidget_validateBackupTab();
     void _backupTabWidget_browseForBackupItems();
     void _backupTabWidget_init();
+    void _backupTabWidget_updateUi();
 };
 
 #endif // MAINWINDOW_H

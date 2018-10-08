@@ -473,12 +473,6 @@ void MainWindow::updateLoadingAnimation(bool idle)
         _ui.busyWidget->animate();
 }
 
-void MainWindow::backupMorphIntoJobClicked()
-{
-    emit morphBackupIntoJob(_ui.backupListWidget->itemUrls(),
-                            _ui.backupNameLineEdit->text());
-}
-
 void MainWindow::createNewJob(QList<QUrl> urls, QString name)
 {
     JobPtr job(new Job());
@@ -545,66 +539,10 @@ void MainWindow::notificationRaise()
     showNormal();
 }
 
-void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
-{
-    if(count != 0)
-    {
-        _ui.backupDetailLabel->setText(
-            tr("%1 %2 (%3)")
-                .arg(count)
-                .arg(count == 1 ? tr("item") : tr("items"))
-                .arg(Utils::humanBytes(size)));
-    }
-    else
-    {
-        _ui.backupDetailLabel->clear();
-    }
-    bool vbt = _backupTabWidget_validateBackupTab();
-    _ui.actionBackupNow->setEnabled(vbt);
-    _ui.actionBackupMorphIntoJob->setEnabled(vbt);
-}
-
 void MainWindow::displayInspectArchive(ArchivePtr archive)
 {
     displayTab(_ui.archivesTab);
     _archivesTabWidget.displayInspectArchive(archive);
-}
-
-void MainWindow::appendTimestampCheckBoxToggled(bool checked)
-{
-    if(checked)
-    {
-        QString text = _ui.backupNameLineEdit->text();
-        _lastTimestamp.clear();
-        _lastTimestamp.append(
-            QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
-        text.append(_lastTimestamp);
-        _ui.backupNameLineEdit->setText(text);
-        _ui.backupNameLineEdit->setCursorPosition(0);
-    }
-    else
-    {
-        QString text = _ui.backupNameLineEdit->text();
-        if(!_lastTimestamp.isEmpty() && text.endsWith(_lastTimestamp))
-        {
-            text.chop(_lastTimestamp.length());
-            _ui.backupNameLineEdit->setText(text);
-        }
-    }
-}
-
-void MainWindow::backupButtonClicked()
-{
-    QList<QUrl> urls;
-    for(int i = 0; i < _ui.backupListWidget->count(); ++i)
-        urls << static_cast<BackupListWidgetItem *>(_ui.backupListWidget->item(i))
-                    ->url();
-
-    BackupTaskPtr backup(new BackupTask);
-    backup->setName(_ui.backupNameLineEdit->text());
-    backup->setUrls(urls);
-    emit backupNow(backup);
-    _ui.appendTimestampCheckBox->setChecked(false);
 }
 
 void MainWindow::updateStatusMessage(QString message, QString detail)
@@ -942,10 +880,9 @@ void MainWindow::updateUi()
 
     _ui.actionBackupNow->setToolTip(_ui.actionBackupNow->toolTip().arg(
         _ui.actionBackupNow->shortcut().toString(QKeySequence::NativeText)));
-    _ui.backupListInfoLabel->setToolTip(_ui.backupListInfoLabel->toolTip().arg(
-        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
-    _ui.backupListInfoLabel->setText(_ui.backupListInfoLabel->text().arg(
-        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+
+    _backupTabWidget_updateUi();
+
     _ui.actionShowJournal->setToolTip(_ui.actionShowJournal->toolTip().arg(
         _ui.actionShowJournal->shortcut().toString(QKeySequence::NativeText)));
     _ui.busyWidget->setToolTip(_ui.busyWidget->toolTip().arg(
@@ -1046,6 +983,68 @@ bool MainWindow::_backupTabWidget_validateBackupTab()
         return false;
 }
 
+void MainWindow::backupMorphIntoJobClicked()
+{
+    emit morphBackupIntoJob(_ui.backupListWidget->itemUrls(),
+                            _ui.backupNameLineEdit->text());
+}
+
+void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
+{
+    if(count != 0)
+    {
+        _ui.backupDetailLabel->setText(
+            tr("%1 %2 (%3)")
+                .arg(count)
+                .arg(count == 1 ? tr("item") : tr("items"))
+                .arg(Utils::humanBytes(size)));
+    }
+    else
+    {
+        _ui.backupDetailLabel->clear();
+    }
+    bool vbt = _backupTabWidget_validateBackupTab();
+    _ui.actionBackupNow->setEnabled(vbt);
+    _ui.actionBackupMorphIntoJob->setEnabled(vbt);
+}
+
+void MainWindow::appendTimestampCheckBoxToggled(bool checked)
+{
+    if(checked)
+    {
+        QString text = _ui.backupNameLineEdit->text();
+        _lastTimestamp.clear();
+        _lastTimestamp.append(
+            QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
+        text.append(_lastTimestamp);
+        _ui.backupNameLineEdit->setText(text);
+        _ui.backupNameLineEdit->setCursorPosition(0);
+    }
+    else
+    {
+        QString text = _ui.backupNameLineEdit->text();
+        if(!_lastTimestamp.isEmpty() && text.endsWith(_lastTimestamp))
+        {
+            text.chop(_lastTimestamp.length());
+            _ui.backupNameLineEdit->setText(text);
+        }
+    }
+}
+
+void MainWindow::backupButtonClicked()
+{
+    QList<QUrl> urls;
+    for(int i = 0; i < _ui.backupListWidget->count(); ++i)
+        urls << static_cast<BackupListWidgetItem *>(_ui.backupListWidget->item(i))
+                    ->url();
+
+    BackupTaskPtr backup(new BackupTask);
+    backup->setName(_ui.backupNameLineEdit->text());
+    backup->setUrls(urls);
+    emit backupNow(backup);
+    _ui.appendTimestampCheckBox->setChecked(false);
+}
+
 void MainWindow::_backupTabWidget_browseForBackupItems()
 {
     _filePickerDialog.setSelectedUrls(_ui.backupListWidget->itemUrls());
@@ -1120,4 +1119,12 @@ void MainWindow::_backupTabWidget_init()
             &MainWindow::addDirectory);
     connect(_ui.actionClearList, &QAction::triggered, this,
             &MainWindow::clearList);
+}
+
+void MainWindow::_backupTabWidget_updateUi()
+{
+    _ui.backupListInfoLabel->setToolTip(_ui.backupListInfoLabel->toolTip().arg(
+        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+    _ui.backupListInfoLabel->setText(_ui.backupListInfoLabel->text().arg(
+        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
 }

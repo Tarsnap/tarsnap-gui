@@ -417,6 +417,16 @@ void MainWindow::displayInspectArchive(ArchivePtr archive)
     _archivesTabWidget.displayInspectArchive(archive);
 }
 
+void MainWindow::displayJobDetails(JobPtr job)
+{
+    if(!job)
+        return;
+
+    displayTab(_ui.jobsTab);
+
+    _jobsTabWidget_displayJobDetails(job);
+}
+
 void MainWindow::updateStatusMessage(QString message, QString detail)
 {
     _ui.statusBarLabel->setText(message);
@@ -1093,17 +1103,12 @@ void MainWindow::backupJob(JobPtr job)
     emit backupNow(job->createBackupTask());
 }
 
-void MainWindow::displayJobDetails(JobPtr job)
+void MainWindow::_jobsTabWidget_displayJobDetails(JobPtr job)
 {
-    if(!job)
-        return;
-
     _ui.jobListWidget->selectJob(job);
     hideJobDetails();
     _ui.jobDetailsWidget->setJob(job);
     _ui.jobDetailsWidget->show();
-
-    displayTab(_ui.jobsTab);
 }
 
 void MainWindow::hideJobDetails()

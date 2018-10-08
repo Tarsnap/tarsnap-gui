@@ -149,6 +149,9 @@ private slots:
     void commitSettings();
     void mainTabChanged(int index);
 
+    // Jobs tab
+    void displayJobDetails(JobPtr job);
+
     // Backup tab - to be public
     //! Open a file dialog to add (multiple) items.
     void browseForBackupItems();
@@ -166,8 +169,6 @@ private slots:
     void backupMorphIntoJobClicked();
 
     // Jobs tab - to be public
-    //! Show details about a job.
-    void displayJobDetails(JobPtr job);
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
 
@@ -221,6 +222,7 @@ private:
     void _jobsTabWidget_updateUi();
     void _jobsTabWidget_loadSettings();
     void _jobsTabWidget_keyPressEvent(QKeyEvent *event);
+    void _jobsTabWidget_displayJobDetails(JobPtr job);
 };
 
 #endif // MAINWINDOW_H

@@ -129,17 +129,6 @@ void MainWindow::loadSettings()
 {
     TSettings settings;
 
-    if(settings.value("app/default_jobs_dismissed", false).toBool())
-    {
-        _ui.defaultJobs->hide();
-        _ui.addJobButton->show();
-    }
-    else
-    {
-        _ui.defaultJobs->show();
-        _ui.addJobButton->hide();
-    }
-
     _ui.simulationIcon->setVisible(
         settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
 
@@ -994,6 +983,8 @@ void MainWindow::_jobsTabWidget_init()
             &JobListWidget::restoreSelectedItem);
     connect(_ui.actionJobInspect, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::inspectSelectedItem);
+
+    _jobsTabWidget_loadSettings();
 }
 
 void MainWindow::_jobsTabWidget_keyPressEvent(QKeyEvent *event)
@@ -1021,6 +1012,22 @@ void MainWindow::_jobsTabWidget_keyPressEvent(QKeyEvent *event)
         }
     default:
         QWidget::keyPressEvent(event);
+    }
+}
+
+void MainWindow::_jobsTabWidget_loadSettings()
+{
+    TSettings settings;
+
+    if(settings.value("app/default_jobs_dismissed", false).toBool())
+    {
+        _ui.defaultJobs->hide();
+        _ui.addJobButton->show();
+    }
+    else
+    {
+        _ui.defaultJobs->show();
+        _ui.addJobButton->hide();
     }
 }
 

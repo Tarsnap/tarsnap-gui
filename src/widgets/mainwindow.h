@@ -166,7 +166,7 @@ private slots:
     void backupMorphIntoJobClicked();
 
     // Jobs tab - to be public
-    //! Create a new job frmo teh Backup list.
+    //! Show details about a job.
     void displayJobDetails(JobPtr job);
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);

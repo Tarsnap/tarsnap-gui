@@ -628,11 +628,6 @@ selection-background-color: rgba(177,214,255,150);
                   <number>20</number>
                  </property>
                 </widget>
-                <widget class="JobWidget" name="jobDetailsWidget" native="true">
-                 <property name="toolTip">
-                  <string>Job details</string>
-                 </property>
-                </widget>
                </widget>
               </item>
              </layout>
@@ -1237,12 +1232,6 @@ border: none;
    <class>JobListWidget</class>
    <extends>QListWidget</extends>
    <header>widgets/joblistwidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>JobWidget</class>
-   <extends>QWidget</extends>
-   <header>widgets/jobwidget.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>BusyWidget</class>

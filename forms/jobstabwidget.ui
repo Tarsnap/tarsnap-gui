@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>455</width>
-    <height>102</height>
+    <height>137</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="jobsTabWidgetVerticalLayout">
@@ -26,6 +26,13 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
+   <item>
+    <widget class="JobWidget" name="jobDetailsWidget" native="true">
+     <property name="toolTip">
+      <string>Job details</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QWidget" name="defaultJobs" native="true">
      <property name="styleSheet">
@@ -227,6 +234,14 @@ text-align: center;
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>JobWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/jobwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>dismissButton</tabstop>
   <tabstop>sureButton</tabstop>

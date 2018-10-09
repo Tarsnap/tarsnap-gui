@@ -174,12 +174,7 @@ private slots:
     void backupJob(JobPtr job);
 
     // Jobs tab - to be private
-    void hideJobDetails();
     void showJobsListMenu(const QPoint &pos);
-
-    // Accept temp message from JobsTabWidget
-    void temp_jobDetailsWidget_jobAdded(JobPtr job);
-    void temp_jobDetailsWidget_saveNew();
 
 private:
     Ui::MainWindow _ui;

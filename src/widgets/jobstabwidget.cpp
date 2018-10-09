@@ -12,6 +12,7 @@ JobsTabWidget::JobsTabWidget(QWidget *parent) : QWidget(parent)
 {
     // Ui initialization
     _ui.setupUi(this);
+    _ui.jobDetailsWidget->hide();
 
     // "Default jobs" handling
     connect(_ui.sureButton, &QPushButton::clicked, this,
@@ -28,6 +29,32 @@ JobsTabWidget::JobsTabWidget(QWidget *parent) : QWidget(parent)
             &JobsTabWidget::addJobClicked);
     connect(_ui.actionAddJob, &QAction::triggered, this,
             &JobsTabWidget::addJobClicked);
+
+    // Connections from the JobDetailsWidget
+    connect(_ui.jobDetailsWidget, &JobWidget::collapse, this,
+            &JobsTabWidget::hideJobDetails);
+    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
+            &JobsTabWidget::displayJobDetails);
+    connect(_ui.jobDetailsWidget, &JobWidget::enableSave, _ui.addJobButton,
+            &QToolButton::setEnabled);
+
+    // Connections from the JobDetailsWidget that get forwarded on
+    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
+            &JobsTabWidget::jobAdded);
+    connect(_ui.jobDetailsWidget, &JobWidget::inspectJobArchive, this,
+            &JobsTabWidget::displayInspectArchive);
+    connect(_ui.jobDetailsWidget, &JobWidget::restoreJobArchive, this,
+            &JobsTabWidget::restoreArchive);
+    connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives, this,
+            &JobsTabWidget::deleteArchives);
+    connect(_ui.jobDetailsWidget, &JobWidget::backupJob, this,
+            &JobsTabWidget::backupJob);
+    connect(_ui.jobDetailsWidget, &JobWidget::findMatchingArchives, this,
+            &JobsTabWidget::findMatchingArchives);
+
+    // Connections to the JobDetailsWidget
+    connect(this, &JobsTabWidget::matchingArchives, _ui.jobDetailsWidget,
+            &JobWidget::updateMatchingArchives);
 
     loadSettings();
     updateUi();
@@ -63,6 +90,13 @@ void JobsTabWidget::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
     {
+    case Qt::Key_Escape:
+        if(_ui.jobDetailsWidget->isVisible())
+        {
+            hideJobDetails();
+            return;
+        }
+        break;
     default:
         QWidget::keyPressEvent(event);
     }
@@ -93,8 +127,7 @@ void JobsTabWidget::addDefaultJobs()
             urls << QUrl::fromUserInput(dir.canonicalPath());
             job->setUrls(urls);
             job->save();
-            //_ui.jobDetailsWidget->jobAdded(job);
-            emit temp_jobDetailsWidget_jobAdded(job);
+            _ui.jobDetailsWidget->jobAdded(job);
         }
     }
     settings.setValue("app/default_jobs_dismissed", true);
@@ -109,8 +142,7 @@ void JobsTabWidget::addJobClicked()
 
     if(_ui.addJobButton->property("save").toBool())
     {
-        //_ui.jobDetailsWidget->saveNew();
-        emit temp_jobDetailsWidget_saveNew();
+        _ui.jobDetailsWidget->saveNew();
         _ui.addJobButton->setText(tr("Add job"));
         _ui.addJobButton->setProperty("save", false);
         _ui.addJobButton->setEnabled(true);
@@ -118,8 +150,7 @@ void JobsTabWidget::addJobClicked()
     else
     {
         JobPtr job(new Job());
-        // displayJobDetails(job);
-        emit temp_displayJobDetails(job);
+        displayJobDetails(job);
         _ui.addJobButton->setEnabled(false);
         _ui.addJobButton->setText(tr("Save"));
         _ui.addJobButton->setProperty("save", true);
@@ -128,7 +159,7 @@ void JobsTabWidget::addJobClicked()
 
 void JobsTabWidget::hideJobDetails()
 {
-    //_ui.jobDetailsWidget->hide();
+    _ui.jobDetailsWidget->hide();
     if(_ui.addJobButton->property("save").toBool())
     {
         _ui.addJobButton->setText(tr("Add job"));
@@ -139,13 +170,18 @@ void JobsTabWidget::hideJobDetails()
 
 void JobsTabWidget::createNewJob(QList<QUrl> urls, QString name)
 {
-    (void)urls;
-    (void)name;
-    // JobPtr job(new Job());
-    // job->setUrls(urls);
-    // job->setName(name);
-    // displayJobDetails(job);
+    JobPtr job(new Job());
+    job->setUrls(urls);
+    job->setName(name);
+    displayJobDetails(job);
     _ui.addJobButton->setEnabled(true);
     _ui.addJobButton->setText(tr("Save"));
     _ui.addJobButton->setProperty("save", true);
+}
+
+void JobsTabWidget::displayJobDetails(JobPtr job)
+{
+    hideJobDetails();
+    _ui.jobDetailsWidget->setJob(job);
+    _ui.jobDetailsWidget->show();
 }

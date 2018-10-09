@@ -123,6 +123,32 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui.actionAddJob, &QAction::triggered, &_jobsTabWidget,
             &JobsTabWidget::addJobClicked);
 
+    // Pass messages through to the JobDetailsWidget
+    connect(this, &MainWindow::matchingArchives, &_jobsTabWidget,
+            &JobsTabWidget::matchingArchives);
+
+    // Pass messages from the JobDetailsWidget
+    connect(&_jobsTabWidget, &JobsTabWidget::jobAdded, _ui.jobListWidget,
+            &JobListWidget::addJob);
+    connect(&_jobsTabWidget, &JobsTabWidget::jobAdded, this,
+            &MainWindow::jobAdded);
+    // The MainWindow::displayJobDetails connection MUST come after the
+    // JobListWidget::jobAdded connection.  Otherwise, the JobListWidget won't
+    // have the relevant Job in its list when displayJobDetails() tries to
+    // select it.
+    connect(&_jobsTabWidget, &JobsTabWidget::jobAdded, this,
+            &MainWindow::displayJobDetails);
+    connect(&_jobsTabWidget, &JobsTabWidget::displayInspectArchive, this,
+            &MainWindow::displayInspectArchive);
+    connect(&_jobsTabWidget, &JobsTabWidget::restoreArchive, this,
+            &MainWindow::restoreArchive);
+    connect(&_jobsTabWidget, &JobsTabWidget::deleteArchives, this,
+            &MainWindow::deleteArchives);
+    connect(&_jobsTabWidget, &JobsTabWidget::backupJob, this,
+            &MainWindow::backupJob);
+    connect(&_jobsTabWidget, &JobsTabWidget::findMatchingArchives, this,
+            &MainWindow::findMatchingArchives);
+
     _consoleLog = _helpWidget.getConsoleLog();
 }
 
@@ -430,7 +456,10 @@ void MainWindow::displayJobDetails(JobPtr job)
 
     displayTab(_ui.jobsTab);
 
-    _jobsTabWidget_displayJobDetails(job);
+    // FIXME: temporary, as part of the JobsTabWidget refactor
+    _ui.jobListWidget->selectJob(job);
+
+    _jobsTabWidget.displayJobDetails(job);
 }
 
 void MainWindow::updateStatusMessage(QString message, QString detail)
@@ -893,7 +922,6 @@ void MainWindow::_jobsTabWidget_init()
 {
     _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    _ui.jobDetailsWidget->hide();
     _ui.jobsFilterFrame->hide();
 
     // Jobs filter
@@ -910,34 +938,6 @@ void MainWindow::_jobsTabWidget_init()
     connect(_ui.jobsFilter, static_cast<void (QComboBox::*)(int)>(
                                 &QComboBox::currentIndexChanged),
             this, [&]() { _ui.jobListWidget->setFocus(); });
-
-    // Connections from the JobDetailsWidget
-    connect(_ui.jobDetailsWidget, &JobWidget::collapse, this,
-            &MainWindow::hideJobDetails);
-    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, _ui.jobListWidget,
-            &JobListWidget::addJob);
-    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
-            &MainWindow::displayJobDetails);
-    connect(_ui.jobDetailsWidget, &JobWidget::jobAdded, this,
-            &MainWindow::jobAdded);
-    connect(_ui.jobDetailsWidget, &JobWidget::inspectJobArchive, this,
-            &MainWindow::displayInspectArchive);
-    connect(_ui.jobDetailsWidget, &JobWidget::restoreJobArchive, this,
-            &MainWindow::restoreArchive);
-    connect(_ui.jobDetailsWidget, &JobWidget::deleteJobArchives, this,
-            &MainWindow::deleteArchives);
-    // connect(_ui.jobDetailsWidget, &JobWidget::enableSave, _ui.addJobButton,
-    //        &QToolButton::setEnabled);
-    connect(_ui.jobDetailsWidget, &JobWidget::enableSave,
-            _jobsTabWidget.temp_addJobButton(), &QToolButton::setEnabled);
-    connect(_ui.jobDetailsWidget, &JobWidget::backupJob, this,
-            &MainWindow::backupJob);
-    connect(_ui.jobDetailsWidget, &JobWidget::findMatchingArchives, this,
-            &MainWindow::findMatchingArchives);
-
-    // Connections to the JobDetailsWidget
-    connect(this, &MainWindow::matchingArchives, _ui.jobDetailsWidget,
-            &JobWidget::updateMatchingArchives);
 
     // Connections from the JobListWidget
     connect(_ui.jobListWidget, &JobListWidget::displayJobDetails, this,
@@ -991,14 +991,6 @@ void MainWindow::_jobsTabWidget_init()
             &JobListWidget::restoreSelectedItem);
     connect(_ui.actionJobInspect, &QAction::triggered, _ui.jobListWidget,
             &JobListWidget::inspectSelectedItem);
-
-    // Temp messages from JobsTabWidget
-    connect(&_jobsTabWidget, &JobsTabWidget::temp_jobDetailsWidget_jobAdded,
-            this, &MainWindow::temp_jobDetailsWidget_jobAdded);
-    connect(&_jobsTabWidget, &JobsTabWidget::temp_jobDetailsWidget_saveNew,
-            this, &MainWindow::temp_jobDetailsWidget_saveNew);
-    connect(&_jobsTabWidget, &JobsTabWidget::temp_displayJobDetails, this,
-            &MainWindow::displayJobDetails);
 }
 
 void MainWindow::_jobsTabWidget_keyPressEvent(QKeyEvent *event)
@@ -1006,11 +998,6 @@ void MainWindow::_jobsTabWidget_keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Escape:
-        if(_ui.jobDetailsWidget->isVisible())
-        {
-            hideJobDetails();
-            return;
-        }
         if(_ui.jobsFilter->isVisible())
         {
             if(_ui.jobsFilter->currentText().isEmpty())
@@ -1039,10 +1026,6 @@ void MainWindow::_jobsTabWidget_updateUi()
 
 void MainWindow::createNewJob(QList<QUrl> urls, QString name)
 {
-    JobPtr job(new Job());
-    job->setUrls(urls);
-    job->setName(name);
-    displayJobDetails(job);
     _jobsTabWidget.createNewJob(urls, name);
 }
 
@@ -1080,15 +1063,6 @@ void MainWindow::backupJob(JobPtr job)
 void MainWindow::_jobsTabWidget_displayJobDetails(JobPtr job)
 {
     _ui.jobListWidget->selectJob(job);
-    hideJobDetails();
-    _ui.jobDetailsWidget->setJob(job);
-    _ui.jobDetailsWidget->show();
-}
-
-void MainWindow::hideJobDetails()
-{
-    _ui.jobDetailsWidget->hide();
-    _jobsTabWidget.hideJobDetails();
 }
 
 void MainWindow::showJobsListMenu(const QPoint &pos)
@@ -1110,14 +1084,4 @@ void MainWindow::showJobsListMenu(const QPoint &pos)
         jobListMenu.addAction(_ui.actionBackupAllJobs);
     }
     jobListMenu.exec(globalPos);
-}
-
-void MainWindow::temp_jobDetailsWidget_jobAdded(JobPtr job)
-{
-    _ui.jobDetailsWidget->jobAdded(job);
-}
-
-void MainWindow::temp_jobDetailsWidget_saveNew()
-{
-    _ui.jobDetailsWidget->saveNew();
 }

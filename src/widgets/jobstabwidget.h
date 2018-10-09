@@ -19,6 +19,7 @@ class JobsTabWidget : public QWidget
 
 #ifdef QT_TESTLIB_LIB
     friend class TestJobsTabWidget;
+    friend class TestMainWindow;
 #endif
 
 public:

@@ -16,6 +16,7 @@ private slots:
 
     // This one needs to be first
     void defaultJobs();
+    void createJob();
 };
 
 void TestJobsTabWidget::initTestCase()
@@ -51,6 +52,35 @@ void TestJobsTabWidget::defaultJobs()
     ui.dismissButton->clicked();
     QVERIFY(ui.defaultJobs->isVisible() == false);
     QVERIFY(sig_jobAdded.count() == 0);
+    VISUAL_WAIT;
+
+    delete jobstabwidget;
+}
+
+void TestJobsTabWidget::createJob()
+{
+    JobsTabWidget *   jobstabwidget = new JobsTabWidget();
+    Ui::JobsTabWidget ui            = jobstabwidget->_ui;
+    QSignalSpy        sig_jobAdded(jobstabwidget,
+                            SIGNAL(temp_jobDetailsWidget_saveNew()));
+
+    VISUAL_INIT(jobstabwidget);
+
+    // Start out without the button being enabled
+    QVERIFY(ui.addJobButton->text() == QString("Add job"));
+    QVERIFY(sig_jobAdded.count() == 0);
+    VISUAL_WAIT;
+
+    // TODO: right now this only enables the button
+    jobstabwidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
+                                QString("test-job"));
+    QVERIFY(ui.addJobButton->text() == QString("Save"));
+    VISUAL_WAIT;
+
+    // Adds the job to the list; makes the button ready to add again
+    jobstabwidget->addJobClicked();
+    QVERIFY(ui.addJobButton->text() == QString("Add job"));
+    QVERIFY(sig_jobAdded.count() == 1);
     VISUAL_WAIT;
 
     delete jobstabwidget;

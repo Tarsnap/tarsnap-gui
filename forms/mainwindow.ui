@@ -572,67 +572,6 @@ left: 1px;
              </layout>
             </widget>
            </item>
-           <item>
-            <widget class="QWidget" name="jobsWidget" native="true">
-             <layout class="QVBoxLayout" name="jobsWidgetVerticalLayout">
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QSplitter" name="jobsSplitter">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <widget class="JobListWidget" name="jobListWidget">
-                 <property name="contextMenuPolicy">
-                  <enum>Qt::CustomContextMenu</enum>
-                 </property>
-                 <property name="toolTip">
-                  <string>Job list</string>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">#jobListWidget::item
-{
-height: 33px;
-selection-background-color: rgba(177,214,255,150);
-}</string>
-                 </property>
-                 <property name="alternatingRowColors">
-                  <bool>true</bool>
-                 </property>
-                 <property name="selectionMode">
-                  <enum>QAbstractItemView::ExtendedSelection</enum>
-                 </property>
-                 <property name="verticalScrollMode">
-                  <enum>QAbstractItemView::ScrollPerPixel</enum>
-                 </property>
-                 <property name="horizontalScrollMode">
-                  <enum>QAbstractItemView::ScrollPerPixel</enum>
-                 </property>
-                 <property name="layoutMode">
-                  <enum>QListView::Batched</enum>
-                 </property>
-                 <property name="uniformItemSizes">
-                  <bool>true</bool>
-                 </property>
-                 <property name="batchSize">
-                  <number>20</number>
-                 </property>
-                </widget>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="settingsTab">
@@ -1229,11 +1168,6 @@ border: none;
    <header>widgets/backuplistwidget.h</header>
   </customwidget>
   <customwidget>
-   <class>JobListWidget</class>
-   <extends>QListWidget</extends>
-   <header>widgets/joblistwidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>BusyWidget</class>
    <extends>QLabel</extends>
    <header>../widgets/busywidget.h</header>
@@ -1246,7 +1180,6 @@ border: none;
   <tabstop>backupButton</tabstop>
   <tabstop>jobsFilterButton</tabstop>
   <tabstop>jobsFilter</tabstop>
-  <tabstop>jobListWidget</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

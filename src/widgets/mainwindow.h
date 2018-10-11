@@ -173,9 +173,6 @@ private slots:
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
 
-    // Jobs tab - to be private
-    void showJobsListMenu(const QPoint &pos);
-
 private:
     Ui::MainWindow _ui;
     int            _minWidth;
@@ -220,7 +217,6 @@ private:
     void _jobsTabWidget_init();
     void _jobsTabWidget_updateUi();
     void _jobsTabWidget_keyPressEvent(QKeyEvent *event);
-    void _jobsTabWidget_displayJobDetails(JobPtr job);
 };
 
 #endif // MAINWINDOW_H

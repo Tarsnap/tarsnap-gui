@@ -12,6 +12,7 @@ JobsTabWidget::JobsTabWidget(QWidget *parent) : QWidget(parent)
 {
     // Ui initialization
     _ui.setupUi(this);
+    _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui.jobDetailsWidget->hide();
 
     // "Default jobs" handling
@@ -55,6 +56,65 @@ JobsTabWidget::JobsTabWidget(QWidget *parent) : QWidget(parent)
     // Connections to the JobDetailsWidget
     connect(this, &JobsTabWidget::matchingArchives, _ui.jobDetailsWidget,
             &JobWidget::updateMatchingArchives);
+
+    // Connections from the JobListWidget
+    connect(_ui.jobListWidget, &JobListWidget::displayJobDetails, this,
+            &JobsTabWidget::displayJobDetails);
+    connect(_ui.jobListWidget, &JobListWidget::backupJob, this,
+            &JobsTabWidget::backupJob);
+    connect(_ui.jobListWidget, &JobListWidget::restoreArchive, this,
+            &JobsTabWidget::restoreArchive);
+    connect(_ui.jobListWidget, &JobListWidget::deleteJob, this,
+            &JobsTabWidget::deleteJob);
+    connect(_ui.jobListWidget, &JobListWidget::customContextMenuRequested, this,
+            &JobsTabWidget::showJobsListMenu);
+
+    // Connections to the JobListWidget
+    connect(this, &JobsTabWidget::backupSelectedItems, _ui.jobListWidget,
+            &JobListWidget::backupSelectedItems);
+    connect(this, &JobsTabWidget::deleteSelectedItem, _ui.jobListWidget,
+            &JobListWidget::deleteSelectedItem);
+    connect(this, &JobsTabWidget::restoreSelectedItem, _ui.jobListWidget,
+            &JobListWidget::restoreSelectedItem);
+    connect(this, &JobsTabWidget::inspectSelectedItem, _ui.jobListWidget,
+            &JobListWidget::inspectSelectedItem);
+
+    // FIXME: temp for refactor
+    connect(_ui.jobListWidget, &JobListWidget::countChanged, this,
+            &JobsTabWidget::temp_countChanged);
+
+    // Right-click context menu
+    _ui.jobListWidget->addAction(_ui.actionJobBackup);
+    _ui.jobListWidget->addAction(_ui.actionJobDelete);
+    _ui.jobListWidget->addAction(_ui.actionJobInspect);
+    _ui.jobListWidget->addAction(_ui.actionJobRestore);
+    _ui.jobListWidget->addAction(_ui.actionFilterJobs);
+    _ui.jobListWidget->addAction(_ui.actionJobBackup);
+    _ui.jobListWidget->addAction(_ui.actionAddJob);
+
+    // Connections to the JobListWidget
+    connect(this, &JobsTabWidget::jobList, _ui.jobListWidget,
+            &JobListWidget::setJobs);
+    connect(this, &JobsTabWidget::jobAdded, _ui.jobListWidget,
+            &JobListWidget::addJob);
+    connect(this, &JobsTabWidget::jobInspectByRef, _ui.jobListWidget,
+            &JobListWidget::inspectJobByRef);
+
+    connect(_ui.actionJobBackup, &QAction::triggered, _ui.jobListWidget,
+            &JobListWidget::backupSelectedItems);
+    connect(_ui.actionJobDelete, &QAction::triggered, _ui.jobListWidget,
+            &JobListWidget::deleteSelectedItem);
+    connect(_ui.actionJobRestore, &QAction::triggered, _ui.jobListWidget,
+            &JobListWidget::restoreSelectedItem);
+    connect(_ui.actionJobInspect, &QAction::triggered, _ui.jobListWidget,
+            &JobListWidget::inspectSelectedItem);
+
+    //  addJobButton
+    QMenu *addJobMenu = new QMenu(_ui.addJobButton);
+    addJobMenu->addAction(_ui.actionBackupAllJobs);
+    connect(_ui.actionBackupAllJobs, &QAction::triggered, _ui.jobListWidget,
+            &JobListWidget::backupAllJobs);
+    _ui.addJobButton->setMenu(addJobMenu);
 
     loadSettings();
     updateUi();
@@ -181,7 +241,29 @@ void JobsTabWidget::createNewJob(QList<QUrl> urls, QString name)
 
 void JobsTabWidget::displayJobDetails(JobPtr job)
 {
+    _ui.jobListWidget->selectJob(job);
     hideJobDetails();
     _ui.jobDetailsWidget->setJob(job);
     _ui.jobDetailsWidget->show();
+}
+
+void JobsTabWidget::showJobsListMenu(const QPoint &pos)
+{
+    QPoint globalPos = _ui.jobListWidget->viewport()->mapToGlobal(pos);
+    QMenu  jobListMenu(_ui.jobListWidget);
+    if(!_ui.jobListWidget->selectedItems().isEmpty())
+    {
+        jobListMenu.addAction(_ui.actionJobBackup);
+        if(_ui.jobListWidget->selectedItems().count() == 1)
+        {
+            jobListMenu.addAction(_ui.actionJobInspect);
+            jobListMenu.addAction(_ui.actionJobRestore);
+            jobListMenu.addAction(_ui.actionJobDelete);
+        }
+    }
+    else if(_ui.jobListWidget->count() != 0)
+    {
+        jobListMenu.addAction(_ui.actionBackupAllJobs);
+    }
+    jobListMenu.exec(globalPos);
 }

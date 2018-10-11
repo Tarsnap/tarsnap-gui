@@ -75,6 +75,7 @@ SOURCES +=						\
 	src/widgets/helpwidget.cpp			\
 	src/widgets/joblistwidget.cpp			\
 	src/widgets/joblistwidgetitem.cpp		\
+	src/widgets/jobstabwidget.cpp			\
 	src/widgets/jobwidget.cpp			\
 	src/widgets/mainwindow.cpp			\
 	src/widgets/popuppushbutton.cpp			\
@@ -123,6 +124,7 @@ HEADERS +=						\
 	src/widgets/helpwidget.h			\
 	src/widgets/joblistwidget.h			\
 	src/widgets/joblistwidgetitem.h			\
+	src/widgets/jobstabwidget.h			\
 	src/widgets/jobwidget.h				\
 	src/widgets/mainwindow.h			\
 	src/widgets/popuppushbutton.h			\
@@ -147,6 +149,7 @@ FORMS +=						\
 	forms/filepickerwidget.ui			\
 	forms/helpwidget.ui				\
 	forms/joblistwidgetitem.ui			\
+	forms/jobstabwidget.ui				\
 	forms/jobwidget.ui				\
 	forms/logindialog.ui				\
 	forms/mainwindow.ui				\
@@ -188,6 +191,7 @@ OBJECTS_DIR = build/gui/
 UNIT_TESTS =						\
 	tests/mainwindow				\
 	tests/cmdline					\
+	tests/jobstabwidget				\
 	tests/settingswidget				\
 	tests/setupwizard				\
 	tests/taskmanager				\

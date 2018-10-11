@@ -819,6 +819,49 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>JobsTabWidget</name>
+    <message>
+        <source>Job details</source>
+        <translation type="unfinished">Detalii Job</translation>
+    </message>
+    <message>
+        <source>Would you like to automatically create a handful of predefined Jobs for commonly-used directories such as Desktop, Documents, and Pictures?</source>
+        <translation type="unfinished">Dorești să generez automat Joburi pentru directoare comune precum Desktop, Documente sau Poze?</translation>
+    </message>
+    <message>
+        <source>Dismiss</source>
+        <translation type="unfinished">Elimină</translation>
+    </message>
+    <message>
+        <source>Yes, create them</source>
+        <translation type="unfinished">Da, crează</translation>
+    </message>
+    <message>
+        <source>Add a new Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished">Adaugă Job nou &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Add Job</source>
+        <translation type="unfinished">Adaugă Job</translation>
+    </message>
+    <message>
+        <source>Add a new job</source>
+        <translation type="unfinished">Adaugă Job nou</translation>
+    </message>
+    <message>
+        <source>Ctrl+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Salvează</translation>
+    </message>
+    <message>
+        <source>Add job</source>
+        <translation type="unfinished">Adaugă job</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <source>Tarsnap</source>
@@ -875,26 +918,6 @@ Adaugă oricum?</translation>
     <message>
         <source>Job list</source>
         <translation>Listă joburi</translation>
-    </message>
-    <message>
-        <source>Job details</source>
-        <translation>Detalii Job</translation>
-    </message>
-    <message>
-        <source>Would you like to automatically create a handful of predefined Jobs for commonly-used directories such as Desktop, Documents, and Pictures?</source>
-        <translation>Dorești să generez automat Joburi pentru directoare comune precum Desktop, Documente sau Poze?</translation>
-    </message>
-    <message>
-        <source>Dismiss</source>
-        <translation>Elimină</translation>
-    </message>
-    <message>
-        <source>Yes, create them</source>
-        <translation>Da, crează</translation>
-    </message>
-    <message>
-        <source>Add a new Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Adaugă Job nou &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
         <source>Ctrl+Backspace</source>
@@ -1153,22 +1176,6 @@ Adaugă oricum?</translation>
         <translation>Caută și filtrează în lista de Joburi &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <source>Show Archives tab header</source>
-        <translation>Afișează antent pentru panoul Arhive</translation>
-    </message>
-    <message>
-        <source>Show/hide the Archives tab header</source>
-        <translation>Afișează/ascunde antent pentru panoul Arhive</translation>
-    </message>
-    <message>
-        <source>Show Jobs tab header</source>
-        <translation>Afișează antent pentru panoul Joburi</translation>
-    </message>
-    <message>
-        <source>Show/hide the Jobs tab header</source>
-        <translation>Afișează/ascunde antent pentru panoul Joburi</translation>
-    </message>
-    <message>
         <source>Ctrl+F</source>
         <translation></translation>
     </message>
@@ -1261,10 +1268,6 @@ Adaugă oricum?</translation>
         <translation>Website Tarsnap</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Salvează</translation>
-    </message>
-    <message>
         <source>%1 %2 (%3)</source>
         <translation></translation>
     </message>
@@ -1291,10 +1294,6 @@ Adaugă oricum?</translation>
     <message>
         <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
         <translation>Căile de backup anterior definite pentru Jobul %1 nu mai sunt accesibile. Backupul poate fi incomplet, procedez?</translation>
-    </message>
-    <message>
-        <source>Add job</source>
-        <translation>Adaugă job</translation>
     </message>
     <message>
         <source>Stop Tasks</source>

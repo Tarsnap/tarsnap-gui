@@ -3,6 +3,7 @@
 #include "../qtest-platform.h"
 
 #include "helpwidget.h"
+#include "jobstabwidget.h"
 #include "mainwindow.h"
 
 #include "persistentmodel/archive.h"
@@ -272,8 +273,9 @@ void TestMainWindow::other_navigation()
 {
     HANDLE_IGNORING_XDG_HOME;
 
-    MainWindow *   mainwindow = new MainWindow();
-    Ui::MainWindow ui         = mainwindow->_ui;
+    MainWindow *   mainwindow    = new MainWindow();
+    Ui::MainWindow ui            = mainwindow->_ui;
+    JobsTabWidget *jobsTabWidget = &mainwindow->_jobsTabWidget;
 
     VISUAL_INIT(mainwindow);
 
@@ -281,7 +283,7 @@ void TestMainWindow::other_navigation()
     // HACK: Load directory that we'll want for creating a Job.  This is
     // slow to load on OSX (relative to the -platform offscreen test), so we
     // add an extra delay.
-    ui.jobDetailsWidget->_ui.jobTreeWidget->_model.setRootPath(TEST_DIR);
+    jobsTabWidget->_ui.jobDetailsWidget->_ui.jobTreeWidget->_model.setRootPath(TEST_DIR);
     QTest::qWait(1000);
 #endif
 
@@ -303,7 +305,7 @@ void TestMainWindow::other_navigation()
     mainwindow->displayTab(ui.jobsTab);
     mainwindow->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
                              QString("test-job"));
-    mainwindow->addJobClicked();
+    jobsTabWidget->addJobClicked();
 
     // Make sure that MainWindow has a job, then get a pointer to it.
     QVERIFY(ui.jobListWidget->count() == 1);

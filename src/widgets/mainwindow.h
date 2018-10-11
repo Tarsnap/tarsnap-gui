@@ -3,6 +3,7 @@
 
 #include "archivestabwidget.h"
 #include "helpwidget.h"
+#include "jobstabwidget.h"
 #include "settingswidget.h"
 
 #include "filepickerdialog.h"
@@ -149,6 +150,9 @@ private slots:
     void commitSettings();
     void mainTabChanged(int index);
 
+    // Jobs tab
+    void displayJobDetails(JobPtr job);
+
     // Backup tab - to be public
     //! Open a file dialog to add (multiple) items.
     void browseForBackupItems();
@@ -166,16 +170,11 @@ private slots:
     void backupMorphIntoJobClicked();
 
     // Jobs tab - to be public
-    //! Create a new job frmo teh Backup list.
-    void displayJobDetails(JobPtr job);
     //! Create a new archive from an existing Job.
     void backupJob(JobPtr job);
 
     // Jobs tab - to be private
-    void hideJobDetails();
-    void addJobClicked();
     void showJobsListMenu(const QPoint &pos);
-    void addDefaultJobs();
 
 private:
     Ui::MainWindow _ui;
@@ -193,6 +192,7 @@ private:
     QPlainTextEdit *_consoleLog;
 
     ArchivesTabWidget _archivesTabWidget;
+    JobsTabWidget     _jobsTabWidget;
     SettingsWidget    _settingsWidget;
     HelpWidget        _helpWidget;
 
@@ -219,8 +219,8 @@ private:
     // These are temporary functions to ease the JobsTabWidget refactoring.
     void _jobsTabWidget_init();
     void _jobsTabWidget_updateUi();
-    void _jobsTabWidget_loadSettings();
     void _jobsTabWidget_keyPressEvent(QKeyEvent *event);
+    void _jobsTabWidget_displayJobDetails(JobPtr job);
 };
 
 #endif // MAINWINDOW_H

@@ -813,6 +813,49 @@ Add anyway?</source>
     </message>
 </context>
 <context>
+    <name>JobsTabWidget</name>
+    <message>
+        <source>Job details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Would you like to automatically create a handful of predefined Jobs for commonly-used directories such as Desktop, Documents, and Pictures?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dismiss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes, create them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Job</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new job</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add job</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <source>Tarsnap</source>
@@ -868,26 +911,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Job list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Job details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Would you like to automatically create a handful of predefined Jobs for commonly-used directories such as Desktop, Documents, and Pictures?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dismiss</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Yes, create them</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add a new Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1147,22 +1170,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show Archives tab header</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show/hide the Archives tab header</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Jobs tab header</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show/hide the Jobs tab header</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ctrl+F</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1255,10 +1262,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1 %2 (%3)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1284,10 +1287,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add job</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

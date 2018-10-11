@@ -283,7 +283,7 @@ void TestMainWindow::other_navigation()
     // HACK: Load directory that we'll want for creating a Job.  This is
     // slow to load on OSX (relative to the -platform offscreen test), so we
     // add an extra delay.
-    ui.jobDetailsWidget->_ui.jobTreeWidget->_model.setRootPath(TEST_DIR);
+    jobsTabWidget->_ui.jobDetailsWidget->_ui.jobTreeWidget->_model.setRootPath(TEST_DIR);
     QTest::qWait(1000);
 #endif
 

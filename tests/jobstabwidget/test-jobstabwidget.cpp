@@ -17,6 +17,7 @@ private slots:
     // This one needs to be first
     void defaultJobs();
     void createJob();
+    void displayJobDetails();
 };
 
 void TestJobsTabWidget::initTestCase()
@@ -39,8 +40,7 @@ void TestJobsTabWidget::defaultJobs()
 {
     JobsTabWidget *   jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget ui            = jobstabwidget->_ui;
-    QSignalSpy        sig_jobAdded(jobstabwidget,
-                            SIGNAL(temp_jobDetailsWidget_jobAdded(JobPtr)));
+    QSignalSpy        sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
 
     VISUAL_INIT(jobstabwidget);
     jobstabwidget->show();
@@ -61,8 +61,7 @@ void TestJobsTabWidget::createJob()
 {
     JobsTabWidget *   jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget ui            = jobstabwidget->_ui;
-    QSignalSpy        sig_jobAdded(jobstabwidget,
-                            SIGNAL(temp_jobDetailsWidget_saveNew()));
+    QSignalSpy        sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
 
     VISUAL_INIT(jobstabwidget);
 
@@ -71,7 +70,7 @@ void TestJobsTabWidget::createJob()
     QVERIFY(sig_jobAdded.count() == 0);
     VISUAL_WAIT;
 
-    // TODO: right now this only enables the button
+    // Create a job
     jobstabwidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
                                 QString("test-job"));
     QVERIFY(ui.addJobButton->text() == QString("Save"));
@@ -81,6 +80,39 @@ void TestJobsTabWidget::createJob()
     jobstabwidget->addJobClicked();
     QVERIFY(ui.addJobButton->text() == QString("Add job"));
     QVERIFY(sig_jobAdded.count() == 1);
+    VISUAL_WAIT;
+
+    delete jobstabwidget;
+}
+
+void TestJobsTabWidget::displayJobDetails()
+{
+    JobsTabWidget *   jobstabwidget = new JobsTabWidget();
+    Ui::JobsTabWidget ui            = jobstabwidget->_ui;
+    QSignalSpy        sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
+    QSignalSpy        sig_jobBackup(jobstabwidget, SIGNAL(backupJob(JobPtr)));
+
+    VISUAL_INIT(jobstabwidget);
+
+    // Create a job
+    jobstabwidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
+                                QString("test-job-display"));
+    jobstabwidget->addJobClicked();
+    JobPtr job = sig_jobAdded.takeFirst().at(0).value<JobPtr>();
+    VISUAL_WAIT;
+
+    // Don't show the job
+    jobstabwidget->hideJobDetails();
+    VISUAL_WAIT;
+
+    // Show the job
+    jobstabwidget->displayJobDetails(job);
+    VISUAL_WAIT;
+
+    // Create a new archive for the job
+    QVERIFY(sig_jobBackup.count() == 0);
+    ui.jobDetailsWidget->backupButtonClicked();
+    QVERIFY(sig_jobBackup.count() == 1);
     VISUAL_WAIT;
 
     delete jobstabwidget;

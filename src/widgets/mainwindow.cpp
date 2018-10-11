@@ -46,9 +46,9 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
 
-    _ui.archivesVerticalLayout->insertWidget(0, &_archivesTabWidget);
-    _ui.settingsTabVerticalLayout->insertWidget(0, &_settingsWidget);
-    _ui.helpTabLayout->insertWidget(0, &_helpWidget);
+    _ui.archivesVerticalLayout->addWidget(&_archivesTabWidget);
+    _ui.settingsTabVerticalLayout->addWidget(&_settingsWidget);
+    _ui.helpTabLayout->addWidget(&_helpWidget);
 
     connectSettingsWidget();
 

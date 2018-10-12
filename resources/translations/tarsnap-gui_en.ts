@@ -854,6 +854,110 @@ Add anyway?</source>
         <source>Add job</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Jobs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search and filter the Jobs list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Job list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup all Jobs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup all jobs now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+Shift+B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore latest backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inspect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show job details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Execute backup for job(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete job</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter and search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search and filter Jobs list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jobs (%1/%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Job error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Job %1 has no backup paths selected. Nothing to back up.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Job warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -903,14 +1007,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Switch to Jobs tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search and filter the Jobs list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Job list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1210,10 +1306,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Jobs (%1/%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tarsnap error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1271,22 +1363,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>items</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Job error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Job %1 has no backup paths selected. Nothing to back up.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Job warning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

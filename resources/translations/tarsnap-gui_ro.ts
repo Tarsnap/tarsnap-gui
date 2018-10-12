@@ -860,6 +860,110 @@ Adaugă oricum?</translation>
         <source>Add job</source>
         <translation type="unfinished">Adaugă job</translation>
     </message>
+    <message>
+        <source>Jobs</source>
+        <translation type="unfinished">Joburi</translation>
+    </message>
+    <message>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search and filter the Jobs list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished">Caută și filtrează în lista de Joburi, se pot folosi &quot;shell globbing patterns&quot; &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Job list</source>
+        <translation type="unfinished">Listă joburi</translation>
+    </message>
+    <message>
+        <source>Backup all Jobs</source>
+        <translation type="unfinished">Execută backup pentru toate Joburile</translation>
+    </message>
+    <message>
+        <source>Backup all jobs now</source>
+        <translation type="unfinished">Execută backup pentru toate Joburile</translation>
+    </message>
+    <message>
+        <source>Ctrl+Shift+B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore</source>
+        <translation type="unfinished">Restaurează</translation>
+    </message>
+    <message>
+        <source>Restore latest backup</source>
+        <translation type="unfinished">Restaurează din cel mai recent backup</translation>
+    </message>
+    <message>
+        <source>Ctrl+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inspect</source>
+        <translation type="unfinished">Detalii</translation>
+    </message>
+    <message>
+        <source>Show job details</source>
+        <translation type="unfinished">Arată detalii Job</translation>
+    </message>
+    <message>
+        <source>Ctrl+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Execute backup for job(s)</source>
+        <translation type="unfinished">Execută backup</translation>
+    </message>
+    <message>
+        <source>Ctrl+B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Șterge</translation>
+    </message>
+    <message>
+        <source>Delete job</source>
+        <translation type="unfinished">Șterge Job</translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter and search</source>
+        <translation type="unfinished">Filtrează și caută</translation>
+    </message>
+    <message>
+        <source>Search and filter Jobs list  &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished">Caută și filtrează în lista de Joburi &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Jobs (%1/%2)</source>
+        <translation type="unfinished">Joburi (%1/%2)</translation>
+    </message>
+    <message>
+        <source>Job error</source>
+        <translation type="unfinished">Eroare Job</translation>
+    </message>
+    <message>
+        <source>Job %1 has no backup paths selected. Nothing to back up.</source>
+        <translation type="unfinished">Jobul %1 nu are nicio cale de backup definită, așadar backupul nu poate fi realizat. </translation>
+    </message>
+    <message>
+        <source>Job warning</source>
+        <translation type="unfinished">Avertizare Job</translation>
+    </message>
+    <message>
+        <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
+        <translation type="unfinished">Căile de backup anterior definite pentru Jobul %1 nu mai sunt accesibile. Backupul poate fi incomplet, procedez?</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -910,14 +1014,6 @@ Adaugă oricum?</translation>
     <message>
         <source>Switch to Jobs tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation>Comută la panoul Joburi &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>Search and filter the Jobs list, shell globbing patterns can be used &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Caută și filtrează în lista de Joburi, se pot folosi &quot;shell globbing patterns&quot; &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>Job list</source>
-        <translation>Listă joburi</translation>
     </message>
     <message>
         <source>Ctrl+Backspace</source>
@@ -1216,10 +1312,6 @@ Adaugă oricum?</translation>
         <translation>Navighează după director de adăugat la lista de Backup</translation>
     </message>
     <message>
-        <source>Jobs (%1/%2)</source>
-        <translation>Joburi (%1/%2)</translation>
-    </message>
-    <message>
         <source>Tarsnap error</source>
         <translation>Eroare Tarsnap</translation>
     </message>
@@ -1278,22 +1370,6 @@ Adaugă oricum?</translation>
     <message>
         <source>items</source>
         <translation>elemente</translation>
-    </message>
-    <message>
-        <source>Job error</source>
-        <translation>Eroare Job</translation>
-    </message>
-    <message>
-        <source>Job %1 has no backup paths selected. Nothing to back up.</source>
-        <translation>Jobul %1 nu are nicio cale de backup definită, așadar backupul nu poate fi realizat. </translation>
-    </message>
-    <message>
-        <source>Job warning</source>
-        <translation>Avertizare Job</translation>
-    </message>
-    <message>
-        <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
-        <translation>Căile de backup anterior definite pentru Jobul %1 nu mai sunt accesibile. Backupul poate fi incomplet, procedez?</translation>
     </message>
     <message>
         <source>Stop Tasks</source>

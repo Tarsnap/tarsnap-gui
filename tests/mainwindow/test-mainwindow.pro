@@ -7,6 +7,7 @@ FORMS +=							\
 	../../forms/archivestabwidget.ui			\
 	../../forms/archivewidget.ui				\
 	../../forms/backuplistwidgetitem.ui			\
+	../../forms/backuptabwidget.ui				\
 	../../forms/consolewidget.ui				\
 	../../forms/filepickerdialog.ui				\
 	../../forms/filepickerwidget.ui				\
@@ -41,6 +42,7 @@ HEADERS  +=						\
 	../../src/widgets/archivewidget.h		\
 	../../src/widgets/backuplistwidget.h		\
 	../../src/widgets/backuplistwidgetitem.h	\
+	../../src/widgets/backuptabwidget.h		\
 	../../src/widgets/busywidget.h			\
 	../../src/widgets/confirmationdialog.h		\
 	../../src/widgets/elidedlabel.h			\
@@ -77,6 +79,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/widgets/archivewidget.cpp		\
 	../../src/widgets/backuplistwidget.cpp		\
 	../../src/widgets/backuplistwidgetitem.cpp	\
+	../../src/widgets/backuptabwidget.cpp		\
 	../../src/widgets/busywidget.cpp		\
 	../../src/widgets/confirmationdialog.cpp	\
 	../../src/widgets/elidedlabel.cpp		\

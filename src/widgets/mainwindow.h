@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "archivestabwidget.h"
+#include "backuptabwidget.h"
 #include "helpwidget.h"
 #include "jobstabwidget.h"
 #include "settingswidget.h"
@@ -163,7 +164,6 @@ private slots:
 
     // Backup tab - to be private
     void updateBackupItemTotals(quint64 count, quint64 size);
-    void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();
     void backupMorphIntoJobClicked();
 
@@ -177,11 +177,11 @@ private:
     int            _queuedTasks;
 
     // Backup tab
-    QString          _lastTimestamp;
     FilePickerDialog _filePickerDialog;
 
     QPlainTextEdit *_consoleLog;
 
+    BackupTabWidget   _backupTabWidget;
     ArchivesTabWidget _archivesTabWidget;
     JobsTabWidget     _jobsTabWidget;
     SettingsWidget    _settingsWidget;

@@ -372,6 +372,29 @@ Add anyway?</source>
     </message>
 </context>
 <context>
+    <name>BackupTabWidget</name>
+    <message>
+        <source>Resulting Archive name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>archive name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Append current timestamp to the backup name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Append timestamp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current backup selection stats</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FilePickerDialog</name>
     <message>
         <source>File Browser</source>
@@ -978,18 +1001,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Resulting Archive name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Append current timestamp to the backup name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Append timestamp</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current backup selection stats</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1031,10 +1042,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Qt::ElideMiddle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>archive name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

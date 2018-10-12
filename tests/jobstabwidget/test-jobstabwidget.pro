@@ -9,8 +9,8 @@ FORMS +=							\
 	../../forms/jobwidget.ui				\
 	../../forms/restoredialog.ui
 
-# Needed for the database template
-RESOURCES += ../../resources/resources-lite.qrc
+# Needed for the database template and icons
+RESOURCES += ../../resources/resources.qrc
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\

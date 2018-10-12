@@ -4,6 +4,7 @@
 #include "utils.h"
 
 #include <QMenu>
+#include <QMessageBox>
 #include <QWidget>
 
 #include <TSettings.h>
@@ -303,4 +304,35 @@ void JobsTabWidget::showJobsListMenu(const QPoint &pos)
         jobListMenu.addAction(_ui.actionBackupAllJobs);
     }
     jobListMenu.exec(globalPos);
+}
+
+void JobsTabWidget::backupJob(JobPtr job)
+{
+    if(!job)
+        return;
+
+    if(!job->validateUrls())
+    {
+        if(job->urls().isEmpty())
+        {
+            QMessageBox::warning(this, tr("Job error"),
+                                 tr("Job %1 has no backup paths selected. "
+                                    "Nothing to back up.")
+                                     .arg(job->name()));
+            return;
+        }
+        else
+        {
+            QMessageBox::StandardButton confirm = QMessageBox::question(
+                this, tr("Job warning"),
+                tr("Some backup paths for Job %1 are not"
+                   " accessible anymore and thus backup may"
+                   " be incomplete."
+                   " Proceed with backup?")
+                    .arg(job->name()));
+            if(confirm != QMessageBox::Yes)
+                return;
+        }
+    }
+    emit backupNow(job->createBackupTask());
 }

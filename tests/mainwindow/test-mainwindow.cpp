@@ -305,8 +305,8 @@ void TestMainWindow::other_navigation()
 
     // Add a Job
     mainwindow->displayTab(ui.jobsTab);
-    mainwindow->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
-                             QString("test-job"));
+    jobsTabWidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
+                                QString("test-job"));
     jobsTabWidget->addJobClicked();
 
     // Make sure that MainWindow has a job, then get a pointer to it.

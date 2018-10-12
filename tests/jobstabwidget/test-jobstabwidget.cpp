@@ -90,7 +90,7 @@ void TestJobsTabWidget::displayJobDetails()
     JobsTabWidget *   jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget ui            = jobstabwidget->_ui;
     QSignalSpy        sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
-    QSignalSpy        sig_jobBackup(jobstabwidget, SIGNAL(backupJob(JobPtr)));
+    QSignalSpy sig_backupNow(jobstabwidget, SIGNAL(backupNow(BackupTaskPtr)));
 
     VISUAL_INIT(jobstabwidget);
 
@@ -112,9 +112,9 @@ void TestJobsTabWidget::displayJobDetails()
     VISUAL_WAIT;
 
     // Create a new archive for the job
-    QVERIFY(sig_jobBackup.count() == 0);
+    QVERIFY(sig_backupNow.count() == 0);
     ui.jobDetailsWidget->backupButtonClicked();
-    QVERIFY(sig_jobBackup.count() == 1);
+    QVERIFY(sig_backupNow.count() == 1);
     VISUAL_WAIT;
 
     delete jobstabwidget;

@@ -52,8 +52,6 @@ signals:
     void displayInspectArchive(ArchivePtr archive);
     //! Passes info from the ArchiveListWidget or JobWidget to the TaskManager.
     void deleteArchives(QList<ArchivePtr> archives);
-    //! Create a new archive from an existing Job.
-    void backupJob(JobPtr job);
     //! Create new archives for the selected job(s).
     void backupSelectedItems();
     //! Delete the selected job.
@@ -66,6 +64,8 @@ signals:
     void jobList(QMap<QString, JobPtr>);
     //! Display detailed information about a specific job.
     void jobInspectByRef(QString jobRef);
+    //! Begin tarsnap -c -f \<name\>
+    void backupNow(BackupTaskPtr backupTask);
 
 protected:
     //! Handles translation change of language.
@@ -77,6 +77,7 @@ private slots:
     void addDefaultJobs();
     void hideJobDetails();
     void showJobsListMenu(const QPoint &pos);
+    void backupJob(JobPtr job);
 
 private:
     Ui::JobsTabWidget _ui;

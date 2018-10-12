@@ -96,8 +96,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Backup pane
     _backupTabWidget_init();
-    connect(this, &MainWindow::morphBackupIntoJob, this,
-            &MainWindow::createNewJob);
+    connect(this, &MainWindow::morphBackupIntoJob, &_jobsTabWidget,
+            &JobsTabWidget::createNewJob);
 
     // Settings pane
     loadSettings();
@@ -117,7 +117,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::getArchives);
 
     // Jobs pane
-    _jobsTabWidget_init();
 
     // Send menubar actions to the Jobs tab
     connect(_ui.actionAddJob, &QAction::triggered, &_jobsTabWidget,
@@ -142,8 +141,6 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::restoreArchive);
     connect(&_jobsTabWidget, &JobsTabWidget::deleteArchives, this,
             &MainWindow::deleteArchives);
-    connect(&_jobsTabWidget, &JobsTabWidget::backupJob, this,
-            &MainWindow::backupJob);
     connect(&_jobsTabWidget, &JobsTabWidget::findMatchingArchives, this,
             &MainWindow::findMatchingArchives);
     connect(&_jobsTabWidget, &JobsTabWidget::deleteJob, this,
@@ -164,6 +161,10 @@ MainWindow::MainWindow(QWidget *parent)
             &JobsTabWidget::restoreSelectedItem);
     connect(_ui.actionJobInspect, &QAction::triggered, &_jobsTabWidget,
             &JobsTabWidget::inspectSelectedItem);
+
+    // Other
+    connect(&_jobsTabWidget, &JobsTabWidget::backupNow, this,
+            &MainWindow::backupNow);
 
     _consoleLog = _helpWidget.getConsoleLog();
 }
@@ -923,45 +924,4 @@ void MainWindow::_backupTabWidget_updateUi()
         _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
     _ui.backupListInfoLabel->setText(_ui.backupListInfoLabel->text().arg(
         _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
-}
-
-void MainWindow::_jobsTabWidget_init()
-{
-
-}
-
-void MainWindow::createNewJob(QList<QUrl> urls, QString name)
-{
-    _jobsTabWidget.createNewJob(urls, name);
-}
-
-void MainWindow::backupJob(JobPtr job)
-{
-    if(!job)
-        return;
-
-    if(!job->validateUrls())
-    {
-        if(job->urls().isEmpty())
-        {
-            QMessageBox::warning(this, tr("Job error"),
-                                 tr("Job %1 has no backup paths selected. "
-                                    "Nothing to back up.")
-                                     .arg(job->name()));
-            return;
-        }
-        else
-        {
-            QMessageBox::StandardButton confirm = QMessageBox::question(
-                this, tr("Job warning"),
-                tr("Some backup paths for Job %1 are not"
-                   " accessible anymore and thus backup may"
-                   " be incomplete."
-                   " Proceed with backup?")
-                    .arg(job->name()));
-            if(confirm != QMessageBox::Yes)
-                return;
-        }
-    }
-    emit backupNow(job->createBackupTask());
 }

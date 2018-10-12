@@ -72,9 +72,6 @@ public slots:
     //! Update the number of tasks;
     void updateNumTasks(int numRunning, int numQueued);
 
-    //! Create a new job from the Backup list.
-    void createNewJob(QList<QUrl> urls, QString name);
-
 signals:
     //! Begin tarsnap -c -f \<name\>
     void backupNow(BackupTaskPtr backupTask);
@@ -168,10 +165,6 @@ private slots:
     void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();
     void backupMorphIntoJobClicked();
-
-    // Jobs tab - to be public
-    //! Create a new archive from an existing Job.
-    void backupJob(JobPtr job);
 
 private:
     Ui::MainWindow _ui;

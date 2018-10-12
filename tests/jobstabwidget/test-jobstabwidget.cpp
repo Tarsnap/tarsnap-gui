@@ -43,14 +43,13 @@ void TestJobsTabWidget::defaultJobs()
     QSignalSpy        sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
 
     VISUAL_INIT(jobstabwidget);
-    jobstabwidget->show();
 
     // We start off showing the default jobs prompt
-    QVERIFY(ui.defaultJobs->isVisible() == true);
+    QVERIFY(ui.defaultJobs->isVisibleTo(jobstabwidget) == true);
 
     // Don't create the default jobs; no more prompt
     ui.dismissButton->clicked();
-    QVERIFY(ui.defaultJobs->isVisible() == false);
+    QVERIFY(ui.defaultJobs->isVisibleTo(jobstabwidget) == false);
     QVERIFY(sig_jobAdded.count() == 0);
     VISUAL_WAIT;
 
@@ -103,10 +102,12 @@ void TestJobsTabWidget::displayJobDetails()
 
     // Don't show the job
     jobstabwidget->hideJobDetails();
+    QVERIFY(ui.jobDetailsWidget->isVisibleTo(jobstabwidget) == false);
     VISUAL_WAIT;
 
     // Show the job
     jobstabwidget->displayJobDetails(job);
+    QVERIFY(ui.jobDetailsWidget->isVisibleTo(jobstabwidget) == true);
     VISUAL_WAIT;
 
     // Create a new archive for the job

@@ -378,6 +378,29 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>BackupTabWidget</name>
+    <message>
+        <source>Resulting Archive name</source>
+        <translation type="unfinished">Numele Arhivei</translation>
+    </message>
+    <message>
+        <source>archive name</source>
+        <translation type="unfinished">nume arhivă</translation>
+    </message>
+    <message>
+        <source>Append current timestamp to the backup name</source>
+        <translation type="unfinished">Adaugă data și ora curentă la numele backupului</translation>
+    </message>
+    <message>
+        <source>Append timestamp</source>
+        <translation type="unfinished">Adaugă data și ora curentă</translation>
+    </message>
+    <message>
+        <source>Current backup selection stats</source>
+        <translation type="unfinished">Sumar pentru lista curentă de backup</translation>
+    </message>
+</context>
+<context>
     <name>FilePickerDialog</name>
     <message>
         <source>File Browser</source>
@@ -984,18 +1007,6 @@ Adaugă oricum?</translation>
         <translation>Adaugå fișiere și directoare folosind Navigatorul de Fișiere &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <source>Resulting Archive name</source>
-        <translation>Numele Arhivei</translation>
-    </message>
-    <message>
-        <source>Append current timestamp to the backup name</source>
-        <translation>Adaugă data și ora curentă la numele backupului</translation>
-    </message>
-    <message>
-        <source>Append timestamp</source>
-        <translation>Adaugă data și ora curentă</translation>
-    </message>
-    <message>
         <source>Current backup selection stats</source>
         <translation>Sumar pentru lista curentă de backup</translation>
     </message>
@@ -1038,10 +1049,6 @@ Adaugă oricum?</translation>
     <message>
         <source>Qt::ElideMiddle</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>archive name</source>
-        <translation>nume arhivă</translation>
     </message>
     <message>
         <source>Help</source>

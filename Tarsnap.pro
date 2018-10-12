@@ -220,16 +220,22 @@ QMAKE_EXTRA_TARGETS += format update_translations
 TEST_HOME = /tmp/tarsnap-gui-test
 test_home_prep.commands = @rm -rf "$${TEST_HOME}"
 
+# Prep the tests
+buildtests = $$UNIT_TESTS $$BUILD_ONLY_TESTS
+for(D, buildtests) {
+	cmd=	cd $${D} &&					\
+			CFLAGS=\"$$(CFLAGS)\"			\
+			CXXFLAGS=\"$$(CXXFLAGS)\"		\
+			LDFLAGS=\"$$(LDFLAGS)\"			\
+			$${QMAKE_QMAKE} -spec $${QMAKESPEC}	\
+				QMAKE_CC=\"$${QMAKE_CC}\"	\
+				QMAKE_CXX=\"$${QMAKE_CXX}\"
+	system($$cmd)|error("Failed to qmake in: $$D")
+}
+
 test.commands =		@echo "Compiling tests...";			\
 			for D in $${UNIT_TESTS} $${BUILD_ONLY_TESTS}; do \
-				(cd \$\${D} &&				\
-					CFLAGS=\"$$(CFLAGS)\"		\
-					CXXFLAGS=\"$$(CXXFLAGS)\"	\
-					LDFLAGS=\"$$(LDFLAGS)\"		\
-					\${QMAKE} -spec $${QMAKESPEC}	\
-						QMAKE_CC=\"$${QMAKE_CC}\" \
-						QMAKE_CXX=\"$${QMAKE_CXX}\" \
-					&& \${MAKE} -s);		\
+				(cd \$\${D} && \${MAKE} -s);		\
 				err=\$\$?;				\
 				if \[ \$\${err} -gt "0" \]; then	\
 					exit \$\${err};			\

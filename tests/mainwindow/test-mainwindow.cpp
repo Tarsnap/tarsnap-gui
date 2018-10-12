@@ -329,11 +329,19 @@ void TestMainWindow::other_navigation()
     // Link them
     job->setArchives(QList<ArchivePtr>() << archive);
 
-    // Switch back and forth between the job and archive.
+    // Create a second job, this time via morphBackupIntoJob
     mainwindow->displayTab(ui.backupTab);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
     VISUAL_WAIT;
 
+    mainwindow->morphBackupIntoJob(testdir_urls, "test-job2");
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
+    VISUAL_WAIT;
+
+    jobsTabWidget->addJobClicked();
+    QVERIFY(jui.jobListWidget->count() == 2);
+    VISUAL_WAIT;
+
+    // Switch back and forth between the job and archive.
     mainwindow->displayInspectArchive(archive);
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.archivesTab);
     VISUAL_WAIT;

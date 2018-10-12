@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
       _aboutToQuit(false),
       _stopTasksDialog(this),
       _filePickerDialog(this),
+      _backupTabWidget(this),
       _archivesTabWidget(this),
       _jobsTabWidget(this),
       _settingsWidget(this),
@@ -47,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
 
+    _ui.backupTabVerticalLayout->addWidget(&_backupTabWidget);
     _ui.archivesVerticalLayout->addWidget(&_archivesTabWidget);
     _ui.jobsVerticalLayout->addWidget(&_jobsTabWidget);
     _ui.settingsTabVerticalLayout->addWidget(&_settingsWidget);

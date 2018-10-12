@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "archivestabwidget.h"
+#include "backuptabwidget.h"
 #include "helpwidget.h"
 #include "jobstabwidget.h"
 #include "settingswidget.h"
@@ -182,6 +183,7 @@ private:
 
     QPlainTextEdit *_consoleLog;
 
+    BackupTabWidget   _backupTabWidget;
     ArchivesTabWidget _archivesTabWidget;
     JobsTabWidget     _jobsTabWidget;
     SettingsWidget    _settingsWidget;

@@ -231,10 +231,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Escape:
-        if(_ui.mainTabWidget->currentWidget() == _ui.jobsTab)
-        {
-            _jobsTabWidget_keyPressEvent(event);
-        }
         if(_ui.journalLog->isVisible())
         {
             _ui.actionShowJournal->toggle();
@@ -698,8 +694,6 @@ void MainWindow::updateUi()
     _ui.busyWidget->setToolTip(_ui.busyWidget->toolTip().arg(
         _ui.actionStopTasks->shortcut().toString(QKeySequence::NativeText)));
 
-    _jobsTabWidget_updateUi();
-
     // --
 
     setupMenuBar();
@@ -933,60 +927,7 @@ void MainWindow::_backupTabWidget_updateUi()
 
 void MainWindow::_jobsTabWidget_init()
 {
-    _ui.jobsFilterFrame->hide();
 
-    // Jobs filter
-    _ui.jobsFilterButton->setDefaultAction(_ui.actionFilterJobs);
-    connect(_ui.actionFilterJobs, &QAction::triggered, [&]() {
-        _ui.jobsFilterFrame->setVisible(!_ui.jobsFilterFrame->isVisible());
-        if(_ui.jobsFilter->isVisible())
-            _ui.jobsFilter->setFocus();
-        else
-            _ui.jobsFilter->clearEditText();
-    });
-    connect(_ui.jobsFilter, &QComboBox::editTextChanged,
-            _jobsTabWidget.temp_jobListWidget(), &JobListWidget::setFilter);
-    connect(_ui.jobsFilter, static_cast<void (QComboBox::*)(int)>(
-                                &QComboBox::currentIndexChanged),
-            this, [&]() { _jobsTabWidget.temp_jobListWidget()->setFocus(); });
-
-    // FIXME: temp connection for the JobsTabWidget refactor
-    connect(&_jobsTabWidget, &JobsTabWidget::temp_countChanged, this,
-            [&](int total, int visible) {
-                _ui.jobsCountLabel->setText(
-                    tr("Jobs (%1/%2)").arg(visible).arg(total));
-            });
-}
-
-void MainWindow::_jobsTabWidget_keyPressEvent(QKeyEvent *event)
-{
-    switch(event->key())
-    {
-    case Qt::Key_Escape:
-        if(_ui.jobsFilter->isVisible())
-        {
-            if(_ui.jobsFilter->currentText().isEmpty())
-            {
-                _ui.actionFilterJobs->trigger();
-            }
-            else
-            {
-                _ui.jobsFilter->clearEditText();
-                _ui.jobsFilter->setFocus();
-            }
-            return;
-        }
-    default:
-        QWidget::keyPressEvent(event);
-    }
-}
-
-void MainWindow::_jobsTabWidget_updateUi()
-{
-    _ui.actionFilterJobs->setToolTip(_ui.actionFilterJobs->toolTip().arg(
-        _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
-    _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip().arg(
-        _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
 }
 
 void MainWindow::createNewJob(QList<QUrl> urls, QString name)

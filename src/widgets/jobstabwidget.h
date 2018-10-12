@@ -27,9 +27,6 @@ public:
     //! Constructor.
     explicit JobsTabWidget(QWidget *parent = nullptr);
 
-    // TODO: this is a hack for refactoring
-    JobListWidget *temp_jobListWidget() { return _ui.jobListWidget; }
-
 public slots:
     //! The user clicked on the "add job / save job" button, or selected the
     //! menu item.
@@ -69,9 +66,6 @@ signals:
     void jobList(QMap<QString, JobPtr>);
     //! Display detailed information about a specific job.
     void jobInspectByRef(QString jobRef);
-
-    //! FIXME: temp for refactor
-    void temp_countChanged(int total, int visible);
 
 protected:
     //! Handles translation change of language.

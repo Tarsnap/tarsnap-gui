@@ -14,6 +14,7 @@ JobsTabWidget::JobsTabWidget(QWidget *parent) : QWidget(parent)
     _ui.setupUi(this);
     _ui.jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui.jobDetailsWidget->hide();
+    _ui.jobsFilterFrame->hide();
 
     // "Default jobs" handling
     connect(_ui.sureButton, &QPushButton::clicked, this,
@@ -79,9 +80,27 @@ JobsTabWidget::JobsTabWidget(QWidget *parent) : QWidget(parent)
     connect(this, &JobsTabWidget::inspectSelectedItem, _ui.jobListWidget,
             &JobListWidget::inspectSelectedItem);
 
-    // FIXME: temp for refactor
+    // Jobs filter
+    _ui.jobsFilterButton->setDefaultAction(_ui.actionFilterJobs);
+    connect(_ui.actionFilterJobs, &QAction::triggered, [&]() {
+        _ui.jobsFilterFrame->setVisible(!_ui.jobsFilterFrame->isVisible());
+        if(_ui.jobsFilter->isVisible())
+            _ui.jobsFilter->setFocus();
+        else
+            _ui.jobsFilter->clearEditText();
+    });
+    connect(_ui.jobsFilter, &QComboBox::editTextChanged, _ui.jobListWidget,
+            &JobListWidget::setFilter);
+    connect(_ui.jobsFilter, static_cast<void (QComboBox::*)(int)>(
+                                &QComboBox::currentIndexChanged),
+            this, [&]() { _ui.jobListWidget->setFocus(); });
+
+    // Update filter results
     connect(_ui.jobListWidget, &JobListWidget::countChanged, this,
-            &JobsTabWidget::temp_countChanged);
+            [&](int total, int visible) {
+                _ui.jobsCountLabel->setText(
+                    tr("Jobs (%1/%2)").arg(visible).arg(total));
+            });
 
     // Right-click context menu
     _ui.jobListWidget->addAction(_ui.actionJobBackup);
@@ -156,6 +175,19 @@ void JobsTabWidget::keyPressEvent(QKeyEvent *event)
             hideJobDetails();
             return;
         }
+        if(_ui.jobsFilter->isVisible())
+        {
+            if(_ui.jobsFilter->currentText().isEmpty())
+            {
+                _ui.actionFilterJobs->trigger();
+            }
+            else
+            {
+                _ui.jobsFilter->clearEditText();
+                _ui.jobsFilter->setFocus();
+            }
+            return;
+        }
         break;
     default:
         QWidget::keyPressEvent(event);
@@ -166,6 +198,11 @@ void JobsTabWidget::updateUi()
 {
     _ui.addJobButton->setToolTip(_ui.addJobButton->toolTip().arg(
         _ui.actionAddJob->shortcut().toString(QKeySequence::NativeText)));
+
+    _ui.actionFilterJobs->setToolTip(_ui.actionFilterJobs->toolTip().arg(
+        _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
+    _ui.jobsFilter->setToolTip(_ui.jobsFilter->toolTip().arg(
+        _ui.actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
 
     if(_ui.addJobButton->property("save").toBool())
         _ui.addJobButton->setText(tr("Save"));

@@ -96,8 +96,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Backup pane
     _backupTabWidget_init();
-    connect(this, &MainWindow::morphBackupIntoJob, &_jobsTabWidget,
-            &JobsTabWidget::createNewJob);
+    connect(this, &MainWindow::morphBackupIntoJob, this,
+            &MainWindow::createNewJob);
 
     // Settings pane
     loadSettings();
@@ -698,6 +698,12 @@ void MainWindow::updateUi()
     // --
 
     setupMenuBar();
+}
+
+void MainWindow::createNewJob(QList<QUrl> urls, QString name)
+{
+    displayTab(_ui.jobsTab);
+    _jobsTabWidget.createNewJob(urls, name);
 }
 
 void MainWindow::updateSimulationIcon(int state)

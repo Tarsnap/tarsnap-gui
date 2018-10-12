@@ -289,6 +289,8 @@ void TestMainWindow::other_navigation()
     QTest::qWait(1000);
 #endif
 
+    QList<QUrl> testdir_urls({QUrl("file://" TEST_DIR)});
+
     // Switch to a different tab.
     mainwindow->displayTab(ui.helpTab);
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.helpTab);
@@ -305,8 +307,7 @@ void TestMainWindow::other_navigation()
 
     // Add a Job
     mainwindow->displayTab(ui.jobsTab);
-    jobsTabWidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
-                                QString("test-job"));
+    jobsTabWidget->createNewJob(testdir_urls, QString("test-job"));
     jobsTabWidget->addJobClicked();
 
     // Make sure that MainWindow has a job, then get a pointer to it.
@@ -328,14 +329,23 @@ void TestMainWindow::other_navigation()
     // Link them
     job->setArchives(QList<ArchivePtr>() << archive);
 
-    // Switch back and forth between the job and archive.
+    // Create a second job, this time via morphBackupIntoJob
     mainwindow->displayTab(ui.backupTab);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
     VISUAL_WAIT;
 
+    mainwindow->morphBackupIntoJob(testdir_urls, "test-job2");
+    QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
+    VISUAL_WAIT;
+
+    jobsTabWidget->addJobClicked();
+    QVERIFY(jui.jobListWidget->count() == 2);
+    VISUAL_WAIT;
+
+    // Switch back and forth between the job and archive.
     mainwindow->displayInspectArchive(archive);
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.archivesTab);
     VISUAL_WAIT;
+
     mainwindow->displayJobDetails(job);
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
     VISUAL_WAIT;

@@ -149,6 +149,7 @@ private slots:
 
     // Jobs tab
     void displayJobDetails(JobPtr job);
+    void createNewJob(QList<QUrl> urls, QString name);
 
     // Backup tab - to be public
     //! Open a file dialog to add (multiple) items.

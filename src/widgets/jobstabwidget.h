@@ -27,9 +27,6 @@ public:
     //! Constructor.
     explicit JobsTabWidget(QWidget *parent = nullptr);
 
-    // TODO: this is a hack for refactoring
-    QToolButton *temp_addJobButton() { return _ui.addJobButton; }
-
 public slots:
     //! The user clicked on the "add job / save job" button, or selected the
     //! menu item.
@@ -55,8 +52,20 @@ signals:
     void displayInspectArchive(ArchivePtr archive);
     //! Passes info from the ArchiveListWidget or JobWidget to the TaskManager.
     void deleteArchives(QList<ArchivePtr> archives);
-    //! Create a new archive from an existing Job.
-    void backupJob(JobPtr job);
+    //! Create new archives for the selected job(s).
+    void backupSelectedItems();
+    //! Delete the selected job.
+    void deleteSelectedItem();
+    //! Restore the first of the selected jobs.
+    void restoreSelectedItem();
+    //! Display detailed information about the first of the selected items.
+    void inspectSelectedItem();
+    //! Passes the list of all Job objects to the JobListWidget.
+    void jobList(QMap<QString, JobPtr>);
+    //! Display detailed information about a specific job.
+    void jobInspectByRef(QString jobRef);
+    //! Begin tarsnap -c -f \<name\>
+    void backupNow(BackupTaskPtr backupTask);
 
 protected:
     //! Handles translation change of language.
@@ -67,6 +76,8 @@ protected:
 private slots:
     void addDefaultJobs();
     void hideJobDetails();
+    void showJobsListMenu(const QPoint &pos);
+    void backupJob(JobPtr job);
 
 private:
     Ui::JobsTabWidget _ui;

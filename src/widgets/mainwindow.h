@@ -72,9 +72,6 @@ public slots:
     //! Update the number of tasks;
     void updateNumTasks(int numRunning, int numQueued);
 
-    //! Create a new job from the Backup list.
-    void createNewJob(QList<QUrl> urls, QString name);
-
 signals:
     //! Begin tarsnap -c -f \<name\>
     void backupNow(BackupTaskPtr backupTask);
@@ -169,13 +166,6 @@ private slots:
     void backupButtonClicked();
     void backupMorphIntoJobClicked();
 
-    // Jobs tab - to be public
-    //! Create a new archive from an existing Job.
-    void backupJob(JobPtr job);
-
-    // Jobs tab - to be private
-    void showJobsListMenu(const QPoint &pos);
-
 private:
     Ui::MainWindow _ui;
     int            _minWidth;
@@ -215,12 +205,6 @@ private:
     void _backupTabWidget_browseForBackupItems();
     void _backupTabWidget_init();
     void _backupTabWidget_updateUi();
-
-    // These are temporary functions to ease the JobsTabWidget refactoring.
-    void _jobsTabWidget_init();
-    void _jobsTabWidget_updateUi();
-    void _jobsTabWidget_keyPressEvent(QKeyEvent *event);
-    void _jobsTabWidget_displayJobDetails(JobPtr job);
 };
 
 #endif // MAINWINDOW_H

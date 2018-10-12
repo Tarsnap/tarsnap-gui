@@ -18,6 +18,7 @@ private slots:
     void defaultJobs();
     void createJob();
     void displayJobDetails();
+    void jobListWidget();
 };
 
 void TestJobsTabWidget::initTestCase()
@@ -43,14 +44,13 @@ void TestJobsTabWidget::defaultJobs()
     QSignalSpy        sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
 
     VISUAL_INIT(jobstabwidget);
-    jobstabwidget->show();
 
     // We start off showing the default jobs prompt
-    QVERIFY(ui.defaultJobs->isVisible() == true);
+    QVERIFY(ui.defaultJobs->isVisibleTo(jobstabwidget) == true);
 
     // Don't create the default jobs; no more prompt
     ui.dismissButton->clicked();
-    QVERIFY(ui.defaultJobs->isVisible() == false);
+    QVERIFY(ui.defaultJobs->isVisibleTo(jobstabwidget) == false);
     QVERIFY(sig_jobAdded.count() == 0);
     VISUAL_WAIT;
 
@@ -90,7 +90,7 @@ void TestJobsTabWidget::displayJobDetails()
     JobsTabWidget *   jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget ui            = jobstabwidget->_ui;
     QSignalSpy        sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
-    QSignalSpy        sig_jobBackup(jobstabwidget, SIGNAL(backupJob(JobPtr)));
+    QSignalSpy sig_backupNow(jobstabwidget, SIGNAL(backupNow(BackupTaskPtr)));
 
     VISUAL_INIT(jobstabwidget);
 
@@ -103,16 +103,48 @@ void TestJobsTabWidget::displayJobDetails()
 
     // Don't show the job
     jobstabwidget->hideJobDetails();
+    QVERIFY(ui.jobDetailsWidget->isVisibleTo(jobstabwidget) == false);
     VISUAL_WAIT;
 
     // Show the job
     jobstabwidget->displayJobDetails(job);
+    QVERIFY(ui.jobDetailsWidget->isVisibleTo(jobstabwidget) == true);
     VISUAL_WAIT;
 
     // Create a new archive for the job
-    QVERIFY(sig_jobBackup.count() == 0);
+    QVERIFY(sig_backupNow.count() == 0);
     ui.jobDetailsWidget->backupButtonClicked();
-    QVERIFY(sig_jobBackup.count() == 1);
+    QVERIFY(sig_backupNow.count() == 1);
+    VISUAL_WAIT;
+
+    delete jobstabwidget;
+}
+
+void TestJobsTabWidget::jobListWidget()
+{
+    JobsTabWidget *   jobstabwidget = new JobsTabWidget();
+    Ui::JobsTabWidget ui            = jobstabwidget->_ui;
+    QSignalSpy        sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
+    QSignalSpy sig_deleteJob(jobstabwidget, SIGNAL(deleteJob(JobPtr, bool)));
+
+    VISUAL_INIT(jobstabwidget);
+
+    // Create a job
+    jobstabwidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
+                                QString("test-job-joblistwidget"));
+    jobstabwidget->addJobClicked();
+    JobPtr job = sig_jobAdded.takeFirst().at(0).value<JobPtr>();
+    QVERIFY(ui.jobListWidget->count() == 1);
+    VISUAL_WAIT;
+
+    // Don't show the job
+    jobstabwidget->hideJobDetails();
+    QVERIFY(ui.jobDetailsWidget->isVisibleTo(jobstabwidget) == false);
+    VISUAL_WAIT;
+
+    // Show the job with the joblistwidget
+    jobstabwidget->jobInspectByRef("test-job-joblistwidget");
+    QVERIFY(ui.jobDetailsWidget->isVisibleTo(jobstabwidget) == true);
     VISUAL_WAIT;
 
     delete jobstabwidget;

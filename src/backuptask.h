@@ -10,6 +10,7 @@
 class BackupTask;
 
 typedef QSharedPointer<BackupTask> BackupTaskPtr;
+Q_DECLARE_METATYPE(BackupTaskPtr);
 
 class BackupTask : public QObject
 {

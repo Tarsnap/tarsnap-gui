@@ -273,9 +273,10 @@ void TestMainWindow::other_navigation()
 {
     HANDLE_IGNORING_XDG_HOME;
 
-    MainWindow *   mainwindow    = new MainWindow();
-    Ui::MainWindow ui            = mainwindow->_ui;
-    JobsTabWidget *jobsTabWidget = &mainwindow->_jobsTabWidget;
+    MainWindow *      mainwindow    = new MainWindow();
+    Ui::MainWindow    ui            = mainwindow->_ui;
+    JobsTabWidget *   jobsTabWidget = &mainwindow->_jobsTabWidget;
+    Ui::JobsTabWidget jui           = jobsTabWidget->_ui;
 
     VISUAL_INIT(mainwindow);
 
@@ -283,7 +284,8 @@ void TestMainWindow::other_navigation()
     // HACK: Load directory that we'll want for creating a Job.  This is
     // slow to load on OSX (relative to the -platform offscreen test), so we
     // add an extra delay.
-    jobsTabWidget->_ui.jobDetailsWidget->_ui.jobTreeWidget->_model.setRootPath(TEST_DIR);
+    jobsTabWidget->_ui.jobDetailsWidget->_ui.jobTreeWidget->_model.setRootPath(
+        TEST_DIR);
     QTest::qWait(1000);
 #endif
 
@@ -303,15 +305,15 @@ void TestMainWindow::other_navigation()
 
     // Add a Job
     mainwindow->displayTab(ui.jobsTab);
-    mainwindow->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
-                             QString("test-job"));
+    jobsTabWidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
+                                QString("test-job"));
     jobsTabWidget->addJobClicked();
 
     // Make sure that MainWindow has a job, then get a pointer to it.
-    QVERIFY(ui.jobListWidget->count() == 1);
-    QVERIFY(ui.jobListWidget->currentItem() != nullptr);
+    QVERIFY(jui.jobListWidget->count() == 1);
+    QVERIFY(jui.jobListWidget->currentItem() != nullptr);
     JobPtr job =
-        static_cast<JobListWidgetItem *>(ui.jobListWidget->currentItem())->job();
+        static_cast<JobListWidgetItem *>(jui.jobListWidget->currentItem())->job();
     QVERIFY(job != nullptr);
     VISUAL_WAIT;
 

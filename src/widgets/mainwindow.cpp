@@ -781,7 +781,7 @@ void MainWindow::displayTab(QWidget *widget)
 
 bool MainWindow::_backupTabWidget_validateBackupTab()
 {
-    if(!_ui.backupNameLineEdit->text().isEmpty()
+    if(_backupTabWidget.validateBackupTab()
        && (_ui.backupListWidget->count() > 0))
         return true;
     else
@@ -791,7 +791,8 @@ bool MainWindow::_backupTabWidget_validateBackupTab()
 void MainWindow::backupMorphIntoJobClicked()
 {
     emit morphBackupIntoJob(_ui.backupListWidget->itemUrls(),
-                            _ui.backupNameLineEdit->text());
+                            _backupTabWidget.temp_backupNameLineEdit()->text());
+    //                      _ui.backupNameLineEdit->text());
 }
 
 void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
@@ -813,29 +814,6 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
     _ui.actionBackupMorphIntoJob->setEnabled(vbt);
 }
 
-void MainWindow::appendTimestampCheckBoxToggled(bool checked)
-{
-    if(checked)
-    {
-        QString text = _ui.backupNameLineEdit->text();
-        _lastTimestamp.clear();
-        _lastTimestamp.append(
-            QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
-        text.append(_lastTimestamp);
-        _ui.backupNameLineEdit->setText(text);
-        _ui.backupNameLineEdit->setCursorPosition(0);
-    }
-    else
-    {
-        QString text = _ui.backupNameLineEdit->text();
-        if(!_lastTimestamp.isEmpty() && text.endsWith(_lastTimestamp))
-        {
-            text.chop(_lastTimestamp.length());
-            _ui.backupNameLineEdit->setText(text);
-        }
-    }
-}
-
 void MainWindow::backupButtonClicked()
 {
     QList<QUrl> urls;
@@ -844,10 +822,12 @@ void MainWindow::backupButtonClicked()
                     ->url();
 
     BackupTaskPtr backup(new BackupTask);
-    backup->setName(_ui.backupNameLineEdit->text());
+    // backup->setName(_ui.backupNameLineEdit->text());
+    backup->setName(_backupTabWidget.temp_backupNameLineEdit()->text());
     backup->setUrls(urls);
     emit backupNow(backup);
-    _ui.appendTimestampCheckBox->setChecked(false);
+    //_ui.appendTimestampCheckBox->setChecked(false);
+    _backupTabWidget.temp_appendTimestampCheckBox()->setChecked(false);
 }
 
 void MainWindow::_backupTabWidget_browseForBackupItems()
@@ -886,16 +866,17 @@ void MainWindow::_backupTabWidget_init()
     // Messages between widgets on this tab
     connect(_ui.backupListWidget, &BackupListWidget::itemTotals, this,
             &MainWindow::updateBackupItemTotals);
-    connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
-            &MainWindow::appendTimestampCheckBoxToggled);
     connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
             &_filePickerDialog, &FilePickerDialog::selectUrl);
     connect(_ui.backupListInfoLabel, &ElidedLabel::clicked,
             _ui.actionBrowseItems, &QAction::trigger);
-    connect(_ui.backupNameLineEdit, &QLineEdit::textChanged,
+    // connect(_ui.backupNameLineEdit, &QLineEdit::textChanged,
+    connect(_backupTabWidget.temp_backupNameLineEdit(), &QLineEdit::textChanged,
             [&](const QString text) {
                 if(text.isEmpty())
-                    _ui.appendTimestampCheckBox->setChecked(false);
+                    _backupTabWidget.temp_appendTimestampCheckBox()->setChecked(
+                        false);
+                //_ui.appendTimestampCheckBox->setChecked(false);
                 bool vbt = _backupTabWidget_validateBackupTab();
                 _ui.actionBackupNow->setEnabled(vbt);
                 _ui.actionBackupMorphIntoJob->setEnabled(vbt);

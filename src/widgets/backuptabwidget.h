@@ -22,14 +22,27 @@ public:
     //! Constructor.
     explicit BackupTabWidget(QWidget *parent = nullptr);
 
+    //! Does the Backup have a name?
+    bool validateBackupTab();
+
+    // Temp for refactoring
+    QLineEdit *temp_backupNameLineEdit() { return _ui.backupNameLineEdit; }
+    QCheckBox *temp_appendTimestampCheckBox()
+    {
+        return _ui.appendTimestampCheckBox;
+    }
+
 protected:
     //! Handles translation change of language.
     void changeEvent(QEvent *event);
 
 private slots:
+    void appendTimestampCheckBoxToggled(bool checked);
 
 private:
     Ui::BackupTabWidget _ui;
+
+    QString _lastTimestamp;
 
     void updateUi();
 };

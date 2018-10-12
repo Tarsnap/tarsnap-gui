@@ -164,7 +164,6 @@ private slots:
 
     // Backup tab - to be private
     void updateBackupItemTotals(quint64 count, quint64 size);
-    void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();
     void backupMorphIntoJobClicked();
 
@@ -178,7 +177,6 @@ private:
     int            _queuedTasks;
 
     // Backup tab
-    QString          _lastTimestamp;
     FilePickerDialog _filePickerDialog;
 
     QPlainTextEdit *_consoleLog;

@@ -200,6 +200,7 @@ UNIT_TESTS =						\
 	tests/setupwizard				\
 	tests/taskmanager				\
 	tests/customfilesystemmodel			\
+	tests/consolelog				\
 	tests/task
 
 BUILD_ONLY_TESTS = tests/cli

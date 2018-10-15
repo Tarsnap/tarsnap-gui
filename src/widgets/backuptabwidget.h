@@ -31,6 +31,8 @@ public:
     {
         return _ui.appendTimestampCheckBox;
     }
+    QLabel *     temp_backupDetailLabel() { return _ui.backupDetailLabel; }
+    QToolButton *temp_backupButton() { return _ui.backupButton; }
 
 protected:
     //! Handles translation change of language.

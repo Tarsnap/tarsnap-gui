@@ -41,9 +41,6 @@ MainWindow::MainWindow(QWidget *parent)
     _ui.setupUi(this);
 
     displayTab(_ui.backupTab);
-    bool vbt = _backupTabWidget_validateBackupTab();
-    _ui.actionBackupNow->setEnabled(vbt);
-    _ui.actionBackupMorphIntoJob->setEnabled(vbt);
 
     _ui.mainContentSplitter->setCollapsible(0, false);
     _ui.journalLog->hide();
@@ -100,6 +97,10 @@ MainWindow::MainWindow(QWidget *parent)
     _backupTabWidget_init();
     connect(this, &MainWindow::morphBackupIntoJob, this,
             &MainWindow::createNewJob);
+    connect(this, &MainWindow::validBackupTab, this,
+            &MainWindow::backupTabValidStatus);
+
+    _backupTabWidget_validateBackupTab();
 
     // Settings pane
     loadSettings();
@@ -198,6 +199,12 @@ void MainWindow::initializeMainWindow()
     // Update list of archives (unless we're doing a dry run).
     if(!settings.value("tarsnap/dry_run", false).toBool())
         emit getArchives();
+}
+
+void MainWindow::backupTabValidStatus(bool valid)
+{
+    _ui.actionBackupNow->setEnabled(valid);
+    _ui.actionBackupMorphIntoJob->setEnabled(valid);
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
@@ -409,9 +416,7 @@ void MainWindow::mainTabChanged(int index)
     if(_ui.mainTabWidget->currentWidget() == _ui.backupTab)
     {
         _ui.actionBrowseItems->setEnabled(true);
-        bool vbt = _backupTabWidget_validateBackupTab();
-        _ui.actionBackupNow->setEnabled(vbt);
-        _ui.actionBackupMorphIntoJob->setEnabled(vbt);
+        _backupTabWidget_validateBackupTab();
     }
     else
     {
@@ -779,13 +784,13 @@ void MainWindow::displayTab(QWidget *widget)
         _ui.mainTabWidget->setCurrentWidget(widget);
 }
 
-bool MainWindow::_backupTabWidget_validateBackupTab()
+void MainWindow::_backupTabWidget_validateBackupTab()
 {
     if(_backupTabWidget.validateBackupTab()
        && (_ui.backupListWidget->count() > 0))
-        return true;
+        emit backupTabValidStatus(true);
     else
-        return false;
+        emit backupTabValidStatus(false);
 }
 
 void MainWindow::backupMorphIntoJobClicked()
@@ -799,7 +804,7 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 {
     if(count != 0)
     {
-        _ui.backupDetailLabel->setText(
+        _backupTabWidget.temp_backupDetailLabel()->setText(
             tr("%1 %2 (%3)")
                 .arg(count)
                 .arg(count == 1 ? tr("item") : tr("items"))
@@ -807,11 +812,9 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
     }
     else
     {
-        _ui.backupDetailLabel->clear();
+        _backupTabWidget.temp_backupDetailLabel()->clear();
     }
-    bool vbt = _backupTabWidget_validateBackupTab();
-    _ui.actionBackupNow->setEnabled(vbt);
-    _ui.actionBackupMorphIntoJob->setEnabled(vbt);
+    _backupTabWidget_validateBackupTab();
 }
 
 void MainWindow::backupButtonClicked()
@@ -877,14 +880,12 @@ void MainWindow::_backupTabWidget_init()
                     _backupTabWidget.temp_appendTimestampCheckBox()->setChecked(
                         false);
                 //_ui.appendTimestampCheckBox->setChecked(false);
-                bool vbt = _backupTabWidget_validateBackupTab();
-                _ui.actionBackupNow->setEnabled(vbt);
-                _ui.actionBackupMorphIntoJob->setEnabled(vbt);
+                _backupTabWidget_validateBackupTab();
             });
 
     // Bottom-right button
-    _ui.backupButton->setDefaultAction(_ui.actionBackupNow);
-    _ui.backupButton->addAction(_ui.actionBackupMorphIntoJob);
+    _backupTabWidget.temp_backupButton()->setDefaultAction(_ui.actionBackupNow);
+    _backupTabWidget.temp_backupButton()->addAction(_ui.actionBackupMorphIntoJob);
     connect(_ui.actionBackupNow, &QAction::triggered, this,
             &MainWindow::backupButtonClicked);
     connect(_ui.actionBackupMorphIntoJob, &QAction::triggered, this,

@@ -34,7 +34,7 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="backupActionWidgetHorizontalLayout">
       <item>
        <widget class="QLineEdit" name="backupNameLineEdit">
         <property name="sizePolicy">
@@ -116,6 +116,83 @@ color: gray;
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QToolButton" name="backupButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QToolButton
+{
+background: rgba(64,152,212,255);
+border: 1px solid white;
+border-radius: 2px;
+color: white;
+font-size: 12px;
+padding-right: 24px;
+width: 75px;
+height: 20px;
+}
+QToolButton:hover {
+border: 1px solid grey;
+}
+
+QToolButton:pressed {
+border: 1px solid grey;
+background: white;
+color: black;
+padding-left: 2px;
+padding-top: 2px;
+}
+
+QToolButton:disabled
+{
+background: darkgrey;
+}
+
+QToolButton:focus
+{
+border: 1px solid grey;
+background: white;
+color: black;
+}
+
+QToolButton::menu-button
+{
+border-left: 1px solid white;
+margin-top: 1px;
+margin-bottom: 1px;
+width: 16px;
+margin-right: 4px;
+}
+
+QToolButton::menu-button:active
+{
+border-left: 1px solid grey;
+}
+
+QToolButton QMenu
+{
+text-align: center;
+}</string>
+        </property>
+        <property name="text">
+         <string>Backup</string>
+        </property>
+        <property name="popupMode">
+         <enum>QToolButton::MenuButtonPopup</enum>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextOnly</enum>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -124,6 +201,7 @@ color: gray;
  <tabstops>
   <tabstop>backupNameLineEdit</tabstop>
   <tabstop>appendTimestampCheckBox</tabstop>
+  <tabstop>backupButton</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

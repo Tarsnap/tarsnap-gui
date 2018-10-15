@@ -221,129 +221,6 @@ background-color: rgba(237,243,254,255);
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QWidget" name="backupActionWidget" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <item>
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Maximum</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLabel" name="backupDetailLabel">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>Current backup selection stats</string>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QLabel {
-color: gray;
-}</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QToolButton" name="backupButton">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QToolButton
-{
-background: rgba(64,152,212,255);
-border: 1px solid white;
-border-radius: 2px;
-color: white;
-font-size: 12px;
-padding-right: 24px;
-width: 75px;
-height: 20px;
-}
-QToolButton:hover {
-border: 1px solid grey;
-}
-
-QToolButton:pressed {
-border: 1px solid grey;
-background: white;
-color: black;
-padding-left: 2px;
-padding-top: 2px;
-}
-
-QToolButton:disabled
-{
-background: darkgrey;
-}
-
-QToolButton:focus
-{
-border: 1px solid grey;
-background: white;
-color: black;
-}
-
-QToolButton::menu-button
-{
-border-left: 1px solid white;
-margin-top: 1px;
-margin-bottom: 1px;
-width: 16px;
-margin-right: 4px;
-}
-
-QToolButton::menu-button:active
-{
-border-left: 1px solid grey;
-}
-
-QToolButton QMenu
-{
-text-align: center;
-}</string>
-                </property>
-                <property name="text">
-                 <string>Backup</string>
-                </property>
-                <property name="popupMode">
-                 <enum>QToolButton::MenuButtonPopup</enum>
-                </property>
-                <property name="toolButtonStyle">
-                 <enum>Qt::ToolButtonTextOnly</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="archivesTab">
@@ -997,7 +874,6 @@ border: none;
  </customwidgets>
  <tabstops>
   <tabstop>backupListWidget</tabstop>
-  <tabstop>backupButton</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

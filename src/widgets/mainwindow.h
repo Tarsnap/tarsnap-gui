@@ -132,6 +132,9 @@ signals:
     //! Display detailed information about a specific job.
     void jobInspectByRef(QString jobRef);
 
+    //! Is the Backup tab ready to create an archive?
+    void validBackupTab(bool valid);
+
 protected:
     //! Draw the Tarsnap logo in the top-right corner.
     void paintEvent(QPaintEvent *);
@@ -147,6 +150,9 @@ private slots:
     void displayInspectArchive(ArchivePtr archive);
     void commitSettings();
     void mainTabChanged(int index);
+
+    // Backup tab
+    void backupTabValidStatus(bool valid);
 
     // Jobs tab
     void displayJobDetails(JobPtr job);
@@ -202,7 +208,7 @@ private:
     void connectSettingsWidget();
 
     // These are temporary functions to ease the BackupTabWidget refactoring.
-    bool _backupTabWidget_validateBackupTab();
+    void _backupTabWidget_validateBackupTab();
     void _backupTabWidget_browseForBackupItems();
     void _backupTabWidget_init();
     void _backupTabWidget_updateUi();

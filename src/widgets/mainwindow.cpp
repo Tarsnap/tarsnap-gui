@@ -804,7 +804,7 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
 {
     if(count != 0)
     {
-        _ui.backupDetailLabel->setText(
+        _backupTabWidget.temp_backupDetailLabel()->setText(
             tr("%1 %2 (%3)")
                 .arg(count)
                 .arg(count == 1 ? tr("item") : tr("items"))
@@ -812,7 +812,7 @@ void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
     }
     else
     {
-        _ui.backupDetailLabel->clear();
+        _backupTabWidget.temp_backupDetailLabel()->clear();
     }
     _backupTabWidget_validateBackupTab();
 }
@@ -884,8 +884,8 @@ void MainWindow::_backupTabWidget_init()
             });
 
     // Bottom-right button
-    _ui.backupButton->setDefaultAction(_ui.actionBackupNow);
-    _ui.backupButton->addAction(_ui.actionBackupMorphIntoJob);
+    _backupTabWidget.temp_backupButton()->setDefaultAction(_ui.actionBackupNow);
+    _backupTabWidget.temp_backupButton()->addAction(_ui.actionBackupMorphIntoJob);
     connect(_ui.actionBackupNow, &QAction::triggered, this,
             &MainWindow::backupButtonClicked);
     connect(_ui.actionBackupMorphIntoJob, &QAction::triggered, this,

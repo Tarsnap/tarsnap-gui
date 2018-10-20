@@ -1,6 +1,8 @@
 TARGET = test-consolelog
 QT = core
 
+VALGRIND = true
+
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../src/debug.h

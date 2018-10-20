@@ -13,3 +13,5 @@ Tarsnap.app
 docs
 # build directory
 build/
+# test files
+valgrind-full.log

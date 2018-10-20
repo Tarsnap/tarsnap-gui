@@ -45,3 +45,21 @@ contains(QT, gui) || contains(QT, widgets) {
 
 test.depends = ${TARGET} test_home_prep
 QMAKE_EXTRA_TARGETS += test test_visual test_home_prep
+
+!isEmpty(VALGRIND) {
+	test_valgrind.depends = ${TARGET} test_home_prep
+	QMAKE_EXTRA_TARGETS += test_valgrind
+
+	VALGRIND_SUPPRESSIONS=$$absolute_path("valgrind")/valgrind.supp
+	VALGRIND_CMD = "valgrind --leak-check=full --show-leak-kinds=all\
+			--suppressions=$${VALGRIND_SUPPRESSIONS}	\
+			--gen-suppressions=all				\
+			--log-file=valgrind-full.log			\
+			--error-exitcode=108"
+
+	contains(QT, gui) || contains(QT, widgets) {
+		test_valgrind.commands = $${TEST_ENV} $${VALGRIND_CMD} ./${TARGET} -platform offscreen
+	} else {
+		test_valgrind.commands = $${TEST_ENV} $${VALGRIND_CMD} ./${TARGET}
+	}
+}

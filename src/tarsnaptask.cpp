@@ -25,6 +25,8 @@ TarsnapTask::~TarsnapTask()
 {
 }
 
+bool cmdInPath(QString cmd);
+
 bool cmdInPath(QString cmd)
 {
     // Check stand-alone command

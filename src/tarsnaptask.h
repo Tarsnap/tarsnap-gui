@@ -15,6 +15,7 @@
 #define EXIT_NO_MEANING (-1)
 #define EXIT_CRASHED (-2)
 #define EXIT_DID_NOT_START (-3)
+#define EXIT_CMD_NOT_FOUND (-4)
 
 /*!
  * \ingroup background-tasks

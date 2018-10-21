@@ -91,7 +91,7 @@ void TestTaskManager::fail_registerMachine_command_not_found()
     status   = response.at(0).value<TaskStatus>();
     reason   = response.at(1).toString();
     QVERIFY(status == TaskStatus::Failed);
-    QVERIFY(reason == "Could not launch the command-line program");
+    QVERIFY(reason == "Could not find the command-line program");
 
     delete task;
 }

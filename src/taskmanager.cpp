@@ -644,6 +644,8 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
         {
             if(exitCode == EXIT_DID_NOT_START)
                 stdErr = "Could not launch the command-line program";
+            if(exitCode == EXIT_CMD_NOT_FOUND)
+                stdErr = "Could not find the command-line program";
             else if(exitCode == EXIT_CRASHED)
                 stdErr = "Crash occurred in the command-line program";
         }

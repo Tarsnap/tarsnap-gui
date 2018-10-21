@@ -1,6 +1,8 @@
 TARGET = test-task
 QT = core
 
+VALGRIND = true
+
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../src/debug.h				\

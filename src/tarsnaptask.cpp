@@ -6,6 +6,8 @@
 #include <signal.h>
 #endif
 
+#include <QFileInfo>
+
 #define DEFAULT_TIMEOUT_MS 5000
 #define LOG_MAX_LENGTH 3072
 #define LOG_MAX_SEARCH_NL 1024
@@ -23,8 +25,38 @@ TarsnapTask::~TarsnapTask()
 {
 }
 
+bool cmdInPath(QString cmd)
+{
+    // Check stand-alone command
+    QFileInfo info(cmd);
+    if(info.isExecutable())
+        return true;
+
+    // Search for command in path
+    const char *env_path = getenv("PATH");
+    QStringList paths    = QString(env_path).split(":");
+    for(const QString &path : paths)
+    {
+        const QString path_cmd = path + QDir::separator() + cmd;
+        QFileInfo     info_path(path_cmd);
+        if(info_path.isExecutable())
+            return true;
+    }
+
+    return false;
+}
+
 void TarsnapTask::run()
 {
+    // Make sure that the command exists and is executable because QProcess
+    // doesn't clean up its memory if it fails due to "command not found".
+    if(!cmdInPath(_command))
+    {
+        emit finished(_data, EXIT_CMD_NOT_FOUND, "", "");
+        cancel();
+        return;
+    }
+
     _process = new QProcess();
     _process->setProgram(_command);
     _process->setArguments(_arguments);

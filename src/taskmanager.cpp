@@ -23,6 +23,8 @@ TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
 
 TaskManager::~TaskManager()
 {
+    // Wait up to 1 second to delete objects scheduled with ->deleteLater()
+    QCoreApplication::processEvents(0, 1000);
 }
 
 void TaskManager::getTarsnapVersion(QString tarsnapPath)

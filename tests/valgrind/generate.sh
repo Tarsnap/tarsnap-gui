@@ -79,9 +79,6 @@ generate_supp_for_qtest() {
 	# Make suppressions for our "do nothing" function.
 	generate_supp "${run_cmd}" "${platform}pl_nothing"
 
-	# Make suppressions for simply listing the available functions.
-	generate_supp "${run_cmd}" "${platform}-functions"
-
 	# Make suppressions for each function (other than "do nothing",
 	# which was handled above).
 	${run_cmd} ${platform}-functions			\

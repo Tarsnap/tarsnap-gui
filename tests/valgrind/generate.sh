@@ -61,6 +61,9 @@ generate_supp() {
 }
 
 generate_supp_with_funcs() {
+	# Make suppressions for no arguments
+	generate_supp "${run_cmd}" ""
+
 	# Make suppressions for each function.
 	${run_cmd} | while read func; do				\
 		generate_supp "${run_cmd}" "${func}"

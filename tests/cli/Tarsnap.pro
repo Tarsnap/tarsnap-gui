@@ -66,6 +66,25 @@ RESOURCES += ../../resources/resources-lite.qrc
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
+
+# Pick up extra flags from the environment
+QMAKE_CXXFLAGS += $$(CXXFLAGS)
+QMAKE_CFLAGS += $$(CFLAGS)
+QMAKE_LFLAGS += $$(LDFLAGS)
+env_CC = $$(QMAKE_CC)
+!isEmpty(env_CC) {
+	QMAKE_CC = $$(QMAKE_CC)
+}
+env_CXX = $$(QMAKE_CXX)
+!isEmpty(env_CXX) {
+	QMAKE_CXX = $$(QMAKE_CXX)
+}
+env_LINK = $$(QMAKE_LINK)
+!isEmpty(env_LINK) {
+	QMAKE_LINK = $$(QMAKE_LINK)
+}
+
+
 # Cleaner source directory
 UI_DIR      = ../../build/cli/
 MOC_DIR     = ../../build/cli/

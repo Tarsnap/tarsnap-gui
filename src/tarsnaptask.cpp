@@ -56,6 +56,7 @@ void TarsnapTask::run()
     {
         emit finished(_data, EXIT_CMD_NOT_FOUND, "", "");
         cancel();
+        emit dequeue();
         return;
     }
 

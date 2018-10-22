@@ -1,6 +1,8 @@
 TARGET = test-taskmanager
 QT = core sql network
 
+VALGRIND = true
+
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../src/backuptask.h				\

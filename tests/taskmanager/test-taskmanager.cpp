@@ -28,8 +28,12 @@ void TestTaskManager::initTestCase()
 
     // This is to "warm up" the command-line tasks.
     TaskManager *task = new TaskManager();
+    QSignalSpy   sig_ver(task, SIGNAL(tarsnapVersion(QString)));
     task->getTarsnapVersion("");
-    QTest::qWait(2 * TASK_CMDLINE_WAIT_MS);
+
+    // Wait for task to finish
+    while(sig_ver.count() == 0)
+        QTest::qWait(TASK_CMDLINE_WAIT_MS);
     delete task;
 }
 

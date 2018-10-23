@@ -209,6 +209,7 @@ UNIT_TESTS =						\
 	tests/jobstabwidget				\
 	tests/settingswidget				\
 	tests/backuptabwidget				\
+	tests/persistent				\
 	tests/setupwizard				\
 	tests/taskmanager				\
 	tests/customfilesystemmodel			\

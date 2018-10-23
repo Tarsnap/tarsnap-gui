@@ -133,6 +133,8 @@ bool PersistentStore::init()
         if(!dbDir.exists())
             dbDir.mkpath(dbDir.absolutePath());
 
+        if(!dbTemplate.exists())
+            DEBUG << "DB template not found; check the resources file";
         if(!dbTemplate.copy(dbUrl))
         {
             DEBUG << "Failed to create the PersistentStore DB.";

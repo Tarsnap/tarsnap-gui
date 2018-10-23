@@ -4,7 +4,7 @@ set -e -o nounset
 
 # Ordered list of directories to run.
 DIRS="minimal qtest-minimal"
-DIRS="${DIRS} complex"
+DIRS="${DIRS} simple complex"
 
 DEBUG=0
 

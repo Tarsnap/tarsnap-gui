@@ -1,5 +1,4 @@
 #include "app-cmdline.h"
-#include "debug.h"
 
 #ifdef QT_GUI_LIB
 #include "app-gui.h"
@@ -21,7 +20,6 @@ int main(int argc, char *argv[])
 
     // Initialize debug messages.
     WARNP_INIT;
-    ConsoleLog::instance().initializeConsoleLog();
 
     // Parse command-line arguments
     if((opt = optparse_parse(argc, argv)) == NULL)

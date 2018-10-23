@@ -13,6 +13,7 @@ private slots:
     void cleanupTestCase();
 
     void basic();
+    void initializeConsoleLog();
     void saveMessage();
 };
 
@@ -30,6 +31,11 @@ void TestConsoleLog::basic()
 {
     ConsoleLog &log = ConsoleLog::instance();
     (void)log;
+}
+
+void TestConsoleLog::initializeConsoleLog()
+{
+    ConsoleLog::instance().initializeConsoleLog();
 }
 
 void TestConsoleLog::saveMessage()

@@ -1,6 +1,8 @@
 TARGET = test-persistent
 QT = core sql
 
+VALGRIND = true
+
 # Needed for the database template
 RESOURCES += ../../resources/resources-lite.qrc
 

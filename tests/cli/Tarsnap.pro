@@ -91,4 +91,18 @@ MOC_DIR     = ../../build/cli/
 RCC_DIR     = ../../build/cli/
 OBJECTS_DIR = ../../build/cli/
 
+
+# Valgrind
+test_valgrind.depends = ${TARGET}
+QMAKE_EXTRA_TARGETS += test_valgrind
+
+VALGRIND_SUPPRESSIONS=$$absolute_path("../valgrind")/valgrind.supp
+VALGRIND_CMD = "valgrind --leak-check=full --show-leak-kinds=all\
+		--suppressions=$${VALGRIND_SUPPRESSIONS}	\
+		--gen-suppressions=all				\
+		--log-file=valgrind-full.log			\
+		--error-exitcode=108"
+
+test_valgrind.commands = $${VALGRIND_CMD} ./${TARGET} -h
+
 # Do not use the shared tests .pro file.

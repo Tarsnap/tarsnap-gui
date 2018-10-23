@@ -1,5 +1,4 @@
 #include "app-cmdline.h"
-#include "debug.h"
 
 #ifdef QT_GUI_LIB
 #include "app-gui.h"
@@ -21,7 +20,6 @@ int main(int argc, char *argv[])
 
     // Initialize debug messages.
     WARNP_INIT;
-    ConsoleLog::instance().initializeConsoleLog();
 
     // Parse command-line arguments
     if((opt = optparse_parse(argc, argv)) == NULL)
@@ -36,7 +34,6 @@ int main(int argc, char *argv[])
 #ifdef QT_GUI_LIB
         // Basic initialization that cannot fail.
         AppGui app(argc, argv, opt);
-        optparse_free(opt);
 
         // Run more complicated initialization.
         if(!app.initializeCore())
@@ -51,16 +48,15 @@ int main(int argc, char *argv[])
         else
             ret = EXIT_SUCCESS;
 #else
-        qDebug() << "This binary does not support GUI operations.  Try:\n\t"
-                 << argv[0] << "-h";
-        exit(1);
+        warn0("This binary does not support GUI operations");
+        ret = 1;
+        goto done;
 #endif
     }
     else
     {
         // Basic initialization that cannot fail.
         AppCmdline app(argc, argv, opt);
-        optparse_free(opt);
 
         // Run more complicated initialization.
         if(!app.initializeCore())
@@ -79,6 +75,7 @@ int main(int argc, char *argv[])
 done:
     // Clean up
     TSettings::destroy();
+    optparse_free(opt);
 
     return (ret);
 }

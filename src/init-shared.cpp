@@ -1,5 +1,6 @@
 #include "init-shared.h"
 
+#include "debug.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "persistentmodel/journal.h"
@@ -47,6 +48,10 @@ static void init_no_explicit_app()
     QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
     QCoreApplication::setApplicationVersion(APP_VERSION);
 #endif
+
+    // In order to avoid a memory leak (?), must be done after setting up
+    // the application and/or organization name.
+    ConsoleLog::instance().initializeConsoleLog();
 }
 
 /**

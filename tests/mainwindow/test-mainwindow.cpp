@@ -36,6 +36,11 @@ void TestMainWindow::initTestCase()
 
     // Initialization normally done in init_shared.cpp's init_no_app()
     qRegisterMetaType<QVector<File>>("QVector<File>");
+
+    // Deal with PersistentStore
+    PersistentStore &store = PersistentStore::instance();
+    int              ok    = store.init();
+    QVERIFY(ok);
 }
 
 static QAction *get_menubar_about(QMenuBar *menubar)

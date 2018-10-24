@@ -55,6 +55,12 @@ bool AppGui::initializeCore()
 
     if(info.status == INIT_NEEDS_SETUP)
         return runSetupWizard();
+    else if(info.status == INIT_DB_FAILED)
+    {
+        QMessageBox::warning(nullptr, tr("Tarsnap warning"),
+                             tr("Cannot not initialize the database."));
+        return false;
+    }
     else if(info.status == INIT_DRY_RUN)
     {
         QMessageBox::warning(nullptr, tr("Tarsnap warning"), info.message);

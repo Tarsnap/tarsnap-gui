@@ -45,7 +45,8 @@ void TestPersistent::cleanupTestCase()
 void TestPersistent::store()
 {
     PersistentStore &store = PersistentStore::instance();
-    (void)store;
+    int              ok    = store.init();
+    QVERIFY(ok);
 }
 
 void TestPersistent::store_write()
@@ -100,6 +101,11 @@ void TestPersistent::store_purge()
 
 void TestPersistent::journal_write()
 {
+    // Initialize the store
+    PersistentStore &store = PersistentStore::instance();
+    int              ok    = store.init();
+    QVERIFY(ok);
+
     // Prep
     Journal *journal = new Journal();
     journal->load();

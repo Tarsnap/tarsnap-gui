@@ -29,9 +29,9 @@ bool PersistentStore::init()
     QFileInfo dbFileInfo(dbUrl);
 
     // Initialize database object.
-    _db = _db.addDatabase("QSQLITE", "tarsnap");
-    _db.setConnectOptions("QSQLITE_OPEN_URI");
-    _db.setDatabaseName(dbUrl);
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "tarsnap");
+    db.setConnectOptions("QSQLITE_OPEN_URI");
+    db.setDatabaseName(dbUrl);
 
     // Determine whether to try to open the database.
     if(!dbFileInfo.exists())
@@ -45,20 +45,20 @@ bool PersistentStore::init()
             << dbUrl;
         return false;
     } // Database file exists and is readable; attempt to open.
-    else if(!_db.open())
+    else if(!db.open())
     {
         DEBUG << "Error opening the PersistentStore DB: "
-              << _db.lastError().text();
+              << db.lastError().text();
         return false;
     }
     else
     {
         // Successfully opened database.
-        QStringList tables = _db.tables();
+        QStringList tables = db.tables();
         // Is the database valid?
         if(!tables.contains("archives", Qt::CaseInsensitive))
         {
-            _db.close();
+            db.close();
             DEBUG << "Invalid PersistentStore DB found. Attempting to recover.";
             QString newName(
                 dbUrl + "."
@@ -87,7 +87,7 @@ bool PersistentStore::init()
                 }
             }
             int       version = -1;
-            QSqlQuery query(_db);
+            QSqlQuery query(db);
             if(query.exec("SELECT version FROM version"))
             {
                 query.next();
@@ -145,10 +145,10 @@ bool PersistentStore::init()
         QFile dbFile(dbUrl);
         dbFile.setPermissions(dbFile.permissions() | QFileDevice::WriteOwner);
         dbFile.close();
-        if(!_db.open())
+        if(!db.open())
         {
             DEBUG << "Error opening the PersistentStore DB: "
-                  << _db.lastError().text();
+                  << db.lastError().text();
             return false;
         }
     }
@@ -161,9 +161,7 @@ void PersistentStore::deinit()
 
     if(_initialized)
     {
-        _db.close();
-        _db = QSqlDatabase();
-        _db.removeDatabase("tarsnap");
+        QSqlDatabase::removeDatabase("tarsnap");
         _initialized = false;
     }
 }
@@ -172,7 +170,8 @@ QSqlQuery PersistentStore::createQuery()
 {
     if(_initialized)
     {
-        return QSqlQuery(_db);
+        QSqlDatabase db = QSqlDatabase::database("tarsnap");
+        return QSqlQuery(db);
     }
     else
     {
@@ -190,7 +189,11 @@ void PersistentStore::purge()
 {
     if(_initialized)
     {
-        QString dbUrl = _db.databaseName();
+        QString dbUrl;
+        {
+            QSqlDatabase db = QSqlDatabase::database("tarsnap");
+            dbUrl           = db.databaseName();
+        }
         deinit();
         QFile dbFile(dbUrl);
         if(dbFile.exists())
@@ -233,7 +236,8 @@ bool PersistentStore::runQuery(QSqlQuery query)
 bool PersistentStore::upgradeVersion0()
 {
     bool      result = false;
-    QSqlQuery query(_db);
+    QSqlDatabase db = QSqlDatabase::database("tarsnap");
+    QSqlQuery query(db);
 
     if((result = query.exec("CREATE TABLE version (version INTEGER NOT NULL);")))
         result = query.exec("INSERT INTO version VALUES (0);");
@@ -241,7 +245,7 @@ bool PersistentStore::upgradeVersion0()
     if(!result)
     {
         DEBUG << query.lastError().text();
-        DEBUG << "Failed to upgrade DB to version 0." << _db;
+        DEBUG << "Failed to upgrade DB to version 0." << db;
     }
     return result;
 }
@@ -249,7 +253,8 @@ bool PersistentStore::upgradeVersion0()
 bool PersistentStore::upgradeVersion1()
 {
     bool      result = false;
-    QSqlQuery query(_db);
+    QSqlDatabase db = QSqlDatabase::database("tarsnap");
+    QSqlQuery query(db);
 
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionScheduledEnabled INTEGER;")))
         result = query.exec("UPDATE version SET version = 1;");
@@ -262,7 +267,7 @@ bool PersistentStore::upgradeVersion1()
     if(!result)
     {
         DEBUG << query.lastError().text();
-        DEBUG << "Failed to upgrade DB to version 1." << _db.databaseName();
+        DEBUG << "Failed to upgrade DB to version 1." << db.databaseName();
     }
     return result;
 }
@@ -270,7 +275,8 @@ bool PersistentStore::upgradeVersion1()
 bool PersistentStore::upgradeVersion2()
 {
     bool      result = false;
-    QSqlQuery query(_db);
+    QSqlDatabase db = QSqlDatabase::database("tarsnap");
+    QSqlQuery query(db);
 
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipFiles INTEGER;")))
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipFilesPatterns TEXT;")))
@@ -279,7 +285,7 @@ bool PersistentStore::upgradeVersion2()
     if(!result)
     {
         DEBUG << query.lastError().text();
-        DEBUG << "Failed to upgrade DB to version 2." << _db.databaseName();
+        DEBUG << "Failed to upgrade DB to version 2." << db.databaseName();
     }
     return result;
 }
@@ -287,7 +293,8 @@ bool PersistentStore::upgradeVersion2()
 bool PersistentStore::upgradeVersion3()
 {
     bool      result = false;
-    QSqlQuery query(_db);
+    QSqlDatabase db = QSqlDatabase::database("tarsnap");
+    QSqlQuery query(db);
 
     if((result = query.exec("ALTER TABLE jobs ADD COLUMN optionSkipNoDump INTEGER;")))
     if((result = query.exec("UPDATE archives SET contents=\"\";")))
@@ -297,7 +304,7 @@ bool PersistentStore::upgradeVersion3()
     if(!result)
     {
         DEBUG << query.lastError().text();
-        DEBUG << "Failed to upgrade DB to version 3." << _db.databaseName();
+        DEBUG << "Failed to upgrade DB to version 3." << db.databaseName();
     }
     return result;
 }
@@ -305,7 +312,8 @@ bool PersistentStore::upgradeVersion3()
 bool PersistentStore::upgradeVersion4()
 {
     bool      result = false;
-    QSqlQuery query(_db);
+    QSqlDatabase db = QSqlDatabase::database("tarsnap");
+    QSqlQuery query(db);
 
     if((result = query.exec("UPDATE archives SET contents=\"\";")))
     if((result = query.exec("ALTER TABLE archives ADD COLUMN truncated INTEGER;")))
@@ -319,7 +327,7 @@ bool PersistentStore::upgradeVersion4()
     if(!result)
     {
         DEBUG << query.lastError().text();
-        DEBUG << "Failed to upgrade DB to version 4." << _db.databaseName();
+        DEBUG << "Failed to upgrade DB to version 4." << db.databaseName();
     }
     return result;
 }

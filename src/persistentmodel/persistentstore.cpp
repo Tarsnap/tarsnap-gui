@@ -11,7 +11,6 @@ QMutex PersistentStore::_mutex;
 
 PersistentStore::PersistentStore(QObject *parent) : QObject(parent)
 {
-    init();
 }
 
 bool PersistentStore::init()
@@ -184,7 +183,6 @@ QSqlQuery PersistentStore::createQuery()
 
 PersistentStore::~PersistentStore()
 {
-    deinit();
 }
 
 void PersistentStore::purge()

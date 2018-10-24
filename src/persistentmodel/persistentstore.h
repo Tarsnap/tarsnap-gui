@@ -22,8 +22,6 @@ public:
     static PersistentStore &instance()
     {
         static PersistentStore instance;
-        if(!instance.initialized())
-            instance.init();
         return instance;
     }
     //! Returns the status of whether the database is initialized or not.
@@ -34,6 +32,9 @@ public:
     //! Removes the existing database if it is initialized.  Does not lock.
     void purge();
 
+    //! Locks, upgrades the version if it is old, creates a new one otherwise.
+    //! Must be run before any other functions in this class.
+    bool init();
     //! Closes the database connection (if it exists).  Normally not used by
     //! external classes, with the possible exception of the test suite.
     static void deinit();
@@ -57,8 +58,6 @@ private:
     explicit PersistentStore(QObject *parent = nullptr);
     PersistentStore(PersistentStore const &);
     void operator=(PersistentStore const &);
-    // Locks, upgrades the version if it is old, creates a new one otherwise.
-    bool init();
 
     static bool   _initialized;
     static QMutex _mutex;

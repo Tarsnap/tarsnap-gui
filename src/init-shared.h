@@ -12,6 +12,7 @@ enum init_status
 {
     INIT_OK,
     INIT_SETTINGS_RENAMED,
+    INIT_DB_FAILED,
     INIT_NEEDS_SETUP,
     INIT_DRY_RUN,
     INIT_SCHEDULE_OK,

@@ -58,9 +58,8 @@ private:
     // Locks, then closes the database connection.
     void deinit();
 
-    bool         _initialized;
-    QSqlDatabase _db;
-    QMutex       _mutex;
+    bool   _initialized;
+    QMutex _mutex;
 };
 
 #endif // PERSISTENTSTORE_H

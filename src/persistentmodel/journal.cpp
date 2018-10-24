@@ -1,6 +1,26 @@
 #include "journal.h"
 
+#include <QtGlobal>
+
 #include "debug.h"
+
+static qint64 dateToEpoch(const QDateTime date)
+{
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
+    return date.toSecsSinceEpoch();
+#else
+    return date.toMSecsSinceEpoch() / 1000;
+#endif
+}
+
+static QDateTime epochToDate(const qint64 secs)
+{
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
+    return QDateTime::fromSecsSinceEpoch(secs);
+#else
+    return QDateTime::fromMSecsSinceEpoch(secs * 1000);
+#endif
+}
 
 Journal::Journal(QObject *parent) : QObject(parent)
 {
@@ -28,8 +48,8 @@ void Journal::load()
         while(query.next())
         {
             // Parse stored date and time.
-            QDateTime timestamp = QDateTime::fromTime_t(
-                query.value(query.record().indexOf("timestamp")).toUInt());
+            QDateTime timestamp = epochToDate(
+                query.value(query.record().indexOf("timestamp")).value<qint64>());
             // Extract the log message.
             QString log = query.value(query.record().indexOf("log")).toString();
             // Creates a LogEntry and appends it to _log.
@@ -84,7 +104,7 @@ void Journal::log(QString message)
         return;
     }
     // Fill in missing values in query string.
-    query.addBindValue(log.timestamp.toTime_t());
+    query.addBindValue(dateToEpoch(log.timestamp));
     query.addBindValue(log.message);
     // Run query.
     if(!store.runQuery(query))

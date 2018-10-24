@@ -3,6 +3,7 @@
 #include "../qtest-platform.h"
 
 #include "app-cmdline.h"
+#include "persistentmodel/persistentstore.h"
 
 #include <TSettings.h>
 
@@ -37,6 +38,9 @@ void TestCmdline::init()
 {
     // Reset TSettings
     TSettings::destroy();
+
+    // Reset PersistentStore
+    PersistentStore::deinit();
 }
 
 void TestCmdline::cleanupTestCase()

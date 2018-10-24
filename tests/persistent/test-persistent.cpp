@@ -6,6 +6,7 @@
 #include <TSettings.h>
 
 #define SAMPLE_DATE "2012-03-04"
+#define SAMPLE_DATE_2106 "2106-02-08"
 #define SAMPLE_DATE_FORMAT "yyyy-MM-dd"
 #define SAMPLE_MESSAGE "sample message"
 
@@ -28,6 +29,7 @@ private slots:
     void journal_write();
     void journal_read();
     void journal_purge();
+    void journal_year_2106();
 };
 
 void TestPersistent::initTestCase()
@@ -151,6 +153,48 @@ void TestPersistent::journal_purge()
 
     // Clean up
     delete journal;
+}
+
+void TestPersistent::journal_year_2106()
+{
+    // Write date & message
+    {
+        // Prep
+        PersistentStore &store = PersistentStore::instance();
+        QSqlQuery        query = store.createQuery();
+
+        // Prepare date and message
+        if(!query.prepare("insert into journal(timestamp, log) values(?, ?)"))
+            QFAIL("Failed to prepare query");
+        QDateTime ts =
+            QDateTime::fromString(SAMPLE_DATE_2106, SAMPLE_DATE_FORMAT);
+        query.addBindValue(ts.toMSecsSinceEpoch() / 1000);
+        query.addBindValue(SAMPLE_MESSAGE);
+
+        // Write date and message
+        if(!store.runQuery(query))
+            QFAIL("Failed to insert value into journal");
+    }
+
+    // Read date
+    {
+        // Prep
+        Journal *  journal = new Journal();
+        QSignalSpy sig_journal(journal, SIGNAL(journal(QVector<LogEntry>)));
+        journal->load();
+
+        // Get the journal
+        journal->getJournal();
+        QVariant          log_var = sig_journal.takeFirst().takeFirst();
+        QVector<LogEntry> log     = log_var.value<QVector<LogEntry>>();
+
+        // Check the values
+        QDateTime timestamp = log.at(1).timestamp;
+        QVERIFY(timestamp.toString(SAMPLE_DATE_FORMAT) == SAMPLE_DATE_2106);
+
+        // Clean up
+        delete journal;
+    }
 }
 
 QTEST_MAIN(TestPersistent)

@@ -34,6 +34,10 @@ public:
     //! Removes the existing database if it is initialized.  Does not lock.
     void purge();
 
+    //! Closes the database connection (if it exists).  Normally not used by
+    //! external classes, with the possible exception of the test suite.
+    static void deinit();
+
 public slots:
     //! Locks the database and runs a query.
     bool runQuery(QSqlQuery query);
@@ -55,8 +59,6 @@ private:
     void operator=(PersistentStore const &);
     // Locks, upgrades the version if it is old, creates a new one otherwise.
     bool init();
-    // Locks, then closes the database connection.
-    void deinit();
 
     static bool   _initialized;
     static QMutex _mutex;

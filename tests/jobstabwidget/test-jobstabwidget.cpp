@@ -30,6 +30,11 @@ void TestJobsTabWidget::initTestCase()
         // Use a custom message handler to filter out unwanted messages
         orig_message_handler = qInstallMessageHandler(offscreenMessageOutput);
     }
+
+    // Deal with PersistentStore
+    PersistentStore &store = PersistentStore::instance();
+    int              ok    = store.init();
+    QVERIFY(ok);
 }
 
 void TestJobsTabWidget::cleanupTestCase()

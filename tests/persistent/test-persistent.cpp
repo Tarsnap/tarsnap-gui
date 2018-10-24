@@ -1,5 +1,6 @@
 #include <QtTest/QtTest>
 
+#include "persistentmodel/journal.h"
 #include "persistentmodel/persistentstore.h"
 
 #include <TSettings.h>
@@ -7,6 +8,9 @@
 #define SAMPLE_DATE "2012-03-04"
 #define SAMPLE_DATE_FORMAT "yyyy-MM-dd"
 #define SAMPLE_MESSAGE "sample message"
+
+#define JOURNAL_START "==Session start=="
+#define JOURNAL_END "==Session end=="
 
 class TestPersistent : public QObject
 {
@@ -20,6 +24,10 @@ private slots:
     void store_write();
     void store_read();
     void store_purge();
+
+    void journal_write();
+    void journal_read();
+    void journal_purge();
 };
 
 void TestPersistent::initTestCase()
@@ -86,6 +94,63 @@ void TestPersistent::store_purge()
 
     store.purge();
     QVERIFY(store.initialized() == false);
+}
+
+void TestPersistent::journal_write()
+{
+    // Prep
+    Journal *journal = new Journal();
+    journal->load();
+
+    // Write a message
+    journal->log(SAMPLE_MESSAGE);
+
+    // Clean up
+    delete journal;
+}
+
+void TestPersistent::journal_read()
+{
+    // Prep
+    Journal *  journal = new Journal();
+    QSignalSpy sig_journal(journal, SIGNAL(journal(QVector<LogEntry>)));
+    journal->load();
+
+    // Get the journal
+    journal->getJournal();
+    QVariant          log_var = sig_journal.takeFirst().takeFirst();
+    QVector<LogEntry> log     = log_var.value<QVector<LogEntry>>();
+
+    // Check the values
+    QVERIFY(log.at(0).message == JOURNAL_START);
+    QVERIFY(log.at(1).message == SAMPLE_MESSAGE);
+    QVERIFY(log.at(2).message == JOURNAL_END);
+    QVERIFY(log.at(3).message == JOURNAL_START);
+
+    // Clean up
+    delete journal;
+}
+
+void TestPersistent::journal_purge()
+{
+    // Prep
+    Journal *  journal = new Journal();
+    QSignalSpy sig_journal(journal, SIGNAL(journal(QVector<LogEntry>)));
+    journal->load();
+
+    // Purge (delete) journal
+    journal->purge();
+
+    // Get the journal
+    journal->getJournal();
+    QVariant          log_var = sig_journal.takeFirst().takeFirst();
+    QVector<LogEntry> log     = log_var.value<QVector<LogEntry>>();
+
+    // Check the values
+    QVERIFY(log.count() == 0);
+
+    // Clean up
+    delete journal;
 }
 
 QTEST_MAIN(TestPersistent)

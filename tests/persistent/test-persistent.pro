@@ -8,10 +8,14 @@ RESOURCES += ../../resources/resources-lite.qrc
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
+	../../src/persistentmodel/journal.h		\
+	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h
 
 SOURCES += test-persistent.cpp				\
 	../../lib/core/TSettings.cpp			\
+	../../src/persistentmodel/journal.cpp		\
+	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp
 
 include(../tests-include.pro)

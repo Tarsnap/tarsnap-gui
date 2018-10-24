@@ -11,6 +11,8 @@ struct LogEntry
     QString   message;
 };
 
+Q_DECLARE_METATYPE(LogEntry)
+
 /*!
  * \ingroup persistent
  * \brief The Journal stores the user's log messages.

@@ -6,8 +6,10 @@
 
 #include <TSettings.h>
 
-PersistentStore::PersistentStore(QObject *parent)
-    : QObject(parent), _initialized(false)
+bool   PersistentStore::_initialized = false;
+QMutex PersistentStore::_mutex;
+
+PersistentStore::PersistentStore(QObject *parent) : QObject(parent)
 {
     init();
 }

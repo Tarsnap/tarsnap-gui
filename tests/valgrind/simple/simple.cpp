@@ -2,11 +2,11 @@
 
 #include "../compile-valgrind-test.h"
 
-void pl_nothing()
+static void pl_nothing()
 {
 }
 
-void pl_QSqlDatabase()
+static void pl_QSqlDatabase()
 {
     QString connectionName;
     {

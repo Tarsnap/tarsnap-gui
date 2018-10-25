@@ -103,6 +103,6 @@ VALGRIND_CMD = "valgrind --leak-check=full --show-leak-kinds=all\
 		--log-file=valgrind-full.log			\
 		--error-exitcode=108"
 
-test_valgrind.commands = $${VALGRIND_CMD} ./${TARGET} -h
+test_valgrind.commands = $${VALGRIND_CMD} ./${TARGET} --check
 
 # Do not use the shared tests .pro file.

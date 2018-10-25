@@ -3,8 +3,8 @@
 set -e -o nounset
 
 # Ordered list of directories to run.
-DIRS="minimal qtest-minimal"
-DIRS="${DIRS} simple complex"
+DIRS="minimal simple complex"
+DIRS="${DIRS} qtest-minimal"
 
 DEBUG=0
 

@@ -10,8 +10,8 @@
 #define T_TEST_BEGIN                                                           \
     static const struct memleaktest                                            \
     {                                                                          \
-        const char *name;                                                      \
-        void (*func)(void);                                                    \
+        const char *const name;                                                \
+        void (*volatile const func)(void);                                     \
     } tests[] = {
 
 #define T_TEST_END                                                             \

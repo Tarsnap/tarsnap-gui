@@ -16,6 +16,11 @@ Translator &Translator::instance()
     return instance;
 }
 
+Translator::~Translator()
+{
+    remove_translators();
+}
+
 void Translator::remove_translators()
 {
     QCoreApplication *app = QCoreApplication::instance();

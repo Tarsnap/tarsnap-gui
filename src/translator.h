@@ -19,6 +19,7 @@ private:
     Translator();
     Translator(Translator const &);
     Translator &operator=(Translator const &);
+    ~Translator();
 
     QMap<QString, QString> _languageMap;
     QTranslator *_qtTranslator;

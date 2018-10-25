@@ -1,6 +1,7 @@
 #include "translator.h"
 #include "debug.h"
 
+#include <QCoreApplication>
 #include <QLibraryInfo>
 
 Translator::Translator() : _qtTranslator(nullptr), _appTranslator(nullptr)
@@ -15,6 +16,20 @@ Translator &Translator::instance()
     return instance;
 }
 
+void Translator::remove_translators()
+{
+    QCoreApplication *app = QCoreApplication::instance();
+    if(app)
+    {
+        app->removeTranslator(_qtTranslator);
+        app->removeTranslator(_appTranslator);
+    }
+    delete _qtTranslator;
+    _qtTranslator = nullptr;
+    delete _appTranslator;
+    _appTranslator = nullptr;
+}
+
 void Translator::translateApp(QCoreApplication *app, QString lang)
 {
     if(!app)
@@ -27,14 +42,7 @@ void Translator::translateApp(QCoreApplication *app, QString lang)
         return;
 
     if(_qtTranslator && _appTranslator)
-    {
-        app->removeTranslator(_qtTranslator);
-        app->removeTranslator(_appTranslator);
-        delete _qtTranslator;
-        _qtTranslator = nullptr;
-        delete _appTranslator;
-        _appTranslator = nullptr;
-    }
+        remove_translators();
 
     _qtTranslator = new QTranslator();
     _qtTranslator->load("qt_" + _languageMap[lang],

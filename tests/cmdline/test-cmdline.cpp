@@ -74,6 +74,9 @@ void TestCmdline::normal_init()
     // Check that it read the right config file.
     TSettings settings;
     QVERIFY(settings.value("tarsnap/user", "") == "normal_init");
+
+    // Clean up
+    free(argv[0]);
 }
 
 void TestCmdline::appdir_init()
@@ -102,6 +105,11 @@ void TestCmdline::appdir_init()
     // Check that it read the right config file.
     TSettings settings;
     QVERIFY(settings.value("tarsnap/user", "") == "appdata_init");
+
+    // Clean up
+    free(argv[0]);
+    free(argv[1]);
+    free(argv[2]);
 }
 
 QTEST_MAIN(TestCmdline)

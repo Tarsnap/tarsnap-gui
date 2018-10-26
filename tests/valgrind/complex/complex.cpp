@@ -4,11 +4,11 @@
 
 #include "../compile-valgrind-test.h"
 
-void pl_nothing()
+static void pl_nothing()
 {
 }
 
-void pl_processEvents()
+static void pl_processEvents()
 {
     // Set up variables
     int   argc = 1;

@@ -2,11 +2,11 @@
 
 #include "../compile-valgrind-test.h"
 
-void pl_nothing()
+static void pl_nothing()
 {
 }
 
-void pl_QCoreApplication()
+static void pl_QCoreApplication()
 {
     // Set up variables
     int   argc = 1;

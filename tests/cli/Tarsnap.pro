@@ -1,8 +1,7 @@
+TARGET = test-cli
 QT = core network sql
-CONFIG += c++11
 
-TEMPLATE = app
-TARGET = tarsnap-gui-cli
+VALGRIND = true
 
 # Used in lib/core/optparse.h
 VERSION = test
@@ -55,54 +54,20 @@ HEADERS +=						\
 	../../src/translator.h				\
 	../../src/utils.h
 
-INCLUDEPATH += \
-            += ../../libcperciva/util/ \
-            += ../../lib/core/ \
-            += ../../lib/util/ \
-            += ../../src/
-
 RESOURCES += ../../resources/resources-lite.qrc
 
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
+include(../tests-include.pro)
 
-# Pick up extra flags from the environment
-QMAKE_CXXFLAGS += $$(CXXFLAGS)
-QMAKE_CFLAGS += $$(CFLAGS)
-QMAKE_LFLAGS += $$(LDFLAGS)
-env_CC = $$(QMAKE_CC)
-!isEmpty(env_CC) {
-	QMAKE_CC = $$(QMAKE_CC)
-}
-env_CXX = $$(QMAKE_CXX)
-!isEmpty(env_CXX) {
-	QMAKE_CXX = $$(QMAKE_CXX)
-}
-env_LINK = $$(QMAKE_LINK)
-!isEmpty(env_LINK) {
-	QMAKE_LINK = $$(QMAKE_LINK)
-}
+QT -= testlib
+CONFIG -= debug
 
+CONFDIR ="\"$${TEST_HOME}/Tarsnap Backup Inc./\""
+test_home_prep.commands += ; mkdir -p "$${CONFDIR}";		\
+	cp confdir/test-cli.conf "$${CONFDIR}/Tarsnap.conf"
 
-# Cleaner source directory
-UI_DIR      = ../../build/cli/
-MOC_DIR     = ../../build/cli/
-RCC_DIR     = ../../build/cli/
-OBJECTS_DIR = ../../build/cli/
+test.commands = $${TEST_ENV} ./${TARGET} --check
 
-
-# Valgrind
-test_valgrind.depends = ${TARGET}
-QMAKE_EXTRA_TARGETS += test_valgrind
-
-VALGRIND_SUPPRESSIONS=$$absolute_path("../valgrind")/valgrind.supp
-VALGRIND_CMD = "valgrind --leak-check=full --show-leak-kinds=all\
-		--suppressions=$${VALGRIND_SUPPRESSIONS}	\
-		--gen-suppressions=all				\
-		--log-file=valgrind-full.log			\
-		--error-exitcode=108"
-
-test_valgrind.commands = $${VALGRIND_CMD} ./${TARGET} --check
-
-# Do not use the shared tests .pro file.
+test_valgrind.commands = $${TEST_ENV} $${VALGRIND_CMD} ./${TARGET} --check

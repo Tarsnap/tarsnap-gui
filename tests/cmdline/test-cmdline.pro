@@ -1,8 +1,6 @@
 TARGET = test-cmdline
 QT = core network sql
 
-TEMPLATE = app
-
 # Used in lib/core/optparse.h
 VERSION = test
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
@@ -52,10 +50,6 @@ HEADERS +=						\
 	../../src/taskstatus.h				\
 	../../src/translator.h				\
 	../../src/utils.h
-
-INCLUDEPATH +=						\
-		../../libcperciva/util/			\
-		../../lib/util
 
 RESOURCES += ../../resources/resources-lite.qrc
 

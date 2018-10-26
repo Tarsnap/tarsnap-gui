@@ -5,7 +5,9 @@ CONFIG += c++11 debug
 
 TEMPLATE = app
 
-INCLUDEPATH += . ../../src/ ../../src/widgets/ ../../lib/core/
+INCLUDEPATH += . ../../src/ ../../src/widgets/ ../../lib/core/	\
+		../../libcperciva/util/			\
+		../../lib/util
 
 
 # Pick up extra flags from the environment

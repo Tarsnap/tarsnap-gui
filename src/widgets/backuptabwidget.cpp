@@ -14,6 +14,8 @@ BackupTabWidget::BackupTabWidget(QWidget *parent) : QWidget(parent)
     // Messages between widgets on this tab
     connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
             &BackupTabWidget::appendTimestampCheckBoxToggled);
+    connect(_ui.backupListInfoLabel, &ElidedLabel::clicked,
+            _ui.actionBrowseItems, &QAction::trigger);
 }
 
 void BackupTabWidget::changeEvent(QEvent *event)
@@ -28,6 +30,10 @@ void BackupTabWidget::changeEvent(QEvent *event)
 
 void BackupTabWidget::updateUi()
 {
+    _ui.backupListInfoLabel->setToolTip(_ui.backupListInfoLabel->toolTip().arg(
+        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+    _ui.backupListInfoLabel->setText(_ui.backupListInfoLabel->text().arg(
+        _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
 }
 
 bool BackupTabWidget::validateBackupTab()

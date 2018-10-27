@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>455</width>
-    <height>43</height>
+    <height>65</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="backupTabWidgetVerticalLayout">
@@ -26,6 +26,39 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
+   <item>
+    <widget class="ElidedLabel" name="backupListInfoLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Add files and directories using the File Browser &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+color: gray;
+background-color: rgba(237,243,254,255);
+}</string>
+     </property>
+     <property name="text">
+      <string>Drag and drop files or directories to back up, or use the File browser (%1)</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="elide" stdset="0">
+      <string>Qt::ElideMiddle</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QWidget" name="backupActionWidget" native="true">
      <property name="sizePolicy">
@@ -197,7 +230,29 @@ text-align: center;
     </widget>
    </item>
   </layout>
+  <action name="actionBrowseItems">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/magnifying-glass.png</normaloff>:/icons/magnifying-glass.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open File Browser</string>
+   </property>
+   <property name="toolTip">
+    <string>Set files and directories for the Backup tab</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ElidedLabel</class>
+   <extends>QLabel</extends>
+   <header>../widgets/elidedlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>backupNameLineEdit</tabstop>
   <tabstop>appendTimestampCheckBox</tabstop>

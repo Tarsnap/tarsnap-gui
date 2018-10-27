@@ -111,10 +111,18 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::addArchive, &_archivesTabWidget,
             &ArchivesTabWidget::addArchive);
 
+    connect(&_archivesTabWidget, &ArchivesTabWidget::deleteArchives, this,
+            &MainWindow::deleteArchives);
+    connect(&_jobsTabWidget, &JobsTabWidget::restoreArchive, this,
+            &MainWindow::restoreArchive);
     connect(&_archivesTabWidget, &ArchivesTabWidget::jobClicked, this,
             &MainWindow::jobInspectByRef);
     connect(&_archivesTabWidget, &ArchivesTabWidget::displayJobDetails, this,
             &MainWindow::jobInspectByRef);
+    connect(&_archivesTabWidget, &ArchivesTabWidget::loadArchiveStats, this,
+            &MainWindow::loadArchiveStats);
+    connect(&_archivesTabWidget, &ArchivesTabWidget::loadArchiveContents, this,
+            &MainWindow::loadArchiveContents);
 
     connect(_ui.actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);

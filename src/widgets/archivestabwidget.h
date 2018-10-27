@@ -24,9 +24,6 @@ public slots:
     void displayInspectArchive(ArchivePtr archive);
 
 signals:
-    //! We want the MainWindow to display this tab.
-    void displayMainTab(int);
-
     //! Passes info from the ArchiveListWidget or JobWidget to the TaskManager.
     void deleteArchives(QList<ArchivePtr> archives);
     //! Begin tarsnap -x -f \<name\>, with options.

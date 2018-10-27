@@ -188,39 +188,6 @@ selection-background-color: rgba(177,214,255,150);
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="ElidedLabel" name="backupListInfoLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <italic>true</italic>
-              </font>
-             </property>
-             <property name="toolTip">
-              <string>Add files and directories using the File Browser &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel {
-color: gray;
-background-color: rgba(237,243,254,255);
-}</string>
-             </property>
-             <property name="text">
-              <string>Drag and drop files or directories to back up, or use the File browser (%1)</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="elide" stdset="0">
-              <string>Qt::ElideMiddle</string>
-             </property>
-            </widget>
-           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="archivesTab">
@@ -862,14 +829,14 @@ border: none;
    <header>../widgets/elidedlabel.h</header>
   </customwidget>
   <customwidget>
-   <class>BackupListWidget</class>
-   <extends>QListWidget</extends>
-   <header>widgets/backuplistwidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>BusyWidget</class>
    <extends>QLabel</extends>
    <header>../widgets/busywidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>BackupListWidget</class>
+   <extends>QListWidget</extends>
+   <header>widgets/backuplistwidget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

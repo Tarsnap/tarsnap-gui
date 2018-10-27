@@ -211,7 +211,6 @@ private:
     void _backupTabWidget_validateBackupTab();
     void _backupTabWidget_browseForBackupItems();
     void _backupTabWidget_init();
-    void _backupTabWidget_updateUi();
 };
 
 #endif // MAINWINDOW_H

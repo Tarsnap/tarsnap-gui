@@ -169,7 +169,6 @@ private slots:
     void clearList();
 
     // Backup tab - to be private
-    void updateBackupItemTotals(quint64 count, quint64 size);
     void backupButtonClicked();
     void backupMorphIntoJobClicked();
 

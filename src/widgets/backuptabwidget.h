@@ -34,7 +34,10 @@ public:
     {
         return _ui.appendTimestampCheckBox;
     }
-    QLabel *     temp_backupDetailLabel() { return _ui.backupDetailLabel; }
+
+public slots:
+    // Will be private after refactoring
+    void updateBackupItemTotals(quint64 count, quint64 size);
 
 signals:
     void backupButtonClicked();

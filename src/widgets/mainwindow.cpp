@@ -807,23 +807,6 @@ void MainWindow::backupMorphIntoJobClicked()
     //                      _ui.backupNameLineEdit->text());
 }
 
-void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
-{
-    if(count != 0)
-    {
-        _backupTabWidget.temp_backupDetailLabel()->setText(
-            tr("%1 %2 (%3)")
-                .arg(count)
-                .arg(count == 1 ? tr("item") : tr("items"))
-                .arg(Utils::humanBytes(size)));
-    }
-    else
-    {
-        _backupTabWidget.temp_backupDetailLabel()->clear();
-    }
-    _backupTabWidget_validateBackupTab();
-}
-
 void MainWindow::backupButtonClicked()
 {
     QList<QUrl> urls;
@@ -874,8 +857,8 @@ void MainWindow::_backupTabWidget_init()
     _ui.backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     // Messages between widgets on this tab
-    connect(_ui.backupListWidget, &BackupListWidget::itemTotals, this,
-            &MainWindow::updateBackupItemTotals);
+    connect(_ui.backupListWidget, &BackupListWidget::itemTotals,
+            &_backupTabWidget, &BackupTabWidget::updateBackupItemTotals);
     connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
             &_filePickerDialog, &FilePickerDialog::selectUrl);
     // connect(_ui.backupNameLineEdit, &QLineEdit::textChanged,

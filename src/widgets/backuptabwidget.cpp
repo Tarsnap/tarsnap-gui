@@ -1,6 +1,7 @@
 #include "backuptabwidget.h"
 
 #include "persistentmodel/archive.h"
+#include "utils.h"
 
 #include <QDateTime>
 #include <QSettings>
@@ -79,4 +80,21 @@ void BackupTabWidget::appendTimestampCheckBoxToggled(bool checked)
             _ui.backupNameLineEdit->setText(text);
         }
     }
+}
+
+void BackupTabWidget::updateBackupItemTotals(quint64 count, quint64 size)
+{
+    if(count != 0)
+    {
+        _ui.backupDetailLabel->setText(
+            tr("%1 %2 (%3)")
+                .arg(count)
+                .arg(count == 1 ? tr("item") : tr("items"))
+                .arg(Utils::humanBytes(size)));
+    }
+    else
+    {
+        _ui.backupDetailLabel->clear();
+    }
+    validateBackupTab();
 }

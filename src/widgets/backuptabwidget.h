@@ -25,6 +25,9 @@ public:
     //! Does the Backup have a name?
     bool validateBackupTab();
 
+    //! Can we make a backup now?
+    void backupTabValidStatus(bool valid);
+
     // Temp for refactoring
     QLineEdit *temp_backupNameLineEdit() { return _ui.backupNameLineEdit; }
     QCheckBox *temp_appendTimestampCheckBox()
@@ -32,7 +35,10 @@ public:
         return _ui.appendTimestampCheckBox;
     }
     QLabel *     temp_backupDetailLabel() { return _ui.backupDetailLabel; }
-    QToolButton *temp_backupButton() { return _ui.backupButton; }
+
+signals:
+    void backupButtonClicked();
+    void backupMorphIntoJobClicked();
 
 protected:
     //! Handles translation change of language.

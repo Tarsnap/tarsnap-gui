@@ -16,6 +16,14 @@ BackupTabWidget::BackupTabWidget(QWidget *parent) : QWidget(parent)
             &BackupTabWidget::appendTimestampCheckBoxToggled);
     connect(_ui.backupListInfoLabel, &ElidedLabel::clicked,
             _ui.actionBrowseItems, &QAction::trigger);
+
+    // Bottom-right button
+    _ui.backupButton->setDefaultAction(_ui.actionBackupNow);
+    _ui.backupButton->addAction(_ui.actionBackupMorphIntoJob);
+    connect(_ui.actionBackupNow, &QAction::triggered, this,
+            &BackupTabWidget::backupButtonClicked);
+    connect(_ui.actionBackupMorphIntoJob, &QAction::triggered, this,
+            &BackupTabWidget::backupMorphIntoJobClicked);
 }
 
 void BackupTabWidget::changeEvent(QEvent *event)
@@ -42,6 +50,12 @@ bool BackupTabWidget::validateBackupTab()
         return true;
     else
         return false;
+}
+
+void BackupTabWidget::backupTabValidStatus(bool valid)
+{
+    _ui.actionBackupNow->setEnabled(valid);
+    _ui.actionBackupMorphIntoJob->setEnabled(valid);
 }
 
 void BackupTabWidget::appendTimestampCheckBoxToggled(bool checked)

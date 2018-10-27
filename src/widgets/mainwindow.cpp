@@ -213,6 +213,7 @@ void MainWindow::backupTabValidStatus(bool valid)
 {
     _ui.actionBackupNow->setEnabled(valid);
     _ui.actionBackupMorphIntoJob->setEnabled(valid);
+    _backupTabWidget.backupTabValidStatus(valid);
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
@@ -887,14 +888,6 @@ void MainWindow::_backupTabWidget_init()
                 _backupTabWidget_validateBackupTab();
             });
 
-    // Bottom-right button
-    _backupTabWidget.temp_backupButton()->setDefaultAction(_ui.actionBackupNow);
-    _backupTabWidget.temp_backupButton()->addAction(_ui.actionBackupMorphIntoJob);
-    connect(_ui.actionBackupNow, &QAction::triggered, this,
-            &MainWindow::backupButtonClicked);
-    connect(_ui.actionBackupMorphIntoJob, &QAction::triggered, this,
-            &MainWindow::backupMorphIntoJobClicked);
-
     // Right-click context menu
     _ui.backupListWidget->addAction(_ui.actionBrowseItems);
     _ui.backupListWidget->addAction(_ui.actionAddFiles);
@@ -910,4 +903,10 @@ void MainWindow::_backupTabWidget_init()
             &MainWindow::addDirectory);
     connect(_ui.actionClearList, &QAction::triggered, this,
             &MainWindow::clearList);
+
+    // Temp for refactoring
+    connect(&_backupTabWidget, &BackupTabWidget::backupButtonClicked, this,
+            &MainWindow::backupButtonClicked);
+    connect(&_backupTabWidget, &BackupTabWidget::backupMorphIntoJobClicked,
+            this, &MainWindow::backupMorphIntoJobClicked);
 }

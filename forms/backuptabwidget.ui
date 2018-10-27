@@ -245,6 +245,33 @@ text-align: center;
     <string>Ctrl+O</string>
    </property>
   </action>
+  <action name="actionBackupMorphIntoJob">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/hard-drive.png</normaloff>:/icons/hard-drive.png</iconset>
+   </property>
+   <property name="text">
+    <string>Morph into Job</string>
+   </property>
+   <property name="toolTip">
+    <string>Create Job from current Backup list</string>
+   </property>
+  </action>
+  <action name="actionBackupNow">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/logos/tarsnap-icon.png</normaloff>:/logos/tarsnap-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Backup</string>
+   </property>
+   <property name="toolTip">
+    <string>Backup now &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

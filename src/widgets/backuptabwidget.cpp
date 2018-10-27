@@ -1,6 +1,7 @@
 #include "backuptabwidget.h"
 
 #include "persistentmodel/archive.h"
+#include "utils.h"
 
 #include <QDateTime>
 #include <QSettings>
@@ -16,6 +17,20 @@ BackupTabWidget::BackupTabWidget(QWidget *parent) : QWidget(parent)
             &BackupTabWidget::appendTimestampCheckBoxToggled);
     connect(_ui.backupListInfoLabel, &ElidedLabel::clicked,
             _ui.actionBrowseItems, &QAction::trigger);
+    connect(_ui.backupNameLineEdit, &QLineEdit::textChanged,
+            [&](const QString text) {
+                if(text.isEmpty())
+                    _ui.appendTimestampCheckBox->setChecked(false);
+                validateBackupTab();
+            });
+
+    // Bottom-right button
+    _ui.backupButton->setDefaultAction(_ui.actionBackupNow);
+    _ui.backupButton->addAction(_ui.actionBackupMorphIntoJob);
+    connect(_ui.actionBackupNow, &QAction::triggered, this,
+            &BackupTabWidget::backupButtonClicked);
+    connect(_ui.actionBackupMorphIntoJob, &QAction::triggered, this,
+            &BackupTabWidget::backupMorphIntoJobClicked);
 }
 
 void BackupTabWidget::changeEvent(QEvent *event)
@@ -44,6 +59,12 @@ bool BackupTabWidget::validateBackupTab()
         return false;
 }
 
+void BackupTabWidget::backupTabValidStatus(bool valid)
+{
+    _ui.actionBackupNow->setEnabled(valid);
+    _ui.actionBackupMorphIntoJob->setEnabled(valid);
+}
+
 void BackupTabWidget::appendTimestampCheckBoxToggled(bool checked)
 {
     if(checked)
@@ -65,4 +86,21 @@ void BackupTabWidget::appendTimestampCheckBoxToggled(bool checked)
             _ui.backupNameLineEdit->setText(text);
         }
     }
+}
+
+void BackupTabWidget::updateBackupItemTotals(quint64 count, quint64 size)
+{
+    if(count != 0)
+    {
+        _ui.backupDetailLabel->setText(
+            tr("%1 %2 (%3)")
+                .arg(count)
+                .arg(count == 1 ? tr("item") : tr("items"))
+                .arg(Utils::humanBytes(size)));
+    }
+    else
+    {
+        _ui.backupDetailLabel->clear();
+    }
+    validateBackupTab();
 }

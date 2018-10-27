@@ -25,14 +25,23 @@ public:
     //! Does the Backup have a name?
     bool validateBackupTab();
 
+    //! Can we make a backup now?
+    void backupTabValidStatus(bool valid);
+
     // Temp for refactoring
-    QLineEdit *temp_backupNameLineEdit() { return _ui.backupNameLineEdit; }
-    QCheckBox *temp_appendTimestampCheckBox()
+    QString temp_lineText() { return _ui.backupNameLineEdit->text(); }
+    void    temp_uncheck_timestamped()
     {
-        return _ui.appendTimestampCheckBox;
+        _ui.appendTimestampCheckBox->setChecked(false);
     }
-    QLabel *     temp_backupDetailLabel() { return _ui.backupDetailLabel; }
-    QToolButton *temp_backupButton() { return _ui.backupButton; }
+
+public slots:
+    // Will be private after refactoring
+    void updateBackupItemTotals(quint64 count, quint64 size);
+
+signals:
+    void backupButtonClicked();
+    void backupMorphIntoJobClicked();
 
 protected:
     //! Handles translation change of language.

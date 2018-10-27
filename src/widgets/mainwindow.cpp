@@ -213,6 +213,7 @@ void MainWindow::backupTabValidStatus(bool valid)
 {
     _ui.actionBackupNow->setEnabled(valid);
     _ui.actionBackupMorphIntoJob->setEnabled(valid);
+    _backupTabWidget.backupTabValidStatus(valid);
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
@@ -802,25 +803,8 @@ void MainWindow::_backupTabWidget_validateBackupTab()
 void MainWindow::backupMorphIntoJobClicked()
 {
     emit morphBackupIntoJob(_ui.backupListWidget->itemUrls(),
-                            _backupTabWidget.temp_backupNameLineEdit()->text());
+                            _backupTabWidget.temp_lineText());
     //                      _ui.backupNameLineEdit->text());
-}
-
-void MainWindow::updateBackupItemTotals(quint64 count, quint64 size)
-{
-    if(count != 0)
-    {
-        _backupTabWidget.temp_backupDetailLabel()->setText(
-            tr("%1 %2 (%3)")
-                .arg(count)
-                .arg(count == 1 ? tr("item") : tr("items"))
-                .arg(Utils::humanBytes(size)));
-    }
-    else
-    {
-        _backupTabWidget.temp_backupDetailLabel()->clear();
-    }
-    _backupTabWidget_validateBackupTab();
 }
 
 void MainWindow::backupButtonClicked()
@@ -832,11 +816,11 @@ void MainWindow::backupButtonClicked()
 
     BackupTaskPtr backup(new BackupTask);
     // backup->setName(_ui.backupNameLineEdit->text());
-    backup->setName(_backupTabWidget.temp_backupNameLineEdit()->text());
+    backup->setName(_backupTabWidget.temp_lineText());
     backup->setUrls(urls);
     emit backupNow(backup);
     //_ui.appendTimestampCheckBox->setChecked(false);
-    _backupTabWidget.temp_appendTimestampCheckBox()->setChecked(false);
+    _backupTabWidget.temp_uncheck_timestamped();
 }
 
 void MainWindow::_backupTabWidget_browseForBackupItems()
@@ -873,27 +857,10 @@ void MainWindow::_backupTabWidget_init()
     _ui.backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     // Messages between widgets on this tab
-    connect(_ui.backupListWidget, &BackupListWidget::itemTotals, this,
-            &MainWindow::updateBackupItemTotals);
+    connect(_ui.backupListWidget, &BackupListWidget::itemTotals,
+            &_backupTabWidget, &BackupTabWidget::updateBackupItemTotals);
     connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
             &_filePickerDialog, &FilePickerDialog::selectUrl);
-    // connect(_ui.backupNameLineEdit, &QLineEdit::textChanged,
-    connect(_backupTabWidget.temp_backupNameLineEdit(), &QLineEdit::textChanged,
-            [&](const QString text) {
-                if(text.isEmpty())
-                    _backupTabWidget.temp_appendTimestampCheckBox()->setChecked(
-                        false);
-                //_ui.appendTimestampCheckBox->setChecked(false);
-                _backupTabWidget_validateBackupTab();
-            });
-
-    // Bottom-right button
-    _backupTabWidget.temp_backupButton()->setDefaultAction(_ui.actionBackupNow);
-    _backupTabWidget.temp_backupButton()->addAction(_ui.actionBackupMorphIntoJob);
-    connect(_ui.actionBackupNow, &QAction::triggered, this,
-            &MainWindow::backupButtonClicked);
-    connect(_ui.actionBackupMorphIntoJob, &QAction::triggered, this,
-            &MainWindow::backupMorphIntoJobClicked);
 
     // Right-click context menu
     _ui.backupListWidget->addAction(_ui.actionBrowseItems);
@@ -910,4 +877,10 @@ void MainWindow::_backupTabWidget_init()
             &MainWindow::addDirectory);
     connect(_ui.actionClearList, &QAction::triggered, this,
             &MainWindow::clearList);
+
+    // Temp for refactoring
+    connect(&_backupTabWidget, &BackupTabWidget::backupButtonClicked, this,
+            &MainWindow::backupButtonClicked);
+    connect(&_backupTabWidget, &BackupTabWidget::backupMorphIntoJobClicked,
+            this, &MainWindow::backupMorphIntoJobClicked);
 }

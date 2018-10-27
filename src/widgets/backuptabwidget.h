@@ -29,10 +29,10 @@ public:
     void backupTabValidStatus(bool valid);
 
     // Temp for refactoring
-    QLineEdit *temp_backupNameLineEdit() { return _ui.backupNameLineEdit; }
-    QCheckBox *temp_appendTimestampCheckBox()
+    QString temp_lineText() { return _ui.backupNameLineEdit->text(); }
+    void    temp_uncheck_timestamped()
     {
-        return _ui.appendTimestampCheckBox;
+        _ui.appendTimestampCheckBox->setChecked(false);
     }
 
 public slots:

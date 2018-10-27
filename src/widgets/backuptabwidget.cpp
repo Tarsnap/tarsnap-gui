@@ -17,6 +17,12 @@ BackupTabWidget::BackupTabWidget(QWidget *parent) : QWidget(parent)
             &BackupTabWidget::appendTimestampCheckBoxToggled);
     connect(_ui.backupListInfoLabel, &ElidedLabel::clicked,
             _ui.actionBrowseItems, &QAction::trigger);
+    connect(_ui.backupNameLineEdit, &QLineEdit::textChanged,
+            [&](const QString text) {
+                if(text.isEmpty())
+                    _ui.appendTimestampCheckBox->setChecked(false);
+                validateBackupTab();
+            });
 
     // Bottom-right button
     _ui.backupButton->setDefaultAction(_ui.actionBackupNow);

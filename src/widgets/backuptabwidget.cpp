@@ -52,18 +52,24 @@ void BackupTabWidget::updateUi()
         _ui.actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
 }
 
-bool BackupTabWidget::validateBackupTab()
+void BackupTabWidget::validateBackupTab()
 {
-    if(!_ui.backupNameLineEdit->text().isEmpty())
-        return true;
-    else
-        return false;
-}
+    bool valid;
 
-void BackupTabWidget::backupTabValidStatus(bool valid)
-{
+#ifdef QT_TESTLIB_LIB
+    // Temp for refactoring
+    if(!_ui.backupNameLineEdit->text().isEmpty())
+#else
+    if((!_ui.backupNameLineEdit->text().isEmpty())
+       && (_ui_backupListWidget->count() > 0))
+#endif
+        valid = true;
+    else
+        valid = false;
+
     _ui.actionBackupNow->setEnabled(valid);
     _ui.actionBackupMorphIntoJob->setEnabled(valid);
+    emit backupTabValidStatus(valid);
 }
 
 void BackupTabWidget::appendTimestampCheckBoxToggled(bool checked)

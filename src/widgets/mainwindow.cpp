@@ -101,10 +101,10 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::createNewJob);
     connect(&_backupTabWidget, &BackupTabWidget::backupNow, this,
             &MainWindow::backupNow);
-    connect(this, &MainWindow::validBackupTab, this,
+    connect(&_backupTabWidget, &BackupTabWidget::backupTabValidStatus, this,
             &MainWindow::backupTabValidStatus);
 
-    _backupTabWidget_validateBackupTab();
+    _backupTabWidget.validateBackupTab();
 
     // Settings pane
     loadSettings();
@@ -217,7 +217,6 @@ void MainWindow::backupTabValidStatus(bool valid)
 {
     _ui.actionBackupNow->setEnabled(valid);
     _ui.actionBackupMorphIntoJob->setEnabled(valid);
-    _backupTabWidget.backupTabValidStatus(valid);
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
@@ -429,7 +428,7 @@ void MainWindow::mainTabChanged(int index)
     if(_ui.mainTabWidget->currentWidget() == _ui.backupTab)
     {
         _ui.actionBrowseItems->setEnabled(true);
-        _backupTabWidget_validateBackupTab();
+        _backupTabWidget.validateBackupTab();
     }
     else
     {
@@ -793,15 +792,6 @@ void MainWindow::displayTab(QWidget *widget)
 {
     if(_ui.mainTabWidget->currentWidget() != widget)
         _ui.mainTabWidget->setCurrentWidget(widget);
-}
-
-void MainWindow::_backupTabWidget_validateBackupTab()
-{
-    if(_backupTabWidget.validateBackupTab()
-       && (_ui.backupListWidget->count() > 0))
-        emit backupTabValidStatus(true);
-    else
-        emit backupTabValidStatus(false);
 }
 
 void MainWindow::_backupTabWidget_browseForBackupItems()

@@ -203,7 +203,6 @@ private:
     void connectSettingsWidget();
 
     // These are temporary functions to ease the BackupTabWidget refactoring.
-    void _backupTabWidget_validateBackupTab();
     void _backupTabWidget_browseForBackupItems();
     void _backupTabWidget_init();
 };

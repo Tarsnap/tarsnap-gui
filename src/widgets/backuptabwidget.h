@@ -26,10 +26,7 @@ public:
     explicit BackupTabWidget(QWidget *parent = nullptr);
 
     //! Does the Backup have a name?
-    bool validateBackupTab();
-
-    //! Can we make a backup now?
-    void backupTabValidStatus(bool valid);
+    void validateBackupTab();
 
     // Temp for refactoring
     void temp_BackupListWidget(BackupListWidget *widget)
@@ -47,6 +44,9 @@ signals:
 
     //! Create a new job with the given urls and name.
     void morphBackupIntoJob(QList<QUrl> urls, QString name);
+
+    //! We can make a new backup
+    void backupTabValidStatus(bool valid);
 
 protected:
     //! Handles translation change of language.

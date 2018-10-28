@@ -20,6 +20,7 @@ class BackupTabWidget : public QWidget
 
 #ifdef QT_TESTLIB_LIB
     friend class TestBackupTabWidget;
+    friend class TestMainWindow;
 #endif
 
 public:

@@ -306,7 +306,7 @@ void TestMainWindow::other_navigation()
     // Switch back to Backup tab
     QMetaObject::invokeMethod(mainwindow, "browseForBackupItems",
                               Qt::QueuedConnection);
-    QMetaObject::invokeMethod(&mainwindow->_filePickerDialog, "close",
+    QMetaObject::invokeMethod(&backupTabWidget->_filePickerDialog, "close",
                               Qt::QueuedConnection);
     QTest::qWait(100);
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);

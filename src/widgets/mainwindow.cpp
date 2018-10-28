@@ -95,8 +95,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Backup pane
     _backupTabWidget_init();
-    connect(this, &MainWindow::morphBackupIntoJob, this,
+    _backupTabWidget.temp_BackupListWidget(_ui.backupListWidget);
+
+    connect(&_backupTabWidget, &BackupTabWidget::morphBackupIntoJob, this,
             &MainWindow::createNewJob);
+    connect(&_backupTabWidget, &BackupTabWidget::backupNow, this,
+            &MainWindow::backupNow);
     connect(this, &MainWindow::validBackupTab, this,
             &MainWindow::backupTabValidStatus);
 
@@ -800,29 +804,6 @@ void MainWindow::_backupTabWidget_validateBackupTab()
         emit backupTabValidStatus(false);
 }
 
-void MainWindow::backupMorphIntoJobClicked()
-{
-    emit morphBackupIntoJob(_ui.backupListWidget->itemUrls(),
-                            _backupTabWidget.temp_lineText());
-    //                      _ui.backupNameLineEdit->text());
-}
-
-void MainWindow::backupButtonClicked()
-{
-    QList<QUrl> urls;
-    for(int i = 0; i < _ui.backupListWidget->count(); ++i)
-        urls << static_cast<BackupListWidgetItem *>(_ui.backupListWidget->item(i))
-                    ->url();
-
-    BackupTaskPtr backup(new BackupTask);
-    // backup->setName(_ui.backupNameLineEdit->text());
-    backup->setName(_backupTabWidget.temp_lineText());
-    backup->setUrls(urls);
-    emit backupNow(backup);
-    //_ui.appendTimestampCheckBox->setChecked(false);
-    _backupTabWidget.temp_uncheck_timestamped();
-}
-
 void MainWindow::_backupTabWidget_browseForBackupItems()
 {
     _filePickerDialog.setSelectedUrls(_ui.backupListWidget->itemUrls());
@@ -877,10 +858,4 @@ void MainWindow::_backupTabWidget_init()
             &MainWindow::addDirectory);
     connect(_ui.actionClearList, &QAction::triggered, this,
             &MainWindow::clearList);
-
-    // Temp for refactoring
-    connect(&_backupTabWidget, &BackupTabWidget::backupButtonClicked, this,
-            &MainWindow::backupButtonClicked);
-    connect(&_backupTabWidget, &BackupTabWidget::backupMorphIntoJobClicked,
-            this, &MainWindow::backupMorphIntoJobClicked);
 }

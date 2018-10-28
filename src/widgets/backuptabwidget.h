@@ -3,6 +3,9 @@
 
 #include "ui_backuptabwidget.h"
 
+#include "backuplistwidget.h"
+#include "backuptask.h"
+
 #include <QEvent>
 #include <QWidget>
 
@@ -29,10 +32,9 @@ public:
     void backupTabValidStatus(bool valid);
 
     // Temp for refactoring
-    QString temp_lineText() { return _ui.backupNameLineEdit->text(); }
-    void    temp_uncheck_timestamped()
+    void temp_BackupListWidget(BackupListWidget *widget)
     {
-        _ui.appendTimestampCheckBox->setChecked(false);
+        _ui_backupListWidget = widget;
     }
 
 public slots:
@@ -40,8 +42,11 @@ public slots:
     void updateBackupItemTotals(quint64 count, quint64 size);
 
 signals:
-    void backupButtonClicked();
-    void backupMorphIntoJobClicked();
+    //! Begin tarsnap -c -f \<name\>
+    void backupNow(BackupTaskPtr backupTask);
+
+    //! Create a new job with the given urls and name.
+    void morphBackupIntoJob(QList<QUrl> urls, QString name);
 
 protected:
     //! Handles translation change of language.
@@ -49,6 +54,8 @@ protected:
 
 private slots:
     void appendTimestampCheckBoxToggled(bool checked);
+    void backupButtonClicked();
+    void backupMorphIntoJobClicked();
 
 private:
     Ui::BackupTabWidget _ui;
@@ -56,6 +63,8 @@ private:
     QString _lastTimestamp;
 
     void updateUi();
+
+    BackupListWidget *_ui_backupListWidget;
 };
 
 #endif // BACKUPTABWIDGET_H

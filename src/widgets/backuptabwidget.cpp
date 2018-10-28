@@ -1,5 +1,6 @@
 #include "backuptabwidget.h"
 
+#include "backuplistwidgetitem.h"
 #include "persistentmodel/archive.h"
 #include "utils.h"
 
@@ -103,4 +104,24 @@ void BackupTabWidget::updateBackupItemTotals(quint64 count, quint64 size)
         _ui.backupDetailLabel->clear();
     }
     validateBackupTab();
+}
+
+void BackupTabWidget::backupMorphIntoJobClicked()
+{
+    emit morphBackupIntoJob(_ui_backupListWidget->itemUrls(),
+                            _ui.backupNameLineEdit->text());
+}
+
+void BackupTabWidget::backupButtonClicked()
+{
+    QList<QUrl> urls;
+    for(int i = 0; i < _ui_backupListWidget->count(); ++i)
+        urls << static_cast<BackupListWidgetItem *>(_ui_backupListWidget->item(i))
+                    ->url();
+
+    BackupTaskPtr backup(new BackupTask);
+    backup->setName(_ui.backupNameLineEdit->text());
+    backup->setUrls(urls);
+    emit backupNow(backup);
+    _ui.appendTimestampCheckBox->setChecked(false);
 }

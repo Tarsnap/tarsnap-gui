@@ -27,7 +27,6 @@ MainWindow::MainWindow(QWidget *parent)
       _menuBar(nullptr),
       _aboutToQuit(false),
       _stopTasksDialog(this),
-      _filePickerDialog(this),
       _backupTabWidget(this),
       _archivesTabWidget(this),
       _jobsTabWidget(this),
@@ -565,7 +564,7 @@ void MainWindow::browseForBackupItems()
 {
     displayTab(_ui.backupTab);
 
-    _backupTabWidget_browseForBackupItems();
+    _backupTabWidget.browseForBackupItems();
 }
 
 void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
@@ -794,14 +793,6 @@ void MainWindow::displayTab(QWidget *widget)
         _ui.mainTabWidget->setCurrentWidget(widget);
 }
 
-void MainWindow::_backupTabWidget_browseForBackupItems()
-{
-    _filePickerDialog.setSelectedUrls(_ui.backupListWidget->itemUrls());
-    if(_filePickerDialog.exec())
-        _ui.backupListWidget->setItemsWithUrls(
-            _filePickerDialog.getSelectedUrls());
-}
-
 void MainWindow::addFiles()
 {
     QList<QUrl> urls = QFileDialog::getOpenFileUrls(
@@ -830,8 +821,6 @@ void MainWindow::_backupTabWidget_init()
     // Messages between widgets on this tab
     connect(_ui.backupListWidget, &BackupListWidget::itemTotals,
             &_backupTabWidget, &BackupTabWidget::updateBackupItemTotals);
-    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
-            &_filePickerDialog, &FilePickerDialog::selectUrl);
 
     // Right-click context menu
     _ui.backupListWidget->addAction(_ui.actionBrowseItems);
@@ -848,4 +837,8 @@ void MainWindow::_backupTabWidget_init()
             &MainWindow::addDirectory);
     connect(_ui.actionClearList, &QAction::triggered, this,
             &MainWindow::clearList);
+
+    // Temp for refactor
+    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
+            &_backupTabWidget, &BackupTabWidget::itemWithUrlAdded);
 }

@@ -8,7 +8,13 @@
 #include <QSettings>
 #include <QWidget>
 
-BackupTabWidget::BackupTabWidget(QWidget *parent) : QWidget(parent)
+// HACK: using _filePickerDialog(this) produces a segfault on MacOS X in
+// QTabBarPrivate::updateMacBorderMetrics() with tests/mainwindow when using
+// -platform offscreen.  I have no idea why, but I have no leads left to
+// investigate and I've spent way longer than I expected on this refactoring,
+// so I'm moving on.
+BackupTabWidget::BackupTabWidget(QWidget *parent)
+    : QWidget(parent), _filePickerDialog(parent)
 {
     // Ui initialization
     _ui.setupUi(this);
@@ -32,6 +38,10 @@ BackupTabWidget::BackupTabWidget(QWidget *parent) : QWidget(parent)
             &BackupTabWidget::backupButtonClicked);
     connect(_ui.actionBackupMorphIntoJob, &QAction::triggered, this,
             &BackupTabWidget::backupMorphIntoJobClicked);
+
+    // Temp for refactor
+    connect(this, &BackupTabWidget::itemWithUrlAdded, &_filePickerDialog,
+            &FilePickerDialog::selectUrl);
 }
 
 void BackupTabWidget::changeEvent(QEvent *event)
@@ -130,4 +140,12 @@ void BackupTabWidget::backupButtonClicked()
     backup->setUrls(urls);
     emit backupNow(backup);
     _ui.appendTimestampCheckBox->setChecked(false);
+}
+
+void BackupTabWidget::browseForBackupItems()
+{
+    _filePickerDialog.setSelectedUrls(_ui_backupListWidget->itemUrls());
+    if(_filePickerDialog.exec())
+        _ui_backupListWidget->setItemsWithUrls(
+            _filePickerDialog.getSelectedUrls());
 }

@@ -7,7 +7,6 @@
 #include "jobstabwidget.h"
 #include "settingswidget.h"
 
-#include "filepickerdialog.h"
 #include "persistentmodel/journal.h"
 #include "scheduling.h"
 #include "tarsnapaccount.h"
@@ -153,14 +152,14 @@ private slots:
 
     // Backup tab
     void backupTabValidStatus(bool valid);
+    // Open a file dialog to add (multiple) items.
+    void browseForBackupItems();
 
     // Jobs tab
     void displayJobDetails(JobPtr job);
     void createNewJob(QList<QUrl> urls, QString name);
 
     // Backup tab - to be public
-    //! Open a file dialog to add (multiple) items.
-    void browseForBackupItems();
     //! Open a file dialog to add (multiple) files (but not directories!).
     void addFiles();
     //! Open a file dialog to add (multiple) directories (but not files!).
@@ -176,9 +175,6 @@ private:
     QMessageBox    _stopTasksDialog;
     int            _runningTasks;
     int            _queuedTasks;
-
-    // Backup tab
-    FilePickerDialog _filePickerDialog;
 
     QPlainTextEdit *_consoleLog;
 
@@ -203,7 +199,6 @@ private:
     void connectSettingsWidget();
 
     // These are temporary functions to ease the BackupTabWidget refactoring.
-    void _backupTabWidget_browseForBackupItems();
     void _backupTabWidget_init();
 };
 

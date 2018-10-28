@@ -5,6 +5,7 @@
 
 #include "backuplistwidget.h"
 #include "backuptask.h"
+#include "filepickerdialog.h"
 
 #include <QEvent>
 #include <QWidget>
@@ -35,6 +36,9 @@ public:
     }
 
 public slots:
+    //! Open a file dialog to add (multiple) items.
+    void browseForBackupItems();
+
     // Will be private after refactoring
     void updateBackupItemTotals(quint64 count, quint64 size);
 
@@ -48,6 +52,9 @@ signals:
     //! We can make a new backup
     void backupTabValidStatus(bool valid);
 
+    // Temp for refactoring
+    void itemWithUrlAdded(QUrl url);
+
 protected:
     //! Handles translation change of language.
     void changeEvent(QEvent *event);
@@ -59,6 +66,7 @@ private slots:
 
 private:
     Ui::BackupTabWidget _ui;
+    FilePickerDialog    _filePickerDialog;
 
     QString _lastTimestamp;
 

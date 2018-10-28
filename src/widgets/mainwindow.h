@@ -168,10 +168,6 @@ private slots:
     //! Remove items from the backup list.
     void clearList();
 
-    // Backup tab - to be private
-    void backupButtonClicked();
-    void backupMorphIntoJobClicked();
-
 private:
     Ui::MainWindow _ui;
     int            _minWidth;

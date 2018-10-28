@@ -283,6 +283,8 @@ void TestMainWindow::other_navigation()
     JobsTabWidget *   jobsTabWidget = &mainwindow->_jobsTabWidget;
     Ui::JobsTabWidget jui           = jobsTabWidget->_ui;
 
+    BackupTabWidget *backupTabWidget = &mainwindow->_backupTabWidget;
+
     VISUAL_INIT(mainwindow);
 
 #if defined(Q_OS_OSX)
@@ -338,7 +340,7 @@ void TestMainWindow::other_navigation()
     mainwindow->displayTab(ui.backupTab);
     VISUAL_WAIT;
 
-    mainwindow->morphBackupIntoJob(testdir_urls, "test-job2");
+    backupTabWidget->morphBackupIntoJob(testdir_urls, "test-job2");
     QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
     VISUAL_WAIT;
 

@@ -159,14 +159,6 @@ private slots:
     void displayJobDetails(JobPtr job);
     void createNewJob(QList<QUrl> urls, QString name);
 
-    // Backup tab - to be public
-    //! Open a file dialog to add (multiple) files (but not directories!).
-    void addFiles();
-    //! Open a file dialog to add (multiple) directories (but not files!).
-    void addDirectory();
-    //! Remove items from the backup list.
-    void clearList();
-
 private:
     Ui::MainWindow _ui;
     int            _minWidth;
@@ -197,9 +189,6 @@ private:
                                 int queuedTasks);
 
     void connectSettingsWidget();
-
-    // These are temporary functions to ease the BackupTabWidget refactoring.
-    void _backupTabWidget_init();
 };
 
 #endif // MAINWINDOW_H

@@ -30,18 +30,15 @@ public:
     //! Does the Backup have a name?
     void validateBackupTab();
 
-    // Temp for refactoring
-    void temp_BackupListWidget(BackupListWidget *widget)
-    {
-        _ui_backupListWidget = widget;
-    }
-
 public slots:
     //! Open a file dialog to add (multiple) items.
     void browseForBackupItems();
-
-    // Will be private after refactoring
-    void updateBackupItemTotals(quint64 count, quint64 size);
+    //! Open a file dialog to add (multiple) files (but not directories!).
+    void addFiles();
+    //! Open a file dialog to add (multiple) directories (but not files!).
+    void addDirectory();
+    //! Remove items from the backup list.
+    void clearList();
 
 signals:
     //! Begin tarsnap -c -f \<name\>
@@ -53,9 +50,6 @@ signals:
     //! We can make a new backup
     void backupTabValidStatus(bool valid);
 
-    // Temp for refactoring
-    void itemWithUrlAdded(QUrl url);
-
 protected:
     //! Handles translation change of language.
     void changeEvent(QEvent *event);
@@ -64,6 +58,7 @@ private slots:
     void appendTimestampCheckBoxToggled(bool checked);
     void backupButtonClicked();
     void backupMorphIntoJobClicked();
+    void updateBackupItemTotals(quint64 count, quint64 size);
 
 private:
     Ui::BackupTabWidget _ui;
@@ -72,8 +67,6 @@ private:
     QString _lastTimestamp;
 
     void updateUi();
-
-    BackupListWidget *_ui_backupListWidget;
 };
 
 #endif // BACKUPTABWIDGET_H

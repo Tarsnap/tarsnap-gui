@@ -27,6 +27,10 @@
         <source>Tarsnap info</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cannot not initialize the database.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Archive</name>
@@ -398,6 +402,62 @@ Adaugă oricum?</translation>
     <message>
         <source>Current backup selection stats</source>
         <translation type="unfinished">Sumar pentru lista curentă de backup</translation>
+    </message>
+    <message>
+        <source>Add files and directories using the File Browser &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished">Adaugå fișiere și directoare folosind Navigatorul de Fișiere &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Drag and drop files or directories to back up, or use the File browser (%1)</source>
+        <translation type="unfinished">Plasează fișierele și directoarele de adăugat la lista de backup sau folosește Navigatorul (%1)</translation>
+    </message>
+    <message>
+        <source>Qt::ElideMiddle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Browser</source>
+        <translation type="unfinished">Deschide Navigatorul de Fișiere</translation>
+    </message>
+    <message>
+        <source>Set files and directories for the Backup tab</source>
+        <translation type="unfinished">Selectează fișierele și directoarele de adăugat la lista de backup</translation>
+    </message>
+    <message>
+        <source>Ctrl+O</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Morph into Job</source>
+        <translation type="unfinished">Transformă în Job</translation>
+    </message>
+    <message>
+        <source>Create Job from current Backup list</source>
+        <translation type="unfinished">Crează Job folosind lista curentă de Backup</translation>
+    </message>
+    <message>
+        <source>Backup now &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished">Execută backup &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Ctrl+B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 %2 (%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>item</source>
+        <translation type="unfinished">element</translation>
+    </message>
+    <message>
+        <source>items</source>
+        <translation type="unfinished">elemente</translation>
     </message>
 </context>
 <context>
@@ -1003,14 +1063,6 @@ Adaugă oricum?</translation>
         <translation>Comută la panoul Backup &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
     </message>
     <message>
-        <source>Add files and directories using the File Browser &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Adaugå fișiere și directoare folosind Navigatorul de Fișiere &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>Current backup selection stats</source>
-        <translation>Sumar pentru lista curentă de backup</translation>
-    </message>
-    <message>
         <source>Archives</source>
         <translation>Arhive</translation>
     </message>
@@ -1041,14 +1093,6 @@ Adaugă oricum?</translation>
     <message>
         <source>Switch to Settings tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
         <translation>Comută la panoul Setări &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>Drag and drop files or directories to back up, or use the File browser (%1)</source>
-        <translation>Plasează fișierele și directoarele de adăugat la lista de backup sau folosește Navigatorul (%1)</translation>
-    </message>
-    <message>
-        <source>Qt::ElideMiddle</source>
-        <translation></translation>
     </message>
     <message>
         <source>Help</source>
@@ -1365,18 +1409,6 @@ Adaugă oricum?</translation>
     <message>
         <source>Tarsnap Website</source>
         <translation>Website Tarsnap</translation>
-    </message>
-    <message>
-        <source>%1 %2 (%3)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>item</source>
-        <translation>element</translation>
-    </message>
-    <message>
-        <source>items</source>
-        <translation>elemente</translation>
     </message>
     <message>
         <source>Stop Tasks</source>

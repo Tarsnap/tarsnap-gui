@@ -27,6 +27,10 @@
         <source>Tarsnap info</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cannot not initialize the database.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Archive</name>
@@ -391,6 +395,62 @@ Add anyway?</source>
     </message>
     <message>
         <source>Current backup selection stats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add files and directories using the File Browser &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drag and drop files or directories to back up, or use the File browser (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qt::ElideMiddle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set files and directories for the Backup tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+O</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Morph into Job</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create Job from current Backup list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup now &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 %2 (%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>items</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -997,14 +1057,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add files and directories using the File Browser &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current backup selection stats</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Archives</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1034,14 +1086,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Switch to Settings tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Drag and drop files or directories to back up, or use the File browser (%1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qt::ElideMiddle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1358,18 +1402,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Tarsnap Website</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 %2 (%3)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

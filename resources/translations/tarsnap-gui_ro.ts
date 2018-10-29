@@ -459,6 +459,30 @@ Adaugă oricum?</translation>
         <source>items</source>
         <translation type="unfinished">elemente</translation>
     </message>
+    <message>
+        <source>Add file(s)</source>
+        <translation type="unfinished">Adaugă fișiere</translation>
+    </message>
+    <message>
+        <source>Browse for files to add to the Backup list</source>
+        <translation type="unfinished">Navighează după fișiere de adăugat la lista de Backup</translation>
+    </message>
+    <message>
+        <source>Add directory</source>
+        <translation type="unfinished">Adaugă director</translation>
+    </message>
+    <message>
+        <source>Browse for directory to add to the Backup list</source>
+        <translation type="unfinished">Navighează după director de adăugat la lista de Backup</translation>
+    </message>
+    <message>
+        <source>Clear list</source>
+        <translation type="unfinished">Golește lista</translation>
+    </message>
+    <message>
+        <source>Ctrl+Backspace</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FilePickerDialog</name>

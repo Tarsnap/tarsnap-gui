@@ -5,6 +5,7 @@
 #include "utils.h"
 
 #include <QDateTime>
+#include <QFileDialog>
 #include <QSettings>
 #include <QWidget>
 
@@ -18,6 +19,7 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
 {
     // Ui initialization
     _ui.setupUi(this);
+    _ui.backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     // Messages between widgets on this tab
     connect(_ui.appendTimestampCheckBox, &QCheckBox::toggled, this,
@@ -30,6 +32,10 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
                     _ui.appendTimestampCheckBox->setChecked(false);
                 validateBackupTab();
             });
+    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
+            &_filePickerDialog, &FilePickerDialog::selectUrl);
+    connect(_ui.backupListWidget, &BackupListWidget::itemTotals, this,
+            &BackupTabWidget::updateBackupItemTotals);
 
     // Bottom-right button
     _ui.backupButton->setDefaultAction(_ui.actionBackupNow);
@@ -39,9 +45,21 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
     connect(_ui.actionBackupMorphIntoJob, &QAction::triggered, this,
             &BackupTabWidget::backupMorphIntoJobClicked);
 
-    // Temp for refactor
-    connect(this, &BackupTabWidget::itemWithUrlAdded, &_filePickerDialog,
-            &FilePickerDialog::selectUrl);
+    // Right-click context menu
+    _ui.backupListWidget->addAction(_ui.actionBrowseItems);
+    _ui.backupListWidget->addAction(_ui.actionAddFiles);
+    _ui.backupListWidget->addAction(_ui.actionAddDirectory);
+    _ui.backupListWidget->addAction(_ui.actionClearList);
+
+    // Handle the Backup-related actions
+    connect(_ui.actionBrowseItems, &QAction::triggered, this,
+            &BackupTabWidget::browseForBackupItems);
+    connect(_ui.actionAddFiles, &QAction::triggered, this,
+            &BackupTabWidget::addFiles);
+    connect(_ui.actionAddDirectory, &QAction::triggered, this,
+            &BackupTabWidget::addDirectory);
+    connect(_ui.actionClearList, &QAction::triggered, this,
+            &BackupTabWidget::clearList);
 }
 
 void BackupTabWidget::changeEvent(QEvent *event)
@@ -66,13 +84,8 @@ void BackupTabWidget::validateBackupTab()
 {
     bool valid;
 
-#ifdef QT_TESTLIB_LIB
-    // Temp for refactoring
-    if(!_ui.backupNameLineEdit->text().isEmpty())
-#else
     if((!_ui.backupNameLineEdit->text().isEmpty())
-       && (_ui_backupListWidget->count() > 0))
-#endif
+       && (_ui.backupListWidget->count() > 0))
         valid = true;
     else
         valid = false;
@@ -124,15 +137,15 @@ void BackupTabWidget::updateBackupItemTotals(quint64 count, quint64 size)
 
 void BackupTabWidget::backupMorphIntoJobClicked()
 {
-    emit morphBackupIntoJob(_ui_backupListWidget->itemUrls(),
+    emit morphBackupIntoJob(_ui.backupListWidget->itemUrls(),
                             _ui.backupNameLineEdit->text());
 }
 
 void BackupTabWidget::backupButtonClicked()
 {
     QList<QUrl> urls;
-    for(int i = 0; i < _ui_backupListWidget->count(); ++i)
-        urls << static_cast<BackupListWidgetItem *>(_ui_backupListWidget->item(i))
+    for(int i = 0; i < _ui.backupListWidget->count(); ++i)
+        urls << static_cast<BackupListWidgetItem *>(_ui.backupListWidget->item(i))
                     ->url();
 
     BackupTaskPtr backup(new BackupTask);
@@ -144,8 +157,29 @@ void BackupTabWidget::backupButtonClicked()
 
 void BackupTabWidget::browseForBackupItems()
 {
-    _filePickerDialog.setSelectedUrls(_ui_backupListWidget->itemUrls());
+    _filePickerDialog.setSelectedUrls(_ui.backupListWidget->itemUrls());
     if(_filePickerDialog.exec())
-        _ui_backupListWidget->setItemsWithUrls(
+        _ui.backupListWidget->setItemsWithUrls(
             _filePickerDialog.getSelectedUrls());
+}
+
+void BackupTabWidget::addFiles()
+{
+    QList<QUrl> urls = QFileDialog::getOpenFileUrls(
+        this, tr("Browse for files to add to the Backup list"));
+    if(urls.count())
+        _ui.backupListWidget->addItemsWithUrls(urls);
+}
+
+void BackupTabWidget::addDirectory()
+{
+    QUrl url = QFileDialog::getExistingDirectoryUrl(
+        this, tr("Browse for directory to add to the Backup list"));
+    if(!url.isEmpty())
+        _ui.backupListWidget->addItemWithUrl(url);
+}
+
+void BackupTabWidget::clearList()
+{
+    _ui.backupListWidget->clear();
 }

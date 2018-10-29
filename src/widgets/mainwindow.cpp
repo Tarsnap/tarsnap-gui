@@ -93,15 +93,22 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     // Backup pane
-    _backupTabWidget_init();
-    _backupTabWidget.temp_BackupListWidget(_ui.backupListWidget);
-
     connect(&_backupTabWidget, &BackupTabWidget::morphBackupIntoJob, this,
             &MainWindow::createNewJob);
     connect(&_backupTabWidget, &BackupTabWidget::backupNow, this,
             &MainWindow::backupNow);
     connect(&_backupTabWidget, &BackupTabWidget::backupTabValidStatus, this,
             &MainWindow::backupTabValidStatus);
+
+    // Handle the Backup-related actions
+    connect(_ui.actionBrowseItems, &QAction::triggered, this,
+            &MainWindow::browseForBackupItems);
+    connect(_ui.actionAddFiles, &QAction::triggered, &_backupTabWidget,
+            &BackupTabWidget::addFiles);
+    connect(_ui.actionAddDirectory, &QAction::triggered, &_backupTabWidget,
+            &BackupTabWidget::addDirectory);
+    connect(_ui.actionClearList, &QAction::triggered, &_backupTabWidget,
+            &BackupTabWidget::clearList);
 
     _backupTabWidget.validateBackupTab();
 
@@ -791,54 +798,4 @@ void MainWindow::displayTab(QWidget *widget)
 {
     if(_ui.mainTabWidget->currentWidget() != widget)
         _ui.mainTabWidget->setCurrentWidget(widget);
-}
-
-void MainWindow::addFiles()
-{
-    QList<QUrl> urls = QFileDialog::getOpenFileUrls(
-        this, tr("Browse for files to add to the Backup list"));
-    if(urls.count())
-        _ui.backupListWidget->addItemsWithUrls(urls);
-}
-
-void MainWindow::addDirectory()
-{
-    QUrl url = QFileDialog::getExistingDirectoryUrl(
-        this, tr("Browse for directory to add to the Backup list"));
-    if(!url.isEmpty())
-        _ui.backupListWidget->addItemWithUrl(url);
-}
-
-void MainWindow::clearList()
-{
-    _ui.backupListWidget->clear();
-}
-
-void MainWindow::_backupTabWidget_init()
-{
-    _ui.backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-
-    // Messages between widgets on this tab
-    connect(_ui.backupListWidget, &BackupListWidget::itemTotals,
-            &_backupTabWidget, &BackupTabWidget::updateBackupItemTotals);
-
-    // Right-click context menu
-    _ui.backupListWidget->addAction(_ui.actionBrowseItems);
-    _ui.backupListWidget->addAction(_ui.actionAddFiles);
-    _ui.backupListWidget->addAction(_ui.actionAddDirectory);
-    _ui.backupListWidget->addAction(_ui.actionClearList);
-
-    // Handle the Backup-related actions
-    connect(_ui.actionBrowseItems, &QAction::triggered, this,
-            &MainWindow::browseForBackupItems);
-    connect(_ui.actionAddFiles, &QAction::triggered, this,
-            &MainWindow::addFiles);
-    connect(_ui.actionAddDirectory, &QAction::triggered, this,
-            &MainWindow::addDirectory);
-    connect(_ui.actionClearList, &QAction::triggered, this,
-            &MainWindow::clearList);
-
-    // Temp for refactor
-    connect(_ui.backupListWidget, &BackupListWidget::itemWithUrlAdded,
-            &_backupTabWidget, &BackupTabWidget::itemWithUrlAdded);
 }

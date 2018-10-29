@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>455</width>
-    <height>65</height>
+    <height>265</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="backupTabWidgetVerticalLayout">
@@ -26,6 +26,48 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
+   <item>
+    <widget class="BackupListWidget" name="backupListWidget">
+     <property name="contextMenuPolicy">
+      <enum>Qt::ActionsContextMenu</enum>
+     </property>
+     <property name="acceptDrops">
+      <bool>true</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#backupListWidget::item
+{
+height: 33px;
+selection-background-color: rgba(177,214,255,150);
+}
+</string>
+     </property>
+     <property name="tabKeyNavigation">
+      <bool>false</bool>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
+     </property>
+     <property name="verticalScrollMode">
+      <enum>QAbstractItemView::ScrollPerPixel</enum>
+     </property>
+     <property name="horizontalScrollMode">
+      <enum>QAbstractItemView::ScrollPerPixel</enum>
+     </property>
+     <property name="layoutMode">
+      <enum>QListView::Batched</enum>
+     </property>
+     <property name="uniformItemSizes">
+      <bool>true</bool>
+     </property>
+     <property name="batchSize">
+      <number>20</number>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="ElidedLabel" name="backupListInfoLabel">
      <property name="sizePolicy">
@@ -272,6 +314,45 @@ text-align: center;
     <string>Ctrl+B</string>
    </property>
   </action>
+  <action name="actionAddFiles">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/file.png</normaloff>:/icons/file.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add file(s)</string>
+   </property>
+   <property name="toolTip">
+    <string>Browse for files to add to the Backup list</string>
+   </property>
+  </action>
+  <action name="actionAddDirectory">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/folder.png</normaloff>:/icons/folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add directory</string>
+   </property>
+   <property name="toolTip">
+    <string>Browse for directory to add to the Backup list</string>
+   </property>
+  </action>
+  <action name="actionClearList">
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/icons/circle-x.png</normaloff>:/icons/circle-x.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear list</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear list</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Backspace</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -279,8 +360,14 @@ text-align: center;
    <extends>QLabel</extends>
    <header>../widgets/elidedlabel.h</header>
   </customwidget>
+  <customwidget>
+   <class>BackupListWidget</class>
+   <extends>QListWidget</extends>
+   <header>widgets/backuplistwidget.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>backupListWidget</tabstop>
   <tabstop>backupNameLineEdit</tabstop>
   <tabstop>appendTimestampCheckBox</tabstop>
   <tabstop>backupButton</tabstop>

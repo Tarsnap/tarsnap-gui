@@ -3,6 +3,10 @@
 
 #include <QMetaType>
 
+/*!
+ * \ingroup background-tasks
+ * \brief Status which can occur from running a TarsnapTask.
+ */
 enum TaskStatus
 {
     Initialized,

@@ -8,11 +8,18 @@
 
 #define LANG_AUTO "Auto"
 
+/*!
+ * \ingroup misc
+ * \brief The Translator translates strings in the app.
+ */
 class Translator
 {
 public:
+    //! The singleton instance of this class
     static Translator &instance();
+    //! Translates the app.
     void translateApp(QCoreApplication *app, QString lang);
+    //! The available languages.
     QStringList languageList();
 
 private:

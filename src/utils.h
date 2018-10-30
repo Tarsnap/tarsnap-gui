@@ -55,15 +55,23 @@ const QStringList DEFAULT_JOBS{"Desktop", "Documents", "Pictures", "Movies",
 namespace Utils
 {
 
+/*!
+ * \ingroup background-tasks
+ * \brief The GetDirInfoTask reads the filesize and count of a directory
+ * and its subdirectories.
+ */
 class GetDirInfoTask : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
+    //! Constructor.
     explicit GetDirInfoTask(QDir dir);
+    //! Execute the task.
     void run();
 
 signals:
+    //! The directory's size and number of files.
     void result(quint64 size, quint64 count);
 
 private:

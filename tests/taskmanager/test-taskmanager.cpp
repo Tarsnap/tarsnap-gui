@@ -27,14 +27,14 @@ void TestTaskManager::initTestCase()
     QCoreApplication::setOrganizationName(TEST_NAME);
 
     // This is to "warm up" the command-line tasks.
-    TaskManager *task = new TaskManager();
-    QSignalSpy   sig_ver(task, SIGNAL(tarsnapVersion(QString)));
-    task->getTarsnapVersion("");
+    TaskManager *manager = new TaskManager();
+    QSignalSpy   sig_ver(manager, SIGNAL(tarsnapVersion(QString)));
+    manager->getTarsnapVersion("");
 
     // Wait for task to finish
     while(sig_ver.count() == 0)
         QTest::qWait(TASK_CMDLINE_WAIT_MS);
-    delete task;
+    delete manager;
 }
 
 void TestTaskManager::cleanupTestCase()
@@ -46,15 +46,15 @@ void TestTaskManager::get_version()
 {
     TARSNAP_CLI_OR_SKIP;
 
-    TaskManager *task = new TaskManager();
-    QSignalSpy   sig_ver(task, SIGNAL(tarsnapVersion(QString)));
+    TaskManager *manager = new TaskManager();
+    QSignalSpy   sig_ver(manager, SIGNAL(tarsnapVersion(QString)));
     QString      ver_str;
 
     // We start off with no version signal.
     QVERIFY(sig_ver.count() == 0);
 
     // Get version number
-    task->getTarsnapVersion("");
+    manager->getTarsnapVersion("");
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
     QVERIFY(sig_ver.count() == 1);
     ver_str = sig_ver.takeFirst().at(0).toString();
@@ -69,24 +69,25 @@ void TestTaskManager::get_version()
     }
 
     // Get a failure
-    task->getTarsnapVersion("fake-dir");
+    manager->getTarsnapVersion("fake-dir");
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
     QVERIFY(sig_ver.count() == 0);
-    delete task;
+    delete manager;
 }
 
 void TestTaskManager::fail_registerMachine_command_not_found()
 {
-    TaskManager *task = new TaskManager();
-    QSignalSpy sig_reg(task, SIGNAL(registerMachineStatus(TaskStatus, QString)));
+    TaskManager *manager = new TaskManager();
+    QSignalSpy   sig_reg(manager,
+                       SIGNAL(registerMachineStatus(TaskStatus, QString)));
     QVariantList response;
     TaskStatus   status;
     QString      reason;
 
     // Fail to register with a non-existent tarsnap dir.
-    task->registerMachine("fake-user", "fake-password", "fake-machine",
-                          "fake.key", "/fake/dir",
-                          "/tmp/gui-test-tarsnap-cache");
+    manager->registerMachine("fake-user", "fake-password", "fake-machine",
+                             "fake.key", "/fake/dir",
+                             "/tmp/gui-test-tarsnap-cache");
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
     // Get failure message.
@@ -97,23 +98,24 @@ void TestTaskManager::fail_registerMachine_command_not_found()
     QVERIFY(status == TaskStatus::Failed);
     QVERIFY(reason == "Could not find the command-line program");
 
-    delete task;
+    delete manager;
 }
 
 void TestTaskManager::fail_registerMachine_empty_key()
 {
     TARSNAP_CLI_OR_SKIP;
 
-    TaskManager *task = new TaskManager();
-    QSignalSpy sig_reg(task, SIGNAL(registerMachineStatus(TaskStatus, QString)));
+    TaskManager *manager = new TaskManager();
+    QSignalSpy   sig_reg(manager,
+                       SIGNAL(registerMachineStatus(TaskStatus, QString)));
     QVariantList response;
     TaskStatus   status;
     QString      reason;
 
     // Fail to register with a key that doesn't support --fsck-prune.
-    task->registerMachine("fake-user", "fake-password", "fake-machine",
-                          "empty.key", tarsnapPath,
-                          "/tmp/gui-test-tarsnap-cache");
+    manager->registerMachine("fake-user", "fake-password", "fake-machine",
+                             "empty.key", tarsnapPath,
+                             "/tmp/gui-test-tarsnap-cache");
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
     // Get failure message.
@@ -124,7 +126,7 @@ void TestTaskManager::fail_registerMachine_empty_key()
     QVERIFY(status == TaskStatus::Failed);
     QVERIFY(reason.contains("tarsnap: Key file has unreasonable size"));
 
-    delete task;
+    delete manager;
 }
 
 QTEST_MAIN(TestTaskManager)

@@ -29,7 +29,8 @@ HEADERS  +=						\
 	../../src/widgets/joblistwidgetitem.h		\
 	../../src/widgets/jobstabwidget.h		\
 	../../src/widgets/jobwidget.h			\
-	../../src/widgets/restoredialog.h
+	../../src/widgets/restoredialog.h		\
+	../qtest-platform.h
 
 SOURCES += test-jobstabwidget.cpp			\
 	../../lib/core/TSettings.cpp			\

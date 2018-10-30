@@ -13,7 +13,8 @@ HEADERS  +=						\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/tarsnaptask.h				\
 	../../src/taskmanager.h				\
-	../../src/utils.h
+	../../src/utils.h				\
+	../qtest-platform.h
 
 SOURCES += test-taskmanager.cpp				\
 	../../lib/core/TSettings.cpp			\

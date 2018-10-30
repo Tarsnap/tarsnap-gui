@@ -13,7 +13,8 @@ HEADERS  +=						\
 	../../src/widgets/backuptabwidget.h		\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/filepickerdialog.h		\
-	../../src/widgets/filepickerwidget.h
+	../../src/widgets/filepickerwidget.h		\
+	../qtest-platform.h
 
 SOURCES += test-backuptabwidget.cpp			\
 	../../lib/core/TSettings.cpp			\

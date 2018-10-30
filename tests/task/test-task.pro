@@ -7,7 +7,8 @@ HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../src/debug.h				\
 	../../src/tarsnaptask.h				\
-	../../src/utils.h
+	../../src/utils.h				\
+	../qtest-platform.h
 
 SOURCES += test-task.cpp				\
 	../../lib/core/TSettings.cpp			\

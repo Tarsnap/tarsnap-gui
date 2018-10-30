@@ -59,10 +59,16 @@ RESOURCES += ../../resources/resources-lite.qrc
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
-include(../tests-include.pro)
 
+# Include shared settings, but then undo some of them
+include(../tests-include.pro)
 QT -= testlib
 CONFIG -= debug
+UI_DIR      = ../../build/cli/
+MOC_DIR     = ../../build/cli/
+RCC_DIR     = ../../build/cli/
+OBJECTS_DIR = ../../build/cli/
+
 
 CONFDIR ="\"$${TEST_HOME}/Tarsnap Backup Inc./\""
 test_home_prep.commands += ; mkdir -p "$${CONFDIR}";		\

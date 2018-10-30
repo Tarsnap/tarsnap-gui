@@ -99,6 +99,10 @@ signals:
     //! The user has confirmed that the settings can be wiped; go ahead
     //! and run the setup wizard again.
     void runSetupWizard();
+    //! Stop / interrupt / terminate / dequeue tasks.
+    //! \param interrupt Kill the first task.  \warning MacOS X only.  (?)
+    //! \param running Stop all running tasks.
+    //! \param queued Remove all tasks from the queue.
     void stopTasks(bool interrupt, bool running, bool queued);
     //! Begin tarsnap --version
     void getTarsnapVersion(QString tarsnapPath);

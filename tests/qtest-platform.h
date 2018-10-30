@@ -71,4 +71,19 @@ void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
 #define HANDLE_IGNORING_XDG_HOME
 #endif
 
+QString get_script(QString scriptname);
+QString get_script(QString scriptname)
+{
+    QDir dir = QDir(QCoreApplication::applicationDirPath());
+
+#ifdef Q_OS_OSX
+    // Handle the OSX app bundle.
+    dir.cdUp();
+    dir.cdUp();
+    dir.cdUp();
+#endif
+
+    return dir.absolutePath() + "/" + scriptname;
+}
+
 #endif

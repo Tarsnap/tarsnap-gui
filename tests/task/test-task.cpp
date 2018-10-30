@@ -1,5 +1,7 @@
 #include <QtTest/QtTest>
 
+#include "../qtest-platform.h"
+
 #include "tarsnaptask.h"
 
 #include <TSettings.h>
@@ -17,9 +19,6 @@ private slots:
     void sleep_crash();
     void sleep_filenotfound();
     void cmd_filenotfound();
-
-private:
-    QString get_script(QString scriptname);
 };
 
 void TestTask::initTestCase()
@@ -32,20 +31,6 @@ void TestTask::cleanupTestCase()
     // TSettings is used inside ConsoleLog (debug.cpp), which is used by
     // TarsnapTask.
     TSettings::destroy();
-}
-
-QString TestTask::get_script(QString scriptname)
-{
-    QDir dir = QDir(QCoreApplication::applicationDirPath());
-
-#ifdef Q_OS_OSX
-    // Handle the OSX app bundle.
-    dir.cdUp();
-    dir.cdUp();
-    dir.cdUp();
-#endif
-
-    return dir.absolutePath() + "/" + scriptname;
 }
 
 #define RUN_SCRIPT(scriptname)                                                 \

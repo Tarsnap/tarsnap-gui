@@ -2,6 +2,7 @@
 
 #include "../qtest-platform.h"
 
+#include "tarsnaptask.h"
 #include "taskmanager.h"
 #include "utils.h"
 
@@ -20,6 +21,7 @@ private slots:
     void get_version();
     void fail_registerMachine_command_not_found();
     void fail_registerMachine_empty_key();
+    void sleep_cancel();
 };
 
 void TestTaskManager::initTestCase()
@@ -126,6 +128,38 @@ void TestTaskManager::fail_registerMachine_empty_key()
     QVERIFY(status == TaskStatus::Failed);
     QVERIFY(reason.contains("tarsnap: Key file has unreasonable size"));
 
+    delete manager;
+}
+
+void TestTaskManager::sleep_cancel()
+{
+    // Set up the manager.
+    TaskManager *manager = new TaskManager();
+    QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
+
+    // Set up a task.
+    TarsnapTask *task = new TarsnapTask();
+    QSignalSpy   sig_started(task, SIGNAL(started(QVariant)));
+    task->setCommand("/bin/sh");
+    task->setArguments(QStringList(get_script("sleep-9-exit-0.sh")));
+    task->setData(QString("started-9"));
+
+    // Start running it, wait a second.
+    manager->startTask(task);
+    QTest::qWait(1000);
+    QVERIFY(sig_started.count() == 1);
+    QVERIFY(sig_started.takeFirst().at(0).value<QString>() == "started-9");
+    QVERIFY(sig_message.count() == 0);
+
+    // Cancel it
+    manager->stopTasks(false, true, false);
+    QVERIFY(sig_message.count() == 1);
+    QVERIFY(sig_message.takeFirst().at(0).value<QString>()
+            == "Stopped running tasks.");
+
+    QTest::qWait(1000);
+
+    // task is deleted by the task manager
     delete manager;
 }
 

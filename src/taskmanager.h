@@ -30,6 +30,11 @@ public:
     TaskManager();
     ~TaskManager();
 
+#ifdef QT_TESTLIB_LIB
+    //! Start running a task.
+    void startTask(TarsnapTask *task);
+#endif
+
 public slots:
     //! Checks if any scheduled jobs need to run now; if so, adds them to
     //! the queue.  If there are no scheduled jobs, quit the app immediately.
@@ -155,8 +160,10 @@ private slots:
 
     // general task management
     void queueTask(TarsnapTask *task, bool exclusive = false);
-    void startTask(TarsnapTask *task);
     void dequeueTask();
+#ifndef QT_TESTLIB_LIB
+    void startTask(TarsnapTask *task);
+#endif
 
 private:
     void parseError(QString tarsnapOutput);

@@ -49,7 +49,8 @@ HEADERS +=						\
 	../../src/taskmanager.h				\
 	../../src/taskstatus.h				\
 	../../src/translator.h				\
-	../../src/utils.h
+	../../src/utils.h				\
+	../qtest-platform.h
 
 RESOURCES += ../../resources/resources-lite.qrc
 

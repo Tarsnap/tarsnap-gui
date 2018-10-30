@@ -39,6 +39,10 @@ public slots:
     //! Checks if any scheduled jobs need to run now; if so, adds them to
     //! the queue.  If there are no scheduled jobs, quit the app immediately.
     void runScheduledJobs();
+    //! Stop / interrupt / terminate / dequeue tasks.
+    //! \param interrupt Kill the first task.  \warning MacOS X only.  (?)
+    //! \param running Stop all running tasks.
+    //! \param queued Remove all tasks from the queue.
     void stopTasks(bool interrupt, bool running, bool queued);
     //! Load Archives from the PersistentStore.
     void loadArchives();

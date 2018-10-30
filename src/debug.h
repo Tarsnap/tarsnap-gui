@@ -14,17 +14,24 @@
 #define LOG ConsoleLog::instance()
 #define DEFAULT_LOG_FILE "tarsnap.log"
 
+/*!
+ * \ingroup background-tasks
+ * \brief The ConsoleLog is a QObject which saves messages to a log file if
+ * "app/save_console_log" is true.
+ */
 class ConsoleLog : public QObject
 {
     Q_OBJECT
 
 public:
+    //! Sets the qDebug message pattern.
     static void initializeConsoleLog()
     {
 #if defined(QT_DEBUG)
         qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}");
 #endif
     }
+    //! The singleton instance of this class.
     static ConsoleLog &instance()
     {
         static ConsoleLog instance;
@@ -32,6 +39,11 @@ public:
     }
     ~ConsoleLog() {}
 
+    //! The log filename.
+    static QString getLogFile();
+
+    //! Saves and emits a message.
+    //! @{
     inline ConsoleLog &operator<<(QChar t)
     {
         emit message(QString(t));
@@ -140,12 +152,10 @@ public:
         saveLogMessage(QString(t));
         return *this;
     }
-
-    static QString getLogFile();
-
-public slots:
+    //! @}
 
 signals:
+    //! Message sent to the ConsoleLog.
     void message(const QString message);
 
 private:

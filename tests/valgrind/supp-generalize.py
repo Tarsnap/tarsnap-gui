@@ -28,6 +28,10 @@ def process_chunk(chunk_pre):
             chunk_post = lines[:i]
             break
 
+    # Strip any final "obj:*" lines since they're not helpful.
+    while "obj:*" in chunk_post[-1]:
+        chunk_post = chunk_post[:-1]
+
     return "\n".join(["{"] + chunk_post + ["}"]) + "\n"
 
 

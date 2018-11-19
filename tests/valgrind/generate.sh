@@ -62,13 +62,19 @@ generate_supp() {
 }
 
 generate_supp_with_funcs() {
-	# Make suppressions for no arguments
-	generate_supp "${run_cmd}" ""
+	# Make suppressions for our "do nothing" function.
+	generate_supp "${run_cmd}" "pl_nothing"
 
 	# Make suppressions for each function.
 	${run_cmd} | while read func; do				\
+		if [ "z${func}" = "zpl_nothing" ]; then
+			continue
+		fi
 		generate_supp "${run_cmd}" "${func}"
 	done
+
+	# Make suppressions for no arguments
+	generate_supp "${run_cmd}" ""
 }
 
 generate_supp_for_qtest() {

@@ -110,7 +110,7 @@ tested on these distros so far:
 
 All of them seem to include the Qt5 SDK in the official main repos.
 
-1) sudo apt-get install g++ git qtbase5-dev
+1) sudo apt-get install g++ git qtbase5-dev qttools5-dev-tools
 2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
 3) git checkout v1.0 # switch to the desired version
 4) QT_SELECT=qt5 qmake && make -j$(nproc)
@@ -122,7 +122,7 @@ Red Hat based distros
 
 Tested on Fedora 22
 
-1) sudo yum install gcc-c++ git qt5-qtbase-devel
+1) sudo yum install gcc-c++ git qt5-qtbase-devel qt5-linguist
 2) git clone https://github.com/Tarsnap/tarsnap-gui.git && cd tarsnap-gui
 3) git checkout v1.0 # switch to the desired version
 4) qmake-qt5 && make -j$(nproc)

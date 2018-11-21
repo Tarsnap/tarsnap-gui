@@ -1319,6 +1319,7 @@ void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(stdErr));
+        emit tarsnapVersion("");
         return;
     }
 

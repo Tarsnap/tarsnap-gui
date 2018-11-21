@@ -173,14 +173,6 @@ struct init_info init_shared_core(QCoreApplication *app)
     translator.translateApp(app,
                             settings.value("app/language", LANG_AUTO).toString());
 
-    // Initialize the persistentstore
-    PersistentStore &store = PersistentStore::instance();
-    if(!store.init())
-    {
-        info.status = INIT_DB_FAILED;
-        return (info);
-    }
-
     // Run the setup wizard (if necessary).  This uses the translator, and
     // can be tested with:
     //    $ LANGUAGE=ro ./tarsnap-gui
@@ -188,6 +180,14 @@ struct init_info init_shared_core(QCoreApplication *app)
     if(!wizardDone)
     {
         info.status = INIT_NEEDS_SETUP;
+        return (info);
+    }
+
+    // Initialize the persistentstore.  Must be after setup wizard!
+    PersistentStore &store = PersistentStore::instance();
+    if(!store.init())
+    {
+        info.status = INIT_DB_FAILED;
         return (info);
     }
 

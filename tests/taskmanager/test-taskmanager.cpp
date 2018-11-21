@@ -73,7 +73,10 @@ void TestTaskManager::get_version()
     // Get a failure
     manager->getTarsnapVersion("fake-dir");
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
-    QVERIFY(sig_ver.count() == 0);
+    QVERIFY(sig_ver.count() == 1);
+    ver_str = sig_ver.takeFirst().at(0).toString();
+    QVERIFY(ver_str.isEmpty());
+
     delete manager;
 }
 

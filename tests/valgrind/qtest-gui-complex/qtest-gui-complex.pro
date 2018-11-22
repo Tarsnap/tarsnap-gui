@@ -1,5 +1,5 @@
 QT = core testlib
-QT += gui widgets
+QT += gui widgets network
 
 TEMPLATE = app
 TARGET = potential-memleaks

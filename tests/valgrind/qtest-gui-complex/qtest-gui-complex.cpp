@@ -5,6 +5,8 @@
 #include <QHostInfo>
 #include <QLineEdit>
 #include <QRadioButton>
+#include <QTreeView>
+#include <QVBoxLayout>
 
 class TestQTestComplex : public QObject
 {
@@ -18,6 +20,7 @@ private slots:
     void pl_button_checked();
     void pl_lineedit_text();
     void pl_lineedit_text_localhostname();
+    void pl_treeview();
 };
 
 void TestQTestComplex::pl_nothing()
@@ -83,6 +86,20 @@ void TestQTestComplex::pl_lineedit_text_localhostname()
     // Seriously.  No, I wouldn't believe it either if I hadn't seen it myself
     // multiple times.
     QHostInfo::localHostName();
+}
+
+void TestQTestComplex::pl_treeview()
+{
+    QWidget *    widget = new QWidget();
+    QVBoxLayout *layout = new QVBoxLayout();
+
+    // Must set the layout before creating the QTreeView.
+    widget->setLayout(layout);
+    QTreeView *tv = new QTreeView(widget);
+    delete tv;
+
+    delete layout;
+    delete widget;
 }
 
 QTEST_MAIN(TestQTestComplex)

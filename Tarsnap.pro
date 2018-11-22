@@ -213,6 +213,7 @@ UNIT_TESTS =						\
 	tests/setupwizard				\
 	tests/taskmanager				\
 	tests/customfilesystemmodel			\
+	tests/small-widgets				\
 	tests/consolelog				\
 	tests/task
 

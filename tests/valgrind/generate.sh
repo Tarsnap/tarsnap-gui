@@ -5,6 +5,7 @@ set -e -o nounset
 # Ordered list of directories to run.
 DIRS="minimal simple complex"
 DIRS="${DIRS} qtest-minimal"
+DIRS="${DIRS} qtest-gui-minimal qtest-gui-simple qtest-gui-complex"
 
 DEBUG=0
 
@@ -117,7 +118,7 @@ generate_supp_from_dir() {
 		generate_supp_with_funcs "${run_cmd}"
 	else
 		# Make sure we can run the commands without a GUI.
-		if test "${testdir#*qtest-gui}" != "${testdir}"; then
+		if test "${testdir#*-gui}" != "${testdir}"; then
 			generate_supp_for_qtest "-platform offscreen "
 		else
 			generate_supp_for_qtest ""

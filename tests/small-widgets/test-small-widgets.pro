@@ -1,6 +1,8 @@
 TARGET = test-small-widgets
 QT = core gui widgets
 
+VALGRIND = true
+
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../src/widgets/elidedlabel.h			\

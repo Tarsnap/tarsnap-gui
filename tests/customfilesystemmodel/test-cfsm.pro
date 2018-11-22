@@ -1,6 +1,8 @@
 TARGET = test-cfsm
 QT = core widgets
 
+VALGRIND = true
+
 HEADERS	+=						\
 	../../src/customfilesystemmodel.h		\
 	scenario-num.h					\

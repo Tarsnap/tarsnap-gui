@@ -1,6 +1,8 @@
 TARGET = test-setupwizard
 QT = core gui widgets network
 
+VALGRIND = true
+
 FORMS += ../../forms/setupdialog.ui
 
 HEADERS  +=						\

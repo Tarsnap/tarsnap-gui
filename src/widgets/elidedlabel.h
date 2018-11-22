@@ -16,6 +16,10 @@ class ElidedLabel : public QLabel
     Q_PROPERTY(Qt::TextElideMode elide READ elide WRITE setElide NOTIFY
                    elideChanged DESIGNABLE true)
 
+#ifdef QT_TESTLIB_LIB
+    friend class TestSmallWidgets;
+#endif
+
 public:
     //! Constructor.
     explicit ElidedLabel(QWidget *parent = nullptr);

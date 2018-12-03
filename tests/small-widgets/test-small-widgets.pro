@@ -9,6 +9,7 @@ FORMS += ../../forms/filepickerdialog.ui		\
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../src/customfilesystemmodel.h		\
+	../../src/widgets/confirmationdialog.h		\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/filepickerdialog.h		\
 	../../src/widgets/filepickerwidget.h		\
@@ -17,6 +18,7 @@ HEADERS  +=						\
 SOURCES += test-small-widgets.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../src/customfilesystemmodel.cpp		\
+	../../src/widgets/confirmationdialog.cpp	\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/filepickerdialog.cpp		\
 	../../src/widgets/filepickerwidget.cpp

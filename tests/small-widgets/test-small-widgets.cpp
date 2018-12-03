@@ -2,6 +2,7 @@
 
 #include "../qtest-platform.h"
 
+#include "confirmationdialog.h"
 #include "elidedlabel.h"
 #include "filepickerdialog.h"
 
@@ -17,6 +18,7 @@ private slots:
 
     void elidedLabel();
     void filepickerdialog();
+    void confirmationDialog();
 };
 
 void TestSmallWidgets::initTestCase()
@@ -73,6 +75,12 @@ void TestSmallWidgets::filepickerdialog()
 
     delete fpd;
     delete widget;
+}
+
+void TestSmallWidgets::confirmationDialog()
+{
+    ConfirmationDialog * confirm = new ConfirmationDialog();
+    delete confirm;
 }
 
 QTEST_MAIN(TestSmallWidgets)

@@ -1,7 +1,10 @@
 TARGET = test-backuptabwidget
 QT = core gui widgets sql
 
-FORMS += ../../forms/backuptabwidget.ui
+FORMS += ../../forms/backuptabwidget.ui			\
+	../../forms/backuplistwidgetitem.ui		\
+	../../forms/filepickerdialog.ui			\
+	../../forms/filepickerwidget.ui
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\

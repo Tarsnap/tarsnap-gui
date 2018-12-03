@@ -4,12 +4,15 @@
 
 #include "backuptabwidget.h"
 
+#include "TSettings.h"
+
 class TestBackupTabWidget : public QObject
 {
     Q_OBJECT
 
 private slots:
     void initTestCase();
+    void cleanupTestCase();
 
     void nameEdit();
 };
@@ -23,6 +26,11 @@ void TestBackupTabWidget::initTestCase()
         // Use a custom message handler to filter out unwanted messages
         orig_message_handler = qInstallMessageHandler(offscreenMessageOutput);
     }
+}
+
+void TestBackupTabWidget::cleanupTestCase()
+{
+    TSettings::destroy();
 }
 
 void TestBackupTabWidget::nameEdit()

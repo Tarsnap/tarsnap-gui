@@ -66,8 +66,8 @@ void TestSmallWidgets::elidedLabel()
 
 void TestSmallWidgets::filepickerdialog()
 {
-    QWidget *widget = new QWidget();
-    FilePickerDialog *fpd = new FilePickerDialog(widget);
+    QWidget *         widget = new QWidget();
+    FilePickerDialog *fpd    = new FilePickerDialog(widget);
 
     QList<QUrl> myurls({QUrl("file:///tmp")});
     fpd->setSelectedUrls(myurls);
@@ -79,7 +79,7 @@ void TestSmallWidgets::filepickerdialog()
 
 void TestSmallWidgets::confirmationDialog()
 {
-    ConfirmationDialog * confirm = new ConfirmationDialog();
+    ConfirmationDialog *confirm = new ConfirmationDialog();
     delete confirm;
 }
 

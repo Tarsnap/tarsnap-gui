@@ -9,6 +9,8 @@
 
 #include "settingswidget.h"
 
+#include "ui_settingswidget.h"
+
 class TestSettingsWidget : public QObject
 {
     Q_OBJECT
@@ -42,37 +44,37 @@ void TestSettingsWidget::account()
 {
     HANDLE_IGNORING_XDG_HOME;
 
-    SettingsWidget *   settingsWidget = new SettingsWidget();
-    Ui::SettingsWidget ui             = settingsWidget->_ui;
-    TarsnapAccount *   tarsnapAccount = &settingsWidget->_tarsnapAccount;
-    QSignalSpy         sig_status(settingsWidget,
+    SettingsWidget *    settingsWidget = new SettingsWidget();
+    Ui::SettingsWidget *ui             = settingsWidget->_ui;
+    TarsnapAccount *    tarsnapAccount = &settingsWidget->_tarsnapAccount;
+    QSignalSpy          sig_status(settingsWidget,
                           SIGNAL(newStatusMessage(QString, QString)));
 
     VISUAL_INIT(settingsWidget);
 
     // Send stats info.
     settingsWidget->overallStatsChanged(5, 4, 3, 2, 1);
-    QCOMPARE(ui.accountArchivesCountLabel->text(), QString("1"));
-    QCOMPARE(ui.accountTotalSizeLabel->text(), QString("5 B"));
-    QCOMPARE(ui.accountActualSizeLabel->text(), QString("2 B"));
-    QCOMPARE(ui.accountStorageSavedLabel->text(), QString("3 B"));
+    QCOMPARE(ui->accountArchivesCountLabel->text(), QString("1"));
+    QCOMPARE(ui->accountTotalSizeLabel->text(), QString("5 B"));
+    QCOMPARE(ui->accountActualSizeLabel->text(), QString("2 B"));
+    QCOMPARE(ui->accountStorageSavedLabel->text(), QString("3 B"));
     VISUAL_WAIT;
 
     // Trigger an error message that we have to click away.
-    QMetaObject::invokeMethod(ui.updateAccountButton, "clicked",
+    QMetaObject::invokeMethod(ui->updateAccountButton, "clicked",
                               Qt::QueuedConnection);
     QMetaObject::invokeMethod(&tarsnapAccount->_popup, "close",
                               Qt::QueuedConnection);
     VISUAL_WAIT;
 
     // Set username, machine name, key.
-    ui.accountUserLineEdit->setText("edited-user");
-    ui.accountMachineLineEdit->setText("edited-mn");
-    ui.accountMachineKeyLineEdit->setText("edited-mk");
+    ui->accountUserLineEdit->setText("edited-user");
+    ui->accountMachineLineEdit->setText("edited-mn");
+    ui->accountMachineKeyLineEdit->setText("edited-mk");
     VISUAL_WAIT;
 
     // Nuke button, reject dialog.
-    QMetaObject::invokeMethod(ui.nukeArchivesButton, "clicked",
+    QMetaObject::invokeMethod(ui->nukeArchivesButton, "clicked",
                               Qt::QueuedConnection);
     QMetaObject::invokeMethod(&settingsWidget->_nukeConfirmationDialog._inputDialog,
                               "reject", Qt::QueuedConnection);
@@ -103,19 +105,19 @@ void TestSettingsWidget::account()
 
 void TestSettingsWidget::backup()
 {
-    SettingsWidget *   settingsWidget = new SettingsWidget();
-    Ui::SettingsWidget ui             = settingsWidget->_ui;
+    SettingsWidget *    settingsWidget = new SettingsWidget();
+    Ui::SettingsWidget *ui             = settingsWidget->_ui;
 
     VISUAL_INIT(settingsWidget);
 
     // Switch to Backup tab.
-    ui.settingsToolbox->setCurrentIndex(1);
+    ui->settingsToolbox->setCurrentIndex(1);
     VISUAL_WAIT;
 
     // Toggle some options.
-    ui.preservePathsCheckBox->setChecked(false);
-    ui.skipNoDumpCheckBox->setChecked(true);
-    ui.simulationCheckBox->setChecked(true);
+    ui->preservePathsCheckBox->setChecked(false);
+    ui->skipNoDumpCheckBox->setChecked(true);
+    ui->simulationCheckBox->setChecked(true);
     VISUAL_WAIT;
 
     // Check saved settings.  These are ready due to not using setText().
@@ -130,17 +132,17 @@ void TestSettingsWidget::backup()
 
 void TestSettingsWidget::application()
 {
-    SettingsWidget *   settingsWidget = new SettingsWidget();
-    Ui::SettingsWidget ui             = settingsWidget->_ui;
+    SettingsWidget *    settingsWidget = new SettingsWidget();
+    Ui::SettingsWidget *ui             = settingsWidget->_ui;
 
     VISUAL_INIT(settingsWidget);
 
     // Switch to Application tab.
-    ui.settingsToolbox->setCurrentIndex(2);
+    ui->settingsToolbox->setCurrentIndex(2);
     VISUAL_WAIT;
 
     // Toggle some options.
-    ui.notificationsCheckBox->setChecked(false);
+    ui->notificationsCheckBox->setChecked(false);
     VISUAL_WAIT;
 
     // Check saved settings.  These are ready due to not using setText().

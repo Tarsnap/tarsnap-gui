@@ -8,6 +8,11 @@
 
 #include "persistentmodel/archive.h"
 
+#include "ui_helpwidget.h"
+#include "ui_jobstabwidget.h"
+#include "ui_jobwidget.h"
+#include "ui_mainwindow.h"
+
 #include <TSettings.h>
 
 class TestMainWindow : public QObject
@@ -63,41 +68,41 @@ static QAction *get_menubar_about(QMenuBar *menubar)
 
 void TestMainWindow::about_window()
 {
-    MainWindow *   mainwindow = new MainWindow();
-    HelpWidget *   help       = &mainwindow->_helpWidget;
-    Ui::MainWindow ui_main    = mainwindow->_ui;
-    Ui::HelpWidget ui         = help->_ui;
+    MainWindow *    mainwindow = new MainWindow();
+    HelpWidget *    help       = &mainwindow->_helpWidget;
+    Ui::MainWindow *ui_main    = mainwindow->_ui;
+    Ui::HelpWidget *ui         = help->_ui;
 
     VISUAL_INIT(mainwindow);
 
     // Starts off not visible and the button is not pushed down
-    ui_main.actionGoHelp->trigger();
+    ui_main->actionGoHelp->trigger();
     QVERIFY(help->_aboutWindow.isVisible() == false);
-    QVERIFY(ui.aboutButton->isChecked() == false);
+    QVERIFY(ui->aboutButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
-    ui.aboutButton->click();
+    ui->aboutButton->click();
     QVERIFY(help->_aboutWindow.isVisible() == true);
-    QVERIFY(ui.aboutButton->isChecked() == true);
+    QVERIFY(ui->aboutButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by clicking the button again
-    ui.aboutButton->click();
+    ui->aboutButton->click();
     QVERIFY(help->_aboutWindow.isVisible() == false);
-    QVERIFY(ui.aboutButton->isChecked() == false);
+    QVERIFY(ui->aboutButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
-    ui.aboutButton->click();
+    ui->aboutButton->click();
     QVERIFY(help->_aboutWindow.isVisible() == true);
-    QVERIFY(ui.aboutButton->isChecked() == true);
+    QVERIFY(ui->aboutButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by closing the About window
     help->_aboutWindow.close();
     QVERIFY(help->_aboutWindow.isVisible() == false);
-    QVERIFY(ui.aboutButton->isChecked() == false);
+    QVERIFY(ui->aboutButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Test the "About Tarsnap" menubar item, if applicable.
@@ -111,19 +116,19 @@ void TestMainWindow::about_window()
         // Becomes visible using the menu bar action
         menuAction->trigger();
         QVERIFY(help->_aboutWindow.isVisible() == true);
-        QVERIFY(ui.aboutButton->isChecked() == true);
+        QVERIFY(ui->aboutButton->isChecked() == true);
         VISUAL_WAIT;
 
         // Stay visible even when clicking the menu bar action again
         menuAction->trigger();
         QVERIFY(help->_aboutWindow.isVisible() == true);
-        QVERIFY(ui.aboutButton->isChecked() == true);
+        QVERIFY(ui->aboutButton->isChecked() == true);
         VISUAL_WAIT;
 
         // Becomes invisible by clicking the Help->About button
-        ui.aboutButton->click();
+        ui->aboutButton->click();
         QVERIFY(help->_aboutWindow.isVisible() == false);
-        QVERIFY(ui.aboutButton->isChecked() == false);
+        QVERIFY(ui->aboutButton->isChecked() == false);
         VISUAL_WAIT;
     }
 
@@ -196,41 +201,41 @@ void TestMainWindow::quit_tasks()
 
 void TestMainWindow::console_window()
 {
-    MainWindow *   mainwindow = new MainWindow();
-    HelpWidget *   help       = &mainwindow->_helpWidget;
-    Ui::MainWindow ui_main    = mainwindow->_ui;
-    Ui::HelpWidget ui         = help->_ui;
+    MainWindow *    mainwindow = new MainWindow();
+    HelpWidget *    help       = &mainwindow->_helpWidget;
+    Ui::MainWindow *ui_main    = mainwindow->_ui;
+    Ui::HelpWidget *ui         = help->_ui;
 
     VISUAL_INIT(mainwindow);
 
     // Starts off not visible and the button is not pushed down
-    ui_main.actionGoHelp->trigger();
+    ui_main->actionGoHelp->trigger();
     QVERIFY(help->_consoleWindow.isVisible() == false);
-    QVERIFY(ui.consoleButton->isChecked() == false);
+    QVERIFY(ui->consoleButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
-    ui.consoleButton->click();
+    ui->consoleButton->click();
     QVERIFY(help->_consoleWindow.isVisible() == true);
-    QVERIFY(ui.consoleButton->isChecked() == true);
+    QVERIFY(ui->consoleButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by clicking the button again
-    ui.consoleButton->click();
+    ui->consoleButton->click();
     QVERIFY(help->_consoleWindow.isVisible() == false);
-    QVERIFY(ui.consoleButton->isChecked() == false);
+    QVERIFY(ui->consoleButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
-    ui.consoleButton->click();
+    ui->consoleButton->click();
     QVERIFY(help->_consoleWindow.isVisible() == true);
-    QVERIFY(ui.consoleButton->isChecked() == true);
+    QVERIFY(ui->consoleButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by closing the Console window
     help->_consoleWindow.close();
     QVERIFY(help->_consoleWindow.isVisible() == false);
-    QVERIFY(ui.consoleButton->isChecked() == false);
+    QVERIFY(ui->consoleButton->isChecked() == false);
     VISUAL_WAIT;
 
     delete mainwindow;
@@ -240,35 +245,35 @@ void TestMainWindow::tab_navigation()
 {
     HANDLE_IGNORING_XDG_HOME;
 
-    MainWindow *   mainwindow = new MainWindow();
-    Ui::MainWindow ui         = mainwindow->_ui;
+    MainWindow *    mainwindow = new MainWindow();
+    Ui::MainWindow *ui         = mainwindow->_ui;
 
     VISUAL_INIT(mainwindow);
 
     // Start in the Backup tab
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTab);
 
     // Switch between tabs
     // Unfortunately we can't test the Ctrl+X keyboard shortcuts, because
     // QTest::keyClick() doesn't work with -platform offscreen.
-    mainwindow->displayTab(ui.archivesTab);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.archivesTab);
+    mainwindow->displayTab(ui->archivesTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
     VISUAL_WAIT;
 
-    mainwindow->displayTab(ui.jobsTab);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
+    mainwindow->displayTab(ui->jobsTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
     VISUAL_WAIT;
 
-    mainwindow->displayTab(ui.settingsTab);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.settingsTab);
+    mainwindow->displayTab(ui->settingsTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->settingsTab);
     VISUAL_WAIT;
 
-    mainwindow->displayTab(ui.helpTab);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.helpTab);
+    mainwindow->displayTab(ui->helpTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->helpTab);
     VISUAL_WAIT;
 
-    mainwindow->displayTab(ui.backupTab);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
+    mainwindow->displayTab(ui->backupTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTab);
     VISUAL_WAIT;
 
     delete mainwindow;
@@ -278,10 +283,10 @@ void TestMainWindow::other_navigation()
 {
     HANDLE_IGNORING_XDG_HOME;
 
-    MainWindow *      mainwindow    = new MainWindow();
-    Ui::MainWindow    ui            = mainwindow->_ui;
-    JobsTabWidget *   jobsTabWidget = &mainwindow->_jobsTabWidget;
-    Ui::JobsTabWidget jui           = jobsTabWidget->_ui;
+    MainWindow *       mainwindow    = new MainWindow();
+    Ui::MainWindow *   ui            = mainwindow->_ui;
+    JobsTabWidget *    jobsTabWidget = &mainwindow->_jobsTabWidget;
+    Ui::JobsTabWidget *jui           = jobsTabWidget->_ui;
 
     BackupTabWidget *backupTabWidget = &mainwindow->_backupTabWidget;
 
@@ -291,7 +296,7 @@ void TestMainWindow::other_navigation()
     // HACK: Load directory that we'll want for creating a Job.  This is
     // slow to load on OSX (relative to the -platform offscreen test), so we
     // add an extra delay.
-    jobsTabWidget->_ui.jobDetailsWidget->_ui.jobTreeWidget->_model.setRootPath(
+    jobsTabWidget->_ui->jobDetailsWidget->_ui->jobTreeWidget->_model.setRootPath(
         TEST_DIR);
     QTest::qWait(1000);
 #endif
@@ -299,8 +304,8 @@ void TestMainWindow::other_navigation()
     QList<QUrl> testdir_urls({QUrl("file://" TEST_DIR)});
 
     // Switch to a different tab.
-    mainwindow->displayTab(ui.helpTab);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.helpTab);
+    mainwindow->displayTab(ui->helpTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->helpTab);
     VISUAL_WAIT;
 
     // Switch back to Backup tab
@@ -309,24 +314,24 @@ void TestMainWindow::other_navigation()
     QMetaObject::invokeMethod(&backupTabWidget->_filePickerDialog, "close",
                               Qt::QueuedConnection);
     QTest::qWait(100);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.backupTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTab);
     VISUAL_WAIT;
 
     // Add a Job
-    mainwindow->displayTab(ui.jobsTab);
+    mainwindow->displayTab(ui->jobsTab);
     jobsTabWidget->createNewJob(testdir_urls, QString("test-job"));
     jobsTabWidget->addJobClicked();
 
     // Make sure that MainWindow has a job, then get a pointer to it.
-    QVERIFY(jui.jobListWidget->count() == 1);
-    QVERIFY(jui.jobListWidget->currentItem() != nullptr);
+    QVERIFY(jui->jobListWidget->count() == 1);
+    QVERIFY(jui->jobListWidget->currentItem() != nullptr);
     JobPtr job =
-        static_cast<JobListWidgetItem *>(jui.jobListWidget->currentItem())->job();
+        static_cast<JobListWidgetItem *>(jui->jobListWidget->currentItem())->job();
     QVERIFY(job != nullptr);
     VISUAL_WAIT;
 
     // Add an Archive
-    mainwindow->displayTab(ui.archivesTab);
+    mainwindow->displayTab(ui->archivesTab);
     ArchivePtr archive(new Archive);
     archive->setName("Job_test-job_archive1");
     mainwindow->addArchive(archive);
@@ -337,24 +342,24 @@ void TestMainWindow::other_navigation()
     job->setArchives(QList<ArchivePtr>() << archive);
 
     // Create a second job, this time via morphBackupIntoJob
-    mainwindow->displayTab(ui.backupTab);
+    mainwindow->displayTab(ui->backupTab);
     VISUAL_WAIT;
 
     backupTabWidget->morphBackupIntoJob(testdir_urls, "test-job2");
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
     VISUAL_WAIT;
 
     jobsTabWidget->addJobClicked();
-    QVERIFY(jui.jobListWidget->count() == 2);
+    QVERIFY(jui->jobListWidget->count() == 2);
     VISUAL_WAIT;
 
     // Switch back and forth between the job and archive.
     mainwindow->displayInspectArchive(archive);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.archivesTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
     VISUAL_WAIT;
 
     mainwindow->displayJobDetails(job);
-    QVERIFY(ui.mainTabWidget->currentWidget() == ui.jobsTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
     VISUAL_WAIT;
 
     delete mainwindow;

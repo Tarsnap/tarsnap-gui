@@ -1,21 +1,24 @@
 #include "filepickerdialog.h"
 
+#include "ui_filepickerdialog.h"
+
 #include <TSettings.h>
 
-FilePickerDialog::FilePickerDialog(QWidget *parent) : QDialog(parent)
+FilePickerDialog::FilePickerDialog(QWidget *parent)
+    : QDialog(parent), _ui(new Ui::FilePickerDialog)
 {
-    _ui.setupUi(this);
+    _ui->setupUi(this);
     // Enable the "select" button if, and only if, there are selected URLs.
-    connect(_ui.filePickerWidget, &FilePickerWidget::selectionChanged, [&]() {
-        _ui.selectButton->setEnabled(
-            !_ui.filePickerWidget->getSelectedUrls().isEmpty());
+    connect(_ui->filePickerWidget, &FilePickerWidget::selectionChanged, [&]() {
+        _ui->selectButton->setEnabled(
+            !_ui->filePickerWidget->getSelectedUrls().isEmpty());
     });
-    connect(_ui.selectButton, &QPushButton::clicked, this,
+    connect(_ui->selectButton, &QPushButton::clicked, this,
             &FilePickerDialog::accept);
 
     // Load last browsed file url.
     TSettings settings;
-    _ui.filePickerWidget->setCurrentPath(
+    _ui->filePickerWidget->setCurrentPath(
         settings.value("app/file_browse_last", QDir::homePath()).toString());
 }
 
@@ -24,20 +27,21 @@ FilePickerDialog::~FilePickerDialog()
     // Save last browsed file url.
     TSettings settings;
     settings.setValue("app/file_browse_last",
-                      _ui.filePickerWidget->getCurrentPath());
+                      _ui->filePickerWidget->getCurrentPath());
+    delete _ui;
 }
 
 QList<QUrl> FilePickerDialog::getSelectedUrls()
 {
-    return _ui.filePickerWidget->getSelectedUrls();
+    return _ui->filePickerWidget->getSelectedUrls();
 }
 
 void FilePickerDialog::setSelectedUrls(QList<QUrl> urls)
 {
-    _ui.filePickerWidget->setSelectedUrls(urls);
+    _ui->filePickerWidget->setSelectedUrls(urls);
 }
 
 void FilePickerDialog::selectUrl(QUrl url)
 {
-    _ui.filePickerWidget->selectUrl(url);
+    _ui->filePickerWidget->selectUrl(url);
 }

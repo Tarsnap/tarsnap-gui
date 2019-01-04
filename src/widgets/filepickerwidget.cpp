@@ -2,13 +2,16 @@
 
 #include "debug.h"
 
+#include "ui_filepickerwidget.h"
+
 #include <QKeyEvent>
 #include <QPersistentModelIndex>
 
-FilePickerWidget::FilePickerWidget(QWidget *parent) : QWidget(parent)
+FilePickerWidget::FilePickerWidget(QWidget *parent)
+    : QWidget(parent), _ui(new Ui::FilePickerWidget)
 {
-    _ui.setupUi(this);
-    _ui.optionsContainer->hide();
+    _ui->setupUi(this);
+    _ui->optionsContainer->hide();
 
     // Configure underlying model.
     _model.setRootPath(QDir::rootPath());
@@ -17,12 +20,12 @@ FilePickerWidget::FilePickerWidget(QWidget *parent) : QWidget(parent)
     _completer.setModel(&_model);
     _completer.setCompletionMode(QCompleter::InlineCompletion);
     _completer.setCaseSensitivity(Qt::CaseSensitive);
-    _ui.filterLineEdit->setCompleter(&_completer);
-    _ui.filterLineEdit->setFocus();
+    _ui->filterLineEdit->setCompleter(&_completer);
+    _ui->filterLineEdit->setFocus();
 
     // Configure visual display of the model.
-    _ui.treeView->setModel(&_model);
-    _ui.treeView->setColumnWidth(0, 250);
+    _ui->treeView->setModel(&_model);
+    _ui->treeView->setColumnWidth(0, 250);
 
     // Select the home directory in the display.
     setCurrentPath(QDir::homePath());
@@ -36,37 +39,39 @@ FilePickerWidget::FilePickerWidget(QWidget *parent) : QWidget(parent)
                 if(!roles.isEmpty() && (roles.first() == SELECTION_CHANGED_ROLE))
                 {
                     emit selectionChanged();
-                    _ui.treeView->viewport()->update();
+                    _ui->treeView->viewport()->update();
                 }
             });
     // Connections for the top bar of the widget
-    connect(_ui.showOptionsButton, &QPushButton::clicked, [&]() {
-        _ui.optionsContainer->setVisible(!_ui.optionsContainer->isVisible());
+    connect(_ui->showOptionsButton, &QPushButton::clicked, [&]() {
+        _ui->optionsContainer->setVisible(!_ui->optionsContainer->isVisible());
     });
-    connect(_ui.homeButton, &QPushButton::clicked,
+    connect(_ui->homeButton, &QPushButton::clicked,
             [&]() { setCurrentPath(QDir::homePath()); });
-    connect(_ui.filterLineEdit, &QLineEdit::textEdited, this,
+    connect(_ui->filterLineEdit, &QLineEdit::textEdited, this,
             &FilePickerWidget::updateFilter);
-    connect(_ui.filterLineEdit, &QLineEdit::returnPressed, [&]() {
+    connect(_ui->filterLineEdit, &QLineEdit::returnPressed, [&]() {
         if(_completer.currentCompletion().isEmpty())
-            _ui.treeView->setFocus();
+            _ui->treeView->setFocus();
     });
     // Connections for the settings
-    connect(_ui.showHiddenCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
-        if(toggled)
-            _model.setFilter(_model.filter() | QDir::Hidden);
-        else
-            _model.setFilter(_model.filter() & ~QDir::Hidden);
-        emit settingChanged();
-    });
-    connect(_ui.showSystemCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
-        if(toggled)
-            _model.setFilter(_model.filter() | QDir::System);
-        else
-            _model.setFilter(_model.filter() & ~QDir::System);
-        emit settingChanged();
-    });
-    connect(_ui.hideLinksCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
+    connect(_ui->showHiddenCheckBox, &QCheckBox::toggled,
+            [&](const bool toggled) {
+                if(toggled)
+                    _model.setFilter(_model.filter() | QDir::Hidden);
+                else
+                    _model.setFilter(_model.filter() & ~QDir::Hidden);
+                emit settingChanged();
+            });
+    connect(_ui->showSystemCheckBox, &QCheckBox::toggled,
+            [&](const bool toggled) {
+                if(toggled)
+                    _model.setFilter(_model.filter() | QDir::System);
+                else
+                    _model.setFilter(_model.filter() & ~QDir::System);
+                emit settingChanged();
+            });
+    connect(_ui->hideLinksCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
         if(toggled)
             _model.setFilter(_model.filter() | QDir::NoSymLinks);
         else
@@ -77,19 +82,20 @@ FilePickerWidget::FilePickerWidget(QWidget *parent) : QWidget(parent)
 
 FilePickerWidget::~FilePickerWidget()
 {
+    delete _ui;
 }
 
 void FilePickerWidget::reset()
 {
     _model.reset();
-    _ui.treeView->reset();
+    _ui->treeView->reset();
     // Select the home directory in the display.
     setCurrentPath(QDir::homePath());
 }
 
 QString FilePickerWidget::getCurrentPath()
 {
-    return _model.filePath(_ui.treeView->currentIndex());
+    return _model.filePath(_ui->treeView->currentIndex());
 }
 
 QList<QUrl> FilePickerWidget::getSelectedUrls()
@@ -120,32 +126,32 @@ void FilePickerWidget::selectUrl(QUrl url)
 
 bool FilePickerWidget::settingShowHidden()
 {
-    return _ui.showHiddenCheckBox->isChecked();
+    return _ui->showHiddenCheckBox->isChecked();
 }
 
 void FilePickerWidget::setSettingShowHidden(bool showHidden)
 {
-    _ui.showHiddenCheckBox->setChecked(showHidden);
+    _ui->showHiddenCheckBox->setChecked(showHidden);
 }
 
 bool FilePickerWidget::settingShowSystem()
 {
-    return _ui.showSystemCheckBox->isChecked();
+    return _ui->showSystemCheckBox->isChecked();
 }
 
 void FilePickerWidget::setSettingShowSystem(bool showSystem)
 {
-    _ui.showSystemCheckBox->setChecked(showSystem);
+    _ui->showSystemCheckBox->setChecked(showSystem);
 }
 
 bool FilePickerWidget::settingHideSymlinks()
 {
-    return _ui.hideLinksCheckBox->isChecked();
+    return _ui->hideLinksCheckBox->isChecked();
 }
 
 void FilePickerWidget::setSettingHideSymlinks(bool hideSymlinks)
 {
-    _ui.hideLinksCheckBox->setChecked(hideSymlinks);
+    _ui->hideLinksCheckBox->setChecked(hideSymlinks);
 }
 
 void FilePickerWidget::keyPressEvent(QKeyEvent *event)
@@ -153,13 +159,13 @@ void FilePickerWidget::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Escape:
-        if(_ui.optionsContainer->isVisible())
+        if(_ui->optionsContainer->isVisible())
         {
-            _ui.optionsContainer->hide();
+            _ui->optionsContainer->hide();
         }
-        else if(!_ui.filterLineEdit->hasFocus())
+        else if(!_ui->filterLineEdit->hasFocus())
         {
-            _ui.filterLineEdit->setFocus();
+            _ui->filterLineEdit->setFocus();
         }
         else
         {
@@ -174,7 +180,7 @@ void FilePickerWidget::keyPressEvent(QKeyEvent *event)
 void FilePickerWidget::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
-        _ui.retranslateUi(this);
+        _ui->retranslateUi(this);
     QWidget::changeEvent(event);
 }
 
@@ -189,6 +195,6 @@ void FilePickerWidget::updateFilter(QString filter)
 
 void FilePickerWidget::setCurrentPath(const QString path)
 {
-    _ui.treeView->setCurrentIndex(_model.index(path));
-    _ui.treeView->scrollTo(_model.index(path));
+    _ui->treeView->setCurrentIndex(_model.index(path));
+    _ui->treeView->scrollTo(_model.index(path));
 }

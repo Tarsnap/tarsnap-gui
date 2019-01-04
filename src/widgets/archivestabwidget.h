@@ -1,11 +1,16 @@
 #ifndef ARCHIVESTABWIDGET_H
 #define ARCHIVESTABWIDGET_H
 
-#include "ui_archivestabwidget.h"
+#include "persistentmodel/archive.h"
 
 #include <QEvent>
 #include <QKeyEvent>
 #include <QWidget>
+
+namespace Ui
+{
+class ArchivesTabWidget;
+}
 
 /*!
  * \ingroup widgets-main
@@ -18,6 +23,7 @@ class ArchivesTabWidget : public QWidget
 public:
     //! Constructor.
     explicit ArchivesTabWidget(QWidget *parent = nullptr);
+    ~ArchivesTabWidget();
 
 public slots:
     //! Expand the "inspect archive" widget.
@@ -55,7 +61,7 @@ private slots:
     void showArchiveListMenu(const QPoint &pos);
 
 private:
-    Ui::ArchivesTabWidget _ui;
+    Ui::ArchivesTabWidget *_ui;
 
     void updateUi();
 };

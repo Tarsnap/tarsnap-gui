@@ -3,82 +3,87 @@
 #include "restoredialog.h"
 #include "utils.h"
 
+#include "ui_jobwidget.h"
+
 #include <QMenu>
 #include <QMessageBox>
 
 #include <TSettings.h>
 
-JobWidget::JobWidget(QWidget *parent) : QWidget(parent), _saveEnabled(false)
+JobWidget::JobWidget(QWidget *parent)
+    : QWidget(parent), _ui(new Ui::JobWidget), _saveEnabled(false)
 {
-    _ui.setupUi(this);
-    _ui.archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    _ui.infoLabel->hide();
+    _ui->setupUi(this);
+    _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
+    _ui->infoLabel->hide();
     updateUi();
 
     _fsEventUpdate.setSingleShot(true);
     connect(&_fsEventUpdate, &QTimer::timeout, this, &JobWidget::verifyJob);
-    connect(_ui.infoLabel, &ElidedLabel::clicked, this,
+    connect(_ui->infoLabel, &ElidedLabel::clicked, this,
             &JobWidget::showJobPathsWarn);
-    connect(_ui.jobNameLineEdit, &QLineEdit::textChanged,
+    connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
             [&]() { emit enableSave(canSaveNew()); });
-    connect(_ui.jobTreeWidget, &FilePickerWidget::selectionChanged, [&]() {
+    connect(_ui->jobTreeWidget, &FilePickerWidget::selectionChanged, [&]() {
         if(_job->objectKey().isEmpty())
             emit enableSave(canSaveNew());
         else
             save();
     });
-    connect(_ui.jobTreeWidget, &FilePickerWidget::settingChanged, [&]() {
+    connect(_ui->jobTreeWidget, &FilePickerWidget::settingChanged, [&]() {
         if(!_job->objectKey().isEmpty())
             save();
     });
 
-    connect(_ui.scheduleComboBox, static_cast<void (QComboBox::*)(int)>(
-                                      &QComboBox::currentIndexChanged),
+    connect(_ui->scheduleComboBox, static_cast<void (QComboBox::*)(int)>(
+                                       &QComboBox::currentIndexChanged),
             this, &JobWidget::save);
-    connect(_ui.preservePathsCheckBox, &QCheckBox::toggled, this,
+    connect(_ui->preservePathsCheckBox, &QCheckBox::toggled, this,
             &JobWidget::save);
-    connect(_ui.traverseMountCheckBox, &QCheckBox::toggled, this,
+    connect(_ui->traverseMountCheckBox, &QCheckBox::toggled, this,
             &JobWidget::save);
-    connect(_ui.followSymLinksCheckBox, &QCheckBox::toggled, this,
+    connect(_ui->followSymLinksCheckBox, &QCheckBox::toggled, this,
             &JobWidget::save);
-    connect(_ui.skipNoDumpCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
-    connect(_ui.skipFilesSizeSpinBox, &QSpinBox::editingFinished, this,
+    connect(_ui->skipNoDumpCheckBox, &QCheckBox::toggled, this,
             &JobWidget::save);
-    connect(_ui.skipFilesCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
-    connect(_ui.skipFilesLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this,
             &JobWidget::save);
-    connect(_ui.hideButton, &QPushButton::clicked, this, &JobWidget::collapse);
-    connect(_ui.restoreButton, &QPushButton::clicked, this,
+    connect(_ui->skipFilesCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
+    connect(_ui->skipFilesLineEdit, &QLineEdit::editingFinished, this,
+            &JobWidget::save);
+    connect(_ui->hideButton, &QPushButton::clicked, this, &JobWidget::collapse);
+    connect(_ui->restoreButton, &QPushButton::clicked, this,
             &JobWidget::restoreButtonClicked);
-    connect(_ui.backupButton, &QPushButton::clicked, this,
+    connect(_ui->backupButton, &QPushButton::clicked, this,
             &JobWidget::backupButtonClicked);
-    connect(_ui.archiveListWidget, &ArchiveListWidget::inspectArchive, this,
+    connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &JobWidget::inspectJobArchive);
-    connect(_ui.archiveListWidget, &ArchiveListWidget::inspectArchive,
-            _ui.archiveListWidget, &ArchiveListWidget::selectArchive);
-    connect(_ui.archiveListWidget, &ArchiveListWidget::restoreArchive, this,
+    connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive,
+            _ui->archiveListWidget, &ArchiveListWidget::selectArchive);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this,
             &JobWidget::restoreJobArchive);
-    connect(_ui.archiveListWidget, &ArchiveListWidget::deleteArchives, this,
+    connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives, this,
             &JobWidget::deleteJobArchives);
-    connect(_ui.skipFilesDefaultsButton, &QPushButton::clicked, [&]() {
+    connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked, [&]() {
         TSettings settings;
-        _ui.skipFilesLineEdit->setText(
+        _ui->skipFilesLineEdit->setText(
             settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
                 .toString());
     });
-    connect(_ui.archiveListWidget,
+    connect(_ui->archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,
             &JobWidget::showArchiveListMenu);
-    connect(_ui.actionDelete, &QAction::triggered, _ui.archiveListWidget,
+    connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::deleteSelectedItems);
-    connect(_ui.actionRestore, &QAction::triggered, _ui.archiveListWidget,
+    connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::restoreSelectedItem);
-    connect(_ui.actionInspect, &QAction::triggered, _ui.archiveListWidget,
+    connect(_ui->actionInspect, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::inspectSelectedItem);
 }
 
 JobWidget::~JobWidget()
 {
+    delete _ui;
 }
 
 JobPtr JobWidget::job() const
@@ -103,26 +108,26 @@ void JobWidget::setJob(const JobPtr &job)
     // Creating a new job?
     if(_job->objectKey().isEmpty())
     {
-        _ui.restoreButton->hide();
-        _ui.backupButton->hide();
-        _ui.infoLabel->hide();
-        _ui.jobNameLabel->hide();
-        _ui.jobNameLineEdit->setText(_job->name());
-        _ui.jobNameLineEdit->show();
-        _ui.jobNameLineEdit->setFocus();
+        _ui->restoreButton->hide();
+        _ui->backupButton->hide();
+        _ui->infoLabel->hide();
+        _ui->jobNameLabel->hide();
+        _ui->jobNameLineEdit->setText(_job->name());
+        _ui->jobNameLineEdit->show();
+        _ui->jobNameLineEdit->setFocus();
     }
     else
     {
-        _ui.restoreButton->show();
-        _ui.backupButton->show();
-        _ui.jobNameLabel->show();
-        _ui.jobNameLineEdit->hide();
+        _ui->restoreButton->show();
+        _ui->backupButton->show();
+        _ui->jobNameLabel->show();
+        _ui->jobNameLineEdit->hide();
         connect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
         connect(_job.data(), &Job::fsEvent, this, &JobWidget::fsEventReceived);
         connect(_job.data(), &Job::purged, this, &JobWidget::collapse);
         job->installWatcher();
     }
-    _ui.tabWidget->setCurrentWidget(_ui.jobTreeTab);
+    _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
     updateDetails();
     _saveEnabled = true;
 }
@@ -132,21 +137,21 @@ void JobWidget::save()
     if(_saveEnabled && !_job->name().isEmpty())
     {
         DEBUG << "SAVE JOB";
-        _job->setUrls(_ui.jobTreeWidget->getSelectedUrls());
+        _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
         _job->removeWatcher();
         _job->installWatcher();
         _job->setOptionScheduledEnabled(
-            static_cast<JobSchedule>(_ui.scheduleComboBox->currentIndex()));
-        _job->setOptionPreservePaths(_ui.preservePathsCheckBox->isChecked());
-        _job->setOptionTraverseMount(_ui.traverseMountCheckBox->isChecked());
-        _job->setOptionFollowSymLinks(_ui.followSymLinksCheckBox->isChecked());
-        _job->setOptionSkipNoDump(_ui.skipNoDumpCheckBox->isChecked());
-        _job->setOptionSkipFilesSize(_ui.skipFilesSizeSpinBox->value());
-        _job->setOptionSkipFiles(_ui.skipFilesCheckBox->isChecked());
-        _job->setOptionSkipFilesPatterns(_ui.skipFilesLineEdit->text());
-        _job->setSettingShowHidden(_ui.jobTreeWidget->settingShowHidden());
-        _job->setSettingShowSystem(_ui.jobTreeWidget->settingShowSystem());
-        _job->setSettingHideSymlinks(_ui.jobTreeWidget->settingHideSymlinks());
+            static_cast<JobSchedule>(_ui->scheduleComboBox->currentIndex()));
+        _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
+        _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
+        _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
+        _job->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
+        _job->setOptionSkipFilesSize(_ui->skipFilesSizeSpinBox->value());
+        _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
+        _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
+        _job->setSettingShowHidden(_ui->jobTreeWidget->settingShowHidden());
+        _job->setSettingShowSystem(_ui->jobTreeWidget->settingShowSystem());
+        _job->setSettingHideSymlinks(_ui->jobTreeWidget->settingHideSymlinks());
         _job->save();
         verifyJob();
     }
@@ -158,7 +163,7 @@ void JobWidget::saveNew()
         return;
 
     DEBUG << "SAVE NEW JOB";
-    _job->setName(_ui.jobNameLineEdit->text());
+    _job->setName(_ui->jobNameLineEdit->text());
     if(!_job->archives().isEmpty())
     {
         QMessageBox::StandardButton confirm =
@@ -184,31 +189,33 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
 {
     if(!archives.isEmpty())
     {
-        _ui.infoLabel->setStyleSheet("");
-        _ui.infoLabel->setText(tr("Found %1 unassigned archives matching this"
-                                  " Job description. Go to Archives tab below"
-                                  " to review.")
-                                   .arg(archives.count()));
-        _ui.infoLabel->show();
-        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                                     true);
+        _ui->infoLabel->setStyleSheet("");
+        _ui->infoLabel->setText(tr("Found %1 unassigned archives matching this"
+                                   " Job description. Go to Archives tab below"
+                                   " to review.")
+                                    .arg(archives.count()));
+        _ui->infoLabel->show();
+        _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(
+                                          _ui->archiveListTab),
+                                      true);
     }
     else
     {
-        _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                                     false);
+        _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(
+                                          _ui->archiveListTab),
+                                      false);
     }
     _job->setArchives(archives);
-    _ui.archiveListWidget->setArchives(_job->archives());
-    _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                              tr("Archives (%1)").arg(_job->archives().count()));
+    _ui->archiveListWidget->setArchives(_job->archives());
+    _ui->tabWidget->setTabText(_ui->tabWidget->indexOf(_ui->archiveListTab),
+                               tr("Archives (%1)").arg(_job->archives().count()));
 }
 
 void JobWidget::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
     {
-        _ui.retranslateUi(this);
+        _ui->retranslateUi(this);
         updateUi();
         if(_job)
         {
@@ -227,27 +234,27 @@ void JobWidget::updateDetails()
         return;
     DEBUG << "UPDATE JOB DETAILS";
     _saveEnabled = false;
-    _ui.jobNameLabel->setText(_job->name());
-    _ui.jobTreeWidget->setSettingShowHidden(_job->settingShowHidden());
-    _ui.jobTreeWidget->setSettingShowSystem(_job->settingShowSystem());
-    _ui.jobTreeWidget->setSettingHideSymlinks(_job->settingHideSymlinks());
-    _ui.jobTreeWidget->blockSignals(true);
-    _ui.jobTreeWidget->setSelectedUrls(_job->urls());
-    _ui.jobTreeWidget->blockSignals(false);
-    _ui.archiveListWidget->setArchives(_job->archives());
-    _ui.scheduleComboBox->setCurrentIndex(
+    _ui->jobNameLabel->setText(_job->name());
+    _ui->jobTreeWidget->setSettingShowHidden(_job->settingShowHidden());
+    _ui->jobTreeWidget->setSettingShowSystem(_job->settingShowSystem());
+    _ui->jobTreeWidget->setSettingHideSymlinks(_job->settingHideSymlinks());
+    _ui->jobTreeWidget->blockSignals(true);
+    _ui->jobTreeWidget->setSelectedUrls(_job->urls());
+    _ui->jobTreeWidget->blockSignals(false);
+    _ui->archiveListWidget->setArchives(_job->archives());
+    _ui->scheduleComboBox->setCurrentIndex(
         static_cast<int>(_job->optionScheduledEnabled()));
-    _ui.preservePathsCheckBox->setChecked(_job->optionPreservePaths());
-    _ui.traverseMountCheckBox->setChecked(_job->optionTraverseMount());
-    _ui.followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());
-    _ui.skipNoDumpCheckBox->setChecked(_job->optionSkipNoDump());
-    _ui.skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
-    _ui.skipFilesCheckBox->setChecked(_job->optionSkipFiles());
-    _ui.skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
-    _ui.tabWidget->setTabEnabled(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                                 _job->archives().count());
-    _ui.tabWidget->setTabText(_ui.tabWidget->indexOf(_ui.archiveListTab),
-                              tr("Archives (%1)").arg(_job->archives().count()));
+    _ui->preservePathsCheckBox->setChecked(_job->optionPreservePaths());
+    _ui->traverseMountCheckBox->setChecked(_job->optionTraverseMount());
+    _ui->followSymLinksCheckBox->setChecked(_job->optionFollowSymLinks());
+    _ui->skipNoDumpCheckBox->setChecked(_job->optionSkipNoDump());
+    _ui->skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
+    _ui->skipFilesCheckBox->setChecked(_job->optionSkipFiles());
+    _ui->skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
+    _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(_ui->archiveListTab),
+                                  _job->archives().count());
+    _ui->tabWidget->setTabText(_ui->tabWidget->indexOf(_ui->archiveListTab),
+                               tr("Archives (%1)").arg(_job->archives().count()));
     verifyJob();
     _saveEnabled = true;
 }
@@ -274,33 +281,34 @@ void JobWidget::backupButtonClicked()
 
 bool JobWidget::canSaveNew()
 {
-    _ui.infoLabel->setStyleSheet("");
-    _ui.infoLabel->clear();
-    _ui.infoLabel->hide();
-    if(_job->objectKey().isEmpty() && !_ui.jobNameLineEdit->text().isEmpty())
+    _ui->infoLabel->setStyleSheet("");
+    _ui->infoLabel->clear();
+    _ui->infoLabel->hide();
+    if(_job->objectKey().isEmpty() && !_ui->jobNameLineEdit->text().isEmpty())
     {
         JobPtr newJob(new Job);
-        newJob->setName(_ui.jobNameLineEdit->text());
+        newJob->setName(_ui->jobNameLineEdit->text());
         if(!newJob->doesKeyExist(newJob->name()))
         {
             emit findMatchingArchives(newJob->archivePrefix());
-            if(!_ui.jobTreeWidget->getSelectedUrls().isEmpty())
+            if(!_ui->jobTreeWidget->getSelectedUrls().isEmpty())
             {
                 return true;
             }
             else
             {
-                _ui.infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
-                _ui.infoLabel->setText(tr("No backup paths selected."));
-                _ui.infoLabel->show();
+                _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
+                _ui->infoLabel->setText(tr("No backup paths selected."));
+                _ui->infoLabel->show();
             }
         }
         else
         {
-            _ui.infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
-            _ui.infoLabel->setText(tr("Job name must be unique amongst existing"
-                                      " Jobs."));
-            _ui.infoLabel->show();
+            _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
+            _ui->infoLabel->setText(
+                tr("Job name must be unique amongst existing"
+                   " Jobs."));
+            _ui->infoLabel->show();
         }
     }
     return false;
@@ -308,16 +316,16 @@ bool JobWidget::canSaveNew()
 
 void JobWidget::showArchiveListMenu(const QPoint &pos)
 {
-    QPoint globalPos = _ui.archiveListWidget->viewport()->mapToGlobal(pos);
-    QMenu  archiveListMenu(_ui.archiveListWidget);
-    if(!_ui.archiveListWidget->selectedItems().isEmpty())
+    QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
+    QMenu  archiveListMenu(_ui->archiveListWidget);
+    if(!_ui->archiveListWidget->selectedItems().isEmpty())
     {
-        if(_ui.archiveListWidget->selectedItems().count() == 1)
+        if(_ui->archiveListWidget->selectedItems().count() == 1)
         {
-            archiveListMenu.addAction(_ui.actionInspect);
-            archiveListMenu.addAction(_ui.actionRestore);
+            archiveListMenu.addAction(_ui->actionInspect);
+            archiveListMenu.addAction(_ui->actionRestore);
         }
-        archiveListMenu.addAction(_ui.actionDelete);
+        archiveListMenu.addAction(_ui->actionDelete);
     }
     archiveListMenu.exec(globalPos);
 }
@@ -350,28 +358,29 @@ void JobWidget::verifyJob()
     if(_job->objectKey().isEmpty())
         return;
 
-    _ui.jobTreeWidget->blockSignals(true);
-    _ui.jobTreeWidget->setSelectedUrls(_job->urls());
-    _ui.jobTreeWidget->blockSignals(false);
-    _ui.infoLabel->setVisible(!_job->validateUrls());
+    _ui->jobTreeWidget->blockSignals(true);
+    _ui->jobTreeWidget->setSelectedUrls(_job->urls());
+    _ui->jobTreeWidget->blockSignals(false);
+    _ui->infoLabel->setVisible(!_job->validateUrls());
     if(!_job->validateUrls())
     {
         if(_job->urls().isEmpty())
         {
-            _ui.infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
-            _ui.infoLabel->setText(tr("This Job has no backup paths selected. "
-                                      "Please make a selection."));
+            _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
+            _ui->infoLabel->setText(tr("This Job has no backup paths selected. "
+                                       "Please make a selection."));
         }
         else
         {
-            _ui.infoLabel->setText(tr("Previously selected backup paths are not"
-                                      " accessible. Click here for details."));
+            _ui->infoLabel->setText(
+                tr("Previously selected backup paths are not"
+                   " accessible. Click here for details."));
         }
     }
 }
 
 void JobWidget::updateUi()
 {
-    _ui.hideButton->setToolTip(_ui.hideButton->toolTip().arg(
+    _ui->hideButton->setToolTip(_ui->hideButton->toolTip().arg(
         QKeySequence(Qt::Key_Escape).toString(QKeySequence::NativeText)));
 }

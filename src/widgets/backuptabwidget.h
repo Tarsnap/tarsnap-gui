@@ -1,14 +1,17 @@
 #ifndef BACKUPTABWIDGET_H
 #define BACKUPTABWIDGET_H
 
-#include "ui_backuptabwidget.h"
-
 #include "backuplistwidget.h"
 #include "backuptask.h"
 #include "filepickerdialog.h"
 
 #include <QEvent>
 #include <QWidget>
+
+namespace Ui
+{
+class BackupTabWidget;
+}
 
 /*!
  * \ingroup widgets-main
@@ -26,6 +29,7 @@ class BackupTabWidget : public QWidget
 public:
     //! Constructor.
     explicit BackupTabWidget(QWidget *parent = nullptr);
+    ~BackupTabWidget();
 
     //! Does the Backup have a name?
     void validateBackupTab();
@@ -61,8 +65,8 @@ private slots:
     void updateBackupItemTotals(quint64 count, quint64 size);
 
 private:
-    Ui::BackupTabWidget _ui;
-    FilePickerDialog    _filePickerDialog;
+    Ui::BackupTabWidget *_ui;
+    FilePickerDialog     _filePickerDialog;
 
     QString _lastTimestamp;
 

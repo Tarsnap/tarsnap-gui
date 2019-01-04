@@ -2,10 +2,14 @@
 #define FILEPICKERWIDGET_H
 
 #include "customfilesystemmodel.h"
-#include "ui_filepickerwidget.h"
 
 #include <QCompleter>
 #include <QWidget>
+
+namespace Ui
+{
+class FilePickerWidget;
+}
 
 /*!
  * \ingroup widgets-specialized
@@ -75,7 +79,7 @@ protected:
     void changeEvent(QEvent *event);
 
 private:
-    Ui::FilePickerWidget  _ui;
+    Ui::FilePickerWidget *_ui;
     CustomFileSystemModel _model;
     QCompleter            _completer;
 };

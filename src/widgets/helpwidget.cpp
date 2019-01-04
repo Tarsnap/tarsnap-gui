@@ -2,16 +2,18 @@
 
 #include "ui_aboutwidget.h"
 #include "ui_consolewidget.h"
+#include "ui_helpwidget.h"
 
 #include "debug.h"
 
 #include <QDesktopServices>
 #include <QWidget>
 
-HelpWidget::HelpWidget(QWidget *parent) : QWidget(parent)
+HelpWidget::HelpWidget(QWidget *parent)
+    : QWidget(parent), _ui(new Ui::HelpWidget)
 {
     // Ui initialization
-    _ui.setupUi(this);
+    _ui->setupUi(this);
 
     // Initialize the Help tab text
     QFile helpTabFile(":/text/help-tab.xml");
@@ -37,13 +39,18 @@ HelpWidget::HelpWidget(QWidget *parent) : QWidget(parent)
         QDesktopServices::openUrl(
             QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
     });
-    _ui.aboutButton->setPopup(&_aboutWindow);
+    _ui->aboutButton->setPopup(&_aboutWindow);
 
     // Initialize console log
     Ui::consoleWidget consoleUI;
     consoleUI.setupUi(&_consoleWindow);
     _consoleLog = consoleUI.log;
-    _ui.consoleButton->setPopup(&_consoleWindow);
+    _ui->consoleButton->setPopup(&_consoleWindow);
+}
+
+HelpWidget::~HelpWidget()
+{
+    delete _ui;
 }
 
 QPlainTextEdit *HelpWidget::getConsoleLog()
@@ -54,14 +61,14 @@ QPlainTextEdit *HelpWidget::getConsoleLog()
 void HelpWidget::aboutMenuClicked()
 {
     // This always displays the About window
-    _ui.aboutButton->setChecked(true);
+    _ui->aboutButton->setChecked(true);
 }
 
 void HelpWidget::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
     {
-        _ui.retranslateUi(this);
+        _ui->retranslateUi(this);
         updateUi();
     }
     QWidget::changeEvent(event);
@@ -70,7 +77,7 @@ void HelpWidget::changeEvent(QEvent *event)
 void HelpWidget::updateUi()
 {
     // Keyboard shortcuts
-    _ui.helpTabText->setHtml(
+    _ui->helpTabText->setHtml(
         _helpTabHTML
             .arg(QKeySequence(Qt::ControlModifier)
                      .toString(QKeySequence::NativeText))

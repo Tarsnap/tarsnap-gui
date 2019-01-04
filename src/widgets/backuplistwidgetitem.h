@@ -1,11 +1,14 @@
 #ifndef BACKUPLISTWIDGETITEM_H
 #define BACKUPLISTWIDGETITEM_H
 
-#include "ui_backuplistwidgetitem.h"
-
 #include <QListWidgetItem>
 #include <QObject>
 #include <QUrl>
+
+namespace Ui
+{
+class BackupListWidgetItem;
+}
 
 /*!
  * \ingroup widgets-specialized
@@ -55,11 +58,11 @@ private slots:
     void updateDirDetail(quint64 size, quint64 count);
 
 private:
-    Ui::BackupListWidgetItem _ui;
-    QWidget *                _widget;
-    QUrl                     _url;
-    quint64                  _count;
-    quint64                  _size;
+    Ui::BackupListWidgetItem *_ui;
+    QWidget *                 _widget;
+    QUrl                      _url;
+    quint64                   _count;
+    quint64                   _size;
 
     void setUrl(const QUrl &url);
     void updateUi();

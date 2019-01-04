@@ -1,14 +1,17 @@
 #ifndef JOBSTABWIDGET_H
 #define JOBSTABWIDGET_H
 
-#include "ui_jobstabwidget.h"
-
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 
 #include <QEvent>
 #include <QKeyEvent>
 #include <QWidget>
+
+namespace Ui
+{
+class JobsTabWidget;
+}
 
 /*!
  * \ingroup widgets-main
@@ -26,6 +29,7 @@ class JobsTabWidget : public QWidget
 public:
     //! Constructor.
     explicit JobsTabWidget(QWidget *parent = nullptr);
+    ~JobsTabWidget();
 
 public slots:
     //! The user clicked on the "add job / save job" button, or selected the
@@ -80,7 +84,7 @@ private slots:
     void backupJob(JobPtr job);
 
 private:
-    Ui::JobsTabWidget _ui;
+    Ui::JobsTabWidget *_ui;
 
     void updateUi();
     void loadSettings();

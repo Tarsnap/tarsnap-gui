@@ -6,13 +6,17 @@
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
 #include "translator.h"
-#include "ui_settingswidget.h"
 
 #include <QInputDialog>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QTimer>
 #include <QWidget>
+
+namespace Ui
+{
+class SettingsWidget;
+}
 
 /*!
  * \ingroup widgets-main
@@ -29,6 +33,7 @@ class SettingsWidget : public QWidget
 public:
     //! Constructor.
     explicit SettingsWidget(QWidget *parent = nullptr);
+    ~SettingsWidget();
 
     // For the Account tab
     //! Make TarsnapAccount update the account info from the Tarsnap servers.
@@ -110,7 +115,7 @@ private slots:
     void downloadsDirBrowseButtonClicked();
 
 private:
-    Ui::SettingsWidget _ui;
+    Ui::SettingsWidget *_ui;
 
     void updateUi();
     void loadSettings();

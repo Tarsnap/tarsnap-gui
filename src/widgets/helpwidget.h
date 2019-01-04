@@ -1,10 +1,14 @@
 #ifndef HELPWIDGET_H
 #define HELPWIDGET_H
 
-#include "ui_helpwidget.h"
-
+#include <QDialog>
 #include <QPlainTextEdit>
 #include <QWidget>
+
+namespace Ui
+{
+class HelpWidget;
+}
 
 /*!
  * \ingroup widgets-main
@@ -21,6 +25,7 @@ class HelpWidget : public QWidget
 public:
     //! Constructor.
     explicit HelpWidget(QWidget *parent = nullptr);
+    ~HelpWidget();
 
     //! Get a pointer to the console log.
     QPlainTextEdit *getConsoleLog();
@@ -34,10 +39,10 @@ protected:
     void changeEvent(QEvent *event);
 
 private:
-    Ui::HelpWidget _ui;
-    QString        _helpTabHTML;
-    QDialog        _aboutWindow;
-    QDialog        _consoleWindow;
+    Ui::HelpWidget *_ui;
+    QString         _helpTabHTML;
+    QDialog         _aboutWindow;
+    QDialog         _consoleWindow;
 
     QPlainTextEdit *_consoleLog;
 

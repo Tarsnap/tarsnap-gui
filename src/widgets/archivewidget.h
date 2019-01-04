@@ -3,10 +3,14 @@
 
 #include "filetablemodel.h"
 #include "persistentmodel/archive.h"
-#include "ui_archivewidget.h"
 
 #include <QMenu>
 #include <QWidget>
+
+namespace Ui
+{
+class ArchiveWidget;
+}
 
 /*!
  * \ingroup widgets-specialized
@@ -49,7 +53,7 @@ private slots:
     void updateDetails();
 
 private:
-    Ui::ArchiveWidget     _ui;
+    Ui::ArchiveWidget *   _ui;
     ArchivePtr            _archive;
     FileTableModel        _contentsModel;
     QSortFilterProxyModel _proxyModel;

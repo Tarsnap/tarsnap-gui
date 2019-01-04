@@ -1,19 +1,22 @@
 #include "joblistwidgetitem.h"
 #include "utils.h"
 
-JobListWidgetItem::JobListWidgetItem(JobPtr job) : _widget(new QWidget)
+#include "ui_joblistwidgetitem.h"
+
+JobListWidgetItem::JobListWidgetItem(JobPtr job)
+    : _ui(new Ui::JobListWidgetItem), _widget(new QWidget)
 {
     _widget->installEventFilter(this);
-    _ui.setupUi(_widget);
+    _ui->setupUi(_widget);
     updateUi();
 
-    connect(_ui.backupButton, &QToolButton::clicked, this,
+    connect(_ui->backupButton, &QToolButton::clicked, this,
             &JobListWidgetItem::requestBackup);
-    connect(_ui.inspectButton, &QToolButton::clicked, this,
+    connect(_ui->inspectButton, &QToolButton::clicked, this,
             &JobListWidgetItem::requestInspect);
-    connect(_ui.restoreButton, &QToolButton::clicked, this,
+    connect(_ui->restoreButton, &QToolButton::clicked, this,
             &JobListWidgetItem::requestRestore);
-    connect(_ui.deleteButton, &QToolButton::clicked, this,
+    connect(_ui->deleteButton, &QToolButton::clicked, this,
             &JobListWidgetItem::requestDelete);
 
     setJob(job);
@@ -21,6 +24,7 @@ JobListWidgetItem::JobListWidgetItem(JobPtr job) : _widget(new QWidget)
 
 JobListWidgetItem::~JobListWidgetItem()
 {
+    delete _ui;
 }
 
 QWidget *JobListWidgetItem::widget()
@@ -42,13 +46,13 @@ void JobListWidgetItem::setJob(const JobPtr &job)
     connect(_job.data(), &Job::changed, this, &JobListWidgetItem::update,
             QUEUED);
 
-    _ui.nameLabel->setText(_job->name());
+    _ui->nameLabel->setText(_job->name());
     if(_job->archives().isEmpty())
-        _ui.lastBackupLabel->setText(tr("No backups"));
+        _ui->lastBackupLabel->setText(tr("No backups"));
     else
     {
         QDateTime timestamp = _job->archives().first()->timestamp();
-        _ui.lastBackupLabel->setText(
+        _ui->lastBackupLabel->setText(
             timestamp.toString(Qt::DefaultLocaleShortDate));
     }
 
@@ -63,7 +67,7 @@ void JobListWidgetItem::setJob(const JobPtr &job)
     }
     detail.append(Utils::humanBytes(totalSize));
 
-    _ui.detailLabel->setText(detail);
+    _ui->detailLabel->setText(detail);
 }
 
 void JobListWidgetItem::update()
@@ -75,7 +79,7 @@ bool JobListWidgetItem::eventFilter(QObject *obj, QEvent *event)
 {
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
-        _ui.retranslateUi(_widget);
+        _ui->retranslateUi(_widget);
         updateUi();
         update();
         return true;
@@ -85,12 +89,12 @@ bool JobListWidgetItem::eventFilter(QObject *obj, QEvent *event)
 
 void JobListWidgetItem::updateUi()
 {
-    _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip().arg(
-        _ui.actionJobInspect->shortcut().toString(QKeySequence::NativeText)));
-    _ui.restoreButton->setToolTip(_ui.restoreButton->toolTip().arg(
-        _ui.actionJobRestore->shortcut().toString(QKeySequence::NativeText)));
-    _ui.backupButton->setToolTip(_ui.backupButton->toolTip().arg(
-        _ui.actionJobBackup->shortcut().toString(QKeySequence::NativeText)));
-    _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip().arg(
-        _ui.actionJobDelete->shortcut().toString(QKeySequence::NativeText)));
+    _ui->inspectButton->setToolTip(_ui->inspectButton->toolTip().arg(
+        _ui->actionJobInspect->shortcut().toString(QKeySequence::NativeText)));
+    _ui->restoreButton->setToolTip(_ui->restoreButton->toolTip().arg(
+        _ui->actionJobRestore->shortcut().toString(QKeySequence::NativeText)));
+    _ui->backupButton->setToolTip(_ui->backupButton->toolTip().arg(
+        _ui->actionJobBackup->shortcut().toString(QKeySequence::NativeText)));
+    _ui->deleteButton->setToolTip(_ui->deleteButton->toolTip().arg(
+        _ui->actionJobDelete->shortcut().toString(QKeySequence::NativeText)));
 }

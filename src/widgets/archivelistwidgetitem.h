@@ -1,11 +1,16 @@
 #ifndef ARCHIVELISTWIDGETITEM_H
 #define ARCHIVELISTWIDGETITEM_H
 
+#include "persistentmodel/archive.h"
 #include "taskmanager.h"
-#include "ui_archivelistwidgetitem.h"
 
 #include <QListWidgetItem>
 #include <QObject>
+
+namespace Ui
+{
+class ArchiveListWidgetItem;
+}
 
 /*!
  * \ingroup widgets-specialized
@@ -48,9 +53,9 @@ private slots:
     void update();
 
 private:
-    Ui::ArchiveListWidgetItem _ui;
-    QWidget *                 _widget;
-    ArchivePtr                _archive;
+    Ui::ArchiveListWidgetItem *_ui;
+    QWidget *                  _widget;
+    ArchivePtr                 _archive;
 
     void setArchive(ArchivePtr archive);
     void updateUi();

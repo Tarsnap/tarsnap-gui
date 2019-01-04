@@ -1,12 +1,15 @@
 #ifndef SETUPDIALOG_H
 #define SETUPDIALOG_H
 
-#include "ui_setupdialog.h"
-
 #include <taskstatus.h>
 
 #include <QDialog>
 #include <QMovie>
+
+namespace Ui
+{
+class SetupDialog;
+}
 
 /*!
  * \ingroup widgets-specialized
@@ -71,8 +74,8 @@ private slots:
     void nextButtonClicked();
 
 private:
-    Ui::SetupDialog _ui;
-    QMovie          _loadingAnimation;
+    Ui::SetupDialog *_ui;
+    QMovie           _loadingAnimation;
 
     QString _tarsnapDir;
     QString _tarsnapVersion;

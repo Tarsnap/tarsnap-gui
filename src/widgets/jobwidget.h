@@ -2,9 +2,13 @@
 #define JOBWIDGET_H
 
 #include "persistentmodel/job.h"
-#include "ui_jobwidget.h"
 
 #include <QWidget>
+
+namespace Ui
+{
+class JobWidget;
+}
 
 /*!
  * \ingroup widgets-specialized
@@ -73,10 +77,10 @@ private slots:
     void verifyJob();
 
 private:
-    Ui::JobWidget _ui;
-    JobPtr        _job;
-    bool          _saveEnabled;
-    QTimer        _fsEventUpdate;
+    Ui::JobWidget *_ui;
+    JobPtr         _job;
+    bool           _saveEnabled;
+    QTimer         _fsEventUpdate;
 
     void save();
     void updateUi();

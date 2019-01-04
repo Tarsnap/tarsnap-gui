@@ -2,10 +2,14 @@
 #define JOBLISTWIDGETITEM_H
 
 #include "persistentmodel/job.h"
-#include "ui_joblistwidgetitem.h"
 
 #include <QListWidgetItem>
 #include <QObject>
+
+namespace Ui
+{
+class JobListWidgetItem;
+}
 
 /*!
  * \ingroup widgets-specialized
@@ -46,9 +50,9 @@ private slots:
     void update();
 
 private:
-    Ui::JobListWidgetItem _ui;
-    QWidget *             _widget;
-    JobPtr                _job;
+    Ui::JobListWidgetItem *_ui;
+    QWidget *              _widget;
+    JobPtr                 _job;
 
     void setJob(const JobPtr &job);
     void updateUi();

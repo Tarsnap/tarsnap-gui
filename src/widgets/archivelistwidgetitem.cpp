@@ -1,23 +1,25 @@
 #include "archivelistwidgetitem.h"
 
+#include "ui_archivelistwidgetitem.h"
+
 #include "utils.h"
 
 #define FIELD_WIDTH 6
 
 ArchiveListWidgetItem::ArchiveListWidgetItem(ArchivePtr archive)
-    : _widget(new QWidget)
+    : _ui(new Ui::ArchiveListWidgetItem), _widget(new QWidget)
 {
-    _ui.setupUi(_widget);
+    _ui->setupUi(_widget);
     // Send translation events to the widget.
     _widget->installEventFilter(this);
     updateUi();
 
     // Set up action connections.
-    connect(_ui.deleteButton, &QToolButton::clicked, this,
+    connect(_ui->deleteButton, &QToolButton::clicked, this,
             &ArchiveListWidgetItem::requestDelete);
-    connect(_ui.inspectButton, &QToolButton::clicked, this,
+    connect(_ui->inspectButton, &QToolButton::clicked, this,
             &ArchiveListWidgetItem::requestInspect);
-    connect(_ui.restoreButton, &QToolButton::clicked, this,
+    connect(_ui->restoreButton, &QToolButton::clicked, this,
             &ArchiveListWidgetItem::requestRestore);
     // Load the archive.
     setArchive(archive);
@@ -25,6 +27,7 @@ ArchiveListWidgetItem::ArchiveListWidgetItem(ArchivePtr archive)
 
 ArchiveListWidgetItem::~ArchiveListWidgetItem()
 {
+    delete _ui;
 }
 
 QWidget *ArchiveListWidgetItem::widget()
@@ -83,8 +86,8 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
         }
     }
     displayName += baseName;
-    _ui.nameLabel->setText(displayName);
-    _ui.nameLabel->setToolTip(_archive->name());
+    _ui->nameLabel->setText(displayName);
+    _ui->nameLabel->setToolTip(_archive->name());
     QString detail(_archive->timestamp().toString(Qt::DefaultLocaleShortDate));
     if(_archive->sizeTotal() != 0)
     {
@@ -94,16 +97,16 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
 
     if(_archive->deleteScheduled())
     {
-        _ui.detailLabel->setText(tr("(scheduled for deletion)"));
+        _ui->detailLabel->setText(tr("(scheduled for deletion)"));
         _widget->setEnabled(false);
     }
     else
     {
-        _ui.detailLabel->setText(detail);
+        _ui->detailLabel->setText(detail);
         _widget->setEnabled(true);
     }
 
-    _ui.detailLabel->setToolTip(_archive->archiveStats());
+    _ui->detailLabel->setToolTip(_archive->archiveStats());
 }
 
 void ArchiveListWidgetItem::update()
@@ -115,7 +118,7 @@ bool ArchiveListWidgetItem::eventFilter(QObject *obj, QEvent *event)
 {
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
-        _ui.retranslateUi(_widget);
+        _ui->retranslateUi(_widget);
         updateUi();
         update();
         return true;
@@ -126,10 +129,10 @@ bool ArchiveListWidgetItem::eventFilter(QObject *obj, QEvent *event)
 void ArchiveListWidgetItem::updateUi()
 {
     // Display tooltips using platform-specific strings.
-    _ui.inspectButton->setToolTip(_ui.inspectButton->toolTip().arg(
-        _ui.actionInspect->shortcut().toString(QKeySequence::NativeText)));
-    _ui.restoreButton->setToolTip(_ui.restoreButton->toolTip().arg(
-        _ui.actionRestore->shortcut().toString(QKeySequence::NativeText)));
-    _ui.deleteButton->setToolTip(_ui.deleteButton->toolTip().arg(
-        _ui.actionDelete->shortcut().toString(QKeySequence::NativeText)));
+    _ui->inspectButton->setToolTip(_ui->inspectButton->toolTip().arg(
+        _ui->actionInspect->shortcut().toString(QKeySequence::NativeText)));
+    _ui->restoreButton->setToolTip(_ui->restoreButton->toolTip().arg(
+        _ui->actionRestore->shortcut().toString(QKeySequence::NativeText)));
+    _ui->deleteButton->setToolTip(_ui->deleteButton->toolTip().arg(
+        _ui->actionDelete->shortcut().toString(QKeySequence::NativeText)));
 }

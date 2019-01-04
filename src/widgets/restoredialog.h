@@ -2,9 +2,13 @@
 #define RESTOREDIALOG_H
 
 #include "persistentmodel/archive.h"
-#include "ui_restoredialog.h"
 
 #include <QDialog>
+
+namespace Ui
+{
+class RestoreDialog;
+}
 
 /*!
  * \ingroup widgets-specialized
@@ -41,10 +45,10 @@ private slots:
     bool validate();
 
 private:
-    Ui::RestoreDialog _ui;
-    ArchivePtr        _archive;
-    QStringList       _files;
-    QString           _downDir;
+    Ui::RestoreDialog *_ui;
+    ArchivePtr         _archive;
+    QStringList        _files;
+    QString            _downDir;
 
     void displayRestoreOption(bool display);
 };

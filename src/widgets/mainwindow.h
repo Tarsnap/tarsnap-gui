@@ -11,12 +11,16 @@
 #include "scheduling.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
-#include "ui_mainwindow.h"
 
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QTimer>
 #include <QWidget>
+
+namespace Ui
+{
+class MainWindow;
+}
 
 /*!
  * \ingroup widgets-main
@@ -164,13 +168,13 @@ private slots:
     void createNewJob(QList<QUrl> urls, QString name);
 
 private:
-    Ui::MainWindow _ui;
-    int            _minWidth;
-    QMenuBar *     _menuBar;
-    bool           _aboutToQuit;
-    QMessageBox    _stopTasksDialog;
-    int            _runningTasks;
-    int            _queuedTasks;
+    Ui::MainWindow *_ui;
+    int             _minWidth;
+    QMenuBar *      _menuBar;
+    bool            _aboutToQuit;
+    QMessageBox     _stopTasksDialog;
+    int             _runningTasks;
+    int             _queuedTasks;
 
     QPlainTextEdit *_consoleLog;
 

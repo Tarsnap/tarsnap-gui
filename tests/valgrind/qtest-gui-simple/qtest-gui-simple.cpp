@@ -2,7 +2,6 @@
 
 #include <QCollator>
 #include <QDialog>
-#include <QFileSystemModel>
 #include <QFont>
 #include <QLabel>
 #include <QWidget>
@@ -17,6 +16,7 @@ private slots:
     void pl_font();
     void pl_qapp_font();
     void pl_label();
+    void pl_collator();
 };
 
 void TestQTestSimple::pl_nothing()
@@ -45,6 +45,12 @@ void TestQTestSimple::pl_label()
     QLabel *label = new QLabel();
     label->setText("Let's cause a memory leak!");
     delete label;
+}
+
+void TestQTestSimple::pl_collator()
+{
+    QCollator *coll = new QCollator();
+    delete coll;
 }
 
 QTEST_MAIN(TestQTestSimple)

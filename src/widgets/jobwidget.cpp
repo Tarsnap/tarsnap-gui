@@ -361,8 +361,10 @@ void JobWidget::verifyJob()
     _ui->jobTreeWidget->blockSignals(true);
     _ui->jobTreeWidget->setSelectedUrls(_job->urls());
     _ui->jobTreeWidget->blockSignals(false);
-    _ui->infoLabel->setVisible(!_job->validateUrls());
-    if(!_job->validateUrls())
+
+    bool validUrls = _job->validateUrls();
+    _ui->infoLabel->setVisible(!validUrls);
+    if(!validUrls)
     {
         if(_job->urls().isEmpty())
         {

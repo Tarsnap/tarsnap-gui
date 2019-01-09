@@ -16,47 +16,12 @@ RunScenario::RunScenario()
     // In the GUI, we cannot select a file or directory until its parent
     // directory has been loaded.  This is not a perfect imitation of that
     // scenario, but it is better than nothing.
-    while(needToReadSubdirs(_rootDir))
+    while(_model.needToReadSubdirs(_rootDir))
         QCoreApplication::processEvents(0, 100);
 }
 
 RunScenario::~RunScenario()
 {
-}
-
-bool RunScenario::needToReadSubdirs(const QString dirname)
-{
-    bool        loadingMore = false;
-    QModelIndex dir         = _model.index(dirname);
-    // QFileSystemModel::canFetchMore(dir) can apparently lie about whether
-    // its has finished loading a directory.  Alternatively, it might be
-    // designed to merely report that a directory has been *queued* to be
-    // read, but not actually read yet, and the Qt docs were simply written
-    // badly.
-    // Either way, we must ASSUME that every directory which contains 0 items
-    // has not finished being read from disk.
-    if(_model.isDir(dir) && _model.rowCount(dir) == 0)
-    {
-        _model.fetchMore(dir);
-        loadingMore = true;
-    }
-    for(int i = 0; i < _model.rowCount(dir); i++)
-    {
-        QModelIndex child = dir.child(i, dir.column());
-        if(_model.isDir(child))
-        {
-            if(_model.rowCount(child) == 0)
-            {
-                _model.fetchMore(child);
-                loadingMore = true;
-            }
-            if(needToReadSubdirs(_model.filePath(child)))
-            {
-                loadingMore = true;
-            }
-        }
-    }
-    return loadingMore;
 }
 
 // The format of these lines in the scenario file is:

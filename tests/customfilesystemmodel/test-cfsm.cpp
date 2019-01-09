@@ -3,12 +3,16 @@
 #include "run-scenario.h"
 #include "scenario-num.h"
 
+#include "customfilesystemmodel.h"
+
 class TestCFSM : public QObject
 {
     Q_OBJECT
 
 private slots:
     void initTestCase();
+
+    void setGet();
     void runScenario();
     void runScenario_data();
 };
@@ -16,6 +20,21 @@ private slots:
 void TestCFSM::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
+}
+
+void TestCFSM::setGet()
+{
+    CustomFileSystemModel *model = new CustomFileSystemModel();
+
+    // Start loading the test dir
+    model->setData(model->index(TEST_DIR), Qt::Checked, Qt::CheckStateRole);
+
+    // We should get the test dir back
+    QList<QPersistentModelIndex> list     = model->checkedIndexes();
+    QString                      filename = list.at(0).data().toString();
+    QVERIFY(filename == TEST_NAME);
+
+    delete model;
 }
 
 void TestCFSM::runScenario()

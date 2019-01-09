@@ -13,3 +13,6 @@ SOURCES	+= test-cfsm.cpp				\
 	run-scenario.cpp
 
 include(../tests-include.pro)
+
+test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
+	cp -r dirs/* "$${TEST_HOME}/$${TARGET}"

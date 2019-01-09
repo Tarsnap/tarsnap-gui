@@ -49,6 +49,9 @@ public:
     //! Clears the list of fully and partially checked files and dirs.
     void reset();
 
+    //! Has QFileSystemModel (separate thread) finished caching this directory?
+    bool needToReadSubdirs(const QString dirname);
+
 private:
     QSet<QPersistentModelIndex> _checklist;
     QSet<QPersistentModelIndex> _partialChecklist;

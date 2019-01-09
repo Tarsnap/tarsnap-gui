@@ -196,3 +196,43 @@ void CustomFileSystemModel::reset()
     _checklist.clear();
     _partialChecklist.clear();
 }
+
+bool CustomFileSystemModel::needToReadSubdirs(const QString dirname)
+{
+    bool        loadingMore = false;
+    QModelIndex dir         = index(dirname);
+    // QFileSystemModel::canFetchMore(dir) can apparently lie about whether
+    // its has finished loading a directory.  Alternatively, it might be
+    // designed to merely report that a directory has been *queued* to be
+    // read, but not actually read yet, and the Qt docs were simply written
+    // badly.
+    //
+    // Either way, we must treat every directory which contains 0 items
+    // has not finished being read from disk.  This is suggested by the
+    // API docs:
+    //     "Calls to rowCount() will return 0 until the model populates a
+    //     directory."
+    //     https://doc.qt.io/qt-5/qfilesystemmodel.html#caching-and-performance
+    if(isDir(dir) && rowCount(dir) == 0)
+    {
+        fetchMore(dir);
+        loadingMore = true;
+    }
+    for(int i = 0; i < rowCount(dir); i++)
+    {
+        QModelIndex child = dir.child(i, dir.column());
+        if(isDir(child))
+        {
+            if(rowCount(child) == 0)
+            {
+                fetchMore(child);
+                loadingMore = true;
+            }
+            if(needToReadSubdirs(filePath(child)))
+            {
+                loadingMore = true;
+            }
+        }
+    }
+    return loadingMore;
+}

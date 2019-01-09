@@ -89,12 +89,11 @@ void BackupTabWidget::updateUi()
 
 void BackupTabWidget::validateBackupTab()
 {
-    bool valid;
+    bool    valid = true;
+    QString name  = _ui->backupNameLineEdit->text();
 
-    if((!_ui->backupNameLineEdit->text().isEmpty())
-       && (_ui->backupListWidget->count() > 0))
-        valid = true;
-    else
+    // We need a name and at least one item
+    if(name.isEmpty() || (_ui->backupListWidget->count() == 0))
         valid = false;
 
     _ui->actionBackupNow->setEnabled(valid);

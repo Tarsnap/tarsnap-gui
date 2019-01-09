@@ -5,8 +5,10 @@
 #include <TSettings.h>
 
 #include "jobstabwidget.h"
+#include "jobwidget.h"
 
 #include "ui_jobstabwidget.h"
+#include "ui_jobwidget.h"
 
 class TestJobsTabWidget : public QObject
 {
@@ -68,6 +70,8 @@ void TestJobsTabWidget::createJob()
 {
     JobsTabWidget *    jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget *ui            = jobstabwidget->_ui;
+    JobWidget *        jobWidget     = jobstabwidget->_ui->jobDetailsWidget;
+    Ui::JobWidget *    jobWidget_ui  = jobWidget->_ui;
     QSignalSpy         sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
 
     VISUAL_INIT(jobstabwidget);
@@ -81,6 +85,8 @@ void TestJobsTabWidget::createJob()
     jobstabwidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
                                 QString("test-job"));
     QVERIFY(ui->addJobButton->text() == QString("Save"));
+    QVERIFY(ui->addJobButton->isEnabled());
+    QVERIFY(jobWidget_ui->infoLabel->text() == "");
     VISUAL_WAIT;
 
     // Adds the job to the list; makes the button ready to add again

@@ -257,6 +257,10 @@ void JobWidget::updateDetails()
                                tr("Archives (%1)").arg(_job->archives().count()));
     verifyJob();
     _saveEnabled = true;
+
+    // Needed when morphing a job from the Backup tab to Jobs tab.  There's
+    // probably a better way of doing this.
+    canSaveNew();
 }
 
 void JobWidget::restoreButtonClicked()

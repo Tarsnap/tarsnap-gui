@@ -285,13 +285,15 @@ void JobWidget::backupButtonClicked()
 
 bool JobWidget::canSaveNew()
 {
+    QString name = _ui->jobNameLineEdit->text();
+
     _ui->infoLabel->setStyleSheet("");
     _ui->infoLabel->clear();
     _ui->infoLabel->hide();
-    if(_job->objectKey().isEmpty() && !_ui->jobNameLineEdit->text().isEmpty())
+    if(_job->objectKey().isEmpty() && !name.isEmpty())
     {
         JobPtr newJob(new Job);
-        newJob->setName(_ui->jobNameLineEdit->text());
+        newJob->setName(name);
         if(!newJob->doesKeyExist(newJob->name()))
         {
             emit findMatchingArchives(newJob->archivePrefix());

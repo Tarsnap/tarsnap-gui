@@ -1,5 +1,6 @@
 #include <QtTest/QtTest>
 
+#include <QCheckBox>
 #include <QFileSystemModel>
 #include <QFontMetrics>
 #include <QHostInfo>
@@ -16,10 +17,12 @@ private slots:
     void pl_nothing();
     void pl_fontmetric_elidedText();
     void pl_processEvents();
+    void pl_postEvent();
     void pl_filesystemmodel();
     void pl_button_checked();
     void pl_lineedit_text();
     void pl_lineedit_text_localhostname();
+    void pl_checkbox_text();
     void pl_treeview();
 };
 
@@ -37,6 +40,17 @@ void TestQTestComplex::pl_fontmetric_elidedText()
 void TestQTestComplex::pl_processEvents()
 {
     QCoreApplication::processEvents(0, 100);
+}
+
+void TestQTestComplex::pl_postEvent()
+{
+    QObject *obj = new QObject();
+    QEvent *event = new QEvent(QEvent::FocusIn);
+
+    QCoreApplication::postEvent(obj, event, 0);
+
+    // Do not delete event; the event queue owns it now.
+    delete obj;
 }
 
 void TestQTestComplex::pl_filesystemmodel()
@@ -86,6 +100,16 @@ void TestQTestComplex::pl_lineedit_text_localhostname()
     // Seriously.  No, I wouldn't believe it either if I hadn't seen it myself
     // multiple times.
     QHostInfo::localHostName();
+}
+
+void TestQTestComplex::pl_checkbox_text()
+{
+    QCheckBox *cb = new QCheckBox();
+
+    cb->setObjectName("cb");
+    cb->setText("Let's cause a memory leak!");
+
+    delete cb;
 }
 
 void TestQTestComplex::pl_treeview()

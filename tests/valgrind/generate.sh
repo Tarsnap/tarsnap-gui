@@ -3,9 +3,11 @@
 set -e -o nounset
 
 # Ordered list of directories to run.
-DIRS="minimal simple complex"
+DIRS=""
+DIRS="${DIRS} minimal simple complex"
 DIRS="${DIRS} qtest-minimal"
 DIRS="${DIRS} qtest-gui-minimal qtest-gui-simple qtest-gui-complex"
+DIRS="${DIRS} qtest-gui-ui"
 
 DEBUG=0
 

@@ -1,6 +1,8 @@
 TARGET = test-backuptabwidget
 QT = core gui widgets sql
 
+VALGRIND = true
+
 FORMS += ../../forms/backuptabwidget.ui			\
 	../../forms/backuplistwidgetitem.ui		\
 	../../forms/filepickerdialog.ui			\

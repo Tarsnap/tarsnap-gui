@@ -5,6 +5,7 @@
 #include "confirmationdialog.h"
 #include "elidedlabel.h"
 #include "filepickerdialog.h"
+#include "filepickerwidget.h"
 
 #include "TSettings.h"
 
@@ -17,6 +18,7 @@ private slots:
     void cleanupTestCase();
 
     void elidedLabel();
+    void filepickerwidget();
     void filepickerdialog();
     void confirmationDialog();
 };
@@ -62,6 +64,12 @@ void TestSmallWidgets::elidedLabel()
     VISUAL_WAIT;
 
     delete elidedlabel;
+}
+
+void TestSmallWidgets::filepickerwidget()
+{
+    FilePickerWidget *fpw = new FilePickerWidget();
+    delete fpw;
 }
 
 void TestSmallWidgets::filepickerdialog()

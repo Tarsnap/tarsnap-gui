@@ -51,6 +51,8 @@ def chunkify(lines):
         raise Exception("Incomplete chunk at end of files.")
     if DEBUG and num_duplicates > 0:
         print("\t\tEliminated %i duplicate chunks in pre" % num_duplicates)
+    # Sort remaining chunks so that there's a stable order.
+    chunks.sort()
     return chunks
 
 

@@ -2,6 +2,7 @@
 
 #include "../qtest-platform.h"
 
+#include "backuplistwidget.h"
 #include "backuptabwidget.h"
 
 #include "ui_backuptabwidget.h"
@@ -16,6 +17,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
+    void backupListWidget();
     void nameEdit();
 };
 
@@ -33,6 +35,12 @@ void TestBackupTabWidget::initTestCase()
 void TestBackupTabWidget::cleanupTestCase()
 {
     TSettings::destroy();
+}
+
+void TestBackupTabWidget::backupListWidget()
+{
+    BackupListWidget *blw = new BackupListWidget();
+    delete blw;
 }
 
 void TestBackupTabWidget::nameEdit()

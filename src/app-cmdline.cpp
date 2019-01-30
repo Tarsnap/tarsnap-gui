@@ -1,9 +1,7 @@
 #include "app-cmdline.h"
+
 #include "debug.h"
 #include "init-shared.h"
-#include "scheduling.h"
-#include "translator.h"
-#include "utils.h"
 
 #include <assert.h>
 
@@ -23,8 +21,6 @@ AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
 
 AppCmdline::~AppCmdline()
 {
-    _managerThread.quit();
-    _managerThread.wait();
 }
 
 bool AppCmdline::initializeCore()

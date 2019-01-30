@@ -1,9 +1,6 @@
 #ifndef APP_CMDLINE_H
 #define APP_CMDLINE_H
 
-#include "persistentmodel/journal.h"
-#include "taskmanager.h"
-
 extern "C" {
 #include "optparse.h"
 }
@@ -33,11 +30,8 @@ public:
     bool prepMainLoop();
 
 private:
-    TaskManager _taskManager;
-    QThread     _managerThread;
-    Journal     _journal;
-    QString     _configDir;
-    bool        _checkOption;
+    QString _configDir;
+    bool    _checkOption;
 };
 
 #endif // APP_CMDLINE_H

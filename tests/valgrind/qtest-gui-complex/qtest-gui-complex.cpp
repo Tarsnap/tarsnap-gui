@@ -1,6 +1,7 @@
 #include <QtTest/QtTest>
 
 #include <QCheckBox>
+#include <QDialog>
 #include <QFileSystemModel>
 #include <QFontMetrics>
 #include <QHostInfo>
@@ -24,6 +25,7 @@ private slots:
     void pl_lineedit_text_localhostname();
     void pl_checkbox_text();
     void pl_treeview();
+    void pl_dialog_exec();
 };
 
 void TestQTestComplex::pl_nothing()
@@ -44,8 +46,8 @@ void TestQTestComplex::pl_processEvents()
 
 void TestQTestComplex::pl_postEvent()
 {
-    QObject *obj = new QObject();
-    QEvent *event = new QEvent(QEvent::FocusIn);
+    QObject *obj   = new QObject();
+    QEvent * event = new QEvent(QEvent::FocusIn);
 
     QCoreApplication::postEvent(obj, event, 0);
 
@@ -124,6 +126,26 @@ void TestQTestComplex::pl_treeview()
 
     delete layout;
     delete widget;
+}
+
+class DiaExec : public QDialog
+{
+    Q_OBJECT
+public:
+    DiaExec(QWidget *parent = nullptr) : QDialog(parent) {}
+
+    // This whole class is just so that we can wrap the exec() in a pl_*
+    // function, so that our valgrind infrastructure can correctly generalize
+    // the suppressions correctly.
+    void pl_exec() { exec(); }
+};
+
+void TestQTestComplex::pl_dialog_exec()
+{
+    DiaExec *dia = new DiaExec();
+    QMetaObject::invokeMethod(dia, "close", Qt::QueuedConnection);
+    dia->pl_exec();
+    delete dia;
 }
 
 QTEST_MAIN(TestQTestComplex)

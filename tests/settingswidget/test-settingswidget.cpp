@@ -3,7 +3,7 @@
 #include "../qtest-platform.h"
 #include "utils.h"
 
-#include "confirmationdialog.h"
+#include "tarsnapaccount.h"
 
 #include <TSettings.h>
 
@@ -19,6 +19,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
+    void tarsnap_account();
     void account();
     void backup();
     void application();
@@ -38,6 +39,18 @@ void TestSettingsWidget::initTestCase()
 void TestSettingsWidget::cleanupTestCase()
 {
     TSettings::destroy();
+}
+
+void TestSettingsWidget::tarsnap_account()
+{
+    TarsnapAccount *ta = new TarsnapAccount();
+
+    // Trigger an error message that we have to click away.
+    QMetaObject::invokeMethod(&ta->_popup, "close", Qt::QueuedConnection);
+    ta->getAccountInfo();
+    QTest::qWait(200);
+
+    delete ta;
 }
 
 void TestSettingsWidget::account()

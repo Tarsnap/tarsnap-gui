@@ -1,6 +1,8 @@
 TARGET = test-settingswidget
 QT = core gui widgets sql network
 
+VALGRIND = true
+
 FORMS += ../../forms/settingswidget.ui			\
 	../../forms/logindialog.ui
 

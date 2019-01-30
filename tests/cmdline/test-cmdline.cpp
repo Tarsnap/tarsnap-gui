@@ -63,19 +63,22 @@ void TestCmdline::normal_init()
     if((opt = optparse_parse(argc, argv)) == NULL)
         QVERIFY(opt != NULL);
 
-    // Basic initialization that cannot fail.
-    AppCmdline app(argc, argv, opt);
-    optparse_free(opt);
+    // This scope is how we do it in main.cpp
+    {
+        // Basic initialization that cannot fail.
+        AppCmdline app(argc, argv, opt);
 
-    // Run more complicated initialization.
-    if(!app.initializeCore())
-        QFAIL("Could not initialize app");
+        // Run more complicated initialization.
+        if(!app.initializeCore())
+            QFAIL("Could not initialize app");
+    }
 
     // Check that it read the right config file.
     TSettings settings;
     QVERIFY(settings.value("tarsnap/user", "") == "normal_init");
 
     // Clean up
+    optparse_free(opt);
     free(argv[0]);
 }
 
@@ -94,19 +97,22 @@ void TestCmdline::appdir_init()
     if((opt = optparse_parse(argc, argv)) == NULL)
         QVERIFY(opt != NULL);
 
-    // Basic initialization that cannot fail.
-    AppCmdline app(argc, argv, opt);
-    optparse_free(opt);
+    // This scope is how we do it in main.cpp
+    {
+        // Basic initialization that cannot fail.
+        AppCmdline app(argc, argv, opt);
 
-    // Run more complicated initialization.
-    if(!app.initializeCore())
-        QFAIL("Could not initialize app");
+        // Run more complicated initialization.
+        if(!app.initializeCore())
+            QFAIL("Could not initialize app");
+    }
 
     // Check that it read the right config file.
     TSettings settings;
     QVERIFY(settings.value("tarsnap/user", "") == "appdata_init");
 
     // Clean up
+    optparse_free(opt);
     free(argv[0]);
     free(argv[1]);
     free(argv[2]);

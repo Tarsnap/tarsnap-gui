@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QFont>
 #include <QLabel>
+#include <QListWidget>
 #include <QWidget>
 
 class TestQTestSimple : public QObject
@@ -17,6 +18,7 @@ private slots:
     void pl_qapp_font();
     void pl_label();
     void pl_collator();
+    void pl_listwidget();
 };
 
 void TestQTestSimple::pl_nothing()
@@ -51,6 +53,12 @@ void TestQTestSimple::pl_collator()
 {
     QCollator *coll = new QCollator();
     delete coll;
+}
+
+void TestQTestSimple::pl_listwidget()
+{
+    QListWidget *lw = new QListWidget();
+    delete lw;
 }
 
 QTEST_MAIN(TestQTestSimple)

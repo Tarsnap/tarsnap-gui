@@ -74,6 +74,6 @@ QMAKE_EXTRA_TARGETS += test test_visual test_home_prep
 	contains(QT, gui) || contains(QT, widgets) {
 		test_valgrind.commands = $${TEST_ENV} $${VALGRIND_CMD} ./${TARGET} -platform offscreen \${ONLY}
 	} else {
-		test_valgrind.commands = $${TEST_ENV} $${VALGRIND_CMD} ./${TARGET} $${ONLY}
+		test_valgrind.commands = $${TEST_ENV} $${VALGRIND_CMD} ./${TARGET} \${ONLY}
 	}
 }

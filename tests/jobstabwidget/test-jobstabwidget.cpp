@@ -18,7 +18,9 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    // This one needs to be first
+    // Test JobWidget in isolation
+    void jobWidget();
+    // This one needs to be before other JobsTabWidget tests
     void defaultJobs();
     void createJob();
     void displayJobDetails();
@@ -44,6 +46,12 @@ void TestJobsTabWidget::initTestCase()
 void TestJobsTabWidget::cleanupTestCase()
 {
     TSettings::destroy();
+}
+
+void TestJobsTabWidget::jobWidget()
+{
+    JobWidget *jobWidget = new JobWidget();
+    delete jobWidget;
 }
 
 void TestJobsTabWidget::defaultJobs()

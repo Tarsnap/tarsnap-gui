@@ -1,3 +1,6 @@
+#ifndef TEST_APP_H
+#define TEST_APP_H
+
 #include <QCoreApplication>
 
 class App : public QCoreApplication
@@ -9,3 +12,5 @@ public:
 
     void process() { QCoreApplication::processEvents(0, 1000); }
 };
+
+#endif

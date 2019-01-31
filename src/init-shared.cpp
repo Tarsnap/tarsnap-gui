@@ -1,5 +1,6 @@
 #include "init-shared.h"
 
+#include "backuptask.h"
 #include "debug.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"

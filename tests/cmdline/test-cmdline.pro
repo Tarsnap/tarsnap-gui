@@ -1,6 +1,8 @@
 TARGET = test-cmdline
 QT = core network sql
 
+VALGRIND = true
+
 # Used in lib/core/optparse.h
 VERSION = test
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
@@ -14,7 +16,6 @@ SOURCES += test-cmdline.cpp				\
 	../../src/app-cmdline.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/debug.cpp				\
-	../../src/filetablemodel.cpp			\
 	../../src/init-shared.cpp			\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
@@ -22,8 +23,6 @@ SOURCES += test-cmdline.cpp				\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
 	../../src/scheduling.cpp			\
-	../../src/tarsnaptask.cpp			\
-	../../src/taskmanager.cpp			\
 	../../src/translator.cpp			\
 	../../src/utils.cpp
 
@@ -36,7 +35,6 @@ HEADERS +=						\
 	../../src/app-cmdline.h				\
 	../../src/backuptask.h				\
 	../../src/debug.h				\
-	../../src/filetablemodel.h			\
 	../../src/init-shared.h				\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
@@ -45,8 +43,6 @@ HEADERS +=						\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\
 	../../src/tarsnaperror.h			\
-	../../src/tarsnaptask.h				\
-	../../src/taskmanager.h				\
 	../../src/taskstatus.h				\
 	../../src/translator.h				\
 	../../src/utils.h				\

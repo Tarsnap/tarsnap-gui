@@ -3,7 +3,7 @@
 set -e
 
 # Command-line
-VALGRINDS="cli consolelog persistent task taskmanager"
+VALGRINDS="cli consolelog persistent task taskmanager cmdline"
 
 # Gui
 VALGRINDS="${VALGRINDS} customfilesystemmodel small-widgets setupwizard"

@@ -1,6 +1,8 @@
 TARGET = test-cmdline
 QT = core network sql
 
+VALGRIND = true
+
 # Used in lib/core/optparse.h
 VERSION = test
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"

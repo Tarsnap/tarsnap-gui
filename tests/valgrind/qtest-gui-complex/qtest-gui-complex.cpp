@@ -1,6 +1,7 @@
 #include <QtTest/QtTest>
 
 #include <QCheckBox>
+#include <QComboBox>
 #include <QDialog>
 #include <QFileSystemModel>
 #include <QFontMetrics>
@@ -26,6 +27,7 @@ private slots:
     void pl_checkbox_text();
     void pl_treeview();
     void pl_dialog_exec();
+    void pl_combo_box();
 };
 
 void TestQTestComplex::pl_nothing()
@@ -146,6 +148,13 @@ void TestQTestComplex::pl_dialog_exec()
     QMetaObject::invokeMethod(dia, "close", Qt::QueuedConnection);
     dia->pl_exec();
     delete dia;
+}
+
+void TestQTestComplex::pl_combo_box()
+{
+    QComboBox *box = new QComboBox();
+    box->itemDelegate();
+    delete box;
 }
 
 QTEST_MAIN(TestQTestComplex)

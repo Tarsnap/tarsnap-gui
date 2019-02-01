@@ -1,6 +1,8 @@
 TARGET = test-jobstabwidget
 QT = core gui widgets sql network
 
+VALGRIND = true
+
 FORMS +=							\
 	../../forms/archivelistwidgetitem.ui			\
 	../../forms/filepickerwidget.ui				\

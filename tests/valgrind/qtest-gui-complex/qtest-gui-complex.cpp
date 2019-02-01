@@ -18,6 +18,7 @@ class TestQTestComplex : public QObject
 private slots:
     void pl_nothing();
     void pl_fontmetric_elidedText();
+    void pl_fontmetric_size();
     void pl_processEvents();
     void pl_postEvent();
     void pl_filesystemmodel();
@@ -39,6 +40,12 @@ void TestQTestComplex::pl_fontmetric_elidedText()
     QFontMetrics metrics(qApp->font());
     QString text = metrics.elidedText("this is a long long long piece of text",
                                       Qt::ElideRight, 100);
+}
+
+void TestQTestComplex::pl_fontmetric_size()
+{
+    QFontMetrics metrics(qApp->font());
+    metrics.size(Qt::TextSingleLine, "this is a medium piece of text");
 }
 
 void TestQTestComplex::pl_processEvents()

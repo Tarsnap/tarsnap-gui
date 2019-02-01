@@ -57,6 +57,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
 
 ArchiveWidget::~ArchiveWidget()
 {
+    delete _ui;
 }
 
 void ArchiveWidget::setArchive(ArchivePtr archive)

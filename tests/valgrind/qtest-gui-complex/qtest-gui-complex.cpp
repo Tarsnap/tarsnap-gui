@@ -29,6 +29,7 @@ private slots:
     void pl_treeview();
     void pl_dialog_exec();
     void pl_combo_box();
+    void pl_widget_show_hide();
 };
 
 void TestQTestComplex::pl_nothing()
@@ -162,6 +163,14 @@ void TestQTestComplex::pl_combo_box()
     QComboBox *box = new QComboBox();
     box->itemDelegate();
     delete box;
+}
+
+void TestQTestComplex::pl_widget_show_hide()
+{
+    QWidget *wid = new QWidget();
+    wid->hide();
+    wid->show();
+    delete wid;
 }
 
 QTEST_MAIN(TestQTestComplex)

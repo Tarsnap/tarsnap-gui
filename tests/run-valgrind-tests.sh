@@ -8,6 +8,7 @@ VALGRINDS="cli consolelog persistent task taskmanager cmdline"
 # Gui
 VALGRINDS="${VALGRINDS} customfilesystemmodel small-widgets setupwizard"
 VALGRINDS="${VALGRINDS} backuptabwidget settingswidget jobstabwidget"
+VALGRINDS="${VALGRINDS} archivestabwidget"
 
 for D in $VALGRINDS; do
 	cd $D

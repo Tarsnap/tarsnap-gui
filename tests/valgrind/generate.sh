@@ -7,7 +7,9 @@ DIRS=""
 DIRS="${DIRS} minimal simple complex"
 DIRS="${DIRS} qtest-minimal qtest-complex"
 DIRS="${DIRS} qtest-gui-minimal qtest-gui-simple qtest-gui-complex"
-DIRS="${DIRS} qtest-gui-network qtest-gui-ui"
+# Yes, repeat this test multiple times to try to catch them all.  :(
+DIRS="${DIRS} qtest-gui-network qtest-gui-network qtest-gui-network"
+DIRS="${DIRS} qtest-gui-ui"
 
 DEBUG=0
 

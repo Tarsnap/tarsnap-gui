@@ -21,6 +21,7 @@ void TestQTestNetwork::pl_nothing()
 void TestQTestNetwork::pl_networkaccessmanager()
 {
     QNetworkAccessManager *nam = new QNetworkAccessManager();
+    QTest::qWait(200);
     delete nam;
 }
 
@@ -28,9 +29,9 @@ void TestQTestNetwork::pl_networkaccessmanager_status()
 {
     QNetworkAccessManager *nam = new QNetworkAccessManager();
 
-    QTest::qWait(100);
+    QTest::qWait(200);
     nam->networkAccessible();
-    QTest::qWait(100);
+    QTest::qWait(200);
 
     delete nam;
 }
@@ -40,7 +41,10 @@ void TestQTestNetwork::pl_networkaccessmanager_repeated()
     // QNetworkAccessManger has an unpredictable interactions with dbus,
     // causing variable memory leaks.  This is my attempt at catching them.
     for(int i = 0; i < 10; i++)
+    {
         pl_networkaccessmanager_status();
+        QTest::qWait(200);
+    }
 }
 
 QTEST_MAIN(TestQTestNetwork)

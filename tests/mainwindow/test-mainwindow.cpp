@@ -21,6 +21,8 @@ class TestMainWindow : public QObject
 
 private slots:
     void initTestCase();
+    void cleanupTestCase();
+
     void about_window();
     void console_window();
     void quit_simple();
@@ -46,6 +48,11 @@ void TestMainWindow::initTestCase()
     PersistentStore &store = PersistentStore::instance();
     int              ok    = store.init();
     QVERIFY(ok);
+}
+
+void TestMainWindow::cleanupTestCase()
+{
+    TSettings::destroy();
 }
 
 static QAction *get_menubar_about(QMenuBar *menubar)
@@ -143,7 +150,8 @@ void TestMainWindow::quit_simple()
     VISUAL_INIT(mainwindow);
 
     // If we try to close the window, we emit a getTaskInfo instead
-    mainwindow->closeEvent(new QCloseEvent());
+    QCloseEvent *close_event = new QCloseEvent();
+    mainwindow->closeEvent(close_event);
     QVERIFY(sig_getTaskInfo.count() == 1);
     sig_getTaskInfo.clear();
 
@@ -151,10 +159,13 @@ void TestMainWindow::quit_simple()
     mainwindow->closeWithTaskInfo(false, 0, 0);
 
     // After quitting, we don't respond to more events.
-    mainwindow->closeEvent(new QCloseEvent());
+    QCloseEvent *close_event_another = new QCloseEvent();
+    mainwindow->closeEvent(close_event_another);
     QVERIFY(sig_getTaskInfo.count() == 0);
 
     delete mainwindow;
+    delete close_event;
+    delete close_event_another;
 }
 
 void TestMainWindow::quit_tasks()
@@ -174,7 +185,8 @@ void TestMainWindow::quit_tasks()
     VISUAL_WAIT;
 
     // After cancelling the quit, we still respond to events
-    mainwindow->closeEvent(new QCloseEvent());
+    QCloseEvent *close_event = new QCloseEvent();
+    mainwindow->closeEvent(close_event);
     QVERIFY(sig_getTaskInfo.count() == 1);
     sig_getTaskInfo.clear();
     VISUAL_WAIT;
@@ -192,11 +204,14 @@ void TestMainWindow::quit_tasks()
     VISUAL_WAIT;
 
     // After quitting, we don't respond to more events
-    mainwindow->closeEvent(new QCloseEvent());
+    QCloseEvent *close_event_another = new QCloseEvent();
+    mainwindow->closeEvent(close_event_another);
     QVERIFY(sig_getTaskInfo.count() == 0);
     VISUAL_WAIT;
 
     delete mainwindow;
+    delete close_event;
+    delete close_event_another;
 }
 
 void TestMainWindow::console_window()

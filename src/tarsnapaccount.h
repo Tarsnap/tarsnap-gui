@@ -1,44 +1,27 @@
 #ifndef TARSNAPACCOUNT_H
 #define TARSNAPACCOUNT_H
 
-#include <QDialog>
-#include <QMessageBox>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-
-namespace Ui
-{
-class LoginDialog;
-}
+#include <QObject>
 
 /*!
  * \ingroup widgets-specialized
- * \brief The TarsnapAccount is a QDialog which displays info about the account
- * and launches network connections to the Tarsnap servers to update that info.
+ * \brief The TarsnapAccount is a QObject which launches network connections to
+ * the Tarsnap servers to get information about the user's account.
  */
-class TarsnapAccount : public QDialog
+class TarsnapAccount : public QObject
 {
     Q_OBJECT
 
-#ifdef QT_TESTLIB_LIB
-    friend class TestSettingsWidget;
-#endif
-
 public:
     //! Constructor.
-    explicit TarsnapAccount(QWidget *parent = nullptr);
+    explicit TarsnapAccount();
     ~TarsnapAccount();
 
 public slots:
-    //! Update the account info from the Tarsnap servers, optionally showing
-    //! the results QTableWidget(s).
-    void getAccountInfo(bool displayActivity        = false,
-                        bool displayMachineActivity = false);
-
-    //! Check the reply for anything to warn about.
-    void showWarningIfApplicable(QByteArray data);
-    //! Format and display a comma-separated-value table in a QTableWidget.
-    void displayCSVTable(QString csv, QString title);
+    void getAccountInfo(bool displayActivity, bool displayMachineActivity,
+                        QString password);
 
 signals:
     //! The amount of money in the Tarsnap account, and the latest date.
@@ -70,16 +53,10 @@ protected slots:
     void sslError(QList<QSslError> errors);
 
 private:
-    Ui::LoginDialog *     _ui;
     QNetworkAccessManager _nam;
     QString               _user;
     QString               _machine;
     quint64               _machineId;
-
-    QMessageBox _popup;
-
-    void getAccountInfo_backend(bool displayActivity,
-                                bool displayMachineActivity, QString password);
 };
 
 #endif // TARSNAPACCOUNT_H

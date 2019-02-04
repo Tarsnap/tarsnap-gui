@@ -3,7 +3,7 @@
 #include "../qtest-platform.h"
 #include "utils.h"
 
-#include "tarsnapaccount.h"
+#include "tarsnapaccountdialog.h"
 
 #include <TSettings.h>
 
@@ -19,7 +19,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    void tarsnap_account();
+    void tarsnapAccountDialog();
     void account();
     void backup();
     void application();
@@ -41,9 +41,9 @@ void TestSettingsWidget::cleanupTestCase()
     TSettings::destroy();
 }
 
-void TestSettingsWidget::tarsnap_account()
+void TestSettingsWidget::tarsnapAccountDialog()
 {
-    TarsnapAccount *ta = new TarsnapAccount();
+    TarsnapAccountDialog *ta = new TarsnapAccountDialog();
 
     // Trigger an error message that we have to click away.
     QMetaObject::invokeMethod(&ta->_popup, "close", Qt::QueuedConnection);
@@ -59,9 +59,10 @@ void TestSettingsWidget::account()
 
     SettingsWidget *    settingsWidget = new SettingsWidget();
     Ui::SettingsWidget *ui             = settingsWidget->_ui;
-    TarsnapAccount *    tarsnapAccount = &settingsWidget->_tarsnapAccount;
     QSignalSpy          sig_status(settingsWidget,
                           SIGNAL(newStatusMessage(QString, QString)));
+
+    TarsnapAccountDialog *tarsnapAccount = &settingsWidget->_tarsnapAccount;
 
     VISUAL_INIT(settingsWidget);
 

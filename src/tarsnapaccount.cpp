@@ -2,13 +2,8 @@
 #include "debug.h"
 #include "utils.h"
 
-#include <QHeaderView>
-#include <QMessageBox>
 #include <QNetworkReply>
 #include <QNetworkRequest>
-#include <QTableWidget>
-
-#include "ui_logindialog.h"
 
 #include <TSettings.h>
 
@@ -21,71 +16,17 @@
 
 #define USER_AGENT "Tarsnap " APP_VERSION
 
-TarsnapAccount::TarsnapAccount(QWidget *parent)
-    : QDialog(parent), _ui(new Ui::LoginDialog), _nam(this)
+TarsnapAccount::TarsnapAccount() : _nam(this)
 {
-    _ui->setupUi(this);
-    setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
-                   & ~Qt::WindowMaximizeButtonHint);
-    connect(_ui->passwordLineEdit, &QLineEdit::textEdited, this, [&]() {
-        _ui->loginButton->setEnabled(!_ui->passwordLineEdit->text().isEmpty());
-    });
-
-    connect(this, &TarsnapAccount::gotTable, this,
-            &TarsnapAccount::displayCSVTable);
-    connect(this, &TarsnapAccount::possibleWarning, this,
-            &TarsnapAccount::showWarningIfApplicable);
-
-    _popup.setParent(this->parentWidget());
-    _popup.setWindowModality(Qt::NonModal);
 }
 
 TarsnapAccount::~TarsnapAccount()
 {
 }
 
-void TarsnapAccount::getAccountInfo(bool displayActivity,
-                                    bool displayMachineActivity)
-{
-    TSettings settings;
-    _user    = settings.value("tarsnap/user", "").toString();
-    _machine = settings.value("tarsnap/machine", "").toString();
-    if(Utils::tarsnapVersionMinimum("1.0.37"))
-    {
-        emit getKeyId(settings.value("tarsnap/key", "").toString());
-    }
-    else
-    {
-        _popup.setWindowTitle(tr("Warning"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(
-            tr("You need Tarsnap CLI utils version 1.0.37 to "
-               "be able to fetch machine activity. "
-               "You have version %1.")
-                .arg(settings.value("tarsnap/version", "").toString()));
-        _popup.exec();
-    }
-    if(_user.isEmpty() || _machine.isEmpty())
-    {
-        _popup.setWindowTitle(tr("Warning"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(tr("Tarsnap user and machine name must be set."));
-        _popup.exec();
-        return;
-    }
-    _ui->textLabel->setText(tr("Type password for account %1:").arg(_user));
-    _ui->loginButton->setEnabled(false);
-    if(exec() == QDialog::Rejected)
-        return;
-
-    getAccountInfo_backend(displayActivity, displayMachineActivity,
-                           _ui->passwordLineEdit->text());
-    _ui->passwordLineEdit->clear();
-}
-
-void TarsnapAccount::getAccountInfo_backend(bool    displayActivity,
-                                            bool    displayMachineActivity,
-                                            QString password)
+void TarsnapAccount::getAccountInfo(bool    displayActivity,
+                                    bool    displayMachineActivity,
+                                    QString password)
 {
     TSettings settings;
     _user    = settings.value("tarsnap/user", "").toString();
@@ -158,50 +99,6 @@ void TarsnapAccount::parseLastMachineActivity(QString csv)
     emit lastMachineActivity(lastLine.split(',', QString::SkipEmptyParts));
 }
 
-void TarsnapAccount::displayCSVTable(QString csv, QString title)
-{
-    DEBUG << csv;
-    if(csv.isEmpty() || csv.startsWith("<!DOCTYPE html>"))
-        return;
-
-    QStringList lines = csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
-    if(lines.count() <= 1)
-        return;
-
-    QStringList columnHeaders =
-        lines.first().split(',', QString::SkipEmptyParts);
-    lines.removeFirst();
-
-    QDialog *csvDialog = new QDialog(this);
-    csvDialog->setWindowTitle(title);
-    csvDialog->setAttribute(Qt::WA_DeleteOnClose, true);
-    QTableWidget *table =
-        new QTableWidget(lines.count(), columnHeaders.count(), csvDialog);
-    table->setHorizontalHeaderLabels(columnHeaders);
-    table->horizontalHeader()->setStretchLastSection(true);
-    table->setAlternatingRowColors(true);
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(table);
-    layout->setMargin(0);
-    csvDialog->setLayout(layout);
-
-    int row    = 0;
-    int column = 0;
-
-    for(const QString &line : lines)
-    {
-        for(const QString &entry : line.split(',', QString::KeepEmptyParts))
-        {
-            table->setItem(row, column, new QTableWidgetItem(entry));
-            column++;
-        }
-        row++;
-        column = 0;
-    }
-    csvDialog->show();
-}
-
 QNetworkReply *TarsnapAccount::tarsnapRequest(QString url)
 {
     QNetworkRequest request;
@@ -212,27 +109,6 @@ QNetworkReply *TarsnapAccount::tarsnapRequest(QString url)
             SLOT(networkError(QNetworkReply::NetworkError)));
     connect(reply, &QNetworkReply::sslErrors, this, &TarsnapAccount::sslError);
     return reply;
-}
-
-void TarsnapAccount::showWarningIfApplicable(QByteArray data)
-{
-    if(data.contains("Password is incorrect; please try again."))
-    {
-        _popup.setWindowTitle(tr("Invalid password"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(
-            tr("Password for account %1 is incorrect; please try again.")
-                .arg(_user));
-        _popup.exec();
-    }
-    else if(data.contains("No user exists with the provided email "
-                          "address; please try again."))
-    {
-        _popup.setWindowTitle(tr("Invalid username"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(tr("Account %1 is invalid; please try again.").arg(_user));
-        _popup.exec();
-    }
 }
 
 QByteArray TarsnapAccount::readReply(QNetworkReply *reply)

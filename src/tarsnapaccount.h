@@ -35,6 +35,11 @@ public slots:
     void getAccountInfo(bool displayActivity        = false,
                         bool displayMachineActivity = false);
 
+    //! Check the reply for anything to warn about.
+    void showWarningIfApplicable(QByteArray data);
+    //! Format and display a comma-separated-value table in a QTableWidget.
+    void displayCSVTable(QString csv, QString title);
+
 signals:
     //! The amount of money in the Tarsnap account, and the latest date.
     void accountCredit(qreal credit, QDate date);
@@ -43,6 +48,11 @@ signals:
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
     void getKeyId(QString key);
 
+    //! Received some information to display.
+    void gotTable(QString csv, QString title);
+    //! Pass the reply to give a warning (if applicable).
+    void possibleWarning(QByteArray reply);
+
 protected slots:
     //! Extract the credits from the CSV in the reply; will emit \ref
     //! accountCredit.
@@ -50,12 +60,10 @@ protected slots:
     //! Extract the machine activity from the CSV in the reply; will emit \ref
     //! lastMachineActivity.
     void parseLastMachineActivity(QString csv);
-    //! Format and display a comma-separated-value table in a QTableWidget.
-    void displayCSVTable(QString csv, QString title);
     //! Send a network request and wait for a reply.
     QNetworkReply *tarsnapRequest(QString url);
     //! Parse the network reply.
-    QByteArray readReply(QNetworkReply *reply, bool warn = false);
+    QByteArray readReply(QNetworkReply *reply);
     //! Handle an error in the network reply.
     void networkError(QNetworkReply::NetworkError error);
     //! Handle an SSL error in the network reply.
@@ -69,6 +77,9 @@ private:
     quint64               _machineId;
 
     QMessageBox _popup;
+
+    void getAccountInfo_backend(bool displayActivity,
+                                bool displayMachineActivity, QString password);
 };
 
 #endif // TARSNAPACCOUNT_H

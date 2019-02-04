@@ -31,6 +31,11 @@ TarsnapAccount::TarsnapAccount(QWidget *parent)
         _ui->loginButton->setEnabled(!_ui->passwordLineEdit->text().isEmpty());
     });
 
+    connect(this, &TarsnapAccount::gotTable, this,
+            &TarsnapAccount::displayCSVTable);
+    connect(this, &TarsnapAccount::possibleWarning, this,
+            &TarsnapAccount::showWarningIfApplicable);
+
     _popup.setParent(this->parentWidget());
     _popup.setWindowModality(Qt::NonModal);
 }
@@ -72,16 +77,30 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
     _ui->loginButton->setEnabled(false);
     if(exec() == QDialog::Rejected)
         return;
+
+    getAccountInfo_backend(displayActivity, displayMachineActivity,
+                           _ui->passwordLineEdit->text());
+    _ui->passwordLineEdit->clear();
+}
+
+void TarsnapAccount::getAccountInfo_backend(bool    displayActivity,
+                                            bool    displayMachineActivity,
+                                            QString password)
+{
+    TSettings settings;
+    _user    = settings.value("tarsnap/user", "").toString();
+    _machine = settings.value("tarsnap/machine", "").toString();
+
     QString getActivity(URL_ACTIVITY);
     getActivity = getActivity.arg(QString(QUrl::toPercentEncoding(_user)),
-                                  QString(QUrl::toPercentEncoding(
-                                      _ui->passwordLineEdit->text())));
+                                  QString(QUrl::toPercentEncoding(password)));
     QNetworkReply *activityReply = tarsnapRequest(getActivity);
     connect(activityReply, &QNetworkReply::finished, [=]() {
-        QByteArray replyData = readReply(activityReply, true);
+        QByteArray replyData = readReply(activityReply);
+        emit       possibleWarning(replyData);
         parseCredit(replyData);
         if(displayActivity)
-            displayCSVTable(replyData, tr("Account activity"));
+            emit gotTable(replyData, tr("Account activity"));
     });
     _machineId = settings.value("tarsnap/key_id", 0).toULongLong();
     if(_machineId)
@@ -91,18 +110,16 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
         hexId = hexId.arg(_machineId, 16, 16, QLatin1Char('0'));
         machineActivity =
             machineActivity.arg(QString(QUrl::toPercentEncoding(_user)),
-                                QString(QUrl::toPercentEncoding(
-                                    _ui->passwordLineEdit->text())),
+                                QString(QUrl::toPercentEncoding(password)),
                                 QString(QUrl::toPercentEncoding(hexId)));
         QNetworkReply *machineActivityReply = tarsnapRequest(machineActivity);
         connect(machineActivityReply, &QNetworkReply::finished, [=]() {
             QByteArray replyData = readReply(machineActivityReply);
             parseLastMachineActivity(replyData);
             if(displayMachineActivity)
-                displayCSVTable(replyData, tr("Machine activity"));
+                emit gotTable(replyData, tr("Machine activity"));
         });
     }
-    _ui->passwordLineEdit->clear();
 }
 
 void TarsnapAccount::parseCredit(QString csv)
@@ -197,10 +214,9 @@ QNetworkReply *TarsnapAccount::tarsnapRequest(QString url)
     return reply;
 }
 
-QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
+void TarsnapAccount::showWarningIfApplicable(QByteArray data)
 {
-    QByteArray data = reply->readAll();
-    if(warn && data.contains("Password is incorrect; please try again."))
+    if(data.contains("Password is incorrect; please try again."))
     {
         _popup.setWindowTitle(tr("Invalid password"));
         _popup.setIcon(QMessageBox::Warning);
@@ -209,15 +225,19 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
                 .arg(_user));
         _popup.exec();
     }
-    else if(warn
-            && data.contains("No user exists with the provided email "
-                             "address; please try again."))
+    else if(data.contains("No user exists with the provided email "
+                          "address; please try again."))
     {
         _popup.setWindowTitle(tr("Invalid username"));
         _popup.setIcon(QMessageBox::Warning);
         _popup.setText(tr("Account %1 is invalid; please try again.").arg(_user));
         _popup.exec();
     }
+}
+
+QByteArray TarsnapAccount::readReply(QNetworkReply *reply)
+{
+    QByteArray data = reply->readAll();
     reply->close();
     reply->deleteLater();
     return data;

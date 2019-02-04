@@ -8,6 +8,8 @@
 #include <QNetworkRequest>
 #include <QTableWidget>
 
+#include "ui_logindialog.h"
+
 #include <TSettings.h>
 
 #define URL_ACTIVITY                                                           \
@@ -17,13 +19,14 @@
     "https://www.tarsnap.com/"                                                 \
     "manage.cgi?address=%1&password=%2&action=subactivity&mid=%3&format=csv"
 
-TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _nam(this)
+TarsnapAccount::TarsnapAccount(QWidget *parent)
+    : QDialog(parent), _ui(new Ui::LoginDialog), _nam(this)
 {
-    _ui.setupUi(this);
+    _ui->setupUi(this);
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
                    & ~Qt::WindowMaximizeButtonHint);
-    connect(_ui.passwordLineEdit, &QLineEdit::textEdited, this, [&]() {
-        _ui.loginButton->setEnabled(!_ui.passwordLineEdit->text().isEmpty());
+    connect(_ui->passwordLineEdit, &QLineEdit::textEdited, this, [&]() {
+        _ui->loginButton->setEnabled(!_ui->passwordLineEdit->text().isEmpty());
     });
 
     _popup.setParent(this->parentWidget());
@@ -63,14 +66,14 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
         _popup.exec();
         return;
     }
-    _ui.textLabel->setText(tr("Type password for account %1:").arg(_user));
-    _ui.loginButton->setEnabled(false);
+    _ui->textLabel->setText(tr("Type password for account %1:").arg(_user));
+    _ui->loginButton->setEnabled(false);
     if(exec() == QDialog::Rejected)
         return;
     QString getActivity(URL_ACTIVITY);
     getActivity = getActivity.arg(QString(QUrl::toPercentEncoding(_user)),
                                   QString(QUrl::toPercentEncoding(
-                                      _ui.passwordLineEdit->text())));
+                                      _ui->passwordLineEdit->text())));
     QNetworkReply *activityReply = tarsnapRequest(getActivity);
     connect(activityReply, &QNetworkReply::finished, [=]() {
         QByteArray replyData = readReply(activityReply, true);
@@ -87,7 +90,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
         machineActivity =
             machineActivity.arg(QString(QUrl::toPercentEncoding(_user)),
                                 QString(QUrl::toPercentEncoding(
-                                    _ui.passwordLineEdit->text())),
+                                    _ui->passwordLineEdit->text())),
                                 QString(QUrl::toPercentEncoding(hexId)));
         QNetworkReply *machineActivityReply = tarsnapRequest(machineActivity);
         connect(machineActivityReply, &QNetworkReply::finished, [=]() {
@@ -97,7 +100,7 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
                 displayCSVTable(replyData, tr("Machine activity"));
         });
     }
-    _ui.passwordLineEdit->clear();
+    _ui->passwordLineEdit->clear();
 }
 
 void TarsnapAccount::parseCredit(QString csv)

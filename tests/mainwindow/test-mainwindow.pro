@@ -1,6 +1,9 @@
 TARGET = test-mainwindow
 QT = core gui widgets network sql
 
+# For TarsnapAccount
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+
 FORMS +=							\
 	../../forms/aboutwidget.ui				\
 	../../forms/archivelistwidgetitem.ui			\

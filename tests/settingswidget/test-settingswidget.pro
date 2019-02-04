@@ -1,6 +1,9 @@
 TARGET = test-settingswidget
 QT = core gui widgets sql network
 
+# For TarsnapAccount
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+
 VALGRIND = true
 
 FORMS += ../../forms/settingswidget.ui			\

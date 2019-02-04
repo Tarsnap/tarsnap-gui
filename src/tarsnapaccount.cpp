@@ -19,6 +19,8 @@
     "https://www.tarsnap.com/"                                                 \
     "manage.cgi?address=%1&password=%2&action=subactivity&mid=%3&format=csv"
 
+#define USER_AGENT "Tarsnap " APP_VERSION
+
 TarsnapAccount::TarsnapAccount(QWidget *parent)
     : QDialog(parent), _ui(new Ui::LoginDialog), _nam(this)
 {
@@ -187,9 +189,7 @@ QNetworkReply *TarsnapAccount::tarsnapRequest(QString url)
 {
     QNetworkRequest request;
     request.setUrl(url);
-    request.setRawHeader(
-        "User-Agent",
-        (qApp->applicationName() + " " + qApp->applicationVersion()).toLatin1());
+    request.setRawHeader("User-Agent", USER_AGENT);
     QNetworkReply *reply = _nam.get(request);
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
             SLOT(networkError(QNetworkReply::NetworkError)));

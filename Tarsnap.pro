@@ -94,7 +94,8 @@ SOURCES +=						\
 	src/widgets/popuppushbutton.cpp			\
 	src/widgets/restoredialog.cpp			\
 	src/widgets/settingswidget.cpp			\
-	src/widgets/setupdialog.cpp
+	src/widgets/setupdialog.cpp			\
+	src/widgets/tarsnapaccountdialog.cpp
 
 HEADERS +=						\
 	lib/core/TSettings.h				\
@@ -144,7 +145,8 @@ HEADERS +=						\
 	src/widgets/popuppushbutton.h			\
 	src/widgets/restoredialog.h			\
 	src/widgets/settingswidget.h			\
-	src/widgets/setupdialog.h
+	src/widgets/setupdialog.h			\
+	src/widgets/tarsnapaccountdialog.h
 
 INCLUDEPATH += src/widgets/				\
 		+= libcperciva/util/			\

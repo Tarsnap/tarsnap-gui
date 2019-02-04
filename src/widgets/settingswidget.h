@@ -3,7 +3,7 @@
 
 #include "confirmationdialog.h"
 #include "scheduling.h"
-#include "tarsnapaccount.h"
+#include "tarsnapaccountdialog.h"
 #include "taskmanager.h"
 #include "translator.h"
 
@@ -122,7 +122,8 @@ private:
 
     // For the Account tab
     ConfirmationDialog _nukeConfirmationDialog;
-    TarsnapAccount     _tarsnapAccount;
+
+    TarsnapAccountDialog _tarsnapAccount;
 
     // For the Application tab
     int _runningTasks;

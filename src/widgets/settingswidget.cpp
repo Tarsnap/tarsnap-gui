@@ -57,13 +57,13 @@ SettingsWidget::SettingsWidget(QWidget *parent)
             &SettingsWidget::nukeConfirmed);
     connect(&_nukeConfirmationDialog, &ConfirmationDialog::cancelled, this,
             &SettingsWidget::nukeCancelled);
-    connect(&_tarsnapAccount, &TarsnapAccount::accountCredit, this,
+    connect(&_tarsnapAccount, &TarsnapAccountDialog::accountCredit, this,
             &SettingsWidget::updateAccountCredit);
-    connect(&_tarsnapAccount, &TarsnapAccount::getKeyId, this,
+    connect(&_tarsnapAccount, &TarsnapAccountDialog::getKeyId, this,
             &SettingsWidget::getKeyId);
     connect(_ui->updateAccountButton, &QPushButton::clicked,
             _ui->actionRefreshAccount, &QAction::trigger);
-    connect(&_tarsnapAccount, &TarsnapAccount::lastMachineActivity, this,
+    connect(&_tarsnapAccount, &TarsnapAccountDialog::lastMachineActivity, this,
             &SettingsWidget::updateLastMachineActivity);
     connect(_ui->accountActivityShowButton, &QPushButton::clicked,
             [&]() { _tarsnapAccount.getAccountInfo(true, false); });

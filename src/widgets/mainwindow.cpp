@@ -15,6 +15,7 @@
 #include <QInputDialog>
 #include <QMenu>
 #include <QPainter>
+#include <QPushButton>
 #include <QSharedPointer>
 #include <QShortcut>
 

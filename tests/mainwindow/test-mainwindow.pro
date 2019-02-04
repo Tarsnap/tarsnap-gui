@@ -1,6 +1,9 @@
 TARGET = test-mainwindow
 QT = core gui widgets network sql
 
+# For TarsnapAccount
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+
 FORMS +=							\
 	../../forms/aboutwidget.ui				\
 	../../forms/archivelistwidgetitem.ui			\
@@ -57,6 +60,7 @@ HEADERS  +=						\
 	../../src/widgets/popuppushbutton.h		\
 	../../src/widgets/restoredialog.h		\
 	../../src/widgets/settingswidget.h		\
+	../../src/widgets/tarsnapaccountdialog.h	\
 	../../tests/qtest-platform.h
 
 SOURCES += test-mainwindow.cpp				\
@@ -93,7 +97,8 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/widgets/mainwindow.cpp		\
 	../../src/widgets/popuppushbutton.cpp		\
 	../../src/widgets/restoredialog.cpp		\
-	../../src/widgets/settingswidget.cpp
+	../../src/widgets/settingswidget.cpp		\
+	../../src/widgets/tarsnapaccountdialog.cpp
 
 include(../tests-include.pro)
 

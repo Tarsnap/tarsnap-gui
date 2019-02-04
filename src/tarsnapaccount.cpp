@@ -2,11 +2,8 @@
 #include "debug.h"
 #include "utils.h"
 
-#include <QHeaderView>
-#include <QMessageBox>
 #include <QNetworkReply>
 #include <QNetworkRequest>
-#include <QTableWidget>
 
 #include <TSettings.h>
 
@@ -17,66 +14,34 @@
     "https://www.tarsnap.com/"                                                 \
     "manage.cgi?address=%1&password=%2&action=subactivity&mid=%3&format=csv"
 
-TarsnapAccount::TarsnapAccount(QWidget *parent) : QDialog(parent), _nam(this)
-{
-    _ui.setupUi(this);
-    setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
-                   & ~Qt::WindowMaximizeButtonHint);
-    connect(_ui.passwordLineEdit, &QLineEdit::textEdited, this, [&]() {
-        _ui.loginButton->setEnabled(!_ui.passwordLineEdit->text().isEmpty());
-    });
+#define USER_AGENT "Tarsnap " APP_VERSION
 
-    _popup.setParent(this->parentWidget());
-    _popup.setWindowModality(Qt::NonModal);
+TarsnapAccount::TarsnapAccount() : _nam(this)
+{
 }
 
 TarsnapAccount::~TarsnapAccount()
 {
 }
 
-void TarsnapAccount::getAccountInfo(bool displayActivity,
-                                    bool displayMachineActivity)
+void TarsnapAccount::getAccountInfo(bool    displayActivity,
+                                    bool    displayMachineActivity,
+                                    QString password)
 {
     TSettings settings;
     _user    = settings.value("tarsnap/user", "").toString();
     _machine = settings.value("tarsnap/machine", "").toString();
-    if(Utils::tarsnapVersionMinimum("1.0.37"))
-    {
-        emit getKeyId(settings.value("tarsnap/key", "").toString());
-    }
-    else
-    {
-        _popup.setWindowTitle(tr("Warning"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(
-            tr("You need Tarsnap CLI utils version 1.0.37 to "
-               "be able to fetch machine activity. "
-               "You have version %1.")
-                .arg(settings.value("tarsnap/version", "").toString()));
-        _popup.exec();
-    }
-    if(_user.isEmpty() || _machine.isEmpty())
-    {
-        _popup.setWindowTitle(tr("Warning"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(tr("Tarsnap user and machine name must be set."));
-        _popup.exec();
-        return;
-    }
-    _ui.textLabel->setText(tr("Type password for account %1:").arg(_user));
-    _ui.loginButton->setEnabled(false);
-    if(exec() == QDialog::Rejected)
-        return;
+
     QString getActivity(URL_ACTIVITY);
     getActivity = getActivity.arg(QString(QUrl::toPercentEncoding(_user)),
-                                  QString(QUrl::toPercentEncoding(
-                                      _ui.passwordLineEdit->text())));
+                                  QString(QUrl::toPercentEncoding(password)));
     QNetworkReply *activityReply = tarsnapRequest(getActivity);
     connect(activityReply, &QNetworkReply::finished, [=]() {
-        QByteArray replyData = readReply(activityReply, true);
+        QByteArray replyData = readReply(activityReply);
+        emit       possibleWarning(replyData);
         parseCredit(replyData);
         if(displayActivity)
-            displayCSVTable(replyData, tr("Account activity"));
+            emit gotTable(replyData, tr("Account activity"));
     });
     _machineId = settings.value("tarsnap/key_id", 0).toULongLong();
     if(_machineId)
@@ -86,18 +51,16 @@ void TarsnapAccount::getAccountInfo(bool displayActivity,
         hexId = hexId.arg(_machineId, 16, 16, QLatin1Char('0'));
         machineActivity =
             machineActivity.arg(QString(QUrl::toPercentEncoding(_user)),
-                                QString(QUrl::toPercentEncoding(
-                                    _ui.passwordLineEdit->text())),
+                                QString(QUrl::toPercentEncoding(password)),
                                 QString(QUrl::toPercentEncoding(hexId)));
         QNetworkReply *machineActivityReply = tarsnapRequest(machineActivity);
         connect(machineActivityReply, &QNetworkReply::finished, [=]() {
             QByteArray replyData = readReply(machineActivityReply);
             parseLastMachineActivity(replyData);
             if(displayMachineActivity)
-                displayCSVTable(replyData, tr("Machine activity"));
+                emit gotTable(replyData, tr("Machine activity"));
         });
     }
-    _ui.passwordLineEdit->clear();
 }
 
 void TarsnapAccount::parseCredit(QString csv)
@@ -136,57 +99,11 @@ void TarsnapAccount::parseLastMachineActivity(QString csv)
     emit lastMachineActivity(lastLine.split(',', QString::SkipEmptyParts));
 }
 
-void TarsnapAccount::displayCSVTable(QString csv, QString title)
-{
-    DEBUG << csv;
-    if(csv.isEmpty() || csv.startsWith("<!DOCTYPE html>"))
-        return;
-
-    QStringList lines = csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
-    if(lines.count() <= 1)
-        return;
-
-    QStringList columnHeaders =
-        lines.first().split(',', QString::SkipEmptyParts);
-    lines.removeFirst();
-
-    QDialog *csvDialog = new QDialog(this);
-    csvDialog->setWindowTitle(title);
-    csvDialog->setAttribute(Qt::WA_DeleteOnClose, true);
-    QTableWidget *table =
-        new QTableWidget(lines.count(), columnHeaders.count(), csvDialog);
-    table->setHorizontalHeaderLabels(columnHeaders);
-    table->horizontalHeader()->setStretchLastSection(true);
-    table->setAlternatingRowColors(true);
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(table);
-    layout->setMargin(0);
-    csvDialog->setLayout(layout);
-
-    int row    = 0;
-    int column = 0;
-
-    for(const QString &line : lines)
-    {
-        for(const QString &entry : line.split(',', QString::KeepEmptyParts))
-        {
-            table->setItem(row, column, new QTableWidgetItem(entry));
-            column++;
-        }
-        row++;
-        column = 0;
-    }
-    csvDialog->show();
-}
-
 QNetworkReply *TarsnapAccount::tarsnapRequest(QString url)
 {
     QNetworkRequest request;
     request.setUrl(url);
-    request.setRawHeader(
-        "User-Agent",
-        (qApp->applicationName() + " " + qApp->applicationVersion()).toLatin1());
+    request.setRawHeader("User-Agent", USER_AGENT);
     QNetworkReply *reply = _nam.get(request);
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
             SLOT(networkError(QNetworkReply::NetworkError)));
@@ -194,27 +111,9 @@ QNetworkReply *TarsnapAccount::tarsnapRequest(QString url)
     return reply;
 }
 
-QByteArray TarsnapAccount::readReply(QNetworkReply *reply, bool warn)
+QByteArray TarsnapAccount::readReply(QNetworkReply *reply)
 {
     QByteArray data = reply->readAll();
-    if(warn && data.contains("Password is incorrect; please try again."))
-    {
-        _popup.setWindowTitle(tr("Invalid password"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(
-            tr("Password for account %1 is incorrect; please try again.")
-                .arg(_user));
-        _popup.exec();
-    }
-    else if(warn
-            && data.contains("No user exists with the provided email "
-                             "address; please try again."))
-    {
-        _popup.setWindowTitle(tr("Invalid username"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(tr("Account %1 is invalid; please try again.").arg(_user));
-        _popup.exec();
-    }
     reply->close();
     reply->deleteLater();
     return data;

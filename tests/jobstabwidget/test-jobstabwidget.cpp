@@ -46,6 +46,9 @@ void TestJobsTabWidget::initTestCase()
 void TestJobsTabWidget::cleanupTestCase()
 {
     TSettings::destroy();
+    // Wait to (probably?) allow something within QWidgetLineControl to
+    // get freed.  (Randomly occurring memorty leak.)
+    QTest::qWait(100);
 }
 
 void TestJobsTabWidget::jobWidget()

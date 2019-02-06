@@ -4,7 +4,6 @@
 #include <QEventLoopLocker>
 #include <QProcess>
 #include <QRunnable>
-#include <QThread>
 #include <QUuid>
 #include <QVariant>
 
@@ -39,7 +38,7 @@ public:
     //! \param kill: if QProcess:terminate() fails, use QProcess::kill().
     void stop(bool kill = false);
     //! Send the QProcess a SIGQUIT.
-    //! \warning MacOS X only.  (?)
+    //! \warning Unix only (including MacOS X).
     void interrupt();
     //! Emits \ref canceled.
     //! \warning Does not actually cancel a running task!

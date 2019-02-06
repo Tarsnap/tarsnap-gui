@@ -6,8 +6,10 @@
 #include "jobstabwidget.h"
 #include "mainwindow.h"
 
+#include "archivewidget.h"
 #include "persistentmodel/archive.h"
 
+#include "ui_archivestabwidget.h"
 #include "ui_helpwidget.h"
 #include "ui_jobstabwidget.h"
 #include "ui_jobwidget.h"
@@ -305,6 +307,9 @@ void TestMainWindow::other_navigation()
 
     BackupTabWidget *backupTabWidget = &mainwindow->_backupTabWidget;
 
+    ArchiveWidget *archiveDetailsWidget =
+        mainwindow->_archivesTabWidget._ui->archiveDetailsWidget;
+
     VISUAL_INIT(mainwindow);
 
 #if defined(Q_OS_OSX)
@@ -374,6 +379,15 @@ void TestMainWindow::other_navigation()
     VISUAL_WAIT;
 
     mainwindow->displayJobDetails(job);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
+    VISUAL_WAIT;
+
+    // Click on the Job name in the archive tab.
+    mainwindow->displayInspectArchive(archive);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
+    VISUAL_WAIT;
+
+    archiveDetailsWidget->jobClicked("test-job");
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
     VISUAL_WAIT;
 

@@ -135,10 +135,6 @@ signals:
     //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);
 
-    // Job tab
-    //! Display detailed information about a specific job.
-    void jobInspectByRef(QString jobRef);
-
     //! Is the Backup tab ready to create an archive?
     void validBackupTab(bool valid);
 
@@ -197,6 +193,9 @@ private:
                                 int queuedTasks);
 
     void connectSettingsWidget();
+
+    // Display detailed information about a specific job.
+    void jobInspectByRef(QString jobRef);
 };
 
 #endif // MAINWINDOW_H

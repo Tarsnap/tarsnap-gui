@@ -174,8 +174,6 @@ MainWindow::MainWindow(QWidget *parent)
     // Connections to the JobListWidget
     connect(this, &MainWindow::jobList, &_jobsTabWidget,
             &JobsTabWidget::jobList);
-    connect(this, &MainWindow::jobInspectByRef, &_jobsTabWidget,
-            &JobsTabWidget::jobInspectByRef);
 
     // Handle the Job-related actions
     connect(_ui->actionJobBackup, &QAction::triggered, &_jobsTabWidget,
@@ -803,4 +801,10 @@ void MainWindow::displayTab(QWidget *widget)
 {
     if(_ui->mainTabWidget->currentWidget() != widget)
         _ui->mainTabWidget->setCurrentWidget(widget);
+}
+
+void MainWindow::jobInspectByRef(QString jobRef)
+{
+    displayTab(_ui->jobsTab);
+    _jobsTabWidget.jobInspectByRef(jobRef);
 }

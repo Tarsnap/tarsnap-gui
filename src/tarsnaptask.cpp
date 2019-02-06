@@ -203,6 +203,21 @@ void TarsnapTask::readProcessOutput()
     _stdErr.append(_process->readAllStandardError().trimmed());
 }
 
+QByteArray TarsnapTask::truncate_output(QByteArray stdOut)
+{
+    // Find a good newline to which to truncate.
+    int nextNL = stdOut.lastIndexOf(
+        QChar('\n'), LOG_MAX_LENGTH + std::min(stdOut.size() - LOG_MAX_LENGTH,
+                                               LOG_MAX_SEARCH_NL));
+    // Only keep the first part of the logfile.
+    stdOut.truncate(std::max(LOG_MAX_LENGTH, nextNL));
+    // Notify about truncation in log.
+    int num_truncated = _stdOut.mid(stdOut.size()).count('\n');
+    stdOut.append(tr("\n...\n-- %1 output lines truncated by Tarsnap GUI --\n")
+                      .arg(num_truncated));
+    return stdOut;
+}
+
 void TarsnapTask::processFinished()
 {
     switch(_process->exitStatus())
@@ -214,19 +229,8 @@ void TarsnapTask::processFinished()
 
         // Truncate LOG output
         QByteArray stdOut(_stdOut);
-        if(!stdOut.isEmpty() && _truncateLogOutput
-           && (stdOut.size() > LOG_MAX_LENGTH))
-        {
-            int nextNL =
-                stdOut.lastIndexOf(QChar('\n'),
-                                   LOG_MAX_LENGTH
-                                       + std::min(stdOut.size() - LOG_MAX_LENGTH,
-                                                  LOG_MAX_SEARCH_NL));
-            stdOut.truncate(std::max(LOG_MAX_LENGTH, nextNL));
-            stdOut.append(
-                tr("\n...\n-- %1 output lines truncated by Tarsnap GUI --\n")
-                    .arg(_stdOut.mid(stdOut.size()).count(QChar('\n').toLatin1())));
-        }
+        if(_truncateLogOutput && (stdOut.size() > LOG_MAX_LENGTH))
+            stdOut = truncate_output(stdOut);
 
         LOG << tr("Task %1 finished with exit code %2:\n[%3 %4]\n%5")
                    .arg(_uuid.toString())

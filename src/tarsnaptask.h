@@ -96,6 +96,8 @@ private:
     bool             _truncateLogOutput;
     QEventLoopLocker _lock;
     int              _exitCode;
+
+    QByteArray truncate_output(QByteArray stdOut);
 };
 
 #endif // TARSNAPTASK_H

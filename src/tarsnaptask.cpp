@@ -25,9 +25,7 @@ TarsnapTask::~TarsnapTask()
 {
 }
 
-bool cmdInPath(QString cmd);
-
-bool cmdInPath(QString cmd)
+static bool cmdInPath(QString cmd)
 {
     // Check stand-alone command
     QFileInfo info(cmd);
@@ -60,6 +58,7 @@ void TarsnapTask::run()
         return;
     }
 
+    // Set up new _process
     _process = new QProcess();
     _process->setProgram(_command);
     _process->setArguments(_arguments);
@@ -71,8 +70,8 @@ void TarsnapTask::run()
                .arg(_process->program())
                .arg(Utils::quoteCommandLine(_process->arguments()));
 
+    // Start the _process, and wait for confirmation of it starting.
     _process->start();
-
     if(_process->waitForStarted(DEFAULT_TIMEOUT_MS))
     {
         emit started(_data);
@@ -84,6 +83,9 @@ void TarsnapTask::run()
         goto cleanup;
     }
 
+    // Write to the process' stdin (e.g., the confirmation text for nuke, the
+    // password for tarsnap-keygen, the list of files to restore via tarsnap's
+    // "-x -T -" options).
     if(!_stdIn.isEmpty())
     {
         QByteArray password(_stdIn.toUtf8());
@@ -91,6 +93,7 @@ void TarsnapTask::run()
         _process->closeWriteChannel();
     }
 
+    // Wait indefinitely for the process to finish
     if(_process->waitForFinished(-1))
     {
         readProcessOutput();
@@ -122,6 +125,8 @@ void TarsnapTask::stop(bool kill)
 void TarsnapTask::interrupt()
 {
 #if defined Q_OS_UNIX
+    // If this is sent to the Tarsnap client creating an archive, it will
+    // truncate it and leave a '.part' partial archive.
     kill(_process->pid(), SIGQUIT);
 #endif
 }

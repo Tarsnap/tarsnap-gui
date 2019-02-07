@@ -51,16 +51,17 @@ signals:
 protected:
     //! Recalculates the amount of elided text to display.
     void resizeEvent(QResizeEvent *event);
-    //! Used for detecting whether to emit \ref clicked.
-    void mouseReleaseEvent(QMouseEvent *event);
 
-private:
     Qt::TextElideMode _elide;
     QString           _fullText;
 
     // Returns an elided version of the string (if necessary), or the original
     // string (if not).
     QString elideText(const QString &text);
+
+private:
+    //! Used for detecting whether to emit \ref clicked.
+    void mouseReleaseEvent(QMouseEvent *event);
 };
 
 #endif // ELIDEDLABEL_H

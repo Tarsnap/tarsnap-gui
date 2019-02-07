@@ -50,7 +50,7 @@ TEST_ENV =	XDG_CONFIG_HOME=$${TEST_HOME}		\
 		XDG_RUNTIME_DIR=$${TEST_HOME}
 
 contains(QT, gui) || contains(QT, widgets) {
-	test.commands = $${TEST_ENV} ./${TARGET} -platform offscreen
+	test.commands = $${TEST_ENV} ./${TARGET} -platform offscreen \${ONLY}
 	test_visual.depends = ${TARGET} test_home_prep
 	test_visual.commands = $${TEST_ENV} ./${TARGET} \${ONLY}
 } else {

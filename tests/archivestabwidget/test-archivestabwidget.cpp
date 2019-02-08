@@ -17,7 +17,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    void archivesListWidget();
+    void archiveListWidget();
     void displayArchive();
 };
 
@@ -40,21 +40,35 @@ void TestArchivesTabWidget::cleanupTestCase()
     TSettings::destroy();
 }
 
-void TestArchivesTabWidget::archivesListWidget()
+void TestArchivesTabWidget::archiveListWidget()
 {
     ArchiveListWidget *alw = new ArchiveListWidget();
 
     VISUAL_INIT(alw);
 
     ArchivePtr archive(new Archive);
-    archive->setName("archive1");
+    archive->setName("archive1 pXq");
+    archive->setSizeTotal(123000);
+    archive->setTimestamp(QDateTime::currentDateTime());
+
     ArchivePtr archive2(new Archive);
-    archive->setName("backup2");
+    archive2->setName("backup2");
+    archive2->setSizeTotal(4000);
+    archive2->setTimestamp(QDateTime::currentDateTime());
+
+    ArchivePtr archive3(new Archive);
+    archive3->setName("Job_longname_2019-01-01_02-03-04");
+    archive3->setSizeTotal(56);
+    archive3->setTimestamp(QDateTime::currentDateTime());
+    archive3->setJobRef("logname");
 
     alw->addArchive(archive);
     VISUAL_WAIT;
 
     alw->addArchive(archive2);
+    VISUAL_WAIT;
+
+    alw->addArchive(archive3);
     VISUAL_WAIT;
 
     alw->selectArchive(archive);

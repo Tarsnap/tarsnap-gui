@@ -33,7 +33,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="ElidedLabel" name="nameLabel">
+    <widget class="ElidedAnnotatedLabel" name="nameLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -259,6 +259,11 @@ padding-left: 2px;
    <class>ElidedLabel</class>
    <extends>QLabel</extends>
    <header>../widgets/elidedlabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ElidedAnnotatedLabel</class>
+   <extends>QLabel</extends>
+   <header>../widgets/elidedannotatedlabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

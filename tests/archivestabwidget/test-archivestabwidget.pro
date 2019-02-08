@@ -19,6 +19,7 @@ HEADERS  +=						\
 	../../src/widgets/archivelistwidgetitem.h	\
 	../../src/widgets/archivestabwidget.h		\
 	../../src/widgets/archivewidget.h		\
+	../../src/widgets/elidedannotatedlabel.h		\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/restoredialog.h		\
 	../qtest-platform.h
@@ -34,6 +35,7 @@ SOURCES += test-archivestabwidget.cpp			\
 	../../src/widgets/archivelistwidgetitem.cpp	\
 	../../src/widgets/archivestabwidget.cpp		\
 	../../src/widgets/archivewidget.cpp		\
+	../../src/widgets/elidedannotatedlabel.cpp		\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/restoredialog.cpp
 

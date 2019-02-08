@@ -25,6 +25,7 @@ HEADERS  +=						\
 	../../src/utils.h				\
 	../../src/widgets/archivelistwidget.h		\
 	../../src/widgets/archivelistwidgetitem.h	\
+	../../src/widgets/elidedannotatedlabel.h	\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/filepickerwidget.h		\
 	../../src/widgets/joblistwidget.h		\
@@ -45,6 +46,7 @@ SOURCES += test-jobstabwidget.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/archivelistwidget.cpp		\
 	../../src/widgets/archivelistwidgetitem.cpp	\
+	../../src/widgets/elidedannotatedlabel.cpp	\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/filepickerwidget.cpp		\
 	../../src/widgets/joblistwidget.cpp		\

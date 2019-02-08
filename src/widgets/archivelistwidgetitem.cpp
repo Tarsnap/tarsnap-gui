@@ -57,13 +57,16 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
     connect(_archive.data(), &Archive::purged, this,
             &ArchiveListWidgetItem::removeItem, QUEUED);
 
-    QString displayName;
+    QVector<QString> texts(3, "");
+    QVector<QString> annotations(6, "");
+
     QString baseName = _archive->name();
     if(!_archive->jobRef().isEmpty()
        && _archive->name().startsWith(JOB_NAME_PREFIX))
     {
-        displayName =
-            QString("<font color=\"grey\">%1</font>").arg(JOB_NAME_PREFIX);
+        texts[0]       = JOB_NAME_PREFIX;
+        annotations[0] = "<font color=\"grey\">";
+        annotations[1] = "</font>";
         baseName.remove(0, JOB_NAME_PREFIX.size());
     }
     if(baseName.size() > ARCHIVE_TIMESTAMP_FORMAT.size())
@@ -80,13 +83,13 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
         if(validate.isValid())
         {
             baseName.chop(timestamp.size());
-            baseName += QString("<font color=\"grey\">%1%2</font>")
-                            .arg(timestamp)
-                            .arg(truncated);
+            texts[2]       = QString("%1%2").arg(timestamp).arg(truncated);
+            annotations[4] = "<font color=\"grey\">";
+            annotations[5] = "</font>";
         }
     }
-    displayName += baseName;
-    _ui->nameLabel->setText(displayName);
+    texts[1] = baseName;
+    _ui->nameLabel->setAnnotatedText(texts, annotations);
     _ui->nameLabel->setToolTip(_archive->name());
     QString detail(_archive->timestamp().toString(Qt::DefaultLocaleShortDate));
     if(_archive->sizeTotal() != 0)

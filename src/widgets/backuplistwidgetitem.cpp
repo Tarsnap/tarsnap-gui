@@ -15,6 +15,8 @@ BackupListWidgetItem::BackupListWidgetItem(QUrl url)
     // Send translation events to the widget.
     _widget->installEventFilter(this);
     updateUi();
+    // Set a sensible size.
+    setSizeHint(QSize(_widget->minimumWidth(), _widget->minimumHeight()));
 
     // Set up actions.
     _widget->addAction(_ui->actionOpen);

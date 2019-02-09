@@ -13,6 +13,8 @@ ArchiveListWidgetItem::ArchiveListWidgetItem(ArchivePtr archive)
     // Send translation events to the widget.
     _widget->installEventFilter(this);
     updateUi();
+    // Set a sensible size.
+    setSizeHint(QSize(_widget->minimumWidth(), _widget->minimumHeight()));
 
     // Set up action connections.
     connect(_ui->deleteButton, &QToolButton::clicked, this,

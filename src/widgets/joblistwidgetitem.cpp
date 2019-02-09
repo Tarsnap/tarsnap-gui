@@ -9,6 +9,8 @@ JobListWidgetItem::JobListWidgetItem(JobPtr job)
     _widget->installEventFilter(this);
     _ui->setupUi(_widget);
     updateUi();
+    // Set a sensible size.
+    setSizeHint(QSize(_widget->minimumWidth(), _widget->minimumHeight()));
 
     connect(_ui->backupButton, &QToolButton::clicked, this,
             &JobListWidgetItem::requestBackup);

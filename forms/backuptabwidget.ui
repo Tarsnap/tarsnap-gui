@@ -37,7 +37,6 @@
      <property name="styleSheet">
       <string notr="true">#backupListWidget::item
 {
-height: 33px;
 selection-background-color: rgba(177,214,255,150);
 }
 </string>

@@ -187,7 +187,6 @@ left: 1px;
          <property name="styleSheet">
           <string notr="true">#jobListWidget::item
 {
-height: 33px;
 selection-background-color: rgba(177,214,255,150);
 }</string>
          </property>

@@ -50,7 +50,7 @@ font-size: 12px;
       <string notr="true"/>
      </property>
      <property name="elide" stdset="0">
-      <string notr="true">Qt::ElideNone</string>
+      <string notr="true">Qt::ElideRight</string>
      </property>
     </widget>
    </item>

@@ -102,7 +102,7 @@ void TestSmallWidgets::elidedAnnotatedLabel()
     // The text should be elided if the widget is too narrow.
     el->setGeometry(100, 100, 100, 20);
     QVERIFY(el->text() == plain);
-    QVERIFY(el->elideText().count() < plain.count());
+    QVERIFY(el->elideText().count() < full.count());
     VISUAL_WAIT;
 
     delete el;

@@ -96,6 +96,10 @@ void BackupTabWidget::validateBackupTab()
     if(name.isEmpty() || (_ui->backupListWidget->count() == 0))
         valid = false;
 
+    // Check that we don't have any leading or trailing whitespace
+    if(name.simplified() != name)
+        valid = false;
+
     _ui->actionBackupNow->setEnabled(valid);
     _ui->actionBackupMorphIntoJob->setEnabled(valid);
     emit backupTabValidStatus(valid);

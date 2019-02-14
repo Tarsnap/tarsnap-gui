@@ -8,6 +8,7 @@ Change of behaviour:
   start-up message when first running this version of Tarsnap-GUI).
 * The header of the Archives and Jobs tabs is now always present; the option
   to disable them was removed.
+* An archive or job name cannot begin or end with whitespace.
 
 New features:
 * Checks for a network connection before attempting to back up an archive.

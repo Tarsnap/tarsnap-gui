@@ -292,6 +292,16 @@ bool JobWidget::canSaveNew()
     _ui->infoLabel->hide();
     if(_job->objectKey().isEmpty() && !name.isEmpty())
     {
+        // Check that we don't have any leading or trailing whitespace
+        if(name.simplified() != name)
+        {
+            _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
+            _ui->infoLabel->setText(tr(
+                "Job name cannot contain a leading or trailing whitespace."));
+            _ui->infoLabel->show();
+            return false;
+        }
+
         JobPtr newJob(new Job);
         newJob->setName(name);
         if(!newJob->doesKeyExist(newJob->name()))

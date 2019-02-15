@@ -7,6 +7,8 @@
 #include <QList>
 #include <QListWidget>
 
+class ArchiveListWidgetItem;
+
 /*!
  * \ingroup widgets-specialized
  * \brief The ArchiveListWidget is a QListWidget which displays
@@ -69,6 +71,8 @@ private:
     void insertArchive(ArchivePtr archive, int pos);
 
     QRegExp _filter;
+
+    void goingToInspectItem(ArchiveListWidgetItem *archiveItem);
 };
 
 #endif // ARCHIVELISTWIDGET_H

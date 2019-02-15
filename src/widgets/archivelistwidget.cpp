@@ -18,7 +18,7 @@ ArchiveListWidget::ArchiveListWidget(QWidget *parent) : QListWidget(parent)
             ArchiveListWidgetItem *archiveItem =
                 static_cast<ArchiveListWidgetItem *>(item);
             if(archiveItem && !archiveItem->archive()->deleteScheduled())
-                emit inspectArchive(archiveItem->archive());
+                goingToInspectItem(archiveItem);
         }
     });
 }
@@ -158,7 +158,7 @@ void ArchiveListWidget::inspectSelectedItem()
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(selectedItems().first());
         if(archiveItem && !archiveItem->archive()->deleteScheduled())
-            emit inspectArchive(archiveItem->archive());
+            goingToInspectItem(archiveItem);
     }
 }
 
@@ -252,8 +252,7 @@ int ArchiveListWidget::visibleItemsCount()
 void ArchiveListWidget::inspectItem()
 {
     if(sender())
-        emit inspectArchive(
-            qobject_cast<ArchiveListWidgetItem *>(sender())->archive());
+        goingToInspectItem(qobject_cast<ArchiveListWidgetItem *>(sender()));
 }
 
 void ArchiveListWidget::restoreItem()
@@ -318,4 +317,10 @@ void ArchiveListWidget::keyPressEvent(QKeyEvent *event)
     default:
         QListWidget::keyPressEvent(event);
     }
+}
+
+void ArchiveListWidget::goingToInspectItem(ArchiveListWidgetItem *archiveItem)
+{
+
+    emit inspectArchive(archiveItem->archive());
 }

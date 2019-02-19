@@ -33,6 +33,8 @@ public:
 public slots:
     //! Expand the "inspect archive" widget.
     void displayInspectArchive(ArchivePtr archive);
+    //! Hide the "inspect archive" widget.
+    void hideInspectArchive();
 
 signals:
     //! Passes info from the ArchiveListWidget or JobWidget to the TaskManager.

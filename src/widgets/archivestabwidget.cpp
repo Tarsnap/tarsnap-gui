@@ -29,6 +29,8 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
 
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &ArchivesTabWidget::displayInspectArchive);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::clearInspectArchive,
+            this, &ArchivesTabWidget::hideInspectArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives, this,
             &ArchivesTabWidget::deleteArchives);
     connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this,
@@ -121,6 +123,11 @@ void ArchivesTabWidget::keyPressEvent(QKeyEvent *event)
     default:
         QWidget::keyPressEvent(event);
     }
+}
+
+void ArchivesTabWidget::hideInspectArchive()
+{
+    _ui->archiveDetailsWidget->hide();
 }
 
 void ArchivesTabWidget::displayInspectArchive(ArchivePtr archive)

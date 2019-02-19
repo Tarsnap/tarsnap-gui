@@ -326,6 +326,14 @@ void ArchiveListWidget::goingToInspectItem(ArchiveListWidgetItem *archiveItem)
     if(_highlightedItem != nullptr)
         _highlightedItem->setShowingDetails(false);
 
+    // Toggle visibility (if already visible)
+    if(_highlightedItem == archiveItem)
+    {
+        _highlightedItem = nullptr;
+        emit clearInspectArchive();
+        return;
+    }
+
     // Highlight new item
     _highlightedItem = archiveItem;
     _highlightedItem->setShowingDetails(true);

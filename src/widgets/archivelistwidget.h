@@ -46,6 +46,8 @@ signals:
     //! Notify that detailed information should be shown about the
     //! specified archive.
     void inspectArchive(ArchivePtr archive);
+    //! Notify that no detailed information should be shown.
+    void clearInspectArchive();
     //! Notify that the specified archive should be restored,
     //! using the user-selected options from the \ref RestoreDialog.
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);

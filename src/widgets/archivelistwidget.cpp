@@ -8,7 +8,8 @@
 
 #define DELETE_CONFIRMATION_THRESHOLD 10
 
-ArchiveListWidget::ArchiveListWidget(QWidget *parent) : QListWidget(parent)
+ArchiveListWidget::ArchiveListWidget(QWidget *parent)
+    : QListWidget(parent), _highlightedItem(nullptr)
 {
     _filter.setCaseSensitivity(Qt::CaseInsensitive);
     _filter.setPatternSyntax(QRegExp::Wildcard);
@@ -321,6 +322,13 @@ void ArchiveListWidget::keyPressEvent(QKeyEvent *event)
 
 void ArchiveListWidget::goingToInspectItem(ArchiveListWidgetItem *archiveItem)
 {
+    // Disable previous highlighting
+    if(_highlightedItem != nullptr)
+        _highlightedItem->setShowingDetails(false);
+
+    // Highlight new item
+    _highlightedItem = archiveItem;
+    _highlightedItem->setShowingDetails(true);
 
     emit inspectArchive(archiveItem->archive());
 }

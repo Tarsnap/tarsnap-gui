@@ -73,6 +73,7 @@ private:
     QRegExp _filter;
 
     void goingToInspectItem(ArchiveListWidgetItem *archiveItem);
+    ArchiveListWidgetItem *_highlightedItem;
 };
 
 #endif // ARCHIVELISTWIDGET_H

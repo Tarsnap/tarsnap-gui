@@ -23,6 +23,9 @@ public:
     explicit ArchiveListWidget(QWidget *parent = nullptr);
     ~ArchiveListWidget();
 
+    //! Make sure that we can see the current item in the list.
+    void ensureCurrentItemVisible();
+
 public slots:
     //! Clears the archive list, then sets it to the specified archives
     void setArchives(QList<ArchivePtr> archives);
@@ -46,6 +49,8 @@ signals:
     //! Notify that detailed information should be shown about the
     //! specified archive.
     void inspectArchive(ArchivePtr archive);
+    //! Notify that no detailed information should be shown.
+    void clearInspectArchive();
     //! Notify that the specified archive should be restored,
     //! using the user-selected options from the \ref RestoreDialog.
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
@@ -73,6 +78,7 @@ private:
     QRegExp _filter;
 
     void goingToInspectItem(ArchiveListWidgetItem *archiveItem);
+    ArchiveListWidgetItem *_highlightedItem;
 };
 
 #endif // ARCHIVELISTWIDGET_H

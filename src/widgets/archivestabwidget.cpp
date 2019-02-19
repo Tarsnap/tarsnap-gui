@@ -29,6 +29,8 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
 
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &ArchivesTabWidget::displayInspectArchive);
+    connect(_ui->archiveListWidget, &ArchiveListWidget::clearInspectArchive,
+            this, &ArchivesTabWidget::hideInspectArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives, this,
             &ArchivesTabWidget::deleteArchives);
     connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this,
@@ -123,6 +125,11 @@ void ArchivesTabWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void ArchivesTabWidget::hideInspectArchive()
+{
+    _ui->archiveDetailsWidget->hide();
+}
+
 void ArchivesTabWidget::displayInspectArchive(ArchivePtr archive)
 {
     if(archive->sizeTotal() == 0)
@@ -135,7 +142,15 @@ void ArchivesTabWidget::displayInspectArchive(ArchivePtr archive)
 
     _ui->archiveDetailsWidget->setArchive(archive);
     if(!_ui->archiveDetailsWidget->isVisible())
+    {
         _ui->archiveDetailsWidget->show();
+        // Allow the event loop to update the geometry of the scroll area.
+        // I haven't found a way to fix this without dropping back to the
+        // main event loop.  :(
+        QApplication::processEvents(0, 10);
+    }
+
+    _ui->archiveListWidget->ensureCurrentItemVisible();
 }
 
 void ArchivesTabWidget::showArchiveListMenu(const QPoint &pos)

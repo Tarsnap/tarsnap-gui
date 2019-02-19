@@ -42,6 +42,11 @@ ArchivePtr ArchiveListWidgetItem::archive() const
     return _archive;
 }
 
+void ArchiveListWidgetItem::setShowingDetails(bool is_showing)
+{
+    _ui->inspectButton->setChecked(is_showing);
+}
+
 void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
 {
     if(_archive)

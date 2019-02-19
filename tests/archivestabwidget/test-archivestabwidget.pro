@@ -3,8 +3,11 @@ QT = core gui widgets sql
 
 VALGRIND = true
 
-FORMS += ../../forms/archivestabwidget.ui		\
-	../../forms/archivelistwidgetitem.ui
+FORMS +=						\
+	../../forms/archivelistwidgetitem.ui		\
+	../../forms/archivestabwidget.ui		\
+	../../forms/archivewidget.ui			\
+	../../forms/restoredialog.ui
 
 RESOURCES += ../../resources/resources.qrc
 

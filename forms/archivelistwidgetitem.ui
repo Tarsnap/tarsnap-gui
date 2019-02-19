@@ -113,6 +113,14 @@ border: none;
 border-radius: 4px;
 }
 
+QToolButton:checked {
+background: rgba(179, 190, 255, 180);
+}
+
+QToolButton:checked:hover {
+background: rgba(179, 190, 255, 240);
+}
+
 QToolButton:hover {
 background: rgba(179, 190, 255, 120);
 }
@@ -128,6 +136,9 @@ padding-left: 2px;
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
        <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

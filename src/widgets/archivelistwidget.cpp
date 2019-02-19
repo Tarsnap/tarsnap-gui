@@ -340,3 +340,8 @@ void ArchiveListWidget::goingToInspectItem(ArchiveListWidgetItem *archiveItem)
 
     emit inspectArchive(archiveItem->archive());
 }
+
+void ArchiveListWidget::ensureCurrentItemVisible()
+{
+    scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
+}

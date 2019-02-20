@@ -29,12 +29,14 @@ ArchiveListWidget::~ArchiveListWidget()
     clear();
 }
 
+static bool cmp_timestamp(const ArchivePtr &a, const ArchivePtr &b)
+{
+    return (a->timestamp() > b->timestamp());
+}
+
 void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
 {
-    std::sort(archives.begin(), archives.end(),
-              [](const ArchivePtr &a, const ArchivePtr &b) {
-                  return (a->timestamp() > b->timestamp());
-              });
+    std::sort(archives.begin(), archives.end(), cmp_timestamp);
     setUpdatesEnabled(false);
     clear();
     for(const ArchivePtr &archive : archives)
@@ -50,6 +52,7 @@ void ArchiveListWidget::addArchive(ArchivePtr archive)
         return;
     }
 
+    // Find insertion position based on sorted timestamps.
     int pos = 0;
     for(; pos < count(); ++pos)
     {

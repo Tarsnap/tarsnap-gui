@@ -83,6 +83,7 @@ SOURCES +=						\
 	src/widgets/busywidget.cpp			\
 	src/widgets/confirmationdialog.cpp		\
 	src/widgets/elidedannotatedlabel.cpp		\
+	src/widgets/elidedclickablelabel.cpp		\
 	src/widgets/elidedlabel.cpp			\
 	src/widgets/filepickerdialog.cpp		\
 	src/widgets/filepickerwidget.cpp		\
@@ -135,6 +136,7 @@ HEADERS +=						\
 	src/widgets/busywidget.h			\
 	src/widgets/confirmationdialog.h		\
 	src/widgets/elidedannotatedlabel.h		\
+	src/widgets/elidedclickablelabel.h		\
 	src/widgets/elidedlabel.h			\
 	src/widgets/filepickerdialog.h			\
 	src/widgets/filepickerwidget.h			\

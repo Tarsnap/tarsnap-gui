@@ -26,7 +26,7 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
     // Messages between widgets on this tab
     connect(_ui->appendTimestampCheckBox, &QCheckBox::toggled, this,
             &BackupTabWidget::appendTimestampCheckBoxToggled);
-    connect(_ui->backupListInfoLabel, &ElidedLabel::clicked,
+    connect(_ui->backupListInfoLabel, &ElidedClickableLabel::clicked,
             _ui->actionBrowseItems, &QAction::trigger);
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
             [&](const QString text) {

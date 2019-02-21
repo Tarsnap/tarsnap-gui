@@ -33,7 +33,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     connect(_ui->archiveContentsTableView, &QTableView::activated, this,
             &ArchiveWidget::restoreFiles);
     connect(_ui->hideButton, &QPushButton::clicked, this, &ArchiveWidget::close);
-    connect(_ui->archiveJobLabel, &ElidedLabel::clicked,
+    connect(_ui->archiveJobLabel, &ElidedClickableLabel::clicked,
             [&]() { emit jobClicked(_archive->jobRef()); });
     connect(&_contentsModel, &FileTableModel::modelReset, this, [&]() {
         _ui->archiveContentsTableView->resizeColumnsToContents();

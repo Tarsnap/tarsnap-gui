@@ -352,7 +352,7 @@ border: none;
        </widget>
       </item>
       <item>
-       <widget class="ElidedLabel" name="statusBarLabel">
+       <widget class="ElidedClickableLabel" name="statusBarLabel">
         <property name="toolTip">
          <string>Status bar (displays the latest Journal message)</string>
         </property>
@@ -782,9 +782,9 @@ border: none;
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>ElidedClickableLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/elidedlabel.h</header>
+   <header>../widgets/elidedclickablelabel.h</header>
   </customwidget>
   <customwidget>
    <class>BusyWidget</class>

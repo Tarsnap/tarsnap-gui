@@ -16,6 +16,7 @@ HEADERS  +=						\
 	../../src/widgets/backuplistwidget.h		\
 	../../src/widgets/backuplistwidgetitem.h	\
 	../../src/widgets/backuptabwidget.h		\
+	../../src/widgets/elidedclickablelabel.h	\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/filepickerdialog.h		\
 	../../src/widgets/filepickerwidget.h		\
@@ -29,6 +30,7 @@ SOURCES += test-backuptabwidget.cpp			\
 	../../src/widgets/backuplistwidget.cpp		\
 	../../src/widgets/backuplistwidgetitem.cpp	\
 	../../src/widgets/backuptabwidget.cpp		\
+	../../src/widgets/elidedclickablelabel.cpp	\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/filepickerdialog.cpp		\
 	../../src/widgets/filepickerwidget.cpp

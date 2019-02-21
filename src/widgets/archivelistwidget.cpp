@@ -13,15 +13,8 @@ ArchiveListWidget::ArchiveListWidget(QWidget *parent)
 {
     _filter.setCaseSensitivity(Qt::CaseInsensitive);
     _filter.setPatternSyntax(QRegExp::Wildcard);
-    connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
-        if(item)
-        {
-            ArchiveListWidgetItem *archiveItem =
-                static_cast<ArchiveListWidgetItem *>(item);
-            if(archiveItem && !archiveItem->archive()->deleteScheduled())
-                goingToInspectItem(archiveItem);
-        }
-    });
+    connect(this, &QListWidget::itemActivated, this,
+            &ArchiveListWidget::handleItemActivated);
 }
 
 ArchiveListWidget::~ArchiveListWidget()
@@ -356,4 +349,21 @@ void ArchiveListWidget::goingToInspectItem(ArchiveListWidgetItem *archiveItem)
 void ArchiveListWidget::ensureCurrentItemVisible()
 {
     scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
+}
+
+void ArchiveListWidget::handleItemActivated(QListWidgetItem *item)
+{
+    ArchiveListWidgetItem *archiveItem =
+        static_cast<ArchiveListWidgetItem *>(item);
+
+    // Sanity check
+    if(!archiveItem)
+    {
+        DEBUG << "ArchiveListWidget::handleItemActivated(nullptr)";
+        return;
+    }
+
+    // Toggle showing details about the item if it's being deleted
+    if(!archiveItem->archive()->deleteScheduled())
+        goingToInspectItem(archiveItem);
 }

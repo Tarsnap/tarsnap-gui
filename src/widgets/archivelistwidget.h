@@ -72,6 +72,7 @@ private slots:
     void restoreItem();
     void goToJob();
     void removeItem();
+    void handleItemActivated(QListWidgetItem *item);
 
 private:
     int  visibleItemsCount();

@@ -165,6 +165,8 @@ SettingsWidget::SettingsWidget(QWidget *parent)
                     translator.translateApp(qApp, language);
                 }
             });
+
+    updateUi();
 }
 
 SettingsWidget::~SettingsWidget()

@@ -62,6 +62,8 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
             &BackupTabWidget::addDirectory);
     connect(_ui->actionClearList, &QAction::triggered, this,
             &BackupTabWidget::clearList);
+
+    updateUi();
 }
 
 BackupTabWidget::~BackupTabWidget()

@@ -183,7 +183,7 @@ padding-left: 3px;
     </widget>
    </item>
    <item>
-    <widget class="ElidedLabel" name="infoLabel">
+    <widget class="ElidedClickableLabel" name="infoLabel">
      <property name="font">
       <font>
        <italic>true</italic>
@@ -577,9 +577,9 @@ selection-background-color: rgba(177,214,255, 150);
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>ElidedClickableLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/elidedlabel.h</header>
+   <header>../widgets/elidedclickablelabel.h</header>
   </customwidget>
   <customwidget>
    <class>FilePickerWidget</class>

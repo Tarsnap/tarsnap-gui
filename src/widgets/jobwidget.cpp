@@ -20,7 +20,7 @@ JobWidget::JobWidget(QWidget *parent)
 
     _fsEventUpdate.setSingleShot(true);
     connect(&_fsEventUpdate, &QTimer::timeout, this, &JobWidget::verifyJob);
-    connect(_ui->infoLabel, &ElidedLabel::clicked, this,
+    connect(_ui->infoLabel, &ElidedClickableLabel::clicked, this,
             &JobWidget::showJobPathsWarn);
     connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
             [&]() { emit enableSave(canSaveNew()); });

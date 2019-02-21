@@ -68,7 +68,7 @@ selection-background-color: rgba(177,214,255,150);
     </widget>
    </item>
    <item>
-    <widget class="ElidedLabel" name="backupListInfoLabel">
+    <widget class="ElidedClickableLabel" name="backupListInfoLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -355,9 +355,9 @@ text-align: center;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>ElidedClickableLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/elidedlabel.h</header>
+   <header>../widgets/elidedclickablelabel.h</header>
   </customwidget>
   <customwidget>
    <class>BackupListWidget</class>

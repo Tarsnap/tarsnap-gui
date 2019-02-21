@@ -41,6 +41,8 @@ public slots:
     void restoreSelectedItem();
     //! Filter the list of archives.
     void setFilter(QString regex);
+    //! There are no archive details being shown.
+    void noInspect();
 
 signals:
     //! Notify that the specified archives should be deleted from

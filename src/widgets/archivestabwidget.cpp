@@ -37,6 +37,8 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
             &ArchivesTabWidget::restoreArchive);
     connect(_ui->archiveDetailsWidget, &ArchiveWidget::restoreArchive, this,
             &ArchivesTabWidget::restoreArchive);
+    connect(_ui->archiveDetailsWidget, &ArchiveWidget::hidden,
+            _ui->archiveListWidget, &ArchiveListWidget::noInspect);
 
     connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::deleteSelectedItems);

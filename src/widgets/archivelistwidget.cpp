@@ -323,6 +323,15 @@ void ArchiveListWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void ArchiveListWidget::noInspect()
+{
+    if(_highlightedItem != nullptr)
+    {
+        _highlightedItem->setShowingDetails(false);
+        _highlightedItem = nullptr;
+    }
+}
+
 void ArchiveListWidget::goingToInspectItem(ArchiveListWidgetItem *archiveItem)
 {
     // Disable previous highlighting

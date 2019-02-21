@@ -38,6 +38,8 @@ signals:
     //! \param archive: the Archive this widget is displaying.
     //! \param options: contains the list of files to restore.
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
+    //! We are no longer showing the details widget.
+    void hidden();
 
 protected:
     //! This widget is closing; release memory.

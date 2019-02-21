@@ -141,6 +141,7 @@ void ArchiveWidget::closeEvent(QCloseEvent *event)
 {
     Q_UNUSED(event)
     setArchive(ArchivePtr()); // Release memory held by the contents widget
+    emit hidden();
 }
 
 void ArchiveWidget::keyPressEvent(QKeyEvent *event)

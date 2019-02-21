@@ -1,6 +1,6 @@
 #include "elidedlabel.h"
 
-#include <QMouseEvent>
+#include <QResizeEvent>
 
 ElidedLabel::ElidedLabel(QWidget *parent)
     : QLabel(parent), _elide(Qt::ElideNone)
@@ -49,13 +49,6 @@ void ElidedLabel::clear()
 void ElidedLabel::resizeEvent(QResizeEvent *event)
 {
     QLabel::setText(elideText(_fullText));
-    event->accept();
-}
-
-void ElidedLabel::mouseReleaseEvent(QMouseEvent *event)
-{
-    if(event->button() == Qt::LeftButton)
-        emit clicked();
     event->accept();
 }
 

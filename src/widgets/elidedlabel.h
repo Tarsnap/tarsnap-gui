@@ -45,8 +45,6 @@ public slots:
 signals:
     //! Emitted when the elide mode was changed.
     void elideChanged(Qt::TextElideMode elide);
-    //! Emitted when this widget was clicked.
-    void clicked();
 
 protected:
     //! Recalculates the amount of elided text to display.
@@ -58,10 +56,6 @@ protected:
     // Returns an elided version of the string (if necessary), or the original
     // string (if not).
     QString elideText(const QString &text);
-
-private:
-    //! Used for detecting whether to emit \ref clicked.
-    void mouseReleaseEvent(QMouseEvent *event);
 };
 
 #endif // ELIDEDLABEL_H

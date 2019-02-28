@@ -51,7 +51,7 @@ void TestQTestComplex::pl_fontmetric_size()
 
 void TestQTestComplex::pl_processEvents()
 {
-    QCoreApplication::processEvents(0, 100);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
 
 void TestQTestComplex::pl_postEvent()
@@ -71,7 +71,7 @@ void TestQTestComplex::pl_filesystemmodel()
 
     // Start to read the path (this starts a new thread)
     model->setRootPath(QDir::currentPath());
-    QCoreApplication::processEvents(0, 100);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
     delete model;
 }

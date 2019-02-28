@@ -2,6 +2,7 @@
 #define TEST_APP_H
 
 #include <QCoreApplication>
+#include <QEventLoop>
 
 class App : public QCoreApplication
 {
@@ -10,7 +11,10 @@ class App : public QCoreApplication
 public:
     App(int &argc, char **argv) : QCoreApplication(argc, argv) {}
 
-    void process() { QCoreApplication::processEvents(0, 1000); }
+    void process()
+    {
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
+    }
 };
 
 #endif

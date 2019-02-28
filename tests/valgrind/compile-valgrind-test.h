@@ -1,3 +1,6 @@
+#ifndef COMPILE_VALGRIND_TEST_H
+#define COMPILE_VALGRIND_TEST_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,3 +41,5 @@
         }                                                                      \
         exit(0);                                                               \
     }
+
+#endif

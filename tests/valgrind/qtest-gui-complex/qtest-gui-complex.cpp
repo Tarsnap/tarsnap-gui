@@ -1,3 +1,6 @@
+#include "../warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QtTest/QtTest>
 
 #include <QCheckBox>
@@ -10,6 +13,7 @@
 #include <QRadioButton>
 #include <QTreeView>
 #include <QVBoxLayout>
+WARNINGS_ENABLE
 
 class TestQTestComplex : public QObject
 {

@@ -1,6 +1,10 @@
+#include "../warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QtTest/QtTest>
 
 #include <QNetworkAccessManager>
+WARNINGS_ENABLE
 
 class TestQTestNetwork : public QObject
 {

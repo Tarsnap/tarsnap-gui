@@ -1,7 +1,11 @@
 #ifndef CONSOLE_TEST_H
 #define CONSOLE_TEST_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QCoreApplication>
+WARNINGS_ENABLE
 
 #define T_TEST_CONSOLE_BEGIN                                                   \
     int   argc = 1;                                                            \

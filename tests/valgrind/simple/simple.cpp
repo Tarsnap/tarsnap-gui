@@ -1,6 +1,10 @@
+#include "../warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QEventLoop>
 #include <QSqlDatabase>
+WARNINGS_ENABLE
 
 #include "../compile-valgrind-test.h"
 #include "../console-test.h"

@@ -1,3 +1,6 @@
+#include "../warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QtTest/QtTest>
 
 #include <QCollator>
@@ -6,6 +9,7 @@
 #include <QLabel>
 #include <QListWidget>
 #include <QWidget>
+WARNINGS_ENABLE
 
 class TestQTestSimple : public QObject
 {

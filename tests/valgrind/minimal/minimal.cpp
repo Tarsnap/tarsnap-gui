@@ -1,4 +1,8 @@
+#include "../warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QCoreApplication>
+WARNINGS_ENABLE
 
 #include "../compile-valgrind-test.h"
 #include "../console-test.h"

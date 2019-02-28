@@ -133,11 +133,17 @@ generate_supp_from_dir() {
 }
 
 
-# Clear existing suppressions.
-rm -f ${valgrind_suppressions}
-touch ${valgrind_suppressions}
+# Clear existing debug suppressions.
 if [ "$DEBUG" -eq 1 ]; then
 	rm -f ${valgrind_suppressions}.debug
+fi
+
+# If the suppressions already exist, indicate that this is a retest.
+# (This may be useful while investigating occasional memory leaks.)
+if [ -e ${valgrind_suppressions} ]; then
+	printf "### RETEST\n" >> ${valgrind_suppressions}
+else
+	touch ${valgrind_suppressions}
 fi
 
 # Generate suppressions for each directory.

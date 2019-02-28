@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 
 #include "../compile-valgrind-test.h"
+#include "../console-test.h"
 
 static void pl_nothing()
 {
@@ -8,17 +9,9 @@ static void pl_nothing()
 
 static void pl_QCoreApplication()
 {
-    // Set up variables
-    int   argc = 1;
-    char *argv[1];
-    argv[0] = strdup("arg");
+    T_TEST_CONSOLE_BEGIN
 
-    // Actual memory test
-    QCoreApplication *app = new QCoreApplication(argc, argv);
-    delete app;
-
-    // Clean up variable
-    free(argv[0]);
+    T_TEST_CONSOLE_END
 }
 
 // clang-format off

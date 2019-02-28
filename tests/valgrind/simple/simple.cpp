@@ -1,3 +1,5 @@
+#include <QCoreApplication>
+#include <QEventLoop>
 #include <QSqlDatabase>
 
 #include "../compile-valgrind-test.h"
@@ -21,8 +23,18 @@ static void pl_QSqlDatabase()
     T_TEST_CONSOLE_END
 }
 
+static void pl_processEvents()
+{
+    T_TEST_CONSOLE_BEGIN
+
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
+
+    T_TEST_CONSOLE_END
+}
+
 // clang-format off
 T_TEST_BEGIN
     MEMLEAKTEST(pl_nothing),
-    MEMLEAKTEST(pl_QSqlDatabase)
+    MEMLEAKTEST(pl_QSqlDatabase),
+    MEMLEAKTEST(pl_processEvents)
 T_TEST_END

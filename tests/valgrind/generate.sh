@@ -4,7 +4,7 @@ set -e -o nounset
 
 # Ordered list of directories to run.
 DIRS=""
-DIRS="${DIRS} minimal simple complex"
+DIRS="${DIRS} minimal simple"
 DIRS="${DIRS} qtest-minimal"
 DIRS="${DIRS} qtest-gui-minimal qtest-gui-simple qtest-gui-complex"
 # Yes, repeat this test multiple times to try to catch them all.  :(

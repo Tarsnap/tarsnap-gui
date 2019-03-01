@@ -1,10 +1,10 @@
-QT = core testlib
-QT += gui widgets network
+QT = core
+QT += network
 
 TEMPLATE = app
 TARGET = potential-memleaks
 
-SOURCES = qtest-gui-network.cpp
+SOURCES = network.cpp
 
 # Set up the build directory
 include(../valgrind-include.pro)

@@ -3,13 +3,15 @@
 set -e -o nounset
 
 # Ordered list of directories to run.
+# Yes, repeat the "network" test to try to catch all the variable memleaks.  :(
 DIRS=""
-DIRS="${DIRS} minimal simple"
+DIRS="${DIRS} minimal simple network"
 DIRS="${DIRS} qtest-minimal"
+DIRS="${DIRS} network"
 DIRS="${DIRS} qtest-gui-minimal qtest-gui-simple qtest-gui-complex"
-# Yes, repeat this test multiple times to try to catch them all.  :(
-DIRS="${DIRS} qtest-gui-network qtest-gui-network qtest-gui-network"
+DIRS="${DIRS} network"
 DIRS="${DIRS} qtest-gui-ui"
+DIRS="${DIRS} network"
 
 DEBUG=0
 

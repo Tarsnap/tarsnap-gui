@@ -10,10 +10,17 @@ VALGRINDS="${VALGRINDS} customfilesystemmodel small-widgets setupwizard"
 VALGRINDS="${VALGRINDS} backuptabwidget settingswidget jobstabwidget"
 VALGRINDS="${VALGRINDS} archivestabwidget"
 
+# Build first
 for D in $VALGRINDS; do
 	cd $D
 	qmake > /dev/null
 	nice make -j3 > /dev/null
+	cd ..
+done
+
+# Run tests
+for D in $VALGRINDS; do
+	cd $D
 	make test_valgrind
 	cd ..
 done

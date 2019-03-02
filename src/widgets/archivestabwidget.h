@@ -50,7 +50,7 @@ signals:
     //! Notify that the job details should be displayed.
     void displayJobDetails(QString jobRef);
     //! The user clicked on the Job label.
-    //! \param jobRef: a string which identifies the Job.
+    //! \param jobRef a string which identifies the Job.
     void jobClicked(QString jobRef);
 
     //! Begin tarsnap --print-stats -f \<name\>

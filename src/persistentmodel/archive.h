@@ -50,7 +50,7 @@ class ParseArchiveListingTask : public QObject, public QRunnable
 
 public:
     //! Constructor.
-    //! \param listing: the output of <tt>tarsnap -tv</tt>.
+    //! \param listing the output of <tt>tarsnap -tv</tt>.
     explicit ParseArchiveListingTask(const QString &listing) : _listing(listing)
     {
     }

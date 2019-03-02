@@ -23,7 +23,7 @@ class ArchiveListWidgetItem : public QObject, public QListWidgetItem
 
 public:
     //! Constructor.
-    //! \param archive: pointer to the archive to display.
+    //! \param archive pointer to the archive to display.
     explicit ArchiveListWidgetItem(ArchivePtr archive);
     ~ArchiveListWidgetItem();
 

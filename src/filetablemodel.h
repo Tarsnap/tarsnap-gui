@@ -24,14 +24,14 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
     //! Returns file information for an index.
-    //! \param index: which file (row), and what type of information (column).
-    //! \param role: should be \c Qt::DisplayRole.
+    //! \param index which file (row), and what type of information (column).
+    //! \param role should be \c Qt::DisplayRole.
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
     //! Returns the text for a header field.
-    //! \param section: which row or column number.
-    //! \param orientation: \c Qt::Vertical or \c Qt::Horizontal.
-    //! \param role: should be \c Qt::DisplayRole.
+    //! \param section which row or column number.
+    //! \param orientation \c Qt::Vertical or \c Qt::Horizontal.
+    //! \param role should be \c Qt::DisplayRole.
     QVariant headerData(int section, Qt::Orientation orientation,
                         int role = Qt::DisplayRole) const;
 

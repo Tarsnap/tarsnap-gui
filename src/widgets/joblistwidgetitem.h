@@ -22,7 +22,7 @@ class JobListWidgetItem : public QObject, public QListWidgetItem
 
 public:
     //! Constructor.
-    //! \param job: pointer to the job to display.
+    //! \param job pointer to the job to display.
     explicit JobListWidgetItem(JobPtr job);
     ~JobListWidgetItem();
 

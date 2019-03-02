@@ -20,10 +20,10 @@ public:
 
 public slots:
     //! Add a single item to the backup list.
-    //! \param url: the path of the file or directory.
+    //! \param url the path of the file or directory.
     void addItemWithUrl(QUrl url);
     //! Add multiple items to the backup list.
-    //! \param urls: a list of the paths of the files or directories.
+    //! \param urls a list of the paths of the files or directories.
     void addItemsWithUrls(QList<QUrl> urls);
     //! Returns a list of the paths of files or directories.
     QList<QUrl> itemUrls();
@@ -32,16 +32,16 @@ public slots:
     //! Calculates the number of items, and their total size.
     void recomputeListTotals();
     //! Clears any existing items, then adds the listed items.
-    //! \param urls: a list of the paths of the files or directories.
+    //! \param urls a list of the paths of the files or directories.
     void setItemsWithUrls(QList<QUrl> urls);
 
 signals:
     //! The total number and size of items.
-    //! \param count: the total number.
-    //! \param size: the total size (in bytes).
+    //! \param count the total number.
+    //! \param size the total size (in bytes).
     void itemTotals(quint64 count, quint64 size);
     //! A single item was added.
-    //! \param url: the path of the file or directory.
+    //! \param url the path of the file or directory.
     void itemWithUrlAdded(QUrl url);
 
 protected:

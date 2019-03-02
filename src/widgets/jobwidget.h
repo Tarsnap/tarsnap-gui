@@ -38,7 +38,7 @@ public slots:
     //! Create (and save) a new job.
     void saveNew();
     //! Update the list of potential matching archives.
-    //! \param archives: the archives which match this job name.
+    //! \param archives the archives which match this job name.
     void updateMatchingArchives(QList<ArchivePtr> archives);
 
 signals:
@@ -59,7 +59,7 @@ signals:
     //! Job (i.e. job name and at least one file or directory).
     void enableSave(bool enable);
     //! Notify that we should look for archives matching this Job.
-    //! \param jobPrefix: prefix to match.
+    //! \param jobPrefix prefix to match.
     void findMatchingArchives(QString jobPrefix);
 
 protected:

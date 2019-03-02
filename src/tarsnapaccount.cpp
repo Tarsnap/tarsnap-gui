@@ -16,12 +16,14 @@
 
 #define USER_AGENT "Tarsnap " APP_VERSION
 
-TarsnapAccount::TarsnapAccount() : _nam(this)
+TarsnapAccount::TarsnapAccount()
 {
+    _nam = new QNetworkAccessManager(this);
 }
 
 TarsnapAccount::~TarsnapAccount()
 {
+    delete _nam;
 }
 
 void TarsnapAccount::getAccountInfo(bool    displayActivity,
@@ -104,7 +106,7 @@ QNetworkReply *TarsnapAccount::tarsnapRequest(QString url)
     QNetworkRequest request;
     request.setUrl(url);
     request.setRawHeader("User-Agent", USER_AGENT);
-    QNetworkReply *reply = _nam.get(request);
+    QNetworkReply *reply = _nam->get(request);
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
             SLOT(networkError(QNetworkReply::NetworkError)));
     connect(reply, &QNetworkReply::sslErrors, this, &TarsnapAccount::sslError);

@@ -11,6 +11,14 @@
 
 #include <TSettings.h>
 
+const QStringList DEFAULT_JOBS{QStringLiteral("Desktop"),
+                               QStringLiteral("Documents"),
+                               QStringLiteral("Pictures"),
+                               QStringLiteral("Movies"),
+                               QStringLiteral("Videos"),
+                               QStringLiteral("Music"),
+                               QStringLiteral("Work")};
+
 JobsTabWidget::JobsTabWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::JobsTabWidget)
 {

@@ -35,7 +35,7 @@ public:
     void run();
     //! If the QProcess is running, attempt to stop it with
     //! QProcess::terminate().
-    //! \param kill: if QProcess:terminate() fails, use QProcess::kill().
+    //! \param kill if QProcess:terminate() fails, use QProcess::kill().
     void stop(bool kill = false);
     //! Send the QProcess a SIGQUIT.
     //! \warning Unix only (including MacOS X).

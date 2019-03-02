@@ -21,9 +21,9 @@ class RestoreDialog : public QDialog
 
 public:
     //! Constructor.
-    //! \param archive: the ArchivePtr to restore.
-    //! \param parent: standard Qt parameter.
-    //! \param files: list of files to restore.  If empty, restore all files
+    //! \param archive the ArchivePtr to restore.
+    //! \param parent standard Qt parameter.
+    //! \param files list of files to restore.  If empty, restore all files
     //!               in this archive.
     explicit RestoreDialog(QWidget *parent, ArchivePtr archive,
                            QStringList files = QStringList());

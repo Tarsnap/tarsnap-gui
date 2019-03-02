@@ -25,12 +25,12 @@ public:
 
     //! Display a confirmation dialog which requires the user to type some
     //! text, and then must wait for a countdown timer.
-    //! \param startTitle: title of the typing confirmation window
-    //! \param startText: text of the typing confirmation window
-    //! \param confirmationText: what the user must type
-    //! \param countdownSeconds: how many seconds the user must wait
-    //! \param countdownTitle: title of the countdown window
-    //! \param countdownText: text of the countdown window
+    //! \param startTitle title of the typing confirmation window
+    //! \param startText text of the typing confirmation window
+    //! \param confirmationText what the user must type
+    //! \param countdownSeconds how many seconds the user must wait
+    //! \param countdownTitle title of the countdown window
+    //! \param countdownText text of the countdown window
     void start(QString startTitle, QString startText, QString confirmationText,
                int countdownSeconds, QString countdownTitle,
                QString countdownText);

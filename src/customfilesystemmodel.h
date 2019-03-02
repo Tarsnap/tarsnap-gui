@@ -39,10 +39,10 @@ public:
     //! Sets files or directories as being checked, partially checked, or
     //! unchecked.
     /*!
-     * \param index: Indicates which file or directory's state to change.
-     * \param value: Must be a Qt::CheckState, i.e. one of: {Qt::Unchecked,
+     * \param index Indicates which file or directory's state to change.
+     * \param value Must be a Qt::CheckState, i.e. one of: {Qt::Unchecked,
      *               Qt::PartiallyChecked, Qt::Checked}.
-     * \param role: Must be Qt::CheckStateRole.
+     * \param role Must be Qt::CheckStateRole.
      */
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 

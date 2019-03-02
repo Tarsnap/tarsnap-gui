@@ -32,11 +32,11 @@ public slots:
 
 signals:
     //! The user clicked on the Job label.
-    //! \param jobRef: a string which identifies the Job.
+    //! \param jobRef a string which identifies the Job.
     void jobClicked(QString jobRef);
     //! The user wants to restore some or all of the files in this Archive.
-    //! \param archive: the Archive this widget is displaying.
-    //! \param options: contains the list of files to restore.
+    //! \param archive the Archive this widget is displaying.
+    //! \param options contains the list of files to restore.
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! We are no longer showing the details widget.
     void hidden();

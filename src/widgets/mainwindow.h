@@ -44,8 +44,8 @@ public slots:
     //! application paths, and update archive list.
     void initializeMainWindow();
     //! Set the statusbar message.
-    //! \param message: display this text
-    //! \param detail: display this text as a mouse-over tooltip.
+    //! \param message display this text
+    //! \param detail display this text as a mouse-over tooltip.
     void updateStatusMessage(QString message, QString detail = "");
     //! Indicate if the application is busy running Tarsnap chores or not.
     void updateLoadingAnimation(bool idle);
@@ -130,7 +130,7 @@ signals:
     //! Passes info from the JobWidget to the TaskManager.
     void jobAdded(JobPtr job);
     //! Search for all matching Archive objects which were created by a Job.
-    //! \param jobPrefix: prefix of the Archive names to match.
+    //! \param jobPrefix prefix of the Archive names to match.
     void findMatchingArchives(QString jobPrefix);
     //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);

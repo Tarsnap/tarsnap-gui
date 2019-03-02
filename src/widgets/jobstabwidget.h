@@ -48,7 +48,7 @@ signals:
     //! Notifies about a deleted job from the JobWidget or JobListWidget.
     void deleteJob(JobPtr job, bool purgeArchives);
     //! Search for all matching Archive objects which were created by a Job.
-    //! \param jobPrefix: prefix of the Archive names to match.
+    //! \param jobPrefix prefix of the Archive names to match.
     void findMatchingArchives(QString jobPrefix);
     //! Begin tarsnap -x -f \<name\>, with options.
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);

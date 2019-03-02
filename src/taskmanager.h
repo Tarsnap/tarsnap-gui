@@ -88,7 +88,7 @@ public slots:
     //! Ensure that the cache directory has been created.
     void initializeCache();
     //! Search for all matching Archive objects which were created by a Job.
-    //! \param jobPrefix: prefix of the Archive names to match.
+    //! \param jobPrefix prefix of the Archive names to match.
     void findMatchingArchives(QString jobPrefix);
 
 signals:
@@ -113,21 +113,21 @@ signals:
     //! A list of all Jobs.
     void jobList(QMap<QString, JobPtr> jobs);
     //! A status message should be shown to the user.
-    //! \param msg: main text to display.
-    //! \param detail: display this text as a mouse-over tooltip.
+    //! \param msg main text to display.
+    //! \param detail display this text as a mouse-over tooltip.
     void message(QString msg, QString detail = "");
     //! A message that should be shown as a desktop notification (if enabled).
     void displayNotification(QString message);
     //! Information about running tasks.
-    //! \param backupTaskRunning: is a backup task currently running?
-    //! \param runningTasks: the number of running tasks.
-    //! \param queuedTasks: the number of queued tasks
+    //! \param backupTaskRunning is a backup task currently running?
+    //! \param runningTasks the number of running tasks.
+    //! \param queuedTasks the number of queued tasks
     void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
     //! The tarsnap CLI experienced an error.
     void error(TarsnapError error);
     //! The tarsnap key ID number.
-    //! \param key_filename: the filename.
-    //! \param id: the 64-bit unsigned integer representing the key.
+    //! \param key_filename the filename.
+    //! \param id the 64-bit unsigned integer representing the key.
     void keyId(QString key_filename, quint64 id);
     //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);

@@ -28,7 +28,7 @@ public slots:
     //! Sets the current selection in the list view.
     void selectJob(JobPtr job);
     //! Display detailed information about a specific job.
-    //! \param jobRef: the name of the job to inspect.
+    //! \param jobRef the name of the job to inspect.
     void inspectJobByRef(QString jobRef);
     //! Create new archives for all jobs.
     void backupAllJobs();
@@ -53,8 +53,8 @@ signals:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! Notify that the specified job (and possibly archives)
     //! should be deleted.
-    //! \param job: the job to delete.
-    //! \param purgeArchives: if true, delete all archives belonging
+    //! \param job the job to delete.
+    //! \param purgeArchives if true, delete all archives belonging
     //!        to this job.
     void deleteJob(JobPtr job, bool purgeArchives);
     //! Notify the total and visible (not hidden) items count on list change

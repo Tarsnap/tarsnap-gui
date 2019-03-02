@@ -8,6 +8,9 @@
 #include "elidedlabel.h"
 #include "filepickerdialog.h"
 #include "filepickerwidget.h"
+#include "helpwidget.h"
+
+#include "ui_helpwidget.h"
 
 #include "TSettings.h"
 
@@ -25,6 +28,7 @@ private slots:
     void filepickerdialog();
     void confirmationDialog();
     void busywidget();
+    void helpWidget();
 };
 
 void TestSmallWidgets::initTestCase()
@@ -148,6 +152,55 @@ void TestSmallWidgets::busywidget()
     VISUAL_WAIT;
 
     delete bw;
+}
+
+void TestSmallWidgets::helpWidget()
+{
+    HelpWidget *    help = new HelpWidget();
+    Ui::HelpWidget *ui   = help->_ui;
+
+    VISUAL_INIT(help);
+
+    // Starts off not visible and the button is not pushed down
+    QVERIFY(help->_aboutWindow.isVisible() == false);
+    QVERIFY(ui->aboutButton->isChecked() == false);
+    VISUAL_WAIT;
+
+    // Becomes visible
+    ui->aboutButton->click();
+    QVERIFY(help->_aboutWindow.isVisible() == true);
+    QVERIFY(ui->aboutButton->isChecked() == true);
+    VISUAL_WAIT;
+
+    // Becomes invisible by clicking the button again
+    ui->aboutButton->click();
+    QVERIFY(help->_aboutWindow.isVisible() == false);
+    QVERIFY(ui->aboutButton->isChecked() == false);
+    VISUAL_WAIT;
+
+    // Becomes visible
+    help->aboutMenuClicked();
+    QVERIFY(help->_aboutWindow.isVisible() == true);
+    QVERIFY(ui->aboutButton->isChecked() == true);
+    VISUAL_WAIT;
+
+    // The consoleLog should not be visible
+    QVERIFY(help->_consoleWindow.isVisible() == false);
+    QVERIFY(ui->consoleButton->isChecked() == false);
+    VISUAL_WAIT;
+
+    // Show the consoleLog
+    ui->consoleButton->click();
+    QVERIFY(help->_consoleWindow.isVisible() == true);
+    QVERIFY(ui->consoleButton->isChecked() == true);
+    VISUAL_WAIT;
+
+    // Add some text to the consoleLog
+    QPlainTextEdit *te = help->getConsoleLog();
+    te->setPlainText("hello");
+    VISUAL_WAIT;
+
+    delete help;
 }
 
 QTEST_MAIN(TestSmallWidgets)

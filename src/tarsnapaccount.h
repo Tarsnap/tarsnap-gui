@@ -53,10 +53,10 @@ protected slots:
     void sslError(QList<QSslError> errors);
 
 private:
-    QNetworkAccessManager _nam;
-    QString               _user;
-    QString               _machine;
-    quint64               _machineId;
+    QNetworkAccessManager *_nam;
+    QString                _user;
+    QString                _machine;
+    quint64                _machineId;
 };
 
 #endif // TARSNAPACCOUNT_H

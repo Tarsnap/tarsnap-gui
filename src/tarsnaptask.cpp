@@ -125,9 +125,11 @@ void TarsnapTask::stop(bool kill)
 void TarsnapTask::interrupt()
 {
 #if defined Q_OS_UNIX
+    // Assume that Q_PID is a valid pid on this system.
+    pid_t pid = static_cast<pid_t>(_process->pid());
     // If this is sent to the Tarsnap client creating an archive, it will
     // truncate it and leave a '.part' partial archive.
-    kill(_process->pid(), SIGQUIT);
+    kill(pid, SIGQUIT);
 #endif
 }
 

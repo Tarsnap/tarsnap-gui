@@ -3,6 +3,7 @@
 #include "../qtest-platform.h"
 #include "utils.h"
 
+#include "tarsnapaccount.h"
 #include "tarsnapaccountdialog.h"
 
 #include <TSettings.h>
@@ -19,6 +20,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
+    void tarsnapAccount();
     void tarsnapAccountDialog();
     void account();
     void backup();
@@ -39,6 +41,13 @@ void TestSettingsWidget::initTestCase()
 void TestSettingsWidget::cleanupTestCase()
 {
     TSettings::destroy();
+}
+
+void TestSettingsWidget::tarsnapAccount()
+{
+    TarsnapAccount *ta = new TarsnapAccount();
+
+    delete ta;
 }
 
 void TestSettingsWidget::tarsnapAccountDialog()

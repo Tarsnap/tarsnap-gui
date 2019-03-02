@@ -28,6 +28,7 @@ private slots:
     void pl_filesystemmodel();
     void pl_button_checked();
     void pl_lineedit_text();
+    void pl_lineedit_text_clear();
     void pl_lineedit_text_localhostname();
     void pl_checkbox_text();
     void pl_treeview();
@@ -95,6 +96,17 @@ void TestQTestComplex::pl_lineedit_text()
 
     le->setClearButtonEnabled(true);
     le->setText("Let's cause a memory leak!");
+
+    delete le;
+}
+
+void TestQTestComplex::pl_lineedit_text_clear()
+{
+    QLineEdit *le = new QLineEdit();
+
+    le->setClearButtonEnabled(true);
+    le->setText("Let's cause a memory leak!");
+    le->clear();
 
     delete le;
 }

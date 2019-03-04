@@ -60,8 +60,8 @@ void TestCmdline::normal_init()
     argv[0] = strdup("./test-cmdline");
 
     // Parse command-line arguments
-    if((opt = optparse_parse(argc, argv)) == NULL)
-        QVERIFY(opt != NULL);
+    if((opt = optparse_parse(argc, argv)) == nullptr)
+        QVERIFY(opt != nullptr);
 
     // This scope is how we do it in main.cpp
     {
@@ -94,8 +94,8 @@ void TestCmdline::appdir_init()
     argv[2] = strdup("confdir");
 
     // Parse command-line arguments
-    if((opt = optparse_parse(argc, argv)) == NULL)
-        QVERIFY(opt != NULL);
+    if((opt = optparse_parse(argc, argv)) == nullptr)
+        QVERIFY(opt != nullptr);
 
     // This scope is how we do it in main.cpp
     {

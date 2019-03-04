@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     WARNP_INIT;
 
     // Parse command-line arguments
-    if((opt = optparse_parse(argc, argv)) == NULL)
+    if((opt = optparse_parse(argc, argv)) == nullptr)
     {
         ret = EXIT_FAILURE;
         goto done;

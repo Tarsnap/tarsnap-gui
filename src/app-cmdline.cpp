@@ -9,7 +9,7 @@ AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
     : QCoreApplication(argc, argv)
 {
     // Sanity check
-    assert(opt != NULL);
+    assert(opt != nullptr);
 
     // Get values from optparse.  The (x == 1) is probably unnecessary, but
     // better safe than sorry!

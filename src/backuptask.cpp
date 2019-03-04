@@ -6,7 +6,7 @@
 
 #include <TSettings.h>
 
-#define MB 1048576ULL
+const quint64 MB = 1048576UL;
 
 BackupTask::BackupTask()
     : _uuid(QUuid::createUuid()),

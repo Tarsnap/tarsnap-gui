@@ -17,6 +17,6 @@ enum TaskStatus
     Paused
 };
 
-Q_DECLARE_METATYPE(TaskStatus);
+Q_DECLARE_METATYPE(TaskStatus)
 
 #endif

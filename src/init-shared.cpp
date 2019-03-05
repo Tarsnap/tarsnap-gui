@@ -1,5 +1,12 @@
 #include "init-shared.h"
 
+#include <QCoreApplication>
+#include <QFile>
+#include <QList>
+#include <QMetaType>
+#include <QUrl>
+#include <QVector>
+
 #include "backuptask.h"
 #include "debug.h"
 #include "persistentmodel/archive.h"
@@ -9,13 +16,6 @@
 #include "tarsnaperror.h"
 #include "taskstatus.h"
 #include "translator.h"
-
-#include <QCoreApplication>
-#include <QFile>
-#include <QList>
-#include <QMetaType>
-#include <QUrl>
-#include <QVector>
 
 #include <TSettings.h>
 

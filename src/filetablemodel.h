@@ -1,9 +1,9 @@
 #ifndef FILETABLEMODEL_H
 #define FILETABLEMODEL_H
 
-#include "persistentmodel/archive.h"
-
 #include <QAbstractTableModel>
+
+#include "persistentmodel/archive.h"
 
 /*!
  * \ingroup data

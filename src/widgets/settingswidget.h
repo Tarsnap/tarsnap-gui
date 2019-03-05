@@ -1,17 +1,17 @@
 #ifndef SETTINGSWIDGET_H
 #define SETTINGSWIDGET_H
 
-#include "confirmationdialog.h"
-#include "scheduling.h"
-#include "tarsnapaccountdialog.h"
-#include "taskmanager.h"
-#include "translator.h"
-
 #include <QInputDialog>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QTimer>
 #include <QWidget>
+
+#include "confirmationdialog.h"
+#include "scheduling.h"
+#include "tarsnapaccountdialog.h"
+#include "taskmanager.h"
+#include "translator.h"
 
 namespace Ui
 {

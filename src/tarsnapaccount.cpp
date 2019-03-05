@@ -1,9 +1,10 @@
 #include "tarsnapaccount.h"
-#include "debug.h"
-#include "utils.h"
 
 #include <QNetworkReply>
 #include <QNetworkRequest>
+
+#include "debug.h"
+#include "utils.h"
 
 #include <TSettings.h>
 

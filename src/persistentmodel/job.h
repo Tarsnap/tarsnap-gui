@@ -1,12 +1,12 @@
 #ifndef JOB_H
 #define JOB_H
 
-#include "backuptask.h"
-#include "persistentmodel/archive.h"
-
 #include <QFileSystemWatcher>
 #include <QObject>
 #include <QUrl>
+
+#include "backuptask.h"
+#include "persistentmodel/archive.h"
 
 #define JOB_NAME_PREFIX QLatin1String("Job_")
 

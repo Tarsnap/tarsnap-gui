@@ -1,9 +1,9 @@
 #include "app-cmdline.h"
 
+#include <assert.h>
+
 #include "debug.h"
 #include "init-shared.h"
-
-#include <assert.h>
 
 AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
     : QCoreApplication(argc, argv)

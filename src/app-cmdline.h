@@ -1,12 +1,12 @@
 #ifndef APP_CMDLINE_H
 #define APP_CMDLINE_H
 
+#include <QCoreApplication>
+#include <QObject>
+
 extern "C" {
 #include "optparse.h"
 }
-
-#include <QCoreApplication>
-#include <QObject>
 
 /*!
  * \ingroup misc

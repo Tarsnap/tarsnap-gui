@@ -4,14 +4,14 @@
 #include <QMutex>
 #include <QSettings>
 
+// For safety
+static QMutex mutex;
+
 // Filename to use (if we don't want the default).
 static QString filename_next = "";
 
 // The actual settings.
 static QSettings *settings = nullptr;
-
-// For safety
-static QMutex mutex;
 
 void TSettings::setFilename(QString filename)
 {

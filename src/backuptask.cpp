@@ -1,8 +1,8 @@
 #include "backuptask.h"
 
-#include "utils.h"
-
 #include <QFileInfo>
+
+#include "utils.h"
 
 #include <TSettings.h>
 

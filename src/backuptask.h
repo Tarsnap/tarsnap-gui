@@ -1,9 +1,9 @@
 #ifndef BACKUPTASK_H
 #define BACKUPTASK_H
 
-#include <persistentmodel/archive.h>
-
 #include <QObject>
+
+#include <persistentmodel/archive.h>
 
 #include "taskstatus.h"
 

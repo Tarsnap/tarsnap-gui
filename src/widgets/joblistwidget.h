@@ -1,10 +1,10 @@
 #ifndef JOBLISTWIDGET_H
 #define JOBLISTWIDGET_H
 
+#include <QListWidget>
+
 #include "joblistwidgetitem.h"
 #include "persistentmodel/job.h"
-
-#include <QListWidget>
 
 /*!
  * \ingroup widgets-specialized

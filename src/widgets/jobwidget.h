@@ -1,9 +1,9 @@
 #ifndef JOBWIDGET_H
 #define JOBWIDGET_H
 
-#include "persistentmodel/job.h"
-
 #include <QWidget>
+
+#include "persistentmodel/job.h"
 
 namespace Ui
 {

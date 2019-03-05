@@ -1,11 +1,11 @@
 #ifndef ARCHIVESTABWIDGET_H
 #define ARCHIVESTABWIDGET_H
 
-#include "persistentmodel/archive.h"
-
 #include <QEvent>
 #include <QKeyEvent>
 #include <QWidget>
+
+#include "persistentmodel/archive.h"
 
 namespace Ui
 {

@@ -1,13 +1,13 @@
 #include "jobstabwidget.h"
 
-#include "persistentmodel/job.h"
-#include "utils.h"
-
-#include "ui_jobstabwidget.h"
-
 #include <QMenu>
 #include <QMessageBox>
 #include <QWidget>
+
+#include "ui_jobstabwidget.h"
+
+#include "persistentmodel/job.h"
+#include "utils.h"
 
 #include <TSettings.h>
 

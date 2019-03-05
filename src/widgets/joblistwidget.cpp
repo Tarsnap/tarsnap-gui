@@ -1,9 +1,10 @@
 #include "joblistwidget.h"
-#include "debug.h"
-#include "restoredialog.h"
 
 #include <QKeyEvent>
 #include <QMessageBox>
+
+#include "debug.h"
+#include "restoredialog.h"
 
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {

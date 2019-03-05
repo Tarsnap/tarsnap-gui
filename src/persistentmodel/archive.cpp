@@ -1,7 +1,8 @@
 #include "archive.h"
-#include "debug.h"
 
 #include <QThreadPool>
+
+#include "debug.h"
 
 void ParseArchiveListingTask::run()
 {

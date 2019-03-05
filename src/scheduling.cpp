@@ -1,3 +1,5 @@
+#include "scheduling.h"
+
 #include <QCoreApplication>
 #include <QObject>
 #include <QProcess>
@@ -6,8 +8,6 @@
 
 #include "debug.h"
 #include "utils.h"
-
-#include "scheduling.h"
 
 #if defined(Q_OS_OSX)
 #define UPDATED_LAUNCHD_PATH_LONG                                              \

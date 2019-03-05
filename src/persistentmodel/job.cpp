@@ -1,8 +1,9 @@
 #include "job.h"
-#include "debug.h"
-#include "utils.h"
 
 #include <TSettings.h>
+
+#include "debug.h"
+#include "utils.h"
 
 Job::Job(QObject *parent)
     : QObject(parent),

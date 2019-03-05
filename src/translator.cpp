@@ -1,8 +1,9 @@
 #include "translator.h"
-#include "debug.h"
 
 #include <QCoreApplication>
 #include <QLibraryInfo>
+
+#include "debug.h"
 
 Translator::Translator() : _qtTranslator(nullptr), _appTranslator(nullptr)
 {

@@ -1,11 +1,11 @@
 #include "filepickerwidget.h"
 
-#include "debug.h"
+#include <QKeyEvent>
+#include <QPersistentModelIndex>
 
 #include "ui_filepickerwidget.h"
 
-#include <QKeyEvent>
-#include <QPersistentModelIndex>
+#include "debug.h"
 
 FilePickerWidget::FilePickerWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::FilePickerWidget)

@@ -1,11 +1,11 @@
 #include <QtTest/QtTest>
 
+#include "ui_backuptabwidget.h"
+
 #include "../qtest-platform.h"
 
 #include "backuplistwidget.h"
 #include "backuptabwidget.h"
-
-#include "ui_backuptabwidget.h"
 
 #include "TSettings.h"
 

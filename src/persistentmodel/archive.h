@@ -1,13 +1,13 @@
 #ifndef ARCHIVE_H
 #define ARCHIVE_H
 
-#include "persistentobject.h"
-
 #include <QDateTime>
 #include <QObject>
 #include <QRunnable>
 #include <QSharedPointer>
 #include <QStringList>
+
+#include "persistentobject.h"
 
 #define ARCHIVE_TIMESTAMP_FORMAT QLatin1String("_yyyy-MM-dd_HH-mm-ss")
 

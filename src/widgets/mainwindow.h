@@ -1,6 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QTimer>
+#include <QWidget>
+
 #include "archivestabwidget.h"
 #include "backuptabwidget.h"
 #include "helpwidget.h"
@@ -11,11 +16,6 @@
 #include "scheduling.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
-
-#include <QMenuBar>
-#include <QMessageBox>
-#include <QTimer>
-#include <QWidget>
 
 namespace Ui
 {

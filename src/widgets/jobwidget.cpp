@@ -1,12 +1,13 @@
 #include "jobwidget.h"
-#include "debug.h"
-#include "restoredialog.h"
-#include "utils.h"
-
-#include "ui_jobwidget.h"
 
 #include <QMenu>
 #include <QMessageBox>
+
+#include "ui_jobwidget.h"
+
+#include "debug.h"
+#include "restoredialog.h"
+#include "utils.h"
 
 #include <TSettings.h>
 

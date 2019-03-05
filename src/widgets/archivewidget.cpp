@@ -1,10 +1,11 @@
 #include "archivewidget.h"
-#include "restoredialog.h"
-#include "utils.h"
+
+#include <QCloseEvent>
 
 #include "ui_archivewidget.h"
 
-#include <QCloseEvent>
+#include "restoredialog.h"
+#include "utils.h"
 
 #define EMPTY_TAR_ARCHIVE_BYTES 2000
 

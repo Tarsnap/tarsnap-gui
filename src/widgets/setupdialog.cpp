@@ -382,7 +382,6 @@ void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
     case Queued:
     case Running:
     case Paused:
-    default:
         break;
     }
 }

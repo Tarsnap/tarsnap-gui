@@ -1,6 +1,9 @@
 #ifndef APP_GUI_H
 #define APP_GUI_H
 
+#include <QApplication>
+#include <QObject>
+
 #include "notification.h"
 #include "persistentmodel/journal.h"
 #include "taskmanager.h"
@@ -9,9 +12,6 @@
 extern "C" {
 #include "optparse.h"
 }
-
-#include <QApplication>
-#include <QObject>
 
 /*!
  * \ingroup misc

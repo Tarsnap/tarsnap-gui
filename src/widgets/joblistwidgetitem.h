@@ -1,10 +1,10 @@
 #ifndef JOBLISTWIDGETITEM_H
 #define JOBLISTWIDGETITEM_H
 
-#include "persistentmodel/job.h"
-
 #include <QListWidgetItem>
 #include <QObject>
+
+#include "persistentmodel/job.h"
 
 namespace Ui
 {

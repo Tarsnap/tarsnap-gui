@@ -1,9 +1,9 @@
+#include "run-scenario.h"
+
 #include <QApplication>
 #include <QDir>
 #include <QTextStream>
 #include <QTimer>
-
-#include "run-scenario.h"
 
 RunScenario::RunScenario()
 {

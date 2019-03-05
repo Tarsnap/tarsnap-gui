@@ -1,15 +1,15 @@
 #include "backuptabwidget.h"
 
-#include "backuplistwidgetitem.h"
-#include "persistentmodel/archive.h"
-#include "utils.h"
-
-#include "ui_backuptabwidget.h"
-
 #include <QDateTime>
 #include <QFileDialog>
 #include <QSettings>
 #include <QWidget>
+
+#include "ui_backuptabwidget.h"
+
+#include "backuplistwidgetitem.h"
+#include "persistentmodel/archive.h"
+#include "utils.h"
 
 // HACK: using _filePickerDialog(this) produces a segfault on MacOS X in
 // QTabBarPrivate::updateMacBorderMetrics() with tests/mainwindow when using

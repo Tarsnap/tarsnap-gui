@@ -1,10 +1,10 @@
 #ifndef FILEPICKERWIDGET_H
 #define FILEPICKERWIDGET_H
 
-#include "customfilesystemmodel.h"
-
 #include <QCompleter>
 #include <QWidget>
+
+#include "customfilesystemmodel.h"
 
 namespace Ui
 {

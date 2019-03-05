@@ -1,11 +1,11 @@
 #ifndef ARCHIVELISTWIDGETITEM_H
 #define ARCHIVELISTWIDGETITEM_H
 
-#include "persistentmodel/archive.h"
-#include "taskmanager.h"
-
 #include <QListWidgetItem>
 #include <QObject>
+
+#include "persistentmodel/archive.h"
+#include "taskmanager.h"
 
 namespace Ui
 {

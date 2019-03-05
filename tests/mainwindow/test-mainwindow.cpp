@@ -1,5 +1,11 @@
 #include <QtTest/QtTest>
 
+#include "ui_archivestabwidget.h"
+#include "ui_helpwidget.h"
+#include "ui_jobstabwidget.h"
+#include "ui_jobwidget.h"
+#include "ui_mainwindow.h"
+
 #include "../qtest-platform.h"
 
 #include "helpwidget.h"
@@ -8,12 +14,6 @@
 
 #include "archivewidget.h"
 #include "persistentmodel/archive.h"
-
-#include "ui_archivestabwidget.h"
-#include "ui_helpwidget.h"
-#include "ui_jobstabwidget.h"
-#include "ui_jobwidget.h"
-#include "ui_mainwindow.h"
 
 #include <TSettings.h>
 

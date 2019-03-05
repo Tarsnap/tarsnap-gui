@@ -1,12 +1,13 @@
 #include "tarsnaptask.h"
+
+#include <QFileInfo>
+
 #include "debug.h"
 #include "utils.h"
 
 #if defined Q_OS_UNIX
 #include <signal.h>
 #endif
-
-#include <QFileInfo>
 
 #define DEFAULT_TIMEOUT_MS 5000
 #define LOG_MAX_LENGTH 3072

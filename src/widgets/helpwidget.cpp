@@ -1,13 +1,13 @@
 #include "helpwidget.h"
 
+#include <QDesktopServices>
+#include <QWidget>
+
 #include "ui_aboutwidget.h"
 #include "ui_consolewidget.h"
 #include "ui_helpwidget.h"
 
 #include "debug.h"
-
-#include <QDesktopServices>
-#include <QWidget>
 
 HelpWidget::HelpWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::HelpWidget)

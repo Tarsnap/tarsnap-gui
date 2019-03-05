@@ -1,9 +1,9 @@
 #ifndef RESTOREDIALOG_H
 #define RESTOREDIALOG_H
 
-#include "persistentmodel/archive.h"
-
 #include <QDialog>
+
+#include "persistentmodel/archive.h"
 
 namespace Ui
 {

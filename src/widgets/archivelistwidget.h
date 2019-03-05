@@ -1,11 +1,11 @@
 #ifndef ARCHIVELISTWIDGET_H
 #define ARCHIVELISTWIDGET_H
 
-#include "persistentmodel/archive.h"
-#include "persistentmodel/job.h"
-
 #include <QList>
 #include <QListWidget>
+
+#include "persistentmodel/archive.h"
+#include "persistentmodel/job.h"
 
 class ArchiveListWidgetItem;
 

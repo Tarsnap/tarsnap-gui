@@ -1,12 +1,12 @@
 #include "backuplistwidgetitem.h"
 
-#include "utils.h"
-
-#include "ui_backuplistwidgetitem.h"
-
 #include <QDesktopServices>
 #include <QFileInfo>
 #include <QThreadPool>
+
+#include "ui_backuplistwidgetitem.h"
+
+#include "utils.h"
 
 BackupListWidgetItem::BackupListWidgetItem(QUrl url)
     : _ui(new Ui::BackupListWidgetItem), _widget(new QWidget), _count(0), _size(0)

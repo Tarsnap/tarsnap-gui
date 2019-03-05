@@ -1,10 +1,10 @@
 #ifndef SETUPDIALOG_H
 #define SETUPDIALOG_H
 
-#include <taskstatus.h>
-
 #include <QDialog>
 #include <QMovie>
+
+#include <taskstatus.h>
 
 namespace Ui
 {

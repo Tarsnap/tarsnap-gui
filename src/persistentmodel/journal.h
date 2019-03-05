@@ -1,9 +1,9 @@
 #ifndef JOURNAL_H
 #define JOURNAL_H
 
-#include "persistentobject.h"
-
 #include <QObject>
+
+#include "persistentobject.h"
 
 struct LogEntry
 {

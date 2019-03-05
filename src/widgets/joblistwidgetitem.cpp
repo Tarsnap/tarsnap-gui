@@ -1,7 +1,8 @@
 #include "joblistwidgetitem.h"
-#include "utils.h"
 
 #include "ui_joblistwidgetitem.h"
+
+#include "utils.h"
 
 JobListWidgetItem::JobListWidgetItem(JobPtr job)
     : _ui(new Ui::JobListWidgetItem), _widget(new QWidget)

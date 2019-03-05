@@ -1,11 +1,11 @@
 #include <QtTest/QtTest>
 
+#include "ui_archivestabwidget.h"
+
 #include "../qtest-platform.h"
 
 #include "archivelistwidget.h"
 #include "archivestabwidget.h"
-
-#include "ui_archivestabwidget.h"
 
 #include "TSettings.h"
 

@@ -1,13 +1,14 @@
 #include "backuplistwidget.h"
-#include "backuplistwidgetitem.h"
-#include "debug.h"
-#include "utils.h"
 
 #include <QDropEvent>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QMimeData>
 #include <QStringList>
+
+#include "backuplistwidgetitem.h"
+#include "debug.h"
+#include "utils.h"
 
 #include <TSettings.h>
 

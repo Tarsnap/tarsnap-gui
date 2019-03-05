@@ -1,11 +1,12 @@
 #include "restoredialog.h"
-#include "utils.h"
-
-#include "ui_restoredialog.h"
 
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
+
+#include "ui_restoredialog.h"
+
+#include "utils.h"
 
 #include <TSettings.h>
 

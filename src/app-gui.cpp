@@ -1,14 +1,15 @@
 #include "app-gui.h"
+
+#include <QFontDatabase>
+#include <QMessageBox>
+
+#include <assert.h>
+
 #include "debug.h"
 #include "init-shared.h"
 #include "translator.h"
 #include "utils.h"
 #include "widgets/setupdialog.h"
-
-#include <assert.h>
-
-#include <QFontDatabase>
-#include <QMessageBox>
 
 #include <TSettings.h>
 

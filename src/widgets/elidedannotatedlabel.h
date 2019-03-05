@@ -1,10 +1,10 @@
 #ifndef ELIDEDANNOTATEDLABEL_H
 #define ELIDEDANNOTATEDLABEL_H
 
-#include "elidedlabel.h"
-
 #include <QString>
 #include <QVector>
+
+#include "elidedlabel.h"
 
 /*!
  * \ingroup widgets-general

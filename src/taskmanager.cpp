@@ -1,13 +1,13 @@
 #include "taskmanager.h"
 
-#include "debug.h"
-#include "utils.h"
-
 #include <QDir>
 #include <QEventLoop>
 #include <QFileInfo>
 #include <QTcpSocket>
 #include <QTimer>
+
+#include "debug.h"
+#include "utils.h"
 
 #include <TSettings.h>
 

@@ -1,13 +1,5 @@
 #include "settingswidget.h"
 
-#include "debug.h"
-#include "translator.h"
-#include "utils.h"
-
-#include "ui_settingswidget.h"
-
-#include <TSettings.h>
-
 #include <QDateTime>
 #include <QDesktopServices>
 #include <QDir>
@@ -19,6 +11,14 @@
 #include <QSharedPointer>
 #include <QShortcut>
 #include <QWidget>
+
+#include "ui_settingswidget.h"
+
+#include "debug.h"
+#include "translator.h"
+#include "utils.h"
+
+#include <TSettings.h>
 
 #define NUKE_SECONDS_DELAY 8
 

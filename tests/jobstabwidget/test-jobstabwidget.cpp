@@ -1,14 +1,14 @@
 #include <QtTest/QtTest>
 
+#include "ui_jobstabwidget.h"
+#include "ui_jobwidget.h"
+
 #include "../qtest-platform.h"
 
 #include <TSettings.h>
 
 #include "jobstabwidget.h"
 #include "jobwidget.h"
-
-#include "ui_jobstabwidget.h"
-#include "ui_jobwidget.h"
 
 class TestJobsTabWidget : public QObject
 {

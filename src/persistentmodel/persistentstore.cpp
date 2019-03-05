@@ -1,13 +1,15 @@
 #include "persistentstore.h"
-#include "debug.h"
 
 #include <QFile>
 #include <QFileInfo>
 
+QMutex PersistentStore::_mutex;
+
+#include "debug.h"
+
 #include <TSettings.h>
 
-bool   PersistentStore::_initialized = false;
-QMutex PersistentStore::_mutex;
+bool PersistentStore::_initialized = false;
 
 PersistentStore::PersistentStore(QObject *parent) : QObject(parent)
 {

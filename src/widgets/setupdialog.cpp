@@ -1,10 +1,5 @@
 #include "setupdialog.h"
 
-#include "ui_setupdialog.h"
-
-#include "debug.h"
-#include "utils.h"
-
 #include <QDateTime>
 #include <QDir>
 #include <QFileDialog>
@@ -15,6 +10,11 @@
 // QSysInfo::machineHostName() to remove the dependency on the Qt network
 // library, but only if we require Qt 5.6+.
 #include <QHostInfo>
+
+#include "ui_setupdialog.h"
+
+#include "debug.h"
+#include "utils.h"
 
 #include <TSettings.h>
 

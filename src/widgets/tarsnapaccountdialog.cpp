@@ -1,13 +1,13 @@
 #include "tarsnapaccountdialog.h"
-#include "debug.h"
-#include "utils.h"
-
-#include "tarsnapaccount.h"
 
 #include <QHeaderView>
 #include <QTableWidget>
 
 #include "ui_logindialog.h"
+
+#include "debug.h"
+#include "tarsnapaccount.h"
+#include "utils.h"
 
 #include <TSettings.h>
 

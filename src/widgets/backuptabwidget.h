@@ -1,12 +1,12 @@
 #ifndef BACKUPTABWIDGET_H
 #define BACKUPTABWIDGET_H
 
+#include <QEvent>
+#include <QWidget>
+
 #include "backuplistwidget.h"
 #include "backuptask.h"
 #include "filepickerdialog.h"
-
-#include <QEvent>
-#include <QWidget>
 
 namespace Ui
 {

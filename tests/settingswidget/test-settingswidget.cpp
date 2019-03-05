@@ -1,5 +1,7 @@
 #include <QtTest/QtTest>
 
+#include "ui_settingswidget.h"
+
 #include "../qtest-platform.h"
 #include "utils.h"
 
@@ -9,8 +11,6 @@
 #include <TSettings.h>
 
 #include "settingswidget.h"
-
-#include "ui_settingswidget.h"
 
 class TestSettingsWidget : public QObject
 {

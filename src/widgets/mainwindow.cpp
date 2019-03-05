@@ -1,11 +1,4 @@
 #include "mainwindow.h"
-#include "backuplistwidgetitem.h"
-#include "debug.h"
-#include "scheduling.h"
-#include "translator.h"
-#include "utils.h"
-
-#include "ui_mainwindow.h"
 
 #include <QDateTime>
 #include <QDesktopServices>
@@ -18,6 +11,14 @@
 #include <QPushButton>
 #include <QSharedPointer>
 #include <QShortcut>
+
+#include "ui_mainwindow.h"
+
+#include "backuplistwidgetitem.h"
+#include "debug.h"
+#include "scheduling.h"
+#include "translator.h"
+#include "utils.h"
 
 #include <TSettings.h>
 

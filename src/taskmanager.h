@@ -1,12 +1,6 @@
 #ifndef TASKMANAGER_H
 #define TASKMANAGER_H
 
-#include "backuptask.h"
-#include "persistentmodel/archive.h"
-#include "persistentmodel/job.h"
-#include "tarsnaperror.h"
-#include "tarsnaptask.h"
-
 #include <QDateTime>
 #include <QMap>
 #include <QObject>
@@ -16,6 +10,12 @@
 #include <QThreadPool>
 #include <QUrl>
 #include <QUuid>
+
+#include "backuptask.h"
+#include "persistentmodel/archive.h"
+#include "persistentmodel/job.h"
+#include "tarsnaperror.h"
+#include "tarsnaptask.h"
 
 /*!
  * \ingroup background-tasks

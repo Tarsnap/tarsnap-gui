@@ -1,11 +1,11 @@
 #ifndef ARCHIVEWIDGET_H
 #define ARCHIVEWIDGET_H
 
-#include "filetablemodel.h"
-#include "persistentmodel/archive.h"
-
 #include <QMenu>
 #include <QWidget>
+
+#include "filetablemodel.h"
+#include "persistentmodel/archive.h"
 
 namespace Ui
 {

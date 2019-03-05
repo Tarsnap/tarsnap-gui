@@ -1,5 +1,7 @@
 #include <QtTest/QtTest>
 
+#include "ui_helpwidget.h"
+
 #include "../qtest-platform.h"
 
 #include "busywidget.h"
@@ -9,8 +11,6 @@
 #include "filepickerdialog.h"
 #include "filepickerwidget.h"
 #include "helpwidget.h"
-
-#include "ui_helpwidget.h"
 
 #include "TSettings.h"
 

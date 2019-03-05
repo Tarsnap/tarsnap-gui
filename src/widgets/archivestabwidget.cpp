@@ -1,8 +1,8 @@
 #include "archivestabwidget.h"
 
-#include "ui_archivestabwidget.h"
-
 #include <QWidget>
+
+#include "ui_archivestabwidget.h"
 
 #include <TSettings.h>
 

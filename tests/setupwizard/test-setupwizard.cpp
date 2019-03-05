@@ -1,14 +1,16 @@
-#include <QSettings>
 #include <QtTest/QtTest>
 
+#include <QSettings>
+
+#include "ui_setupdialog.h"
+
 #include "../qtest-platform.h"
+
 #include "utils.h"
 
 #include <TSettings.h>
 
 #include "setupdialog.h"
-
-#include "ui_setupdialog.h"
 
 //! Compares all the keys in two QSettings files.
 static bool compareSettings(QSettings *settings, QSettings *target)

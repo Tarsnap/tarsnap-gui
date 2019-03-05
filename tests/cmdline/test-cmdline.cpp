@@ -1,4 +1,8 @@
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QtTest/QtTest>
+WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
@@ -9,7 +13,9 @@
 
 extern "C" {
 #include "optparse.h"
+WARNINGS_DISABLE
 #include "warnp.h"
+WARNINGS_ENABLE
 }
 
 class TestCmdline : public QObject

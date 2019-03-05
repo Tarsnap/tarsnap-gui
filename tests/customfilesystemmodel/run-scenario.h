@@ -1,9 +1,13 @@
 #ifndef RUN_SCENARIO_H
 #define RUN_SCENARIO_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QObject>
 #include <QString>
 #include <QTextStream>
+WARNINGS_ENABLE
 
 #include "customfilesystemmodel.h"
 

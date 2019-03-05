@@ -1,10 +1,12 @@
 #include "run-scenario.h"
 
+WARNINGS_DISABLE
 #include <QApplication>
 #include <QDir>
 #include <QEventLoop>
 #include <QTextStream>
 #include <QTimer>
+WARNINGS_ENABLE
 
 RunScenario::RunScenario()
 {

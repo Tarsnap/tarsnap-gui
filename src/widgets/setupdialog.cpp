@@ -1,5 +1,6 @@
 #include "setupdialog.h"
 
+WARNINGS_DISABLE
 #include <QDateTime>
 #include <QDir>
 #include <QFileDialog>
@@ -12,6 +13,7 @@
 #include <QHostInfo>
 
 #include "ui_setupdialog.h"
+WARNINGS_ENABLE
 
 #include "debug.h"
 #include "utils.h"

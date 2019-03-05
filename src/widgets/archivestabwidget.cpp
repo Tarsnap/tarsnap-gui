@@ -1,6 +1,10 @@
 #include "archivestabwidget.h"
 
+WARNINGS_DISABLE
 #include <QWidget>
+
+#include "ui_archivestabwidget.h"
+WARNINGS_ENABLE
 
 #include "ui_archivestabwidget.h"
 

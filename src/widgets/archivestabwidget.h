@@ -1,6 +1,9 @@
 #ifndef ARCHIVESTABWIDGET_H
 #define ARCHIVESTABWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QEvent>
 #include <QKeyEvent>
 #include <QWidget>

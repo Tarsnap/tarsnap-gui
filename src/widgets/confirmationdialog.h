@@ -1,9 +1,13 @@
 #ifndef CONFIRMDIALOG_H
 #define CONFIRMDIALOG_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QTimer>
+WARNINGS_ENABLE
 
 /*!
  * \ingroup widgets-general

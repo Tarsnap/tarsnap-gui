@@ -1,7 +1,9 @@
 #include "joblistwidget.h"
 
+WARNINGS_DISABLE
 #include <QKeyEvent>
 #include <QMessageBox>
+WARNINGS_ENABLE
 
 #include "debug.h"
 #include "restoredialog.h"

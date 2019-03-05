@@ -1,8 +1,12 @@
 #ifndef ARCHIVEWIDGET_H
 #define ARCHIVEWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QMenu>
 #include <QWidget>
+WARNINGS_ENABLE
 
 #include "filetablemodel.h"
 #include "persistentmodel/archive.h"

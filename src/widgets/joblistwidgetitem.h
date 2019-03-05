@@ -1,8 +1,12 @@
 #ifndef JOBLISTWIDGETITEM_H
 #define JOBLISTWIDGETITEM_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QListWidgetItem>
 #include <QObject>
+WARNINGS_ENABLE
 
 #include "persistentmodel/job.h"
 

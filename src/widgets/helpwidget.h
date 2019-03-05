@@ -1,9 +1,13 @@
 #ifndef HELPWIDGET_H
 #define HELPWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QDialog>
 #include <QPlainTextEdit>
 #include <QWidget>
+WARNINGS_ENABLE
 
 namespace Ui
 {

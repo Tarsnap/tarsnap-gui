@@ -1,6 +1,8 @@
 #include "notification.h"
 
+WARNINGS_DISABLE
 #include <QCoreApplication>
+WARNINGS_ENABLE
 
 #include <TSettings.h>
 

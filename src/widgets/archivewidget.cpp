@@ -1,8 +1,10 @@
 #include "archivewidget.h"
 
+WARNINGS_DISABLE
 #include <QCloseEvent>
 
 #include "ui_archivewidget.h"
+WARNINGS_ENABLE
 
 #include "restoredialog.h"
 #include "utils.h"

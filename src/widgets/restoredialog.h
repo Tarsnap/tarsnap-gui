@@ -1,7 +1,11 @@
 #ifndef RESTOREDIALOG_H
 #define RESTOREDIALOG_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QDialog>
+WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
 

@@ -1,9 +1,11 @@
 #include "tarsnapaccountdialog.h"
 
+WARNINGS_DISABLE
 #include <QHeaderView>
 #include <QTableWidget>
 
 #include "ui_logindialog.h"
+WARNINGS_ENABLE
 
 #include "debug.h"
 #include "tarsnapaccount.h"

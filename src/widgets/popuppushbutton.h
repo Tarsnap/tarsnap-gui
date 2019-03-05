@@ -1,8 +1,12 @@
 #ifndef POPUPPUSHBUTTON_H
 #define POPUPPUSHBUTTON_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QDialog>
 #include <QPushButton>
+WARNINGS_ENABLE
 
 /*!
  * \ingroup widgets-general

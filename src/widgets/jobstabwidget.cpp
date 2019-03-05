@@ -1,10 +1,12 @@
 #include "jobstabwidget.h"
 
+WARNINGS_DISABLE
 #include <QMenu>
 #include <QMessageBox>
 #include <QWidget>
 
 #include "ui_jobstabwidget.h"
+WARNINGS_ENABLE
 
 #include "persistentmodel/job.h"
 #include "utils.h"

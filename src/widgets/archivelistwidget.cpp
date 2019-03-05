@@ -1,7 +1,9 @@
 #include "archivelistwidget.h"
 
+WARNINGS_DISABLE
 #include <QKeyEvent>
 #include <QMessageBox>
+WARNINGS_ENABLE
 
 #include "archivelistwidgetitem.h"
 #include "debug.h"

@@ -1,8 +1,12 @@
 #ifndef APP_GUI_H
 #define APP_GUI_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QApplication>
 #include <QObject>
+WARNINGS_ENABLE
 
 #include "notification.h"
 #include "persistentmodel/journal.h"

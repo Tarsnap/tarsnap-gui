@@ -1,10 +1,12 @@
 #include "backuplistwidget.h"
 
+WARNINGS_DISABLE
 #include <QDropEvent>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QMimeData>
 #include <QStringList>
+WARNINGS_ENABLE
 
 #include "backuplistwidgetitem.h"
 #include "debug.h"

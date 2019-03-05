@@ -1,9 +1,13 @@
 #ifndef BACKUPLISTWIDGETITEM_H
 #define BACKUPLISTWIDGETITEM_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QListWidgetItem>
 #include <QObject>
 #include <QUrl>
+WARNINGS_ENABLE
 
 namespace Ui
 {

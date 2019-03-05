@@ -1,9 +1,13 @@
 #ifndef TARSNAPACCOUNT_H
 #define TARSNAPACCOUNT_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QObject>
+WARNINGS_ENABLE
 
 /*!
  * \ingroup widgets-specialized

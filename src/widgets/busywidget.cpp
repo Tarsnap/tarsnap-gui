@@ -1,6 +1,8 @@
 #include "busywidget.h"
 
+WARNINGS_DISABLE
 #include <QMouseEvent>
+WARNINGS_ENABLE
 
 BusyWidget::BusyWidget(QWidget *parent)
     : QLabel(parent), _animation(":/icons/loading.gif")

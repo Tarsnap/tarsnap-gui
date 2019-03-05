@@ -1,11 +1,13 @@
 #include "helpwidget.h"
 
+WARNINGS_DISABLE
 #include <QDesktopServices>
 #include <QWidget>
 
 #include "ui_aboutwidget.h"
 #include "ui_consolewidget.h"
 #include "ui_helpwidget.h"
+WARNINGS_ENABLE
 
 #include "debug.h"
 

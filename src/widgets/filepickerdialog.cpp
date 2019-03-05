@@ -1,6 +1,8 @@
 #include "filepickerdialog.h"
 
+WARNINGS_DISABLE
 #include "ui_filepickerdialog.h"
+WARNINGS_ENABLE
 
 #include <TSettings.h>
 

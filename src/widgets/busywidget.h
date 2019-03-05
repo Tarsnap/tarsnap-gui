@@ -1,8 +1,12 @@
 #ifndef BUSYWIDGET_H
 #define BUSYWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QLabel>
 #include <QMovie>
+WARNINGS_ENABLE
 
 /*!
  * \ingroup widgets-general

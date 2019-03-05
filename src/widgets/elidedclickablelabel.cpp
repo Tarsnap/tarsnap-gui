@@ -1,6 +1,8 @@
 #include "elidedclickablelabel.h"
 
+WARNINGS_DISABLE
 #include <QMouseEvent>
+WARNINGS_ENABLE
 
 ElidedClickableLabel::ElidedClickableLabel(QWidget *parent)
     : ElidedLabel(parent)

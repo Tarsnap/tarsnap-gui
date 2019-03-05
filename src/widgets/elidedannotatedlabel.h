@@ -1,8 +1,12 @@
 #ifndef ELIDEDANNOTATEDLABEL_H
 #define ELIDEDANNOTATEDLABEL_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QString>
 #include <QVector>
+WARNINGS_ENABLE
 
 #include "elidedlabel.h"
 

@@ -1,10 +1,12 @@
 #include "backuplistwidgetitem.h"
 
+WARNINGS_DISABLE
 #include <QDesktopServices>
 #include <QFileInfo>
 #include <QThreadPool>
 
 #include "ui_backuplistwidgetitem.h"
+WARNINGS_ENABLE
 
 #include "utils.h"
 

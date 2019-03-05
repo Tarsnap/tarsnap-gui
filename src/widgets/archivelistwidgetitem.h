@@ -1,8 +1,12 @@
 #ifndef ARCHIVELISTWIDGETITEM_H
 #define ARCHIVELISTWIDGETITEM_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QListWidgetItem>
 #include <QObject>
+WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
 #include "taskmanager.h"

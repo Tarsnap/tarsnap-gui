@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QDir>
+#include <QEventLoop>
 #include <QTextStream>
 #include <QTimer>
 
@@ -17,7 +18,7 @@ RunScenario::RunScenario()
     // directory has been loaded.  This is not a perfect imitation of that
     // scenario, but it is better than nothing.
     while(_model.needToReadSubdirs(_rootDir))
-        QCoreApplication::processEvents(0, 100);
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
 
 RunScenario::~RunScenario()

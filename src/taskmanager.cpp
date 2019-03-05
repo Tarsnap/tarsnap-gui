@@ -1,10 +1,12 @@
 #include "taskmanager.h"
 
+WARNINGS_DISABLE
 #include <QDir>
 #include <QEventLoop>
 #include <QFileInfo>
 #include <QTcpSocket>
 #include <QTimer>
+WARNINGS_ENABLE
 
 #include "debug.h"
 #include "utils.h"

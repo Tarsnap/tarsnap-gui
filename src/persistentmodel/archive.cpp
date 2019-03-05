@@ -1,6 +1,8 @@
 #include "archive.h"
 
+WARNINGS_DISABLE
 #include <QThreadPool>
+WARNINGS_ENABLE
 
 #include "debug.h"
 

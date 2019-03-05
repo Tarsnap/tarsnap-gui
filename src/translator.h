@@ -1,10 +1,14 @@
 #ifndef TRANSLATOR_H
 #define TRANSLATOR_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QMap>
 #include <QString>
 #include <QTranslator>
+WARNINGS_ENABLE
 
 #define LANG_AUTO "Auto"
 

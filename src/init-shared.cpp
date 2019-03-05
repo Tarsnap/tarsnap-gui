@@ -1,11 +1,13 @@
 #include "init-shared.h"
 
+WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QFile>
 #include <QList>
 #include <QMetaType>
 #include <QUrl>
 #include <QVector>
+WARNINGS_ENABLE
 
 #include "backuptask.h"
 #include "debug.h"

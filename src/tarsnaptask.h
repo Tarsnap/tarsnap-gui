@@ -1,11 +1,15 @@
 #ifndef TARSNAPTASK_H
 #define TARSNAPTASK_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QEventLoopLocker>
 #include <QProcess>
 #include <QRunnable>
 #include <QUuid>
 #include <QVariant>
+WARNINGS_ENABLE
 
 /*
  * Normal exit codes are non-negative, but since we're just passing around

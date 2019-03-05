@@ -1,7 +1,9 @@
 #include "debug.h"
 
+WARNINGS_DISABLE
 #include <QDir>
 #include <QFile>
+WARNINGS_ENABLE
 
 #include <TSettings.h>
 

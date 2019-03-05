@@ -6,7 +6,9 @@
 
 extern "C" {
 #include "optparse.h"
+WARNINGS_DISABLE
 #include "warnp.h"
+WARNINGS_ENABLE
 }
 
 #include <TSettings.h>

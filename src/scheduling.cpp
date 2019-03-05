@@ -1,10 +1,12 @@
 #include "scheduling.h"
 
+WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QObject>
 #include <QProcess>
 #include <QSettings>
 #include <QString>
+WARNINGS_ENABLE
 
 #include "debug.h"
 #include "utils.h"

@@ -1,7 +1,11 @@
 #ifndef SCHEDULING_H
 #define SCHEDULING_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QString>
+WARNINGS_ENABLE
 
 enum schedulestatus
 {

@@ -1,8 +1,12 @@
 #ifndef APP_CMDLINE_H
 #define APP_CMDLINE_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QObject>
+WARNINGS_ENABLE
 
 extern "C" {
 #include "optparse.h"

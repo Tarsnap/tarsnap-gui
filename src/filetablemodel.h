@@ -1,7 +1,11 @@
 #ifndef FILETABLEMODEL_H
 #define FILETABLEMODEL_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QAbstractTableModel>
+WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
 

@@ -34,19 +34,19 @@ static QtMessageHandler orig_message_handler;
 void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
                             const QString &msg)
 {
-    switch(type)
+    // Ignore messages arising from the testing platform
+    if(type == QtWarningMsg)
     {
-    case QtWarningMsg:
         if(msg.contains("Cannot find font directory")
            || msg.contains("This plugin does not support propagateSizeHints()"))
         {
             // Ignore this message.
             return;
         }
-    /* FALLTHROUGH */
-    default:
-        orig_message_handler(type, context, msg);
     }
+
+    // Handle other messages
+    orig_message_handler(type, context, msg);
 }
 #endif /* end gui-related code */
 

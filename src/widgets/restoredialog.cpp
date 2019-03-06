@@ -1,10 +1,12 @@
 #include "restoredialog.h"
 
+WARNINGS_DISABLE
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
 
 #include "ui_restoredialog.h"
+WARNINGS_ENABLE
 
 #include "utils.h"
 

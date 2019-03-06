@@ -1,9 +1,11 @@
 #include "filepickerwidget.h"
 
+WARNINGS_DISABLE
 #include <QKeyEvent>
 #include <QPersistentModelIndex>
 
 #include "ui_filepickerwidget.h"
+WARNINGS_ENABLE
 
 #include "debug.h"
 

@@ -1,9 +1,13 @@
 #ifndef TSETTINGS_H
 #define TSETTINGS_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QSettings>
 #include <QString>
 #include <QVariant>
+WARNINGS_ENABLE
 
 /*!
  * \ingroup misc

@@ -1,8 +1,12 @@
 #ifndef BACKUPLISTWIDGET_H
 #define BACKUPLISTWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QListWidget>
 #include <QUrl>
+WARNINGS_ENABLE
 
 /*!
  * \ingroup widgets-specialized

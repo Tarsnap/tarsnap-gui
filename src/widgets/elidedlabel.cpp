@@ -1,6 +1,8 @@
 #include "elidedlabel.h"
 
+WARNINGS_DISABLE
 #include <QResizeEvent>
+WARNINGS_ENABLE
 
 ElidedLabel::ElidedLabel(QWidget *parent)
     : QLabel(parent), _elide(Qt::ElideNone)

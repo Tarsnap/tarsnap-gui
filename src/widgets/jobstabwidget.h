@@ -1,9 +1,13 @@
 #ifndef JOBSTABWIDGET_H
 #define JOBSTABWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QEvent>
 #include <QKeyEvent>
 #include <QWidget>
+WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"

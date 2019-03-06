@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 
+WARNINGS_DISABLE
 #include <QDateTime>
 #include <QDesktopServices>
 #include <QDir>
@@ -13,6 +14,7 @@
 #include <QShortcut>
 
 #include "ui_mainwindow.h"
+WARNINGS_ENABLE
 
 #include "backuplistwidgetitem.h"
 #include "debug.h"

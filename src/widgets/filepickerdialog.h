@@ -1,9 +1,13 @@
 #ifndef FILEPICKERDIALOG_H
 #define FILEPICKERDIALOG_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QDialog>
 #include <QList>
 #include <QUrl>
+WARNINGS_ENABLE
 
 namespace Ui
 {

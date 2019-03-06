@@ -1,8 +1,12 @@
 #ifndef SETUPDIALOG_H
 #define SETUPDIALOG_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QDialog>
 #include <QMovie>
+WARNINGS_ENABLE
 
 #include <taskstatus.h>
 

@@ -1,6 +1,10 @@
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QtTest/QtTest>
 
 #include "ui_archivestabwidget.h"
+WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 

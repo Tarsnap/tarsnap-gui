@@ -1,6 +1,9 @@
 #ifndef TASKMANAGER_H
 #define TASKMANAGER_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QDateTime>
 #include <QMap>
 #include <QObject>
@@ -10,6 +13,7 @@
 #include <QThreadPool>
 #include <QUrl>
 #include <QUuid>
+WARNINGS_ENABLE
 
 #include "backuptask.h"
 #include "persistentmodel/archive.h"

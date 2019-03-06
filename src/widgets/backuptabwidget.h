@@ -1,8 +1,12 @@
 #ifndef BACKUPTABWIDGET_H
 #define BACKUPTABWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QEvent>
 #include <QWidget>
+WARNINGS_ENABLE
 
 #include "backuplistwidget.h"
 #include "backuptask.h"

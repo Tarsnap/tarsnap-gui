@@ -1,7 +1,11 @@
 #ifndef ELIDEDLABEL_H
 #define ELIDEDLABEL_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QLabel>
+WARNINGS_ENABLE
 
 /*!
  * \ingroup widgets-general

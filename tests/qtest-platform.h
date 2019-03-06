@@ -1,6 +1,8 @@
 #ifndef QTEST_PLATFORM_H
 #define QTEST_PLATFORM_H
 
+#include "warnings-disable.h"
+
 #include <QTest>
 
 #include "utils.h"
@@ -56,8 +58,10 @@ void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
     do                                                                         \
     {                                                                          \
         tarsnapPath = Utils::findTarsnapClientInPath(QString(""), true);       \
+        WARNINGS_DISABLE                                                       \
         if(tarsnapPath.isEmpty())                                              \
             QSKIP("No tarsnap binary found");                                  \
+        WARNINGS_ENABLE                                                        \
     } while(0)
 
 // Deal with platforms which ignore $XDG_*_HOME environment vars

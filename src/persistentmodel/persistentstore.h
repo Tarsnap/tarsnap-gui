@@ -1,9 +1,13 @@
 #ifndef PERSISTENTSTORE_H
 #define PERSISTENTSTORE_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QMutex>
 #include <QObject>
 #include <QtSql>
+WARNINGS_ENABLE
 
 #define DEFAULT_DBNAME "tarsnap.db"
 

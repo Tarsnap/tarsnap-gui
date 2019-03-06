@@ -1,7 +1,11 @@
 #ifndef JOURNAL_H
 #define JOURNAL_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QObject>
+WARNINGS_ENABLE
 
 #include "persistentobject.h"
 

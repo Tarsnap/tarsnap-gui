@@ -1,11 +1,13 @@
 #include <TSettings.h>
 
+WARNINGS_DISABLE
 #include <QFileInfo>
 #include <QMutex>
 #include <QSettings>
 
 // For safety
 static QMutex mutex;
+WARNINGS_ENABLE
 
 // Filename to use (if we don't want the default).
 static QString filename_next = "";

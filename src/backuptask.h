@@ -1,7 +1,11 @@
 #ifndef BACKUPTASK_H
 #define BACKUPTASK_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QObject>
+WARNINGS_ENABLE
 
 #include <persistentmodel/archive.h>
 

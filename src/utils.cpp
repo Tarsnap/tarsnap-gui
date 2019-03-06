@@ -1,7 +1,9 @@
 #include "utils.h"
 
+WARNINGS_DISABLE
 #include <QDebug>
 #include <QStandardPaths>
+WARNINGS_ENABLE
 
 #include <math.h>
 

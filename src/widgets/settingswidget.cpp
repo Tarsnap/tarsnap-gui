@@ -1,5 +1,6 @@
 #include "settingswidget.h"
 
+WARNINGS_DISABLE
 #include <QDateTime>
 #include <QDesktopServices>
 #include <QDir>
@@ -13,6 +14,7 @@
 #include <QWidget>
 
 #include "ui_settingswidget.h"
+WARNINGS_ENABLE
 
 #include "debug.h"
 #include "translator.h"

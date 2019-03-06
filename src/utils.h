@@ -1,9 +1,13 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QDir>
 #include <QRunnable>
 #include <QStringList>
+WARNINGS_ENABLE
 
 #define CMD_TARSNAP "tarsnap"
 #define CMD_TARSNAPKEYGEN "tarsnap-keygen"

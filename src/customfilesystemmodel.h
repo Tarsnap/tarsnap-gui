@@ -1,10 +1,14 @@
 #ifndef CUSTOMFILESYSTEMMODEL_H
 #define CUSTOMFILESYSTEMMODEL_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QFileSystemModel>
 #include <QObject>
 #include <QPersistentModelIndex>
 #include <QSet>
+WARNINGS_ENABLE
 
 #define SELECTION_CHANGED_ROLE Qt::UserRole + 100
 

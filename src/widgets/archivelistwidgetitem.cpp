@@ -1,6 +1,8 @@
 #include "archivelistwidgetitem.h"
 
+WARNINGS_DISABLE
 #include "ui_archivelistwidgetitem.h"
+WARNINGS_ENABLE
 
 #include "utils.h"
 

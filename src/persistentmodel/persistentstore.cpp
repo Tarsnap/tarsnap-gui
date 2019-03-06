@@ -1,9 +1,11 @@
 #include "persistentstore.h"
 
+WARNINGS_DISABLE
 #include <QFile>
 #include <QFileInfo>
 
 QMutex PersistentStore::_mutex;
+WARNINGS_ENABLE
 
 #include "debug.h"
 

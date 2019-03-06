@@ -1,7 +1,11 @@
 #ifndef JOBWIDGET_H
 #define JOBWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QWidget>
+WARNINGS_ENABLE
 
 #include "persistentmodel/job.h"
 

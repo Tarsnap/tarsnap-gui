@@ -1,9 +1,13 @@
 #ifndef JOB_H
 #define JOB_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QFileSystemWatcher>
 #include <QObject>
 #include <QUrl>
+WARNINGS_ENABLE
 
 #include "backuptask.h"
 #include "persistentmodel/archive.h"

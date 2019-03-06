@@ -1,7 +1,9 @@
 #include "tarsnapaccount.h"
 
+WARNINGS_DISABLE
 #include <QNetworkReply>
 #include <QNetworkRequest>
+WARNINGS_ENABLE
 
 #include "debug.h"
 #include "utils.h"

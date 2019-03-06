@@ -1,8 +1,12 @@
 #ifndef NOTIFICATION_H
 #define NOTIFICATION_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QObject>
 #include <QSystemTrayIcon>
+WARNINGS_ENABLE
 
 /*!
  * \ingroup misc

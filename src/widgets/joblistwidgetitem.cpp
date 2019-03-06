@@ -1,6 +1,8 @@
 #include "joblistwidgetitem.h"
 
+WARNINGS_DISABLE
 #include "ui_joblistwidgetitem.h"
+WARNINGS_ENABLE
 
 #include "utils.h"
 

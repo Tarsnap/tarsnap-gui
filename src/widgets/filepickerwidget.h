@@ -1,8 +1,12 @@
 #ifndef FILEPICKERWIDGET_H
 #define FILEPICKERWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QCompleter>
 #include <QWidget>
+WARNINGS_ENABLE
 
 #include "customfilesystemmodel.h"
 

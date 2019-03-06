@@ -1,7 +1,11 @@
 #ifndef INIT_SHARED_H
 #define INIT_SHARED_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QCoreApplication>
+WARNINGS_ENABLE
 
 /*! \file init-shared.h
     \brief Shared init code that doesn't depend on the gui.

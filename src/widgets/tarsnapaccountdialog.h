@@ -1,9 +1,13 @@
 #ifndef TARSNAPACCOUNTDIALOG_H
 #define TARSNAPACCOUNTDIALOG_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QDate>
 #include <QDialog>
 #include <QMessageBox>
+WARNINGS_ENABLE
 
 namespace Ui
 {

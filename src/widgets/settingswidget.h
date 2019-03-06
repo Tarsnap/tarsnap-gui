@@ -1,11 +1,15 @@
 #ifndef SETTINGSWIDGET_H
 #define SETTINGSWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QInputDialog>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QTimer>
 #include <QWidget>
+WARNINGS_ENABLE
 
 #include "confirmationdialog.h"
 #include "scheduling.h"

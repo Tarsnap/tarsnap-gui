@@ -101,6 +101,7 @@ SOURCES +=						\
 
 HEADERS +=						\
 	lib/core/TSettings.h				\
+	lib/core/warnings-disable.h			\
 	lib/util/optparse.h				\
 	lib/util/optparse_helper.h			\
 	libcperciva/util/getopt.h			\

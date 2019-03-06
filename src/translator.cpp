@@ -1,7 +1,9 @@
 #include "translator.h"
 
+WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QLibraryInfo>
+WARNINGS_ENABLE
 
 #include "debug.h"
 

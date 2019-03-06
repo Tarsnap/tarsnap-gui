@@ -1,8 +1,12 @@
 #ifndef ARCHIVELISTWIDGET_H
 #define ARCHIVELISTWIDGET_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QList>
 #include <QListWidget>
+WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"

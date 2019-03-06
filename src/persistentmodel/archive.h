@@ -1,11 +1,15 @@
 #ifndef ARCHIVE_H
 #define ARCHIVE_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QDateTime>
 #include <QObject>
 #include <QRunnable>
 #include <QSharedPointer>
 #include <QStringList>
+WARNINGS_ENABLE
 
 #include "persistentobject.h"
 

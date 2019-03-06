@@ -1,4 +1,8 @@
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QtTest/QtTest>
+WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 

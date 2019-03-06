@@ -1,10 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QTimer>
 #include <QWidget>
+WARNINGS_ENABLE
 
 #include "archivestabwidget.h"
 #include "backuptabwidget.h"

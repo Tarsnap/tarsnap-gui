@@ -1,9 +1,11 @@
 #include "jobwidget.h"
 
+WARNINGS_DISABLE
 #include <QMenu>
 #include <QMessageBox>
 
 #include "ui_jobwidget.h"
+WARNINGS_ENABLE
 
 #include "debug.h"
 #include "restoredialog.h"

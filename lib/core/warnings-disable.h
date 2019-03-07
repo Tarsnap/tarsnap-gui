@@ -2,7 +2,9 @@
 #define WARNINGS_DISABLE_H
 // clang-format off
 
-#if defined(__clang__)
+#if defined(__clang__) && (                                                    \
+    (__clang_major__ >= 4) ||                                                  \
+    ((__clang_major__ == 3) && (__clang_major__ >= 9)))
 
     /* Disable compiler warnings (for including Qt headers). */
     #define WARNINGS_DISABLE                                                   \

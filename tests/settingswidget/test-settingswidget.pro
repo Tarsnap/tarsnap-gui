@@ -1,5 +1,5 @@
 TARGET = test-settingswidget
-QT = core gui widgets sql network
+QT = core gui widgets network
 
 # For TarsnapAccount
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"

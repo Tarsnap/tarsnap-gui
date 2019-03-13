@@ -22,6 +22,7 @@ private slots:
     void pl_qapp_font();
     void pl_label();
     void pl_collator();
+    void pl_collator_copy();
     void pl_listwidget();
 };
 
@@ -56,6 +57,14 @@ void TestQTestSimple::pl_label()
 void TestQTestSimple::pl_collator()
 {
     QCollator *coll = new QCollator();
+    delete coll;
+}
+
+void TestQTestSimple::pl_collator_copy()
+{
+    QCollator *coll = new QCollator();
+    QCollator *coll_copy = new QCollator(*coll);
+    delete coll_copy;
     delete coll;
 }
 

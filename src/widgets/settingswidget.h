@@ -14,7 +14,6 @@ WARNINGS_ENABLE
 #include "confirmationdialog.h"
 #include "scheduling.h"
 #include "tarsnapaccountdialog.h"
-#include "taskmanager.h"
 #include "translator.h"
 
 namespace Ui

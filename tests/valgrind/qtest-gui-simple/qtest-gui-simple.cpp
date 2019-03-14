@@ -62,7 +62,7 @@ void TestQTestSimple::pl_collator()
 
 void TestQTestSimple::pl_collator_copy()
 {
-    QCollator *coll = new QCollator();
+    QCollator *coll      = new QCollator();
     QCollator *coll_copy = new QCollator(*coll);
     delete coll_copy;
     delete coll;

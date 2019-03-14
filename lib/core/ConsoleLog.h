@@ -25,12 +25,9 @@ public:
     ConsoleLog();
 
     //! Initialize the global ConsoleLog object.
-    static void initializeConsoleLog()
-    {
-        if(global_log == nullptr)
-            global_log = new ConsoleLog();
-    }
+    static void initializeConsoleLog();
 
+    //! Free the global ConsoleLog object.
     static void destroy();
 
     //! The log filename.

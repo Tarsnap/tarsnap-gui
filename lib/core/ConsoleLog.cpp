@@ -8,6 +8,12 @@ WARNINGS_ENABLE
 
 ConsoleLog *global_log = nullptr;
 
+void ConsoleLog::initializeConsoleLog()
+{
+    if(global_log == nullptr)
+        global_log = new ConsoleLog();
+}
+
 void ConsoleLog::destroy()
 {
     if(global_log == nullptr)

@@ -7,6 +7,18 @@ WARNINGS_ENABLE
 
 #include <TSettings.h>
 
+ConsoleLog *global_log = nullptr;
+
+void ConsoleLog::destroy()
+{
+    if(global_log == nullptr)
+        return;
+
+    // Clean up.
+    delete global_log;
+    global_log = nullptr;
+}
+
 void ConsoleLog::saveLogMessage(QString msg)
 {
     TSettings settings;

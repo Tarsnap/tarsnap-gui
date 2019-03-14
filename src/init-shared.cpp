@@ -54,7 +54,7 @@ static void init_no_explicit_app()
 
     // In order to avoid a memory leak (?), must be done after setting up
     // the application and/or organization name.
-    ConsoleLog::instance().initializeConsoleLog();
+    ConsoleLog::initializeConsoleLog();
 }
 
 /**

@@ -6,6 +6,7 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "debug.h"
 #include "tarsnaptask.h"
 
 #include <TSettings.h>
@@ -28,6 +29,8 @@ private slots:
 void TestTask::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
+
+    ConsoleLog::initializeConsoleLog();
 }
 
 void TestTask::cleanupTestCase()
@@ -35,6 +38,7 @@ void TestTask::cleanupTestCase()
     // TSettings is used inside ConsoleLog (debug.cpp), which is used by
     // TarsnapTask.
     TSettings::destroy();
+    ConsoleLog::destroy();
 }
 
 #define RUN_SCRIPT(scriptname)                                                 \

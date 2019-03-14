@@ -29,6 +29,7 @@ void TestConsoleLog::initTestCase()
 void TestConsoleLog::cleanupTestCase()
 {
     TSettings::destroy();
+    ConsoleLog::destroy();
 }
 
 void TestConsoleLog::saveMessage()

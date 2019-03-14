@@ -15,8 +15,11 @@ WARNINGS_ENABLE
 #define DEBUG qDebug()
 #endif
 
-#define LOG ConsoleLog::instance()
 #define DEFAULT_LOG_FILE "tarsnap.log"
+
+class ConsoleLog;
+extern ConsoleLog *global_log;
+#define LOG (*global_log)
 
 /*!
  * \ingroup background-tasks
@@ -28,20 +31,20 @@ class ConsoleLog : public QObject
     Q_OBJECT
 
 public:
+    ConsoleLog() {}
+    ~ConsoleLog() {}
+
     //! Sets the qDebug message pattern.
     static void initializeConsoleLog()
     {
 #if defined(QT_DEBUG)
         qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}");
 #endif
+        if(global_log == nullptr)
+            global_log = new ConsoleLog();
     }
-    //! The singleton instance of this class.
-    static ConsoleLog &instance()
-    {
-        static ConsoleLog instance;
-        return instance;
-    }
-    ~ConsoleLog() {}
+
+    static void destroy();
 
     //! The log filename.
     static QString getLogFile();
@@ -163,11 +166,6 @@ signals:
     void message(const QString message);
 
 private:
-    // Yes, a singleton
-    inline explicit ConsoleLog() : QObject() {}
-    ConsoleLog(ConsoleLog const &) : QObject() {}
-    ConsoleLog &operator=(ConsoleLog const &);
-
     void saveLogMessage(QString msg);
 };
 

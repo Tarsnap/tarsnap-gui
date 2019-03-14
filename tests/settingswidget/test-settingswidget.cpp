@@ -7,10 +7,11 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
-#include "utils.h"
 
+#include "debug.h"
 #include "tarsnapaccount.h"
 #include "tarsnapaccountdialog.h"
+#include "utils.h"
 
 #include <TSettings.h>
 
@@ -35,6 +36,8 @@ void TestSettingsWidget::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
+    ConsoleLog::initializeConsoleLog();
+
     IF_NOT_VISUAL
     {
         // Use a custom message handler to filter out unwanted messages
@@ -45,6 +48,7 @@ void TestSettingsWidget::initTestCase()
 void TestSettingsWidget::cleanupTestCase()
 {
     TSettings::destroy();
+    ConsoleLog::destroy();
 }
 
 void TestSettingsWidget::tarsnapAccount()

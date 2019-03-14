@@ -17,6 +17,7 @@ WARNINGS_ENABLE
 #include "mainwindow.h"
 
 #include "archivewidget.h"
+#include "debug.h"
 #include "persistentmodel/archive.h"
 
 #include <TSettings.h>
@@ -41,6 +42,8 @@ void TestMainWindow::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
+    ConsoleLog::initializeConsoleLog();
+
     IF_NOT_VISUAL
     {
         // Use a custom message handler to filter out unwanted messages
@@ -59,6 +62,7 @@ void TestMainWindow::initTestCase()
 void TestMainWindow::cleanupTestCase()
 {
     TSettings::destroy();
+    ConsoleLog::destroy();
 }
 
 static QAction *get_menubar_about(QMenuBar *menubar)

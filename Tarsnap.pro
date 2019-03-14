@@ -58,7 +58,6 @@ SOURCES +=						\
 	src/app-gui.cpp					\
 	src/backuptask.cpp				\
 	src/customfilesystemmodel.cpp			\
-	src/debug.cpp					\
 	src/filetablemodel.cpp				\
 	src/init-shared.cpp				\
 	src/main.cpp					\

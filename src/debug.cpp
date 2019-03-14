@@ -5,8 +5,6 @@ WARNINGS_DISABLE
 #include <QFile>
 WARNINGS_ENABLE
 
-#include <TSettings.h>
-
 ConsoleLog *global_log = nullptr;
 
 void ConsoleLog::destroy()
@@ -19,13 +17,16 @@ void ConsoleLog::destroy()
     global_log = nullptr;
 }
 
+ConsoleLog::ConsoleLog() : _writeToFile(false)
+{
+}
+
 void ConsoleLog::saveLogMessage(QString msg)
 {
-    TSettings settings;
-    if(!settings.value("app/save_console_log", false).toBool())
+    if(!_writeToFile)
         return;
 
-    QFile logFile(getLogFile());
+    QFile logFile(_filename);
     if(!logFile.open(QIODevice::Append | QIODevice::Text)
        && !logFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -37,17 +38,17 @@ void ConsoleLog::saveLogMessage(QString msg)
     logFile.close();
 }
 
+void ConsoleLog::setFilename(QString filename)
+{
+    _filename = filename;
+}
+
 QString ConsoleLog::getLogFile()
 {
-    QString logFileUrl;
+    return _filename;
+}
 
-    TSettings settings;
-    QString   appdata = settings.value("app/app_data", "").toString();
-    if(appdata.isEmpty())
-    {
-        DEBUG << "Error saving Console Log message: app/app_data dir not set.";
-        return logFileUrl;
-    }
-
-    return logFileUrl = appdata + QDir::separator() + DEFAULT_LOG_FILE;
+void ConsoleLog::setWriteToFile(bool writeToFile)
+{
+    _writeToFile = writeToFile;
 }

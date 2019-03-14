@@ -36,15 +36,19 @@ void TestConsoleLog::saveMessage()
 {
     TSettings settings;
 
+    QString appdata = settings.value("app/app_data", "").toString();
+    QString logFile = appdata + QDir::separator() + TEST_NAME + ".log";
+
     // Don't record this message
     LOG << "don't write this";
 
     // Save a message
-    settings.setValue("app/save_console_log", true);
+    LOG.setFilename(logFile);
+    LOG.setWriteToFile(true);
     LOG << "write this";
 
     // Disable saving again
-    settings.setValue("app/save_console_log", false);
+    LOG.setWriteToFile(false);
     LOG << "don't write this";
 }
 

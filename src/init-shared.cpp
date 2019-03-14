@@ -21,6 +21,8 @@ WARNINGS_ENABLE
 
 #include <TSettings.h>
 
+#define DEFAULT_LOG_FILE "tarsnap.log"
+
 /*
  * It's unnecessary from a programming standpoint to put these in a separate
  * function, but it helps me keep track of how the various Qt layers work.
@@ -163,6 +165,19 @@ struct init_info init_shared_settings(QString configDir)
     return info;
 }
 
+static QString getDefaultLogFilename()
+{
+    TSettings settings;
+    QString   appdata = settings.value("app/app_data", "").toString();
+    if(appdata.isEmpty())
+    {
+        DEBUG << "Error saving Console Log message: app/app_data dir not set.";
+        return "";
+    }
+
+    return appdata + QDir::separator() + DEFAULT_LOG_FILE;
+}
+
 /**
  * Initialization shared between GUI and non-GUI.  Can fail and report messages.
  */
@@ -185,6 +200,9 @@ struct init_info init_shared_core(QCoreApplication *app)
         info.status = INIT_NEEDS_SETUP;
         return (info);
     }
+
+    // Set up the log file.  Must be done after setup wizard!
+    LOG.setFilename(getDefaultLogFilename());
 
     // Initialize the persistentstore.  Must be after setup wizard!
     PersistentStore &store = PersistentStore::instance();

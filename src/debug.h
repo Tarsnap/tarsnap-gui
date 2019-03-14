@@ -15,24 +15,21 @@ WARNINGS_ENABLE
 #define DEBUG qDebug()
 #endif
 
-#define DEFAULT_LOG_FILE "tarsnap.log"
-
 class ConsoleLog;
 extern ConsoleLog *global_log;
 #define LOG (*global_log)
 
 /*!
  * \ingroup background-tasks
- * \brief The ConsoleLog is a QObject which saves messages to a log file if
- * "app/save_console_log" is true.
+ * \brief The ConsoleLog is a QObject which will emit a message, and can
+ * save messages to a log file if desired.
  */
 class ConsoleLog : public QObject
 {
     Q_OBJECT
 
 public:
-    ConsoleLog() {}
-    ~ConsoleLog() {}
+    ConsoleLog();
 
     //! Sets the qDebug message pattern.
     static void initializeConsoleLog()
@@ -47,7 +44,13 @@ public:
     static void destroy();
 
     //! The log filename.
-    static QString getLogFile();
+    void setFilename(QString filename);
+
+    //! The log filename.
+    QString getLogFile();
+
+    //! Write log messages to a file.
+    void setWriteToFile(bool writeToFile);
 
     //! Saves and emits a message.
     //! @{
@@ -167,6 +170,9 @@ signals:
 
 private:
     void saveLogMessage(QString msg);
+
+    QString _filename;
+    bool    _writeToFile;
 };
 
 #endif // DEBUG_H

@@ -11,8 +11,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 }
 
-#include <debug.h>
-
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 #include <stdlib.h>

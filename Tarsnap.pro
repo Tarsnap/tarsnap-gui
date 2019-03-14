@@ -48,6 +48,7 @@ env_LINK = $$(QMAKE_LINK)
 #QMAKE_TARGET_COPYRIGHT = copyright Tarsnap Backup Inc.
 
 SOURCES +=						\
+	lib/core/ConsoleLog.cpp				\
 	lib/core/TSettings.cpp				\
 	lib/util/optparse.c				\
 	lib/util/optparse_helper.c			\
@@ -100,6 +101,7 @@ SOURCES +=						\
 	src/widgets/tarsnapaccountdialog.cpp
 
 HEADERS +=						\
+	lib/core/ConsoleLog.h				\
 	lib/core/TSettings.h				\
 	lib/core/warnings-disable.h			\
 	lib/util/optparse.h				\

@@ -4,9 +4,10 @@ WARNINGS_DISABLE
 #include <QtTest/QtTest>
 WARNINGS_ENABLE
 
+#include <ConsoleLog.h>
+
 #include "../qtest-platform.h"
 
-#include "debug.h"
 #include "tarsnaptask.h"
 
 class TestTask : public QObject

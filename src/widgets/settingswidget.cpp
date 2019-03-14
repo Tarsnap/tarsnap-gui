@@ -16,10 +16,10 @@ WARNINGS_DISABLE
 #include "ui_settingswidget.h"
 WARNINGS_ENABLE
 
-#include "debug.h"
 #include "translator.h"
 #include "utils.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 #define NUKE_SECONDS_DELAY 8

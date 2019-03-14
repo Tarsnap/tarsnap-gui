@@ -4,8 +4,9 @@ WARNINGS_DISABLE
 #include <QFileInfo>
 WARNINGS_ENABLE
 
-#include "debug.h"
 #include "utils.h"
+
+#include <ConsoleLog.h>
 
 #if defined Q_OS_UNIX
 #include <signal.h>

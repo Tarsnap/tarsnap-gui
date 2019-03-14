@@ -17,9 +17,9 @@ WARNINGS_ENABLE
 #include "mainwindow.h"
 
 #include "archivewidget.h"
-#include "debug.h"
 #include "persistentmodel/archive.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 class TestMainWindow : public QObject

@@ -8,11 +8,11 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "debug.h"
 #include "tarsnapaccount.h"
 #include "tarsnapaccountdialog.h"
 #include "utils.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 #include "settingswidget.h"

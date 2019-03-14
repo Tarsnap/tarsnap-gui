@@ -20,6 +20,7 @@ WARNINGS_ENABLE
 #include "taskstatus.h"
 #include "translator.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 #define DEFAULT_LOG_FILE "tarsnap.log"

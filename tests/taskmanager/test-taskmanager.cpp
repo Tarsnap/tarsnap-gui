@@ -6,11 +6,11 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "debug.h"
 #include "tarsnaptask.h"
 #include "taskmanager.h"
 #include "utils.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 #define TASK_CMDLINE_WAIT_MS 100

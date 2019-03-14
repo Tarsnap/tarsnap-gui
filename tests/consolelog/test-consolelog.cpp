@@ -4,8 +4,7 @@ WARNINGS_DISABLE
 #include <QtTest/QtTest>
 WARNINGS_ENABLE
 
-#include "debug.h"
-
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 class TestConsoleLog : public QObject

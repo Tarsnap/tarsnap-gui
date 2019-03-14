@@ -13,13 +13,9 @@ WARNINGS_ENABLE
 
 #include <TSettings.h>
 
-const QStringList DEFAULT_JOBS{QStringLiteral("Desktop"),
-                               QStringLiteral("Documents"),
-                               QStringLiteral("Pictures"),
-                               QStringLiteral("Movies"),
-                               QStringLiteral("Videos"),
-                               QStringLiteral("Music"),
-                               QStringLiteral("Work")};
+const char *const DEFAULT_JOBS[] = {"Desktop", "Documents", "Pictures",
+                                    "Movies",  "Videos",    "Music",
+                                    "Work"};
 
 JobsTabWidget::JobsTabWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::JobsTabWidget)

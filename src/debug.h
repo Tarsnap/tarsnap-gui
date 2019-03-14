@@ -31,12 +31,9 @@ class ConsoleLog : public QObject
 public:
     ConsoleLog();
 
-    //! Sets the qDebug message pattern.
+    //! Initialize the global ConsoleLog object.
     static void initializeConsoleLog()
     {
-#if defined(QT_DEBUG)
-        qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}");
-#endif
         if(global_log == nullptr)
             global_log = new ConsoleLog();
     }

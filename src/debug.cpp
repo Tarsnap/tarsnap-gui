@@ -1,6 +1,7 @@
 #include "debug.h"
 
 WARNINGS_DISABLE
+#include <QDebug>
 #include <QDir>
 #include <QFile>
 WARNINGS_ENABLE
@@ -30,8 +31,8 @@ void ConsoleLog::saveLogMessage(QString msg)
     if(!logFile.open(QIODevice::Append | QIODevice::Text)
        && !logFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        DEBUG << "Error saving Console Log message: cannot open log file "
-                     + logFile.fileName();
+        qDebug() << "Error saving Console Log message: cannot open log file "
+                        + logFile.fileName();
         return;
     }
     logFile.write(QByteArray(msg.toLatin1()));

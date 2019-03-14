@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QCoreApplication>
+#include <QDebug>
 #include <QFile>
 #include <QList>
 #include <QMetaType>
@@ -52,6 +53,10 @@ static void init_no_explicit_app()
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
     QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
     QCoreApplication::setApplicationVersion(APP_VERSION);
+#endif
+
+#if defined(QT_DEBUG)
+    qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}");
 #endif
 
     // In order to avoid a memory leak (?), must be done after setting up

@@ -9,8 +9,6 @@ WARNINGS_DISABLE
 #include <QtSql>
 WARNINGS_ENABLE
 
-#define DEFAULT_DBNAME "tarsnap.db"
-
 /*!
  * \ingroup persistent
  * \brief The PersistentStore is a singleton which interfaces with a database
@@ -63,8 +61,7 @@ private:
     PersistentStore(PersistentStore const &);
     void operator=(PersistentStore const &);
 
-    static bool   _initialized;
-    static QMutex _mutex;
+    static bool _initialized;
 };
 
 #endif // PERSISTENTSTORE_H

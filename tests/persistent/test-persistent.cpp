@@ -25,7 +25,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    void store();
+    void store_basic();
     void store_write();
     void store_read();
     void store_purge();
@@ -46,7 +46,7 @@ void TestPersistent::cleanupTestCase()
     TSettings::destroy();
 }
 
-void TestPersistent::store()
+void TestPersistent::store_basic()
 {
     PersistentStore &store = PersistentStore::instance();
     int              ok    = store.init();

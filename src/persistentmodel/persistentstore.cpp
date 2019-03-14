@@ -4,12 +4,14 @@ WARNINGS_DISABLE
 #include <QFile>
 #include <QFileInfo>
 
-QMutex PersistentStore::_mutex;
+static QMutex mutex;
 WARNINGS_ENABLE
 
 #include "debug.h"
 
 #include <TSettings.h>
+
+#define DEFAULT_DBNAME "tarsnap.db"
 
 bool PersistentStore::_initialized = false;
 
@@ -19,7 +21,7 @@ PersistentStore::PersistentStore(QObject *parent) : QObject(parent)
 
 bool PersistentStore::init()
 {
-    QMutexLocker locker(&_mutex);
+    QMutexLocker locker(&mutex);
 
     // Get application data directory and database filename.
     TSettings settings;
@@ -162,7 +164,7 @@ bool PersistentStore::init()
 
 void PersistentStore::deinit()
 {
-    QMutexLocker locker(&_mutex);
+    QMutexLocker locker(&mutex);
 
     if(_initialized)
     {
@@ -213,7 +215,7 @@ void PersistentStore::purge()
 
 bool PersistentStore::runQuery(QSqlQuery query)
 {
-    QMutexLocker locker(&_mutex);
+    QMutexLocker locker(&mutex);
 
     bool result = false;
     if(_initialized)

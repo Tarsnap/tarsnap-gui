@@ -223,7 +223,8 @@ UNIT_TESTS =						\
 	tests/customfilesystemmodel			\
 	tests/small-widgets				\
 	tests/consolelog				\
-	tests/task
+	tests/task					\
+	tests/core
 
 BUILD_ONLY_TESTS = tests/cli
 

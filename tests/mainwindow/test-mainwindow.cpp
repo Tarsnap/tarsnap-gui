@@ -43,6 +43,7 @@ void TestMainWindow::initTestCase()
     QCoreApplication::setOrganizationName(TEST_NAME);
 
     ConsoleLog::initializeConsoleLog();
+    Translator::initializeTranslator();
 
     IF_NOT_VISUAL
     {
@@ -63,6 +64,7 @@ void TestMainWindow::initTestCase()
 void TestMainWindow::cleanupTestCase()
 {
     PersistentStore::destroy();
+    Translator::destroy();
     TSettings::destroy();
     ConsoleLog::destroy();
 }

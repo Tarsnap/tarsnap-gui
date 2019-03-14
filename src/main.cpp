@@ -17,6 +17,7 @@ WARNINGS_ENABLE
 #include <stdlib.h>
 
 #include <persistentmodel/persistentstore.h>
+#include <translator.h>
 
 int main(int argc, char *argv[])
 {
@@ -81,6 +82,7 @@ done:
     // Clean up
     PersistentStore::destroy();
     TSettings::destroy();
+    Translator::destroy();
     ConsoleLog::destroy();
     optparse_free(opt);
 

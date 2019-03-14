@@ -194,6 +194,7 @@ struct init_info init_shared_core(QCoreApplication *app)
     TSettings        settings;
 
     // Set up the translator.
+    Translator::initializeTranslator();
     Translator &translator = Translator::instance();
     translator.translateApp(app,
                             settings.value("app/language", LANG_AUTO).toString());

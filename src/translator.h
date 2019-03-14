@@ -12,6 +12,9 @@ WARNINGS_ENABLE
 
 #define LANG_AUTO "Auto"
 
+class Translator;
+extern Translator *global_translator;
+
 /*!
  * \ingroup misc
  * \brief The Translator translates strings in the app.
@@ -19,19 +22,24 @@ WARNINGS_ENABLE
 class Translator
 {
 public:
-    //! The singleton instance of this class
+    Translator();
+    ~Translator();
+
+    //! Initialize the global Translator object.
+    static void initializeTranslator();
+
+    //! Free the global Translator object.
+    static void destroy();
+
+    //! Access to the global pointer.  FIXME deprecated, keeping temporarily.
     static Translator &instance();
+
     //! Translates the app.
     void translateApp(QCoreApplication *app, QString lang);
     //! The available languages.
     QStringList languageList();
 
 private:
-    Translator();
-    Translator(Translator const &);
-    Translator &operator=(Translator const &);
-    ~Translator();
-
     QMap<QString, QString> _languageMap;
     QTranslator *_qtTranslator;
     QTranslator *_appTranslator;

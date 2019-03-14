@@ -7,6 +7,24 @@ WARNINGS_ENABLE
 
 #include "debug.h"
 
+Translator *global_translator = nullptr;
+
+void Translator::initializeTranslator()
+{
+    if(global_translator == nullptr)
+        global_translator = new Translator();
+}
+
+void Translator::destroy()
+{
+    if(global_translator == nullptr)
+        return;
+
+    // Clean up.
+    delete global_translator;
+    global_translator = nullptr;
+}
+
 Translator::Translator() : _qtTranslator(nullptr), _appTranslator(nullptr)
 {
     _languageMap["English"]  = "en";
@@ -15,8 +33,8 @@ Translator::Translator() : _qtTranslator(nullptr), _appTranslator(nullptr)
 
 Translator &Translator::instance()
 {
-    static Translator instance;
-    return instance;
+    Q_ASSERT(global_translator != nullptr);
+    return (*global_translator);
 }
 
 Translator::~Translator()

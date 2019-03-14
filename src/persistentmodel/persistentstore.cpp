@@ -13,9 +13,27 @@ WARNINGS_ENABLE
 
 #define DEFAULT_DBNAME "tarsnap.db"
 
+PersistentStore *global_store = nullptr;
+
 bool PersistentStore::_initialized = false;
 
-PersistentStore::PersistentStore(QObject *parent) : QObject(parent)
+void PersistentStore::initializePersistentStore()
+{
+    if(global_store == nullptr)
+        global_store = new PersistentStore();
+}
+
+void PersistentStore::destroy()
+{
+    if(global_store == nullptr)
+        return;
+
+    // Clean up.
+    delete global_store;
+    global_store = nullptr;
+}
+
+PersistentStore::PersistentStore()
 {
 }
 
@@ -185,10 +203,6 @@ QSqlQuery PersistentStore::createQuery()
         DEBUG << "PersistentStore not initialized.";
         return QSqlQuery();
     }
-}
-
-PersistentStore::~PersistentStore()
-{
 }
 
 void PersistentStore::purge()

@@ -54,6 +54,7 @@ void TestMainWindow::initTestCase()
     qRegisterMetaType<QVector<File>>("QVector<File>");
 
     // Deal with PersistentStore
+    PersistentStore::initializePersistentStore();
     PersistentStore &store = PersistentStore::instance();
     int              ok    = store.init();
     QVERIFY(ok);
@@ -61,6 +62,7 @@ void TestMainWindow::initTestCase()
 
 void TestMainWindow::cleanupTestCase()
 {
+    PersistentStore::destroy();
     TSettings::destroy();
     ConsoleLog::destroy();
 }

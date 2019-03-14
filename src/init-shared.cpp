@@ -15,6 +15,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "persistentmodel/journal.h"
+#include "persistentmodel/persistentstore.h"
 #include "scheduling.h"
 #include "tarsnaperror.h"
 #include "taskstatus.h"
@@ -211,6 +212,7 @@ struct init_info init_shared_core(QCoreApplication *app)
     LOG.setFilename(getDefaultLogFilename());
 
     // Initialize the persistentstore.  Must be after setup wizard!
+    PersistentStore::initializePersistentStore();
     PersistentStore &store = PersistentStore::instance();
     if(!store.init())
     {

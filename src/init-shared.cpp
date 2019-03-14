@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QCoreApplication>
+#include <QDebug>
 #include <QFile>
 #include <QList>
 #include <QMetaType>
@@ -19,7 +20,10 @@ WARNINGS_ENABLE
 #include "taskstatus.h"
 #include "translator.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
+
+#define DEFAULT_LOG_FILE "tarsnap.log"
 
 /*
  * It's unnecessary from a programming standpoint to put these in a separate
@@ -52,9 +56,13 @@ static void init_no_explicit_app()
     QCoreApplication::setApplicationVersion(APP_VERSION);
 #endif
 
+#if defined(QT_DEBUG)
+    qSetMessagePattern("%{if-debug}%{file}(%{line}): %{endif}%{message}");
+#endif
+
     // In order to avoid a memory leak (?), must be done after setting up
     // the application and/or organization name.
-    ConsoleLog::instance().initializeConsoleLog();
+    ConsoleLog::initializeConsoleLog();
 }
 
 /**
@@ -163,6 +171,19 @@ struct init_info init_shared_settings(QString configDir)
     return info;
 }
 
+static QString getDefaultLogFilename()
+{
+    TSettings settings;
+    QString   appdata = settings.value("app/app_data", "").toString();
+    if(appdata.isEmpty())
+    {
+        DEBUG << "Error saving Console Log message: app/app_data dir not set.";
+        return "";
+    }
+
+    return appdata + QDir::separator() + DEFAULT_LOG_FILE;
+}
+
 /**
  * Initialization shared between GUI and non-GUI.  Can fail and report messages.
  */
@@ -185,6 +206,9 @@ struct init_info init_shared_core(QCoreApplication *app)
         info.status = INIT_NEEDS_SETUP;
         return (info);
     }
+
+    // Set up the log file.  Must be done after setup wizard!
+    LOG.setFilename(getDefaultLogFilename());
 
     // Initialize the persistentstore.  Must be after setup wizard!
     PersistentStore &store = PersistentStore::instance();

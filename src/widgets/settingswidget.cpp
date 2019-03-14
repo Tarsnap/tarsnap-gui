@@ -16,10 +16,10 @@ WARNINGS_DISABLE
 #include "ui_settingswidget.h"
 WARNINGS_ENABLE
 
-#include "debug.h"
 #include "translator.h"
 #include "utils.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 #define NUKE_SECONDS_DELAY 8
@@ -298,7 +298,8 @@ void SettingsWidget::loadSettings()
         settings.value("app/notifications", true).toBool());
     _ui->saveConsoleLogCheckBox->setChecked(
         settings.value("app/save_console_log", false).toBool());
-    _ui->saveConsoleLogLineEdit->setText(ConsoleLog::getLogFile());
+    _ui->saveConsoleLogLineEdit->setText(LOG.getLogFile());
+    LOG.setWriteToFile(settings.value("app/save_console_log", false).toBool());
 
     Translator &translator = Translator::instance();
     _ui->languageComboBox->addItem(LANG_AUTO);
@@ -348,6 +349,7 @@ void SettingsWidget::commitSettings()
     settings.setValue("app/language", _ui->languageComboBox->currentText());
     settings.setValue("app/save_console_log",
                       _ui->saveConsoleLogCheckBox->isChecked());
+    LOG.setWriteToFile(settings.value("app/save_console_log", false).toBool());
 
     settings.sync();
 }

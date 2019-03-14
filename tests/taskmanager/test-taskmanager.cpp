@@ -10,6 +10,7 @@ WARNINGS_ENABLE
 #include "taskmanager.h"
 #include "utils.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 #define TASK_CMDLINE_WAIT_MS 100
@@ -32,6 +33,8 @@ void TestTaskManager::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
+    ConsoleLog::initializeConsoleLog();
+
     // This is to "warm up" the command-line tasks.
     TaskManager *manager = new TaskManager();
     QSignalSpy   sig_ver(manager, SIGNAL(tarsnapVersion(QString)));
@@ -46,6 +49,7 @@ void TestTaskManager::initTestCase()
 void TestTaskManager::cleanupTestCase()
 {
     TSettings::destroy();
+    ConsoleLog::destroy();
 }
 
 void TestTaskManager::get_version()

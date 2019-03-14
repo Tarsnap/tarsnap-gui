@@ -11,6 +11,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 }
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 #include <stdlib.h>
@@ -77,6 +78,7 @@ int main(int argc, char *argv[])
 done:
     // Clean up
     TSettings::destroy();
+    ConsoleLog::destroy();
     optparse_free(opt);
 
     return (ret);

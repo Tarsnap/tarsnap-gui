@@ -26,10 +26,10 @@ FORMS +=							\
 RESOURCES += ../../resources/resources.qrc
 
 HEADERS  +=						\
+	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
 	../../src/backuptask.h				\
 	../../src/customfilesystemmodel.h		\
-	../../src/debug.h				\
 	../../src/filetablemodel.h			\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
@@ -66,10 +66,10 @@ HEADERS  +=						\
 	../../tests/qtest-platform.h
 
 SOURCES += test-mainwindow.cpp				\
+	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/customfilesystemmodel.cpp		\
-	../../src/debug.cpp				\
 	../../src/filetablemodel.cpp			\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\

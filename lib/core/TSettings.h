@@ -24,7 +24,7 @@ WARNINGS_ENABLE
  * In the middle, you can interact with settings stored in
  * <c>my-program.conf</c>.  The file is stored as <c>QSettings::IniFormat</c>.
  *
- * This object is intended to act like QSettings (with the ability to specify a
+ * This object is intended to act like QSettings (plus the ability to specify a
  * filename), but not all functionality is supported.
  *
  * \note
@@ -58,8 +58,8 @@ public:
     //! first.
     TSettings();
 
-    //! Specifies the config filename to use.
-    //! \warning Has no effect if it is called after the a TSettings
+    //! Specifies the config filename to use.  Only call this once.
+    //! \warning Has no effect if it is called after a TSettings
     //! object is instantiated.
     static void setFilename(QString filename);
 
@@ -90,6 +90,10 @@ public:
     void sync();
 
     //!@}
+
+private:
+    static QSettings *_settings;
+    static QString *  _filename_next;
 };
 
 #endif

@@ -17,11 +17,11 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "backuplistwidgetitem.h"
-#include "debug.h"
 #include "scheduling.h"
 #include "translator.h"
 #include "utils.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 #define MAIN_LOGO_RIGHT_MARGIN 5
@@ -40,8 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
       _settingsWidget(this),
       _helpWidget(this)
 {
-    connect(&ConsoleLog::instance(), &ConsoleLog::message, this,
-            &MainWindow::appendToConsoleLog);
+    connect(&LOG, &ConsoleLog::message, this, &MainWindow::appendToConsoleLog);
 
     // Ui initialization
     _ui->setupUi(this);

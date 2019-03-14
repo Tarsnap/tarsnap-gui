@@ -10,8 +10,8 @@ FORMS += ../../forms/settingswidget.ui			\
 	../../forms/logindialog.ui
 
 HEADERS  +=						\
+	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
-	../../src/debug.h				\
 	../../src/scheduling.h				\
 	../../src/tarsnapaccount.h			\
 	../../src/translator.h				\
@@ -23,8 +23,8 @@ HEADERS  +=						\
 	../../tests/qtest-platform.h
 
 SOURCES += test-settingswidget.cpp			\
+	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
-	../../src/debug.cpp				\
 	../../src/scheduling.cpp			\
 	../../src/tarsnapaccount.cpp			\
 	../../src/translator.cpp			\

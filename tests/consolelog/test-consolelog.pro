@@ -4,12 +4,12 @@ QT = core
 VALGRIND = true
 
 HEADERS  +=						\
-	../../lib/core/TSettings.h			\
-	../../src/debug.h
+	../../lib/core/ConsoleLog.h			\
+	../../lib/core/TSettings.h
 
 SOURCES += test-consolelog.cpp				\
-	../../lib/core/TSettings.cpp			\
-	../../src/debug.cpp
+	../../lib/core/ConsoleLog.cpp			\
+	../../lib/core/TSettings.cpp
 
 include(../tests-include.pro)
 

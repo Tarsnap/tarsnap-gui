@@ -8,6 +8,7 @@ VERSION = test
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 SOURCES +=						\
+	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../lib/util/optparse.c			\
 	../../lib/util/optparse_helper.c		\
@@ -15,7 +16,6 @@ SOURCES +=						\
 	../../libcperciva/util/warnp.c			\
 	../../src/app-cmdline.cpp			\
 	../../src/backuptask.cpp			\
-	../../src/debug.cpp				\
 	../../src/filetablemodel.cpp			\
 	../../src/init-shared.cpp			\
 	../../src/main.cpp				\
@@ -31,6 +31,7 @@ SOURCES +=						\
 	../../src/utils.cpp
 
 HEADERS +=						\
+	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
 	../../lib/util/optparse.h			\
 	../../lib/util/optparse_helper.h		\
@@ -38,7 +39,6 @@ HEADERS +=						\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\
 	../../src/backuptask.h				\
-	../../src/debug.h				\
 	../../src/filetablemodel.h			\
 	../../src/init-shared.h				\
 	../../src/persistentmodel/archive.h		\

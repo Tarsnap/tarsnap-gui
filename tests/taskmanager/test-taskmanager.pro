@@ -4,9 +4,9 @@ QT = core sql network
 VALGRIND = true
 
 HEADERS  +=						\
+	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
 	../../src/backuptask.h				\
-	../../src/debug.h				\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
@@ -17,9 +17,9 @@ HEADERS  +=						\
 	../qtest-platform.h
 
 SOURCES += test-taskmanager.cpp				\
+	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../src/backuptask.cpp			\
-	../../src/debug.cpp				\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\

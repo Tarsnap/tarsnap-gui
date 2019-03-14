@@ -16,14 +16,14 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    void basic();
-    void initializeConsoleLog();
     void saveMessage();
 };
 
 void TestConsoleLog::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
+
+    LOG.initializeConsoleLog();
 }
 
 void TestConsoleLog::cleanupTestCase()
@@ -31,32 +31,20 @@ void TestConsoleLog::cleanupTestCase()
     TSettings::destroy();
 }
 
-void TestConsoleLog::basic()
-{
-    ConsoleLog &log = ConsoleLog::instance();
-    (void)log;
-}
-
-void TestConsoleLog::initializeConsoleLog()
-{
-    ConsoleLog::instance().initializeConsoleLog();
-}
-
 void TestConsoleLog::saveMessage()
 {
-    ConsoleLog &log = ConsoleLog::instance();
-    TSettings   settings;
+    TSettings settings;
 
     // Don't record this message
-    log << "don't write this";
+    LOG << "don't write this";
 
     // Save a message
     settings.setValue("app/save_console_log", true);
-    log << "write this";
+    LOG << "write this";
 
     // Disable saving again
     settings.setValue("app/save_console_log", false);
-    log << "don't write this";
+    LOG << "don't write this";
 }
 
 QTEST_MAIN(TestConsoleLog)

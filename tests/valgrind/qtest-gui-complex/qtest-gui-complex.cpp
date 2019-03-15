@@ -37,6 +37,7 @@ private slots:
     void pl_combo_box();
     void pl_widget_show_hide();
     void pl_networkaccessmanager();
+    void pl_lineedit_placeholder();
 };
 
 void TestQTestComplex::pl_nothing()
@@ -198,6 +199,13 @@ void TestQTestComplex::pl_networkaccessmanager()
     QNetworkAccessManager *nam = new QNetworkAccessManager();
     QThread::msleep(200);
     delete nam;
+}
+
+void TestQTestComplex::pl_lineedit_placeholder()
+{
+    QLineEdit *le = new QLineEdit();
+    le->setPlaceholderText("this is a long piece of placeholder text");
+    delete le;
 }
 
 QTEST_MAIN(TestQTestComplex)

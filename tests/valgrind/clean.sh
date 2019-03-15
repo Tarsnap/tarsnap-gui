@@ -4,7 +4,6 @@ DIRS=""
 DIRS="${DIRS} minimal simple network"
 DIRS="${DIRS} qtest-minimal"
 DIRS="${DIRS} qtest-gui-minimal qtest-gui-simple qtest-gui-complex"
-DIRS="${DIRS} qtest-gui-ui"
 
 for d in ${DIRS}; do
 	cd $d

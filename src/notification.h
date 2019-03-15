@@ -8,6 +8,8 @@ WARNINGS_DISABLE
 #include <QSystemTrayIcon>
 WARNINGS_ENABLE
 
+#include "notification_info.h"
+
 /*!
  * \ingroup misc
  * \brief The Notification widget is a QSystemTrayIcon which displays
@@ -17,6 +19,8 @@ class Notification : public QSystemTrayIcon
 {
     Q_OBJECT
 
+    Q_ENUM(message_type)
+
 public:
     //! Constructor.
     explicit Notification(QSystemTrayIcon *parent = nullptr);
@@ -24,7 +28,15 @@ public:
 public slots:
     //! Displays a string if the user has "Show desktop notifications" enabled,
     //! after removing HTML tags.
-    void displayNotification(QString message);
+    void displayNotification(QString message, enum message_type type,
+                             QString data);
+
+private slots:
+    void handle_messageClicked();
+
+private:
+    enum message_type _msg_type;
+    QString           _msg_data;
 };
 
 #endif // NOTIFICATION_H

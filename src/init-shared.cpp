@@ -12,6 +12,7 @@ WARNINGS_ENABLE
 
 #include "backuptask.h"
 #include "debug.h"
+#include "notification_info.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "persistentmodel/journal.h"
@@ -45,6 +46,7 @@ static void init_no_app()
     qRegisterMetaType<LogEntry>("LogEntry");
     qRegisterMetaType<QVector<LogEntry>>("QVector<LogEntry>");
     qRegisterMetaType<QVector<File>>("QVector<File>");
+    qRegisterMetaType<enum message_type>("enum message_type");
 }
 
 static void init_no_explicit_app()

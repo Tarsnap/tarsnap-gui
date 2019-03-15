@@ -34,4 +34,5 @@ void Notification::displayNotification(QString message, enum message_type type,
 
 void Notification::handle_messageClicked()
 {
+    emit notification_clicked(_msg_type, _msg_data);
 }

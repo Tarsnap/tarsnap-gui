@@ -202,8 +202,8 @@ void AppGui::showMainWindow()
             &MainWindow::tarsnapError, QUEUED);
     connect(&_notification, &Notification::activated, _mainWindow,
             &MainWindow::notificationRaise, QUEUED);
-    connect(&_notification, &Notification::messageClicked, _mainWindow,
-            &MainWindow::notificationRaise, QUEUED);
+    connect(&_notification, &Notification::notification_clicked, _mainWindow,
+            &MainWindow::handle_notification_clicked, QUEUED);
     connect(&_journal, &Journal::journal, _mainWindow, &MainWindow::setJournal,
             QUEUED);
     connect(&_journal, &Journal::logEntry, _mainWindow,

@@ -16,6 +16,7 @@ WARNINGS_ENABLE
 #include "jobstabwidget.h"
 #include "settingswidget.h"
 
+#include "notification_info.h"
 #include "persistentmodel/journal.h"
 #include "scheduling.h"
 #include "tarsnapaccount.h"
@@ -79,6 +80,9 @@ public slots:
     void updateSimulationIcon(int state);
     //! Update the number of tasks;
     void updateNumTasks(int numRunning, int numQueued);
+
+    //! Handle a clicked notification message.
+    void handle_notification_clicked(enum message_type type, QString data);
 
 signals:
     //! Begin tarsnap -c -f \<name\>

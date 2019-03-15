@@ -188,3 +188,9 @@ void ArchivesTabWidget::updateUi()
         _ui->actionFilterArchives->shortcut().toString(
             QKeySequence::NativeText)));
 }
+
+void ArchivesTabWidget::displayInspectArchiveByRef(QString archiveName)
+{
+    ArchivePtr archive = _ui->archiveListWidget->findArchiveByName(archiveName);
+    displayInspectArchive(archive);
+}

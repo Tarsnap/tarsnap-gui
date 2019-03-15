@@ -16,6 +16,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "backuptask.h"
+#include "notification_info.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "tarsnaperror.h"
@@ -121,7 +122,8 @@ signals:
     //! \param detail display this text as a mouse-over tooltip.
     void message(QString msg, QString detail = "");
     //! A message that should be shown as a desktop notification (if enabled).
-    void displayNotification(QString message);
+    void displayNotification(QString message, enum message_type type,
+                             QString data);
     //! Information about running tasks.
     //! \param backupTaskRunning is a backup task currently running?
     //! \param runningTasks the number of running tasks.

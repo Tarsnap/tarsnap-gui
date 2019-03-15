@@ -466,8 +466,9 @@ void TaskManager::warnNotOnline()
 {
     QString title(tr("Scheduled jobs not executed (cannot reach server)."));
     QString body(tr("Please check your internet connectivity and try again."));
-    emit    message(title, body);
-    emit    displayNotification(title + "\n" + body);
+
+    emit message(title, body);
+    emit displayNotification(title + "\n" + body, NOTIFICATION_NOT_ONLINE, "");
     // Quit with a delay to allow for the system notifications to go through
     QTimer *quitTimer = new QTimer(this);
     quitTimer->setSingleShot(true);
@@ -938,7 +939,8 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
                           .arg(Utils::humanBytes(
                               backupTask->archive()->sizeUniqueCompressed()));
         emit message(msg, backupTask->archive()->archiveStats());
-        emit displayNotification(msg);
+        emit displayNotification(msg, NOTIFICATION_ARCHIVE_CREATED,
+                                 backupTask->name());
         _backupTaskMap.remove(backupTask->uuid());
         break;
     }
@@ -948,8 +950,10 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
     case TaskStatus::Running:
     {
         QString msg = tr("Backup <i>%1</i> is running.").arg(backupTask->name());
-        emit    message(msg);
-        emit    displayNotification(msg);
+
+        emit message(msg);
+        emit displayNotification(msg, NOTIFICATION_ARCHIVE_CREATING,
+                                 backupTask->name());
         break;
     }
     case TaskStatus::Failed:
@@ -961,7 +965,8 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
                          .section(QChar('\n'), 0, 0, QString::SectionSkipEmpty)
                          .simplified());
         emit message(msg, backupTask->output());
-        emit displayNotification(msg);
+        emit displayNotification(msg, NOTIFICATION_ARCHIVE_FAILED,
+                                 backupTask->name());
         _backupTaskMap.remove(backupTask->uuid());
         break;
     }

@@ -370,3 +370,20 @@ void ArchiveListWidget::handleItemActivated(QListWidgetItem *item)
     if(!archiveItem->archive()->deleteScheduled())
         goingToInspectItem(archiveItem);
 }
+
+ArchivePtr ArchiveListWidget::findArchiveByName(QString archiveName)
+{
+    for(int i = 0; i < count(); i++)
+    {
+        ArchiveListWidgetItem *archiveItem =
+            static_cast<ArchiveListWidgetItem *>(item(i));
+        if(archiveName == archiveItem->archive()->name())
+            return archiveItem->archive();
+    }
+
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
+    return nullptr;
+#else
+    return ArchivePtr(nullptr);
+#endif
+}

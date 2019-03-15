@@ -33,6 +33,9 @@ public:
     explicit ArchivesTabWidget(QWidget *parent = nullptr);
     ~ArchivesTabWidget();
 
+    //! Expand the "inspect archive" widget.
+    void displayInspectArchiveByRef(QString archiveName);
+
 public slots:
     //! Expand the "inspect archive" widget.
     void displayInspectArchive(ArchivePtr archive);

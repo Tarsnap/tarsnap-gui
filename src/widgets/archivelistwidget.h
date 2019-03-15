@@ -30,6 +30,9 @@ public:
     //! Make sure that we can see the current item in the list.
     void ensureCurrentItemVisible();
 
+    //! Find the archive matching the given name.
+    ArchivePtr findArchiveByName(QString archiveName);
+
 public slots:
     //! Clears the archive list, then sets it to the specified archives
     void setArchives(QList<ArchivePtr> archives);

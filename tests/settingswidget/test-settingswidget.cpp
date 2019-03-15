@@ -37,6 +37,7 @@ void TestSettingsWidget::initTestCase()
     QCoreApplication::setOrganizationName(TEST_NAME);
 
     ConsoleLog::initializeConsoleLog();
+    Translator::initializeTranslator();
 
     IF_NOT_VISUAL
     {
@@ -47,6 +48,7 @@ void TestSettingsWidget::initTestCase()
 
 void TestSettingsWidget::cleanupTestCase()
 {
+    Translator::destroy();
     TSettings::destroy();
     ConsoleLog::destroy();
 }

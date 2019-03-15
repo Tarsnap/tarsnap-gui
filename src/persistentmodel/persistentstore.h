@@ -9,11 +9,12 @@ WARNINGS_DISABLE
 #include <QtSql>
 WARNINGS_ENABLE
 
-#define DEFAULT_DBNAME "tarsnap.db"
+class PersistentStore;
+extern PersistentStore *global_store;
 
 /*!
  * \ingroup persistent
- * \brief The PersistentStore is a singleton which interfaces with a database
+ * \brief The PersistentStore is a QObject which interfaces with a database
  * which stores lists of archives, jobs, and journal entries.
  */
 class PersistentStore : public QObject
@@ -21,15 +22,24 @@ class PersistentStore : public QObject
     Q_OBJECT
 
 public:
-    ~PersistentStore();
-    //! Singleton.
+    PersistentStore();
+
+    //! Initialize the global PersistentStore object.
+    static void initializePersistentStore();
+
+    //! Free the global PersistentStore object.
+    static void destroy();
+
+    //! Access to the global pointer.  FIXME deprecated, keeping temporarily.
     static PersistentStore &instance()
     {
-        static PersistentStore instance;
-        return instance;
+        Q_ASSERT(global_store != nullptr);
+        return (*global_store);
     }
+
     //! Returns the status of whether the database is initialized or not.
     bool initialized() { return _initialized; }
+
     //! Returns an empty query attached to the database if it is initialized,
     //! or an unattached query otherwise.
     QSqlQuery createQuery();
@@ -58,13 +68,7 @@ protected:
     //!@}
 
 private:
-    // Yes, a singleton
-    explicit PersistentStore(QObject *parent = nullptr);
-    PersistentStore(PersistentStore const &);
-    void operator=(PersistentStore const &);
-
-    static bool   _initialized;
-    static QMutex _mutex;
+    static bool _initialized;
 };
 
 #endif // PERSISTENTSTORE_H

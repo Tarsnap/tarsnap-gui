@@ -4,22 +4,42 @@ WARNINGS_DISABLE
 #include <QFile>
 #include <QFileInfo>
 
-QMutex PersistentStore::_mutex;
+static QMutex mutex;
 WARNINGS_ENABLE
 
 #include "debug.h"
 
 #include <TSettings.h>
 
+#define DEFAULT_DBNAME "tarsnap.db"
+
+PersistentStore *global_store = nullptr;
+
 bool PersistentStore::_initialized = false;
 
-PersistentStore::PersistentStore(QObject *parent) : QObject(parent)
+void PersistentStore::initializePersistentStore()
+{
+    if(global_store == nullptr)
+        global_store = new PersistentStore();
+}
+
+void PersistentStore::destroy()
+{
+    if(global_store == nullptr)
+        return;
+
+    // Clean up.
+    delete global_store;
+    global_store = nullptr;
+}
+
+PersistentStore::PersistentStore()
 {
 }
 
 bool PersistentStore::init()
 {
-    QMutexLocker locker(&_mutex);
+    QMutexLocker locker(&mutex);
 
     // Get application data directory and database filename.
     TSettings settings;
@@ -162,7 +182,7 @@ bool PersistentStore::init()
 
 void PersistentStore::deinit()
 {
-    QMutexLocker locker(&_mutex);
+    QMutexLocker locker(&mutex);
 
     if(_initialized)
     {
@@ -183,10 +203,6 @@ QSqlQuery PersistentStore::createQuery()
         DEBUG << "PersistentStore not initialized.";
         return QSqlQuery();
     }
-}
-
-PersistentStore::~PersistentStore()
-{
 }
 
 void PersistentStore::purge()
@@ -213,7 +229,7 @@ void PersistentStore::purge()
 
 bool PersistentStore::runQuery(QSqlQuery query)
 {
-    QMutexLocker locker(&_mutex);
+    QMutexLocker locker(&mutex);
 
     bool result = false;
     if(_initialized)

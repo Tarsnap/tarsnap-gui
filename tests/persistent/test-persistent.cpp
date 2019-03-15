@@ -25,7 +25,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    void store();
+    void store_basic();
     void store_write();
     void store_read();
     void store_purge();
@@ -39,14 +39,17 @@ private slots:
 void TestPersistent::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
+
+    PersistentStore::initializePersistentStore();
 }
 
 void TestPersistent::cleanupTestCase()
 {
     TSettings::destroy();
+    PersistentStore::destroy();
 }
 
-void TestPersistent::store()
+void TestPersistent::store_basic()
 {
     PersistentStore &store = PersistentStore::instance();
     int              ok    = store.init();

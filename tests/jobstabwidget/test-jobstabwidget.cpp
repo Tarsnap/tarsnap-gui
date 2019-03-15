@@ -42,6 +42,7 @@ void TestJobsTabWidget::initTestCase()
     }
 
     // Deal with PersistentStore
+    PersistentStore::initializePersistentStore();
     PersistentStore &store = PersistentStore::instance();
     int              ok    = store.init();
     QVERIFY(ok);
@@ -49,6 +50,7 @@ void TestJobsTabWidget::initTestCase()
 
 void TestJobsTabWidget::cleanupTestCase()
 {
+    PersistentStore::destroy();
     TSettings::destroy();
     // Wait to (probably?) allow something within QWidgetLineControl to
     // get freed.  (Randomly occurring memorty leak.)

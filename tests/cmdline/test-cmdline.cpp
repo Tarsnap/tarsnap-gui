@@ -47,6 +47,7 @@ void TestCmdline::init()
 
     // Reset PersistentStore
     PersistentStore::deinit();
+    PersistentStore::destroy();
 }
 
 void TestCmdline::cleanupTestCase()

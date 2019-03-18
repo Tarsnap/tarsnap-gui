@@ -35,6 +35,8 @@ void TestCmdline::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
+    HANDLE_IGNORING_XDG_HOME;
+
     // Initialize debug messages.
     const char *argv[] = {"test-cmdline"};
     WARNP_INIT;
@@ -58,8 +60,6 @@ void TestCmdline::cleanupTestCase()
 void TestCmdline::normal_init()
 {
     struct optparse *opt;
-
-    HANDLE_IGNORING_XDG_HOME;
 
     // Create command-line arguments
     int   argc = 1;

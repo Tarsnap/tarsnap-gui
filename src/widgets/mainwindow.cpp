@@ -814,13 +814,13 @@ void MainWindow::jobInspectByRef(QString jobRef)
 void MainWindow::handle_notification_clicked(enum message_type type,
                                              QString           data)
 {
+    notificationRaise();
     switch(type)
     {
     case(NOTIFICATION_UNSPECIFIED):
     case(NOTIFICATION_NOT_ONLINE):
     case(NOTIFICATION_ARCHIVE_FAILED):
         // Don't navigate to any specific part of the GUI.
-        notificationRaise();
         break;
     case(NOTIFICATION_ARCHIVE_CREATING):
         displayTab(_ui->archivesTab);

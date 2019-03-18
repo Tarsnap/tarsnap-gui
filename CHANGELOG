@@ -12,6 +12,9 @@ Change of behaviour:
 
 New features:
 * Checks for a network connection before attempting to back up an archive.
+* The desktop notifications are clickable and navigate to an appropriate part
+  of the application (i.e. clicking on a "Backup is completed" message shows
+  its details in the Archives tab).
 
 Fixes:
 * Many small "corner case" fixes due to our new test suite.

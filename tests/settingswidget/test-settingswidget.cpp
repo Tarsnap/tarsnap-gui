@@ -36,6 +36,8 @@ void TestSettingsWidget::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
+    HANDLE_IGNORING_XDG_HOME;
+
     ConsoleLog::initializeConsoleLog();
     Translator::initializeTranslator();
 
@@ -74,8 +76,6 @@ void TestSettingsWidget::tarsnapAccountDialog()
 
 void TestSettingsWidget::account()
 {
-    HANDLE_IGNORING_XDG_HOME;
-
     SettingsWidget *    settingsWidget = new SettingsWidget();
     Ui::SettingsWidget *ui             = settingsWidget->_ui;
     QSignalSpy          sig_status(settingsWidget,

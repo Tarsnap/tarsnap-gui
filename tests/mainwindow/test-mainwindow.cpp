@@ -42,6 +42,8 @@ void TestMainWindow::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
+    HANDLE_IGNORING_XDG_HOME;
+
     ConsoleLog::initializeConsoleLog();
     Translator::initializeTranslator();
 
@@ -272,8 +274,6 @@ void TestMainWindow::console_window()
 
 void TestMainWindow::tab_navigation()
 {
-    HANDLE_IGNORING_XDG_HOME;
-
     MainWindow *    mainwindow = new MainWindow();
     Ui::MainWindow *ui         = mainwindow->_ui;
 
@@ -310,8 +310,6 @@ void TestMainWindow::tab_navigation()
 
 void TestMainWindow::other_navigation()
 {
-    HANDLE_IGNORING_XDG_HOME;
-
     MainWindow *       mainwindow    = new MainWindow();
     Ui::MainWindow *   ui            = mainwindow->_ui;
     JobsTabWidget *    jobsTabWidget = &mainwindow->_jobsTabWidget;

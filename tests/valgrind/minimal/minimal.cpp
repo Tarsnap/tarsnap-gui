@@ -4,7 +4,6 @@ WARNINGS_DISABLE
 #include <QCoreApplication>
 WARNINGS_ENABLE
 
-#include "../compile-valgrind-test.h"
 #include "../macros-valgrind.h"
 
 static void pl_nothing()

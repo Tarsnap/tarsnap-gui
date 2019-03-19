@@ -14,7 +14,7 @@ static void pl_nothing()
 
 static void pl_QSqlDatabase()
 {
-    T_TEST_CONSOLE_BEGIN
+    T_APP_BEGIN_CONSOLE
 
     QString connectionName;
     {
@@ -23,16 +23,16 @@ static void pl_QSqlDatabase()
     }
     QSqlDatabase::removeDatabase(connectionName);
 
-    T_TEST_CONSOLE_END
+    T_APP_END
 }
 
 static void pl_processEvents()
 {
-    T_TEST_CONSOLE_BEGIN
+    T_APP_BEGIN_CONSOLE
 
     QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
 
-    T_TEST_CONSOLE_END
+    T_APP_END
 }
 
 // clang-format off

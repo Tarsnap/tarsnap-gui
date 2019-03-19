@@ -12,9 +12,9 @@ static void pl_nothing()
 
 static void pl_QCoreApplication()
 {
-    T_TEST_CONSOLE_BEGIN
+    T_APP_BEGIN_CONSOLE
 
-    T_TEST_CONSOLE_END
+    T_APP_END
 }
 
 // clang-format off

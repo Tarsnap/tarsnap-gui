@@ -42,13 +42,13 @@
         exit(0);                                                               \
     }
 
-#define T_TEST_CONSOLE_BEGIN                                                   \
+#define T_APP_BEGIN_CONSOLE                                                    \
     int   argc = 1;                                                            \
     char *argv[1];                                                             \
     argv[0]               = strdup("./potential-memleaks");                    \
     QCoreApplication *app = new QCoreApplication(argc, argv);
 
-#define T_TEST_CONSOLE_END                                                     \
+#define T_APP_END                                                              \
     delete app;                                                                \
     free(argv[0]);
 

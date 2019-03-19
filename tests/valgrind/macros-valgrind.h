@@ -1,11 +1,5 @@
-#ifndef CONSOLE_TEST_H
-#define CONSOLE_TEST_H
-
-#include "warnings-disable.h"
-
-WARNINGS_DISABLE
-#include <QCoreApplication>
-WARNINGS_ENABLE
+#ifndef MACROS_VALGRIND_H
+#define MACROS_VALGRIND_H
 
 #define T_TEST_CONSOLE_BEGIN                                                   \
     int   argc = 1;                                                            \

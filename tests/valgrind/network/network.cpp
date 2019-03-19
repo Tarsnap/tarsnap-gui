@@ -1,12 +1,13 @@
 #include "../warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QCoreApplication>
 #include <QNetworkAccessManager>
 #include <QThread>
 WARNINGS_ENABLE
 
 #include "../compile-valgrind-test.h"
-#include "../console-test.h"
+#include "../macros-valgrind.h"
 
 static void pl_nothing()
 {

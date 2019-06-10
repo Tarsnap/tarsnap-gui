@@ -1,6 +1,8 @@
 #include "backuptask.h"
 
+WARNINGS_DISABLE
 #include <QFileInfo>
+WARNINGS_ENABLE
 
 #include "utils.h"
 

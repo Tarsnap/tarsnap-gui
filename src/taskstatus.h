@@ -1,7 +1,9 @@
 #ifndef TASKSTATUS_H
 #define TASKSTATUS_H
 
+WARNINGS_DISABLE
 #include <QMetaType>
+WARNINGS_ENABLE
 
 /*!
  * \ingroup background-tasks

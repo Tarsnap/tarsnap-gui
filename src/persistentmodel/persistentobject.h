@@ -1,6 +1,12 @@
 #ifndef PERSISTENTOBJECT_H
 #define PERSISTENTOBJECT_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
+#include <QString>
+WARNINGS_ENABLE
+
 #include "persistentstore.h"
 
 /*!

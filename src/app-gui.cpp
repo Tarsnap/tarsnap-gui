@@ -1,7 +1,9 @@
 #include "app-gui.h"
 
+WARNINGS_DISABLE
 #include <QFontDatabase>
 #include <QMessageBox>
+WARNINGS_ENABLE
 
 #include <assert.h>
 

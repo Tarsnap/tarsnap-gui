@@ -1,6 +1,8 @@
 #include "journal.h"
 
+WARNINGS_DISABLE
 #include <QtGlobal>
+WARNINGS_ENABLE
 
 #include "debug.h"
 

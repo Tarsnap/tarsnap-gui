@@ -488,8 +488,9 @@ void SettingsWidget::updateLastMachineActivity(QStringList activityFields)
     settings.setValue("tarsnap/machine_activity", machineActivity);
     _ui->machineActivity->setText(machineActivity);
     _ui->machineActivity->setToolTip(activityFields.join(' '));
-    _ui->machineActivity->resize(_ui->machineActivity->fontMetrics().width(
-                                     _ui->machineActivity->text()),
+    _ui->machineActivity->resize(_ui->machineActivity->fontMetrics()
+                                     .boundingRect(_ui->machineActivity->text())
+                                     .width(),
                                  _ui->machineActivity->sizeHint().height());
 }
 

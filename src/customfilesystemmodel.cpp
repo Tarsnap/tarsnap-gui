@@ -13,27 +13,27 @@ QList<QPersistentModelIndex> CustomFileSystemModel::checkedIndexes()
     return _checklist.toList();
 }
 
-Qt::ItemFlags CustomFileSystemModel::flags(const QModelIndex &index) const
+Qt::ItemFlags CustomFileSystemModel::flags(const QModelIndex &idx) const
 {
-    return QFileSystemModel::flags(index) | Qt::ItemIsUserCheckable;
+    return QFileSystemModel::flags(idx) | Qt::ItemIsUserCheckable;
 }
 
-QVariant CustomFileSystemModel::data(const QModelIndex &index, int role) const
+QVariant CustomFileSystemModel::data(const QModelIndex &idx, int role) const
 {
-    if(role == Qt::CheckStateRole && index.column() == 0)
+    if(role == Qt::CheckStateRole && idx.column() == 0)
     {
-        if(_checklist.contains(index))
+        if(_checklist.contains(idx))
         {
             return Qt::Checked;
         }
-        else if(_partialChecklist.contains(index))
+        else if(_partialChecklist.contains(idx))
         {
             return Qt::PartiallyChecked;
         }
         else
         {
             // Returns PartiallyChecked if any ancestor is checked.
-            QModelIndex parent = index.parent();
+            QModelIndex parent = idx.parent();
             while(parent.isValid())
             {
                 if(_checklist.contains(parent))
@@ -43,34 +43,34 @@ QVariant CustomFileSystemModel::data(const QModelIndex &index, int role) const
         }
         return Qt::Unchecked;
     }
-    return QFileSystemModel::data(index, role);
+    return QFileSystemModel::data(idx, role);
 }
 
-QVariant CustomFileSystemModel::dataInternal(const QModelIndex &index) const
+QVariant CustomFileSystemModel::dataInternal(const QModelIndex &idx) const
 {
-    if(_checklist.contains(index))
+    if(_checklist.contains(idx))
         return Qt::Checked;
-    else if(_partialChecklist.contains(index))
+    else if(_partialChecklist.contains(idx))
         return Qt::PartiallyChecked;
     else
         return Qt::Unchecked;
 }
 
-void CustomFileSystemModel::setIndexCheckState(const QModelIndex &  index,
+void CustomFileSystemModel::setIndexCheckState(const QModelIndex &  idx,
                                                const Qt::CheckState state)
 {
-    if(dataInternal(index) != state)
-        setDataInternal(index, state);
+    if(dataInternal(idx) != state)
+        setDataInternal(idx, state);
 }
 
-bool CustomFileSystemModel::hasAllSiblingsUnchecked(const QModelIndex &index)
+bool CustomFileSystemModel::hasAllSiblingsUnchecked(const QModelIndex &idx)
 {
-    for(int i = 0; i < rowCount(index.parent()); i++)
+    for(int i = 0; i < rowCount(idx.parent()); i++)
     {
-        QModelIndex sibling = index.sibling(i, index.column());
+        QModelIndex sibling = idx.sibling(i, idx.column());
         if(sibling.isValid())
         {
-            if(sibling == index)
+            if(sibling == idx)
                 continue;
             if(dataInternal(sibling) != Qt::Unchecked)
                 return false;
@@ -79,9 +79,9 @@ bool CustomFileSystemModel::hasAllSiblingsUnchecked(const QModelIndex &index)
     return true;
 }
 
-bool CustomFileSystemModel::hasCheckedAncestor(const QModelIndex &index)
+bool CustomFileSystemModel::hasCheckedAncestor(const QModelIndex &idx)
 {
-    QModelIndex ancestor = index.parent();
+    QModelIndex ancestor = idx.parent();
     while(ancestor.isValid())
     {
         if(dataInternal(ancestor) == Qt::Checked)
@@ -91,13 +91,13 @@ bool CustomFileSystemModel::hasCheckedAncestor(const QModelIndex &index)
     return false;
 }
 
-void CustomFileSystemModel::setUncheckedRecursive(const QModelIndex &index)
+void CustomFileSystemModel::setUncheckedRecursive(const QModelIndex &idx)
 {
-    if(isDir(index))
+    if(isDir(idx))
     {
-        for(int i = 0; i < rowCount(index); i++)
+        for(int i = 0; i < rowCount(idx); i++)
         {
-            QModelIndex child = index.child(i, index.column());
+            QModelIndex child = index(i, idx.column(), idx);
             if(child.isValid())
             {
                 // Only alter a child if it was previously Checked or
@@ -113,32 +113,32 @@ void CustomFileSystemModel::setUncheckedRecursive(const QModelIndex &index)
     }
 }
 
-bool CustomFileSystemModel::setData(const QModelIndex &index,
+bool CustomFileSystemModel::setData(const QModelIndex &idx,
                                     const QVariant &value, int role)
 {
     if(role == Qt::CheckStateRole)
     {
-        setDataInternal(index, value);
+        setDataInternal(idx, value);
 
         QVector<int> selectionChangedRole;
         selectionChangedRole << SELECTION_CHANGED_ROLE;
-        emit dataChanged(index, index, selectionChangedRole);
+        emit dataChanged(idx, idx, selectionChangedRole);
         return true;
     }
-    return QFileSystemModel::setData(index, value, role);
+    return QFileSystemModel::setData(idx, value, role);
 }
 
-void CustomFileSystemModel::setDataInternal(const QModelIndex &index,
+void CustomFileSystemModel::setDataInternal(const QModelIndex &idx,
                                             const QVariant &   value)
 {
     if(value == Qt::Checked)
     {
-        _partialChecklist.remove(index);
-        _checklist.insert(index);
+        _partialChecklist.remove(idx);
+        _checklist.insert(idx);
 
         // Recursively set PartiallyChecked on all ancestors.
-        QModelIndex parent         = index.parent();
-        QModelIndex previousParent = index;
+        QModelIndex parent         = idx.parent();
+        QModelIndex previousParent = idx;
         while(parent.isValid())
         {
             // Set parent to be PartiallyChecked.
@@ -147,7 +147,7 @@ void CustomFileSystemModel::setDataInternal(const QModelIndex &index,
             // Set any partially-selected siblings to be unchecked.
             for(int i = 0; i < rowCount(parent); i++)
             {
-                QModelIndex child = parent.child(i, index.column());
+                QModelIndex child = index(i, idx.column(), parent);
                 if(child.isValid())
                 {
                     // Avoid unchecking previous parent.
@@ -164,28 +164,28 @@ void CustomFileSystemModel::setDataInternal(const QModelIndex &index,
         }
 
         // Set all descendents to be Unchecked.
-        setUncheckedRecursive(index);
+        setUncheckedRecursive(idx);
     }
     else if(value == Qt::PartiallyChecked)
     {
-        _checklist.remove(index);
-        _partialChecklist.insert(index);
+        _checklist.remove(idx);
+        _partialChecklist.insert(idx);
 
         // Should the parent be partially checked?
-        QModelIndex parent = index.parent();
+        QModelIndex parent = idx.parent();
         if(parent.isValid() && (dataInternal(parent) == Qt::Unchecked))
             setIndexCheckState(parent, Qt::PartiallyChecked);
     }
     else if(value == Qt::Unchecked)
     {
-        _partialChecklist.remove(index);
-        _checklist.remove(index);
+        _partialChecklist.remove(idx);
+        _checklist.remove(idx);
 
         // Should the parent be unchecked?
-        QModelIndex parent = index.parent();
+        QModelIndex parent = idx.parent();
         if(parent.isValid() && (dataInternal(parent) != Qt::Checked))
         {
-            if(hasAllSiblingsUnchecked(index))
+            if(hasAllSiblingsUnchecked(idx))
                 setIndexCheckState(parent, Qt::Unchecked);
         }
     }
@@ -220,7 +220,7 @@ bool CustomFileSystemModel::needToReadSubdirs(const QString dirname)
     }
     for(int i = 0; i < rowCount(dir); i++)
     {
-        QModelIndex child = dir.child(i, dir.column());
+        QModelIndex child = index(i, dir.column(), dir);
         if(isDir(child))
         {
             if(rowCount(child) == 0)

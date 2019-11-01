@@ -35,20 +35,20 @@ public:
     QList<QPersistentModelIndex> checkedIndexes();
 
     //! Returns metadata; used internally by the Qt layer.
-    Qt::ItemFlags flags(const QModelIndex &index) const;
+    Qt::ItemFlags flags(const QModelIndex &idx) const;
     //! Returns the Qt::CheckState or other data; used internally by the Qt
     //! layer.
-    QVariant data(const QModelIndex &index, int role) const;
+    QVariant data(const QModelIndex &idx, int role) const;
 
     //! Sets files or directories as being checked, partially checked, or
     //! unchecked.
     /*!
-     * \param index Indicates which file or directory's state to change.
+     * \param idx Indicates which file or directory's state to change.
      * \param value Must be a Qt::CheckState, i.e. one of: {Qt::Unchecked,
      *               Qt::PartiallyChecked, Qt::Checked}.
      * \param role Must be Qt::CheckStateRole.
      */
-    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    bool setData(const QModelIndex &idx, const QVariant &value, int role);
 
     //! Clears the list of fully and partially checked files and dirs.
     void reset();
@@ -61,23 +61,22 @@ private:
     QSet<QPersistentModelIndex> _partialChecklist;
 
     // Returns the actual data (i.e. without fakery with PartiallyChecked).
-    QVariant dataInternal(const QModelIndex &index) const;
+    QVariant dataInternal(const QModelIndex &idx) const;
 
     // Updates the index Checked state without generating an emit.
-    void setDataInternal(const QModelIndex &index, const QVariant &value);
+    void setDataInternal(const QModelIndex &idx, const QVariant &value);
 
     // Sets the index to the desired state (if it is not already).
-    void setIndexCheckState(const QModelIndex &  index,
-                            const Qt::CheckState state);
+    void setIndexCheckState(const QModelIndex &idx, const Qt::CheckState state);
 
     // Checks that any&all siblings are unchecked.
-    bool hasAllSiblingsUnchecked(const QModelIndex &index);
+    bool hasAllSiblingsUnchecked(const QModelIndex &idx);
 
     // Searches for a checked ancestor.
-    bool hasCheckedAncestor(const QModelIndex &index);
+    bool hasCheckedAncestor(const QModelIndex &idx);
 
     // Recursively sets previously-checked descendents to be unchecked.
-    void setUncheckedRecursive(const QModelIndex &index);
+    void setUncheckedRecursive(const QModelIndex &idx);
 };
 
 #endif // CUSTOMFILESYSTEMMODEL_H

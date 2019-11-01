@@ -173,7 +173,7 @@ void RunScenario::printDir(const QString dirname, const int depth)
     dir = _model.index(dirname);
     for(int i = 0; i < _model.rowCount(dir); i++)
     {
-        index = dir.child(i, dir.column());
+        index = _model.index(i, dir.column(), dir);
         console << _model.data(index, Qt::CheckStateRole).toInt() << "\t";
         // Add indents to show the directory structure.
         for(int j = 0; j < depth; j++)

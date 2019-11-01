@@ -97,7 +97,7 @@ void CustomFileSystemModel::setUncheckedRecursive(const QModelIndex &idx)
     {
         for(int i = 0; i < rowCount(idx); i++)
         {
-            QModelIndex child = idx.child(i, idx.column());
+            QModelIndex child = index(i, idx.column(), idx);
             if(child.isValid())
             {
                 // Only alter a child if it was previously Checked or
@@ -147,7 +147,7 @@ void CustomFileSystemModel::setDataInternal(const QModelIndex &idx,
             // Set any partially-selected siblings to be unchecked.
             for(int i = 0; i < rowCount(parent); i++)
             {
-                QModelIndex child = parent.child(i, idx.column());
+                QModelIndex child = index(i, idx.column(), parent);
                 if(child.isValid())
                 {
                     // Avoid unchecking previous parent.
@@ -220,7 +220,7 @@ bool CustomFileSystemModel::needToReadSubdirs(const QString dirname)
     }
     for(int i = 0; i < rowCount(dir); i++)
     {
-        QModelIndex child = dir.child(i, dir.column());
+        QModelIndex child = index(i, dir.column(), dir);
         if(isDir(child))
         {
             if(rowCount(child) == 0)

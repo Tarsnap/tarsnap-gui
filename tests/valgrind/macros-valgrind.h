@@ -5,10 +5,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* clang-format off */
 #define MEMLEAKTEST(x)                                                         \
     {                                                                          \
         #x, x                                                                  \
     }
+/* clang-format on */
 
 #define T_TEST_BEGIN                                                           \
     static const struct memleaktest                                            \

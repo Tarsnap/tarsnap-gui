@@ -46,10 +46,10 @@
     int   argc = 1;                                                            \
     char *argv[1];                                                             \
     argv[0]               = strdup("./potential-memleaks");                    \
-    QCoreApplication *app = new QCoreApplication(argc, argv);
+    QCoreApplication *app = new QCoreApplication(argc, argv)
 
 #define T_APP_END                                                              \
     delete app;                                                                \
-    free(argv[0]);
+    free(argv[0])
 
 #endif

@@ -5,8 +5,8 @@
 
 /*!
  * \ingroup widgets-general
- * \brief The ElidedClickableLabel widget is a QLabel which automatically elides
- * (`...`) long text, and adds the \ref clicked signal.
+ * \brief The ElidedClickableLabel widget is a QLabel which automatically
+ * elides (`...`) long text, and adds the \ref clicked signal.
  */
 class ElidedClickableLabel : public ElidedLabel
 {

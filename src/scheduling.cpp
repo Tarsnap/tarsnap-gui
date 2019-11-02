@@ -20,8 +20,7 @@ WARNINGS_ENABLE
 #define UPDATED_LAUNCHD_PATH_SHORT "Updated launchd path to Tarsnap GUI"
 
 #define UPDATED_LAUNCHD_PATH_ERROR                                             \
-    "An error occurred while attempting to "                                   \
-    "update the OS X launchd path."
+    "An error occurred while attempting to update the OS X launchd path."
 #endif
 
 struct cmdinfo

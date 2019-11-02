@@ -12,8 +12,8 @@ WARNINGS_ENABLE
 
 /*!
  * \ingroup widgets-general
- * \brief The ElidedAnnotatedLabel widget is a QLabel which automatically elides
- * (`...`) long text without being confused by HTML tags.
+ * \brief The ElidedAnnotatedLabel widget is a QLabel which automatically
+ * elides (`...`) long text without being confused by HTML tags.
  */
 class ElidedAnnotatedLabel : public ElidedLabel
 {

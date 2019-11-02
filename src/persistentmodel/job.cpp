@@ -276,11 +276,11 @@ void Job::save()
     if(exists)
         queryString = QLatin1String(
             "update jobs set name=?, urls=?, optionScheduledEnabled=?,"
-            " optionPreservePaths=?,"
-            " optionTraverseMount=?, optionFollowSymLinks=?,"
-            " optionSkipFilesSize=?,"
-            " optionSkipFiles=?, optionSkipFilesPatterns=?, optionSkipNoDump=?,"
-            " settingShowHidden=?, settingShowSystem=?, settingHideSymlinks=?"
+            " optionPreservePaths=?, optionTraverseMount=?,"
+            " optionFollowSymLinks=?, optionSkipFilesSize=?,"
+            " optionSkipFiles=?, optionSkipFilesPatterns=?,"
+            " optionSkipNoDump=?, settingShowHidden=?, settingShowSystem=?,"
+            " settingHideSymlinks=?"
             " where name=?");
     else
         queryString = QLatin1String(

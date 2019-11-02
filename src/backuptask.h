@@ -36,19 +36,19 @@ public:
     //! \name Getter/setter methods
     //! @{
     QString name() const;
-    void setName(const QString &name);
+    void    setName(const QString &name);
 
     QUuid uuid() const;
-    void setUuid(const QUuid &uuid);
+    void  setUuid(const QUuid &uuid);
 
     QDateTime timestamp() const;
-    void setTimestamp(const QDateTime &timestamp);
+    void      setTimestamp(const QDateTime &timestamp);
 
     QString jobRef() const;
-    void setJobRef(const QString &jobRef);
+    void    setJobRef(const QString &jobRef);
 
     QList<QUrl> urls() const;
-    void setUrls(const QList<QUrl> &urls);
+    void        setUrls(const QList<QUrl> &urls);
 
     bool optionPreservePaths() const;
     void setOptionPreservePaths(bool optionPreservePaths);
@@ -60,7 +60,7 @@ public:
     void setOptionFollowSymLinks(bool optionFollowSymLinks);
 
     quint64 optionSkipFilesSize() const;
-    void setOptionSkipFilesSize(const int &optionSkipFilesSize);
+    void    setOptionSkipFilesSize(const int &optionSkipFilesSize);
 
     bool optionSkipSystem() const;
     void setOptionSkipSystem(bool optionSkipSystem);
@@ -76,19 +76,19 @@ public:
     void setOptionSkipNoDump(bool optionSkipNoDump);
 
     TaskStatus status() const;
-    void setStatus(const TaskStatus &status);
+    void       setStatus(const TaskStatus &status);
 
     int  exitCode() const;
     void setExitCode(int exitCode);
 
     QString output() const;
-    void setOutput(const QString &output);
+    void    setOutput(const QString &output);
 
     ArchivePtr archive() const;
-    void setArchive(const ArchivePtr &archive);
+    void       setArchive(const ArchivePtr &archive);
 
     QString command() const;
-    void setCommand(const QString &command);
+    void    setCommand(const QString &command);
     //! @}
 
 signals:

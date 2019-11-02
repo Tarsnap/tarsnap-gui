@@ -55,16 +55,16 @@ public:
     //! \name Getter/setter methods
     //! @{
     QString name() const;
-    void setName(const QString &name);
+    void    setName(const QString &name);
 
     QList<QUrl> urls() const;
-    void setUrls(const QList<QUrl> &urls);
+    void        setUrls(const QList<QUrl> &urls);
 
     QList<ArchivePtr> archives() const;
-    void setArchives(const QList<ArchivePtr> &archives);
+    void              setArchives(const QList<ArchivePtr> &archives);
 
     JobSchedule optionScheduledEnabled() const;
-    void setOptionScheduledEnabled(JobSchedule schedule);
+    void        setOptionScheduledEnabled(JobSchedule schedule);
 
     bool optionPreservePaths() const;
     void setOptionPreservePaths(bool optionPreservePaths);
@@ -82,7 +82,7 @@ public:
     void setOptionSkipFiles(bool optionSkipFiles);
 
     QString optionSkipFilesPatterns() const;
-    void setOptionSkipFilesPatterns(const QString &optionSkipFilesPatterns);
+    void    setOptionSkipFilesPatterns(const QString &optionSkipFilesPatterns);
 
     bool optionSkipNoDump() const;
     void setOptionSkipNoDump(bool optionSkipNoDump);

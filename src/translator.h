@@ -41,8 +41,8 @@ public:
 
 private:
     QMap<QString, QString> _languageMap;
-    QTranslator *_qtTranslator;
-    QTranslator *_appTranslator;
+    QTranslator *          _qtTranslator;
+    QTranslator *          _appTranslator;
 
     void remove_translators();
 };

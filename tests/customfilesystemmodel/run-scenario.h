@@ -36,10 +36,10 @@ private:
 
     // Helper functions for processing the scenario text files.
     // "relname" is the "relative name", i.e. relative to the _rootDir.
-    QString getRelname(const QString line);
+    QString     getRelname(const QString line);
     QModelIndex getIndex(const QString line);
-    int getLineState(const QString line);
-    int getCheckedStateInt(const QString line);
+    int         getLineState(const QString line);
+    int         getCheckedStateInt(const QString line);
 
     // Main scenario-handling functions.
     int processActions(QTextStream &in);

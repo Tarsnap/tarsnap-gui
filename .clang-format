@@ -3,6 +3,17 @@ BasedOnStyle: LLVM
 Language: Cpp
 UseTab: Never
 
+# Braces
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  BeforeElse: true
+BreakBeforeBraces: Custom
+
 # Specific settings
 AccessModifierOffset: -4
 AlignConsecutiveAssignments: true
@@ -10,7 +21,6 @@ AlignConsecutiveDeclarations: true
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: false
 BreakBeforeBinaryOperators: NonAssignment
-BreakBeforeBraces: Allman
 ColumnLimit: 80
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 DerivePointerAlignment: false

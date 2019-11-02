@@ -85,6 +85,8 @@ void HelpWidget::updateUi()
                      .toString(QKeySequence::NativeText))
             .arg(QKeySequence(Qt::ControlModifier + Qt::ShiftModifier)
                      .toString(QKeySequence::NativeText))
-            .arg(QKeySequence(Qt::Key_Backspace).toString(QKeySequence::NativeText))
-            .arg(QKeySequence(Qt::Key_Delete).toString(QKeySequence::NativeText)));
+            .arg(QKeySequence(Qt::Key_Backspace)
+                     .toString(QKeySequence::NativeText))
+            .arg(QKeySequence(Qt::Key_Delete)
+                     .toString(QKeySequence::NativeText)));
 }

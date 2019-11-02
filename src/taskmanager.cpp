@@ -60,7 +60,8 @@ void TaskManager::registerMachine(QString user, QString password,
     else
     {
         // generate a new key and register machine with tarsnap-keygen
-        args << "--user" << user << "--machine" << machine << "--keyfile" << key;
+        args << "--user" << user << "--machine" << machine << "--keyfile"
+             << key;
         registerTask->setCommand(tarsnapPath + QDir::separator()
                                  + CMD_TARSNAPKEYGEN);
         registerTask->setArguments(args);
@@ -85,7 +86,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     initTarsnapArgs(args);
     TSettings settings;
     if(settings
-           .value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING)
+           .value("tarsnap/aggressive_networking",
+                  DEFAULT_AGGRESSIVE_NETWORKING)
            .toBool())
         args << "--aggressive-networking";
     if(backupTask->optionDryRun())
@@ -116,7 +118,8 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
     }
     bTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     bTask->setArguments(args);
-    backupTask->setCommand(bTask->command() + " " + bTask->arguments().join(" "));
+    backupTask->setCommand(bTask->command() + " "
+                           + bTask->arguments().join(" "));
     bTask->setData(backupTask->uuid());
     connect(bTask, &TarsnapTask::finished, this,
             &TaskManager::backupTaskFinished, QUEUED);
@@ -141,7 +144,9 @@ void TaskManager::getArchives()
     connect(listArchivesTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveListFinished, QUEUED);
     connect(listArchivesTask, &TarsnapTask::started, this,
-            [&]() { emit message(tr("Updating archives list from remote...")); },
+            [&]() {
+                emit message(tr("Updating archives list from remote..."));
+            },
             QUEUED);
     queueTask(listArchivesTask);
 }
@@ -342,7 +347,8 @@ void TaskManager::restoreArchive(ArchivePtr            archive,
         args << "-x"
              << "-P"
              << "-C"
-             << settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString();
+             << settings.value("app/downloads_dir", DEFAULT_DOWNLOADS)
+                    .toString();
     }
     if(options.optionRestoreDir)
         args << "-x"
@@ -407,7 +413,8 @@ void TaskManager::initializeCache()
     QString   tarsnapCacheDir = settings.value("tarsnap/cache", "").toString();
     QDir      cacheDir(tarsnapCacheDir);
     if(!tarsnapCacheDir.isEmpty()
-       && !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count())
+       && !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries)
+               .count())
     {
         if(!Utils::tarsnapVersionMinimum("1.0.38"))
         {
@@ -514,17 +521,20 @@ void TaskManager::runScheduledJobs()
     DEBUG << "Next daily: "
           << settings.value("app/next_daily_timestamp", "").toDate().toString();
     DEBUG << "Weekly: " << doWeekly;
-    DEBUG << "Next weekly: "
-          << settings.value("app/next_weekly_timestamp", "").toDate().toString();
+    DEBUG
+        << "Next weekly: "
+        << settings.value("app/next_weekly_timestamp", "").toDate().toString();
     DEBUG << "Monthly: " << doWeekly;
-    DEBUG << "Next monthly: "
-          << settings.value("app/next_monthly_timestamp", "").toDate().toString();
+    DEBUG
+        << "Next monthly: "
+        << settings.value("app/next_monthly_timestamp", "").toDate().toString();
     bool nothingToDo = true;
     for(const JobPtr &job : _jobMap)
     {
         // Do we need to run any jobs?
         if((doDaily && (job->optionScheduledEnabled() == JobSchedule::Daily))
-           || (doWeekly && (job->optionScheduledEnabled() == JobSchedule::Weekly))
+           || (doWeekly
+               && (job->optionScheduledEnabled() == JobSchedule::Weekly))
            || (doMonthly
                && (job->optionScheduledEnabled() == JobSchedule::Monthly)))
         {
@@ -905,8 +915,8 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     }
     if(exitCode == SUCCESS)
     {
-        emit message(
-            tr("Restoring from archive <i>%1</i>... done.").arg(archive->name()));
+        emit message(tr("Restoring from archive <i>%1</i>... done.")
+                         .arg(archive->name()));
     }
     else
     {
@@ -949,7 +959,8 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
         break;
     case TaskStatus::Running:
     {
-        QString msg = tr("Backup <i>%1</i> is running.").arg(backupTask->name());
+        QString msg =
+            tr("Backup <i>%1</i> is running.").arg(backupTask->name());
 
         emit message(msg);
         emit displayNotification(msg, NOTIFICATION_ARCHIVE_CREATING,
@@ -1240,7 +1251,8 @@ void TaskManager::loadJobs()
         do
         {
             JobPtr job(new Job);
-            job->setName(query.value(query.record().indexOf("name")).toString());
+            job->setName(
+                query.value(query.record().indexOf("name")).toString());
             connect(job.data(), &Job::loadArchives, this,
                     &TaskManager::loadJobArchives, QUEUED);
             job->load();

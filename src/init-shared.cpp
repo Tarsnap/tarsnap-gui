@@ -198,8 +198,8 @@ struct init_info init_shared_core(QCoreApplication *app)
     // Set up the translator.
     Translator::initializeTranslator();
     Translator &translator = Translator::instance();
-    translator.translateApp(app,
-                            settings.value("app/language", LANG_AUTO).toString());
+    translator.translateApp(
+        app, settings.value("app/language", LANG_AUTO).toString());
 
     // Run the setup wizard (if necessary).  This uses the translator, and
     // can be tested with:

@@ -25,9 +25,11 @@ Job::Job(QObject *parent)
         settings.value("tarsnap/preserve_pathnames", optionPreservePaths())
             .toBool());
     setOptionTraverseMount(
-        settings.value("tarsnap/traverse_mount", optionTraverseMount()).toBool());
+        settings.value("tarsnap/traverse_mount", optionTraverseMount())
+            .toBool());
     setOptionFollowSymLinks(
-        settings.value("tarsnap/follow_symlinks", optionFollowSymLinks()).toBool());
+        settings.value("tarsnap/follow_symlinks", optionFollowSymLinks())
+            .toBool());
     setOptionSkipNoDump(
         settings.value("app/skip_nodump", optionSkipNoDump()).toBool());
     setOptionSkipFilesSize(
@@ -350,13 +352,15 @@ void Job::load()
                                          .toString()
                                          .split('\n', QString::SkipEmptyParts));
         _optionScheduledEnabled =
-            query.value(query.record().indexOf("optionScheduledEnabled")).toInt();
+            query.value(query.record().indexOf("optionScheduledEnabled"))
+                .toInt();
         _optionPreservePaths =
             query.value(query.record().indexOf("optionPreservePaths")).toBool();
         _optionTraverseMount =
             query.value(query.record().indexOf("optionTraverseMount")).toBool();
         _optionFollowSymLinks =
-            query.value(query.record().indexOf("optionFollowSymLinks")).toBool();
+            query.value(query.record().indexOf("optionFollowSymLinks"))
+                .toBool();
         _optionSkipFilesSize =
             query.value(query.record().indexOf("optionSkipFilesSize")).toInt();
         _optionSkipFiles =

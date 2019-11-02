@@ -29,9 +29,11 @@ BackupTask::BackupTask()
         settings.value("tarsnap/preserve_pathnames", optionPreservePaths())
             .toBool());
     setOptionTraverseMount(
-        settings.value("tarsnap/traverse_mount", optionTraverseMount()).toBool());
+        settings.value("tarsnap/traverse_mount", optionTraverseMount())
+            .toBool());
     setOptionFollowSymLinks(
-        settings.value("tarsnap/follow_symlinks", optionFollowSymLinks()).toBool());
+        settings.value("tarsnap/follow_symlinks", optionFollowSymLinks())
+            .toBool());
     setOptionDryRun(settings.value("tarsnap/dry_run", optionDryRun()).toBool());
     setOptionSkipNoDump(
         settings.value("app/skip_nodump", optionSkipNoDump()).toBool());
@@ -149,7 +151,8 @@ QStringList BackupTask::optionSkipSystemFiles() const
     return _optionSkipSystemFiles;
 }
 
-void BackupTask::setOptionSkipSystemFiles(const QStringList &optionSkipSystemFiles)
+void BackupTask::setOptionSkipSystemFiles(
+    const QStringList &optionSkipSystemFiles)
 {
     _optionSkipSystemFiles = optionSkipSystemFiles;
 }
@@ -187,8 +190,9 @@ QStringList BackupTask::getExcludesList()
                 while(!dirStack.isEmpty())
                 {
                     QDir dir(dirStack.pop());
-                    dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot
-                                  | QDir::Hidden | QDir::NoSymLinks);
+                    dir.setFilter(QDir::Dirs | QDir::Files
+                                  | QDir::NoDotAndDotDot | QDir::Hidden
+                                  | QDir::NoSymLinks);
                     // I'm not 100% certain that the below loop doesn't
                     // modify this value, so I'm making a copy to be safe.
                     const QFileInfoList entryInfoList = dir.entryInfoList();
@@ -197,8 +201,8 @@ QStringList BackupTask::getExcludesList()
                         if(entry.isFile())
                         {
                             if(quint64(entry.size()) >= _optionSkipFilesSize)
-                                skipList
-                                    << QRegExp::escape(entry.absoluteFilePath());
+                                skipList << QRegExp::escape(
+                                    entry.absoluteFilePath());
                         }
                         else if(entry.isDir())
                         {

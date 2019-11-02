@@ -252,10 +252,12 @@ void SettingsWidget::loadSettings()
     /* Backup tab */
     _ui->aggressiveNetworkingCheckBox->setChecked(
         settings
-            .value("tarsnap/aggressive_networking", DEFAULT_AGGRESSIVE_NETWORKING)
+            .value("tarsnap/aggressive_networking",
+                   DEFAULT_AGGRESSIVE_NETWORKING)
             .toBool());
     _ui->traverseMountCheckBox->setChecked(
-        settings.value("tarsnap/traverse_mount", DEFAULT_TRAVERSE_MOUNT).toBool());
+        settings.value("tarsnap/traverse_mount", DEFAULT_TRAVERSE_MOUNT)
+            .toBool());
     _ui->followSymLinksCheckBox->setChecked(
         settings.value("tarsnap/follow_symlinks", DEFAULT_FOLLOW_SYMLINKS)
             .toBool());
@@ -272,7 +274,8 @@ void SettingsWidget::loadSettings()
     _ui->skipSystemJunkCheckBox->setChecked(
         settings.value("app/skip_system_enabled", DEFAULT_SKIP_SYSTEM_ENABLED)
             .toBool());
-    _ui->skipSystemLineEdit->setEnabled(_ui->skipSystemJunkCheckBox->isChecked());
+    _ui->skipSystemLineEdit->setEnabled(
+        _ui->skipSystemJunkCheckBox->isChecked());
     _ui->skipSystemLineEdit->setText(
         settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
             .toString());
@@ -329,7 +332,8 @@ void SettingsWidget::commitSettings()
     settings.setValue("tarsnap/no_default_config",
                       _ui->ignoreConfigCheckBox->isChecked());
     settings.setValue("tarsnap/dry_run", _ui->simulationCheckBox->isChecked());
-    settings.setValue("app/skip_files_size", _ui->skipFilesSizeSpinBox->value());
+    settings.setValue("app/skip_files_size",
+                      _ui->skipFilesSizeSpinBox->value());
     settings.setValue("app/skip_system_enabled",
                       _ui->skipSystemJunkCheckBox->isChecked());
     settings.setValue("app/skip_system_files", _ui->skipSystemLineEdit->text());
@@ -341,7 +345,8 @@ void SettingsWidget::commitSettings()
     /* Application tab */
     settings.setValue("tarsnap/path", _ui->tarsnapPathLineEdit->text());
     settings.setValue("tarsnap/cache", _ui->tarsnapCacheLineEdit->text());
-    settings.setValue("app/iec_prefixes", _ui->iecPrefixesCheckBox->isChecked());
+    settings.setValue("app/iec_prefixes",
+                      _ui->iecPrefixesCheckBox->isChecked());
     settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
     settings.setValue("app/notifications",
@@ -384,10 +389,12 @@ void SettingsWidget::overallStatsChanged(quint64 sizeTotal,
                         .arg(sizeUniqueCompressed));
     _ui->accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal));
     _ui->accountTotalSizeLabel->setToolTip(tooltip);
-    _ui->accountActualSizeLabel->setText(Utils::humanBytes(sizeUniqueCompressed));
+    _ui->accountActualSizeLabel->setText(
+        Utils::humanBytes(sizeUniqueCompressed));
     _ui->accountActualSizeLabel->setToolTip(tooltip);
-    quint64 storageSaved =
-        sizeTotal >= sizeUniqueCompressed ? sizeTotal - sizeUniqueCompressed : 0;
+    quint64 storageSaved = sizeTotal >= sizeUniqueCompressed
+                               ? sizeTotal - sizeUniqueCompressed
+                               : 0;
     _ui->accountStorageSavedLabel->setText(Utils::humanBytes(storageSaved));
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
@@ -496,9 +503,10 @@ void SettingsWidget::updateLastMachineActivity(QStringList activityFields)
 
 void SettingsWidget::updateUi()
 {
-    _ui->updateAccountButton->setToolTip(_ui->updateAccountButton->toolTip().arg(
-        _ui->actionRefreshAccount->shortcut().toString(
-            QKeySequence::NativeText)));
+    _ui->updateAccountButton->setToolTip(
+        _ui->updateAccountButton->toolTip().arg(
+            _ui->actionRefreshAccount->shortcut().toString(
+                QKeySequence::NativeText)));
 }
 
 void SettingsWidget::updateSimulationIcon(int state)
@@ -671,7 +679,8 @@ void SettingsWidget::updateTarsnapVersion(QString versionString)
 
 bool SettingsWidget::validateTarsnapPath()
 {
-    if(Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text()).isEmpty())
+    if(Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text())
+           .isEmpty())
     {
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
         _ui->tarsnapVersionLabel->clear();

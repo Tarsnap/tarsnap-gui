@@ -54,7 +54,8 @@ public slots:
     //! Update the global Tarsnap --print-stats values in the Settings tab.
     void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                              quint64 sizeUniqueTotal,
-                             quint64 sizeUniqueCompressed, quint64 archiveCount);
+                             quint64 sizeUniqueCompressed,
+                             quint64 archiveCount);
     //! Save the Tarsnap key ID.
     void saveKeyId(QString key_filename, quint64 id);
 

@@ -11,7 +11,10 @@ WARNINGS_ENABLE
 #include "utils.h"
 
 BackupListWidgetItem::BackupListWidgetItem(QUrl url)
-    : _ui(new Ui::BackupListWidgetItem), _widget(new QWidget), _count(0), _size(0)
+    : _ui(new Ui::BackupListWidgetItem),
+      _widget(new QWidget),
+      _count(0),
+      _size(0)
 {
     _ui->setupUi(_widget);
     // Send translation events to the widget.

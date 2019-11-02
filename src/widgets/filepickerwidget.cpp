@@ -38,7 +38,8 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
                 const QVector<int> &roles) {
                 Q_UNUSED(topLeft);
                 Q_UNUSED(bottomRight);
-                if(!roles.isEmpty() && (roles.first() == SELECTION_CHANGED_ROLE))
+                if(!roles.isEmpty()
+                   && (roles.first() == SELECTION_CHANGED_ROLE))
                 {
                     emit selectionChanged();
                     _ui->treeView->viewport()->update();
@@ -73,13 +74,14 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
                     _model.setFilter(_model.filter() & ~QDir::System);
                 emit settingChanged();
             });
-    connect(_ui->hideLinksCheckBox, &QCheckBox::toggled, [&](const bool toggled) {
-        if(toggled)
-            _model.setFilter(_model.filter() | QDir::NoSymLinks);
-        else
-            _model.setFilter(_model.filter() & ~QDir::NoSymLinks);
-        emit settingChanged();
-    });
+    connect(_ui->hideLinksCheckBox, &QCheckBox::toggled,
+            [&](const bool toggled) {
+                if(toggled)
+                    _model.setFilter(_model.filter() | QDir::NoSymLinks);
+                else
+                    _model.setFilter(_model.filter() & ~QDir::NoSymLinks);
+                emit settingChanged();
+            });
 }
 
 FilePickerWidget::~FilePickerWidget()

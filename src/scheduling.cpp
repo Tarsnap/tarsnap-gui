@@ -69,7 +69,8 @@ static int launchdLoad()
     QString        launchdPlistFileName =
         QDir::homePath() + "/Library/LaunchAgents/com.tarsnap.gui.plist";
 
-    pinfo = runCmd("launchctl", QStringList() << "load" << launchdPlistFileName);
+    pinfo =
+        runCmd("launchctl", QStringList() << "load" << launchdPlistFileName);
     if(pinfo.exit_code != 0)
         return (1);
 
@@ -343,7 +344,8 @@ struct scheduleinfo cronDisable()
     return info;
 }
 
-struct scheduleinfo cronDisable_p2(QString linesToRemove, QString currentCrontab)
+struct scheduleinfo cronDisable_p2(QString linesToRemove,
+                                   QString currentCrontab)
 {
     struct scheduleinfo info = {SCHEDULE_OK, "", ""};
     struct cmdinfo      pinfo;

@@ -85,8 +85,10 @@ void BackupTabWidget::changeEvent(QEvent *event)
 
 void BackupTabWidget::updateUi()
 {
-    _ui->backupListInfoLabel->setToolTip(_ui->backupListInfoLabel->toolTip().arg(
-        _ui->actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
+    _ui->backupListInfoLabel->setToolTip(
+        _ui->backupListInfoLabel->toolTip().arg(
+            _ui->actionBrowseItems->shortcut().toString(
+                QKeySequence::NativeText)));
     _ui->backupListInfoLabel->setText(_ui->backupListInfoLabel->text().arg(
         _ui->actionBrowseItems->shortcut().toString(QKeySequence::NativeText)));
 }

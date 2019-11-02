@@ -50,8 +50,9 @@ void Journal::load()
         while(query.next())
         {
             // Parse stored date and time.
-            QDateTime timestamp = epochToDate(
-                query.value(query.record().indexOf("timestamp")).value<qint64>());
+            QDateTime timestamp =
+                epochToDate(query.value(query.record().indexOf("timestamp"))
+                                .value<qint64>());
             // Extract the log message.
             QString log = query.value(query.record().indexOf("log")).toString();
             // Creates a LogEntry and appends it to _log.

@@ -1,20 +1,34 @@
+# Overall settings
 BasedOnStyle: LLVM
+Language: Cpp
 UseTab: Never
-IndentWidth: 4
-BreakBeforeBraces: Allman
-BreakBeforeBinaryOperators: NonAssignment
-AllowShortIfStatementsOnASingleLine: false
-IndentCaseLabels: false
-ColumnLimit: 80
-SpaceBeforeParens: Never
-AllowShortFunctionsOnASingleLine: Inline
+
+# Braces
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  BeforeElse: true
+BreakBeforeBraces: Custom
+
+# Specific settings
 AccessModifierOffset: -4
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
-AlignConsecutiveDeclarations: true
 AlignConsecutiveAssignments: true
-PenaltyExcessCharacter: 20
+AlignConsecutiveDeclarations: true
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: false
+BreakBeforeBinaryOperators: NonAssignment
+ColumnLimit: 80
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+DerivePointerAlignment: false
+IndentCaseLabels: false
+IndentWidth: 4
 PenaltyBreakBeforeFirstCallParameter: 100
 PenaltyBreakFirstLessLess: 100
 PenaltyBreakString: 100
-DerivePointerAlignment: false
+PenaltyExcessCharacter: 20
 PointerAlignment: Right
+SpaceBeforeParens: Never

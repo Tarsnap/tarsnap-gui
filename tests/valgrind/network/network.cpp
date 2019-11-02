@@ -14,18 +14,18 @@ static void pl_nothing()
 
 static void pl_networkaccessmanager()
 {
-    T_APP_BEGIN_CONSOLE
+    T_APP_BEGIN_CONSOLE;
 
     QNetworkAccessManager *nam = new QNetworkAccessManager();
     QThread::msleep(200);
     delete nam;
 
-    T_APP_END
+    T_APP_END;
 }
 
 static void pl_networkaccessmanager_status()
 {
-    T_APP_BEGIN_CONSOLE
+    T_APP_BEGIN_CONSOLE;
 
     QNetworkAccessManager *nam = new QNetworkAccessManager();
 
@@ -35,12 +35,12 @@ static void pl_networkaccessmanager_status()
 
     delete nam;
 
-    T_APP_END
+    T_APP_END;
 }
 
 static void pl_networkaccessmanager_repeated()
 {
-    T_APP_BEGIN_CONSOLE
+    T_APP_BEGIN_CONSOLE;
 
     // QNetworkAccessManger has an unpredictable interactions with dbus,
     // causing variable memory leaks.  This is my attempt at catching them.
@@ -50,7 +50,7 @@ static void pl_networkaccessmanager_repeated()
         QThread::msleep(200);
     }
 
-    T_APP_END
+    T_APP_END;
 }
 
 // clang-format off

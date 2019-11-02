@@ -61,10 +61,10 @@ void JobListWidgetItem::setJob(const JobPtr &job)
             timestamp.toString(Qt::DefaultLocaleShortDate));
     }
 
-    QString detail;
-    QString str =
-        _job->archives().count() == 1 ? tr("archive") : tr("archives");
-    detail.append(tr("%1 %2 totaling ").arg(_job->archives().count()).arg(str));
+    int     count  = _job->archives().count();
+    QString detail = tr("%1 %2 totaling ")
+                         .arg(count)
+                         .arg(count == 1 ? tr("archive") : tr("archives"));
     quint64 totalSize = 0;
     for(const ArchivePtr &archive : _job->archives())
     {

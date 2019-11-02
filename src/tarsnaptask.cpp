@@ -212,9 +212,9 @@ void TarsnapTask::readProcessOutput()
 QByteArray TarsnapTask::truncate_output(QByteArray stdOut)
 {
     // Find a good newline to which to truncate.
-    int nextNL = stdOut.lastIndexOf(
-        QChar('\n'), LOG_MAX_LENGTH + std::min(stdOut.size() - LOG_MAX_LENGTH,
-                                               LOG_MAX_SEARCH_NL));
+    int from = LOG_MAX_LENGTH
+               + std::min(stdOut.size() - LOG_MAX_LENGTH, LOG_MAX_SEARCH_NL);
+    int nextNL = stdOut.lastIndexOf(QChar('\n'), from);
     // Only keep the first part of the logfile.
     stdOut.truncate(std::max(LOG_MAX_LENGTH, nextNL));
     // Notify about truncation in log.

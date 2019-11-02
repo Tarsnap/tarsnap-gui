@@ -67,8 +67,8 @@ void Archive::save()
     {
         queryString = QLatin1String(
             "insert into archives(name, timestamp, truncated, truncatedInfo,"
-            " sizeTotal, sizeCompressed, sizeUniqueTotal, sizeUniqueCompressed,"
-            " command, contents, jobRef)"
+            " sizeTotal, sizeCompressed, sizeUniqueTotal,"
+            " sizeUniqueCompressed, command, contents, jobRef)"
             " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     }
     // Get database instance and create query object.

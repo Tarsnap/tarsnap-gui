@@ -5,10 +5,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* clang-format off */
 #define MEMLEAKTEST(x)                                                         \
     {                                                                          \
         #x, x                                                                  \
     }
+/* clang-format on */
 
 #define T_TEST_BEGIN                                                           \
     static const struct memleaktest                                            \
@@ -46,10 +48,10 @@
     int   argc = 1;                                                            \
     char *argv[1];                                                             \
     argv[0]               = strdup("./potential-memleaks");                    \
-    QCoreApplication *app = new QCoreApplication(argc, argv);
+    QCoreApplication *app = new QCoreApplication(argc, argv)
 
 #define T_APP_END                                                              \
     delete app;                                                                \
-    free(argv[0]);
+    free(argv[0])
 
 #endif

@@ -39,8 +39,9 @@ void TestTask::cleanupTestCase()
 
 #define RUN_SCRIPT(scriptname)                                                 \
     TarsnapTask *task = new TarsnapTask();                                     \
-    QSignalSpy   sig_started(task, SIGNAL(started(QVariant)));                 \
-    QSignalSpy   sig_fin(task,                                                 \
+                                                                               \
+    QSignalSpy sig_started(task, SIGNAL(started(QVariant)));                   \
+    QSignalSpy sig_fin(task,                                                   \
                        SIGNAL(finished(QVariant, int, QString, QString)));     \
     QSignalSpy sig_dequeue(task, SIGNAL(dequeue()));                           \
                                                                                \

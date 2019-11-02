@@ -56,16 +56,16 @@ public:
     //! \name Getter/setter methods
     //! @{
     QString command() const;
-    void setCommand(const QString &command);
+    void    setCommand(const QString &command);
 
     QStringList arguments() const;
-    void setArguments(const QStringList &arguments);
+    void        setArguments(const QStringList &arguments);
 
     void setStdIn(const QString &stdIn);
     void setStdOutFile(const QString &fileName);
 
     QVariant data() const;
-    void setData(const QVariant &data);
+    void     setData(const QVariant &data);
 
     bool truncateLogOutput() const;
     void setTruncateLogOutput(bool truncateLogOutput);

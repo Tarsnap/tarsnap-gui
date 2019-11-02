@@ -176,21 +176,21 @@ private slots:
 #endif
 
 private:
-    void parseError(QString tarsnapOutput);
-    void parseGlobalStats(QString tarsnapOutput);
-    void parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
-                           ArchivePtr archive);
+    void    parseError(QString tarsnapOutput);
+    void    parseGlobalStats(QString tarsnapOutput);
+    void    parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
+                              ArchivePtr archive);
     QString makeTarsnapCommand(QString cmd);
-    void initTarsnapArgs(QStringList &args);
-    bool waitForOnline();
-    void warnNotOnline();
+    void    initTarsnapArgs(QStringList &args);
+    bool    waitForOnline();
+    void    warnNotOnline();
 
     QMap<QUuid, BackupTaskPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>  _archiveMap;
-    QList<TarsnapTask *>  _runningTasks;
-    QQueue<TarsnapTask *> _taskQueue; // mutually exclusive tasks
-    QThreadPool *         _threadPool;
-    QMap<QString, JobPtr> _jobMap;
+    QList<TarsnapTask *>       _runningTasks;
+    QQueue<TarsnapTask *>      _taskQueue; // mutually exclusive tasks
+    QThreadPool *              _threadPool;
+    QMap<QString, JobPtr>      _jobMap;
 };
 
 #endif // TASKMANAGER_H

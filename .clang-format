@@ -8,6 +8,7 @@ BraceWrapping:
   AfterClass: true
   AfterControlStatement: true
   AfterEnum: true
+  AfterExternBlock: false
   AfterFunction: true
   AfterNamespace: true
   AfterStruct: true
@@ -18,7 +19,7 @@ BreakBeforeBraces: Custom
 AccessModifierOffset: -4
 AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
-AllowShortFunctionsOnASingleLine: Inline
+AllowShortFunctionsOnASingleLine: InlineOnly
 AllowShortIfStatementsOnASingleLine: false
 BreakBeforeBinaryOperators: NonAssignment
 ColumnLimit: 80
@@ -28,7 +29,7 @@ IndentCaseLabels: false
 IndentWidth: 4
 PenaltyBreakBeforeFirstCallParameter: 100
 PenaltyBreakFirstLessLess: 100
-PenaltyBreakString: 100
+PenaltyBreakString: 200
 PenaltyExcessCharacter: 1000
 PointerAlignment: Right
 SpaceBeforeParens: Never

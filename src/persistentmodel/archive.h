@@ -85,28 +85,28 @@ public:
 
     //! \name Getter/setter methods
     //! @{
-    QString name() const;
-    void setName(const QString &value);
+    QString   name() const;
+    void      setName(const QString &value);
     QDateTime timestamp() const;
-    void setTimestamp(const QDateTime &value);
-    bool truncated() const;
-    void setTruncated(bool truncated);
-    QString truncatedInfo() const;
-    void setTruncatedInfo(const QString &truncatedInfo);
-    quint64 sizeTotal() const;
-    void setSizeTotal(const quint64 &value);
-    quint64 sizeCompressed() const;
-    void setSizeCompressed(const quint64 &value);
-    quint64 sizeUniqueTotal() const;
-    void setSizeUniqueTotal(const quint64 &value);
-    quint64 sizeUniqueCompressed() const;
-    void setSizeUniqueCompressed(const quint64 &value);
-    QString command() const;
-    void setCommand(const QString &value);
-    QString contents() const;
-    void setContents(const QString &value);
-    QString jobRef() const;
-    void setJobRef(const QString &jobRef);
+    void      setTimestamp(const QDateTime &value);
+    bool      truncated() const;
+    void      setTruncated(bool truncated);
+    QString   truncatedInfo() const;
+    void      setTruncatedInfo(const QString &truncatedInfo);
+    quint64   sizeTotal() const;
+    void      setSizeTotal(const quint64 &value);
+    quint64   sizeCompressed() const;
+    void      setSizeCompressed(const quint64 &value);
+    quint64   sizeUniqueTotal() const;
+    void      setSizeUniqueTotal(const quint64 &value);
+    quint64   sizeUniqueCompressed() const;
+    void      setSizeUniqueCompressed(const quint64 &value);
+    QString   command() const;
+    void      setCommand(const QString &value);
+    QString   contents() const;
+    void      setContents(const QString &value);
+    QString   jobRef() const;
+    void      setJobRef(const QString &jobRef);
     //! @}
 
     //! Starts loading the file list.  When finished, it emits a \ref fileList

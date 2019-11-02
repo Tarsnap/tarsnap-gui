@@ -46,8 +46,9 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     });
     connect(_ui->filterComboBox, &QComboBox::editTextChanged, &_proxyModel,
             &QSortFilterProxyModel::setFilterWildcard);
-    connect(_ui->filterComboBox, static_cast<void (QComboBox::*)(int)>(
-                                     &QComboBox::currentIndexChanged),
+    connect(_ui->filterComboBox,
+            static_cast<void (QComboBox::*)(int)>(
+                &QComboBox::currentIndexChanged),
             this, [&]() { _ui->archiveContentsTableView->setFocus(); });
     connect(_ui->filterButton, &QPushButton::toggled, this,
             [&](const bool checked) {

@@ -38,8 +38,9 @@ JobWidget::JobWidget(QWidget *parent)
             save();
     });
 
-    connect(_ui->scheduleComboBox, static_cast<void (QComboBox::*)(int)>(
-                                       &QComboBox::currentIndexChanged),
+    connect(_ui->scheduleComboBox,
+            static_cast<void (QComboBox::*)(int)>(
+                &QComboBox::currentIndexChanged),
             this, &JobWidget::save);
     connect(_ui->preservePathsCheckBox, &QCheckBox::toggled, this,
             &JobWidget::save);

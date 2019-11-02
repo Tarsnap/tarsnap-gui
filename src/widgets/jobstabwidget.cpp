@@ -101,8 +101,9 @@ JobsTabWidget::JobsTabWidget(QWidget *parent)
     });
     connect(_ui->jobsFilter, &QComboBox::editTextChanged, _ui->jobListWidget,
             &JobListWidget::setFilter);
-    connect(_ui->jobsFilter, static_cast<void (QComboBox::*)(int)>(
-                                 &QComboBox::currentIndexChanged),
+    connect(_ui->jobsFilter,
+            static_cast<void (QComboBox::*)(int)>(
+                &QComboBox::currentIndexChanged),
             this, [&]() { _ui->jobListWidget->setFocus(); });
 
     // Update filter results

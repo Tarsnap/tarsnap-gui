@@ -66,8 +66,9 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     connect(_ui->archivesFilter, &QComboBox::editTextChanged,
             _ui->archiveListWidget, &ArchiveListWidget::setFilter);
 
-    connect(_ui->archivesFilter, static_cast<void (QComboBox::*)(int)>(
-                                     &QComboBox::currentIndexChanged),
+    connect(_ui->archivesFilter,
+            static_cast<void (QComboBox::*)(int)>(
+                &QComboBox::currentIndexChanged),
             this, [&]() { _ui->archiveListWidget->setFocus(); });
 
     connect(_ui->archiveListWidget, &ArchiveListWidget::countChanged, this,

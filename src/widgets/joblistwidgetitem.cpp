@@ -44,7 +44,8 @@ JobPtr JobListWidgetItem::job() const
 void JobListWidgetItem::setJob(const JobPtr &job)
 {
     if(_job)
-        disconnect(_job.data(), &Job::changed, this, &JobListWidgetItem::update);
+        disconnect(_job.data(), &Job::changed, this,
+                   &JobListWidgetItem::update);
 
     _job = job;
 

@@ -147,7 +147,8 @@ void TarsnapAccountDialog::showWarningIfApplicable(QByteArray data)
     {
         _popup.setWindowTitle(tr("Invalid username"));
         _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(tr("Account %1 is invalid; please try again.").arg(_user));
+        _popup.setText(
+            tr("Account %1 is invalid; please try again.").arg(_user));
         _popup.exec();
     }
 }

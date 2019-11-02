@@ -51,7 +51,8 @@ JobWidget::JobWidget(QWidget *parent)
             &JobWidget::save);
     connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this,
             &JobWidget::save);
-    connect(_ui->skipFilesCheckBox, &QCheckBox::toggled, this, &JobWidget::save);
+    connect(_ui->skipFilesCheckBox, &QCheckBox::toggled, this,
+            &JobWidget::save);
     connect(_ui->skipFilesLineEdit, &QLineEdit::editingFinished, this,
             &JobWidget::save);
     connect(_ui->hideButton, &QPushButton::clicked, this, &JobWidget::collapse);
@@ -210,8 +211,9 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
     }
     _job->setArchives(archives);
     _ui->archiveListWidget->setArchives(_job->archives());
-    _ui->tabWidget->setTabText(_ui->tabWidget->indexOf(_ui->archiveListTab),
-                               tr("Archives (%1)").arg(_job->archives().count()));
+    _ui->tabWidget->setTabText(
+        _ui->tabWidget->indexOf(_ui->archiveListTab),
+        tr("Archives (%1)").arg(_job->archives().count()));
 }
 
 void JobWidget::changeEvent(QEvent *event)
@@ -256,8 +258,9 @@ void JobWidget::updateDetails()
     _ui->skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
     _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(_ui->archiveListTab),
                                   _job->archives().count());
-    _ui->tabWidget->setTabText(_ui->tabWidget->indexOf(_ui->archiveListTab),
-                               tr("Archives (%1)").arg(_job->archives().count()));
+    _ui->tabWidget->setTabText(
+        _ui->tabWidget->indexOf(_ui->archiveListTab),
+        tr("Archives (%1)").arg(_job->archives().count()));
     verifyJob();
     _saveEnabled = true;
 

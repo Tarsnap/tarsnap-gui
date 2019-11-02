@@ -57,7 +57,8 @@ public slots:
     //! Update the global Tarsnap --print-stats values in the Settings tab.
     void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                              quint64 sizeUniqueTotal,
-                             quint64 sizeUniqueCompressed, quint64 archiveCount);
+                             quint64 sizeUniqueCompressed,
+                             quint64 archiveCount);
     //! Update the Tarsnap version number, and store it in the settings.
     void updateTarsnapVersion(QString versionString);
     //! Display (and raise) the MainWindow (if minimized or hidden).

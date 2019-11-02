@@ -534,9 +534,10 @@ void MainWindow::appendToJournalLog(LogEntry log)
     QTextBlockFormat bf;
     bf.setBackground(QBrush(bgcolor));
     cursor.mergeBlockFormat(bf);
-    cursor.insertText(QString("[%1] %2")
-                          .arg(log.timestamp.toString(Qt::DefaultLocaleShortDate))
-                          .arg(log.message));
+    cursor.insertText(
+        QString("[%1] %2")
+            .arg(log.timestamp.toString(Qt::DefaultLocaleShortDate))
+            .arg(log.message));
     _ui->journalLog->moveCursor(QTextCursor::End);
     _ui->journalLog->ensureCursorVisible();
 }
@@ -695,25 +696,25 @@ void MainWindow::updateUi()
 {
     // Keyboard shortcuts
     _ui->mainTabWidget->setTabToolTip(
-        0,
-        _ui->mainTabWidget->tabToolTip(0).arg(
-            _ui->actionGoBackup->shortcut().toString(QKeySequence::NativeText)));
+        0, _ui->mainTabWidget->tabToolTip(0).arg(
+               _ui->actionGoBackup->shortcut().toString(
+                   QKeySequence::NativeText)));
     _ui->mainTabWidget->setTabToolTip(
         1, _ui->mainTabWidget->tabToolTip(1).arg(
                _ui->actionGoArchives->shortcut().toString(
                    QKeySequence::NativeText)));
-    _ui->mainTabWidget->setTabToolTip(2,
-                                      _ui->mainTabWidget->tabToolTip(2).arg(
-                                          _ui->actionGoJobs->shortcut().toString(
-                                              QKeySequence::NativeText)));
+    _ui->mainTabWidget->setTabToolTip(
+        2,
+        _ui->mainTabWidget->tabToolTip(2).arg(
+            _ui->actionGoJobs->shortcut().toString(QKeySequence::NativeText)));
     _ui->mainTabWidget->setTabToolTip(
         3, _ui->mainTabWidget->tabToolTip(3).arg(
                _ui->actionGoSettings->shortcut().toString(
                    QKeySequence::NativeText)));
-    _ui->mainTabWidget->setTabToolTip(4,
-                                      _ui->mainTabWidget->tabToolTip(4).arg(
-                                          _ui->actionGoHelp->shortcut().toString(
-                                              QKeySequence::NativeText)));
+    _ui->mainTabWidget->setTabToolTip(
+        4,
+        _ui->mainTabWidget->tabToolTip(4).arg(
+            _ui->actionGoHelp->shortcut().toString(QKeySequence::NativeText)));
 
     _ui->actionBackupNow->setToolTip(_ui->actionBackupNow->toolTip().arg(
         _ui->actionBackupNow->shortcut().toString(QKeySequence::NativeText)));

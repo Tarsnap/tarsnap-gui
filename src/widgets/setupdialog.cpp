@@ -303,8 +303,9 @@ bool SetupDialog::validateRegisterPage()
     {
         // user specified key
         QFileInfo machineKeyFile(_ui->machineKeyCombo->currentText());
-        if(!_ui->machineNameLineEdit->text().isEmpty() && machineKeyFile.exists()
-           && machineKeyFile.isFile() && machineKeyFile.isReadable())
+        if(!_ui->machineNameLineEdit->text().isEmpty()
+           && machineKeyFile.exists() && machineKeyFile.isFile()
+           && machineKeyFile.isReadable())
         {
             result = true;
         }

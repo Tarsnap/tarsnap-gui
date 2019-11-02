@@ -274,8 +274,9 @@ void ArchiveListWidget::restoreItem()
 void ArchiveListWidget::goToJob()
 {
     if(sender())
-        emit displayJobDetails(
-            qobject_cast<ArchiveListWidgetItem *>(sender())->archive()->jobRef());
+        emit displayJobDetails(qobject_cast<ArchiveListWidgetItem *>(sender())
+                                   ->archive()
+                                   ->jobRef());
 }
 
 void ArchiveListWidget::selectArchive(ArchivePtr archive)

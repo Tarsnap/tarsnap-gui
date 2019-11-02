@@ -131,7 +131,8 @@ void Archive::load()
         _sizeCompressed =
             query.value(query.record().indexOf("sizeCompressed")).toULongLong();
         _sizeUniqueTotal =
-            query.value(query.record().indexOf("sizeUniqueTotal")).toULongLong();
+            query.value(query.record().indexOf("sizeUniqueTotal"))
+                .toULongLong();
         _sizeUniqueCompressed =
             query.value(query.record().indexOf("sizeUniqueCompressed"))
                 .toULongLong();
@@ -272,7 +273,8 @@ void Archive::getFileList()
 {
     // Prepare a background thread to parse the Archive's saved contents.
     QThreadPool *            threadPool = QThreadPool::globalInstance();
-    ParseArchiveListingTask *parseTask = new ParseArchiveListingTask(contents());
+    ParseArchiveListingTask *parseTask =
+        new ParseArchiveListingTask(contents());
     parseTask->setAutoDelete(true);
     connect(parseTask, &ParseArchiveListingTask::result, this,
             &Archive::fileList);

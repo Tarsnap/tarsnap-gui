@@ -239,7 +239,8 @@ void JobListWidget::restoreSelectedItem()
 void JobListWidget::deleteSelectedItem()
 {
     if(!selectedItems().isEmpty())
-        execDeleteJob(static_cast<JobListWidgetItem *>(selectedItems().first()));
+        execDeleteJob(
+            static_cast<JobListWidgetItem *>(selectedItems().first()));
 }
 
 void JobListWidget::setFilter(QString regex)

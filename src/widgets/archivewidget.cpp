@@ -35,7 +35,8 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
             &ArchiveWidget::restoreFiles);
     connect(_ui->archiveContentsTableView, &QTableView::activated, this,
             &ArchiveWidget::restoreFiles);
-    connect(_ui->hideButton, &QPushButton::clicked, this, &ArchiveWidget::close);
+    connect(_ui->hideButton, &QPushButton::clicked, this,
+            &ArchiveWidget::close);
     connect(_ui->archiveJobLabel, &ElidedClickableLabel::clicked,
             [&]() { emit jobClicked(_archive->jobRef()); });
     connect(&_contentsModel, &FileTableModel::modelReset, this, [&]() {
@@ -110,7 +111,8 @@ void ArchiveWidget::updateDetails()
             _ui->archiveIconLabel->setStyleSheet(
                 "image: url(:/icons/hard-drive-big.png)");
         }
-        _ui->archiveSizeLabel->setText(Utils::humanBytes(_archive->sizeTotal()));
+        _ui->archiveSizeLabel->setText(
+            Utils::humanBytes(_archive->sizeTotal()));
         _ui->archiveSizeLabel->setToolTip(_archive->archiveStats());
         _ui->archiveUniqueDataLabel->setText(
             Utils::humanBytes(_archive->sizeUniqueCompressed()));

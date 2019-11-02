@@ -23,7 +23,8 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
     _ui->setupUi(this);
 
     TSettings settings;
-    _downDir = settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString();
+    _downDir =
+        settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString();
     _ui->baseDirLineEdit->setText(_downDir);
     _ui->baseDirLineEdit->hide();
     _ui->changeDirButton->hide();
@@ -54,10 +55,11 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
             &RestoreDialog::optionBaseDirToggled);
     connect(_ui->optionTarArchiveRadio, &QRadioButton::toggled, this,
             &RestoreDialog::optionTarArchiveToggled);
-    connect(_ui->overwriteCheckBox, &QCheckBox::toggled, this, [&](bool checked) {
-        _ui->keepNewerCheckBox->setChecked(checked);
-        _ui->keepNewerCheckBox->setEnabled(checked);
-    });
+    connect(_ui->overwriteCheckBox, &QCheckBox::toggled, this,
+            [&](bool checked) {
+                _ui->keepNewerCheckBox->setChecked(checked);
+                _ui->keepNewerCheckBox->setEnabled(checked);
+            });
     connect(_ui->baseDirLineEdit, &QLineEdit::textChanged, this,
             &RestoreDialog::validate);
     connect(_ui->archiveLineEdit, &QLineEdit::textChanged, this,

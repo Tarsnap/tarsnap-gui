@@ -29,6 +29,6 @@ IndentWidth: 4
 PenaltyBreakBeforeFirstCallParameter: 100
 PenaltyBreakFirstLessLess: 100
 PenaltyBreakString: 100
-PenaltyExcessCharacter: 20
+PenaltyExcessCharacter: 1000
 PointerAlignment: Right
 SpaceBeforeParens: Never

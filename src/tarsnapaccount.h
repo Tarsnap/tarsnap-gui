@@ -7,6 +7,7 @@ WARNINGS_DISABLE
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QObject>
+#include <QUrlQuery>
 WARNINGS_ENABLE
 
 /*!
@@ -48,7 +49,7 @@ protected slots:
     //! lastMachineActivity.
     void parseLastMachineActivity(QString csv);
     //! Send a network request and wait for a reply.
-    QNetworkReply *tarsnapRequest(QString url);
+    QNetworkReply *tarsnapRequest(QUrlQuery post);
     //! Parse the network reply.
     QByteArray readReply(QNetworkReply *reply);
     //! Handle an error in the network reply.

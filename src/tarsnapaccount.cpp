@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QNetworkReply>
 #include <QNetworkRequest>
+#include <QUrlQuery>
 WARNINGS_ENABLE
 
 #include "debug.h"
@@ -10,12 +11,7 @@ WARNINGS_ENABLE
 
 #include <TSettings.h>
 
-#define URL_ACTIVITY                                                           \
-    "https://www.tarsnap.com/"                                                 \
-    "manage.cgi?address=%1&password=%2&action=activity&format=csv"
-#define URL_MACHINE_ACTIVITY                                                   \
-    "https://www.tarsnap.com/"                                                 \
-    "manage.cgi?address=%1&password=%2&action=subactivity&mid=%3&format=csv"
+#define URL_MANAGE "https://www.tarsnap.com/manage.cgi"
 
 #define USER_AGENT "Tarsnap " APP_VERSION
 
@@ -34,13 +30,18 @@ void TarsnapAccount::getAccountInfo(bool    displayActivity,
                                     QString password)
 {
     TSettings settings;
+    QUrlQuery post;
     _user    = settings.value("tarsnap/user", "").toString();
     _machine = settings.value("tarsnap/machine", "").toString();
 
-    QString getActivity(URL_ACTIVITY);
-    getActivity = getActivity.arg(QString(QUrl::toPercentEncoding(_user)),
-                                  QString(QUrl::toPercentEncoding(password)));
-    QNetworkReply *activityReply = tarsnapRequest(getActivity);
+    // Set up activity query
+    post.addQueryItem("address", QUrl::toPercentEncoding(_user));
+    post.addQueryItem("password", QUrl::toPercentEncoding(password));
+    post.addQueryItem("action", "activity");
+    post.addQueryItem("format", "csv");
+
+    // Send and receive activity query
+    QNetworkReply *activityReply = tarsnapRequest(post);
     connect(activityReply, &QNetworkReply::finished, [=]() {
         QByteArray replyData = readReply(activityReply);
         emit       possibleWarning(replyData);
@@ -48,17 +49,20 @@ void TarsnapAccount::getAccountInfo(bool    displayActivity,
         if(displayActivity)
             emit gotTable(replyData, tr("Account activity"));
     });
+
     _machineId = settings.value("tarsnap/key_id", 0).toULongLong();
     if(_machineId)
     {
-        QString machineActivity(URL_MACHINE_ACTIVITY);
         QString hexId("%1");
         hexId = hexId.arg(_machineId, 16, 16, QLatin1Char('0'));
-        machineActivity =
-            machineActivity.arg(QString(QUrl::toPercentEncoding(_user)),
-                                QString(QUrl::toPercentEncoding(password)),
-                                QString(QUrl::toPercentEncoding(hexId)));
-        QNetworkReply *machineActivityReply = tarsnapRequest(machineActivity);
+        // Set up machine activity query
+        post.addQueryItem("address", QUrl::toPercentEncoding(_user));
+        post.addQueryItem("password", QUrl::toPercentEncoding(password));
+        post.addQueryItem("action", "subactivity");
+        post.addQueryItem("mid", QUrl::toPercentEncoding(hexId));
+        post.addQueryItem("format", "csv");
+        // Send and receive machine activity query
+        QNetworkReply *machineActivityReply = tarsnapRequest(post);
         connect(machineActivityReply, &QNetworkReply::finished, [=]() {
             QByteArray replyData = readReply(machineActivityReply);
             parseLastMachineActivity(replyData);
@@ -104,12 +108,14 @@ void TarsnapAccount::parseLastMachineActivity(QString csv)
     emit lastMachineActivity(lastLine.split(',', QString::SkipEmptyParts));
 }
 
-QNetworkReply *TarsnapAccount::tarsnapRequest(QString url)
+QNetworkReply *TarsnapAccount::tarsnapRequest(QUrlQuery post)
 {
     QNetworkRequest request;
-    request.setUrl(url);
+    request.setUrl(QUrl(URL_MANAGE));
     request.setRawHeader("User-Agent", USER_AGENT);
-    QNetworkReply *reply = _nam->get(request);
+    request.setHeader(QNetworkRequest::ContentTypeHeader,
+                      "application/x-www-form-urlencoded");
+    QNetworkReply *reply = _nam->post(request, post.query().toUtf8());
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
             SLOT(networkError(QNetworkReply::NetworkError)));
     connect(reply, &QNetworkReply::sslErrors, this, &TarsnapAccount::sslError);

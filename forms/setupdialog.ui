@@ -16,11 +16,6 @@
   <property name="windowTitle">
    <string>Tarsnap setup</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">#SetupDialog {
-background-image: url(&quot;:/icons/light-toast.png&quot;);
-}</string>
-  </property>
   <property name="modal">
    <bool>true</bool>
   </property>

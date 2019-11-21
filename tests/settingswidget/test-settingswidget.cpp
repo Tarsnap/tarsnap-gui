@@ -101,9 +101,9 @@ void TestSettingsWidget::account()
     VISUAL_WAIT;
 
     // Set username, machine name, key.
-    ui->accountUserLineEdit->setText("edited-user");
-    ui->accountMachineLineEdit->setText("edited-mn");
-    ui->accountMachineKeyLineEdit->setText("edited-mk");
+    SET_TEXT_WITH_SIGNAL(ui->accountUserLineEdit, "edited-user");
+    SET_TEXT_WITH_SIGNAL(ui->accountMachineLineEdit, "edited-mn");
+    SET_TEXT_WITH_SIGNAL(ui->accountMachineKeyLineEdit, "edited-mk");
     VISUAL_WAIT;
 
     // Nuke button, reject dialog.
@@ -122,10 +122,6 @@ void TestSettingsWidget::account()
     // It would be nice to test the nuke button with invalid confirmation text,
     // but QInputDialog::setTextValue() is not a slot and ::invokeMethod()
     // only works on slots.
-
-    // Call commitSettings() manually because setText() doesn't trigger
-    // editingFinished(), which is what's attached to the signal.
-    settingsWidget->commitSettings();
 
     // Check saved settings
     TSettings settings;

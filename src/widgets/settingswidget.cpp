@@ -188,7 +188,7 @@ void SettingsWidget::initializeSettingsWidget()
     {
         _ui->accountCreditLabel->setToolTip(creditDate.toString());
         qint64 daysElapsed = creditDate.daysTo(QDate::currentDate());
-        if(daysElapsed > 10)
+        if(daysElapsed > 0)
         {
             _ui->outOfDateNoticeLabel->setText(
                 _ui->outOfDateNoticeLabel->text().arg(daysElapsed));

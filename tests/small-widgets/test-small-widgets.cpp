@@ -61,7 +61,7 @@ void TestSmallWidgets::elidedLabel()
 
     // Set up ElidedText.
     elidedlabel->setElide(Qt::ElideRight);
-    elidedlabel->setText(text);
+    SET_TEXT_WITH_SIGNAL(elidedlabel, text);
 
     // The text should be fully visible if there's enough room.
     elidedlabel->setGeometry(100, 100, 1000, 20);

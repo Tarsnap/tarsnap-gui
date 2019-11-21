@@ -3,7 +3,11 @@ QT = core gui widgets
 
 VALGRIND = true
 
-FORMS += ../../forms/filepickerdialog.ui		\
+FORMS +=						\
+	../../forms/aboutwidget.ui			\
+	../../forms/consolewidget.ui			\
+	../../forms/helpwidget.ui			\
+	../../forms/filepickerdialog.ui			\
 	../../forms/filepickerwidget.ui
 
 RESOURCES += ../../resources/resources.qrc

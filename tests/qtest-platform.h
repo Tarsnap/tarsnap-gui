@@ -64,6 +64,11 @@ void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
         WARNINGS_ENABLE                                                        \
     } while(0)
 
+// Deal with not being able to change a widget's text and signal the change
+#define SET_TEXT_WITH_SIGNAL(WIDGET, TEXT)                                     \
+    WIDGET->setText(TEXT);                                                     \
+    QMetaObject::invokeMethod(WIDGET, "editingFinished", Qt::QueuedConnection)
+
 // Deal with platforms which ignore $XDG_*_HOME environment vars
 #if defined(Q_OS_MACOS)
 #define HANDLE_IGNORING_XDG_HOME                                               \

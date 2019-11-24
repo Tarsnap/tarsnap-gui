@@ -32,6 +32,11 @@ def process_chunk(chunk_pre):
             chunk_post = lines[:i]
             break
 
+        # Omit any functions that are part of QTest.
+        if line.startswith("fun:") and "QTest" in line:
+            chunk_post = lines[:i]
+            break
+
     # Strip any final "obj:*" lines since they're not helpful.
     while "obj:*" in chunk_post[-1]:
         chunk_post = chunk_post[:-1]

@@ -112,6 +112,20 @@ void TestJobsTabWidget::createJob()
     QVERIFY(sig_jobAdded.count() == 1);
     VISUAL_WAIT;
 
+    // Create a second job
+    jobstabwidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
+                                QString("test-job-2"));
+    QVERIFY(ui->addJobButton->text() == QString("Save"));
+    QVERIFY(ui->addJobButton->isEnabled());
+    QVERIFY(jobWidget_ui->infoLabel->text() == "");
+    VISUAL_WAIT;
+
+    // Adds the job to the list; makes the button ready to add again
+    jobstabwidget->addJobClicked();
+    QVERIFY(ui->addJobButton->text() == QString("Add job"));
+    QVERIFY(sig_jobAdded.count() == 2);
+    VISUAL_WAIT;
+
     delete jobstabwidget;
 }
 

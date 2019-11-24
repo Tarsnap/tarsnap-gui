@@ -30,10 +30,9 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    void about_window();
+    void about_window_menubar();
     void quit_simple();
     void quit_tasks();
-    void console_window();
     void tab_navigation();
     void other_navigation();
 };
@@ -92,7 +91,7 @@ static QAction *get_menubar_about(QMenuBar *menubar)
     return (nullptr);
 }
 
-void TestMainWindow::about_window()
+void TestMainWindow::about_window_menubar()
 {
     MainWindow *    mainwindow = new MainWindow();
     HelpWidget *    help       = &mainwindow->_helpWidget;
@@ -100,36 +99,6 @@ void TestMainWindow::about_window()
     Ui::HelpWidget *ui         = help->_ui;
 
     VISUAL_INIT(mainwindow);
-
-    // Starts off not visible and the button is not pushed down
-    ui_main->actionGoHelp->trigger();
-    QVERIFY(help->_aboutWindow.isVisible() == false);
-    QVERIFY(ui->aboutButton->isChecked() == false);
-    VISUAL_WAIT;
-
-    // Becomes visible
-    ui->aboutButton->click();
-    QVERIFY(help->_aboutWindow.isVisible() == true);
-    QVERIFY(ui->aboutButton->isChecked() == true);
-    VISUAL_WAIT;
-
-    // Becomes invisible by clicking the button again
-    ui->aboutButton->click();
-    QVERIFY(help->_aboutWindow.isVisible() == false);
-    QVERIFY(ui->aboutButton->isChecked() == false);
-    VISUAL_WAIT;
-
-    // Becomes visible
-    ui->aboutButton->click();
-    QVERIFY(help->_aboutWindow.isVisible() == true);
-    QVERIFY(ui->aboutButton->isChecked() == true);
-    VISUAL_WAIT;
-
-    // Becomes invisible by closing the About window
-    help->_aboutWindow.close();
-    QVERIFY(help->_aboutWindow.isVisible() == false);
-    QVERIFY(ui->aboutButton->isChecked() == false);
-    VISUAL_WAIT;
 
     // Test the "About Tarsnap" menubar item, if applicable.
     if(mainwindow->_menuBar != nullptr)
@@ -231,48 +200,6 @@ void TestMainWindow::quit_tasks()
     delete mainwindow;
     delete close_event;
     delete close_event_another;
-}
-
-void TestMainWindow::console_window()
-{
-    MainWindow *    mainwindow = new MainWindow();
-    HelpWidget *    help       = &mainwindow->_helpWidget;
-    Ui::MainWindow *ui_main    = mainwindow->_ui;
-    Ui::HelpWidget *ui         = help->_ui;
-
-    VISUAL_INIT(mainwindow);
-
-    // Starts off not visible and the button is not pushed down
-    ui_main->actionGoHelp->trigger();
-    QVERIFY(help->_consoleWindow.isVisible() == false);
-    QVERIFY(ui->consoleButton->isChecked() == false);
-    VISUAL_WAIT;
-
-    // Becomes visible
-    ui->consoleButton->click();
-    QVERIFY(help->_consoleWindow.isVisible() == true);
-    QVERIFY(ui->consoleButton->isChecked() == true);
-    VISUAL_WAIT;
-
-    // Becomes invisible by clicking the button again
-    ui->consoleButton->click();
-    QVERIFY(help->_consoleWindow.isVisible() == false);
-    QVERIFY(ui->consoleButton->isChecked() == false);
-    VISUAL_WAIT;
-
-    // Becomes visible
-    ui->consoleButton->click();
-    QVERIFY(help->_consoleWindow.isVisible() == true);
-    QVERIFY(ui->consoleButton->isChecked() == true);
-    VISUAL_WAIT;
-
-    // Becomes invisible by closing the Console window
-    help->_consoleWindow.close();
-    QVERIFY(help->_consoleWindow.isVisible() == false);
-    QVERIFY(ui->consoleButton->isChecked() == false);
-    VISUAL_WAIT;
-
-    delete mainwindow;
 }
 
 void TestMainWindow::tab_navigation()

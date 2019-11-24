@@ -31,9 +31,9 @@ private slots:
     void cleanupTestCase();
 
     void about_window();
-    void console_window();
     void quit_simple();
     void quit_tasks();
+    void console_window();
     void tab_navigation();
     void other_navigation();
 };

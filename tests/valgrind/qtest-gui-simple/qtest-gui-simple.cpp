@@ -8,6 +8,7 @@ WARNINGS_DISABLE
 #include <QFont>
 #include <QLabel>
 #include <QListWidget>
+#include <QPlainTextEdit>
 #include <QWidget>
 WARNINGS_ENABLE
 
@@ -24,6 +25,7 @@ private slots:
     void pl_collator();
     void pl_collator_copy();
     void pl_listwidget();
+    void pl_plaintextedit();
 };
 
 void TestQTestSimple::pl_nothing()
@@ -72,6 +74,12 @@ void TestQTestSimple::pl_listwidget()
 {
     QListWidget *lw = new QListWidget();
     delete lw;
+}
+
+void TestQTestSimple::pl_plaintextedit()
+{
+    QPlainTextEdit *te = new QPlainTextEdit();
+    delete te;
 }
 
 QTEST_MAIN(TestQTestSimple)

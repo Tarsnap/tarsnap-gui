@@ -31,9 +31,9 @@ private slots:
     void cleanupTestCase();
 
     void about_window();
-    void console_window();
     void quit_simple();
     void quit_tasks();
+    void console_window();
     void tab_navigation();
     void other_navigation();
 };
@@ -69,6 +69,9 @@ void TestMainWindow::cleanupTestCase()
     Translator::destroy();
     TSettings::destroy();
     ConsoleLog::destroy();
+
+    // Wait for everything to finish
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
 }
 
 static QAction *get_menubar_about(QMenuBar *menubar)

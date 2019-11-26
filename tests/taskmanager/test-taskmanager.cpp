@@ -37,8 +37,8 @@ void TestTaskManager::initTestCase()
 
     // This is to "warm up" the command-line tasks.
     TaskManager *manager = new TaskManager();
-    QSignalSpy   sig_ver(manager, SIGNAL(tarsnapVersion(QString)));
-    manager->getTarsnapVersion("");
+    QSignalSpy   sig_ver(manager, SIGNAL(tarsnapVersionFound(QString)));
+    manager->tarsnapVersionFind("");
 
     // Wait for task to finish
     while(sig_ver.count() == 0)
@@ -57,14 +57,14 @@ void TestTaskManager::get_version()
     TARSNAP_CLI_OR_SKIP;
 
     TaskManager *manager = new TaskManager();
-    QSignalSpy   sig_ver(manager, SIGNAL(tarsnapVersion(QString)));
+    QSignalSpy   sig_ver(manager, SIGNAL(tarsnapVersionFound(QString)));
     QString      ver_str;
 
     // We start off with no version signal.
     QVERIFY(sig_ver.count() == 0);
 
     // Get version number
-    manager->getTarsnapVersion("");
+    manager->tarsnapVersionFind("");
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
     QVERIFY(sig_ver.count() == 1);
     ver_str = sig_ver.takeFirst().at(0).toString();
@@ -79,7 +79,7 @@ void TestTaskManager::get_version()
     }
 
     // Get a failure
-    manager->getTarsnapVersion("fake-dir");
+    manager->tarsnapVersionFind("fake-dir");
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
     QVERIFY(sig_ver.count() == 1);
     ver_str = sig_ver.takeFirst().at(0).toString();

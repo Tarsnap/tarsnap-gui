@@ -670,7 +670,7 @@ void SettingsWidget::disableJobSchedulingButtonClicked()
 #endif
 }
 
-void SettingsWidget::updateTarsnapVersion(QString versionString)
+void SettingsWidget::tarsnapVersionResponse(QString versionString)
 {
     _ui->tarsnapVersionLabel->setText(versionString);
     TSettings settings;
@@ -689,7 +689,7 @@ bool SettingsWidget::validateTarsnapPath()
     else
     {
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: black;}");
-        emit getTarsnapVersion(_ui->tarsnapPathLineEdit->text());
+        emit tarsnapVersionRequested(_ui->tarsnapPathLineEdit->text());
         return true;
     }
 }

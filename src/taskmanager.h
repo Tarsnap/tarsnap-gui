@@ -66,7 +66,8 @@ public slots:
 
     // Tarsnap tasks
     //! tarsnap --version
-    void getTarsnapVersion(QString tarsnapPath);
+    //! \anchor tarsnapVersionFind
+    void tarsnapVersionFind(QString tarsnapPath);
     //! tarsnap-keygen.  If the key already exists, run --fsck-prune first.
     void registerMachine(QString user, QString password, QString machine,
                          QString keyFilename, QString tarsnapPath,
@@ -104,7 +105,8 @@ signals:
     //! Give number of tasks.
     void numTasks(int runningTasks, int queuedTasks);
     //! Result of tarsnap --version.
-    void tarsnapVersion(QString versionString);
+    //! \anchor tarsnapVersionFound
+    void tarsnapVersionFound(QString versionString);
     //! Result of tarsnap-keygen.
     void registerMachineStatus(TaskStatus status, QString reason);
     //! A list of all Archive objects.

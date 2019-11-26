@@ -30,7 +30,7 @@ TaskManager::~TaskManager()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
 }
 
-void TaskManager::getTarsnapVersion(QString tarsnapPath)
+void TaskManager::tarsnapVersionFind(QString tarsnapPath)
 {
     TarsnapTask *tarsnap = new TarsnapTask();
     if(tarsnapPath.isEmpty())
@@ -1339,11 +1339,11 @@ void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(stdErr));
-        emit tarsnapVersion("");
+        emit tarsnapVersionFound("");
         return;
     }
 
     QRegExp versionRx("^tarsnap (\\S+)\\s?$");
     if(-1 != versionRx.indexIn(stdOut))
-        emit tarsnapVersion(versionRx.cap(1));
+        emit tarsnapVersionFound(versionRx.cap(1));
 }

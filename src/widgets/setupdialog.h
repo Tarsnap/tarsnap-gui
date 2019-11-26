@@ -41,7 +41,7 @@ public slots:
     void registerMachineStatus(TaskStatus status, QString reason);
     /// The TaskManager has finished determining the version of the CLI app.
     /// \param versionString the version number.
-    void setTarsnapVersion(QString versionString);
+    void tarsnapVersionResponse(QString versionString);
     /// The TaskManager is indicating that it is performing a background task.
     /// \param idle no task is running.
     void updateLoadingAnimation(bool idle);
@@ -59,7 +59,7 @@ signals:
                                 QString cachePath);
     /// We need to determine the Tarsnap CLI version number.
     /// \param tarsnapPath the path of the CLI app.
-    void getTarsnapVersion(QString tarsnapPath);
+    void tarsnapVersionRequested(QString tarsnapPath);
     /// Request cache initialization (used when generating a new key)
     void initializeCache();
 

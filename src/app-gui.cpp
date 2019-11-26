@@ -148,10 +148,10 @@ void AppGui::showMainWindow()
     _mainWindow = new MainWindow();
     Q_ASSERT(_mainWindow != nullptr);
 
-    connect(_mainWindow, &MainWindow::getTarsnapVersion, &_taskManager,
-            &TaskManager::getTarsnapVersion, QUEUED);
-    connect(&_taskManager, &TaskManager::tarsnapVersion, _mainWindow,
-            &MainWindow::updateTarsnapVersion, QUEUED);
+    connect(_mainWindow, &MainWindow::tarsnapVersionRequested, &_taskManager,
+            &TaskManager::tarsnapVersionFind, QUEUED);
+    connect(&_taskManager, &TaskManager::tarsnapVersionFound, _mainWindow,
+            &MainWindow::tarsnapVersionResponse, QUEUED);
     connect(_mainWindow, &MainWindow::backupNow, &_taskManager,
             &TaskManager::backupNow, QUEUED);
     connect(_mainWindow, &MainWindow::getArchives, &_taskManager,
@@ -261,10 +261,10 @@ bool AppGui::runSetupWizard()
 {
     // Show the first time setup dialog
     SetupDialog wizard;
-    connect(&wizard, &SetupDialog::getTarsnapVersion, &_taskManager,
-            &TaskManager::getTarsnapVersion);
-    connect(&_taskManager, &TaskManager::tarsnapVersion, &wizard,
-            &SetupDialog::setTarsnapVersion);
+    connect(&wizard, &SetupDialog::tarsnapVersionRequested, &_taskManager,
+            &TaskManager::tarsnapVersionFind);
+    connect(&_taskManager, &TaskManager::tarsnapVersionFound, &wizard,
+            &SetupDialog::tarsnapVersionResponse);
     connect(&wizard, &SetupDialog::requestRegisterMachine, &_taskManager,
             &TaskManager::registerMachine);
     connect(&_taskManager, &TaskManager::registerMachineStatus, &wizard,

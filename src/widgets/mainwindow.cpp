@@ -774,7 +774,7 @@ void MainWindow::saveKeyId(QString key, quint64 id)
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
-void MainWindow::updateTarsnapVersion(QString versionString)
+void MainWindow::tarsnapVersionResponse(QString versionString)
 {
     _settingsWidget.updateTarsnapVersion(versionString);
 }
@@ -795,7 +795,7 @@ void MainWindow::connectSettingsWidget()
     connect(&_settingsWidget, &SettingsWidget::runSetupWizard, this,
             &MainWindow::runSetupWizard);
     connect(&_settingsWidget, &SettingsWidget::getTarsnapVersion, this,
-            &MainWindow::getTarsnapVersion);
+            &MainWindow::tarsnapVersionRequested);
     connect(&_settingsWidget, &SettingsWidget::repairCache, this,
             &MainWindow::repairCache);
 }

@@ -268,7 +268,7 @@ bool SetupDialog::validateAdvancedSetupPage()
     }
     else if(result)
     {
-        emit getTarsnapVersion(_tarsnapDir);
+        emit tarsnapVersionRequested(_tarsnapDir);
     }
 
     _ui->nextButton->setEnabled(result);
@@ -403,7 +403,7 @@ void SetupDialog::updateLoadingAnimation(bool idle)
     }
 }
 
-void SetupDialog::setTarsnapVersion(QString versionString)
+void SetupDialog::tarsnapVersionResponse(QString versionString)
 {
     _tarsnapVersion = versionString;
     if(!_tarsnapVersion.isEmpty())

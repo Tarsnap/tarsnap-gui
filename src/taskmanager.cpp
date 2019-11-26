@@ -30,13 +30,10 @@ TaskManager::~TaskManager()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
 }
 
-void TaskManager::tarsnapVersionFind(QString tarsnapPath)
+void TaskManager::tarsnapVersionFind()
 {
     TarsnapTask *tarsnap = new TarsnapTask();
-    if(tarsnapPath.isEmpty())
-        tarsnap->setCommand(CMD_TARSNAP);
-    else
-        tarsnap->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
+    tarsnap->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     tarsnap->setArguments(QStringList("--version"));
     connect(tarsnap, &TarsnapTask::finished, this,
             &TaskManager::getTarsnapVersionFinished, QUEUED);

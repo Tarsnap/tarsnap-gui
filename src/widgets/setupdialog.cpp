@@ -268,7 +268,9 @@ bool SetupDialog::validateAdvancedSetupPage()
     }
     else if(result)
     {
-        emit tarsnapVersionRequested(_tarsnapDir);
+        TSettings settings;
+        settings.setValue("tarsnap/path", _tarsnapDir);
+        emit tarsnapVersionRequested();
     }
 
     _ui->nextButton->setEnabled(result);
@@ -425,7 +427,6 @@ void SetupDialog::commitSettings(bool skipped)
     if(!skipped)
     {
         settings.setValue("app/app_data", _appDataDir);
-        settings.setValue("tarsnap/path", _tarsnapDir);
         settings.setValue("tarsnap/version", _tarsnapVersion);
         settings.setValue("tarsnap/cache", _tarsnapCacheDir);
         settings.setValue("tarsnap/key", _tarsnapKeyFile);

@@ -60,8 +60,7 @@ signals:
                                   QString tarsnapPath, QString cachePath,
                                   bool useExistingKeyfile);
     /// We need to determine the Tarsnap CLI version number.
-    /// \param tarsnapPath the path of the CLI app.
-    void tarsnapVersionRequested(QString tarsnapPath);
+    void tarsnapVersionRequested();
     /// Request cache initialization (used when generating a new key)
     void initializeCache();
 

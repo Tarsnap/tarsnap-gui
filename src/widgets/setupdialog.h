@@ -38,10 +38,10 @@ public slots:
     /// \param status either \c TaskStatus::Completed or
     ///                \c TaskStatus::Failed.
     /// \param reason text which explains why the registration failed.
-    void registerMachineStatus(TaskStatus status, QString reason);
+    void registerMachineResponse(TaskStatus status, QString reason);
     /// The TaskManager has finished determining the version of the CLI app.
     /// \param versionString the version number.
-    void setTarsnapVersion(QString versionString);
+    void tarsnapVersionResponse(QString versionString);
     /// The TaskManager is indicating that it is performing a background task.
     /// \param idle no task is running.
     void updateLoadingAnimation(bool idle);
@@ -54,12 +54,12 @@ signals:
     /// \param keyFilename the keyfile; might already exist, or might be new.
     /// \param tarsnapPath the path of the CLI app.
     /// \param cachePath the Tarsnap cachedir.
-    void requestRegisterMachine(QString user, QString password, QString machine,
-                                QString keyFilename, QString tarsnapPath,
-                                QString cachePath);
+    void registerMachineRequested(QString user, QString password,
+                                  QString machine, QString keyFilename,
+                                  QString tarsnapPath, QString cachePath);
     /// We need to determine the Tarsnap CLI version number.
     /// \param tarsnapPath the path of the CLI app.
-    void getTarsnapVersion(QString tarsnapPath);
+    void tarsnapVersionRequested(QString tarsnapPath);
     /// Request cache initialization (used when generating a new key)
     void initializeCache();
 

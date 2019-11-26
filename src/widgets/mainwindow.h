@@ -60,7 +60,8 @@ public slots:
                              quint64 sizeUniqueCompressed,
                              quint64 archiveCount);
     //! Update the Tarsnap version number, and store it in the settings.
-    void updateTarsnapVersion(QString versionString);
+    //! \anchor tarsnapVersionResponse
+    void tarsnapVersionResponse(QString versionString);
     //! Display (and raise) the MainWindow (if minimized or hidden).
     void notificationRaise();
     //! We received information about tasks after receiving a closeEvent.
@@ -118,7 +119,8 @@ signals:
     //! \param queued Remove all tasks from the queue.
     void stopTasks(bool interrupt, bool running, bool queued);
     //! Begin tarsnap --version
-    void getTarsnapVersion(QString tarsnapPath);
+    //! \anchor tarsnapVersionRequested
+    void tarsnapVersionRequested(QString tarsnapPath);
     //! Query whether there are any running tasks; will trigger a taskInfo
     //! signal which is received by \ref closeWithTaskInfo.
     void getTaskInfo();

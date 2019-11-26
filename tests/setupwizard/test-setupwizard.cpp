@@ -100,11 +100,11 @@ void TestSetupWizard::normal_install()
 
     SetupDialog *    setupWizard = new SetupDialog();
     Ui::SetupDialog *ui          = setupWizard->_ui;
-    QSignalSpy       sig_cli(setupWizard, SIGNAL(getTarsnapVersion(QString)));
-    QSignalSpy       sig_register(setupWizard,
-                            SIGNAL(requestRegisterMachine(QString, QString,
-                                                          QString, QString,
-                                                          QString, QString)));
+    QSignalSpy sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested(QString)));
+    QSignalSpy sig_register(setupWizard,
+                            SIGNAL(registerMachineRequested(QString, QString,
+                                                            QString, QString,
+                                                            QString, QString)));
 
     VISUAL_INIT(setupWizard);
 
@@ -117,7 +117,7 @@ void TestSetupWizard::normal_install()
     QVERIFY(ui->titleLabel->text() == "Command-line utilities");
     QVERIFY(sig_cli.count() == 1);
     // Fake the CLI detection and checking
-    setupWizard->setTarsnapVersion("X.Y.Z");
+    setupWizard->tarsnapVersionResponse("X.Y.Z");
     QVERIFY(
         ui->advancedValidationLabel->text().contains("Tarsnap CLI version"));
     QTest::mouseClick(ui->nextButton, Qt::LeftButton);
@@ -134,7 +134,7 @@ void TestSetupWizard::normal_install()
     // Check results of registration
     QVERIFY(sig_register.count() == 1);
     QVERIFY(sig_register.takeFirst().at(3).toString() == QString("fake.key"));
-    setupWizard->registerMachineStatus(TaskStatus::Completed, "");
+    setupWizard->registerMachineResponse(TaskStatus::Completed, "");
     VISUAL_WAIT;
 
     // Page 4
@@ -156,7 +156,7 @@ void TestSetupWizard::cli()
 {
     SetupDialog *    setupWizard = new SetupDialog();
     Ui::SetupDialog *ui          = setupWizard->_ui;
-    QSignalSpy       sig_cli(setupWizard, SIGNAL(getTarsnapVersion(QString)));
+    QSignalSpy sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested(QString)));
 
     VISUAL_INIT(setupWizard);
 
@@ -188,7 +188,7 @@ void TestSetupWizard::cli()
     SET_TEXT_WITH_SIGNAL(ui->tarsnapPathLineEdit, "/tmp");
 
     // Fake detecting the binaries
-    setupWizard->setTarsnapVersion("X.Y.Z.");
+    setupWizard->tarsnapVersionResponse("X.Y.Z.");
     QVERIFY(
         ui->advancedValidationLabel->text().contains("Tarsnap CLI version"));
     VISUAL_WAIT;

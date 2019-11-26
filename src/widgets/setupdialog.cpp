@@ -268,7 +268,7 @@ bool SetupDialog::validateAdvancedSetupPage()
     }
     else if(result)
     {
-        emit getTarsnapVersion(_tarsnapDir);
+        emit tarsnapVersionRequested(_tarsnapDir);
     }
 
     _ui->nextButton->setEnabled(result);
@@ -355,13 +355,14 @@ void SetupDialog::registerMachine()
             + ".key";
     }
 
-    emit requestRegisterMachine(_ui->tarsnapUserLineEdit->text(),
-                                _ui->tarsnapPasswordLineEdit->text(),
-                                _ui->machineNameLineEdit->text(),
-                                _tarsnapKeyFile, _tarsnapDir, _tarsnapCacheDir);
+    emit registerMachineRequested(_ui->tarsnapUserLineEdit->text(),
+                                  _ui->tarsnapPasswordLineEdit->text(),
+                                  _ui->machineNameLineEdit->text(),
+                                  _tarsnapKeyFile, _tarsnapDir,
+                                  _tarsnapCacheDir);
 }
 
-void SetupDialog::registerMachineStatus(TaskStatus status, QString reason)
+void SetupDialog::registerMachineResponse(TaskStatus status, QString reason)
 {
     switch(status)
     {
@@ -403,7 +404,7 @@ void SetupDialog::updateLoadingAnimation(bool idle)
     }
 }
 
-void SetupDialog::setTarsnapVersion(QString versionString)
+void SetupDialog::tarsnapVersionResponse(QString versionString)
 {
     _tarsnapVersion = versionString;
     if(!_tarsnapVersion.isEmpty())

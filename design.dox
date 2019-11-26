@@ -1,0 +1,28 @@
+/**
+ * \mainpage Overall design of Tarsnap-GUI
+ *
+ * \section Objects Main objects
+ *
+ * - Frontend: \ref MainWindow or \ref SetupDialog
+ * - Backend: \ref TaskManager
+ * - Overall owner: \ref AppGui or \ref AppCmdline
+ *
+ * \section signals Signals between frontend and backend
+ *
+ * The connections between the frontend and backend are defined in
+ * src/app-gui.cpp.  Naming conventions:
+ * - Following the convention of the Qt objects, signals should be
+ *   in the past tense, while slots should be present tense.  For
+ *   example, a typical "query chain" might be:
+ *       <table><tr>
+ *       <td>FRONTEND</td><td>SIGNAL</td><td>\ref tarsnapVersionRequested</td>
+ *       </tr><tr>
+ *       <td>BACKEND</td><td>SLOT</td><td>\ref tarsnapVersionFind</td>
+ *       </tr><tr>
+ *       <td>BACKEND</td><td>SIGNAL</td><td>\ref tarsnapVersionFound</td>
+ *       </tr><tr>
+ *       <td>FRONTEND</td><td>SLOT</td><td>\ref tarsnapVersionResponse</td>
+ *       </tr></table>
+ *   If at all possible, keep the same prefix for all four items;
+ *   this will make grepping much easier.
+ */

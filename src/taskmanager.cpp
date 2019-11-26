@@ -30,7 +30,7 @@ TaskManager::~TaskManager()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
 }
 
-void TaskManager::getTarsnapVersion(QString tarsnapPath)
+void TaskManager::tarsnapVersionFind(QString tarsnapPath)
 {
     TarsnapTask *tarsnap = new TarsnapTask();
     if(tarsnapPath.isEmpty())
@@ -43,9 +43,9 @@ void TaskManager::getTarsnapVersion(QString tarsnapPath)
     queueTask(tarsnap);
 }
 
-void TaskManager::registerMachine(QString user, QString password,
-                                  QString machine, QString keyFilename,
-                                  QString tarsnapPath, QString cachePath)
+void TaskManager::registerMachineDo(QString user, QString password,
+                                    QString machine, QString keyFilename,
+                                    QString tarsnapPath, QString cachePath)
 {
     TarsnapTask *registerTask = new TarsnapTask();
     QStringList  args;
@@ -653,7 +653,7 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
-        emit registerMachineStatus(TaskStatus::Completed, stdOut);
+        emit registerMachineDone(TaskStatus::Completed, stdOut);
     else
     {
         if(stdErr.isEmpty())
@@ -665,7 +665,7 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
             else if(exitCode == EXIT_CRASHED)
                 stdErr = "Crash occurred in the command-line program";
         }
-        emit registerMachineStatus(TaskStatus::Failed, stdErr);
+        emit registerMachineDone(TaskStatus::Failed, stdErr);
     }
 }
 
@@ -1339,11 +1339,11 @@ void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(stdErr));
-        emit tarsnapVersion("");
+        emit tarsnapVersionFound("");
         return;
     }
 
     QRegExp versionRx("^tarsnap (\\S+)\\s?$");
     if(-1 != versionRx.indexIn(stdOut))
-        emit tarsnapVersion(versionRx.cap(1));
+        emit tarsnapVersionFound(versionRx.cap(1));
 }

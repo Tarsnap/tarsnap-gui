@@ -61,7 +61,7 @@ public slots:
 
     //! For the Application tab
     //! Update the Tarsnap version number, and store it in the settings.
-    void updateTarsnapVersion(QString versionString);
+    void tarsnapVersionResponse(QString versionString);
 
 signals:
     // For the Account tab
@@ -86,7 +86,7 @@ signals:
     //! and run the setup wizard again.
     void runSetupWizard();
     //! Begin tarsnap --version
-    void getTarsnapVersion(QString tarsnapPath);
+    void tarsnapVersionRequested(QString tarsnapPath);
 
 protected:
     //! Handles translation change of language.

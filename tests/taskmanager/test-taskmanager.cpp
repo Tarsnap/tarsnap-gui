@@ -38,7 +38,7 @@ void TestTaskManager::initTestCase()
     // This is to "warm up" the command-line tasks.
     TaskManager *manager = new TaskManager();
     QSignalSpy   sig_ver(manager, SIGNAL(tarsnapVersionFound(QString)));
-    manager->tarsnapVersionFind("");
+    manager->tarsnapVersionFind();
 
     // Wait for task to finish
     while(sig_ver.count() == 0)
@@ -64,7 +64,7 @@ void TestTaskManager::get_version()
     QVERIFY(sig_ver.count() == 0);
 
     // Get version number
-    manager->tarsnapVersionFind("");
+    manager->tarsnapVersionFind();
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
     QVERIFY(sig_ver.count() == 1);
     ver_str = sig_ver.takeFirst().at(0).toString();
@@ -79,7 +79,10 @@ void TestTaskManager::get_version()
     }
 
     // Get a failure
-    manager->tarsnapVersionFind("fake-dir");
+    TSettings settings;
+    settings.setValue("tarsnap/path", "fake-dir");
+
+    manager->tarsnapVersionFind();
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
     QVERIFY(sig_ver.count() == 1);
     ver_str = sig_ver.takeFirst().at(0).toString();
@@ -98,9 +101,13 @@ void TestTaskManager::fail_registerMachine_command_not_found()
     QString      reason;
 
     // Fail to register with a non-existent tarsnap dir.
-    manager->registerMachineDo("fake-user", "fake-password", "fake-machine",
-                               "fake.key", "/fake/dir",
-                               "/tmp/gui-test-tarsnap-cache", false);
+    TSettings settings;
+    settings.setValue("tarsnap/path", "/fake/dir");
+    settings.setValue("tarsnap/user", "fake-user");
+    settings.setValue("tarsnap/machine", "fake-machine");
+    settings.setValue("tarsnap/key", "fake.key");
+    settings.setValue("tarsnap/cache", "/tmp/gui-test-tarsnap-cache");
+    manager->registerMachineDo("fake-password", false);
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
     // Get failure message.
@@ -126,9 +133,13 @@ void TestTaskManager::fail_registerMachine_empty_key()
     QString      reason;
 
     // Fail to register with a key that doesn't support --fsck-prune.
-    manager->registerMachineDo("fake-user", "fake-password", "fake-machine",
-                               "empty.key", tarsnapPath,
-                               "/tmp/gui-test-tarsnap-cache", true);
+    TSettings settings;
+    settings.setValue("tarsnap/path", tarsnapPath);
+    settings.setValue("tarsnap/user", "fake-user");
+    settings.setValue("tarsnap/machine", "fake-machine");
+    settings.setValue("tarsnap/key", "empty.key");
+    settings.setValue("tarsnap/cache", "/tmp/gui-test-tarsnap-cache");
+    manager->registerMachineDo("fake-password", true);
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
     // Get failure message.

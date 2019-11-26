@@ -100,10 +100,9 @@ void TestSetupWizard::normal_install()
 
     SetupDialog *    setupWizard = new SetupDialog();
     Ui::SetupDialog *ui          = setupWizard->_ui;
-    QSignalSpy sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested(QString)));
-    QSignalSpy sig_register(setupWizard, SIGNAL(registerMachineRequested(
-                                             QString, QString, QString, QString,
-                                             QString, QString, bool)));
+    QSignalSpy       sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested()));
+    QSignalSpy       sig_register(setupWizard,
+                            SIGNAL(registerMachineRequested(QString, bool)));
 
     VISUAL_INIT(setupWizard);
 
@@ -132,7 +131,6 @@ void TestSetupWizard::normal_install()
     QTest::mouseClick(ui->nextButton, Qt::LeftButton);
     // Check results of registration
     QVERIFY(sig_register.count() == 1);
-    QVERIFY(sig_register.takeFirst().at(3).toString() == QString("fake.key"));
     setupWizard->registerMachineResponse(TaskStatus::Completed, "");
     VISUAL_WAIT;
 
@@ -155,7 +153,7 @@ void TestSetupWizard::cli()
 {
     SetupDialog *    setupWizard = new SetupDialog();
     Ui::SetupDialog *ui          = setupWizard->_ui;
-    QSignalSpy sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested(QString)));
+    QSignalSpy       sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested()));
 
     VISUAL_INIT(setupWizard);
 

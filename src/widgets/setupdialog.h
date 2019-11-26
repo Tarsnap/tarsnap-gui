@@ -48,20 +48,11 @@ public slots:
 
 signals:
     /// We need to register this machine with the Tarsnap service.
-    /// \param user the email address of the user.
     /// \param password the user's Tarsnap service password.
-    /// \param machine the name of this machine.
-    /// \param keyFilename the keyfile; might already exist, or might be new.
-    /// \param tarsnapPath the path of the CLI app.
-    /// \param cachePath the Tarsnap cachedir.
     /// \param useExistingKeyfile should we use an existing keyfile?
-    void registerMachineRequested(QString user, QString password,
-                                  QString machine, QString keyFilename,
-                                  QString tarsnapPath, QString cachePath,
-                                  bool useExistingKeyfile);
+    void registerMachineRequested(QString password, bool useExistingKeyfile);
     /// We need to determine the Tarsnap CLI version number.
-    /// \param tarsnapPath the path of the CLI app.
-    void tarsnapVersionRequested(QString tarsnapPath);
+    void tarsnapVersionRequested();
     /// Request cache initialization (used when generating a new key)
     void initializeCache();
 

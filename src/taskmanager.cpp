@@ -45,10 +45,25 @@ void TaskManager::tarsnapVersionFind(QString tarsnapPath)
 
 void TaskManager::registerMachineDo(QString user, QString password,
                                     QString machine, QString keyFilename,
-                                    QString tarsnapPath, QString cachePath)
+                                    QString tarsnapPath, QString cachePath,
+                                    bool useExistingKeyfile)
 {
     TarsnapTask *registerTask = new TarsnapTask();
     QStringList  args;
+    bool         keyExists = QFileInfo::exists(keyFilename);
+
+    // Sanity check: existing keyfile should exist; new keyfile shouldn't exist.
+    if(useExistingKeyfile && !keyExists)
+    {
+        emit registerMachineDone(TaskStatus::Failed, "Keyfile does not exist");
+        return;
+    }
+    if(!useExistingKeyfile && keyExists)
+    {
+        emit registerMachineDone(TaskStatus::Failed, "Keyfile already exists");
+        return;
+    }
+
     if(QFileInfo(keyFilename).exists())
     {
         // existing key, attempt to rebuild cache & verify archive integrity

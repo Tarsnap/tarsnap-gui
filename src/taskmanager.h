@@ -71,7 +71,7 @@ public slots:
     //! tarsnap-keygen.  If the key already exists, run --fsck-prune first.
     void registerMachineDo(QString user, QString password, QString machine,
                            QString keyFilename, QString tarsnapPath,
-                           QString cachePath);
+                           QString cachePath, bool useExistingKeyfile);
     //! tarsnap -c -f \<name\>
     void backupNow(BackupTaskPtr backupTask);
     //! tarsnap --list-archives -vv

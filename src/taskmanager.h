@@ -85,7 +85,7 @@ public slots:
     //! tarsnap --print-stats
     void getOverallStats();
     //! tarsnap --fsck or --fsck-prune
-    void fsck(bool prune = false);
+    void fsck(bool prune);
     //! tarsnap --nuke
     void nuke();
     //! tarsnap -x -f \<name\>, with options.

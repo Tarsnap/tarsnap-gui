@@ -907,7 +907,7 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString stdOut,
     if(exitCode == SUCCESS)
     {
         emit message(tr("All archives nuked successfully."), stdOut);
-        fsck();
+        fsck(false);
     }
     else
     {

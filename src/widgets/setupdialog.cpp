@@ -359,11 +359,14 @@ void SetupDialog::registerMachine()
             + ".key";
     }
 
-    emit registerMachineRequested(_ui->tarsnapUserLineEdit->text(),
-                                  _ui->tarsnapPasswordLineEdit->text(),
-                                  _ui->machineNameLineEdit->text(),
-                                  _tarsnapKeyFile, _tarsnapDir,
-                                  _tarsnapCacheDir, useExistingKeyfile);
+    TSettings settings;
+    settings.setValue("tarsnap/cache", _tarsnapCacheDir);
+    settings.setValue("tarsnap/key", _tarsnapKeyFile);
+    settings.setValue("tarsnap/user", _ui->tarsnapUserLineEdit->text());
+    settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
+
+    emit registerMachineRequested(_ui->tarsnapPasswordLineEdit->text(),
+                                  useExistingKeyfile);
 }
 
 void SetupDialog::registerMachineResponse(TaskStatus status, QString reason)
@@ -428,10 +431,6 @@ void SetupDialog::commitSettings(bool skipped)
     {
         settings.setValue("app/app_data", _appDataDir);
         settings.setValue("tarsnap/version", _tarsnapVersion);
-        settings.setValue("tarsnap/cache", _tarsnapCacheDir);
-        settings.setValue("tarsnap/key", _tarsnapKeyFile);
-        settings.setValue("tarsnap/user", _ui->tarsnapUserLineEdit->text());
-        settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
     }
     settings.sync();
 

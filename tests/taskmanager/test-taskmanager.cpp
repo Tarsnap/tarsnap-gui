@@ -100,7 +100,7 @@ void TestTaskManager::fail_registerMachine_command_not_found()
     // Fail to register with a non-existent tarsnap dir.
     manager->registerMachineDo("fake-user", "fake-password", "fake-machine",
                                "fake.key", "/fake/dir",
-                               "/tmp/gui-test-tarsnap-cache");
+                               "/tmp/gui-test-tarsnap-cache", false);
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
     // Get failure message.
@@ -128,7 +128,7 @@ void TestTaskManager::fail_registerMachine_empty_key()
     // Fail to register with a key that doesn't support --fsck-prune.
     manager->registerMachineDo("fake-user", "fake-password", "fake-machine",
                                "empty.key", tarsnapPath,
-                               "/tmp/gui-test-tarsnap-cache");
+                               "/tmp/gui-test-tarsnap-cache", true);
     QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
     // Get failure message.

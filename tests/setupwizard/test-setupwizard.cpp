@@ -101,10 +101,9 @@ void TestSetupWizard::normal_install()
     SetupDialog *    setupWizard = new SetupDialog();
     Ui::SetupDialog *ui          = setupWizard->_ui;
     QSignalSpy sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested(QString)));
-    QSignalSpy sig_register(setupWizard,
-                            SIGNAL(registerMachineRequested(QString, QString,
-                                                            QString, QString,
-                                                            QString, QString)));
+    QSignalSpy sig_register(setupWizard, SIGNAL(registerMachineRequested(
+                                             QString, QString, QString, QString,
+                                             QString, QString, bool)));
 
     VISUAL_INIT(setupWizard);
 

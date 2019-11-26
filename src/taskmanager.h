@@ -69,9 +69,9 @@ public slots:
     //! \anchor tarsnapVersionFind
     void tarsnapVersionFind(QString tarsnapPath);
     //! tarsnap-keygen.  If the key already exists, run --fsck-prune first.
-    void registerMachine(QString user, QString password, QString machine,
-                         QString keyFilename, QString tarsnapPath,
-                         QString cachePath);
+    void registerMachineDo(QString user, QString password, QString machine,
+                           QString keyFilename, QString tarsnapPath,
+                           QString cachePath);
     //! tarsnap -c -f \<name\>
     void backupNow(BackupTaskPtr backupTask);
     //! tarsnap --list-archives -vv
@@ -108,7 +108,7 @@ signals:
     //! \anchor tarsnapVersionFound
     void tarsnapVersionFound(QString versionString);
     //! Result of tarsnap-keygen.
-    void registerMachineStatus(TaskStatus status, QString reason);
+    void registerMachineDone(TaskStatus status, QString reason);
     //! A list of all Archive objects.
     void archiveList(QList<ArchivePtr> archives);
     //! A new Archive was created by \ref backupNow or discovered via

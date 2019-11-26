@@ -265,10 +265,10 @@ bool AppGui::runSetupWizard()
             &TaskManager::tarsnapVersionFind);
     connect(&_taskManager, &TaskManager::tarsnapVersionFound, &wizard,
             &SetupDialog::tarsnapVersionResponse);
-    connect(&wizard, &SetupDialog::requestRegisterMachine, &_taskManager,
-            &TaskManager::registerMachine);
-    connect(&_taskManager, &TaskManager::registerMachineStatus, &wizard,
-            &SetupDialog::registerMachineStatus);
+    connect(&wizard, &SetupDialog::registerMachineRequested, &_taskManager,
+            &TaskManager::registerMachineDo);
+    connect(&_taskManager, &TaskManager::registerMachineDone, &wizard,
+            &SetupDialog::registerMachineResponse);
     connect(&wizard, &SetupDialog::initializeCache, &_taskManager,
             &TaskManager::initializeCache);
     connect(&_taskManager, &TaskManager::idle, &wizard,

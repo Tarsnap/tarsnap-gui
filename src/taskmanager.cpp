@@ -43,9 +43,9 @@ void TaskManager::tarsnapVersionFind(QString tarsnapPath)
     queueTask(tarsnap);
 }
 
-void TaskManager::registerMachine(QString user, QString password,
-                                  QString machine, QString keyFilename,
-                                  QString tarsnapPath, QString cachePath)
+void TaskManager::registerMachineDo(QString user, QString password,
+                                    QString machine, QString keyFilename,
+                                    QString tarsnapPath, QString cachePath)
 {
     TarsnapTask *registerTask = new TarsnapTask();
     QStringList  args;
@@ -653,7 +653,7 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
-        emit registerMachineStatus(TaskStatus::Completed, stdOut);
+        emit registerMachineDone(TaskStatus::Completed, stdOut);
     else
     {
         if(stdErr.isEmpty())
@@ -665,7 +665,7 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
             else if(exitCode == EXIT_CRASHED)
                 stdErr = "Crash occurred in the command-line program";
         }
-        emit registerMachineStatus(TaskStatus::Failed, stdErr);
+        emit registerMachineDone(TaskStatus::Failed, stdErr);
     }
 }
 

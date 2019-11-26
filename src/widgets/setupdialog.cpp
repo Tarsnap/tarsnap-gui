@@ -338,11 +338,13 @@ void SetupDialog::registerHaveKeyBrowse()
 
 void SetupDialog::registerMachine()
 {
+    bool useExistingKeyfile = false;
     _ui->nextButton->setEnabled(false);
     _ui->statusLabel->clear();
     _ui->statusLabel->setStyleSheet("");
     if(_ui->restoreYesButton->isChecked())
     {
+        useExistingKeyfile = true;
         _ui->statusLabel->setText("Verifying archive integrity...");
         _tarsnapKeyFile = _ui->machineKeyCombo->currentText();
     }
@@ -359,7 +361,7 @@ void SetupDialog::registerMachine()
                                   _ui->tarsnapPasswordLineEdit->text(),
                                   _ui->machineNameLineEdit->text(),
                                   _tarsnapKeyFile, _tarsnapDir,
-                                  _tarsnapCacheDir);
+                                  _tarsnapCacheDir, useExistingKeyfile);
 }
 
 void SetupDialog::registerMachineResponse(TaskStatus status, QString reason)

@@ -54,9 +54,11 @@ signals:
     /// \param keyFilename the keyfile; might already exist, or might be new.
     /// \param tarsnapPath the path of the CLI app.
     /// \param cachePath the Tarsnap cachedir.
+    /// \param useExistingKeyfile should we use an existing keyfile?
     void registerMachineRequested(QString user, QString password,
                                   QString machine, QString keyFilename,
-                                  QString tarsnapPath, QString cachePath);
+                                  QString tarsnapPath, QString cachePath,
+                                  bool useExistingKeyfile);
     /// We need to determine the Tarsnap CLI version number.
     /// \param tarsnapPath the path of the CLI app.
     void tarsnapVersionRequested(QString tarsnapPath);

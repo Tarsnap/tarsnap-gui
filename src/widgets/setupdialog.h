@@ -51,11 +51,11 @@ signals:
     /// \param user the email address of the user.
     /// \param password the user's Tarsnap service password.
     /// \param machine the name of this machine.
-    /// \param key the keyfile; might already exist, or might be new.
+    /// \param keyFilename the keyfile; might already exist, or might be new.
     /// \param tarsnapPath the path of the CLI app.
     /// \param cachePath the Tarsnap cachedir.
     void requestRegisterMachine(QString user, QString password, QString machine,
-                                QString key, QString tarsnapPath,
+                                QString keyFilename, QString tarsnapPath,
                                 QString cachePath);
     /// We need to determine the Tarsnap CLI version number.
     /// \param tarsnapPath the path of the CLI app.

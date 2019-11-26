@@ -44,16 +44,16 @@ void TaskManager::getTarsnapVersion(QString tarsnapPath)
 }
 
 void TaskManager::registerMachine(QString user, QString password,
-                                  QString machine, QString key,
+                                  QString machine, QString keyFilename,
                                   QString tarsnapPath, QString cachePath)
 {
     TarsnapTask *registerTask = new TarsnapTask();
     QStringList  args;
-    if(QFileInfo(key).exists())
+    if(QFileInfo(keyFilename).exists())
     {
         // existing key, attempt to rebuild cache & verify archive integrity
         args << "--fsck-prune"
-             << "--keyfile" << key << "--cachedir" << cachePath;
+             << "--keyfile" << keyFilename << "--cachedir" << cachePath;
         registerTask->setCommand(tarsnapPath + QDir::separator() + CMD_TARSNAP);
         registerTask->setArguments(args);
     }
@@ -61,7 +61,7 @@ void TaskManager::registerMachine(QString user, QString password,
     {
         // generate a new key and register machine with tarsnap-keygen
         args << "--user" << user << "--machine" << machine << "--keyfile"
-             << key;
+             << keyFilename;
         registerTask->setCommand(tarsnapPath + QDir::separator()
                                  + CMD_TARSNAPKEYGEN);
         registerTask->setArguments(args);

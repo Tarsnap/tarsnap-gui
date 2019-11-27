@@ -154,11 +154,12 @@ HEADERS +=						\
 	src/widgets/setupdialog.h			\
 	src/widgets/tarsnapaccountdialog.h
 
-INCLUDEPATH += src/widgets/				\
-		+= libcperciva/util/			\
-		+= lib/core/				\
-		+= lib/util/				\
-		+= src/
+INCLUDEPATH +=						\
+	lib/core/					\
+	lib/util/					\
+	libcperciva/util/				\
+	src/						\
+	src/widgets/
 
 FORMS +=						\
 	forms/aboutwidget.ui				\

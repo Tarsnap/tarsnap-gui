@@ -3,7 +3,6 @@
 WARNINGS_DISABLE
 #include <QDateTime>
 #include <QFileDialog>
-#include <QSettings>
 #include <QWidget>
 
 #include "ui_backuptabwidget.h"

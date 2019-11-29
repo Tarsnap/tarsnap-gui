@@ -79,6 +79,8 @@ class TestSetupWizard : public QObject
 
 private slots:
     void initTestCase();
+    void cleanupTestCase();
+
     void normal_install();
     void cli();
 };
@@ -92,6 +94,11 @@ void TestSetupWizard::initTestCase()
         // Use a custom message handler to filter out unwanted messages
         orig_message_handler = qInstallMessageHandler(offscreenMessageOutput);
     }
+}
+
+void TestSetupWizard::cleanupTestCase()
+{
+    TSettings::destroy();
 }
 
 void TestSetupWizard::normal_install()

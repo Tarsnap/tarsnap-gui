@@ -50,6 +50,9 @@ void TestTaskManager::cleanupTestCase()
 {
     TSettings::destroy();
     ConsoleLog::destroy();
+
+    // Wait up to 1 second to delete objects scheduled with ->deleteLater()
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
 }
 
 void TestTaskManager::get_version()
@@ -65,7 +68,8 @@ void TestTaskManager::get_version()
 
     // Get version number
     manager->tarsnapVersionFind();
-    QTest::qWait(TASK_CMDLINE_WAIT_MS);
+    while(sig_ver.count() == 0)
+        QTest::qWait(TASK_CMDLINE_WAIT_MS);
     QVERIFY(sig_ver.count() == 1);
     ver_str = sig_ver.takeFirst().at(0).toString();
 
@@ -83,7 +87,8 @@ void TestTaskManager::get_version()
     settings.setValue("tarsnap/path", "fake-dir");
 
     manager->tarsnapVersionFind();
-    QTest::qWait(TASK_CMDLINE_WAIT_MS);
+    while(sig_ver.count() == 0)
+        QTest::qWait(TASK_CMDLINE_WAIT_MS);
     QVERIFY(sig_ver.count() == 1);
     ver_str = sig_ver.takeFirst().at(0).toString();
     QVERIFY(ver_str.isEmpty());
@@ -108,7 +113,8 @@ void TestTaskManager::fail_registerMachine_command_not_found()
     settings.setValue("tarsnap/key", "fake.key");
     settings.setValue("tarsnap/cache", "/tmp/gui-test-tarsnap-cache");
     manager->registerMachineDo("fake-password", false);
-    QTest::qWait(TASK_CMDLINE_WAIT_MS);
+    while(sig_reg.count() == 0)
+        QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
     // Get failure message.
     QVERIFY(sig_reg.count() == 1);
@@ -140,7 +146,8 @@ void TestTaskManager::fail_registerMachine_empty_key()
     settings.setValue("tarsnap/key", "empty.key");
     settings.setValue("tarsnap/cache", "/tmp/gui-test-tarsnap-cache");
     manager->registerMachineDo("fake-password", true);
-    QTest::qWait(TASK_CMDLINE_WAIT_MS);
+    while(sig_reg.count() == 0)
+        QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
     // Get failure message.
     QVERIFY(sig_reg.count() == 1);

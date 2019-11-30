@@ -131,6 +131,7 @@ void SetupDialog::wizardPageChanged(int)
     {
         _ui->advancedPageRadioButton->setChecked(true);
         _ui->titleLabel->setText(tr("Command-line utilities"));
+        _ui->nextButton->setEnabled(false);
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
     {
@@ -194,9 +195,8 @@ void SetupDialog::setNextPage()
         _ui->wizardStackedWidget->setCurrentWidget(_ui->advancedPage);
         _ui->advancedPageRadioButton->setEnabled(true);
         bool advancedOk = validateAdvancedSetupPage();
-        _ui->advancedCLIButton->setChecked(!advancedOk);
-        if(advancedOk)
-            _ui->nextButton->setFocus();
+        if(!advancedOk)
+            _ui->advancedCLIButton->setChecked(true);
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->advancedPage)
     {
@@ -273,7 +273,10 @@ bool SetupDialog::validateAdvancedSetupPage()
         emit tarsnapVersionRequested();
     }
 
-    _ui->nextButton->setEnabled(result);
+    // If `results` are true, then we might still be waiting for the
+    // results of tarsnapVersion, so we can't enable this yet.
+    if(!result)
+        _ui->nextButton->setEnabled(false);
 
     return result;
 }
@@ -418,6 +421,13 @@ void SetupDialog::tarsnapVersionResponse(QString versionString)
     {
         _ui->advancedValidationLabel->setText(
             tr("Tarsnap CLI version ") + _tarsnapVersion + tr(" detected.  ✔"));
+        _ui->nextButton->setEnabled(true);
+        _ui->nextButton->setFocus();
+    }
+    else
+    {
+        _ui->advancedValidationLabel->setText(
+            tr("Error retrieving Tarsnap CLI version "));
     }
 }
 

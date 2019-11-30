@@ -266,6 +266,12 @@ bool SetupDialog::validateAdvancedSetupPage()
                "for help with acquiring them."));
         result = false;
     }
+    else if(result && _tarsnapVersion.isEmpty())
+    {
+        _ui->advancedValidationLabel->setText(
+            tr("Could not determine Tarsnap CLI version."));
+        result = false;
+    }
     else if(result)
     {
         TSettings settings;

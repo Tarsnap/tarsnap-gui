@@ -39,16 +39,16 @@ void TestConsoleLog::saveMessage()
     QString logFile = appdata + QDir::separator() + TEST_NAME + ".log";
 
     // Don't record this message
-    LOG << "don't write this";
+    LOG << "don't write this\n";
 
     // Save a message
     LOG.setFilename(logFile);
     LOG.setWriteToFile(true);
-    LOG << "write this";
+    LOG << "write this\n";
 
     // Disable saving again
     LOG.setWriteToFile(false);
-    LOG << "don't write this";
+    LOG << "don't write this\n";
 }
 
 QTEST_MAIN(TestConsoleLog)

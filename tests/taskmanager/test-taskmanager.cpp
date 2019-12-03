@@ -93,6 +93,9 @@ void TestTaskManager::get_version()
     ver_str = sig_ver.takeFirst().at(0).toString();
     QVERIFY(ver_str.isEmpty());
 
+    // Reset proper tarsnap path after the "deliberate failure" test.
+    settings.setValue("tarsnap/path", tarsnapPath);
+
     delete manager;
 }
 

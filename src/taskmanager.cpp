@@ -428,11 +428,16 @@ void TaskManager::getKeyId(QString key_filename)
 void TaskManager::initializeCache()
 {
     TSettings settings;
-    QString   tarsnapCacheDir = settings.value("tarsnap/cache", "").toString();
-    QDir      cacheDir(tarsnapCacheDir);
-    if(!tarsnapCacheDir.isEmpty()
+    QString   cacheDirname = settings.value("tarsnap/cache", "").toString();
+    QDir      cacheDir(cacheDirname);
+    // Check that the string is non-empty, and that the dir has no files.
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 9, 0))
+    if(!cacheDirname.isEmpty() && cacheDir.isEmpty())
+#else
+    if(!cacheDirname.isEmpty()
        && !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries)
                .count())
+#endif
     {
         if(!Utils::tarsnapVersionMinimum("1.0.38"))
         {

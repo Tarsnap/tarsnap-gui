@@ -69,7 +69,7 @@ void TarsnapTask::run()
     if(!_stdOutFile.isEmpty())
         _process->setStandardOutputFile(_stdOutFile);
 
-    LOG << tr("Task %1 started:\n[%2 %3]")
+    LOG << tr("Task %1 started:\n[%2 %3]\n")
                .arg(_uuid.toString())
                .arg(_process->program())
                .arg(Utils::quoteCommandLine(_process->arguments()));
@@ -238,7 +238,7 @@ void TarsnapTask::processFinished()
         if(_truncateLogOutput && (stdOut.size() > LOG_MAX_LENGTH))
             stdOut = truncate_output(stdOut);
 
-        LOG << tr("Task %1 finished with exit code %2:\n[%3 %4]\n%5")
+        LOG << tr("Task %1 finished with exit code %2:\n[%3 %4]\n%5\n")
                    .arg(_uuid.toString())
                    .arg(_exitCode)
                    .arg(_command)
@@ -258,7 +258,7 @@ void TarsnapTask::processFinished()
 void TarsnapTask::processError()
 {
     LOG << tr("Task %1 finished with error %2 (%3) occured "
-              "(exit code %4):\n[%5 %6]\n%7")
+              "(exit code %4):\n[%5 %6]\n%7\n")
                .arg(_uuid.toString())
                .arg(_process->error())
                .arg(_process->errorString())

@@ -95,7 +95,6 @@ void TestMainWindow::about_window_menubar()
 {
     MainWindow *    mainwindow = new MainWindow();
     HelpWidget *    help       = &mainwindow->_helpWidget;
-    Ui::MainWindow *ui_main    = mainwindow->_ui;
     Ui::HelpWidget *ui         = help->_ui;
 
     VISUAL_INIT(mainwindow);

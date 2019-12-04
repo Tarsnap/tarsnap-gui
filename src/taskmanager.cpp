@@ -9,16 +9,13 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "debug.h"
+#include "tasks-defs.h"
+#include "tasks-setup.h"
 #include "utils.h"
 
 #include <TSettings.h>
 
 #define SUCCESS 0
-
-#define NETWORK_HOST "v1-0-0-server.tarsnap.com"
-#define NETWORK_PORT 9279
-#define NETWORK_UP_SLEEP 60
-#define NETWORK_UP_ATTEMPTS 3
 
 TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
 {
@@ -37,9 +34,7 @@ TaskManager::~TaskManager()
 
 void TaskManager::tarsnapVersionFind()
 {
-    TarsnapTask *tarsnap = new TarsnapTask();
-    tarsnap->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    tarsnap->setArguments(QStringList("--version"));
+    TarsnapTask *tarsnap = tarsnapVersionTask();
     connect(tarsnap, &TarsnapTask::finished, this,
             &TaskManager::getTarsnapVersionFinished, QUEUED);
     queueTask(tarsnap);
@@ -47,8 +42,7 @@ void TaskManager::tarsnapVersionFind()
 
 void TaskManager::registerMachineDo(QString password, bool useExistingKeyfile)
 {
-    TarsnapTask *registerTask = new TarsnapTask();
-    QStringList  args;
+    TarsnapTask *registerTask;
 
     // Get relevant settings
     TSettings settings;
@@ -71,23 +65,18 @@ void TaskManager::registerMachineDo(QString password, bool useExistingKeyfile)
         return;
     }
 
-    if(QFileInfo(keyFilename).exists())
+    // Actual task
+    if(useExistingKeyfile)
     {
         // existing key, attempt to rebuild cache & verify archive integrity
-        registerTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-        initTarsnapArgs(args);
-        args << "--fsck-prune";
-        registerTask->setArguments(args);
+        registerTask = fsckTask(true);
     }
     else
     {
         // generate a new key and register machine with tarsnap-keygen
-        args << "--user" << user << "--machine" << machine << "--keyfile"
-             << keyFilename;
-        registerTask->setCommand(makeTarsnapCommand(CMD_TARSNAPKEYGEN));
-        registerTask->setArguments(args);
-        registerTask->setStdIn(password);
+        registerTask = registerMachineTask(password);
     }
+
     connect(registerTask, &TarsnapTask::finished, this,
             &TaskManager::registerMachineFinished, QUEUED);
     queueTask(registerTask);
@@ -318,15 +307,7 @@ void TaskManager::getOverallStats()
 
 void TaskManager::fsck(bool prune)
 {
-    TarsnapTask *fsck = new TarsnapTask();
-    QStringList  args;
-    initTarsnapArgs(args);
-    if(prune)
-        args << "--fsck-prune";
-    else
-        args << "--fsck";
-    fsck->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    fsck->setArguments(args);
+    TarsnapTask *fsck = fsckTask(prune);
     connect(fsck, &TarsnapTask::finished, this, &TaskManager::fsckFinished,
             QUEUED);
     connect(fsck, &TarsnapTask::started, this,
@@ -430,6 +411,8 @@ void TaskManager::getKeyId(QString key_filename)
 
 void TaskManager::initializeCache()
 {
+    TarsnapTask *initTask;
+
     TSettings settings;
     QString   cacheDirname = settings.value("tarsnap/cache", "").toString();
     QDir      cacheDir(cacheDirname);
@@ -448,18 +431,13 @@ void TaskManager::initializeCache()
                      "--initialize-cachedir.";
             return;
         }
-        TarsnapTask *initTask = new TarsnapTask();
-        QStringList  args;
-        initTarsnapArgs(args);
-        args << "--initialize-cachedir";
-        initTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-        initTask->setArguments(args);
-        queueTask(initTask);
+        initTask = initializeCachedirTask();
     }
     else
     {
-        fsck(true);
+        initTask = fsckTask(true);
     }
+    queueTask(initTask);
 }
 
 void TaskManager::findMatchingArchives(QString jobPrefix)
@@ -678,9 +656,9 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
                                           QString stdOut, QString stdErr)
 {
     Q_UNUSED(data)
-    if(exitCode == SUCCESS)
-        emit registerMachineDone(TaskStatus::Completed, stdOut);
-    else
+
+    // Handle error (if applicable)
+    if(exitCode != SUCCESS)
     {
         if(stdErr.isEmpty())
         {
@@ -692,7 +670,11 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
                 stdErr = "Crash occurred in the command-line program";
         }
         emit registerMachineDone(TaskStatus::Failed, stdErr);
+        return;
     }
+
+    // We finished successfully
+    emit registerMachineDone(TaskStatus::Completed, stdOut);
 }
 
 void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
@@ -1373,9 +1355,7 @@ void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
         return;
     }
 
-    QRegExp versionRx("^tarsnap (\\S+)\\s?$");
-    if(-1 != versionRx.indexIn(stdOut))
-        emit tarsnapVersionFound(versionRx.cap(1));
+    emit tarsnapVersionFound(tarsnapVersionTaskParse(stdOut));
 }
 
 #ifdef QT_TESTLIB_LIB

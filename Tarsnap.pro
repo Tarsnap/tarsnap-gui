@@ -71,6 +71,8 @@ SOURCES +=						\
 	src/tarsnapaccount.cpp				\
 	src/tarsnaptask.cpp				\
 	src/taskmanager.cpp				\
+	src/tasks/tasks-setup.cpp			\
+	src/tasks/tasks-utils.cpp			\
 	src/translator.cpp				\
 	src/utils.cpp					\
 	src/widgets/archivelistwidget.cpp		\
@@ -125,6 +127,9 @@ HEADERS +=						\
 	src/tarsnaperror.h				\
 	src/tarsnaptask.h				\
 	src/taskmanager.h				\
+	src/tasks/tasks-defs.h				\
+	src/tasks/tasks-setup.h				\
+	src/tasks/tasks-utils.h				\
 	src/taskstatus.h				\
 	src/translator.h				\
 	src/utils.h					\
@@ -159,6 +164,7 @@ INCLUDEPATH +=						\
 	lib/util/					\
 	libcperciva/util/				\
 	src/						\
+	src/tasks/					\
 	src/widgets/
 
 FORMS +=						\

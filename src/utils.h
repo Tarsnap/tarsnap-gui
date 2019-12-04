@@ -9,10 +9,6 @@ WARNINGS_DISABLE
 #include <QStringList>
 WARNINGS_ENABLE
 
-#define CMD_TARSNAP "tarsnap"
-#define CMD_TARSNAPKEYGEN "tarsnap-keygen"
-#define CMD_TARSNAPKEYMGMT "tarsnap-keymgmt"
-
 #define DEFAULT_PRESERVE_PATHNAMES true
 #define DEFAULT_TRAVERSE_MOUNT true
 #define DEFAULT_FOLLOW_SYMLINKS false
@@ -34,7 +30,6 @@ WARNINGS_ENABLE
 #endif
 
 #define DEFAULT_AGGRESSIVE_NETWORKING false
-#define DEFAULT_NO_DEFAULT_CONFIG true
 
 #define DEFAULT_DOWNLOADS                                                      \
     QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)

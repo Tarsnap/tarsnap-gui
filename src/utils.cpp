@@ -9,6 +9,8 @@ WARNINGS_ENABLE
 
 #include <TSettings.h>
 
+#include "tasks-defs.h"
+
 using namespace Utils;
 
 GetDirInfoTask::GetDirInfoTask(QDir dir) : _dir(dir)

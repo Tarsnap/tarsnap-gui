@@ -10,6 +10,7 @@ INCLUDEPATH += .				\
 	../../lib/util				\
 	../../libcperciva/util/			\
 	../../src/				\
+	../../src/tasks/			\
 	../../src/widgets/
 
 

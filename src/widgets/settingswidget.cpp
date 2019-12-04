@@ -16,6 +16,7 @@ WARNINGS_DISABLE
 #include "ui_settingswidget.h"
 WARNINGS_ENABLE
 
+#include "tasks-defs.h"
 #include "translator.h"
 #include "utils.h"
 

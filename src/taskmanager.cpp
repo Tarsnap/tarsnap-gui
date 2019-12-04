@@ -9,16 +9,12 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "debug.h"
+#include "tasks-defs.h"
 #include "utils.h"
 
 #include <TSettings.h>
 
 #define SUCCESS 0
-
-#define NETWORK_HOST "v1-0-0-server.tarsnap.com"
-#define NETWORK_PORT 9279
-#define NETWORK_UP_SLEEP 60
-#define NETWORK_UP_ATTEMPTS 3
 
 TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
 {

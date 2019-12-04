@@ -1,0 +1,26 @@
+#ifndef TASKS_DEFS_H
+#define TASKS_DEFS_H
+
+/**
+ * \file tasks-defs.h
+ * \brief Useful definitions for Tarsnap tasks.
+ */
+
+/** @{ \name Tarsnap binaries */
+#define CMD_TARSNAP "tarsnap"
+#define CMD_TARSNAPKEYGEN "tarsnap-keygen"
+#define CMD_TARSNAPKEYMGMT "tarsnap-keymgmt"
+/** @} */
+
+/** @{ \name Checking that we can access the Tarsnap server */
+#define NETWORK_HOST "v1-0-0-server.tarsnap.com"
+#define NETWORK_PORT 9279
+#define NETWORK_UP_SLEEP 60
+#define NETWORK_UP_ATTEMPTS 3
+/** @} */
+
+/** @{ \name Default behaviour */
+#define DEFAULT_NO_DEFAULT_CONFIG true
+/** @} */
+
+#endif /* !TASKS_DEFS_H */

@@ -50,6 +50,7 @@ HEADERS +=						\
 	../../src/tarsnaperror.h			\
 	../../src/tarsnaptask.h				\
 	../../src/taskmanager.h				\
+	../../src/tasks/tasks-defs.h			\
 	../../src/taskstatus.h				\
 	../../src/translator.h				\
 	../../src/utils.h

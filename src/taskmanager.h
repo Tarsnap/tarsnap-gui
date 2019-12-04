@@ -40,6 +40,8 @@ public:
     void startTask(TarsnapTask *task);
     //! Don't actually run the next task.
     void fakeNextTask();
+    //! Block until there's no tasks.
+    void waitUntilIdle();
 #endif
 
 public slots:

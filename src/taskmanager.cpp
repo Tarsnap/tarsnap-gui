@@ -1383,4 +1383,10 @@ void TaskManager::fakeNextTask()
 {
     _fakeNextTask = true;
 }
+
+void TaskManager::waitUntilIdle()
+{
+    while(!(_taskQueue.isEmpty() && _runningTasks.isEmpty()))
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+}
 #endif

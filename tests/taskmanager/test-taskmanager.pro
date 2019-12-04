@@ -14,6 +14,8 @@ HEADERS  +=						\
 	../../src/tarsnaptask.h				\
 	../../src/taskmanager.h				\
 	../../src/tasks/tasks-defs.h			\
+	../../src/tasks/tasks-setup.h			\
+	../../src/tasks/tasks-utils.h			\
 	../../src/utils.h				\
 	../qtest-platform.h
 
@@ -27,6 +29,8 @@ SOURCES += test-taskmanager.cpp				\
 	../../src/persistentmodel/persistentstore.cpp	\
 	../../src/tarsnaptask.cpp			\
 	../../src/taskmanager.cpp			\
+	../../src/tasks/tasks-setup.cpp			\
+	../../src/tasks/tasks-utils.cpp			\
 	../../src/utils.cpp
 
 include(../tests-include.pro)

@@ -65,7 +65,8 @@ void TaskManager::registerMachineDo(QString password, bool useExistingKeyfile)
         return;
     }
 
-    if(QFileInfo(keyFilename).exists())
+    // Actual task
+    if(useExistingKeyfile)
     {
         // existing key, attempt to rebuild cache & verify archive integrity
         registerTask = fsckTask(true);
@@ -410,6 +411,8 @@ void TaskManager::getKeyId(QString key_filename)
 
 void TaskManager::initializeCache()
 {
+    TarsnapTask *initTask;
+
     TSettings settings;
     QString   cacheDirname = settings.value("tarsnap/cache", "").toString();
     QDir      cacheDir(cacheDirname);
@@ -428,13 +431,13 @@ void TaskManager::initializeCache()
                      "--initialize-cachedir.";
             return;
         }
-        TarsnapTask *initTask = initializeCachedirTask();
-        queueTask(initTask);
+        initTask = initializeCachedirTask();
     }
     else
     {
-        fsck(true);
+        initTask = fsckTask(true);
     }
+    queueTask(initTask);
 }
 
 void TaskManager::findMatchingArchives(QString jobPrefix)
@@ -653,9 +656,9 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
                                           QString stdOut, QString stdErr)
 {
     Q_UNUSED(data)
-    if(exitCode == SUCCESS)
-        emit registerMachineDone(TaskStatus::Completed, stdOut);
-    else
+
+    // Handle error (if applicable)
+    if(exitCode != SUCCESS)
     {
         if(stdErr.isEmpty())
         {
@@ -667,7 +670,11 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
                 stdErr = "Crash occurred in the command-line program";
         }
         emit registerMachineDone(TaskStatus::Failed, stdErr);
+        return;
     }
+
+    // We finished successfully
+    emit registerMachineDone(TaskStatus::Completed, stdOut);
 }
 
 void TaskManager::getArchiveListFinished(QVariant data, int exitCode,

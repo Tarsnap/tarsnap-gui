@@ -22,6 +22,9 @@ WARNINGS_ENABLE
 
 TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
 {
+#ifdef QT_TESTLIB_LIB
+    _fakeNextTask = false;
+#endif
 }
 
 TaskManager::~TaskManager()
@@ -1082,6 +1085,10 @@ void TaskManager::startTask(TarsnapTask *task)
             QUEUED);
     _runningTasks.append(task);
     task->setAutoDelete(false);
+#ifdef QT_TESTLIB_LIB
+    if(_fakeNextTask)
+        task->fake();
+#endif
     _threadPool->start(task);
     emit idle(false);
     emit numTasks(_runningTasks.count(), _taskQueue.count());
@@ -1370,3 +1377,16 @@ void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
     if(-1 != versionRx.indexIn(stdOut))
         emit tarsnapVersionFound(versionRx.cap(1));
 }
+
+#ifdef QT_TESTLIB_LIB
+void TaskManager::fakeNextTask()
+{
+    _fakeNextTask = true;
+}
+
+void TaskManager::waitUntilIdle()
+{
+    while(!(_taskQueue.isEmpty() && _runningTasks.isEmpty()))
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+}
+#endif

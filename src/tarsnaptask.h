@@ -34,6 +34,10 @@ public:
     explicit TarsnapTask();
     ~TarsnapTask();
 
+#ifdef QT_TESTLIB_LIB
+    void fake();
+#endif
+
     //! Run the command previously given.  Blocks until completed (or
     //! failed).
     void run();
@@ -102,6 +106,10 @@ private:
     int              _exitCode;
 
     QByteArray truncate_output(QByteArray stdOut);
+
+#ifdef QT_TESTLIB_LIB
+    bool _fake;
+#endif
 };
 
 #endif // TARSNAPTASK_H

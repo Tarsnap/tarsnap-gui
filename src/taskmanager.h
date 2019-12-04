@@ -38,6 +38,10 @@ public:
 #ifdef QT_TESTLIB_LIB
     //! Start running a task.
     void startTask(TarsnapTask *task);
+    //! Don't actually run the next task.
+    void fakeNextTask();
+    //! Block until there's no tasks.
+    void waitUntilIdle();
 #endif
 
 public slots:
@@ -192,6 +196,10 @@ private:
     QQueue<TarsnapTask *>      _taskQueue; // mutually exclusive tasks
     QThreadPool *              _threadPool;
     QMap<QString, JobPtr>      _jobMap;
+
+#ifdef QT_TESTLIB_LIB
+    bool _fakeNextTask;
+#endif
 };
 
 #endif // TASKMANAGER_H

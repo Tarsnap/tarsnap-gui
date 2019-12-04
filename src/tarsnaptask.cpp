@@ -23,6 +23,9 @@ TarsnapTask::TarsnapTask()
       _truncateLogOutput(false),
       _exitCode(EXIT_NO_MEANING)
 {
+#ifdef QT_TESTLIB_LIB
+    _fake = false;
+#endif
 }
 
 TarsnapTask::~TarsnapTask()
@@ -63,6 +66,17 @@ void TarsnapTask::run()
                .arg(_uuid.toString())
                .arg(_process->program())
                .arg(Utils::quoteCommandLine(_process->arguments()));
+
+#ifdef QT_TESTLIB_LIB
+    // Bail if desired.  Make sure this happens before we check if the
+    // command exists, otherwise we might bail for the wrong reason.
+    if(_fake)
+    {
+        LOG << "Not running task due to 'fake this task' request.\n";
+        _fake = false;
+        goto cleanup;
+    }
+#endif
 
     // Make sure that the command exists and is executable because QProcess
     // doesn't clean up its memory if it fails due to "command not found".
@@ -268,3 +282,10 @@ void TarsnapTask::processError()
     emit finished(_data, _exitCode, QString(_stdOut), QString(_stdErr));
     cancel();
 }
+
+#ifdef QT_TESTLIB_LIB
+void TarsnapTask::fake()
+{
+    _fake = true;
+}
+#endif

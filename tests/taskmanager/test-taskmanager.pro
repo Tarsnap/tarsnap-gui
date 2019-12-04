@@ -29,3 +29,7 @@ SOURCES += test-taskmanager.cpp				\
 	../../src/utils.cpp
 
 include(../tests-include.pro)
+
+test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
+	mkdir -p "$${TEST_HOME}/$${TARGET}/cachedir";			\
+	touch "$${TEST_HOME}/$${TARGET}/cachedir/stuff"

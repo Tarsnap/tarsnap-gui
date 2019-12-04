@@ -27,6 +27,9 @@ private slots:
     void fail_registerMachine_command_not_found();
     void fail_registerMachine_empty_key();
     void sleep_cancel();
+    void tarsnapVersion_fake();
+    void registerMachine_fake();
+    void initializeCache_fake();
 };
 
 void TestTaskManager::initTestCase()
@@ -192,6 +195,118 @@ void TestTaskManager::sleep_cancel()
     QTest::qWait(1000);
 
     // task is deleted by the task manager
+    delete manager;
+}
+
+/* Return 1 if the file ${filename} contains at least one instance of ${str}. */
+static int grep_file(const char *const filename, const char *const str)
+{
+    QFile fp(filename);
+    fp.open(QIODevice::ReadOnly | QIODevice::Text);
+    while(!fp.atEnd())
+    {
+        const QByteArray line = fp.readLine();
+        if(line.contains(str))
+            return (1);
+    }
+    return (0);
+}
+
+void TestTaskManager::tarsnapVersion_fake()
+{
+    TaskManager *manager       = new TaskManager();
+    const char   logfilename[] = TEST_DIR "/tarsnapVersion_fake.log";
+
+    // Initialize log file.
+    LOG.setFilename(logfilename);
+    LOG.setWriteToFile(true);
+
+    // Get version number, writing the command(s) to a file.
+    manager->fakeNextTask();
+    manager->tarsnapVersionFind();
+    manager->waitUntilIdle();
+    QVERIFY(grep_file(logfilename, "tarsnap --version") == 1);
+
+    // Clean up.
+    LOG.setWriteToFile(false);
+    delete manager;
+}
+
+void TestTaskManager::registerMachine_fake()
+{
+    TaskManager *manager       = new TaskManager();
+    const char   logfilename[] = TEST_DIR "/registerMachine_fake.log";
+
+    // Initialize log file.
+    LOG.setFilename(logfilename);
+    LOG.setWriteToFile(true);
+
+    // Set up some settings.
+    TSettings settings;
+    settings.setValue("tarsnap/user", "username");
+    settings.setValue("tarsnap/machine", "machine");
+    settings.setValue("tarsnap/key", "keyfile");
+
+    // Fake registering a new key.
+    manager->fakeNextTask();
+    manager->registerMachineDo("password", false);
+    manager->waitUntilIdle();
+    QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 1);
+
+    // Fake using an existing key, a new cachedir.
+    settings.setValue("tarsnap/key", "empty.key");
+    settings.setValue("tarsnap/cache", TEST_DIR "/new-cachedir");
+    manager->fakeNextTask();
+    manager->registerMachineDo("password", true);
+    manager->waitUntilIdle();
+    QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
+
+    // Fake using an existing key, with a cachedir.
+    settings.setValue("tarsnap/cache", TEST_DIR "/cachedir");
+    manager->fakeNextTask();
+    manager->registerMachineDo("password", true);
+    manager->waitUntilIdle();
+    // The next line is somewhat useless (since it'll catch the earlier
+    // --fsck-prune), but it'll be meaningful after the next refactoring.
+    QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
+
+    // Clean up.
+    LOG.setWriteToFile(false);
+    delete manager;
+}
+
+void TestTaskManager::initializeCache_fake()
+{
+    TaskManager *manager       = new TaskManager();
+    const char   logfilename[] = TEST_DIR "/initializeCache_fake.log";
+
+    // Initialize log file.
+    LOG.setFilename(logfilename);
+    LOG.setWriteToFile(true);
+
+    // Set up some settings.
+    TSettings settings;
+    settings.setValue("tarsnap/user", "username");
+    settings.setValue("tarsnap/machine", "machine");
+    settings.setValue("tarsnap/key", "keyfile");
+    settings.setValue("tarsnap/version", "1.0.39");
+
+    // Fake initialize a new cachedir.
+    manager->fakeNextTask();
+    settings.setValue("tarsnap/cache", TEST_DIR "/new-cachedir-again");
+    manager->initializeCache();
+    manager->waitUntilIdle();
+    QVERIFY(grep_file(logfilename, "--initialize-cachedir") == 1);
+
+    // Fake using an existing cachedir.
+    settings.setValue("tarsnap/cache", TEST_DIR "/cachedir");
+    manager->fakeNextTask();
+    manager->initializeCache();
+    manager->waitUntilIdle();
+    QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
+
+    // Clean up.
+    LOG.setWriteToFile(false);
     delete manager;
 }
 

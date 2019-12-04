@@ -52,16 +52,6 @@ static bool cmdInPath(QString cmd)
 
 void TarsnapTask::run()
 {
-    // Make sure that the command exists and is executable because QProcess
-    // doesn't clean up its memory if it fails due to "command not found".
-    if(!cmdInPath(_command))
-    {
-        emit finished(_data, EXIT_CMD_NOT_FOUND, "", "");
-        cancel();
-        emit dequeue();
-        return;
-    }
-
     // Set up new _process
     _process = new QProcess();
     _process->setProgram(_command);
@@ -73,6 +63,15 @@ void TarsnapTask::run()
                .arg(_uuid.toString())
                .arg(_process->program())
                .arg(Utils::quoteCommandLine(_process->arguments()));
+
+    // Make sure that the command exists and is executable because QProcess
+    // doesn't clean up its memory if it fails due to "command not found".
+    if(!cmdInPath(_command))
+    {
+        LOG << QString("Command '%1' not found\n").arg(_command);
+        emit finished(_data, EXIT_CMD_NOT_FOUND, "", "");
+        goto cleanup;
+    }
 
     // Start the _process, and wait for confirmation of it starting.
     _process->start();

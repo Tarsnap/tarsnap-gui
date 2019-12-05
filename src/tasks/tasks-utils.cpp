@@ -2,7 +2,9 @@
 
 WARNINGS_DISABLE
 #include <QDir>
+#include <QRegExp>
 #include <QString>
+#include <QStringList>
 WARNINGS_ENABLE
 
 #include <TSettings.h>
@@ -52,4 +54,37 @@ QStringList makeTarsnapArgs()
         args.prepend("--no-default-config");
 
     return (args);
+}
+
+/*
+ * The QVersionNumber class was introduced in Qt 5.6, which is later than
+ * our target of Qt 5.2.1.
+ */
+int versionCompare(QString found, QString fixed)
+{
+    int i;
+
+    /* Parse strings. */
+    QStringList foundlist = found.split(QRegExp("\\."));
+    QStringList fixedlist = fixed.split(QRegExp("\\."));
+
+    /* Sanity check. */
+    Q_ASSERT(fixedlist.size() == 3);
+    Q_ASSERT(foundlist.size() >= 3);
+
+    /* Append extra 0s to the "fixed" string. */
+    for(i = 0; i < foundlist.size() - fixedlist.size(); i++)
+        fixedlist.append("0");
+
+    /* Compare each portion of the strings. */
+    for(i = 0; i < fixedlist.size(); i++)
+    {
+        if(foundlist[i] > fixedlist[i])
+            return (1);
+        else if(foundlist[i] < fixedlist[i])
+            return (-1);
+    }
+
+    /* Strings are equal. */
+    return (0);
 }

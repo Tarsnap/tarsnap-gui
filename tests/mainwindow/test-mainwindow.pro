@@ -37,6 +37,7 @@ HEADERS  +=						\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\
 	../../src/tarsnapaccount.h			\
+	../../src/tasks/tasks-utils.h			\
 	../../src/translator.h				\
 	../../src/utils.h				\
 	../../src/widgets/archivelistwidget.h		\
@@ -77,6 +78,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/persistentmodel/persistentstore.cpp	\
 	../../src/scheduling.cpp			\
 	../../src/tarsnapaccount.cpp			\
+	../../src/tasks/tasks-utils.cpp			\
 	../../src/translator.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/archivelistwidget.cpp		\

@@ -22,6 +22,7 @@ HEADERS  +=						\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
+	../../src/tasks/tasks-utils.h			\
 	../../src/utils.h				\
 	../../src/widgets/archivelistwidget.h		\
 	../../src/widgets/archivelistwidgetitem.h	\
@@ -44,6 +45,7 @@ SOURCES += test-jobstabwidget.cpp			\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
+	../../src/tasks/tasks-utils.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/archivelistwidget.cpp		\
 	../../src/widgets/archivelistwidgetitem.cpp	\

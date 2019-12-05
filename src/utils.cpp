@@ -10,6 +10,7 @@ WARNINGS_ENABLE
 #include <TSettings.h>
 
 #include "tasks-defs.h"
+#include "tasks-utils.h"
 
 using namespace Utils;
 
@@ -167,9 +168,11 @@ bool Utils::tarsnapVersionMinimum(const QString &minVersion)
 {
     TSettings settings;
     QString   tarsnapVersion = settings.value("tarsnap/version", "").toString();
-    QRegExp   versionRx("(\\d+\\.\\d+\\.\\d+(\\.\\d+)?)");
-    return (-1 != versionRx.indexIn(tarsnapVersion))
-           && (versionRx.cap(0) >= minVersion);
+    // A blank version string doesn't satisfy any requirement.
+    if(tarsnapVersion.isEmpty())
+        return false;
+    // This function will return -1, 0, or 1; we want anything other than -1.
+    return (versionCompare(tarsnapVersion, minVersion) >= 0);
 }
 
 QString Utils::quoteCommandLine(QStringList args)

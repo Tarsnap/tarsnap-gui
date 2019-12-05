@@ -16,6 +16,7 @@ enum TaskStatus
     Running,
     Completed,
     Failed,
+    VersionTooLow, /* For 'tarsnap --version' only. */
     Paused
 };
 

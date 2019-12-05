@@ -35,4 +35,14 @@ QString makeTarsnapCommand(QString cmd = "tarsnap");
  */
 QStringList makeTarsnapArgs();
 
+/**
+ * \brief Compare two version strings.
+ *
+ * \param found The detected version string.  Must consist of at least 3
+ *              dot-separate values.
+ * \param fixed A version string in the form "X.Y.Z"; will likely be a
+ *              compile-time constant.
+ */
+int versionCompare(QString found, QString fixed);
+
 #endif /* !TASKS_UTILS_H */

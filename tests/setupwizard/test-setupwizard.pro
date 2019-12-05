@@ -7,6 +7,7 @@ FORMS += ../../forms/setupdialog.ui
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
+	../../src/tasks/tasks-utils.h			\
 	../../src/utils.h				\
 	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/setupdialog.h			\
@@ -14,6 +15,7 @@ HEADERS  +=						\
 
 SOURCES += test-setupwizard.cpp				\
 	../../lib/core/TSettings.cpp			\
+	../../src/tasks/tasks-utils.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/setupdialog.cpp

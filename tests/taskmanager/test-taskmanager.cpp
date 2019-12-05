@@ -40,7 +40,8 @@ void TestTaskManager::initTestCase()
 
     // This is to "warm up" the command-line tasks.
     TaskManager *manager = new TaskManager();
-    QSignalSpy   sig_ver(manager, SIGNAL(tarsnapVersionFound(QString)));
+    QSignalSpy   sig_ver(manager,
+                       SIGNAL(tarsnapVersionFound(TaskStatus, QString)));
     manager->tarsnapVersionFind();
 
     // Wait for task to finish
@@ -63,7 +64,8 @@ void TestTaskManager::get_version()
     TARSNAP_CLI_OR_SKIP;
 
     TaskManager *manager = new TaskManager();
-    QSignalSpy   sig_ver(manager, SIGNAL(tarsnapVersionFound(QString)));
+    QSignalSpy   sig_ver(manager,
+                       SIGNAL(tarsnapVersionFound(TaskStatus, QString)));
     QString      ver_str;
 
     // We start off with no version signal.

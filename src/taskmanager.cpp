@@ -11,6 +11,7 @@ WARNINGS_ENABLE
 #include "debug.h"
 #include "tasks-defs.h"
 #include "tasks-setup.h"
+#include "tasks-utils.h"
 #include "utils.h"
 
 #include <TSettings.h>
@@ -992,6 +993,10 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
     case TaskStatus::Paused:
         emit message(tr("Backup <i>%1</i> paused.").arg(backupTask->name()));
         break;
+    case TaskStatus::VersionTooLow:
+        // It should be impossible to get here.
+        Q_ASSERT(false);
+        break;
     }
 }
 
@@ -1351,11 +1356,15 @@ void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(stdErr));
-        emit tarsnapVersionFound("");
+        emit tarsnapVersionFound(TaskStatus::Failed, "");
         return;
     }
 
-    emit tarsnapVersionFound(tarsnapVersionTaskParse(stdOut));
+    QString version = tarsnapVersionTaskParse(stdOut);
+    if(versionCompare(version, TARSNAP_MIN_VERSION) < 0)
+        emit tarsnapVersionFound(TaskStatus::VersionTooLow, version);
+    else
+        emit tarsnapVersionFound(TaskStatus::Completed, version);
 }
 
 #ifdef QT_TESTLIB_LIB

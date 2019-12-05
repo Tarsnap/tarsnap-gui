@@ -17,6 +17,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "tasks-defs.h"
+#include "taskstatus.h"
 #include "translator.h"
 #include "utils.h"
 
@@ -671,8 +672,10 @@ void SettingsWidget::disableJobSchedulingButtonClicked()
 #endif
 }
 
-void SettingsWidget::tarsnapVersionResponse(QString versionString)
+void SettingsWidget::tarsnapVersionResponse(TaskStatus status,
+                                            QString    versionString)
 {
+    Q_UNUSED(status);
     _ui->tarsnapVersionLabel->setText(versionString);
     TSettings settings;
     settings.setValue("tarsnap/version", versionString);

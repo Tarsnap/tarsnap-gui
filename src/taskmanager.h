@@ -108,7 +108,7 @@ signals:
     void numTasks(int runningTasks, int queuedTasks);
     //! Result of tarsnap --version.
     //! \anchor tarsnapVersionFound
-    void tarsnapVersionFound(QString versionString);
+    void tarsnapVersionFound(TaskStatus status, QString versionString);
     //! Result of tarsnap-keygen.
     void registerMachineDone(TaskStatus status, QString reason);
     //! A list of all Archive objects.

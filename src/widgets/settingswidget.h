@@ -14,6 +14,7 @@ WARNINGS_ENABLE
 #include "confirmationdialog.h"
 #include "scheduling.h"
 #include "tarsnapaccountdialog.h"
+#include "taskstatus.h"
 #include "translator.h"
 
 namespace Ui
@@ -61,7 +62,7 @@ public slots:
 
     //! For the Application tab
     //! Update the Tarsnap version number, and store it in the settings.
-    void tarsnapVersionResponse(QString versionString);
+    void tarsnapVersionResponse(TaskStatus status, QString versionString);
 
 signals:
     // For the Account tab

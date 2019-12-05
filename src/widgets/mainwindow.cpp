@@ -18,6 +18,7 @@ WARNINGS_ENABLE
 
 #include "backuplistwidgetitem.h"
 #include "scheduling.h"
+#include "taskstatus.h"
 #include "translator.h"
 #include "utils.h"
 
@@ -774,9 +775,10 @@ void MainWindow::saveKeyId(QString key, quint64 id)
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
-void MainWindow::tarsnapVersionResponse(QString versionString)
+void MainWindow::tarsnapVersionResponse(TaskStatus status,
+                                        QString    versionString)
 {
-    _settingsWidget.tarsnapVersionResponse(versionString);
+    _settingsWidget.tarsnapVersionResponse(status, versionString);
 }
 
 void MainWindow::connectSettingsWidget()

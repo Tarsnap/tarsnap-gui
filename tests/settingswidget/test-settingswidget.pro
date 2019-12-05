@@ -14,6 +14,7 @@ HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../src/scheduling.h				\
 	../../src/tarsnapaccount.h			\
+	../../src/tasks/tasks-utils.h			\
 	../../src/translator.h				\
 	../../src/utils.h				\
 	../../src/widgets/confirmationdialog.h		\
@@ -27,6 +28,7 @@ SOURCES += test-settingswidget.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../src/scheduling.cpp			\
 	../../src/tarsnapaccount.cpp			\
+	../../src/tasks/tasks-utils.cpp			\
 	../../src/translator.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/confirmationdialog.cpp	\

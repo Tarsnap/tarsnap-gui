@@ -10,6 +10,7 @@
 #define CMD_TARSNAP "tarsnap"
 #define CMD_TARSNAPKEYGEN "tarsnap-keygen"
 #define CMD_TARSNAPKEYMGMT "tarsnap-keymgmt"
+#define TARSNAP_MIN_VERSION "1.0.39"
 /** @} */
 
 /** @{ \name Checking that we can access the Tarsnap server */

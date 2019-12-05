@@ -21,6 +21,7 @@ SOURCES += test-cmdline.cpp				\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
 	../../src/scheduling.cpp			\
+	../../src/tasks/tasks-utils.cpp			\
 	../../src/translator.cpp			\
 	../../src/utils.cpp
 
@@ -41,6 +42,7 @@ HEADERS +=						\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\
 	../../src/tarsnaperror.h			\
+	../../src/tasks/tasks-utils.h			\
 	../../src/taskstatus.h				\
 	../../src/translator.h				\
 	../../src/utils.h				\

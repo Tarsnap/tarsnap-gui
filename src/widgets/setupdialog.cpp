@@ -389,6 +389,10 @@ void SetupDialog::registerMachineResponse(TaskStatus status, QString reason)
         _ui->statusLabel->setStyleSheet("#statusLabel { color: darkred; }");
         _ui->nextButton->setEnabled(true);
         break;
+    case TaskStatus::VersionTooLow:
+        // It should be impossible to get here.
+        Q_ASSERT(false);
+        break;
     case Initialized:
     case Queued:
     case Running:
@@ -411,8 +415,10 @@ void SetupDialog::updateLoadingAnimation(bool idle)
     }
 }
 
-void SetupDialog::tarsnapVersionResponse(QString versionString)
+void SetupDialog::tarsnapVersionResponse(TaskStatus status,
+                                         QString    versionString)
 {
+    Q_UNUSED(status);
     _tarsnapVersion = versionString;
     if(!_tarsnapVersion.isEmpty())
     {

@@ -1351,11 +1351,12 @@ void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
                      tr("Tarsnap exited with code %1 and output:\n%2")
                          .arg(exitCode)
                          .arg(stdErr));
-        emit tarsnapVersionFound("");
+        emit tarsnapVersionFound(TaskStatus::Failed, "");
         return;
     }
 
-    emit tarsnapVersionFound(tarsnapVersionTaskParse(stdOut));
+    emit tarsnapVersionFound(TaskStatus::Completed,
+                             tarsnapVersionTaskParse(stdOut));
 }
 
 #ifdef QT_TESTLIB_LIB

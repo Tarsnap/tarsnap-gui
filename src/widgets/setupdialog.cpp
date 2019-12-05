@@ -411,8 +411,10 @@ void SetupDialog::updateLoadingAnimation(bool idle)
     }
 }
 
-void SetupDialog::tarsnapVersionResponse(QString versionString)
+void SetupDialog::tarsnapVersionResponse(TaskStatus status,
+                                         QString    versionString)
 {
+    Q_UNUSED(status);
     _tarsnapVersion = versionString;
     if(!_tarsnapVersion.isEmpty())
     {

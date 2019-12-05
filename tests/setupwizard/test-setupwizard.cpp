@@ -122,7 +122,7 @@ void TestSetupWizard::normal_install()
     QVERIFY(ui->titleLabel->text() == "Command-line utilities");
     QVERIFY(sig_cli.count() == 1);
     // Fake the CLI detection and checking
-    setupWizard->tarsnapVersionResponse("X.Y.Z");
+    setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
     QVERIFY(
         ui->advancedValidationLabel->text().contains("Tarsnap CLI version"));
     QTest::mouseClick(ui->nextButton, Qt::LeftButton);
@@ -192,7 +192,7 @@ void TestSetupWizard::cli()
     SET_TEXT_WITH_SIGNAL(ui->tarsnapPathLineEdit, "/tmp");
 
     // Fake detecting the binaries
-    setupWizard->tarsnapVersionResponse("X.Y.Z.");
+    setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
     QVERIFY(
         ui->advancedValidationLabel->text().contains("Tarsnap CLI version"));
     VISUAL_WAIT;

@@ -21,6 +21,7 @@ WARNINGS_ENABLE
 #include "scheduling.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
+#include "taskstatus.h"
 
 namespace Ui
 {
@@ -61,7 +62,7 @@ public slots:
                              quint64 archiveCount);
     //! Update the Tarsnap version number, and store it in the settings.
     //! \anchor tarsnapVersionResponse
-    void tarsnapVersionResponse(QString versionString);
+    void tarsnapVersionResponse(TaskStatus status, QString versionString);
     //! Display (and raise) the MainWindow (if minimized or hidden).
     void notificationRaise();
     //! We received information about tasks after receiving a closeEvent.

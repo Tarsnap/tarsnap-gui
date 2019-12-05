@@ -40,8 +40,9 @@ public slots:
     /// \param reason text which explains why the registration failed.
     void registerMachineResponse(TaskStatus status, QString reason);
     /// The TaskManager has finished determining the version of the CLI app.
+    /// \param status did the task complete?
     /// \param versionString the version number.
-    void tarsnapVersionResponse(QString versionString);
+    void tarsnapVersionResponse(TaskStatus status, QString versionString);
     /// The TaskManager is indicating that it is performing a background task.
     /// \param idle no task is running.
     void updateLoadingAnimation(bool idle);

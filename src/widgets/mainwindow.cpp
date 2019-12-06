@@ -428,10 +428,8 @@ void MainWindow::setupMenuBar()
 
 void MainWindow::updateLoadingAnimation(bool idle)
 {
-    if(idle)
-        _ui->busyWidget->stop();
-    else
-        _ui->busyWidget->animate();
+    // Pass the request onwards.
+    _ui->busyWidget->animate(!idle);
 }
 
 void MainWindow::mainTabChanged(int index)

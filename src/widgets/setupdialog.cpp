@@ -389,14 +389,8 @@ void SetupDialog::registerMachineResponse(TaskStatus status, QString reason)
         _ui->statusLabel->setStyleSheet("#statusLabel { color: darkred; }");
         _ui->nextButton->setEnabled(true);
         break;
-    case TaskStatus::VersionTooLow:
-        // It should be impossible to get here.
-        Q_ASSERT(false);
-        break;
-    case Initialized:
-    case Queued:
-    case Running:
-    case Paused:
+    default:
+        // We shouldn't receive anything else, so ignore it.
         break;
     }
 }

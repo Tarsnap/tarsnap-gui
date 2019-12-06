@@ -24,9 +24,8 @@ public:
 
 public slots:
     //! Starts the animation.
-    void animate();
-    //! Stops the animation.
-    void stop();
+    //! \param active show the "waiting" icon.
+    void animate(bool active);
 
 signals:
     //! Emitted when this widget was clicked.

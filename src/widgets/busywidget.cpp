@@ -14,16 +14,18 @@ BusyWidget::~BusyWidget()
 {
 }
 
-void BusyWidget::animate()
+void BusyWidget::animate(bool active)
 {
-    _animation.start();
-    show();
-}
-
-void BusyWidget::stop()
-{
-    hide();
-    _animation.stop();
+    if(active)
+    {
+        _animation.start();
+        show();
+    }
+    else
+    {
+        hide();
+        _animation.stop();
+    }
 }
 
 void BusyWidget::mouseReleaseEvent(QMouseEvent *event)

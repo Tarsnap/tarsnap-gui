@@ -271,6 +271,8 @@ bool SetupDialog::validateAdvancedSetupPage()
     {
         TSettings settings;
         settings.setValue("tarsnap/path", _tarsnapDir);
+        // Wipe previous version number before asking for a new one.
+        settings.setValue("tarsnap/version", "");
         emit tarsnapVersionRequested();
     }
 

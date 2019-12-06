@@ -715,7 +715,10 @@ bool SettingsWidget::validateTarsnapPath()
     }
     else
     {
+        TSettings settings;
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: black;}");
+        // Wipe previous version number before asking for a new one.
+        settings.setValue("tarsnap/version", "");
         emit tarsnapVersionRequested(_ui->tarsnapPathLineEdit->text());
         return true;
     }

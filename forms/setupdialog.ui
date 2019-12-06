@@ -950,7 +950,7 @@ border: none;
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="loadingIconLabel">
+          <widget class="BusyWidget" name="busyWidget">
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
@@ -1117,6 +1117,11 @@ border: none;
    <class>ElidedLabel</class>
    <extends>QLabel</extends>
    <header>../widgets/elidedlabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>BusyWidget</class>
+   <extends>QLabel</extends>
+   <header>../widgets/busywidget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

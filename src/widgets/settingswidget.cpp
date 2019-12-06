@@ -465,7 +465,7 @@ void SettingsWidget::nukeArchivesButtonClicked()
             .arg(_ui->accountArchivesCountLabel->text(), confirmationText),
         confirmationText, NUKE_SECONDS_DELAY,
         tr("Deleting all archives: press Cancel to abort"),
-        tr("Purging all archives in %1 seconds..."));
+        tr("Purging all archives in %1 seconds..."), tr("Confirm nuke"));
 }
 
 void SettingsWidget::nukeConfirmed()

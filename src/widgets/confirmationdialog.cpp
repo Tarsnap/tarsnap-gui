@@ -17,7 +17,7 @@ ConfirmationDialog::ConfirmationDialog(QWidget *parent)
 void ConfirmationDialog::validateConfirmationText(const QString &text)
 {
     if(text == _confirmationText)
-        _inputDialog.setOkButtonText("Confirm nuke");
+        _inputDialog.setOkButtonText(_confirmedButtonText);
     else
         _inputDialog.setOkButtonText("Not confirmed");
 }
@@ -40,12 +40,14 @@ void ConfirmationDialog::timerFired()
 // Keep "title" in here so that it can be translated.
 void ConfirmationDialog::start(QString startTitle, QString startText,
                                QString confirmationText, int countdownSeconds,
-                               QString countdownTitle, QString countdownText)
+                               QString countdownTitle, QString countdownText,
+                               QString confirmedButtonText)
 {
     _inputDialog.setWindowTitle(startTitle);
     _inputDialog.setLabelText(startText);
     _inputDialog.setOkButtonText("Not confirmed");
-    _confirmationText = confirmationText;
+    _confirmationText    = confirmationText;
+    _confirmedButtonText = confirmedButtonText;
 
     // Get text from user
     if(_inputDialog.exec() && (confirmationText == _inputDialog.textValue()))

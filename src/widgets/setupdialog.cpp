@@ -22,9 +22,7 @@ WARNINGS_ENABLE
 #include <TSettings.h>
 
 SetupDialog::SetupDialog(QWidget *parent)
-    : QDialog(parent),
-      _ui(new Ui::SetupDialog),
-      _loadingAnimation(":/icons/loading.gif")
+    : QDialog(parent), _ui(new Ui::SetupDialog)
 {
     _ui->setupUi(this);
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
@@ -55,7 +53,6 @@ SetupDialog::SetupDialog(QWidget *parent)
         cacheDir.mkpath(_tarsnapCacheDir);
     _ui->tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
 
-    _ui->loadingIconLabel->setMovie(&_loadingAnimation);
     _ui->advancedCLIWidget->hide();
 
     // All pages
@@ -400,16 +397,7 @@ void SetupDialog::registerMachineResponse(TaskStatus status, QString reason)
 
 void SetupDialog::updateLoadingAnimation(bool idle)
 {
-    if(idle)
-    {
-        _loadingAnimation.stop();
-        _ui->loadingIconLabel->hide();
-    }
-    else
-    {
-        _loadingAnimation.start();
-        _ui->loadingIconLabel->show();
-    }
+    _ui->busyWidget->animate(!idle);
 }
 
 void SetupDialog::tarsnapVersionResponse(TaskStatus status,

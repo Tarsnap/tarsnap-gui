@@ -73,7 +73,6 @@ private slots:
 
 private:
     Ui::SetupDialog *_ui;
-    QMovie           _loadingAnimation;
 
     QString _tarsnapDir;
     QString _tarsnapVersion;

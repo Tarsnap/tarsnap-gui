@@ -676,6 +676,12 @@ void SettingsWidget::tarsnapVersionResponse(TaskStatus status,
                                             QString    versionString)
 {
     TSettings settings;
+
+    // Sanity check.
+    if(versionString.isEmpty())
+        status = TaskStatus::Failed;
+
+    // Handle response.
     switch(status)
     {
     case TaskStatus::Completed:

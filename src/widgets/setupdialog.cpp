@@ -413,6 +413,11 @@ void SetupDialog::updateLoadingAnimation(bool idle)
 void SetupDialog::tarsnapVersionResponse(TaskStatus status,
                                          QString    versionString)
 {
+    // Sanity check.
+    if(versionString.isEmpty())
+        status = TaskStatus::Failed;
+
+    // Handle response.
     switch(status)
     {
     case TaskStatus::Completed:

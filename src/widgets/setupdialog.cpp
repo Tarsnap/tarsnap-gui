@@ -16,6 +16,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "debug.h"
+#include "tasks-defs.h"
 #include "utils.h"
 
 #include <TSettings.h>
@@ -270,6 +271,8 @@ bool SetupDialog::validateAdvancedSetupPage()
     {
         TSettings settings;
         settings.setValue("tarsnap/path", _tarsnapDir);
+        // Wipe previous version number before asking for a new one.
+        settings.setValue("tarsnap/version", "");
         emit tarsnapVersionRequested();
     }
 
@@ -412,12 +415,30 @@ void SetupDialog::updateLoadingAnimation(bool idle)
 void SetupDialog::tarsnapVersionResponse(TaskStatus status,
                                          QString    versionString)
 {
-    Q_UNUSED(status);
-    _tarsnapVersion = versionString;
-    if(!_tarsnapVersion.isEmpty())
+    // Sanity check.
+    if(versionString.isEmpty())
+        status = TaskStatus::Failed;
+
+    // Handle response.
+    switch(status)
     {
+    case TaskStatus::Completed:
+        _tarsnapVersion = versionString;
         _ui->advancedValidationLabel->setText(
             tr("Tarsnap CLI version ") + _tarsnapVersion + tr(" detected.  ✔"));
+        break;
+    case TaskStatus::VersionTooLow:
+        // Don't record the too-low version number.
+        _ui->advancedValidationLabel->setText(
+            tr("Tarsnap CLI version ") + versionString
+            + tr(" too low; must be at least %1").arg(TARSNAP_MIN_VERSION));
+        break;
+    case TaskStatus::Failed:
+        _ui->advancedValidationLabel->setText(
+            tr("Error retrieving Tarsnap CLI verison"));
+        break;
+    default:
+        break;
     }
 }
 

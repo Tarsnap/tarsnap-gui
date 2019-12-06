@@ -76,12 +76,12 @@ int versionCompare(QString found, QString fixed)
     for(i = 0; i < foundlist.size() - fixedlist.size(); i++)
         fixedlist.append("0");
 
-    /* Compare each portion of the strings. */
+    /* Numerically compare each portion of the strings. */
     for(i = 0; i < fixedlist.size(); i++)
     {
-        if(foundlist[i] > fixedlist[i])
+        if(foundlist[i].toInt() > fixedlist[i].toInt())
             return (1);
-        else if(foundlist[i] < fixedlist[i])
+        else if(foundlist[i].toInt() < fixedlist[i].toInt())
             return (-1);
     }
 

@@ -35,9 +35,11 @@ public:
     //! \param countdownSeconds how many seconds the user must wait
     //! \param countdownTitle title of the countdown window
     //! \param countdownText text of the countdown window
+    //! \param confirmedButtonText what to display on the "Ok" button
+    //!                            after text confirmation
     void start(QString startTitle, QString startText, QString confirmationText,
                int countdownSeconds, QString countdownTitle,
-               QString countdownText);
+               QString countdownText, QString confirmedButtonText);
 
 signals:
     //! User has confirmed the action.
@@ -57,6 +59,8 @@ private:
     QTimer      _timer;
     int         _countdownSeconds;
     QString     _countdownText;
+
+    QString _confirmedButtonText;
 };
 
 #endif // CONFIRMDIALOG_H

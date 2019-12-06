@@ -16,6 +16,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "debug.h"
+#include "tasks-defs.h"
 #include "utils.h"
 
 #include <TSettings.h>
@@ -418,6 +419,16 @@ void SetupDialog::tarsnapVersionResponse(TaskStatus status,
         _tarsnapVersion = versionString;
         _ui->advancedValidationLabel->setText(
             tr("Tarsnap CLI version ") + _tarsnapVersion + tr(" detected.  ✔"));
+        break;
+    case TaskStatus::VersionTooLow:
+        // Don't record the too-low version number.
+        _ui->advancedValidationLabel->setText(
+            tr("Tarsnap CLI version ") + versionString
+            + tr(" too low; must be at least %1").arg(TARSNAP_MIN_VERSION));
+        break;
+    case TaskStatus::Failed:
+        _ui->advancedValidationLabel->setText(
+            tr("Error retrieving Tarsnap CLI verison"));
         break;
     default:
         break;

@@ -682,6 +682,17 @@ void SettingsWidget::tarsnapVersionResponse(TaskStatus status,
         _ui->tarsnapVersionLabel->setText(versionString);
         settings.setValue("tarsnap/version", versionString);
         break;
+    case TaskStatus::VersionTooLow:
+        // Don't record the too-low version number.
+        QMessageBox::critical(
+            this, tr("Tarsnap CLI version"),
+            tr("Tarsnap CLI version ") + versionString
+                + tr(" too low; must be at least %1").arg(TARSNAP_MIN_VERSION));
+        break;
+    case TaskStatus::Failed:
+        QMessageBox::critical(this, tr("Tarsnap CLI version"),
+                              tr("Error retrieving Tarsnap CLI version"));
+        break;
     default:
         break;
     }

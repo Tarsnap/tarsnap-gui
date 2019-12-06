@@ -675,10 +675,16 @@ void SettingsWidget::disableJobSchedulingButtonClicked()
 void SettingsWidget::tarsnapVersionResponse(TaskStatus status,
                                             QString    versionString)
 {
-    Q_UNUSED(status);
-    _ui->tarsnapVersionLabel->setText(versionString);
     TSettings settings;
-    settings.setValue("tarsnap/version", versionString);
+    switch(status)
+    {
+    case TaskStatus::Completed:
+        _ui->tarsnapVersionLabel->setText(versionString);
+        settings.setValue("tarsnap/version", versionString);
+        break;
+    default:
+        break;
+    }
 }
 
 bool SettingsWidget::validateTarsnapPath()

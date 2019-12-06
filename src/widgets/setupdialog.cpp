@@ -412,12 +412,15 @@ void SetupDialog::updateLoadingAnimation(bool idle)
 void SetupDialog::tarsnapVersionResponse(TaskStatus status,
                                          QString    versionString)
 {
-    Q_UNUSED(status);
-    _tarsnapVersion = versionString;
-    if(!_tarsnapVersion.isEmpty())
+    switch(status)
     {
+    case TaskStatus::Completed:
+        _tarsnapVersion = versionString;
         _ui->advancedValidationLabel->setText(
             tr("Tarsnap CLI version ") + _tarsnapVersion + tr(" detected.  ✔"));
+        break;
+    default:
+        break;
     }
 }
 

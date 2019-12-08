@@ -249,31 +249,43 @@ void TestTaskManager::registerMachine_fake()
     settings.setValue("tarsnap/machine", "machine");
     settings.setValue("tarsnap/key", "keyfile");
 
-    // Fake registering a new key.
+    // Fake registering a new key, existing cachedir.
     logfilename = TEST_DIR "/registerMachine_fake_1.log";
     LOG.setFilename(logfilename);
+    settings.setValue("tarsnap/cache", TEST_DIR "/cachedir");
     manager->fakeNextTask();
     manager->registerMachineDo("password", false);
     manager->waitUntilIdle();
     QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 1);
 
-    // Fake using an existing key, a new cachedir.
+    // Fake registering a new key, new cachedir.
     logfilename = TEST_DIR "/registerMachine_fake_2.log";
+    LOG.setFilename(logfilename);
+    settings.setValue("tarsnap/cache", TEST_DIR "/new-cachedir");
+    manager->fakeNextTask();
+    manager->registerMachineDo("password", false);
+    manager->waitUntilIdle();
+    QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 1);
+
+    // Fake using an existing key, new cachedir.
+    logfilename = TEST_DIR "/registerMachine_fake_3.log";
     LOG.setFilename(logfilename);
     settings.setValue("tarsnap/key", "empty.key");
     settings.setValue("tarsnap/cache", TEST_DIR "/new-cachedir");
     manager->fakeNextTask();
     manager->registerMachineDo("password", true);
     manager->waitUntilIdle();
+    QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 0);
     QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
 
-    // Fake using an existing key, with a cachedir.
-    logfilename = TEST_DIR "/registerMachine_fake_3.log";
+    // Fake using an existing key, existing cachedir.
+    logfilename = TEST_DIR "/registerMachine_fake_4.log";
     LOG.setFilename(logfilename);
     settings.setValue("tarsnap/cache", TEST_DIR "/cachedir");
     manager->fakeNextTask();
     manager->registerMachineDo("password", true);
     manager->waitUntilIdle();
+    QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 0);
     QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
 
     // Clean up.

@@ -275,8 +275,6 @@ bool AppGui::runSetupWizard()
             &TaskManager::registerMachineDo);
     connect(&_taskManager, &TaskManager::registerMachineDone, &wizard,
             &SetupDialog::registerMachineResponse);
-    connect(&wizard, &SetupDialog::initializeCache, &_taskManager,
-            &TaskManager::initializeCache);
     connect(&_taskManager, &TaskManager::idle, &wizard,
             &SetupDialog::updateLoadingAnimation);
 

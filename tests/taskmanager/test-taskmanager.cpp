@@ -29,7 +29,6 @@ private slots:
     void sleep_cancel();
     void tarsnapVersion_fake();
     void registerMachine_fake();
-    void initializeCache_fake();
 };
 
 void TestTaskManager::initTestCase()
@@ -288,44 +287,6 @@ void TestTaskManager::registerMachine_fake()
     manager->registerMachineDo("password", true);
     manager->waitUntilIdle();
     QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 0);
-    QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
-
-    // Clean up.
-    LOG.setWriteToFile(false);
-    delete manager;
-}
-
-void TestTaskManager::initializeCache_fake()
-{
-    TaskManager *manager = new TaskManager();
-    const char * logfilename;
-
-    // Initialize log file.
-    LOG.setWriteToFile(true);
-
-    // Set up some settings.
-    TSettings settings;
-    settings.setValue("tarsnap/user", "username");
-    settings.setValue("tarsnap/machine", "machine");
-    settings.setValue("tarsnap/key", "keyfile");
-    settings.setValue("tarsnap/version", "1.0.39");
-
-    // Fake initialize a new cachedir.
-    logfilename = TEST_DIR "/initializeCache_fake_1.log";
-    LOG.setFilename(logfilename);
-    manager->fakeNextTask();
-    settings.setValue("tarsnap/cache", TEST_DIR "/new-cachedir-again");
-    manager->initializeCache();
-    manager->waitUntilIdle();
-    QVERIFY(grep_file(logfilename, "--initialize-cachedir") == 1);
-
-    // Fake using an existing cachedir.
-    logfilename = TEST_DIR "/initializeCache_fake_2.log";
-    LOG.setFilename(logfilename);
-    settings.setValue("tarsnap/cache", TEST_DIR "/cachedir");
-    manager->fakeNextTask();
-    manager->initializeCache();
-    manager->waitUntilIdle();
     QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
 
     // Clean up.

@@ -441,27 +441,6 @@ void TaskManager::getKeyId(QString key_filename)
     queueTask(keymgmtTask);
 }
 
-void TaskManager::initializeCache()
-{
-    TarsnapTask *initTask;
-
-    TSettings settings;
-    QString   cacheDirname = settings.value("tarsnap/cache", "").toString();
-    QDir      cacheDir(cacheDirname);
-    // Check that the string is non-empty, and that the dir has no files.
-    if(!cacheDirname.isEmpty() &&
-#if(QT_VERSION >= QT_VERSION_CHECK(5, 9, 0))
-       cacheDir.isEmpty()
-#else
-       !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count()
-#endif
-    )
-        initTask = initializeCachedirTask();
-    else
-        initTask = fsckTask(true);
-    queueTask(initTask);
-}
-
 void TaskManager::findMatchingArchives(QString jobPrefix)
 {
     QList<ArchivePtr> matching;

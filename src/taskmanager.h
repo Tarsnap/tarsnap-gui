@@ -94,8 +94,6 @@ public slots:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! tarsnap-keymgmt --print-key-id \<key_filename\>
     void getKeyId(QString key_filename);
-    //! Ensure that the cache directory has been created.
-    void initializeCache();
     //! Search for all matching Archive objects which were created by a Job.
     //! \param jobPrefix prefix of the Archive names to match.
     void findMatchingArchives(QString jobPrefix);

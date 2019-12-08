@@ -50,10 +50,10 @@ private slots:
 
 private:
     MainWindow * _mainWindow;
+    Journal *    _journal;
     Notification _notification;
     TaskManager  _taskManager;
     QThread      _managerThread;
-    Journal *    _journal;
     bool         _jobsOption;
     QString      _configDir;
     bool         _checkOption;

@@ -426,12 +426,6 @@ void TaskManager::initializeCache()
                .count())
 #endif
     {
-        if(!Utils::tarsnapVersionMinimum("1.0.38"))
-        {
-            DEBUG << "Tarsnap CLI version 1.0.38 or higher required to use "
-                     "--initialize-cachedir.";
-            return;
-        }
         initTask = initializeCachedirTask();
     }
     else

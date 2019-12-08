@@ -16,7 +16,10 @@ WARNINGS_ENABLE
 #include <TSettings.h>
 
 AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
-    : QApplication(argc, argv), _mainWindow(nullptr), _notification()
+    : QApplication(argc, argv),
+      _mainWindow(nullptr),
+      _journal(nullptr),
+      _notification()
 {
     // Sanity check
     assert(opt != nullptr);
@@ -41,6 +44,8 @@ AppGui::~AppGui()
         delete _mainWindow;
     _managerThread.quit();
     _managerThread.wait();
+    if(_journal)
+        delete _journal;
     TSettings::destroy();
 }
 
@@ -108,13 +113,14 @@ bool AppGui::prepMainLoop()
 
     // Initialize the PersistentStore early
     PersistentStore::instance();
+    _journal = new Journal();
 
     // Queue loading the journal when we have an event loop.
-    QMetaObject::invokeMethod(&_journal, "load", QUEUED);
+    QMetaObject::invokeMethod(_journal, "load", QUEUED);
 
     connect(&_taskManager, &TaskManager::displayNotification, &_notification,
             &Notification::displayNotification, QUEUED);
-    connect(&_taskManager, &TaskManager::message, &_journal, &Journal::log,
+    connect(&_taskManager, &TaskManager::message, _journal, &Journal::log,
             QUEUED);
 
     if(_jobsOption)
@@ -206,11 +212,11 @@ void AppGui::showMainWindow()
             &MainWindow::notificationRaise, QUEUED);
     connect(&_notification, &Notification::notification_clicked, _mainWindow,
             &MainWindow::handle_notification_clicked, QUEUED);
-    connect(&_journal, &Journal::journal, _mainWindow, &MainWindow::setJournal,
+    connect(_journal, &Journal::journal, _mainWindow, &MainWindow::setJournal,
             QUEUED);
-    connect(&_journal, &Journal::logEntry, _mainWindow,
+    connect(_journal, &Journal::logEntry, _mainWindow,
             &MainWindow::appendToJournalLog, QUEUED);
-    connect(_mainWindow, &MainWindow::clearJournal, &_journal, &Journal::purge,
+    connect(_mainWindow, &MainWindow::clearJournal, _journal, &Journal::purge,
             QUEUED);
     connect(_mainWindow, &MainWindow::findMatchingArchives, &_taskManager,
             &TaskManager::findMatchingArchives, QUEUED);
@@ -220,7 +226,7 @@ void AppGui::showMainWindow()
     QMetaObject::invokeMethod(_mainWindow, "initializeMainWindow", QUEUED);
     QMetaObject::invokeMethod(&_taskManager, "loadArchives", QUEUED);
     QMetaObject::invokeMethod(&_taskManager, "loadJobs", QUEUED);
-    QMetaObject::invokeMethod(&_journal, "getJournal", QUEUED);
+    QMetaObject::invokeMethod(_journal, "getJournal", QUEUED);
 
     _mainWindow->show();
 }
@@ -229,7 +235,7 @@ void AppGui::reinit()
 {
     disconnect(&_taskManager, &TaskManager::displayNotification, &_notification,
                &Notification::displayNotification);
-    disconnect(&_taskManager, &TaskManager::message, &_journal, &Journal::log);
+    disconnect(&_taskManager, &TaskManager::message, _journal, &Journal::log);
 
     if(_mainWindow)
     {

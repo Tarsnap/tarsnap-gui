@@ -53,7 +53,7 @@ private:
     Notification _notification;
     TaskManager  _taskManager;
     QThread      _managerThread;
-    Journal      _journal;
+    Journal *    _journal;
     bool         _jobsOption;
     QString      _configDir;
     bool         _checkOption;

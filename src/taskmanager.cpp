@@ -648,8 +648,8 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
 {
     Q_UNUSED(data)
 
-    // Handle error (if applicable)
-    if(exitCode != SUCCESS)
+    // Handle error (if applicable; a "fake" task is not an error).
+    if((exitCode != SUCCESS) && (exitCode != EXIT_FAKE_REQUEST))
     {
         if(stdErr.isEmpty())
         {

@@ -84,6 +84,7 @@ private slots:
     void cancel_install();
     void normal_install();
     void cli();
+    void version_too_low();
 };
 
 void TestSetupWizard::initTestCase()
@@ -184,7 +185,7 @@ void TestSetupWizard::cli()
 
     VISUAL_INIT(setupWizard);
 
-    // Advanced to CLI page and expand advanced options
+    // Advance to CLI page and expand advanced options
     QTest::mouseClick(ui->nextButton, Qt::LeftButton);
     QVERIFY(ui->titleLabel->text() == "Command-line utilities");
     ui->advancedCLIButton->click();
@@ -215,6 +216,27 @@ void TestSetupWizard::cli()
     setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
     QVERIFY(
         ui->advancedValidationLabel->text().contains("Tarsnap CLI version"));
+    VISUAL_WAIT;
+
+    delete setupWizard;
+}
+
+void TestSetupWizard::version_too_low()
+{
+    SetupDialog *    setupWizard = new SetupDialog();
+    Ui::SetupDialog *ui          = setupWizard->_ui;
+
+    VISUAL_INIT(setupWizard);
+
+    // Advance to CLI page
+    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    QVERIFY(ui->titleLabel->text() == "Command-line utilities");
+    VISUAL_WAIT;
+
+    // Fake detecting the binaries with a too-low version number
+    setupWizard->tarsnapVersionResponse(TaskStatus::VersionTooLow, "1.0.1");
+    QVERIFY(ui->advancedValidationLabel->text().contains("too low"));
+    QVERIFY(ui->nextButton->isEnabled() == false);
     VISUAL_WAIT;
 
     delete setupWizard;

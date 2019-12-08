@@ -191,10 +191,10 @@ void SetupDialog::setNextPage()
     {
         _ui->wizardStackedWidget->setCurrentWidget(_ui->advancedPage);
         _ui->advancedPageRadioButton->setEnabled(true);
+        // Disable this until we know the version number.
+        _ui->nextButton->setEnabled(false);
         bool advancedOk = validateAdvancedSetupPage();
         _ui->advancedCLIButton->setChecked(!advancedOk);
-        if(advancedOk)
-            _ui->nextButton->setFocus();
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->advancedPage)
     {
@@ -273,7 +273,10 @@ bool SetupDialog::validateAdvancedSetupPage()
         emit tarsnapVersionRequested();
     }
 
-    _ui->nextButton->setEnabled(result);
+    // If `results` is true, then we might still be waiting for
+    // the result of tarsnapVersion, so we can't enable this yet.
+    if(!result)
+        _ui->nextButton->setEnabled(false);
 
     return result;
 }
@@ -414,6 +417,9 @@ void SetupDialog::tarsnapVersionResponse(TaskStatus status,
         _tarsnapVersion = versionString;
         _ui->advancedValidationLabel->setText(
             tr("Tarsnap CLI version ") + _tarsnapVersion + tr(" detected.  ✔"));
+        // Enable progress
+        _ui->nextButton->setEnabled(true);
+        _ui->nextButton->setFocus();
         break;
     case TaskStatus::VersionTooLow:
         // Don't record the too-low version number.

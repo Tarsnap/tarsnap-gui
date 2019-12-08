@@ -418,26 +418,16 @@ void TaskManager::initializeCache()
     QString   cacheDirname = settings.value("tarsnap/cache", "").toString();
     QDir      cacheDir(cacheDirname);
     // Check that the string is non-empty, and that the dir has no files.
+    if(!cacheDirname.isEmpty() &&
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 9, 0))
-    if(!cacheDirname.isEmpty() && cacheDir.isEmpty())
+       cacheDir.isEmpty()
 #else
-    if(!cacheDirname.isEmpty()
-       && !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries)
-               .count())
+       !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count()
 #endif
-    {
-        if(!Utils::tarsnapVersionMinimum("1.0.38"))
-        {
-            DEBUG << "Tarsnap CLI version 1.0.38 or higher required to use "
-                     "--initialize-cachedir.";
-            return;
-        }
+    )
         initTask = initializeCachedirTask();
-    }
     else
-    {
         initTask = fsckTask(true);
-    }
     queueTask(initTask);
 }
 

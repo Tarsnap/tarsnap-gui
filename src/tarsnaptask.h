@@ -19,6 +19,7 @@ WARNINGS_ENABLE
 #define EXIT_CRASHED (-2)
 #define EXIT_DID_NOT_START (-3)
 #define EXIT_CMD_NOT_FOUND (-4)
+#define EXIT_FAKE_REQUEST (-5)
 
 /*!
  * \ingroup background-tasks

@@ -257,6 +257,7 @@ void TestTaskManager::registerMachine_fake()
     manager->registerMachineDo("password", false);
     manager->waitUntilIdle();
     QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 1);
+    QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
 
     // Fake registering a new key, new cachedir.
     logfilename = TEST_DIR "/registerMachine_fake_2.log";
@@ -266,6 +267,7 @@ void TestTaskManager::registerMachine_fake()
     manager->registerMachineDo("password", false);
     manager->waitUntilIdle();
     QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 1);
+    QVERIFY(grep_file(logfilename, "--initialize-cachedir") == 1);
 
     // Fake using an existing key, new cachedir.
     logfilename = TEST_DIR "/registerMachine_fake_3.log";

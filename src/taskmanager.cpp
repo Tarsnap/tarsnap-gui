@@ -6,6 +6,7 @@ WARNINGS_DISABLE
 #include <QFileInfo>
 #include <QTcpSocket>
 #include <QTimer>
+#include <QVariant>
 WARNINGS_ENABLE
 
 #include "debug.h"
@@ -17,6 +18,8 @@ WARNINGS_ENABLE
 #include <TSettings.h>
 
 #define SUCCESS 0
+
+Q_DECLARE_METATYPE(TarsnapTask *)
 
 TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
 {
@@ -44,6 +47,8 @@ void TaskManager::tarsnapVersionFind()
 void TaskManager::registerMachineDo(QString password, bool useExistingKeyfile)
 {
     TarsnapTask *registerTask;
+    TarsnapTask *secondTask = nullptr;
+    QVariant     data;
 
     // Get relevant settings
     TSettings settings;
@@ -66,7 +71,7 @@ void TaskManager::registerMachineDo(QString password, bool useExistingKeyfile)
         return;
     }
 
-    // Actual task
+    // Actual task(s)
     if(useExistingKeyfile)
     {
         // existing key, attempt to rebuild cache & verify archive integrity
@@ -76,7 +81,33 @@ void TaskManager::registerMachineDo(QString password, bool useExistingKeyfile)
     {
         // generate a new key and register machine with tarsnap-keygen
         registerTask = registerMachineTask(password);
+
+        // second task: --initialize-cachedir or --fsck existing cachedir
+        QDir cacheDir(cachePath);
+
+        if(!cachePath.isEmpty() &&
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 9, 0))
+           cacheDir.isEmpty()
+#else
+           !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries)
+                .count()
+#endif
+        )
+            secondTask = initializeCachedirTask();
+        else
+            secondTask = fsckTask(true);
+
+        // We don't have a third task.
+        // Compatibility: normally we'd just do data.setValue(nullptr), but
+        // that doesn't compile on Qt 5.5.1 (although it's fine on Qt 5.13.0).
+        data.setValue(static_cast<TarsnapTask *>(nullptr));
+        secondTask->setData(data);
     }
+
+    // Always set data; if secondTask is nullptr, we still need to know that
+    // when we get to registerMachineFinished().
+    data.setValue(secondTask);
+    registerTask->setData(data);
 
     connect(registerTask, &TarsnapTask::finished, this,
             &TaskManager::registerMachineFinished, QUEUED);
@@ -410,27 +441,6 @@ void TaskManager::getKeyId(QString key_filename)
     queueTask(keymgmtTask);
 }
 
-void TaskManager::initializeCache()
-{
-    TarsnapTask *initTask;
-
-    TSettings settings;
-    QString   cacheDirname = settings.value("tarsnap/cache", "").toString();
-    QDir      cacheDir(cacheDirname);
-    // Check that the string is non-empty, and that the dir has no files.
-    if(!cacheDirname.isEmpty() &&
-#if(QT_VERSION >= QT_VERSION_CHECK(5, 9, 0))
-       cacheDir.isEmpty()
-#else
-       !cacheDir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries).count()
-#endif
-    )
-        initTask = initializeCachedirTask();
-    else
-        initTask = fsckTask(true);
-    queueTask(initTask);
-}
-
 void TaskManager::findMatchingArchives(QString jobPrefix)
 {
     QList<ArchivePtr> matching;
@@ -646,7 +656,8 @@ void TaskManager::backupTaskStarted(QVariant data)
 void TaskManager::registerMachineFinished(QVariant data, int exitCode,
                                           QString stdOut, QString stdErr)
 {
-    Q_UNUSED(data)
+    // Retrieved the stored ("second") task.
+    TarsnapTask *nextTask = data.value<TarsnapTask *>();
 
     // Handle error (if applicable; a "fake" task is not an error).
     if((exitCode != SUCCESS) && (exitCode != EXIT_FAKE_REQUEST))
@@ -660,7 +671,23 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
             else if(exitCode == EXIT_CRASHED)
                 stdErr = "Crash occurred in the command-line program";
         }
+
+        // Clean up second task (if applicable).
+        if(nextTask != nullptr)
+            delete nextTask;
+
+        // We're done.
         emit registerMachineDone(TaskStatus::Failed, stdErr);
+        return;
+    }
+
+    if(nextTask != nullptr)
+    {
+        // Run the stored task.
+        connect(nextTask, &TarsnapTask::finished, this,
+                &TaskManager::registerMachineFinished, QUEUED);
+        queueTask(nextTask);
+        // We're not finished yet, so we want to let the event loop continue.
         return;
     }
 

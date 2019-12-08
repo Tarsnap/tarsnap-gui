@@ -54,8 +54,6 @@ signals:
     void registerMachineRequested(QString password, bool useExistingKeyfile);
     /// We need to determine the Tarsnap CLI version number.
     void tarsnapVersionRequested();
-    /// Request cache initialization (used when generating a new key)
-    void initializeCache();
 
 private slots:
     void wizardPageChanged(int);

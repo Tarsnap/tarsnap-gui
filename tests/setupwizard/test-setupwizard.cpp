@@ -81,6 +81,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
+    void cancel_install();
     void normal_install();
     void cli();
 };
@@ -99,6 +100,25 @@ void TestSetupWizard::initTestCase()
 void TestSetupWizard::cleanupTestCase()
 {
     TSettings::destroy();
+}
+
+void TestSetupWizard::cancel_install()
+{
+    TARSNAP_CLI_OR_SKIP;
+
+    SetupDialog *    setupWizard = new SetupDialog();
+    Ui::SetupDialog *ui          = setupWizard->_ui;
+
+    VISUAL_INIT(setupWizard);
+
+    // Page 1
+    QVERIFY(ui->titleLabel->text() == "Setup wizard");
+    QTest::mouseClick(ui->backButton, Qt::LeftButton);
+    VISUAL_WAIT;
+
+    // Clean up
+    TSettings::destroy();
+    delete setupWizard;
 }
 
 void TestSetupWizard::normal_install()

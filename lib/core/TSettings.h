@@ -86,6 +86,9 @@ public:
     //! Exactly like <c>QSettings::setValue()</c>.
     void setValue(const QString &key, const QVariant &value);
 
+    //! Clear all data.  Exactly like <c>QSettings::clear()</c>.
+    void clear();
+
     //! Write any unsaved changes.  Exactly like <c>QSettings::sync()</c>.
     void sync();
 

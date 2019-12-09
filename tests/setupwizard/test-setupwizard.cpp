@@ -118,7 +118,6 @@ void TestSetupWizard::cancel_install()
     VISUAL_WAIT;
 
     // Clean up
-    TSettings::destroy();
     delete setupWizard;
 }
 
@@ -173,7 +172,6 @@ void TestSetupWizard::normal_install()
     QVERIFY(compareSettings(settings.getQSettings(), &target));
 
     // Clean up
-    TSettings::destroy();
     delete setupWizard;
 }
 

@@ -95,19 +95,20 @@ SetupDialog::~SetupDialog()
 void SetupDialog::initCLIPage()
 {
     QString tarsnapDir;
+    QString appDataDir;
 
     tarsnapDir = Utils::findTarsnapClientInPath("", true);
     _ui->tarsnapPathLineEdit->setText(tarsnapDir);
     _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
 
-    _appDataDir = QStandardPaths::writableLocation(APPDATA);
-    QDir keysDir(_appDataDir);
+    appDataDir = QStandardPaths::writableLocation(APPDATA);
+    QDir keysDir(appDataDir);
     if(!keysDir.exists())
-        keysDir.mkpath(_appDataDir);
-    _ui->appDataPathLineEdit->setText(_appDataDir);
+        keysDir.mkpath(appDataDir);
+    _ui->appDataPathLineEdit->setText(appDataDir);
 
     // find existing keys
-    for(const QFileInfo &file : Utils::findKeysInPath(_appDataDir))
+    for(const QFileInfo &file : Utils::findKeysInPath(appDataDir))
         _ui->machineKeyCombo->addItem(file.canonicalFilePath());
 
     _tarsnapCacheDir =
@@ -243,15 +244,21 @@ void SetupDialog::showAppDataBrowse()
 bool SetupDialog::validateAdvancedSetupPage()
 {
     QString tarsnapDir;
+    QString appDataDir;
 
     bool result = true;
 
-    _appDataDir = Utils::validateAppDataDir(_ui->appDataPathLineEdit->text());
-    if(_appDataDir.isEmpty())
+    appDataDir = Utils::validateAppDataDir(_ui->appDataPathLineEdit->text());
+    if(appDataDir.isEmpty())
     {
         _ui->advancedValidationLabel->setText(tr("Invalid App data directory "
                                                  "set."));
         result = false;
+    }
+    else
+    {
+        TSettings settings;
+        settings.setValue("app/app_data", appDataDir);
     }
 
     _tarsnapCacheDir =
@@ -356,9 +363,11 @@ void SetupDialog::registerMachine()
     TSettings settings;
 
     QString tarsnapKeyFile;
+    QString appDataDir;
 
     // Sanity check app data dir.
-    if(_appDataDir.isEmpty())
+    appDataDir = settings.value("app/app_data", "").toString();
+    if(appDataDir.isEmpty())
     {
         // We should never get here, but handle the error anyway
         _ui->statusLabel->setText("No app data dir set");
@@ -381,7 +390,7 @@ void SetupDialog::registerMachine()
     {
         _ui->statusLabel->setText("Generating keyfile...");
         tarsnapKeyFile =
-            _appDataDir + QDir::separator() + _ui->machineNameLineEdit->text()
+            appDataDir + QDir::separator() + _ui->machineNameLineEdit->text()
             + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
             + ".key";
     }
@@ -480,10 +489,8 @@ void SetupDialog::commitSettings(bool skipped)
 
     settings.setValue("app/wizard_done", true);
 
-    if(!skipped)
-    {
-        settings.setValue("app/app_data", _appDataDir);
-    }
+    (void)skipped;
+
     settings.sync();
 
     accept();

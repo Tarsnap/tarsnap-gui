@@ -73,7 +73,6 @@ private:
     Ui::SetupDialog *_ui;
 
     QString _tarsnapCacheDir;
-    QString _appDataDir;
 
     void setNextPage();
     void registerMachine();

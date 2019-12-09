@@ -31,28 +31,7 @@ SetupDialog::SetupDialog(QWidget *parent)
     // This should be done before connecting objects to
     // validateAdvancedSetupPage() to avoid calling that function
     // unnecessarily.
-    _tarsnapDir = Utils::findTarsnapClientInPath("", true);
-    _ui->tarsnapPathLineEdit->setText(_tarsnapDir);
-    _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
-
-    _appDataDir = QStandardPaths::writableLocation(APPDATA);
-    QDir keysDir(_appDataDir);
-    if(!keysDir.exists())
-        keysDir.mkpath(_appDataDir);
-    _ui->appDataPathLineEdit->setText(_appDataDir);
-
-    // find existing keys
-    for(const QFileInfo &file : Utils::findKeysInPath(_appDataDir))
-        _ui->machineKeyCombo->addItem(file.canonicalFilePath());
-
-    _tarsnapCacheDir =
-        QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-    QDir cacheDir(_tarsnapCacheDir);
-    if(!cacheDir.exists())
-        cacheDir.mkpath(_tarsnapCacheDir);
-    _ui->tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
-
-    _ui->advancedCLIWidget->hide();
+    initCLIPage();
 
     // All pages
     connect(_ui->backButton, &QPushButton::clicked, this,
@@ -111,6 +90,33 @@ SetupDialog::SetupDialog(QWidget *parent)
 SetupDialog::~SetupDialog()
 {
     delete _ui;
+}
+
+void SetupDialog::initCLIPage()
+{
+
+    _tarsnapDir = Utils::findTarsnapClientInPath("", true);
+    _ui->tarsnapPathLineEdit->setText(_tarsnapDir);
+    _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
+
+    _appDataDir = QStandardPaths::writableLocation(APPDATA);
+    QDir keysDir(_appDataDir);
+    if(!keysDir.exists())
+        keysDir.mkpath(_appDataDir);
+    _ui->appDataPathLineEdit->setText(_appDataDir);
+
+    // find existing keys
+    for(const QFileInfo &file : Utils::findKeysInPath(_appDataDir))
+        _ui->machineKeyCombo->addItem(file.canonicalFilePath());
+
+    _tarsnapCacheDir =
+        QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    QDir cacheDir(_tarsnapCacheDir);
+    if(!cacheDir.exists())
+        cacheDir.mkpath(_tarsnapCacheDir);
+    _ui->tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
+
+    _ui->advancedCLIWidget->hide();
 }
 
 void SetupDialog::wizardPageChanged(int)

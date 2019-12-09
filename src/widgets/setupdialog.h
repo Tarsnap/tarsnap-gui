@@ -81,6 +81,8 @@ private:
     void setNextPage();
     void registerMachine();
     void commitSettings(bool skipped = false);
+
+    void initCLIPage();
 };
 
 #endif // SETUPDIALOG_H

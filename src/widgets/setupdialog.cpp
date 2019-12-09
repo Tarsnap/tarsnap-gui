@@ -96,6 +96,7 @@ void SetupDialog::initCLIPage()
 {
     QString tarsnapDir;
     QString appDataDir;
+    QString tarsnapCacheDir;
 
     tarsnapDir = Utils::findTarsnapClientInPath("", true);
     _ui->tarsnapPathLineEdit->setText(tarsnapDir);
@@ -111,12 +112,12 @@ void SetupDialog::initCLIPage()
     for(const QFileInfo &file : Utils::findKeysInPath(appDataDir))
         _ui->machineKeyCombo->addItem(file.canonicalFilePath());
 
-    _tarsnapCacheDir =
+    tarsnapCacheDir =
         QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-    QDir cacheDir(_tarsnapCacheDir);
+    QDir cacheDir(tarsnapCacheDir);
     if(!cacheDir.exists())
-        cacheDir.mkpath(_tarsnapCacheDir);
-    _ui->tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
+        cacheDir.mkpath(tarsnapCacheDir);
+    _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
 
     _ui->advancedCLIWidget->hide();
 }
@@ -222,7 +223,8 @@ void SetupDialog::setNextPage()
 void SetupDialog::showTarsnapPathBrowse()
 {
     QString tarsnapPath =
-        QFileDialog::getExistingDirectory(this, tr("Find Tarsnap client"), "");
+        QFileDialog::getExistingDirectory(this, tr("Find Tarsnap client"),
+                                          _ui->tarsnapPathLineEdit->text());
     _ui->tarsnapPathLineEdit->setText(tarsnapPath);
 }
 
@@ -230,14 +232,15 @@ void SetupDialog::showTarsnapCacheBrowse()
 {
     QString tarsnapCacheDir =
         QFileDialog::getExistingDirectory(this, tr("Tarsnap cache location"),
-                                          _tarsnapCacheDir);
+                                          _ui->tarsnapCacheLineEdit->text());
     _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
 }
 
 void SetupDialog::showAppDataBrowse()
 {
     QString appDataDir =
-        QFileDialog::getExistingDirectory(this, tr("App data location"), "");
+        QFileDialog::getExistingDirectory(this, tr("App data location"),
+                                          _ui->appDataPathLineEdit->text());
     _ui->appDataPathLineEdit->setText(appDataDir);
 }
 
@@ -245,6 +248,7 @@ bool SetupDialog::validateAdvancedSetupPage()
 {
     QString tarsnapDir;
     QString appDataDir;
+    QString tarsnapCacheDir;
 
     bool result = true;
 
@@ -261,9 +265,9 @@ bool SetupDialog::validateAdvancedSetupPage()
         settings.setValue("app/app_data", appDataDir);
     }
 
-    _tarsnapCacheDir =
+    tarsnapCacheDir =
         Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text());
-    if(result && _tarsnapCacheDir.isEmpty())
+    if(result && tarsnapCacheDir.isEmpty())
     {
         _ui->advancedValidationLabel->setText(
             tr("Invalid Tarsnap cache directory"
@@ -395,7 +399,7 @@ void SetupDialog::registerMachine()
             + ".key";
     }
 
-    settings.setValue("tarsnap/cache", _tarsnapCacheDir);
+    settings.setValue("tarsnap/cache", _ui->tarsnapCacheLineEdit->text());
     settings.setValue("tarsnap/key", tarsnapKeyFile);
     settings.setValue("tarsnap/user", _ui->tarsnapUserLineEdit->text());
     settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());

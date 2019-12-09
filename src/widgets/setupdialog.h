@@ -76,7 +76,7 @@ private:
 
     void setNextPage();
     void registerMachine();
-    void commitSettings(bool skipped = false);
+    void finishedWizard();
 
     void initCLIPage();
 };

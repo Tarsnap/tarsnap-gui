@@ -167,7 +167,7 @@ void SetupDialog::backButtonClicked()
 {
     int nextIndex = _ui->wizardStackedWidget->currentIndex() - 1;
     if(nextIndex < 0)
-        commitSettings(true);
+        finishedWizard();
     else
         _ui->wizardStackedWidget->setCurrentIndex(nextIndex);
 }
@@ -177,7 +177,7 @@ void SetupDialog::nextButtonClicked()
     if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
         registerMachine();
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->donePage)
-        commitSettings(false);
+        finishedWizard();
     else
         setNextPage();
 }
@@ -483,15 +483,12 @@ void SetupDialog::tarsnapVersionResponse(TaskStatus status,
     }
 }
 
-void SetupDialog::commitSettings(bool skipped)
+void SetupDialog::finishedWizard()
 {
     TSettings settings;
 
+    // We've either completed the setup wizard, or deliberately skipped it.
     settings.setValue("app/wizard_done", true);
-
-    (void)skipped;
-
-    settings.sync();
 
     accept();
 }

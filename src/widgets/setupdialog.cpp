@@ -346,6 +346,16 @@ void SetupDialog::registerMachine()
 {
     TSettings settings;
 
+    // Sanity check app data dir.
+    if(_appDataDir.isEmpty())
+    {
+        // We should never get here, but handle the error anyway
+        _ui->statusLabel->setText("No app data dir set");
+        _ui->statusLabel->setStyleSheet("#statusLabel { color: darkred; }");
+        _ui->nextButton->setEnabled(false);
+        return;
+    }
+
     bool useExistingKeyfile = false;
     _ui->nextButton->setEnabled(false);
     _ui->statusLabel->clear();

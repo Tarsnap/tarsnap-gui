@@ -72,8 +72,6 @@ private slots:
 private:
     Ui::SetupDialog *_ui;
 
-    QString _tarsnapCacheDir;
-
     void setNextPage();
     void registerMachine();
     void finishedWizard();

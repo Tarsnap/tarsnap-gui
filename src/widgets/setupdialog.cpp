@@ -28,32 +28,10 @@ SetupDialog::SetupDialog(QWidget *parent)
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
                    & ~Qt::WindowMaximizeButtonHint);
 
-    // These should be done before connecting objects to
+    // This should be done before connecting objects to
     // validateAdvancedSetupPage() to avoid calling that function
     // unnecessarily.
-    _tarsnapDir = Utils::findTarsnapClientInPath("", true);
-    _ui->tarsnapPathLineEdit->setText(_tarsnapDir);
-    _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
-    _ui->wizardStackedWidget->setCurrentWidget(_ui->welcomePage);
-
-    _appDataDir = QStandardPaths::writableLocation(APPDATA);
-    QDir keysDir(_appDataDir);
-    if(!keysDir.exists())
-        keysDir.mkpath(_appDataDir);
-    _ui->appDataPathLineEdit->setText(_appDataDir);
-
-    // find existing keys
-    for(const QFileInfo &file : Utils::findKeysInPath(_appDataDir))
-        _ui->machineKeyCombo->addItem(file.canonicalFilePath());
-
-    _tarsnapCacheDir =
-        QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-    QDir cacheDir(_tarsnapCacheDir);
-    if(!cacheDir.exists())
-        cacheDir.mkpath(_tarsnapCacheDir);
-    _ui->tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
-
-    _ui->advancedCLIWidget->hide();
+    initCLIPage();
 
     // All pages
     connect(_ui->backButton, &QPushButton::clicked, this,
@@ -104,12 +82,43 @@ SetupDialog::SetupDialog(QWidget *parent)
     connect(_ui->browseKeyButton, &QPushButton::clicked, this,
             &SetupDialog::registerHaveKeyBrowse);
 
+    // Initial state
+    _ui->wizardStackedWidget->setCurrentWidget(_ui->welcomePage);
     wizardPageChanged(0);
 }
 
 SetupDialog::~SetupDialog()
 {
     delete _ui;
+}
+
+void SetupDialog::initCLIPage()
+{
+    QString tarsnapDir;
+    QString appDataDir;
+
+    tarsnapDir = Utils::findTarsnapClientInPath("", true);
+    _ui->tarsnapPathLineEdit->setText(tarsnapDir);
+    _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
+
+    appDataDir = QStandardPaths::writableLocation(APPDATA);
+    QDir keysDir(appDataDir);
+    if(!keysDir.exists())
+        keysDir.mkpath(appDataDir);
+    _ui->appDataPathLineEdit->setText(appDataDir);
+
+    // find existing keys
+    for(const QFileInfo &file : Utils::findKeysInPath(appDataDir))
+        _ui->machineKeyCombo->addItem(file.canonicalFilePath());
+
+    _tarsnapCacheDir =
+        QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    QDir cacheDir(_tarsnapCacheDir);
+    if(!cacheDir.exists())
+        cacheDir.mkpath(_tarsnapCacheDir);
+    _ui->tarsnapCacheLineEdit->setText(_tarsnapCacheDir);
+
+    _ui->advancedCLIWidget->hide();
 }
 
 void SetupDialog::wizardPageChanged(int)
@@ -158,7 +167,7 @@ void SetupDialog::backButtonClicked()
 {
     int nextIndex = _ui->wizardStackedWidget->currentIndex() - 1;
     if(nextIndex < 0)
-        commitSettings(true);
+        finishedWizard();
     else
         _ui->wizardStackedWidget->setCurrentIndex(nextIndex);
 }
@@ -168,7 +177,7 @@ void SetupDialog::nextButtonClicked()
     if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
         registerMachine();
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->donePage)
-        commitSettings(false);
+        finishedWizard();
     else
         setNextPage();
 }
@@ -234,14 +243,22 @@ void SetupDialog::showAppDataBrowse()
 
 bool SetupDialog::validateAdvancedSetupPage()
 {
+    QString tarsnapDir;
+    QString appDataDir;
+
     bool result = true;
 
-    _appDataDir = Utils::validateAppDataDir(_ui->appDataPathLineEdit->text());
-    if(_appDataDir.isEmpty())
+    appDataDir = Utils::validateAppDataDir(_ui->appDataPathLineEdit->text());
+    if(appDataDir.isEmpty())
     {
         _ui->advancedValidationLabel->setText(tr("Invalid App data directory "
                                                  "set."));
         result = false;
+    }
+    else
+    {
+        TSettings settings;
+        settings.setValue("app/app_data", appDataDir);
     }
 
     _tarsnapCacheDir =
@@ -254,9 +271,9 @@ bool SetupDialog::validateAdvancedSetupPage()
         result = false;
     }
 
-    _tarsnapDir =
+    tarsnapDir =
         Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text(), true);
-    if(result && _tarsnapDir.isEmpty())
+    if(result && tarsnapDir.isEmpty())
     {
         _ui->advancedValidationLabel->setText(
             tr("Tarsnap utilities not found. Visit "
@@ -267,7 +284,7 @@ bool SetupDialog::validateAdvancedSetupPage()
     else if(result)
     {
         TSettings settings;
-        settings.setValue("tarsnap/path", _tarsnapDir);
+        settings.setValue("tarsnap/path", tarsnapDir);
         // Wipe previous version number before asking for a new one.
         settings.setValue("tarsnap/version", "");
         emit tarsnapVersionRequested();
@@ -343,6 +360,22 @@ void SetupDialog::registerHaveKeyBrowse()
 
 void SetupDialog::registerMachine()
 {
+    TSettings settings;
+
+    QString tarsnapKeyFile;
+    QString appDataDir;
+
+    // Sanity check app data dir.
+    appDataDir = settings.value("app/app_data", "").toString();
+    if(appDataDir.isEmpty())
+    {
+        // We should never get here, but handle the error anyway
+        _ui->statusLabel->setText("No app data dir set");
+        _ui->statusLabel->setStyleSheet("#statusLabel { color: darkred; }");
+        _ui->nextButton->setEnabled(false);
+        return;
+    }
+
     bool useExistingKeyfile = false;
     _ui->nextButton->setEnabled(false);
     _ui->statusLabel->clear();
@@ -351,20 +384,19 @@ void SetupDialog::registerMachine()
     {
         useExistingKeyfile = true;
         _ui->statusLabel->setText("Verifying archive integrity...");
-        _tarsnapKeyFile = _ui->machineKeyCombo->currentText();
+        tarsnapKeyFile = _ui->machineKeyCombo->currentText();
     }
     else
     {
         _ui->statusLabel->setText("Generating keyfile...");
-        _tarsnapKeyFile =
-            _appDataDir + QDir::separator() + _ui->machineNameLineEdit->text()
+        tarsnapKeyFile =
+            appDataDir + QDir::separator() + _ui->machineNameLineEdit->text()
             + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
             + ".key";
     }
 
-    TSettings settings;
     settings.setValue("tarsnap/cache", _tarsnapCacheDir);
-    settings.setValue("tarsnap/key", _tarsnapKeyFile);
+    settings.setValue("tarsnap/key", tarsnapKeyFile);
     settings.setValue("tarsnap/user", _ui->tarsnapUserLineEdit->text());
     settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
 
@@ -374,16 +406,28 @@ void SetupDialog::registerMachine()
 
 void SetupDialog::registerMachineResponse(TaskStatus status, QString reason)
 {
+    TSettings settings;
+
+    // Get keyfile and sanity check.
+    QString tarsnapKeyFile = settings.value("tarsnap/key", "").toString();
+    if((status == TaskStatus::Completed) && (tarsnapKeyFile.isEmpty()))
+    {
+        // This should never happen
+        status = TaskStatus::Failed;
+        reason = "No keyfile set";
+    }
+
     switch(status)
     {
     case TaskStatus::Completed:
         _ui->statusLabel->clear();
+
         _ui->doneKeyFileNameLabel->setText(
             QString("<a href=\"%1\">%2</a>")
                 .arg(QUrl::fromLocalFile(
-                         QFileInfo(_tarsnapKeyFile).absolutePath())
+                         QFileInfo(tarsnapKeyFile).absolutePath())
                          .toString())
-                .arg(_tarsnapKeyFile));
+                .arg(tarsnapKeyFile));
         _ui->nextButton->setEnabled(true);
         setNextPage();
         break;
@@ -406,6 +450,8 @@ void SetupDialog::updateLoadingAnimation(bool idle)
 void SetupDialog::tarsnapVersionResponse(TaskStatus status,
                                          QString    versionString)
 {
+    TSettings settings;
+
     // Sanity check.
     if(versionString.isEmpty())
         status = TaskStatus::Failed;
@@ -414,9 +460,10 @@ void SetupDialog::tarsnapVersionResponse(TaskStatus status,
     switch(status)
     {
     case TaskStatus::Completed:
-        _tarsnapVersion = versionString;
         _ui->advancedValidationLabel->setText(
-            tr("Tarsnap CLI version ") + _tarsnapVersion + tr(" detected.  ✔"));
+            tr("Tarsnap CLI version ") + versionString + tr(" detected.  ✔"));
+        // Record value
+        settings.setValue("tarsnap/version", versionString);
         // Enable progress
         _ui->nextButton->setEnabled(true);
         _ui->nextButton->setFocus();
@@ -436,18 +483,12 @@ void SetupDialog::tarsnapVersionResponse(TaskStatus status,
     }
 }
 
-void SetupDialog::commitSettings(bool skipped)
+void SetupDialog::finishedWizard()
 {
     TSettings settings;
 
+    // We've either completed the setup wizard, or deliberately skipped it.
     settings.setValue("app/wizard_done", true);
-
-    if(!skipped)
-    {
-        settings.setValue("app/app_data", _appDataDir);
-        settings.setValue("tarsnap/version", _tarsnapVersion);
-    }
-    settings.sync();
 
     accept();
 }

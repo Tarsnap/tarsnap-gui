@@ -72,15 +72,13 @@ private slots:
 private:
     Ui::SetupDialog *_ui;
 
-    QString _tarsnapDir;
-    QString _tarsnapVersion;
     QString _tarsnapCacheDir;
-    QString _appDataDir;
-    QString _tarsnapKeyFile;
 
     void setNextPage();
     void registerMachine();
-    void commitSettings(bool skipped = false);
+    void finishedWizard();
+
+    void initCLIPage();
 };
 
 #endif // SETUPDIALOG_H

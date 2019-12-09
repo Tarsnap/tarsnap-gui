@@ -424,6 +424,8 @@ void SetupDialog::updateLoadingAnimation(bool idle)
 void SetupDialog::tarsnapVersionResponse(TaskStatus status,
                                          QString    versionString)
 {
+    TSettings settings;
+
     // Sanity check.
     if(versionString.isEmpty())
         status = TaskStatus::Failed;
@@ -432,9 +434,10 @@ void SetupDialog::tarsnapVersionResponse(TaskStatus status,
     switch(status)
     {
     case TaskStatus::Completed:
-        _tarsnapVersion = versionString;
         _ui->advancedValidationLabel->setText(
-            tr("Tarsnap CLI version ") + _tarsnapVersion + tr(" detected.  ✔"));
+            tr("Tarsnap CLI version ") + versionString + tr(" detected.  ✔"));
+        // Record value
+        settings.setValue("tarsnap/version", versionString);
         // Enable progress
         _ui->nextButton->setEnabled(true);
         _ui->nextButton->setFocus();
@@ -463,7 +466,6 @@ void SetupDialog::commitSettings(bool skipped)
     if(!skipped)
     {
         settings.setValue("app/app_data", _appDataDir);
-        settings.setValue("tarsnap/version", _tarsnapVersion);
     }
     settings.sync();
 

@@ -222,7 +222,8 @@ void SetupDialog::setNextPage()
 void SetupDialog::showTarsnapPathBrowse()
 {
     QString tarsnapPath =
-        QFileDialog::getExistingDirectory(this, tr("Find Tarsnap client"), "");
+        QFileDialog::getExistingDirectory(this, tr("Find Tarsnap client"),
+                                          _ui->tarsnapPathLineEdit->text());
     _ui->tarsnapPathLineEdit->setText(tarsnapPath);
 }
 
@@ -230,14 +231,15 @@ void SetupDialog::showTarsnapCacheBrowse()
 {
     QString tarsnapCacheDir =
         QFileDialog::getExistingDirectory(this, tr("Tarsnap cache location"),
-                                          _tarsnapCacheDir);
+                                          _ui->tarsnapCacheLineEdit->text());
     _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
 }
 
 void SetupDialog::showAppDataBrowse()
 {
     QString appDataDir =
-        QFileDialog::getExistingDirectory(this, tr("App data location"), "");
+        QFileDialog::getExistingDirectory(this, tr("App data location"),
+                                          _ui->appDataPathLineEdit->text());
     _ui->appDataPathLineEdit->setText(appDataDir);
 }
 

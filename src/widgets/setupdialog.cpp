@@ -28,13 +28,12 @@ SetupDialog::SetupDialog(QWidget *parent)
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
                    & ~Qt::WindowMaximizeButtonHint);
 
-    // These should be done before connecting objects to
+    // This should be done before connecting objects to
     // validateAdvancedSetupPage() to avoid calling that function
     // unnecessarily.
     _tarsnapDir = Utils::findTarsnapClientInPath("", true);
     _ui->tarsnapPathLineEdit->setText(_tarsnapDir);
     _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
-    _ui->wizardStackedWidget->setCurrentWidget(_ui->welcomePage);
 
     _appDataDir = QStandardPaths::writableLocation(APPDATA);
     QDir keysDir(_appDataDir);
@@ -104,6 +103,8 @@ SetupDialog::SetupDialog(QWidget *parent)
     connect(_ui->browseKeyButton, &QPushButton::clicked, this,
             &SetupDialog::registerHaveKeyBrowse);
 
+    // Initial state
+    _ui->wizardStackedWidget->setCurrentWidget(_ui->welcomePage);
     wizardPageChanged(0);
 }
 
@@ -343,6 +344,8 @@ void SetupDialog::registerHaveKeyBrowse()
 
 void SetupDialog::registerMachine()
 {
+    TSettings settings;
+
     bool useExistingKeyfile = false;
     _ui->nextButton->setEnabled(false);
     _ui->statusLabel->clear();
@@ -362,7 +365,6 @@ void SetupDialog::registerMachine()
             + ".key";
     }
 
-    TSettings settings;
     settings.setValue("tarsnap/cache", _tarsnapCacheDir);
     settings.setValue("tarsnap/key", _tarsnapKeyFile);
     settings.setValue("tarsnap/user", _ui->tarsnapUserLineEdit->text());

@@ -94,9 +94,10 @@ SetupDialog::~SetupDialog()
 
 void SetupDialog::initCLIPage()
 {
+    QString tarsnapDir;
 
-    _tarsnapDir = Utils::findTarsnapClientInPath("", true);
-    _ui->tarsnapPathLineEdit->setText(_tarsnapDir);
+    tarsnapDir = Utils::findTarsnapClientInPath("", true);
+    _ui->tarsnapPathLineEdit->setText(tarsnapDir);
     _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
 
     _appDataDir = QStandardPaths::writableLocation(APPDATA);
@@ -241,6 +242,8 @@ void SetupDialog::showAppDataBrowse()
 
 bool SetupDialog::validateAdvancedSetupPage()
 {
+    QString tarsnapDir;
+
     bool result = true;
 
     _appDataDir = Utils::validateAppDataDir(_ui->appDataPathLineEdit->text());
@@ -261,9 +264,9 @@ bool SetupDialog::validateAdvancedSetupPage()
         result = false;
     }
 
-    _tarsnapDir =
+    tarsnapDir =
         Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text(), true);
-    if(result && _tarsnapDir.isEmpty())
+    if(result && tarsnapDir.isEmpty())
     {
         _ui->advancedValidationLabel->setText(
             tr("Tarsnap utilities not found. Visit "
@@ -274,7 +277,7 @@ bool SetupDialog::validateAdvancedSetupPage()
     else if(result)
     {
         TSettings settings;
-        settings.setValue("tarsnap/path", _tarsnapDir);
+        settings.setValue("tarsnap/path", tarsnapDir);
         // Wipe previous version number before asking for a new one.
         settings.setValue("tarsnap/version", "");
         emit tarsnapVersionRequested();

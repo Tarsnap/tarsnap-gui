@@ -72,7 +72,6 @@ private slots:
 private:
     Ui::SetupDialog *_ui;
 
-    QString _tarsnapDir;
     QString _tarsnapCacheDir;
     QString _appDataDir;
     QString _tarsnapKeyFile;

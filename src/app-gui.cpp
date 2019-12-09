@@ -250,8 +250,7 @@ void AppGui::reinit()
     TSettings settings;
     if(settings.contains("app/wizard_done"))
     {
-        settings.getQSettings()->clear();
-        settings.sync();
+        settings.clear();
     }
 
     if(!initializeCore())

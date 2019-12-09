@@ -74,7 +74,6 @@ private:
 
     QString _tarsnapCacheDir;
     QString _appDataDir;
-    QString _tarsnapKeyFile;
 
     void setNextPage();
     void registerMachine();

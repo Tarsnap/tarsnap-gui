@@ -355,6 +355,8 @@ void SetupDialog::registerMachine()
 {
     TSettings settings;
 
+    QString tarsnapKeyFile;
+
     // Sanity check app data dir.
     if(_appDataDir.isEmpty())
     {
@@ -373,19 +375,19 @@ void SetupDialog::registerMachine()
     {
         useExistingKeyfile = true;
         _ui->statusLabel->setText("Verifying archive integrity...");
-        _tarsnapKeyFile = _ui->machineKeyCombo->currentText();
+        tarsnapKeyFile = _ui->machineKeyCombo->currentText();
     }
     else
     {
         _ui->statusLabel->setText("Generating keyfile...");
-        _tarsnapKeyFile =
+        tarsnapKeyFile =
             _appDataDir + QDir::separator() + _ui->machineNameLineEdit->text()
             + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
             + ".key";
     }
 
     settings.setValue("tarsnap/cache", _tarsnapCacheDir);
-    settings.setValue("tarsnap/key", _tarsnapKeyFile);
+    settings.setValue("tarsnap/key", tarsnapKeyFile);
     settings.setValue("tarsnap/user", _ui->tarsnapUserLineEdit->text());
     settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
 
@@ -395,16 +397,28 @@ void SetupDialog::registerMachine()
 
 void SetupDialog::registerMachineResponse(TaskStatus status, QString reason)
 {
+    TSettings settings;
+
+    // Get keyfile and sanity check.
+    QString tarsnapKeyFile = settings.value("tarsnap/key", "").toString();
+    if((status == TaskStatus::Completed) && (tarsnapKeyFile.isEmpty()))
+    {
+        // This should never happen
+        status = TaskStatus::Failed;
+        reason = "No keyfile set";
+    }
+
     switch(status)
     {
     case TaskStatus::Completed:
         _ui->statusLabel->clear();
+
         _ui->doneKeyFileNameLabel->setText(
             QString("<a href=\"%1\">%2</a>")
                 .arg(QUrl::fromLocalFile(
-                         QFileInfo(_tarsnapKeyFile).absolutePath())
+                         QFileInfo(tarsnapKeyFile).absolutePath())
                          .toString())
-                .arg(_tarsnapKeyFile));
+                .arg(tarsnapKeyFile));
         _ui->nextButton->setEnabled(true);
         setNextPage();
         break;

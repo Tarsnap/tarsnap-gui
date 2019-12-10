@@ -54,7 +54,7 @@ public:
     void reset();
 
     //! Has QFileSystemModel (separate thread) finished caching this directory?
-    bool needToReadSubdirs(const QString dirname);
+    bool needToReadSubdirs(const QString &dirname);
 
 private:
     QSet<QPersistentModelIndex> _checklist;

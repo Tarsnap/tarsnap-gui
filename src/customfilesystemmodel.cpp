@@ -197,7 +197,7 @@ void CustomFileSystemModel::reset()
     _partialChecklist.clear();
 }
 
-bool CustomFileSystemModel::needToReadSubdirs(const QString dirname)
+bool CustomFileSystemModel::needToReadSubdirs(const QString &dirname)
 {
     bool        loadingMore = false;
     QModelIndex dir         = index(dirname);

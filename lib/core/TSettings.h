@@ -61,7 +61,7 @@ public:
     //! Specifies the config filename to use.  Only call this once.
     //! \warning Has no effect if it is called after a TSettings
     //! object is instantiated.
-    static void setFilename(QString filename);
+    static void setFilename(const QString &filename);
 
     //! Frees memory associated with TSettings.  This frees global state, so
     //! make sure you do not use TSettings after calling this (i.e. in a

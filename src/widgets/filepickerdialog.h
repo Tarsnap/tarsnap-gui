@@ -31,9 +31,9 @@ public:
     //! Returns the selected URLs from the internal FilePickerWidget.
     QList<QUrl> getSelectedUrls();
     //! Sets the selected URLs in the internal FilePickerWidget.
-    void setSelectedUrls(QList<QUrl> urls);
+    void setSelectedUrls(const QList<QUrl> &urls);
     //! Sets a single URL in the internal FilePickerWidget.
-    void selectUrl(QUrl url);
+    void selectUrl(const QUrl &url);
 
 private:
     Ui::FilePickerDialog *_ui;

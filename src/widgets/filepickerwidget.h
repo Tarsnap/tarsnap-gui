@@ -45,7 +45,7 @@ public:
     //! model.
     void setSelectedUrls(const QList<QUrl> &urls);
     //! Sets an URL to be Qt::Checked in the underlying model.
-    void selectUrl(QUrl url);
+    void selectUrl(const QUrl &url);
 
     //! Returns the state of the "show hidden" checkbox.
     bool settingShowHidden();
@@ -64,10 +64,10 @@ public:
 
 public slots:
     //! Updates a filter for filenames.  Directory names are unaffected.
-    void updateFilter(QString filter);
+    void updateFilter(const QString &filter);
 
     //! Sets the current selection in the QTreeView to the indicated path.
-    void setCurrentPath(const QString path);
+    void setCurrentPath(const QString &path);
 
 signals:
     //! The selected state of some paths in the underlying model has changed.

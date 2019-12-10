@@ -122,7 +122,7 @@ void FilePickerWidget::setSelectedUrls(const QList<QUrl> &urls)
     }
 }
 
-void FilePickerWidget::selectUrl(QUrl url)
+void FilePickerWidget::selectUrl(const QUrl &url)
 {
     _model.setData(_model.index(url.toLocalFile()), Qt::Checked,
                    Qt::CheckStateRole);
@@ -188,7 +188,7 @@ void FilePickerWidget::changeEvent(QEvent *event)
     QWidget::changeEvent(event);
 }
 
-void FilePickerWidget::updateFilter(QString filter)
+void FilePickerWidget::updateFilter(const QString &filter)
 {
     _model.setNameFilters(QStringList("*"));
     if(filter.startsWith('/'))
@@ -197,7 +197,7 @@ void FilePickerWidget::updateFilter(QString filter)
         _model.setNameFilters(QStringList(filter));
 }
 
-void FilePickerWidget::setCurrentPath(const QString path)
+void FilePickerWidget::setCurrentPath(const QString &path)
 {
     _ui->treeView->setCurrentIndex(_model.index(path));
     _ui->treeView->scrollTo(_model.index(path));

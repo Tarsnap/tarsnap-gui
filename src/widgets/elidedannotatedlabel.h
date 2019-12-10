@@ -32,7 +32,8 @@ public slots:
     //! Sets the text portions and HTML annotations for this widget to display
     //! (may be elided).  The annotations must be twice as long as the texts,
     //! as each portion has starting and ending tags.
-    void setAnnotatedText(QVector<QString> texts, QVector<QString> annotations);
+    void setAnnotatedText(const QVector<QString> &texts,
+                          const QVector<QString> &annotations);
     //! Clears all contents, including the full text.
     void clear();
 

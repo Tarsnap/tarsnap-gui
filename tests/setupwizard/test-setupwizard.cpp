@@ -82,6 +82,7 @@ private slots:
     void cleanupTestCase();
 
     void cancel_install();
+    void skip_install();
     void normal_install();
     void cli();
     void version_too_low();
@@ -112,7 +113,44 @@ void TestSetupWizard::cancel_install()
 
     VISUAL_INIT(setupWizard);
 
-    // Page 1
+    // Proceed through almost all of the wizard.
+    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
+    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->restoreYes();
+    ui->restoreYesButton->setChecked(true);
+    ui->machineKeyCombo->setCurrentText("fake.key");
+    ui->nextButton->setEnabled(true);
+    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->registerMachineResponse(TaskStatus::Completed, "");
+    VISUAL_WAIT;
+
+    // Close before we actually finish
+    QTest::keyEvent(QTest::Click, setupWizard, Qt::Key_Escape);
+    VISUAL_WAIT;
+
+    // Clean up
+    delete setupWizard;
+
+    // Check that we wiped the Tarsnap-related settings
+    TSettings  settings;
+    QSettings *q = settings.getQSettings();
+    q->beginGroup("tarsnap");
+    QVERIFY(q->allKeys().length() == 0);
+    q->beginGroup("app");
+    QVERIFY(q->allKeys().length() == 0);
+}
+
+void TestSetupWizard::skip_install()
+{
+    TARSNAP_CLI_OR_SKIP;
+
+    SetupDialog *    setupWizard = new SetupDialog();
+    Ui::SetupDialog *ui          = setupWizard->_ui;
+
+    VISUAL_INIT(setupWizard);
+
+    // Page 1; the "back" button is actually a "skip" on this page.
     QVERIFY(ui->titleLabel->text() == "Setup wizard");
     QTest::mouseClick(ui->backButton, Qt::LeftButton);
     VISUAL_WAIT;

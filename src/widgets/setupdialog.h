@@ -68,6 +68,7 @@ private slots:
     void registerHaveKeyBrowse();
     void backButtonClicked();
     void nextButtonClicked();
+    void reject();
 
 private:
     Ui::SetupDialog *_ui;

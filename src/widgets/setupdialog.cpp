@@ -496,3 +496,13 @@ void SetupDialog::finishedWizard()
 
     accept();
 }
+
+void SetupDialog::reject()
+{
+    // Remove any saved settings
+    TSettings settings;
+    settings.clear();
+
+    // Call parent function
+    QDialog::reject();
+}

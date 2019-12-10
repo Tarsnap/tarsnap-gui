@@ -81,7 +81,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    void cancel_install();
+    void skip_install();
     void normal_install();
     void cli();
     void version_too_low();
@@ -103,7 +103,7 @@ void TestSetupWizard::cleanupTestCase()
     TSettings::destroy();
 }
 
-void TestSetupWizard::cancel_install()
+void TestSetupWizard::skip_install()
 {
     TARSNAP_CLI_OR_SKIP;
 
@@ -112,7 +112,7 @@ void TestSetupWizard::cancel_install()
 
     VISUAL_INIT(setupWizard);
 
-    // Page 1
+    // Page 1; the "back" button is actually a "skip" on this page.
     QVERIFY(ui->titleLabel->text() == "Setup wizard");
     QTest::mouseClick(ui->backButton, Qt::LeftButton);
     VISUAL_WAIT;

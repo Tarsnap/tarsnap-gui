@@ -14,7 +14,7 @@ WARNINGS_ENABLE
 QSettings *TSettings::_settings      = nullptr;
 QString *  TSettings::_filename_next = nullptr;
 
-void TSettings::setFilename(QString filename)
+void TSettings::setFilename(const QString &filename)
 {
     Q_ASSERT(_filename_next == nullptr);
 

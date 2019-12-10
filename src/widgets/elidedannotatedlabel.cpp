@@ -13,8 +13,8 @@ ElidedAnnotatedLabel::~ElidedAnnotatedLabel()
 {
 }
 
-void ElidedAnnotatedLabel::setAnnotatedText(QVector<QString> texts,
-                                            QVector<QString> annotations)
+void ElidedAnnotatedLabel::setAnnotatedText(const QVector<QString> &texts,
+                                            const QVector<QString> &annotations)
 {
     _texts       = texts;
     _annotations = annotations;

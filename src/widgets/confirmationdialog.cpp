@@ -38,10 +38,13 @@ void ConfirmationDialog::timerFired()
 }
 
 // Keep "title" in here so that it can be translated.
-void ConfirmationDialog::start(QString startTitle, QString startText,
-                               QString confirmationText, int countdownSeconds,
-                               QString countdownTitle, QString countdownText,
-                               QString confirmedButtonText)
+void ConfirmationDialog::start(const QString &startTitle,
+                               const QString &startText,
+                               const QString &confirmationText,
+                               int            countdownSeconds,
+                               const QString &countdownTitle,
+                               const QString &countdownText,
+                               const QString &confirmedButtonText)
 {
     _inputDialog.setWindowTitle(startTitle);
     _inputDialog.setLabelText(startText);

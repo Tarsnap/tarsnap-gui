@@ -37,9 +37,10 @@ public:
     //! \param countdownText text of the countdown window
     //! \param confirmedButtonText what to display on the "Ok" button
     //!                            after text confirmation
-    void start(QString startTitle, QString startText, QString confirmationText,
-               int countdownSeconds, QString countdownTitle,
-               QString countdownText, QString confirmedButtonText);
+    void start(const QString &startTitle, const QString &startText,
+               const QString &confirmationText, int countdownSeconds,
+               const QString &countdownTitle, const QString &countdownText,
+               const QString &confirmedButtonText);
 
 signals:
     //! User has confirmed the action.

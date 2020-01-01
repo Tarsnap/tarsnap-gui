@@ -1,6 +1,8 @@
 TARGET = test-mainwindow
 QT = core gui widgets network sql
 
+VALGRIND = true
+
 # For TarsnapAccount
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 

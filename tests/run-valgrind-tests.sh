@@ -8,7 +8,7 @@ VALGRINDS="core cli consolelog persistent task taskmanager"
 # Gui
 VALGRINDS="${VALGRINDS} customfilesystemmodel small-widgets setupwizard"
 VALGRINDS="${VALGRINDS} backuptabwidget settingswidget jobstabwidget"
-VALGRINDS="${VALGRINDS} archivestabwidget"
+VALGRINDS="${VALGRINDS} archivestabwidget mainwindow"
 
 # Run tests
 for D in $VALGRINDS; do

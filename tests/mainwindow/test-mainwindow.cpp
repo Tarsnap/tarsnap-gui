@@ -70,7 +70,7 @@ void TestMainWindow::cleanupTestCase()
     ConsoleLog::destroy();
 
     // Wait for everything to finish
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
 }
 
 static QAction *get_menubar_about(QMenuBar *menubar)

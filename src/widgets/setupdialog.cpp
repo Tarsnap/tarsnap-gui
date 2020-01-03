@@ -29,8 +29,7 @@ SetupDialog::SetupDialog(QWidget *parent)
                    & ~Qt::WindowMaximizeButtonHint);
 
     // This should be done before connecting objects to
-    // validateAdvancedSetupPage() to avoid calling that function
-    // unnecessarily.
+    // validateCLIPage() to avoid calling that function unnecessarily.
     initCLIPage();
     initRegisterPage();
 
@@ -57,15 +56,15 @@ SetupDialog::SetupDialog(QWidget *parent)
     connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this,
             &SetupDialog::showTarsnapPathBrowse);
     connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this,
-            &SetupDialog::validateAdvancedSetupPage);
+            &SetupDialog::validateCLIPage);
     connect(_ui->tarsnapCacheBrowseButton, &QPushButton::clicked, this,
             &SetupDialog::showTarsnapCacheBrowse);
     connect(_ui->tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
-            &SetupDialog::validateAdvancedSetupPage);
+            &SetupDialog::validateCLIPage);
     connect(_ui->appDataBrowseButton, &QPushButton::clicked, this,
             &SetupDialog::showAppDataBrowse);
     connect(_ui->appDataPathLineEdit, &QLineEdit::textChanged, this,
-            &SetupDialog::validateAdvancedSetupPage);
+            &SetupDialog::validateCLIPage);
 
     // Register page
     connect(_ui->createKeyfileButton, &QPushButton::clicked, this,
@@ -216,7 +215,7 @@ void SetupDialog::setNextPage()
         _ui->advancedPageRadioButton->setEnabled(true);
         // Disable this until we know the version number.
         _ui->nextButton->setEnabled(false);
-        bool advancedOk = validateAdvancedSetupPage();
+        bool advancedOk = validateCLIPage();
         _ui->cliAdvancedButton->setChecked(!advancedOk);
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->cliPage)
@@ -257,7 +256,7 @@ void SetupDialog::showAppDataBrowse()
     _ui->appDataPathLineEdit->setText(appDataDir);
 }
 
-bool SetupDialog::validateAdvancedSetupPage()
+bool SetupDialog::validateCLIPage()
 {
     QString tarsnapDir;
     QString appDataDir;

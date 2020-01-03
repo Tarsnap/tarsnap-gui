@@ -117,8 +117,8 @@ void TestSetupWizard::cancel_install()
     QTest::mouseClick(ui->nextButton, Qt::LeftButton);
     setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
     QTest::mouseClick(ui->nextButton, Qt::LeftButton);
-    setupWizard->restoreYes();
-    ui->restoreYesButton->setChecked(true);
+    setupWizard->useExistingKeyfile();
+    ui->useExistingKeyfileButton->setChecked(true);
     ui->machineKeyCombo->setCurrentText("fake.key");
     ui->nextButton->setEnabled(true);
     QTest::mouseClick(ui->nextButton, Qt::LeftButton);
@@ -181,16 +181,15 @@ void TestSetupWizard::normal_install()
     QVERIFY(sig_cli.count() == 1);
     // Fake the CLI detection and checking
     setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
-    QVERIFY(
-        ui->advancedValidationLabel->text().contains("Tarsnap CLI version"));
+    QVERIFY(ui->cliValidationLabel->text().contains("Tarsnap CLI version"));
     QTest::mouseClick(ui->nextButton, Qt::LeftButton);
     VISUAL_WAIT;
 
     // Page 3
     QVERIFY(ui->titleLabel->text() == "Register with server");
     // Pretend that we already have a key
-    setupWizard->restoreYes();
-    ui->restoreYesButton->setChecked(true);
+    setupWizard->useExistingKeyfile();
+    ui->useExistingKeyfileButton->setChecked(true);
     ui->machineKeyCombo->setCurrentText("fake.key");
     ui->nextButton->setEnabled(true);
     QTest::mouseClick(ui->nextButton, Qt::LeftButton);
@@ -224,34 +223,33 @@ void TestSetupWizard::cli()
     // Advance to CLI page and expand advanced options
     QTest::mouseClick(ui->nextButton, Qt::LeftButton);
     QVERIFY(ui->titleLabel->text() == "Command-line utilities");
-    ui->advancedCLIButton->click();
+    ui->cliAdvancedButton->click();
     VISUAL_WAIT;
 
     // App data directory
     SET_TEXT_WITH_SIGNAL(ui->appDataPathLineEdit, "fake-dir");
-    QVERIFY(ui->advancedValidationLabel->text()
+    QVERIFY(ui->cliValidationLabel->text()
             == "Invalid App data directory set.");
     VISUAL_WAIT;
     SET_TEXT_WITH_SIGNAL(ui->appDataPathLineEdit, "/tmp");
 
     // Cache directory
     SET_TEXT_WITH_SIGNAL(ui->tarsnapCacheLineEdit, "fake-dir");
-    QVERIFY(ui->advancedValidationLabel->text()
+    QVERIFY(ui->cliValidationLabel->text()
             == "Invalid Tarsnap cache directory set.");
     VISUAL_WAIT;
     SET_TEXT_WITH_SIGNAL(ui->tarsnapCacheLineEdit, "/tmp");
 
     // Tarsnap CLI directory
     SET_TEXT_WITH_SIGNAL(ui->tarsnapPathLineEdit, "fake-dir");
-    QVERIFY(ui->advancedValidationLabel->text().contains(
+    QVERIFY(ui->cliValidationLabel->text().contains(
         "Tarsnap utilities not found."));
     VISUAL_WAIT;
     SET_TEXT_WITH_SIGNAL(ui->tarsnapPathLineEdit, "/tmp");
 
     // Fake detecting the binaries
     setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
-    QVERIFY(
-        ui->advancedValidationLabel->text().contains("Tarsnap CLI version"));
+    QVERIFY(ui->cliValidationLabel->text().contains("Tarsnap CLI version"));
     VISUAL_WAIT;
 
     delete setupWizard;
@@ -271,7 +269,7 @@ void TestSetupWizard::version_too_low()
 
     // Fake detecting the binaries with a too-low version number
     setupWizard->tarsnapVersionResponse(TaskStatus::VersionTooLow, "1.0.1");
-    QVERIFY(ui->advancedValidationLabel->text().contains("too low"));
+    QVERIFY(ui->cliValidationLabel->text().contains("too low"));
     QVERIFY(ui->nextButton->isEnabled() == false);
     VISUAL_WAIT;
 

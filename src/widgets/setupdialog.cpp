@@ -52,8 +52,8 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::wizardPageChanged);
 
     // Advanced setup page
-    connect(_ui->advancedCLIButton, &QPushButton::toggled,
-            _ui->advancedCLIWidget, &QWidget::setVisible);
+    connect(_ui->cliAdvancedButton, &QPushButton::toggled,
+            _ui->cliAdvancedWidget, &QWidget::setVisible);
     connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this,
             &SetupDialog::showTarsnapPathBrowse);
     connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this,
@@ -68,10 +68,10 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::validateAdvancedSetupPage);
 
     // Register page
-    connect(_ui->restoreNoButton, &QPushButton::clicked, this,
-            &SetupDialog::restoreNo);
-    connect(_ui->restoreYesButton, &QPushButton::clicked, this,
-            &SetupDialog::restoreYes);
+    connect(_ui->createKeyfileButton, &QPushButton::clicked, this,
+            &SetupDialog::createKeyfile);
+    connect(_ui->useExistingKeyfileButton, &QPushButton::clicked, this,
+            &SetupDialog::useExistingKeyfile);
     connect(_ui->tarsnapUserLineEdit, &QLineEdit::textChanged, this,
             &SetupDialog::validateRegisterPage);
     connect(_ui->tarsnapPasswordLineEdit, &QLineEdit::textChanged, this,
@@ -121,7 +121,7 @@ void SetupDialog::initCLIPage()
     _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
 
     // We only want to expand the widget if there's a problem
-    _ui->advancedCLIWidget->hide();
+    _ui->cliAdvancedWidget->hide();
 }
 
 void SetupDialog::initRegisterPage()
@@ -148,7 +148,7 @@ void SetupDialog::wizardPageChanged(int)
         _ui->titleLabel->setText(tr("Setup wizard"));
         _ui->backButton->setText(tr("Skip wizard"));
     }
-    else if(_ui->wizardStackedWidget->currentWidget() == _ui->advancedPage)
+    else if(_ui->wizardStackedWidget->currentWidget() == _ui->cliPage)
     {
         _ui->advancedPageRadioButton->setChecked(true);
         _ui->titleLabel->setText(tr("Command-line utilities"));
@@ -160,13 +160,13 @@ void SetupDialog::wizardPageChanged(int)
         _ui->nextButton->setText(tr("Register machine"));
         if(_ui->machineKeyCombo->count() > 0)
         {
-            _ui->restoreYesButton->setChecked(true);
-            restoreYes();
+            _ui->useExistingKeyfileButton->setChecked(true);
+            useExistingKeyfile();
         }
         else
         {
-            _ui->restoreNoButton->setChecked(true);
-            restoreNo();
+            _ui->createKeyfileButton->setChecked(true);
+            createKeyfile();
         }
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->donePage)
@@ -201,7 +201,7 @@ void SetupDialog::skipToPage()
     if(sender() == _ui->welcomePageRadioButton)
         _ui->wizardStackedWidget->setCurrentWidget(_ui->welcomePage);
     else if(sender() == _ui->advancedPageRadioButton)
-        _ui->wizardStackedWidget->setCurrentWidget(_ui->advancedPage);
+        _ui->wizardStackedWidget->setCurrentWidget(_ui->cliPage);
     else if(sender() == _ui->registerPageRadioButton)
         _ui->wizardStackedWidget->setCurrentWidget(_ui->registerPage);
     else if(sender() == _ui->donePageRadioButton)
@@ -212,14 +212,14 @@ void SetupDialog::setNextPage()
 {
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
     {
-        _ui->wizardStackedWidget->setCurrentWidget(_ui->advancedPage);
+        _ui->wizardStackedWidget->setCurrentWidget(_ui->cliPage);
         _ui->advancedPageRadioButton->setEnabled(true);
         // Disable this until we know the version number.
         _ui->nextButton->setEnabled(false);
         bool advancedOk = validateAdvancedSetupPage();
-        _ui->advancedCLIButton->setChecked(!advancedOk);
+        _ui->cliAdvancedButton->setChecked(!advancedOk);
     }
-    else if(_ui->wizardStackedWidget->currentWidget() == _ui->advancedPage)
+    else if(_ui->wizardStackedWidget->currentWidget() == _ui->cliPage)
     {
         _ui->wizardStackedWidget->setCurrentWidget(_ui->registerPage);
         _ui->registerPageRadioButton->setEnabled(true);
@@ -268,8 +268,7 @@ bool SetupDialog::validateAdvancedSetupPage()
     appDataDir = Utils::validateAppDataDir(_ui->appDataPathLineEdit->text());
     if(appDataDir.isEmpty())
     {
-        _ui->advancedValidationLabel->setText(tr("Invalid App data directory "
-                                                 "set."));
+        _ui->cliValidationLabel->setText(tr("Invalid App data directory set."));
         result = false;
     }
     else
@@ -282,9 +281,8 @@ bool SetupDialog::validateAdvancedSetupPage()
         Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text());
     if(result && tarsnapCacheDir.isEmpty())
     {
-        _ui->advancedValidationLabel->setText(
-            tr("Invalid Tarsnap cache directory"
-               " set."));
+        _ui->cliValidationLabel->setText(tr("Invalid Tarsnap cache directory"
+                                            " set."));
         result = false;
     }
 
@@ -292,7 +290,7 @@ bool SetupDialog::validateAdvancedSetupPage()
         Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text(), true);
     if(result && tarsnapDir.isEmpty())
     {
-        _ui->advancedValidationLabel->setText(
+        _ui->cliValidationLabel->setText(
             tr("Tarsnap utilities not found. Visit "
                "<a href=\"https://tarsnap.com\">tarsnap.com</a> "
                "for help with acquiring them."));
@@ -315,9 +313,9 @@ bool SetupDialog::validateAdvancedSetupPage()
     return result;
 }
 
-void SetupDialog::restoreNo()
+void SetupDialog::createKeyfile()
 {
-    _ui->registerKeyStackedWidget->setCurrentWidget(_ui->keyNoPage);
+    _ui->registerKeyStackedWidget->setCurrentWidget(_ui->createKeyfileSubpage);
     // Share machineNameLineEdit in both pages of the keyStackedWidget
     _ui->gridKeyNoLayout->addWidget(_ui->machineNameLineEdit, 1, 1);
     _ui->statusLabel->clear();
@@ -325,9 +323,10 @@ void SetupDialog::restoreNo()
         _ui->nextButton->setFocus();
 }
 
-void SetupDialog::restoreYes()
+void SetupDialog::useExistingKeyfile()
 {
-    _ui->registerKeyStackedWidget->setCurrentWidget(_ui->keyYesPage);
+    _ui->registerKeyStackedWidget->setCurrentWidget(
+        _ui->useExistingKeyfileSubpage);
     // Share machineNameLineEdit in both pages of the keyStackedWidget
     _ui->gridKeyYesLayout->addWidget(_ui->machineNameLineEdit, 1, 1);
     _ui->statusLabel->clear();
@@ -338,7 +337,7 @@ void SetupDialog::restoreYes()
 bool SetupDialog::validateRegisterPage()
 {
     bool result = false;
-    if(_ui->restoreYesButton->isChecked())
+    if(_ui->useExistingKeyfileButton->isChecked())
     {
         // user specified key
         QFileInfo machineKeyFile(_ui->machineKeyCombo->currentText());
@@ -397,7 +396,7 @@ void SetupDialog::registerMachine()
     _ui->nextButton->setEnabled(false);
     _ui->statusLabel->clear();
     _ui->statusLabel->setStyleSheet("");
-    if(_ui->restoreYesButton->isChecked())
+    if(_ui->useExistingKeyfileButton->isChecked())
     {
         useExistingKeyfile = true;
         _ui->statusLabel->setText("Verifying archive integrity...");
@@ -477,8 +476,8 @@ void SetupDialog::tarsnapVersionResponse(TaskStatus status,
     switch(status)
     {
     case TaskStatus::Completed:
-        _ui->advancedValidationLabel->setText(
-            tr("Tarsnap CLI version ") + versionString + tr(" detected.  ✔"));
+        _ui->cliValidationLabel->setText(tr("Tarsnap CLI version ")
+                                         + versionString + tr(" detected.  ✔"));
         // Record value
         settings.setValue("tarsnap/version", versionString);
         // Enable progress
@@ -487,12 +486,12 @@ void SetupDialog::tarsnapVersionResponse(TaskStatus status,
         break;
     case TaskStatus::VersionTooLow:
         // Don't record the too-low version number.
-        _ui->advancedValidationLabel->setText(
+        _ui->cliValidationLabel->setText(
             tr("Tarsnap CLI version ") + versionString
             + tr(" too low; must be at least %1").arg(TARSNAP_MIN_VERSION));
         break;
     case TaskStatus::Failed:
-        _ui->advancedValidationLabel->setText(
+        _ui->cliValidationLabel->setText(
             tr("Error retrieving Tarsnap CLI verison"));
         break;
     default:

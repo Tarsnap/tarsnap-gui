@@ -62,7 +62,14 @@ bool AppGui::initializeCore()
     info = init_shared_core(this);
 
     if(info.status == INIT_NEEDS_SETUP)
-        return runSetupWizard();
+    {
+        if(!runSetupWizard())
+            return false;
+        // Remove the Translator
+        Translator::destroy();
+        // Restart
+        return initializeCore();
+    }
     else if(info.status == INIT_DB_FAILED)
     {
         QMessageBox::warning(nullptr, tr("Tarsnap warning"),

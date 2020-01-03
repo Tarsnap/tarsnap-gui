@@ -61,7 +61,7 @@ private slots:
     void showTarsnapPathBrowse();
     void showTarsnapCacheBrowse();
     void showAppDataBrowse();
-    bool validateAdvancedSetupPage();
+    bool validateCLIPage();
     void createKeyfile();
     void useExistingKeyfile();
     bool validateRegisterPage();

@@ -78,6 +78,7 @@ private:
     void finishedWizard();
 
     void initCLIPage();
+    void initRegisterPage();
 };
 
 #endif // SETUPDIALOG_H

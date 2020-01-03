@@ -32,6 +32,7 @@ SetupDialog::SetupDialog(QWidget *parent)
     // validateAdvancedSetupPage() to avoid calling that function
     // unnecessarily.
     initCLIPage();
+    initRegisterPage();
 
     // All pages
     connect(_ui->backButton, &QPushButton::clicked, this,
@@ -98,28 +99,40 @@ void SetupDialog::initCLIPage()
     QString appDataDir;
     QString tarsnapCacheDir;
 
+    // CLI path
     tarsnapDir = Utils::findTarsnapClientInPath("", true);
     _ui->tarsnapPathLineEdit->setText(tarsnapDir);
-    _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
 
+    // appdata dir
     appDataDir = QStandardPaths::writableLocation(APPDATA);
+    // Create directory (if needed)
     QDir keysDir(appDataDir);
     if(!keysDir.exists())
         keysDir.mkpath(appDataDir);
     _ui->appDataPathLineEdit->setText(appDataDir);
 
-    // find existing keys
-    for(const QFileInfo &file : Utils::findKeysInPath(appDataDir))
-        _ui->machineKeyCombo->addItem(file.canonicalFilePath());
-
+    /// cache dir
     tarsnapCacheDir =
         QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
     QDir cacheDir(tarsnapCacheDir);
+    // Create directory (if needed)
     if(!cacheDir.exists())
         cacheDir.mkpath(tarsnapCacheDir);
     _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
 
+    // We only want to expand the widget if there's a problem
     _ui->advancedCLIWidget->hide();
+}
+
+void SetupDialog::initRegisterPage()
+{
+    // default machine name
+    _ui->machineNameLineEdit->setText(QHostInfo::localHostName());
+
+    // find any existing keys
+    QString appDataDir = _ui->appDataPathLineEdit->text();
+    for(const QFileInfo &file : Utils::findKeysInPath(appDataDir))
+        _ui->machineKeyCombo->addItem(file.canonicalFilePath());
 }
 
 void SetupDialog::wizardPageChanged(int)

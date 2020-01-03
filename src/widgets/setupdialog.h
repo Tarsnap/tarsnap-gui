@@ -62,8 +62,8 @@ private slots:
     void showTarsnapCacheBrowse();
     void showAppDataBrowse();
     bool validateAdvancedSetupPage();
-    void restoreNo();
-    void restoreYes();
+    void createKeyfile();
+    void useExistingKeyfile();
     bool validateRegisterPage();
     void registerHaveKeyBrowse();
     void backButtonClicked();

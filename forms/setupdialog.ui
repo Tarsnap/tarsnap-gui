@@ -285,7 +285,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="advancedPage">
+     <widget class="QWidget" name="cliPage">
       <layout class="QVBoxLayout" name="advancedVerticalLayout">
        <item>
         <spacer name="cliTopSpacer">
@@ -341,7 +341,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="advancedValidationLabel">
+           <widget class="QLabel" name="cliValidationLabel">
             <property name="font">
              <font>
               <italic>true</italic>
@@ -365,7 +365,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="advancedCLIWidget" native="true">
+           <widget class="QWidget" name="cliAdvancedWidget" native="true">
             <layout class="QGridLayout" name="gridLayout">
              <property name="leftMargin">
               <number>0</number>
@@ -525,7 +525,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="advancedCLIButton">
+        <widget class="QPushButton" name="cliAdvancedButton">
          <property name="toolTip">
           <string>Show advanced setup options</string>
          </property>
@@ -614,7 +614,7 @@ border: none;
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="keyYesNoLayout">
+        <layout class="QHBoxLayout" name="createOrUseKeyfileLayout">
          <item>
           <spacer name="registerLeftSpacer">
            <property name="orientation">
@@ -632,7 +632,7 @@ border: none;
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="restoreNoButton">
+          <widget class="QPushButton" name="createKeyfileButton">
            <property name="text">
             <string>Create new keyfile</string>
            </property>
@@ -645,7 +645,7 @@ border: none;
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="restoreYesButton">
+          <widget class="QPushButton" name="useExistingKeyfileButton">
            <property name="text">
             <string>Use existing keyfile</string>
            </property>
@@ -686,7 +686,7 @@ border: none;
          <property name="currentIndex">
           <number>0</number>
          </property>
-         <widget class="QWidget" name="keyNoPage">
+         <widget class="QWidget" name="createKeyfileSubpage">
           <layout class="QGridLayout" name="gridKeyNoLayout">
            <property name="sizeConstraint">
             <enum>QLayout::SetMinimumSize</enum>
@@ -798,7 +798,7 @@ border: none;
             </widget>
            </item>
            <item row="4" column="1">
-            <spacer name="keyNoPageBottomSpacer">
+            <spacer name="createKeyfileSubpageBottomSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -812,7 +812,7 @@ border: none;
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="keyYesPage">
+         <widget class="QWidget" name="useExistingKeyfileSubpage">
           <layout class="QGridLayout" name="gridKeyYesLayout">
            <property name="sizeConstraint">
             <enum>QLayout::SetMinimumSize</enum>
@@ -910,7 +910,7 @@ border: none;
             </widget>
            </item>
            <item row="4" column="1">
-            <spacer name="keyYesPageBottomSpacer">
+            <spacer name="useExistingLeufileSubpageBottomSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -1132,9 +1132,9 @@ border: none;
   <tabstop>tarsnapCacheBrowseButton</tabstop>
   <tabstop>appDataPathLineEdit</tabstop>
   <tabstop>appDataBrowseButton</tabstop>
-  <tabstop>advancedCLIButton</tabstop>
-  <tabstop>restoreNoButton</tabstop>
-  <tabstop>restoreYesButton</tabstop>
+  <tabstop>cliAdvancedButton</tabstop>
+  <tabstop>createKeyfileButton</tabstop>
+  <tabstop>useExistingKeyfileButton</tabstop>
   <tabstop>machineNameLineEdit</tabstop>
   <tabstop>tarsnapUserLineEdit</tabstop>
   <tabstop>tarsnapPasswordLineEdit</tabstop>

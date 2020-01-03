@@ -21,6 +21,7 @@ WARNINGS_ENABLE
 #include "tarsnaperror.h"
 #include "taskstatus.h"
 #include "translator.h"
+#include "utils.h"
 
 #include <ConsoleLog.h>
 #include <TSettings.h>
@@ -209,6 +210,15 @@ struct init_info init_shared_core(QCoreApplication *app)
     {
         info.status = INIT_NEEDS_SETUP;
         return (info);
+    }
+
+    // Ensure that we have a location to store app data.  Must be
+    // after the setup wizard!
+    if(settings.value("app/app_data", "").toString().isEmpty())
+    {
+        QString appDataDir = QStandardPaths::writableLocation(APPDATA);
+        LOG << "Setting default \"app/app_data\" to" << appDataDir;
+        settings.setValue("app/app_data", appDataDir);
     }
 
     // Set up the log file.  Must be done after setup wizard!

@@ -5,6 +5,11 @@
 #include "debug.h"
 #include "init-shared.h"
 
+#include <persistentmodel/persistentstore.h>
+#include <translator.h>
+
+#include <ConsoleLog.h>
+
 AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
     : QCoreApplication(argc, argv)
 {
@@ -21,6 +26,9 @@ AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
 
 AppCmdline::~AppCmdline()
 {
+    PersistentStore::destroy();
+    Translator::destroy();
+    ConsoleLog::destroy();
 }
 
 bool AppCmdline::initializeCore()

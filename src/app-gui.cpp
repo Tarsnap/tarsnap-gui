@@ -13,6 +13,7 @@ WARNINGS_ENABLE
 #include "utils.h"
 #include "widgets/setupdialog.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
@@ -46,7 +47,9 @@ AppGui::~AppGui()
     _managerThread.wait();
     if(_journal)
         delete _journal;
-    TSettings::destroy();
+    PersistentStore::destroy();
+    Translator::destroy();
+    ConsoleLog::destroy();
 }
 
 bool AppGui::initializeCore()

@@ -11,13 +11,9 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 }
 
-#include <ConsoleLog.h>
-#include <TSettings.h>
-
 #include <stdlib.h>
 
-#include <persistentmodel/persistentstore.h>
-#include <translator.h>
+#include <TSettings.h>
 
 static int run_cmdline(int argc, char *argv[], struct optparse *opt)
 {
@@ -40,6 +36,7 @@ static int run_cmdline(int argc, char *argv[], struct optparse *opt)
         ret = EXIT_SUCCESS;
 
 done:
+    TSettings::destroy();
     return (ret);
 }
 
@@ -74,6 +71,7 @@ done:
     ret = 1;
 #endif
 
+    TSettings::destroy();
     return (ret);
 }
 
@@ -99,11 +97,6 @@ int main(int argc, char *argv[])
         ret = run_cmdline(argc, argv, opt);
 
 done:
-    // Clean up
-    PersistentStore::destroy();
-    TSettings::destroy();
-    Translator::destroy();
-    ConsoleLog::destroy();
     optparse_free(opt);
 
     return (ret);

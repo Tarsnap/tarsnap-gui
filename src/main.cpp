@@ -1,8 +1,6 @@
-#include "app-cmdline.h"
+#include <stdlib.h>
 
-#ifdef QT_GUI_LIB
-#include "app-gui.h"
-#endif
+#include "warnings-disable.h"
 
 extern "C" {
 #include "optparse.h"
@@ -11,9 +9,12 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 }
 
-#include <stdlib.h>
-
 #include <TSettings.h>
+
+#include "app-cmdline.h"
+#ifdef QT_GUI_LIB
+#include "app-gui.h"
+#endif
 
 static int run_cmdline(int argc, char *argv[], struct optparse *opt)
 {

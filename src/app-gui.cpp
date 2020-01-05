@@ -63,7 +63,7 @@ bool AppGui::initializeCore()
 
     // Check if we need to run the setup, check --dry-run, update
     // scheduling path.
-    info = init_shared_core(this);
+    info = init_shared_core();
 
     // Set up the translator.
     TSettings settings;

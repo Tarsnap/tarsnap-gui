@@ -4,7 +4,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QCoreApplication>
+#include <QString>
 WARNINGS_ENABLE
 
 /*! \file init-shared.h
@@ -47,6 +47,6 @@ struct init_info init_shared_settings(QString configDir);
 /**
  * Initialization shared between GUI and non-GUI.  Can fail and report messages.
  */
-struct init_info init_shared_core(QCoreApplication *app);
+struct init_info init_shared_core();
 
 #endif

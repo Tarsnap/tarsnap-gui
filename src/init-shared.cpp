@@ -190,12 +190,10 @@ static QString getDefaultLogFilename()
 /**
  * Initialization shared between GUI and non-GUI.  Can fail and report messages.
  */
-struct init_info init_shared_core(QCoreApplication *app)
+struct init_info init_shared_core()
 {
     struct init_info info = {INIT_OK, "", ""};
     TSettings        settings;
-
-    (void)app; /* UNUSED */
 
     // Check if we should run the setup wizard.
     bool wizardDone = settings.value("app/wizard_done", false).toBool();

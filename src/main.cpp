@@ -19,6 +19,64 @@ WARNINGS_ENABLE
 #include <persistentmodel/persistentstore.h>
 #include <translator.h>
 
+static int run_cmdline(int argc, char *argv[], struct optparse *opt)
+{
+    int ret;
+
+    // Basic initialization that cannot fail.
+    AppCmdline app(argc, argv, opt);
+
+    // Run more complicated initialization.
+    if(!app.initializeCore())
+    {
+        ret = EXIT_FAILURE;
+        goto done;
+    }
+
+    // If we want have any tasks, do them.
+    if(app.prepMainLoop())
+        ret = app.exec();
+    else
+        ret = EXIT_SUCCESS;
+
+done:
+    return (ret);
+}
+
+static int run_gui(int argc, char *argv[], struct optparse *opt)
+{
+    int ret;
+
+#ifdef QT_GUI_LIB
+    // Basic initialization that cannot fail.
+    AppGui app(argc, argv, opt);
+
+    // Run more complicated initialization.
+    if(!app.initializeCore())
+    {
+        ret = EXIT_FAILURE;
+        goto done;
+    }
+
+    // If we want the GUI or have any tasks, do them.
+    if(app.prepMainLoop())
+        ret = app.exec();
+    else
+        ret = EXIT_SUCCESS;
+
+done:
+#else
+    (void)argc;
+    (void)argv;
+    (void)opt;
+
+    warn0("This binary does not support GUI operations");
+    ret = 1;
+#endif
+
+    return (ret);
+}
+
 int main(int argc, char *argv[])
 {
     struct optparse *opt;
@@ -36,47 +94,9 @@ int main(int argc, char *argv[])
 
     // Should we use the gui or non-gui app?
     if(opt->check == 0)
-    {
-#ifdef QT_GUI_LIB
-        // Basic initialization that cannot fail.
-        AppGui app(argc, argv, opt);
-
-        // Run more complicated initialization.
-        if(!app.initializeCore())
-        {
-            ret = EXIT_FAILURE;
-            goto done;
-        }
-
-        // If we want the GUI or have any tasks, do them.
-        if(app.prepMainLoop())
-            ret = app.exec();
-        else
-            ret = EXIT_SUCCESS;
-#else
-        warn0("This binary does not support GUI operations");
-        ret = 1;
-        goto done;
-#endif
-    }
+        ret = run_gui(argc, argv, opt);
     else
-    {
-        // Basic initialization that cannot fail.
-        AppCmdline app(argc, argv, opt);
-
-        // Run more complicated initialization.
-        if(!app.initializeCore())
-        {
-            ret = EXIT_FAILURE;
-            goto done;
-        }
-
-        // If we want have any tasks, do them.
-        if(app.prepMainLoop())
-            ret = app.exec();
-        else
-            ret = EXIT_SUCCESS;
-    }
+        ret = run_cmdline(argc, argv, opt);
 
 done:
     // Clean up

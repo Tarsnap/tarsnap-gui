@@ -1,8 +1,6 @@
-#include "app-cmdline.h"
+#include <stdlib.h>
 
-#ifdef QT_GUI_LIB
-#include "app-gui.h"
-#endif
+#include "warnings-disable.h"
 
 extern "C" {
 #include "optparse.h"
@@ -11,13 +9,72 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 }
 
-#include <ConsoleLog.h>
 #include <TSettings.h>
 
-#include <stdlib.h>
+#include "app-cmdline.h"
+#ifdef QT_GUI_LIB
+#include "app-gui.h"
+#endif
 
-#include <persistentmodel/persistentstore.h>
-#include <translator.h>
+static int run_cmdline(int argc, char *argv[], struct optparse *opt)
+{
+    int ret;
+
+    // Basic initialization that cannot fail.
+    AppCmdline app(argc, argv, opt);
+
+    // Run more complicated initialization.
+    if(!app.initializeCore())
+    {
+        ret = EXIT_FAILURE;
+        goto done;
+    }
+
+    // If we want have any tasks, do them.
+    if(app.prepMainLoop())
+        ret = app.exec();
+    else
+        ret = EXIT_SUCCESS;
+
+done:
+    TSettings::destroy();
+    return (ret);
+}
+
+static int run_gui(int argc, char *argv[], struct optparse *opt)
+{
+    int ret;
+
+#ifdef QT_GUI_LIB
+    // Basic initialization that cannot fail.
+    AppGui app(argc, argv, opt);
+
+    // Run more complicated initialization.
+    if(!app.initializeCore())
+    {
+        ret = EXIT_FAILURE;
+        goto done;
+    }
+
+    // If we want the GUI or have any tasks, do them.
+    if(app.prepMainLoop())
+        ret = app.exec();
+    else
+        ret = EXIT_SUCCESS;
+
+done:
+#else
+    (void)argc;
+    (void)argv;
+    (void)opt;
+
+    warn0("This binary does not support GUI operations");
+    ret = 1;
+#endif
+
+    TSettings::destroy();
+    return (ret);
+}
 
 int main(int argc, char *argv[])
 {
@@ -36,54 +93,11 @@ int main(int argc, char *argv[])
 
     // Should we use the gui or non-gui app?
     if(opt->check == 0)
-    {
-#ifdef QT_GUI_LIB
-        // Basic initialization that cannot fail.
-        AppGui app(argc, argv, opt);
-
-        // Run more complicated initialization.
-        if(!app.initializeCore())
-        {
-            ret = EXIT_FAILURE;
-            goto done;
-        }
-
-        // If we want the GUI or have any tasks, do them.
-        if(app.prepMainLoop())
-            ret = app.exec();
-        else
-            ret = EXIT_SUCCESS;
-#else
-        warn0("This binary does not support GUI operations");
-        ret = 1;
-        goto done;
-#endif
-    }
+        ret = run_gui(argc, argv, opt);
     else
-    {
-        // Basic initialization that cannot fail.
-        AppCmdline app(argc, argv, opt);
-
-        // Run more complicated initialization.
-        if(!app.initializeCore())
-        {
-            ret = EXIT_FAILURE;
-            goto done;
-        }
-
-        // If we want have any tasks, do them.
-        if(app.prepMainLoop())
-            ret = app.exec();
-        else
-            ret = EXIT_SUCCESS;
-    }
+        ret = run_cmdline(argc, argv, opt);
 
 done:
-    // Clean up
-    PersistentStore::destroy();
-    TSettings::destroy();
-    Translator::destroy();
-    ConsoleLog::destroy();
     optparse_free(opt);
 
     return (ret);

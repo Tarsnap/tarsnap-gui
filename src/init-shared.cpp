@@ -20,7 +20,6 @@ WARNINGS_ENABLE
 #include "scheduling.h"
 #include "tarsnaperror.h"
 #include "taskstatus.h"
-#include "translator.h"
 #include "utils.h"
 
 #include <ConsoleLog.h>
@@ -72,13 +71,13 @@ static void init_no_explicit_app()
 /**
  * Constructor initialization shared between GUI and non-GUI.  Cannot fail.
  */
-void init_shared(QCoreApplication *app)
+void init_shared()
 {
     init_no_app();
     init_no_explicit_app();
 
-    app->setQuitLockEnabled(false);
-    app->setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QCoreApplication::setQuitLockEnabled(false);
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 }
 
 static QString migrateSettings(QSettings *settingsOld, QSettings *settingsNew)
@@ -191,20 +190,12 @@ static QString getDefaultLogFilename()
 /**
  * Initialization shared between GUI and non-GUI.  Can fail and report messages.
  */
-struct init_info init_shared_core(QCoreApplication *app)
+struct init_info init_shared_core()
 {
     struct init_info info = {INIT_OK, "", ""};
     TSettings        settings;
 
-    // Set up the translator.
-    Translator::initializeTranslator();
-    Translator &translator = Translator::instance();
-    translator.translateApp(
-        app, settings.value("app/language", LANG_AUTO).toString());
-
-    // Run the setup wizard (if necessary).  This uses the translator, and
-    // can be tested with:
-    //    $ LANGUAGE=ro ./tarsnap-gui
+    // Check if we should run the setup wizard.
     bool wizardDone = settings.value("app/wizard_done", false).toBool();
     if(!wizardDone)
     {

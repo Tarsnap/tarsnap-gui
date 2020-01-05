@@ -5,6 +5,12 @@
 #include "debug.h"
 #include "init-shared.h"
 
+#include <persistentmodel/persistentstore.h>
+#include <translator.h>
+
+#include <ConsoleLog.h>
+#include <TSettings.h>
+
 AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
     : QCoreApplication(argc, argv)
 {
@@ -16,11 +22,14 @@ AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
     _checkOption = (opt->check == 1);
     _configDir   = opt->config_dir;
 
-    init_shared(this);
+    init_shared();
 }
 
 AppCmdline::~AppCmdline()
 {
+    PersistentStore::destroy();
+    Translator::destroy();
+    ConsoleLog::destroy();
 }
 
 bool AppCmdline::initializeCore()
@@ -32,8 +41,16 @@ bool AppCmdline::initializeCore()
     if(info.status == INIT_SETTINGS_RENAMED)
         DEBUG << info.message;
 
-    // Set up the Translator, check --dry-run, update scheduling path.
-    info = init_shared_core(this);
+    // Check if we need to run the setup, check --dry-run, update
+    // scheduling path.
+    info = init_shared_core();
+
+    // Set up the translator.
+    TSettings settings;
+    Translator::initializeTranslator();
+    Translator &translator = Translator::instance();
+    translator.translateApp(
+        this, settings.value("app/language", LANG_AUTO).toString());
 
     switch(info.status)
     {

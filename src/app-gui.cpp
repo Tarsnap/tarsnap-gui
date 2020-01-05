@@ -13,6 +13,7 @@ WARNINGS_ENABLE
 #include "utils.h"
 #include "widgets/setupdialog.h"
 
+#include <ConsoleLog.h>
 #include <TSettings.h>
 
 AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
@@ -30,7 +31,7 @@ AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
     _checkOption = (opt->check == 1);
     _configDir   = opt->config_dir;
 
-    init_shared(this);
+    init_shared();
 
     setQuitOnLastWindowClosed(false);
 
@@ -46,7 +47,9 @@ AppGui::~AppGui()
     _managerThread.wait();
     if(_journal)
         delete _journal;
-    TSettings::destroy();
+    PersistentStore::destroy();
+    Translator::destroy();
+    ConsoleLog::destroy();
 }
 
 bool AppGui::initializeCore()
@@ -58,11 +61,22 @@ bool AppGui::initializeCore()
     if(info.status == INIT_SETTINGS_RENAMED)
         QMessageBox::information(nullptr, tr("Tarsnap info"), info.message);
 
-    // Set up the Translator, check --dry-run, update scheduling path.
-    info = init_shared_core(this);
+    // Check if we need to run the setup, check --dry-run, update
+    // scheduling path.
+    info = init_shared_core();
+
+    // Set up the translator.
+    TSettings settings;
+    Translator::initializeTranslator();
+    Translator &translator = Translator::instance();
+    translator.translateApp(
+        this, settings.value("app/language", LANG_AUTO).toString());
 
     if(info.status == INIT_NEEDS_SETUP)
     {
+        // Run the setup wizard (if necessary).  This uses the translator, and
+        // can be tested with:
+        //    $ LANGUAGE=ro ./tarsnap-gui
         if(!runSetupWizard())
             return false;
         // Remove the Translator

@@ -31,7 +31,7 @@ AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
     _checkOption = (opt->check == 1);
     _configDir   = opt->config_dir;
 
-    init_shared(this);
+    init_shared();
 
     setQuitOnLastWindowClosed(false);
 

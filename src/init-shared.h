@@ -37,7 +37,7 @@ struct init_info
 /**
  * Constructor initialization shared between GUI and non-GUI.  Cannot fail.
  */
-void init_shared(QCoreApplication *app);
+void init_shared();
 
 /**
  * Configures the app-wide Settings.  Can fail and report messages.

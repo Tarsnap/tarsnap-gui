@@ -72,13 +72,13 @@ static void init_no_explicit_app()
 /**
  * Constructor initialization shared between GUI and non-GUI.  Cannot fail.
  */
-void init_shared(QCoreApplication *app)
+void init_shared()
 {
     init_no_app();
     init_no_explicit_app();
 
-    app->setQuitLockEnabled(false);
-    app->setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QCoreApplication::setQuitLockEnabled(false);
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 }
 
 static QString migrateSettings(QSettings *settingsOld, QSettings *settingsNew)

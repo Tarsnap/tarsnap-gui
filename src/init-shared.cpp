@@ -20,7 +20,6 @@ WARNINGS_ENABLE
 #include "scheduling.h"
 #include "tarsnaperror.h"
 #include "taskstatus.h"
-#include "translator.h"
 #include "utils.h"
 
 #include <ConsoleLog.h>
@@ -196,15 +195,9 @@ struct init_info init_shared_core(QCoreApplication *app)
     struct init_info info = {INIT_OK, "", ""};
     TSettings        settings;
 
-    // Set up the translator.
-    Translator::initializeTranslator();
-    Translator &translator = Translator::instance();
-    translator.translateApp(
-        app, settings.value("app/language", LANG_AUTO).toString());
+    (void)app; /* UNUSED */
 
-    // Run the setup wizard (if necessary).  This uses the translator, and
-    // can be tested with:
-    //    $ LANGUAGE=ro ./tarsnap-gui
+    // Check if we should run the setup wizard.
     bool wizardDone = settings.value("app/wizard_done", false).toBool();
     if(!wizardDone)
     {

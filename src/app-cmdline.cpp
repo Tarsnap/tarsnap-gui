@@ -9,6 +9,7 @@
 #include <translator.h>
 
 #include <ConsoleLog.h>
+#include <TSettings.h>
 
 AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
     : QCoreApplication(argc, argv)
@@ -40,8 +41,16 @@ bool AppCmdline::initializeCore()
     if(info.status == INIT_SETTINGS_RENAMED)
         DEBUG << info.message;
 
-    // Set up the Translator, check --dry-run, update scheduling path.
+    // Check if we need to run the setup, check --dry-run, update
+    // scheduling path.
     info = init_shared_core(this);
+
+    // Set up the translator.
+    TSettings settings;
+    Translator::initializeTranslator();
+    Translator &translator = Translator::instance();
+    translator.translateApp(
+        this, settings.value("app/language", LANG_AUTO).toString());
 
     switch(info.status)
     {

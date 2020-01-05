@@ -61,11 +61,22 @@ bool AppGui::initializeCore()
     if(info.status == INIT_SETTINGS_RENAMED)
         QMessageBox::information(nullptr, tr("Tarsnap info"), info.message);
 
-    // Set up the Translator, check --dry-run, update scheduling path.
+    // Check if we need to run the setup, check --dry-run, update
+    // scheduling path.
     info = init_shared_core(this);
+
+    // Set up the translator.
+    TSettings settings;
+    Translator::initializeTranslator();
+    Translator &translator = Translator::instance();
+    translator.translateApp(
+        this, settings.value("app/language", LANG_AUTO).toString());
 
     if(info.status == INIT_NEEDS_SETUP)
     {
+        // Run the setup wizard (if necessary).  This uses the translator, and
+        // can be tested with:
+        //    $ LANGUAGE=ro ./tarsnap-gui
         if(!runSetupWizard())
             return false;
         // Remove the Translator

@@ -54,8 +54,8 @@ void TestTaskManager::cleanupTestCase()
     TSettings::destroy();
     ConsoleLog::destroy();
 
-    // Wait up to 1 second to delete objects scheduled with ->deleteLater()
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
+    // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
 }
 
 void TestTaskManager::get_version()

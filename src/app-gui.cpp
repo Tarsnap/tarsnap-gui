@@ -47,9 +47,7 @@ AppGui::~AppGui()
     _managerThread.wait();
     if(_journal)
         delete _journal;
-    PersistentStore::destroy();
     Translator::destroy();
-    ConsoleLog::destroy();
 }
 
 bool AppGui::initializeCore()

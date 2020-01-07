@@ -15,6 +15,7 @@ WARNINGS_ENABLE
 #ifdef QT_GUI_LIB
 #include "app-gui.h"
 #endif
+#include "init-shared.h"
 
 static int run_cmdline(int argc, char *argv[], struct optparse *opt)
 {
@@ -37,7 +38,7 @@ static int run_cmdline(int argc, char *argv[], struct optparse *opt)
         ret = EXIT_SUCCESS;
 
 done:
-    TSettings::destroy();
+    init_shared_free();
     return (ret);
 }
 
@@ -72,7 +73,7 @@ done:
     ret = 1;
 #endif
 
-    TSettings::destroy();
+    init_shared_free();
     return (ret);
 }
 

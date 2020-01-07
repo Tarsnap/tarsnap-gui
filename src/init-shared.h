@@ -49,4 +49,9 @@ struct init_info init_shared_settings(QString configDir);
  */
 struct init_info init_shared_core();
 
+/**
+ * Free resources allocated in the init layer.
+ */
+void init_shared_free(void);
+
 #endif

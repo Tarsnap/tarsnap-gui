@@ -187,6 +187,18 @@ static QString getDefaultLogFilename()
     return appdata + QDir::separator() + DEFAULT_LOG_FILE;
 }
 
+/* Do we need to run the setup wizard? */
+static struct init_info need_setup_wizard()
+{
+    struct init_info info = {INIT_OK, "", ""};
+    TSettings        settings;
+
+    bool wizardDone = settings.value("app/wizard_done", false).toBool();
+    if(!wizardDone)
+        info.status = INIT_NEEDS_SETUP;
+    return (info);
+}
+
 /**
  * Initialization shared between GUI and non-GUI.  Can fail and report messages.
  */
@@ -196,12 +208,9 @@ struct init_info init_shared_core()
     TSettings        settings;
 
     // Check if we should run the setup wizard.
-    bool wizardDone = settings.value("app/wizard_done", false).toBool();
-    if(!wizardDone)
-    {
-        info.status = INIT_NEEDS_SETUP;
+    info = need_setup_wizard();
+    if(info.status == INIT_NEEDS_SETUP)
         return (info);
-    }
 
     // Ensure that we have a location to store app data.  Must be
     // after the setup wizard!

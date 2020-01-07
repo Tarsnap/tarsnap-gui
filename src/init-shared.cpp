@@ -260,3 +260,11 @@ struct init_info init_shared_core()
 
     return info;
 }
+
+void init_shared_free(void)
+{
+    // Destroy objects in reverse order from their creation.
+    PersistentStore::destroy();
+    TSettings::destroy();
+    ConsoleLog::destroy();
+}

@@ -27,9 +27,7 @@ AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
 
 AppCmdline::~AppCmdline()
 {
-    PersistentStore::destroy();
     Translator::destroy();
-    ConsoleLog::destroy();
 }
 
 bool AppCmdline::initializeCore()

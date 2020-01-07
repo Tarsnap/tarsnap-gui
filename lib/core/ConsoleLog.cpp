@@ -16,8 +16,7 @@ void ConsoleLog::initializeConsoleLog()
 
 void ConsoleLog::destroy()
 {
-    if(global_log == nullptr)
-        return;
+    Q_ASSERT(global_log != nullptr);
 
     // Clean up.
     delete global_log;

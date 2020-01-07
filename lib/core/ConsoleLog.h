@@ -27,7 +27,8 @@ public:
     //! Initialize the global ConsoleLog object.
     static void initializeConsoleLog();
 
-    //! Free the global ConsoleLog object.
+    //! Free the global ConsoleLog object.  Can only be called
+    //! once per initializeConsoleLog().
     static void destroy();
 
     //! The log filename.

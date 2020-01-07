@@ -7,6 +7,7 @@ WARNINGS_ENABLE
 #include "../qtest-platform.h"
 
 #include "app-cmdline.h"
+#include "init-shared.h"
 #include "persistentmodel/persistentstore.h"
 
 #include <TSettings.h>
@@ -24,8 +25,6 @@ class TestCmdline : public QObject
 
 private slots:
     void initTestCase();
-    void init();
-    void cleanupTestCase();
 
     void normal_init();
     void appdir_init();
@@ -40,21 +39,6 @@ void TestCmdline::initTestCase()
     // Initialize debug messages.
     const char *argv[] = {"test-cmdline"};
     WARNP_INIT;
-}
-
-void TestCmdline::init()
-{
-    // Reset TSettings
-    TSettings::destroy();
-
-    // Reset PersistentStore
-    PersistentStore::deinit();
-    PersistentStore::destroy();
-}
-
-void TestCmdline::cleanupTestCase()
-{
-    TSettings::destroy();
 }
 
 void TestCmdline::normal_init()
@@ -85,6 +69,8 @@ void TestCmdline::normal_init()
     QVERIFY(settings.value("tarsnap/user", "") == "normal_init");
 
     // Clean up
+    PersistentStore::deinit();
+    init_shared_free();
     optparse_free(opt);
     free(argv[0]);
 }
@@ -119,6 +105,8 @@ void TestCmdline::appdir_init()
     QVERIFY(settings.value("tarsnap/user", "") == "appdata_init");
 
     // Clean up
+    PersistentStore::deinit();
+    init_shared_free();
     optparse_free(opt);
     free(argv[0]);
     free(argv[1]);

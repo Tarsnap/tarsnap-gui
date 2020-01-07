@@ -37,10 +37,10 @@ struct init_info
 /**
  * Constructor initialization shared between GUI and non-GUI.  Cannot fail.
  */
-void init_shared();
+void init_shared_nofail();
 
 /**
- * Configures the app-wide Settings.  Can fail and report messages.
+ * Configures the app-wide Settings.  Cannot fail, but can report a message.
  */
 struct init_info init_shared_settings(QString configDir);
 

@@ -1,4 +1,4 @@
-TARGET = test-cli
+TARGET = test-app-cli
 QT = core network sql
 
 VALGRIND = true
@@ -69,15 +69,15 @@ TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
 include(../tests-include.pro)
 QT -= testlib
 CONFIG -= debug
-UI_DIR      = ../../build/cli/
-MOC_DIR     = ../../build/cli/
-RCC_DIR     = ../../build/cli/
-OBJECTS_DIR = ../../build/cli/
+UI_DIR      = ../../build/app-cli/
+MOC_DIR     = ../../build/app-cli/
+RCC_DIR     = ../../build/app-cli/
+OBJECTS_DIR = ../../build/app-cli/
 
 
 CONFDIR ="\"$${TEST_HOME}/Tarsnap Backup Inc./\""
 test_home_prep.commands += ; mkdir -p "$${CONFDIR}";		\
-	cp confdir/test-cli.conf "$${CONFDIR}/Tarsnap.conf"
+	cp confdir/test-app-cli.conf "$${CONFDIR}/Tarsnap.conf"
 
 test.commands = $${TEST_ENV} ./${TARGET} --check
 

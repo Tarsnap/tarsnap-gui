@@ -71,7 +71,7 @@ static void init_no_explicit_app()
 /**
  * Constructor initialization shared between GUI and non-GUI.  Cannot fail.
  */
-void init_shared()
+void init_shared_nofail()
 {
     init_no_app();
     init_no_explicit_app();
@@ -104,7 +104,7 @@ static QString migrateSettings(QSettings *settingsOld, QSettings *settingsNew)
     QString renamed = settingsOld->fileName()
                       + QDate::currentDate().toString(".yyyy-MMM-dd.bak");
 
-    // Close the Setings to prevent it from re-writing the file.
+    // Close the Settings to prevent it from re-writing the file.
     delete settingsOld;
     fileOld.rename(renamed);
     return renamed;
@@ -135,7 +135,7 @@ static QString check_migrateSettings()
 }
 
 /**
- * Configures the app-wide Settings.  Can fail and report messages.
+ * Configures the app-wide Settings.  Cannot fail, but can report a message.
  */
 struct init_info init_shared_settings(QString configDir)
 {

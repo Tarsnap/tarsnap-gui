@@ -234,7 +234,7 @@ UNIT_TESTS =						\
 	tests/task					\
 	tests/core
 
-BUILD_ONLY_TESTS = tests/cli
+BUILD_ONLY_TESTS = tests/app-cli
 
 osx {
     LIBS += -framework Foundation

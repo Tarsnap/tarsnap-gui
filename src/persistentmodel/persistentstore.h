@@ -27,7 +27,8 @@ public:
     //! Initialize the global PersistentStore object.
     static void initializePersistentStore();
 
-    //! Free the global PersistentStore object.
+    //! Free the global PersistentStore object.  Can only be
+    //! called once per initializePersistentStore().
     static void destroy();
 
     //! Access to the global pointer.  FIXME deprecated, keeping temporarily.

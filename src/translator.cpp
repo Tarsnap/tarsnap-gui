@@ -17,8 +17,7 @@ void Translator::initializeTranslator()
 
 void Translator::destroy()
 {
-    if(global_translator == nullptr)
-        return;
+    Q_ASSERT(global_translator != nullptr);
 
     // Clean up.
     delete global_translator;

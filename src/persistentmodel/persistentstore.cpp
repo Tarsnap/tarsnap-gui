@@ -25,8 +25,7 @@ void PersistentStore::initializePersistentStore()
 
 void PersistentStore::destroy()
 {
-    if(global_store == nullptr)
-        return;
+    Q_ASSERT(global_store != nullptr);
 
     // Clean up.
     delete global_store;

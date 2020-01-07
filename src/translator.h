@@ -28,7 +28,8 @@ public:
     //! Initialize the global Translator object.
     static void initializeTranslator();
 
-    //! Free the global Translator object.
+    //! Free the global Translator object.  Can only be called
+    //! once per initializeTranslator().
     static void destroy();
 
     //! Access to the global pointer.  FIXME deprecated, keeping temporarily.

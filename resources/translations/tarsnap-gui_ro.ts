@@ -924,6 +924,10 @@ Adaugă oricum?</translation>
         <source>Previously selected backup paths are not accessible. Click here for details.</source>
         <translation>Căile de backup anterior definite pentru acest Job nu mai sunt accesibile. Apasă aici pentru detalii.</translation>
     </message>
+    <message>
+        <source>Job name cannot contain a leading or trailing whitespace.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JobsTabWidget</name>
@@ -1070,6 +1074,33 @@ Adaugă oricum?</translation>
     <message>
         <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
         <translation type="unfinished">Căile de backup anterior definite pentru Jobul %1 nu mai sunt accesibile. Backupul poate fi incomplet, procedez?</translation>
+    </message>
+</context>
+<context>
+    <name>LoginDialog</name>
+    <message>
+        <source>Login to Tarsnap.com</source>
+        <translation type="unfinished">Autentificare pe website-ul Tarsnap</translation>
+    </message>
+    <message>
+        <source>Type password for account %1:</source>
+        <translation type="unfinished">Introdu parola aferentă contului %1:</translation>
+    </message>
+    <message>
+        <source>Tarsnap password</source>
+        <translation type="unfinished">Parolă Tarsnap</translation>
+    </message>
+    <message>
+        <source>Authentication will occur over https, and your password will not be stored beyond this instance.</source>
+        <translation type="unfinished">Autentificarea se va efectua folosind protocolul https, iar parola dumneavoastră nu va fi stocată înafara acestei utilizări.</translation>
+    </message>
+    <message>
+        <source>Login to Tarsnap website</source>
+        <translation type="unfinished">Autentificare pe website-ul Tarsnap</translation>
+    </message>
+    <message>
+        <source>Login</source>
+        <translation type="unfinished">Autentificare</translation>
     </message>
 </context>
 <context>
@@ -2267,6 +2298,26 @@ Joburile care au activată execuția programată vor fi executate conform setăr
         <source>Nuke confirmation requested.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Confirm nuke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI version </source>
+        <translation type="unfinished">Utilitarele Tarsnap la linia de comandă versiunea </translation>
+    </message>
+    <message>
+        <source> too low; must be at least %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error retrieving Tarsnap CLI version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupDialog</name>
@@ -2508,25 +2559,17 @@ Joburile care au activată execuția programată vor fi executate conform setăr
         <source>All files (*);;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source> too low; must be at least %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error retrieving Tarsnap CLI verison</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TarsnapAccount</name>
-    <message>
-        <source>Warning</source>
-        <translation>Avertisment</translation>
-    </message>
-    <message>
-        <source>You need Tarsnap CLI utils version 1.0.37 to be able to fetch machine activity. You have version %1.</source>
-        <translation>Pentru a putea prelua activitatea de dispozitiv aveți nevoie de utilitarele Tarsnap cu versiunea minimă 1.0.37. Versiunea curentă este %1.</translation>
-    </message>
-    <message>
-        <source>Tarsnap user and machine name must be set.</source>
-        <translation>Numele de utilizator Tarsnap și numele dispozitvului trebuie să fie completate.</translation>
-    </message>
-    <message>
-        <source>Type password for account %1:</source>
-        <translation>Introdu parola aferentă contului %1:</translation>
-    </message>
     <message>
         <source>Account activity</source>
         <translation>Activitate cont</translation>
@@ -2535,31 +2578,44 @@ Joburile care au activată execuția programată vor fi executate conform setăr
         <source>Machine activity</source>
         <translation>Activitate dispozitiv</translation>
     </message>
+</context>
+<context>
+    <name>TarsnapAccountDialog</name>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Avertisment</translation>
+    </message>
+    <message>
+        <source>You need Tarsnap CLI utils version 1.0.37 to be able to fetch machine activity. You have version %1.</source>
+        <translation type="unfinished">Pentru a putea prelua activitatea de dispozitiv aveți nevoie de utilitarele Tarsnap cu versiunea minimă 1.0.37. Versiunea curentă este %1.</translation>
+    </message>
+    <message>
+        <source>Tarsnap user and machine name must be set.</source>
+        <translation type="unfinished">Numele de utilizator Tarsnap și numele dispozitvului trebuie să fie completate.</translation>
+    </message>
+    <message>
+        <source>Type password for account %1:</source>
+        <translation type="unfinished">Introdu parola aferentă contului %1:</translation>
+    </message>
     <message>
         <source>Invalid password</source>
-        <translation>Parolă invalidă</translation>
+        <translation type="unfinished">Parolă invalidă</translation>
     </message>
     <message>
         <source>Password for account %1 is incorrect; please try again.</source>
-        <translation>Parola introdusă pentru contul %1 este invalidă; vă rugăm să încercați din nou.</translation>
+        <translation type="unfinished">Parola introdusă pentru contul %1 este invalidă; vă rugăm să încercați din nou.</translation>
     </message>
     <message>
         <source>Invalid username</source>
-        <translation>Nume de utilizator invalid</translation>
+        <translation type="unfinished">Nume de utilizator invalid</translation>
     </message>
     <message>
         <source>Account %1 is invalid; please try again.</source>
-        <translation>Contul %1 este invalid; vă rugăm încercați din nou.</translation>
+        <translation type="unfinished">Contul %1 este invalid; vă rugăm încercați din nou.</translation>
     </message>
 </context>
 <context>
     <name>TarsnapTask</name>
-    <message>
-        <source>Task %1 started:
-[%2 %3]</source>
-        <translation>Se execută comanda %1:
-[%2 %3]</translation>
-    </message>
     <message>
         <source>
 ...
@@ -2571,20 +2627,30 @@ Joburile care au activată execuția programată vor fi executate conform setăr
 </translation>
     </message>
     <message>
+        <source>Task %1 started:
+[%2 %3]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Task %1 finished with exit code %2:
 [%3 %4]
-%5</source>
-        <translation>Comandă %1 finalizată cu codul de ieșire %2 și rezultat:
+%5
+</source>
+        <translation type="unfinished">Comandă %1 finalizată cu codul de ieșire %2 și rezultat:
 [%3 %4]
-%5</translation>
+%5
+ {1 ?} {2:?} {3 %4]?}</translation>
     </message>
     <message>
         <source>Task %1 finished with error %2 (%3) occured (exit code %4):
 [%5 %6]
-%7</source>
-        <translation>Comandă %1 eșuată cu eroare %2 (%3) și cod de ieșire %4:
+%7
+</source>
+        <translation type="unfinished">Comandă %1 eșuată cu eroare %2 (%3) și cod de ieșire %4:
 [%5 %6]
-%7</translation>
+%7
+ {1 ?} {2 ?} {3)?} {4)?} {5 %6]?}</translation>
     </message>
 </context>
 <context>
@@ -2772,33 +2838,6 @@ Deasemenea această aplicație a fost dezvoltată cu ajutorul următoarelor comp
     <message>
         <source>Tarsnap Console Log</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>loginDialog</name>
-    <message>
-        <source>Login to Tarsnap.com</source>
-        <translation>Autentificare pe website-ul Tarsnap</translation>
-    </message>
-    <message>
-        <source>Type password for account %1:</source>
-        <translation>Introdu parola aferentă contului %1:</translation>
-    </message>
-    <message>
-        <source>Tarsnap password</source>
-        <translation>Parolă Tarsnap</translation>
-    </message>
-    <message>
-        <source>Authentication will occur over https, and your password will not be stored beyond this instance.</source>
-        <translation>Autentificarea se va efectua folosind protocolul https, iar parola dumneavoastră nu va fi stocată înafara acestei utilizări.</translation>
-    </message>
-    <message>
-        <source>Login to Tarsnap website</source>
-        <translation>Autentificare pe website-ul Tarsnap</translation>
-    </message>
-    <message>
-        <source>Login</source>
-        <translation>Autentificare</translation>
     </message>
 </context>
 </TS>

@@ -918,6 +918,10 @@ Add anyway?</source>
         <source>Previously selected backup paths are not accessible. Click here for details.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Job name cannot contain a leading or trailing whitespace.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JobsTabWidget</name>
@@ -1063,6 +1067,33 @@ Add anyway?</source>
     </message>
     <message>
         <source>Some backup paths for Job %1 are not accessible anymore and thus backup may be incomplete. Proceed with backup?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LoginDialog</name>
+    <message>
+        <source>Login to Tarsnap.com</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type password for account %1:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authentication will occur over https, and your password will not be stored beyond this instance.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Login to Tarsnap website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2238,6 +2269,26 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
         <source>Nuke confirmation requested.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Confirm nuke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI version </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> too low; must be at least %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error retrieving Tarsnap CLI version</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SetupDialog</name>
@@ -2474,9 +2525,28 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
         <source>All files (*);;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source> too low; must be at least %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error retrieving Tarsnap CLI verison</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TarsnapAccount</name>
+    <message>
+        <source>Account activity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Machine activity</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TarsnapAccountDialog</name>
     <message>
         <source>Warning</source>
         <translation type="unfinished"></translation>
@@ -2491,14 +2561,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     </message>
     <message>
         <source>Type password for account %1:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Account activity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine activity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2521,11 +2583,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
 <context>
     <name>TarsnapTask</name>
     <message>
-        <source>Task %1 started:
-[%2 %3]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>
 ...
 -- %1 output lines truncated by Tarsnap GUI --
@@ -2533,15 +2590,23 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Task %1 started:
+[%2 %3]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Task %1 finished with exit code %2:
 [%3 %4]
-%5</source>
+%5
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Task %1 finished with error %2 (%3) occured (exit code %4):
 [%5 %6]
-%7</source>
+%7
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2727,33 +2792,6 @@ Built with the help of the following 3rd party components:</source>
     <name>consoleWidget</name>
     <message>
         <source>Tarsnap Console Log</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>loginDialog</name>
-    <message>
-        <source>Login to Tarsnap.com</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Type password for account %1:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Authentication will occur over https, and your password will not be stored beyond this instance.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Login to Tarsnap website</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

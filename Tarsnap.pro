@@ -234,7 +234,7 @@ UNIT_TESTS =						\
 	tests/task					\
 	tests/core
 
-BUILD_ONLY_TESTS = tests/app-cli
+OPTIONAL_BUILD_ONLY_TESTS = tests/app-cli
 
 osx {
     LIBS += -framework Foundation
@@ -288,11 +288,34 @@ test.commands =		@echo "Compiling tests...";			\
 			done
 test.depends = test_home_prep
 
+# Prep the optional tests
+optional_buildtests = $$OPTIONAL_BUILD_ONLY_TESTS
+for(D, optional_buildtests) {
+	cmd=	cd $${D} &&					\
+			CFLAGS=\"$$(CFLAGS)\"			\
+			CXXFLAGS=\"$$(CXXFLAGS)\"		\
+			LDFLAGS=\"$$(LDFLAGS)\"			\
+			QMAKE_CC=\"$${QMAKE_CC}\"		\
+			QMAKE_CXX=\"$${QMAKE_CXX}\"		\
+			QMAKE_LINK=\"$${QMAKE_LINK}\"		\
+			$${QMAKE_QMAKE} -spec $${QMAKESPEC}
+	system($$cmd)|error("Failed to qmake in: $$D")
+}
+
+optional_buildtest.commands =	@echo "Compiling optional tests...";	\
+			for D in $${OPTIONAL_BUILD_ONLY_TESTS}; do	\
+				(cd \$\${D} && \${MAKE} -s);		\
+				err=\$\$?;				\
+				if \[ \$\${err} -gt "0" \]; then	\
+					exit \$\${err};			\
+				fi;					\
+			done;						\
+
 # Yes, this also does distclean
-test_clean.commands =	for D in $${UNIT_TESTS}; do			\
+test_clean.commands =	for D in $${UNIT_TESTS} $${OPTIONAL_BUILD_ONLY_TESTS}; do	\
 				(cd \$\${D} && \${QMAKE} &&		\
 				    \${MAKE} distclean);		\
 			done
 clean.depends += test_clean
 
-QMAKE_EXTRA_TARGETS += test test_clean clean test_home_prep
+QMAKE_EXTRA_TARGETS += test test_clean clean test_home_prep optional_buildtest

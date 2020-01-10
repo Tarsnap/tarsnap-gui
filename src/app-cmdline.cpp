@@ -21,8 +21,6 @@ AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
     // better safe than sorry!
     _checkOption = (opt->check == 1);
     _configDir   = opt->config_dir;
-
-    init_shared_nofail();
 }
 
 AppCmdline::~AppCmdline()
@@ -30,12 +28,8 @@ AppCmdline::~AppCmdline()
     Translator::destroy();
 }
 
-bool AppCmdline::initializeCore()
+bool AppCmdline::handle_init(const QList<struct init_info> steps)
 {
-    struct init_info info;
-
-    // Set up Settings.
-    info = init_shared_settings(_configDir);
 
     // Set up the translator.
     TSettings settings;
@@ -44,15 +38,12 @@ bool AppCmdline::initializeCore()
     translator.translateApp(
         this, settings.value("app/language", LANG_AUTO).toString());
 
-    // Check the result of init_shared_settings (after we have the Translator).
-    if(!handle_step(info))
-        return false;
-
-    // Check if we need to run the setup, check --dry-run, update
-    // scheduling path.
-    info = init_shared_core();
-    if(!handle_step(info))
-        return false;
+    // Handle each step of the initialization
+    for(const struct init_info &info : steps)
+    {
+        if(!handle_step(info))
+            return false;
+    }
 
     // We don't have anything else to do
     return true;

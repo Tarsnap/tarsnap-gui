@@ -56,11 +56,13 @@ void TestCmdline::normal_init()
 
     // This scope is how we do it in main.cpp
     {
+        const QList<struct init_info> steps = init_shared(opt->config_dir);
+
         // Basic initialization that cannot fail.
         AppCmdline app(argc, argv, opt);
 
-        // Run more complicated initialization.
-        if(!app.initializeCore())
+        // Act on any initialization failures
+        if(!app.handle_init(steps))
             QFAIL("Could not initialize app");
     }
 
@@ -92,11 +94,13 @@ void TestCmdline::appdir_init()
 
     // This scope is how we do it in main.cpp
     {
+        const QList<struct init_info> steps = init_shared(opt->config_dir);
+
         // Basic initialization that cannot fail.
         AppCmdline app(argc, argv, opt);
 
-        // Run more complicated initialization.
-        if(!app.initializeCore())
+        // Act on any initialization failures
+        if(!app.handle_init(steps))
             QFAIL("Could not initialize app");
     }
 

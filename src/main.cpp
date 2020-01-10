@@ -21,11 +21,13 @@ static int run_cmdline(int argc, char *argv[], struct optparse *opt)
 {
     int ret;
 
+    QList<struct init_info> steps = init_shared(opt->config_dir);
+
     // Basic initialization that cannot fail.
     AppCmdline app(argc, argv, opt);
 
-    // Run more complicated initialization.
-    if(!app.initializeCore())
+    // Act on any initialization failures
+    if(!app.handle_init(steps))
     {
         ret = EXIT_FAILURE;
         goto done;

@@ -71,7 +71,7 @@ static void init_no_explicit_app()
 /**
  * Constructor initialization shared between GUI and non-GUI.  Cannot fail.
  */
-void init_shared_nofail()
+static void init_shared_nofail()
 {
     init_no_app();
     init_no_explicit_app();
@@ -137,7 +137,7 @@ static QString check_migrateSettings()
 /**
  * Configures the app-wide Settings.  Cannot fail, but can report a message.
  */
-struct init_info init_shared_settings(QString configDir)
+static struct init_info init_shared_settings(QString configDir)
 {
     struct init_info info = {INIT_OK, "", ""};
 
@@ -202,7 +202,7 @@ static struct init_info need_setup_wizard()
 /**
  * Initialization shared between GUI and non-GUI.  Can fail and report messages.
  */
-struct init_info init_shared_core()
+static struct init_info init_shared_core()
 {
     struct init_info info = {INIT_OK, "", ""};
     TSettings        settings;
@@ -259,6 +259,35 @@ struct init_info init_shared_core()
     }
 
     return info;
+}
+
+/**
+ * Initialization shared between GUI and non-GUI.
+ * \return list a QList<struct init_info> with one element per
+ * step of the initialization.
+ */
+QList<struct init_info> init_shared(const QString configDir)
+{
+    QList<struct init_info> steps;
+    struct init_info        info;
+
+    // Step 1: can't fail
+    init_shared_nofail();
+
+    // Step 2: check if we need to migrate settings, and generally
+    // make sure that TSettings is ready.
+    info = init_shared_settings(configDir);
+    steps.append(info);
+    // Bail if an error occurred.
+    if(!((info.status == INIT_OK) || (info.status == INIT_SETTINGS_RENAMED)))
+        return (steps);
+
+    // Step 3: everything else.
+    info = init_shared_core();
+    steps.append(info);
+
+    /* Success! */
+    return (steps);
 }
 
 void init_shared_free(void)

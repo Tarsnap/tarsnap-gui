@@ -4,6 +4,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QList>
 #include <QString>
 WARNINGS_ENABLE
 
@@ -35,19 +36,11 @@ struct init_info
 };
 
 /**
- * Constructor initialization shared between GUI and non-GUI.  Cannot fail.
+ * Initialization shared between GUI and non-GUI.
+ * \return list a QList<struct init_info> with one element per
+ * step of the initialization.
  */
-void init_shared_nofail();
-
-/**
- * Configures the app-wide Settings.  Cannot fail, but can report a message.
- */
-struct init_info init_shared_settings(QString configDir);
-
-/**
- * Initialization shared between GUI and non-GUI.  Can fail and report messages.
- */
-struct init_info init_shared_core();
+QList<struct init_info> init_shared(const QString configDir);
 
 /**
  * Free resources allocated in the init layer.

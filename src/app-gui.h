@@ -31,10 +31,8 @@ public:
     AppGui(int &argc, char **argv, struct optparse *opt);
     ~AppGui();
 
-    //! Initializes the Settings, Translator, PersistentStore, and launches
-    //! the Setup wizard (if necessary).
-    //! \return True if the initialization was successful.
-    bool initializeCore();
+    //! Handle the initialization
+    bool handle_init(const QList<struct init_info> steps);
 
     //! Prepare to pass control to the QEventLoop.
     //! \return True if the calling function should call app.exec().

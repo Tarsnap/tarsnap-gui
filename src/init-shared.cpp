@@ -207,11 +207,6 @@ static struct init_info init_shared_core()
     struct init_info info = {INIT_OK, "", ""};
     TSettings        settings;
 
-    // Check if we should run the setup wizard.
-    info = need_setup_wizard();
-    if(info.status == INIT_NEEDS_SETUP)
-        return (info);
-
     // Ensure that we have a location to store app data.  Must be
     // after the setup wizard!
     if(settings.value("app/app_data", "").toString().isEmpty())
@@ -282,7 +277,13 @@ QList<struct init_info> init_shared(const QString configDir)
     if(!((info.status == INIT_OK) || (info.status == INIT_SETTINGS_RENAMED)))
         return (steps);
 
-    // Step 3: everything else.
+    // Step 3: check if we need to run the setup wizard.
+    info = need_setup_wizard();
+    steps.append(info);
+    if(info.status == INIT_NEEDS_SETUP)
+        return (steps);
+
+    // Step 4: everything else.
     info = init_shared_core();
     steps.append(info);
 

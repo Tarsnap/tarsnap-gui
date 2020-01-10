@@ -57,10 +57,10 @@ bool AppCmdline::initializeCore()
     case INIT_OK:
         break;
     case INIT_NEEDS_SETUP:
-        DEBUG << "Cannot proceed without a config file.";
+        DEBUG << tr("Cannot proceed without a config file.");
         return false;
     case INIT_DB_FAILED:
-        DEBUG << "Cannot initialize the database.";
+        DEBUG << tr("Cannot initialize the database.");
         return false;
     case INIT_DRY_RUN:
     case INIT_SCHEDULE_ERROR:

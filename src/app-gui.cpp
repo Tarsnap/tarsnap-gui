@@ -72,6 +72,9 @@ bool AppGui::initializeCore()
     // scheduling path.
     info = init_shared_core();
 
+    // Special handling for INIT_NEEDS_SETUP until we've separated it out into
+    // another class.  Must be before the regular handling of messages/errors
+    // from init_shared_code().
     if(info.status == INIT_NEEDS_SETUP)
     {
         // Run the setup wizard (if necessary).  This uses the translator, and
@@ -84,7 +87,8 @@ bool AppGui::initializeCore()
         // Restart
         return initializeCore();
     }
-    else if(info.status == INIT_DB_FAILED)
+
+    if(info.status == INIT_DB_FAILED)
     {
         QMessageBox::warning(nullptr, tr("Tarsnap warning"),
                              tr("Cannot initialize the database."));
@@ -98,6 +102,13 @@ bool AppGui::initializeCore()
             return false;
     }
 
+    // Special console output for "command-line-esque" --jobs option.  We don't
+    // want it to be in AppCmdline, because we pop up a Notification upon
+    // successful backup.
+    // TODO: do we actually need/want those notifications?  What's the balance
+    // between "ssh in and run `tarsnap-gui --jobs`" (i.e. AppCmdline) vs.
+    // "put it on crontab, but allow a system Notification window popup"
+    // (i.e. AppGui).
     if(_jobsOption)
     {
         if(info.status == INIT_SCHEDULE_OK)
@@ -119,6 +130,8 @@ bool AppGui::initializeCore()
                                      tr("Failed to updated OS X launchd path"),
                                      info.message);
     }
+
+    // We've finished initialization and can proceed to prepMainLoop().
     return true;
 }
 

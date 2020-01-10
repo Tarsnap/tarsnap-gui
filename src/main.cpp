@@ -21,19 +21,20 @@ static int run_cmdline(int argc, char *argv[], struct optparse *opt)
 {
     int ret;
 
-    QList<struct init_info> steps = init_shared(opt->config_dir);
+    // Initialization that doesn't require a QCoreApplication.
+    const QList<struct init_info> steps = init_shared(opt->config_dir);
 
     // Basic initialization that cannot fail.
     AppCmdline app(argc, argv, opt);
 
-    // Act on any initialization failures
+    // Act on any initialization failures.
     if(!app.handle_init(steps))
     {
         ret = EXIT_FAILURE;
         goto done;
     }
 
-    // If we want have any tasks, do them.
+    // Should we launch the event loop?
     if(app.prepMainLoop())
         ret = app.exec();
     else
@@ -49,25 +50,27 @@ static int run_gui(int argc, char *argv[], struct optparse *opt)
     int ret;
 
 #ifdef QT_GUI_LIB
-    QList<struct init_info> steps = init_shared(opt->config_dir);
+    // Initialization that doesn't require a QCoreApplication.
+    const QList<struct init_info> steps = init_shared(opt->config_dir);
 
     // Basic initialization that cannot fail.
     AppGui app(argc, argv, opt);
 
-    // Act on any initialization failures
+    // Act on any initialization failures.
     if(!app.handle_init(steps))
     {
         ret = EXIT_FAILURE;
         goto done;
     }
 
-    // If we want the GUI or have any tasks, do them.
+    // Should we launch the event loop?
     if(app.prepMainLoop())
         ret = app.exec();
     else
         ret = EXIT_SUCCESS;
 
 done:
+    init_shared_free();
 #else
     (void)argc;
     (void)argv;
@@ -77,7 +80,6 @@ done:
     ret = 1;
 #endif
 
-    init_shared_free();
     return (ret);
 }
 
@@ -89,7 +91,7 @@ int main(int argc, char *argv[])
     // Initialize debug messages.
     WARNP_INIT;
 
-    // Parse command-line arguments
+    // Parse command-line arguments.
     if((opt = optparse_parse(argc, argv)) == nullptr)
     {
         ret = EXIT_FAILURE;

@@ -49,11 +49,13 @@ static int run_gui(int argc, char *argv[], struct optparse *opt)
     int ret;
 
 #ifdef QT_GUI_LIB
+    QList<struct init_info> steps = init_shared(opt->config_dir);
+
     // Basic initialization that cannot fail.
     AppGui app(argc, argv, opt);
 
-    // Run more complicated initialization.
-    if(!app.initializeCore())
+    // Act on any initialization failures
+    if(!app.handle_init(steps))
     {
         ret = EXIT_FAILURE;
         goto done;

@@ -31,8 +31,6 @@ AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
     _jobsOption = (opt->jobs == 1);
     _configDir  = opt->config_dir;
 
-    init_shared_nofail();
-
     setQuitOnLastWindowClosed(false);
 
     qRegisterMetaType<QSystemTrayIcon::ActivationReason>(
@@ -50,13 +48,8 @@ AppGui::~AppGui()
     Translator::destroy();
 }
 
-bool AppGui::initializeCore()
+bool AppGui::handle_init(const QList<struct init_info> steps)
 {
-    struct init_info info;
-
-    // Set up Settings.
-    info = init_shared_settings(_configDir);
-
     // Set up the translator.
     TSettings settings;
     Translator::initializeTranslator();
@@ -64,52 +57,50 @@ bool AppGui::initializeCore()
     translator.translateApp(
         this, settings.value("app/language", LANG_AUTO).toString());
 
-    // Check the result of init_shared_settings (after we have the Translator).
-    if(!handle_step(info))
-        return false;
-
-    // Check if we need to run the setup, check --dry-run, update
-    // scheduling path.
-    info = init_shared_core();
-
-    // Special handling for INIT_NEEDS_SETUP until we've separated it out into
-    // another class.  Must be before the regular handling of messages/errors
-    // from init_shared_code().
-    if(info.status == INIT_NEEDS_SETUP)
+    // Handle each step of the initialization
+    for(const struct init_info &info : steps)
     {
-        // Run the setup wizard (if necessary).  This uses the translator, and
-        // can be tested with:
-        //    $ LANGUAGE=ro ./tarsnap-gui
-        if(!runSetupWizard())
-            return false;
-        // Remove the Translator
-        Translator::destroy();
-        // Restart
-        return initializeCore();
-    }
-
-    if(!handle_step(info))
-        return false;
-
-    // There's no point trying to automatically process jobs with --dry-run.
-    if((info.status == INIT_DRY_RUN) && _jobsOption)
-        return false;
-
-    // Special console output for "command-line-esque" --jobs option.  We don't
-    // want it to be in AppCmdline, because we pop up a Notification upon
-    // successful backup.
-    // TODO: do we actually need/want those notifications?  What's the balance
-    // between "ssh in and run `tarsnap-gui --jobs`" (i.e. AppCmdline) vs.
-    // "put it on crontab, but allow a system Notification window popup"
-    // (i.e. AppGui).
-    if(_jobsOption)
-    {
-        if(info.status == INIT_SCHEDULE_OK)
-            DEBUG << info.extra;
-        else if(info.status == INIT_SCHEDULE_ERROR)
+        // Special handling for INIT_NEEDS_SETUP until we've separated it out
+        // into another class.  Must be before the regular handling of
+        // messages/errors from init_shared_code().
+        if(info.status == INIT_NEEDS_SETUP)
         {
-            DEBUG << info.message;
+            // Run the setup wizard (if necessary).  This uses the translator,
+            // and can be tested with:
+            //    $ LANGUAGE=ro ./tarsnap-gui
+            if(!runSetupWizard())
+                return false;
+            // Clean up everything
+            Translator::destroy();
+            init_shared_free();
+            // Restart
+            QList<struct init_info> newsteps = init_shared(_configDir);
+            return handle_init(newsteps);
+        }
+
+        if(!handle_step(info))
             return false;
+
+        // There's no point trying to automatically process jobs with --dry-run.
+        if((info.status == INIT_DRY_RUN) && _jobsOption)
+            return false;
+
+        // Special console output for "command-line-esque" --jobs option.  We
+        // don't want it to be in AppCmdline, because we pop up a Notification
+        // upon successful backup.
+        // TODO: do we actually need/want those notifications?  What's the
+        // balance between "ssh in and run `tarsnap-gui --jobs`" (i.e.
+        // AppCmdline) vs. "put it on crontab, but allow a system Notification
+        // window popup" (i.e. AppGui).
+        if(_jobsOption)
+        {
+            if(info.status == INIT_SCHEDULE_OK)
+                DEBUG << info.extra;
+            else if(info.status == INIT_SCHEDULE_ERROR)
+            {
+                DEBUG << info.message;
+                return false;
+            }
         }
     }
 
@@ -300,8 +291,10 @@ void AppGui::reinit()
     {
         settings.clear();
     }
+    init_shared_free();
 
-    if(!initializeCore())
+    QList<struct init_info> newsteps = init_shared(_configDir);
+    if(!handle_init(newsteps))
     {
         QMessageBox::critical(nullptr, tr("Failed to launch application"),
                               tr("An unknown error occurred."));

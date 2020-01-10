@@ -91,13 +91,9 @@ bool AppGui::initializeCore()
     if(!handle_step(info))
         return false;
 
-    // More special handling
-    if(info.status == INIT_DRY_RUN)
-    {
-        // There's no point trying to automatically process jobs.
-        if(_jobsOption)
-            return false;
-    }
+    // There's no point trying to automatically process jobs with --dry-run.
+    if((info.status == INIT_DRY_RUN) && _jobsOption)
+        return false;
 
     // Special console output for "command-line-esque" --jobs option.  We don't
     // want it to be in AppCmdline, because we pop up a Notification upon

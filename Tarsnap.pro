@@ -220,7 +220,7 @@ OBJECTS_DIR = build/gui/
 # to maximize the benefits of parallel builds.
 UNIT_TESTS =						\
 	tests/mainwindow				\
-	tests/cmdline					\
+	tests/app-cmdline				\
 	tests/jobstabwidget				\
 	tests/settingswidget				\
 	tests/backuptabwidget				\

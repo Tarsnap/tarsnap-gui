@@ -1,11 +1,11 @@
-TARGET = test-cmdline
+TARGET = test-app-cmdline
 QT = core network sql
 
 # Used in lib/core/optparse.h
 VERSION = test
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-SOURCES += test-cmdline.cpp				\
+SOURCES += test-app-cmdline.cpp				\
 	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../lib/util/optparse.c			\
@@ -56,4 +56,4 @@ TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
 include(../tests-include.pro)
 
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
-	cp confdir/test-cmdline.conf "$${TEST_HOME}/$${TARGET}"
+	cp confdir/test-app-cmdline.conf "$${TEST_HOME}/$${TARGET}"

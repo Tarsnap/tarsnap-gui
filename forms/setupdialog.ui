@@ -39,7 +39,7 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QGridLayout" name="headerLayout">
+    <layout class="QHBoxLayout" name="headerLayout">
      <property name="leftMargin">
       <number>3</number>
      </property>
@@ -52,16 +52,10 @@
      <property name="bottomMargin">
       <number>6</number>
      </property>
-     <property name="horizontalSpacing">
-      <number>6</number>
-     </property>
-     <property name="verticalSpacing">
-      <number>0</number>
-     </property>
-     <item row="0" column="2">
-      <widget class="QWidget" name="wizardNavigateWidget" native="true">
-       <property name="styleSheet">
-        <string notr="true"/>
+     <item>
+      <widget class="QLabel" name="iconLabel">
+       <property name="pixmap">
+        <pixmap resource="../resources/resources.qrc">:/logos/tarsnap-header-half.png</pixmap>
        </property>
        <layout class="QHBoxLayout" name="wizardNavigateHorizontalLayout">
         <property name="leftMargin">
@@ -76,97 +70,17 @@
         <property name="bottomMargin">
          <number>0</number>
         </property>
-        <item>
-         <spacer name="jumpLeftSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="welcomePageRadioButton">
-          <property name="focusPolicy">
-           <enum>Qt::ClickFocus</enum>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="advancedPageRadioButton">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::ClickFocus</enum>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="registerPageRadioButton">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::ClickFocus</enum>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="donePageRadioButton">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::ClickFocus</enum>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="jumpRightSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
       </widget>
      </item>
-     <item row="1" column="2">
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="titleLabel">
        <property name="minimumSize">
         <size>
@@ -188,20 +102,6 @@
        </property>
        <property name="margin">
         <number>1</number>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0" rowspan="2">
-      <widget class="QLabel" name="iconLabel">
-       <property name="pixmap">
-        <pixmap resource="../resources/resources.qrc">:/logos/tarsnap-header-half.png</pixmap>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" rowspan="2">
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
        </property>
       </widget>
      </item>

@@ -38,14 +38,6 @@ SetupDialog::SetupDialog(QWidget *parent)
             &SetupDialog::backButtonClicked);
     connect(_ui->nextButton, &QPushButton::clicked, this,
             &SetupDialog::nextButtonClicked);
-    connect(_ui->welcomePageRadioButton, &QRadioButton::clicked, this,
-            &SetupDialog::skipToPage);
-    connect(_ui->advancedPageRadioButton, &QRadioButton::clicked, this,
-            &SetupDialog::skipToPage);
-    connect(_ui->registerPageRadioButton, &QRadioButton::clicked, this,
-            &SetupDialog::skipToPage);
-    connect(_ui->donePageRadioButton, &QRadioButton::clicked, this,
-            &SetupDialog::skipToPage);
 
     connect(_ui->wizardStackedWidget, &QStackedWidget::currentChanged, this,
             &SetupDialog::wizardPageChanged);
@@ -143,18 +135,15 @@ void SetupDialog::wizardPageChanged(int)
 
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
     {
-        _ui->welcomePageRadioButton->setChecked(true);
         _ui->titleLabel->setText(tr("Setup wizard"));
         _ui->backButton->setText(tr("Skip wizard"));
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->cliPage)
     {
-        _ui->advancedPageRadioButton->setChecked(true);
         _ui->titleLabel->setText(tr("Command-line utilities"));
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
     {
-        _ui->registerPageRadioButton->setChecked(true);
         _ui->titleLabel->setText(tr("Register with server"));
         _ui->nextButton->setText(tr("Register machine"));
         if(_ui->machineKeyCombo->count() > 0)
@@ -170,11 +159,22 @@ void SetupDialog::wizardPageChanged(int)
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->donePage)
     {
-        _ui->donePageRadioButton->setChecked(true);
         _ui->titleLabel->setText(tr("Setup complete!"));
         _ui->nextButton->setText(tr("Start using Tarsnap"));
     }
 }
+
+#ifdef QT_TESTLIB_LIB
+void SetupDialog::back()
+{
+    backButtonClicked();
+}
+
+void SetupDialog::next()
+{
+    nextButtonClicked();
+}
+#endif
 
 void SetupDialog::backButtonClicked()
 {
@@ -195,24 +195,11 @@ void SetupDialog::nextButtonClicked()
         setNextPage();
 }
 
-void SetupDialog::skipToPage()
-{
-    if(sender() == _ui->welcomePageRadioButton)
-        _ui->wizardStackedWidget->setCurrentWidget(_ui->welcomePage);
-    else if(sender() == _ui->advancedPageRadioButton)
-        _ui->wizardStackedWidget->setCurrentWidget(_ui->cliPage);
-    else if(sender() == _ui->registerPageRadioButton)
-        _ui->wizardStackedWidget->setCurrentWidget(_ui->registerPage);
-    else if(sender() == _ui->donePageRadioButton)
-        _ui->wizardStackedWidget->setCurrentWidget(_ui->donePage);
-}
-
 void SetupDialog::setNextPage()
 {
     if(_ui->wizardStackedWidget->currentWidget() == _ui->welcomePage)
     {
         _ui->wizardStackedWidget->setCurrentWidget(_ui->cliPage);
-        _ui->advancedPageRadioButton->setEnabled(true);
         // Disable this until we know the version number.
         _ui->nextButton->setEnabled(false);
         bool advancedOk = validateCLIPage();
@@ -221,14 +208,12 @@ void SetupDialog::setNextPage()
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->cliPage)
     {
         _ui->wizardStackedWidget->setCurrentWidget(_ui->registerPage);
-        _ui->registerPageRadioButton->setEnabled(true);
         if(validateRegisterPage())
             _ui->nextButton->setFocus();
     }
     else if(_ui->wizardStackedWidget->currentWidget() == _ui->registerPage)
     {
         _ui->wizardStackedWidget->setCurrentWidget(_ui->donePage);
-        _ui->donePageRadioButton->setEnabled(true);
     }
 }
 

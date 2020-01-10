@@ -2,6 +2,17 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>AppCmdline</name>
+    <message>
+        <source>Cannot proceed without a config file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot initialize the database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AppGui</name>
     <message>
         <source>Tarsnap warning</source>
@@ -28,7 +39,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot not initialize the database.</source>
+        <source>Cannot initialize the database.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

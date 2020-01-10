@@ -22,14 +22,14 @@ AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
       _journal(nullptr),
       _notification()
 {
-    // Sanity check
+    // Sanity checks
     assert(opt != nullptr);
+    assert(opt->check == 0);
 
     // Get values from optparse.  The (x == 1) is probably unnecessary, but
     // better safe than sorry!
-    _jobsOption  = (opt->jobs == 1);
-    _checkOption = (opt->check == 1);
-    _configDir   = opt->config_dir;
+    _jobsOption = (opt->jobs == 1);
+    _configDir  = opt->config_dir;
 
     init_shared_nofail();
 
@@ -56,12 +56,6 @@ bool AppGui::initializeCore()
 
     // Set up Settings.
     info = init_shared_settings(_configDir);
-    if(info.status == INIT_SETTINGS_RENAMED)
-        QMessageBox::information(nullptr, tr("Tarsnap info"), info.message);
-
-    // Check if we need to run the setup, check --dry-run, update
-    // scheduling path.
-    info = init_shared_core();
 
     // Set up the translator.
     TSettings settings;
@@ -70,6 +64,17 @@ bool AppGui::initializeCore()
     translator.translateApp(
         this, settings.value("app/language", LANG_AUTO).toString());
 
+    // Check the result of init_shared_settings (after we have the Translator).
+    if(!handle_step(info))
+        return false;
+
+    // Check if we need to run the setup, check --dry-run, update
+    // scheduling path.
+    info = init_shared_core();
+
+    // Special handling for INIT_NEEDS_SETUP until we've separated it out into
+    // another class.  Must be before the regular handling of messages/errors
+    // from init_shared_code().
     if(info.status == INIT_NEEDS_SETUP)
     {
         // Run the setup wizard (if necessary).  This uses the translator, and
@@ -82,21 +87,22 @@ bool AppGui::initializeCore()
         // Restart
         return initializeCore();
     }
-    else if(info.status == INIT_DB_FAILED)
-    {
-        QMessageBox::warning(nullptr, tr("Tarsnap warning"),
-                             tr("Cannot not initialize the database."));
-        return false;
-    }
-    else if(info.status == INIT_DRY_RUN)
-    {
-        QMessageBox::warning(nullptr, tr("Tarsnap warning"), info.message);
-        // There's no point trying to automatically process jobs.
-        if(_jobsOption)
-            return false;
-    }
 
-    if(_jobsOption || _checkOption)
+    if(!handle_step(info))
+        return false;
+
+    // There's no point trying to automatically process jobs with --dry-run.
+    if((info.status == INIT_DRY_RUN) && _jobsOption)
+        return false;
+
+    // Special console output for "command-line-esque" --jobs option.  We don't
+    // want it to be in AppCmdline, because we pop up a Notification upon
+    // successful backup.
+    // TODO: do we actually need/want those notifications?  What's the balance
+    // between "ssh in and run `tarsnap-gui --jobs`" (i.e. AppCmdline) vs.
+    // "put it on crontab, but allow a system Notification window popup"
+    // (i.e. AppGui).
+    if(_jobsOption)
     {
         if(info.status == INIT_SCHEDULE_OK)
             DEBUG << info.extra;
@@ -105,31 +111,54 @@ bool AppGui::initializeCore()
             DEBUG << info.message;
             return false;
         }
-
-        // We don't have anything else to do
-        if(_checkOption)
-            return true;
     }
 
-    if(!_jobsOption)
-    {
-        if(info.status == INIT_SCHEDULE_OK)
-            QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
-                                     info.message);
-        else if(info.status == INIT_SCHEDULE_ERROR)
-            QMessageBox::information(nullptr,
-                                     tr("Failed to updated OS X launchd path"),
-                                     info.message);
-    }
+    // We've finished initialization and can proceed to prepMainLoop().
     return true;
+}
+
+/*
+ * Show message(s) (if applicable), and return false if there's an error.
+ *
+ * In order for Qt's translation tr() to work, this must be a class method
+ * (rather than a static function).
+ */
+bool AppGui::handle_step(const struct init_info info)
+{
+    switch(info.status)
+    {
+    case INIT_OK:
+        return true;
+    case INIT_NEEDS_SETUP:
+        return false;
+    case INIT_DB_FAILED:
+        QMessageBox::warning(nullptr, tr("Tarsnap warning"),
+                             tr("Cannot initialize the database."));
+        return false;
+    case INIT_SETTINGS_RENAMED:
+        QMessageBox::information(nullptr, tr("Tarsnap info"), info.message);
+        return true;
+    case INIT_DRY_RUN:
+        QMessageBox::warning(nullptr, tr("Tarsnap warning"), info.message);
+        break;
+    case INIT_SCHEDULE_OK:
+        QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
+                                 info.message);
+        return true;
+    case INIT_SCHEDULE_ERROR:
+        QMessageBox::information(nullptr,
+                                 tr("Failed to updated OS X launchd path"),
+                                 info.message);
+        return true;
+    }
+
+    // Should not happen
+    DEBUG << "AppGui: unexpected info.status:" << info.status;
+    return false;
 }
 
 bool AppGui::prepMainLoop()
 {
-    // Nothing to do.
-    if(_checkOption)
-        return false;
-
     // Initialize the PersistentStore early
     PersistentStore::instance();
     _journal = new Journal();

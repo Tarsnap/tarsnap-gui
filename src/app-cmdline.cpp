@@ -36,12 +36,6 @@ bool AppCmdline::initializeCore()
 
     // Set up Settings.
     info = init_shared_settings(_configDir);
-    if(info.status == INIT_SETTINGS_RENAMED)
-        DEBUG << info.message;
-
-    // Check if we need to run the setup, check --dry-run, update
-    // scheduling path.
-    info = init_shared_core();
 
     // Set up the translator.
     TSettings settings;
@@ -50,32 +44,53 @@ bool AppCmdline::initializeCore()
     translator.translateApp(
         this, settings.value("app/language", LANG_AUTO).toString());
 
-    switch(info.status)
-    {
-    case INIT_OK:
-        break;
-    case INIT_NEEDS_SETUP:
-        DEBUG << "Cannot proceed without a config file.";
+    // Check the result of init_shared_settings (after we have the Translator).
+    if(!handle_step(info))
         return false;
-    case INIT_DB_FAILED:
-        DEBUG << "Cannot initialize the database.";
+
+    // Check if we need to run the setup, check --dry-run, update
+    // scheduling path.
+    info = init_shared_core();
+    if(!handle_step(info))
         return false;
-    case INIT_DRY_RUN:
-    case INIT_SCHEDULE_ERROR:
-        DEBUG << info.message;
-        // Don't return an error, because these aren't critical errors
-        break;
-    case INIT_SCHEDULE_OK:
-        // info.message contains longer text intended for a GUI message box.
-        DEBUG << info.extra;
-        break;
-    case INIT_SETTINGS_RENAMED:
-        DEBUG << "Got INIT_SETTINGS_RENAMED; should not happen here!";
-        return false;
-    }
 
     // We don't have anything else to do
     return true;
+}
+
+/*
+ * Show message(s) (if applicable), and return false if there's an error.
+ *
+ * In order for Qt's translation tr() to work, this must be a class method
+ * (rather than a static function).
+ */
+bool AppCmdline::handle_step(const struct init_info info)
+{
+    switch(info.status)
+    {
+    case INIT_OK:
+        return true;
+    case INIT_NEEDS_SETUP:
+        DEBUG << tr("Cannot proceed without a config file.");
+        return false;
+    case INIT_DB_FAILED:
+        DEBUG << tr("Cannot initialize the database.");
+        return false;
+    case INIT_DRY_RUN:
+    case INIT_SCHEDULE_ERROR:
+    case INIT_SETTINGS_RENAMED:
+        DEBUG << info.message;
+        // Don't return an error, because these aren't critical errors
+        return true;
+    case INIT_SCHEDULE_OK:
+        // info.message contains longer text intended for a GUI message box.
+        DEBUG << info.extra;
+        return true;
+    }
+
+    // Should not happen
+    DEBUG << "AppCmdline: unexpected info.status:" << info.status;
+    return false;
 }
 
 bool AppCmdline::prepMainLoop()

@@ -56,9 +56,10 @@ private:
     QThread      _managerThread;
     bool         _jobsOption;
     QString      _configDir;
-    bool         _checkOption;
 
     bool runSetupWizard();
+
+    bool handle_step(const struct init_info info);
 };
 
 #endif // APP_GUI_H

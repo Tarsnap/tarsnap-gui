@@ -261,6 +261,35 @@ struct init_info init_shared_core()
     return info;
 }
 
+/**
+ * Initialization shared between GUI and non-GUI.
+ * \return list a QList<struct init_info> with one element per
+ * step of the initialization.
+ */
+QList<struct init_info> init_shared(const QString configDir)
+{
+    QList<struct init_info> steps;
+    struct init_info        info;
+
+    // Step 1: can't fail
+    init_shared_nofail();
+
+    // Step 2: check if we need to migrate settings, and generally
+    // make sure that TSettings is ready.
+    info = init_shared_settings(configDir);
+    steps.append(info);
+    // Bail if an error occurred.
+    if(!((info.status == INIT_OK) || (info.status == INIT_SETTINGS_RENAMED)))
+        return (steps);
+
+    // Step 3: everything else.
+    info = init_shared_core();
+    steps.append(info);
+
+    /* Success! */
+    return (steps);
+}
+
 void init_shared_free(void)
 {
     // Destroy objects in reverse order from their creation.

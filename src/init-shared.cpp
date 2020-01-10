@@ -71,7 +71,7 @@ static void init_no_explicit_app()
 /**
  * Constructor initialization shared between GUI and non-GUI.  Cannot fail.
  */
-void init_shared_nofail()
+static void init_shared_nofail()
 {
     init_no_app();
     init_no_explicit_app();
@@ -137,7 +137,7 @@ static QString check_migrateSettings()
 /**
  * Configures the app-wide Settings.  Cannot fail, but can report a message.
  */
-struct init_info init_shared_settings(QString configDir)
+static struct init_info init_shared_settings(QString configDir)
 {
     struct init_info info = {INIT_OK, "", ""};
 
@@ -202,7 +202,7 @@ static struct init_info need_setup_wizard()
 /**
  * Initialization shared between GUI and non-GUI.  Can fail and report messages.
  */
-struct init_info init_shared_core()
+static struct init_info init_shared_core()
 {
     struct init_info info = {INIT_OK, "", ""};
     TSettings        settings;

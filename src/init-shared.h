@@ -36,21 +36,6 @@ struct init_info
 };
 
 /**
- * Constructor initialization shared between GUI and non-GUI.  Cannot fail.
- */
-void init_shared_nofail();
-
-/**
- * Configures the app-wide Settings.  Cannot fail, but can report a message.
- */
-struct init_info init_shared_settings(QString configDir);
-
-/**
- * Initialization shared between GUI and non-GUI.  Can fail and report messages.
- */
-struct init_info init_shared_core();
-
-/**
  * Initialization shared between GUI and non-GUI.
  * \return list a QList<struct init_info> with one element per
  * step of the initialization.

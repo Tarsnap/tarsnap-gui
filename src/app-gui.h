@@ -58,6 +58,8 @@ private:
     QString      _configDir;
 
     bool runSetupWizard();
+
+    bool handle_step(const struct init_info info);
 };
 
 #endif // APP_GUI_H

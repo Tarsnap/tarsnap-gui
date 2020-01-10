@@ -65,8 +65,8 @@ bool AppGui::initializeCore()
         this, settings.value("app/language", LANG_AUTO).toString());
 
     // Check the result of init_shared_settings (after we have the Translator).
-    if(info.status == INIT_SETTINGS_RENAMED)
-        QMessageBox::information(nullptr, tr("Tarsnap info"), info.message);
+    if(!handle_step(info))
+        return false;
 
     // Check if we need to run the setup, check --dry-run, update
     // scheduling path.
@@ -88,15 +88,12 @@ bool AppGui::initializeCore()
         return initializeCore();
     }
 
-    if(info.status == INIT_DB_FAILED)
-    {
-        QMessageBox::warning(nullptr, tr("Tarsnap warning"),
-                             tr("Cannot initialize the database."));
+    if(!handle_step(info))
         return false;
-    }
-    else if(info.status == INIT_DRY_RUN)
+
+    // More special handling
+    if(info.status == INIT_DRY_RUN)
     {
-        QMessageBox::warning(nullptr, tr("Tarsnap warning"), info.message);
         // There's no point trying to automatically process jobs.
         if(_jobsOption)
             return false;
@@ -120,19 +117,48 @@ bool AppGui::initializeCore()
         }
     }
 
-    if(!_jobsOption)
-    {
-        if(info.status == INIT_SCHEDULE_OK)
-            QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
-                                     info.message);
-        else if(info.status == INIT_SCHEDULE_ERROR)
-            QMessageBox::information(nullptr,
-                                     tr("Failed to updated OS X launchd path"),
-                                     info.message);
-    }
-
     // We've finished initialization and can proceed to prepMainLoop().
     return true;
+}
+
+/*
+ * Show message(s) (if applicable), and return false if there's an error.
+ *
+ * In order for Qt's translation tr() to work, this must be a class method
+ * (rather than a static function).
+ */
+bool AppGui::handle_step(const struct init_info info)
+{
+    switch(info.status)
+    {
+    case INIT_OK:
+        return true;
+    case INIT_NEEDS_SETUP:
+        return false;
+    case INIT_DB_FAILED:
+        QMessageBox::warning(nullptr, tr("Tarsnap warning"),
+                             tr("Cannot initialize the database."));
+        return false;
+    case INIT_SETTINGS_RENAMED:
+        QMessageBox::information(nullptr, tr("Tarsnap info"), info.message);
+        return true;
+    case INIT_DRY_RUN:
+        QMessageBox::warning(nullptr, tr("Tarsnap warning"), info.message);
+        break;
+    case INIT_SCHEDULE_OK:
+        QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
+                                 info.message);
+        return true;
+    case INIT_SCHEDULE_ERROR:
+        QMessageBox::information(nullptr,
+                                 tr("Failed to updated OS X launchd path"),
+                                 info.message);
+        return true;
+    }
+
+    // Should not happen
+    DEBUG << "AppGui: unexpected info.status:" << info.status;
+    return false;
 }
 
 bool AppGui::prepMainLoop()

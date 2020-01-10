@@ -114,14 +114,14 @@ void TestSetupWizard::cancel_install()
     VISUAL_INIT(setupWizard);
 
     // Proceed through almost all of the wizard.
-    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->next();
     setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
-    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->next();
     setupWizard->useExistingKeyfile();
     ui->useExistingKeyfileButton->setChecked(true);
     ui->machineKeyCombo->setCurrentText("fake.key");
     ui->nextButton->setEnabled(true);
-    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->next();
     setupWizard->registerMachineResponse(TaskStatus::Completed, "");
     VISUAL_WAIT;
 
@@ -173,7 +173,7 @@ void TestSetupWizard::normal_install()
 
     // Page 1
     QVERIFY(ui->titleLabel->text() == "Setup wizard");
-    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->next();
     VISUAL_WAIT;
 
     // Page 2
@@ -182,7 +182,7 @@ void TestSetupWizard::normal_install()
     // Fake the CLI detection and checking
     setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
     QVERIFY(ui->cliValidationLabel->text().contains("Tarsnap CLI version"));
-    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->next();
     VISUAL_WAIT;
 
     // Page 3
@@ -192,7 +192,7 @@ void TestSetupWizard::normal_install()
     ui->useExistingKeyfileButton->setChecked(true);
     ui->machineKeyCombo->setCurrentText("fake.key");
     ui->nextButton->setEnabled(true);
-    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->next();
     // Check results of registration
     QVERIFY(sig_register.count() == 1);
     setupWizard->registerMachineResponse(TaskStatus::Completed, "");
@@ -200,7 +200,7 @@ void TestSetupWizard::normal_install()
 
     // Page 4
     QVERIFY(ui->titleLabel->text() == "Setup complete!");
-    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->next();
     VISUAL_WAIT;
 
     // Check resulting init file.  The first can be in any format (for now).
@@ -221,7 +221,7 @@ void TestSetupWizard::cli()
     VISUAL_INIT(setupWizard);
 
     // Advance to CLI page and expand advanced options
-    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->next();
     QVERIFY(ui->titleLabel->text() == "Command-line utilities");
     ui->cliAdvancedButton->click();
     VISUAL_WAIT;
@@ -263,7 +263,7 @@ void TestSetupWizard::version_too_low()
     VISUAL_INIT(setupWizard);
 
     // Advance to CLI page
-    QTest::mouseClick(ui->nextButton, Qt::LeftButton);
+    setupWizard->next();
     QVERIFY(ui->titleLabel->text() == "Command-line utilities");
     VISUAL_WAIT;
 

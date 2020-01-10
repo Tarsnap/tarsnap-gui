@@ -45,13 +45,11 @@ done:
     return (ret);
 }
 
-static int run_gui(int argc, char *argv[], struct optparse *opt)
+#ifdef QT_GUI_LIB
+static int run_gui_main(int argc, char *argv[], struct optparse *opt,
+                        const QList<struct init_info> steps)
 {
     int ret;
-
-#ifdef QT_GUI_LIB
-    // Initialization that doesn't require a QCoreApplication.
-    const QList<struct init_info> steps = init_shared(opt->config_dir);
 
     // Basic initialization that cannot fail.
     AppGui app(argc, argv, opt);
@@ -70,6 +68,21 @@ static int run_gui(int argc, char *argv[], struct optparse *opt)
         ret = EXIT_SUCCESS;
 
 done:
+    return (ret);
+}
+#endif
+
+static int run_gui(int argc, char *argv[], struct optparse *opt)
+{
+    int ret;
+
+#ifdef QT_GUI_LIB
+    // Initialization that doesn't require a QCoreApplication.
+    const QList<struct init_info> steps = init_shared(opt->config_dir);
+
+    // initialize & launch main GUI.
+    ret = run_gui_main(argc, argv, opt, steps);
+
     init_shared_free();
 #else
     (void)argc;

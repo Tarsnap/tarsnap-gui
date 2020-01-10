@@ -64,7 +64,6 @@ signals:
 
 private slots:
     void wizardPageChanged(int);
-    void skipToPage();
     void showTarsnapPathBrowse();
     void showTarsnapCacheBrowse();
     void showAppDataBrowse();

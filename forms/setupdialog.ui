@@ -90,67 +90,6 @@
          </spacer>
         </item>
         <item>
-         <widget class="QRadioButton" name="welcomePageRadioButton">
-          <property name="focusPolicy">
-           <enum>Qt::ClickFocus</enum>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>16</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="advancedPageRadioButton">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::ClickFocus</enum>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="registerPageRadioButton">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::ClickFocus</enum>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="donePageRadioButton">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::ClickFocus</enum>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
          <spacer name="jumpRightSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>

@@ -176,6 +176,18 @@ void SetupDialog::wizardPageChanged(int)
     }
 }
 
+#ifdef QT_TESTLIB_LIB
+void SetupDialog::back()
+{
+    backButtonClicked();
+}
+
+void SetupDialog::next()
+{
+    nextButtonClicked();
+}
+#endif
+
 void SetupDialog::backButtonClicked()
 {
     int nextIndex = _ui->wizardStackedWidget->currentIndex() - 1;

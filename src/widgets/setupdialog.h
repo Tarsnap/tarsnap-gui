@@ -47,6 +47,13 @@ public slots:
     /// \param idle no task is running.
     void updateLoadingAnimation(bool idle);
 
+#ifdef QT_TESTLIB_LIB
+    /// Goes back to the previous page, as per QWizard::back().
+    void back();
+    /// Advances to the next page, as per QWizard::next().
+    void next();
+#endif
+
 signals:
     /// We need to register this machine with the Tarsnap service.
     /// \param password the user's Tarsnap service password.

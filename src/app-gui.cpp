@@ -22,14 +22,14 @@ AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
       _journal(nullptr),
       _notification()
 {
-    // Sanity check
+    // Sanity checks
     assert(opt != nullptr);
+    assert(opt->check == 0);
 
     // Get values from optparse.  The (x == 1) is probably unnecessary, but
     // better safe than sorry!
-    _jobsOption  = (opt->jobs == 1);
-    _checkOption = (opt->check == 1);
-    _configDir   = opt->config_dir;
+    _jobsOption = (opt->jobs == 1);
+    _configDir  = opt->config_dir;
 
     init_shared_nofail();
 
@@ -98,7 +98,7 @@ bool AppGui::initializeCore()
             return false;
     }
 
-    if(_jobsOption || _checkOption)
+    if(_jobsOption)
     {
         if(info.status == INIT_SCHEDULE_OK)
             DEBUG << info.extra;
@@ -107,10 +107,6 @@ bool AppGui::initializeCore()
             DEBUG << info.message;
             return false;
         }
-
-        // We don't have anything else to do
-        if(_checkOption)
-            return true;
     }
 
     if(!_jobsOption)
@@ -128,10 +124,6 @@ bool AppGui::initializeCore()
 
 bool AppGui::prepMainLoop()
 {
-    // Nothing to do.
-    if(_checkOption)
-        return false;
-
     // Initialize the PersistentStore early
     PersistentStore::instance();
     _journal = new Journal();

@@ -56,7 +56,6 @@ private:
     QThread      _managerThread;
     bool         _jobsOption;
     QString      _configDir;
-    bool         _checkOption;
 
     bool runSetupWizard();
 };

@@ -45,17 +45,31 @@ bool AppCmdline::initializeCore()
         this, settings.value("app/language", LANG_AUTO).toString());
 
     // Check the result of init_shared_settings (after we have the Translator).
-    if(info.status == INIT_SETTINGS_RENAMED)
-        DEBUG << info.message;
+    if(!handle_step(info))
+        return false;
 
     // Check if we need to run the setup, check --dry-run, update
     // scheduling path.
     info = init_shared_core();
+    if(!handle_step(info))
+        return false;
 
+    // We don't have anything else to do
+    return true;
+}
+
+/*
+ * Show message(s) (if applicable), and return false if there's an error.
+ *
+ * In order for Qt's translation tr() to work, this must be a class method
+ * (rather than a static function).
+ */
+bool AppCmdline::handle_step(const struct init_info info)
+{
     switch(info.status)
     {
     case INIT_OK:
-        break;
+        return true;
     case INIT_NEEDS_SETUP:
         DEBUG << tr("Cannot proceed without a config file.");
         return false;
@@ -64,20 +78,19 @@ bool AppCmdline::initializeCore()
         return false;
     case INIT_DRY_RUN:
     case INIT_SCHEDULE_ERROR:
+    case INIT_SETTINGS_RENAMED:
         DEBUG << info.message;
         // Don't return an error, because these aren't critical errors
-        break;
+        return true;
     case INIT_SCHEDULE_OK:
         // info.message contains longer text intended for a GUI message box.
         DEBUG << info.extra;
-        break;
-    case INIT_SETTINGS_RENAMED:
-        DEBUG << "Got INIT_SETTINGS_RENAMED; should not happen here!";
-        return false;
+        return true;
     }
 
-    // We don't have anything else to do
-    return true;
+    // Should not happen
+    DEBUG << "AppCmdline: unexpected info.status:" << info.status;
+    return false;
 }
 
 bool AppCmdline::prepMainLoop()

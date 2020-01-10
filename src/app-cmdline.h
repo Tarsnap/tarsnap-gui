@@ -36,6 +36,8 @@ public:
 private:
     QString _configDir;
     bool    _checkOption;
+
+    bool handle_step(const struct init_info info);
 };
 
 #endif // APP_CMDLINE_H

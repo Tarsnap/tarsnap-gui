@@ -19,7 +19,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 }
 
-class TestCmdline : public QObject
+class TestAppCmdline : public QObject
 {
     Q_OBJECT
 
@@ -30,25 +30,25 @@ private slots:
     void appdir_init();
 };
 
-void TestCmdline::initTestCase()
+void TestAppCmdline::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
     HANDLE_IGNORING_XDG_HOME;
 
     // Initialize debug messages.
-    const char *argv[] = {"test-cmdline"};
+    const char *argv[] = {"test-app-cmdline"};
     WARNP_INIT;
 }
 
-void TestCmdline::normal_init()
+void TestAppCmdline::normal_init()
 {
     struct optparse *opt;
 
     // Create command-line arguments
     int   argc = 1;
     char *argv[1];
-    argv[0] = strdup("./test-cmdline");
+    argv[0] = strdup("./test-app-cmdline");
 
     // Parse command-line arguments
     if((opt = optparse_parse(argc, argv)) == nullptr)
@@ -77,14 +77,14 @@ void TestCmdline::normal_init()
     free(argv[0]);
 }
 
-void TestCmdline::appdir_init()
+void TestAppCmdline::appdir_init()
 {
     struct optparse *opt;
 
     // Create command-line arguments
     int   argc = 3;
     char *argv[3];
-    argv[0] = strdup("./test-cmdline");
+    argv[0] = strdup("./test-app-cmdline");
     argv[1] = strdup("--appdata");
     argv[2] = strdup("confdir");
 
@@ -117,5 +117,5 @@ void TestCmdline::appdir_init()
     free(argv[2]);
 }
 
-QTEST_MAIN(TestCmdline)
-#include "test-cmdline.moc"
+QTEST_MAIN(TestAppCmdline)
+#include "test-app-cmdline.moc"

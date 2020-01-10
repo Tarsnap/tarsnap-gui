@@ -36,12 +36,6 @@ bool AppCmdline::initializeCore()
 
     // Set up Settings.
     info = init_shared_settings(_configDir);
-    if(info.status == INIT_SETTINGS_RENAMED)
-        DEBUG << info.message;
-
-    // Check if we need to run the setup, check --dry-run, update
-    // scheduling path.
-    info = init_shared_core();
 
     // Set up the translator.
     TSettings settings;
@@ -49,6 +43,14 @@ bool AppCmdline::initializeCore()
     Translator &translator = Translator::instance();
     translator.translateApp(
         this, settings.value("app/language", LANG_AUTO).toString());
+
+    // Check the result of init_shared_settings (after we have the Translator).
+    if(info.status == INIT_SETTINGS_RENAMED)
+        DEBUG << info.message;
+
+    // Check if we need to run the setup, check --dry-run, update
+    // scheduling path.
+    info = init_shared_core();
 
     switch(info.status)
     {

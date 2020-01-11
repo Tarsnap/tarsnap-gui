@@ -1,14 +1,14 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QtTest/QtTest>
+#include <QCoreApplication>
+#include <QObject>
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
 #include "app-cmdline.h"
 #include "init-shared.h"
-#include "persistentmodel/persistentstore.h"
 
 #include <TSettings.h>
 
@@ -23,7 +23,8 @@ class TestAppCmdline : public QObject
 {
     Q_OBJECT
 
-private slots:
+    /* We're not running this within QTest. */
+public:
     void initTestCase();
 
     void normal_init();
@@ -33,6 +34,9 @@ private slots:
 void TestAppCmdline::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
+
+    // QTest normally takes care of ::setApplicationName.
+    QCoreApplication::setApplicationName(TEST_NAME);
 
     HANDLE_IGNORING_XDG_HOME;
 
@@ -52,7 +56,10 @@ void TestAppCmdline::normal_init()
 
     // Parse command-line arguments
     if((opt = optparse_parse(argc, argv)) == nullptr)
-        QVERIFY(opt != nullptr);
+    {
+        warn0("optparse_parse");
+        exit(1);
+    }
 
     // This scope is how we do it in main.cpp
     {
@@ -63,15 +70,21 @@ void TestAppCmdline::normal_init()
 
         // Act on any initialization failures
         if(!app.handle_init(steps))
-            QFAIL("Could not initialize app");
+        {
+            warn0("Could not initialize app");
+            exit(1);
+        }
     }
 
     // Check that it read the right config file.
     TSettings settings;
-    QVERIFY(settings.value("tarsnap/user", "") == "normal_init");
+    if(settings.value("tarsnap/user", "") != "normal_init")
+    {
+        warn0("failed normal_init");
+        exit(1);
+    }
 
     // Clean up
-    PersistentStore::deinit();
     init_shared_free();
     optparse_free(opt);
     free(argv[0]);
@@ -90,7 +103,10 @@ void TestAppCmdline::appdir_init()
 
     // Parse command-line arguments
     if((opt = optparse_parse(argc, argv)) == nullptr)
-        QVERIFY(opt != nullptr);
+    {
+        warn0("optparse_parse");
+        exit(1);
+    }
 
     // This scope is how we do it in main.cpp
     {
@@ -101,15 +117,21 @@ void TestAppCmdline::appdir_init()
 
         // Act on any initialization failures
         if(!app.handle_init(steps))
-            QFAIL("Could not initialize app");
+        {
+            warn0("Could not initialize app");
+            exit(1);
+        }
     }
 
     // Check that it read the right config file.
     TSettings settings;
-    QVERIFY(settings.value("tarsnap/user", "") == "appdata_init");
+    if(settings.value("tarsnap/user", "") != "appdata_init")
+    {
+        warn0("failed appdata_init");
+        exit(1);
+    }
 
     // Clean up
-    PersistentStore::deinit();
     init_shared_free();
     optparse_free(opt);
     free(argv[0]);
@@ -117,5 +139,33 @@ void TestAppCmdline::appdir_init()
     free(argv[2]);
 }
 
-QTEST_MAIN(TestAppCmdline)
+/*
+ * We're using an explicit main() so that QTest won't make its own
+ * QCoreApplication, as we're only allowed to have one at once.
+ */
+int main(int argc, char *argv[])
+{
+    TestAppCmdline *tac = new TestAppCmdline();
+
+    /* Basic initialization. */
+    tac->initTestCase();
+
+    if(argc > 1)
+    {
+        warn0("Command-line arguments not supported in this test.");
+        exit(1);
+    }
+    (void)argv; /* UNUSED */
+
+    /* Run tests. */
+    tac->normal_init();
+    tac->appdir_init();
+
+    /* Clean up. */
+    delete tac;
+
+    /* Success! */
+    return (0);
+}
+
 #include "test-app-cmdline.moc"

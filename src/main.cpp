@@ -35,7 +35,7 @@ static int run_cmdline(int argc, char *argv[], struct optparse *opt)
     }
 
     // Should we launch the event loop?
-    if(app.prepMainLoop())
+    if(app.prepEventLoop())
         ret = app.exec();
     else
         ret = EXIT_SUCCESS;
@@ -62,7 +62,7 @@ static int run_gui_main(int argc, char *argv[], struct optparse *opt,
     }
 
     // Should we launch the event loop?
-    if(app.prepMainLoop())
+    if(app.prepEventLoop())
         ret = app.exec();
     else
         ret = EXIT_SUCCESS;

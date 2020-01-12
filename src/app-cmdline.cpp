@@ -84,7 +84,7 @@ bool AppCmdline::handle_step(const struct init_info info)
     return false;
 }
 
-bool AppCmdline::prepMainLoop()
+bool AppCmdline::prepEventLoop()
 {
     return false;
 }

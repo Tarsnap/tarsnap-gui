@@ -104,7 +104,7 @@ bool AppGui::handle_init(const QList<struct init_info> steps)
         }
     }
 
-    // We've finished initialization and can proceed to prepMainLoop().
+    // We've finished initialization and can proceed to prepEventLoop().
     return true;
 }
 
@@ -148,7 +148,7 @@ bool AppGui::handle_step(const struct init_info info)
     return false;
 }
 
-bool AppGui::prepMainLoop()
+bool AppGui::prepEventLoop()
 {
     // Initialize the PersistentStore early
     PersistentStore::instance();

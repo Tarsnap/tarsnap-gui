@@ -36,7 +36,7 @@ public:
 
     //! Prepare to pass control to the QEventLoop.
     //! \return True if the calling function should call app.exec().
-    bool prepMainLoop();
+    bool prepEventLoop();
 
 private slots:
     //! Removes the MainWindow (if it exists), resets the PersistentStore

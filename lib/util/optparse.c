@@ -108,13 +108,9 @@ optparse_parse(int argc, char * const argv[])
 	argc -= optind;
 	argv += optind;
 
-	/* We should have processed all the arguments. */
-	if (argc != 0) {
-		warn0("Unused command-line argument(s)");
-		print_help(stderr, DESCRIPTION, ARGS, NUM_ARGS);
-		goto err1;
-	}
-	(void) argv; /* argv is not used beyond this point. */
+	(void)argv; /* argv is not used beyond this point. */
+
+	/* We might have unused arguments for Qt (like --platform offscreen). */
 
 	/* Success! */
 	return (opt);

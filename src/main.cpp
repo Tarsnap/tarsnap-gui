@@ -85,12 +85,21 @@ static int run_gui(int argc, char *argv[], struct optparse *opt)
 {
     int ret;
 
-    // Initialization that doesn't require a QCoreApplication.
-    const QList<struct init_info> steps = init_shared(opt->config_dir);
+    while(true)
+    {
+        // Initialization that doesn't require a QCoreApplication.
+        const QList<struct init_info> steps = init_shared(opt->config_dir);
 
-    // initialize & launch main GUI.
-    ret = run_gui_main(argc, argv, opt, steps);
+        // Initialize & launch main GUI; exit upon error.
+        if((ret = run_gui_main(argc, argv, opt, steps)) != 0)
+            goto done;
 
+        // If we don't need to re-run the setup wizard, exit without an error.
+        if(!init_shared_need_setup())
+            goto done;
+    }
+
+done:
     init_shared_free();
 
     return (ret);

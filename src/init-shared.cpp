@@ -187,14 +187,21 @@ static QString getDefaultLogFilename()
     return appdata + QDir::separator() + DEFAULT_LOG_FILE;
 }
 
+bool init_shared_need_setup()
+{
+    TSettings settings;
+
+    bool wizardDone = settings.value("app/wizard_done", false).toBool();
+    return (!wizardDone);
+}
+
 /* Do we need to run the setup wizard? */
 static struct init_info need_setup_wizard()
 {
     struct init_info info = {INIT_OK, "", ""};
     TSettings        settings;
 
-    bool wizardDone = settings.value("app/wizard_done", false).toBool();
-    if(!wizardDone)
+    if(init_shared_need_setup())
         info.status = INIT_NEEDS_SETUP;
     return (info);
 }

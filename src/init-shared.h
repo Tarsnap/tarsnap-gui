@@ -43,6 +43,11 @@ struct init_info
 QList<struct init_info> init_shared(const QString configDir);
 
 /**
+ * Do we need to run the setup wizard?
+ */
+bool init_shared_need_setup();
+
+/**
  * Free resources allocated in the init layer.
  */
 void init_shared_free(void);

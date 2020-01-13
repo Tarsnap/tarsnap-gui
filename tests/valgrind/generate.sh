@@ -10,6 +10,7 @@ DIRS="${DIRS} qtest-minimal"
 DIRS="${DIRS} network"
 DIRS="${DIRS} qtest-gui-minimal qtest-gui-simple qtest-gui-complex"
 DIRS="${DIRS} network"
+DIRS="${DIRS} gui-simple"
 
 DEBUG=0
 

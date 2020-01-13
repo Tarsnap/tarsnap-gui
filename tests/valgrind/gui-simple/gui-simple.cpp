@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QAccessible>
 #include <QApplication>
+#include <QMetaObject>
 #include <QObject>
 WARNINGS_ENABLE
 
@@ -32,9 +33,23 @@ static void pl_object()
     delete obj;
 }
 
+static void pl_exec()
+{
+    T_APP_BEGIN_GUI;
+
+    // Queue a quit event.
+    QMetaObject::invokeMethod(app, "quit", Qt::QueuedConnection);
+
+    // Launch the event loop.
+    app->exec();
+
+    T_APP_END_GUI;
+}
+
 // clang-format off
 T_TEST_BEGIN
     MEMLEAKTEST(pl_nothing),
     MEMLEAKTEST(pl_app),
-    MEMLEAKTEST(pl_object)
+    MEMLEAKTEST(pl_object),
+    MEMLEAKTEST(pl_exec)
 T_TEST_END

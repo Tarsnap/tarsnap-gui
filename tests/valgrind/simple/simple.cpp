@@ -49,10 +49,24 @@ static void pl_processEvents()
     T_APP_END;
 }
 
+static void pl_exec()
+{
+    T_APP_BEGIN_CONSOLE;
+
+    // Queue a quit event.
+    QMetaObject::invokeMethod(app, "quit", Qt::QueuedConnection);
+
+    // Launch the event loop.
+    app->exec();
+
+    T_APP_END;
+}
+
 // clang-format off
 T_TEST_BEGIN
     MEMLEAKTEST(pl_nothing),
     MEMLEAKTEST(pl_no_app_codec),
     MEMLEAKTEST(pl_QSqlDatabase),
-    MEMLEAKTEST(pl_processEvents)
+    MEMLEAKTEST(pl_processEvents),
+    MEMLEAKTEST(pl_exec)
 T_TEST_END

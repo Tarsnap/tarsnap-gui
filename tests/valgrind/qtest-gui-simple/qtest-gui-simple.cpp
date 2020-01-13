@@ -21,6 +21,7 @@ private slots:
     void pl_nothing();
     void pl_accessible_active();
     void pl_widget();
+    void pl_accessible_setRootObject();
     void pl_font();
     void pl_qapp_font();
     void pl_label();
@@ -43,6 +44,13 @@ void TestQTestSimple::pl_accessible_active()
 void TestQTestSimple::pl_widget()
 {
     QWidget *widget = new QWidget();
+    delete widget;
+}
+
+void TestQTestSimple::pl_accessible_setRootObject()
+{
+    QWidget *widget = new QWidget();
+    QAccessible::setRootObject(widget);
     delete widget;
 }
 

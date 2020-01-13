@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QtTest/QtTest>
 
+#include <QAccessible>
 #include <QCollator>
 #include <QDialog>
 #include <QFont>
@@ -18,6 +19,7 @@ class TestQTestSimple : public QObject
 
 private slots:
     void pl_nothing();
+    void pl_accessible_active();
     void pl_widget();
     void pl_font();
     void pl_qapp_font();
@@ -30,6 +32,12 @@ private slots:
 
 void TestQTestSimple::pl_nothing()
 {
+}
+
+void TestQTestSimple::pl_accessible_active()
+{
+    volatile bool access = QAccessible::isActive();
+    (void)access; /* UNUSED */
 }
 
 void TestQTestSimple::pl_widget()

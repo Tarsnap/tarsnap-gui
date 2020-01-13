@@ -100,9 +100,8 @@ optparse_parse(int argc, char * const argv[])
 			print_help(stderr, DESCRIPTION, ARGS, NUM_ARGS);
 			goto err1;
 		GETOPT_DEFAULT:
-			warn0("illegal option -- %s\n", ch);
-			print_help(stderr, DESCRIPTION, ARGS, NUM_ARGS);
-			goto err1;
+			/* Don't complain about unrecognized options. */
+			break;
 		}
 	}
 	argc -= optind;

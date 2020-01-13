@@ -21,6 +21,13 @@ AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
     // better safe than sorry!
     _checkOption = (opt->check == 1);
     _configDir   = opt->config_dir;
+
+    // Set up the translator.
+    TSettings settings;
+    Translator::initializeTranslator();
+    Translator &translator = Translator::instance();
+    translator.translateApp(
+        this, settings.value("app/language", LANG_AUTO).toString());
 }
 
 AppCmdline::~AppCmdline()
@@ -30,14 +37,6 @@ AppCmdline::~AppCmdline()
 
 bool AppCmdline::handle_init(const QList<struct init_info> steps)
 {
-
-    // Set up the translator.
-    TSettings settings;
-    Translator::initializeTranslator();
-    Translator &translator = Translator::instance();
-    translator.translateApp(
-        this, settings.value("app/language", LANG_AUTO).toString());
-
     // Handle each step of the initialization
     for(const struct init_info &info : steps)
     {

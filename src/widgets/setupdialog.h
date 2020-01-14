@@ -52,6 +52,8 @@ public slots:
     void back();
     /// Advances to the next page, as per QWizard::next().
     void next();
+    /// Get the ui object.
+    Ui::SetupDialog *get_ui();
 #endif
 
 signals:

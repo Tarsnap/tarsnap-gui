@@ -174,6 +174,11 @@ void SetupDialog::next()
 {
     nextButtonClicked();
 }
+
+Ui::SetupDialog *SetupDialog::get_ui()
+{
+    return _ui;
+}
 #endif
 
 void SetupDialog::backButtonClicked()

@@ -39,9 +39,7 @@ public:
     bool prepEventLoop();
 
 private slots:
-    //! Removes the MainWindow (if it exists), resets the PersistentStore
-    //! and app Settings, then runs initializeCore().  Used as a preliminary
-    //! step before the SetupWizard.
+    //! Restart so that we can run the SetupWizard.
     void reinit();
     //! Creates a MainWindow.
     void showMainWindow();
@@ -54,8 +52,6 @@ private:
     QThread      _managerThread;
     bool         _jobsOption;
     QString      _configDir;
-
-    bool runSetupWizard();
 
     bool handle_step(const struct init_info info);
 };

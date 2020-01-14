@@ -60,24 +60,6 @@ bool AppGui::handle_init(const QList<struct init_info> steps)
     // Handle each step of the initialization
     for(const struct init_info &info : steps)
     {
-        // Special handling for INIT_NEEDS_SETUP until we've separated it out
-        // into another class.  Must be before the regular handling of
-        // messages/errors from init_shared_code().
-        if(info.status == INIT_NEEDS_SETUP)
-        {
-            // Run the setup wizard (if necessary).  This uses the translator,
-            // and can be tested with:
-            //    $ LANGUAGE=ro ./tarsnap-gui
-            if(!runSetupWizard())
-                return false;
-            // Clean up everything
-            Translator::destroy();
-            init_shared_free();
-            // Restart
-            QList<struct init_info> newsteps = init_shared(_configDir);
-            return handle_init(newsteps);
-        }
-
         if(!handle_step(info))
             return false;
 
@@ -121,6 +103,8 @@ bool AppGui::handle_step(const struct init_info info)
     case INIT_OK:
         return true;
     case INIT_NEEDS_SETUP:
+        QMessageBox::warning(nullptr, tr("Tarsnap warning"),
+                             tr("Cannot complete setup."));
         return false;
     case INIT_DB_FAILED:
         QMessageBox::warning(nullptr, tr("Tarsnap warning"),
@@ -272,56 +256,11 @@ void AppGui::showMainWindow()
 
 void AppGui::reinit()
 {
-    disconnect(&_taskManager, &TaskManager::displayNotification, &_notification,
-               &Notification::displayNotification);
-    disconnect(&_taskManager, &TaskManager::message, _journal, &Journal::log);
-
-    if(_mainWindow)
-    {
-        delete _mainWindow;
-        _mainWindow = nullptr;
-    }
-
-    // reset existing persistent store and app settings
-    PersistentStore &store = PersistentStore::instance();
-    store.purge();
-
     TSettings settings;
     if(settings.contains("app/wizard_done"))
     {
         settings.clear();
     }
-    init_shared_free();
 
-    QList<struct init_info> newsteps = init_shared(_configDir);
-    if(!handle_init(newsteps))
-    {
-        QMessageBox::critical(nullptr, tr("Failed to launch application"),
-                              tr("An unknown error occurred."));
-        exit(EXIT_FAILURE);
-    }
-    showMainWindow();
-}
-
-bool AppGui::runSetupWizard()
-{
-    // Show the first time setup dialog
-    SetupDialog wizard;
-    connect(&wizard, &SetupDialog::tarsnapVersionRequested, &_taskManager,
-            &TaskManager::tarsnapVersionFind);
-    connect(&_taskManager, &TaskManager::tarsnapVersionFound, &wizard,
-            &SetupDialog::tarsnapVersionResponse);
-    connect(&wizard, &SetupDialog::registerMachineRequested, &_taskManager,
-            &TaskManager::registerMachineDo);
-    connect(&_taskManager, &TaskManager::registerMachineDone, &wizard,
-            &SetupDialog::registerMachineResponse);
-    connect(&_taskManager, &TaskManager::idle, &wizard,
-            &SetupDialog::updateLoadingAnimation);
-
-    if(QDialog::Rejected == wizard.exec())
-    {
-        quit();       // if we're running in the loop
-        return false; // if called from main
-    }
-    return true;
+    QApplication::exit(EXIT_SUCCESS);
 }

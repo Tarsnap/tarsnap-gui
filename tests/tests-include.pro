@@ -54,7 +54,7 @@ TEST_ENV =	XDG_CONFIG_HOME=$${TEST_HOME}		\
 		XDG_RUNTIME_DIR=$${TEST_HOME}
 
 contains(QT, gui) || contains(QT, widgets) {
-	test.commands = $${TEST_ENV} ./${TARGET} -platform offscreen \${ONLY}
+	test.commands = $${TEST_ENV} QT_QPA_PLATFORM=offscreen ./${TARGET} \${ONLY}
 	test_visual.depends = ${TARGET} test_home_prep
 	test_visual.commands = $${TEST_ENV} ./${TARGET} \${ONLY}
 } else {
@@ -76,7 +76,7 @@ QMAKE_EXTRA_TARGETS += test test_visual test_home_prep
 			--error-exitcode=108"
 
 	contains(QT, gui) || contains(QT, widgets) {
-		test_valgrind.commands = $${TEST_ENV} $${VALGRIND_CMD} ./${TARGET} -platform offscreen \${ONLY}
+		test_valgrind.commands = $${TEST_ENV} QT_QPA_PLATFORM=offscreen $${VALGRIND_CMD} ./${TARGET} \${ONLY}
 	} else {
 		test_valgrind.commands = $${TEST_ENV} $${VALGRIND_CMD} ./${TARGET} \${ONLY}
 	}

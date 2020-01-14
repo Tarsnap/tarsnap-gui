@@ -223,6 +223,7 @@ OBJECTS_DIR = build/gui/
 UNIT_TESTS =						\
 	tests/mainwindow				\
 	tests/app-cmdline				\
+	tests/app-setup					\
 	tests/jobstabwidget				\
 	tests/settingswidget				\
 	tests/backuptabwidget				\

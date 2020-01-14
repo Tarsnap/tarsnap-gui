@@ -56,6 +56,7 @@ SOURCES +=						\
 	libcperciva/util/warnp.c			\
 	src/app-cmdline.cpp				\
 	src/app-gui.cpp					\
+	src/app-setup.cpp				\
 	src/backuptask.cpp				\
 	src/customfilesystemmodel.cpp			\
 	src/filetablemodel.cpp				\
@@ -111,6 +112,7 @@ HEADERS +=						\
 	libcperciva/util/warnp.h			\
 	src/app-cmdline.h				\
 	src/app-gui.h					\
+	src/app-setup.h					\
 	src/backuptask.h				\
 	src/customfilesystemmodel.h			\
 	src/debug.h					\

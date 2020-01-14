@@ -31,6 +31,7 @@ valgrind_cmd="valgrind						\
 generate_supp() {
 	cmd=$1
 	func=$2
+	envvar=$3
 
 	# Verbose output.
 	if [ "$DEBUG" -eq 1 ]; then
@@ -47,7 +48,7 @@ generate_supp() {
 	printf "# ${testdir} ${func}\n" > "${valgrind_suppressions_this}"
 
 	# Generate suppressions arising from the specific function.
-	${valgrind_cmd}	${run_cmd} ${func} > /dev/null
+	env ${envvar} ${valgrind_cmd} ${run_cmd} ${func} > /dev/null
 
 	# Strip out useless parts from the log file and remove it.
 	(grep -v "^==" ${valgrind_log}				\
@@ -69,42 +70,42 @@ generate_supp() {
 
 generate_supp_with_funcs() {
 	# Make suppressions for our "do nothing" function.
-	generate_supp "${run_cmd}" "pl_nothing"
+	generate_supp "${run_cmd}" "pl_nothing" ""
 
 	# Make suppressions for each function.
 	${run_cmd} | while read func; do				\
 		if [ "z${func}" = "zpl_nothing" ]; then
 			continue
 		fi
-		generate_supp "${run_cmd}" "${func}"
+		generate_supp "${run_cmd}" "${func}" ""
 	done
 
 	# Make suppressions for no arguments
-	generate_supp "${run_cmd}" ""
+	generate_supp "${run_cmd}" "" ""
 }
 
 generate_supp_for_qtest() {
-	platform=$1
+	platform_env=$1
 
 	# In the below lines, we deliberately don't use a space after
 	# ${platform} so that there's no extra space if it's only "".
 
 	# Make suppressions for our "do nothing" function.
-	generate_supp "${run_cmd}" "${platform}pl_nothing"
+	generate_supp "${run_cmd}" "pl_nothing" "${platform_env}"
 
 	# Make suppressions for each function (other than "do nothing",
 	# which was handled above).
-	${run_cmd} ${platform}-functions			\
+	env ${platform_env} ${run_cmd} -functions		\
 	    | sed 's/()//g'					\
 	    | while read func; do				\
 		if [ "z${func}" = "zpl_nothing" ]; then
 			continue
 		fi
-		generate_supp "${run_cmd}" "${platform}${func}"
+		generate_supp "${run_cmd}" "${func}" "${platform_env}"
 	done
 
 	# Make suppressions for running the full binary.
-	generate_supp "${run_cmd}" "${platform}"
+	generate_supp "${run_cmd}" "" "${platform_env}"
 }
 
 generate_supp_from_dir() {
@@ -124,7 +125,7 @@ generate_supp_from_dir() {
 	else
 		# Make sure we can run the commands without a GUI.
 		if test "${testdir#*-gui}" != "${testdir}"; then
-			generate_supp_for_qtest "-platform offscreen "
+			generate_supp_for_qtest "QT_QPA_PLATFORM=offscreen "
 		else
 			generate_supp_for_qtest ""
 		fi

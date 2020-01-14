@@ -25,7 +25,10 @@ void PersistentStore::initializePersistentStore()
 
 void PersistentStore::destroy()
 {
-    Q_ASSERT(global_store != nullptr);
+    // This will happen if init_shared.cpp produces INIT_NEEDS_SETUP -- it
+    // bails early from init_shared().
+    if(global_store == nullptr)
+        return;
 
     // Clean up.
     delete global_store;

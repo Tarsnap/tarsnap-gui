@@ -167,11 +167,15 @@ void SetupDialog::wizardPageChanged(int)
 #ifdef QT_TESTLIB_LIB
 void SetupDialog::back()
 {
+    if(!_ui->backButton->isEnabled())
+        return;
     backButtonClicked();
 }
 
 void SetupDialog::next()
 {
+    if(!_ui->nextButton->isEnabled())
+        return;
     nextButtonClicked();
 }
 

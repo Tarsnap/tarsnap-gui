@@ -14,6 +14,7 @@ WARNINGS_ENABLE
 #include "app-cmdline.h"
 #ifdef QT_GUI_LIB
 #include "app-gui.h"
+#include "app-setup.h"
 #endif
 #include "init-shared.h"
 
@@ -81,6 +82,41 @@ done:
     return (ret);
 }
 
+static int run_gui_setup(int argc, char *argv[],
+                         const QList<struct init_info> steps)
+{
+    int ret;
+
+#ifdef QT_GUI_LIB
+    // Basic initialization that cannot fail.
+    AppSetup app(argc, argv);
+
+    // Act on any initialization failures.
+    if(!app.handle_init(steps))
+    {
+        ret = EXIT_FAILURE;
+        goto done;
+    }
+
+    // Should we launch the event loop?
+    if(app.prepEventLoop())
+        ret = app.exec();
+    else
+        ret = EXIT_FAILURE;
+
+done:
+#else
+    (void)argc;
+    (void)argv;
+    (void)steps;
+
+    warn0("This binary does not support GUI operations");
+    ret = 1;
+#endif
+
+    return (ret);
+}
+
 static int run_gui(int argc, char *argv[], struct optparse *opt)
 {
     int ret;
@@ -90,13 +126,23 @@ static int run_gui(int argc, char *argv[], struct optparse *opt)
         // Initialization that doesn't require a QCoreApplication.
         const QList<struct init_info> steps = init_shared(opt->config_dir);
 
-        // Initialize & launch main GUI; exit upon error.
-        if((ret = run_gui_main(argc, argv, opt, steps)) != 0)
-            goto done;
+        // Initialize & launch setup (if applicable).
+        if(init_shared_need_setup())
+        {
+            if((ret = run_gui_setup(argc, argv, steps)) != 0)
+                goto done;
+        }
+        else
+        {
+            // Initialize & launch main GUI.
+            if((ret = run_gui_main(argc, argv, opt, steps)) != 0)
+                goto done;
 
-        // If we don't need to re-run the setup wizard, exit without an error.
-        if(!init_shared_need_setup())
-            goto done;
+            // If we don't need to re-run the setup wizard, exit without an
+            // error.
+            if(!init_shared_need_setup())
+                goto done;
+        }
     }
 
 done:

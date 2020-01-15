@@ -271,6 +271,9 @@ void TestSetupWizard::version_too_low()
     setupWizard->tarsnapVersionResponse(TaskStatus::VersionTooLow, "1.0.1");
     QVERIFY(ui->cliValidationLabel->text().contains("too low"));
     QVERIFY(ui->nextButton->isEnabled() == false);
+    // With platform=offscreen, ->isVisible() always returns false.
+    // Instead, check the negation of ->isHidden()
+    QVERIFY(ui->cliAdvancedWidget->isHidden() == false);
     VISUAL_WAIT;
 
     delete setupWizard;

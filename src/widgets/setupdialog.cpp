@@ -482,10 +482,12 @@ void SetupDialog::tarsnapVersionResponse(TaskStatus status,
         _ui->cliValidationLabel->setText(
             tr("Tarsnap CLI version ") + versionString
             + tr(" too low; must be at least %1").arg(TARSNAP_MIN_VERSION));
+        _ui->cliAdvancedButton->setChecked(true);
         break;
     case TaskStatus::Failed:
         _ui->cliValidationLabel->setText(
             tr("Error retrieving Tarsnap CLI verison"));
+        _ui->cliAdvancedButton->setChecked(true);
         break;
     default:
         break;

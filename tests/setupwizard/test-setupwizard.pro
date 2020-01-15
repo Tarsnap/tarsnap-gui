@@ -23,4 +23,6 @@ SOURCES += test-setupwizard.cpp				\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/setupdialog.cpp
 
+RESOURCES += ../../resources/resources.qrc
+
 include(../tests-include.pro)

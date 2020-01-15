@@ -151,7 +151,7 @@ void TestSetupWizard::skip_install()
     VISUAL_INIT(setupWizard);
 
     // Page 1; the "back" button is actually a "skip" on this page.
-    QVERIFY(ui->titleLabel->text() == "Setup wizard");
+    QVERIFY(setupWizard->pageTitle() == "Setup wizard");
     QTest::mouseClick(ui->backButton, Qt::LeftButton);
     VISUAL_WAIT;
 
@@ -172,12 +172,12 @@ void TestSetupWizard::normal_install()
     VISUAL_INIT(setupWizard);
 
     // Page 1
-    QVERIFY(ui->titleLabel->text() == "Setup wizard");
+    QVERIFY(setupWizard->pageTitle() == "Setup wizard");
     setupWizard->next();
     VISUAL_WAIT;
 
     // Page 2
-    QVERIFY(ui->titleLabel->text() == "Command-line utilities");
+    QVERIFY(setupWizard->pageTitle() == "Command-line utilities");
     QVERIFY(sig_cli.count() == 1);
     // Fake the CLI detection and checking
     setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
@@ -186,7 +186,7 @@ void TestSetupWizard::normal_install()
     VISUAL_WAIT;
 
     // Page 3
-    QVERIFY(ui->titleLabel->text() == "Register with server");
+    QVERIFY(setupWizard->pageTitle() == "Register with server");
     // Pretend that we already have a key
     setupWizard->useExistingKeyfile();
     ui->useExistingKeyfileButton->setChecked(true);
@@ -199,7 +199,7 @@ void TestSetupWizard::normal_install()
     VISUAL_WAIT;
 
     // Page 4
-    QVERIFY(ui->titleLabel->text() == "Setup complete!");
+    QVERIFY(setupWizard->pageTitle() == "Setup complete!");
     setupWizard->next();
     VISUAL_WAIT;
 
@@ -222,7 +222,7 @@ void TestSetupWizard::cli()
 
     // Advance to CLI page and expand advanced options
     setupWizard->next();
-    QVERIFY(ui->titleLabel->text() == "Command-line utilities");
+    QVERIFY(setupWizard->pageTitle() == "Command-line utilities");
     ui->cliAdvancedButton->click();
     VISUAL_WAIT;
 
@@ -264,7 +264,7 @@ void TestSetupWizard::version_too_low()
 
     // Advance to CLI page
     setupWizard->next();
-    QVERIFY(ui->titleLabel->text() == "Command-line utilities");
+    QVERIFY(setupWizard->pageTitle() == "Command-line utilities");
     VISUAL_WAIT;
 
     // Fake detecting the binaries with a too-low version number

@@ -183,6 +183,11 @@ Ui::SetupDialog *SetupDialog::get_ui()
 {
     return _ui;
 }
+
+QString SetupDialog::pageTitle() const
+{
+    return _ui->titleLabel->text();
+}
 #endif
 
 void SetupDialog::backButtonClicked()

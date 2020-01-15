@@ -54,6 +54,8 @@ public slots:
     void next();
     /// Get the ui object.
     Ui::SetupDialog *get_ui();
+    /// Get the current page title.
+    QString pageTitle() const;
 #endif
 
 signals:

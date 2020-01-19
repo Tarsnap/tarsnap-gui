@@ -6,6 +6,7 @@ VALGRIND = true
 FORMS += ../../forms/setupdialog.ui
 
 HEADERS  +=						\
+	compare-settings.h				\
 	../../lib/core/TSettings.h			\
 	../../src/tasks/tasks-utils.h			\
 	../../src/utils.h				\
@@ -15,6 +16,7 @@ HEADERS  +=						\
 	../../tests/qtest-platform.h
 
 SOURCES += test-setupwizard.cpp				\
+	compare-settings.cpp				\
 	../../lib/core/TSettings.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/utils.cpp				\

@@ -81,8 +81,8 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    void cancel_install();
     void normal_install();
+    void cancel_install();
     void skip_install();
     void cli();
     void version_too_low();
@@ -105,31 +105,6 @@ void TestSetupWizard::initTestCase()
 void TestSetupWizard::cleanupTestCase()
 {
     TSettings::destroy();
-}
-
-void TestSetupWizard::cancel_install()
-{
-    TARSNAP_CLI_OR_SKIP;
-
-    SetupDialog *setupWizard = new SetupDialog();
-
-    // Almost complete a normal install
-    helper_almost_normal_install(setupWizard);
-
-    // Close before we actually finish
-    QTest::keyEvent(QTest::Click, setupWizard, Qt::Key_Escape);
-    VISUAL_WAIT;
-
-    // Clean up
-    delete setupWizard;
-
-    // Check that we wiped the Tarsnap-related settings
-    TSettings  settings;
-    QSettings *q = settings.getQSettings();
-    q->beginGroup("tarsnap");
-    QVERIFY(q->allKeys().length() == 0);
-    q->beginGroup("app");
-    QVERIFY(q->allKeys().length() == 0);
 }
 
 void TestSetupWizard::helper_almost_normal_install(SetupDialog *setupWizard)
@@ -193,6 +168,31 @@ void TestSetupWizard::normal_install()
 
     // Clean up
     delete setupWizard;
+}
+
+void TestSetupWizard::cancel_install()
+{
+    TARSNAP_CLI_OR_SKIP;
+
+    SetupDialog *setupWizard = new SetupDialog();
+
+    // Almost complete a normal install
+    helper_almost_normal_install(setupWizard);
+
+    // Close before we actually finish
+    QTest::keyEvent(QTest::Click, setupWizard, Qt::Key_Escape);
+    VISUAL_WAIT;
+
+    // Clean up
+    delete setupWizard;
+
+    // Check that we wiped the Tarsnap-related settings
+    TSettings  settings;
+    QSettings *q = settings.getQSettings();
+    q->beginGroup("tarsnap");
+    QVERIFY(q->allKeys().length() == 0);
+    q->beginGroup("app");
+    QVERIFY(q->allKeys().length() == 0);
 }
 
 void TestSetupWizard::skip_install()

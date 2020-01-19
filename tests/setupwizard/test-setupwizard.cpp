@@ -155,6 +155,11 @@ void TestSetupWizard::skip_install()
     QTest::mouseClick(ui->backButton, Qt::LeftButton);
     VISUAL_WAIT;
 
+    // Check resulting init file.
+    TSettings settings;
+    QSettings target("after-skip-install.conf", QSettings::IniFormat);
+    QVERIFY(compareSettings(settings.getQSettings(), &target));
+
     // Clean up
     delete setupWizard;
 }

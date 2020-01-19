@@ -87,6 +87,9 @@ private slots:
     void skip_install_late();
     void cli();
     void version_too_low();
+
+private:
+    void helper_almost_normal_install(SetupDialog *setupWizard);
 };
 
 void TestSetupWizard::initTestCase()
@@ -109,22 +112,10 @@ void TestSetupWizard::cancel_install()
 {
     TARSNAP_CLI_OR_SKIP;
 
-    SetupDialog *    setupWizard = new SetupDialog();
-    Ui::SetupDialog *ui          = setupWizard->_ui;
+    SetupDialog *setupWizard = new SetupDialog();
 
-    VISUAL_INIT(setupWizard);
-
-    // Proceed through almost all of the wizard.
-    setupWizard->next();
-    setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
-    setupWizard->next();
-    setupWizard->useExistingKeyfile();
-    ui->useExistingKeyfileButton->setChecked(true);
-    ui->machineKeyCombo->setCurrentText("fake.key");
-    ui->nextButton->setEnabled(true);
-    setupWizard->next();
-    setupWizard->registerMachineResponse(TaskStatus::Completed, "");
-    VISUAL_WAIT;
+    // Almost complete a normal install
+    helper_almost_normal_install(setupWizard);
 
     // Close before we actually finish
     QTest::keyEvent(QTest::Click, setupWizard, Qt::Key_Escape);
@@ -165,12 +156,9 @@ void TestSetupWizard::skip_install()
     delete setupWizard;
 }
 
-void TestSetupWizard::normal_install()
+void TestSetupWizard::helper_almost_normal_install(SetupDialog *setupWizard)
 {
-    TARSNAP_CLI_OR_SKIP;
-
-    SetupDialog *    setupWizard = new SetupDialog();
-    Ui::SetupDialog *ui          = setupWizard->_ui;
+    Ui::SetupDialog *ui = setupWizard->_ui;
     QSignalSpy       sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested()));
     QSignalSpy       sig_register(setupWizard,
                             SIGNAL(registerMachineRequested(QString, bool)));
@@ -206,6 +194,19 @@ void TestSetupWizard::normal_install()
 
     // Page 4
     QVERIFY(setupWizard->pageTitle() == "Setup complete!");
+    VISUAL_WAIT;
+}
+
+void TestSetupWizard::normal_install()
+{
+    TARSNAP_CLI_OR_SKIP;
+
+    SetupDialog *setupWizard = new SetupDialog();
+
+    // Almost complete a normal install
+    helper_almost_normal_install(setupWizard);
+
+    // Finish the install
     setupWizard->next();
     VISUAL_WAIT;
 
@@ -224,41 +225,9 @@ void TestSetupWizard::skip_install_late()
 
     SetupDialog *    setupWizard = new SetupDialog();
     Ui::SetupDialog *ui          = setupWizard->_ui;
-    QSignalSpy       sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested()));
-    QSignalSpy       sig_register(setupWizard,
-                            SIGNAL(registerMachineRequested(QString, bool)));
 
-    VISUAL_INIT(setupWizard);
-
-    // Page 1
-    QVERIFY(setupWizard->pageTitle() == "Setup wizard");
-    setupWizard->next();
-    VISUAL_WAIT;
-
-    // Page 2
-    QVERIFY(setupWizard->pageTitle() == "Command-line utilities");
-    QVERIFY(sig_cli.count() == 1);
-    // Fake the CLI detection and checking
-    setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
-    QVERIFY(ui->cliValidationLabel->text().contains("Tarsnap CLI version"));
-    setupWizard->next();
-    VISUAL_WAIT;
-
-    // Page 3
-    QVERIFY(setupWizard->pageTitle() == "Register with server");
-    // Pretend that we already have a key
-    setupWizard->useExistingKeyfile();
-    ui->useExistingKeyfileButton->setChecked(true);
-    ui->machineKeyCombo->setCurrentText("fake.key");
-    ui->nextButton->setEnabled(true);
-    setupWizard->next();
-    // Check results of registration
-    QVERIFY(sig_register.count() == 1);
-    setupWizard->registerMachineResponse(TaskStatus::Completed, "");
-    VISUAL_WAIT;
-
-    // Page 4
-    QVERIFY(setupWizard->pageTitle() == "Setup complete!");
+    // Almost complete a normal install
+    helper_almost_normal_install(setupWizard);
 
     // Now go back to the beginning and skip the install
     setupWizard->back();

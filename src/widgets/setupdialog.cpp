@@ -190,11 +190,21 @@ QString SetupDialog::pageTitle() const
 }
 #endif
 
+void SetupDialog::skipWizard()
+{
+    // Remove any saved settings
+    TSettings settings;
+    settings.clear();
+
+    // Indicate that we've finished (successfully)
+    finishedWizard();
+}
+
 void SetupDialog::backButtonClicked()
 {
     int nextIndex = _ui->wizardStackedWidget->currentIndex() - 1;
     if(nextIndex < 0)
-        finishedWizard();
+        skipWizard();
     else
         _ui->wizardStackedWidget->setCurrentIndex(nextIndex);
 }

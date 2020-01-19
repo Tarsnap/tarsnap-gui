@@ -60,6 +60,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupDialog *setupWizard)
                             SIGNAL(registerMachineRequested(QString, bool)));
 
     VISUAL_INIT(setupWizard);
+    IF_NOT_VISUAL { setupWizard->open(); }
 
     // Page 1
     QVERIFY(setupWizard->pageTitle() == "Setup wizard");
@@ -175,6 +176,7 @@ void TestSetupWizard::cli()
     QSignalSpy       sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested()));
 
     VISUAL_INIT(setupWizard);
+    IF_NOT_VISUAL { setupWizard->open(); }
 
     // Advance to CLI page and expand advanced options
     setupWizard->next();
@@ -217,6 +219,7 @@ void TestSetupWizard::version_too_low()
     Ui::SetupDialog *ui          = setupWizard->_ui;
 
     VISUAL_INIT(setupWizard);
+    IF_NOT_VISUAL { setupWizard->open(); }
 
     // Advance to CLI page
     setupWizard->next();

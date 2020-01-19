@@ -84,6 +84,7 @@ private slots:
     void cancel_install();
     void skip_install();
     void normal_install();
+    void skip_install_late();
     void cli();
     void version_too_low();
 };
@@ -211,6 +212,66 @@ void TestSetupWizard::normal_install()
     // Check resulting init file.  The first can be in any format (for now).
     TSettings settings;
     QSettings target("after-normal-install.conf", QSettings::IniFormat);
+    QVERIFY(compareSettings(settings.getQSettings(), &target));
+
+    // Clean up
+    delete setupWizard;
+}
+
+void TestSetupWizard::skip_install_late()
+{
+    TARSNAP_CLI_OR_SKIP;
+
+    SetupDialog *    setupWizard = new SetupDialog();
+    Ui::SetupDialog *ui          = setupWizard->_ui;
+    QSignalSpy       sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested()));
+    QSignalSpy       sig_register(setupWizard,
+                            SIGNAL(registerMachineRequested(QString, bool)));
+
+    VISUAL_INIT(setupWizard);
+
+    // Page 1
+    QVERIFY(setupWizard->pageTitle() == "Setup wizard");
+    setupWizard->next();
+    VISUAL_WAIT;
+
+    // Page 2
+    QVERIFY(setupWizard->pageTitle() == "Command-line utilities");
+    QVERIFY(sig_cli.count() == 1);
+    // Fake the CLI detection and checking
+    setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
+    QVERIFY(ui->cliValidationLabel->text().contains("Tarsnap CLI version"));
+    setupWizard->next();
+    VISUAL_WAIT;
+
+    // Page 3
+    QVERIFY(setupWizard->pageTitle() == "Register with server");
+    // Pretend that we already have a key
+    setupWizard->useExistingKeyfile();
+    ui->useExistingKeyfileButton->setChecked(true);
+    ui->machineKeyCombo->setCurrentText("fake.key");
+    ui->nextButton->setEnabled(true);
+    setupWizard->next();
+    // Check results of registration
+    QVERIFY(sig_register.count() == 1);
+    setupWizard->registerMachineResponse(TaskStatus::Completed, "");
+    VISUAL_WAIT;
+
+    // Page 4
+    QVERIFY(setupWizard->pageTitle() == "Setup complete!");
+
+    // Now go back to the beginning and skip the install
+    setupWizard->back();
+    setupWizard->back();
+    setupWizard->back();
+    VISUAL_WAIT;
+
+    QTest::mouseClick(ui->backButton, Qt::LeftButton);
+    VISUAL_WAIT;
+
+    // Check resulting init file.
+    TSettings settings;
+    QSettings target("after-skip-install.conf", QSettings::IniFormat);
     QVERIFY(compareSettings(settings.getQSettings(), &target));
 
     // Clean up

@@ -173,7 +173,6 @@ void TestSetupWizard::cli()
 {
     SetupDialog *    setupWizard = new SetupDialog();
     Ui::SetupDialog *ui          = setupWizard->_ui;
-    QSignalSpy       sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested()));
 
     VISUAL_INIT(setupWizard);
     IF_NOT_VISUAL { setupWizard->open(); }
@@ -181,7 +180,13 @@ void TestSetupWizard::cli()
     // Advance to CLI page and expand advanced options
     setupWizard->next();
     QVERIFY(setupWizard->pageTitle() == "Command-line utilities");
-    ui->cliAdvancedButton->click();
+    VISUAL_WAIT;
+
+    // We may or may not receive a version query, depending on whether
+    // tarsnap is installed, so don't check for this here.
+    // (We check "did we receive a version-query signal" in other
+    // tarsnap-dependent tests.)
+    setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
     VISUAL_WAIT;
 
     // App data directory

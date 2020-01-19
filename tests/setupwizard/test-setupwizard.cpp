@@ -83,7 +83,7 @@ private slots:
 
     void cancel_install();
     void normal_install();
-    void skip_install_late();
+    void skip_install();
     void cli();
     void version_too_low();
 
@@ -195,7 +195,7 @@ void TestSetupWizard::normal_install()
     delete setupWizard;
 }
 
-void TestSetupWizard::skip_install_late()
+void TestSetupWizard::skip_install()
 {
     TARSNAP_CLI_OR_SKIP;
 

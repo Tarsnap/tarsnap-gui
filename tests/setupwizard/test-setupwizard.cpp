@@ -205,7 +205,7 @@ void TestSetupWizard::normal_install()
 
     // Check resulting init file.  The first can be in any format (for now).
     TSettings settings;
-    QSettings target("after-test.conf", QSettings::IniFormat);
+    QSettings target("after-normal-install.conf", QSettings::IniFormat);
     QVERIFY(compareSettings(settings.getQSettings(), &target));
 
     // Clean up

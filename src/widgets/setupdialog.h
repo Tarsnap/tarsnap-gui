@@ -89,6 +89,7 @@ private:
 
     void initCLIPage();
     void initRegisterPage();
+    void skipWizard();
 };
 
 #endif // SETUPDIALOG_H

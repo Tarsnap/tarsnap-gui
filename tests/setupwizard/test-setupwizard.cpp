@@ -82,7 +82,6 @@ private slots:
     void cleanupTestCase();
 
     void cancel_install();
-    void skip_install();
     void normal_install();
     void skip_install_late();
     void cli();
@@ -131,29 +130,6 @@ void TestSetupWizard::cancel_install()
     QVERIFY(q->allKeys().length() == 0);
     q->beginGroup("app");
     QVERIFY(q->allKeys().length() == 0);
-}
-
-void TestSetupWizard::skip_install()
-{
-    TARSNAP_CLI_OR_SKIP;
-
-    SetupDialog *    setupWizard = new SetupDialog();
-    Ui::SetupDialog *ui          = setupWizard->_ui;
-
-    VISUAL_INIT(setupWizard);
-
-    // Page 1; the "back" button is actually a "skip" on this page.
-    QVERIFY(setupWizard->pageTitle() == "Setup wizard");
-    QTest::mouseClick(ui->backButton, Qt::LeftButton);
-    VISUAL_WAIT;
-
-    // Check resulting init file.
-    TSettings settings;
-    QSettings target("after-skip-install.conf", QSettings::IniFormat);
-    QVERIFY(compareSettings(settings.getQSettings(), &target));
-
-    // Clean up
-    delete setupWizard;
 }
 
 void TestSetupWizard::helper_almost_normal_install(SetupDialog *setupWizard)

@@ -86,6 +86,10 @@ public:
     //! Exactly like <c>QSettings::setValue()</c>.
     void setValue(const QString &key, const QVariant &value);
 
+    //! Remove the key and any sub-settings.  Exactly like
+    //! <c>QSettings::remove()</c>.
+    void remove(const QString &key);
+
     //! Clear all data.  Exactly like <c>QSettings::clear()</c>.
     void clear();
 

@@ -84,6 +84,11 @@ void TSettings::setValue(const QString &key, const QVariant &value)
     _settings->setValue(key, value);
 }
 
+void TSettings::remove(const QString &key)
+{
+    _settings->remove(key);
+}
+
 void TSettings::clear()
 {
     _settings->clear();

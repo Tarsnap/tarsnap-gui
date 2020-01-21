@@ -81,7 +81,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupDialog *setupWizard)
     // Pretend that we already have a key
     setupWizard->useExistingKeyfile();
     ui->useExistingKeyfileButton->setChecked(true);
-    ui->machineKeyCombo->setCurrentText("fake.key");
+    ui->machineKeyCombo->setCurrentText("empty.key");
     ui->nextButton->setEnabled(true);
     setupWizard->next();
     // Check results of registration

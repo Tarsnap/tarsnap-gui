@@ -33,7 +33,7 @@ private slots:
     void version_too_low();
 
 private:
-    void helper_almost_normal_install(SetupDialog *setupWizard);
+    void helper_almost_normal_install(SetupDialog *wizard);
 };
 
 void TestSetupWizard::initTestCase()
@@ -52,45 +52,45 @@ void TestSetupWizard::cleanupTestCase()
     TSettings::destroy();
 }
 
-void TestSetupWizard::helper_almost_normal_install(SetupDialog *setupWizard)
+void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
 {
-    Ui::SetupDialog *ui = setupWizard->_ui;
-    QSignalSpy       sig_cli(setupWizard, SIGNAL(tarsnapVersionRequested()));
-    QSignalSpy       sig_register(setupWizard,
+    Ui::SetupDialog *ui = wizard->_ui;
+    QSignalSpy       sig_cli(wizard, SIGNAL(tarsnapVersionRequested()));
+    QSignalSpy       sig_register(wizard,
                             SIGNAL(registerMachineRequested(QString, bool)));
 
-    VISUAL_INIT(setupWizard);
-    IF_NOT_VISUAL { setupWizard->open(); }
+    VISUAL_INIT(wizard);
+    IF_NOT_VISUAL { wizard->open(); }
 
     // Page 1
-    QVERIFY(setupWizard->pageTitle() == "Setup wizard");
-    setupWizard->next();
+    QVERIFY(wizard->pageTitle() == "Setup wizard");
+    wizard->next();
     VISUAL_WAIT;
 
     // Page 2
-    QVERIFY(setupWizard->pageTitle() == "Command-line utilities");
+    QVERIFY(wizard->pageTitle() == "Command-line utilities");
     QVERIFY(sig_cli.count() == 1);
     // Fake the CLI detection and checking
-    setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
+    wizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
     QVERIFY(ui->cliValidationLabel->text().contains("Tarsnap CLI version"));
-    setupWizard->next();
+    wizard->next();
     VISUAL_WAIT;
 
     // Page 3
-    QVERIFY(setupWizard->pageTitle() == "Register with server");
+    QVERIFY(wizard->pageTitle() == "Register with server");
     // Pretend that we already have a key
-    setupWizard->useExistingKeyfile();
+    wizard->useExistingKeyfile();
     ui->useExistingKeyfileButton->setChecked(true);
     ui->machineKeyCombo->setCurrentText("empty.key");
     ui->nextButton->setEnabled(true);
-    setupWizard->next();
+    wizard->next();
     // Check results of registration
     QVERIFY(sig_register.count() == 1);
-    setupWizard->registerMachineResponse(TaskStatus::Completed, "");
+    wizard->registerMachineResponse(TaskStatus::Completed, "");
     VISUAL_WAIT;
 
     // Page 4
-    QVERIFY(setupWizard->pageTitle() == "Setup complete!");
+    QVERIFY(wizard->pageTitle() == "Setup complete!");
     VISUAL_WAIT;
 }
 
@@ -98,13 +98,13 @@ void TestSetupWizard::normal_install()
 {
     TARSNAP_CLI_OR_SKIP;
 
-    SetupDialog *setupWizard = new SetupDialog();
+    SetupDialog *wizard = new SetupDialog();
 
     // Almost complete a normal install
-    helper_almost_normal_install(setupWizard);
+    helper_almost_normal_install(wizard);
 
     // Finish the install
-    setupWizard->next();
+    wizard->next();
     VISUAL_WAIT;
 
     // Check resulting init file.  The first can be in any format (for now).
@@ -113,24 +113,24 @@ void TestSetupWizard::normal_install()
     QVERIFY(compareSettings(settings.getQSettings(), &target));
 
     // Clean up
-    delete setupWizard;
+    delete wizard;
 }
 
 void TestSetupWizard::cancel_install()
 {
     TARSNAP_CLI_OR_SKIP;
 
-    SetupDialog *setupWizard = new SetupDialog();
+    SetupDialog *wizard = new SetupDialog();
 
     // Almost complete a normal install
-    helper_almost_normal_install(setupWizard);
+    helper_almost_normal_install(wizard);
 
     // Close before we actually finish
-    QTest::keyEvent(QTest::Click, setupWizard, Qt::Key_Escape);
+    QTest::keyEvent(QTest::Click, wizard, Qt::Key_Escape);
     VISUAL_WAIT;
 
     // Clean up
-    delete setupWizard;
+    delete wizard;
 
     // Check that we wiped the Tarsnap-related settings
     TSettings  settings;
@@ -145,16 +145,16 @@ void TestSetupWizard::skip_install()
 {
     TARSNAP_CLI_OR_SKIP;
 
-    SetupDialog *    setupWizard = new SetupDialog();
-    Ui::SetupDialog *ui          = setupWizard->_ui;
+    SetupDialog *    wizard = new SetupDialog();
+    Ui::SetupDialog *ui     = wizard->_ui;
 
     // Almost complete a normal install
-    helper_almost_normal_install(setupWizard);
+    helper_almost_normal_install(wizard);
 
     // Now go back to the beginning and skip the install
-    setupWizard->back();
-    setupWizard->back();
-    setupWizard->back();
+    wizard->back();
+    wizard->back();
+    wizard->back();
     VISUAL_WAIT;
 
     QTest::mouseClick(ui->backButton, Qt::LeftButton);
@@ -166,27 +166,27 @@ void TestSetupWizard::skip_install()
     QVERIFY(compareSettings(settings.getQSettings(), &target));
 
     // Clean up
-    delete setupWizard;
+    delete wizard;
 }
 
 void TestSetupWizard::cli()
 {
-    SetupDialog *    setupWizard = new SetupDialog();
-    Ui::SetupDialog *ui          = setupWizard->_ui;
+    SetupDialog *    wizard = new SetupDialog();
+    Ui::SetupDialog *ui     = wizard->_ui;
 
-    VISUAL_INIT(setupWizard);
-    IF_NOT_VISUAL { setupWizard->open(); }
+    VISUAL_INIT(wizard);
+    IF_NOT_VISUAL { wizard->open(); }
 
     // Advance to CLI page and expand advanced options
-    setupWizard->next();
-    QVERIFY(setupWizard->pageTitle() == "Command-line utilities");
+    wizard->next();
+    QVERIFY(wizard->pageTitle() == "Command-line utilities");
     VISUAL_WAIT;
 
     // We may or may not receive a version query, depending on whether
     // tarsnap is installed, so don't check for this here.
     // (We check "did we receive a version-query signal" in other
     // tarsnap-dependent tests.)
-    setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
+    wizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
     VISUAL_WAIT;
 
     // App data directory
@@ -211,28 +211,28 @@ void TestSetupWizard::cli()
     SET_TEXT_WITH_SIGNAL(ui->tarsnapPathLineEdit, "/tmp");
 
     // Fake detecting the binaries
-    setupWizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
+    wizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
     QVERIFY(ui->cliValidationLabel->text().contains("Tarsnap CLI version"));
     VISUAL_WAIT;
 
-    delete setupWizard;
+    delete wizard;
 }
 
 void TestSetupWizard::version_too_low()
 {
-    SetupDialog *    setupWizard = new SetupDialog();
-    Ui::SetupDialog *ui          = setupWizard->_ui;
+    SetupDialog *    wizard = new SetupDialog();
+    Ui::SetupDialog *ui     = wizard->_ui;
 
-    VISUAL_INIT(setupWizard);
-    IF_NOT_VISUAL { setupWizard->open(); }
+    VISUAL_INIT(wizard);
+    IF_NOT_VISUAL { wizard->open(); }
 
     // Advance to CLI page
-    setupWizard->next();
-    QVERIFY(setupWizard->pageTitle() == "Command-line utilities");
+    wizard->next();
+    QVERIFY(wizard->pageTitle() == "Command-line utilities");
     VISUAL_WAIT;
 
     // Fake detecting the binaries with a too-low version number
-    setupWizard->tarsnapVersionResponse(TaskStatus::VersionTooLow, "1.0.1");
+    wizard->tarsnapVersionResponse(TaskStatus::VersionTooLow, "1.0.1");
     QVERIFY(ui->cliValidationLabel->text().contains("too low"));
     QVERIFY(ui->nextButton->isEnabled() == false);
     // With platform=offscreen, ->isVisible() always returns false.
@@ -240,7 +240,7 @@ void TestSetupWizard::version_too_low()
     QVERIFY(ui->cliAdvancedWidget->isHidden() == false);
     VISUAL_WAIT;
 
-    delete setupWizard;
+    delete wizard;
 }
 
 QTEST_MAIN(TestSetupWizard)

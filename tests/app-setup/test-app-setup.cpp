@@ -55,7 +55,7 @@ static void run_normal_setup(AppSetup *setup)
     wizard->next();
 
     // CLI page
-    Q_ASSERT(ui->titleLabel->text() == "Command-line utilities");
+    Q_ASSERT(wizard->pageTitle() == "Command-line utilities");
     VISUAL_WAIT;
     if(tarsnapPath.isEmpty())
     {
@@ -69,7 +69,7 @@ static void run_normal_setup(AppSetup *setup)
     wizard->next();
 
     // Register page
-    Q_ASSERT(ui->titleLabel->text() == "Register with server");
+    Q_ASSERT(wizard->pageTitle() == "Register with server");
     setup->fakeNextTask();
     ui->tarsnapUserLineEdit->setText("email@example.org");
     ui->tarsnapPasswordLineEdit->setText("hunter2");
@@ -81,7 +81,7 @@ static void run_normal_setup(AppSetup *setup)
     setup->waitUntilIdle();
 
     // Final page
-    Q_ASSERT(ui->titleLabel->text() == "Setup complete!");
+    Q_ASSERT(wizard->pageTitle() == "Setup complete!");
     VISUAL_WAIT;
     wizard->next();
 

@@ -69,23 +69,31 @@ void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
 
     // Page 2
     QVERIFY(wizard->pageTitle() == "Command-line utilities");
-    QVERIFY(sig_cli.count() == 1);
+    VISUAL_WAIT;
+
     // Fake the CLI detection and checking
+    QVERIFY(sig_cli.count() == 1);
     wizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
     QVERIFY(ui->cliValidationLabel->text().contains("Tarsnap CLI version"));
+    VISUAL_WAIT;
+
+    // Proceed
     wizard->next();
     VISUAL_WAIT;
 
     // Page 3
     QVERIFY(wizard->pageTitle() == "Register with server");
     // Pretend that we already have a key
-    wizard->useExistingKeyfile();
-    ui->useExistingKeyfileButton->setChecked(true);
+    ui->useExistingKeyfileButton->click();
     ui->machineKeyCombo->setCurrentText("empty.key");
-    ui->nextButton->setEnabled(true);
+    VISUAL_WAIT;
+
+    // Pretend to register
     wizard->next();
-    // Check results of registration
     QVERIFY(sig_register.count() == 1);
+    VISUAL_WAIT;
+
+    // Fake a response
     wizard->registerMachineResponse(TaskStatus::Completed, "");
     VISUAL_WAIT;
 
@@ -235,9 +243,7 @@ void TestSetupWizard::version_too_low()
     wizard->tarsnapVersionResponse(TaskStatus::VersionTooLow, "1.0.1");
     QVERIFY(ui->cliValidationLabel->text().contains("too low"));
     QVERIFY(ui->nextButton->isEnabled() == false);
-    // With platform=offscreen, ->isVisible() always returns false.
-    // Instead, check the negation of ->isHidden()
-    QVERIFY(ui->cliAdvancedWidget->isHidden() == false);
+    QVERIFY(ui->cliAdvancedWidget->isVisible() == true);
     VISUAL_WAIT;
 
     delete wizard;

@@ -21,7 +21,6 @@ SOURCES += test-setupwizard.cpp				\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/busywidget.cpp		\
-	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/setupdialog.cpp
 

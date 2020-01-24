@@ -29,6 +29,7 @@ private slots:
     void filepickerdialog();
     void confirmationDialog();
     void busywidget();
+    void statuslabel();
 };
 
 void TestSmallWidgets::initTestCase()
@@ -157,6 +158,22 @@ void TestSmallWidgets::busywidget()
     VISUAL_WAIT;
 
     delete bw;
+}
+
+void TestSmallWidgets::statuslabel()
+{
+    ElidedLabel *el = new ElidedLabel();
+    el->setMinimumWidth(200);
+
+    VISUAL_INIT(el);
+
+    el->messageNormal("normal message");
+    VISUAL_WAIT;
+
+    el->messageError("error message");
+    VISUAL_WAIT;
+
+    delete el;
 }
 
 QTEST_MAIN(TestSmallWidgets)

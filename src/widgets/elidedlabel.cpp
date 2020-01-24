@@ -59,3 +59,15 @@ QString ElidedLabel::elideText(const QString &text)
     QFontMetrics metrics(this->font());
     return metrics.elidedText(text, _elide, this->width());
 }
+
+void ElidedLabel::messageNormal(const QString &text)
+{
+    setText(text);
+    setStyleSheet("");
+}
+
+void ElidedLabel::messageError(const QString &text)
+{
+    setText(text);
+    setStyleSheet("color: darkred;");
+}

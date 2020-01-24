@@ -46,6 +46,8 @@
         <file>logos/tarsnap-icon@2x.png</file>
         <file>logos/tarsnap-icon-h29.png</file>
         <file>logos/tarsnap-icon-h29@2x.png</file>
+        <file>logos/tarsnap-icon-h32.png</file>
+        <file>logos/tarsnap-icon-h32@2x.png</file>
         <file>text/help-tab.xml</file>
         <file>translations/tarsnap-gui_ro.qm</file>
         <file>translations/tarsnap-gui_en.qm</file>

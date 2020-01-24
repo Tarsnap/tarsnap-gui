@@ -24,6 +24,12 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 }
 
+#define GET_UI_PAGE(x, PAGETYPE)                                               \
+    do                                                                         \
+    {                                                                          \
+        x = wizard->get_ui();                                                  \
+    } while(0)
+
 /* "Runner" functions, which control the AppSetup. */
 static void run_cancel(AppSetup *setup);
 static void run_normal_setup(AppSetup *setup);
@@ -44,8 +50,10 @@ static void run_cancel(AppSetup *setup)
 
 static void run_normal_setup(AppSetup *setup)
 {
-    SetupDialog *    wizard = setup->get_wizard();
-    Ui::SetupDialog *ui     = wizard->get_ui();
+    SetupDialog *wizard = setup->get_wizard();
+
+    Ui::SetupDialog *ui_cli;
+    Ui::SetupDialog *ui_register;
 
     // Check if we have tarsnap (without using QTest's QSKIP).
     QString tarsnapPath = Utils::findTarsnapClientInPath(QString(""), true);
@@ -56,10 +64,12 @@ static void run_normal_setup(AppSetup *setup)
 
     // CLI page
     Q_ASSERT(wizard->pageTitle() == "Command-line utilities");
+    GET_UI_PAGE(ui_cli, CliPage);
     VISUAL_WAIT;
+
     if(tarsnapPath.isEmpty())
     {
-        ui->tarsnapPathLineEdit->setText("faked-dir");
+        ui_cli->tarsnapPathLineEdit->setText("faked-dir");
         // Fake the binary.
         wizard->tarsnapVersionResponse(TaskStatus::Completed,
                                        TARSNAP_MIN_VERSION);
@@ -70,9 +80,10 @@ static void run_normal_setup(AppSetup *setup)
 
     // Register page
     Q_ASSERT(wizard->pageTitle() == "Register with server");
+    GET_UI_PAGE(ui_register, RegisterPage);
     setup->fakeNextTask();
-    ui->tarsnapUserLineEdit->setText("email@example.org");
-    ui->tarsnapPasswordLineEdit->setText("hunter2");
+    ui_register->tarsnapUserLineEdit->setText("email@example.org");
+    ui_register->tarsnapPasswordLineEdit->setText("hunter2");
     VISUAL_WAIT;
     wizard->next();
 

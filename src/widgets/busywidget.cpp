@@ -2,29 +2,38 @@
 
 WARNINGS_DISABLE
 #include <QMouseEvent>
+#include <QMovie>
 WARNINGS_ENABLE
 
-BusyWidget::BusyWidget(QWidget *parent)
-    : QLabel(parent), _animation(":/icons/loading.gif")
+BusyWidget::BusyWidget(QWidget *parent) : QLabel(parent)
 {
-    setMovie(&_animation);
+    // Load the animation.
+    _animation = new QMovie(":/icons/loading.gif");
+    _animation->setCacheMode(QMovie::CacheAll);
+    _animation->jumpToFrame(0);
+
+    // Ensure that this label has the right size.
+    const QSize size = _animation->frameRect().size();
+    setMinimumSize(size);
+    setMaximumSize(size);
 }
 
 BusyWidget::~BusyWidget()
 {
+    delete _animation;
 }
 
 void BusyWidget::animate(bool active)
 {
     if(active)
     {
-        _animation.start();
-        show();
+        setMovie(_animation);
+        _animation->start();
     }
     else
     {
-        hide();
-        _animation.stop();
+        _animation->stop();
+        clear();
     }
 }
 

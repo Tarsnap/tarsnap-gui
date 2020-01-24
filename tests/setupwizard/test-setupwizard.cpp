@@ -91,6 +91,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
     // Pretend to register
     wizard->next();
     QVERIFY(sig_register.count() == 1);
+    wizard->updateLoadingAnimation(false);
     VISUAL_WAIT;
 
     // Fake a response

@@ -5,7 +5,6 @@
 
 WARNINGS_DISABLE
 #include <QLabel>
-#include <QMovie>
 WARNINGS_ENABLE
 
 /*!
@@ -36,7 +35,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event);
 
 private:
-    QMovie _animation;
+    QMovie *_animation;
 };
 
 #endif // BUSYWIDGET_H

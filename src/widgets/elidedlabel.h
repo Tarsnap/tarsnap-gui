@@ -40,6 +40,12 @@ public:
     //! Returns the recommended size for the widget based on the full text.
     QSize sizeHint() const;
 
+    //! Normal status message.
+    void messageNormal(const QString &text);
+
+    //! Error status message.
+    void messageError(const QString &text);
+
 public slots:
     //! Sets the full text for this ElidedLabel to display (may be elided).
     void setText(const QString &text);

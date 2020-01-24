@@ -143,10 +143,15 @@ void TestSmallWidgets::busywidget()
 
     VISUAL_INIT(bw);
 
+    // Before starting
+    VISUAL_WAIT;
+
+    // Animation
     bw->animate(true);
     QTest::qWait(100);
     VISUAL_WAIT;
 
+    // After animation
     bw->animate(false);
     QTest::qWait(100);
     VISUAL_WAIT;

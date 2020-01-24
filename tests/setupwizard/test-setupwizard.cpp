@@ -18,6 +18,12 @@ WARNINGS_ENABLE
 
 #include "setupdialog.h"
 
+#define GET_UI_PAGE(x, PAGETYPE)                                               \
+    do                                                                         \
+    {                                                                          \
+        x = wizard->get_ui();                                                  \
+    } while(0)
+
 class TestSetupWizard : public QObject
 {
     Q_OBJECT
@@ -54,10 +60,12 @@ void TestSetupWizard::cleanupTestCase()
 
 void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
 {
-    Ui::SetupDialog *ui = wizard->_ui;
-    QSignalSpy       sig_cli(wizard, SIGNAL(tarsnapVersionRequested()));
-    QSignalSpy       sig_register(wizard,
+    QSignalSpy sig_cli(wizard, SIGNAL(tarsnapVersionRequested()));
+    QSignalSpy sig_register(wizard,
                             SIGNAL(registerMachineRequested(QString, bool)));
+
+    Ui::SetupDialog *ui_cli;
+    Ui::SetupDialog *ui_register;
 
     VISUAL_INIT(wizard);
     IF_NOT_VISUAL { wizard->open(); }
@@ -69,12 +77,13 @@ void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
 
     // Page 2
     QVERIFY(wizard->pageTitle() == "Command-line utilities");
+    GET_UI_PAGE(ui_cli, CliPage);
     VISUAL_WAIT;
 
     // Fake the CLI detection and checking
     QVERIFY(sig_cli.count() == 1);
     wizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
-    QVERIFY(ui->cliValidationLabel->text().contains("Tarsnap CLI version"));
+    QVERIFY(ui_cli->cliValidationLabel->text().contains("Tarsnap CLI version"));
     VISUAL_WAIT;
 
     // Proceed
@@ -83,9 +92,11 @@ void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
 
     // Page 3
     QVERIFY(wizard->pageTitle() == "Register with server");
+    GET_UI_PAGE(ui_register, RegisterPage);
+
     // Pretend that we already have a key
-    ui->useExistingKeyfileButton->click();
-    ui->machineKeyCombo->setCurrentText("empty.key");
+    ui_register->useExistingKeyfileButton->click();
+    ui_register->machineKeyCombo->setCurrentText("empty.key");
     VISUAL_WAIT;
 
     // Pretend to register
@@ -163,7 +174,7 @@ void TestSetupWizard::skip_install()
     TARSNAP_CLI_OR_SKIP;
 
     SetupDialog *    wizard = new SetupDialog();
-    Ui::SetupDialog *ui     = wizard->_ui;
+    Ui::SetupDialog *ui_intro;
 
     // Almost complete a normal install
     helper_almost_normal_install(wizard);
@@ -174,7 +185,8 @@ void TestSetupWizard::skip_install()
     wizard->back();
     VISUAL_WAIT;
 
-    QTest::mouseClick(ui->backButton, Qt::LeftButton);
+    GET_UI_PAGE(ui_intro, IntroPage);
+    QTest::mouseClick(ui_intro->backButton, Qt::LeftButton);
     VISUAL_WAIT;
 
     // Check resulting init file.
@@ -189,7 +201,7 @@ void TestSetupWizard::skip_install()
 void TestSetupWizard::cli()
 {
     SetupDialog *    wizard = new SetupDialog();
-    Ui::SetupDialog *ui     = wizard->_ui;
+    Ui::SetupDialog *ui_cli;
 
     VISUAL_INIT(wizard);
     IF_NOT_VISUAL { wizard->open(); }
@@ -197,6 +209,7 @@ void TestSetupWizard::cli()
     // Advance to CLI page and expand advanced options
     wizard->next();
     QVERIFY(wizard->pageTitle() == "Command-line utilities");
+    GET_UI_PAGE(ui_cli, CliPage);
     VISUAL_WAIT;
 
     // We may or may not receive a version query, depending on whether
@@ -207,29 +220,29 @@ void TestSetupWizard::cli()
     VISUAL_WAIT;
 
     // App data directory
-    SET_TEXT_WITH_SIGNAL(ui->appDataPathLineEdit, "fake-dir");
-    QVERIFY(ui->cliValidationLabel->text()
+    SET_TEXT_WITH_SIGNAL(ui_cli->appDataPathLineEdit, "fake-dir");
+    QVERIFY(ui_cli->cliValidationLabel->text()
             == "Invalid App data directory set.");
     VISUAL_WAIT;
-    SET_TEXT_WITH_SIGNAL(ui->appDataPathLineEdit, "/tmp");
+    SET_TEXT_WITH_SIGNAL(ui_cli->appDataPathLineEdit, "/tmp");
 
     // Cache directory
-    SET_TEXT_WITH_SIGNAL(ui->tarsnapCacheLineEdit, "fake-dir");
-    QVERIFY(ui->cliValidationLabel->text()
+    SET_TEXT_WITH_SIGNAL(ui_cli->tarsnapCacheLineEdit, "fake-dir");
+    QVERIFY(ui_cli->cliValidationLabel->text()
             == "Invalid Tarsnap cache directory set.");
     VISUAL_WAIT;
-    SET_TEXT_WITH_SIGNAL(ui->tarsnapCacheLineEdit, "/tmp");
+    SET_TEXT_WITH_SIGNAL(ui_cli->tarsnapCacheLineEdit, "/tmp");
 
     // Tarsnap CLI directory
-    SET_TEXT_WITH_SIGNAL(ui->tarsnapPathLineEdit, "fake-dir");
-    QVERIFY(ui->cliValidationLabel->text().contains(
+    SET_TEXT_WITH_SIGNAL(ui_cli->tarsnapPathLineEdit, "fake-dir");
+    QVERIFY(ui_cli->cliValidationLabel->text().contains(
         "Tarsnap utilities not found."));
     VISUAL_WAIT;
-    SET_TEXT_WITH_SIGNAL(ui->tarsnapPathLineEdit, "/tmp");
+    SET_TEXT_WITH_SIGNAL(ui_cli->tarsnapPathLineEdit, "/tmp");
 
     // Fake detecting the binaries
     wizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
-    QVERIFY(ui->cliValidationLabel->text().contains("Tarsnap CLI version"));
+    QVERIFY(ui_cli->cliValidationLabel->text().contains("Tarsnap CLI version"));
     VISUAL_WAIT;
 
     delete wizard;
@@ -238,7 +251,7 @@ void TestSetupWizard::cli()
 void TestSetupWizard::version_too_low()
 {
     SetupDialog *    wizard = new SetupDialog();
-    Ui::SetupDialog *ui     = wizard->_ui;
+    Ui::SetupDialog *ui_cli;
 
     VISUAL_INIT(wizard);
     IF_NOT_VISUAL { wizard->open(); }
@@ -246,13 +259,14 @@ void TestSetupWizard::version_too_low()
     // Advance to CLI page
     wizard->next();
     QVERIFY(wizard->pageTitle() == "Command-line utilities");
+    GET_UI_PAGE(ui_cli, CliPage);
     VISUAL_WAIT;
 
     // Fake detecting the binaries with a too-low version number
     wizard->tarsnapVersionResponse(TaskStatus::VersionTooLow, "1.0.1");
-    QVERIFY(ui->cliValidationLabel->text().contains("too low"));
-    QVERIFY(ui->nextButton->isEnabled() == false);
-    QVERIFY(ui->cliAdvancedWidget->isVisible() == true);
+    QVERIFY(ui_cli->cliValidationLabel->text().contains("too low"));
+    QVERIFY(ui_cli->nextButton->isEnabled() == false);
+    QVERIFY(ui_cli->cliAdvancedWidget->isVisible() == true);
     VISUAL_WAIT;
 
     delete wizard;

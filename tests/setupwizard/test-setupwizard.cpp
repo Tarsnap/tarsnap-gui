@@ -98,6 +98,14 @@ void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
     wizard->registerMachineResponse(TaskStatus::Completed, "");
     VISUAL_WAIT;
 
+    // Wait for the test to proceed (for up to 1 second)
+    for(int i = 0; i < 10; i++)
+    {
+        if(wizard->pageTitle() == "Setup complete!")
+            break;
+        QTest::qWait(100);
+    }
+
     // Page 4
     QVERIFY(wizard->pageTitle() == "Setup complete!");
     VISUAL_WAIT;

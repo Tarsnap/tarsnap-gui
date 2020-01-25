@@ -24,6 +24,8 @@ WARNINGS_ENABLE
         x = wizard->get_ui();                                                  \
     } while(0)
 
+#define GET_BUTTON(x) wizard->button(SetupDialog::x)
+
 class TestSetupWizard : public QObject
 {
     Q_OBJECT
@@ -72,7 +74,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
 
     // Page 1
     QVERIFY(wizard->pageTitle() == "Setup wizard");
-    wizard->next();
+    GET_BUTTON(NextButton)->click();
     VISUAL_WAIT;
 
     // Page 2
@@ -87,7 +89,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
     VISUAL_WAIT;
 
     // Proceed
-    wizard->next();
+    GET_BUTTON(NextButton)->click();
     VISUAL_WAIT;
 
     // Page 3
@@ -100,7 +102,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
     VISUAL_WAIT;
 
     // Pretend to register
-    wizard->next();
+    GET_BUTTON(NextButton)->click();
     QVERIFY(sig_register.count() == 1);
     wizard->updateLoadingAnimation(false);
     VISUAL_WAIT;
@@ -132,7 +134,7 @@ void TestSetupWizard::normal_install()
     helper_almost_normal_install(wizard);
 
     // Finish the install
-    wizard->next();
+    GET_BUTTON(FinishButton)->click();
     VISUAL_WAIT;
 
     // Check resulting init file.  The first can be in any format (for now).
@@ -173,20 +175,18 @@ void TestSetupWizard::skip_install()
 {
     TARSNAP_CLI_OR_SKIP;
 
-    SetupDialog *    wizard = new SetupDialog();
-    Ui::SetupDialog *ui_intro;
+    SetupDialog *wizard = new SetupDialog();
 
     // Almost complete a normal install
     helper_almost_normal_install(wizard);
 
     // Now go back to the beginning and skip the install
-    wizard->back();
-    wizard->back();
-    wizard->back();
+    GET_BUTTON(BackButton)->click();
+    GET_BUTTON(BackButton)->click();
+    GET_BUTTON(BackButton)->click();
     VISUAL_WAIT;
 
-    GET_UI_PAGE(ui_intro, IntroPage);
-    QTest::mouseClick(ui_intro->backButton, Qt::LeftButton);
+    GET_BUTTON(SkipButton)->click();
     VISUAL_WAIT;
 
     // Check resulting init file.
@@ -207,7 +207,7 @@ void TestSetupWizard::cli()
     IF_NOT_VISUAL { wizard->open(); }
 
     // Advance to CLI page and expand advanced options
-    wizard->next();
+    GET_BUTTON(NextButton)->click();
     QVERIFY(wizard->pageTitle() == "Command-line utilities");
     GET_UI_PAGE(ui_cli, CliPage);
     VISUAL_WAIT;
@@ -257,7 +257,7 @@ void TestSetupWizard::version_too_low()
     IF_NOT_VISUAL { wizard->open(); }
 
     // Advance to CLI page
-    wizard->next();
+    GET_BUTTON(NextButton)->click();
     QVERIFY(wizard->pageTitle() == "Command-line utilities");
     GET_UI_PAGE(ui_cli, CliPage);
     VISUAL_WAIT;
@@ -265,7 +265,7 @@ void TestSetupWizard::version_too_low()
     // Fake detecting the binaries with a too-low version number
     wizard->tarsnapVersionResponse(TaskStatus::VersionTooLow, "1.0.1");
     QVERIFY(ui_cli->cliValidationLabel->text().contains("too low"));
-    QVERIFY(ui_cli->nextButton->isEnabled() == false);
+    QVERIFY(GET_BUTTON(NextButton)->isEnabled() == false);
     QVERIFY(ui_cli->cliAdvancedWidget->isVisible() == true);
     VISUAL_WAIT;
 

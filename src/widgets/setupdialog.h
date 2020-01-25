@@ -14,6 +14,7 @@ namespace Ui
 {
 class SetupDialog;
 }
+class QAbstractButton;
 
 /*!
  * \ingroup widgets-specialized
@@ -33,6 +34,18 @@ public:
     explicit SetupDialog(QWidget *parent = nullptr);
     ~SetupDialog();
 
+#ifdef QT_TESTLIB_LIB
+    enum Button
+    {
+        SkipButton,
+        BackButton,
+        NextButton,
+        FinishButton
+    };
+    /// Get the indicated button
+    QAbstractButton *button(enum SetupDialog::Button which);
+#endif
+
 public slots:
     /// The TaskManager has finished attempting to register the machine.
     /// \param status either \c TaskStatus::Completed or
@@ -48,10 +61,6 @@ public slots:
     void updateLoadingAnimation(bool idle);
 
 #ifdef QT_TESTLIB_LIB
-    /// Goes back to the previous page, as per QWizard::back().
-    void back();
-    /// Advances to the next page, as per QWizard::next().
-    void next();
     /// Get the ui object.
     Ui::SetupDialog *get_ui();
     /// Get the current page title.

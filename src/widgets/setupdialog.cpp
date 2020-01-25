@@ -165,18 +165,20 @@ void SetupDialog::wizardPageChanged(int)
 }
 
 #ifdef QT_TESTLIB_LIB
-void SetupDialog::back()
+QAbstractButton *SetupDialog::button(enum SetupDialog::Button which)
 {
-    if(!_ui->backButton->isEnabled())
-        return;
-    backButtonClicked();
-}
-
-void SetupDialog::next()
-{
-    if(!_ui->nextButton->isEnabled())
-        return;
-    nextButtonClicked();
+    // These buttons do two things.
+    switch(which)
+    {
+    case SkipButton:
+    case BackButton:
+        return _ui->backButton;
+    case NextButton:
+    case FinishButton:
+        return _ui->nextButton;
+    }
+    // Shouldn't reach here.
+    return nullptr;
 }
 
 Ui::SetupDialog *SetupDialog::get_ui()

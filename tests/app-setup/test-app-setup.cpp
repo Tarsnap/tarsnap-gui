@@ -30,6 +30,8 @@ WARNINGS_ENABLE
         x = wizard->get_ui();                                                  \
     } while(0)
 
+#define GET_BUTTON(x) wizard->button(SetupDialog::x)
+
 /* "Runner" functions, which control the AppSetup. */
 static void run_cancel(AppSetup *setup);
 static void run_normal_setup(AppSetup *setup);
@@ -60,7 +62,7 @@ static void run_normal_setup(AppSetup *setup)
 
     // Intro page
     VISUAL_WAIT;
-    wizard->next();
+    GET_BUTTON(NextButton)->click();
 
     // CLI page
     Q_ASSERT(wizard->pageTitle() == "Command-line utilities");
@@ -76,7 +78,7 @@ static void run_normal_setup(AppSetup *setup)
         VISUAL_WAIT;
     }
     setup->waitUntilIdle();
-    wizard->next();
+    GET_BUTTON(NextButton)->click();
 
     // Register page
     Q_ASSERT(wizard->pageTitle() == "Register with server");
@@ -85,7 +87,7 @@ static void run_normal_setup(AppSetup *setup)
     ui_register->tarsnapUserLineEdit->setText("email@example.org");
     ui_register->tarsnapPasswordLineEdit->setText("hunter2");
     VISUAL_WAIT;
-    wizard->next();
+    GET_BUTTON(NextButton)->click();
 
     // Wait for the "Register machine" process (with Qt::QueuedConnection) to
     // finish.
@@ -94,7 +96,7 @@ static void run_normal_setup(AppSetup *setup)
     // Final page
     Q_ASSERT(wizard->pageTitle() == "Setup complete!");
     VISUAL_WAIT;
-    wizard->next();
+    GET_BUTTON(FinishButton)->click();
 
     VISUAL_WAIT;
 }

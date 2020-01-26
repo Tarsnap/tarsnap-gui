@@ -31,11 +31,8 @@ void TestHelpWidget::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
-    IF_NOT_VISUAL
-    {
-        // Use a custom message handler to filter out unwanted messages
-        orig_message_handler = qInstallMessageHandler(offscreenMessageOutput);
-    }
+    // Use a custom message handler to filter out unwanted messages
+    IF_NOT_VISUAL { qInstallMessageHandler(offscreenMessageOutput); }
 }
 
 void TestHelpWidget::about_window()

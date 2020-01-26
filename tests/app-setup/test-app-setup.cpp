@@ -118,12 +118,8 @@ static void setup(int argc, char *argv[], void(runner)(AppSetup *setup),
         AppSetup app(argc, argv);
         QObject::connect(&app, &AppSetup::eventLoopStarted, runner);
 
-        IF_NOT_VISUAL
-        {
-            // Use a custom message handler to filter out unwanted messages
-            orig_message_handler =
-                qInstallMessageHandler(offscreenMessageOutput);
-        }
+        // Use a custom message handler to filter out unwanted messages
+        IF_NOT_VISUAL { qInstallMessageHandler(offscreenMessageOutput); }
 
         // Act on any initialization failures.
         if(!app.handle_init(steps))

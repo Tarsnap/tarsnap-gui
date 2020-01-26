@@ -32,7 +32,8 @@
 void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
                             const QString &msg);
 
-static QtMessageHandler orig_message_handler;
+static const QtMessageHandler orig_message_handler =
+    qInstallMessageHandler(nullptr);
 void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
                             const QString &msg)
 {

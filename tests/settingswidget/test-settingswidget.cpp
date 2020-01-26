@@ -41,11 +41,8 @@ void TestSettingsWidget::initTestCase()
     ConsoleLog::initializeConsoleLog();
     Translator::initializeTranslator();
 
-    IF_NOT_VISUAL
-    {
-        // Use a custom message handler to filter out unwanted messages
-        orig_message_handler = qInstallMessageHandler(offscreenMessageOutput);
-    }
+    // Use a custom message handler to filter out unwanted messages
+    IF_NOT_VISUAL { qInstallMessageHandler(offscreenMessageOutput); }
 }
 
 void TestSettingsWidget::cleanupTestCase()

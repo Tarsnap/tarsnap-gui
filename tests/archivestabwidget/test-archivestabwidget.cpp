@@ -29,11 +29,8 @@ void TestArchivesTabWidget::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 
-    IF_NOT_VISUAL
-    {
-        // Use a custom message handler to filter out unwanted messages
-        orig_message_handler = qInstallMessageHandler(offscreenMessageOutput);
-    }
+    // Use a custom message handler to filter out unwanted messages
+    IF_NOT_VISUAL { qInstallMessageHandler(offscreenMessageOutput); }
 
     // Initialization normally done in init_shared.cpp's init_no_app()
     qRegisterMetaType<QVector<File>>("QVector<File>");

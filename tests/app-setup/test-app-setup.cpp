@@ -1,6 +1,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QAbstractButton>
 #include <QMetaObject>
 #include <QtTest/QtTest>
 
@@ -61,6 +62,7 @@ static void run_normal_setup(AppSetup *setup)
     QString tarsnapPath = Utils::findTarsnapClientInPath(QString(""), true);
 
     // Intro page
+    Q_ASSERT(wizard->pageTitle() == "Setup wizard");
     VISUAL_WAIT;
     GET_BUTTON(NextButton)->click();
 
@@ -87,6 +89,9 @@ static void run_normal_setup(AppSetup *setup)
     ui_register->tarsnapUserLineEdit->setText("email@example.org");
     ui_register->tarsnapPasswordLineEdit->setText("hunter2");
     VISUAL_WAIT;
+
+    // Add an extra check here so that we can debug any "Next button" failure.
+    Q_ASSERT(GET_BUTTON(NextButton)->isEnabled() == true);
     GET_BUTTON(NextButton)->click();
 
     // Wait for the "Register machine" process (with Qt::QueuedConnection) to

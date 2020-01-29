@@ -11,7 +11,6 @@ WARNINGS_ENABLE
 #include "init-shared.h"
 #include "translator.h"
 #include "utils.h"
-#include "widgets/setupdialog.h"
 
 #include <ConsoleLog.h>
 #include <TSettings.h>

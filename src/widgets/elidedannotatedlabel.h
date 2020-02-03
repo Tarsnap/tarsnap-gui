@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include <QVector>
 WARNINGS_ENABLE
 
-#include "elidedlabel.h"
+#include "ElidedLabel.h"
 
 /*!
  * \ingroup widgets-general

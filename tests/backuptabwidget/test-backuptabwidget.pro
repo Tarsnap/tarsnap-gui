@@ -10,6 +10,7 @@ FORMS += ../../forms/backuptabwidget.ui			\
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
+	../../lib/widgets/ElidedLabel.h			\
 	../../src/backuptask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/tasks/tasks-utils.h			\
@@ -18,13 +19,13 @@ HEADERS  +=						\
 	../../src/widgets/backuplistwidgetitem.h	\
 	../../src/widgets/backuptabwidget.h		\
 	../../src/widgets/elidedclickablelabel.h	\
-	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/filepickerdialog.h		\
 	../../src/widgets/filepickerwidget.h		\
 	../qtest-platform.h
 
 SOURCES += test-backuptabwidget.cpp			\
 	../../lib/core/TSettings.cpp			\
+	../../lib/widgets/ElidedLabel.cpp		\
 	../../src/backuptask.cpp			\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/tasks/tasks-utils.cpp			\
@@ -33,7 +34,6 @@ SOURCES += test-backuptabwidget.cpp			\
 	../../src/widgets/backuplistwidgetitem.cpp	\
 	../../src/widgets/backuptabwidget.cpp		\
 	../../src/widgets/elidedclickablelabel.cpp	\
-	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/filepickerdialog.cpp		\
 	../../src/widgets/filepickerwidget.cpp
 

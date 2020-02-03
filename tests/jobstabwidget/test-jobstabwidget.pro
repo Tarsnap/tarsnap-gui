@@ -16,6 +16,7 @@ RESOURCES += ../../resources/resources.qrc
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
+	../../lib/widgets/ElidedLabel.h			\
 	../../src/backuptask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/persistentmodel/archive.h		\
@@ -28,7 +29,6 @@ HEADERS  +=						\
 	../../src/widgets/archivelistwidgetitem.h	\
 	../../src/widgets/elidedannotatedlabel.h	\
 	../../src/widgets/elidedclickablelabel.h	\
-	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/filepickerwidget.h		\
 	../../src/widgets/joblistwidget.h		\
 	../../src/widgets/joblistwidgetitem.h		\
@@ -39,6 +39,7 @@ HEADERS  +=						\
 
 SOURCES += test-jobstabwidget.cpp			\
 	../../lib/core/TSettings.cpp			\
+	../../lib/widgets/ElidedLabel.cpp		\
 	../../src/backuptask.cpp			\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/persistentmodel/archive.cpp		\
@@ -51,7 +52,6 @@ SOURCES += test-jobstabwidget.cpp			\
 	../../src/widgets/archivelistwidgetitem.cpp	\
 	../../src/widgets/elidedannotatedlabel.cpp	\
 	../../src/widgets/elidedclickablelabel.cpp	\
-	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/filepickerwidget.cpp		\
 	../../src/widgets/joblistwidget.cpp		\
 	../../src/widgets/joblistwidgetitem.cpp		\

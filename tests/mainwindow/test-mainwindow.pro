@@ -30,6 +30,7 @@ RESOURCES += ../../resources/resources.qrc
 HEADERS  +=						\
 	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
+	../../lib/widgets/ElidedLabel.h			\
 	../../src/backuptask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/filetablemodel.h			\
@@ -53,7 +54,6 @@ HEADERS  +=						\
 	../../src/widgets/confirmationdialog.h		\
 	../../src/widgets/elidedannotatedlabel.h	\
 	../../src/widgets/elidedclickablelabel.h	\
-	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/filepickerdialog.h		\
 	../../src/widgets/filepickerwidget.h		\
 	../../src/widgets/helpwidget.h			\
@@ -71,6 +71,7 @@ HEADERS  +=						\
 SOURCES += test-mainwindow.cpp				\
 	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
+	../../lib/widgets/ElidedLabel.cpp		\
 	../../src/backuptask.cpp			\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/filetablemodel.cpp			\
@@ -94,7 +95,6 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/widgets/confirmationdialog.cpp	\
 	../../src/widgets/elidedannotatedlabel.cpp	\
 	../../src/widgets/elidedclickablelabel.cpp	\
-	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/filepickerdialog.cpp		\
 	../../src/widgets/filepickerwidget.cpp		\
 	../../src/widgets/helpwidget.cpp		\

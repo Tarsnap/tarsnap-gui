@@ -15,6 +15,7 @@ SOURCES += test-app-setup.cpp				\
 	../../lib/core/TSettings.cpp			\
 	../../lib/util/optparse.c			\
 	../../lib/util/optparse_helper.c		\
+	../../lib/widgets/ElidedLabel.cpp		\
 	../../libcperciva/util/getopt.c			\
 	../../libcperciva/util/warnp.c			\
 	../../src/app-cmdline.cpp			\
@@ -35,7 +36,6 @@ SOURCES += test-app-setup.cpp				\
 	../../src/translator.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/busywidget.cpp		\
-	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/setupdialog.cpp
 
 HEADERS +=						\
@@ -43,6 +43,7 @@ HEADERS +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/util/optparse.h			\
 	../../lib/util/optparse_helper.h		\
+	../../lib/widgets/ElidedLabel.h			\
 	../../libcperciva/util/getopt.h			\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\
@@ -66,7 +67,6 @@ HEADERS +=						\
 	../../src/translator.h				\
 	../../src/utils.h				\
 	../../src/widgets/busywidget.h			\
-	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/setupdialog.h	
 
 RESOURCES += ../../resources/resources.qrc

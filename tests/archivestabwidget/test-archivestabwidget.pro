@@ -13,6 +13,7 @@ RESOURCES += ../../resources/resources.qrc
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
+	../../lib/widgets/ElidedLabel.h			\
 	../../src/filetablemodel.h			\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/persistentobject.h	\
@@ -25,12 +26,12 @@ HEADERS  +=						\
 	../../src/widgets/archivewidget.h		\
 	../../src/widgets/elidedannotatedlabel.h	\
 	../../src/widgets/elidedclickablelabel.h	\
-	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/restoredialog.h		\
 	../qtest-platform.h
 
 SOURCES += test-archivestabwidget.cpp			\
 	../../lib/core/TSettings.cpp			\
+	../../lib/widgets/ElidedLabel.cpp		\
 	../../src/filetablemodel.cpp			\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
@@ -43,7 +44,6 @@ SOURCES += test-archivestabwidget.cpp			\
 	../../src/widgets/archivewidget.cpp		\
 	../../src/widgets/elidedannotatedlabel.cpp	\
 	../../src/widgets/elidedclickablelabel.cpp	\
-	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/restoredialog.cpp
 
 

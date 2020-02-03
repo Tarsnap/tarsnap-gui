@@ -9,11 +9,11 @@ WARNINGS_ENABLE
 #include "busywidget.h"
 #include "confirmationdialog.h"
 #include "elidedannotatedlabel.h"
-#include "elidedlabel.h"
 #include "filepickerdialog.h"
 #include "filepickerwidget.h"
 
 #include "TSettings.h"
+#include "ElidedLabel.h"
 
 class TestSmallWidgets : public QObject
 {

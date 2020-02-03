@@ -60,11 +60,14 @@ protected:
     //! Recalculates the amount of elided text to display.
     void resizeEvent(QResizeEvent *event);
 
+    //! How should the text be elided?
     Qt::TextElideMode _elide;
-    QString           _fullText;
 
-    // Returns an elided version of the string (if necessary), or the original
-    // string (if not).
+    //! Non-elided text.
+    QString _fullText;
+
+    //! Returns an elided version of the string (if necessary), or
+    //! the original string (if not).
     QString elideText(const QString &text);
 };
 

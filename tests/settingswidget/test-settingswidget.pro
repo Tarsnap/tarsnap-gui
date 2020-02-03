@@ -12,13 +12,13 @@ FORMS += ../../forms/settingswidget.ui			\
 HEADERS  +=						\
 	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
+	../../lib/widgets/ElidedLabel.h			\
 	../../src/scheduling.h				\
 	../../src/tarsnapaccount.h			\
 	../../src/tasks/tasks-utils.h			\
 	../../src/translator.h				\
 	../../src/utils.h				\
 	../../src/widgets/confirmationdialog.h		\
-	../../src/widgets/elidedlabel.h			\
 	../../src/widgets/settingswidget.h		\
 	../../src/widgets/tarsnapaccountdialog.h	\
 	../../tests/qtest-platform.h
@@ -26,13 +26,13 @@ HEADERS  +=						\
 SOURCES += test-settingswidget.cpp			\
 	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
+	../../lib/widgets/ElidedLabel.cpp		\
 	../../src/scheduling.cpp			\
 	../../src/tarsnapaccount.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/translator.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/confirmationdialog.cpp	\
-	../../src/widgets/elidedlabel.cpp		\
 	../../src/widgets/settingswidget.cpp		\
 	../../src/widgets/tarsnapaccountdialog.cpp
 

@@ -1,7 +1,7 @@
 #ifndef ELIDEDCLICKABLELABEL_H
 #define ELIDEDCLICKABLELABEL_H
 
-#include "elidedlabel.h"
+#include "ElidedLabel.h"
 
 /*!
  * \ingroup widgets-general

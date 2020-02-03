@@ -340,7 +340,7 @@ padding-left: 2px;
   <customwidget>
    <class>ElidedLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/elidedlabel.h</header>
+   <header>ElidedLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

@@ -1,4 +1,4 @@
-#include "elidedlabel.h"
+#include "ElidedLabel.h"
 
 WARNINGS_DISABLE
 #include <QResizeEvent>

@@ -52,6 +52,7 @@ SOURCES +=						\
 	lib/core/TSettings.cpp				\
 	lib/util/optparse.c				\
 	lib/util/optparse_helper.c			\
+	lib/widgets/ElidedLabel.cpp			\
 	libcperciva/util/getopt.c			\
 	libcperciva/util/warnp.c			\
 	src/app-cmdline.cpp				\
@@ -87,7 +88,6 @@ SOURCES +=						\
 	src/widgets/confirmationdialog.cpp		\
 	src/widgets/elidedannotatedlabel.cpp		\
 	src/widgets/elidedclickablelabel.cpp		\
-	src/widgets/elidedlabel.cpp			\
 	src/widgets/filepickerdialog.cpp		\
 	src/widgets/filepickerwidget.cpp		\
 	src/widgets/helpwidget.cpp			\
@@ -108,6 +108,7 @@ HEADERS +=						\
 	lib/core/warnings-disable.h			\
 	lib/util/optparse.h				\
 	lib/util/optparse_helper.h			\
+	lib/widgets/ElidedLabel.h			\
 	libcperciva/util/getopt.h			\
 	libcperciva/util/warnp.h			\
 	src/app-cmdline.h				\
@@ -146,7 +147,6 @@ HEADERS +=						\
 	src/widgets/confirmationdialog.h		\
 	src/widgets/elidedannotatedlabel.h		\
 	src/widgets/elidedclickablelabel.h		\
-	src/widgets/elidedlabel.h			\
 	src/widgets/filepickerdialog.h			\
 	src/widgets/filepickerwidget.h			\
 	src/widgets/helpwidget.h			\

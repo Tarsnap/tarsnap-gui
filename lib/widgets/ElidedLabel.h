@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 /*!
- * \ingroup widgets-general
+ * \ingroup lib-widgets
  * \brief The ElidedLabel widget is a QLabel which automatically elides
  * (`...`) long text.
  */

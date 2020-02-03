@@ -15,6 +15,11 @@
  */
 
 /**
+ * \defgroup lib-widgets Library widgets
+ * \brief Widgets which may be useful for other projects.
+ */
+
+/**
  * \defgroup persistent Database-stored information
  * \brief Information which is stored in a database.
  */

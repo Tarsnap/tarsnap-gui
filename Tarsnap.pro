@@ -164,6 +164,7 @@ HEADERS +=						\
 INCLUDEPATH +=						\
 	lib/core/					\
 	lib/util/					\
+	lib/widgets/					\
 	libcperciva/util/				\
 	src/						\
 	src/tasks/					\
@@ -249,7 +250,7 @@ osx {
     QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleGetInfoString $${VERSION}\" $${INFO_PLIST_PATH} ;
 }
 
-format.commands = find src/ tests/ lib/core/				\
+format.commands = find src/ tests/ lib/core/ lib/widgets/		\
 			-name \"*.h\" -or -name \"*.cpp\" |		\
 			xargs clang-format-6.0 -i
 update_translations.commands = lupdate -locations none -no-obsolete Tarsnap.pro

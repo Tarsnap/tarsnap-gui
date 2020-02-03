@@ -7,7 +7,7 @@ TEMPLATE = app
 
 INCLUDEPATH += .				\
 	../../lib/core/				\
-	../../lib/util				\
+	../../lib/util/				\
 	../../libcperciva/util/			\
 	../../src/				\
 	../../src/tasks/			\

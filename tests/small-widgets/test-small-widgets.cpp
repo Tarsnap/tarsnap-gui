@@ -12,8 +12,8 @@ WARNINGS_ENABLE
 #include "filepickerdialog.h"
 #include "filepickerwidget.h"
 
-#include "TSettings.h"
 #include "ElidedLabel.h"
+#include "TSettings.h"
 
 class TestSmallWidgets : public QObject
 {

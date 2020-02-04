@@ -217,25 +217,25 @@ void TestSetupWizard::cli()
     VISUAL_WAIT;
 
     // App data directory
-    SET_TEXT_WITH_SIGNAL(ui_cli->appDataPathLineEdit, "fake-dir");
+    ui_cli->appDataPathLineEdit->setText("fake-dir");
     QVERIFY(ui_cli->cliValidationLabel->text()
             == "Invalid App data directory set.");
     VISUAL_WAIT;
-    SET_TEXT_WITH_SIGNAL(ui_cli->appDataPathLineEdit, "/tmp");
+    ui_cli->appDataPathLineEdit->setText("/tmp");
 
     // Cache directory
-    SET_TEXT_WITH_SIGNAL(ui_cli->tarsnapCacheLineEdit, "fake-dir");
+    ui_cli->tarsnapCacheLineEdit->setText("fake-dir");
     QVERIFY(ui_cli->cliValidationLabel->text()
             == "Invalid Tarsnap cache directory set.");
     VISUAL_WAIT;
-    SET_TEXT_WITH_SIGNAL(ui_cli->tarsnapCacheLineEdit, "/tmp");
+    ui_cli->tarsnapCacheLineEdit->setText("/tmp");
 
     // Tarsnap CLI directory
-    SET_TEXT_WITH_SIGNAL(ui_cli->tarsnapPathLineEdit, "fake-dir");
+    ui_cli->tarsnapPathLineEdit->setText("fake-dir");
     QVERIFY(ui_cli->cliValidationLabel->text().contains(
         "Tarsnap utilities not found."));
     VISUAL_WAIT;
-    SET_TEXT_WITH_SIGNAL(ui_cli->tarsnapPathLineEdit, "/tmp");
+    ui_cli->tarsnapPathLineEdit->setText("/tmp");
 
     // Fake detecting the binaries
     wizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");

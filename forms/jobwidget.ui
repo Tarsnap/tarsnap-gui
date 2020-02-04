@@ -577,6 +577,11 @@ selection-background-color: rgba(177,214,255, 150);
  </widget>
  <customwidgets>
   <customwidget>
+   <class>ArchiveListWidget</class>
+   <extends>QListWidget</extends>
+   <header>widgets/archivelistwidget.h</header>
+  </customwidget>
+  <customwidget>
    <class>ElidedClickableLabel</class>
    <extends>QLabel</extends>
    <header>../widgets/elidedclickablelabel.h</header>
@@ -586,11 +591,6 @@ selection-background-color: rgba(177,214,255, 150);
    <extends>QWidget</extends>
    <header>filepickerwidget.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>ArchiveListWidget</class>
-   <extends>QListWidget</extends>
-   <header>widgets/archivelistwidget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

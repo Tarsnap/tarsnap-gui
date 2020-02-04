@@ -200,11 +200,11 @@ border: 1px solid white;
                 <property name="toolTip">
                  <string>Click login button to update</string>
                 </property>
-                <property name="text">
-                 <string notr="true"/>
-                </property>
                 <property name="textInteractionFlags">
                  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                </property>
+                <property name="text">
+                 <string notr="true"/>
                 </property>
                 <property name="elide">
                  <enum>Qt::ElideRight</enum>
@@ -253,11 +253,11 @@ color: blue;
                 <property name="toolTip">
                  <string>Click login button to update</string>
                 </property>
-                <property name="text">
-                 <string notr="true"/>
-                </property>
                 <property name="textInteractionFlags">
                  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                </property>
+                <property name="text">
+                 <string notr="true"/>
                 </property>
                 <property name="elide">
                  <enum>Qt::ElideRight</enum>
@@ -299,11 +299,11 @@ color: blue;
               <property name="toolTip">
                <string>Displayed credit might be out of date, click login button to fetch latest account details</string>
               </property>
-              <property name="text">
-               <string>Credit and machine activity is %1 days old. Click login to update.</string>
-              </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
+              </property>
+              <property name="text">
+               <string>Credit and machine activity is %1 days old. Click login to update.</string>
               </property>
               <property name="elide">
                <enum>Qt::ElideRight</enum>

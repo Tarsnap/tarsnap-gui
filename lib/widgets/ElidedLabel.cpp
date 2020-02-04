@@ -24,7 +24,7 @@ void ElidedLabel::setElide(const Qt::TextElideMode &elide)
     emit elideChanged(_elide);
 }
 
-QString ElidedLabel::text()
+QString ElidedLabel::text() const
 {
     return _fullText;
 }
@@ -54,7 +54,7 @@ void ElidedLabel::resizeEvent(QResizeEvent *event)
     event->accept();
 }
 
-QString ElidedLabel::elideText(const QString &text)
+QString ElidedLabel::elideText(const QString &text) const
 {
     QFontMetrics metrics(this->font());
     return metrics.elidedText(text, _elide, this->width());

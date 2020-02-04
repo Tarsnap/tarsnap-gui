@@ -16,6 +16,8 @@ class ElidedLabel : public QLabel
 {
     Q_OBJECT
 
+    //! Store the potentially-elided text.
+    Q_PROPERTY(QString text READ text WRITE setText DESIGNABLE true)
     //! Indicates how the text should be elided.
     Q_PROPERTY(Qt::TextElideMode elide READ elide WRITE setElide NOTIFY
                    elideChanged DESIGNABLE true)

@@ -4,9 +4,13 @@ TEMPLATE	= lib
 QT		+= widgets uiplugin
 
 HEADERS	=	plugins.h			\
-		../core/warnings-disable.h
+		../core/warnings-disable.h	\
+		../widgets/ElidedLabel.h	\
+		ElidedLabelPlugin.h
 
-SOURCES	=	plugins.cpp
+SOURCES	=	plugins.cpp			\
+		../widgets/ElidedLabel.cpp	\
+		ElidedLabelPlugin.cpp
 		
 target.path	= $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS	+= target

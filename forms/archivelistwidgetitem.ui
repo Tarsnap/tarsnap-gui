@@ -78,8 +78,8 @@ font-size: 11px;
      <property name="text">
       <string notr="true"/>
      </property>
-     <property name="elide" stdset="0">
-      <string notr="true">Qt::ElideRight</string>
+     <property name="elide">
+      <enum>Qt::ElideRight</enum>
      </property>
     </widget>
    </item>

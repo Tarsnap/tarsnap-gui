@@ -107,8 +107,8 @@
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
-       <property name="elide" stdset="0">
-        <string notr="true">Qt::ElideRight</string>
+       <property name="elide">
+        <enum>Qt::ElideRight</enum>
        </property>
       </widget>
      </item>
@@ -183,8 +183,8 @@
        <property name="textInteractionFlags">
         <set>Qt::TextSelectableByMouse</set>
        </property>
-       <property name="elide" stdset="0">
-        <string>Qt::ElideMiddle</string>
+       <property name="elide">
+        <enum>Qt::ElideMiddle</enum>
        </property>
       </widget>
      </item>
@@ -297,8 +297,8 @@
        <property name="textInteractionFlags">
         <set>Qt::TextSelectableByMouse</set>
        </property>
-       <property name="elide" stdset="0">
-        <string notr="true">Qt::ElideMiddle</string>
+       <property name="elide">
+        <enum>Qt::ElideMiddle</enum>
        </property>
       </widget>
      </item>
@@ -517,14 +517,14 @@ font-size: 12px;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedClickableLabel</class>
-   <extends>QLabel</extends>
-   <header>../widgets/elidedclickablelabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>ElidedLabel</class>
    <extends>QLabel</extends>
    <header>ElidedLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ElidedClickableLabel</class>
+   <extends>QLabel</extends>
+   <header>../widgets/elidedclickablelabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

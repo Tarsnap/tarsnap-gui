@@ -51,6 +51,19 @@ https://www.tarsnap.com/download.html
 Once you have the Qt SDK setup and Tarsnap client installed you can proceed to
 building this Tarsnap GUI.
 
+-------------------
+Qt designer plugins
+-------------------
+
+We have a few widgets in lib/widgets/ which are useful to have
+directly in the Qt designer.  To enable those, go to
+    lib/plugins/
+to compile and install them.  It should work with:
+    qmake && make install
+as long as there's no problems about Qt 4 vs. 5.  (See below for
+such problems.)
+
+
 --------------------
 OS X Yosemite and up
 --------------------

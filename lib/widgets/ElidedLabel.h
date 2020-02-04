@@ -35,7 +35,7 @@ public:
     void setElide(const Qt::TextElideMode &elide);
 
     //! Returns the full text.
-    QString text();
+    QString text() const;
 
     //! Returns the recommended size for the widget based on the full text.
     QSize sizeHint() const;
@@ -68,7 +68,7 @@ protected:
 
     //! Returns an elided version of the string (if necessary), or
     //! the original string (if not).
-    QString elideText(const QString &text);
+    QString elideText(const QString &text) const;
 };
 
 #endif // ELIDEDLABEL_H

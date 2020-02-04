@@ -844,8 +844,8 @@ border: none;
            <property name="textInteractionFlags">
             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
            </property>
-           <property name="elide" stdset="0">
-            <string>Qt::ElideRight</string>
+           <property name="elide">
+            <enum>Qt::ElideRight</enum>
            </property>
           </widget>
          </item>

@@ -53,8 +53,8 @@ font-size: 12px;
      <property name="text">
       <string notr="true"/>
      </property>
-     <property name="elide" stdset="0">
-      <string notr="true">Qt::ElideMiddle</string>
+     <property name="elide">
+      <enum>Qt::ElideMiddle</enum>
      </property>
     </widget>
    </item>

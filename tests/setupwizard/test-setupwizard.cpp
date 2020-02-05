@@ -34,6 +34,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
+    void do_nothing();
     void normal_install();
     void cancel_install();
     void skip_install();
@@ -55,6 +56,17 @@ void TestSetupWizard::initTestCase()
 void TestSetupWizard::cleanupTestCase()
 {
     TSettings::destroy();
+}
+
+void TestSetupWizard::do_nothing()
+{
+    SetupDialog *wizard = new SetupDialog();
+
+    // This test is intended to help debug memory leaks.
+    VISUAL_INIT(wizard);
+    IF_NOT_VISUAL { wizard->open(); }
+
+    delete wizard;
 }
 
 void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)

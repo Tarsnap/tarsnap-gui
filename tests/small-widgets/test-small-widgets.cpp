@@ -1,6 +1,8 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QPixmap>
+#include <QPushButton>
 #include <QtTest/QtTest>
 WARNINGS_ENABLE
 
@@ -14,6 +16,8 @@ WARNINGS_ENABLE
 
 #include "ElidedLabel.h"
 #include "TSettings.h"
+#include "TWizard.h"
+#include "TWizardPage.h"
 
 class TestSmallWidgets : public QObject
 {
@@ -30,6 +34,7 @@ private slots:
     void confirmationDialog();
     void busywidget();
     void statuslabel();
+    void twizard();
 };
 
 void TestSmallWidgets::initTestCase()
@@ -171,6 +176,45 @@ void TestSmallWidgets::statuslabel()
     VISUAL_WAIT;
 
     delete el;
+}
+
+void TestSmallWidgets::twizard()
+{
+    TWizard *wizard = new TWizard();
+
+    // Add logo
+    QPixmap pix(32, 32);
+    pix.fill(Qt::blue);
+    wizard->setLogo(pix);
+
+    // Create pages with titles
+    TWizardPage *p1 = new TWizardPage();
+    TWizardPage *p2 = new TWizardPage();
+    p1->setTitle("page 1");
+    p2->setTitle("page 2");
+
+    // Add a "proceed" button to each page
+    QPushButton *pb1 = new QPushButton(p1);
+    pb1->setText("Next");
+    pb1->setObjectName("nextButton");
+    QPushButton *pb2 = new QPushButton(p2);
+    pb2->setText("Finish");
+    pb2->setObjectName("finishButton");
+
+    // Add pages to the wizard; must be after the buttons have been added
+    wizard->addPages(QList<TWizardPage *>() << p1 << p2);
+
+    // Navigate through the pages.
+    VISUAL_INIT(wizard);
+    wizard->currentPage()->button(TWizardPage::NextButton)->click();
+    VISUAL_WAIT;
+    wizard->currentPage()->button(TWizardPage::FinishButton)->click();
+    VISUAL_WAIT;
+
+    // We should have quit the wizard
+    QVERIFY(wizard->isVisible() == false);
+
+    delete wizard;
 }
 
 QTEST_MAIN(TestSmallWidgets)

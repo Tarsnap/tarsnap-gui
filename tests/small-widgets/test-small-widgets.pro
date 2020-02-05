@@ -5,13 +5,16 @@ VALGRIND = true
 
 FORMS +=						\
 	../../forms/filepickerdialog.ui			\
-	../../forms/filepickerwidget.ui
+	../../forms/filepickerwidget.ui			\
+	../../lib/forms/TWizard.ui
 
 RESOURCES += ../../resources/resources.qrc
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/ElidedLabel.h			\
+	../../lib/widgets/TWizard.h			\
+	../../lib/widgets/TWizardPage.h			\
 	../../src/customfilesystemmodel.h		\
 	../../src/widgets/busywidget.h			\
 	../../src/widgets/confirmationdialog.h		\
@@ -23,6 +26,8 @@ HEADERS  +=						\
 SOURCES += test-small-widgets.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../lib/widgets/ElidedLabel.cpp		\
+	../../lib/widgets/TWizard.cpp			\
+	../../lib/widgets/TWizardPage.cpp		\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/widgets/busywidget.cpp		\
 	../../src/widgets/confirmationdialog.cpp	\

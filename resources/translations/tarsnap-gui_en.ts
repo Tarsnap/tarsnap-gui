@@ -1544,6 +1544,13 @@ Add anyway?</source>
     </message>
 </context>
 <context>
+    <name>PathLineBrowse</name>
+    <message>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <source>Simulation mode is enabled.  Archives will not be uploaded to the Tarsnap server.  Disable in Settings -&gt; Backup.</source>
@@ -2351,10 +2358,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The data directory is used to store app data, settings and the machine key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Application data directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2376,22 +2379,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     </message>
     <message>
         <source>Config directory:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Change application data directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Change</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Change Tarsnap cache directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Look for the Tarsnap CLI utilities</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2553,6 +2540,10 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     </message>
     <message>
         <source>Error retrieving Tarsnap CLI verison</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The data directory is used to store app data, settings, and the machine key</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

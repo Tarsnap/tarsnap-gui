@@ -1551,6 +1551,13 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>PathLineBrowse</name>
+    <message>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <source>Simulation mode is enabled.  Archives will not be uploaded to the Tarsnap server.  Disable in Settings -&gt; Backup.</source>
@@ -2380,10 +2387,6 @@ Joburile care au activată execuția programată vor fi executate conform setăr
         <translation>Directorul cache Tarsnap</translation>
     </message>
     <message>
-        <source>The data directory is used to store app data, settings and the machine key</source>
-        <translation>Directorul de date al aplicației este folosit pentru a stoca setările și datele aplicației</translation>
-    </message>
-    <message>
         <source>Application data directory</source>
         <translation>Directorul de date al aplicației</translation>
     </message>
@@ -2406,22 +2409,6 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <message>
         <source>Config directory:</source>
         <translation>Directorul de date al aplicației:</translation>
-    </message>
-    <message>
-        <source>Change application data directory</source>
-        <translation>Navighează după directorul de date al aplicației</translation>
-    </message>
-    <message>
-        <source>Change</source>
-        <translation>Schimbă</translation>
-    </message>
-    <message>
-        <source>Change Tarsnap cache directory</source>
-        <translation>Schimbă director cache Tarsnap</translation>
-    </message>
-    <message>
-        <source>Look for the Tarsnap CLI utilities</source>
-        <translation>Navighează după utilitarele la linia de comandă Tarsnap</translation>
     </message>
     <message>
         <source>Show advanced setup options</source>
@@ -2588,6 +2575,10 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <message>
         <source>Error retrieving Tarsnap CLI verison</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The data directory is used to store app data, settings, and the machine key</source>
+        <translation type="unfinished">Directorul de date al aplicației este folosit pentru a stoca setările și datele aplicației</translation>
     </message>
 </context>
 <context>

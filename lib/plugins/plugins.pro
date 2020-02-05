@@ -6,12 +6,19 @@ QT		+= widgets uiplugin
 HEADERS	=	plugins.h			\
 		../core/warnings-disable.h	\
 		../widgets/ElidedLabel.h	\
-		ElidedLabelPlugin.h
+		../widgets/PathLineBrowse.h	\
+		ElidedLabelPlugin.h		\
+		PathLineBrowsePlugin.h
 
 SOURCES	=	plugins.cpp			\
 		../widgets/ElidedLabel.cpp	\
-		ElidedLabelPlugin.cpp
-		
+		../widgets/PathLineBrowse.cpp	\
+		ElidedLabelPlugin.cpp		\
+		PathLineBrowsePlugin.cpp
+
+FORMS	=					\
+		../forms/PathLineBrowse.ui
+	
 target.path	= $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS	+= target
 

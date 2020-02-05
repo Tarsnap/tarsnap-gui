@@ -7,6 +7,8 @@ WARNINGS_DISABLE
 #include <QCollator>
 #include <QDialog>
 #include <QFont>
+#include <QFontMetrics>
+#include <QFontMetricsF>
 #include <QLabel>
 #include <QListWidget>
 #include <QPlainTextEdit>
@@ -24,6 +26,8 @@ private slots:
     void pl_accessible_setRootObject();
     void pl_font();
     void pl_qapp_font();
+    void pl_fontmetrics_height();
+    void pl_fontmetricsf_leading();
     void pl_label();
     void pl_collator();
     void pl_collator_copy();
@@ -63,6 +67,22 @@ void TestQTestSimple::pl_font()
 void TestQTestSimple::pl_qapp_font()
 {
     QFont font = qApp->font();
+}
+
+void TestQTestSimple::pl_fontmetrics_height()
+{
+    QFontMetrics *fm = new QFontMetrics(qApp->font());
+    fm->height();
+    delete fm;
+}
+
+void TestQTestSimple::pl_fontmetricsf_leading()
+{
+    // Yes, the previous one doesn't have the trailing F, and no, I don't know
+    // precisely why both are necessary.
+    QFontMetricsF *fm = new QFontMetricsF(qApp->font());
+    fm->leading();
+    delete fm;
 }
 
 void TestQTestSimple::pl_label()

@@ -9,6 +9,7 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 FORMS +=						\
 	../../forms/setupdialog.ui			\
+	../../lib/forms/PathLineBrowse.ui
 
 SOURCES += test-app-setup.cpp				\
 	../../lib/core/ConsoleLog.cpp			\
@@ -16,6 +17,7 @@ SOURCES += test-app-setup.cpp				\
 	../../lib/util/optparse.c			\
 	../../lib/util/optparse_helper.c		\
 	../../lib/widgets/ElidedLabel.cpp		\
+	../../lib/widgets/PathLineBrowse.cpp		\
 	../../libcperciva/util/getopt.c			\
 	../../libcperciva/util/warnp.c			\
 	../../src/app-cmdline.cpp			\
@@ -44,6 +46,7 @@ HEADERS +=						\
 	../../lib/util/optparse.h			\
 	../../lib/util/optparse_helper.h		\
 	../../lib/widgets/ElidedLabel.h			\
+	../../lib/widgets/PathLineBrowse.h		\
 	../../libcperciva/util/getopt.h			\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\

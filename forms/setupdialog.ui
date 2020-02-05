@@ -266,7 +266,7 @@
           </item>
           <item>
            <widget class="QWidget" name="cliAdvancedWidget" native="true">
-            <layout class="QGridLayout" name="gridLayout">
+            <layout class="QVBoxLayout" name="cliAdvancedLayout">
              <property name="leftMargin">
               <number>0</number>
              </property>
@@ -279,129 +279,51 @@
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <property name="spacing">
-              <number>6</number>
-             </property>
-             <item row="3" column="0">
-              <widget class="QLineEdit" name="tarsnapCacheLineEdit">
-               <property name="toolTip">
-                <string>Tarsnap caches information about what it has uploaded in a local directory</string>
-               </property>
-               <property name="dragEnabled">
-                <bool>true</bool>
-               </property>
-               <property name="placeholderText">
-                <string>Tarsnap cache directory</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLineEdit" name="appDataPathLineEdit">
-               <property name="toolTip">
-                <string>The data directory is used to store app data, settings and the machine key</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="placeholderText">
-                <string>Application data directory</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLineEdit" name="tarsnapPathLineEdit">
+             <item>
+              <widget class="PathLineBrowse" name="cliPathLineBrowse">
                <property name="toolTip">
                 <string>Must point to the Tarsnap CLI utilities directory</string>
                </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="dragEnabled">
-                <bool>true</bool>
+               <property name="label">
+                <string>Command-line utilities:</string>
                </property>
                <property name="placeholderText">
                 <string>Tarsnap client utils directory</string>
                </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
+               <property name="dialogTitle">
+                <string>Find Tarsnap client</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="0" colspan="3">
-              <widget class="QLabel" name="cliLabel">
-               <property name="text">
-                <string>Command-line utilities:</string>
+             <item>
+              <widget class="PathLineBrowse" name="cachePathLineBrowse">
+               <property name="toolTip">
+                <string>Tarsnap caches information about what it has uploaded in a local directory</string>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0" colspan="3">
-              <widget class="QLabel" name="cacheLabel">
-               <property name="text">
+               <property name="label">
                 <string>Cache directory:</string>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               <property name="placeholderText">
+                <string>Tarsnap cache directory</string>
                </property>
-               <property name="wordWrap">
-                <bool>true</bool>
+               <property name="dialogTitle">
+                <string>Tarsnap cache location</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="0" colspan="3">
-              <widget class="QLabel" name="configLabel">
-               <property name="text">
+             <item>
+              <widget class="PathLineBrowse" name="appdataPathLineBrowse">
+               <property name="toolTip">
+                <string>The data directory is used to store app data, settings, and the machine key</string>
+               </property>
+               <property name="label">
                 <string>Config directory:</string>
                </property>
-               <property name="wordWrap">
-                <bool>true</bool>
+               <property name="placeholderText">
+                <string>Application data directory</string>
                </property>
-              </widget>
-             </item>
-             <item row="5" column="1">
-              <widget class="QPushButton" name="appDataBrowseButton">
-               <property name="toolTip">
-                <string>Change application data directory</string>
-               </property>
-               <property name="text">
-                <string>Change</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QPushButton" name="tarsnapCacheBrowseButton">
-               <property name="toolTip">
-                <string>Change Tarsnap cache directory</string>
-               </property>
-               <property name="text">
-                <string>Change</string>
-               </property>
-               <property name="autoDefault">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QPushButton" name="tarsnapPathBrowseButton">
-               <property name="toolTip">
-                <string>Look for the Tarsnap CLI utilities</string>
-               </property>
-               <property name="text">
-                <string>Change</string>
-               </property>
-               <property name="autoDefault">
-                <bool>false</bool>
+               <property name="dialogTitle">
+                <string>App data location</string>
                </property>
               </widget>
              </item>
@@ -1019,6 +941,11 @@ border: none;
    <header>ElidedLabel.h</header>
   </customwidget>
   <customwidget>
+   <class>PathLineBrowse</class>
+   <extends>QWidget</extends>
+   <header>PathLineBrowse.h</header>
+  </customwidget>
+  <customwidget>
    <class>BusyWidget</class>
    <extends>QLabel</extends>
    <header>../widgets/busywidget.h</header>
@@ -1026,12 +953,9 @@ border: none;
  </customwidgets>
  <tabstops>
   <tabstop>nextButton</tabstop>
-  <tabstop>tarsnapPathLineEdit</tabstop>
-  <tabstop>tarsnapPathBrowseButton</tabstop>
-  <tabstop>tarsnapCacheLineEdit</tabstop>
-  <tabstop>tarsnapCacheBrowseButton</tabstop>
-  <tabstop>appDataPathLineEdit</tabstop>
-  <tabstop>appDataBrowseButton</tabstop>
+  <tabstop>cliPathLineBrowse</tabstop>
+  <tabstop>cachePathLineBrowse</tabstop>
+  <tabstop>appdataPathLineBrowse</tabstop>
   <tabstop>cliAdvancedButton</tabstop>
   <tabstop>createKeyfileButton</tabstop>
   <tabstop>useExistingKeyfileButton</tabstop>

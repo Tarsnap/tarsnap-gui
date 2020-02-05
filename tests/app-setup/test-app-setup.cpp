@@ -73,7 +73,7 @@ static void run_normal_setup(AppSetup *setup)
 
     if(tarsnapPath.isEmpty())
     {
-        ui_cli->tarsnapPathLineEdit->setText("faked-dir");
+        ui_cli->cliPathLineBrowse->setText("faked-dir");
         // Fake the binary.
         wizard->tarsnapVersionResponse(TaskStatus::Completed,
                                        TARSNAP_MIN_VERSION);

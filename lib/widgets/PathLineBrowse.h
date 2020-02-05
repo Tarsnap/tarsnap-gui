@@ -22,9 +22,9 @@ class PathLineBrowse : public QWidget
     Q_PROPERTY(QString label READ label WRITE setLabel)
     //! Placeholder text of the QLineEdit.
     Q_PROPERTY(
-        QString placeholderText READ placeholderText WRITE setPlaceholderText);
+        QString placeholderText READ placeholderText WRITE setPlaceholderText)
     //! Title of the QFileDialog.
-    Q_PROPERTY(QString dialogTitle READ dialogTitle WRITE setDialogTitle);
+    Q_PROPERTY(QString dialogTitle READ dialogTitle WRITE setDialogTitle)
 
 public:
     //! Constructor.

@@ -206,6 +206,8 @@ void TestSmallWidgets::twizard()
 
     // Navigate through the pages.
     VISUAL_INIT(wizard);
+    IF_NOT_VISUAL { wizard->open(); }
+
     wizard->currentPage()->button(TWizardPage::NextButton)->click();
     VISUAL_WAIT;
     wizard->currentPage()->button(TWizardPage::FinishButton)->click();

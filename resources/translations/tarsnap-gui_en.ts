@@ -27,11 +27,26 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to launch application</source>
+        <source>Tarsnap info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>An unknown error occurred.</source>
+        <source>Cannot initialize the database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot complete setup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AppSetup</name>
+    <message>
+        <source>Tarsnap warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot initialize the database.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -39,7 +54,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot initialize the database.</source>
+        <source>Updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to updated OS X launchd path</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -203,10 +222,6 @@ For your information, there&apos;s a purge action in Settings -&gt; Account page
     </message>
     <message>
         <source>Archive name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qt::ElideMiddle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2393,10 +2408,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     </message>
     <message>
         <source>Choose a machine name and select your existing keyfile.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Qt::ElideRight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

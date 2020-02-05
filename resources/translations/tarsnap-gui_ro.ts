@@ -27,11 +27,26 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to launch application</source>
+        <source>Tarsnap info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>An unknown error occurred.</source>
+        <source>Cannot initialize the database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot complete setup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AppSetup</name>
+    <message>
+        <source>Tarsnap warning</source>
+        <translation type="unfinished">Avertisment</translation>
+    </message>
+    <message>
+        <source>Cannot initialize the database.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -39,7 +54,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot initialize the database.</source>
+        <source>Updated OS X launchd path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to updated OS X launchd path</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -159,10 +178,6 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Nuke di
     <message>
         <source>Archive size:</source>
         <translation>Dimensiune arhivă:</translation>
-    </message>
-    <message>
-        <source>Qt::ElideMiddle</source>
-        <translation></translation>
     </message>
     <message>
         <source>Actual size occupied on Tarsnap</source>
@@ -2423,10 +2438,6 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <message>
         <source>Choose a machine name and select your existing keyfile.</source>
         <translation>Alegeți o cheie dispozitiv existentă și completați numele dispozitiv.</translation>
-    </message>
-    <message>
-        <source>Qt::ElideRight</source>
-        <translation></translation>
     </message>
     <message>
         <source>Back</source>

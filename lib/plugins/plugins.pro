@@ -7,14 +7,18 @@ HEADERS	=	plugins.h			\
 		../core/warnings-disable.h	\
 		../widgets/ElidedLabel.h	\
 		../widgets/PathLineBrowse.h	\
+		../widgets/TWizardPage.h	\
 		ElidedLabelPlugin.h		\
-		PathLineBrowsePlugin.h
+		PathLineBrowsePlugin.h		\
+		TWizardPagePlugin.h
 
 SOURCES	=	plugins.cpp			\
 		../widgets/ElidedLabel.cpp	\
 		../widgets/PathLineBrowse.cpp	\
+		../widgets/TWizardPage.cpp	\
 		ElidedLabelPlugin.cpp		\
-		PathLineBrowsePlugin.cpp
+		PathLineBrowsePlugin.cpp	\
+		TWizardPagePlugin.cpp
 
 FORMS	=					\
 		../forms/PathLineBrowse.ui

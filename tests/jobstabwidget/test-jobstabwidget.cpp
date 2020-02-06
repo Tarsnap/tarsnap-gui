@@ -49,9 +49,9 @@ void TestJobsTabWidget::cleanupTestCase()
 {
     PersistentStore::destroy();
     TSettings::destroy();
-    // Wait to (probably?) allow something within QWidgetLineControl to
-    // get freed.  (Randomly occurring memorty leak.)
-    QTest::qWait(100);
+
+    // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
 }
 
 void TestJobsTabWidget::jobWidget()

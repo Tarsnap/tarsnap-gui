@@ -14,8 +14,8 @@ class TarsnapPlugins : public QObject,
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID
-                      "org.tarsnap.QDesignerCustomWidgetCollectionInterface");
-    Q_INTERFACES(QDesignerCustomWidgetCollectionInterface);
+                      "org.tarsnap.QDesignerCustomWidgetCollectionInterface")
+    Q_INTERFACES(QDesignerCustomWidgetCollectionInterface)
 
 public:
     TarsnapPlugins(QObject *parent = nullptr);

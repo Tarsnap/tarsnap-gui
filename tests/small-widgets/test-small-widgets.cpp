@@ -33,6 +33,7 @@ private slots:
     void filepickerdialog();
     void confirmationDialog();
     void busywidget();
+    void busywidget_on_off();
     void statuslabel();
     void twizard();
 };
@@ -145,6 +146,17 @@ void TestSmallWidgets::busywidget()
     BusyWidget *bw = new BusyWidget();
 
     VISUAL_INIT(bw);
+    IF_NOT_VISUAL { bw->show(); }
+
+    delete bw;
+}
+
+void TestSmallWidgets::busywidget_on_off()
+{
+    BusyWidget *bw = new BusyWidget();
+
+    VISUAL_INIT(bw);
+    IF_NOT_VISUAL { bw->show(); }
 
     // Before starting
     VISUAL_WAIT;

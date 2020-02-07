@@ -5,7 +5,8 @@ WARNINGS_DISABLE
 
 #include <QSettings>
 
-#include "ui_setupdialog.h"
+#include "ui_setupwizard_cli.h"
+#include "ui_setupwizard_register.h"
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
@@ -13,18 +14,23 @@ WARNINGS_ENABLE
 #include "utils.h"
 
 #include <TSettings.h>
+#include <TWizardPage.h>
 
 #include "compare-settings.h"
 
-#include "setupdialog.h"
+#include "setupwizard.h"
+#include "setupwizard_cli.h"
+#include "setupwizard_register.h"
 
 #define GET_UI_PAGE(x, PAGETYPE)                                               \
     do                                                                         \
     {                                                                          \
-        x = wizard->get_ui();                                                  \
+        const TWizardPage *page = wizard->currentPage();                       \
+        QVERIFY(page->objectName() == #PAGETYPE);                              \
+        x = static_cast<const PAGETYPE *>(page)->get_ui();                     \
     } while(0)
 
-#define GET_BUTTON(x) wizard->button(SetupDialog::x)
+#define GET_BUTTON(x) wizard->currentPage()->button(TWizardPage::x)
 
 class TestSetupWizard : public QObject
 {
@@ -42,7 +48,7 @@ private slots:
     void normal_install();
 
 private:
-    void helper_almost_normal_install(SetupDialog *wizard);
+    void helper_almost_normal_install(SetupWizard *wizard);
 };
 
 void TestSetupWizard::initTestCase()
@@ -63,7 +69,7 @@ void TestSetupWizard::cleanupTestCase()
 
 void TestSetupWizard::do_nothing()
 {
-    SetupDialog *wizard = new SetupDialog();
+    SetupWizard *wizard = new SetupWizard();
 
     // This test is intended to help debug memory leaks.
     VISUAL_INIT(wizard);
@@ -72,14 +78,14 @@ void TestSetupWizard::do_nothing()
     delete wizard;
 }
 
-void TestSetupWizard::helper_almost_normal_install(SetupDialog *wizard)
+void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
 {
     QSignalSpy sig_cli(wizard, SIGNAL(tarsnapVersionRequested()));
     QSignalSpy sig_register(wizard,
                             SIGNAL(registerMachineRequested(QString, bool)));
 
-    Ui::SetupDialog *ui_cli;
-    Ui::SetupDialog *ui_register;
+    Ui::CliPage *     ui_cli;
+    Ui::RegisterPage *ui_register;
 
     VISUAL_INIT(wizard);
     IF_NOT_VISUAL { wizard->open(); }
@@ -140,7 +146,7 @@ void TestSetupWizard::normal_install()
 {
     TARSNAP_CLI_OR_SKIP;
 
-    SetupDialog *wizard = new SetupDialog();
+    SetupWizard *wizard = new SetupWizard();
 
     // Almost complete a normal install
     helper_almost_normal_install(wizard);
@@ -162,7 +168,7 @@ void TestSetupWizard::cancel_install()
 {
     TARSNAP_CLI_OR_SKIP;
 
-    SetupDialog *wizard = new SetupDialog();
+    SetupWizard *wizard = new SetupWizard();
 
     // Almost complete a normal install
     helper_almost_normal_install(wizard);
@@ -187,7 +193,7 @@ void TestSetupWizard::skip_install()
 {
     TARSNAP_CLI_OR_SKIP;
 
-    SetupDialog *wizard = new SetupDialog();
+    SetupWizard *wizard = new SetupWizard();
 
     // Almost complete a normal install
     helper_almost_normal_install(wizard);
@@ -212,8 +218,8 @@ void TestSetupWizard::skip_install()
 
 void TestSetupWizard::cli()
 {
-    SetupDialog *    wizard = new SetupDialog();
-    Ui::SetupDialog *ui_cli;
+    SetupWizard *wizard = new SetupWizard();
+    Ui::CliPage *ui_cli;
 
     VISUAL_INIT(wizard);
     IF_NOT_VISUAL { wizard->open(); }
@@ -262,8 +268,8 @@ void TestSetupWizard::cli()
 
 void TestSetupWizard::version_too_low()
 {
-    SetupDialog *    wizard = new SetupDialog();
-    Ui::SetupDialog *ui_cli;
+    SetupWizard *wizard = new SetupWizard();
+    Ui::CliPage *ui_cli;
 
     VISUAL_INIT(wizard);
     IF_NOT_VISUAL { wizard->open(); }

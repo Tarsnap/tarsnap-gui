@@ -11,6 +11,7 @@ INCLUDEPATH += .				\
 	../../lib/widgets/			\
 	../../libcperciva/util/			\
 	../../src/				\
+	../../src/setupwizard/			\
 	../../src/tasks/			\
 	../../src/widgets/
 

@@ -12,6 +12,7 @@ WARNINGS_DISABLE
 #include <QLineEdit>
 #include <QNetworkAccessManager>
 #include <QRadioButton>
+#include <QSequentialAnimationGroup>
 #include <QTreeView>
 #include <QVBoxLayout>
 WARNINGS_ENABLE
@@ -39,6 +40,7 @@ private slots:
     void pl_widget_show_hide();
     void pl_networkaccessmanager();
     void pl_lineedit_placeholder();
+    void pl_animation_start();
 };
 
 void TestQTestComplex::pl_nothing()
@@ -218,6 +220,18 @@ void TestQTestComplex::pl_lineedit_placeholder()
     QLineEdit *le = new QLineEdit();
     le->setPlaceholderText("this is a long piece of placeholder text");
     delete le;
+}
+
+void TestQTestComplex::pl_animation_start()
+{
+    // Somehow there's a leak caused by SetupWizard (even once BusyWidget is
+    // completely removed) in QAbstractAnimation::start().  This appears to
+    // reproduce the problem, although I have no clue how it applies to
+    // the heavily-pared-down SetupWizard (introPage and cliPage only, and
+    // no interaction on cliPage other than one QLineEdit::setText()).
+    QSequentialAnimationGroup * a = new QSequentialAnimationGroup();
+    a->start();
+    delete a;
 }
 
 QTEST_MAIN(TestQTestComplex)

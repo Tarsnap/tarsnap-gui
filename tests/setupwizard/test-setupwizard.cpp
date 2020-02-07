@@ -35,11 +35,11 @@ private slots:
     void cleanupTestCase();
 
     void do_nothing();
-    void normal_install();
-    void cancel_install();
-    void skip_install();
     void cli();
     void version_too_low();
+    void cancel_install();
+    void skip_install();
+    void normal_install();
 
 private:
     void helper_almost_normal_install(SetupDialog *wizard);

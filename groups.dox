@@ -4,6 +4,11 @@
  */
 
 /**
+ * \defgroup widgets-setup SetupWizard widgets
+ * \brief Widgets which are only used in the SetupWizard.
+ */
+
+/**
  * \defgroup widgets-specialized Specialized widgets
  * \brief Widgets which are used as components of larger screens.
  */

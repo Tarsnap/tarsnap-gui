@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CliPage</class>
+ <widget class="TWizardPage" name="CliPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>410</width>
+    <height>282</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>410</width>
+    <height>282</height>
+   </size>
+  </property>
+  <property name="title">
+   <string>Command-line utilities</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <property name="spacing">
+    <number>6</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <layout class="QVBoxLayout" name="centralLayout">
+     <property name="leftMargin">
+      <number>4</number>
+     </property>
+     <property name="topMargin">
+      <number>4</number>
+     </property>
+     <property name="rightMargin">
+      <number>4</number>
+     </property>
+     <property name="bottomMargin">
+      <number>4</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="subtitleLabel">
+       <property name="text">
+        <string>The Tarsnap &lt;b&gt;command-line utilities&lt;/b&gt; are used to communicate with the service and must be installed on your system.</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ElidedLabel" name="cliValidationLabel">
+       <property name="font">
+        <font>
+         <italic>true</italic>
+        </font>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+       </property>
+       <property name="text">
+        <string>Waiting for initialization</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QWidget" name="cliAdvancedWidget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>150</height>
+        </size>
+       </property>
+       <layout class="QVBoxLayout" name="cliDetailsLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="PathLineBrowse" name="cliPathLineBrowse">
+          <property name="label">
+           <string>Command-line utilities:</string>
+          </property>
+          <property name="placeholderText">
+           <string>Tarsnap client utils directory</string>
+          </property>
+          <property name="dialogTitle">
+           <string>Find Tarsnap client</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="PathLineBrowse" name="cachePathLineBrowse">
+          <property name="label">
+           <string>Cache directory:</string>
+          </property>
+          <property name="placeholderText">
+           <string>Tarsnap cache directory</string>
+          </property>
+          <property name="dialogTitle">
+           <string>Tarsnap cache location</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="PathLineBrowse" name="appdataPathLineBrowse">
+          <property name="label">
+           <string>Config directory:</string>
+          </property>
+          <property name="placeholderText">
+           <string>Application data directory</string>
+          </property>
+          <property name="dialogTitle">
+           <string>App data location</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="bottomSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cliAdvancedButton">
+       <property name="toolTip">
+        <string>Show advanced setup options</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+border: none;
+}</string>
+       </property>
+       <property name="text">
+        <string>Details</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources/resources.qrc">
+         <normaloff>:/icons/caret-top.png</normaloff>
+         <normalon>:/icons/caret-bottom.png</normalon>:/icons/caret-top.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="footerLine">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="footerLayout">
+     <item>
+      <widget class="QPushButton" name="backButton">
+       <property name="text">
+        <string>Back</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="footerSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="nextButton">
+       <property name="text">
+        <string>Next</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ElidedLabel</class>
+   <extends>QLabel</extends>
+   <header>ElidedLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PathLineBrowse</class>
+   <extends>QWidget</extends>
+   <header>PathLineBrowse.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TWizardPage</class>
+   <extends>QWidget</extends>
+   <header>TWizardPage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>nextButton</tabstop>
+  <tabstop>cliPathLineBrowse</tabstop>
+  <tabstop>cachePathLineBrowse</tabstop>
+  <tabstop>appdataPathLineBrowse</tabstop>
+  <tabstop>cliAdvancedButton</tabstop>
+  <tabstop>backButton</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

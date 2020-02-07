@@ -138,7 +138,7 @@ void TestQTestComplex::pl_lineedit_text_localhostname()
 
 void TestQTestComplex::pl_lineedit_clear_show()
 {
-    QLineEdit * le = new QLineEdit();
+    QLineEdit *le = new QLineEdit();
 
     le->show();
     le->setClearButtonEnabled(true);
@@ -229,7 +229,7 @@ void TestQTestComplex::pl_animation_start()
     // reproduce the problem, although I have no clue how it applies to
     // the heavily-pared-down SetupWizard (introPage and cliPage only, and
     // no interaction on cliPage other than one QLineEdit::setText()).
-    QSequentialAnimationGroup * a = new QSequentialAnimationGroup();
+    QSequentialAnimationGroup *a = new QSequentialAnimationGroup();
     a->start();
     delete a;
 }

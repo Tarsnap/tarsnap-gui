@@ -511,6 +511,117 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>CliPage</name>
+    <message>
+        <source>Command-line utilities</source>
+        <translation type="unfinished">Utilitare la linia de comandă</translation>
+    </message>
+    <message>
+        <source>The Tarsnap &lt;b&gt;command-line utilities&lt;/b&gt; are used to communicate with the service and must be installed on your system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for initialization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Command-line utilities:</source>
+        <translation type="unfinished">Utilitarele la linia de comandă:</translation>
+    </message>
+    <message>
+        <source>Tarsnap client utils directory</source>
+        <translation type="unfinished">Utilitarele la linia de comandă Tarsnap</translation>
+    </message>
+    <message>
+        <source>Find Tarsnap client</source>
+        <translation type="unfinished">Localizare utilitare la linia de comandă</translation>
+    </message>
+    <message>
+        <source>Cache directory:</source>
+        <translation type="unfinished">Directorul &quot;cache&quot; Tarsnap:</translation>
+    </message>
+    <message>
+        <source>Tarsnap cache directory</source>
+        <translation type="unfinished">Directorul cache Tarsnap</translation>
+    </message>
+    <message>
+        <source>Tarsnap cache location</source>
+        <translation type="unfinished">Directorul cache Tarsnap</translation>
+    </message>
+    <message>
+        <source>Config directory:</source>
+        <translation type="unfinished">Directorul de date al aplicației:</translation>
+    </message>
+    <message>
+        <source>Application data directory</source>
+        <translation type="unfinished">Directorul de date al aplicației</translation>
+    </message>
+    <message>
+        <source>App data location</source>
+        <translation type="unfinished">Navighează după directorul de date al aplicației</translation>
+    </message>
+    <message>
+        <source>Show advanced setup options</source>
+        <translation type="unfinished">Arată opțiuni de configurare avansate</translation>
+    </message>
+    <message>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Înapoi</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Înainte</translation>
+    </message>
+    <message>
+        <source>Empty Tarsnap cache directory set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid Tarsnap cache directory set.</source>
+        <translation type="unfinished">Director &apos;cache&apos; invalid.</translation>
+    </message>
+    <message>
+        <source>Empty App data directory set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid App data directory set.</source>
+        <translation type="unfinished">Director de date al aplicației invalid.</translation>
+    </message>
+    <message>
+        <source>Empty Tarsnap directory set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap utilities not found. Visit &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; for help with acquiring them.</source>
+        <translation type="unfinished">Utilitarele la linia de comandă Tarsnap nu au fost găsite. Vizitați &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; pentru ajutor la instalarea acestora.</translation>
+    </message>
+    <message>
+        <source>Tarsnap CLI version </source>
+        <translation type="unfinished">Utilitarele Tarsnap la linia de comandă versiunea </translation>
+    </message>
+    <message>
+        <source> detected.  ✔</source>
+        <translation type="unfinished"> detectate.  ✔</translation>
+    </message>
+    <message>
+        <source> too low; must be at least %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error retrieving Tarsnap CLI verison</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not create directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FilePickerDialog</name>
     <message>
         <source>File Browser</source>
@@ -608,6 +719,42 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>FinalPage</name>
+    <message>
+        <source>WizardPage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setup complete!</source>
+        <translation type="unfinished">Configurare finalizată!</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
+&lt;p&gt;Tarsnap has been configured.  Please note:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For your safety, the application does not store your Tarsnap password.&lt;/li&gt;
+&lt;li&gt;Store your key file somewhere safe.  Your key file is:&lt;/li&gt;
+&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keyfile missing!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you lose the key file for this machine, you will not be able to access your archived data!</source>
+        <translation type="unfinished">Dacă pierdeți fișierul cheie dispozitiv nu veți mai putea accesa datele arhivate!</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Înapoi</translation>
+    </message>
+    <message>
+        <source>Finish</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HelpWidget</name>
     <message>
         <source>Keyboard shortcuts list</source>
@@ -624,6 +771,39 @@ Adaugă oricum?</translation>
     <message>
         <source>GUI version </source>
         <translation type="unfinished">Versiune aplicație </translation>
+    </message>
+</context>
+<context>
+    <name>IntroPage</name>
+    <message>
+        <source>WizardPage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setup wizard</source>
+        <translation type="unfinished">Asistent de configurare</translation>
+    </message>
+    <message>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p&gt;This wizard will:&lt;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check that you have the Tarsnap &lt;b&gt;command-line utilities&lt;/b&gt;.&lt;/li&gt;
+&lt;li&gt;Register a &lt;b&gt;keyfile&lt;/b&gt; with the server.&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can also skip this wizard and set up everything inside the application.</source>
+        <translation type="unfinished">Alternativ, poți sări peste acest pas și să configurezi totul manual din panoul Setări al aplicației.</translation>
+    </message>
+    <message>
+        <source>Skip wizard</source>
+        <translation type="unfinished">Sari peste</translation>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished">Înainte</translation>
     </message>
 </context>
 <context>
@@ -1651,6 +1831,97 @@ Aborting operation.</source>
     </message>
 </context>
 <context>
+    <name>RegisterPage</name>
+    <message>
+        <source>Register with server</source>
+        <translation type="unfinished">Înregistrare cu serverul Tarsnap</translation>
+    </message>
+    <message>
+        <source>A &lt;b&gt;keyfile&lt;/b&gt; is used to encrypt your data before uploading.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t have an account? Register on &lt;a href=&quot;http://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt;.</source>
+        <translation type="unfinished">Dacă nu ai un cont înregistrează-te pe website-ul &lt;a href=&quot;http://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; și ulterior folosește aceleași credențialele aici.</translation>
+    </message>
+    <message>
+        <source>Create new keyfile</source>
+        <translation type="unfinished">Creează o nouă cheie dispozitiv</translation>
+    </message>
+    <message>
+        <source>Use existing keyfile</source>
+        <translation type="unfinished">Folosește o cheie dispozitiv existentă</translation>
+    </message>
+    <message>
+        <source>your password</source>
+        <translation type="unfinished">parola ta</translation>
+    </message>
+    <message>
+        <source>this machine&apos;s name</source>
+        <translation type="unfinished">numele acestui dispozitiv</translation>
+    </message>
+    <message>
+        <source>Tarsnap user:</source>
+        <translation type="unfinished">Utilizator Tarsnap:</translation>
+    </message>
+    <message>
+        <source>Choose a machine name and enter your Tarsnap account credentials.</source>
+        <translation type="unfinished">Completați numele dispozitiv și contul de utilizator Tarsnap.</translation>
+    </message>
+    <message>
+        <source>Tarsnap password:</source>
+        <translation type="unfinished">Parolă Tarsnap:</translation>
+    </message>
+    <message>
+        <source>Machine name:</source>
+        <translation type="unfinished">Nume dispozitiv:</translation>
+    </message>
+    <message>
+        <source>your e-mail</source>
+        <translation type="unfinished">adresa ta de e-mail</translation>
+    </message>
+    <message>
+        <source>Browse for key</source>
+        <translation type="unfinished">Schimbă cheie dispozitiv</translation>
+    </message>
+    <message>
+        <source>Keyfile:</source>
+        <translation type="unfinished">Cheie dispozitiv:</translation>
+    </message>
+    <message>
+        <source>this machine&apos;s keyfile</source>
+        <translation type="unfinished">fișierul cheie dispozitiv</translation>
+    </message>
+    <message>
+        <source>Choose a machine name and select your existing keyfile.</source>
+        <translation type="unfinished">Alegeți o cheie dispozitiv existentă și completați numele dispozitiv.</translation>
+    </message>
+    <message>
+        <source>status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Înapoi</translation>
+    </message>
+    <message>
+        <source>Register Machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap key files (*.key *.keys)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Browse for existing machine key</source>
+        <translation type="unfinished">Navighează după o cheie dispozitiv Tarsnap</translation>
+    </message>
+    <message>
+        <source>All files (*);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RestoreDialog</name>
     <message>
         <source>Archive restore</source>
@@ -2579,6 +2850,13 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <message>
         <source>The data directory is used to store app data, settings, and the machine key</source>
         <translation type="unfinished">Directorul de date al aplicației este folosit pentru a stoca setările și datele aplicației</translation>
+    </message>
+</context>
+<context>
+    <name>SetupWizard</name>
+    <message>
+        <source>Tarsnap setup</source>
+        <translation type="unfinished">Configurare Tarsnap</translation>
     </message>
 </context>
 <context>

@@ -31,6 +31,7 @@ private slots:
     void pl_lineedit_text();
     void pl_lineedit_text_clear();
     void pl_lineedit_text_localhostname();
+    void pl_lineedit_clear_show();
     void pl_checkbox_text();
     void pl_treeview();
     void pl_dialog_exec();
@@ -131,6 +132,17 @@ void TestQTestComplex::pl_lineedit_text_localhostname()
     // Seriously.  No, I wouldn't believe it either if I hadn't seen it myself
     // multiple times.
     QHostInfo::localHostName();
+}
+
+void TestQTestComplex::pl_lineedit_clear_show()
+{
+    QLineEdit * le = new QLineEdit();
+
+    le->show();
+    le->setClearButtonEnabled(true);
+    le->setPlaceholderText("placeholder");
+    le->setText("text");
+    delete le;
 }
 
 void TestQTestComplex::pl_checkbox_text()

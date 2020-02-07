@@ -5,18 +5,22 @@ WARNINGS_DISABLE
 #include <QMetaObject>
 #include <QtTest/QtTest>
 
-#include "ui_setupdialog.h"
+#include "ui_setupwizard_cli.h"
+#include "ui_setupwizard_register.h"
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
 #include "app-setup.h"
 #include "init-shared.h"
-#include "setupdialog.h"
+#include "setupwizard.h"
+#include "setupwizard_cli.h"
+#include "setupwizard_register.h"
 #include "tasks-defs.h"
 #include "taskstatus.h"
 
 #include <TSettings.h>
+#include <TWizardPage.h>
 
 extern "C" {
 #include "optparse.h"
@@ -28,10 +32,12 @@ WARNINGS_ENABLE
 #define GET_UI_PAGE(x, PAGETYPE)                                               \
     do                                                                         \
     {                                                                          \
-        x = wizard->get_ui();                                                  \
+        const TWizardPage *page = wizard->currentPage();                       \
+        QVERIFY(page->objectName() == #PAGETYPE);                              \
+        x = static_cast<const PAGETYPE *>(page)->get_ui();                     \
     } while(0)
 
-#define GET_BUTTON(x) wizard->button(SetupDialog::x)
+#define GET_BUTTON(x) wizard->currentPage()->button(TWizardPage::x)
 
 /* "Runner" functions, which control the AppSetup. */
 static void run_cancel(AppSetup *setup);
@@ -44,7 +50,7 @@ static void init();
 
 static void run_cancel(AppSetup *setup)
 {
-    SetupDialog *wizard = setup->get_wizard();
+    SetupWizard *wizard = setup->get_wizard();
 
     // Intro page
     VISUAL_WAIT;
@@ -53,10 +59,10 @@ static void run_cancel(AppSetup *setup)
 
 static void run_normal_setup(AppSetup *setup)
 {
-    SetupDialog *wizard = setup->get_wizard();
+    SetupWizard *wizard = setup->get_wizard();
 
-    Ui::SetupDialog *ui_cli;
-    Ui::SetupDialog *ui_register;
+    Ui::CliPage *     ui_cli;
+    Ui::RegisterPage *ui_register;
 
     // Check if we have tarsnap (without using QTest's QSKIP).
     QString tarsnapPath = Utils::findTarsnapClientInPath(QString(""), true);

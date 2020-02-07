@@ -9,10 +9,10 @@ WARNINGS_ENABLE
 
 #include "debug.h"
 #include "init-shared.h"
+#include "setupwizard/setupwizard.h"
 #include "taskmanager.h"
 #include "translator.h"
 #include "utils.h"
-#include "widgets/setupdialog.h"
 
 #include <ConsoleLog.h>
 #include <TSettings.h>
@@ -94,24 +94,24 @@ bool AppSetup::prepEventLoop()
 {
     // Create the objects.
     _taskManager = new TaskManager();
-    _wizard      = new SetupDialog();
+    _wizard      = new SetupWizard();
 
     // Connect the frontend <-> backend signals.
-    connect(_wizard, &SetupDialog::tarsnapVersionRequested, _taskManager,
+    connect(_wizard, &SetupWizard::tarsnapVersionRequested, _taskManager,
             &TaskManager::tarsnapVersionFind);
     connect(_taskManager, &TaskManager::tarsnapVersionFound, _wizard,
-            &SetupDialog::tarsnapVersionResponse);
-    connect(_wizard, &SetupDialog::registerMachineRequested, _taskManager,
+            &SetupWizard::tarsnapVersionResponse);
+    connect(_wizard, &SetupWizard::registerMachineRequested, _taskManager,
             &TaskManager::registerMachineDo);
     connect(_taskManager, &TaskManager::registerMachineDone, _wizard,
-            &SetupDialog::registerMachineResponse);
+            &SetupWizard::registerMachineResponse);
 
     // Connect the backend -> frontend signal.
     connect(_taskManager, &TaskManager::idle, _wizard,
-            &SetupDialog::updateLoadingAnimation);
+            &SetupWizard::updateLoadingAnimation);
 
     // Connect the frontend -> this signal.
-    connect(_wizard, &SetupDialog::finished, this, &AppSetup::finished);
+    connect(_wizard, &SetupWizard::finished, this, &AppSetup::finished);
 
     // Launch the wizard (non-blocking).
     _wizard->open();

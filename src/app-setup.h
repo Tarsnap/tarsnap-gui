@@ -9,7 +9,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 /* Forward declarations. */
-class SetupDialog;
+class SetupWizard;
 class TaskManager;
 
 /*!
@@ -38,7 +38,7 @@ public:
     //! Block until there's no tasks.
     void waitUntilIdle();
     //! Get the wizard.
-    SetupDialog *get_wizard() { return _wizard; }
+    SetupWizard *get_wizard() { return _wizard; }
 #endif
 
 #ifdef QT_TESTLIB_LIB
@@ -58,7 +58,7 @@ private slots:
 #endif
 
 private:
-    SetupDialog *_wizard;
+    SetupWizard *_wizard;
     TaskManager *_taskManager;
 
     bool handle_step(const struct init_info info);

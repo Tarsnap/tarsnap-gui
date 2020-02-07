@@ -54,6 +54,8 @@ SOURCES +=						\
 	lib/util/optparse_helper.c			\
 	lib/widgets/ElidedLabel.cpp			\
 	lib/widgets/PathLineBrowse.cpp			\
+	lib/widgets/TWizard.cpp				\
+	lib/widgets/TWizardPage.cpp			\
 	libcperciva/util/getopt.c			\
 	libcperciva/util/warnp.c			\
 	src/app-cmdline.cpp				\
@@ -71,6 +73,11 @@ SOURCES +=						\
 	src/persistentmodel/persistentobject.cpp	\
 	src/persistentmodel/persistentstore.cpp		\
 	src/scheduling.cpp				\
+	src/setupwizard/setupwizard.cpp			\
+	src/setupwizard/setupwizard_cli.cpp		\
+	src/setupwizard/setupwizard_final.cpp		\
+	src/setupwizard/setupwizard_intro.cpp		\
+	src/setupwizard/setupwizard_register.cpp	\
 	src/tarsnapaccount.cpp				\
 	src/tarsnaptask.cpp				\
 	src/taskmanager.cpp				\
@@ -111,6 +118,8 @@ HEADERS +=						\
 	lib/util/optparse_helper.h			\
 	lib/widgets/ElidedLabel.h			\
 	lib/widgets/PathLineBrowse.h			\
+	lib/widgets/TWizard.h				\
+	lib/widgets/TWizardPage.h			\
 	libcperciva/util/getopt.h			\
 	libcperciva/util/warnp.h			\
 	src/app-cmdline.h				\
@@ -128,6 +137,11 @@ HEADERS +=						\
 	src/persistentmodel/persistentobject.h		\
 	src/persistentmodel/persistentstore.h		\
 	src/scheduling.h				\
+	src/setupwizard/setupwizard.h			\
+	src/setupwizard/setupwizard_cli.h		\
+	src/setupwizard/setupwizard_final.h		\
+	src/setupwizard/setupwizard_intro.h		\
+	src/setupwizard/setupwizard_register.h		\
 	src/tarsnapaccount.h				\
 	src/tarsnaperror.h				\
 	src/tarsnaptask.h				\
@@ -191,7 +205,13 @@ FORMS +=						\
 	forms/restoredialog.ui				\
 	forms/settingswidget.ui				\
 	forms/setupdialog.ui				\
-	lib/forms/PathLineBrowse.ui
+	forms/setupwizard.ui				\
+	forms/setupwizard_cli.ui			\
+	forms/setupwizard_final.ui			\
+	forms/setupwizard_intro.ui			\
+	forms/setupwizard_register.ui			\
+	lib/forms/PathLineBrowse.ui			\
+	lib/forms/TWizard.ui
 
 RESOURCES += resources/resources.qrc
 

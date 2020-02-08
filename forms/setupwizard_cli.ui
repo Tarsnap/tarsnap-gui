@@ -60,30 +60,6 @@
       </widget>
      </item>
      <item>
-      <widget class="ElidedLabel" name="validationLabel">
-       <property name="font">
-        <font>
-         <italic>true</italic>
-        </font>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-       <property name="openExternalLinks">
-        <bool>true</bool>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-       </property>
-       <property name="text">
-        <string>Waiting for initialization</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="detailsButton">
        <property name="toolTip">
         <string>Show advanced setup options</string>
@@ -196,6 +172,30 @@
       </spacer>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="ElidedLabel" name="validationLabel">
+     <property name="font">
+      <font>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="openExternalLinks">
+      <bool>true</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+     </property>
+     <property name="text">
+      <string>Waiting for initialization</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="Line" name="footerLine">

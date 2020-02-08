@@ -3,7 +3,7 @@
  *
  * \section Objects Main objects
  *
- * - Frontend: \ref MainWindow or \ref SetupDialog
+ * - Frontend: \ref MainWindow or \ref SetupWizard
  * - Backend: \ref TaskManager
  * - Overall owner: \ref AppGui or \ref AppCmdline
  *

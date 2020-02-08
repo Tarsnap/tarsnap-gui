@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 
 /**
  * \file tasks-setup.h
- * \brief These functions are used in the SetupDialog.
+ * \brief These functions are used in the SetupWizard.
  *
  * They:
  * - should not have any side effects.

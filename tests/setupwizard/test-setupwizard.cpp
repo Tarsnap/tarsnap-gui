@@ -103,7 +103,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
     // Fake the CLI detection and checking
     QVERIFY(sig_cli.count() == 1);
     wizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
-    QVERIFY(ui_cli->cliValidationLabel->text().contains("Tarsnap CLI version"));
+    QVERIFY(ui_cli->validationLabel->text().contains("Tarsnap CLI version"));
     VISUAL_WAIT;
 
     // Proceed
@@ -239,28 +239,28 @@ void TestSetupWizard::cli()
 
     // App data directory
     ui_cli->appdataPathLineBrowse->setText("fake-dir");
-    QVERIFY(ui_cli->cliValidationLabel->text()
+    QVERIFY(ui_cli->validationLabel->text()
             == "Invalid App data directory set.");
     VISUAL_WAIT;
     ui_cli->appdataPathLineBrowse->setText("/tmp");
 
     // Cache directory
     ui_cli->cachePathLineBrowse->setText("fake-dir");
-    QVERIFY(ui_cli->cliValidationLabel->text()
+    QVERIFY(ui_cli->validationLabel->text()
             == "Invalid Tarsnap cache directory set.");
     VISUAL_WAIT;
     ui_cli->cachePathLineBrowse->setText("/tmp");
 
     // Tarsnap CLI directory
     ui_cli->cliPathLineBrowse->setText("fake-dir");
-    QVERIFY(ui_cli->cliValidationLabel->text().contains(
+    QVERIFY(ui_cli->validationLabel->text().contains(
         "Tarsnap utilities not found."));
     VISUAL_WAIT;
     ui_cli->cliPathLineBrowse->setText("/tmp");
 
     // Fake detecting the binaries
     wizard->tarsnapVersionResponse(TaskStatus::Completed, "X.Y.Z");
-    QVERIFY(ui_cli->cliValidationLabel->text().contains("Tarsnap CLI version"));
+    QVERIFY(ui_cli->validationLabel->text().contains("Tarsnap CLI version"));
     VISUAL_WAIT;
 
     delete wizard;
@@ -282,9 +282,9 @@ void TestSetupWizard::version_too_low()
 
     // Fake detecting the binaries with a too-low version number
     wizard->tarsnapVersionResponse(TaskStatus::VersionTooLow, "1.0.1");
-    QVERIFY(ui_cli->cliValidationLabel->text().contains("too low"));
+    QVERIFY(ui_cli->validationLabel->text().contains("too low"));
     QVERIFY(GET_BUTTON(NextButton)->isEnabled() == false);
-    QVERIFY(ui_cli->cliAdvancedWidget->isVisible() == true);
+    QVERIFY(ui_cli->detailsWidget->isVisible() == true);
     VISUAL_WAIT;
 
     delete wizard;

@@ -20,7 +20,7 @@ extern "C" {
 /*!
  * \ingroup misc
  * \brief The AppGui is a QApplication which launches the MainWindow,
- * SetupDialog (if applicable), and manages background tasks.
+ * and manages background tasks.
  */
 class AppGui : public QApplication
 {

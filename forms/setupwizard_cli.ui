@@ -84,6 +84,33 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="detailsButton">
+       <property name="toolTip">
+        <string>Show advanced setup options</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: none; text-align:left;</string>
+       </property>
+       <property name="text">
+        <string>Details</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources/resources.qrc">
+         <normaloff>:/icons/caret-right.png</normaloff>
+         <normalon>:/icons/caret-bottom.png</normalon>:/icons/caret-right.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>12</width>
+         <height>12</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QWidget" name="detailsWidget" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -168,29 +195,6 @@
        </property>
       </spacer>
      </item>
-     <item>
-      <widget class="QPushButton" name="detailsButton">
-       <property name="toolTip">
-        <string>Show advanced setup options</string>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-border: none;
-}</string>
-       </property>
-       <property name="text">
-        <string>Details</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../resources/resources.qrc">
-         <normaloff>:/icons/caret-top.png</normaloff>
-         <normalon>:/icons/caret-bottom.png</normalon>:/icons/caret-top.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>
@@ -253,10 +257,10 @@ border: none;
  </customwidgets>
  <tabstops>
   <tabstop>nextButton</tabstop>
+  <tabstop>detailsButton</tabstop>
   <tabstop>cliPathLineBrowse</tabstop>
   <tabstop>cachePathLineBrowse</tabstop>
   <tabstop>appdataPathLineBrowse</tabstop>
-  <tabstop>detailsButton</tabstop>
   <tabstop>backButton</tabstop>
  </tabstops>
  <resources>

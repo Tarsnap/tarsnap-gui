@@ -29,12 +29,12 @@ TarsnapTask *tarsnapVersionTask();
  *
  * \param stdOut standard output from `tarsnap --version`.
  */
-QString tarsnapVersionTaskParse(QString stdOut);
+const QString tarsnapVersionTaskParse(const QString &stdOut);
 
 /**
  * \brief Create a task for: `tarsnap-keygen`
  */
-TarsnapTask *registerMachineTask(QString password);
+TarsnapTask *registerMachineTask(const QString &password);
 
 /**
  * \brief Create a task for: `tarsnap --fsck` or `tarsnap --fsck-prune`.

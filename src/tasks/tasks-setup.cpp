@@ -26,7 +26,7 @@ TarsnapTask *tarsnapVersionTask()
     return (task);
 }
 
-QString tarsnapVersionTaskParse(QString stdOut)
+const QString tarsnapVersionTaskParse(const QString &stdOut)
 {
     QRegExp versionRx("^tarsnap (\\S+)\\s?$");
     if(-1 != versionRx.indexIn(stdOut))
@@ -35,7 +35,7 @@ QString tarsnapVersionTaskParse(QString stdOut)
         return (QString(""));
 }
 
-TarsnapTask *registerMachineTask(QString password)
+TarsnapTask *registerMachineTask(const QString &password)
 {
     TarsnapTask *task = new TarsnapTask();
     QStringList  args;

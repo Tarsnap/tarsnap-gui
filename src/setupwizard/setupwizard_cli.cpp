@@ -22,12 +22,12 @@ CliPage::CliPage(QWidget *parent)
     _ui->setupUi(this);
 
     // We only want to expand the widget if there's a problem.
-    _ui->cliAdvancedWidget->hide();
-    _ui->cliAdvancedButton->setChecked(false);
+    _ui->detailsWidget->hide();
+    _ui->detailsButton->setChecked(false);
 
     // Basic operation on this page.
-    connect(_ui->cliAdvancedButton, &QPushButton::toggled,
-            _ui->cliAdvancedWidget, &QWidget::setVisible);
+    connect(_ui->detailsButton, &QPushButton::toggled, _ui->detailsWidget,
+            &QWidget::setVisible);
 
     // A config field changed.
     connect(_ui->cliPathLineBrowse, &PathLineBrowse::textChanged, this,
@@ -85,14 +85,14 @@ bool CliPage::checkComplete()
         return setProceedButton(false);
 
     _problemOccurred = false;
-    _ui->cliValidationLabel->clear();
+    _ui->validationLabel->clear();
     return setProceedButton(true);
 }
 
 void CliPage::reportError(const QString &text)
 {
-    _ui->cliValidationLabel->messageError(text);
-    _ui->cliAdvancedButton->setChecked(true);
+    _ui->validationLabel->messageError(text);
+    _ui->detailsButton->setChecked(true);
     setProceedButton(false);
     _problemOccurred = true;
 }
@@ -188,7 +188,7 @@ void CliPage::tarsnapVersionResponse(TaskStatus status, QString versionString)
         if(checkComplete() && !_problemOccurred)
             _ui->nextButton->setFocus();
         // Display message (after checkComplete, which can clear the label).
-        _ui->cliValidationLabel->messageNormal(
+        _ui->validationLabel->messageNormal(
             tr("Tarsnap CLI version ") + versionString + tr(" detected.  ✔"));
         break;
     case TaskStatus::VersionTooLow:

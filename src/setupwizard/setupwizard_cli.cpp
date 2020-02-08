@@ -152,11 +152,8 @@ void CliPage::tarsnapPathChanged(const QString &text)
     settings.remove("tarsnap/path");
     settings.remove("tarsnap/version");
 
-    if(text.isEmpty())
-    {
-        reportError(tr("Empty Tarsnap directory set."));
-        return;
-    }
+    // Don't check for an empty dir here, because we want users to see the
+    // "visit tarsnap.com" message if they don't have the binaries.
 
     QString tarsnapDir = Utils::findTarsnapClientInPath(text, true);
     if(tarsnapDir.isEmpty())

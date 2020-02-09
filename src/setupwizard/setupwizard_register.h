@@ -44,8 +44,10 @@ public slots:
 signals:
     //! We need to register this machine with the Tarsnap service.
     //! \param password the user's Tarsnap service password.
+    //! \param password the user's machine name.
     //! \param useExistingKeyfile should we use an existing keyfile?
     void registerMachineRequested(const QString &password,
+                                  const QString &machine,
                                   const bool     useExistingKeyfile);
 
 protected:

@@ -119,7 +119,7 @@ void TestTaskManager::fail_registerMachine_command_not_found()
     settings.setValue("tarsnap/machine", "fake-machine");
     settings.setValue("tarsnap/key", "fake.key");
     settings.setValue("tarsnap/cache", "/tmp/gui-test-tarsnap-cache");
-    manager->registerMachineDo("fake-password", false);
+    manager->registerMachineDo("fake-password", "machinename", false);
     while(sig_reg.count() == 0)
         QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
@@ -152,7 +152,7 @@ void TestTaskManager::fail_registerMachine_empty_key()
     settings.setValue("tarsnap/machine", "fake-machine");
     settings.setValue("tarsnap/key", "empty.key");
     settings.setValue("tarsnap/cache", "/tmp/gui-test-tarsnap-cache");
-    manager->registerMachineDo("fake-password", true);
+    manager->registerMachineDo("fake-password", "machinename", true);
     while(sig_reg.count() == 0)
         QTest::qWait(TASK_CMDLINE_WAIT_MS);
 
@@ -253,7 +253,7 @@ void TestTaskManager::registerMachine_fake()
     LOG.setFilename(logfilename);
     settings.setValue("tarsnap/cache", TEST_DIR "/cachedir");
     manager->fakeNextTask();
-    manager->registerMachineDo("password", false);
+    manager->registerMachineDo("password", "machinename", false);
     manager->waitUntilIdle();
     QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 1);
     QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
@@ -263,7 +263,7 @@ void TestTaskManager::registerMachine_fake()
     LOG.setFilename(logfilename);
     settings.setValue("tarsnap/cache", TEST_DIR "/new-cachedir");
     manager->fakeNextTask();
-    manager->registerMachineDo("password", false);
+    manager->registerMachineDo("password", "machinename", false);
     manager->waitUntilIdle();
     QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 1);
     QVERIFY(grep_file(logfilename, "--initialize-cachedir") == 1);
@@ -274,7 +274,7 @@ void TestTaskManager::registerMachine_fake()
     settings.setValue("tarsnap/key", "empty.key");
     settings.setValue("tarsnap/cache", TEST_DIR "/new-cachedir");
     manager->fakeNextTask();
-    manager->registerMachineDo("password", true);
+    manager->registerMachineDo("password", "machinename", true);
     manager->waitUntilIdle();
     QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 0);
     QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
@@ -284,7 +284,7 @@ void TestTaskManager::registerMachine_fake()
     LOG.setFilename(logfilename);
     settings.setValue("tarsnap/cache", TEST_DIR "/cachedir");
     manager->fakeNextTask();
-    manager->registerMachineDo("password", true);
+    manager->registerMachineDo("password", "machinename", true);
     manager->waitUntilIdle();
     QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 0);
     QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);

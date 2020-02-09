@@ -35,7 +35,8 @@ const QString tarsnapVersionTaskParse(const QString &stdOut)
         return (QString(""));
 }
 
-TarsnapTask *registerMachineTask(const QString &password)
+TarsnapTask *registerMachineTask(const QString &password,
+                                 const QString &machine)
 {
     TarsnapTask *task = new TarsnapTask();
     QStringList  args;
@@ -46,7 +47,6 @@ TarsnapTask *registerMachineTask(const QString &password)
      */
     TSettings settings;
     QString   user        = settings.value("tarsnap/user", "").toString();
-    QString   machine     = settings.value("tarsnap/machine", "").toString();
     QString   keyFilename = settings.value("tarsnap/key", "").toString();
 
     /* Specific arguments. */

@@ -45,6 +45,7 @@ void TaskManager::tarsnapVersionFind()
 }
 
 void TaskManager::registerMachineDo(const QString &password,
+                                    const QString &machine,
                                     const bool     useExistingKeyfile)
 {
     TarsnapTask *registerTask;
@@ -54,7 +55,6 @@ void TaskManager::registerMachineDo(const QString &password,
     // Get relevant settings
     TSettings settings;
     QString   user        = settings.value("tarsnap/user", "").toString();
-    QString   machine     = settings.value("tarsnap/machine", "").toString();
     QString   keyFilename = settings.value("tarsnap/key", "").toString();
     QString   cachePath   = settings.value("tarsnap/cache", "").toString();
 
@@ -81,7 +81,7 @@ void TaskManager::registerMachineDo(const QString &password,
     else
     {
         // generate a new key and register machine with tarsnap-keygen
-        registerTask = registerMachineTask(password);
+        registerTask = registerMachineTask(password, machine);
 
         // second task: --initialize-cachedir or --fsck existing cachedir
         QDir cacheDir(cachePath);

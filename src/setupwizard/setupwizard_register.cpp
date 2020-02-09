@@ -116,13 +116,12 @@ void RegisterPage::next()
 
 bool RegisterPage::checkComplete()
 {
-    // Check completely mandatory field.
-    if(_ui->machineNameLineEdit->text().isEmpty())
-        return setProceedButton(false);
-
-    // Check optionally mandatory fields.
+    // Check mandatory fields (depending on which tab we're on).
     if(_createKey)
     {
+        if(_ui->machineNameLineEdit->text().isEmpty())
+            return setProceedButton(false);
+
         if(_ui->tarsnapUserLineEdit->text().isEmpty())
             return setProceedButton(false);
 

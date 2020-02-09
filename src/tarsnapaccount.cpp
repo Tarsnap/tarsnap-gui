@@ -31,8 +31,7 @@ void TarsnapAccount::getAccountInfo(bool    displayActivity,
 {
     TSettings settings;
     QUrlQuery post;
-    _user    = settings.value("tarsnap/user", "").toString();
-    _machine = settings.value("tarsnap/machine", "").toString();
+    _user = settings.value("tarsnap/user", "").toString();
 
     // Set up activity query
     post.addQueryItem("address", QUrl::toPercentEncoding(_user));

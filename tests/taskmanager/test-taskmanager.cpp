@@ -116,7 +116,6 @@ void TestTaskManager::fail_registerMachine_command_not_found()
     TSettings settings;
     settings.setValue("tarsnap/path", "/fake/dir");
     settings.setValue("tarsnap/user", "fake-user");
-    settings.setValue("tarsnap/machine", "fake-machine");
     settings.setValue("tarsnap/key", "fake.key");
     settings.setValue("tarsnap/cache", "/tmp/gui-test-tarsnap-cache");
     manager->registerMachineDo("fake-password", "machinename", false);
@@ -149,7 +148,6 @@ void TestTaskManager::fail_registerMachine_empty_key()
     TSettings settings;
     settings.setValue("tarsnap/path", tarsnapPath);
     settings.setValue("tarsnap/user", "fake-user");
-    settings.setValue("tarsnap/machine", "fake-machine");
     settings.setValue("tarsnap/key", "empty.key");
     settings.setValue("tarsnap/cache", "/tmp/gui-test-tarsnap-cache");
     manager->registerMachineDo("fake-password", "machinename", true);
@@ -245,7 +243,6 @@ void TestTaskManager::registerMachine_fake()
     // Set up some settings.
     TSettings settings;
     settings.setValue("tarsnap/user", "username");
-    settings.setValue("tarsnap/machine", "machine");
     settings.setValue("tarsnap/key", "keyfile");
 
     // Fake registering a new key, existing cachedir.

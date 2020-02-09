@@ -99,7 +99,6 @@ private slots:
     void updateAccountCredit(qreal credit, QDate date);
     void updateLastMachineActivity(QStringList activityFields);
     bool validateMachineKeyPath();
-    void accountMachineUseHostnameButtonClicked();
     void accountMachineKeyBrowseButtonClicked();
     void nukeArchivesButtonClicked();
     void nukeConfirmed();

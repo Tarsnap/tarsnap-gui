@@ -1869,10 +1869,6 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose a machine name and select your existing keyfile.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>status</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1894,6 +1890,10 @@ Aborting operation.</source>
     </message>
     <message>
         <source>All files (*);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your existing keyfile.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2107,18 +2107,6 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set machine name to host name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Browse for a machine key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2132,10 +2120,6 @@ Aborting operation.</source>
     </message>
     <message>
         <source>E-mail address used to register on Tarsnap.com</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Name used for this machine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -102,7 +102,6 @@ void TestSettingsWidget::account()
 
     // Set username, machine name, key.
     SET_TEXT_WITH_SIGNAL(ui->accountUserLineEdit, "edited-user");
-    SET_TEXT_WITH_SIGNAL(ui->accountMachineLineEdit, "edited-mn");
     SET_TEXT_WITH_SIGNAL(ui->accountMachineKeyLineEdit, "edited-mk");
     VISUAL_WAIT;
 
@@ -127,7 +126,6 @@ void TestSettingsWidget::account()
     TSettings settings;
 
     QVERIFY(settings.value("tarsnap/user", "") == QString("edited-user"));
-    QVERIFY(settings.value("tarsnap/machine", "") == QString("edited-mn"));
     QVERIFY(settings.value("tarsnap/key", "") == QString("edited-mk"));
 
     delete settingsWidget;

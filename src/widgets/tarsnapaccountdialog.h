@@ -58,7 +58,6 @@ private:
     TarsnapAccount * _ta;
     QMessageBox      _popup;
     QString          _user;
-    QString          _machine;
     quint64          _machineId;
 };
 

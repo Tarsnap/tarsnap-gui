@@ -52,8 +52,7 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
                                           bool displayMachineActivity)
 {
     TSettings settings;
-    _user    = settings.value("tarsnap/user", "").toString();
-    _machine = settings.value("tarsnap/machine", "").toString();
+    _user = settings.value("tarsnap/user", "").toString();
     if(Utils::tarsnapVersionMinimum("1.0.37"))
     {
         emit getKeyId(settings.value("tarsnap/key", "").toString());
@@ -69,7 +68,7 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
                 .arg(settings.value("tarsnap/version", "").toString()));
         _popup.exec();
     }
-    if(_user.isEmpty() || _machine.isEmpty())
+    if(_user.isEmpty())
     {
         _popup.setWindowTitle(tr("Warning"));
         _popup.setIcon(QMessageBox::Warning);

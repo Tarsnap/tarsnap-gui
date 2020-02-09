@@ -1889,10 +1889,6 @@ Aborting operation.</source>
         <translation type="unfinished">fișierul cheie dispozitiv</translation>
     </message>
     <message>
-        <source>Choose a machine name and select your existing keyfile.</source>
-        <translation type="unfinished">Alegeți o cheie dispozitiv existentă și completați numele dispozitiv.</translation>
-    </message>
-    <message>
         <source>status</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1915,6 +1911,10 @@ Aborting operation.</source>
     <message>
         <source>All files (*);;</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your existing keyfile.</source>
+        <translation type="unfinished">Alegeți o cheie dispozitiv existentă.</translation>
     </message>
 </context>
 <context>

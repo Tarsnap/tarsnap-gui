@@ -81,9 +81,6 @@ void RegisterPage::createKeyfile()
     _createKey = true;
     _ui->registerKeyStackedWidget->setCurrentWidget(_ui->createKeyfileSubpage);
 
-    // Share machineNameLineEdit in both pages of the keyStackedWidget
-    _ui->gridKeyNoLayout->addWidget(_ui->machineNameLineEdit, 1, 1);
-
     _ui->statusLabel->clear();
     checkComplete();
 }
@@ -93,9 +90,6 @@ void RegisterPage::useExistingKeyfile()
     _createKey = false;
     _ui->registerKeyStackedWidget->setCurrentWidget(
         _ui->useExistingKeyfileSubpage);
-
-    // Share machineNameLineEdit in both pages of the keyStackedWidget
-    _ui->gridKeyYesLayout->addWidget(_ui->machineNameLineEdit, 1, 1);
 
     _ui->statusLabel->clear();
     checkComplete();

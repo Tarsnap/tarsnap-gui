@@ -1869,10 +1869,6 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose a machine name and select your existing keyfile.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>status</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1894,6 +1890,10 @@ Aborting operation.</source>
     </message>
     <message>
         <source>All files (*);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your existing keyfile.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

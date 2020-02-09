@@ -587,10 +587,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Empty Tarsnap directory set.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tarsnap utilities not found. Visit &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; for help with acquiring them.</source>
         <translation type="unfinished"></translation>
     </message>

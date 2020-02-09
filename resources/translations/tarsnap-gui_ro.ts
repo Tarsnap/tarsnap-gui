@@ -593,10 +593,6 @@ Adaugă oricum?</translation>
         <translation type="unfinished">Director de date al aplicației invalid.</translation>
     </message>
     <message>
-        <source>Empty Tarsnap directory set.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tarsnap utilities not found. Visit &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; for help with acquiring them.</source>
         <translation type="unfinished">Utilitarele la linia de comandă Tarsnap nu au fost găsite. Vizitați &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; pentru ajutor la instalarea acestora.</translation>
     </message>

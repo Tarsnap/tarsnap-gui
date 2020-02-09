@@ -662,22 +662,26 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
     // Handle error (if applicable; a "fake" task is not an error).
     if((exitCode != SUCCESS) && (exitCode != EXIT_FAKE_REQUEST))
     {
+        QString err;
+
         if(stdErr.isEmpty())
         {
             if(exitCode == EXIT_DID_NOT_START)
-                stdErr = "Could not launch the command-line program";
+                err = "Could not launch the command-line program";
             if(exitCode == EXIT_CMD_NOT_FOUND)
-                stdErr = "Could not find the command-line program";
+                err = "Could not find the command-line program";
             else if(exitCode == EXIT_CRASHED)
-                stdErr = "Crash occurred in the command-line program";
+                err = "Crash occurred in the command-line program";
         }
+        else
+            err = stdErr;
 
         // Clean up second task (if applicable).
         if(nextTask != nullptr)
             delete nextTask;
 
         // We're done.
-        emit registerMachineDone(TaskStatus::Failed, stdErr);
+        emit registerMachineDone(TaskStatus::Failed, err);
         return;
     }
 

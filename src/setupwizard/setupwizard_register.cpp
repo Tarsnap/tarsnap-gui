@@ -188,6 +188,7 @@ void RegisterPage::registerMachine()
     {
         _registering = Yes;
         emit registerMachineRequested(_ui->tarsnapPasswordLineEdit->text(),
+                                      _ui->machineNameLineEdit->text(),
                                       useExistingKeyfile);
     }
 }

@@ -34,7 +34,8 @@ const QString tarsnapVersionTaskParse(const QString &stdOut);
 /**
  * \brief Create a task for: `tarsnap-keygen`
  */
-TarsnapTask *registerMachineTask(const QString &password);
+TarsnapTask *registerMachineTask(const QString &password,
+                                 const QString &machine);
 
 /**
  * \brief Create a task for: `tarsnap --fsck` or `tarsnap --fsck-prune`.

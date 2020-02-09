@@ -82,7 +82,8 @@ void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
 {
     QSignalSpy sig_cli(wizard, SIGNAL(tarsnapVersionRequested()));
     QSignalSpy sig_register(wizard,
-                            SIGNAL(registerMachineRequested(QString, bool)));
+                            SIGNAL(registerMachineRequested(QString, QString,
+                                                            bool)));
 
     Ui::CliPage *     ui_cli;
     Ui::RegisterPage *ui_register;

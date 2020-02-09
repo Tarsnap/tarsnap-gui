@@ -73,7 +73,8 @@ public slots:
     //! \anchor tarsnapVersionFind
     void tarsnapVersionFind();
     //! tarsnap-keygen.  If the key already exists, run --fsck-prune first.
-    void registerMachineDo(QString password, bool useExistingKeyfile);
+    void registerMachineDo(const QString &password,
+                           const bool     useExistingKeyfile);
     //! tarsnap -c -f \<name\>
     void backupNow(BackupTaskPtr backupTask);
     //! tarsnap --list-archives -vv
@@ -93,10 +94,10 @@ public slots:
     //! tarsnap -x -f \<name\>, with options.
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! tarsnap-keymgmt --print-key-id \<key_filename\>
-    void getKeyId(QString key_filename);
+    void getKeyId(const QString &key_filename);
     //! Search for all matching Archive objects which were created by a Job.
     //! \param jobPrefix prefix of the Archive names to match.
-    void findMatchingArchives(QString jobPrefix);
+    void findMatchingArchives(const QString &jobPrefix);
 
 signals:
     // Tarsnap task notifications
@@ -106,9 +107,9 @@ signals:
     void numTasks(int runningTasks, int queuedTasks);
     //! Result of tarsnap --version.
     //! \anchor tarsnapVersionFound
-    void tarsnapVersionFound(TaskStatus status, QString versionString);
+    void tarsnapVersionFound(TaskStatus status, const QString &versionString);
     //! Result of tarsnap-keygen.
-    void registerMachineDone(TaskStatus status, QString reason);
+    void registerMachineDone(TaskStatus status, const QString &reason);
     //! A list of all Archive objects.
     void archiveList(QList<ArchivePtr> archives);
     //! A new Archive was created by \ref backupNow or discovered via
@@ -123,10 +124,10 @@ signals:
     //! A status message should be shown to the user.
     //! \param msg main text to display.
     //! \param detail display this text as a mouse-over tooltip.
-    void message(QString msg, QString detail = "");
+    void message(const QString &msg, const QString &detail = "");
     //! A message that should be shown as a desktop notification (if enabled).
-    void displayNotification(QString message, enum message_type type,
-                             QString data);
+    void displayNotification(const QString &message, enum message_type type,
+                             const QString &data);
     //! Information about running tasks.
     //! \param backupTaskRunning is a backup task currently running?
     //! \param runningTasks the number of running tasks.
@@ -137,39 +138,41 @@ signals:
     //! The tarsnap key ID number.
     //! \param key_filename the filename.
     //! \param id the 64-bit unsigned integer representing the key.
-    void keyId(QString key_filename, quint64 id);
+    void keyId(const QString &key_filename, quint64 id);
     //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);
 
 private slots:
     // post Tarsnap task processing
-    void getTarsnapVersionFinished(QVariant data, int exitCode, QString stdOut,
-                                   QString stdErr);
-    void backupTaskFinished(QVariant data, int exitCode, QString stdOut,
-                            QString stdErr);
+    void getTarsnapVersionFinished(QVariant data, int exitCode,
+                                   const QString &stdOut,
+                                   const QString &stdErr);
+    void backupTaskFinished(QVariant data, int exitCode, const QString &stdOut,
+                            const QString &stdErr);
     void backupTaskStarted(QVariant data);
-    void registerMachineFinished(QVariant data, int exitCode, QString stdOut,
-                                 QString stdErr);
-    void getArchiveListFinished(QVariant data, int exitCode, QString stdOut,
-                                QString stdErr);
-    void getArchiveStatsFinished(QVariant data, int exitCode, QString stdOut,
-                                 QString stdErr);
-    void getArchiveContentsFinished(QVariant data, int exitCode, QString stdOut,
-                                    QString stdErr);
-    void deleteArchivesFinished(QVariant data, int exitCode, QString stdOut,
-                                QString stdErr);
-    void overallStatsFinished(QVariant data, int exitCode, QString stdOut,
-                              QString stdErr);
-    void fsckFinished(QVariant data, int exitCode, QString stdOut,
-                      QString stdErr);
-    void nukeFinished(QVariant data, int exitCode, QString stdOut,
-                      QString stdErr);
-    void restoreArchiveFinished(QVariant data, int exitCode, QString stdOut,
-                                QString stdErr);
+    void registerMachineFinished(QVariant data, int exitCode,
+                                 const QString &stdOut, const QString &stdErr);
+    void getArchiveListFinished(QVariant data, int exitCode,
+                                const QString &stdOut, const QString &stdErr);
+    void getArchiveStatsFinished(QVariant data, int exitCode,
+                                 const QString &stdOut, const QString &stdErr);
+    void getArchiveContentsFinished(QVariant data, int exitCode,
+                                    const QString &stdOut,
+                                    const QString &stdErr);
+    void deleteArchivesFinished(QVariant data, int exitCode,
+                                const QString &stdOut, const QString &stdErr);
+    void overallStatsFinished(QVariant data, int exitCode,
+                              const QString &stdOut, const QString &stdErr);
+    void fsckFinished(QVariant data, int exitCode, const QString &stdOut,
+                      const QString &stdErr);
+    void nukeFinished(QVariant data, int exitCode, const QString &stdOut,
+                      const QString &stdErr);
+    void restoreArchiveFinished(QVariant data, int exitCode,
+                                const QString &stdOut, const QString &stdErr);
     void notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status);
     void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
-    void getKeyIdFinished(QVariant data, int exitCode, QString stdOut,
-                          QString stdErr);
+    void getKeyIdFinished(QVariant data, int exitCode, const QString &stdOut,
+                          const QString &stdErr);
 
     // general task management
     void queueTask(TarsnapTask *task, bool exclusive = false);
@@ -179,11 +182,11 @@ private slots:
 #endif
 
 private:
-    void    parseError(QString tarsnapOutput);
-    void    parseGlobalStats(QString tarsnapOutput);
-    void    parseArchiveStats(QString tarsnapOutput, bool newArchiveOutput,
-                              ArchivePtr archive);
-    QString makeTarsnapCommand(QString cmd);
+    void parseError(const QString &tarsnapOutput);
+    void parseGlobalStats(const QString &tarsnapOutput);
+    void parseArchiveStats(const QString &tarsnapOutput, bool newArchiveOutput,
+                           ArchivePtr archive);
+    QString makeTarsnapCommand(const QString &cmd);
     void    initTarsnapArgs(QStringList &args);
     bool    waitForOnline();
     void    warnNotOnline();

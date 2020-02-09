@@ -54,7 +54,8 @@ signals:
     //! We need to register this machine with the Tarsnap service.
     //! \param password the user's Tarsnap service password.
     //! \param useExistingKeyfile should we use an existing keyfile?
-    void registerMachineRequested(QString password, bool useExistingKeyfile);
+    void registerMachineRequested(const QString &password,
+                                  const bool     useExistingKeyfile);
 
 protected slots:
     //! Quit the wizard, clear any config, don't run setup again.

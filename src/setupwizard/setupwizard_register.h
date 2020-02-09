@@ -45,7 +45,8 @@ signals:
     //! We need to register this machine with the Tarsnap service.
     //! \param password the user's Tarsnap service password.
     //! \param useExistingKeyfile should we use an existing keyfile?
-    void registerMachineRequested(QString password, bool useExistingKeyfile);
+    void registerMachineRequested(const QString &password,
+                                  const bool     useExistingKeyfile);
 
 protected:
     //! Has the user filled in all mandatory data on the page?

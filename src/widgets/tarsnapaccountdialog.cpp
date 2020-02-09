@@ -72,7 +72,7 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
     {
         _popup.setWindowTitle(tr("Warning"));
         _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(tr("Tarsnap user and machine name must be set."));
+        _popup.setText(tr("Tarsnap username must be set."));
         _popup.exec();
         return;
     }

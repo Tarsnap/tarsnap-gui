@@ -2877,10 +2877,6 @@ Joburile care au activată execuția programată vor fi executate conform setăr
         <translation type="unfinished">Pentru a putea prelua activitatea de dispozitiv aveți nevoie de utilitarele Tarsnap cu versiunea minimă 1.0.37. Versiunea curentă este %1.</translation>
     </message>
     <message>
-        <source>Tarsnap user and machine name must be set.</source>
-        <translation type="unfinished">Numele de utilizator Tarsnap și numele dispozitvului trebuie să fie completate.</translation>
-    </message>
-    <message>
         <source>Type password for account %1:</source>
         <translation type="unfinished">Introdu parola aferentă contului %1:</translation>
     </message>
@@ -2899,6 +2895,10 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <message>
         <source>Account %1 is invalid; please try again.</source>
         <translation type="unfinished">Contul %1 este invalid; vă rugăm încercați din nou.</translation>
+    </message>
+    <message>
+        <source>Tarsnap username must be set.</source>
+        <translation type="unfinished">Numele de utilizator Tarsnap trebuie să fie completate.</translation>
     </message>
 </context>
 <context>

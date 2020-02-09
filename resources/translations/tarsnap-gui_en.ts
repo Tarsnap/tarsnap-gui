@@ -2843,10 +2843,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tarsnap user and machine name must be set.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Type password for account %1:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2864,6 +2860,10 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     </message>
     <message>
         <source>Account %1 is invalid; please try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap username must be set.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

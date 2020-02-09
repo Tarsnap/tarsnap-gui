@@ -22,7 +22,7 @@ SOURCES	=	plugins.cpp			\
 
 FORMS	=					\
 		../forms/PathLineBrowse.ui
-	
+
 target.path	= $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS	+= target
 

@@ -108,7 +108,7 @@ print_help(FILE * stream, const char * description, const struct args * args,
 		/* Print the description. */
 		assert(longest < INT_MAX);
 		print_wordwrap(stream, args[i].arg_explain, (int)longest);
-		
+
 		/* End of this entry. */
 		fprintf(stream, "\n");
 	}

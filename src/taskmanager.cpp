@@ -44,7 +44,8 @@ void TaskManager::tarsnapVersionFind()
     queueTask(tarsnap);
 }
 
-void TaskManager::registerMachineDo(QString password, bool useExistingKeyfile)
+void TaskManager::registerMachineDo(const QString &password,
+                                    const bool     useExistingKeyfile)
 {
     TarsnapTask *registerTask;
     TarsnapTask *secondTask = nullptr;
@@ -422,7 +423,7 @@ void TaskManager::restoreArchive(ArchivePtr            archive,
     queueTask(restore);
 }
 
-void TaskManager::getKeyId(QString key_filename)
+void TaskManager::getKeyId(const QString &key_filename)
 {
     QFileInfo keyFile(key_filename);
     if(!keyFile.exists() || !Utils::tarsnapVersionMinimum("1.0.37"))
@@ -441,7 +442,7 @@ void TaskManager::getKeyId(QString key_filename)
     queueTask(keymgmtTask);
 }
 
-void TaskManager::findMatchingArchives(QString jobPrefix)
+void TaskManager::findMatchingArchives(const QString &jobPrefix)
 {
     QList<ArchivePtr> matching;
     for(const ArchivePtr &archive : _archiveMap)
@@ -592,7 +593,8 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
 }
 
 void TaskManager::backupTaskFinished(QVariant data, int exitCode,
-                                     QString stdOut, QString stdErr)
+                                     const QString &stdOut,
+                                     const QString &stdErr)
 {
     BackupTaskPtr backupTask = _backupTaskMap[data.toUuid()];
     if(!backupTask)
@@ -654,7 +656,8 @@ void TaskManager::backupTaskStarted(QVariant data)
 }
 
 void TaskManager::registerMachineFinished(QVariant data, int exitCode,
-                                          QString stdOut, QString stdErr)
+                                          const QString &stdOut,
+                                          const QString &stdErr)
 {
     // Retrieved the stored ("second") task.
     TarsnapTask *nextTask = data.value<TarsnapTask *>();
@@ -700,7 +703,8 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
 }
 
 void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
-                                         QString stdOut, QString stdErr)
+                                         const QString &stdOut,
+                                         const QString &stdErr)
 {
     Q_UNUSED(data)
 
@@ -774,7 +778,8 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
 }
 
 void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
-                                          QString stdOut, QString stdErr)
+                                          const QString &stdOut,
+                                          const QString &stdErr)
 {
     ArchivePtr archive = data.value<ArchivePtr>();
     if(!archive)
@@ -802,7 +807,8 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
 }
 
 void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
-                                             QString stdOut, QString stdErr)
+                                             const QString &stdOut,
+                                             const QString &stdErr)
 {
     ArchivePtr archive = data.value<ArchivePtr>();
 
@@ -844,7 +850,8 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
 }
 
 void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
-                                         QString stdOut, QString stdErr)
+                                         const QString &stdOut,
+                                         const QString &stdErr)
 {
     Q_UNUSED(stdOut)
     QList<ArchivePtr> archives = data.value<QList<ArchivePtr>>();
@@ -881,7 +888,8 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
 }
 
 void TaskManager::overallStatsFinished(QVariant data, int exitCode,
-                                       QString stdOut, QString stdErr)
+                                       const QString &stdOut,
+                                       const QString &stdErr)
 {
     Q_UNUSED(data);
 
@@ -898,8 +906,8 @@ void TaskManager::overallStatsFinished(QVariant data, int exitCode,
     parseGlobalStats(stdOut);
 }
 
-void TaskManager::fsckFinished(QVariant data, int exitCode, QString stdOut,
-                               QString stdErr)
+void TaskManager::fsckFinished(QVariant data, int exitCode,
+                               const QString &stdOut, const QString &stdErr)
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
@@ -915,8 +923,8 @@ void TaskManager::fsckFinished(QVariant data, int exitCode, QString stdOut,
     getArchives();
 }
 
-void TaskManager::nukeFinished(QVariant data, int exitCode, QString stdOut,
-                               QString stdErr)
+void TaskManager::nukeFinished(QVariant data, int exitCode,
+                               const QString &stdOut, const QString &stdErr)
 {
     Q_UNUSED(data)
     if(exitCode == SUCCESS)
@@ -934,7 +942,8 @@ void TaskManager::nukeFinished(QVariant data, int exitCode, QString stdOut,
 }
 
 void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
-                                         QString stdOut, QString stdErr)
+                                         const QString &stdOut,
+                                         const QString &stdErr)
 {
     Q_UNUSED(stdOut)
     ArchivePtr archive = data.value<ArchivePtr>();
@@ -1045,8 +1054,8 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
     }
 }
 
-void TaskManager::getKeyIdFinished(QVariant data, int exitCode, QString stdOut,
-                                   QString stdErr)
+void TaskManager::getKeyIdFinished(QVariant data, int exitCode,
+                                   const QString &stdOut, const QString &stdErr)
 {
     QString key_filename = data.toString();
     if(exitCode == SUCCESS)
@@ -1119,7 +1128,7 @@ void TaskManager::dequeueTask()
     emit numTasks(_runningTasks.count(), _taskQueue.count());
 }
 
-void TaskManager::parseError(QString tarsnapOutput)
+void TaskManager::parseError(const QString &tarsnapOutput)
 {
     if(tarsnapOutput.contains("Error reading cache directory")
        || tarsnapOutput.contains("Sequence number mismatch: Run --fsck")
@@ -1140,7 +1149,7 @@ void TaskManager::parseError(QString tarsnapOutput)
     }
 }
 
-void TaskManager::parseGlobalStats(QString tarsnapOutput)
+void TaskManager::parseGlobalStats(const QString &tarsnapOutput)
 {
     QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
     if(lines.count() < 3)
@@ -1183,7 +1192,7 @@ void TaskManager::parseGlobalStats(QString tarsnapOutput)
                       static_cast<quint64>(_archiveMap.count()));
 }
 
-void TaskManager::parseArchiveStats(QString tarsnapOutput,
+void TaskManager::parseArchiveStats(const QString &tarsnapOutput,
                                     bool newArchiveOutput, ArchivePtr archive)
 {
     QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
@@ -1233,7 +1242,7 @@ void TaskManager::parseArchiveStats(QString tarsnapOutput,
     archive->save();
 }
 
-QString TaskManager::makeTarsnapCommand(QString cmd)
+QString TaskManager::makeTarsnapCommand(const QString &cmd)
 {
     TSettings settings;
     QString   _tarsnapDir = settings.value("tarsnap/path", "").toString();
@@ -1367,7 +1376,8 @@ void TaskManager::addJob(JobPtr job)
 }
 
 void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
-                                            QString stdOut, QString stdErr)
+                                            const QString &stdOut,
+                                            const QString &stdErr)
 {
     Q_UNUSED(data)
 

@@ -123,8 +123,10 @@ bool RegisterPage::checkComplete()
     // Check optionally mandatory fields.
     if(_createKey)
     {
-        if(_ui->tarsnapUserLineEdit->text().isEmpty()
-           || _ui->tarsnapPasswordLineEdit->text().isEmpty())
+        if(_ui->tarsnapUserLineEdit->text().isEmpty())
+            return setProceedButton(false);
+
+        if(_ui->tarsnapPasswordLineEdit->text().isEmpty())
             return setProceedButton(false);
     }
     else

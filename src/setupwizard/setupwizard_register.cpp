@@ -176,7 +176,6 @@ void RegisterPage::registerMachine()
 
     settings.setValue("tarsnap/key", tarsnapKeyFile);
     settings.setValue("tarsnap/user", _ui->tarsnapUserLineEdit->text());
-    settings.setValue("tarsnap/machine", _ui->machineNameLineEdit->text());
 
     if(checkComplete())
     {

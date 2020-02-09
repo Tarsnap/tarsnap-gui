@@ -330,45 +330,30 @@ color: blue;
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <item row="1" column="2">
-              <widget class="QPushButton" name="accountMachineUseHostnameButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>Set machine name to host name</string>
-               </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="tarsnapUserLabel">
                <property name="text">
-                <string>hostname</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="machineNameLabel">
-               <property name="text">
-                <string>Machine name</string>
+                <string>Tarsnap user</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
-             <item row="2" column="2">
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="accountMachineKeyLineEdit">
+               <property name="toolTip">
+                <string>Tarsnap key used for this machine</string>
+               </property>
+               <property name="text">
+                <string notr="true"/>
+               </property>
+               <property name="placeholderText">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
               <widget class="QPushButton" name="accountMachineKeyBrowseButton">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -396,53 +381,7 @@ color: blue;
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="tarsnapUserLabel">
-               <property name="text">
-                <string>Tarsnap user</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="accountUserLineEdit">
-               <property name="toolTip">
-                <string>E-mail address used to register on Tarsnap.com</string>
-               </property>
-               <property name="text">
-                <string notr="true"/>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="accountMachineLineEdit">
-               <property name="toolTip">
-                <string>Name used for this machine</string>
-               </property>
-               <property name="text">
-                <string notr="true"/>
-               </property>
-               <property name="placeholderText">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLineEdit" name="accountMachineKeyLineEdit">
-               <property name="toolTip">
-                <string>Tarsnap key used for this machine</string>
-               </property>
-               <property name="text">
-                <string notr="true"/>
-               </property>
-               <property name="placeholderText">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
+             <item row="1" column="0">
               <widget class="QLabel" name="machineKeyLabel">
                <property name="text">
                 <string>Machine key</string>
@@ -459,6 +398,16 @@ color: blue;
                </property>
                <property name="text">
                 <string>login</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="accountUserLineEdit">
+               <property name="toolTip">
+                <string>E-mail address used to register on Tarsnap.com</string>
+               </property>
+               <property name="text">
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -1204,8 +1153,6 @@ color: blue;
   <tabstop>machineActivityShowButton</tabstop>
   <tabstop>accountUserLineEdit</tabstop>
   <tabstop>updateAccountButton</tabstop>
-  <tabstop>accountMachineLineEdit</tabstop>
-  <tabstop>accountMachineUseHostnameButton</tabstop>
   <tabstop>accountMachineKeyLineEdit</tabstop>
   <tabstop>accountMachineKeyBrowseButton</tabstop>
   <tabstop>nukeArchivesButton</tabstop>

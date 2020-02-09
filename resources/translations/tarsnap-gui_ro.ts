@@ -2127,18 +2127,6 @@ Aborting operation.</source>
         <translation type="unfinished">Creditul și activitatea dispozitivului au fost preluate cu %1 zile în urmă. Fă click pe butonul Autentificare pentru actualizare.</translation>
     </message>
     <message>
-        <source>Set machine name to host name</source>
-        <translation type="unfinished">Setează nume dispozitiv automat (folosind &quot;hostname&quot;)</translation>
-    </message>
-    <message>
-        <source>hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Machine name</source>
-        <translation type="unfinished">Nume dispozitiv</translation>
-    </message>
-    <message>
         <source>Browse for a machine key</source>
         <translation type="unfinished">Schimbă cheie dispozitiv</translation>
     </message>
@@ -2153,10 +2141,6 @@ Aborting operation.</source>
     <message>
         <source>E-mail address used to register on Tarsnap.com</source>
         <translation type="unfinished">De regulă, adresa de email folosită la înregistrarea pe siteul Tarsnap</translation>
-    </message>
-    <message>
-        <source>Name used for this machine</source>
-        <translation type="unfinished">Numele utilizator pentru acest dispozitiv</translation>
     </message>
     <message>
         <source>Tarsnap key used for this machine</source>

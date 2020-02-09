@@ -5,7 +5,6 @@ WARNINGS_DISABLE
 #include <QDesktopServices>
 #include <QDir>
 #include <QFileDialog>
-#include <QHostInfo>
 #include <QInputDialog>
 #include <QMenu>
 #include <QPainter>
@@ -45,14 +44,10 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     // Settings
     connect(_ui->accountUserLineEdit, &QLineEdit::editingFinished, this,
             &SettingsWidget::commitSettings);
-    connect(_ui->accountMachineLineEdit, &QLineEdit::editingFinished, this,
-            &SettingsWidget::commitSettings);
     connect(_ui->accountMachineKeyLineEdit, &QLineEdit::editingFinished, this,
             &SettingsWidget::commitSettings);
     connect(_ui->accountMachineKeyLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::validateMachineKeyPath);
-    connect(_ui->accountMachineUseHostnameButton, &QPushButton::clicked, this,
-            &SettingsWidget::accountMachineUseHostnameButtonClicked);
     connect(_ui->accountMachineKeyBrowseButton, &QPushButton::clicked, this,
             &SettingsWidget::accountMachineKeyBrowseButtonClicked);
     connect(_ui->nukeArchivesButton, &QPushButton::clicked, this,
@@ -248,8 +243,6 @@ void SettingsWidget::loadSettings()
         settings.value("tarsnap/user", "").toString());
     _ui->accountMachineKeyLineEdit->setText(
         settings.value("tarsnap/key", "").toString());
-    _ui->accountMachineLineEdit->setText(
-        settings.value("tarsnap/machine", "").toString());
 
     /* Backup tab */
     _ui->aggressiveNetworkingCheckBox->setChecked(
@@ -319,7 +312,6 @@ void SettingsWidget::commitSettings()
 
     /* Account tab */
     settings.setValue("tarsnap/key", _ui->accountMachineKeyLineEdit->text());
-    settings.setValue("tarsnap/machine", _ui->accountMachineLineEdit->text());
     settings.setValue("tarsnap/user", _ui->accountUserLineEdit->text());
 
     /* Backup tab */
@@ -428,12 +420,6 @@ void SettingsWidget::saveKeyId(QString key, quint64 id)
         settings.setValue("tarsnap/key_id", id);
         settings.sync();
     }
-}
-
-void SettingsWidget::accountMachineUseHostnameButtonClicked()
-{
-    _ui->accountMachineLineEdit->setText(QHostInfo::localHostName());
-    commitSettings();
 }
 
 void SettingsWidget::accountMachineKeyBrowseButtonClicked()

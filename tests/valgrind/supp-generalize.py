@@ -54,6 +54,12 @@ def process_chunk(chunk_pre):
             chunk_post = lines[:i + 1]
             break
 
+        # Omit anything relating to QDBusConnectionManager, because it's a
+        # nightmare # (but keep one such line).
+        if line.startswith("fun:") and "QDBusConnectionManager" in line:
+            chunk_post = lines[:i + 1]
+            break
+
     # Strip any final "obj:*" lines since they're not helpful.
     while "obj:*" in chunk_post[-1]:
         chunk_post = chunk_post[:-1]

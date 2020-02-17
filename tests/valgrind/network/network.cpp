@@ -23,10 +23,8 @@ static void pl_networkaccessmanager()
     T_APP_END;
 }
 
-static void pl_networkaccessmanager_status()
+static void pl_networkaccessmanager_status_not_solo()
 {
-    T_APP_BEGIN_CONSOLE;
-
     QNetworkAccessManager *nam = new QNetworkAccessManager();
 
     QThread::msleep(200);
@@ -34,6 +32,13 @@ static void pl_networkaccessmanager_status()
     QThread::msleep(200);
 
     delete nam;
+}
+
+static void pl_networkaccessmanager_status()
+{
+    T_APP_BEGIN_CONSOLE;
+
+    pl_networkaccessmanager_status_not_solo();
 
     T_APP_END;
 }
@@ -46,7 +51,7 @@ static void pl_networkaccessmanager_repeated()
     // causing variable memory leaks.  This is my attempt at catching them.
     for(int i = 0; i < 10; i++)
     {
-        pl_networkaccessmanager_status();
+        pl_networkaccessmanager_status_not_solo();
         QThread::msleep(200);
     }
 

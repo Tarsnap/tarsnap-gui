@@ -19,13 +19,10 @@ scriptdir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
 
 # Variables for valgrind use.
 valgrind_suppressions="${scriptdir}/valgrind.supp"
-valgrind_suppressions_this="thisdir.supp"
-valgrind_log="thisdir.log"
 valgrind_cmd="valgrind						\
 	--leak-check=full --show-leak-kinds=all			\
 	--suppressions=${valgrind_suppressions}			\
-	--gen-suppressions=all					\
-	--log-file=${valgrind_log}"
+	--gen-suppressions=all"
 
 # Generate the suppressions for a specific command & its arguments.
 generate_supp() {
@@ -45,16 +42,19 @@ generate_supp() {
 		fi
 	fi
 
+	# Set up function-specific variables.
+	valgrind_log_this="thisdir-${func}.log"
+	valgrind_suppressions_this="thisdir-${func}.supp"
+	valgrind_cmd_this="${valgrind_cmd} --log-file=${valgrind_log_this}"
+
 	# Write name to the suppressions file.
-	valgrind_suppressions_this=$( echo "thisdir-${func}.supp" |	\
-		sed 's/-/_/g' | sed 's/ /_/g' )
 	printf "# ${testdir} ${func}\n" > "${valgrind_suppressions_this}"
 
 	# Generate suppressions arising from the specific function.
-	env ${envvar} ${valgrind_cmd} ${run_cmd} ${func} > /dev/null
+	env ${envvar} ${valgrind_cmd_this} ${run_cmd} ${func} > /dev/null
 
 	# Strip out useless parts from the log file and remove it.
-	(grep -v "^==" ${valgrind_log}				\
+	(grep -v "^==" ${valgrind_log_this}				\
 		| grep -v "^--"						\
 		>> "${valgrind_suppressions_this}" ) || true
 
@@ -66,7 +66,7 @@ generate_supp() {
 
 	# Clean up
 	if [ ! "$DEBUG" -eq 1 ]; then
-		rm -f "${valgrind_log}"
+		rm -f "${valgrind_log_this}"
 		rm -f "${valgrind_suppressions_this}"
 	fi
 }

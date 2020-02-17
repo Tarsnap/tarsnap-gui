@@ -14,7 +14,7 @@ WARNINGS_ENABLE
 
 // HACK: using _filePickerDialog(this) produces a segfault on MacOS X in
 // QTabBarPrivate::updateMacBorderMetrics() with tests/mainwindow when using
-// -platform offscreen.  I have no idea why, but I have no leads left to
+// platform=offscreen.  I have no idea why, but I have no leads left to
 // investigate and I've spent way longer than I expected on this refactoring,
 // so I'm moving on.
 BackupTabWidget::BackupTabWidget(QWidget *parent)

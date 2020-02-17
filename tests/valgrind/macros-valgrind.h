@@ -54,22 +54,14 @@
     delete app;                                                                \
     free(argv[0])
 
-// It appears that QApplication on Qt 5.12.4 on Ubuntu 19.10 loses argv[1],
-// so we're keeping an extra_argv1 copy to delete.
 #define T_APP_BEGIN_GUI                                                        \
-    int   argc = 3;                                                            \
-    char *argv[3];                                                             \
-    argv[0]                   = strdup("./potential-memleaks");                \
-    argv[1]                   = strdup("-platform");                           \
-    argv[2]                   = strdup("offscreen");                           \
-    char *        extra_argv1 = argv[1];                                       \
-    QApplication *app         = new QApplication(argc, argv)
+    int   argc = 1;                                                            \
+    char *argv[1];                                                             \
+    argv[0]           = strdup("./potential-memleaks");                        \
+    QApplication *app = new QApplication(argc, argv)
 
 #define T_APP_END_GUI                                                          \
     delete app;                                                                \
-    free(extra_argv1);                                                         \
-    free(argv[2]);                                                             \
-    free(argv[1]);                                                             \
     free(argv[0])
 
 #endif

@@ -7,7 +7,7 @@
 
 #include "utils.h"
 
-// Only relevant for running a gui test with -platform offscreen
+// Only relevant for running a gui test with platform=offscreen
 #ifdef QT_GUI_LIB
 #include <QApplication>
 
@@ -28,7 +28,7 @@
         VISUAL_WAIT;                                                           \
     }
 
-// Filter out unwanted messages arising from -platform "offscreen"
+// Filter out unwanted messages arising from platform="offscreen"
 void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
                             const QString &msg);
 

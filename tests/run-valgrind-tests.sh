@@ -3,6 +3,7 @@
 set -e
 
 # Command-line
+VALGRINDS=""
 VALGRINDS="app-cmdline core cli consolelog persistent task taskmanager"
 
 # Gui
@@ -10,22 +11,27 @@ VALGRINDS="${VALGRINDS} customfilesystemmodel small-widgets setupwizard"
 VALGRINDS="${VALGRINDS} backuptabwidget settingswidget jobstabwidget"
 VALGRINDS="${VALGRINDS} archivestabwidget app-setup mainwindow"
 
-# Run tests
-for D in $VALGRINDS; do
-	cd $D
-	make test_valgrind
-	cd ..
-done
+check_dir() {
+	dirname=$1
 
-# Extra check for "still reachable", which doesn't produce an error code
-printf "\n"
-for D in $VALGRINDS; do
-	reachable=$(grep "still reachable:" $D/valgrind-full.log)
+	cd $D
+	make -j3 test_valgrind
+
+	# Extra check for "still reachable", which doesn't produce an error code
+	printf "\n"
+	reachable=$(grep "still reachable:" valgrind-full.log)
 	set +e
 	reachable_prob=$(echo "${reachable}" | grep -v "0 blocks")
 	set -e
 	if [ -n "${reachable_prob}" ]; then
 		reachable_short=$(echo "${reachable_prob}" | cut -d " " -f 2-)
-		printf "$D:\t${reachable_short}\n"
+		printf "${dirname}:\t${reachable_short}\n"
+		exit 1
 	fi
+	cd ..
+}
+
+# Run tests
+for D in $VALGRINDS; do
+	check_dir $D
 done

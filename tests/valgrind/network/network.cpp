@@ -17,6 +17,16 @@ static void pl_networkaccessmanager()
     T_APP_BEGIN_CONSOLE;
 
     QNetworkAccessManager *nam = new QNetworkAccessManager();
+    delete nam;
+
+    T_APP_END;
+}
+
+static void pl_networkaccessmanager_wait()
+{
+    T_APP_BEGIN_CONSOLE;
+
+    QNetworkAccessManager *nam = new QNetworkAccessManager();
     QThread::msleep(200);
     delete nam;
 
@@ -62,6 +72,7 @@ static void pl_networkaccessmanager_repeated()
 T_TEST_BEGIN
     MEMLEAKTEST(pl_nothing),
     MEMLEAKTEST(pl_networkaccessmanager),
+    MEMLEAKTEST(pl_networkaccessmanager_wait),
     MEMLEAKTEST(pl_networkaccessmanager_status),
     MEMLEAKTEST(pl_networkaccessmanager_repeated)
 T_TEST_END

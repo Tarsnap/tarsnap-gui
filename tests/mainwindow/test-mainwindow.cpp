@@ -210,7 +210,7 @@ void TestMainWindow::tab_navigation()
 
     // Switch between tabs
     // Unfortunately we can't test the Ctrl+X keyboard shortcuts, because
-    // QTest::keyClick() doesn't work with -platform offscreen.
+    // QTest::keyClick() doesn't work with platform=offscreen.
     mainwindow->displayTab(ui->archivesTab);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
     VISUAL_WAIT;
@@ -250,7 +250,7 @@ void TestMainWindow::other_navigation()
 
 #if defined(Q_OS_OSX)
     // HACK: Load directory that we'll want for creating a Job.  This is
-    // slow to load on OSX (relative to the -platform offscreen test), so we
+    // slow to load on OSX (relative to the platform=offscreen test), so we
     // add an extra delay.
     jobsTabWidget->_ui->jobDetailsWidget->_ui->jobTreeWidget->_model
         .setRootPath(TEST_DIR);

@@ -96,14 +96,20 @@ void TestArchivesTabWidget::displayArchive()
     VISUAL_INIT(archivestabwidget);
     VISUAL_WAIT;
 
-    ArchivePtr archive(new Archive);
+    Archive *  actual_archive = new Archive();
+    ArchivePtr archive(actual_archive);
     archive->setName("archive1");
 
     alw->addArchive(archive);
     VISUAL_WAIT;
 
+    QSignalSpy sig_fileList(actual_archive, SIGNAL(fileList(QVector<File>)));
     archivestabwidget->displayInspectArchive(archive);
     VISUAL_WAIT;
+
+    // Wait for archive parsing to finish
+    while(sig_fileList.count() == 0)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
     delete archivestabwidget;
 }

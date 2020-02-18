@@ -289,7 +289,8 @@ void TestMainWindow::other_navigation()
 
     // Add an Archive
     mainwindow->displayTab(ui->archivesTab);
-    ArchivePtr archive(new Archive);
+    Archive *  actual_archive = new Archive();
+    ArchivePtr archive(actual_archive);
     archive->setName("Job_test-job_archive1");
     mainwindow->addArchive(archive);
     archive->setJobRef("test-job");
@@ -311,9 +312,14 @@ void TestMainWindow::other_navigation()
     VISUAL_WAIT;
 
     // Switch back and forth between the job and archive.
+    QSignalSpy sig_fileList(actual_archive, SIGNAL(fileList(QVector<File>)));
     mainwindow->displayInspectArchive(archive);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
     VISUAL_WAIT;
+
+    // Wait for archive parsing to finish
+    while(sig_fileList.count() == 0)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
     mainwindow->displayJobDetails(job);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);

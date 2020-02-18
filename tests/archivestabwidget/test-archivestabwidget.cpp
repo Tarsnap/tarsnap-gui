@@ -1,6 +1,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QThreadPool>
 #include <QtTest/QtTest>
 
 #include "ui_archivestabwidget.h"
@@ -40,6 +41,8 @@ void TestArchivesTabWidget::cleanupTestCase()
 {
     TSettings::destroy();
 
+    // Wait up to 5 seconds for any running threads to stop.
+    QThreadPool::globalInstance()->waitForDone(5000);
     // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
 }

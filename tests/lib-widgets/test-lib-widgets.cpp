@@ -13,6 +13,7 @@ WARNINGS_ENABLE
 #include "../qtest-platform.h"
 
 #include "ElidedLabel.h"
+#include "PathComboBrowse.h"
 #include "PathLineBrowse.h"
 #include "TWizard.h"
 #include "TWizardPage.h"
@@ -28,6 +29,7 @@ private slots:
     void elidedLabel();
     void elidedLabel_status();
     void pathlinebrowse();
+    void pathcombobrowse();
     void twizard();
 };
 
@@ -134,6 +136,80 @@ void TestLibWidgets::pathlinebrowse()
 
     delete le;
     delete plb;
+}
+
+void TestLibWidgets::pathcombobrowse()
+{
+    PathComboBrowse *pcb = new PathComboBrowse();
+    QSignalSpy       sig_changed(pcb, SIGNAL(textChanged(QString)));
+
+    VISUAL_INIT(pcb);
+    IF_NOT_VISUAL { pcb->show(); }
+
+    pcb->setLabel("label");
+    QVERIFY(pcb->label() == "label");
+    VISUAL_WAIT;
+
+    pcb->setPlaceholderText("placeholder");
+    QVERIFY(pcb->placeholderText() == "placeholder");
+    VISUAL_WAIT;
+
+    pcb->setDialogTitle("text");
+    QVERIFY(pcb->dialogTitle() == "text");
+    VISUAL_WAIT;
+
+    pcb->setDialogFilter("Text files (*.txt *.text)");
+    QVERIFY(pcb->dialogFilter() == "Text files (*.txt *.text)");
+    VISUAL_WAIT;
+
+    QVERIFY(sig_changed.count() == 0);
+    pcb->setText("text");
+    QVERIFY(pcb->text() == "text");
+    QVERIFY(sig_changed.count() == 1);
+    QVERIFY(sig_changed.takeFirst().at(0).value<QString>() == "text");
+    sig_changed.clear();
+    VISUAL_WAIT;
+
+    QVERIFY(pcb->count() == 1);
+    pcb->addItem("another");
+    QVERIFY(sig_changed.count() == 0);
+    QVERIFY(pcb->count() == 2);
+    VISUAL_WAIT;
+
+    // Go back to the previous text
+    pcb->setText("another");
+    QVERIFY(sig_changed.count() == 1);
+    pcb->setText("text");
+    QVERIFY(sig_changed.count() == 2);
+    VISUAL_WAIT;
+
+    sig_changed.clear();
+    pcb->setText("third");
+    QVERIFY(pcb->text() == "third");
+    QVERIFY(sig_changed.count() == 1);
+    QVERIFY(sig_changed.takeFirst().at(0).value<QString>() == "third");
+    VISUAL_WAIT;
+
+    sig_changed.clear();
+    pcb->clear();
+    QVERIFY(sig_changed.count() == 1);
+    QVERIFY(sig_changed.takeFirst().at(0).value<QString>() == "");
+    VISUAL_WAIT;
+
+    // Test setText as a slot
+    QLineEdit *le = new QLineEdit();
+    connect(le, &QLineEdit::textChanged, pcb, &PathComboBrowse::setText);
+
+    sig_changed.clear();
+    pcb->clear();
+    le->setText("indirect text");
+    QVERIFY(pcb->text() == "indirect text");
+    QVERIFY(sig_changed.count() == 1);
+    QVERIFY(sig_changed.takeFirst().at(0).value<QString>() == "indirect text");
+    VISUAL_WAIT;
+
+    delete le;
+    delete pcb;
 }
 
 void TestLibWidgets::twizard()

@@ -67,6 +67,11 @@ void PathLineBrowse::setText(const QString &text)
     _ui->lineEdit->setText(text);
 }
 
+void PathLineBrowse::clear()
+{
+    _ui->lineEdit->clear();
+}
+
 void PathLineBrowse::browseClicked()
 {
     // Run the file browser

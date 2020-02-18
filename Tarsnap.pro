@@ -53,6 +53,7 @@ SOURCES +=						\
 	lib/util/optparse.c				\
 	lib/util/optparse_helper.c			\
 	lib/widgets/ElidedLabel.cpp			\
+	lib/widgets/PathComboBrowse.cpp			\
 	lib/widgets/PathLineBrowse.cpp			\
 	lib/widgets/TWizard.cpp				\
 	lib/widgets/TWizardPage.cpp			\
@@ -117,6 +118,7 @@ HEADERS +=						\
 	lib/util/optparse.h				\
 	lib/util/optparse_helper.h			\
 	lib/widgets/ElidedLabel.h			\
+	lib/widgets/PathComboBrowse.h			\
 	lib/widgets/PathLineBrowse.h			\
 	lib/widgets/TWizard.h				\
 	lib/widgets/TWizardPage.h			\
@@ -210,6 +212,7 @@ FORMS +=						\
 	forms/setupwizard_final.ui			\
 	forms/setupwizard_intro.ui			\
 	forms/setupwizard_register.ui			\
+	lib/forms/PathComboBrowse.ui			\
 	lib/forms/PathLineBrowse.ui			\
 	lib/forms/TWizard.ui
 

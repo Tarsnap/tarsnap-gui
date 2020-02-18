@@ -61,7 +61,6 @@ private slots:
     void createKeyfile();
     void useExistingKeyfile();
 
-    void registerHaveKeyBrowse();
     void machineKeyChanged(const QString &text);
 
 private:

@@ -34,10 +34,6 @@ RegisterPage::RegisterPage(QWidget *parent)
     connect(_ui->useExistingKeyfileButton, &QPushButton::clicked, this,
             &RegisterPage::useExistingKeyfile);
 
-    // GUI operations for those fields.
-    connect(_ui->browseKeyButton, &QPushButton::clicked, this,
-            &RegisterPage::registerHaveKeyBrowse);
-
     // A config field changed.
     connect(_ui->machineNameLineEdit, &QLineEdit::textChanged, this,
             &RegisterPage::checkComplete);
@@ -45,7 +41,7 @@ RegisterPage::RegisterPage(QWidget *parent)
             &RegisterPage::checkComplete);
     connect(_ui->tarsnapPasswordLineEdit, &QLineEdit::textChanged, this,
             &RegisterPage::checkComplete);
-    connect(_ui->machineKeyCombo, &QComboBox::currentTextChanged, this,
+    connect(_ui->keyfilePathComboBrowse, &PathComboBrowse::textChanged, this,
             &RegisterPage::machineKeyChanged);
 }
 
@@ -65,10 +61,10 @@ void RegisterPage::initializePage()
     TSettings settings;
     QString   appDataDir = settings.value("app/app_data", "").toString();
     for(const QFileInfo &file : Utils::findKeysInPath(appDataDir))
-        _ui->machineKeyCombo->addItem(file.canonicalFilePath());
+        _ui->keyfilePathComboBrowse->addItem(file.canonicalFilePath());
 
     // Auto-select "use existing" if we have any.
-    if(_ui->machineKeyCombo->count() > 0)
+    if(_ui->keyfilePathComboBrowse->count() > 0)
         _ui->useExistingKeyfileButton->click();
 
     // Enable keyboard focus if we're ready to go.
@@ -130,7 +126,7 @@ bool RegisterPage::checkComplete()
     }
     else
     {
-        if(_ui->machineKeyCombo->currentText().isEmpty())
+        if(_ui->keyfilePathComboBrowse->text().isEmpty())
             return setProceedButton(false);
     }
 
@@ -163,7 +159,7 @@ void RegisterPage::registerMachine()
     {
         useExistingKeyfile = true;
         _ui->statusLabel->messageNormal("Verifying archive integrity...");
-        tarsnapKeyFile = _ui->machineKeyCombo->currentText();
+        tarsnapKeyFile = _ui->keyfilePathComboBrowse->text();
     }
     else
     {
@@ -214,19 +210,6 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
         // We shouldn't receive anything else, so ignore it.
         break;
     }
-}
-
-void RegisterPage::registerHaveKeyBrowse()
-{
-    QString keyFilter = tr("Tarsnap key files (*.key *.keys)");
-    QString existingMachineKey =
-        QFileDialog::getOpenFileName(this,
-                                     tr("Browse for existing machine key"), "",
-                                     tr("All files (*);;") + keyFilter,
-                                     &keyFilter);
-    if(!existingMachineKey.isEmpty())
-        _ui->machineKeyCombo->setCurrentText(existingMachineKey);
-    checkComplete();
 }
 
 void RegisterPage::machineKeyChanged(const QString &text)

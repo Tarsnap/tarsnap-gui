@@ -1727,6 +1727,17 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>PathComboBrowse</name>
+    <message>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PathLineBrowse</name>
     <message>
         <source>Browse</source>
@@ -1877,14 +1888,6 @@ Aborting operation.</source>
         <translation type="unfinished">adresa ta de e-mail</translation>
     </message>
     <message>
-        <source>Browse for key</source>
-        <translation type="unfinished">Schimbă cheie dispozitiv</translation>
-    </message>
-    <message>
-        <source>Keyfile:</source>
-        <translation type="unfinished">Cheie dispozitiv:</translation>
-    </message>
-    <message>
         <source>this machine&apos;s keyfile</source>
         <translation type="unfinished">fișierul cheie dispozitiv</translation>
     </message>
@@ -1909,12 +1912,8 @@ Aborting operation.</source>
         <translation type="unfinished">Navighează după o cheie dispozitiv Tarsnap</translation>
     </message>
     <message>
-        <source>All files (*);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select your existing keyfile.</source>
-        <translation type="unfinished">Alegeți o cheie dispozitiv existentă.</translation>
+        <source>Select your existing keyfile:</source>
+        <translation type="unfinished">Alegeți o cheie dispozitiv existentă:</translation>
     </message>
 </context>
 <context>

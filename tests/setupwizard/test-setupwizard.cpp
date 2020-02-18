@@ -117,7 +117,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
 
     // Pretend that we already have a key
     ui_register->useExistingKeyfileButton->click();
-    ui_register->machineKeyCombo->setCurrentText("empty.key");
+    ui_register->keyfilePathComboBrowse->setText("empty.key");
     VISUAL_WAIT;
 
     // Pretend to register

@@ -62,6 +62,7 @@ void TWizard::skipWizard()
 void TWizard::backPage()
 {
     const int pos = _ui->pageWidget->currentIndex();
+    Q_ASSERT(pos > 0);
     _ui->pageWidget->setCurrentIndex(pos - 1);
     setupCurrentPage();
 }
@@ -69,6 +70,7 @@ void TWizard::backPage()
 void TWizard::nextPage()
 {
     const int pos = _ui->pageWidget->currentIndex();
+    Q_ASSERT(pos < _ui->pageWidget->count() - 1);
     _ui->pageWidget->setCurrentIndex(pos + 1);
     setupCurrentPage();
 }

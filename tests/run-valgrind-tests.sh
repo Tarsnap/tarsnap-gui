@@ -8,8 +8,11 @@ VALGRINDS="app-cmdline core cli consolelog persistent task taskmanager"
 
 # Gui
 VALGRINDS="${VALGRINDS} customfilesystemmodel small-widgets setupwizard"
-VALGRINDS="${VALGRINDS} backuptabwidget settingswidget jobstabwidget"
-VALGRINDS="${VALGRINDS} archivestabwidget app-setup mainwindow"
+VALGRINDS="${VALGRINDS} backuptabwidget settingswidget"
+VALGRINDS="${VALGRINDS} archivestabwidget app-setup"
+
+# Unreliable
+#VALGRINDS="${VALGRINDS} jobstabwidget mainwindow"
 
 check_dir() {
 	dirname=$1

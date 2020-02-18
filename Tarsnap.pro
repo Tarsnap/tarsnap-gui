@@ -257,6 +257,7 @@ UNIT_TESTS =						\
 	tests/taskmanager				\
 	tests/customfilesystemmodel			\
 	tests/small-widgets				\
+	tests/lib-widgets				\
 	tests/consolelog				\
 	tests/task					\
 	tests/core

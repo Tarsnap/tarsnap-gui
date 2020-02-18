@@ -48,8 +48,12 @@ public:
 
     //! Get the text of the QLineEdit.
     QString text() const;
+
+public slots:
     //! Set the text of the QLineEdit.
     void setText(const QString &text);
+    //! Clear the text of the QLineEdit.
+    void clear();
 
 signals:
     //! The text of the QLineEdit has changed.

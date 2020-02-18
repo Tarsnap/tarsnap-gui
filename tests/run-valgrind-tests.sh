@@ -7,6 +7,7 @@ VALGRINDS=""
 VALGRINDS="app-cmdline core cli consolelog persistent task taskmanager"
 
 # Gui
+VALGRINDS="${VALGRINDS} lib-widgets"
 VALGRINDS="${VALGRINDS} customfilesystemmodel small-widgets setupwizard"
 VALGRINDS="${VALGRINDS} backuptabwidget settingswidget"
 VALGRINDS="${VALGRINDS} archivestabwidget app-setup"

@@ -9,6 +9,7 @@ FORMS +=						\
 	../../forms/setupwizard_final.ui		\
 	../../forms/setupwizard_intro.ui		\
 	../../forms/setupwizard_register.ui		\
+	../../lib/forms/PathComboBrowse.ui		\
 	../../lib/forms/PathLineBrowse.ui		\
 	../../lib/forms/TWizard.ui
 
@@ -16,6 +17,7 @@ HEADERS  +=						\
 	compare-settings.h				\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/ElidedLabel.h			\
+	../../lib/widgets/PathComboBrowse.h		\
 	../../lib/widgets/PathLineBrowse.h		\
 	../../lib/widgets/TWizard.h			\
 	../../lib/widgets/TWizardPage.h			\
@@ -33,6 +35,7 @@ SOURCES += test-setupwizard.cpp				\
 	compare-settings.cpp				\
 	../../lib/core/TSettings.cpp			\
 	../../lib/widgets/ElidedLabel.cpp		\
+	../../lib/widgets/PathComboBrowse.cpp		\
 	../../lib/widgets/PathLineBrowse.cpp		\
 	../../lib/widgets/TWizard.cpp			\
 	../../lib/widgets/TWizardPage.cpp		\

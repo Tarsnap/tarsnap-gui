@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QGridLayout>
+#include <QLineEdit>
 #include <QPixmap>
 #include <QPushButton>
 #include <QStackedWidget>
@@ -90,7 +91,48 @@ void TestLibWidgets::elidedLabel_status()
 void TestLibWidgets::pathlinebrowse()
 {
     PathLineBrowse *plb = new PathLineBrowse();
+    QSignalSpy      sig_changed(plb, SIGNAL(textChanged(QString)));
 
+    VISUAL_INIT(plb);
+    IF_NOT_VISUAL { plb->show(); }
+
+    plb->setLabel("label");
+    QVERIFY(plb->label() == "label");
+    VISUAL_WAIT;
+
+    plb->setPlaceholderText("placeholder");
+    QVERIFY(plb->placeholderText() == "placeholder");
+    VISUAL_WAIT;
+
+    plb->setDialogTitle("text");
+    QVERIFY(plb->dialogTitle() == "text");
+    VISUAL_WAIT;
+
+    QVERIFY(sig_changed.count() == 0);
+    plb->setText("text");
+    QVERIFY(plb->text() == "text");
+    QVERIFY(sig_changed.count() == 1);
+    QVERIFY(sig_changed.takeFirst().at(0).value<QString>() == "text");
+    sig_changed.clear();
+    VISUAL_WAIT;
+
+    plb->clear();
+    QVERIFY(sig_changed.count() == 1);
+    QVERIFY(sig_changed.takeFirst().at(0).value<QString>() == "");
+    VISUAL_WAIT;
+
+    // Test setText as a slot
+    QLineEdit *le = new QLineEdit();
+    connect(le, &QLineEdit::textChanged, plb, &PathLineBrowse::setText);
+
+    plb->clear();
+    le->setText("indirect text");
+    QVERIFY(plb->text() == "indirect text");
+    QVERIFY(sig_changed.count() == 1);
+    QVERIFY(sig_changed.takeFirst().at(0).value<QString>() == "indirect text");
+    VISUAL_WAIT;
+
+    delete le;
     delete plb;
 }
 

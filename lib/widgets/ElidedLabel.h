@@ -22,10 +22,6 @@ class ElidedLabel : public QLabel
     Q_PROPERTY(Qt::TextElideMode elide READ elide WRITE setElide NOTIFY
                    elideChanged DESIGNABLE true)
 
-#ifdef QT_TESTLIB_LIB
-    friend class TestSmallWidgets;
-#endif
-
 public:
     //! Constructor.
     explicit ElidedLabel(QWidget *parent = nullptr);
@@ -38,6 +34,9 @@ public:
 
     //! Returns the full text.
     QString text() const;
+    //! Returns an elided version of the string (if necessary), or
+    //! the original string (if not).
+    QString elideText(const QString &text) const;
 
     //! Returns the recommended size for the widget based on the full text.
     QSize sizeHint() const;
@@ -67,10 +66,6 @@ protected:
 
     //! Non-elided text.
     QString _fullText;
-
-    //! Returns an elided version of the string (if necessary), or
-    //! the original string (if not).
-    QString elideText(const QString &text) const;
 };
 
 #endif // ELIDEDLABEL_H

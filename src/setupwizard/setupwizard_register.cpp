@@ -91,9 +91,10 @@ void RegisterPage::useExistingKeyfile()
     checkComplete();
 }
 
-void RegisterPage::reportError(const QString &text)
+bool RegisterPage::reportError(const QString &text)
 {
     _ui->statusLabel->messageError(text);
+    return false;
 }
 
 void RegisterPage::next()
@@ -226,10 +227,7 @@ bool RegisterPage::checkKeyfile(const QString &filename)
         return true;
     }
     else
-    {
-        reportError("Invalid machine key");
-        return false;
-    }
+        return reportError("Invalid machine key");
 }
 
 void RegisterPage::updateLoadingAnimation(bool idle)

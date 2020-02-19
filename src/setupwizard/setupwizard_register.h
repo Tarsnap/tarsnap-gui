@@ -66,7 +66,7 @@ private:
 
     bool _createKey;
 
-    void reportError(const QString &text);
+    bool reportError(const QString &text);
     bool checkKeyfile(const QString &filename);
 
     enum

@@ -74,7 +74,9 @@ private:
     Ui::RegisterPage *_ui;
 
     bool reportError(const QString &text);
-    bool checkKeyfile(const QString &filename);
+
+    // Check tabs separately.
+    bool checkUseKeyfile();
 
     enum
     {

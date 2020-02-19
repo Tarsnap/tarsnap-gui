@@ -121,7 +121,7 @@ bool RegisterPage::checkComplete()
     }
     else
     {
-        if(!checkKeyfile(_ui->keyfilePathComboBrowse->text()))
+        if(!checkUseKeyfile())
             return setProceedButton(false);
     }
 
@@ -208,8 +208,10 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
     }
 }
 
-bool RegisterPage::checkKeyfile(const QString &filename)
+bool RegisterPage::checkUseKeyfile()
 {
+    const QString filename = _ui->keyfilePathComboBrowse->text();
+
     // Bail if we don't have a filename.
     if(filename.isEmpty())
         return false;

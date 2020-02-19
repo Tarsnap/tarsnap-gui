@@ -93,14 +93,9 @@ bool RegisterPage::reportError(const QString &text)
 void RegisterPage::next()
 {
     if(_registering == Done)
-    {
         emit nextPage();
-        return;
-    }
     else
-    {
         registerMachine();
-    }
 }
 
 bool RegisterPage::checkComplete()

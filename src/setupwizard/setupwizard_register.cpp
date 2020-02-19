@@ -150,19 +150,19 @@ void RegisterPage::registerMachine()
     }
 
     bool useExistingKeyfile = false;
-    if(_ui->registerKeyStackedWidget->currentIndex() == UseKeyfileTab)
-    {
-        useExistingKeyfile = true;
-        _ui->statusLabel->messageNormal("Verifying archive integrity...");
-        tarsnapKeyFile = _ui->keyfilePathComboBrowse->text();
-    }
-    else
+    if(_ui->registerKeyStackedWidget->currentIndex() == CreateKeyfileTab)
     {
         _ui->statusLabel->messageNormal("Generating keyfile...");
         tarsnapKeyFile =
             appDataDir + QDir::separator() + _ui->machineNameLineEdit->text()
             + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
             + ".key";
+    }
+    else
+    {
+        useExistingKeyfile = true;
+        _ui->statusLabel->messageNormal("Verifying archive integrity...");
+        tarsnapKeyFile = _ui->keyfilePathComboBrowse->text();
     }
     Q_ASSERT(!tarsnapKeyFile.isEmpty());
 

@@ -36,3 +36,6 @@ SOURCES += test-small-widgets.cpp			\
 	../../src/widgets/filepickerwidget.cpp
 
 include(../tests-include.pro)
+
+test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
+	touch "$${TEST_HOME}/$${TARGET}/empty-file"

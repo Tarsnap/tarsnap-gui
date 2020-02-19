@@ -89,6 +89,17 @@ void TestSmallWidgets::elidedAnnotatedLabel()
 void TestSmallWidgets::filepickerwidget()
 {
     FilePickerWidget *fpw = new FilePickerWidget();
+
+    fpw->setSettingShowSystem(true);
+    QVERIFY(fpw->settingShowSystem() == true);
+
+    fpw->setSettingHideSymlinks(true);
+    QVERIFY(fpw->settingHideSymlinks() == true);
+
+    const QString filename = QString(TEST_DIR) + "/" + "empty-file";
+    fpw->setCurrentPath(filename);
+    QVERIFY(fpw->getCurrentPath() == filename);
+
     delete fpw;
 }
 

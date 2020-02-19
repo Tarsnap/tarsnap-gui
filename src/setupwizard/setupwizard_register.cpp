@@ -21,10 +21,7 @@ WARNINGS_ENABLE
 #include "utils.h"
 
 RegisterPage::RegisterPage(QWidget *parent)
-    : TWizardPage(parent),
-      _ui(new Ui::RegisterPage),
-      _createKey(true),
-      _registering(No)
+    : TWizardPage(parent), _ui(new Ui::RegisterPage), _registering(No)
 {
     _ui->setupUi(this);
 
@@ -74,7 +71,6 @@ void RegisterPage::initializePage()
 
 void RegisterPage::createKeyfile()
 {
-    _createKey = true;
     _ui->registerKeyStackedWidget->setCurrentWidget(_ui->createKeyfileSubpage);
 
     checkComplete();
@@ -82,7 +78,6 @@ void RegisterPage::createKeyfile()
 
 void RegisterPage::useExistingKeyfile()
 {
-    _createKey = false;
     _ui->registerKeyStackedWidget->setCurrentWidget(
         _ui->useExistingKeyfileSubpage);
 
@@ -113,7 +108,7 @@ bool RegisterPage::checkComplete()
     _ui->statusLabel->clear();
 
     // Check mandatory fields (depending on which tab we're on).
-    if(_createKey)
+    if(_ui->registerKeyStackedWidget->currentIndex() == CreateKeyfileTab)
     {
         if(_ui->machineNameLineEdit->text().isEmpty())
             return setProceedButton(false);
@@ -155,7 +150,7 @@ void RegisterPage::registerMachine()
     }
 
     bool useExistingKeyfile = false;
-    if(_ui->useExistingKeyfileButton->isChecked())
+    if(_ui->registerKeyStackedWidget->currentIndex() == UseKeyfileTab)
     {
         useExistingKeyfile = true;
         _ui->statusLabel->messageNormal("Verifying archive integrity...");

@@ -76,6 +76,7 @@ private:
     bool reportError(const QString &text);
 
     // Check tabs separately.
+    bool checkCreateKeyfile();
     bool checkUseKeyfile();
 
     enum

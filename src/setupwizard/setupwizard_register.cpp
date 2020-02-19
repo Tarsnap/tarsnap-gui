@@ -110,13 +110,7 @@ bool RegisterPage::checkComplete()
     // Check mandatory fields (depending on which tab we're on).
     if(_ui->registerKeyStackedWidget->currentIndex() == CreateKeyfileTab)
     {
-        if(_ui->machineNameLineEdit->text().isEmpty())
-            return setProceedButton(false);
-
-        if(_ui->tarsnapUserLineEdit->text().isEmpty())
-            return setProceedButton(false);
-
-        if(_ui->tarsnapPasswordLineEdit->text().isEmpty())
+        if(!checkCreateKeyfile())
             return setProceedButton(false);
     }
     else
@@ -206,6 +200,20 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
         // We shouldn't receive anything else, so ignore it.
         break;
     }
+}
+
+bool RegisterPage::checkCreateKeyfile()
+{
+    if(_ui->machineNameLineEdit->text().isEmpty())
+        return setProceedButton(false);
+
+    if(_ui->tarsnapUserLineEdit->text().isEmpty())
+        return setProceedButton(false);
+
+    if(_ui->tarsnapPasswordLineEdit->text().isEmpty())
+        return setProceedButton(false);
+
+    return true;
 }
 
 bool RegisterPage::checkUseKeyfile()

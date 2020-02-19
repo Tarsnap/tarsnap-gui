@@ -77,7 +77,6 @@ void RegisterPage::createKeyfile()
     _createKey = true;
     _ui->registerKeyStackedWidget->setCurrentWidget(_ui->createKeyfileSubpage);
 
-    _ui->statusLabel->clear();
     checkComplete();
 }
 
@@ -87,7 +86,6 @@ void RegisterPage::useExistingKeyfile()
     _ui->registerKeyStackedWidget->setCurrentWidget(
         _ui->useExistingKeyfileSubpage);
 
-    _ui->statusLabel->clear();
     checkComplete();
 }
 
@@ -112,6 +110,8 @@ void RegisterPage::next()
 
 bool RegisterPage::checkComplete()
 {
+    _ui->statusLabel->clear();
+
     // Check mandatory fields (depending on which tab we're on).
     if(_createKey)
     {
@@ -155,7 +155,6 @@ void RegisterPage::registerMachine()
     }
 
     bool useExistingKeyfile = false;
-    _ui->statusLabel->clear();
     if(_ui->useExistingKeyfileButton->isChecked())
     {
         useExistingKeyfile = true;
@@ -222,10 +221,7 @@ bool RegisterPage::checkKeyfile(const QString &filename)
     QFileInfo machineKeyFile(filename);
     if(machineKeyFile.exists() && machineKeyFile.isFile()
        && machineKeyFile.isReadable())
-    {
-        _ui->statusLabel->clear();
         return true;
-    }
     else
         return reportError("Invalid machine key");
 }

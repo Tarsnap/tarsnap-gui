@@ -42,7 +42,7 @@ RegisterPage::RegisterPage(QWidget *parent)
     connect(_ui->tarsnapPasswordLineEdit, &QLineEdit::textChanged, this,
             &RegisterPage::checkComplete);
     connect(_ui->keyfilePathComboBrowse, &PathComboBrowse::textChanged, this,
-            &RegisterPage::machineKeyChanged);
+            &RegisterPage::checkComplete);
 }
 
 RegisterPage::~RegisterPage()
@@ -125,7 +125,7 @@ bool RegisterPage::checkComplete()
     }
     else
     {
-        if(_ui->keyfilePathComboBrowse->text().isEmpty())
+        if(!checkKeyfile(_ui->keyfilePathComboBrowse->text()))
             return setProceedButton(false);
     }
 
@@ -213,19 +213,23 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
     }
 }
 
-void RegisterPage::machineKeyChanged(const QString &text)
+bool RegisterPage::checkKeyfile(const QString &filename)
 {
-    QFileInfo machineKeyFile(text);
+    if(filename.isEmpty())
+        return false;
+
+    QFileInfo machineKeyFile(filename);
     if(machineKeyFile.exists() && machineKeyFile.isFile()
        && machineKeyFile.isReadable())
     {
         _ui->statusLabel->clear();
+        return true;
     }
     else
     {
         reportError("Invalid machine key");
+        return false;
     }
-    checkComplete();
 }
 
 void RegisterPage::updateLoadingAnimation(bool idle)

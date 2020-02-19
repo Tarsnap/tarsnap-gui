@@ -61,14 +61,13 @@ private slots:
     void createKeyfile();
     void useExistingKeyfile();
 
-    void machineKeyChanged(const QString &text);
-
 private:
     Ui::RegisterPage *_ui;
 
     bool _createKey;
 
     void reportError(const QString &text);
+    bool checkKeyfile(const QString &filename);
 
     enum
     {

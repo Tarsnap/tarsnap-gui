@@ -31,6 +31,15 @@ public:
     Ui::RegisterPage *get_ui() const { return _ui; }
 #endif
 
+    // Keep this in sync with the UI form.
+    // (Only used publicly in the tests, but it's not worth defining
+    // these twice, inside and outside of #ifdef QT_TESTLIB_LIB.)
+    enum
+    {
+        CreateKeyfileTab = 0,
+        UseKeyfileTab    = 1
+    };
+
 public slots:
     //! The TaskManager has finished attempting to register the machine.
     //! \param status either \c TaskStatus::Completed or
@@ -63,8 +72,6 @@ private slots:
 
 private:
     Ui::RegisterPage *_ui;
-
-    bool _createKey;
 
     bool reportError(const QString &text);
     bool checkKeyfile(const QString &filename);

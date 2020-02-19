@@ -215,15 +215,18 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
 
 bool RegisterPage::checkKeyfile(const QString &filename)
 {
+    // Bail if we don't have a filename.
     if(filename.isEmpty())
         return false;
 
+    // Bail if the filename doesn't point to an existing readable file.
     QFileInfo machineKeyFile(filename);
-    if(machineKeyFile.exists() && machineKeyFile.isFile()
-       && machineKeyFile.isReadable())
-        return true;
-    else
+    if(!(machineKeyFile.exists() && machineKeyFile.isFile()
+         && machineKeyFile.isReadable()))
         return reportError("Invalid machine key");
+
+    // File is ok.
+    return true;
 }
 
 void RegisterPage::updateLoadingAnimation(bool idle)

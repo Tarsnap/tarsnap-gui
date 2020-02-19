@@ -196,7 +196,7 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
     case TaskStatus::Completed:
         _registering = Done;
         _ui->statusLabel->clear();
-        emit next();
+        next();
         break;
     case TaskStatus::Failed:
         reportError(reason);

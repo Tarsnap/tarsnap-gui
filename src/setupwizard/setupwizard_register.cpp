@@ -94,7 +94,6 @@ void RegisterPage::useExistingKeyfile()
 void RegisterPage::reportError(const QString &text)
 {
     _ui->statusLabel->messageError(text);
-    checkComplete();
 }
 
 void RegisterPage::next()
@@ -150,6 +149,7 @@ void RegisterPage::registerMachine()
     {
         // We should never get here, but handle the error anyway
         reportError("No app data dir set");
+        checkComplete();
         return;
     }
 
@@ -205,6 +205,7 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
         break;
     case TaskStatus::Failed:
         reportError(reason);
+        checkComplete();
         break;
     default:
         // We shouldn't receive anything else, so ignore it.

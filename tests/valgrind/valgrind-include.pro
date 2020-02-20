@@ -1,3 +1,5 @@
+CONFIG += c++11
+
 # Pick up extra flags from the environment
 QMAKE_CXXFLAGS += $$(CXXFLAGS)
 QMAKE_CFLAGS += $$(CFLAGS)

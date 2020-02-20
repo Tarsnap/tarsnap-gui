@@ -13,6 +13,9 @@ DIRS="${DIRS} qtest-gui-weird"
 DIRS="${DIRS} network"
 DIRS="${DIRS} gui-simple"
 
+# XDG directory
+XDGD="/tmp/tarsnap-gui-test/valgrind"
+
 DEBUG=0
 
 ### Find script directory.
@@ -30,9 +33,12 @@ generate_supp() {
 	cmd=$1
 	func=$2
 
+	# Environment variables that we use in tests
+	envvar="XDG_CONFIG_HOME=${XDGD} XDG_CACHE_HOME=${XDGD} XDG_DATA_HOME=${XDGD} XDG_RUNTIME_DIR=${XDGD}"
+
 	# There's no harm having an extra environment variable for the
 	# command-line-only tests.
-	envvar="QT_QPA_PLATFORM=offscreen"
+	envvar="${envvar} QT_QPA_PLATFORM=offscreen"
 
 	# Verbose output.
 	if [ "$DEBUG" -eq 1 ]; then
@@ -134,6 +140,9 @@ generate_supp_from_dir() {
 if [ "$DEBUG" -eq 1 ]; then
 	rm -f ${valgrind_suppressions}.debug
 fi
+
+# Create XDG dir (if necessary)
+mkdir -p ${XDGD}
 
 # If the suppressions already exist, indicate that this is a retest.
 # (This may be useful while investigating occasional memory leaks.)

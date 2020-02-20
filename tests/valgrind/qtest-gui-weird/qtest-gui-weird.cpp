@@ -10,6 +10,7 @@ WARNINGS_DISABLE
 #include <QFontMetrics>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
 #include <QRadioButton>
 #include <QSequentialAnimationGroup>
 #include <QStackedWidget>
@@ -26,6 +27,8 @@ private slots:
     void pl_setvisible();
     void pl_stackedwidget1();
     void pl_stackedwidget2();
+    void pl_messagebox_icon();
+    void pl_messagebox_buttons();
 };
 
 void TestQTestWeird::pl_nothing()
@@ -109,6 +112,20 @@ void TestQTestWeird::pl_stackedwidget2()
     wid->setCurrentIndex(0);
 
     delete wid;
+}
+
+void TestQTestWeird::pl_messagebox_icon()
+{
+    QMessageBox *box = new QMessageBox();
+    box->setIcon(QMessageBox::Critical);
+    delete box;
+}
+
+void TestQTestWeird::pl_messagebox_buttons()
+{
+    QMessageBox *box = new QMessageBox();
+    box->setStandardButtons(QMessageBox::Cancel);
+    delete box;
 }
 
 QTEST_MAIN(TestQTestWeird)

@@ -30,6 +30,7 @@ private slots:
     void pl_messagebox_icon();
     void pl_messagebox_buttons();
     void pl_messagebox_exec();
+    void pl_saveGeometry();
 };
 
 void TestQTestWeird::pl_nothing()
@@ -135,6 +136,13 @@ void TestQTestWeird::pl_messagebox_exec()
     QMetaObject::invokeMethod(box, "close", Qt::QueuedConnection);
     box->exec();
     delete box;
+}
+
+void TestQTestWeird::pl_saveGeometry()
+{
+    QWidget *wid = new QWidget();
+    wid->saveGeometry();
+    delete wid;
 }
 
 QTEST_MAIN(TestQTestWeird)

@@ -29,6 +29,7 @@ private slots:
     void pl_stackedwidget2();
     void pl_messagebox_icon();
     void pl_messagebox_buttons();
+    void pl_messagebox_exec();
 };
 
 void TestQTestWeird::pl_nothing()
@@ -125,6 +126,14 @@ void TestQTestWeird::pl_messagebox_buttons()
 {
     QMessageBox *box = new QMessageBox();
     box->setStandardButtons(QMessageBox::Cancel);
+    delete box;
+}
+
+void TestQTestWeird::pl_messagebox_exec()
+{
+    QMessageBox *box = new QMessageBox();
+    QMetaObject::invokeMethod(box, "close", Qt::QueuedConnection);
+    box->exec();
     delete box;
 }
 

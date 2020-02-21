@@ -17,7 +17,7 @@ WARNINGS_ENABLE
 
 TarsnapAccount::TarsnapAccount()
 {
-    _nam = new QNetworkAccessManager(this);
+    _nam = new QNetworkAccessManager();
 }
 
 TarsnapAccount::~TarsnapAccount()

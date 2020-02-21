@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include <QFont>
 #include <QFontMetrics>
 #include <QFontMetricsF>
+#include <QImageReader>
 #include <QLabel>
 #include <QListWidget>
 #include <QPlainTextEdit>
@@ -34,6 +35,7 @@ private slots:
     void pl_collator_copy();
     void pl_listwidget();
     void pl_plaintextedit();
+    void pl_image_supported();
 };
 
 void TestQTestSimple::pl_nothing()
@@ -125,6 +127,11 @@ void TestQTestSimple::pl_plaintextedit()
 {
     QPlainTextEdit *te = new QPlainTextEdit();
     delete te;
+}
+
+void TestQTestSimple::pl_image_supported()
+{
+    QImageReader::supportedImageFormats();
 }
 
 QTEST_MAIN(TestQTestSimple)

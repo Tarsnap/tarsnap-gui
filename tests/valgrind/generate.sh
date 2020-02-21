@@ -26,6 +26,9 @@ valgrind_suppressions="${scriptdir}/valgrind.supp"
 valgrind_cmd="valgrind						\
 	--leak-check=full --show-leak-kinds=all			\
 	--suppressions=${valgrind_suppressions}			\
+	--num-callers=40					\
+	--leak-check-heuristics=none				\
+	--errors-for-leak-kinds=all				\
 	--gen-suppressions=all"
 
 # Generate the suppressions for a specific command & its arguments.

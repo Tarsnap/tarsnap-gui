@@ -75,6 +75,9 @@ QMAKE_EXTRA_TARGETS += test test_visual test_home_prep
 			--suppressions=$${VALGRIND_SUPPRESSIONS}	\
 			--gen-suppressions=all				\
 			--log-file=valgrind-full.log			\
+			--num-callers=40				\
+			--leak-check-heuristics=none			\
+			--errors-for-leak-kinds=all			\
 			--error-exitcode=108"
 
 	contains(QT, gui) || contains(QT, widgets) {

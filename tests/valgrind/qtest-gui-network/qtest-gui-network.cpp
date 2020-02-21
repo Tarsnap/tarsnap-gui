@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QNetworkAccessManager>
+#include <QNetworkConfigurationManager>
 #include <QThread>
 #include <QtTest/QtTest>
 WARNINGS_ENABLE
@@ -15,6 +16,7 @@ private slots:
 
     void pl_networkaccessmanager();
     void pl_networkaccessmanager_wait();
+    void pl_network_config();
     void pl_networkaccessmanager_status();
     void pl_networkaccessmanager_repeated();
 
@@ -37,6 +39,12 @@ void TestQTestNetwork::pl_networkaccessmanager_wait()
     QNetworkAccessManager *nam = new QNetworkAccessManager();
     QThread::msleep(200);
     delete nam;
+}
+
+void TestQTestNetwork::pl_network_config()
+{
+    QNetworkConfigurationManager *ncm = new QNetworkConfigurationManager;
+    delete ncm;
 }
 
 void TestQTestNetwork::pl_networkaccessmanager_status_not_solo()

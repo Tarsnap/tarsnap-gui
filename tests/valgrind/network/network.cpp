@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QNetworkAccessManager>
+#include <QNetworkConfigurationManager>
 #include <QThread>
 WARNINGS_ENABLE
 
@@ -29,6 +30,16 @@ static void pl_networkaccessmanager_wait()
     QNetworkAccessManager *nam = new QNetworkAccessManager();
     QThread::msleep(200);
     delete nam;
+
+    T_APP_END;
+}
+
+static void pl_network_config()
+{
+    T_APP_BEGIN_CONSOLE;
+
+    QNetworkConfigurationManager *ncm = new QNetworkConfigurationManager;
+    delete ncm;
 
     T_APP_END;
 }
@@ -73,6 +84,7 @@ T_TEST_BEGIN
     MEMLEAKTEST(pl_nothing),
     MEMLEAKTEST(pl_networkaccessmanager),
     MEMLEAKTEST(pl_networkaccessmanager_wait),
+    MEMLEAKTEST(pl_network_config),
     MEMLEAKTEST(pl_networkaccessmanager_status),
     MEMLEAKTEST(pl_networkaccessmanager_repeated)
 T_TEST_END

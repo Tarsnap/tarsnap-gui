@@ -10,7 +10,6 @@ WARNINGS_DISABLE
 #include <QFontMetrics>
 #include <QHostInfo>
 #include <QLineEdit>
-#include <QNetworkAccessManager>
 #include <QRadioButton>
 #include <QSequentialAnimationGroup>
 #include <QTreeView>
@@ -38,7 +37,6 @@ private slots:
     void pl_dialog_exec();
     void pl_combo_box();
     void pl_widget_show_hide();
-    void pl_networkaccessmanager();
     void pl_lineedit_placeholder();
     void pl_animation_start();
 };
@@ -204,15 +202,6 @@ void TestQTestComplex::pl_widget_show_hide()
     wid->hide();
     wid->show();
     delete wid;
-}
-
-void TestQTestComplex::pl_networkaccessmanager()
-{
-    // Yes, we need to run this again (within the GUI framework),
-    // in addition to the console ../network/ test.
-    QNetworkAccessManager *nam = new QNetworkAccessManager();
-    QThread::msleep(200);
-    delete nam;
 }
 
 void TestQTestComplex::pl_lineedit_placeholder()

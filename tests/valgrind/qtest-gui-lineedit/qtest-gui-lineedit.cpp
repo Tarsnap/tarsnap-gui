@@ -13,7 +13,9 @@ class TestQTestLineEdit : public QObject
 private slots:
     void pl_nothing();
     void pl_lineedit_text();
+    void pl_lineedit_text_show();
     void pl_lineedit_text_clear();
+    void pl_lineedit_style_clear();
     void pl_lineedit_clear_show();
     void pl_lineedit_placeholder();
 };
@@ -32,6 +34,15 @@ void TestQTestLineEdit::pl_lineedit_text()
     delete le;
 }
 
+void TestQTestLineEdit::pl_lineedit_text_show()
+{
+    QLineEdit *le = new QLineEdit();
+    le->setClearButtonEnabled(true);
+    le->show();
+    le->setText("text");
+    delete le;
+}
+
 void TestQTestLineEdit::pl_lineedit_text_clear()
 {
     QLineEdit *le = new QLineEdit();
@@ -40,6 +51,14 @@ void TestQTestLineEdit::pl_lineedit_text_clear()
     le->setText("Let's cause a memory leak!");
     le->clear();
 
+    delete le;
+}
+
+void TestQTestLineEdit::pl_lineedit_style_clear()
+{
+    QLineEdit *le = new QLineEdit();
+    le->setStyleSheet("padding-left 3px;");
+    le->setClearButtonEnabled(true);
     delete le;
 }
 

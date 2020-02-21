@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QAccessible>
 #include <QApplication>
+#include <QIcon>
 #include <QMetaObject>
 #include <QObject>
 #include <QPixmap>
@@ -48,6 +49,17 @@ static void pl_exec()
     T_APP_END_GUI;
 }
 
+static void pl_icon()
+{
+    T_APP_BEGIN_GUI;
+
+    QIcon *icon = new QIcon();
+    icon->addFile("16x16-white.png");
+    delete icon;
+
+    T_APP_END_GUI;
+}
+
 static void pl_app_pix()
 {
     T_APP_BEGIN_GUI;
@@ -72,5 +84,6 @@ T_TEST_BEGIN
     MEMLEAKTEST(pl_app),
     MEMLEAKTEST(pl_object),
     MEMLEAKTEST(pl_exec),
+    MEMLEAKTEST(pl_icon),
     MEMLEAKTEST(pl_app_pix_two)
 T_TEST_END

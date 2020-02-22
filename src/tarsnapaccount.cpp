@@ -1,6 +1,7 @@
 #include "tarsnapaccount.h"
 
 WARNINGS_DISABLE
+#include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QUrlQuery>

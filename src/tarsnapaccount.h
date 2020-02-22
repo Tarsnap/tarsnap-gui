@@ -4,11 +4,13 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QObject>
 #include <QUrlQuery>
 WARNINGS_ENABLE
+
+/* Forward declaration. */
+class QNetworkAccessManager;
 
 /*!
  * \ingroup widgets-specialized

@@ -1,10 +1,13 @@
 #ifndef OPTPARSE_H
 #define OPTPARSE_H
 
-/* Command-line options. */
+/** \brief Command-line options. */
 struct optparse {
+	/** \brief Configuration direcotry. */
 	char * config_dir;
+	/** \brief Execute scheduled jobs, then quit. */
 	int jobs;
+	/** \brief Check that the GUI is correctly installed. */
 	int check;
 };
 

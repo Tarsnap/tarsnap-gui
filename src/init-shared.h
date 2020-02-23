@@ -12,7 +12,7 @@ WARNINGS_ENABLE
     \brief Shared init code that doesn't depend on the gui.
  */
 
-//! Status of \ref init_shared_core().
+//! Status of \ref init_shared().
 enum init_status
 {
     INIT_OK,
@@ -24,7 +24,7 @@ enum init_status
     INIT_SCHEDULE_ERROR
 };
 
-//! Return value of \ref init_shared_core().
+//! Return value of \ref init_shared().
 struct init_info
 {
     //! Indicates any problems or actions required.

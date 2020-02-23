@@ -3,11 +3,15 @@
 
 #include <stdio.h>
 
-/* --help messages for command-line arguments. */
+/** \brief Messages displayed via --help. */
 struct args {
+	/** \brief The "-s" (short) argument. */
 	const char * arg_short;
+	/** \brief The "--long-form" argument. */
 	const char * arg_long;
+	/** \brief Variable that we get from the user. */
 	const char * arg_optarg;
+	/** \brief Actual --help message. */
 	const char * arg_explain;
 };
 

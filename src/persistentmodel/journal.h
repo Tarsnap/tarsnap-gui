@@ -9,10 +9,13 @@ WARNINGS_ENABLE
 
 #include "persistentobject.h"
 
+//! Info to add to the log.
 struct LogEntry
 {
+    //! Time of the entry.
     QDateTime timestamp;
-    QString   message;
+    //! Text to add.
+    QString message;
 };
 
 Q_DECLARE_METATYPE(LogEntry)

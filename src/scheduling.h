@@ -15,11 +15,15 @@ enum schedulestatus
     SCHEDULE_NOTHING_HAPPENED
 };
 
+//! Information about a schedule function.
 struct scheduleinfo
 {
+    //! Did the operation succeed?
     schedulestatus status;
-    QString        message;
-    QString        extra;
+    //! A message clarifying the status.
+    QString message;
+    //! Extra string used in special circumstances; see code.
+    QString extra;
 };
 
 struct scheduleinfo launchdEnable();

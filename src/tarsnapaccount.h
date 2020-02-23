@@ -27,6 +27,10 @@ public:
     ~TarsnapAccount();
 
 public slots:
+    //! Send a query to the Tarsnap service.
+    //! \param displayActivity show the account's overall activity.
+    //! \param displayMachineActivity show the activity for this machine.
+    //! \param password the account password.
     void getAccountInfo(bool displayActivity, bool displayMachineActivity,
                         QString password);
 

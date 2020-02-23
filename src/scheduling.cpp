@@ -23,10 +23,14 @@ WARNINGS_ENABLE
     "An error occurred while attempting to update the OS X launchd path."
 #endif
 
+//! Information about running a command.
 struct cmdinfo
 {
-    int        exit_code;
+    //! Exit code of the command.
+    int exit_code;
+    //! Standard error from the command.
     QByteArray stderr_msg;
+    //! Standard output from the command.
     QByteArray stdout_msg;
 };
 

@@ -32,7 +32,7 @@ public slots:
                              QString data);
 
 signals:
-    // The user clicked on the notification message.
+    //! The user clicked on the notification message.
     void notification_clicked(enum message_type type, QString data);
 
 private slots:

@@ -13,6 +13,7 @@ WARNINGS_ENABLE
 #include "../qtest-platform.h"
 
 #include "ElidedLabel.h"
+#include "OkLabel.h"
 #include "PathComboBrowse.h"
 #include "PathLineBrowse.h"
 #include "TWizard.h"
@@ -28,6 +29,7 @@ private slots:
 
     void elidedLabel();
     void elidedLabel_status();
+    void okLabel();
     void pathlinebrowse();
     void pathcombobrowse();
     void twizard();
@@ -88,6 +90,24 @@ void TestLibWidgets::elidedLabel_status()
     VISUAL_WAIT;
 
     delete el;
+}
+
+void TestLibWidgets::okLabel()
+{
+    OkLabel *ok = new OkLabel();
+
+    VISUAL_INIT(ok);
+
+    ok->setStatus(OkLabel::Ok);
+    VISUAL_WAIT;
+
+    ok->setStatus(OkLabel::Error);
+    VISUAL_WAIT;
+
+    ok->setStatus(OkLabel::Unset);
+    VISUAL_WAIT;
+
+    delete ok;
 }
 
 void TestLibWidgets::pathlinebrowse()

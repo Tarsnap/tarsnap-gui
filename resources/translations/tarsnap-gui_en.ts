@@ -1720,6 +1720,17 @@ Add anyway?</source>
     </message>
 </context>
 <context>
+    <name>OkLabel</name>
+    <message>
+        <source>✔</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>❌</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PathComboBrowse</name>
     <message>
         <source>Browse</source>

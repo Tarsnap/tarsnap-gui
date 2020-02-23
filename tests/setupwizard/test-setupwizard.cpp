@@ -67,6 +67,21 @@ void TestSetupWizard::cleanupTestCase()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
 }
 
+static void clean_quit(SetupWizard * wizard)
+{
+    // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
+
+    // Ensure that the wizard is not running when we quit
+    if(wizard->isVisible())
+        wizard->reject();
+
+    // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
+
+    delete wizard;
+}
+
 void TestSetupWizard::do_nothing()
 {
     SetupWizard *wizard = new SetupWizard();
@@ -75,7 +90,7 @@ void TestSetupWizard::do_nothing()
     VISUAL_INIT(wizard);
     IF_NOT_VISUAL { wizard->open(); }
 
-    delete wizard;
+    clean_quit(wizard);
 }
 
 void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
@@ -162,7 +177,7 @@ void TestSetupWizard::normal_install()
     QVERIFY(compareSettings(settings.getQSettings(), &target));
 
     // Clean up
-    delete wizard;
+    clean_quit(wizard);
 }
 
 void TestSetupWizard::cancel_install()
@@ -179,7 +194,7 @@ void TestSetupWizard::cancel_install()
     VISUAL_WAIT;
 
     // Clean up
-    delete wizard;
+    clean_quit(wizard);
 
     // Check that we wiped the Tarsnap-related settings
     TSettings  settings;
@@ -214,7 +229,7 @@ void TestSetupWizard::skip_install()
     QVERIFY(compareSettings(settings.getQSettings(), &target));
 
     // Clean up
-    delete wizard;
+    clean_quit(wizard);
 }
 
 void TestSetupWizard::cli()
@@ -264,7 +279,8 @@ void TestSetupWizard::cli()
     QVERIFY(ui_cli->validationLabel->text().contains("Tarsnap CLI version"));
     VISUAL_WAIT;
 
-    delete wizard;
+    // Ensure that the wizard is not running when we quit
+    clean_quit(wizard);
 }
 
 void TestSetupWizard::version_too_low()
@@ -288,7 +304,8 @@ void TestSetupWizard::version_too_low()
     QVERIFY(ui_cli->detailsWidget->isVisible() == true);
     VISUAL_WAIT;
 
-    delete wizard;
+    // Ensure that the wizard is not running when we quit
+    clean_quit(wizard);
 }
 
 QTEST_MAIN(TestSetupWizard)

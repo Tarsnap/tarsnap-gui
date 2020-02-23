@@ -66,10 +66,6 @@ protected:
     //! User activated the "next" button.
     void next() override;
 
-private slots:
-    void createKeyfile();
-    void useExistingKeyfile();
-
 private:
     Ui::RegisterPage *_ui;
 

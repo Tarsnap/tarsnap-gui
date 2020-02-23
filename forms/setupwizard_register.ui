@@ -90,83 +90,24 @@
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="createOrUseKeyfileLayout">
-       <item>
-        <spacer name="registerLeftSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::MinimumExpanding</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>0</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="createKeyfileButton">
-         <property name="text">
-          <string>Create new keyfile</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="autoExclusive">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="useExistingKeyfileButton">
-         <property name="text">
-          <string>Use existing keyfile</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="autoExclusive">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="registerRightSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::MinimumExpanding</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>0</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QStackedWidget" name="registerKeyStackedWidget">
-       <property name="frameShape">
-        <enum>QFrame::Box</enum>
+      <widget class="QTabWidget" name="keyfileTabWidget">
+       <property name="autoFillBackground">
+        <bool>true</bool>
        </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
+       <property name="styleSheet">
+        <string notr="true">QTabWidget::tab-bar { alignment: center; }</string>
        </property>
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="createKeyfileSubpage">
-        <layout class="QGridLayout" name="gridKeyNoLayout">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetMinimumSize</enum>
-         </property>
+       <widget class="QWidget" name="createKeyfileTab">
+        <property name="autoFillBackground">
+         <bool>true</bool>
+        </property>
+        <attribute name="title">
+         <string>Create new keyfile</string>
+        </attribute>
+        <layout class="QGridLayout" name="createKeyfileLayout">
          <property name="leftMargin">
           <number>3</number>
          </property>
@@ -179,61 +120,9 @@
          <property name="bottomMargin">
           <number>3</number>
          </property>
-         <property name="horizontalSpacing">
-          <number>6</number>
-         </property>
          <property name="verticalSpacing">
           <number>3</number>
          </property>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="tarsnapPasswordLineEdit">
-           <property name="echoMode">
-            <enum>QLineEdit::Password</enum>
-           </property>
-           <property name="placeholderText">
-            <string>your password</string>
-           </property>
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="machineNameLineEdit">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="placeholderText">
-            <string>this machine's name</string>
-           </property>
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="tarsnapUserLabel">
-           <property name="text">
-            <string>Tarsnap user:</string>
-           </property>
-           <property name="buddy">
-            <cstring>tarsnapUserLineEdit</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <spacer name="createKeyfileSubpageBottomSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>0</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
          <item row="0" column="0" colspan="2">
           <widget class="QLabel" name="registerPageInfoLabel">
            <property name="minimumSize">
@@ -256,23 +145,16 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="tarsnapPasswordLabel">
-           <property name="text">
-            <string>Tarsnap password:</string>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="tarsnapPasswordLineEdit">
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
            </property>
-           <property name="buddy">
-            <cstring>tarsnapPasswordLineEdit</cstring>
+           <property name="placeholderText">
+            <string>your password</string>
            </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="machineNameLabel">
-           <property name="text">
-            <string>Machine name:</string>
-           </property>
-           <property name="buddy">
-            <cstring>machineNameLineEdit</cstring>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -286,13 +168,72 @@
            </property>
           </widget>
          </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="machineNameLabel">
+           <property name="text">
+            <string>Machine name:</string>
+           </property>
+           <property name="buddy">
+            <cstring>machineNameLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="machineNameLineEdit">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="placeholderText">
+            <string>this machine's name</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="tarsnapPasswordLabel">
+           <property name="text">
+            <string>Tarsnap password:</string>
+           </property>
+           <property name="buddy">
+            <cstring>tarsnapPasswordLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="tarsnapUserLabel">
+           <property name="text">
+            <string>Tarsnap user:</string>
+           </property>
+           <property name="buddy">
+            <cstring>tarsnapUserLineEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <spacer name="createKeyfileSubpageBottomSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>77</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="useExistingKeyfileSubpage">
+       <widget class="QWidget" name="useExistingKeyfileTab">
+        <property name="autoFillBackground">
+         <bool>true</bool>
+        </property>
+        <attribute name="title">
+         <string>Use existing keyfile</string>
+        </attribute>
         <layout class="QVBoxLayout" name="useExistingKeyfileLayout">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetMinimumSize</enum>
-         </property>
          <property name="leftMargin">
           <number>3</number>
          </property>
@@ -443,8 +384,7 @@
  </customwidgets>
  <tabstops>
   <tabstop>nextButton</tabstop>
-  <tabstop>createKeyfileButton</tabstop>
-  <tabstop>useExistingKeyfileButton</tabstop>
+  <tabstop>keyfileTabWidget</tabstop>
   <tabstop>machineNameLineEdit</tabstop>
   <tabstop>tarsnapUserLineEdit</tabstop>
   <tabstop>tarsnapPasswordLineEdit</tabstop>

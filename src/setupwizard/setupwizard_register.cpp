@@ -26,10 +26,8 @@ RegisterPage::RegisterPage(QWidget *parent)
     _ui->setupUi(this);
 
     // Basic operations on this page.
-    connect(_ui->createKeyfileButton, &QPushButton::clicked, this,
-            &RegisterPage::createKeyfile);
-    connect(_ui->useExistingKeyfileButton, &QPushButton::clicked, this,
-            &RegisterPage::useExistingKeyfile);
+    connect(_ui->keyfileTabWidget, &QTabWidget::currentChanged, this,
+            &RegisterPage::checkComplete);
 
     // A config field changed.
     connect(_ui->machineNameLineEdit, &QLineEdit::textChanged, this,
@@ -62,26 +60,11 @@ void RegisterPage::initializePage()
 
     // Auto-select "use existing" if we have any.
     if(_ui->keyfilePathComboBrowse->count() > 0)
-        _ui->useExistingKeyfileButton->click();
+        _ui->keyfileTabWidget->setCurrentIndex(UseKeyfileTab);
 
     // Enable keyboard focus if we're ready to go.
     if(checkComplete())
         _ui->nextButton->setFocus();
-}
-
-void RegisterPage::createKeyfile()
-{
-    _ui->registerKeyStackedWidget->setCurrentWidget(_ui->createKeyfileSubpage);
-
-    checkComplete();
-}
-
-void RegisterPage::useExistingKeyfile()
-{
-    _ui->registerKeyStackedWidget->setCurrentWidget(
-        _ui->useExistingKeyfileSubpage);
-
-    checkComplete();
 }
 
 bool RegisterPage::reportError(const QString &text)
@@ -103,7 +86,7 @@ bool RegisterPage::checkComplete()
     _ui->statusLabel->clear();
 
     // Check mandatory fields (depending on which tab we're on).
-    if(_ui->registerKeyStackedWidget->currentIndex() == CreateKeyfileTab)
+    if(_ui->keyfileTabWidget->currentIndex() == CreateKeyfileTab)
     {
         if(!checkCreateKeyfile())
             return setProceedButton(false);
@@ -139,7 +122,7 @@ void RegisterPage::registerMachine()
     }
 
     bool useExistingKeyfile = false;
-    if(_ui->registerKeyStackedWidget->currentIndex() == CreateKeyfileTab)
+    if(_ui->keyfileTabWidget->currentIndex() == CreateKeyfileTab)
     {
         _ui->statusLabel->messageNormal("Generating keyfile...");
         tarsnapKeyFile =

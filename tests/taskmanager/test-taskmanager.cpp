@@ -1,6 +1,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QThreadPool>
 #include <QtTest/QtTest>
 WARNINGS_ENABLE
 
@@ -54,6 +55,8 @@ void TestTaskManager::cleanupTestCase()
     TSettings::destroy();
     ConsoleLog::destroy();
 
+    // Wait up to 5 seconds for any running threads to stop.
+    QThreadPool::globalInstance()->waitForDone(5000);
     // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
 }

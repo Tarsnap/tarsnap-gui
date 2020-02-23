@@ -131,7 +131,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
     GET_UI_PAGE(ui_register, RegisterPage);
 
     // Pretend that we already have a key
-    ui_register->useExistingKeyfileButton->click();
+    ui_register->keyfileTabWidget->setCurrentIndex(RegisterPage::UseKeyfileTab);
     ui_register->keyfilePathComboBrowse->setText("empty.key");
     VISUAL_WAIT;
 

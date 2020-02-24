@@ -40,6 +40,9 @@ public:
     //! Set the status.
     void setStatus(int status);
 
+    //! Get a rich text representation of a status.
+    static const QString getRichText(int status);
+
 private:
     int _status;
 };

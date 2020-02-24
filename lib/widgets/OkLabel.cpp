@@ -31,3 +31,17 @@ void OkLabel::setStatus(int status)
         break;
     }
 }
+
+const QString OkLabel::getRichText(int status)
+{
+    switch(status)
+    {
+    case Unset:
+        return "";
+    case Ok:
+        return "<font color=\"green\">" + tr("✔") + "</font>";
+    case Error:
+        return "<font color=\"darkred\">" + tr("❌") + "</font>";
+    }
+    return "";
+}

@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include "ui_setupwizard_cli.h"
 WARNINGS_ENABLE
 
+#include <OkLabel.h>
 #include <TSettings.h>
 #include <TWizardPage.h>
 
@@ -190,7 +191,8 @@ void CliPage::tarsnapVersionResponse(TaskStatus status, QString versionString)
             _ui->nextButton->setFocus();
         // Display message (after checkComplete, which can clear the label).
         _ui->validationLabel->messageNormal(
-            tr("Tarsnap CLI version ") + versionString + tr(" detected.  ✔"));
+            tr("Tarsnap CLI version ") + versionString + tr(" detected.") + " "
+            + OkLabel::getRichText(OkLabel::Ok));
         break;
     case TaskStatus::VersionTooLow:
         // Don't record the too-low version number.

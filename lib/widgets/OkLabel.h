@@ -38,10 +38,10 @@ public:
     //! Get the status.
     int status() const;
     //! Set the status.
-    void setStatus(int ok);
+    void setStatus(int status);
 
 private:
-    int _ok;
+    int _status;
 };
 
 #endif // OKLABEL_H

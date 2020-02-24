@@ -58,7 +58,9 @@ void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
     QString tarsnapPath;                                                       \
     do                                                                         \
     {                                                                          \
-        tarsnapPath = Utils::findTarsnapClientInPath(QString(""), true);       \
+        struct DirMessage result =                                             \
+            Utils::findTarsnapClientInPath(QString(""), true);                 \
+        tarsnapPath = result.dirname;                                          \
         WARNINGS_DISABLE                                                       \
         if(tarsnapPath.isEmpty())                                              \
             QSKIP("No tarsnap binary found");                                  \

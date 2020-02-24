@@ -692,8 +692,9 @@ void SettingsWidget::tarsnapVersionResponse(TaskStatus status,
 
 bool SettingsWidget::validateTarsnapPath()
 {
-    if(Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text())
-           .isEmpty())
+    struct DirMessage result =
+        Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text());
+    if(result.dirname.isEmpty())
     {
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
         _ui->tarsnapVersionLabel->clear();

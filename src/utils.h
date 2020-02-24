@@ -93,7 +93,7 @@ QString humanBytes(quint64 bytes, int fieldWidth = 0);
 // if path.isEmpty it will search in $PATH
 // if keygenToo it will search for tarsnap-keygen too
 // returns the directory where tarsnap resides if found, otherwise empty string
-QString findTarsnapClientInPath(QString path, bool keygenToo = false);
+struct DirMessage findTarsnapClientInPath(QString path, bool keygenToo = false);
 
 // Search for valid tarsnap keys in the supplied path
 QFileInfoList findKeysInPath(QString path);

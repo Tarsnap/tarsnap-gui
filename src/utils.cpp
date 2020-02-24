@@ -164,7 +164,7 @@ static struct DirMessage findBinary(const QString &cmd, QStringList searchPaths)
     return result;
 }
 
-QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
+struct DirMessage Utils::findTarsnapClientInPath(QString path, bool keygenToo)
 {
     struct DirMessage result;
 
@@ -176,21 +176,22 @@ QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
     // Look for main tarsnap binary.
     result = findBinary(CMD_TARSNAP, searchPaths);
     if(result.dirname.isEmpty())
-        return "";
+        return result;
 
     // Look for tarsnap-keygen.
     if(keygenToo)
     {
         result = findBinary(CMD_TARSNAPKEYGEN, searchPaths);
         if(result.dirname.isEmpty())
-            return "";
+            return result;
     }
 
     // If we were searching $PATH, update the `path` argument.
     if(path.isEmpty())
         path = QFileInfo(result.dirname).absolutePath();
 
-    return path;
+    result.dirname = path;
+    return result;
 }
 
 QFileInfoList Utils::findKeysInPath(QString path)

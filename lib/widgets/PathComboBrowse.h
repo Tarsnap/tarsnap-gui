@@ -53,6 +53,13 @@ public:
     //! Set the filter of the QFileDialog.
     void setDialogFilter(const QString &text);
 
+    //! Get the status label text.
+    QString statusText() const;
+    //! Set the status label with an "ok".
+    void setStatusOk(const QString &text);
+    //! Set the status label with an error.
+    void setStatusError(const QString &text);
+
     //! Get the text of the QComboBox.
     QString text() const;
 

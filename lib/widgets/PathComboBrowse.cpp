@@ -68,6 +68,27 @@ void PathComboBrowse::setDialogFilter(const QString &text)
     _dialogFilter = text;
 }
 
+QString PathComboBrowse::statusText() const
+{
+    return _ui->statusLabel->text();
+}
+
+void PathComboBrowse::setStatusOk(const QString &text)
+{
+    _ui->okLabel->setStatus(OkLabel::Ok);
+    _ui->statusLabel->setText(text);
+    _ui->statusLabel->setStyleSheet("");
+    _ui->comboBox->lineEdit()->setStyleSheet("");
+}
+
+void PathComboBrowse::setStatusError(const QString &text)
+{
+    _ui->okLabel->setStatus(OkLabel::Error);
+    _ui->statusLabel->setText(text);
+    _ui->statusLabel->setStyleSheet("color: darkred;");
+    _ui->comboBox->lineEdit()->setStyleSheet("color: darkred;");
+}
+
 QString PathComboBrowse::text() const
 {
     return _ui->comboBox->currentText();
@@ -94,6 +115,11 @@ void PathComboBrowse::clear()
 {
     _ui->comboBox->clear();
     _ui->comboBox->clearEditText();
+    // Clear status-related items.
+    _ui->okLabel->setStatus(OkLabel::Unset);
+    _ui->statusLabel->setText("");
+    _ui->statusLabel->setStyleSheet("");
+    _ui->comboBox->lineEdit()->setStyleSheet("");
 }
 
 int PathComboBrowse::count() const

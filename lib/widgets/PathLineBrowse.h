@@ -49,6 +49,13 @@ public:
     //! Get the text of the QLineEdit.
     QString text() const;
 
+    //! Get the status label text.
+    QString statusText() const;
+    //! Set the status label with an "ok".
+    void setStatusOk(const QString &text);
+    //! Set the status label with an error.
+    void setStatusError(const QString &text);
+
 public slots:
     //! Set the text of the QLineEdit.
     void setText(const QString &text);

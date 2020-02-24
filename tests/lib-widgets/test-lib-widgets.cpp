@@ -138,6 +138,15 @@ void TestLibWidgets::pathlinebrowse()
     sig_changed.clear();
     VISUAL_WAIT;
 
+    plb->setStatusOk("");
+    VISUAL_WAIT;
+
+    plb->setStatusError("error message");
+    VISUAL_WAIT;
+
+    plb->setStatusOk("ok message");
+    VISUAL_WAIT;
+
     plb->clear();
     QVERIFY(sig_changed.count() == 1);
     QVERIFY(sig_changed.takeFirst().at(0).value<QString>() == "");
@@ -208,6 +217,15 @@ void TestLibWidgets::pathcombobrowse()
     QVERIFY(pcb->text() == "third");
     QVERIFY(sig_changed.count() == 1);
     QVERIFY(sig_changed.takeFirst().at(0).value<QString>() == "third");
+    VISUAL_WAIT;
+
+    pcb->setStatusOk("");
+    VISUAL_WAIT;
+
+    pcb->setStatusError("error message");
+    VISUAL_WAIT;
+
+    pcb->setStatusOk("ok message");
     VISUAL_WAIT;
 
     sig_changed.clear();

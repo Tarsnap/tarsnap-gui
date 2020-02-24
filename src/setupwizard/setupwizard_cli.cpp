@@ -86,7 +86,8 @@ bool CliPage::checkComplete()
        || (!settings.contains("app/app_data")))
         return setProceedButton(false);
 
-    _ui->validationLabel->clear();
+    _ui->validationLabel->setStyleSheet("");
+    _ui->validationLabel->setText(_successMessage);
     return setProceedButton(true);
 }
 
@@ -193,6 +194,9 @@ void CliPage::tarsnapVersionResponse(TaskStatus status, QString versionString)
         _ui->validationLabel->messageNormal(
             tr("Tarsnap CLI version ") + versionString + tr(" detected.") + " "
             + OkLabel::getRichText(OkLabel::Ok));
+        // Save the message, allowing us to return to it if we
+        // temporarily disable completion (e.g., after fiddling with dirs).
+        _successMessage = _ui->validationLabel->text();
         break;
     case TaskStatus::VersionTooLow:
         // Don't record the too-low version number.

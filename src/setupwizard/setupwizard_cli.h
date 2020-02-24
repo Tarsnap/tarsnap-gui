@@ -54,6 +54,10 @@ private slots:
 private:
     Ui::CliPage *_ui;
 
+    // This will allow us to display a "success" message after
+    // temporarily losing it (e.g., after fiddling with dirs).
+    QString _successMessage;
+
     // Has there been any problems?  If there haven't, and the CLI
     // version is high enough, then we want to auto-focus the
     // "Next" button.  But if we've been manually poking around in

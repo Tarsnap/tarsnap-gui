@@ -86,7 +86,8 @@ void SetupDialog::initCLIPage()
     QString tarsnapCacheDir;
 
     // CLI path
-    tarsnapDir = Utils::findTarsnapClientInPath("", true);
+    struct DirMessage cliDirMessage = Utils::findTarsnapClientInPath("", true);
+    tarsnapDir                      = cliDirMessage.dirname;
     _ui->cliPathLineBrowse->setText(tarsnapDir);
 
     // appdata dir
@@ -291,8 +292,9 @@ bool SetupDialog::validateCLIPage()
         result = false;
     }
 
-    tarsnapDir =
+    struct DirMessage cliDirMessage =
         Utils::findTarsnapClientInPath(_ui->cliPathLineBrowse->text(), true);
+    tarsnapDir = cliDirMessage.dirname;
     if(result && tarsnapDir.isEmpty())
     {
         _ui->cliValidationLabel->setText(

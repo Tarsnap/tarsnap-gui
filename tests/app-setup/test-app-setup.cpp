@@ -65,7 +65,9 @@ static void run_normal_setup(AppSetup *setup)
     Ui::RegisterPage *ui_register;
 
     // Check if we have tarsnap (without using QTest's QSKIP).
-    QString tarsnapPath = Utils::findTarsnapClientInPath(QString(""), true);
+    struct DirMessage cliDirMessage =
+        Utils::findTarsnapClientInPath(QString(""), true);
+    QString tarsnapPath = cliDirMessage.dirname;
 
     // Intro page
     Q_ASSERT(wizard->pageTitle() == "Setup wizard");

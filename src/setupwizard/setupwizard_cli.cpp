@@ -48,7 +48,8 @@ void CliPage::initializePage()
     TWizardPage::initializePage();
 
     // CLI path.
-    QString tarsnapPath = Utils::findTarsnapClientInPath("", true);
+    struct DirMessage result      = Utils::findTarsnapClientInPath("", true);
+    QString           tarsnapPath = result.dirname;
     _ui->cliPathLineBrowse->setText(tarsnapPath);
     if(tarsnapPath.isEmpty())
     {
@@ -155,7 +156,8 @@ void CliPage::tarsnapPathChanged(const QString &text)
     // Don't check for an empty dir here, because we want users to see the
     // "visit tarsnap.com" message if they don't have the binaries.
 
-    QString tarsnapDir = Utils::findTarsnapClientInPath(text, true);
+    struct DirMessage result     = Utils::findTarsnapClientInPath(text, true);
+    QString           tarsnapDir = result.dirname;
     if(tarsnapDir.isEmpty())
     {
         reportError(tr("Tarsnap utilities not found. Visit "

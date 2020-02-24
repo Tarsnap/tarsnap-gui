@@ -113,15 +113,11 @@ QString Utils::validateAppDataDir(QString path)
     return result;
 }
 
-QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
+static QString findBinary(const QString &cmd, QStringList searchPaths)
 {
-    QStringList searchPaths;
-    QString     executable;
+    QString executable;
 
-    if(!path.isEmpty())
-        searchPaths << path;
-
-    executable = QStandardPaths::findExecutable(CMD_TARSNAP, searchPaths);
+    executable = QStandardPaths::findExecutable(cmd, searchPaths);
 #if defined(Q_OS_OSX)
     // If we haven't found the command in the default PATH, look
     // in /usr/local/bin because that's where brew puts it.
@@ -132,21 +128,33 @@ QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
     if(executable.isEmpty() || !QFileInfo(executable).isReadable()
        || !QFileInfo(executable).isExecutable())
         return "";
-    else if(keygenToo)
+
+    return executable;
+}
+
+QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
+{
+    QStringList searchPaths;
+    QString     executable;
+
+    if(!path.isEmpty())
+        searchPaths << path;
+
+    // Look for main tarsnap binary.
+    executable = findBinary(CMD_TARSNAP, searchPaths);
+    if(executable.isEmpty())
+        return "";
+
+    // Look for tarsnap-keygen.
+    if(keygenToo)
     {
-        executable =
-            QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, searchPaths);
-#if defined(Q_OS_OSX)
-        if(executable.isEmpty() && searchPaths.isEmpty())
-            executable =
-                QStandardPaths::findExecutable(CMD_TARSNAPKEYGEN, brew_bin);
-#endif
+        executable = findBinary(CMD_TARSNAPKEYGEN, searchPaths);
+        if(executable.isEmpty())
+            return "";
     }
 
-    if(executable.isEmpty() || !QFileInfo(executable).isReadable()
-       || !QFileInfo(executable).isExecutable())
-        return "";
-    else if(path.isEmpty())
+    // If we were searching $PATH, update the `path` argument.
+    if(path.isEmpty())
         path = QFileInfo(executable).absolutePath();
 
     return path;

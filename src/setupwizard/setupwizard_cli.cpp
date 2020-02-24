@@ -85,7 +85,6 @@ bool CliPage::checkComplete()
        || (!settings.contains("app/app_data")))
         return setProceedButton(false);
 
-    _problemOccurred = false;
     _ui->validationLabel->clear();
     return setProceedButton(true);
 }

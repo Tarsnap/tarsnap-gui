@@ -90,28 +90,41 @@ QString Utils::humanBytes(quint64 bytes, int fieldWidth)
         .arg(pre);
 }
 
+static bool validate_writeable_dir(const QString &dirname)
+{
+    if(dirname.isEmpty())
+        return false;
+
+    QFileInfo candidate(dirname);
+    if(!candidate.exists())
+        return false;
+
+    if(!candidate.isDir())
+        return false;
+
+    if(!candidate.isWritable())
+        return false;
+
+    // We're ok.
+    return true;
+}
+
 QString Utils::validateTarsnapCache(QString path)
 {
-    QString result;
-    if(!path.isEmpty())
-    {
-        QFileInfo candidate(path);
-        if(candidate.exists() && candidate.isDir() && candidate.isWritable())
-            result = candidate.canonicalFilePath();
-    }
-    return result;
+    if(!validate_writeable_dir(path))
+        return "";
+
+    QFileInfo candidate(path);
+    return candidate.canonicalFilePath();
 }
 
 QString Utils::validateAppDataDir(QString path)
 {
-    QString result;
-    if(!path.isEmpty())
-    {
-        QFileInfo candidate(path);
-        if(candidate.exists() && candidate.isDir() && candidate.isWritable())
-            result = candidate.canonicalFilePath();
-    }
-    return result;
+    if(!validate_writeable_dir(path))
+        return "";
+
+    QFileInfo candidate(path);
+    return candidate.canonicalFilePath();
 }
 
 static bool validate_executable(const QString &executable)

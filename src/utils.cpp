@@ -113,8 +113,10 @@ QString Utils::validateAppDataDir(QString path)
     return result;
 }
 
-static QString findBinary(const QString &cmd, QStringList searchPaths)
+static struct DirMessage findBinary(const QString &cmd, QStringList searchPaths)
 {
+    struct DirMessage result;
+
     QString executable;
 
     executable = QStandardPaths::findExecutable(cmd, searchPaths);
@@ -127,35 +129,37 @@ static QString findBinary(const QString &cmd, QStringList searchPaths)
 #endif
     if(executable.isEmpty() || !QFileInfo(executable).isReadable()
        || !QFileInfo(executable).isExecutable())
-        return "";
+        return result;
 
-    return executable;
+    result.dirname = executable;
+    return result;
 }
 
 QString Utils::findTarsnapClientInPath(QString path, bool keygenToo)
 {
+    struct DirMessage result;
+
     QStringList searchPaths;
-    QString     executable;
 
     if(!path.isEmpty())
         searchPaths << path;
 
     // Look for main tarsnap binary.
-    executable = findBinary(CMD_TARSNAP, searchPaths);
-    if(executable.isEmpty())
+    result = findBinary(CMD_TARSNAP, searchPaths);
+    if(result.dirname.isEmpty())
         return "";
 
     // Look for tarsnap-keygen.
     if(keygenToo)
     {
-        executable = findBinary(CMD_TARSNAPKEYGEN, searchPaths);
-        if(executable.isEmpty())
+        result = findBinary(CMD_TARSNAPKEYGEN, searchPaths);
+        if(result.dirname.isEmpty())
             return "";
     }
 
     // If we were searching $PATH, update the `path` argument.
     if(path.isEmpty())
-        path = QFileInfo(executable).absolutePath();
+        path = QFileInfo(result.dirname).absolutePath();
 
     return path;
 }

@@ -48,6 +48,15 @@ WARNINGS_ENABLE
 #define CRON_MARKER_HELP                                                       \
     "# For help, see: https://github.com/Tarsnap/tarsnap-gui/wiki/Scheduling"
 
+//! A directory name or an error message.
+struct DirMessage
+{
+    //! Directory which contains the binary, or empty.
+    QString dirname;
+    //! Error message (if applicable).
+    QString errorMessage;
+};
+
 namespace Utils
 {
 

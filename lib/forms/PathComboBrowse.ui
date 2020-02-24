@@ -49,6 +49,16 @@
      <item>
       <widget class="QLabel" name="label"/>
      </item>
+     <item>
+      <widget class="QLabel" name="statusLabel">
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="OkLabel" name="okLabel"/>
+     </item>
     </layout>
    </item>
    <item>
@@ -77,6 +87,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>OkLabel</class>
+   <extends>QLabel</extends>
+   <header>OkLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>comboBox</tabstop>
   <tabstop>button</tabstop>

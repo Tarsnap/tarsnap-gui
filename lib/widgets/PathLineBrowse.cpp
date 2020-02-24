@@ -70,6 +70,32 @@ void PathLineBrowse::setText(const QString &text)
 void PathLineBrowse::clear()
 {
     _ui->lineEdit->clear();
+    // Clear status-related items.
+    _ui->okLabel->setStatus(OkLabel::Unset);
+    _ui->statusLabel->setText("");
+    _ui->statusLabel->setStyleSheet("");
+    _ui->lineEdit->setStyleSheet("");
+}
+
+QString PathLineBrowse::statusText() const
+{
+    return _ui->statusLabel->text();
+}
+
+void PathLineBrowse::setStatusOk(const QString &text)
+{
+    _ui->okLabel->setStatus(OkLabel::Ok);
+    _ui->statusLabel->setText(text);
+    _ui->statusLabel->setStyleSheet("");
+    _ui->lineEdit->setStyleSheet("");
+}
+
+void PathLineBrowse::setStatusError(const QString &text)
+{
+    _ui->okLabel->setStatus(OkLabel::Error);
+    _ui->statusLabel->setText(text);
+    _ui->statusLabel->setStyleSheet("color: darkred;");
+    _ui->lineEdit->setStyleSheet("color: darkred");
 }
 
 void PathLineBrowse::browseClicked()

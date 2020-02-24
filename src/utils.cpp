@@ -1,6 +1,7 @@
 #include "utils.h"
 
 WARNINGS_DISABLE
+#include <QCoreApplication>
 #include <QDebug>
 #include <QStandardPaths>
 WARNINGS_ENABLE
@@ -113,6 +114,22 @@ QString Utils::validateAppDataDir(QString path)
     return result;
 }
 
+static bool validate_executable(const QString &executable)
+{
+    if(executable.isEmpty())
+        return false;
+
+    QFileInfo info(executable);
+    if(!info.isReadable())
+        return false;
+
+    if(!info.isExecutable())
+        return false;
+
+    // We're ok.
+    return true;
+}
+
 static struct DirMessage findBinary(const QString &cmd, QStringList searchPaths)
 {
     struct DirMessage result;
@@ -127,8 +144,7 @@ static struct DirMessage findBinary(const QString &cmd, QStringList searchPaths)
     if(executable.isEmpty() && searchPaths.isEmpty())
         executable = QStandardPaths::findExecutable(CMD_TARSNAP, brew_bin);
 #endif
-    if(executable.isEmpty() || !QFileInfo(executable).isReadable()
-       || !QFileInfo(executable).isExecutable())
+    if(!validate_executable(executable))
         return result;
 
     result.dirname = executable;

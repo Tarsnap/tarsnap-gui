@@ -17,6 +17,7 @@ HEADERS  +=						\
 	compare-settings.h				\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/ElidedLabel.h			\
+	../../lib/widgets/OkLabel.h			\
 	../../lib/widgets/PathComboBrowse.h		\
 	../../lib/widgets/PathLineBrowse.h		\
 	../../lib/widgets/TWizard.h			\
@@ -35,6 +36,7 @@ SOURCES += test-setupwizard.cpp				\
 	compare-settings.cpp				\
 	../../lib/core/TSettings.cpp			\
 	../../lib/widgets/ElidedLabel.cpp		\
+	../../lib/widgets/OkLabel.cpp			\
 	../../lib/widgets/PathComboBrowse.cpp		\
 	../../lib/widgets/PathLineBrowse.cpp		\
 	../../lib/widgets/TWizard.cpp			\

@@ -601,10 +601,6 @@ Adaugă oricum?</translation>
         <translation type="unfinished">Utilitarele Tarsnap la linia de comandă versiunea </translation>
     </message>
     <message>
-        <source> detected.  ✔</source>
-        <translation type="unfinished"> detectate.  ✔</translation>
-    </message>
-    <message>
         <source> too low; must be at least %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -615,6 +611,10 @@ Adaugă oricum?</translation>
     <message>
         <source>Could not create directory</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> detected.</source>
+        <translation type="unfinished"> detectate.</translation>
     </message>
 </context>
 <context>

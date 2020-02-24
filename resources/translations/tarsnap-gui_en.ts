@@ -595,10 +595,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> detected.  ✔</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> too low; must be at least %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -608,6 +604,10 @@ Add anyway?</source>
     </message>
     <message>
         <source>Could not create directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> detected.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

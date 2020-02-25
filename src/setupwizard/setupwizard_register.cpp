@@ -208,9 +208,10 @@ bool RegisterPage::checkUseKeyfile()
 
     const QString errorMsg = Utils::validate_readable_file(filename);
     if(!errorMsg.isEmpty())
-        return reportError("Invalid machine key");
+        return reportError("", _ui->keyfilePathComboBrowse, errorMsg);
 
     // File is ok.
+    _ui->keyfilePathComboBrowse->setStatusOk("");
     return true;
 }
 

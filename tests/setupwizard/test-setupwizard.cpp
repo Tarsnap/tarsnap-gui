@@ -255,22 +255,19 @@ void TestSetupWizard::cli()
 
     // App data directory
     ui_cli->appdataPathLineBrowse->setText("fake-dir");
-    QVERIFY(ui_cli->validationLabel->text()
-            == "Invalid App data directory set.");
+    QVERIFY(ui_cli->appdataPathLineBrowse->statusText() == "Does not exist.");
     VISUAL_WAIT;
     ui_cli->appdataPathLineBrowse->setText("/tmp");
 
     // Cache directory
     ui_cli->cachePathLineBrowse->setText("fake-dir");
-    QVERIFY(ui_cli->validationLabel->text()
-            == "Invalid Tarsnap cache directory set.");
+    QVERIFY(ui_cli->cachePathLineBrowse->statusText() == "Does not exist.");
     VISUAL_WAIT;
     ui_cli->cachePathLineBrowse->setText("/tmp");
 
     // Tarsnap CLI directory
     ui_cli->cliPathLineBrowse->setText("fake-dir");
-    QVERIFY(ui_cli->validationLabel->text().contains(
-        "Tarsnap utilities not found."));
+    QVERIFY(ui_cli->cliPathLineBrowse->statusText() == "Not found.");
     VISUAL_WAIT;
     ui_cli->cliPathLineBrowse->setText("/tmp");
 

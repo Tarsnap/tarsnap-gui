@@ -109,6 +109,25 @@ const QString Utils::validate_writeable_dir(const QString &dirname)
     return "";
 }
 
+const QString Utils::validate_readable_file(const QString &filename)
+{
+    if(filename.isEmpty())
+        return QCoreApplication::translate("Utils", "Path is empty.");
+
+    QFileInfo candidate(filename);
+    if(!candidate.exists())
+        return QCoreApplication::translate("Utils", "Does not exist.");
+
+    if(!candidate.isFile())
+        return QCoreApplication::translate("Utils", "Not a file.");
+
+    if(!candidate.isReadable())
+        return QCoreApplication::translate("Utils", "Not readable.");
+
+    // We're ok.
+    return "";
+}
+
 QString Utils::validateTarsnapCache(QString path)
 {
     if(!validate_writeable_dir(path).isEmpty())

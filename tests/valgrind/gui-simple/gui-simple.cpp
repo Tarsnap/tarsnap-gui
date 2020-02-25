@@ -54,7 +54,7 @@ static void pl_icon()
     T_APP_BEGIN_GUI;
 
     QIcon *icon = new QIcon();
-    icon->addFile("16x16-white.png");
+    icon->addFile("../16x16-white.png");
     delete icon;
 
     T_APP_END_GUI;
@@ -65,7 +65,7 @@ static void pl_app_pix()
     T_APP_BEGIN_GUI;
 
     QWidget *wid = new QWidget();
-    QPixmap *pix = new QPixmap("16x16-white.png");
+    QPixmap *pix = new QPixmap("../16x16-white.png");
     delete pix;
     delete wid;
 

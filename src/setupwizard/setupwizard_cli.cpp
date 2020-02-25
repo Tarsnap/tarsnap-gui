@@ -31,11 +31,11 @@ CliPage::CliPage(QWidget *parent)
             &QWidget::setVisible);
 
     // A config field changed.
-    connect(_ui->cliPathLineBrowse, &PathLineBrowse::textChanged, this,
+    connect(_ui->cliPathLineBrowse, &TPathLineBrowse::textChanged, this,
             &CliPage::tarsnapPathChanged);
-    connect(_ui->cachePathLineBrowse, &PathLineBrowse::textChanged, this,
+    connect(_ui->cachePathLineBrowse, &TPathLineBrowse::textChanged, this,
             &CliPage::tarsnapCacheChanged);
-    connect(_ui->appdataPathLineBrowse, &PathLineBrowse::textChanged, this,
+    connect(_ui->appdataPathLineBrowse, &TPathLineBrowse::textChanged, this,
             &CliPage::appDataDirChanged);
 }
 
@@ -91,7 +91,7 @@ bool CliPage::checkComplete()
     return setProceedButton(true);
 }
 
-bool CliPage::reportError(const QString &text, PathLineBrowse *plb,
+bool CliPage::reportError(const QString &text, TPathLineBrowse *plb,
                           const QString &plb_text)
 {
     // General display.

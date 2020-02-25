@@ -15,7 +15,7 @@ WARNINGS_ENABLE
 #include "ElidedLabel.h"
 #include "OkLabel.h"
 #include "PathComboBrowse.h"
-#include "PathLineBrowse.h"
+#include "TPathLineBrowse.h"
 #include "TWizard.h"
 #include "TWizardPage.h"
 
@@ -112,8 +112,8 @@ void TestLibWidgets::okLabel()
 
 void TestLibWidgets::pathlinebrowse()
 {
-    PathLineBrowse *plb = new PathLineBrowse();
-    QSignalSpy      sig_changed(plb, SIGNAL(textChanged(QString)));
+    TPathLineBrowse *plb = new TPathLineBrowse();
+    QSignalSpy       sig_changed(plb, SIGNAL(textChanged(QString)));
 
     VISUAL_INIT(plb);
     IF_NOT_VISUAL { plb->show(); }
@@ -154,7 +154,7 @@ void TestLibWidgets::pathlinebrowse()
 
     // Test setText as a slot
     QLineEdit *le = new QLineEdit();
-    connect(le, &QLineEdit::textChanged, plb, &PathLineBrowse::setText);
+    connect(le, &QLineEdit::textChanged, plb, &TPathLineBrowse::setText);
 
     plb->clear();
     le->setText("indirect text");

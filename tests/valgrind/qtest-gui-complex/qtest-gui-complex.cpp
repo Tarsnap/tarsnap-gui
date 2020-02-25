@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include <QFileSystemModel>
 #include <QFontMetrics>
 #include <QHostInfo>
+#include <QImageReader>
 #include <QLineEdit>
 #include <QRadioButton>
 #include <QSequentialAnimationGroup>
@@ -39,6 +40,7 @@ private slots:
     void pl_widget_show_hide();
     void pl_lineedit_placeholder();
     void pl_animation_start();
+    void pl_image_canRead();
 };
 
 void TestQTestComplex::pl_nothing()
@@ -221,6 +223,13 @@ void TestQTestComplex::pl_animation_start()
     QSequentialAnimationGroup *a = new QSequentialAnimationGroup();
     a->start();
     delete a;
+}
+
+void TestQTestComplex::pl_image_canRead()
+{
+    QImageReader *ir = new QImageReader("../16x16-white.png");
+    ir->canRead();
+    delete ir;
 }
 
 QTEST_MAIN(TestQTestComplex)

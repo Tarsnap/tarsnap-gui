@@ -3080,6 +3080,41 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     </message>
 </context>
 <context>
+    <name>Utils</name>
+    <message>
+        <source>Path is empty.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not a directory.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not writable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Executable not found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not readable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not executable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not a file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>aboutWidget</name>
     <message>
         <source>GUI version </source>

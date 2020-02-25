@@ -67,10 +67,15 @@ void RegisterPage::initializePage()
         _ui->nextButton->setFocus();
 }
 
-bool RegisterPage::reportError(const QString &text)
+bool RegisterPage::reportError(const QString &text, PathComboBrowse *pcb,
+                               const QString &pcb_text)
 {
     // General display.
     _ui->statusLabel->messageError(text);
+
+    // Handle widget-specific display.
+    if(pcb != nullptr)
+        pcb->setStatusError(pcb_text);
 
     // Generic handling of errors.
     return false;

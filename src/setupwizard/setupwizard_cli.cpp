@@ -91,10 +91,15 @@ bool CliPage::checkComplete()
     return setProceedButton(true);
 }
 
-bool CliPage::reportError(const QString &text)
+bool CliPage::reportError(const QString &text, PathLineBrowse *plb,
+                          const QString &plb_text)
 {
     // General display.
     _ui->validationLabel->messageError(text);
+
+    // Handle widget-specific display.
+    if(plb != nullptr)
+        plb->setStatusError(plb_text);
 
     // Generic handling of errors.
     _ui->detailsButton->setChecked(true);

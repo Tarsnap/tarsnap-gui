@@ -5,11 +5,12 @@
 
 #include "taskstatus.h"
 
-/* Forward declaration. */
+/* Forward declarations. */
 namespace Ui
 {
 class RegisterPage;
 }
+class PathComboBrowse;
 
 /**
  * \ingroup widgets-setup
@@ -70,7 +71,8 @@ protected:
 private:
     Ui::RegisterPage *_ui;
 
-    bool reportError(const QString &text);
+    bool reportError(const QString &text, PathComboBrowse *pcb = nullptr,
+                     const QString &pcb_text = "");
 
     // Check tabs separately.
     bool checkCreateKeyfile();

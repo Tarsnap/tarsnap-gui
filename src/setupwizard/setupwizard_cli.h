@@ -5,11 +5,12 @@
 
 #include "taskstatus.h"
 
-/* Forward declaration. */
+/* Forward declarations. */
 namespace Ui
 {
 class CliPage;
 }
+class PathLineBrowse;
 
 /**
  * \ingroup widgets-setup
@@ -72,7 +73,8 @@ private:
     // "app/app_data": directory of the application database and
     //                 default key location.
 
-    bool reportError(const QString &text);
+    bool reportError(const QString &text, PathLineBrowse *plb = nullptr,
+                     const QString &plb_text = "");
     bool ensureDirExists(const QString &dirname);
 };
 

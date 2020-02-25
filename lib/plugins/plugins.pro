@@ -6,24 +6,24 @@ QT		+= widgets uiplugin
 HEADERS	=	plugins.h			\
 		../core/warnings-disable.h	\
 		../widgets/ElidedLabel.h	\
-		../widgets/OkLabel.h		\
+		../widgets/TOkLabel.h		\
 		../widgets/TPathComboBrowse.h	\
 		../widgets/TPathLineBrowse.h	\
 		../widgets/TWizardPage.h	\
 		ElidedLabelPlugin.h		\
-		OkLabelPlugin.h			\
+		TOkLabelPlugin.h		\
 		TPathComboBrowsePlugin.h	\
 		TPathLineBrowsePlugin.h		\
 		TWizardPagePlugin.h
 
 SOURCES	=	plugins.cpp			\
 		../widgets/ElidedLabel.cpp	\
-		../widgets/OkLabel.cpp		\
+		../widgets/TOkLabel.cpp		\
 		../widgets/TPathComboBrowse.cpp	\
 		../widgets/TPathLineBrowse.cpp	\
 		../widgets/TWizardPage.cpp	\
 		ElidedLabelPlugin.cpp		\
-		OkLabelPlugin.cpp		\
+		TOkLabelPlugin.cpp		\
 		TPathComboBrowsePlugin.cpp	\
 		TPathLineBrowsePlugin.cpp	\
 		TWizardPagePlugin.cpp

@@ -52,10 +52,10 @@ SOURCES +=						\
 	lib/core/TSettings.cpp				\
 	lib/util/optparse.c				\
 	lib/util/optparse_helper.c			\
-	lib/widgets/ElidedLabel.cpp			\
-	lib/widgets/OkLabel.cpp				\
-	lib/widgets/PathComboBrowse.cpp			\
-	lib/widgets/PathLineBrowse.cpp			\
+	lib/widgets/TElidedLabel.cpp			\
+	lib/widgets/TOkLabel.cpp			\
+	lib/widgets/TPathComboBrowse.cpp		\
+	lib/widgets/TPathLineBrowse.cpp			\
 	lib/widgets/TWizard.cpp				\
 	lib/widgets/TWizardPage.cpp			\
 	libcperciva/util/getopt.c			\
@@ -118,10 +118,10 @@ HEADERS +=						\
 	lib/core/warnings-disable.h			\
 	lib/util/optparse.h				\
 	lib/util/optparse_helper.h			\
-	lib/widgets/ElidedLabel.h			\
-	lib/widgets/OkLabel.h				\
-	lib/widgets/PathComboBrowse.h			\
-	lib/widgets/PathLineBrowse.h			\
+	lib/widgets/TElidedLabel.h			\
+	lib/widgets/TOkLabel.h				\
+	lib/widgets/TPathComboBrowse.h			\
+	lib/widgets/TPathLineBrowse.h			\
 	lib/widgets/TWizard.h				\
 	lib/widgets/TWizardPage.h			\
 	libcperciva/util/getopt.h			\
@@ -214,8 +214,8 @@ FORMS +=						\
 	forms/setupwizard_final.ui			\
 	forms/setupwizard_intro.ui			\
 	forms/setupwizard_register.ui			\
-	lib/forms/PathComboBrowse.ui			\
-	lib/forms/PathLineBrowse.ui			\
+	lib/forms/TPathComboBrowse.ui			\
+	lib/forms/TPathLineBrowse.ui			\
 	lib/forms/TWizard.ui
 
 RESOURCES += resources/resources.qrc

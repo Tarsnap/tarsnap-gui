@@ -1,14 +1,14 @@
 #ifndef ELIDEDCLICKABLELABEL_H
 #define ELIDEDCLICKABLELABEL_H
 
-#include "ElidedLabel.h"
+#include "TElidedLabel.h"
 
 /*!
  * \ingroup widgets-general
  * \brief The ElidedClickableLabel widget is a QLabel which automatically
  * elides (`...`) long text, and adds the \ref clicked signal.
  */
-class ElidedClickableLabel : public ElidedLabel
+class ElidedClickableLabel : public TElidedLabel
 {
     Q_OBJECT
 

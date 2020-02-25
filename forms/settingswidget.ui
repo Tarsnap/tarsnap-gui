@@ -196,7 +196,7 @@ border: 1px solid white;
             <item row="4" column="1">
              <layout class="QHBoxLayout" name="creditHorizontalLayout">
               <item>
-               <widget class="ElidedLabel" name="accountCreditLabel">
+               <widget class="TElidedLabel" name="accountCreditLabel">
                 <property name="toolTip">
                  <string>Click login button to update</string>
                 </property>
@@ -249,7 +249,7 @@ color: blue;
             <item row="5" column="1">
              <layout class="QHBoxLayout" name="machineActivityHorizontalLayout">
               <item>
-               <widget class="ElidedLabel" name="machineActivity">
+               <widget class="TElidedLabel" name="machineActivity">
                 <property name="toolTip">
                  <string>Click login button to update</string>
                 </property>
@@ -290,7 +290,7 @@ color: blue;
              </layout>
             </item>
             <item row="6" column="0" colspan="2">
-             <widget class="ElidedLabel" name="outOfDateNoticeLabel">
+             <widget class="TElidedLabel" name="outOfDateNoticeLabel">
               <property name="font">
                <font>
                 <italic>true</italic>
@@ -1143,9 +1143,9 @@ color: blue;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>TElidedLabel</class>
    <extends>QLabel</extends>
-   <header>ElidedLabel.h</header>
+   <header>TElidedLabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

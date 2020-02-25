@@ -8,14 +8,14 @@ WARNINGS_DISABLE
 #include <QVector>
 WARNINGS_ENABLE
 
-#include "ElidedLabel.h"
+#include "TElidedLabel.h"
 
 /*!
  * \ingroup widgets-general
  * \brief The ElidedAnnotatedLabel widget is a QLabel which automatically
  * elides (`...`) long text without being confused by HTML tags.
  */
-class ElidedAnnotatedLabel : public ElidedLabel
+class ElidedAnnotatedLabel : public TElidedLabel
 {
     Q_OBJECT
 

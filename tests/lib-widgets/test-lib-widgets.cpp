@@ -12,10 +12,10 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "ElidedLabel.h"
-#include "OkLabel.h"
-#include "PathComboBrowse.h"
-#include "PathLineBrowse.h"
+#include "TElidedLabel.h"
+#include "TOkLabel.h"
+#include "TPathComboBrowse.h"
+#include "TPathLineBrowse.h"
 #include "TWizard.h"
 #include "TWizardPage.h"
 
@@ -53,7 +53,7 @@ void TestLibWidgets::elidedLabel()
 {
     // Initialize variables.
     const QString text("this is a long long long piece of text");
-    ElidedLabel * elidedlabel = new ElidedLabel();
+    TElidedLabel *elidedlabel = new TElidedLabel();
 
     VISUAL_INIT(elidedlabel);
 
@@ -78,7 +78,7 @@ void TestLibWidgets::elidedLabel()
 
 void TestLibWidgets::elidedLabel_status()
 {
-    ElidedLabel *el = new ElidedLabel();
+    TElidedLabel *el = new TElidedLabel();
     el->setMinimumWidth(200);
 
     VISUAL_INIT(el);
@@ -94,17 +94,17 @@ void TestLibWidgets::elidedLabel_status()
 
 void TestLibWidgets::okLabel()
 {
-    OkLabel *ok = new OkLabel();
+    TOkLabel *ok = new TOkLabel();
 
     VISUAL_INIT(ok);
 
-    ok->setStatus(OkLabel::Ok);
+    ok->setStatus(TOkLabel::Ok);
     VISUAL_WAIT;
 
-    ok->setStatus(OkLabel::Error);
+    ok->setStatus(TOkLabel::Error);
     VISUAL_WAIT;
 
-    ok->setStatus(OkLabel::Unset);
+    ok->setStatus(TOkLabel::Unset);
     VISUAL_WAIT;
 
     delete ok;
@@ -112,8 +112,8 @@ void TestLibWidgets::okLabel()
 
 void TestLibWidgets::pathlinebrowse()
 {
-    PathLineBrowse *plb = new PathLineBrowse();
-    QSignalSpy      sig_changed(plb, SIGNAL(textChanged(QString)));
+    TPathLineBrowse *plb = new TPathLineBrowse();
+    QSignalSpy       sig_changed(plb, SIGNAL(textChanged(QString)));
 
     VISUAL_INIT(plb);
     IF_NOT_VISUAL { plb->show(); }
@@ -154,7 +154,7 @@ void TestLibWidgets::pathlinebrowse()
 
     // Test setText as a slot
     QLineEdit *le = new QLineEdit();
-    connect(le, &QLineEdit::textChanged, plb, &PathLineBrowse::setText);
+    connect(le, &QLineEdit::textChanged, plb, &TPathLineBrowse::setText);
 
     plb->clear();
     le->setText("indirect text");
@@ -169,8 +169,8 @@ void TestLibWidgets::pathlinebrowse()
 
 void TestLibWidgets::pathcombobrowse()
 {
-    PathComboBrowse *pcb = new PathComboBrowse();
-    QSignalSpy       sig_changed(pcb, SIGNAL(textChanged(QString)));
+    TPathComboBrowse *pcb = new TPathComboBrowse();
+    QSignalSpy        sig_changed(pcb, SIGNAL(textChanged(QString)));
 
     VISUAL_INIT(pcb);
     IF_NOT_VISUAL { pcb->show(); }
@@ -236,7 +236,7 @@ void TestLibWidgets::pathcombobrowse()
 
     // Test setText as a slot
     QLineEdit *le = new QLineEdit();
-    connect(le, &QLineEdit::textChanged, pcb, &PathComboBrowse::setText);
+    connect(le, &QLineEdit::textChanged, pcb, &TPathComboBrowse::setText);
 
     sig_changed.clear();
     pcb->clear();

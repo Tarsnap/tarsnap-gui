@@ -1,5 +1,5 @@
-#ifndef ELIDEDLABEL_H
-#define ELIDEDLABEL_H
+#ifndef TELIDEDLABEL_H
+#define TELIDEDLABEL_H
 
 #include "warnings-disable.h"
 
@@ -9,10 +9,10 @@ WARNINGS_ENABLE
 
 /*!
  * \ingroup lib-widgets
- * \brief The ElidedLabel widget is a QLabel which automatically elides
+ * \brief The TElidedLabel widget is a QLabel which automatically elides
  * (`...`) long text.
  */
-class ElidedLabel : public QLabel
+class TElidedLabel : public QLabel
 {
     Q_OBJECT
 
@@ -24,8 +24,8 @@ class ElidedLabel : public QLabel
 
 public:
     //! Constructor.
-    explicit ElidedLabel(QWidget *parent = nullptr);
-    ~ElidedLabel();
+    explicit TElidedLabel(QWidget *parent = nullptr);
+    ~TElidedLabel();
 
     //! Returns the elided mode.
     Qt::TextElideMode elide() const;
@@ -48,7 +48,7 @@ public:
     void messageError(const QString &text);
 
 public slots:
-    //! Sets the full text for this ElidedLabel to display (may be elided).
+    //! Sets the full text for this TElidedLabel to display (may be elided).
     void setText(const QString &text);
     //! Clears all contents, including the full text.
     void clear();
@@ -68,4 +68,4 @@ protected:
     QString _fullText;
 };
 
-#endif // ELIDEDLABEL_H
+#endif // TELIDEDLABEL_H

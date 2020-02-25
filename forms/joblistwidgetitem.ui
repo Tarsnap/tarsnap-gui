@@ -39,7 +39,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="ElidedLabel" name="nameLabel">
+    <widget class="TElidedLabel" name="nameLabel">
      <property name="minimumSize">
       <size>
        <width>100</width>
@@ -61,7 +61,7 @@ font-size: 12px;
     </widget>
    </item>
    <item>
-    <widget class="ElidedLabel" name="detailLabel">
+    <widget class="TElidedLabel" name="detailLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -84,7 +84,7 @@ font-size: 11px;
     </widget>
    </item>
    <item alignment="Qt::AlignRight">
-    <widget class="ElidedLabel" name="lastBackupLabel">
+    <widget class="TElidedLabel" name="lastBackupLabel">
      <property name="toolTip">
       <string>Last backup timestamp</string>
      </property>
@@ -338,9 +338,9 @@ padding-left: 2px;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>TElidedLabel</class>
    <extends>QLabel</extends>
-   <header>ElidedLabel.h</header>
+   <header>TElidedLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

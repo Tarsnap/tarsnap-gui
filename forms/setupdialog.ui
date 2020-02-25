@@ -280,7 +280,7 @@
               <number>0</number>
              </property>
              <item>
-              <widget class="PathLineBrowse" name="cliPathLineBrowse">
+              <widget class="TPathLineBrowse" name="cliPathLineBrowse">
                <property name="toolTip">
                 <string>Must point to the Tarsnap CLI utilities directory</string>
                </property>
@@ -296,7 +296,7 @@
               </widget>
              </item>
              <item>
-              <widget class="PathLineBrowse" name="cachePathLineBrowse">
+              <widget class="TPathLineBrowse" name="cachePathLineBrowse">
                <property name="toolTip">
                 <string>Tarsnap caches information about what it has uploaded in a local directory</string>
                </property>
@@ -312,7 +312,7 @@
               </widget>
              </item>
              <item>
-              <widget class="PathLineBrowse" name="appdataPathLineBrowse">
+              <widget class="TPathLineBrowse" name="appdataPathLineBrowse">
                <property name="toolTip">
                 <string>The data directory is used to store app data, settings, and the machine key</string>
                </property>
@@ -751,7 +751,7 @@ border: none;
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="ElidedLabel" name="statusLabel">
+          <widget class="TElidedLabel" name="statusLabel">
            <property name="font">
             <font>
              <italic>true</italic>
@@ -936,14 +936,14 @@ border: none;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>TElidedLabel</class>
    <extends>QLabel</extends>
-   <header>ElidedLabel.h</header>
+   <header>TElidedLabel.h</header>
   </customwidget>
   <customwidget>
-   <class>PathLineBrowse</class>
+   <class>TPathLineBrowse</class>
    <extends>QWidget</extends>
-   <header>PathLineBrowse.h</header>
+   <header>TPathLineBrowse.h</header>
   </customwidget>
   <customwidget>
    <class>BusyWidget</class>

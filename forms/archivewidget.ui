@@ -98,7 +98,7 @@
       </widget>
      </item>
      <item row="6" column="0" colspan="3">
-      <widget class="ElidedLabel" name="infoLabel">
+      <widget class="TElidedLabel" name="infoLabel">
        <property name="font">
         <font>
          <italic>true</italic>
@@ -167,7 +167,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="ElidedLabel" name="archiveDateLabel">
+      <widget class="TElidedLabel" name="archiveDateLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -287,7 +287,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="ElidedLabel" name="archiveNameLabel">
+      <widget class="TElidedLabel" name="archiveNameLabel">
        <property name="toolTip">
         <string>Archive name</string>
        </property>
@@ -517,9 +517,9 @@ font-size: 12px;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>TElidedLabel</class>
    <extends>QLabel</extends>
-   <header>ElidedLabel.h</header>
+   <header>TElidedLabel.h</header>
   </customwidget>
   <customwidget>
    <class>ElidedClickableLabel</class>

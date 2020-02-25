@@ -64,7 +64,7 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
         QFileInfo file(fileUrl);
         if(!file.exists())
             return;
-        // Display path in the widget.  pathLabel is an ElidedLabel, so
+        // Display path in the widget.  pathLabel is an TElidedLabel, so
         // the text might be cut short.  Therefore we display the path
         // as a tooltip as well, which will always be displayed in full.
         _ui->pathLabel->setText(fileUrl);

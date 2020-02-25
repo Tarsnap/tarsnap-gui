@@ -9,7 +9,7 @@ WARNINGS_DISABLE
 #include "ui_setupwizard_cli.h"
 WARNINGS_ENABLE
 
-#include <OkLabel.h>
+#include <TOkLabel.h>
 #include <TSettings.h>
 #include <TWizardPage.h>
 
@@ -31,11 +31,11 @@ CliPage::CliPage(QWidget *parent)
             &QWidget::setVisible);
 
     // A config field changed.
-    connect(_ui->cliPathLineBrowse, &PathLineBrowse::textChanged, this,
+    connect(_ui->cliPathLineBrowse, &TPathLineBrowse::textChanged, this,
             &CliPage::tarsnapPathChanged);
-    connect(_ui->cachePathLineBrowse, &PathLineBrowse::textChanged, this,
+    connect(_ui->cachePathLineBrowse, &TPathLineBrowse::textChanged, this,
             &CliPage::tarsnapCacheChanged);
-    connect(_ui->appdataPathLineBrowse, &PathLineBrowse::textChanged, this,
+    connect(_ui->appdataPathLineBrowse, &TPathLineBrowse::textChanged, this,
             &CliPage::appDataDirChanged);
 }
 
@@ -91,7 +91,7 @@ bool CliPage::checkComplete()
     return setProceedButton(true);
 }
 
-bool CliPage::reportError(const QString &text, PathLineBrowse *plb,
+bool CliPage::reportError(const QString &text, TPathLineBrowse *plb,
                           const QString &plb_text)
 {
     // General display.
@@ -189,7 +189,7 @@ void CliPage::tarsnapVersionResponse(TaskStatus status, QString versionString)
         // Display message (after checkComplete, which can clear the label).
         _ui->validationLabel->messageNormal(
             tr("Tarsnap CLI version ") + versionString + tr(" detected.") + " "
-            + OkLabel::getRichText(OkLabel::Ok));
+            + TOkLabel::getRichText(TOkLabel::Ok));
         // Save the message, allowing us to return to it if we
         // temporarily disable completion (e.g., after fiddling with dirs).
         _successMessage = _ui->validationLabel->text();

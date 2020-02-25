@@ -1,17 +1,17 @@
-#include "OkLabel.h"
+#include "TOkLabel.h"
 
-OkLabel::OkLabel(QWidget *parent) : QLabel(parent), _status(0)
+TOkLabel::TOkLabel(QWidget *parent) : QLabel(parent), _status(0)
 {
     setAlignment(Qt::AlignCenter);
     setFixedSize(15, 15);
 }
 
-int OkLabel::status() const
+int TOkLabel::status() const
 {
     return _status;
 }
 
-void OkLabel::setStatus(int status)
+void TOkLabel::setStatus(int status)
 {
     _status = status;
 
@@ -32,7 +32,7 @@ void OkLabel::setStatus(int status)
     }
 }
 
-const QString OkLabel::getRichText(int status)
+const QString TOkLabel::getRichText(int status)
 {
     switch(status)
     {

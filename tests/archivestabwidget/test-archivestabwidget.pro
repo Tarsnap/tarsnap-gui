@@ -13,7 +13,7 @@ RESOURCES += ../../resources/resources.qrc
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
-	../../lib/widgets/ElidedLabel.h			\
+	../../lib/widgets/TElidedLabel.h		\
 	../../src/filetablemodel.h			\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/persistentobject.h	\
@@ -31,7 +31,7 @@ HEADERS  +=						\
 
 SOURCES += test-archivestabwidget.cpp			\
 	../../lib/core/TSettings.cpp			\
-	../../lib/widgets/ElidedLabel.cpp		\
+	../../lib/widgets/TElidedLabel.cpp		\
 	../../src/filetablemodel.cpp			\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\

@@ -1,5 +1,5 @@
-#ifndef PATHCOMBOBROWSEPLUGIN_H
-#define PATHCOMBOBROWSEPLUGIN_H
+#ifndef TPATHLINEBROWSEPLUGIN_H
+#define TPATHLINEBROWSEPLUGIN_H
 
 #include "warnings-disable.h"
 
@@ -8,14 +8,14 @@ WARNINGS_DISABLE
 #include <QtUiPlugin/QDesignerCustomWidgetInterface>
 WARNINGS_ENABLE
 
-class PathComboBrowsePlugin : public QObject,
+class TPathLineBrowsePlugin : public QObject,
                               public QDesignerCustomWidgetInterface
 {
     Q_OBJECT
     Q_INTERFACES(QDesignerCustomWidgetInterface)
 
 public:
-    explicit PathComboBrowsePlugin(QObject *parent = nullptr);
+    explicit TPathLineBrowsePlugin(QObject *parent = nullptr);
 
     QIcon    icon() const override;
     QString  group() const override;
@@ -30,4 +30,4 @@ private:
     bool initialized = false;
 };
 
-#endif /* !PATHCOMBOBROWSEPLUGIN_H */
+#endif /* !TPATHLINEBROWSEPLUGIN_H */

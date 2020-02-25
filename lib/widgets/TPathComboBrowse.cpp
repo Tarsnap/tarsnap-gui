@@ -1,12 +1,12 @@
-#include "PathComboBrowse.h"
+#include "TPathComboBrowse.h"
 
 #include <QFileDialog>
 #include <QLineEdit>
 
-#include "ui_PathComboBrowse.h"
+#include "ui_TPathComboBrowse.h"
 
-PathComboBrowse::PathComboBrowse(QWidget *parent)
-    : QWidget(parent), _ui(new Ui::PathComboBrowse)
+TPathComboBrowse::TPathComboBrowse(QWidget *parent)
+    : QWidget(parent), _ui(new Ui::TPathComboBrowse)
 {
     _ui->setupUi(this);
 
@@ -16,85 +16,85 @@ PathComboBrowse::PathComboBrowse(QWidget *parent)
 
     // External connections
     connect(_ui->comboBox, &QComboBox::currentTextChanged, this,
-            &PathComboBrowse::textChanged);
+            &TPathComboBrowse::textChanged);
 
     // Internal connections
     connect(_ui->button, &QPushButton::clicked, this,
-            &PathComboBrowse::browseClicked);
+            &TPathComboBrowse::browseClicked);
 }
 
-PathComboBrowse::~PathComboBrowse()
+TPathComboBrowse::~TPathComboBrowse()
 {
     delete _ui;
 }
 
-QString PathComboBrowse::label() const
+QString TPathComboBrowse::label() const
 {
     return _ui->label->text();
 }
 
-void PathComboBrowse::setLabel(const QString &text)
+void TPathComboBrowse::setLabel(const QString &text)
 {
     _ui->label->setText(text);
 }
 
-QString PathComboBrowse::placeholderText() const
+QString TPathComboBrowse::placeholderText() const
 {
     return _ui->comboBox->lineEdit()->placeholderText();
 }
 
-void PathComboBrowse::setPlaceholderText(const QString &text)
+void TPathComboBrowse::setPlaceholderText(const QString &text)
 {
     _ui->comboBox->lineEdit()->setPlaceholderText(text);
 }
 
-QString PathComboBrowse::dialogTitle() const
+QString TPathComboBrowse::dialogTitle() const
 {
     return _dialogTitle;
 }
 
-void PathComboBrowse::setDialogTitle(const QString &text)
+void TPathComboBrowse::setDialogTitle(const QString &text)
 {
     _dialogTitle = text;
 }
 
-QString PathComboBrowse::dialogFilter() const
+QString TPathComboBrowse::dialogFilter() const
 {
     return _dialogFilter;
 }
 
-void PathComboBrowse::setDialogFilter(const QString &text)
+void TPathComboBrowse::setDialogFilter(const QString &text)
 {
     _dialogFilter = text;
 }
 
-QString PathComboBrowse::statusText() const
+QString TPathComboBrowse::statusText() const
 {
     return _ui->statusLabel->text();
 }
 
-void PathComboBrowse::setStatusOk(const QString &text)
+void TPathComboBrowse::setStatusOk(const QString &text)
 {
-    _ui->okLabel->setStatus(OkLabel::Ok);
+    _ui->okLabel->setStatus(TOkLabel::Ok);
     _ui->statusLabel->setText(text);
     _ui->statusLabel->setStyleSheet("");
     _ui->comboBox->lineEdit()->setStyleSheet("");
 }
 
-void PathComboBrowse::setStatusError(const QString &text)
+void TPathComboBrowse::setStatusError(const QString &text)
 {
-    _ui->okLabel->setStatus(OkLabel::Error);
+    _ui->okLabel->setStatus(TOkLabel::Error);
     _ui->statusLabel->setText(text);
     _ui->statusLabel->setStyleSheet("color: darkred;");
     _ui->comboBox->lineEdit()->setStyleSheet("color: darkred;");
 }
 
-QString PathComboBrowse::text() const
+QString TPathComboBrowse::text() const
 {
     return _ui->comboBox->currentText();
 }
 
-void PathComboBrowse::setText(const QString &text)
+void TPathComboBrowse::setText(const QString &text)
 {
     // If the text is already present, set the index to it.
     for(int i = 0; i < count(); i++)
@@ -111,28 +111,28 @@ void PathComboBrowse::setText(const QString &text)
     _ui->comboBox->setCurrentText(text);
 }
 
-void PathComboBrowse::clear()
+void TPathComboBrowse::clear()
 {
     _ui->comboBox->clear();
     _ui->comboBox->clearEditText();
     // Clear status-related items.
-    _ui->okLabel->setStatus(OkLabel::Unset);
+    _ui->okLabel->setStatus(TOkLabel::Unset);
     _ui->statusLabel->setText("");
     _ui->statusLabel->setStyleSheet("");
     _ui->comboBox->lineEdit()->setStyleSheet("");
 }
 
-int PathComboBrowse::count() const
+int TPathComboBrowse::count() const
 {
     return _ui->comboBox->count();
 }
 
-void PathComboBrowse::addItem(const QString &text)
+void TPathComboBrowse::addItem(const QString &text)
 {
     _ui->comboBox->addItem(text);
 }
 
-void PathComboBrowse::browseClicked()
+void TPathComboBrowse::browseClicked()
 {
     // Run the file browser
     QString dialogResult =

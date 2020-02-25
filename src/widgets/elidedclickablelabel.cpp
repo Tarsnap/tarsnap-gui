@@ -5,7 +5,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 ElidedClickableLabel::ElidedClickableLabel(QWidget *parent)
-    : ElidedLabel(parent)
+    : TElidedLabel(parent)
 {
 }
 

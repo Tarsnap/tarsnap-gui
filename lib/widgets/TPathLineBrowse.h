@@ -1,46 +1,44 @@
-#ifndef PATHCOMBOBROWSE_H
-#define PATHCOMBOBROWSE_H
+#ifndef TPATHLINEBROWSE_H
+#define TPATHLINEBROWSE_H
 
 #include <QWidget>
 
 /* Forward declaration. */
 namespace Ui
 {
-class PathComboBrowse;
+class TPathLineBrowse;
 }
 
 /*!
  * \ingroup lib-widgets
- * \brief The PathComboBrowse is a QWidget which consists of a QLabel, a
- * QComboBox, and a QPushButton to trigger a QFileDialog to select a path.
+ * \brief The TPathLineBrowse is a QWidget which consists of a QLabel, a
+ * QLineEdit, and a QPushButton to trigger a QFileDialog to select a path.
  */
-class PathComboBrowse : public QWidget
+class TPathLineBrowse : public QWidget
 {
     Q_OBJECT
 
     //! Text of the QLabel.
     Q_PROPERTY(QString label READ label WRITE setLabel)
-    //! Placeholder text for the QComboBox.
+    //! Placeholder text of the QLineEdit.
     Q_PROPERTY(
         QString placeholderText READ placeholderText WRITE setPlaceholderText)
     //! Title of the QFileDialog.
     Q_PROPERTY(QString dialogTitle READ dialogTitle WRITE setDialogTitle)
-    //! Filter of the QFileDialog.
-    Q_PROPERTY(QString dialogFilter READ dialogFilter WRITE setDialogFilter)
 
 public:
     //! Constructor.
-    explicit PathComboBrowse(QWidget *parent = nullptr);
-    ~PathComboBrowse();
+    explicit TPathLineBrowse(QWidget *parent = nullptr);
+    ~TPathLineBrowse();
 
     //! Get the label text.
     QString label() const;
     //! Set the label text.
     void setLabel(const QString &text);
 
-    //! Get the placeholder text of the QComboBox.
+    //! Get the placeholder text of the QLineEdit.
     QString placeholderText() const;
-    //! Set the text of the QComboBox.
+    //! Set the placeholder text of the QLineEdit.
     void setPlaceholderText(const QString &text);
 
     //! Get the title of the QFileDialog.
@@ -48,10 +46,8 @@ public:
     //! Set the title of the QFileDialog.
     void setDialogTitle(const QString &text);
 
-    //! Get the filter of the QFileDialog.
-    QString dialogFilter() const;
-    //! Set the filter of the QFileDialog.
-    void setDialogFilter(const QString &text);
+    //! Get the text of the QLineEdit.
+    QString text() const;
 
     //! Get the status label text.
     QString statusText() const;
@@ -60,32 +56,23 @@ public:
     //! Set the status label with an error.
     void setStatusError(const QString &text);
 
-    //! Get the text of the QComboBox.
-    QString text() const;
-
-    //! Get the number of items in the QComboBox.
-    int count() const;
-    //! Add an item to the QComboBox.
-    void addItem(const QString &text);
-
 public slots:
-    //! Set the text of the QComboBox.
+    //! Set the text of the QLineEdit.
     void setText(const QString &text);
-    //! Clear the text of the QComboBox.
+    //! Clear the text of the QLineEdit.
     void clear();
 
 signals:
-    //! The text of the QComboBox has changed.
+    //! The text of the QLineEdit has changed.
     void textChanged(const QString &text);
 
 private slots:
     void browseClicked();
 
 private:
-    Ui::PathComboBrowse *_ui;
+    Ui::TPathLineBrowse *_ui;
 
     QString _dialogTitle;
-    QString _dialogFilter;
 };
 
-#endif /* !PATHCOMBOBROWSE_H */
+#endif /* !TPATHLINEBROWSE_H */

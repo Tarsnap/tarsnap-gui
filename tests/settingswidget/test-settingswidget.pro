@@ -12,7 +12,7 @@ FORMS += ../../forms/settingswidget.ui			\
 HEADERS  +=						\
 	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
-	../../lib/widgets/ElidedLabel.h			\
+	../../lib/widgets/TElidedLabel.h		\
 	../../src/scheduling.h				\
 	../../src/tarsnapaccount.h			\
 	../../src/tasks/tasks-utils.h			\
@@ -26,7 +26,7 @@ HEADERS  +=						\
 SOURCES += test-settingswidget.cpp			\
 	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
-	../../lib/widgets/ElidedLabel.cpp		\
+	../../lib/widgets/TElidedLabel.cpp		\
 	../../src/scheduling.cpp			\
 	../../src/tarsnapaccount.cpp			\
 	../../src/tasks/tasks-utils.cpp			\

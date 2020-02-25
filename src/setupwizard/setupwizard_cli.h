@@ -10,7 +10,7 @@ namespace Ui
 {
 class CliPage;
 }
-class PathLineBrowse;
+class TPathLineBrowse;
 
 /**
  * \ingroup widgets-setup
@@ -73,7 +73,7 @@ private:
     // "app/app_data": directory of the application database and
     //                 default key location.
 
-    bool reportError(const QString &text, PathLineBrowse *plb = nullptr,
+    bool reportError(const QString &text, TPathLineBrowse *plb = nullptr,
                      const QString &plb_text = "");
     bool ensureDirExists(const QString &dirname);
 };

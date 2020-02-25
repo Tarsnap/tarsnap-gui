@@ -19,7 +19,7 @@ WARNINGS_ENABLE
 #include "tasks-defs.h"
 #include "utils.h"
 
-#include <PathLineBrowse.h>
+#include <TPathLineBrowse.h>
 #include <TSettings.h>
 
 SetupDialog::SetupDialog(QWidget *parent)
@@ -46,11 +46,11 @@ SetupDialog::SetupDialog(QWidget *parent)
     // Advanced setup page
     connect(_ui->cliAdvancedButton, &QPushButton::toggled,
             _ui->cliAdvancedWidget, &QWidget::setVisible);
-    connect(_ui->cliPathLineBrowse, &PathLineBrowse::textChanged, this,
+    connect(_ui->cliPathLineBrowse, &TPathLineBrowse::textChanged, this,
             &SetupDialog::validateCLIPage);
-    connect(_ui->cachePathLineBrowse, &PathLineBrowse::textChanged, this,
+    connect(_ui->cachePathLineBrowse, &TPathLineBrowse::textChanged, this,
             &SetupDialog::validateCLIPage);
-    connect(_ui->appdataPathLineBrowse, &PathLineBrowse::textChanged, this,
+    connect(_ui->appdataPathLineBrowse, &TPathLineBrowse::textChanged, this,
             &SetupDialog::validateCLIPage);
 
     // Register page

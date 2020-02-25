@@ -117,7 +117,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="PathLineBrowse" name="cliPathLineBrowse">
+         <widget class="TPathLineBrowse" name="cliPathLineBrowse">
           <property name="label">
            <string>Command-line utilities:</string>
           </property>
@@ -130,7 +130,7 @@
          </widget>
         </item>
         <item>
-         <widget class="PathLineBrowse" name="cachePathLineBrowse">
+         <widget class="TPathLineBrowse" name="cachePathLineBrowse">
           <property name="label">
            <string>Cache directory:</string>
           </property>
@@ -143,7 +143,7 @@
          </widget>
         </item>
         <item>
-         <widget class="PathLineBrowse" name="appdataPathLineBrowse">
+         <widget class="TPathLineBrowse" name="appdataPathLineBrowse">
           <property name="label">
            <string>Config directory:</string>
           </property>
@@ -174,7 +174,7 @@
     </layout>
    </item>
    <item>
-    <widget class="ElidedLabel" name="validationLabel">
+    <widget class="TElidedLabel" name="validationLabel">
      <property name="font">
       <font>
        <italic>true</italic>
@@ -239,14 +239,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>TElidedLabel</class>
    <extends>QLabel</extends>
-   <header>ElidedLabel.h</header>
+   <header>TElidedLabel.h</header>
   </customwidget>
   <customwidget>
-   <class>PathLineBrowse</class>
+   <class>TPathLineBrowse</class>
    <extends>QWidget</extends>
-   <header>PathLineBrowse.h</header>
+   <header>TPathLineBrowse.h</header>
   </customwidget>
   <customwidget>
    <class>TWizardPage</class>

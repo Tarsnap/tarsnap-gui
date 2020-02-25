@@ -12,7 +12,7 @@ RESOURCES += ../../resources/resources.qrc
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
-	../../lib/widgets/ElidedLabel.h			\
+	../../lib/widgets/TElidedLabel.h		\
 	../../lib/widgets/TWizard.h			\
 	../../lib/widgets/TWizardPage.h			\
 	../../src/customfilesystemmodel.h		\
@@ -25,7 +25,7 @@ HEADERS  +=						\
 
 SOURCES += test-small-widgets.cpp			\
 	../../lib/core/TSettings.cpp			\
-	../../lib/widgets/ElidedLabel.cpp		\
+	../../lib/widgets/TElidedLabel.cpp		\
 	../../lib/widgets/TWizard.cpp			\
 	../../lib/widgets/TWizardPage.cpp		\
 	../../src/customfilesystemmodel.cpp		\

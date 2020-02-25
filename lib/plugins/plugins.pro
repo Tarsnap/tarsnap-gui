@@ -5,32 +5,32 @@ QT		+= widgets uiplugin
 
 HEADERS	=	plugins.h			\
 		../core/warnings-disable.h	\
-		../widgets/ElidedLabel.h	\
-		../widgets/OkLabel.h		\
-		../widgets/PathComboBrowse.h	\
-		../widgets/PathLineBrowse.h	\
+		../widgets/TElidedLabel.h	\
+		../widgets/TOkLabel.h		\
+		../widgets/TPathComboBrowse.h	\
+		../widgets/TPathLineBrowse.h	\
 		../widgets/TWizardPage.h	\
-		ElidedLabelPlugin.h		\
-		OkLabelPlugin.h			\
-		PathComboBrowsePlugin.h		\
-		PathLineBrowsePlugin.h		\
+		TElidedLabelPlugin.h		\
+		TOkLabelPlugin.h		\
+		TPathComboBrowsePlugin.h	\
+		TPathLineBrowsePlugin.h		\
 		TWizardPagePlugin.h
 
 SOURCES	=	plugins.cpp			\
-		../widgets/ElidedLabel.cpp	\
-		../widgets/OkLabel.cpp		\
-		../widgets/PathComboBrowse.cpp	\
-		../widgets/PathLineBrowse.cpp	\
+		../widgets/TElidedLabel.cpp	\
+		../widgets/TOkLabel.cpp		\
+		../widgets/TPathComboBrowse.cpp	\
+		../widgets/TPathLineBrowse.cpp	\
 		../widgets/TWizardPage.cpp	\
-		ElidedLabelPlugin.cpp		\
-		OkLabelPlugin.cpp		\
-		PathComboBrowsePlugin.cpp	\
-		PathLineBrowsePlugin.cpp	\
+		TElidedLabelPlugin.cpp		\
+		TOkLabelPlugin.cpp		\
+		TPathComboBrowsePlugin.cpp	\
+		TPathLineBrowsePlugin.cpp	\
 		TWizardPagePlugin.cpp
 
 FORMS	=					\
-		../forms/PathComboBrowse.ui	\
-		../forms/PathLineBrowse.ui
+		../forms/TPathComboBrowse.ui	\
+		../forms/TPathLineBrowse.ui
 
 target.path	= $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS	+= target

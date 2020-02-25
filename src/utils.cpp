@@ -127,20 +127,20 @@ QString Utils::validateAppDataDir(QString path)
     return candidate.canonicalFilePath();
 }
 
-static bool validate_executable(const QString &executable)
+static QString validate_executable(const QString &executable)
 {
     if(executable.isEmpty())
-        return false;
+        return QCoreApplication::translate("Utils", "Executable not found.");
 
     QFileInfo info(executable);
     if(!info.isReadable())
-        return false;
+        return QCoreApplication::translate("Utils", "Not readable.");
 
     if(!info.isExecutable())
-        return false;
+        return QCoreApplication::translate("Utils", "Not executable.");
 
     // We're ok.
-    return true;
+    return "";
 }
 
 static struct DirMessage findBinary(const QString &cmd, QStringList searchPaths)
@@ -157,7 +157,8 @@ static struct DirMessage findBinary(const QString &cmd, QStringList searchPaths)
     if(executable.isEmpty() && searchPaths.isEmpty())
         executable = QStandardPaths::findExecutable(CMD_TARSNAP, brew_bin);
 #endif
-    if(!validate_executable(executable))
+    result.errorMessage = validate_executable(executable);
+    if(!result.errorMessage.isEmpty())
         return result;
 
     result.dirname = executable;

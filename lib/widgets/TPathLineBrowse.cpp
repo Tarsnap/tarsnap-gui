@@ -1,11 +1,11 @@
-#include "PathLineBrowse.h"
+#include "TPathLineBrowse.h"
 
 #include <QFileDialog>
 
-#include "ui_PathLineBrowse.h"
+#include "ui_TPathLineBrowse.h"
 
-PathLineBrowse::PathLineBrowse(QWidget *parent)
-    : QWidget(parent), _ui(new Ui::PathLineBrowse)
+TPathLineBrowse::TPathLineBrowse(QWidget *parent)
+    : QWidget(parent), _ui(new Ui::TPathLineBrowse)
 {
     _ui->setupUi(this);
 
@@ -15,59 +15,59 @@ PathLineBrowse::PathLineBrowse(QWidget *parent)
 
     // External connections
     connect(_ui->lineEdit, &QLineEdit::textChanged, this,
-            &PathLineBrowse::textChanged);
+            &TPathLineBrowse::textChanged);
 
     // Internal connections
     connect(_ui->button, &QPushButton::clicked, this,
-            &PathLineBrowse::browseClicked);
+            &TPathLineBrowse::browseClicked);
 }
 
-PathLineBrowse::~PathLineBrowse()
+TPathLineBrowse::~TPathLineBrowse()
 {
     delete _ui;
 }
 
-QString PathLineBrowse::label() const
+QString TPathLineBrowse::label() const
 {
     return _ui->label->text();
 }
 
-void PathLineBrowse::setLabel(const QString &text)
+void TPathLineBrowse::setLabel(const QString &text)
 {
     _ui->label->setText(text);
 }
 
-QString PathLineBrowse::placeholderText() const
+QString TPathLineBrowse::placeholderText() const
 {
     return _ui->lineEdit->placeholderText();
 }
 
-void PathLineBrowse::setPlaceholderText(const QString &text)
+void TPathLineBrowse::setPlaceholderText(const QString &text)
 {
     _ui->lineEdit->setPlaceholderText(text);
 }
 
-QString PathLineBrowse::dialogTitle() const
+QString TPathLineBrowse::dialogTitle() const
 {
     return _dialogTitle;
 }
 
-void PathLineBrowse::setDialogTitle(const QString &text)
+void TPathLineBrowse::setDialogTitle(const QString &text)
 {
     _dialogTitle = text;
 }
 
-QString PathLineBrowse::text() const
+QString TPathLineBrowse::text() const
 {
     return _ui->lineEdit->text();
 }
 
-void PathLineBrowse::setText(const QString &text)
+void TPathLineBrowse::setText(const QString &text)
 {
     _ui->lineEdit->setText(text);
 }
 
-void PathLineBrowse::clear()
+void TPathLineBrowse::clear()
 {
     _ui->lineEdit->clear();
     // Clear status-related items.
@@ -77,12 +77,12 @@ void PathLineBrowse::clear()
     _ui->lineEdit->setStyleSheet("");
 }
 
-QString PathLineBrowse::statusText() const
+QString TPathLineBrowse::statusText() const
 {
     return _ui->statusLabel->text();
 }
 
-void PathLineBrowse::setStatusOk(const QString &text)
+void TPathLineBrowse::setStatusOk(const QString &text)
 {
     _ui->okLabel->setStatus(OkLabel::Ok);
     _ui->statusLabel->setText(text);
@@ -90,7 +90,7 @@ void PathLineBrowse::setStatusOk(const QString &text)
     _ui->lineEdit->setStyleSheet("");
 }
 
-void PathLineBrowse::setStatusError(const QString &text)
+void TPathLineBrowse::setStatusError(const QString &text)
 {
     _ui->okLabel->setStatus(OkLabel::Error);
     _ui->statusLabel->setText(text);
@@ -98,7 +98,7 @@ void PathLineBrowse::setStatusError(const QString &text)
     _ui->lineEdit->setStyleSheet("color: darkred");
 }
 
-void PathLineBrowse::browseClicked()
+void TPathLineBrowse::browseClicked()
 {
     // Run the file browser
     QString dialogResult =

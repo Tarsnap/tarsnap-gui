@@ -1,20 +1,20 @@
-#ifndef PATHLINEBROWSE_H
-#define PATHLINEBROWSE_H
+#ifndef TPATHLINEBROWSE_H
+#define TPATHLINEBROWSE_H
 
 #include <QWidget>
 
 /* Forward declaration. */
 namespace Ui
 {
-class PathLineBrowse;
+class TPathLineBrowse;
 }
 
 /*!
  * \ingroup lib-widgets
- * \brief The PathLineBrowse is a QWidget which consists of a QLabel, a
+ * \brief The TPathLineBrowse is a QWidget which consists of a QLabel, a
  * QLineEdit, and a QPushButton to trigger a QFileDialog to select a path.
  */
-class PathLineBrowse : public QWidget
+class TPathLineBrowse : public QWidget
 {
     Q_OBJECT
 
@@ -28,8 +28,8 @@ class PathLineBrowse : public QWidget
 
 public:
     //! Constructor.
-    explicit PathLineBrowse(QWidget *parent = nullptr);
-    ~PathLineBrowse();
+    explicit TPathLineBrowse(QWidget *parent = nullptr);
+    ~TPathLineBrowse();
 
     //! Get the label text.
     QString label() const;
@@ -70,9 +70,9 @@ private slots:
     void browseClicked();
 
 private:
-    Ui::PathLineBrowse *_ui;
+    Ui::TPathLineBrowse *_ui;
 
     QString _dialogTitle;
 };
 
-#endif /* !PATHLINEBROWSE_H */
+#endif /* !TPATHLINEBROWSE_H */

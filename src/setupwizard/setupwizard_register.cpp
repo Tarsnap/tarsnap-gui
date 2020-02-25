@@ -69,7 +69,10 @@ void RegisterPage::initializePage()
 
 bool RegisterPage::reportError(const QString &text)
 {
+    // General display.
     _ui->statusLabel->messageError(text);
+
+    // Generic handling of errors.
     return false;
 }
 

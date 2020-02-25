@@ -47,9 +47,9 @@ protected:
     bool checkComplete() override;
 
 private slots:
-    void tarsnapPathChanged(const QString &text);
-    void tarsnapCacheChanged(const QString &text);
-    void appDataDirChanged(const QString &text);
+    bool tarsnapPathChanged(const QString &text);
+    bool tarsnapCacheChanged(const QString &text);
+    bool appDataDirChanged(const QString &text);
 
 private:
     Ui::CliPage *_ui;
@@ -72,7 +72,7 @@ private:
     // "app/app_data": directory of the application database and
     //                 default key location.
 
-    void reportError(const QString &text);
+    bool reportError(const QString &text);
     bool ensureDirExists(const QString &dirname);
 };
 

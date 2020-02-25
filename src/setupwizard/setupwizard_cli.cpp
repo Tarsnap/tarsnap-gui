@@ -91,63 +91,54 @@ bool CliPage::checkComplete()
     return setProceedButton(true);
 }
 
-void CliPage::reportError(const QString &text)
+bool CliPage::reportError(const QString &text)
 {
     _ui->validationLabel->messageError(text);
     _ui->detailsButton->setChecked(true);
     setProceedButton(false);
     _problemOccurred = true;
+    return false;
 }
 
-void CliPage::tarsnapCacheChanged(const QString &text)
+bool CliPage::tarsnapCacheChanged(const QString &text)
 {
     // Clear previous setting.
     TSettings settings;
     settings.remove("tarsnap/cache");
 
     if(text.isEmpty())
-    {
-        reportError(tr("Empty Tarsnap cache directory set."));
-        return;
-    }
+        return reportError(tr("Empty Tarsnap cache directory set."));
 
     QString tarsnapCacheDir = Utils::validateTarsnapCache(text);
     if(tarsnapCacheDir.isEmpty())
-    {
-        reportError(tr("Invalid Tarsnap cache directory set."));
-        return;
-    }
+        return reportError(tr("Invalid Tarsnap cache directory set."));
 
     // We're ok
     settings.setValue("tarsnap/cache", tarsnapCacheDir);
     checkComplete();
+    return true;
 }
 
-void CliPage::appDataDirChanged(const QString &text)
+bool CliPage::appDataDirChanged(const QString &text)
 {
     // Clear previous setting.
     TSettings settings;
     settings.remove("app/app_data");
 
     if(text.isEmpty())
-    {
-        reportError(tr("Empty App data directory set."));
-        return;
-    }
+        return reportError(tr("Empty App data directory set."));
 
     QString appDataDir = Utils::validateAppDataDir(text);
     if(appDataDir.isEmpty())
-    {
-        reportError(tr("Invalid App data directory set."));
-        return;
-    }
+        return reportError(tr("Invalid App data directory set."));
 
     // We're ok
     settings.setValue("app/app_data", appDataDir);
     checkComplete();
+    return true;
 }
 
-void CliPage::tarsnapPathChanged(const QString &text)
+bool CliPage::tarsnapPathChanged(const QString &text)
 {
     // Clear previous settings.
     TSettings settings;
@@ -160,17 +151,15 @@ void CliPage::tarsnapPathChanged(const QString &text)
     struct DirMessage result     = Utils::findTarsnapClientInPath(text, true);
     QString           tarsnapDir = result.dirname;
     if(tarsnapDir.isEmpty())
-    {
-        reportError(tr("Tarsnap utilities not found. Visit "
-                       "<a href=\"https://tarsnap.com\">tarsnap.com</a>"
-                       " for help with acquiring them."));
-        return;
-    }
+        return reportError(tr("Tarsnap utilities not found. Visit "
+                              "<a href=\"https://tarsnap.com\">tarsnap.com</a>"
+                              " for help with acquiring them."));
 
     // We're ok
     settings.setValue("tarsnap/path", tarsnapDir);
     emit tarsnapVersionRequested();
     checkComplete();
+    return true;
 }
 
 void CliPage::tarsnapVersionResponse(TaskStatus status, QString versionString)

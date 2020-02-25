@@ -174,7 +174,7 @@
     </layout>
    </item>
    <item>
-    <widget class="ElidedLabel" name="validationLabel">
+    <widget class="TElidedLabel" name="validationLabel">
      <property name="font">
       <font>
        <italic>true</italic>
@@ -239,9 +239,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>TElidedLabel</class>
    <extends>QLabel</extends>
-   <header>ElidedLabel.h</header>
+   <header>TElidedLabel.h</header>
   </customwidget>
   <customwidget>
    <class>TPathLineBrowse</class>

@@ -5,7 +5,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 ElidedAnnotatedLabel::ElidedAnnotatedLabel(QWidget *parent)
-    : ElidedLabel(parent)
+    : TElidedLabel(parent)
 {
 }
 
@@ -31,7 +31,7 @@ void ElidedAnnotatedLabel::setAnnotatedText(const QVector<QString> &texts,
 
 void ElidedAnnotatedLabel::clear()
 {
-    ElidedLabel::clear();
+    TElidedLabel::clear();
     _texts.clear();
     _annotations.clear();
 }
@@ -47,7 +47,7 @@ QString ElidedAnnotatedLabel::elideText()
     QFontMetrics metrics(this->font());
     QString      elided       = "";
     bool         shouldElide  = false;
-    QString      elided_plain = ElidedLabel::elideText(_fullText);
+    QString      elided_plain = TElidedLabel::elideText(_fullText);
     int          remaining    = elided_plain.length();
 
     // Should we elide?

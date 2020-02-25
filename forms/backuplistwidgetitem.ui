@@ -36,7 +36,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="ElidedLabel" name="pathLabel">
+    <widget class="TElidedLabel" name="pathLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -242,9 +242,9 @@ padding-left: 2px;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>TElidedLabel</class>
    <extends>QLabel</extends>
-   <header>ElidedLabel.h</header>
+   <header>TElidedLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

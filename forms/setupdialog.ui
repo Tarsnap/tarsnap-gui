@@ -751,7 +751,7 @@ border: none;
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="ElidedLabel" name="statusLabel">
+          <widget class="TElidedLabel" name="statusLabel">
            <property name="font">
             <font>
              <italic>true</italic>
@@ -936,9 +936,9 @@ border: none;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ElidedLabel</class>
+   <class>TElidedLabel</class>
    <extends>QLabel</extends>
-   <header>ElidedLabel.h</header>
+   <header>TElidedLabel.h</header>
   </customwidget>
   <customwidget>
    <class>TPathLineBrowse</class>

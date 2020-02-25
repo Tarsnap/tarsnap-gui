@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "ElidedLabel.h"
+#include "TElidedLabel.h"
 #include "TOkLabel.h"
 #include "TPathComboBrowse.h"
 #include "TPathLineBrowse.h"
@@ -53,7 +53,7 @@ void TestLibWidgets::elidedLabel()
 {
     // Initialize variables.
     const QString text("this is a long long long piece of text");
-    ElidedLabel * elidedlabel = new ElidedLabel();
+    TElidedLabel *elidedlabel = new TElidedLabel();
 
     VISUAL_INIT(elidedlabel);
 
@@ -78,7 +78,7 @@ void TestLibWidgets::elidedLabel()
 
 void TestLibWidgets::elidedLabel_status()
 {
-    ElidedLabel *el = new ElidedLabel();
+    TElidedLabel *el = new TElidedLabel();
     el->setMinimumWidth(200);
 
     VISUAL_INIT(el);

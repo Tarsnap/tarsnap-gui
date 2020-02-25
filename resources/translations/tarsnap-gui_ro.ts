@@ -577,16 +577,8 @@ Adaugă oricum?</translation>
         <translation type="unfinished">Înainte</translation>
     </message>
     <message>
-        <source>Empty Tarsnap cache directory set.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Invalid Tarsnap cache directory set.</source>
         <translation type="unfinished">Director &apos;cache&apos; invalid.</translation>
-    </message>
-    <message>
-        <source>Empty App data directory set.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Invalid App data directory set.</source>

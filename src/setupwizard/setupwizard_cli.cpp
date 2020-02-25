@@ -114,15 +114,13 @@ bool CliPage::tarsnapCacheChanged(const QString &text)
     TSettings settings;
     settings.remove("tarsnap/cache");
 
-    if(text.isEmpty())
-        return reportError(tr("Empty Tarsnap cache directory set."));
-
-    QString tarsnapCacheDir = Utils::validateTarsnapCache(text);
-    if(tarsnapCacheDir.isEmpty())
+    const QString errorMsg = Utils::validate_writeable_dir(text);
+    if(!errorMsg.isEmpty())
         return reportError(tr("Invalid Tarsnap cache directory set."));
 
     // We're ok
-    settings.setValue("tarsnap/cache", tarsnapCacheDir);
+    const QString pathname = QFileInfo(text).canonicalFilePath();
+    settings.setValue("tarsnap/cache", pathname);
     checkComplete();
     return true;
 }
@@ -133,15 +131,13 @@ bool CliPage::appDataDirChanged(const QString &text)
     TSettings settings;
     settings.remove("app/app_data");
 
-    if(text.isEmpty())
-        return reportError(tr("Empty App data directory set."));
-
-    QString appDataDir = Utils::validateAppDataDir(text);
-    if(appDataDir.isEmpty())
+    const QString errorMsg = Utils::validate_writeable_dir(text);
+    if(!errorMsg.isEmpty())
         return reportError(tr("Invalid App data directory set."));
 
     // We're ok
-    settings.setValue("app/app_data", appDataDir);
+    const QString pathname = QFileInfo(text).canonicalFilePath();
+    settings.setValue("app/app_data", pathname);
     checkComplete();
     return true;
 }

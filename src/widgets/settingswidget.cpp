@@ -713,7 +713,9 @@ bool SettingsWidget::validateTarsnapPath()
 
 bool SettingsWidget::validateTarsnapCache()
 {
-    if(Utils::validateTarsnapCache(_ui->tarsnapCacheLineEdit->text()).isEmpty())
+    const QString cacheDir = _ui->tarsnapCacheLineEdit->text();
+    const QString errorMsg = Utils::validate_writeable_dir(cacheDir);
+    if(!errorMsg.isEmpty())
     {
         _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: red;}");
         return false;
@@ -727,7 +729,9 @@ bool SettingsWidget::validateTarsnapCache()
 
 bool SettingsWidget::validateAppDataDir()
 {
-    if(Utils::validateAppDataDir(_ui->appDataDirLineEdit->text()).isEmpty())
+    const QString cacheDir = _ui->appDataDirLineEdit->text();
+    const QString errorMsg = Utils::validate_writeable_dir(cacheDir);
+    if(!errorMsg.isEmpty())
     {
         _ui->appDataDirLineEdit->setStyleSheet("QLineEdit {color: red;}");
         return false;

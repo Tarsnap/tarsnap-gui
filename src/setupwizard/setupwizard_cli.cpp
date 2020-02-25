@@ -93,7 +93,10 @@ bool CliPage::checkComplete()
 
 bool CliPage::reportError(const QString &text)
 {
+    // General display.
     _ui->validationLabel->messageError(text);
+
+    // Generic handling of errors.
     _ui->detailsButton->setChecked(true);
     setProceedButton(false);
     _problemOccurred = true;

@@ -1,5 +1,5 @@
-#ifndef OKLABEL_H
-#define OKLABEL_H
+#ifndef TOKLABEL_H
+#define TOKLABEL_H
 
 #include "warnings-disable.h"
 
@@ -9,13 +9,13 @@ WARNINGS_ENABLE
 
 /*!
  * \ingroup lib-widgets
- * \brief The OkLabel widget is a QLabel which displays success,
+ * \brief The TOkLabel widget is a QLabel which displays success,
  * error, or nothing.
  *
  * In English, this is displayed by a green check, red cross, or blank;
  * it would be easy to alter this for other languages.
  */
-class OkLabel : public QLabel
+class TOkLabel : public QLabel
 {
     Q_OBJECT
 
@@ -25,7 +25,7 @@ class OkLabel : public QLabel
 
 public:
     //! Constructor.
-    explicit OkLabel(QWidget *parent = nullptr);
+    explicit TOkLabel(QWidget *parent = nullptr);
 
     //! What state should we display?
     enum Status
@@ -47,4 +47,4 @@ private:
     int _status;
 };
 
-#endif // OKLABEL_H
+#endif // TOKLABEL_H

@@ -1719,17 +1719,6 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
-    <name>OkLabel</name>
-    <message>
-        <source>✔</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>❌</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>QObject</name>
     <message>
         <source>Simulation mode is enabled.  Archives will not be uploaded to the Tarsnap server.  Disable in Settings -&gt; Backup.</source>
@@ -2821,6 +2810,17 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <message>
         <source>Tarsnap setup</source>
         <translation type="unfinished">Configurare Tarsnap</translation>
+    </message>
+</context>
+<context>
+    <name>TOkLabel</name>
+    <message>
+        <source>✔</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>❌</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

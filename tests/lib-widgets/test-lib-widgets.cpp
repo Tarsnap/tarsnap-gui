@@ -13,7 +13,7 @@ WARNINGS_ENABLE
 #include "../qtest-platform.h"
 
 #include "ElidedLabel.h"
-#include "OkLabel.h"
+#include "TOkLabel.h"
 #include "TPathComboBrowse.h"
 #include "TPathLineBrowse.h"
 #include "TWizard.h"
@@ -94,17 +94,17 @@ void TestLibWidgets::elidedLabel_status()
 
 void TestLibWidgets::okLabel()
 {
-    OkLabel *ok = new OkLabel();
+    TOkLabel *ok = new TOkLabel();
 
     VISUAL_INIT(ok);
 
-    ok->setStatus(OkLabel::Ok);
+    ok->setStatus(TOkLabel::Ok);
     VISUAL_WAIT;
 
-    ok->setStatus(OkLabel::Error);
+    ok->setStatus(TOkLabel::Error);
     VISUAL_WAIT;
 
-    ok->setStatus(OkLabel::Unset);
+    ok->setStatus(TOkLabel::Unset);
     VISUAL_WAIT;
 
     delete ok;

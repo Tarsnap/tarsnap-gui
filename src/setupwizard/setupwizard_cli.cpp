@@ -9,7 +9,7 @@ WARNINGS_DISABLE
 #include "ui_setupwizard_cli.h"
 WARNINGS_ENABLE
 
-#include <OkLabel.h>
+#include <TOkLabel.h>
 #include <TSettings.h>
 #include <TWizardPage.h>
 
@@ -189,7 +189,7 @@ void CliPage::tarsnapVersionResponse(TaskStatus status, QString versionString)
         // Display message (after checkComplete, which can clear the label).
         _ui->validationLabel->messageNormal(
             tr("Tarsnap CLI version ") + versionString + tr(" detected.") + " "
-            + OkLabel::getRichText(OkLabel::Ok));
+            + TOkLabel::getRichText(TOkLabel::Ok));
         // Save the message, allowing us to return to it if we
         // temporarily disable completion (e.g., after fiddling with dirs).
         _successMessage = _ui->validationLabel->text();

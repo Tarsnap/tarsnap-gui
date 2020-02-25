@@ -53,7 +53,7 @@ SOURCES +=						\
 	lib/util/optparse.c				\
 	lib/util/optparse_helper.c			\
 	lib/widgets/ElidedLabel.cpp			\
-	lib/widgets/OkLabel.cpp				\
+	lib/widgets/TOkLabel.cpp			\
 	lib/widgets/TPathComboBrowse.cpp		\
 	lib/widgets/TPathLineBrowse.cpp			\
 	lib/widgets/TWizard.cpp				\
@@ -119,7 +119,7 @@ HEADERS +=						\
 	lib/util/optparse.h				\
 	lib/util/optparse_helper.h			\
 	lib/widgets/ElidedLabel.h			\
-	lib/widgets/OkLabel.h				\
+	lib/widgets/TOkLabel.h				\
 	lib/widgets/TPathComboBrowse.h			\
 	lib/widgets/TPathLineBrowse.h			\
 	lib/widgets/TWizard.h				\

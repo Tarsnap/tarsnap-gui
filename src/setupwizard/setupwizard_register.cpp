@@ -206,14 +206,8 @@ bool RegisterPage::checkUseKeyfile()
 {
     const QString filename = _ui->keyfilePathComboBrowse->text();
 
-    // Bail if we don't have a filename.
-    if(filename.isEmpty())
-        return false;
-
-    // Bail if the filename doesn't point to an existing readable file.
-    QFileInfo machineKeyFile(filename);
-    if(!(machineKeyFile.exists() && machineKeyFile.isFile()
-         && machineKeyFile.isReadable()))
+    const QString errorMsg = Utils::validate_readable_file(filename);
+    if(!errorMsg.isEmpty())
         return reportError("Invalid machine key");
 
     // File is ok.

@@ -57,7 +57,7 @@
       </widget>
      </item>
      <item>
-      <widget class="OkLabel" name="okLabel"/>
+      <widget class="TOkLabel" name="okLabel"/>
      </item>
     </layout>
    </item>
@@ -89,9 +89,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>OkLabel</class>
+   <class>TOkLabel</class>
    <extends>QLabel</extends>
-   <header>OkLabel.h</header>
+   <header>TOkLabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

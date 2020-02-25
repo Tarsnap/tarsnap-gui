@@ -71,7 +71,7 @@ void TPathLineBrowse::clear()
 {
     _ui->lineEdit->clear();
     // Clear status-related items.
-    _ui->okLabel->setStatus(OkLabel::Unset);
+    _ui->okLabel->setStatus(TOkLabel::Unset);
     _ui->statusLabel->setText("");
     _ui->statusLabel->setStyleSheet("");
     _ui->lineEdit->setStyleSheet("");
@@ -84,7 +84,7 @@ QString TPathLineBrowse::statusText() const
 
 void TPathLineBrowse::setStatusOk(const QString &text)
 {
-    _ui->okLabel->setStatus(OkLabel::Ok);
+    _ui->okLabel->setStatus(TOkLabel::Ok);
     _ui->statusLabel->setText(text);
     _ui->statusLabel->setStyleSheet("");
     _ui->lineEdit->setStyleSheet("");
@@ -92,7 +92,7 @@ void TPathLineBrowse::setStatusOk(const QString &text)
 
 void TPathLineBrowse::setStatusError(const QString &text)
 {
-    _ui->okLabel->setStatus(OkLabel::Error);
+    _ui->okLabel->setStatus(TOkLabel::Error);
     _ui->statusLabel->setText(text);
     _ui->statusLabel->setStyleSheet("color: darkred;");
     _ui->lineEdit->setStyleSheet("color: darkred");

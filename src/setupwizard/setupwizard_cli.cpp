@@ -116,11 +116,12 @@ bool CliPage::tarsnapCacheChanged(const QString &text)
 
     const QString errorMsg = Utils::validate_writeable_dir(text);
     if(!errorMsg.isEmpty())
-        return reportError(tr("Invalid Tarsnap cache directory set."));
+        return reportError("", _ui->cachePathLineBrowse, errorMsg);
 
     // We're ok
     const QString pathname = QFileInfo(text).canonicalFilePath();
     settings.setValue("tarsnap/cache", pathname);
+    _ui->cachePathLineBrowse->setStatusOk("");
     checkComplete();
     return true;
 }
@@ -133,11 +134,12 @@ bool CliPage::appDataDirChanged(const QString &text)
 
     const QString errorMsg = Utils::validate_writeable_dir(text);
     if(!errorMsg.isEmpty())
-        return reportError(tr("Invalid App data directory set."));
+        return reportError("", _ui->appdataPathLineBrowse, errorMsg);
 
     // We're ok
     const QString pathname = QFileInfo(text).canonicalFilePath();
     settings.setValue("app/app_data", pathname);
+    _ui->appdataPathLineBrowse->setStatusOk("");
     checkComplete();
     return true;
 }
@@ -155,9 +157,10 @@ bool CliPage::tarsnapPathChanged(const QString &text)
     struct DirMessage result     = Utils::findTarsnapClientInPath(text, true);
     QString           tarsnapDir = result.dirname;
     if(tarsnapDir.isEmpty())
-        return reportError(tr("Tarsnap utilities not found. Visit "
-                              "<a href=\"https://tarsnap.com\">tarsnap.com</a>"
-                              " for help with acquiring them."));
+        return reportError(
+            tr("Visit <a href=\"https://tarsnap.com\">tarsnap.com</a>"
+               " to acquire the command-line utilities."),
+            _ui->cliPathLineBrowse, tr("Not found."));
 
     // We're ok
     settings.setValue("tarsnap/path", tarsnapDir);
@@ -190,15 +193,18 @@ void CliPage::tarsnapVersionResponse(TaskStatus status, QString versionString)
         // Save the message, allowing us to return to it if we
         // temporarily disable completion (e.g., after fiddling with dirs).
         _successMessage = _ui->validationLabel->text();
+        _ui->cliPathLineBrowse->setStatusOk("");
         break;
     case TaskStatus::VersionTooLow:
         // Don't record the too-low version number.
         reportError(
             tr("Tarsnap CLI version ") + versionString
-            + tr(" too low; must be at least %1").arg(TARSNAP_MIN_VERSION));
+                + tr(" too low; must be at least %1").arg(TARSNAP_MIN_VERSION),
+            _ui->cliPathLineBrowse, tr("Version too low."));
         break;
     case TaskStatus::Failed:
-        reportError(tr("Error retrieving Tarsnap CLI verison"));
+        reportError("", _ui->cliPathLineBrowse,
+                    tr("Error retrieving Tarsnap CLI verison"));
         break;
     default:
         break;

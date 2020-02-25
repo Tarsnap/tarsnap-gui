@@ -571,18 +571,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid Tarsnap cache directory set.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid App data directory set.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap utilities not found. Visit &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; for help with acquiring them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tarsnap CLI version </source>
         <translation type="unfinished"></translation>
     </message>
@@ -600,6 +588,18 @@ Add anyway?</source>
     </message>
     <message>
         <source> detected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Visit &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; to acquire the command-line utilities.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version too low.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

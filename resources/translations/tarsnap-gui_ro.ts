@@ -577,18 +577,6 @@ Adaugă oricum?</translation>
         <translation type="unfinished">Înainte</translation>
     </message>
     <message>
-        <source>Invalid Tarsnap cache directory set.</source>
-        <translation type="unfinished">Director &apos;cache&apos; invalid.</translation>
-    </message>
-    <message>
-        <source>Invalid App data directory set.</source>
-        <translation type="unfinished">Director de date al aplicației invalid.</translation>
-    </message>
-    <message>
-        <source>Tarsnap utilities not found. Visit &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; for help with acquiring them.</source>
-        <translation type="unfinished">Utilitarele la linia de comandă Tarsnap nu au fost găsite. Vizitați &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; pentru ajutor la instalarea acestora.</translation>
-    </message>
-    <message>
         <source>Tarsnap CLI version </source>
         <translation type="unfinished">Utilitarele Tarsnap la linia de comandă versiunea </translation>
     </message>
@@ -607,6 +595,18 @@ Adaugă oricum?</translation>
     <message>
         <source> detected.</source>
         <translation type="unfinished"> detectate.</translation>
+    </message>
+    <message>
+        <source>Visit &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; to acquire the command-line utilities.</source>
+        <translation type="unfinished">Vizitați &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; pentru ajutor la instalarea acestora.</translation>
+    </message>
+    <message>
+        <source>Not found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version too low.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

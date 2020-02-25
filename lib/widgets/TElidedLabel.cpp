@@ -1,72 +1,72 @@
-#include "ElidedLabel.h"
+#include "TElidedLabel.h"
 
 WARNINGS_DISABLE
 #include <QResizeEvent>
 WARNINGS_ENABLE
 
-ElidedLabel::ElidedLabel(QWidget *parent)
+TElidedLabel::TElidedLabel(QWidget *parent)
     : QLabel(parent), _elide(Qt::ElideNone)
 {
 }
 
-ElidedLabel::~ElidedLabel()
+TElidedLabel::~TElidedLabel()
 {
 }
 
-Qt::TextElideMode ElidedLabel::elide() const
+Qt::TextElideMode TElidedLabel::elide() const
 {
     return _elide;
 }
 
-void ElidedLabel::setElide(const Qt::TextElideMode &elide)
+void TElidedLabel::setElide(const Qt::TextElideMode &elide)
 {
     _elide = elide;
     emit elideChanged(_elide);
 }
 
-QString ElidedLabel::text() const
+QString TElidedLabel::text() const
 {
     return _fullText;
 }
 
-QSize ElidedLabel::sizeHint() const
+QSize TElidedLabel::sizeHint() const
 {
     QFontMetrics metrics(this->font());
     return metrics.size(Qt::TextSingleLine, _fullText);
 }
 
-void ElidedLabel::setText(const QString &text)
+void TElidedLabel::setText(const QString &text)
 {
     _fullText = text;
     QLabel::setText(elideText(_fullText));
     setToolTip(_fullText);
 }
 
-void ElidedLabel::clear()
+void TElidedLabel::clear()
 {
     _fullText.clear();
     QLabel::clear();
 }
 
-void ElidedLabel::resizeEvent(QResizeEvent *event)
+void TElidedLabel::resizeEvent(QResizeEvent *event)
 {
     QLabel::setText(elideText(_fullText));
     event->accept();
 }
 
-QString ElidedLabel::elideText(const QString &text) const
+QString TElidedLabel::elideText(const QString &text) const
 {
     QFontMetrics metrics(this->font());
     return metrics.elidedText(text, _elide, this->width());
 }
 
-void ElidedLabel::messageNormal(const QString &text)
+void TElidedLabel::messageNormal(const QString &text)
 {
     setText(text);
     setStyleSheet("");
 }
 
-void ElidedLabel::messageError(const QString &text)
+void TElidedLabel::messageError(const QString &text)
 {
     setText(text);
     setStyleSheet("color: darkred;");

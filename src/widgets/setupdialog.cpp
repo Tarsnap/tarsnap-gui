@@ -268,11 +268,13 @@ bool SetupDialog::validateCLIPage()
     QString tarsnapDir;
     QString appDataDir;
     QString tarsnapCacheDir;
+    QString errorMsg;
 
     bool result = true;
 
-    appDataDir = Utils::validateAppDataDir(_ui->appdataPathLineBrowse->text());
-    if(appDataDir.isEmpty())
+    appDataDir = _ui->appdataPathLineBrowse->text();
+    errorMsg   = Utils::validate_writeable_dir(appDataDir);
+    if(!errorMsg.isEmpty())
     {
         _ui->cliValidationLabel->setText(tr("Invalid App data directory set."));
         result = false;
@@ -280,12 +282,13 @@ bool SetupDialog::validateCLIPage()
     else
     {
         TSettings settings;
+        appDataDir = QFileInfo(appDataDir).canonicalFilePath();
         settings.setValue("app/app_data", appDataDir);
     }
 
-    tarsnapCacheDir =
-        Utils::validateTarsnapCache(_ui->cachePathLineBrowse->text());
-    if(result && tarsnapCacheDir.isEmpty())
+    tarsnapCacheDir = _ui->cachePathLineBrowse->text();
+    errorMsg        = Utils::validate_writeable_dir(tarsnapCacheDir);
+    if(result && !errorMsg.isEmpty())
     {
         _ui->cliValidationLabel->setText(tr("Invalid Tarsnap cache directory"
                                             " set."));

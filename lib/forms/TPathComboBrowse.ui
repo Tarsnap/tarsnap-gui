@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PathComboBrowse</class>
- <widget class="QWidget" name="PathComboBrowse">
+ <class>TPathComboBrowse</class>
+ <widget class="QWidget" name="TPathComboBrowse">
   <property name="geometry">
    <rect>
     <x>0</x>

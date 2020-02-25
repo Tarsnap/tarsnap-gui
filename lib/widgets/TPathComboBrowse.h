@@ -1,20 +1,20 @@
-#ifndef PATHCOMBOBROWSE_H
-#define PATHCOMBOBROWSE_H
+#ifndef TPATHCOMBOBROWSE_H
+#define TPATHCOMBOBROWSE_H
 
 #include <QWidget>
 
 /* Forward declaration. */
 namespace Ui
 {
-class PathComboBrowse;
+class TPathComboBrowse;
 }
 
 /*!
  * \ingroup lib-widgets
- * \brief The PathComboBrowse is a QWidget which consists of a QLabel, a
+ * \brief The TPathComboBrowse is a QWidget which consists of a QLabel, a
  * QComboBox, and a QPushButton to trigger a QFileDialog to select a path.
  */
-class PathComboBrowse : public QWidget
+class TPathComboBrowse : public QWidget
 {
     Q_OBJECT
 
@@ -30,8 +30,8 @@ class PathComboBrowse : public QWidget
 
 public:
     //! Constructor.
-    explicit PathComboBrowse(QWidget *parent = nullptr);
-    ~PathComboBrowse();
+    explicit TPathComboBrowse(QWidget *parent = nullptr);
+    ~TPathComboBrowse();
 
     //! Get the label text.
     QString label() const;
@@ -82,10 +82,10 @@ private slots:
     void browseClicked();
 
 private:
-    Ui::PathComboBrowse *_ui;
+    Ui::TPathComboBrowse *_ui;
 
     QString _dialogTitle;
     QString _dialogFilter;
 };
 
-#endif /* !PATHCOMBOBROWSE_H */
+#endif /* !TPATHCOMBOBROWSE_H */

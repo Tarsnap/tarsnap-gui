@@ -128,24 +128,6 @@ const QString Utils::validate_readable_file(const QString &filename)
     return "";
 }
 
-QString Utils::validateTarsnapCache(QString path)
-{
-    if(!validate_writeable_dir(path).isEmpty())
-        return "";
-
-    QFileInfo candidate(path);
-    return candidate.canonicalFilePath();
-}
-
-QString Utils::validateAppDataDir(QString path)
-{
-    if(!validate_writeable_dir(path).isEmpty())
-        return "";
-
-    QFileInfo candidate(path);
-    return candidate.canonicalFilePath();
-}
-
 static QString validate_executable(const QString &executable)
 {
     if(executable.isEmpty())

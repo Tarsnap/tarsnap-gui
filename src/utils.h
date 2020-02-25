@@ -98,6 +98,9 @@ struct DirMessage findTarsnapClientInPath(QString path, bool keygenToo = false);
 // Search for valid tarsnap keys in the supplied path
 QFileInfoList findKeysInPath(QString path);
 
+//! Return the reason why dirname is not valid, or empty string for success.
+const QString validate_writeable_dir(const QString &dirname);
+
 // Returns canonical path if verified, otherwise empty string
 QString validateTarsnapCache(QString path);
 

@@ -90,28 +90,28 @@ QString Utils::humanBytes(quint64 bytes, int fieldWidth)
         .arg(pre);
 }
 
-static bool validate_writeable_dir(const QString &dirname)
+const QString Utils::validate_writeable_dir(const QString &dirname)
 {
     if(dirname.isEmpty())
-        return false;
+        return QCoreApplication::translate("Utils", "Path is empty.");
 
     QFileInfo candidate(dirname);
     if(!candidate.exists())
-        return false;
+        return QCoreApplication::translate("Utils", "Does not exist.");
 
     if(!candidate.isDir())
-        return false;
+        return QCoreApplication::translate("Utils", "Not a directory.");
 
     if(!candidate.isWritable())
-        return false;
+        return QCoreApplication::translate("Utils", "Not writable.");
 
     // We're ok.
-    return true;
+    return "";
 }
 
 QString Utils::validateTarsnapCache(QString path)
 {
-    if(!validate_writeable_dir(path))
+    if(!validate_writeable_dir(path).isEmpty())
         return "";
 
     QFileInfo candidate(path);
@@ -120,7 +120,7 @@ QString Utils::validateTarsnapCache(QString path)
 
 QString Utils::validateAppDataDir(QString path)
 {
-    if(!validate_writeable_dir(path))
+    if(!validate_writeable_dir(path).isEmpty())
         return "";
 
     QFileInfo candidate(path);

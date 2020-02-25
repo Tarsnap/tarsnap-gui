@@ -247,7 +247,7 @@
           <number>3</number>
          </property>
          <item>
-          <widget class="PathComboBrowse" name="keyfilePathComboBrowse">
+          <widget class="TPathComboBrowse" name="keyfilePathComboBrowse">
            <property name="label">
             <string>Select your existing keyfile:</string>
            </property>
@@ -366,9 +366,9 @@
    <header>ElidedLabel.h</header>
   </customwidget>
   <customwidget>
-   <class>PathComboBrowse</class>
+   <class>TPathComboBrowse</class>
    <extends>QWidget</extends>
-   <header>PathComboBrowse.h</header>
+   <header>TPathComboBrowse.h</header>
   </customwidget>
   <customwidget>
    <class>TWizardPage</class>

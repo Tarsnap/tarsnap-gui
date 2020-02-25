@@ -14,7 +14,7 @@ WARNINGS_ENABLE
 
 #include "ElidedLabel.h"
 #include "OkLabel.h"
-#include "PathComboBrowse.h"
+#include "TPathComboBrowse.h"
 #include "TPathLineBrowse.h"
 #include "TWizard.h"
 #include "TWizardPage.h"
@@ -169,8 +169,8 @@ void TestLibWidgets::pathlinebrowse()
 
 void TestLibWidgets::pathcombobrowse()
 {
-    PathComboBrowse *pcb = new PathComboBrowse();
-    QSignalSpy       sig_changed(pcb, SIGNAL(textChanged(QString)));
+    TPathComboBrowse *pcb = new TPathComboBrowse();
+    QSignalSpy        sig_changed(pcb, SIGNAL(textChanged(QString)));
 
     VISUAL_INIT(pcb);
     IF_NOT_VISUAL { pcb->show(); }
@@ -236,7 +236,7 @@ void TestLibWidgets::pathcombobrowse()
 
     // Test setText as a slot
     QLineEdit *le = new QLineEdit();
-    connect(le, &QLineEdit::textChanged, pcb, &PathComboBrowse::setText);
+    connect(le, &QLineEdit::textChanged, pcb, &TPathComboBrowse::setText);
 
     sig_changed.clear();
     pcb->clear();

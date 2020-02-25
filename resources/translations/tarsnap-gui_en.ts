@@ -1723,17 +1723,6 @@ Add anyway?</source>
     </message>
 </context>
 <context>
-    <name>PathComboBrowse</name>
-    <message>
-        <source>Browse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All files (*);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>QObject</name>
     <message>
         <source>Simulation mode is enabled.  Archives will not be uploaded to the Tarsnap server.  Disable in Settings -&gt; Backup.</source>
@@ -2797,6 +2786,17 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     <name>SetupWizard</name>
     <message>
         <source>Tarsnap setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TPathComboBrowse</name>
+    <message>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All files (*);;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

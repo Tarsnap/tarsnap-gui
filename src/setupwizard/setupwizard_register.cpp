@@ -36,7 +36,7 @@ RegisterPage::RegisterPage(QWidget *parent)
             &RegisterPage::checkComplete);
     connect(_ui->tarsnapPasswordLineEdit, &QLineEdit::textChanged, this,
             &RegisterPage::checkComplete);
-    connect(_ui->keyfilePathComboBrowse, &PathComboBrowse::textChanged, this,
+    connect(_ui->keyfilePathComboBrowse, &TPathComboBrowse::textChanged, this,
             &RegisterPage::checkComplete);
 }
 
@@ -67,7 +67,7 @@ void RegisterPage::initializePage()
         _ui->nextButton->setFocus();
 }
 
-bool RegisterPage::reportError(const QString &text, PathComboBrowse *pcb,
+bool RegisterPage::reportError(const QString &text, TPathComboBrowse *pcb,
                                const QString &pcb_text)
 {
     // General display.

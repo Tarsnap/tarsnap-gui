@@ -10,7 +10,7 @@ namespace Ui
 {
 class RegisterPage;
 }
-class PathComboBrowse;
+class TPathComboBrowse;
 
 /**
  * \ingroup widgets-setup
@@ -71,7 +71,7 @@ protected:
 private:
     Ui::RegisterPage *_ui;
 
-    bool reportError(const QString &text, PathComboBrowse *pcb = nullptr,
+    bool reportError(const QString &text, TPathComboBrowse *pcb = nullptr,
                      const QString &pcb_text = "");
 
     // Check tabs separately.

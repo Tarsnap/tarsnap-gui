@@ -129,8 +129,12 @@ void RegisterPage::registerMachine()
         return;
     }
 
-    bool useExistingKeyfile = false;
-    if(_ui->keyfileTabWidget->currentIndex() == CreateKeyfileTab)
+    // What type of operations are we doing?
+    bool useExistingKeyfile =
+        (_ui->keyfileTabWidget->currentIndex() == UseKeyfileTab);
+
+    // Set the keyfilename.
+    if(!useExistingKeyfile)
     {
         _ui->statusLabel->messageNormal("Generating keyfile...");
         tarsnapKeyFile =
@@ -140,7 +144,6 @@ void RegisterPage::registerMachine()
     }
     else
     {
-        useExistingKeyfile = true;
         _ui->statusLabel->messageNormal("Verifying archive integrity...");
         tarsnapKeyFile = _ui->keyfilePathComboBrowse->text();
     }

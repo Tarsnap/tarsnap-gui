@@ -157,10 +157,13 @@ bool CliPage::tarsnapPathChanged(const QString &text)
     struct DirMessage result     = Utils::findTarsnapClientInPath(text, true);
     QString           tarsnapDir = result.dirname;
     if(tarsnapDir.isEmpty())
+    {
+        Q_ASSERT(result.errorMessage != "");
         return reportError(
             tr("Visit <a href=\"https://tarsnap.com\">tarsnap.com</a>"
                " to acquire the command-line utilities."),
-            _ui->cliPathLineBrowse, tr("Not found."));
+            _ui->cliPathLineBrowse, result.errorMessage);
+    }
 
     // We're ok.
     settings.setValue("tarsnap/path", tarsnapDir);

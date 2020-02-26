@@ -7,13 +7,10 @@ FORMS +=						\
 	../../forms/filepickerdialog.ui			\
 	../../forms/filepickerwidget.ui
 
-RESOURCES += ../../resources/resources.qrc
-
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../src/customfilesystemmodel.h		\
-	../../src/widgets/busywidget.h			\
 	../../src/widgets/confirmationdialog.h		\
 	../../src/widgets/elidedannotatedlabel.h	\
 	../../src/widgets/filepickerdialog.h		\
@@ -24,7 +21,6 @@ SOURCES += test-small-widgets.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../src/customfilesystemmodel.cpp		\
-	../../src/widgets/busywidget.cpp		\
 	../../src/widgets/confirmationdialog.cpp	\
 	../../src/widgets/elidedannotatedlabel.cpp	\
 	../../src/widgets/filepickerdialog.cpp		\

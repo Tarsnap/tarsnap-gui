@@ -399,7 +399,7 @@ border: none;
        </widget>
       </item>
       <item>
-       <widget class="BusyWidget" name="busyWidget">
+       <widget class="TBusyLabel" name="busyLabel">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -787,9 +787,9 @@ border: none;
    <header>../widgets/elidedclickablelabel.h</header>
   </customwidget>
   <customwidget>
-   <class>BusyWidget</class>
+   <class>TBusyLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/busywidget.h</header>
+   <header>TBusyLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

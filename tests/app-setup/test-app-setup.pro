@@ -21,6 +21,7 @@ SOURCES += test-app-setup.cpp				\
 	../../lib/core/TSettings.cpp			\
 	../../lib/util/optparse.c			\
 	../../lib/util/optparse_helper.c		\
+	../../lib/widgets/TBusyLabel.cpp		\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../lib/widgets/TOkLabel.cpp			\
 	../../lib/widgets/TPathComboBrowse.cpp		\
@@ -50,14 +51,14 @@ SOURCES += test-app-setup.cpp				\
 	../../src/tasks/tasks-setup.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/translator.cpp			\
-	../../src/utils.cpp				\
-	../../src/widgets/busywidget.cpp
+	../../src/utils.cpp
 
 HEADERS +=						\
 	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
 	../../lib/util/optparse.h			\
 	../../lib/util/optparse_helper.h		\
+	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../lib/widgets/TOkLabel.h			\
 	../../lib/widgets/TPathComboBrowse.h		\
@@ -90,10 +91,11 @@ HEADERS +=						\
 	../../src/tasks/tasks-utils.h			\
 	../../src/taskstatus.h				\
 	../../src/translator.h				\
-	../../src/utils.h				\
-	../../src/widgets/busywidget.h
+	../../src/utils.h
 
-RESOURCES += ../../resources/resources.qrc
+RESOURCES +=						\
+	../../lib/resources/lib-resources.qrc		\
+ 	../../resources/resources.qrc
 
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts

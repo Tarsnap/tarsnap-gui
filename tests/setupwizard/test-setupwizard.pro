@@ -16,6 +16,7 @@ FORMS +=						\
 HEADERS  +=						\
 	compare-settings.h				\
 	../../lib/core/TSettings.h			\
+	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../lib/widgets/TOkLabel.h			\
 	../../lib/widgets/TPathComboBrowse.h		\
@@ -29,12 +30,12 @@ HEADERS  +=						\
 	../../src/setupwizard/setupwizard_register.h	\
 	../../src/tasks/tasks-utils.h			\
 	../../src/utils.h				\
-	../../src/widgets/busywidget.h			\
 	../../tests/qtest-platform.h
 
 SOURCES += test-setupwizard.cpp				\
 	compare-settings.cpp				\
 	../../lib/core/TSettings.cpp			\
+	../../lib/widgets/TBusyLabel.cpp		\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../lib/widgets/TOkLabel.cpp			\
 	../../lib/widgets/TPathComboBrowse.cpp		\
@@ -47,9 +48,10 @@ SOURCES += test-setupwizard.cpp				\
 	../../src/setupwizard/setupwizard_intro.cpp	\
 	../../src/setupwizard/setupwizard_register.cpp	\
 	../../src/tasks/tasks-utils.cpp			\
-	../../src/utils.cpp				\
-	../../src/widgets/busywidget.cpp
+	../../src/utils.cpp
 
-RESOURCES += ../../resources/resources.qrc
+RESOURCES +=						\
+	../../lib/resources/lib-resources.qrc		\
+	../../resources/resources.qrc
 
 include(../tests-include.pro)

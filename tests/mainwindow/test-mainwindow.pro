@@ -25,11 +25,14 @@ FORMS +=							\
 	../../forms/restoredialog.ui				\
 	../../forms/settingswidget.ui
 
-RESOURCES += ../../resources/resources.qrc
+RESOURCES +=						\
+	../../lib/resources/lib-resources.qrc		\
+	../../resources/resources.qrc
 
 HEADERS  +=						\
 	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
+	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../src/backuptask.h				\
 	../../src/customfilesystemmodel.h		\
@@ -50,7 +53,6 @@ HEADERS  +=						\
 	../../src/widgets/backuplistwidget.h		\
 	../../src/widgets/backuplistwidgetitem.h	\
 	../../src/widgets/backuptabwidget.h		\
-	../../src/widgets/busywidget.h			\
 	../../src/widgets/confirmationdialog.h		\
 	../../src/widgets/elidedannotatedlabel.h	\
 	../../src/widgets/elidedclickablelabel.h	\
@@ -71,6 +73,7 @@ HEADERS  +=						\
 SOURCES += test-mainwindow.cpp				\
 	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
+	../../lib/widgets/TBusyLabel.cpp		\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../src/backuptask.cpp			\
 	../../src/customfilesystemmodel.cpp		\
@@ -91,7 +94,6 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/widgets/backuplistwidget.cpp		\
 	../../src/widgets/backuplistwidgetitem.cpp	\
 	../../src/widgets/backuptabwidget.cpp		\
-	../../src/widgets/busywidget.cpp		\
 	../../src/widgets/confirmationdialog.cpp	\
 	../../src/widgets/elidedannotatedlabel.cpp	\
 	../../src/widgets/elidedclickablelabel.cpp	\

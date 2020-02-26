@@ -772,7 +772,7 @@ border: none;
           </widget>
          </item>
          <item>
-          <widget class="BusyWidget" name="busyWidget">
+          <widget class="TBusyLabel" name="busyLabel">
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
@@ -946,9 +946,9 @@ border: none;
    <header>TPathLineBrowse.h</header>
   </customwidget>
   <customwidget>
-   <class>BusyWidget</class>
+   <class>TBusyLabel</class>
    <extends>QLabel</extends>
-   <header>../widgets/busywidget.h</header>
+   <header>TBusyLabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

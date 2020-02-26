@@ -52,6 +52,7 @@ SOURCES +=						\
 	lib/core/TSettings.cpp				\
 	lib/util/optparse.c				\
 	lib/util/optparse_helper.c			\
+	lib/widgets/TBusyLabel.cpp			\
 	lib/widgets/TElidedLabel.cpp			\
 	lib/widgets/TOkLabel.cpp			\
 	lib/widgets/TPathComboBrowse.cpp		\
@@ -94,7 +95,6 @@ SOURCES +=						\
 	src/widgets/backuplistwidget.cpp		\
 	src/widgets/backuplistwidgetitem.cpp		\
 	src/widgets/backuptabwidget.cpp			\
-	src/widgets/busywidget.cpp			\
 	src/widgets/confirmationdialog.cpp		\
 	src/widgets/elidedannotatedlabel.cpp		\
 	src/widgets/elidedclickablelabel.cpp		\
@@ -118,6 +118,7 @@ HEADERS +=						\
 	lib/core/warnings-disable.h			\
 	lib/util/optparse.h				\
 	lib/util/optparse_helper.h			\
+	lib/widgets/TBusyLabel.h			\
 	lib/widgets/TElidedLabel.h			\
 	lib/widgets/TOkLabel.h				\
 	lib/widgets/TPathComboBrowse.h			\
@@ -163,7 +164,6 @@ HEADERS +=						\
 	src/widgets/backuplistwidget.h			\
 	src/widgets/backuplistwidgetitem.h		\
 	src/widgets/backuptabwidget.h			\
-	src/widgets/busywidget.h			\
 	src/widgets/confirmationdialog.h		\
 	src/widgets/elidedannotatedlabel.h		\
 	src/widgets/elidedclickablelabel.h		\
@@ -218,7 +218,9 @@ FORMS +=						\
 	lib/forms/TPathLineBrowse.ui			\
 	lib/forms/TWizard.ui
 
-RESOURCES += resources/resources.qrc
+RESOURCES +=						\
+	lib/resources/lib-resources.qrc			\
+	resources/resources.qrc
 
 DISTFILES +=						\
 	CHANGELOG					\

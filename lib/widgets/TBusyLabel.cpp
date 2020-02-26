@@ -1,14 +1,19 @@
 #include "TBusyLabel.h"
 
 WARNINGS_DISABLE
+#include <QFileInfo>
 #include <QMouseEvent>
 #include <QMovie>
 WARNINGS_ENABLE
 
+#define MOVIE_FILENAME ":/lib/loading.gif"
+
 TBusyLabel::TBusyLabel(QWidget *parent) : QLabel(parent)
 {
+    Q_ASSERT(QFileInfo::exists(MOVIE_FILENAME));
+
     // Load the animation.
-    _animation = new QMovie(":/lib/loading.gif");
+    _animation = new QMovie(MOVIE_FILENAME);
     _animation->setCacheMode(QMovie::CacheAll);
     _animation->jumpToFrame(0);
 

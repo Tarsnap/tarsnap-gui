@@ -361,6 +361,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>TBusyLabel</class>
+   <extends>QLabel</extends>
+   <header>TBusyLabel.h</header>
+  </customwidget>
+  <customwidget>
    <class>TElidedLabel</class>
    <extends>QLabel</extends>
    <header>TElidedLabel.h</header>
@@ -375,11 +380,6 @@
    <extends>QWidget</extends>
    <header>TWizardPage.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>TBusyLabel</class>
-   <extends>QLabel</extends>
-   <header>TBusyLabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -936,6 +936,11 @@ border: none;
  </widget>
  <customwidgets>
   <customwidget>
+   <class>TBusyLabel</class>
+   <extends>QLabel</extends>
+   <header>TBusyLabel.h</header>
+  </customwidget>
+  <customwidget>
    <class>TElidedLabel</class>
    <extends>QLabel</extends>
    <header>TElidedLabel.h</header>
@@ -944,11 +949,6 @@ border: none;
    <class>TPathLineBrowse</class>
    <extends>QWidget</extends>
    <header>TPathLineBrowse.h</header>
-  </customwidget>
-  <customwidget>
-   <class>TBusyLabel</class>
-   <extends>QLabel</extends>
-   <header>TBusyLabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

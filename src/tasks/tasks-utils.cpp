@@ -72,6 +72,13 @@ int versionCompare(QString found, QString fixed)
     Q_ASSERT(fixedlist.size() == 3);
     Q_ASSERT(foundlist.size() >= 3);
 
+    /* Handle a final element like "39-head". */
+    if(foundlist.last().contains("-"))
+    {
+        QStringList foundextra = foundlist.takeLast().split("-");
+        foundlist.append(foundextra);
+    }
+
     /* Append extra 0s to the "fixed" string. */
     for(i = 0; i < foundlist.size() - fixedlist.size(); i++)
         fixedlist.append("0");

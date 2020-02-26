@@ -39,7 +39,8 @@ QStringList makeTarsnapArgs();
  * \brief Compare two version strings.
  *
  * \param found The detected version string.  Must consist of at least 3
- *              dot-separate values.
+ *              dot-separate values.  If the final element contains "-",
+ *              it is split into another dot-separated value.
  * \param fixed A version string in the form "X.Y.Z"; will likely be a
  *              compile-time constant.
  */

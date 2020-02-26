@@ -5,11 +5,13 @@ QT		+= widgets uiplugin
 
 HEADERS	=	plugins.h			\
 		../core/warnings-disable.h	\
+		../widgets/TBusyLabel.h		\
 		../widgets/TElidedLabel.h	\
 		../widgets/TOkLabel.h		\
 		../widgets/TPathComboBrowse.h	\
 		../widgets/TPathLineBrowse.h	\
 		../widgets/TWizardPage.h	\
+		TBusyLabelPlugin.h		\
 		TElidedLabelPlugin.h		\
 		TOkLabelPlugin.h		\
 		TPathComboBrowsePlugin.h	\
@@ -17,11 +19,13 @@ HEADERS	=	plugins.h			\
 		TWizardPagePlugin.h
 
 SOURCES	=	plugins.cpp			\
+		../widgets/TBusyLabel.cpp	\
 		../widgets/TElidedLabel.cpp	\
 		../widgets/TOkLabel.cpp		\
 		../widgets/TPathComboBrowse.cpp	\
 		../widgets/TPathLineBrowse.cpp	\
 		../widgets/TWizardPage.cpp	\
+		TBusyLabelPlugin.cpp		\
 		TElidedLabelPlugin.cpp		\
 		TOkLabelPlugin.cpp		\
 		TPathComboBrowsePlugin.cpp	\

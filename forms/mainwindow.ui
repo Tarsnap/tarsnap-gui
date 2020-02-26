@@ -782,14 +782,14 @@ border: none;
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>ElidedClickableLabel</class>
-   <extends>QLabel</extends>
-   <header>../widgets/elidedclickablelabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>TBusyLabel</class>
    <extends>QLabel</extends>
    <header>TBusyLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ElidedClickableLabel</class>
+   <extends>QLabel</extends>
+   <header>../widgets/elidedclickablelabel.h</header>
   </customwidget>
  </customwidgets>
  <resources>

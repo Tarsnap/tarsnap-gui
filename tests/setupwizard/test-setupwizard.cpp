@@ -267,7 +267,7 @@ void TestSetupWizard::cli()
 
     // Tarsnap CLI directory
     ui_cli->cliPathLineBrowse->setText("fake-dir");
-    QVERIFY(ui_cli->cliPathLineBrowse->statusText() == "Not found.");
+    QVERIFY(ui_cli->cliPathLineBrowse->statusText() == "Executable not found.");
     VISUAL_WAIT;
     ui_cli->cliPathLineBrowse->setText("/tmp");
 

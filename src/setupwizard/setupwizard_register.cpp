@@ -186,6 +186,7 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
         next();
         break;
     case TaskStatus::Failed:
+        _registering = No;
         reportError(reason);
         checkComplete();
         break;

@@ -55,7 +55,7 @@ void CliPage::initializePage()
     if(tarsnapPath.isEmpty())
     {
         // Trigger this manually, because the automatic connection
-        // won't trigger it's blank.
+        // won't trigger if it's blank.
         tarsnapPathChanged(tarsnapPath);
     }
 
@@ -86,8 +86,8 @@ bool CliPage::checkComplete()
        || (!settings.contains("app/app_data")))
         return setProceedButton(false);
 
-    _ui->validationLabel->setStyleSheet("");
-    _ui->validationLabel->setText(_successMessage);
+    // We're ok.
+    _ui->validationLabel->messageNormal(_successMessage);
     return setProceedButton(true);
 }
 
@@ -114,11 +114,12 @@ bool CliPage::tarsnapCacheChanged(const QString &text)
     TSettings settings;
     settings.remove("tarsnap/cache");
 
+    // Validate the directory and display any errors.
     const QString errorMsg = Utils::validate_writeable_dir(text);
     if(!errorMsg.isEmpty())
         return reportError("", _ui->cachePathLineBrowse, errorMsg);
 
-    // We're ok
+    // We're ok.
     const QString pathname = QFileInfo(text).canonicalFilePath();
     settings.setValue("tarsnap/cache", pathname);
     _ui->cachePathLineBrowse->setStatusOk("");
@@ -132,11 +133,12 @@ bool CliPage::appDataDirChanged(const QString &text)
     TSettings settings;
     settings.remove("app/app_data");
 
+    // Validate the directory and display any errors.
     const QString errorMsg = Utils::validate_writeable_dir(text);
     if(!errorMsg.isEmpty())
         return reportError("", _ui->appdataPathLineBrowse, errorMsg);
 
-    // We're ok
+    // We're ok.
     const QString pathname = QFileInfo(text).canonicalFilePath();
     settings.setValue("app/app_data", pathname);
     _ui->appdataPathLineBrowse->setStatusOk("");
@@ -151,9 +153,7 @@ bool CliPage::tarsnapPathChanged(const QString &text)
     settings.remove("tarsnap/path");
     settings.remove("tarsnap/version");
 
-    // Don't check for an empty dir here, because we want users to see the
-    // "visit tarsnap.com" message if they don't have the binaries.
-
+    // Look for the CLI binaries and display any errors.
     struct DirMessage result     = Utils::findTarsnapClientInPath(text, true);
     QString           tarsnapDir = result.dirname;
     if(tarsnapDir.isEmpty())
@@ -162,7 +162,7 @@ bool CliPage::tarsnapPathChanged(const QString &text)
                " to acquire the command-line utilities."),
             _ui->cliPathLineBrowse, tr("Not found."));
 
-    // We're ok
+    // We're ok.
     settings.setValue("tarsnap/path", tarsnapDir);
     emit tarsnapVersionRequested();
     checkComplete();

@@ -116,7 +116,7 @@ void RegisterPage::registerMachine()
 {
     TSettings settings;
 
-    QString tarsnapKeyFile;
+    QString tarsnapKeyFilename;
     QString appDataDir;
 
     // Sanity check app data dir.
@@ -136,18 +136,18 @@ void RegisterPage::registerMachine()
     // Set the keyfilename.
     if(!useExistingKeyfile)
     {
-        tarsnapKeyFile =
+        tarsnapKeyFilename =
             appDataDir + QDir::separator() + _ui->machineNameLineEdit->text()
             + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
             + ".key";
     }
     else
     {
-        tarsnapKeyFile = _ui->keyfilePathComboBrowse->text();
+        tarsnapKeyFilename = _ui->keyfilePathComboBrowse->text();
     }
-    Q_ASSERT(!tarsnapKeyFile.isEmpty());
+    Q_ASSERT(!tarsnapKeyFilename.isEmpty());
 
-    settings.setValue("tarsnap/key", tarsnapKeyFile);
+    settings.setValue("tarsnap/key", tarsnapKeyFilename);
     settings.setValue("tarsnap/user", _ui->tarsnapUserLineEdit->text());
 
     if(checkComplete())
@@ -170,8 +170,8 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
     TSettings settings;
 
     // Get keyfile and sanity check.
-    QString tarsnapKeyFile = settings.value("tarsnap/key", "").toString();
-    if((status == TaskStatus::Completed) && (tarsnapKeyFile.isEmpty()))
+    QString tarsnapKeyFilename = settings.value("tarsnap/key", "").toString();
+    if((status == TaskStatus::Completed) && (tarsnapKeyFilename.isEmpty()))
     {
         // This should never happen.
         status = TaskStatus::Failed;

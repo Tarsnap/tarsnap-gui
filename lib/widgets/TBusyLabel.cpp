@@ -18,9 +18,7 @@ TBusyLabel::TBusyLabel(QWidget *parent) : QLabel(parent)
     _animation->jumpToFrame(0);
 
     // Ensure that this label has the right size.
-    const QSize size = _animation->frameRect().size();
-    setMinimumSize(size);
-    setMaximumSize(size);
+    setFixedSize(16, 16);
 }
 
 TBusyLabel::~TBusyLabel()

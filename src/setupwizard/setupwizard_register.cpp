@@ -136,7 +136,6 @@ void RegisterPage::registerMachine()
     // Set the keyfilename.
     if(!useExistingKeyfile)
     {
-        _ui->statusLabel->messageNormal("Generating keyfile...");
         tarsnapKeyFile =
             appDataDir + QDir::separator() + _ui->machineNameLineEdit->text()
             + "-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss")
@@ -144,7 +143,6 @@ void RegisterPage::registerMachine()
     }
     else
     {
-        _ui->statusLabel->messageNormal("Verifying archive integrity...");
         tarsnapKeyFile = _ui->keyfilePathComboBrowse->text();
     }
     Q_ASSERT(!tarsnapKeyFile.isEmpty());
@@ -155,6 +153,12 @@ void RegisterPage::registerMachine()
     if(checkComplete())
     {
         _registering = Yes;
+        // Display message after checkComplete() clears the label.
+        if(!useExistingKeyfile)
+            _ui->statusLabel->messageNormal("Generating keyfile...");
+        else
+            _ui->statusLabel->messageNormal("Verifying archive integrity...");
+        // Request that the backend does the operation.
         emit registerMachineRequested(_ui->tarsnapPasswordLineEdit->text(),
                                       _ui->machineNameLineEdit->text(),
                                       useExistingKeyfile);

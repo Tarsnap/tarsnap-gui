@@ -8,9 +8,10 @@ FORMS +=						\
 	../../lib/forms/TPathLineBrowse.ui		\
 	../../lib/forms/TWizard.ui
 
-RESOURCES += ../../resources/resources.qrc
+RESOURCES += ../../lib/resources/lib-resources.qrc
 
 HEADERS  +=						\
+	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../lib/widgets/TOkLabel.h			\
 	../../lib/widgets/TPathComboBrowse.h		\
@@ -21,6 +22,7 @@ HEADERS  +=						\
 
 SOURCES += test-lib-widgets.cpp				\
 	../../lib/core/TSettings.cpp			\
+	../../lib/widgets/TBusyLabel.cpp		\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../lib/widgets/TOkLabel.cpp			\
 	../../lib/widgets/TPathComboBrowse.cpp		\

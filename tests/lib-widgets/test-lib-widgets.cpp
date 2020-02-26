@@ -12,6 +12,7 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "TBusyLabel.h"
 #include "TElidedLabel.h"
 #include "TOkLabel.h"
 #include "TPathComboBrowse.h"
@@ -30,6 +31,8 @@ private slots:
     void elidedLabel();
     void elidedLabel_status();
     void okLabel();
+    void busylabel();
+    void busylabel_on_off();
     void pathlinebrowse();
     void pathcombobrowse();
     void twizard();
@@ -108,6 +111,39 @@ void TestLibWidgets::okLabel()
     VISUAL_WAIT;
 
     delete ok;
+}
+
+void TestLibWidgets::busylabel()
+{
+    TBusyLabel *bw = new TBusyLabel();
+
+    VISUAL_INIT(bw);
+    IF_NOT_VISUAL { bw->show(); }
+
+    delete bw;
+}
+
+void TestLibWidgets::busylabel_on_off()
+{
+    TBusyLabel *bw = new TBusyLabel();
+
+    VISUAL_INIT(bw);
+    IF_NOT_VISUAL { bw->show(); }
+
+    // Before starting
+    VISUAL_WAIT;
+
+    // Animation
+    bw->animate(true);
+    QTest::qWait(100);
+    VISUAL_WAIT;
+
+    // After animation
+    bw->animate(false);
+    QTest::qWait(100);
+    VISUAL_WAIT;
+
+    delete bw;
 }
 
 void TestLibWidgets::pathlinebrowse()

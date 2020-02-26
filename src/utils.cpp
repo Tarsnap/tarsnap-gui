@@ -133,6 +133,12 @@ static QString validate_executable(const QString &executable)
     if(executable.isEmpty())
         return QCoreApplication::translate("Utils", "Executable not found.");
 
+    // I don't think that the following checks are neded, as it appears that
+    // QStandardPaths::findExecutable() won't return a non-executable file
+    // (quite sensibly).  I considered deleting the checks, and probably this
+    // entire function, but it's possible that we'll refactor to avoid using
+    // ::findExecutable(), in which case these lines would become relevant.
+
     QFileInfo info(executable);
     if(!info.isReadable())
         return QCoreApplication::translate("Utils", "Not readable.");

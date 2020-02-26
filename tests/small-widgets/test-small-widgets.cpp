@@ -8,7 +8,6 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "busywidget.h"
 #include "confirmationdialog.h"
 #include "elidedannotatedlabel.h"
 #include "filepickerdialog.h"
@@ -28,8 +27,6 @@ private slots:
     void filepickerwidget();
     void filepickerdialog();
     void confirmationDialog();
-    void busywidget();
-    void busywidget_on_off();
 };
 
 void TestSmallWidgets::initTestCase()
@@ -120,39 +117,6 @@ void TestSmallWidgets::confirmationDialog()
 {
     ConfirmationDialog *confirm = new ConfirmationDialog();
     delete confirm;
-}
-
-void TestSmallWidgets::busywidget()
-{
-    BusyWidget *bw = new BusyWidget();
-
-    VISUAL_INIT(bw);
-    IF_NOT_VISUAL { bw->show(); }
-
-    delete bw;
-}
-
-void TestSmallWidgets::busywidget_on_off()
-{
-    BusyWidget *bw = new BusyWidget();
-
-    VISUAL_INIT(bw);
-    IF_NOT_VISUAL { bw->show(); }
-
-    // Before starting
-    VISUAL_WAIT;
-
-    // Animation
-    bw->animate(true);
-    QTest::qWait(100);
-    VISUAL_WAIT;
-
-    // After animation
-    bw->animate(false);
-    QTest::qWait(100);
-    VISUAL_WAIT;
-
-    delete bw;
 }
 
 QTEST_MAIN(TestSmallWidgets)

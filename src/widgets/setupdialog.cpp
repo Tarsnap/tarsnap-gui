@@ -470,7 +470,7 @@ void SetupDialog::registerMachineResponse(TaskStatus status, QString reason)
 
 void SetupDialog::updateLoadingAnimation(bool idle)
 {
-    _ui->busyWidget->animate(!idle);
+    _ui->busyLabel->animate(!idle);
 }
 
 void SetupDialog::tarsnapVersionResponse(TaskStatus status,

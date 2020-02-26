@@ -217,5 +217,5 @@ bool RegisterPage::checkUseKeyfile()
 
 void RegisterPage::updateLoadingAnimation(bool idle)
 {
-    _ui->busyWidget->animate(!idle);
+    _ui->busyLabel->animate(!idle);
 }

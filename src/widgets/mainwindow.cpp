@@ -95,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent)
     addAction(_ui->actionStopTasks);
     connect(_ui->actionStopTasks, &QAction::triggered, this,
             &MainWindow::getTaskInfo);
-    connect(_ui->busyWidget, &BusyWidget::clicked, _ui->actionStopTasks,
+    connect(_ui->busyLabel, &TBusyLabel::clicked, _ui->actionStopTasks,
             &QAction::trigger);
     // --
 
@@ -429,7 +429,7 @@ void MainWindow::setupMenuBar()
 void MainWindow::updateLoadingAnimation(bool idle)
 {
     // Pass the request onwards.
-    _ui->busyWidget->animate(!idle);
+    _ui->busyLabel->animate(!idle);
 }
 
 void MainWindow::mainTabChanged(int index)
@@ -720,7 +720,7 @@ void MainWindow::updateUi()
 
     _ui->actionShowJournal->setToolTip(_ui->actionShowJournal->toolTip().arg(
         _ui->actionShowJournal->shortcut().toString(QKeySequence::NativeText)));
-    _ui->busyWidget->setToolTip(_ui->busyWidget->toolTip().arg(
+    _ui->busyLabel->setToolTip(_ui->busyLabel->toolTip().arg(
         _ui->actionStopTasks->shortcut().toString(QKeySequence::NativeText)));
 
     // --

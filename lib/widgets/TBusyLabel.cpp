@@ -1,14 +1,19 @@
-#include "busywidget.h"
+#include "TBusyLabel.h"
 
 WARNINGS_DISABLE
+#include <QFileInfo>
 #include <QMouseEvent>
 #include <QMovie>
 WARNINGS_ENABLE
 
-BusyWidget::BusyWidget(QWidget *parent) : QLabel(parent)
+#define MOVIE_FILENAME ":/lib/loading.gif"
+
+TBusyLabel::TBusyLabel(QWidget *parent) : QLabel(parent)
 {
+    Q_ASSERT(QFileInfo::exists(MOVIE_FILENAME));
+
     // Load the animation.
-    _animation = new QMovie(":/icons/loading.gif");
+    _animation = new QMovie(MOVIE_FILENAME);
     _animation->setCacheMode(QMovie::CacheAll);
     _animation->jumpToFrame(0);
 
@@ -18,12 +23,12 @@ BusyWidget::BusyWidget(QWidget *parent) : QLabel(parent)
     setMaximumSize(size);
 }
 
-BusyWidget::~BusyWidget()
+TBusyLabel::~TBusyLabel()
 {
     delete _animation;
 }
 
-void BusyWidget::animate(bool active)
+void TBusyLabel::animate(bool active)
 {
     if(active)
     {
@@ -37,7 +42,7 @@ void BusyWidget::animate(bool active)
     }
 }
 
-void BusyWidget::mouseReleaseEvent(QMouseEvent *event)
+void TBusyLabel::mouseReleaseEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
         emit clicked();

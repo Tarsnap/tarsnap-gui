@@ -1,5 +1,5 @@
-#ifndef BUSYWIDGET_H
-#define BUSYWIDGET_H
+#ifndef TBUSYLABEL_H
+#define TBUSYLABEL_H
 
 #include "warnings-disable.h"
 
@@ -8,18 +8,18 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 /*!
- * \ingroup widgets-general
- * \brief The BusyWidget is a QLabel which displays a spinning "waiting" icon,
+ * \ingroup lib-widgets
+ * \brief The TBusyLabel is a QLabel which displays a spinning "waiting" icon,
  * and adds the \ref clicked signal.
  */
-class BusyWidget : public QLabel
+class TBusyLabel : public QLabel
 {
     Q_OBJECT
 
 public:
     //! Constructor.
-    explicit BusyWidget(QWidget *parent = nullptr);
-    ~BusyWidget();
+    explicit TBusyLabel(QWidget *parent = nullptr);
+    ~TBusyLabel();
 
 public slots:
     //! Starts the animation.
@@ -38,4 +38,4 @@ private:
     QMovie *_animation;
 };
 
-#endif // BUSYWIDGET_H
+#endif // !TBUSYLABEL_H

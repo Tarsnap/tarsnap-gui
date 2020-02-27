@@ -107,6 +107,7 @@ optparse_parse(int argc, char * const argv[])
 	argc -= optind;
 	argv += optind;
 
+	(void)argc; /* argc is not used beyond this point. */
 	(void)argv; /* argv is not used beyond this point. */
 
 	/* We might have unused arguments for Qt (like --platform offscreen). */

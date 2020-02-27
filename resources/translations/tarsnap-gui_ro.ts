@@ -601,10 +601,6 @@ Adaugă oricum?</translation>
         <translation type="unfinished">Vizitați &lt;a href=&quot;https://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt; pentru ajutor la instalarea acestora.</translation>
     </message>
     <message>
-        <source>Not found.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Version too low.</source>
         <translation type="unfinished"></translation>
     </message>

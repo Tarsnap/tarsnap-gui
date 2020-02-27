@@ -595,10 +595,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Not found.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Version too low.</source>
         <translation type="unfinished"></translation>
     </message>

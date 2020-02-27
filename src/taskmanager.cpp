@@ -54,7 +54,6 @@ void TaskManager::registerMachineDo(const QString &password,
 
     // Get relevant settings
     TSettings settings;
-    QString   user        = settings.value("tarsnap/user", "").toString();
     QString   keyFilename = settings.value("tarsnap/key", "").toString();
     QString   cachePath   = settings.value("tarsnap/cache", "").toString();
 

@@ -79,8 +79,9 @@ QString ElidedAnnotatedLabel::elideText()
         else
         {
             // Append only a few characters
-            elided += _texts[p].left(remaining);
-            remaining -= remaining;
+            const QString to_append = _texts[p].left(remaining);
+            elided += to_append;
+            remaining -= to_append.size();
         }
 
         // If we're done, add the elipsis

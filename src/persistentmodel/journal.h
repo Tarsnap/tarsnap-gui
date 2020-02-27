@@ -38,7 +38,7 @@ public slots:
     void getJournal() { emit journal(_log); }
     //! Adds a new log message to the journal (and PersistentStore)
     //! after stripping HTML commands from the string.
-    void log(QString message);
+    void logMessage(QString message);
 
     // From PersistentObject
     //! Does nothing.

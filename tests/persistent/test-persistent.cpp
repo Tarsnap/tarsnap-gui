@@ -121,7 +121,7 @@ void TestPersistent::journal_write()
     journal->load();
 
     // Write a message
-    journal->log(SAMPLE_MESSAGE);
+    journal->logMessage(SAMPLE_MESSAGE);
 
     // Clean up
     delete journal;

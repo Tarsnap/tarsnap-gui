@@ -31,7 +31,7 @@ class Journal : public QObject, public PersistentObject
 public:
     //! Constructor.
     explicit Journal(QObject *parent = nullptr);
-    ~Journal();
+    ~Journal() override;
 
 public slots:
     //! Emits the current log.
@@ -42,13 +42,13 @@ public slots:
 
     // From PersistentObject
     //! Does nothing.
-    void save() {}
+    void save() override {}
     //! Loads this object from the PersistentStore.
-    void load();
+    void load() override;
     //! Deletes this object from the PersistentStore.
-    void purge();
+    void purge() override;
     //! Returns whether an object with this key exists in the PersistentStore.
-    bool doesKeyExist(QString key)
+    bool doesKeyExist(QString key) override
     {
         Q_UNUSED(key);
         return false;

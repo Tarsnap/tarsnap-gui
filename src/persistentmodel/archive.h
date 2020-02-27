@@ -101,7 +101,7 @@ class Archive : public QObject, public PersistentObject
 public:
     //! Constructor.
     explicit Archive(QObject *parent = nullptr);
-    ~Archive();
+    ~Archive() override;
 
     //! \name Getter/setter methods
     //! @{
@@ -142,15 +142,15 @@ public:
     // From PersistentObject
     //! Saves this object to the PersistentStore; creating or
     //! updating as appropriate.
-    void save();
+    void save() override;
     //! Loads this object from the PersistentStore.  The object's
     //! \c _name must already be set.
-    void load();
+    void load() override;
     //! Deletes this object from the PersistentStore.  The object's
     //! \c _name must already be set.
-    void purge();
+    void purge() override;
     //! Returns whether an object with this key exists in the PersistentStore.
-    bool doesKeyExist(QString key);
+    bool doesKeyExist(QString key) override;
 
 public slots:
     //! Returns statistics about this archive.

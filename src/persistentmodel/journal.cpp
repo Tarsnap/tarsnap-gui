@@ -30,7 +30,7 @@ Journal::Journal(QObject *parent) : QObject(parent)
 
 Journal::~Journal()
 {
-    log("==Session end==");
+    logMessage("==Session end==");
 }
 
 void Journal::load()
@@ -58,7 +58,7 @@ void Journal::load()
             // Creates a LogEntry and appends it to _log.
             _log.push_back(LogEntry{timestamp, log});
         }
-        log("==Session start==");
+        logMessage("==Session start==");
     }
     else
     {
@@ -88,7 +88,7 @@ void Journal::purge()
     }
 }
 
-void Journal::log(QString message)
+void Journal::logMessage(QString message)
 {
     // Create a LogEntry with the current timestamp, after
     // stripping HTML commands from the log message.

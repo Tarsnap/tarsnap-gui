@@ -142,8 +142,8 @@ bool AppGui::prepEventLoop()
 
     connect(&_taskManager, &TaskManager::displayNotification, &_notification,
             &Notification::displayNotification, QUEUED);
-    connect(&_taskManager, &TaskManager::message, _journal, &Journal::log,
-            QUEUED);
+    connect(&_taskManager, &TaskManager::message, _journal,
+            &Journal::logMessage, QUEUED);
 
     if(_jobsOption)
     {

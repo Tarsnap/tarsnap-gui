@@ -38,7 +38,7 @@ class Job : public QObject, public PersistentObject
 public:
     //! Constructor.
     explicit Job(QObject *parent = nullptr);
-    ~Job();
+    ~Job() override;
 
     //! Returns JOB_NAME_PREFIX + job name.
     QString archivePrefix();
@@ -103,15 +103,15 @@ public:
     // From PersistentObject
     //! Saves this object to the PersistentStore; creating or
     //! updating as appropriate.
-    void save();
+    void save() override;
     //! Loads this object from the PersistentStore.  The object's
     //! \c _name must already be set.
-    void load();
+    void load() override;
     //! Deletes this object from the PersistentStore.  The object's
     //! \c _name must already be set.
-    void purge();
+    void purge() override;
     //! Returns whether an object with this key exists in the PersistentStore.
-    bool doesKeyExist(QString key);
+    bool doesKeyExist(QString key) override;
 
 signals:
     //! The list of archives belonging to this backup has changed.

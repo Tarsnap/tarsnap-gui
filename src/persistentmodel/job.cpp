@@ -417,12 +417,11 @@ void Job::purge()
 
 bool Job::doesKeyExist(QString key)
 {
-    bool found = false;
     // Sanity check.
     if(key.isEmpty())
     {
         DEBUG << "doesKeyExist method called with empty args";
-        return found;
+        return false;
     }
     // Get database instance and prepare query.
     PersistentStore &store = getStore();
@@ -430,7 +429,7 @@ bool Job::doesKeyExist(QString key)
     if(!query.prepare(QLatin1String("select name from jobs where name = ?")))
     {
         DEBUG << query.lastError().text();
-        return found;
+        return false;
     }
     // Fill in missing value in query string.
     query.addBindValue(key);
@@ -438,13 +437,11 @@ bool Job::doesKeyExist(QString key)
     if(store.runQuery(query))
     {
         if(query.next())
-        {
-            found = true;
-        }
+            return true;
     }
     else
     {
         DEBUG << "Failed to run doesKeyExist query for a Job.";
     }
-    return found;
+    return false;
 }

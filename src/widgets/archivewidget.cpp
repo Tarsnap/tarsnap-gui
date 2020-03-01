@@ -38,8 +38,8 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     connect(_ui->hideButton, &QPushButton::clicked, this,
             &ArchiveWidget::close);
     connect(_ui->archiveJobLabel, &ElidedClickableLabel::clicked,
-            [&]() { emit jobClicked(_archive->jobRef()); });
-    connect(&_contentsModel, &FileTableModel::modelReset, this, [&]() {
+            [this]() { emit jobClicked(_archive->jobRef()); });
+    connect(&_contentsModel, &FileTableModel::modelReset, [this]() {
         _ui->archiveContentsTableView->resizeColumnsToContents();
         _ui->archiveContentsLabel->setText(
             tr("Contents (%1)").arg(_contentsModel.rowCount()));
@@ -49,9 +49,9 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     connect(_ui->filterComboBox,
             static_cast<void (QComboBox::*)(int)>(
                 &QComboBox::currentIndexChanged),
-            this, [&]() { _ui->archiveContentsTableView->setFocus(); });
-    connect(_ui->filterButton, &QPushButton::toggled, this,
-            [&](const bool checked) {
+            [this]() { _ui->archiveContentsTableView->setFocus(); });
+    connect(_ui->filterButton, &QPushButton::toggled,
+            [this](const bool checked) {
                 _ui->filterComboBox->setVisible(checked);
                 if(checked)
                     _ui->filterComboBox->setFocus();

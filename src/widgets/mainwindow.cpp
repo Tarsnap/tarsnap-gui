@@ -69,23 +69,23 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->settingsTab->addAction(_ui->actionRefreshAccount);
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
-    connect(_ui->actionRefreshAccount, &QAction::triggered, this,
-            [&]() { _settingsWidget.getAccountInfo(); });
+    connect(_ui->actionRefreshAccount, &QAction::triggered,
+            [this]() { _settingsWidget.getAccountInfo(); });
     addAction(_ui->actionGoBackup);
     addAction(_ui->actionGoArchives);
     addAction(_ui->actionGoJobs);
     addAction(_ui->actionGoSettings);
     addAction(_ui->actionGoHelp);
     connect(_ui->actionGoBackup, &QAction::triggered,
-            [&]() { displayTab(_ui->backupTab); });
+            [this]() { displayTab(_ui->backupTab); });
     connect(_ui->actionGoArchives, &QAction::triggered,
-            [&]() { displayTab(_ui->archivesTab); });
+            [this]() { displayTab(_ui->archivesTab); });
     connect(_ui->actionGoJobs, &QAction::triggered,
-            [&]() { displayTab(_ui->jobsTab); });
+            [this]() { displayTab(_ui->jobsTab); });
     connect(_ui->actionGoSettings, &QAction::triggered,
-            [&]() { displayTab(_ui->settingsTab); });
+            [this]() { displayTab(_ui->settingsTab); });
     connect(_ui->actionGoHelp, &QAction::triggered,
-            [&]() { displayTab(_ui->helpTab); });
+            [this]() { displayTab(_ui->helpTab); });
     addAction(_ui->actionShowJournal);
     _ui->expandJournalButton->setDefaultAction(_ui->actionShowJournal);
     connect(_ui->actionShowJournal, &QAction::toggled, _ui->journalLog,

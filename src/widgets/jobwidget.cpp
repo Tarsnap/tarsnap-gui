@@ -26,14 +26,14 @@ JobWidget::JobWidget(QWidget *parent)
     connect(_ui->infoLabel, &ElidedClickableLabel::clicked, this,
             &JobWidget::showJobPathsWarn);
     connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
-            [&]() { emit enableSave(canSaveNew()); });
-    connect(_ui->jobTreeWidget, &FilePickerWidget::selectionChanged, [&]() {
+            [this]() { emit enableSave(canSaveNew()); });
+    connect(_ui->jobTreeWidget, &FilePickerWidget::selectionChanged, [this]() {
         if(_job->objectKey().isEmpty())
             emit enableSave(canSaveNew());
         else
             save();
     });
-    connect(_ui->jobTreeWidget, &FilePickerWidget::settingChanged, [&]() {
+    connect(_ui->jobTreeWidget, &FilePickerWidget::settingChanged, [this]() {
         if(!_job->objectKey().isEmpty())
             save();
     });
@@ -69,7 +69,7 @@ JobWidget::JobWidget(QWidget *parent)
             &JobWidget::restoreJobArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives, this,
             &JobWidget::deleteJobArchives);
-    connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked, [&]() {
+    connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked, [this]() {
         TSettings settings;
         _ui->skipFilesLineEdit->setText(
             settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)

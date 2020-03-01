@@ -54,7 +54,7 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     connect(_ui->archivesFilter, &QComboBox::editTextChanged,
             _ui->archiveListWidget, &ArchiveListWidget::setFilter);
 
-    connect(_ui->actionFilterArchives, &QAction::triggered, [&]() {
+    connect(_ui->actionFilterArchives, &QAction::triggered, [this]() {
         _ui->archivesFilterFrame->setVisible(
             !_ui->archivesFilterFrame->isVisible());
         if(_ui->archivesFilter->isVisible())
@@ -69,10 +69,10 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     connect(_ui->archivesFilter,
             static_cast<void (QComboBox::*)(int)>(
                 &QComboBox::currentIndexChanged),
-            this, [&]() { _ui->archiveListWidget->setFocus(); });
+            [this]() { _ui->archiveListWidget->setFocus(); });
 
-    connect(_ui->archiveListWidget, &ArchiveListWidget::countChanged, this,
-            [&](int total, int visible) {
+    connect(_ui->archiveListWidget, &ArchiveListWidget::countChanged,
+            [this](int total, int visible) {
                 _ui->archivesCountLabel->setText(
                     tr("Archives (%1/%2)").arg(visible).arg(total));
             });
@@ -83,9 +83,9 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
             &ArchiveListWidget::addArchive);
 
     connect(_ui->archiveDetailsWidget, &ArchiveWidget::jobClicked,
-            [&](QString jobRef) { emit jobClicked(jobRef); });
+            [this](QString jobRef) { emit jobClicked(jobRef); });
     connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails,
-            [&](QString jobRef) { emit displayJobDetails(jobRef); });
+            [this](QString jobRef) { emit displayJobDetails(jobRef); });
 
     updateUi();
 }

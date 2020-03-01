@@ -12,7 +12,7 @@ JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 {
     _filter.setCaseSensitivity(Qt::CaseInsensitive);
     _filter.setPatternSyntax(QRegExp::Wildcard);
-    connect(this, &QListWidget::itemActivated, [&](QListWidgetItem *item) {
+    connect(this, &QListWidget::itemActivated, [this](QListWidgetItem *item) {
         emit displayJobDetails(static_cast<JobListWidgetItem *>(item)->job());
     });
 }

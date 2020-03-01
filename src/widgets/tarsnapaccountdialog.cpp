@@ -19,7 +19,7 @@ TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
     _ui->setupUi(this);
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
                    & ~Qt::WindowMaximizeButtonHint);
-    connect(_ui->passwordLineEdit, &QLineEdit::textEdited, this, [&]() {
+    connect(_ui->passwordLineEdit, &QLineEdit::textEdited, [this]() {
         _ui->loginButton->setEnabled(!_ui->passwordLineEdit->text().isEmpty());
     });
 

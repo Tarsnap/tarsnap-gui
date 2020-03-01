@@ -41,7 +41,7 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
     _ui->changeArchiveButton->hide();
 
     connect(_ui->cancelButton, &QPushButton::clicked, this, &QDialog::reject);
-    connect(_ui->restoreButton, &QPushButton::clicked, this, [&]() {
+    connect(_ui->restoreButton, &QPushButton::clicked, [this]() {
         if(validate())
             accept();
     });
@@ -55,11 +55,10 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
             &RestoreDialog::optionBaseDirToggled);
     connect(_ui->optionTarArchiveRadio, &QRadioButton::toggled, this,
             &RestoreDialog::optionTarArchiveToggled);
-    connect(_ui->overwriteCheckBox, &QCheckBox::toggled, this,
-            [&](bool checked) {
-                _ui->keepNewerCheckBox->setChecked(checked);
-                _ui->keepNewerCheckBox->setEnabled(checked);
-            });
+    connect(_ui->overwriteCheckBox, &QCheckBox::toggled, [this](bool checked) {
+        _ui->keepNewerCheckBox->setChecked(checked);
+        _ui->keepNewerCheckBox->setEnabled(checked);
+    });
     connect(_ui->baseDirLineEdit, &QLineEdit::textChanged, this,
             &RestoreDialog::validate);
     connect(_ui->archiveLineEdit, &QLineEdit::textChanged, this,

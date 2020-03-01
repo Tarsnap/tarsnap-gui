@@ -186,7 +186,7 @@ void TaskManager::getArchives()
     connect(listArchivesTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveListFinished, QUEUED);
     connect(listArchivesTask, &TarsnapTask::started, this,
-            [&]() {
+            [this]() {
                 emit message(tr("Updating archives list from remote..."));
             },
             QUEUED);

@@ -34,8 +34,8 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
 
     // Connection for the model's data changing.
     connect(&_model, &CustomFileSystemModel::dataChanged,
-            [&](const QModelIndex &topLeft, const QModelIndex &bottomRight,
-                const QVector<int> &roles) {
+            [this](const QModelIndex &topLeft, const QModelIndex &bottomRight,
+                   const QVector<int> &roles) {
                 Q_UNUSED(topLeft);
                 Q_UNUSED(bottomRight);
                 if(!roles.isEmpty()
@@ -46,20 +46,20 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
                 }
             });
     // Connections for the top bar of the widget
-    connect(_ui->showOptionsButton, &QPushButton::clicked, [&]() {
+    connect(_ui->showOptionsButton, &QPushButton::clicked, [this]() {
         _ui->optionsContainer->setVisible(!_ui->optionsContainer->isVisible());
     });
     connect(_ui->homeButton, &QPushButton::clicked,
-            [&]() { setCurrentPath(QDir::homePath()); });
+            [this]() { setCurrentPath(QDir::homePath()); });
     connect(_ui->filterLineEdit, &QLineEdit::textEdited, this,
             &FilePickerWidget::updateFilter);
-    connect(_ui->filterLineEdit, &QLineEdit::returnPressed, [&]() {
+    connect(_ui->filterLineEdit, &QLineEdit::returnPressed, [this]() {
         if(_completer.currentCompletion().isEmpty())
             _ui->treeView->setFocus();
     });
     // Connections for the settings
     connect(_ui->showHiddenCheckBox, &QCheckBox::toggled,
-            [&](const bool toggled) {
+            [this](const bool toggled) {
                 if(toggled)
                     _model.setFilter(_model.filter() | QDir::Hidden);
                 else
@@ -67,7 +67,7 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
                 emit settingChanged();
             });
     connect(_ui->showSystemCheckBox, &QCheckBox::toggled,
-            [&](const bool toggled) {
+            [this](const bool toggled) {
                 if(toggled)
                     _model.setFilter(_model.filter() | QDir::System);
                 else
@@ -75,7 +75,7 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
                 emit settingChanged();
             });
     connect(_ui->hideLinksCheckBox, &QCheckBox::toggled,
-            [&](const bool toggled) {
+            [this](const bool toggled) {
                 if(toggled)
                     _model.setFilter(_model.filter() | QDir::NoSymLinks);
                 else

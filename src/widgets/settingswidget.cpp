@@ -65,9 +65,9 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     connect(&_tarsnapAccount, &TarsnapAccountDialog::lastMachineActivity, this,
             &SettingsWidget::updateLastMachineActivity);
     connect(_ui->accountActivityShowButton, &QPushButton::clicked,
-            [&]() { _tarsnapAccount.getAccountInfo(true, false); });
+            [this]() { _tarsnapAccount.getAccountInfo(true, false); });
     connect(_ui->machineActivityShowButton, &QPushButton::clicked,
-            [&]() { _tarsnapAccount.getAccountInfo(false, true); });
+            [this]() { _tarsnapAccount.getAccountInfo(false, true); });
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &SettingsWidget::getAccountInfo);
 
@@ -103,7 +103,7 @@ SettingsWidget::SettingsWidget(QWidget *parent)
             &SettingsWidget::disableJobSchedulingButtonClicked);
     connect(_ui->simulationCheckBox, &QCheckBox::stateChanged, this,
             &SettingsWidget::updateSimulationIcon);
-    connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked, [&]() {
+    connect(_ui->skipSystemDefaultsButton, &QPushButton::clicked, [this]() {
         _ui->skipSystemLineEdit->setText(DEFAULT_SKIP_SYSTEM_FILES);
     });
 
@@ -140,23 +140,23 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     connect(_ui->clearJournalButton, &QPushButton::clicked, this,
             &SettingsWidget::clearJournalClicked);
 
-    connect(_ui->downloadsDirLineEdit, &QLineEdit::textChanged, [&]() {
+    connect(_ui->downloadsDirLineEdit, &QLineEdit::textChanged, [this]() {
         QFileInfo file(_ui->downloadsDirLineEdit->text());
         if(file.exists() && file.isDir() && file.isWritable())
             _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:black;}");
         else
             _ui->downloadsDirLineEdit->setStyleSheet("QLineEdit{color:red;}");
     });
-    connect(_ui->repairCacheButton, &QPushButton::clicked, this,
-            [&]() { emit repairCache(true); });
-    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this, [&]() {
+    connect(_ui->repairCacheButton, &QPushButton::clicked,
+            [this]() { emit repairCache(true); });
+    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, [this]() {
         QMessageBox::information(this, QApplication::applicationName(),
                                  tr("The new size notation will take global "
                                     "effect on application restart."));
     });
 
-    connect(_ui->languageComboBox, &QComboBox::currentTextChanged, this,
-            [&](const QString language) {
+    connect(_ui->languageComboBox, &QComboBox::currentTextChanged,
+            [this](const QString language) {
                 if(!language.isEmpty())
                 {
                     this->commitSettings();

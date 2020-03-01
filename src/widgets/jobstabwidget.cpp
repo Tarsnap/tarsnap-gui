@@ -29,7 +29,7 @@ JobsTabWidget::JobsTabWidget(QWidget *parent)
     // "Default jobs" handling
     connect(_ui->sureButton, &QPushButton::clicked, this,
             &JobsTabWidget::addDefaultJobs);
-    connect(_ui->dismissButton, &QPushButton::clicked, [&]() {
+    connect(_ui->dismissButton, &QPushButton::clicked, [this]() {
         TSettings settings;
         settings.setValue("app/default_jobs_dismissed", true);
         _ui->defaultJobs->hide();
@@ -92,7 +92,7 @@ JobsTabWidget::JobsTabWidget(QWidget *parent)
 
     // Jobs filter
     _ui->jobsFilterButton->setDefaultAction(_ui->actionFilterJobs);
-    connect(_ui->actionFilterJobs, &QAction::triggered, [&]() {
+    connect(_ui->actionFilterJobs, &QAction::triggered, [this]() {
         _ui->jobsFilterFrame->setVisible(!_ui->jobsFilterFrame->isVisible());
         if(_ui->jobsFilter->isVisible())
             _ui->jobsFilter->setFocus();
@@ -104,11 +104,11 @@ JobsTabWidget::JobsTabWidget(QWidget *parent)
     connect(_ui->jobsFilter,
             static_cast<void (QComboBox::*)(int)>(
                 &QComboBox::currentIndexChanged),
-            this, [&]() { _ui->jobListWidget->setFocus(); });
+            [this]() { _ui->jobListWidget->setFocus(); });
 
     // Update filter results
-    connect(_ui->jobListWidget, &JobListWidget::countChanged, this,
-            [&](int total, int visible) {
+    connect(_ui->jobListWidget, &JobListWidget::countChanged,
+            [this](int total, int visible) {
                 _ui->jobsCountLabel->setText(
                     tr("Jobs (%1/%2)").arg(visible).arg(total));
             });

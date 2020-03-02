@@ -183,6 +183,7 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
     case TaskStatus::Completed:
         _registering = Done;
         _ui->statusLabel->clear();
+        updateLoadingAnimation(true);
         next();
         break;
     case TaskStatus::Failed:

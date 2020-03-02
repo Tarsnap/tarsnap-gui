@@ -606,6 +606,13 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>ConfirmationDialog</name>
+    <message>
+        <source>Not confirmed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FilePickerDialog</name>
     <message>
         <source>File Browser</source>

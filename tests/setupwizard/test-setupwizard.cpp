@@ -106,8 +106,12 @@ void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
     VISUAL_INIT(wizard);
     IF_NOT_VISUAL { wizard->open(); }
 
+    // Wait for it to finish opening.
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
+
     // Page 1
     QVERIFY(wizard->pageTitle() == "Setup wizard");
+    QVERIFY(GET_BUTTON(NextButton)->hasFocus());
     GET_BUTTON(NextButton)->click();
     VISUAL_WAIT;
 

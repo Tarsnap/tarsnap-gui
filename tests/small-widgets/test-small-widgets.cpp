@@ -115,8 +115,17 @@ void TestSmallWidgets::filepickerdialog()
 
 void TestSmallWidgets::confirmationDialog()
 {
-    ConfirmationDialog *confirm = new ConfirmationDialog();
-    delete confirm;
+    ConfirmationDialog *cd = new ConfirmationDialog();
+
+    // Don't try to ->show() this, because ConfirmationDialog is a
+    // QObject (which spawns windows as needed).
+
+    // Prepare to cancel the upcoming window, then launch the window.
+    QMetaObject::invokeMethod(&cd->_inputDialog, "close", Qt::QueuedConnection);
+    cd->start("title", "text", "confirm", 1, "title", "text", "confirmed");
+    VISUAL_WAIT;
+
+    delete cd;
 }
 
 QTEST_MAIN(TestSmallWidgets)

@@ -17,6 +17,7 @@ void TWizardPage::initializePage()
 {
     connect_ui_buttons();
     checkComplete();
+    focus_proceed_button();
 }
 
 bool TWizardPage::checkComplete()
@@ -87,6 +88,16 @@ QAbstractButton *TWizardPage::button(const WizardButton which) const
     }
     // Shouldn't reach here.
     return nullptr;
+}
+
+void TWizardPage::focus_proceed_button()
+{
+    QAbstractButton *button;
+
+    if((GET_BUTTON("nextButton")) != nullptr)
+        button->setFocus();
+    else if((GET_BUTTON("finishButton")) != nullptr)
+        button->setFocus();
 }
 
 // These methods are here so that derived classes can override them.

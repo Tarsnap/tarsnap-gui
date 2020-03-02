@@ -46,6 +46,7 @@ void TElidedLabel::clear()
 {
     _fullText.clear();
     QLabel::clear();
+    setToolTip("");
 }
 
 void TElidedLabel::resizeEvent(QResizeEvent *event)

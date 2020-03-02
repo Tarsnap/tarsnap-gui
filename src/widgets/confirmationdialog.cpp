@@ -1,7 +1,7 @@
 #include "confirmationdialog.h"
 
 ConfirmationDialog::ConfirmationDialog(QWidget *parent)
-    : QWidget(parent), _inputDialog(this), _countdownBox(this)
+    : QObject(parent), _inputDialog(parent), _countdownBox(parent)
 {
     // Set up text confirmation dialog
     _inputDialog.setInputMode(QInputDialog::TextInput);

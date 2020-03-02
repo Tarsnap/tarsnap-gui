@@ -15,7 +15,7 @@ WARNINGS_ENABLE
  * type a confirmation message, then has an additional countdown timer (to
  * allow more cancellation opportunities) before the action is taken.
  */
-class ConfirmationDialog : public QWidget
+class ConfirmationDialog : public QObject
 {
     Q_OBJECT
 

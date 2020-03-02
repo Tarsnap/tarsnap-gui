@@ -21,6 +21,7 @@ class ConfirmationDialog : public QObject
 
 #ifdef QT_TESTLIB_LIB
     friend class TestSettingsWidget;
+    friend class TestSmallWidgets;
 #endif
 
 public:

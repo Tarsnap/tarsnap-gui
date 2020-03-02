@@ -54,15 +54,16 @@ private slots:
     void timerFired();
 
 private:
+    // Confirmation text
     QInputDialog _inputDialog;
     QString      _confirmationText;
+    QString      _confirmedButtonText;
 
+    // Countdown box
     QMessageBox _countdownBox;
     QTimer      _timer;
     int         _countdownSeconds;
     QString     _countdownText;
-
-    QString _confirmedButtonText;
 };
 
 #endif // !CONFIRMATIONDIALOG_H

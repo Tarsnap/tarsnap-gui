@@ -19,7 +19,7 @@ class FinalPage;
 
 /**
  * \ingroup widgets-setup
- * \brief The SetupWizard is a QWizard which guides the user
+ * \brief The SetupWizard is a TWizard which guides the user
  * through configuring the essential options of this app.
  */
 class SetupWizard : public TWizard

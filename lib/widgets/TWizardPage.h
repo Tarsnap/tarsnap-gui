@@ -92,6 +92,9 @@ private:
     //! Either the "next" or "finish" button.
     QAbstractButton *_proceedButton;
 
+    //! Focus the proceed button (for easy keyboard navigation).
+    void focus_proceed_button();
+
     // Called in initializePage, after the UI has been set up.
     void connect_ui_buttons();
 };

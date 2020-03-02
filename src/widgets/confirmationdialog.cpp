@@ -19,7 +19,7 @@ void ConfirmationDialog::validateConfirmationText(const QString &text)
     if(text == _confirmationText)
         _inputDialog.setOkButtonText(_confirmedButtonText);
     else
-        _inputDialog.setOkButtonText("Not confirmed");
+        _inputDialog.setOkButtonText(tr("Not confirmed"));
 }
 
 void ConfirmationDialog::timerFired()
@@ -48,7 +48,7 @@ void ConfirmationDialog::start(const QString &startTitle,
 {
     _inputDialog.setWindowTitle(startTitle);
     _inputDialog.setLabelText(startText);
-    _inputDialog.setOkButtonText("Not confirmed");
+    _inputDialog.setOkButtonText(tr("Not confirmed"));
     _confirmationText    = confirmationText;
     _confirmedButtonText = confirmedButtonText;
 

@@ -1,5 +1,5 @@
-#ifndef CONFIRMDIALOG_H
-#define CONFIRMDIALOG_H
+#ifndef CONFIRMATIONDIALOG_H
+#define CONFIRMATIONDIALOG_H
 
 #include "warnings-disable.h"
 
@@ -65,4 +65,4 @@ private:
     QString _confirmedButtonText;
 };
 
-#endif // CONFIRMDIALOG_H
+#endif // !CONFIRMATIONDIALOG_H

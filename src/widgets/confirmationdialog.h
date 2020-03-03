@@ -51,6 +51,7 @@ signals:
 
 private slots:
     void validateConfirmationText(const QString &text);
+    void finishedConfirmationBox(int result);
     void timerFired();
 
 private:

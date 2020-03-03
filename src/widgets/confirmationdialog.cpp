@@ -7,6 +7,8 @@ ConfirmationDialog::ConfirmationDialog(QWidget *parent)
     _inputDialog.setInputMode(QInputDialog::TextInput);
     connect(&_inputDialog, &QInputDialog::textValueChanged, this,
             &ConfirmationDialog::validateConfirmationText);
+    connect(&_inputDialog, &QInputDialog::finished, this,
+            &ConfirmationDialog::finishedConfirmationBox);
 
     // Set up countdown box
     _countdownBox.setIcon(QMessageBox::Critical);
@@ -20,6 +22,27 @@ void ConfirmationDialog::validateConfirmationText(const QString &text)
         _inputDialog.setOkButtonText(_confirmedButtonText);
     else
         _inputDialog.setOkButtonText(tr("Not confirmed"));
+}
+
+void ConfirmationDialog::finishedConfirmationBox(int result)
+{
+    // Bail if it's a cancel or if the text doesn't match.
+    if((result != QDialog::Accepted)
+       || (_confirmationText != _inputDialog.textValue()))
+    {
+        emit cancelled();
+        return;
+    }
+
+    // Launch the countdown.
+    _countdownBox.setWindowTitle(_countdownTitle);
+    _countdownBox.setText(_countdownText.arg(_countdownSeconds));
+    _timer.start(1000);
+    if(QMessageBox::Cancel == _countdownBox.exec())
+    {
+        _timer.stop();
+        emit cancelled();
+    }
 }
 
 void ConfirmationDialog::timerFired()
@@ -55,22 +78,6 @@ void ConfirmationDialog::start(const QString &startTitle,
     _countdownTitle      = countdownTitle;
     _countdownText       = countdownText;
 
-    // Get text from user
-    if(_inputDialog.exec() && (confirmationText == _inputDialog.textValue()))
-    {
-        // If it matches, start the countdown
-        _countdownBox.setWindowTitle(_countdownTitle);
-        _countdownBox.setText(_countdownText.arg(_countdownSeconds));
-
-        _timer.start(1000);
-        if(QMessageBox::Cancel == _countdownBox.exec())
-        {
-            _timer.stop();
-            emit cancelled();
-        }
-    }
-    else
-    {
-        emit cancelled();
-    }
+    // Launch dialog.
+    _inputDialog.open();
 }

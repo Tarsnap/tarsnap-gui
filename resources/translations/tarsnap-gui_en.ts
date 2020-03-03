@@ -1829,10 +1829,6 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose a machine name and enter your Tarsnap account credentials.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tarsnap password:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1870,6 +1866,10 @@ Aborting operation.</source>
     </message>
     <message>
         <source>Select your existing keyfile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a machine name and enter your account credentials.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

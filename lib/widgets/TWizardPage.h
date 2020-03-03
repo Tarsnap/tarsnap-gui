@@ -38,7 +38,7 @@ class TWizardPage : public QWidget
 
 public:
     //! Constructor.
-    TWizardPage(QWidget *parent = nullptr);
+    explicit TWizardPage(QWidget *parent = nullptr);
 
     //! Initialize the page when it first becomes visible.
     virtual void initializePage();

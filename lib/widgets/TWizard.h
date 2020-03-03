@@ -39,7 +39,7 @@ class TWizard : public QDialog
 
 public:
     //! Constructor.
-    TWizard(QWidget *parent = nullptr);
+    explicit TWizard(QWidget *parent = nullptr);
     ~TWizard() override;
 
     //! Get the current page.

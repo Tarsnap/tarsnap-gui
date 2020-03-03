@@ -63,6 +63,7 @@ private:
     QMessageBox _countdownBox;
     QTimer      _timer;
     int         _countdownSeconds;
+    QString     _countdownTitle;
     QString     _countdownText;
 };
 

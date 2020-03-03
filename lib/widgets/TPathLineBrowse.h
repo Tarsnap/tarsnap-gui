@@ -69,6 +69,9 @@ signals:
 private slots:
     void browseClicked();
 
+protected:
+    void changeEvent(QEvent *event) override;
+
 private:
     Ui::TPathLineBrowse *_ui;
 

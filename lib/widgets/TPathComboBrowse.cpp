@@ -28,6 +28,14 @@ TPathComboBrowse::~TPathComboBrowse()
     delete _ui;
 }
 
+void TPathComboBrowse::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+        _ui->retranslateUi(this);
+    else
+        QWidget::changeEvent(event);
+}
+
 QString TPathComboBrowse::label() const
 {
     return _ui->label->text();

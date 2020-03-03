@@ -116,15 +116,40 @@ void TestSmallWidgets::filepickerdialog()
 void TestSmallWidgets::confirmationDialog()
 {
     ConfirmationDialog *cd = new ConfirmationDialog();
+    QSignalSpy          sig_cancel(cd, SIGNAL(cancelled()));
+    QSignalSpy          sig_confirmed(cd, SIGNAL(confirmed()));
 
     // Don't try to ->show() this, because ConfirmationDialog is a
     // QObject (which spawns windows as needed).
 
     // Launch the window then close it.
-    cd->start("title", "text", "confirm", 1, "title", "text", "confirmed");
+    cd->start("text title", "type 'confirm'", "confirm", 1, "countdown title",
+              "seconds left %1", "confirmed");
     VISUAL_WAIT;
     cd->_inputDialog.close();
     VISUAL_WAIT;
+    QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
+    sig_cancel.clear();
+
+    // Launch the window and accept it (with blank text).
+    cd->start("text title", "type 'confirm'", "confirm", 1, "countdown title",
+              "seconds left %1", "confirmed");
+    VISUAL_WAIT;
+    cd->_inputDialog.accept();
+    VISUAL_WAIT;
+    QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
+    sig_cancel.clear();
+
+    // Launch the window and accept it (with incorrect text).
+    cd->start("text title", "type 'confirm'", "confirm", 1, "countdown title",
+              "seconds left %1", "confirmed");
+    VISUAL_WAIT;
+    cd->_inputDialog.setTextValue("some kind of text");
+    VISUAL_WAIT;
+    cd->_inputDialog.accept();
+    VISUAL_WAIT;
+    QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
+    sig_cancel.clear();
 
     delete cd;
 }

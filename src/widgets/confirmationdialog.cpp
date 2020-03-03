@@ -51,15 +51,15 @@ void ConfirmationDialog::start(const QString &startTitle,
     _inputDialog.setOkButtonText(tr("Not confirmed"));
     _confirmationText    = confirmationText;
     _confirmedButtonText = confirmedButtonText;
+    _countdownSeconds    = countdownSeconds;
+    _countdownTitle      = countdownTitle;
+    _countdownText       = countdownText;
 
     // Get text from user
     if(_inputDialog.exec() && (confirmationText == _inputDialog.textValue()))
     {
         // If it matches, start the countdown
-        _countdownSeconds = countdownSeconds;
-        _countdownText    = countdownText;
-
-        _countdownBox.setWindowTitle(countdownTitle);
+        _countdownBox.setWindowTitle(_countdownTitle);
         _countdownBox.setText(_countdownText.arg(_countdownSeconds));
 
         _timer.start(1000);

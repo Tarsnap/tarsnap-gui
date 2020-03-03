@@ -151,6 +151,18 @@ void TestSmallWidgets::confirmationDialog()
     QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
     sig_cancel.clear();
 
+    // Launch the window and accept it (with too-long text).
+    cd->start("text title", "type 'confirm'", "confirm", 1, "countdown title",
+              "seconds left %1", "confirmed");
+    QVERIFY(cd->_inputDialog.textValue() == "");
+    VISUAL_WAIT;
+    cd->_inputDialog.setTextValue("confirmnot");
+    VISUAL_WAIT;
+    cd->_inputDialog.accept();
+    VISUAL_WAIT;
+    QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
+    sig_cancel.clear();
+
     delete cd;
 }
 

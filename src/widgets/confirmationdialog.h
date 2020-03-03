@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 
 /*!
  * \ingroup widgets-general
- * \brief The ConfirmationDialog is a QWidget which requires the user to
+ * \brief The ConfirmationDialog is a QObject which requires the user to
  * type a confirmation message, then has an additional countdown timer (to
  * allow more cancellation opportunities) before the action is taken.
  */

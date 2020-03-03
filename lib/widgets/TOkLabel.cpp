@@ -1,9 +1,21 @@
 #include "TOkLabel.h"
 
+WARNINGS_DISABLE
+#include <QEvent>
+WARNINGS_ENABLE
+
 TOkLabel::TOkLabel(QWidget *parent) : QLabel(parent), _status(0)
 {
     setAlignment(Qt::AlignCenter);
     setFixedSize(15, 15);
+}
+
+void TOkLabel::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+        setStatus(_status);
+    else
+        QWidget::changeEvent(event);
 }
 
 int TOkLabel::status() const

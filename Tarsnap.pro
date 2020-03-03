@@ -255,6 +255,7 @@ UNIT_TESTS =						\
 	tests/mainwindow				\
 	tests/app-cmdline				\
 	tests/app-setup					\
+	tests/translations				\
 	tests/jobstabwidget				\
 	tests/settingswidget				\
 	tests/backuptabwidget				\

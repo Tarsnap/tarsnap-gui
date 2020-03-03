@@ -2793,7 +2793,7 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     </message>
     <message>
         <source>All files (*);;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Toate filele (*);;</translation>
     </message>
     <message>
         <source> too low; must be at least %1</source>
@@ -2830,18 +2830,18 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <name>TPathComboBrowse</name>
     <message>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>Schimbă</translation>
     </message>
     <message>
         <source>All files (*);;</source>
-        <translation type="unfinished"></translation>
+        <translation>Toate filele (*);;</translation>
     </message>
 </context>
 <context>
     <name>TPathLineBrowse</name>
     <message>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>Schimbă</translation>
     </message>
 </context>
 <context>

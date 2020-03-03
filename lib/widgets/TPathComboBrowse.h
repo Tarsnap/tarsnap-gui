@@ -81,6 +81,9 @@ signals:
 private slots:
     void browseClicked();
 
+protected:
+    void changeEvent(QEvent *event) override;
+
 private:
     Ui::TPathComboBrowse *_ui;
 

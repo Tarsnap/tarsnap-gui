@@ -27,6 +27,14 @@ TPathLineBrowse::~TPathLineBrowse()
     delete _ui;
 }
 
+void TPathLineBrowse::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::LanguageChange)
+        _ui->retranslateUi(this);
+    else
+        QWidget::changeEvent(event);
+}
+
 QString TPathLineBrowse::label() const
 {
     return _ui->label->text();

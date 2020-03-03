@@ -120,9 +120,10 @@ void TestSmallWidgets::confirmationDialog()
     // Don't try to ->show() this, because ConfirmationDialog is a
     // QObject (which spawns windows as needed).
 
-    // Prepare to cancel the upcoming window, then launch the window.
-    QMetaObject::invokeMethod(&cd->_inputDialog, "close", Qt::QueuedConnection);
+    // Launch the window then close it.
     cd->start("title", "text", "confirm", 1, "title", "text", "confirmed");
+    VISUAL_WAIT;
+    cd->_inputDialog.close();
     VISUAL_WAIT;
 
     delete cd;

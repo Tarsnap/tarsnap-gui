@@ -14,6 +14,8 @@ ConfirmationDialog::ConfirmationDialog(QWidget *parent)
     _countdownBox.setIcon(QMessageBox::Critical);
     _countdownBox.setStandardButtons(QMessageBox::Cancel);
     connect(&_timer, &QTimer::timeout, this, &ConfirmationDialog::timerFired);
+    connect(&_countdownBox, &QMessageBox::finished, this,
+            &ConfirmationDialog::finishedCountdownBox);
 }
 
 void ConfirmationDialog::validateConfirmationText(const QString &text)
@@ -38,11 +40,21 @@ void ConfirmationDialog::finishedConfirmationBox(int result)
     _countdownBox.setWindowTitle(_countdownTitle);
     _countdownBox.setText(_countdownText.arg(_countdownSeconds));
     _timer.start(1000);
-    if(QMessageBox::Cancel == _countdownBox.exec())
+    _countdownBox.open();
+}
+
+void ConfirmationDialog::finishedCountdownBox(int result)
+{
+    _timer.stop();
+
+    // Bail if it's a cancel.
+    if(result != QDialog::Accepted)
     {
-        _timer.stop();
         emit cancelled();
+        return;
     }
+
+    // Don't emit confirmed here; that's done by timerFired().
 }
 
 void ConfirmationDialog::timerFired()

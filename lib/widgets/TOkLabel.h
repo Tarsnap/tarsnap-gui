@@ -43,6 +43,9 @@ public:
     //! Get a rich text representation of a status.
     static const QString getRichText(int status);
 
+protected:
+    void changeEvent(QEvent *event) override;
+
 private:
     int _status;
 };

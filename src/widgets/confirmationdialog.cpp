@@ -78,6 +78,9 @@ void ConfirmationDialog::start(const QString &startTitle,
     _countdownTitle      = countdownTitle;
     _countdownText       = countdownText;
 
+    // Clear any previous text.
+    _inputDialog.setTextValue("");
+
     // Launch dialog.
     _inputDialog.open();
 }

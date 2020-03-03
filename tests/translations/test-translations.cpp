@@ -53,7 +53,7 @@ void TestTranslations::pathcombobrowse()
     IF_NOT_VISUAL { pcb->show(); }
 
     // We can't (easily) access the label for the "Browse" button,
-    // so this mainly a "does it crash?" test, although there will 
+    // so this mainly a "does it crash?" test, although there will
     // also be cases where I want to run it manually.
 
     Translator::instance().translateApp(qApp, "Romanian");

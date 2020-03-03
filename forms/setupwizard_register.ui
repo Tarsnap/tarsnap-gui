@@ -132,7 +132,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Choose a machine name and enter your Tarsnap account credentials.</string>
+            <string>Choose a machine name and enter your account credentials.</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignJustify|Qt::AlignVCenter</set>

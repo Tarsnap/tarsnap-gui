@@ -1849,10 +1849,6 @@ Aborting operation.</source>
         <translation type="unfinished">Utilizator Tarsnap:</translation>
     </message>
     <message>
-        <source>Choose a machine name and enter your Tarsnap account credentials.</source>
-        <translation type="unfinished">Completați numele dispozitiv și contul de utilizator Tarsnap.</translation>
-    </message>
-    <message>
         <source>Tarsnap password:</source>
         <translation type="unfinished">Parolă Tarsnap:</translation>
     </message>
@@ -1891,6 +1887,10 @@ Aborting operation.</source>
     <message>
         <source>Select your existing keyfile:</source>
         <translation type="unfinished">Alegeți o cheie dispozitiv existentă:</translation>
+    </message>
+    <message>
+        <source>Choose a machine name and enter your account credentials.</source>
+        <translation type="unfinished">Completați numele dispozitiv și contul de utilizator Tarsnap.</translation>
     </message>
 </context>
 <context>

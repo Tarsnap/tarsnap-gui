@@ -53,6 +53,7 @@ private slots:
     void validateConfirmationText(const QString &text);
     void finishedConfirmationBox(int result);
     void timerFired();
+    void finishedCountdownBox(int result);
 
 private:
     // Confirmation text

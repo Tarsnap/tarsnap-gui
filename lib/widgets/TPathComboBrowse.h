@@ -31,7 +31,7 @@ class TPathComboBrowse : public QWidget
 public:
     //! Constructor.
     explicit TPathComboBrowse(QWidget *parent = nullptr);
-    ~TPathComboBrowse();
+    ~TPathComboBrowse() override;
 
     //! Get the label text.
     QString label() const;

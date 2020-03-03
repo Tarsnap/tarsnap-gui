@@ -19,7 +19,7 @@ class TBusyLabel : public QLabel
 public:
     //! Constructor.
     explicit TBusyLabel(QWidget *parent = nullptr);
-    ~TBusyLabel();
+    ~TBusyLabel() override;
 
 public slots:
     //! Starts the animation.
@@ -32,7 +32,7 @@ signals:
 
 protected:
     //! Used for detecting whether to emit \ref clicked.
-    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
     QMovie *_animation;

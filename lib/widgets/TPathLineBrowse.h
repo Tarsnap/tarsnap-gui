@@ -29,7 +29,7 @@ class TPathLineBrowse : public QWidget
 public:
     //! Constructor.
     explicit TPathLineBrowse(QWidget *parent = nullptr);
-    ~TPathLineBrowse();
+    ~TPathLineBrowse() override;
 
     //! Get the label text.
     QString label() const;

@@ -25,7 +25,7 @@ class TElidedLabel : public QLabel
 public:
     //! Constructor.
     explicit TElidedLabel(QWidget *parent = nullptr);
-    ~TElidedLabel();
+    ~TElidedLabel() override;
 
     //! Returns the elided mode.
     Qt::TextElideMode elide() const;
@@ -39,7 +39,7 @@ public:
     QString elideText(const QString &text) const;
 
     //! Returns the recommended size for the widget based on the full text.
-    QSize sizeHint() const;
+    QSize sizeHint() const override;
 
     //! Normal status message.
     void messageNormal(const QString &text);
@@ -59,7 +59,7 @@ signals:
 
 protected:
     //! Recalculates the amount of elided text to display.
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 
     //! How should the text be elided?
     Qt::TextElideMode _elide;

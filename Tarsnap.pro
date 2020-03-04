@@ -57,6 +57,7 @@ SOURCES +=						\
 	lib/widgets/TOkLabel.cpp			\
 	lib/widgets/TPathComboBrowse.cpp		\
 	lib/widgets/TPathLineBrowse.cpp			\
+	lib/widgets/TTextView.cpp			\
 	lib/widgets/TWizard.cpp				\
 	lib/widgets/TWizardPage.cpp			\
 	libcperciva/util/getopt.c			\
@@ -124,6 +125,7 @@ HEADERS +=						\
 	lib/widgets/TOkLabel.h				\
 	lib/widgets/TPathComboBrowse.h			\
 	lib/widgets/TPathLineBrowse.h			\
+	lib/widgets/TTextView.h				\
 	lib/widgets/TWizard.h				\
 	lib/widgets/TWizardPage.h			\
 	libcperciva/util/getopt.h			\

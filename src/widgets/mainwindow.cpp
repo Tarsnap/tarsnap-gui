@@ -515,7 +515,7 @@ void MainWindow::commitSettings()
     settings.sync();
 }
 
-void MainWindow::appendToJournalLog(LogEntry log)
+void MainWindow::appendToJournalLog(const LogEntry &log)
 {
     QTextCursor cursor(_ui->journalLog->document());
     if(!_ui->journalLog->document()->isEmpty())
@@ -565,7 +565,7 @@ void MainWindow::appendToConsoleLog(const QString &log)
     _consoleLog->ensureCursorVisible();
 }
 
-void MainWindow::setJournal(QVector<LogEntry> log)
+void MainWindow::setJournal(const QVector<LogEntry> &log)
 {
     _ui->journalLog->clear();
     for(const LogEntry &entry : log)

@@ -517,28 +517,7 @@ void MainWindow::commitSettings()
 
 void MainWindow::appendToJournalLog(const LogEntry &log)
 {
-    QTextCursor cursor(_ui->journalLog->document());
-    if(!_ui->journalLog->document()->isEmpty())
-    {
-        cursor.movePosition(QTextCursor::End);
-        cursor.insertBlock();
-        cursor.movePosition(QTextCursor::NextBlock);
-    }
-    QColor bgcolor;
-    int    blockCount = _ui->journalLog->document()->blockCount();
-    if(blockCount % 2)
-        bgcolor = qApp->palette().base().color();
-    else
-        bgcolor = qApp->palette().alternateBase().color();
-    QTextBlockFormat bf;
-    bf.setBackground(QBrush(bgcolor));
-    cursor.mergeBlockFormat(bf);
-    cursor.insertText(
-        QString("[%1] %2")
-            .arg(log.timestamp.toString(Qt::DefaultLocaleShortDate))
-            .arg(log.message));
-    _ui->journalLog->moveCursor(QTextCursor::End);
-    _ui->journalLog->ensureCursorVisible();
+    _ui->journalLog->appendLog(log);
 }
 
 void MainWindow::appendToConsoleLog(const QString &log)
@@ -569,7 +548,7 @@ void MainWindow::setJournal(const QVector<LogEntry> &log)
 {
     _ui->journalLog->clear();
     for(const LogEntry &entry : log)
-        appendToJournalLog(entry);
+        _ui->journalLog->appendLog(entry);
 }
 
 void MainWindow::browseForBackupItems()

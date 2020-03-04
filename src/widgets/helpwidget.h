@@ -40,6 +40,9 @@ public slots:
     //! The "about" app menu item was clicked.
     void aboutMenuClicked();
 
+    //! Append a log message.
+    void appendLogString(const QString &text);
+
 protected:
     //! Handles translation change of language.
     void changeEvent(QEvent *event);

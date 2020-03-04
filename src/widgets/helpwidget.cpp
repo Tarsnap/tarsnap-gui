@@ -9,6 +9,8 @@ WARNINGS_DISABLE
 #include "ui_helpwidget.h"
 WARNINGS_ENABLE
 
+#include "LogEntry.h"
+
 #include "debug.h"
 
 HelpWidget::HelpWidget(QWidget *parent)
@@ -53,6 +55,11 @@ HelpWidget::HelpWidget(QWidget *parent)
 HelpWidget::~HelpWidget()
 {
     delete _ui;
+}
+
+void HelpWidget::appendLogString(const QString &text)
+{
+    _consoleLog->appendLog(LogEntry{QDateTime::currentDateTime(), text});
 }
 
 QPlainTextEdit *HelpWidget::getConsoleLog()

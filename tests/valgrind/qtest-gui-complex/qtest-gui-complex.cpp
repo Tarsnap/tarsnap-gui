@@ -13,6 +13,7 @@ WARNINGS_DISABLE
 #include <QLineEdit>
 #include <QRadioButton>
 #include <QSequentialAnimationGroup>
+#include <QTextDocument>
 #include <QTreeView>
 #include <QVBoxLayout>
 WARNINGS_ENABLE
@@ -41,6 +42,7 @@ private slots:
     void pl_lineedit_placeholder();
     void pl_animation_start();
     void pl_image_canRead();
+    void pl_textdocument();
 };
 
 void TestQTestComplex::pl_nothing()
@@ -230,6 +232,13 @@ void TestQTestComplex::pl_image_canRead()
     QImageReader *ir = new QImageReader("../16x16-white.png");
     ir->canRead();
     delete ir;
+}
+
+void TestQTestComplex::pl_textdocument()
+{
+    QTextDocument *doc = new QTextDocument();
+    doc->documentLayout();
+    delete doc;
 }
 
 QTEST_MAIN(TestQTestComplex)

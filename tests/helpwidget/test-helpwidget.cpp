@@ -105,8 +105,7 @@ void TestHelpWidget::console_window()
     VISUAL_WAIT;
 
     // Add some text to the consoleLog
-    QPlainTextEdit *te = helpWidget->getConsoleLog();
-    te->appendPlainText(LONG_TEXT);
+    helpWidget->appendLogString(LONG_TEXT);
     VISUAL_WAIT;
 
     // Becomes invisible by closing the Console window
@@ -116,7 +115,7 @@ void TestHelpWidget::console_window()
     VISUAL_WAIT;
 
     // Add more text while invisible
-    te->appendPlainText(LONG_TEXT);
+    helpWidget->appendLogString(LONG_TEXT);
     VISUAL_WAIT;
 
     // Become visible again

@@ -13,6 +13,7 @@ namespace Ui
 {
 class HelpWidget;
 }
+class TTextView;
 
 /*!
  * \ingroup widgets-main
@@ -49,7 +50,7 @@ private:
     QDialog         _aboutWindow;
     QDialog         _consoleWindow;
 
-    QPlainTextEdit *_consoleLog;
+    TTextView *_consoleLog;
 
     void updateUi();
 };

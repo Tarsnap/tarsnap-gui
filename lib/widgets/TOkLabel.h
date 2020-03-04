@@ -44,6 +44,7 @@ public:
     static const QString getRichText(int status);
 
 protected:
+    //! Handle translation change of language.
     void changeEvent(QEvent *event) override;
 
 private:

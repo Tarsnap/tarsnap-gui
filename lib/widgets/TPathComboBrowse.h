@@ -78,11 +78,12 @@ signals:
     //! The text of the QComboBox has changed.
     void textChanged(const QString &text);
 
+protected:
+    //! Handle translation change of language.
+    void changeEvent(QEvent *event) override;
+
 private slots:
     void browseClicked();
-
-protected:
-    void changeEvent(QEvent *event) override;
 
 private:
     Ui::TPathComboBrowse *_ui;

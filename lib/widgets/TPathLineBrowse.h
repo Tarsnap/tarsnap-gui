@@ -66,11 +66,12 @@ signals:
     //! The text of the QLineEdit has changed.
     void textChanged(const QString &text);
 
+protected:
+    //! Handle translation change of language.
+    void changeEvent(QEvent *event) override;
+
 private slots:
     void browseClicked();
-
-protected:
-    void changeEvent(QEvent *event) override;
 
 private:
     Ui::TPathLineBrowse *_ui;

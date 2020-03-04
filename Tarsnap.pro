@@ -114,6 +114,7 @@ SOURCES +=						\
 
 HEADERS +=						\
 	lib/core/ConsoleLog.h				\
+	lib/core/LogEntry.h				\
 	lib/core/TSettings.h				\
 	lib/core/warnings-disable.h			\
 	lib/util/optparse.h				\

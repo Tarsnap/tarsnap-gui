@@ -29,6 +29,7 @@ SOURCES += test-app-cmdline.cpp				\
 
 HEADERS +=						\
 	../../lib/core/ConsoleLog.h			\
+	../../lib/core/LogEntry.h			\
 	../../lib/core/TSettings.h			\
 	../../lib/util/optparse.h			\
 	../../lib/util/optparse_helper.h		\

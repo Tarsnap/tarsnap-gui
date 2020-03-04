@@ -7,18 +7,9 @@ WARNINGS_DISABLE
 #include <QObject>
 WARNINGS_ENABLE
 
+#include "LogEntry.h"
+
 #include "persistentobject.h"
-
-//! Info to add to the log.
-struct LogEntry
-{
-    //! Time of the entry.
-    QDateTime timestamp;
-    //! Text to add.
-    QString message;
-};
-
-Q_DECLARE_METATYPE(LogEntry)
 
 /*!
  * \ingroup persistent

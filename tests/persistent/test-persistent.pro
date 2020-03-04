@@ -7,6 +7,7 @@ VALGRIND = true
 RESOURCES += ../../resources/resources-lite.qrc
 
 HEADERS  +=						\
+	../../lib/core/LogEntry.h			\
 	../../lib/core/TSettings.h			\
 	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\

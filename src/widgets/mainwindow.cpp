@@ -41,7 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
       _settingsWidget(this),
       _helpWidget(this)
 {
-    connect(&LOG, &ConsoleLog::message, this, &MainWindow::appendToConsoleLog);
+    connect(&LOG, &ConsoleLog::message, &_helpWidget,
+            &HelpWidget::appendLogString);
 
     // Ui initialization
     _ui->setupUi(this);
@@ -518,30 +519,6 @@ void MainWindow::commitSettings()
 void MainWindow::appendToJournalLog(const LogEntry &log)
 {
     _ui->journalLog->appendLog(log);
-}
-
-void MainWindow::appendToConsoleLog(const QString &log)
-{
-    QTextCursor cursor(_consoleLog->document());
-    if(!_consoleLog->document()->isEmpty())
-    {
-        cursor.movePosition(QTextCursor::End);
-        cursor.insertBlock();
-        cursor.movePosition(QTextCursor::NextBlock);
-    }
-    QTextBlockFormat bf;
-    if(cursor.blockFormat().background().color()
-       == qApp->palette().base().color())
-        bf.setBackground(QBrush(qApp->palette().alternateBase().color()));
-    else
-        bf.setBackground(QBrush(qApp->palette().base().color()));
-    cursor.mergeBlockFormat(bf);
-    cursor.insertText(QString("[%1] %2")
-                          .arg(QDateTime::currentDateTime().toString(
-                              Qt::DefaultLocaleShortDate))
-                          .arg(log));
-    _consoleLog->moveCursor(QTextCursor::End);
-    _consoleLog->ensureCursorVisible();
 }
 
 void MainWindow::setJournal(const QVector<LogEntry> &log)

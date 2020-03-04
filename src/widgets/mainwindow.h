@@ -72,8 +72,6 @@ public slots:
     void tarsnapError(TarsnapError error);
     //! Append a new entry to the journal.
     void appendToJournalLog(const LogEntry &log);
-    //! Append a new entry to the console log.
-    void appendToConsoleLog(const QString &log);
     //! Reset the current Journal using log.
     void setJournal(const QVector<LogEntry> &log);
     //! Save the Tarsnap key ID.

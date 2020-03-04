@@ -1,6 +1,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QDateTime>
 #include <QGridLayout>
 #include <QLineEdit>
 #include <QPixmap>
@@ -12,11 +13,13 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "LogEntry.h"
 #include "TBusyLabel.h"
 #include "TElidedLabel.h"
 #include "TOkLabel.h"
 #include "TPathComboBrowse.h"
 #include "TPathLineBrowse.h"
+#include "TTextView.h"
 #include "TWizard.h"
 #include "TWizardPage.h"
 
@@ -36,6 +39,7 @@ private slots:
     void pathlinebrowse();
     void pathcombobrowse();
     void twizard();
+    void textview();
 };
 
 void TestLibWidgets::initTestCase()
@@ -325,6 +329,22 @@ void TestLibWidgets::twizard()
     QVERIFY(wizard->isVisible() == false);
 
     delete wizard;
+}
+
+void TestLibWidgets::textview()
+{
+    TTextView *tv = new TTextView();
+
+    VISUAL_INIT(tv);
+    IF_NOT_VISUAL { tv->show(); }
+
+    tv->appendLog(LogEntry{QDateTime::currentDateTime(), "one"});
+    tv->appendLog(LogEntry{QDateTime::currentDateTime(), "two"});
+    tv->appendLog(LogEntry{QDateTime::currentDateTime(), "three"});
+    tv->appendLog(LogEntry{QDateTime::currentDateTime(), "four"});
+    VISUAL_WAIT;
+
+    delete tv;
 }
 
 QTEST_MAIN(TestLibWidgets)

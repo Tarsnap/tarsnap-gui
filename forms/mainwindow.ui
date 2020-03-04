@@ -267,7 +267,7 @@ margin: 1px 0px 0px 6px;
           </layout>
          </widget>
         </widget>
-        <widget class="QPlainTextEdit" name="journalLog">
+        <widget class="TTextView" name="journalLog">
          <property name="sizePolicy">
           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -290,9 +290,6 @@ font-size: 12px;
          </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
          </property>
         </widget>
        </widget>
@@ -785,6 +782,11 @@ border: none;
    <class>TBusyLabel</class>
    <extends>QLabel</extends>
    <header>TBusyLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TTextView</class>
+   <extends>QPlainTextEdit</extends>
+   <header>TTextView.h</header>
   </customwidget>
   <customwidget>
    <class>ElidedClickableLabel</class>

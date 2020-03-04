@@ -34,6 +34,7 @@ HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
+	../../lib/widgets/TTextView.h			\
 	../../src/backuptask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/filetablemodel.h			\
@@ -75,6 +76,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../lib/core/TSettings.cpp			\
 	../../lib/widgets/TBusyLabel.cpp		\
 	../../lib/widgets/TElidedLabel.cpp		\
+	../../lib/widgets/TTextView.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/filetablemodel.cpp			\

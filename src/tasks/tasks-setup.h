@@ -17,6 +17,8 @@ WARNINGS_ENABLE
  * - should not have any side effects.
  * - should read information from TSettings (if possible), instead
  *   of using parameters.
+ * - functions returning TarsnapTask should be in the form twoWordsTask(),
+ *   to distinguish them from oneTask variable names in TaskManager.
  */
 
 /**
@@ -40,7 +42,7 @@ TarsnapTask *registerMachineTask(const QString &password,
 /**
  * \brief Create a task for: `tarsnap --fsck` or `tarsnap --fsck-prune`.
  */
-TarsnapTask *fsckTask(bool prune);
+TarsnapTask *fsckCleanTask(bool prune);
 
 /**
  * \brief Create a task for: `tarsnap --initialize-cachedir`.

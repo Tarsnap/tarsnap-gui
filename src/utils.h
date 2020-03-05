@@ -30,9 +30,6 @@ WARNINGS_ENABLE
 
 #define DEFAULT_AGGRESSIVE_NETWORKING false
 
-#define DEFAULT_DOWNLOADS                                                      \
-    QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
-
 #define QUEUED Qt::QueuedConnection
 
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))

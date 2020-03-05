@@ -1,6 +1,12 @@
 #ifndef TASKS_DEFS_H
 #define TASKS_DEFS_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
+#include <QStandardPaths>
+WARNINGS_ENABLE
+
 /**
  * \file tasks-defs.h
  * \brief Useful definitions for Tarsnap tasks.
@@ -21,6 +27,8 @@
 /** @} */
 
 /** @{ \name Default behaviour */
+#define DEFAULT_DOWNLOADS                                                      \
+    QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
 #define DEFAULT_NO_DEFAULT_CONFIG true
 #define DEFAULT_PRESERVE_PATHNAMES true
 /** @} */

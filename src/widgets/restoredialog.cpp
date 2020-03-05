@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include "ui_restoredialog.h"
 WARNINGS_ENABLE
 
-#include "utils.h"
+#include "tasks/tasks-defs.h"
 
 #include <TSettings.h>
 

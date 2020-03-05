@@ -86,18 +86,26 @@ private slots:
     void processError();
 
 private:
-    QUuid            _uuid;
-    QVariant         _data; // caller supplied data
-    QProcess *       _process;
-    QByteArray       _stdOut;
-    QByteArray       _stdErr;
-    QByteArray       _stdIn;
-    QString          _stdOutFilename;
-    QString          _command;
-    QStringList      _arguments;
-    bool             _truncateLogOutput;
-    int              _exitCode;
+    // Housekeeping.
+    QUuid     _uuid;
+    QVariant  _data; // caller supplied data
+    QProcess *_process;
 
+    // Standard POSIX input/output.
+    QByteArray _stdOut;
+    QByteArray _stdErr;
+    QByteArray _stdIn;
+    int        _exitCode;
+
+    // Influences standard output.
+    QString _stdOutFilename;
+    bool    _truncateLogOutput;
+
+    // Actual command.
+    QString     _command;
+    QStringList _arguments;
+
+    // Utility function.
     QByteArray truncate_output(QByteArray stdOut);
 
 #ifdef QT_TESTLIB_LIB

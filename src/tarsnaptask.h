@@ -98,7 +98,7 @@ private:
     QProcess *       _process;
     QByteArray       _stdOut;
     QByteArray       _stdErr;
-    QString          _stdIn;
+    QByteArray       _stdIn;
     QString          _stdOutFile;
     QString          _command;
     QStringList      _arguments;

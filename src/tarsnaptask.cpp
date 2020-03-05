@@ -21,8 +21,8 @@ TarsnapTask::TarsnapTask()
     : QObject(),
       _uuid(QUuid::createUuid()),
       _process(nullptr),
-      _truncateLogOutput(false),
-      _exitCode(EXIT_NO_MEANING)
+      _exitCode(EXIT_NO_MEANING),
+      _truncateLogOutput(false)
 {
 #ifdef QT_TESTLIB_LIB
     _fake = false;

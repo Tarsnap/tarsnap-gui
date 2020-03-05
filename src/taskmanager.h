@@ -76,7 +76,7 @@ public slots:
     void registerMachineDo(const QString &password, const QString &machine,
                            const bool useExistingKeyfile);
     //! tarsnap -c -f \<name\>
-    void backupNow(BackupTaskPtr backupTask);
+    void backupNow(BackupTaskDataPtr backupTask);
     //! tarsnap --list-archives -vv
     void getArchives();
     //! tarsnap --print-stats -f \<name\>
@@ -191,12 +191,12 @@ private:
     bool    waitForOnline();
     void    warnNotOnline();
 
-    QMap<QUuid, BackupTaskPtr> _backupTaskMap;
-    QMap<QString, ArchivePtr>  _archiveMap;
-    QList<TarsnapTask *>       _runningTasks;
-    QQueue<TarsnapTask *>      _taskQueue; // mutually exclusive tasks
-    QThreadPool *              _threadPool;
-    QMap<QString, JobPtr>      _jobMap;
+    QMap<QUuid, BackupTaskDataPtr> _backupTaskMap;
+    QMap<QString, ArchivePtr>      _archiveMap;
+    QList<TarsnapTask *>           _runningTasks;
+    QQueue<TarsnapTask *>          _taskQueue; // mutually exclusive tasks
+    QThreadPool *                  _threadPool;
+    QMap<QString, JobPtr>          _jobMap;
 
 #ifdef QT_TESTLIB_LIB
     bool _fakeNextTask;

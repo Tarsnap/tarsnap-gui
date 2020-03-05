@@ -114,11 +114,11 @@ void TaskManager::registerMachineDo(const QString &password,
     queueTask(registerTask);
 }
 
-void TaskManager::backupNow(BackupTaskPtr backupTask)
+void TaskManager::backupNow(BackupTaskDataPtr backupTask)
 {
     if(backupTask == nullptr)
     {
-        DEBUG << "Null BackupTaskPtr passed.";
+        DEBUG << "Null BackupTaskDataPtr passed.";
         return;
     }
 
@@ -596,7 +596,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
                                      const QString &stdOut,
                                      const QString &stdErr)
 {
-    BackupTaskPtr backupTask = _backupTaskMap[data.toUuid()];
+    BackupTaskDataPtr backupTask = _backupTaskMap[data.toUuid()];
     if(!backupTask)
     {
         DEBUG << "Task not found: " << data.toUuid();
@@ -651,7 +651,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
 
 void TaskManager::backupTaskStarted(QVariant data)
 {
-    BackupTaskPtr backupTask = _backupTaskMap[data.toString()];
+    BackupTaskDataPtr backupTask = _backupTaskMap[data.toString()];
     backupTask->setStatus(TaskStatus::Running);
 }
 
@@ -970,7 +970,7 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
 
 void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
 {
-    BackupTaskPtr backupTask = _backupTaskMap[uuid];
+    BackupTaskDataPtr backupTask = _backupTaskMap[uuid];
     if(!backupTask)
     {
         DEBUG << "Backup task update for invalid task";

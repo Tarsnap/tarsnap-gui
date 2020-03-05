@@ -50,7 +50,7 @@ public slots:
 
 signals:
     //! Begin tarsnap -c -f \<name\>
-    void backupNow(BackupTaskPtr backupTask);
+    void backupNow(BackupTaskDataPtr backupTask);
 
     //! Create a new job with the given urls and name.
     void morphBackupIntoJob(QList<QUrl> urls, QString name);

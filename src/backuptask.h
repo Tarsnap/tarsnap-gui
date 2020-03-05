@@ -13,8 +13,8 @@ WARNINGS_ENABLE
 
 class BackupTaskData;
 
-typedef QSharedPointer<BackupTaskData> BackupTaskPtr;
-Q_DECLARE_METATYPE(BackupTaskPtr)
+typedef QSharedPointer<BackupTaskData> BackupTaskDataPtr;
+Q_DECLARE_METATYPE(BackupTaskDataPtr)
 
 /*!
  * \ingroup background-tasks

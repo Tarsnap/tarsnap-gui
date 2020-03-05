@@ -164,7 +164,7 @@ void BackupTabWidget::backupButtonClicked()
                     _ui->backupListWidget->item(i))
                     ->url();
 
-    BackupTaskPtr backup(new BackupTaskData);
+    BackupTaskDataPtr backup(new BackupTaskData);
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
     emit backupNow(backup);

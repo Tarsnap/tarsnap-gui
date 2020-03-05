@@ -98,7 +98,7 @@ public:
     //! @}
 
     //! Create a BackupTaskData which may be passed to TaskManager::backupNow().
-    BackupTaskPtr createBackupTask();
+    BackupTaskDataPtr createBackupTask();
 
     // From PersistentObject
     //! Saves this object to the PersistentStore; creating or

@@ -39,8 +39,8 @@ void TarsnapTask::run()
     _process = new QProcess();
     _process->setProgram(_command);
     _process->setArguments(_arguments);
-    if(!_stdOutFile.isEmpty())
-        _process->setStandardOutputFile(_stdOutFile);
+    if(!_stdOutFilename.isEmpty())
+        _process->setStandardOutputFile(_stdOutFilename);
 
     LOG << tr("Task %1 started:\n[%2 %3]\n")
                .arg(_uuid.toString())
@@ -170,7 +170,7 @@ void TarsnapTask::setStdIn(const QString &standardIn)
 
 void TarsnapTask::setStdOutFile(const QString &fileName)
 {
-    _stdOutFile = fileName;
+    _stdOutFilename = fileName;
 }
 
 QVariant TarsnapTask::data() const
@@ -195,7 +195,7 @@ void TarsnapTask::setTruncateLogOutput(bool truncateLogOutput)
 
 void TarsnapTask::readProcessOutput()
 {
-    if(_stdOutFile.isEmpty())
+    if(_stdOutFilename.isEmpty())
         _stdOut.append(_process->readAllStandardOutput().trimmed());
     _stdErr.append(_process->readAllStandardError().trimmed());
 }

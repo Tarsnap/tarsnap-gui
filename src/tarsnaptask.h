@@ -99,7 +99,7 @@ private:
     QByteArray       _stdOut;
     QByteArray       _stdErr;
     QByteArray       _stdIn;
-    QString          _stdOutFile;
+    QString          _stdOutFilename;
     QString          _command;
     QStringList      _arguments;
     bool             _truncateLogOutput;

@@ -60,7 +60,7 @@ TarsnapTask *registerMachineTask(const QString &password,
     return (task);
 }
 
-TarsnapTask *fsckTask(bool prune)
+TarsnapTask *fsckCleanTask(bool prune)
 {
     TarsnapTask *task = new TarsnapTask();
     QStringList  args = makeTarsnapArgs();

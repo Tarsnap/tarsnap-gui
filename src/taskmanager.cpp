@@ -75,7 +75,7 @@ void TaskManager::registerMachineDo(const QString &password,
     if(useExistingKeyfile)
     {
         // existing key, attempt to rebuild cache & verify archive integrity
-        registerTask = fsckTask(true);
+        registerTask = fsckCleanTask(true);
     }
     else
     {
@@ -95,7 +95,7 @@ void TaskManager::registerMachineDo(const QString &password,
         )
             secondTask = initializeCachedirTask();
         else
-            secondTask = fsckTask(true);
+            secondTask = fsckCleanTask(true);
 
         // We don't have a third task.
         // Compatibility: normally we'd just do data.setValue(nullptr), but
@@ -339,7 +339,7 @@ void TaskManager::getOverallStats()
 
 void TaskManager::fsck(bool prune)
 {
-    TarsnapTask *fsck = fsckTask(prune);
+    TarsnapTask *fsck = fsckCleanTask(prune);
     connect(fsck, &TarsnapTask::finished, this, &TaskManager::fsckFinished,
             QUEUED);
     connect(fsck, &TarsnapTask::started, this,

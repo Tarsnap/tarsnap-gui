@@ -114,16 +114,16 @@ void TaskManager::registerMachineDo(const QString &password,
     queueTask(registerTask);
 }
 
-void TaskManager::backupNow(BackupTaskDataPtr backupTask)
+void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
 {
-    if(backupTask == nullptr)
+    if(backupTaskData == nullptr)
     {
         DEBUG << "Null BackupTaskDataPtr passed.";
         return;
     }
 
-    _backupTaskMap[backupTask->uuid()] = backupTask;
-    TarsnapTask *bTask                 = new TarsnapTask();
+    _backupTaskMap[backupTaskData->uuid()] = backupTaskData;
+    TarsnapTask *bTask                     = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
     TSettings settings;
@@ -132,44 +132,44 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTask)
                   DEFAULT_AGGRESSIVE_NETWORKING)
            .toBool())
         args << "--aggressive-networking";
-    if(backupTask->optionDryRun())
+    if(backupTaskData->optionDryRun())
         args << "--dry-run";
-    if(backupTask->optionSkipNoDump())
+    if(backupTaskData->optionSkipNoDump())
         args << "--nodump";
-    if(backupTask->optionPreservePaths())
+    if(backupTaskData->optionPreservePaths())
         args << "-P";
-    if(!backupTask->optionTraverseMount())
+    if(!backupTaskData->optionTraverseMount())
         args << "--one-file-system";
-    if(backupTask->optionFollowSymLinks())
+    if(backupTaskData->optionFollowSymLinks())
         args << "-L";
     if(Utils::tarsnapVersionMinimum("1.0.36"))
         args << "--creationtime"
-             << QString::number(backupTask->timestamp().toTime_t());
+             << QString::number(backupTaskData->timestamp().toTime_t());
     args << "--quiet"
          << "--print-stats"
          << "--no-humanize-numbers"
          << "-c"
-         << "-f" << backupTask->name();
-    for(const QString &exclude : backupTask->getExcludesList())
+         << "-f" << backupTaskData->name();
+    for(const QString &exclude : backupTaskData->getExcludesList())
     {
         args << "--exclude" << exclude;
     }
-    for(const QUrl &url : backupTask->urls())
+    for(const QUrl &url : backupTaskData->urls())
     {
         args << url.toLocalFile();
     }
     bTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     bTask->setArguments(args);
-    backupTask->setCommand(bTask->command() + " "
-                           + bTask->arguments().join(" "));
-    bTask->setData(backupTask->uuid());
+    backupTaskData->setCommand(bTask->command() + " "
+                               + bTask->arguments().join(" "));
+    bTask->setData(backupTaskData->uuid());
     connect(bTask, &TarsnapTask::finished, this,
             &TaskManager::backupTaskFinished, QUEUED);
     connect(bTask, &TarsnapTask::started, this, &TaskManager::backupTaskStarted,
             QUEUED);
-    connect(backupTask.data(), &BackupTaskData::statusUpdate, this,
+    connect(backupTaskData.data(), &BackupTaskData::statusUpdate, this,
             &TaskManager::notifyBackupTaskUpdate, QUEUED);
-    backupTask->setStatus(TaskStatus::Queued);
+    backupTaskData->setStatus(TaskStatus::Queued);
     queueTask(bTask, true);
 }
 
@@ -596,14 +596,14 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
                                      const QString &stdOut,
                                      const QString &stdErr)
 {
-    BackupTaskDataPtr backupTask = _backupTaskMap[data.toUuid()];
-    if(!backupTask)
+    BackupTaskDataPtr backupTaskData = _backupTaskMap[data.toUuid()];
+    if(!backupTaskData)
     {
         DEBUG << "Task not found: " << data.toUuid();
         return;
     }
-    backupTask->setExitCode(exitCode);
-    backupTask->setOutput(stdOut + stdErr);
+    backupTaskData->setExitCode(exitCode);
+    backupTaskData->setOutput(stdOut + stdErr);
     bool truncated = false;
     if(exitCode != SUCCESS)
     {
@@ -612,7 +612,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
                                Qt::CaseSensitive);
         if(lastIndex == -1)
         {
-            backupTask->setStatus(TaskStatus::Failed);
+            backupTaskData->setStatus(TaskStatus::Failed);
             parseError(stdErr);
             return;
         }
@@ -623,22 +623,22 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
     }
 
     ArchivePtr archive(new Archive);
-    archive->setName(backupTask->name());
+    archive->setName(backupTaskData->name());
     if(truncated)
     {
         archive->setName(archive->name().append(".part"));
         archive->setTruncated(true);
     }
-    archive->setCommand(backupTask->command());
+    archive->setCommand(backupTaskData->command());
     // Lose milliseconds precision by converting to Unix timestamp and back.
     // So that a subsequent comparison in getArchiveListFinished won't fail.
     archive->setTimestamp(
-        QDateTime::fromTime_t(backupTask->timestamp().toTime_t()));
-    archive->setJobRef(backupTask->jobRef());
+        QDateTime::fromTime_t(backupTaskData->timestamp().toTime_t()));
+    archive->setJobRef(backupTaskData->jobRef());
     parseArchiveStats(stdErr, true, archive);
     archive->save();
-    backupTask->setArchive(archive);
-    backupTask->setStatus(TaskStatus::Completed);
+    backupTaskData->setArchive(archive);
+    backupTaskData->setStatus(TaskStatus::Completed);
     _archiveMap.insert(archive->name(), archive);
     for(const JobPtr &job : _jobMap)
     {
@@ -651,8 +651,8 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
 
 void TaskManager::backupTaskStarted(QVariant data)
 {
-    BackupTaskDataPtr backupTask = _backupTaskMap[data.toString()];
-    backupTask->setStatus(TaskStatus::Running);
+    BackupTaskDataPtr backupTaskData = _backupTaskMap[data.toString()];
+    backupTaskData->setStatus(TaskStatus::Running);
 }
 
 void TaskManager::registerMachineFinished(QVariant data, int exitCode,
@@ -970,8 +970,8 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
 
 void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
 {
-    BackupTaskDataPtr backupTask = _backupTaskMap[uuid];
-    if(!backupTask)
+    BackupTaskDataPtr backupTaskData = _backupTaskMap[uuid];
+    if(!backupTaskData)
     {
         DEBUG << "Backup task update for invalid task";
         return;
@@ -983,45 +983,48 @@ void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
         break;
     case TaskStatus::Completed:
     {
-        QString msg = tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
-                          .arg(backupTask->name())
-                          .arg(Utils::humanBytes(
-                              backupTask->archive()->sizeUniqueCompressed()));
-        emit message(msg, backupTask->archive()->archiveStats());
+        QString msg =
+            tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
+                .arg(backupTaskData->name())
+                .arg(Utils::humanBytes(
+                    backupTaskData->archive()->sizeUniqueCompressed()));
+        emit message(msg, backupTaskData->archive()->archiveStats());
         emit displayNotification(msg, NOTIFICATION_ARCHIVE_CREATED,
-                                 backupTask->name());
-        _backupTaskMap.remove(backupTask->uuid());
+                                 backupTaskData->name());
+        _backupTaskMap.remove(backupTaskData->uuid());
         break;
     }
     case TaskStatus::Queued:
-        emit message(tr("Backup <i>%1</i> queued.").arg(backupTask->name()));
+        emit message(
+            tr("Backup <i>%1</i> queued.").arg(backupTaskData->name()));
         break;
     case TaskStatus::Running:
     {
         QString msg =
-            tr("Backup <i>%1</i> is running.").arg(backupTask->name());
+            tr("Backup <i>%1</i> is running.").arg(backupTaskData->name());
 
         emit message(msg);
         emit displayNotification(msg, NOTIFICATION_ARCHIVE_CREATING,
-                                 backupTask->name());
+                                 backupTaskData->name());
         break;
     }
     case TaskStatus::Failed:
     {
         QString msg =
             tr("Backup <i>%1</i> failed: %2")
-                .arg(backupTask->name())
-                .arg(backupTask->output()
+                .arg(backupTaskData->name())
+                .arg(backupTaskData->output()
                          .section(QChar('\n'), 0, 0, QString::SectionSkipEmpty)
                          .simplified());
-        emit message(msg, backupTask->output());
+        emit message(msg, backupTaskData->output());
         emit displayNotification(msg, NOTIFICATION_ARCHIVE_FAILED,
-                                 backupTask->name());
-        _backupTaskMap.remove(backupTask->uuid());
+                                 backupTaskData->name());
+        _backupTaskMap.remove(backupTaskData->uuid());
         break;
     }
     case TaskStatus::Paused:
-        emit message(tr("Backup <i>%1</i> paused.").arg(backupTask->name()));
+        emit message(
+            tr("Backup <i>%1</i> paused.").arg(backupTaskData->name()));
         break;
     case TaskStatus::VersionTooLow:
         // It should be impossible to get here.

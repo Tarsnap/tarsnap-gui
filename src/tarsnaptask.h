@@ -4,7 +4,6 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QEventLoopLocker>
 #include <QProcess>
 #include <QRunnable>
 #include <QUuid>
@@ -52,11 +51,6 @@ public:
     //! Emits \ref canceled.
     //! \warning Does not actually cancel a running task!
     void cancel();
-    //! Blocks until the QProcess is finished.
-    bool waitForTask();
-
-    //! Gets the state of the QProcess.
-    QProcess::ProcessState taskStatus();
 
     //! \name Getter/setter methods
     //! @{
@@ -72,7 +66,6 @@ public:
     QVariant data() const;
     void     setData(const QVariant &data);
 
-    bool truncateLogOutput() const;
     void setTruncateLogOutput(bool truncateLogOutput);
     //! @}
 
@@ -103,7 +96,6 @@ private:
     QString          _command;
     QStringList      _arguments;
     bool             _truncateLogOutput;
-    QEventLoopLocker _lock;
     int              _exitCode;
 
     QByteArray truncate_output(QByteArray stdOut);

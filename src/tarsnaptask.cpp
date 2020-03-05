@@ -133,16 +133,6 @@ void TarsnapTask::cancel()
     emit canceled(_data);
 }
 
-bool TarsnapTask::waitForTask()
-{
-    return _process->waitForFinished(-1);
-}
-
-QProcess::ProcessState TarsnapTask::taskStatus()
-{
-    return _process->state();
-}
-
 QString TarsnapTask::command() const
 {
     return _command;
@@ -181,11 +171,6 @@ QVariant TarsnapTask::data() const
 void TarsnapTask::setData(const QVariant &data)
 {
     _data = data;
-}
-
-bool TarsnapTask::truncateLogOutput() const
-{
-    return _truncateLogOutput;
 }
 
 void TarsnapTask::setTruncateLogOutput(bool truncateLogOutput)

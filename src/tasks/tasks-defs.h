@@ -22,6 +22,7 @@
 
 /** @{ \name Default behaviour */
 #define DEFAULT_NO_DEFAULT_CONFIG true
+#define DEFAULT_PRESERVE_PATHNAMES true
 /** @} */
 
 #endif /* !TASKS_DEFS_H */

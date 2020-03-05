@@ -277,7 +277,7 @@ void JobWidget::restoreButtonClicked()
         ArchivePtr     archive       = _job->archives().first();
         RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
         restoreDialog->show();
-        connect(restoreDialog, &RestoreDialog::accepted, [=] {
+        connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
             emit restoreJobArchive(restoreDialog->archive(),
                                    restoreDialog->getOptions());
         });

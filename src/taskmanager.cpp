@@ -242,7 +242,7 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
     connect(statsTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveStatsFinished, QUEUED);
     connect(statsTask, &TarsnapTask::started, this,
-            [=]() {
+            [this, archive]() {
                 emit message(tr("Fetching stats for archive <i>%1</i>...")
                                  .arg(archive->name()));
             },
@@ -274,7 +274,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     connect(contentsTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveContentsFinished, QUEUED);
     connect(contentsTask, &TarsnapTask::started, this,
-            [=]() {
+            [this, archive]() {
                 emit message(tr("Fetching contents for archive <i>%1</i>...")
                                  .arg(archive->name()));
             },
@@ -308,14 +308,14 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     connect(delArchives, &TarsnapTask::finished, this,
             &TaskManager::deleteArchivesFinished, QUEUED);
     connect(delArchives, &TarsnapTask::canceled, this,
-            [=](QVariant data) {
+            [](QVariant data) {
                 QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
                 for(const ArchivePtr &archive : d_archives)
                     archive->setDeleteScheduled(false);
             },
             QUEUED);
     connect(delArchives, &TarsnapTask::started, this,
-            [=](QVariant data) {
+            [this](QVariant data) {
                 QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
                 notifyArchivesDeleted(d_archives, false);
             },
@@ -343,7 +343,7 @@ void TaskManager::fsck(bool prune)
     connect(fsck, &TarsnapTask::finished, this, &TaskManager::fsckFinished,
             QUEUED);
     connect(fsck, &TarsnapTask::started, this,
-            [=]() { emit message(tr("Cache repair initiated.")); }, QUEUED);
+            [this]() { emit message(tr("Cache repair initiated.")); }, QUEUED);
     queueTask(fsck, true);
 }
 
@@ -359,7 +359,8 @@ void TaskManager::nuke()
     connect(nuke, &TarsnapTask::finished, this, &TaskManager::nukeFinished,
             QUEUED);
     connect(nuke, &TarsnapTask::started, this,
-            [=]() { emit message(tr("Archives nuke initiated...")); }, QUEUED);
+            [this]() { emit message(tr("Archives nuke initiated...")); },
+            QUEUED);
     queueTask(nuke, true);
 }
 
@@ -414,7 +415,7 @@ void TaskManager::restoreArchive(ArchivePtr            archive,
     connect(restore, &TarsnapTask::finished, this,
             &TaskManager::restoreArchiveFinished, QUEUED);
     connect(restore, &TarsnapTask::started, this,
-            [=]() {
+            [this, archive]() {
                 emit message(tr("Restoring from archive <i>%1</i>...")
                                  .arg(archive->name()));
             },

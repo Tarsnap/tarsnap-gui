@@ -173,10 +173,11 @@ void ArchiveListWidget::restoreSelectedItem()
             RestoreDialog *restoreDialog =
                 new RestoreDialog(this, archiveItem->archive());
             restoreDialog->show();
-            connect(restoreDialog, &RestoreDialog::accepted, [=] {
-                emit restoreArchive(restoreDialog->archive(),
-                                    restoreDialog->getOptions());
-            });
+            connect(restoreDialog, &RestoreDialog::accepted,
+                    [this, restoreDialog] {
+                        emit restoreArchive(restoreDialog->archive(),
+                                            restoreDialog->getOptions());
+                    });
         }
     }
 }
@@ -264,7 +265,7 @@ void ArchiveListWidget::restoreItem()
         RestoreDialog *restoreDialog =
             new RestoreDialog(this, archiveItem->archive());
         restoreDialog->show();
-        connect(restoreDialog, &RestoreDialog::accepted, [=] {
+        connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
             emit restoreArchive(restoreDialog->archive(),
                                 restoreDialog->getOptions());
         });

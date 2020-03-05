@@ -117,10 +117,11 @@ void JobListWidget::restoreItem()
             ArchivePtr     archive       = job->archives().first();
             RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
             restoreDialog->show();
-            connect(restoreDialog, &RestoreDialog::accepted, [=] {
-                emit restoreArchive(restoreDialog->archive(),
-                                    restoreDialog->getOptions());
-            });
+            connect(restoreDialog, &RestoreDialog::accepted,
+                    [this, restoreDialog] {
+                        emit restoreArchive(restoreDialog->archive(),
+                                            restoreDialog->getOptions());
+                    });
         }
     }
 }
@@ -228,10 +229,11 @@ void JobListWidget::restoreSelectedItem()
             ArchivePtr     archive       = job->archives().first();
             RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
             restoreDialog->show();
-            connect(restoreDialog, &RestoreDialog::accepted, [=] {
-                emit restoreArchive(restoreDialog->archive(),
-                                    restoreDialog->getOptions());
-            });
+            connect(restoreDialog, &RestoreDialog::accepted,
+                    [this, restoreDialog] {
+                        emit restoreArchive(restoreDialog->archive(),
+                                            restoreDialog->getOptions());
+                    });
         }
     }
 }

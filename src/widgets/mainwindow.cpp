@@ -391,7 +391,7 @@ void MainWindow::setupMenuBar()
     QAction *actionFullScreen = new QAction(tr("Enter Full Screen"), this);
     actionFullScreen->setShortcut(QKeySequence("Ctrl+Meta+F"));
     actionFullScreen->setCheckable(true);
-    connect(actionFullScreen, &QAction::triggered, [=](bool checked) {
+    connect(actionFullScreen, &QAction::triggered, [this](bool checked) {
         if(checked)
         {
             actionFullScreen->setText(tr("Exit Full Screen"));

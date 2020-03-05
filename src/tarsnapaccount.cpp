@@ -42,13 +42,14 @@ void TarsnapAccount::getAccountInfo(bool    displayActivity,
 
     // Send and receive activity query
     QNetworkReply *activityReply = tarsnapRequest(post);
-    connect(activityReply, &QNetworkReply::finished, [=]() {
-        QByteArray replyData = readReply(activityReply);
-        emit       possibleWarning(replyData);
-        parseCredit(replyData);
-        if(displayActivity)
-            emit gotTable(replyData, tr("Account activity"));
-    });
+    connect(activityReply, &QNetworkReply::finished,
+            [this, activityReply, displayActivity]() {
+                QByteArray replyData = readReply(activityReply);
+                emit       possibleWarning(replyData);
+                parseCredit(replyData);
+                if(displayActivity)
+                    emit gotTable(replyData, tr("Account activity"));
+            });
 
     _machineId = settings.value("tarsnap/key_id", 0).toULongLong();
     if(_machineId)
@@ -63,12 +64,13 @@ void TarsnapAccount::getAccountInfo(bool    displayActivity,
         post.addQueryItem("format", "csv");
         // Send and receive machine activity query
         QNetworkReply *machineActivityReply = tarsnapRequest(post);
-        connect(machineActivityReply, &QNetworkReply::finished, [=]() {
-            QByteArray replyData = readReply(machineActivityReply);
-            parseLastMachineActivity(replyData);
-            if(displayMachineActivity)
-                emit gotTable(replyData, tr("Machine activity"));
-        });
+        connect(machineActivityReply, &QNetworkReply::finished,
+                [this, machineActivityReply, displayMachineActivity]() {
+                    QByteArray replyData = readReply(machineActivityReply);
+                    parseLastMachineActivity(replyData);
+                    if(displayMachineActivity)
+                        emit gotTable(replyData, tr("Machine activity"));
+                });
     }
 }
 

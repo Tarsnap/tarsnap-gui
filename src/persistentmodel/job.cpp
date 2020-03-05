@@ -3,6 +3,7 @@
 #include <TSettings.h>
 
 #include "debug.h"
+#include "tasks-defs.h"
 #include "utils.h"
 
 Job::Job(QObject *parent)

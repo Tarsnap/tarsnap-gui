@@ -4,6 +4,7 @@ WARNINGS_DISABLE
 #include <QFileInfo>
 WARNINGS_ENABLE
 
+#include "tasks-defs.h"
 #include "utils.h"
 
 #include <TSettings.h>

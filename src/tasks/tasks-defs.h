@@ -27,6 +27,7 @@ WARNINGS_ENABLE
 /** @} */
 
 /** @{ \name Default behaviour */
+#define DEFAULT_AGGRESSIVE_NETWORKING false
 #define DEFAULT_DOWNLOADS                                                      \
     QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
 #define DEFAULT_NO_DEFAULT_CONFIG true

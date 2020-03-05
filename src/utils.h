@@ -28,8 +28,6 @@ WARNINGS_ENABLE
 #define DEFAULT_SKIP_SYSTEM_FILES ""
 #endif
 
-#define DEFAULT_AGGRESSIVE_NETWORKING false
-
 #define QUEUED Qt::QueuedConnection
 
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))

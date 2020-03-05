@@ -81,13 +81,10 @@ void TarsnapTask::run()
         goto cleanup;
     }
 
-    // Write to the process' stdin (e.g., the confirmation text for nuke, the
-    // password for tarsnap-keygen, the list of files to restore via tarsnap's
-    // "-x -T -" options).
+    // Write to the process' stdin.
     if(!_stdIn.isEmpty())
     {
-        QByteArray password(_stdIn.toUtf8());
-        _process->write(password.data(), password.size());
+        _process->write(_stdIn.data(), _stdIn.size());
         _process->closeWriteChannel();
     }
 
@@ -168,7 +165,7 @@ void TarsnapTask::setArguments(const QStringList &arguments)
 
 void TarsnapTask::setStdIn(const QString &standardIn)
 {
-    _stdIn = standardIn;
+    _stdIn = QByteArray(standardIn.toUtf8());
 }
 
 void TarsnapTask::setStdOutFile(const QString &fileName)

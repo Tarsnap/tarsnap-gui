@@ -97,7 +97,7 @@ public:
     void setSettingHideSymlinks(bool settingHideSymlinks);
     //! @}
 
-    //! Create a backupTask() which may be passed to TaskManager::backupNow().
+    //! Create a BackupTaskData which may be passed to TaskManager::backupNow().
     BackupTaskPtr createBackupTask();
 
     // From PersistentObject

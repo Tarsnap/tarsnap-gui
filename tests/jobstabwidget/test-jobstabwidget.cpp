@@ -131,7 +131,8 @@ void TestJobsTabWidget::displayJobDetails()
     JobsTabWidget *    jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget *ui            = jobstabwidget->_ui;
     QSignalSpy         sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
-    QSignalSpy sig_backupNow(jobstabwidget, SIGNAL(backupNow(BackupTaskPtr)));
+    QSignalSpy         sig_backupNow(jobstabwidget,
+                             SIGNAL(backupNow(BackupTaskDataPtr)));
 
     VISUAL_INIT(jobstabwidget);
 

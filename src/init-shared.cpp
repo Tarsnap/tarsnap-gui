@@ -35,7 +35,7 @@ static void init_no_app()
 {
     qRegisterMetaType<TaskStatus>("TaskStatus");
     qRegisterMetaType<QList<QUrl>>("QList<QUrl>");
-    qRegisterMetaType<BackupTaskPtr>("BackupTaskPtr");
+    qRegisterMetaType<BackupTaskDataPtr>("BackupTaskDataPtr");
     qRegisterMetaType<QList<ArchivePtr>>("QList<ArchivePtr >");
     qRegisterMetaType<ArchivePtr>("ArchivePtr");
     qRegisterMetaType<ArchiveRestoreOptions>("ArchiveRestoreOptions");

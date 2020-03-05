@@ -87,7 +87,7 @@ public slots:
 
 signals:
     //! Begin tarsnap -c -f \<name\>
-    void backupNow(BackupTaskPtr backupTask);
+    void backupNow(BackupTaskDataPtr backupTask);
     //! Begin tarsnap --list-archives
     void getArchives();
     //! Passes the list of all Archive objects to the ArchiveListWidget.

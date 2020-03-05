@@ -38,10 +38,10 @@ TaskManager::~TaskManager()
 
 void TaskManager::tarsnapVersionFind()
 {
-    TarsnapTask *tarsnap = tarsnapVersionTask();
-    connect(tarsnap, &TarsnapTask::finished, this,
+    TarsnapTask *versionTask = tarsnapVersionTask();
+    connect(versionTask, &TarsnapTask::finished, this,
             &TaskManager::getTarsnapVersionFinished, QUEUED);
-    queueTask(tarsnap);
+    queueTask(versionTask);
 }
 
 void TaskManager::registerMachineDo(const QString &password,
@@ -123,7 +123,7 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
     }
 
     _backupTaskMap[backupTaskData->uuid()] = backupTaskData;
-    TarsnapTask *bTask                     = new TarsnapTask();
+    TarsnapTask *backupTask                = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
     TSettings settings;
@@ -158,39 +158,39 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
     {
         args << url.toLocalFile();
     }
-    bTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    bTask->setArguments(args);
-    backupTaskData->setCommand(bTask->command() + " "
-                               + bTask->arguments().join(" "));
-    bTask->setData(backupTaskData->uuid());
-    connect(bTask, &TarsnapTask::finished, this,
+    backupTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+    backupTask->setArguments(args);
+    backupTaskData->setCommand(backupTask->command() + " "
+                               + backupTask->arguments().join(" "));
+    backupTask->setData(backupTaskData->uuid());
+    connect(backupTask, &TarsnapTask::finished, this,
             &TaskManager::backupTaskFinished, QUEUED);
-    connect(bTask, &TarsnapTask::started, this, &TaskManager::backupTaskStarted,
-            QUEUED);
+    connect(backupTask, &TarsnapTask::started, this,
+            &TaskManager::backupTaskStarted, QUEUED);
     connect(backupTaskData.data(), &BackupTaskData::statusUpdate, this,
             &TaskManager::notifyBackupTaskUpdate, QUEUED);
     backupTaskData->setStatus(TaskStatus::Queued);
-    queueTask(bTask, true);
+    queueTask(backupTask, true);
 }
 
 void TaskManager::getArchives()
 {
-    TarsnapTask *listArchivesTask = new TarsnapTask();
+    TarsnapTask *listTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
     args << "--list-archives"
          << "-vv";
-    listArchivesTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    listArchivesTask->setArguments(args);
-    listArchivesTask->setTruncateLogOutput(true);
-    connect(listArchivesTask, &TarsnapTask::finished, this,
+    listTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+    listTask->setArguments(args);
+    listTask->setTruncateLogOutput(true);
+    connect(listTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveListFinished, QUEUED);
-    connect(listArchivesTask, &TarsnapTask::started, this,
+    connect(listTask, &TarsnapTask::started, this,
             [this]() {
                 emit message(tr("Updating archives list from remote..."));
             },
             QUEUED);
-    queueTask(listArchivesTask);
+    queueTask(listTask);
 }
 
 void TaskManager::loadArchives()
@@ -293,7 +293,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     for(const ArchivePtr &archive : archives)
         archive->setDeleteScheduled(true);
 
-    TarsnapTask *delArchives = new TarsnapTask();
+    TarsnapTask *deleteTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
     args << "--print-stats"
@@ -302,66 +302,66 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     {
         args << "-f" << archive->name();
     }
-    delArchives->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    delArchives->setArguments(args);
-    delArchives->setData(QVariant::fromValue(archives));
-    connect(delArchives, &TarsnapTask::finished, this,
+    deleteTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+    deleteTask->setArguments(args);
+    deleteTask->setData(QVariant::fromValue(archives));
+    connect(deleteTask, &TarsnapTask::finished, this,
             &TaskManager::deleteArchivesFinished, QUEUED);
-    connect(delArchives, &TarsnapTask::canceled, this,
+    connect(deleteTask, &TarsnapTask::canceled, this,
             [](QVariant data) {
                 QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
                 for(const ArchivePtr &archive : d_archives)
                     archive->setDeleteScheduled(false);
             },
             QUEUED);
-    connect(delArchives, &TarsnapTask::started, this,
+    connect(deleteTask, &TarsnapTask::started, this,
             [this](QVariant data) {
                 QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
                 notifyArchivesDeleted(d_archives, false);
             },
             QUEUED);
-    queueTask(delArchives, true);
+    queueTask(deleteTask, true);
 }
 
 void TaskManager::getOverallStats()
 {
-    TarsnapTask *overallStats = new TarsnapTask();
+    TarsnapTask *statsTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
     args << "--print-stats"
          << "--no-humanize-numbers";
-    overallStats->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    overallStats->setArguments(args);
-    connect(overallStats, &TarsnapTask::finished, this,
+    statsTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+    statsTask->setArguments(args);
+    connect(statsTask, &TarsnapTask::finished, this,
             &TaskManager::overallStatsFinished, QUEUED);
-    queueTask(overallStats);
+    queueTask(statsTask);
 }
 
 void TaskManager::fsck(bool prune)
 {
-    TarsnapTask *fsck = fsckCleanTask(prune);
-    connect(fsck, &TarsnapTask::finished, this, &TaskManager::fsckFinished,
+    TarsnapTask *fsckTask = fsckCleanTask(prune);
+    connect(fsckTask, &TarsnapTask::finished, this, &TaskManager::fsckFinished,
             QUEUED);
-    connect(fsck, &TarsnapTask::started, this,
+    connect(fsckTask, &TarsnapTask::started, this,
             [this]() { emit message(tr("Cache repair initiated.")); }, QUEUED);
-    queueTask(fsck, true);
+    queueTask(fsckTask, true);
 }
 
 void TaskManager::nuke()
 {
-    TarsnapTask *nuke = new TarsnapTask();
+    TarsnapTask *nukeTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
     args << "--nuke";
-    nuke->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    nuke->setStdIn("No Tomorrow\n");
-    nuke->setArguments(args);
-    connect(nuke, &TarsnapTask::finished, this, &TaskManager::nukeFinished,
+    nukeTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+    nukeTask->setStdIn("No Tomorrow\n");
+    nukeTask->setArguments(args);
+    connect(nukeTask, &TarsnapTask::finished, this, &TaskManager::nukeFinished,
             QUEUED);
-    connect(nuke, &TarsnapTask::started, this,
+    connect(nukeTask, &TarsnapTask::started, this,
             [this]() { emit message(tr("Archives nuke initiated...")); },
             QUEUED);
-    queueTask(nuke, true);
+    queueTask(nukeTask, true);
 }
 
 void TaskManager::restoreArchive(ArchivePtr            archive,
@@ -373,7 +373,7 @@ void TaskManager::restoreArchive(ArchivePtr            archive,
         return;
     }
 
-    TarsnapTask *restore = new TarsnapTask();
+    TarsnapTask *restoreTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
     if(options.optionRestore)
@@ -400,27 +400,27 @@ void TaskManager::restoreArchive(ArchivePtr            archive,
     if(options.optionTarArchive)
     {
         args << "-r";
-        restore->setStdOutFile(options.path);
+        restoreTask->setStdOutFile(options.path);
     }
     if(!options.files.isEmpty())
     {
         args << "-T"
              << "-";
-        restore->setStdIn(options.files.join(QChar('\n')));
+        restoreTask->setStdIn(options.files.join(QChar('\n')));
     }
     args << "-f" << archive->name();
-    restore->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    restore->setArguments(args);
-    restore->setData(QVariant::fromValue(archive));
-    connect(restore, &TarsnapTask::finished, this,
+    restoreTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
+    restoreTask->setArguments(args);
+    restoreTask->setData(QVariant::fromValue(archive));
+    connect(restoreTask, &TarsnapTask::finished, this,
             &TaskManager::restoreArchiveFinished, QUEUED);
-    connect(restore, &TarsnapTask::started, this,
+    connect(restoreTask, &TarsnapTask::started, this,
             [this, archive]() {
                 emit message(tr("Restoring from archive <i>%1</i>...")
                                  .arg(archive->name()));
             },
             QUEUED);
-    queueTask(restore);
+    queueTask(restoreTask);
 }
 
 void TaskManager::getKeyId(const QString &key_filename)

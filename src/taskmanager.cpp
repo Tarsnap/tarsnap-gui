@@ -167,7 +167,7 @@ void TaskManager::backupNow(BackupTaskPtr backupTask)
             &TaskManager::backupTaskFinished, QUEUED);
     connect(bTask, &TarsnapTask::started, this, &TaskManager::backupTaskStarted,
             QUEUED);
-    connect(backupTask.data(), &BackupTask::statusUpdate, this,
+    connect(backupTask.data(), &BackupTaskData::statusUpdate, this,
             &TaskManager::notifyBackupTaskUpdate, QUEUED);
     backupTask->setStatus(TaskStatus::Queued);
     queueTask(bTask, true);

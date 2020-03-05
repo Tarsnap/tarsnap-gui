@@ -253,7 +253,7 @@ void Job::setSettingHideSymlinks(bool settingHideSymlinks)
 
 BackupTaskPtr Job::createBackupTask()
 {
-    BackupTaskPtr backup(new BackupTask);
+    BackupTaskPtr backup(new BackupTaskData);
     backup->setName(
         JOB_NAME_PREFIX + name()
         + QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));

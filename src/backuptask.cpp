@@ -10,7 +10,7 @@ WARNINGS_ENABLE
 
 const quint64 MB = 1048576UL;
 
-BackupTask::BackupTask()
+BackupTaskData::BackupTaskData()
     : _uuid(QUuid::createUuid()),
       _timestamp(QDateTime::currentDateTime()),
       _optionPreservePaths(DEFAULT_PRESERVE_PATHNAMES),
@@ -46,123 +46,123 @@ BackupTask::BackupTask()
             .toString());
 }
 
-QString BackupTask::name() const
+QString BackupTaskData::name() const
 {
     return _name;
 }
 
-void BackupTask::setName(const QString &name)
+void BackupTaskData::setName(const QString &name)
 {
     _name = name;
 }
 
-QUuid BackupTask::uuid() const
+QUuid BackupTaskData::uuid() const
 {
     return _uuid;
 }
 
-void BackupTask::setUuid(const QUuid &uuid)
+void BackupTaskData::setUuid(const QUuid &uuid)
 {
     _uuid = uuid;
 }
 
-QDateTime BackupTask::timestamp() const
+QDateTime BackupTaskData::timestamp() const
 {
     return _timestamp;
 }
 
-void BackupTask::setTimestamp(const QDateTime &timestamp)
+void BackupTaskData::setTimestamp(const QDateTime &timestamp)
 {
     _timestamp = timestamp;
 }
 
-QString BackupTask::jobRef() const
+QString BackupTaskData::jobRef() const
 {
     return _jobRef;
 }
 
-void BackupTask::setJobRef(const QString &jobRef)
+void BackupTaskData::setJobRef(const QString &jobRef)
 {
     _jobRef = jobRef;
 }
 
-QList<QUrl> BackupTask::urls() const
+QList<QUrl> BackupTaskData::urls() const
 {
     return _urls;
 }
 
-void BackupTask::setUrls(const QList<QUrl> &urls)
+void BackupTaskData::setUrls(const QList<QUrl> &urls)
 {
     _urls = urls;
 }
 
-bool BackupTask::optionPreservePaths() const
+bool BackupTaskData::optionPreservePaths() const
 {
     return _optionPreservePaths;
 }
 
-void BackupTask::setOptionPreservePaths(bool optionPreservePaths)
+void BackupTaskData::setOptionPreservePaths(bool optionPreservePaths)
 {
     _optionPreservePaths = optionPreservePaths;
 }
 
-quint64 BackupTask::optionSkipFilesSize() const
+quint64 BackupTaskData::optionSkipFilesSize() const
 {
     return _optionSkipFilesSize;
 }
 
-void BackupTask::setOptionSkipFilesSize(const int &optionSkipFilesSize)
+void BackupTaskData::setOptionSkipFilesSize(const int &optionSkipFilesSize)
 {
     _optionSkipFilesSize = MB * static_cast<quint64>(optionSkipFilesSize);
 }
 
-bool BackupTask::optionFollowSymLinks() const
+bool BackupTaskData::optionFollowSymLinks() const
 {
     return _optionFollowSymLinks;
 }
 
-void BackupTask::setOptionFollowSymLinks(bool optionFollowSymLinks)
+void BackupTaskData::setOptionFollowSymLinks(bool optionFollowSymLinks)
 {
     _optionFollowSymLinks = optionFollowSymLinks;
 }
 
-bool BackupTask::optionTraverseMount() const
+bool BackupTaskData::optionTraverseMount() const
 {
     return _optionTraverseMount;
 }
 
-void BackupTask::setOptionTraverseMount(bool optionTraverseMount)
+void BackupTaskData::setOptionTraverseMount(bool optionTraverseMount)
 {
     _optionTraverseMount = optionTraverseMount;
 }
 
-bool BackupTask::optionSkipSystem() const
+bool BackupTaskData::optionSkipSystem() const
 {
     return _optionSkipSystem;
 }
 
-void BackupTask::setOptionSkipSystem(bool optionSkipSystem)
+void BackupTaskData::setOptionSkipSystem(bool optionSkipSystem)
 {
     _optionSkipSystem = optionSkipSystem;
 }
 
-QStringList BackupTask::optionSkipSystemFiles() const
+QStringList BackupTaskData::optionSkipSystemFiles() const
 {
     return _optionSkipSystemFiles;
 }
 
-void BackupTask::setOptionSkipSystemFiles(
+void BackupTaskData::setOptionSkipSystemFiles(
     const QStringList &optionSkipSystemFiles)
 {
     _optionSkipSystemFiles = optionSkipSystemFiles;
 }
 
-void BackupTask::setOptionSkipSystemFiles(const QString string)
+void BackupTaskData::setOptionSkipSystemFiles(const QString string)
 {
     _optionSkipSystemFiles = string.split(':', QString::SkipEmptyParts);
 }
 
-QStringList BackupTask::getExcludesList()
+QStringList BackupTaskData::getExcludesList()
 {
     QStringList skipList;
 
@@ -217,73 +217,73 @@ QStringList BackupTask::getExcludesList()
     return skipList;
 }
 
-bool BackupTask::optionDryRun() const
+bool BackupTaskData::optionDryRun() const
 {
     return _optionDryRun;
 }
 
-void BackupTask::setOptionDryRun(bool optionDryRun)
+void BackupTaskData::setOptionDryRun(bool optionDryRun)
 {
     _optionDryRun = optionDryRun;
 }
 
-bool BackupTask::optionSkipNoDump() const
+bool BackupTaskData::optionSkipNoDump() const
 {
     return _optionSkipNoDump;
 }
 
-void BackupTask::setOptionSkipNoDump(bool optionSkipNoDump)
+void BackupTaskData::setOptionSkipNoDump(bool optionSkipNoDump)
 {
     _optionSkipNoDump = optionSkipNoDump;
 }
 
-TaskStatus BackupTask::status() const
+TaskStatus BackupTaskData::status() const
 {
     return _status;
 }
 
-void BackupTask::setStatus(const TaskStatus &status)
+void BackupTaskData::setStatus(const TaskStatus &status)
 {
     _status = status;
     emit statusUpdate(_uuid, _status);
 }
 
-int BackupTask::exitCode() const
+int BackupTaskData::exitCode() const
 {
     return _exitCode;
 }
 
-void BackupTask::setExitCode(int exitCode)
+void BackupTaskData::setExitCode(int exitCode)
 {
     _exitCode = exitCode;
 }
 
-QString BackupTask::output() const
+QString BackupTaskData::output() const
 {
     return _output;
 }
 
-void BackupTask::setOutput(const QString &output)
+void BackupTaskData::setOutput(const QString &output)
 {
     _output = output;
 }
 
-ArchivePtr BackupTask::archive() const
+ArchivePtr BackupTaskData::archive() const
 {
     return _archive;
 }
 
-void BackupTask::setArchive(const ArchivePtr &archive)
+void BackupTaskData::setArchive(const ArchivePtr &archive)
 {
     _archive = archive;
 }
 
-QString BackupTask::command() const
+QString BackupTaskData::command() const
 {
     return _command;
 }
 
-void BackupTask::setCommand(const QString &command)
+void BackupTaskData::setCommand(const QString &command)
 {
     _command = command;
 }

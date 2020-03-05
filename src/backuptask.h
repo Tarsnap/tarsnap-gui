@@ -11,24 +11,24 @@ WARNINGS_ENABLE
 
 #include "taskstatus.h"
 
-class BackupTask;
+class BackupTaskData;
 
-typedef QSharedPointer<BackupTask> BackupTaskPtr;
+typedef QSharedPointer<BackupTaskData> BackupTaskPtr;
 Q_DECLARE_METATYPE(BackupTaskPtr)
 
 /*!
  * \ingroup background-tasks
- * \brief The TarsnapAccount is a QObject which stores settings for making a
- * new Archive.  \warning This is not a subclass of TarsnapTask.
+ * \brief The BackupTaskData is a QObject which stores settings for making a
+ * new Archive.
  */
-class BackupTask : public QObject
+class BackupTaskData : public QObject
 {
     Q_OBJECT
 
 public:
     //! Constructor.
-    BackupTask();
-    ~BackupTask() {}
+    BackupTaskData();
+    ~BackupTaskData() {}
 
     //! Make the list of --exclude files and dirs.
     QStringList getExcludesList();

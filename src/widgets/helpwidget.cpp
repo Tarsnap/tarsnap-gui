@@ -62,11 +62,6 @@ void HelpWidget::appendLogString(const QString &text)
     _consoleLog->appendLog(LogEntry{QDateTime::currentDateTime(), text});
 }
 
-QPlainTextEdit *HelpWidget::getConsoleLog()
-{
-    return _consoleLog;
-}
-
 void HelpWidget::aboutMenuClicked()
 {
     // This always displays the About window

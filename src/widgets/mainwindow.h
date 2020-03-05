@@ -182,8 +182,6 @@ private:
     int             _runningTasks;
     int             _queuedTasks;
 
-    QPlainTextEdit *_consoleLog;
-
     BackupTabWidget   _backupTabWidget;
     ArchivesTabWidget _archivesTabWidget;
     JobsTabWidget     _jobsTabWidget;

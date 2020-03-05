@@ -192,8 +192,6 @@ MainWindow::MainWindow(QWidget *parent)
     // Other
     connect(&_jobsTabWidget, &JobsTabWidget::backupNow, this,
             &MainWindow::backupNow);
-
-    _consoleLog = _helpWidget.getConsoleLog();
 }
 
 MainWindow::~MainWindow()

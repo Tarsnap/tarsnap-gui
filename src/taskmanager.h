@@ -76,7 +76,7 @@ public slots:
     void registerMachineDo(const QString &password, const QString &machine,
                            const bool useExistingKeyfile);
     //! tarsnap -c -f \<name\>
-    void backupNow(BackupTaskDataPtr backupTask);
+    void backupNow(BackupTaskDataPtr backupTaskData);
     //! tarsnap --list-archives -vv
     void getArchives();
     //! tarsnap --print-stats -f \<name\>

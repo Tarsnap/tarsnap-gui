@@ -73,7 +73,7 @@ signals:
     //! Display detailed information about a specific job.
     void jobInspectByRef(QString jobRef);
     //! Begin tarsnap -c -f \<name\>
-    void backupNow(BackupTaskDataPtr backupTask);
+    void backupNow(BackupTaskDataPtr backupTaskData);
 
 protected:
     //! Handles translation change of language.

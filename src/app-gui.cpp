@@ -114,7 +114,7 @@ bool AppGui::handle_step(const struct init_info info)
         return true;
     case INIT_DRY_RUN:
         QMessageBox::warning(nullptr, tr("Tarsnap warning"), info.message);
-        break;
+        return true;
     case INIT_SCHEDULE_OK:
         QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
                                  info.message);

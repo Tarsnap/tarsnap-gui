@@ -53,21 +53,7 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
 {
     TSettings settings;
     _user = settings.value("tarsnap/user", "").toString();
-    if(Utils::tarsnapVersionMinimum("1.0.37"))
-    {
-        emit getKeyId(settings.value("tarsnap/key", "").toString());
-    }
-    else
-    {
-        _popup.setWindowTitle(tr("Warning"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(
-            tr("You need Tarsnap CLI utils version 1.0.37 to "
-               "be able to fetch machine activity. "
-               "You have version %1.")
-                .arg(settings.value("tarsnap/version", "").toString()));
-        _popup.exec();
-    }
+    emit getKeyId(settings.value("tarsnap/key", "").toString());
     if(_user.isEmpty())
     {
         _popup.setWindowTitle(tr("Warning"));

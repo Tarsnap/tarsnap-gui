@@ -142,9 +142,8 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
         args << "--one-file-system";
     if(backupTaskData->optionFollowSymLinks())
         args << "-L";
-    if(Utils::tarsnapVersionMinimum("1.0.36"))
-        args << "--creationtime"
-             << QString::number(backupTaskData->timestamp().toTime_t());
+    args << "--creationtime"
+         << QString::number(backupTaskData->timestamp().toTime_t());
     args << "--quiet"
          << "--print-stats"
          << "--no-humanize-numbers"
@@ -426,9 +425,9 @@ void TaskManager::restoreArchive(ArchivePtr            archive,
 void TaskManager::getKeyId(const QString &key_filename)
 {
     QFileInfo keyFile(key_filename);
-    if(!keyFile.exists() || !Utils::tarsnapVersionMinimum("1.0.37"))
+    if(!keyFile.exists())
     {
-        DEBUG << "Invalid key path or tarsnap version lower than 1.0.37.";
+        DEBUG << "Invalid key path.";
         return;
     }
     TarsnapTask *keymgmtTask = new TarsnapTask();

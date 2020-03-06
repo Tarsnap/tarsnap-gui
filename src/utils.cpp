@@ -214,17 +214,6 @@ QFileInfoList Utils::findKeysInPath(QString path)
     return dir.entryInfoList();
 }
 
-bool Utils::tarsnapVersionMinimum(const QString &minVersion)
-{
-    TSettings settings;
-    QString   tarsnapVersion = settings.value("tarsnap/version", "").toString();
-    // A blank version string doesn't satisfy any requirement.
-    if(tarsnapVersion.isEmpty())
-        return false;
-    // This function will return -1, 0, or 1; we want anything other than -1.
-    return (versionCompare(tarsnapVersion, minVersion) >= 0);
-}
-
 QString Utils::quoteCommandLine(QStringList args)
 {
     QStringList escaped;

@@ -98,9 +98,6 @@ const QString validate_writeable_dir(const QString &dirname);
 //! Return the reason why filename is not valid, or empty string for success.
 const QString validate_readable_file(const QString &filename);
 
-// Verifies if the current CLI utils version is at least minVersion
-bool tarsnapVersionMinimum(const QString &minVersion);
-
 // Displays a "copy&paste-able" command line.
 QString quoteCommandLine(QStringList args);
 } // namespace Utils

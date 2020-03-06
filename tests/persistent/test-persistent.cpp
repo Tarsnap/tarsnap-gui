@@ -4,6 +4,8 @@ WARNINGS_DISABLE
 #include <QtTest/QtTest>
 WARNINGS_ENABLE
 
+#include "../qtest-platform.h"
+
 #include "persistentmodel/journal.h"
 #include "persistentmodel/persistentstore.h"
 

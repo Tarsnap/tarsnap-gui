@@ -3,13 +3,18 @@
 
 #include "warnings-disable.h"
 
+WARNINGS_DISABLE
 #include <QTest>
+
+#ifdef QT_GUI_LIB
+#include <QApplication>
+#endif
+WARNINGS_ENABLE
 
 #include "utils.h"
 
 // Only relevant for running a gui test with platform=offscreen
 #ifdef QT_GUI_LIB
-#include <QApplication>
 
 // If we're running with a GUI (i.e. X11), we can watch the app doing tests
 #define IF_VISUAL if(QApplication::platformName() != "offscreen")

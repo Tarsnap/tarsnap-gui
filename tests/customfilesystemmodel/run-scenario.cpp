@@ -8,6 +8,8 @@ WARNINGS_DISABLE
 #include <QTimer>
 WARNINGS_ENABLE
 
+#include "../qtest-platform.h"
+
 RunScenario::RunScenario()
 {
     _rootDir = QDir::currentPath() + QDir::separator() + "dirs";

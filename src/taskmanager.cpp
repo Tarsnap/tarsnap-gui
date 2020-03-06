@@ -124,42 +124,8 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
     }
 
     _backupTaskMap[backupTaskData->uuid()] = backupTaskData;
-    TarsnapTask *backupTask                = new TarsnapTask();
-    QStringList  args;
-    initTarsnapArgs(args);
-    TSettings settings;
-    if(settings
-           .value("tarsnap/aggressive_networking",
-                  DEFAULT_AGGRESSIVE_NETWORKING)
-           .toBool())
-        args << "--aggressive-networking";
-    if(backupTaskData->optionDryRun())
-        args << "--dry-run";
-    if(backupTaskData->optionSkipNoDump())
-        args << "--nodump";
-    if(backupTaskData->optionPreservePaths())
-        args << "-P";
-    if(!backupTaskData->optionTraverseMount())
-        args << "--one-file-system";
-    if(backupTaskData->optionFollowSymLinks())
-        args << "-L";
-    args << "--creationtime"
-         << QString::number(backupTaskData->timestamp().toTime_t());
-    args << "--quiet"
-         << "--print-stats"
-         << "--no-humanize-numbers"
-         << "-c"
-         << "-f" << backupTaskData->name();
-    for(const QString &exclude : backupTaskData->getExcludesList())
-    {
-        args << "--exclude" << exclude;
-    }
-    for(const QUrl &url : backupTaskData->urls())
-    {
-        args << url.toLocalFile();
-    }
-    backupTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    backupTask->setArguments(args);
+
+    TarsnapTask *backupTask = backupArchiveTask(backupTaskData);
     backupTaskData->setCommand(backupTask->command() + " "
                                + backupTask->arguments().join(" "));
     backupTask->setData(backupTaskData->uuid());

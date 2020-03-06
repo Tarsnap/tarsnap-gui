@@ -10,6 +10,7 @@ WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
 
+#include "backuptask.h"
 #include "tarsnaptask.h"
 
 /**
@@ -58,5 +59,11 @@ TarsnapTask *nukeArchivesTask();
  */
 TarsnapTask *restoreArchiveTask(const QString &       archiveName,
                                 ArchiveRestoreOptions options);
+
+/**
+ * \brief Create a task for: `tarsnap -c -f ARCHIVENAME FILELIST`, with
+ * many options.
+ */
+TarsnapTask *backupArchiveTask(BackupTaskDataPtr backupTaskData);
 
 #endif /* !TASKS_TARSNAP_H */

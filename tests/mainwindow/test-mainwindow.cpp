@@ -321,8 +321,7 @@ void TestMainWindow::other_navigation()
     VISUAL_WAIT;
 
     // Wait for archive parsing to finish
-    while(sig_fileList.count() == 0)
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    WAIT_SIG(sig_fileList);
 
     mainwindow->displayJobDetails(job);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);

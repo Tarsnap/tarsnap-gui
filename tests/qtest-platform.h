@@ -106,5 +106,9 @@ QString get_script(QString scriptname)
 }
 
 #define WAIT_FINAL QCoreApplication::processEvents(QEventLoop::AllEvents, 5000)
+#define WAIT_UNTIL(x)                                                          \
+    while(!(x))                                                                \
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100)
+#define WAIT_SIG(x) WAIT_UNTIL(x.count() > 0)
 
 #endif

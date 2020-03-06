@@ -2828,10 +2828,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You need Tarsnap CLI utils version 1.0.37 to be able to fetch machine activity. You have version %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Type password for account %1:</source>
         <translation type="unfinished"></translation>
     </message>

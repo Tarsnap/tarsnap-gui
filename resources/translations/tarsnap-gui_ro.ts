@@ -2862,10 +2862,6 @@ Joburile care au activată execuția programată vor fi executate conform setăr
         <translation type="unfinished">Avertisment</translation>
     </message>
     <message>
-        <source>You need Tarsnap CLI utils version 1.0.37 to be able to fetch machine activity. You have version %1.</source>
-        <translation type="unfinished">Pentru a putea prelua activitatea de dispozitiv aveți nevoie de utilitarele Tarsnap cu versiunea minimă 1.0.37. Versiunea curentă este %1.</translation>
-    </message>
-    <message>
         <source>Type password for account %1:</source>
         <translation type="unfinished">Introdu parola aferentă contului %1:</translation>
     </message>

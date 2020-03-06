@@ -184,8 +184,7 @@ void TestSmallWidgets::confirmationDialog()
     VISUAL_WAIT;
     cd->_inputDialog.accept();
     VISUAL_WAIT;
-    while(sig_confirmed.count() == 0)
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    WAIT_SIG(sig_confirmed);
     QVERIFY((sig_confirmed.count() == 1) && (sig_cancel.count() == 0));
     sig_confirmed.clear();
 

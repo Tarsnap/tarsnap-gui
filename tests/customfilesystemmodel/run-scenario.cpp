@@ -21,8 +21,7 @@ RunScenario::RunScenario()
     // In the GUI, we cannot select a file or directory until its parent
     // directory has been loaded.  This is not a perfect imitation of that
     // scenario, but it is better than nothing.
-    while(_model.needToReadSubdirs(_rootDir))
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    WAIT_UNTIL(!_model.needToReadSubdirs(_rootDir));
 }
 
 RunScenario::~RunScenario()

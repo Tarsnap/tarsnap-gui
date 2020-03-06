@@ -14,8 +14,6 @@ WARNINGS_ENABLE
 #include <ConsoleLog.h>
 #include <TSettings.h>
 
-#define TASK_CMDLINE_WAIT_MS 100
-
 class TestTaskManager : public QObject
 {
     Q_OBJECT
@@ -45,8 +43,7 @@ void TestTaskManager::initTestCase()
     manager->tarsnapVersionFind();
 
     // Wait for task to finish
-    while(sig_ver.count() == 0)
-        QTest::qWait(TASK_CMDLINE_WAIT_MS);
+    WAIT_SIG(sig_ver);
     delete manager;
 }
 
@@ -75,8 +72,7 @@ void TestTaskManager::get_version()
 
     // Get version number
     manager->tarsnapVersionFind();
-    while(sig_ver.count() == 0)
-        QTest::qWait(TASK_CMDLINE_WAIT_MS);
+    WAIT_SIG(sig_ver);
     QVERIFY(sig_ver.count() == 1);
     ver_str = sig_ver.takeFirst().at(0).toString();
 
@@ -94,8 +90,7 @@ void TestTaskManager::get_version()
     settings.setValue("tarsnap/path", "fake-dir");
 
     manager->tarsnapVersionFind();
-    while(sig_ver.count() == 0)
-        QTest::qWait(TASK_CMDLINE_WAIT_MS);
+    WAIT_SIG(sig_ver);
     QVERIFY(sig_ver.count() == 1);
     ver_str = sig_ver.takeFirst().at(0).toString();
     QVERIFY(ver_str.isEmpty());
@@ -122,8 +117,7 @@ void TestTaskManager::fail_registerMachine_command_not_found()
     settings.setValue("tarsnap/key", "fake.key");
     settings.setValue("tarsnap/cache", "/tmp/gui-test-tarsnap-cache");
     manager->registerMachineDo("fake-password", "machinename", false);
-    while(sig_reg.count() == 0)
-        QTest::qWait(TASK_CMDLINE_WAIT_MS);
+    WAIT_SIG(sig_reg);
 
     // Get failure message.
     QVERIFY(sig_reg.count() == 1);
@@ -154,8 +148,7 @@ void TestTaskManager::fail_registerMachine_empty_key()
     settings.setValue("tarsnap/key", "empty.key");
     settings.setValue("tarsnap/cache", "/tmp/gui-test-tarsnap-cache");
     manager->registerMachineDo("fake-password", "machinename", true);
-    while(sig_reg.count() == 0)
-        QTest::qWait(TASK_CMDLINE_WAIT_MS);
+    WAIT_SIG(sig_reg);
 
     // Get failure message.
     QVERIFY(sig_reg.count() == 1);
@@ -183,7 +176,7 @@ void TestTaskManager::sleep_cancel()
 
     // Start running it, wait a second.
     manager->startTask(task);
-    QTest::qWait(1000);
+    WAIT_SIG(sig_started);
     QVERIFY(sig_started.count() == 1);
     QVERIFY(sig_started.takeFirst().at(0).value<QString>() == "started-9");
     QVERIFY(sig_message.count() == 0);
@@ -193,8 +186,6 @@ void TestTaskManager::sleep_cancel()
     QVERIFY(sig_message.count() == 1);
     QVERIFY(sig_message.takeFirst().at(0).value<QString>()
             == "Stopped running tasks.");
-
-    QTest::qWait(1000);
 
     // task is deleted by the task manager
     delete manager;

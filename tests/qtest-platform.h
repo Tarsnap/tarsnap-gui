@@ -4,6 +4,8 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QCoreApplication>
+#include <QEventLoop>
 #include <QTest>
 
 #ifdef QT_GUI_LIB
@@ -102,5 +104,7 @@ QString get_script(QString scriptname)
 
     return dir.absolutePath() + "/" + scriptname;
 }
+
+#define WAIT_FINAL QCoreApplication::processEvents(QEventLoop::AllEvents, 5000)
 
 #endif

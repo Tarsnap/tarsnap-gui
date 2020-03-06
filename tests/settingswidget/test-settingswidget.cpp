@@ -52,7 +52,7 @@ void TestSettingsWidget::cleanupTestCase()
     ConsoleLog::destroy();
 
     // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
+    WAIT_FINAL;
 }
 
 void TestSettingsWidget::tarsnapAccount()

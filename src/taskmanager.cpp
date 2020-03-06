@@ -318,11 +318,7 @@ void TaskManager::getKeyId(const QString &key_filename)
         DEBUG << "Invalid key path.";
         return;
     }
-    TarsnapTask *keymgmtTask = new TarsnapTask();
-    QStringList  args;
-    args << "--print-key-id" << key_filename;
-    keymgmtTask->setCommand(makeTarsnapCommand(CMD_TARSNAPKEYMGMT));
-    keymgmtTask->setArguments(args);
+    TarsnapTask *keymgmtTask = keyIdTask(key_filename);
     keymgmtTask->setData(key_filename);
     connect(keymgmtTask, &TarsnapTask::finished, this,
             &TaskManager::getKeyIdFinished, QUEUED);

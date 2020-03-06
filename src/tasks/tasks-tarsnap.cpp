@@ -8,6 +8,7 @@ WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
 
+#include "backuptask.h"
 #include "tasks-defs.h"
 #include "tasks-utils.h"
 
@@ -150,6 +151,46 @@ TarsnapTask *restoreArchiveTask(const QString &       archiveName,
         task->setStdIn(options.files.join(QChar('\n')));
     }
     args << "-f" << archiveName;
+
+    /* Generic setup. */
+    task->setCommand(makeTarsnapCommand());
+    task->setArguments(args);
+    return (task);
+}
+
+TarsnapTask *backupArchiveTask(BackupTaskDataPtr backupTaskData)
+{
+    TarsnapTask *task = new TarsnapTask();
+    QStringList  args = makeTarsnapArgs();
+
+    /* Specific arguments. */
+    TSettings settings;
+    if(settings
+           .value("tarsnap/aggressive_networking",
+                  DEFAULT_AGGRESSIVE_NETWORKING)
+           .toBool())
+        args << "--aggressive-networking";
+    if(backupTaskData->optionDryRun())
+        args << "--dry-run";
+    if(backupTaskData->optionSkipNoDump())
+        args << "--nodump";
+    if(backupTaskData->optionPreservePaths())
+        args << "-P";
+    if(!backupTaskData->optionTraverseMount())
+        args << "--one-file-system";
+    if(backupTaskData->optionFollowSymLinks())
+        args << "-L";
+    args << "--creationtime"
+         << QString::number(backupTaskData->timestamp().toTime_t());
+    args << "--quiet"
+         << "--print-stats"
+         << "--no-humanize-numbers"
+         << "-c"
+         << "-f" << backupTaskData->name();
+    for(const QString &exclude : backupTaskData->getExcludesList())
+        args << "--exclude" << exclude;
+    for(const QUrl &url : backupTaskData->urls())
+        args << url.toLocalFile();
 
     /* Generic setup. */
     task->setCommand(makeTarsnapCommand());

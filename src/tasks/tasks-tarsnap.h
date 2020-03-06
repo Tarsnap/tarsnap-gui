@@ -8,6 +8,8 @@ WARNINGS_DISABLE
 #include <QStringList>
 WARNINGS_ENABLE
 
+#include "persistentmodel/archive.h"
+
 #include "tarsnaptask.h"
 
 /**
@@ -50,5 +52,11 @@ TarsnapTask *overallStatsTask();
  * \brief Create a task for: `tarsnap --nuke`
  */
 TarsnapTask *nukeArchivesTask();
+
+/**
+ * \brief Create a task for: `tarsnap -x -f ARCHIVENAME`, with many options.
+ */
+TarsnapTask *restoreArchiveTask(const QString &       archiveName,
+                                ArchiveRestoreOptions options);
 
 #endif /* !TASKS_TARSNAP_H */

@@ -291,16 +291,17 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
 
     for(const ArchivePtr &archive : archives)
         archive->setDeleteScheduled(true);
+    QStringList archiveNames;
+    for(const ArchivePtr &archive : archives)
+        archiveNames << archive->name();
 
     TarsnapTask *deleteTask = new TarsnapTask();
     QStringList  args;
     initTarsnapArgs(args);
     args << "--print-stats"
          << "-d";
-    for(const ArchivePtr &archive : archives)
-    {
-        args << "-f" << archive->name();
-    }
+    for(const QString &archiveName : archiveNames)
+        args << "-f" << archiveName;
     deleteTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
     deleteTask->setArguments(args);
     deleteTask->setData(QVariant::fromValue(archives));

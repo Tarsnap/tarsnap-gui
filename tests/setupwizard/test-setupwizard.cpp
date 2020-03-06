@@ -64,20 +64,20 @@ void TestSetupWizard::cleanupTestCase()
     TSettings::destroy();
 
     // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
+    WAIT_FINAL;
 }
 
 static void clean_quit(SetupWizard *wizard)
 {
     // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
+    WAIT_FINAL;
 
     // Ensure that the wizard is not running when we quit
     if(wizard->isVisible())
         wizard->reject();
 
     // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
+    WAIT_FINAL;
 
     delete wizard;
 }

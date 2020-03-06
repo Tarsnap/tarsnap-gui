@@ -70,7 +70,7 @@ void TestMainWindow::cleanupTestCase()
     // Wait up to 5 seconds for any running threads to stop.
     QThreadPool::globalInstance()->waitForDone(5000);
     // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 5000);
+    WAIT_FINAL;
 }
 
 static QAction *get_menubar_about(QMenuBar *menubar)

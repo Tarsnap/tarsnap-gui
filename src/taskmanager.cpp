@@ -331,44 +331,7 @@ void TaskManager::restoreArchive(ArchivePtr            archive,
         return;
     }
 
-    TarsnapTask *restoreTask = new TarsnapTask();
-    QStringList  args;
-    initTarsnapArgs(args);
-    if(options.optionRestore)
-    {
-        TSettings settings;
-        args << "-x"
-             << "-P"
-             << "-C"
-             << settings.value("app/downloads_dir", DEFAULT_DOWNLOADS)
-                    .toString();
-    }
-    if(options.optionRestoreDir)
-        args << "-x"
-             << "-C" << options.path;
-    if((options.optionRestore || options.optionRestoreDir))
-    {
-        if(!options.overwriteFiles)
-            args << "-k";
-        if(options.keepNewerFiles)
-            args << "--keep-newer-files";
-        if(options.preservePerms)
-            args << "-p";
-    }
-    if(options.optionTarArchive)
-    {
-        args << "-r";
-        restoreTask->setStdOutFile(options.path);
-    }
-    if(!options.files.isEmpty())
-    {
-        args << "-T"
-             << "-";
-        restoreTask->setStdIn(options.files.join(QChar('\n')));
-    }
-    args << "-f" << archive->name();
-    restoreTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    restoreTask->setArguments(args);
+    TarsnapTask *restoreTask = restoreArchiveTask(archive->name(), options);
     restoreTask->setData(QVariant::fromValue(archive));
     connect(restoreTask, &TarsnapTask::finished, this,
             &TaskManager::restoreArchiveFinished, QUEUED);

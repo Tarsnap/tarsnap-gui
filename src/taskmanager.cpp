@@ -12,6 +12,7 @@ WARNINGS_ENABLE
 #include "debug.h"
 #include "tasks-defs.h"
 #include "tasks-setup.h"
+#include "tasks-tarsnap.h"
 #include "tasks-utils.h"
 #include "utils.h"
 
@@ -174,13 +175,7 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
 
 void TaskManager::getArchives()
 {
-    TarsnapTask *listTask = new TarsnapTask();
-    QStringList  args;
-    initTarsnapArgs(args);
-    args << "--list-archives"
-         << "-vv";
-    listTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    listTask->setArguments(args);
+    TarsnapTask *listTask = listArchivesTask();
     listTask->setTruncateLogOutput(true);
     connect(listTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveListFinished, QUEUED);
@@ -229,14 +224,7 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
         return;
     }
 
-    TarsnapTask *statsTask = new TarsnapTask();
-    QStringList  args;
-    initTarsnapArgs(args);
-    args << "--print-stats"
-         << "--no-humanize-numbers"
-         << "-f" << archive->name();
-    statsTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    statsTask->setArguments(args);
+    TarsnapTask *statsTask = printStatsTask(archive->name());
     statsTask->setData(QVariant::fromValue(archive));
     connect(statsTask, &TarsnapTask::finished, this,
             &TaskManager::getArchiveStatsFinished, QUEUED);
@@ -257,17 +245,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
         return;
     }
 
-    TarsnapTask *contentsTask = new TarsnapTask();
-    QStringList  args;
-    initTarsnapArgs(args);
-    TSettings settings;
-    if(settings.value("tarsnap/preserve_pathnames", DEFAULT_PRESERVE_PATHNAMES)
-           .toBool())
-        args << "-P";
-    args << "-tv"
-         << "-f" << archive->name();
-    contentsTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    contentsTask->setArguments(args);
+    TarsnapTask *contentsTask = archiveContentsTask(archive->name());
     contentsTask->setData(QVariant::fromValue(archive));
     contentsTask->setTruncateLogOutput(true);
     connect(contentsTask, &TarsnapTask::finished, this,
@@ -295,15 +273,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     for(const ArchivePtr &archive : archives)
         archiveNames << archive->name();
 
-    TarsnapTask *deleteTask = new TarsnapTask();
-    QStringList  args;
-    initTarsnapArgs(args);
-    args << "--print-stats"
-         << "-d";
-    for(const QString &archiveName : archiveNames)
-        args << "-f" << archiveName;
-    deleteTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    deleteTask->setArguments(args);
+    TarsnapTask *deleteTask = deleteArchivesTask(archiveNames);
     deleteTask->setData(QVariant::fromValue(archives));
     connect(deleteTask, &TarsnapTask::finished, this,
             &TaskManager::deleteArchivesFinished, QUEUED);
@@ -325,13 +295,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
 
 void TaskManager::getOverallStats()
 {
-    TarsnapTask *statsTask = new TarsnapTask();
-    QStringList  args;
-    initTarsnapArgs(args);
-    args << "--print-stats"
-         << "--no-humanize-numbers";
-    statsTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    statsTask->setArguments(args);
+    TarsnapTask *statsTask = overallStatsTask();
     connect(statsTask, &TarsnapTask::finished, this,
             &TaskManager::overallStatsFinished, QUEUED);
     queueTask(statsTask);
@@ -349,13 +313,7 @@ void TaskManager::fsck(bool prune)
 
 void TaskManager::nuke()
 {
-    TarsnapTask *nukeTask = new TarsnapTask();
-    QStringList  args;
-    initTarsnapArgs(args);
-    args << "--nuke";
-    nukeTask->setCommand(makeTarsnapCommand(CMD_TARSNAP));
-    nukeTask->setStdIn("No Tomorrow\n");
-    nukeTask->setArguments(args);
+    TarsnapTask *nukeTask = nukeArchivesTask();
     connect(nukeTask, &TarsnapTask::finished, this, &TaskManager::nukeFinished,
             QUEUED);
     connect(nukeTask, &TarsnapTask::started, this,

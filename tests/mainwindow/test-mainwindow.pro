@@ -68,6 +68,7 @@ HEADERS  +=						\
 	../../src/widgets/popuppushbutton.h		\
 	../../src/widgets/restoredialog.h		\
 	../../src/widgets/settingswidget.h		\
+	../../src/widgets/stoptasksdialog.h		\
 	../../src/widgets/tarsnapaccountdialog.h	\
 	../../tests/qtest-platform.h
 
@@ -110,6 +111,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/widgets/popuppushbutton.cpp		\
 	../../src/widgets/restoredialog.cpp		\
 	../../src/widgets/settingswidget.cpp		\
+	../../src/widgets/stoptasksdialog.cpp		\
 	../../src/widgets/tarsnapaccountdialog.cpp
 
 include(../tests-include.pro)

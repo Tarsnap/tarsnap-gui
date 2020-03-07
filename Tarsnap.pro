@@ -112,6 +112,7 @@ SOURCES +=						\
 	src/widgets/restoredialog.cpp			\
 	src/widgets/settingswidget.cpp			\
 	src/widgets/setupdialog.cpp			\
+	src/widgets/stoptasksdialog.cpp			\
 	src/widgets/tarsnapaccountdialog.cpp
 
 HEADERS +=						\
@@ -184,6 +185,7 @@ HEADERS +=						\
 	src/widgets/restoredialog.h			\
 	src/widgets/settingswidget.h			\
 	src/widgets/setupdialog.h			\
+	src/widgets/stoptasksdialog.h			\
 	src/widgets/tarsnapaccountdialog.h
 
 INCLUDEPATH +=						\

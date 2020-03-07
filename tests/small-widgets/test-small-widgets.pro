@@ -15,6 +15,7 @@ HEADERS  +=						\
 	../../src/widgets/elidedannotatedlabel.h	\
 	../../src/widgets/filepickerdialog.h		\
 	../../src/widgets/filepickerwidget.h		\
+	../../src/widgets/stoptasksdialog.h		\
 	../../tests/qtest-platform.h
 
 SOURCES += test-small-widgets.cpp			\
@@ -24,7 +25,8 @@ SOURCES += test-small-widgets.cpp			\
 	../../src/widgets/confirmationdialog.cpp	\
 	../../src/widgets/elidedannotatedlabel.cpp	\
 	../../src/widgets/filepickerdialog.cpp		\
-	../../src/widgets/filepickerwidget.cpp
+	../../src/widgets/filepickerwidget.cpp		\
+	../../src/widgets/stoptasksdialog.cpp
 
 include(../tests-include.pro)
 

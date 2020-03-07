@@ -19,6 +19,7 @@ WARNINGS_ENABLE
 #include "notification_info.h"
 #include "persistentmodel/journal.h"
 #include "scheduling.h"
+#include "stoptasksdialog.h"
 #include "tarsnapaccount.h"
 #include "taskmanager.h"
 #include "taskstatus.h"
@@ -178,7 +179,7 @@ private:
     int             _minWidth;
     QMenuBar *      _menuBar;
     bool            _aboutToQuit;
-    QMessageBox     _stopTasksDialog;
+    StopTasksDialog _stopTasksDialog;
     int             _runningTasks;
     int             _queuedTasks;
 

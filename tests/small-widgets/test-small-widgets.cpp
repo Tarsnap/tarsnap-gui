@@ -12,6 +12,7 @@ WARNINGS_ENABLE
 #include "elidedannotatedlabel.h"
 #include "filepickerdialog.h"
 #include "filepickerwidget.h"
+#include "stoptasksdialog.h"
 
 #include "TSettings.h"
 
@@ -27,6 +28,7 @@ private slots:
     void filepickerwidget();
     void filepickerdialog();
     void confirmationDialog();
+    void stoptasksdialog();
 };
 
 void TestSmallWidgets::initTestCase()
@@ -189,6 +191,15 @@ void TestSmallWidgets::confirmationDialog()
     sig_confirmed.clear();
 
     delete cd;
+}
+
+void TestSmallWidgets::stoptasksdialog()
+{
+    StopTasksDialog *sd = new StopTasksDialog();
+
+    VISUAL_INIT(sd);
+
+    delete sd;
 }
 
 QTEST_MAIN(TestSmallWidgets)

@@ -7,6 +7,10 @@ WARNINGS_DISABLE
 #include <QMessageBox>
 WARNINGS_ENABLE
 
+/* Forward declarations. */
+class QMenu;
+class QPushButton;
+
 /*!
  * \ingroup widgets-specialized
  * \brief The StopTasksDialog is a QMessageBox which gives the
@@ -38,6 +42,9 @@ signals:
     void quitOk();
 
 private:
+    QPushButton *_actionButton;
+    QMenu *      _actionMenu;
+
     bool _aboutToQuit;
 };
 

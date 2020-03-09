@@ -6,7 +6,10 @@ WARNINGS_DISABLE
 #include <QPushButton>
 WARNINGS_ENABLE
 
-StopTasksDialog::StopTasksDialog(QWidget *parent) : QMessageBox(parent)
+StopTasksDialog::StopTasksDialog(QWidget *parent)
+    : QMessageBox(parent),
+      _actionButton(new QPushButton(this)),
+      _actionMenu(new QMenu(_actionButton))
 {
 }
 
@@ -21,9 +24,7 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
                 .arg(queuedTasks));
     setInformativeText(tr("What do you want to do?"));
 
-    QPushButton actionButton(this);
-    actionButton.setText(tr("Choose action"));
-    QMenu actionMenu(&actionButton);
+    _actionButton->setText(tr("Choose action"));
 
     // interrupt
     QAction *interruptBackup = nullptr;
@@ -31,45 +32,45 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     {
         if(_aboutToQuit)
             interruptBackup =
-                actionMenu.addAction(tr("Interrupt backup and clear queue"));
+                _actionMenu->addAction(tr("Interrupt backup and clear queue"));
         else
-            interruptBackup = actionMenu.addAction(tr("Interrupt backup"));
+            interruptBackup = _actionMenu->addAction(tr("Interrupt backup"));
         interruptBackup->setCheckable(true);
     }
     // stopRunning
     QAction *stopRunning = nullptr;
     if(runningTasks && !_aboutToQuit)
     {
-        stopRunning = actionMenu.addAction(tr("Stop running"));
+        stopRunning = _actionMenu->addAction(tr("Stop running"));
         stopRunning->setCheckable(true);
     }
     // stopQueued
     QAction *stopQueued = nullptr;
     if(queuedTasks && !_aboutToQuit)
     {
-        stopQueued = actionMenu.addAction(tr("Cancel queued"));
+        stopQueued = _actionMenu->addAction(tr("Cancel queued"));
         stopQueued->setCheckable(true);
     }
     // stopAll
     QAction *stopAll = nullptr;
     if(runningTasks || queuedTasks)
     {
-        stopAll = actionMenu.addAction(tr("Stop all"));
+        stopAll = _actionMenu->addAction(tr("Stop all"));
         stopAll->setCheckable(true);
     }
     // proceedBackground
     QAction *proceedBackground = nullptr;
     if((runningTasks || queuedTasks) && _aboutToQuit)
     {
-        proceedBackground = actionMenu.addAction(tr("Proceed in background"));
+        proceedBackground = _actionMenu->addAction(tr("Proceed in background"));
         proceedBackground->setCheckable(true);
     }
     QPushButton *cancel = addButton(QMessageBox::Cancel);
     setDefaultButton(cancel);
-    connect(&actionMenu, &QMenu::triggered, this, &QDialog::accept,
+    connect(_actionMenu, &QMenu::triggered, this, &QDialog::accept,
             Qt::QueuedConnection);
-    actionButton.setMenu(&actionMenu);
-    addButton(&actionButton, QMessageBox::ActionRole);
+    _actionButton->setMenu(_actionMenu);
+    addButton(_actionButton, QMessageBox::ActionRole);
 
     // Launch dialog.
     int result = exec();

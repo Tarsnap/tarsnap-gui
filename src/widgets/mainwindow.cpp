@@ -192,6 +192,16 @@ MainWindow::MainWindow(QWidget *parent)
     // Other
     connect(&_jobsTabWidget, &JobsTabWidget::backupNow, this,
             &MainWindow::backupNow);
+
+    // Connections for _stopTasksDialog
+    connect(&_stopTasksDialog, &StopTasksDialog::stopTasks, this,
+            &MainWindow::stopTasks);
+    connect(&_stopTasksDialog, &StopTasksDialog::cancelAboutToQuit,
+            [this] { _aboutToQuit = false; });
+    connect(&_stopTasksDialog, &StopTasksDialog::quitOk, [this] {
+        qApp->setQuitLockEnabled(true);
+        close();
+    });
 }
 
 MainWindow::~MainWindow()
@@ -536,77 +546,8 @@ void MainWindow::browseForBackupItems()
 void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
                                         int runningTasks, int queuedTasks)
 {
-    _stopTasksDialog.setText(tr("There are %1 running tasks and %2 queued.")
-                                 .arg(runningTasks)
-                                 .arg(queuedTasks));
-    _stopTasksDialog.setInformativeText(tr("What do you want to do?"));
-
-    QPushButton actionButton(&_stopTasksDialog);
-    actionButton.setText(tr("Choose action"));
-    QMenu    actionMenu(&actionButton);
-    QAction *interruptBackup = nullptr;
-    if(backupTaskRunning)
-    {
-        if(_aboutToQuit)
-            interruptBackup =
-                actionMenu.addAction(tr("Interrupt backup and clear queue"));
-        else
-            interruptBackup = actionMenu.addAction(tr("Interrupt backup"));
-        interruptBackup->setCheckable(true);
-    }
-    QAction *stopRunning = nullptr;
-    if(runningTasks && !_aboutToQuit)
-    {
-        stopRunning = actionMenu.addAction(tr("Stop running"));
-        stopRunning->setCheckable(true);
-    }
-    QAction *stopQueued = nullptr;
-    if(queuedTasks && !_aboutToQuit)
-    {
-        stopQueued = actionMenu.addAction(tr("Cancel queued"));
-        stopQueued->setCheckable(true);
-    }
-    QAction *stopAll = nullptr;
-    if(runningTasks || queuedTasks)
-    {
-        stopAll = actionMenu.addAction(tr("Stop all"));
-        stopAll->setCheckable(true);
-    }
-    QAction *proceedBackground = nullptr;
-    if((runningTasks || queuedTasks) && _aboutToQuit)
-    {
-        proceedBackground = actionMenu.addAction(tr("Proceed in background"));
-        proceedBackground->setCheckable(true);
-    }
-    QPushButton *cancel = _stopTasksDialog.addButton(QMessageBox::Cancel);
-    _stopTasksDialog.setDefaultButton(cancel);
-    connect(&actionMenu, &QMenu::triggered, &_stopTasksDialog, &QDialog::accept,
-            Qt::QueuedConnection);
-    actionButton.setMenu(&actionMenu);
-    _stopTasksDialog.addButton(&actionButton, QMessageBox::ActionRole);
-    _stopTasksDialog.exec();
-
-    if((_stopTasksDialog.clickedButton() == cancel) && _aboutToQuit)
-        _aboutToQuit = false;
-
-    if(_aboutToQuit)
-    {
-        qApp->setQuitLockEnabled(true);
-        close();
-    }
-
-    if(interruptBackup && interruptBackup->isChecked())
-        emit stopTasks(true, false, _aboutToQuit);
-    else if(stopQueued && stopQueued->isChecked())
-        emit stopTasks(false, false, true);
-    else if(stopRunning && stopRunning->isChecked())
-        emit stopTasks(false, true, false);
-    else if(stopAll && stopAll->isChecked())
-        emit stopTasks(false, true, true);
-    else if(proceedBackground && proceedBackground->isChecked())
-    {
-        // Do nothing; it will happen due to code elsewhere
-    }
+    _stopTasksDialog.display(backupTaskRunning, runningTasks, queuedTasks,
+                             _aboutToQuit);
 }
 
 void MainWindow::tarsnapError(TarsnapError error)

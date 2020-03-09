@@ -15,9 +15,30 @@ WARNINGS_ENABLE
 class StopTasksDialog : public QMessageBox
 {
     Q_OBJECT
+
 public:
     //! Constructor.
     explicit StopTasksDialog(QWidget *parent = nullptr);
+
+    //! Prompt user to clarify whether to stop background tasks; if so,
+    //! indicate that we can quit the app.  the app.  Also used when quitting
+    //! the application while active or background tasks are queued.
+    void display(bool backupTaskRunning, int runningTasks, int queuedTasks,
+                 bool aboutToQuit);
+
+signals:
+    //! Stop / interrupt / terminate / dequeue tasks.
+    //! \param interrupt Kill the first task.  \warning MacOS X only.  (?)
+    //! \param running Stop all running tasks.
+    //! \param queued Remove all tasks from the queue.
+    void stopTasks(bool interrupt, bool running, bool queued);
+    //! Cancel aboutToQuit.
+    void cancelAboutToQuit();
+    //! We can actually quit now.
+    void quitOk();
+
+private:
+    bool _aboutToQuit;
 };
 
 #endif // !STOPTASKSDIALOG_H

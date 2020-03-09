@@ -1671,42 +1671,6 @@ Adaugă oricum?</translation>
         <translation>Nu există activități în curs de desfășurare sau programate.</translation>
     </message>
     <message>
-        <source>There are %1 running tasks and %2 queued.</source>
-        <translation>Există %1 activități în curs de desfășurare și %2 programate pentru execuție.</translation>
-    </message>
-    <message>
-        <source>What do you want to do?</source>
-        <translation>Cum dorești să procedezi?</translation>
-    </message>
-    <message>
-        <source>Choose action</source>
-        <translation>Cum dorești să procedezi</translation>
-    </message>
-    <message>
-        <source>Interrupt backup and clear queue</source>
-        <translation>Întrerupe backup curent și elimină activitațile în așteptare</translation>
-    </message>
-    <message>
-        <source>Interrupt backup</source>
-        <translation>Întrerupe backup</translation>
-    </message>
-    <message>
-        <source>Stop running</source>
-        <translation>Oprește activitățile în desfășurare</translation>
-    </message>
-    <message>
-        <source>Cancel queued</source>
-        <translation>Anulează activitățile programate</translation>
-    </message>
-    <message>
-        <source>Stop all</source>
-        <translation>Oprește toate activitățile</translation>
-    </message>
-    <message>
-        <source>Proceed in background</source>
-        <translation>Procedează în fundal</translation>
-    </message>
-    <message>
         <source>The tarsnap cache directory is either missing or is broken. Run tarsnap fsck to fix this?
 </source>
         <translation>Directorul &quot;cache&quot; Tarsnap lipsește sau este invalid. Dorești să rezolvi această problemă?
@@ -2813,6 +2777,45 @@ Joburile care au activată execuția programată vor fi executate conform setăr
     <message>
         <source>Tarsnap setup</source>
         <translation type="unfinished">Configurare Tarsnap</translation>
+    </message>
+</context>
+<context>
+    <name>StopTasksDialog</name>
+    <message>
+        <source>There are %1 running tasks and %2 queued.</source>
+        <translation>Există %1 activități în curs de desfășurare și %2 programate pentru execuție.</translation>
+    </message>
+    <message>
+        <source>What do you want to do?</source>
+        <translation>Cum dorești să procedezi?</translation>
+    </message>
+    <message>
+        <source>Choose action</source>
+        <translation>Cum dorești să procedezi</translation>
+    </message>
+    <message>
+        <source>Interrupt backup and clear queue</source>
+        <translation>Întrerupe backup curent și elimină activitațile în așteptare</translation>
+    </message>
+    <message>
+        <source>Interrupt backup</source>
+        <translation>Întrerupe backup</translation>
+    </message>
+    <message>
+        <source>Stop running</source>
+        <translation>Oprește activitățile în desfășurare</translation>
+    </message>
+    <message>
+        <source>Cancel queued</source>
+        <translation>Anulează activitățile programate</translation>
+    </message>
+    <message>
+        <source>Stop all</source>
+        <translation>Oprește toate activitățile</translation>
+    </message>
+    <message>
+        <source>Proceed in background</source>
+        <translation>Procedează în fundal</translation>
     </message>
 </context>
 <context>

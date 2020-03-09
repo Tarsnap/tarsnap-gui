@@ -1665,42 +1665,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There are %1 running tasks and %2 queued.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>What do you want to do?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Interrupt backup and clear queue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Interrupt backup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stop running</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel queued</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stop all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Proceed in background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The tarsnap cache directory is either missing or is broken. Run tarsnap fsck to fix this?
 </source>
         <translation type="unfinished"></translation>
@@ -2778,6 +2742,45 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     <name>SetupWizard</name>
     <message>
         <source>Tarsnap setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StopTasksDialog</name>
+    <message>
+        <source>There are %1 running tasks and %2 queued.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What do you want to do?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Interrupt backup and clear queue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Interrupt backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel queued</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proceed in background</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -27,43 +27,44 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     _actionButton->setText(tr("Choose action"));
 
     // interrupt
-    QAction *interruptBackup = nullptr;
+    _interruptBackup = nullptr;
     if(backupTaskRunning)
     {
         if(_aboutToQuit)
-            interruptBackup =
+            _interruptBackup =
                 _actionMenu->addAction(tr("Interrupt backup and clear queue"));
         else
-            interruptBackup = _actionMenu->addAction(tr("Interrupt backup"));
-        interruptBackup->setCheckable(true);
+            _interruptBackup = _actionMenu->addAction(tr("Interrupt backup"));
+        _interruptBackup->setCheckable(true);
     }
     // stopRunning
-    QAction *stopRunning = nullptr;
+    _stopRunning = nullptr;
     if(runningTasks && !_aboutToQuit)
     {
-        stopRunning = _actionMenu->addAction(tr("Stop running"));
-        stopRunning->setCheckable(true);
+        _stopRunning = _actionMenu->addAction(tr("Stop running"));
+        _stopRunning->setCheckable(true);
     }
     // stopQueued
-    QAction *stopQueued = nullptr;
+    _stopQueued = nullptr;
     if(queuedTasks && !_aboutToQuit)
     {
-        stopQueued = _actionMenu->addAction(tr("Cancel queued"));
-        stopQueued->setCheckable(true);
+        _stopQueued = _actionMenu->addAction(tr("Cancel queued"));
+        _stopQueued->setCheckable(true);
     }
     // stopAll
-    QAction *stopAll = nullptr;
+    _stopAll = nullptr;
     if(runningTasks || queuedTasks)
     {
-        stopAll = _actionMenu->addAction(tr("Stop all"));
-        stopAll->setCheckable(true);
+        _stopAll = _actionMenu->addAction(tr("Stop all"));
+        _stopAll->setCheckable(true);
     }
     // proceedBackground
-    QAction *proceedBackground = nullptr;
+    _proceedBackground = nullptr;
     if((runningTasks || queuedTasks) && _aboutToQuit)
     {
-        proceedBackground = _actionMenu->addAction(tr("Proceed in background"));
-        proceedBackground->setCheckable(true);
+        _proceedBackground =
+            _actionMenu->addAction(tr("Proceed in background"));
+        _proceedBackground->setCheckable(true);
     }
     QPushButton *cancel = addButton(QMessageBox::Cancel);
     setDefaultButton(cancel);
@@ -90,15 +91,15 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     }
 
     // Stop tasks.
-    if(interruptBackup && interruptBackup->isChecked())
+    if(_interruptBackup && _interruptBackup->isChecked())
         emit stopTasks(true, false, _aboutToQuit);
-    else if(stopQueued && stopQueued->isChecked())
+    else if(_stopQueued && _stopQueued->isChecked())
         emit stopTasks(false, false, true);
-    else if(stopRunning && stopRunning->isChecked())
+    else if(_stopRunning && _stopRunning->isChecked())
         emit stopTasks(false, true, false);
-    else if(stopAll && stopAll->isChecked())
+    else if(_stopAll && _stopAll->isChecked())
         emit stopTasks(false, true, true);
-    else if(proceedBackground && proceedBackground->isChecked())
+    else if(_proceedBackground && _proceedBackground->isChecked())
     {
         // Do nothing; it will happen due to code elsewhere
     }

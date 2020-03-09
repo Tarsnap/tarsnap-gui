@@ -8,6 +8,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 /* Forward declarations. */
+class QAction;
 class QMenu;
 class QPushButton;
 
@@ -44,6 +45,12 @@ signals:
 private:
     QPushButton *_actionButton;
     QMenu *      _actionMenu;
+
+    QAction *_interruptBackup;
+    QAction *_stopRunning;
+    QAction *_stopQueued;
+    QAction *_stopAll;
+    QAction *_proceedBackground;
 
     bool _aboutToQuit;
 };

@@ -15,6 +15,7 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
 {
     _aboutToQuit = aboutToQuit;
 
+    // Overall setup.
     setText(tr("There are %1 running tasks and %2 queued.")
                 .arg(runningTasks)
                 .arg(queuedTasks));
@@ -22,7 +23,9 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
 
     QPushButton actionButton(this);
     actionButton.setText(tr("Choose action"));
-    QMenu    actionMenu(&actionButton);
+    QMenu actionMenu(&actionButton);
+
+    // interrupt
     QAction *interruptBackup = nullptr;
     if(backupTaskRunning)
     {
@@ -33,24 +36,28 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
             interruptBackup = actionMenu.addAction(tr("Interrupt backup"));
         interruptBackup->setCheckable(true);
     }
+    // stopRunning
     QAction *stopRunning = nullptr;
     if(runningTasks && !_aboutToQuit)
     {
         stopRunning = actionMenu.addAction(tr("Stop running"));
         stopRunning->setCheckable(true);
     }
+    // stopQueued
     QAction *stopQueued = nullptr;
     if(queuedTasks && !_aboutToQuit)
     {
         stopQueued = actionMenu.addAction(tr("Cancel queued"));
         stopQueued->setCheckable(true);
     }
+    // stopAll
     QAction *stopAll = nullptr;
     if(runningTasks || queuedTasks)
     {
         stopAll = actionMenu.addAction(tr("Stop all"));
         stopAll->setCheckable(true);
     }
+    // proceedBackground
     QAction *proceedBackground = nullptr;
     if((runningTasks || queuedTasks) && _aboutToQuit)
     {
@@ -63,6 +70,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
             Qt::QueuedConnection);
     actionButton.setMenu(&actionMenu);
     addButton(&actionButton, QMessageBox::ActionRole);
+
+    // Launch dialog.
     int result = exec();
 
     // If we close the dialog with close() -- e.g., via the QTest
@@ -73,11 +82,13 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
         return;
     }
 
+    // Signal that we can quit now.
     if(_aboutToQuit)
     {
         emit quitOk();
     }
 
+    // Stop tasks.
     if(interruptBackup && interruptBackup->isChecked())
         emit stopTasks(true, false, _aboutToQuit);
     else if(stopQueued && stopQueued->isChecked())

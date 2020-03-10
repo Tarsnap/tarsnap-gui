@@ -74,14 +74,13 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     addButton(_actionButton, QMessageBox::ActionRole);
 
     // Launch dialog.
-    int result = exec();
+    exec();
 
-    // If we close the dialog with close() -- e.g., via the QTest
-    // framework -- then clickedButton() can be nullptr.
-    if((result != QDialog::Accepted) && _aboutToQuit)
+    // Bail (if applicable).
+    if((clickedButton() == cancel) && _aboutToQuit)
     {
+        _aboutToQuit = false;
         emit cancelAboutToQuit();
-        return;
     }
 
     // Signal that we can quit now.

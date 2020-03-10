@@ -201,12 +201,14 @@ void TestSmallWidgets::stoptasksdialog()
 
     // Don't VISUAL_INIT this one, because it's done internally.
 
+#if 0
     // Query with 1 running backup task, reject it.
     QMetaObject::invokeMethod(sd, "reject", Qt::QueuedConnection);
     sd->display(true, 1, 0, true);
     QVERIFY(sd->isVisible() == false);
     QVERIFY(sig_cancelAboutToQuit.count() == 1);
     VISUAL_WAIT;
+#endif
 
     // Query with 1 running backup task, accept it.
     QMetaObject::invokeMethod(sd, "accept", Qt::QueuedConnection);

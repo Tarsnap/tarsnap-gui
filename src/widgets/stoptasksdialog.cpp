@@ -74,13 +74,23 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     addButton(_actionButton, QMessageBox::ActionRole);
 
     // Launch dialog.
-    exec();
+    int res = exec();
 
     // Bail (if applicable).
-    if((clickedButton() == _cancel) && _aboutToQuit)
+    // QMessageBox::finished() is not documented as diverging from
+    // QDialog::finished().  However, it does differ, similar to
+    // QMessageBox::exec() -- it can return a QMessageBox::StandardButton
+    // value.  That said, if the QMessageBox is closed with an
+    // ->accept(), ->reject(), or ->close(), it will still provide a
+    // QDialog::Accepted or QDialog::Rejected.
+    if((res != QDialog::Accepted) || (clickedButton() == _cancel))
     {
-        _aboutToQuit = false;
-        emit cancelAboutToQuit();
+        if(_aboutToQuit)
+        {
+            _aboutToQuit = false;
+            emit cancelAboutToQuit();
+        }
+        return;
     }
 
     // Signal that we can quit now.

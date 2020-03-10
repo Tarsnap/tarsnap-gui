@@ -45,6 +45,7 @@ signals:
 private:
     QPushButton *_actionButton;
     QMenu *      _actionMenu;
+    QPushButton *_cancel;
 
     QAction *_interruptBackup;
     QAction *_stopRunning;

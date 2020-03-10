@@ -66,8 +66,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
             _actionMenu->addAction(tr("Proceed in background"));
         _proceedBackground->setCheckable(true);
     }
-    QPushButton *cancel = addButton(QMessageBox::Cancel);
-    setDefaultButton(cancel);
+    _cancel = addButton(QMessageBox::Cancel);
+    setDefaultButton(_cancel);
     connect(_actionMenu, &QMenu::triggered, this, &QDialog::accept,
             Qt::QueuedConnection);
     _actionButton->setMenu(_actionMenu);
@@ -77,7 +77,7 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     exec();
 
     // Bail (if applicable).
-    if((clickedButton() == cancel) && _aboutToQuit)
+    if((clickedButton() == _cancel) && _aboutToQuit)
     {
         _aboutToQuit = false;
         emit cancelAboutToQuit();

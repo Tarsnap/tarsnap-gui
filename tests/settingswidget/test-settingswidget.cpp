@@ -67,8 +67,9 @@ void TestSettingsWidget::tarsnapAccountDialog()
     TarsnapAccountDialog *ta = new TarsnapAccountDialog();
 
     // Trigger an error message that we have to click away.
-    QMetaObject::invokeMethod(&ta->_popup, "close", Qt::QueuedConnection);
     ta->getAccountInfo();
+    VISUAL_WAIT;
+    ta->close();
     QTest::qWait(200);
 
     delete ta;
@@ -94,10 +95,9 @@ void TestSettingsWidget::account()
     VISUAL_WAIT;
 
     // Trigger an error message that we have to click away.
-    QMetaObject::invokeMethod(ui->updateAccountButton, "clicked",
-                              Qt::QueuedConnection);
-    QMetaObject::invokeMethod(&tarsnapAccount->_popup, "close",
-                              Qt::QueuedConnection);
+    ui->updateAccountButton->clicked();
+    VISUAL_WAIT;
+    tarsnapAccount->_popup.close();
     VISUAL_WAIT;
 
     // Set username, machine name, key.

@@ -36,10 +36,13 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
 
     // Ensure that we have a new cancel button, to avoid
     // clickedButton() carrying over from the previous display().
+    QPushButton *cancel_orig = _cancel;
     if(_cancel != nullptr)
         removeButton(_cancel);
     _cancel = addButton(QMessageBox::Cancel);
     setDefaultButton(_cancel);
+    if(cancel_orig != nullptr)
+        delete cancel_orig;
 
     // interrupt
     _interruptBackup = nullptr;

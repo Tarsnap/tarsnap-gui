@@ -42,6 +42,10 @@ signals:
     //! We can actually quit now.
     void quitOk();
 
+private slots:
+    //! The dialog was closed.
+    void processResult(int res);
+
 private:
     QPushButton *_actionButton;
     QMenu *      _actionMenu;

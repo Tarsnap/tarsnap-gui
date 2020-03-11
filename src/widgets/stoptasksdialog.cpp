@@ -21,6 +21,10 @@ StopTasksDialog::StopTasksDialog(QWidget *parent)
             Qt::QueuedConnection);
     _actionButton->setMenu(_actionMenu);
     addButton(_actionButton, QMessageBox::ActionRole);
+
+    // Set up processing the result.
+    connect(this, &QMessageBox::finished, this,
+            &StopTasksDialog::processResult);
 }
 
 void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
@@ -86,7 +90,12 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     }
 
     // Launch dialog.
-    int res = exec();
+    open();
+}
+
+void StopTasksDialog::processResult(int res)
+{
+    // Keep 'res' name to avoid shadowing QDialog::result().
 
     // Bail (if applicable).
     // QMessageBox::finished() is not documented as diverging from

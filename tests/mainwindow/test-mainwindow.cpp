@@ -16,6 +16,7 @@ WARNINGS_ENABLE
 #include "helpwidget.h"
 #include "jobstabwidget.h"
 #include "mainwindow.h"
+#include "stoptasksdialog.h"
 
 #include "archivewidget.h"
 #include "persistentmodel/archive.h"
@@ -164,11 +165,8 @@ void TestMainWindow::quit_tasks()
 
     // Fake getting a response to a closeEvent (not sent in this test) which
     // says that there's running tasks, but cancel the quitting.
-    QMetaObject::invokeMethod(mainwindow, "closeWithTaskInfo",
-                              Qt::QueuedConnection, Q_ARG(bool, true),
-                              Q_ARG(int, 1), Q_ARG(int, 1));
-    QMetaObject::invokeMethod(&mainwindow->_stopTasksDialog, "close",
-                              Qt::QueuedConnection);
+    mainwindow->closeWithTaskInfo(true, 1, 1);
+    mainwindow->_stopTasksDialog.close();
     VISUAL_WAIT;
 
     // After cancelling the quit, we still respond to events
@@ -180,14 +178,9 @@ void TestMainWindow::quit_tasks()
 
     // Quit the app
     // FIXME: sending an "accept" is a hack because the task-specific choices
-    // (e.g., stop tasks, run in background) are only added to the dialog box
-    // after MainWindow receives the closeWithTaskInfo, so we can't
-    // "queue up" sending a message to one of those objects.
-    QMetaObject::invokeMethod(mainwindow, "closeWithTaskInfo",
-                              Qt::QueuedConnection, Q_ARG(bool, true),
-                              Q_ARG(int, 1), Q_ARG(int, 1));
-    QMetaObject::invokeMethod(&mainwindow->_stopTasksDialog, "accept",
-                              Qt::QueuedConnection);
+    // (e.g., stop tasks, run in background) haven't been "friended" yet.
+    mainwindow->closeWithTaskInfo(true, 1, 1);
+    mainwindow->_stopTasksDialog.accept();
     VISUAL_WAIT;
 
     // After quitting, we don't respond to more events

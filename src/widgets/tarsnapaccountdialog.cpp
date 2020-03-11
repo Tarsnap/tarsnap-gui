@@ -25,6 +25,10 @@ TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
 
     _ta = new TarsnapAccount();
 
+    // Act on password
+    connect(this, &TarsnapAccountDialog::finished, this,
+            &TarsnapAccountDialog::processPasswordBox);
+
     connect(_ta, &TarsnapAccount::gotTable, this,
             &TarsnapAccountDialog::displayCSVTable);
     connect(_ta, &TarsnapAccount::possibleWarning, this,
@@ -67,7 +71,12 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
     }
     _ui->textLabel->setText(tr("Type password for account %1:").arg(_user));
     _ui->loginButton->setEnabled(false);
-    if(exec() == QDialog::Rejected)
+    open();
+}
+
+void TarsnapAccountDialog::processPasswordBox(int res)
+{
+    if(res == QDialog::Rejected)
         return;
 
     _ta->getAccountInfo(_displayActivity, _displayMachineActivity,

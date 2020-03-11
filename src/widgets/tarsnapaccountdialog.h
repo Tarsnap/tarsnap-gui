@@ -53,6 +53,9 @@ signals:
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
     void getKeyId(QString key);
 
+private slots:
+    void processPasswordBox(int res);
+
 private:
     Ui::LoginDialog *_ui;
     TarsnapAccount * _ta;

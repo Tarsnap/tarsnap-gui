@@ -59,6 +59,9 @@ private:
     QMessageBox      _popup;
     QString          _user;
     quint64          _machineId;
+
+    bool _displayActivity;
+    bool _displayMachineActivity;
 };
 
 #endif // TARSNAPACCOUNT_H

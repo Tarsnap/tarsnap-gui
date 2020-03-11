@@ -59,7 +59,7 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
         _popup.setWindowTitle(tr("Warning"));
         _popup.setIcon(QMessageBox::Warning);
         _popup.setText(tr("Tarsnap username must be set."));
-        _popup.exec();
+        _popup.open();
         return;
     }
     _ui->textLabel->setText(tr("Type password for account %1:").arg(_user));
@@ -125,7 +125,7 @@ void TarsnapAccountDialog::showWarningIfApplicable(QByteArray data)
         _popup.setText(
             tr("Password for account %1 is incorrect; please try again.")
                 .arg(_user));
-        _popup.exec();
+        _popup.open();
     }
     else if(data.contains("No user exists with the provided email "
                           "address; please try again."))
@@ -134,6 +134,6 @@ void TarsnapAccountDialog::showWarningIfApplicable(QByteArray data)
         _popup.setIcon(QMessageBox::Warning);
         _popup.setText(
             tr("Account %1 is invalid; please try again.").arg(_user));
-        _popup.exec();
+        _popup.open();
     }
 }

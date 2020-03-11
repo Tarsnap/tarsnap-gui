@@ -201,7 +201,7 @@ TarsnapTask *backupArchiveTask(BackupTaskDataPtr backupTaskData)
 TarsnapTask *keyIdTask(const QString &key_filename)
 {
     TarsnapTask *task = new TarsnapTask();
-    QStringList  args = makeTarsnapArgs();
+    QStringList  args;
 
     /* Specific arguments. */
     task->setCommand(makeTarsnapCommand("tarsnap-keymgmt"));

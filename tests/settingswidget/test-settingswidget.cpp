@@ -106,21 +106,15 @@ void TestSettingsWidget::account()
     VISUAL_WAIT;
 
     // Nuke button, reject dialog.
-    QMetaObject::invokeMethod(ui->nukeArchivesButton, "clicked",
-                              Qt::QueuedConnection);
-    QMetaObject::invokeMethod(
-        &settingsWidget->_nukeConfirmationDialog._inputDialog, "reject",
-        Qt::QueuedConnection);
+    ui->nukeArchivesButton->clicked();
+    VISUAL_WAIT;
+    settingsWidget->_nukeConfirmationDialog._inputDialog.reject();
     QTest::qWait(200);
     QVERIFY(sig_status.takeFirst().at(0).toString()
             == QString("Nuke confirmation requested."));
     QVERIFY(sig_status.takeFirst().at(0).toString()
             == QString("Nuke cancelled."));
     VISUAL_WAIT;
-
-    // It would be nice to test the nuke button with invalid confirmation text,
-    // but QInputDialog::setTextValue() is not a slot and ::invokeMethod()
-    // only works on slots.
 
     // Check saved settings
     TSettings settings;

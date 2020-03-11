@@ -64,6 +64,10 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
     connect(_ui->actionClearList, &QAction::triggered, this,
             &BackupTabWidget::clearList);
 
+    // Allow the FilePickerDialog to use open()
+    connect(&_filePickerDialog, &FilePickerDialog::finished, this,
+            &BackupTabWidget::processFPD);
+
     updateUi();
 }
 
@@ -174,7 +178,12 @@ void BackupTabWidget::backupButtonClicked()
 void BackupTabWidget::browseForBackupItems()
 {
     _filePickerDialog.setSelectedUrls(_ui->backupListWidget->itemUrls());
-    if(_filePickerDialog.exec())
+    _filePickerDialog.open();
+}
+
+void BackupTabWidget::processFPD(int res)
+{
+    if(res == QDialog::Accepted)
         _ui->backupListWidget->setItemsWithUrls(
             _filePickerDialog.getSelectedUrls());
 }

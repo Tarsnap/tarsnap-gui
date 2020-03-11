@@ -68,6 +68,9 @@ private slots:
     void backupMorphIntoJobClicked();
     void updateBackupItemTotals(quint64 count, quint64 size);
 
+    // The FilePickerDialog finished.
+    void processFPD(int res);
+
 private:
     Ui::BackupTabWidget *_ui;
     FilePickerDialog     _filePickerDialog;

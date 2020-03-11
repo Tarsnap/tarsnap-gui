@@ -51,6 +51,9 @@ TarsnapAccountDialog::~TarsnapAccountDialog()
 void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
                                           bool displayMachineActivity)
 {
+    _displayActivity        = displayActivity;
+    _displayMachineActivity = displayMachineActivity;
+
     TSettings settings;
     _user = settings.value("tarsnap/user", "").toString();
     emit getKeyId(settings.value("tarsnap/key", "").toString());
@@ -67,7 +70,7 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
     if(exec() == QDialog::Rejected)
         return;
 
-    _ta->getAccountInfo(displayActivity, displayMachineActivity,
+    _ta->getAccountInfo(_displayActivity, _displayMachineActivity,
                         _ui->passwordLineEdit->text());
     _ui->passwordLineEdit->clear();
 }

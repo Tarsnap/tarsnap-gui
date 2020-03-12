@@ -461,8 +461,11 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
     }
     if(interrupt)
     {
+        // Sending a SIGQUIT will cause the tarsnap binary to
+        // create a checkpoint.  Non-tarsnap binaries should be
+        // receive a TarsnapTask::stop() instead of a SIGQUIT.
         if(!_runningTasks.isEmpty())
-            _runningTasks.first()->interrupt();
+            _runningTasks.first()->sigquit();
         emit message("Interrupting current backup.");
     }
     if(running)

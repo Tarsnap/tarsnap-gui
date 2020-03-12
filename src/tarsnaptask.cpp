@@ -117,7 +117,7 @@ void TarsnapTask::stop(bool kill)
     }
 }
 
-void TarsnapTask::interrupt()
+void TarsnapTask::sigquit()
 {
     // Assume that Q_PID is a valid pid on this system.
     pid_t pid = static_cast<pid_t>(_process->pid());

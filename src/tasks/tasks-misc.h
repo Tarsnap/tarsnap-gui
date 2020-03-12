@@ -25,4 +25,9 @@ WARNINGS_ENABLE
  */
 TarsnapTask *keyIdTask(const QString &key_filename);
 
+/**
+ * \brief Create a task for: `sleep SECONDS`
+ */
+TarsnapTask *sleepSecondsTask(int seconds);
+
 #endif /* !TASKS_MISC_H */

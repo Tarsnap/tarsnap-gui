@@ -44,6 +44,11 @@ public:
     void waitUntilIdle();
 #endif
 
+#ifdef QT_TESTLIB_LIB
+    //! Queue a task which sleeps for seconds.
+    void sleepSeconds(int seconds);
+#endif
+
 public slots:
     //! Checks if any scheduled jobs need to run now; if so, adds them to
     //! the queue.  If there are no scheduled jobs, quit the app immediately.

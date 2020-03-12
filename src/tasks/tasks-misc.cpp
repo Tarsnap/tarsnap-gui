@@ -19,3 +19,17 @@ TarsnapTask *keyIdTask(const QString &key_filename)
     task->setArguments(args);
     return (task);
 }
+
+TarsnapTask *sleepSecondsTask(int seconds)
+{
+    TarsnapTask *task = new TarsnapTask();
+    QStringList  args;
+
+    /* Specific arguments. */
+    task->setCommand("sleep");
+    args << QString::number(seconds);
+
+    /* Generic setup. */
+    task->setArguments(args);
+    return (task);
+}

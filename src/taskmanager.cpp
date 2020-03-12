@@ -11,6 +11,7 @@ WARNINGS_ENABLE
 
 #include "debug.h"
 #include "tasks-defs.h"
+#include "tasks-misc.h"
 #include "tasks-setup.h"
 #include "tasks-tarsnap.h"
 #include "tasks-utils.h"

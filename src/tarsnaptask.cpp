@@ -9,9 +9,7 @@ WARNINGS_ENABLE
 
 #include <ConsoleLog.h>
 
-#if defined Q_OS_UNIX
 #include <signal.h>
-#endif
 
 #define DEFAULT_TIMEOUT_MS 5000
 #define LOG_MAX_LENGTH 3072

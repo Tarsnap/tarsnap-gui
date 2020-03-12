@@ -105,14 +105,10 @@ cleanup:
     emit dequeue();
 }
 
-void TarsnapTask::stop(bool kill)
+void TarsnapTask::stop()
 {
     if(_process->state() == QProcess::Running)
-    {
         _process->terminate();
-        if(kill && (false == _process->waitForFinished(DEFAULT_TIMEOUT_MS)))
-            _process->kill();
-    }
 }
 
 void TarsnapTask::sigquit()

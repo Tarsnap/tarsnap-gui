@@ -19,6 +19,7 @@ HEADERS  +=						\
 	../../src/translator.h				\
 	../../src/utils.h				\
 	../../src/widgets/confirmationdialog.h		\
+	../../src/widgets/schedulingwidgets.h		\
 	../../src/widgets/settingswidget.h		\
 	../../src/widgets/tarsnapaccountdialog.h	\
 	../../tests/qtest-platform.h
@@ -33,6 +34,7 @@ SOURCES += test-settingswidget.cpp			\
 	../../src/translator.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/confirmationdialog.cpp	\
+	../../src/widgets/schedulingwidgets.cpp		\
 	../../src/widgets/settingswidget.cpp		\
 	../../src/widgets/tarsnapaccountdialog.cpp
 

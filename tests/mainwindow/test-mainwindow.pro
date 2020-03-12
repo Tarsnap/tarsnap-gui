@@ -67,6 +67,7 @@ HEADERS  +=						\
 	../../src/widgets/mainwindow.h			\
 	../../src/widgets/popuppushbutton.h		\
 	../../src/widgets/restoredialog.h		\
+	../../src/widgets/schedulingwidgets.h		\
 	../../src/widgets/settingswidget.h		\
 	../../src/widgets/stoptasksdialog.h		\
 	../../src/widgets/tarsnapaccountdialog.h	\
@@ -110,6 +111,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/widgets/mainwindow.cpp		\
 	../../src/widgets/popuppushbutton.cpp		\
 	../../src/widgets/restoredialog.cpp		\
+	../../src/widgets/schedulingwidgets.cpp		\
 	../../src/widgets/settingswidget.cpp		\
 	../../src/widgets/stoptasksdialog.cpp		\
 	../../src/widgets/tarsnapaccountdialog.cpp

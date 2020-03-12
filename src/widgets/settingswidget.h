@@ -17,10 +17,12 @@ WARNINGS_ENABLE
 #include "taskstatus.h"
 #include "translator.h"
 
+/* Forward declarations. */
 namespace Ui
 {
 class SettingsWidget;
 }
+class SchedulingWidgets;
 
 /*!
  * \ingroup widgets-main
@@ -105,8 +107,6 @@ private slots:
     void nukeCancelled();
     // For the Backup tab
     void updateSimulationIcon(int state);
-    void enableJobSchedulingButtonClicked();
-    void disableJobSchedulingButtonClicked();
     // For the Application tab
     void clearJournalClicked();
     bool validateTarsnapPath();
@@ -128,6 +128,8 @@ private:
     ConfirmationDialog _nukeConfirmationDialog;
 
     TarsnapAccountDialog _tarsnapAccount;
+
+    SchedulingWidgets *_schedulingWidgets;
 
     // For the Application tab
     int _runningTasks;

@@ -26,6 +26,8 @@ private slots:
     void fail_registerMachine_command_not_found();
     void fail_registerMachine_empty_key();
     void sleep_cancel();
+    void sleep_task();
+    void sleep_task_cancel();
     void tarsnapVersion_fake();
     void registerMachine_fake();
 };
@@ -186,6 +188,53 @@ void TestTaskManager::sleep_cancel()
     QVERIFY(sig_message.count() == 1);
     QVERIFY(sig_message.takeFirst().at(0).value<QString>()
             == "Stopped running tasks.");
+
+    // task is deleted by the task manager
+    delete manager;
+}
+
+void TestTaskManager::sleep_task()
+{
+    // Set up the manager.
+    TaskManager *manager = new TaskManager();
+    QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
+
+    // Set up a task and wait for it to start.
+    manager->sleepSeconds(1);
+    WAIT_SIG(sig_message);
+    QVERIFY(sig_message.takeFirst().at(0).toString() == "Started sleep task.");
+    sig_message.clear();
+
+    // Wait for it to finish.
+    WAIT_SIG(sig_message);
+    QVERIFY(sig_message.takeFirst().at(0).toString() == "Finished sleep task.");
+
+    // task is deleted by the task manager
+    delete manager;
+}
+
+void TestTaskManager::sleep_task_cancel()
+{
+    // Set up the manager.
+    TaskManager *manager = new TaskManager();
+    QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
+
+    // Set up a task and wait for it to start.
+    manager->sleepSeconds(1);
+    WAIT_SIG(sig_message);
+    QVERIFY(sig_message.takeFirst().at(0).toString() == "Started sleep task.");
+    sig_message.clear();
+
+    // Cancel it.
+    manager->stopTasks(false, true, false);
+    WAIT_UNTIL(sig_message.count() >= 1);
+    QVERIFY(sig_message.takeFirst().at(0).toString()
+            == "Stopped running tasks.");
+
+    // The previous WAIT_UNTIL might have gained 1 or 2 messages, so this one
+    // might not be necessary in all cases (depending on multithreading).
+    WAIT_UNTIL(sig_message.count() >= 1);
+    QVERIFY(sig_message.takeFirst().at(0).toString() == "Finished sleep task.");
 
     // task is deleted by the task manager
     delete manager;

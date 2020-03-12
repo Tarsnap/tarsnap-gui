@@ -66,9 +66,4 @@ TarsnapTask *restoreArchiveTask(const QString &       archiveName,
  */
 TarsnapTask *backupArchiveTask(BackupTaskDataPtr backupTaskData);
 
-/**
- * \brief Create a task for: `tarsnap-keymgmt --print-key-id KEYFILENAME`
- */
-TarsnapTask *keyIdTask(const QString &key_filename);
-
 #endif /* !TASKS_TARSNAP_H */

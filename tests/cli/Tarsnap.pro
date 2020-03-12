@@ -27,6 +27,7 @@ SOURCES +=						\
 	../../src/scheduling.cpp			\
 	../../src/tarsnaptask.cpp			\
 	../../src/taskmanager.cpp			\
+	../../src/tasks/tasks-misc.cpp			\
 	../../src/tasks/tasks-setup.cpp			\
 	../../src/tasks/tasks-tarsnap.cpp		\
 	../../src/tasks/tasks-utils.cpp			\
@@ -55,6 +56,7 @@ HEADERS +=						\
 	../../src/tarsnaptask.h				\
 	../../src/taskmanager.h				\
 	../../src/tasks/tasks-defs.h			\
+	../../src/tasks/tasks-misc.h			\
 	../../src/tasks/tasks-setup.h			\
 	../../src/tasks/tasks-tarsnap.h			\
 	../../src/tasks/tasks-utils.h			\

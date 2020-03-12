@@ -1297,3 +1297,15 @@ void TaskManager::waitUntilIdle()
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
 #endif
+
+#ifdef QT_TESTLIB_LIB
+void TaskManager::sleepSeconds(int seconds)
+{
+    TarsnapTask *sleepTask = sleepSecondsTask(seconds);
+    connect(sleepTask, &TarsnapTask::started, this,
+            [this]() { emit message(tr("Started sleep task.")); }, QUEUED);
+    connect(sleepTask, &TarsnapTask::finished, this,
+            [this]() { emit message(tr("Finished sleep task.")); }, QUEUED);
+    queueTask(sleepTask);
+}
+#endif

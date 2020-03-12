@@ -49,7 +49,7 @@ public:
     void sigquit();
     //! Emits \ref canceled.
     //! \warning Does not actually cancel a running task!
-    void cancel();
+    void emitCanceled();
 
     //! \name Getter/setter methods
     //! @{

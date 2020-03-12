@@ -126,7 +126,7 @@ void TarsnapTask::sigquit()
     kill(pid, SIGQUIT);
 }
 
-void TarsnapTask::cancel()
+void TarsnapTask::emitCanceled()
 {
     emit canceled(_data);
 }
@@ -241,7 +241,7 @@ void TarsnapTask::processError()
                .arg(Utils::quoteCommandLine(_arguments))
                .arg(QString(_stdOut + _stdErr).trimmed());
     emit finished(_data, _exitCode, QString(_stdOut), QString(_stdErr));
-    cancel();
+    emitCanceled();
 }
 
 #ifdef QT_TESTLIB_LIB

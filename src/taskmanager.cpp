@@ -453,7 +453,7 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
             TarsnapTask *task = _taskQueue.dequeue();
             if(task)
             {
-                task->cancel();
+                task->emitCanceled();
                 task->deleteLater();
             }
         }

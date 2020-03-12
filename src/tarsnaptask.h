@@ -46,7 +46,6 @@ public:
     //! \param kill if QProcess:terminate() fails, use QProcess::kill().
     void stop(bool kill = false);
     //! Send the QProcess a SIGQUIT.
-    //! \warning Unix only (including MacOS X).
     void interrupt();
     //! Emits \ref canceled.
     //! \warning Does not actually cancel a running task!

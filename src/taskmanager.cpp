@@ -1306,9 +1306,9 @@ void TaskManager::sleepSeconds(int seconds)
 {
     TarsnapTask *sleepTask = sleepSecondsTask(seconds);
     connect(sleepTask, &TarsnapTask::started, this,
-            [this]() { emit message(tr("Started sleep task.")); }, QUEUED);
+            [this]() { emit message("Started sleep task."); }, QUEUED);
     connect(sleepTask, &TarsnapTask::finished, this,
-            [this]() { emit message(tr("Finished sleep task.")); }, QUEUED);
+            [this]() { emit message("Finished sleep task."); }, QUEUED);
     queueTask(sleepTask);
 }
 #endif

@@ -1985,6 +1985,44 @@ Aborting operation.</source>
     </message>
 </context>
 <context>
+    <name>SchedulingWidgets</name>
+    <message>
+        <source>Job scheduling</source>
+        <translation type="unfinished">Programarea execuției automate</translation>
+    </message>
+    <message>
+        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
+
+%1</source>
+        <translation type="unfinished">Dorești anularea înregistrării aplicației cu serviciul macOS Launchd? Această acțiune va dezactiva programarea execuțiilor automate pentru Joburi.
+
+%1</translation>
+    </message>
+    <message>
+        <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
+        <translation type="unfinished">Înregistrarea aplicației cu serviciul CRON pentru utilizatorul curent va fi anulată.</translation>
+    </message>
+    <message>
+        <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
+        <translation type="unfinished">Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent. Execută click pe Arată detalii.</translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
+
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with cron serivce?
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsWidget</name>
     <message>
         <source>Account</source>
@@ -2443,48 +2481,6 @@ unique data	%3		%4</source>
     <message>
         <source>Nuke cancelled.</source>
         <translation type="unfinished">Operațiunea de ștergere a arhivelor a fost anulată.</translation>
-    </message>
-    <message>
-        <source>Job scheduling</source>
-        <translation type="unfinished">Programarea execuției automate</translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
-
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
-
-%1</source>
-        <translation type="unfinished">Dorești înregistrarea aplicației cu serviciul macOS Launchd pentru execuție zilnică la ora 10am?
-
-Joburile care au activată execuția programată vor fi executate conform setării de frecventă, respectiv Zilnic, Săptămânal sau Lunar. 
-
-%1</translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with cron serivce?
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
-
-%1</source>
-        <translation type="unfinished">Dorești înregistrarea aplicației cu serviciul CRON?
-Joburile care au activată execuția programată vor fi executate conform setării de frecventă, respectiv Zilnic, Săptămânal sau Lunar. 
-
-%1</translation>
-    </message>
-    <message>
-        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
-
-%1</source>
-        <translation type="unfinished">Dorești anularea înregistrării aplicației cu serviciul macOS Launchd? Această acțiune va dezactiva programarea execuțiilor automate pentru Joburi.
-
-%1</translation>
-    </message>
-    <message>
-        <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
-        <translation type="unfinished">Înregistrarea aplicației cu serviciul CRON pentru utilizatorul curent va fi anulată.</translation>
-    </message>
-    <message>
-        <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
-        <translation type="unfinished">Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent. Execută click pe Arată detalii.</translation>
     </message>
     <message>
         <source>Find Tarsnap client</source>

@@ -1965,6 +1965,42 @@ Aborting operation.</source>
     </message>
 </context>
 <context>
+    <name>SchedulingWidgets</name>
+    <message>
+        <source>Job scheduling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
+
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register Tarsnap GUI with cron serivce?
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule.
+
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsWidget</name>
     <message>
         <source>Account</source>
@@ -2422,39 +2458,6 @@ unique data	%3		%4</source>
     </message>
     <message>
         <source>Nuke cancelled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Job scheduling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
-
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Register Tarsnap GUI with cron serivce?
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule. 
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To ensure proper behavior please review the lines to be removed by pressing Show Details before proceeding.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

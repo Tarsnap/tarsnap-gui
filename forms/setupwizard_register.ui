@@ -91,6 +91,24 @@
      </item>
      <item>
       <widget class="QTabWidget" name="keyfileTabWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>133</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>133</height>
+        </size>
+       </property>
        <property name="autoFillBackground">
         <bool>true</bool>
        </property>
@@ -214,22 +232,21 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
-          <spacer name="createKeyfileSubpageBottomSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>77</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
         </layout>
        </widget>
        <widget class="QWidget" name="useExistingKeyfileTab">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>104</height>
+         </size>
+        </property>
         <property name="autoFillBackground">
          <bool>true</bool>
         </property>
@@ -237,6 +254,9 @@
          <string>Use existing keyfile</string>
         </attribute>
         <layout class="QVBoxLayout" name="useExistingKeyfileLayout">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinimumSize</enum>
+         </property>
          <property name="leftMargin">
           <number>3</number>
          </property>
@@ -266,14 +286,14 @@
           </widget>
          </item>
          <item>
-          <spacer name="registerBottomSpacer">
+          <spacer name="useExistingKeyfileSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>0</width>
-             <height>0</height>
+             <width>20</width>
+             <height>40</height>
             </size>
            </property>
           </spacer>
@@ -281,6 +301,19 @@
         </layout>
        </widget>
       </widget>
+     </item>
+     <item>
+      <spacer name="bottomSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">

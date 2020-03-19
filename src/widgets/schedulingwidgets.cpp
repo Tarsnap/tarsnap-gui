@@ -26,7 +26,7 @@ void SchedulingWidgets::enableJobSchedulingButtonClicked()
                                  "\n\nJobs that have scheduled backup"
                                  " turned on will be backed up according"
                                  " to the Daily, Weekly or Monthly"
-                                 " schedule. \n\n%1")
+                                 " schedule.\n\n%1")
                                   .arg(CRON_MARKER_HELP));
     if(confirm != QMessageBox::Yes)
         return;
@@ -46,7 +46,7 @@ void SchedulingWidgets::enableJobSchedulingButtonClicked()
                                  "\nJobs that have scheduled backup"
                                  " turned on will be backed up according"
                                  " to the Daily, Weekly or Monthly"
-                                 " schedule. \n\n%1")
+                                 " schedule.\n\n%1")
                                   .arg(CRON_MARKER_HELP));
     if(confirm != QMessageBox::Yes)
         return;

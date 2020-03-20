@@ -16,9 +16,7 @@ StopTasksDialog::StopTasksDialog(QWidget *parent)
     setInformativeText(tr("What do you want to do?"));
     _actionButton->setText(tr("Choose action"));
 
-    // Set up buttons.
-    connect(_actionMenu, &QMenu::triggered, this, &QDialog::accept,
-            Qt::QueuedConnection);
+    // Set up menu.
     _actionButton->setMenu(_actionMenu);
     addButton(_actionButton, QMessageBox::ActionRole);
 
@@ -58,6 +56,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
         else
             _interruptBackup = _actionMenu->addAction(tr("Interrupt backup"));
         _interruptBackup->setCheckable(true);
+        connect(_interruptBackup, &QAction::triggered, this, &QDialog::accept,
+                Qt::QueuedConnection);
     }
     // stopRunning
     _stopRunning = nullptr;
@@ -65,6 +65,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     {
         _stopRunning = _actionMenu->addAction(tr("Stop running"));
         _stopRunning->setCheckable(true);
+        connect(_stopRunning, &QAction::triggered, this, &QDialog::accept,
+                Qt::QueuedConnection);
     }
     // stopQueued
     _stopQueued = nullptr;
@@ -72,6 +74,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     {
         _stopQueued = _actionMenu->addAction(tr("Cancel queued"));
         _stopQueued->setCheckable(true);
+        connect(_stopQueued, &QAction::triggered, this, &QDialog::accept,
+                Qt::QueuedConnection);
     }
     // stopAll
     _stopAll = nullptr;
@@ -79,6 +83,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     {
         _stopAll = _actionMenu->addAction(tr("Stop all"));
         _stopAll->setCheckable(true);
+        connect(_stopAll, &QAction::triggered, this, &QDialog::accept,
+                Qt::QueuedConnection);
     }
     // proceedBackground
     _proceedBackground = nullptr;

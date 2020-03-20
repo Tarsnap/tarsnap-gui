@@ -1,6 +1,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QAction>
 #include <QPixmap>
 #include <QPushButton>
 #include <QtTest/QtTest>
@@ -198,21 +199,31 @@ void TestSmallWidgets::stoptasksdialog()
     StopTasksDialog *sd = new StopTasksDialog();
     QSignalSpy       sig_cancelAboutToQuit(sd, SIGNAL(cancelAboutToQuit()));
     QSignalSpy       sig_quitOk(sd, SIGNAL(quitOk()));
+    QSignalSpy       sig_stop(sd, SIGNAL(stopTasks(bool, bool, bool)));
+    QList<QVariant>  stop_bools;
 
     // Don't VISUAL_INIT this one, because it's done internally.
 
     // Query with 1 running backup task, reject it.
     sd->display(true, 1, 0, true);
-    sd->reject();
+    sd->_cancelButton->clicked();
     QVERIFY(sd->isVisible() == false);
     QVERIFY(sig_cancelAboutToQuit.count() == 1);
     VISUAL_WAIT;
 
-    // Query with 1 running backup task, accept it.
+    // Query with 1 running backup task, stop it.
     sd->display(true, 1, 0, true);
+    sd->_interruptBackup->trigger();
     sd->accept();
     QVERIFY(sd->isVisible() == false);
     QVERIFY(sig_quitOk.count() == 1);
+    QVERIFY(sig_stop.count() == 1);
+    stop_bools = sig_stop.takeFirst();
+    QVERIFY(stop_bools.size() == 3);
+    QVERIFY(stop_bools.at(0).toBool() == true);
+    QVERIFY(stop_bools.at(1).toBool() == false);
+    QVERIFY(stop_bools.at(2).toBool() == true);
+
     VISUAL_WAIT;
 
     delete sd;

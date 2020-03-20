@@ -166,6 +166,7 @@ void TestMainWindow::quit_tasks()
     // Fake getting a response to a closeEvent (not sent in this test) which
     // says that there's running tasks, but cancel the quitting.
     mainwindow->closeWithTaskInfo(true, 1, 1);
+    VISUAL_WAIT;
     mainwindow->_stopTasksDialog.close();
     VISUAL_WAIT;
 
@@ -177,10 +178,9 @@ void TestMainWindow::quit_tasks()
     VISUAL_WAIT;
 
     // Quit the app
-    // FIXME: sending an "accept" is a hack because the task-specific choices
-    // (e.g., stop tasks, run in background) haven't been "friended" yet.
     mainwindow->closeWithTaskInfo(true, 1, 1);
-    mainwindow->_stopTasksDialog.accept();
+    VISUAL_WAIT;
+    mainwindow->_stopTasksDialog._stopAll->trigger();
     VISUAL_WAIT;
 
     // After quitting, we don't respond to more events

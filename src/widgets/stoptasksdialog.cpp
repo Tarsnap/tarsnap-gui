@@ -93,6 +93,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
         _proceedBackground =
             _actionMenu->addAction(tr("Proceed in background"));
         _proceedBackground->setCheckable(true);
+        connect(_proceedBackground, &QAction::triggered, this, &QDialog::accept,
+                Qt::QueuedConnection);
     }
 
     // Launch dialog.

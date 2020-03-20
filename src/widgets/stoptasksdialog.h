@@ -49,7 +49,7 @@ private slots:
 private:
     QPushButton *_actionButton;
     QMenu *      _actionMenu;
-    QPushButton *_cancel;
+    QPushButton *_cancelButton;
 
     QAction *_interruptBackup;
     QAction *_stopRunning;

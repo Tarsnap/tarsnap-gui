@@ -10,7 +10,7 @@ StopTasksDialog::StopTasksDialog(QWidget *parent)
     : QMessageBox(parent),
       _actionButton(new QPushButton(this)),
       _actionMenu(new QMenu(_actionButton)),
-      _cancel(nullptr)
+      _cancelButton(nullptr)
 {
     // Set up text.
     setInformativeText(tr("What do you want to do?"));
@@ -40,11 +40,11 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
 
     // Ensure that we have a new cancel button, to avoid
     // clickedButton() carrying over from the previous display().
-    QPushButton *cancel_orig = _cancel;
-    if(_cancel != nullptr)
-        removeButton(_cancel);
-    _cancel = addButton(QMessageBox::Cancel);
-    setDefaultButton(_cancel);
+    QPushButton *cancel_orig = _cancelButton;
+    if(_cancelButton != nullptr)
+        removeButton(_cancelButton);
+    _cancelButton = addButton(QMessageBox::Cancel);
+    setDefaultButton(_cancelButton);
     if(cancel_orig != nullptr)
         delete cancel_orig;
 
@@ -104,7 +104,7 @@ void StopTasksDialog::processResult(int res)
     // value.  That said, if the QMessageBox is closed with an
     // ->accept(), ->reject(), or ->close(), it will still provide a
     // QDialog::Accepted or QDialog::Rejected.
-    if((res != QDialog::Accepted) || (clickedButton() == _cancel))
+    if((res != QDialog::Accepted) || (clickedButton() == _cancelButton))
     {
         if(_aboutToQuit)
         {

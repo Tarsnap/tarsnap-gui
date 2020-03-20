@@ -21,6 +21,11 @@ class StopTasksDialog : public QMessageBox
 {
     Q_OBJECT
 
+#ifdef QT_TESTLIB_LIB
+    friend class TestMainWindow;
+    friend class TestSmallWidgets;
+#endif
+
 public:
     //! Constructor.
     explicit StopTasksDialog(QWidget *parent = nullptr);

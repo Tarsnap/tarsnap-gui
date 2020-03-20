@@ -206,6 +206,7 @@ void TestSmallWidgets::stoptasksdialog()
 
     // Query with 1 running backup task, reject it.
     sd->display(true, 1, 0, true);
+    VISUAL_WAIT;
     sd->_cancelButton->clicked();
     QVERIFY(sd->isVisible() == false);
     QVERIFY(sig_cancelAboutToQuit.count() == 1);
@@ -213,8 +214,10 @@ void TestSmallWidgets::stoptasksdialog()
 
     // Query with 1 running backup task, stop it.
     sd->display(true, 1, 0, true);
+    VISUAL_WAIT;
     sd->_interruptBackup->trigger();
-    sd->accept();
+    // Allow queued connections to fire.
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     QVERIFY(sd->isVisible() == false);
     QVERIFY(sig_quitOk.count() == 1);
     QVERIFY(sig_stop.count() == 1);

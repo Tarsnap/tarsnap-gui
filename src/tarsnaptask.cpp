@@ -75,7 +75,7 @@ void TarsnapTask::run()
     else
     {
         _exitCode = EXIT_DID_NOT_START;
-        processError();
+        processError(_process);
         goto cleanup;
     }
 
@@ -89,13 +89,13 @@ void TarsnapTask::run()
     // Wait indefinitely for the process to finish
     if(_process->waitForFinished(-1))
     {
-        readProcessOutput();
-        processFinished();
+        readProcessOutput(_process);
+        processFinished(_process);
     }
     else
     {
-        readProcessOutput();
-        processError();
+        readProcessOutput(_process);
+        processError(_process);
         goto cleanup;
     }
 
@@ -180,11 +180,11 @@ void TarsnapTask::setTruncateLogOutput(bool truncateLogOutput)
     _truncateLogOutput = truncateLogOutput;
 }
 
-void TarsnapTask::readProcessOutput()
+void TarsnapTask::readProcessOutput(QProcess *process)
 {
     if(_stdOutFilename.isEmpty())
-        _stdOut.append(_process->readAllStandardOutput().trimmed());
-    _stdErr.append(_process->readAllStandardError().trimmed());
+        _stdOut.append(process->readAllStandardOutput().trimmed());
+    _stdErr.append(process->readAllStandardError().trimmed());
 }
 
 QByteArray TarsnapTask::truncate_output(QByteArray stdOut)
@@ -202,13 +202,13 @@ QByteArray TarsnapTask::truncate_output(QByteArray stdOut)
     return stdOut;
 }
 
-void TarsnapTask::processFinished()
+void TarsnapTask::processFinished(QProcess *process)
 {
-    switch(_process->exitStatus())
+    switch(process->exitStatus())
     {
     case QProcess::NormalExit:
     {
-        _exitCode = _process->exitCode();
+        _exitCode = process->exitCode();
         emit finished(_data, _exitCode, QString(_stdOut), QString(_stdErr));
 
         // Truncate LOG output
@@ -227,19 +227,19 @@ void TarsnapTask::processFinished()
     case QProcess::CrashExit:
     {
         _exitCode = EXIT_CRASHED;
-        processError();
+        processError(process);
         break;
     }
     }
 }
 
-void TarsnapTask::processError()
+void TarsnapTask::processError(QProcess *process)
 {
     LOG << tr("Task %1 finished with error %2 (%3) occured "
               "(exit code %4):\n[%5 %6]\n%7\n")
                .arg(_uuid.toString())
-               .arg(_process->error())
-               .arg(_process->errorString())
+               .arg(process->error())
+               .arg(process->errorString())
                .arg(_exitCode)
                .arg(_command)
                .arg(Utils::quoteCommandLine(_arguments))

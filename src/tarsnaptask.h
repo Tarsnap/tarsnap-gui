@@ -79,9 +79,9 @@ signals:
     void dequeue();
 
 private slots:
-    void readProcessOutput();
-    void processFinished();
-    void processError();
+    void readProcessOutput(QProcess *process);
+    void processFinished(QProcess *process);
+    void processError(QProcess *process);
 
 private:
     // Housekeeping.

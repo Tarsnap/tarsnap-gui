@@ -107,12 +107,22 @@ cleanup:
 
 void TarsnapTask::stop()
 {
+    // Bail if the TaskManager has recorded this as "started" but it
+    // hasn't actually begun yet.  See taskmanager.cpp for explanation.
+    if(_process == nullptr)
+        return;
+
     if(_process->state() == QProcess::Running)
         _process->terminate();
 }
 
 void TarsnapTask::sigquit()
 {
+    // Bail if the TaskManager has recorded this as "started" but it
+    // hasn't actually begun yet.  See taskmanager.cpp for explanation.
+    if(_process == nullptr)
+        return;
+
     // Assume that Q_PID is a valid pid on this system.
     pid_t pid = static_cast<pid_t>(_process->pid());
     // If this is sent to the Tarsnap client creating an archive, it will

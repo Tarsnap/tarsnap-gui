@@ -990,7 +990,21 @@ void TaskManager::startTask(TarsnapTask *task)
     }
     connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask,
             QUEUED);
+
+    // Record this thread as "running", even though it hasn't actually
+    // started yet.  QThreadPool::start() is non-blocking, and in fact
+    // explicitly states that a QRunnable can be added to an internal
+    // run queue if it's exceeded QThreadPoll::maxThreadCount().
+    //
+    // However, for the purpose of this TaskManager, the task should not
+    // be recorded in our _taskQueue (because we've just dequeued()'d it).
+    // The "strictly correct" solution would be to add a
+    // _waitingForStart queue, and move items out of that queue when the
+    // relevant TarsnapTask::started signal was emitted.  At the moment,
+    // I don't think that step is necessary, but I might need to revisit
+    // that decision later.
     _runningTasks.append(task);
+
     task->setAutoDelete(false);
 #ifdef QT_TESTLIB_LIB
     if(_fakeNextTask)

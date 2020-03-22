@@ -9,8 +9,7 @@ WARNINGS_ENABLE
 StopTasksDialog::StopTasksDialog(QWidget *parent)
     : QMessageBox(parent),
       _actionButton(new QPushButton(this)),
-      _actionMenu(new QMenu(_actionButton)),
-      _cancelButton(nullptr)
+      _actionMenu(new QMenu(_actionButton))
 {
     // Set up text.
     setInformativeText(tr("What do you want to do?"));
@@ -19,6 +18,10 @@ StopTasksDialog::StopTasksDialog(QWidget *parent)
     // Set up menu.
     _actionButton->setMenu(_actionMenu);
     addButton(_actionButton, QMessageBox::ActionRole);
+
+    // Set up buttons.
+    _cancelButton = addButton(QMessageBox::Cancel);
+    setDefaultButton(_cancelButton);
 
     // Set up processing the result.
     connect(this, &QMessageBox::finished, this,
@@ -38,16 +41,6 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
                 .arg(runningTasks)
                 .arg(queuedTasks));
     _actionMenu->clear();
-
-    // Ensure that we have a new cancel button, to avoid
-    // clickedButton() carrying over from the previous display().
-    QPushButton *cancel_orig = _cancelButton;
-    if(_cancelButton != nullptr)
-        removeButton(_cancelButton);
-    _cancelButton = addButton(QMessageBox::Cancel);
-    setDefaultButton(_cancelButton);
-    if(cancel_orig != nullptr)
-        delete cancel_orig;
 
     // interrupt
     _interruptBackup = nullptr;

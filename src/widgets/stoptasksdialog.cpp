@@ -115,7 +115,7 @@ void StopTasksDialog::processResult(int res)
     // value.  That said, if the QMessageBox is closed with an
     // ->accept(), ->reject(), or ->close(), it will still provide a
     // QDialog::Accepted or QDialog::Rejected.
-    if((res != QDialog::Accepted) || (clickedButton() == _cancelButton))
+    if(res != QDialog::Accepted)
     {
         if(_aboutToQuit)
         {

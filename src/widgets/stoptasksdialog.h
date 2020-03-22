@@ -58,7 +58,7 @@ signals:
     void quitOk();
 
 private slots:
-    //! The dialog was closed.
+    // The dialog was closed.
     void processResult(int res);
 
 private:

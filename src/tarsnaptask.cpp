@@ -52,6 +52,7 @@ void TarsnapTask::run()
     {
         LOG << "Not running task due to 'fake this task' request.\n";
         _fake = false;
+        emit started(_data);
         emit finished(_data, EXIT_FAKE_REQUEST, "", "");
         goto cleanup;
     }

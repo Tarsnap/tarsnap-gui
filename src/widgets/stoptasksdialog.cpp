@@ -30,6 +30,9 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
 {
     _aboutToQuit = aboutToQuit;
 
+    // Sanity check.
+    Q_ASSERT((runningTasks > 0) || (queuedTasks > 0));
+
     // Overall setup.
     setText(tr("There are %1 running tasks and %2 queued.")
                 .arg(runningTasks)

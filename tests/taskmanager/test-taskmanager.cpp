@@ -200,7 +200,7 @@ void TestTaskManager::sleep_task()
     QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
 
     // Set up a task and wait for it to start.
-    manager->sleepSeconds(1);
+    manager->sleepSeconds(1, false);
     WAIT_SIG(sig_message);
     QVERIFY(sig_message.takeFirst().at(0).toString() == "Started sleep task.");
     sig_message.clear();
@@ -220,7 +220,7 @@ void TestTaskManager::sleep_task_cancel()
     QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
 
     // Set up a task and wait for it to start.
-    manager->sleepSeconds(1);
+    manager->sleepSeconds(1, false);
     WAIT_SIG(sig_message);
     QVERIFY(sig_message.takeFirst().at(0).toString() == "Started sleep task.");
     sig_message.clear();

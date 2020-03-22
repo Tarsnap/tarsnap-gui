@@ -46,7 +46,7 @@ public:
 
 #ifdef QT_TESTLIB_LIB
     //! Queue a task which sleeps for seconds.
-    void sleepSeconds(int seconds);
+    void sleepSeconds(int seconds, bool exclusive);
 #endif
 
 public slots:

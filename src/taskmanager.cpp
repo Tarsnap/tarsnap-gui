@@ -1300,13 +1300,13 @@ void TaskManager::waitUntilIdle()
 #endif
 
 #ifdef QT_TESTLIB_LIB
-void TaskManager::sleepSeconds(int seconds)
+void TaskManager::sleepSeconds(int seconds, bool exclusive)
 {
     TarsnapTask *sleepTask = sleepSecondsTask(seconds);
     connect(sleepTask, &TarsnapTask::started, this,
             [this]() { emit message("Started sleep task."); });
     connect(sleepTask, &TarsnapTask::finished, this,
             [this]() { emit message("Finished sleep task."); });
-    queueTask(sleepTask);
+    queueTask(sleepTask, exclusive);
 }
 #endif

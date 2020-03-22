@@ -42,7 +42,7 @@ void TaskManager::tarsnapVersionFind()
 {
     TarsnapTask *versionTask = tarsnapVersionTask();
     connect(versionTask, &TarsnapTask::finished, this,
-            &TaskManager::getTarsnapVersionFinished, QUEUED);
+            &TaskManager::getTarsnapVersionFinished);
     queueTask(versionTask);
 }
 
@@ -112,7 +112,7 @@ void TaskManager::registerMachineDo(const QString &password,
     registerTask->setData(data);
 
     connect(registerTask, &TarsnapTask::finished, this,
-            &TaskManager::registerMachineFinished, QUEUED);
+            &TaskManager::registerMachineFinished);
     queueTask(registerTask);
 }
 
@@ -131,11 +131,11 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
                                + backupTask->arguments().join(" "));
     backupTask->setData(backupTaskData->uuid());
     connect(backupTask, &TarsnapTask::finished, this,
-            &TaskManager::backupTaskFinished, QUEUED);
+            &TaskManager::backupTaskFinished);
     connect(backupTask, &TarsnapTask::started, this,
-            &TaskManager::backupTaskStarted, QUEUED);
+            &TaskManager::backupTaskStarted);
     connect(backupTaskData.data(), &BackupTaskData::statusUpdate, this,
-            &TaskManager::notifyBackupTaskUpdate, QUEUED);
+            &TaskManager::notifyBackupTaskUpdate);
     backupTaskData->setStatus(TaskStatus::Queued);
     queueTask(backupTask, true);
 }
@@ -145,12 +145,10 @@ void TaskManager::getArchives()
     TarsnapTask *listTask = listArchivesTask();
     listTask->setTruncateLogOutput(true);
     connect(listTask, &TarsnapTask::finished, this,
-            &TaskManager::getArchiveListFinished, QUEUED);
-    connect(listTask, &TarsnapTask::started, this,
-            [this]() {
-                emit message(tr("Updating archives list from remote..."));
-            },
-            QUEUED);
+            &TaskManager::getArchiveListFinished);
+    connect(listTask, &TarsnapTask::started, this, [this]() {
+        emit message(tr("Updating archives list from remote..."));
+    });
     queueTask(listTask);
 }
 
@@ -194,13 +192,11 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
     TarsnapTask *statsTask = printStatsTask(archive->name());
     statsTask->setData(QVariant::fromValue(archive));
     connect(statsTask, &TarsnapTask::finished, this,
-            &TaskManager::getArchiveStatsFinished, QUEUED);
-    connect(statsTask, &TarsnapTask::started, this,
-            [this, archive]() {
-                emit message(tr("Fetching stats for archive <i>%1</i>...")
-                                 .arg(archive->name()));
-            },
-            QUEUED);
+            &TaskManager::getArchiveStatsFinished);
+    connect(statsTask, &TarsnapTask::started, this, [this, archive]() {
+        emit message(
+            tr("Fetching stats for archive <i>%1</i>...").arg(archive->name()));
+    });
     queueTask(statsTask);
 }
 
@@ -216,13 +212,11 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     contentsTask->setData(QVariant::fromValue(archive));
     contentsTask->setTruncateLogOutput(true);
     connect(contentsTask, &TarsnapTask::finished, this,
-            &TaskManager::getArchiveContentsFinished, QUEUED);
-    connect(contentsTask, &TarsnapTask::started, this,
-            [this, archive]() {
-                emit message(tr("Fetching contents for archive <i>%1</i>...")
-                                 .arg(archive->name()));
-            },
-            QUEUED);
+            &TaskManager::getArchiveContentsFinished);
+    connect(contentsTask, &TarsnapTask::started, this, [this, archive]() {
+        emit message(tr("Fetching contents for archive <i>%1</i>...")
+                         .arg(archive->name()));
+    });
     queueTask(contentsTask);
 }
 
@@ -243,20 +237,16 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     TarsnapTask *deleteTask = deleteArchivesTask(archiveNames);
     deleteTask->setData(QVariant::fromValue(archives));
     connect(deleteTask, &TarsnapTask::finished, this,
-            &TaskManager::deleteArchivesFinished, QUEUED);
-    connect(deleteTask, &TarsnapTask::canceled, this,
-            [](QVariant data) {
-                QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
-                for(const ArchivePtr &archive : d_archives)
-                    archive->setDeleteScheduled(false);
-            },
-            QUEUED);
-    connect(deleteTask, &TarsnapTask::started, this,
-            [this](QVariant data) {
-                QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
-                notifyArchivesDeleted(d_archives, false);
-            },
-            QUEUED);
+            &TaskManager::deleteArchivesFinished);
+    connect(deleteTask, &TarsnapTask::canceled, this, [](QVariant data) {
+        QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
+        for(const ArchivePtr &archive : d_archives)
+            archive->setDeleteScheduled(false);
+    });
+    connect(deleteTask, &TarsnapTask::started, this, [this](QVariant data) {
+        QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
+        notifyArchivesDeleted(d_archives, false);
+    });
     queueTask(deleteTask, true);
 }
 
@@ -264,28 +254,25 @@ void TaskManager::getOverallStats()
 {
     TarsnapTask *statsTask = overallStatsTask();
     connect(statsTask, &TarsnapTask::finished, this,
-            &TaskManager::overallStatsFinished, QUEUED);
+            &TaskManager::overallStatsFinished);
     queueTask(statsTask);
 }
 
 void TaskManager::fsck(bool prune)
 {
     TarsnapTask *fsckTask = fsckCleanTask(prune);
-    connect(fsckTask, &TarsnapTask::finished, this, &TaskManager::fsckFinished,
-            QUEUED);
+    connect(fsckTask, &TarsnapTask::finished, this, &TaskManager::fsckFinished);
     connect(fsckTask, &TarsnapTask::started, this,
-            [this]() { emit message(tr("Cache repair initiated.")); }, QUEUED);
+            [this]() { emit message(tr("Cache repair initiated.")); });
     queueTask(fsckTask, true);
 }
 
 void TaskManager::nuke()
 {
     TarsnapTask *nukeTask = nukeArchivesTask();
-    connect(nukeTask, &TarsnapTask::finished, this, &TaskManager::nukeFinished,
-            QUEUED);
+    connect(nukeTask, &TarsnapTask::finished, this, &TaskManager::nukeFinished);
     connect(nukeTask, &TarsnapTask::started, this,
-            [this]() { emit message(tr("Archives nuke initiated...")); },
-            QUEUED);
+            [this]() { emit message(tr("Archives nuke initiated...")); });
     queueTask(nukeTask, true);
 }
 
@@ -301,13 +288,11 @@ void TaskManager::restoreArchive(ArchivePtr            archive,
     TarsnapTask *restoreTask = restoreArchiveTask(archive->name(), options);
     restoreTask->setData(QVariant::fromValue(archive));
     connect(restoreTask, &TarsnapTask::finished, this,
-            &TaskManager::restoreArchiveFinished, QUEUED);
-    connect(restoreTask, &TarsnapTask::started, this,
-            [this, archive]() {
-                emit message(tr("Restoring from archive <i>%1</i>...")
-                                 .arg(archive->name()));
-            },
-            QUEUED);
+            &TaskManager::restoreArchiveFinished);
+    connect(restoreTask, &TarsnapTask::started, this, [this, archive]() {
+        emit message(
+            tr("Restoring from archive <i>%1</i>...").arg(archive->name()));
+    });
     queueTask(restoreTask);
 }
 
@@ -322,7 +307,7 @@ void TaskManager::getKeyId(const QString &key_filename)
     TarsnapTask *keymgmtTask = keyIdTask(key_filename);
     keymgmtTask->setData(key_filename);
     connect(keymgmtTask, &TarsnapTask::finished, this,
-            &TaskManager::getKeyIdFinished, QUEUED);
+            &TaskManager::getKeyIdFinished);
     queueTask(keymgmtTask);
 }
 
@@ -579,7 +564,7 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
     {
         // Run the stored task.
         connect(nextTask, &TarsnapTask::finished, this,
-                &TaskManager::registerMachineFinished, QUEUED);
+                &TaskManager::registerMachineFinished);
         queueTask(nextTask);
         // We're not finished yet, so we want to let the event loop continue.
         return;
@@ -988,8 +973,7 @@ void TaskManager::startTask(TarsnapTask *task)
         else
             return;
     }
-    connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask,
-            QUEUED);
+    connect(task, &TarsnapTask::dequeue, this, &TaskManager::dequeueTask);
 
     // Record this thread as "running", even though it hasn't actually
     // started yet.  QThreadPool::start() is non-blocking, and in fact
@@ -1205,7 +1189,7 @@ void TaskManager::loadJobs()
             job->setName(
                 query.value(query.record().indexOf("name")).toString());
             connect(job.data(), &Job::loadArchives, this,
-                    &TaskManager::loadJobArchives, QUEUED);
+                    &TaskManager::loadJobArchives);
             job->load();
             _jobMap[job->name()] = job;
         } while(query.next());
@@ -1274,8 +1258,8 @@ void TaskManager::getTaskInfo()
 void TaskManager::addJob(JobPtr job)
 {
     _jobMap[job->name()] = job;
-    connect(job.data(), &Job::loadArchives, this, &TaskManager::loadJobArchives,
-            QUEUED);
+    connect(job.data(), &Job::loadArchives, this,
+            &TaskManager::loadJobArchives);
     emit message(tr("Job <i>%1</i> added.").arg(job->name()));
 }
 
@@ -1320,9 +1304,9 @@ void TaskManager::sleepSeconds(int seconds)
 {
     TarsnapTask *sleepTask = sleepSecondsTask(seconds);
     connect(sleepTask, &TarsnapTask::started, this,
-            [this]() { emit message("Started sleep task."); }, QUEUED);
+            [this]() { emit message("Started sleep task."); });
     connect(sleepTask, &TarsnapTask::finished, this,
-            [this]() { emit message("Finished sleep task."); }, QUEUED);
+            [this]() { emit message("Finished sleep task."); });
     queueTask(sleepTask);
 }
 #endif

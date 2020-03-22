@@ -16,6 +16,16 @@ class QPushButton;
  * \ingroup widgets-specialized
  * \brief The StopTasksDialog is a QMessageBox which gives the
  * user the option to stop running or queued tasks.
+ *
+ * There are two sets of possible actions.  If we are about to quit,
+ *   - stop all
+ *   - interrupt backup and clear queue
+ *   - proceed in background
+ * If we are not about to quit,
+ *   - stop all
+ *   - interrupt backup and clear queue
+ *   - stop running
+ *   - clear queue
  */
 class StopTasksDialog : public QMessageBox
 {

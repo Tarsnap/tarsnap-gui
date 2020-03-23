@@ -61,6 +61,12 @@ private slots:
     // The dialog was closed.
     void processResult(int res);
 
+    void interruptBackupClicked();
+    void stopQueuedClicked();
+    void stopRunningClicked();
+    void stopAllClicked();
+    void proceedBackgroundClicked();
+
 private:
     QPushButton *_actionButton;
     QMenu *      _actionMenu;

@@ -51,7 +51,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
         else
             _interruptBackup = _actionMenu->addAction(tr("Interrupt backup"));
         _interruptBackup->setCheckable(true);
-        connect(_interruptBackup, &QAction::triggered, this, &QDialog::accept);
+        connect(_interruptBackup, &QAction::triggered, this,
+                &StopTasksDialog::interruptBackupClicked);
     }
     // stopRunning
     _stopRunning = nullptr;
@@ -59,7 +60,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     {
         _stopRunning = _actionMenu->addAction(tr("Stop running"));
         _stopRunning->setCheckable(true);
-        connect(_stopRunning, &QAction::triggered, this, &QDialog::accept);
+        connect(_stopRunning, &QAction::triggered, this,
+                &StopTasksDialog::stopRunningClicked);
     }
     // stopQueued
     _stopQueued = nullptr;
@@ -67,7 +69,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     {
         _stopQueued = _actionMenu->addAction(tr("Cancel queued"));
         _stopQueued->setCheckable(true);
-        connect(_stopQueued, &QAction::triggered, this, &QDialog::accept);
+        connect(_stopQueued, &QAction::triggered, this,
+                &StopTasksDialog::stopQueuedClicked);
     }
     // stopAll
     _stopAll = nullptr;
@@ -75,7 +78,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     {
         _stopAll = _actionMenu->addAction(tr("Stop all"));
         _stopAll->setCheckable(true);
-        connect(_stopAll, &QAction::triggered, this, &QDialog::accept);
+        connect(_stopAll, &QAction::triggered, this,
+                &StopTasksDialog::stopAllClicked);
     }
     // proceedBackground
     _proceedBackground = nullptr;
@@ -85,11 +89,42 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
             _actionMenu->addAction(tr("Proceed in background"));
         _proceedBackground->setCheckable(true);
         connect(_proceedBackground, &QAction::triggered, this,
-                &QDialog::accept);
+                &StopTasksDialog::proceedBackgroundClicked);
     }
 
     // Launch dialog.
     open();
+}
+
+void StopTasksDialog::interruptBackupClicked()
+{
+    emit stopTasks(true, false, _aboutToQuit);
+    accept();
+}
+
+void StopTasksDialog::stopQueuedClicked()
+{
+    emit stopTasks(false, false, true);
+    accept();
+}
+
+void StopTasksDialog::stopRunningClicked()
+{
+    emit stopTasks(false, true, false);
+    accept();
+}
+
+void StopTasksDialog::stopAllClicked()
+{
+    emit stopTasks(false, true, true);
+    accept();
+}
+
+void StopTasksDialog::proceedBackgroundClicked()
+{
+    // Do nothing special; it will happen due to code elsewhere.
+
+    accept();
 }
 
 void StopTasksDialog::processResult(int res)
@@ -117,19 +152,5 @@ void StopTasksDialog::processResult(int res)
     if(_aboutToQuit)
     {
         emit quitOk();
-    }
-
-    // Stop tasks.
-    if(_interruptBackup && _interruptBackup->isChecked())
-        emit stopTasks(true, false, _aboutToQuit);
-    else if(_stopQueued && _stopQueued->isChecked())
-        emit stopTasks(false, false, true);
-    else if(_stopRunning && _stopRunning->isChecked())
-        emit stopTasks(false, true, false);
-    else if(_stopAll && _stopAll->isChecked())
-        emit stopTasks(false, true, true);
-    else if(_proceedBackground && _proceedBackground->isChecked())
-    {
-        // Do nothing; it will happen due to code elsewhere
     }
 }

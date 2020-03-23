@@ -18,6 +18,29 @@ StopTasksDialog::StopTasksDialog(QWidget *parent) : QMessageBox(parent)
     _actionButton->setMenu(_actionMenu);
     addButton(_actionButton, QMessageBox::ActionRole);
 
+    // Set up menu actions.
+    _interruptBackup =
+        _actionMenu->addAction(tr("Interrupt backup and clear queue"));
+    _interruptBackup->setCheckable(true);
+    connect(_interruptBackup, &QAction::triggered, this,
+            &StopTasksDialog::interruptBackupClicked);
+    _stopRunning = _actionMenu->addAction(tr("Stop running"));
+    _stopRunning->setCheckable(true);
+    connect(_stopRunning, &QAction::triggered, this,
+            &StopTasksDialog::stopRunningClicked);
+    _stopQueued = _actionMenu->addAction(tr("Cancel queued"));
+    _stopQueued->setCheckable(true);
+    connect(_stopQueued, &QAction::triggered, this,
+            &StopTasksDialog::stopQueuedClicked);
+    _stopAll = _actionMenu->addAction(tr("Stop all"));
+    _stopAll->setCheckable(true);
+    connect(_stopAll, &QAction::triggered, this,
+            &StopTasksDialog::stopAllClicked);
+    _proceedBackground = _actionMenu->addAction(tr("Proceed in background"));
+    _proceedBackground->setCheckable(true);
+    connect(_proceedBackground, &QAction::triggered, this,
+            &StopTasksDialog::proceedBackgroundClicked);
+
     // Set up buttons.
     _cancelButton = addButton(QMessageBox::Cancel);
     setDefaultButton(_cancelButton);
@@ -39,59 +62,38 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     setText(tr("There are %1 running tasks and %2 queued.")
                 .arg(runningTasks)
                 .arg(queuedTasks));
-    _actionMenu->clear();
 
     // interrupt
-    _interruptBackup = nullptr;
     if(backupTaskRunning)
     {
-        _interruptBackup =
-            _actionMenu->addAction(tr("Interrupt backup and clear queue"));
-        _interruptBackup->setCheckable(true);
-        connect(_interruptBackup, &QAction::triggered, this,
-                &StopTasksDialog::interruptBackupClicked);
         if(_aboutToQuit)
             _interruptBackup->setText(tr("Interrupt backup and clear queue"));
         else
             _interruptBackup->setText(tr("Interrupt backup"));
+        _interruptBackup->setVisible(true);
     }
+    else
+        _interruptBackup->setVisible(false);
     // stopRunning
-    _stopRunning = nullptr;
     if(runningTasks && !_aboutToQuit)
-    {
-        _stopRunning = _actionMenu->addAction(tr("Stop running"));
-        _stopRunning->setCheckable(true);
-        connect(_stopRunning, &QAction::triggered, this,
-                &StopTasksDialog::stopRunningClicked);
-    }
+        _stopRunning->setVisible(true);
+    else
+        _stopRunning->setVisible(false);
     // stopQueued
-    _stopQueued = nullptr;
     if(queuedTasks && !_aboutToQuit)
-    {
-        _stopQueued = _actionMenu->addAction(tr("Cancel queued"));
-        _stopQueued->setCheckable(true);
-        connect(_stopQueued, &QAction::triggered, this,
-                &StopTasksDialog::stopQueuedClicked);
-    }
+        _stopQueued->setVisible(true);
+    else
+        _stopQueued->setVisible(false);
     // stopAll
-    _stopAll = nullptr;
     if(runningTasks || queuedTasks)
-    {
-        _stopAll = _actionMenu->addAction(tr("Stop all"));
-        _stopAll->setCheckable(true);
-        connect(_stopAll, &QAction::triggered, this,
-                &StopTasksDialog::stopAllClicked);
-    }
+        _stopAll->setVisible(true);
+    else
+        _stopAll->setVisible(false);
     // proceedBackground
-    _proceedBackground = nullptr;
     if((runningTasks || queuedTasks) && _aboutToQuit)
-    {
-        _proceedBackground =
-            _actionMenu->addAction(tr("Proceed in background"));
-        _proceedBackground->setCheckable(true);
-        connect(_proceedBackground, &QAction::triggered, this,
-                &StopTasksDialog::proceedBackgroundClicked);
-    }
+        _proceedBackground->setVisible(true);
+    else
+        _proceedBackground->setVisible(false);
 
     // Launch dialog.
     open();

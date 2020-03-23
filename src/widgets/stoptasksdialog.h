@@ -23,7 +23,7 @@ class QPushButton;
  *   - proceed in background
  * If we are not about to quit,
  *   - stop all
- *   - interrupt backup and clear queue
+ *   - interrupt backup but keep queue
  *   - stop running
  *   - clear queue
  */
@@ -62,6 +62,7 @@ private slots:
     void processResult(int res);
 
     void interruptBackupClicked();
+    void interruptBackupKeepQueueClicked();
     void stopQueuedClicked();
     void stopRunningClicked();
     void stopAllClicked();
@@ -73,6 +74,7 @@ private:
     QPushButton *_cancelButton;
 
     QAction *_interruptBackup;
+    QAction *_interruptBackupKeepQueue;
     QAction *_stopRunning;
     QAction *_stopQueued;
     QAction *_stopAll;

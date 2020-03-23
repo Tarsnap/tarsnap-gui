@@ -217,8 +217,6 @@ void TestSmallWidgets::stoptasksdialog()
     sd->display(true, 1, 0, true);
     VISUAL_WAIT;
     sd->_interruptBackup->trigger();
-    // Allow queued connections to fire.
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     QVERIFY(sd->isVisible() == false);
     QVERIFY(sig_quitOk.count() == 1);
     QVERIFY(sig_stop.count() == 1);

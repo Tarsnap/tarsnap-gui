@@ -51,8 +51,7 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
         else
             _interruptBackup = _actionMenu->addAction(tr("Interrupt backup"));
         _interruptBackup->setCheckable(true);
-        connect(_interruptBackup, &QAction::triggered, this, &QDialog::accept,
-                Qt::QueuedConnection);
+        connect(_interruptBackup, &QAction::triggered, this, &QDialog::accept);
     }
     // stopRunning
     _stopRunning = nullptr;
@@ -60,8 +59,7 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     {
         _stopRunning = _actionMenu->addAction(tr("Stop running"));
         _stopRunning->setCheckable(true);
-        connect(_stopRunning, &QAction::triggered, this, &QDialog::accept,
-                Qt::QueuedConnection);
+        connect(_stopRunning, &QAction::triggered, this, &QDialog::accept);
     }
     // stopQueued
     _stopQueued = nullptr;
@@ -69,8 +67,7 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     {
         _stopQueued = _actionMenu->addAction(tr("Cancel queued"));
         _stopQueued->setCheckable(true);
-        connect(_stopQueued, &QAction::triggered, this, &QDialog::accept,
-                Qt::QueuedConnection);
+        connect(_stopQueued, &QAction::triggered, this, &QDialog::accept);
     }
     // stopAll
     _stopAll = nullptr;
@@ -78,8 +75,7 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     {
         _stopAll = _actionMenu->addAction(tr("Stop all"));
         _stopAll->setCheckable(true);
-        connect(_stopAll, &QAction::triggered, this, &QDialog::accept,
-                Qt::QueuedConnection);
+        connect(_stopAll, &QAction::triggered, this, &QDialog::accept);
     }
     // proceedBackground
     _proceedBackground = nullptr;
@@ -88,8 +84,8 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
         _proceedBackground =
             _actionMenu->addAction(tr("Proceed in background"));
         _proceedBackground->setCheckable(true);
-        connect(_proceedBackground, &QAction::triggered, this, &QDialog::accept,
-                Qt::QueuedConnection);
+        connect(_proceedBackground, &QAction::triggered, this,
+                &QDialog::accept);
     }
 
     // Launch dialog.

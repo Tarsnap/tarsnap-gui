@@ -45,14 +45,15 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     _interruptBackup = nullptr;
     if(backupTaskRunning)
     {
-        if(_aboutToQuit)
-            _interruptBackup =
-                _actionMenu->addAction(tr("Interrupt backup and clear queue"));
-        else
-            _interruptBackup = _actionMenu->addAction(tr("Interrupt backup"));
+        _interruptBackup =
+            _actionMenu->addAction(tr("Interrupt backup and clear queue"));
         _interruptBackup->setCheckable(true);
         connect(_interruptBackup, &QAction::triggered, this,
                 &StopTasksDialog::interruptBackupClicked);
+        if(_aboutToQuit)
+            _interruptBackup->setText(tr("Interrupt backup and clear queue"));
+        else
+            _interruptBackup->setText(tr("Interrupt backup"));
     }
     // stopRunning
     _stopRunning = nullptr;

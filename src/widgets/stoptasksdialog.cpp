@@ -68,34 +68,17 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
                 .arg(queuedTasks));
 
     // interrupt
-    if(backupTaskRunning && _aboutToQuit)
-        _interruptBackup->setVisible(true);
-    else
-        _interruptBackup->setVisible(false);
-    if(backupTaskRunning && !_aboutToQuit)
-        _interruptBackupKeepQueue->setVisible(true);
-    else
-        _interruptBackupKeepQueue->setVisible(false);
+    _interruptBackup->setVisible(backupTaskRunning && _aboutToQuit);
+    _interruptBackupKeepQueue->setVisible(backupTaskRunning && !_aboutToQuit);
     // stopRunning
-    if(runningTasks && !_aboutToQuit)
-        _stopRunning->setVisible(true);
-    else
-        _stopRunning->setVisible(false);
+    _stopRunning->setVisible(runningTasks && !_aboutToQuit);
     // stopQueued
-    if(queuedTasks && !_aboutToQuit)
-        _stopQueued->setVisible(true);
-    else
-        _stopQueued->setVisible(false);
+    _stopQueued->setVisible(queuedTasks && !_aboutToQuit);
     // stopAll
-    if(runningTasks || queuedTasks)
-        _stopAll->setVisible(true);
-    else
-        _stopAll->setVisible(false);
+    _stopAll->setVisible(runningTasks || queuedTasks);
     // proceedBackground
-    if((runningTasks || queuedTasks) && _aboutToQuit)
-        _proceedBackground->setVisible(true);
-    else
-        _proceedBackground->setVisible(false);
+    _proceedBackground->setVisible((runningTasks || queuedTasks)
+                                   && _aboutToQuit);
 
     // Launch dialog.
     open();

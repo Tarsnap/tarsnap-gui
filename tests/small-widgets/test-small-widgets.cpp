@@ -30,6 +30,7 @@ private slots:
     void filepickerdialog();
     void confirmationDialog();
     void stoptasksdialog();
+    void stoptasksdialog_showall();
 };
 
 void TestSmallWidgets::initTestCase()
@@ -228,6 +229,25 @@ void TestSmallWidgets::stoptasksdialog()
     QVERIFY(stop_bools.at(2).toBool() == true);
 
     VISUAL_WAIT;
+
+    delete sd;
+}
+
+void TestSmallWidgets::stoptasksdialog_showall()
+{
+    StopTasksDialog *sd = new StopTasksDialog();
+
+    // Don't VISUAL_INIT this one, because it's done internally.
+
+    // Show "going to quit".
+    sd->display(true, 1, 1, true);
+    VISUAL_WAIT;
+    sd->reject();
+
+    // Show "not quitting".
+    sd->display(true, 1, 1, false);
+    VISUAL_WAIT;
+    sd->reject();
 
     delete sd;
 }

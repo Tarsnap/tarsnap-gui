@@ -24,6 +24,10 @@ StopTasksDialog::StopTasksDialog(QWidget *parent) : QMessageBox(parent)
     _interruptBackup->setCheckable(true);
     connect(_interruptBackup, &QAction::triggered, this,
             &StopTasksDialog::interruptBackupClicked);
+    _interruptBackupKeepQueue = _actionMenu->addAction(tr("Interrupt backup"));
+    _interruptBackupKeepQueue->setCheckable(true);
+    connect(_interruptBackupKeepQueue, &QAction::triggered, this,
+            &StopTasksDialog::interruptBackupKeepQueueClicked);
     _stopRunning = _actionMenu->addAction(tr("Stop running"));
     _stopRunning->setCheckable(true);
     connect(_stopRunning, &QAction::triggered, this,
@@ -64,16 +68,14 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
                 .arg(queuedTasks));
 
     // interrupt
-    if(backupTaskRunning)
-    {
-        if(_aboutToQuit)
-            _interruptBackup->setText(tr("Interrupt backup and clear queue"));
-        else
-            _interruptBackup->setText(tr("Interrupt backup"));
+    if(backupTaskRunning && _aboutToQuit)
         _interruptBackup->setVisible(true);
-    }
     else
         _interruptBackup->setVisible(false);
+    if(backupTaskRunning && !_aboutToQuit)
+        _interruptBackupKeepQueue->setVisible(true);
+    else
+        _interruptBackupKeepQueue->setVisible(false);
     // stopRunning
     if(runningTasks && !_aboutToQuit)
         _stopRunning->setVisible(true);
@@ -101,7 +103,13 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
 
 void StopTasksDialog::interruptBackupClicked()
 {
-    emit stopTasks(true, false, _aboutToQuit);
+    emit stopTasks(true, false, true);
+    accept();
+}
+
+void StopTasksDialog::interruptBackupKeepQueueClicked()
+{
+    emit stopTasks(true, false, false);
     accept();
 }
 

@@ -6,16 +6,15 @@ WARNINGS_DISABLE
 #include <QPushButton>
 WARNINGS_ENABLE
 
-StopTasksDialog::StopTasksDialog(QWidget *parent)
-    : QMessageBox(parent),
-      _actionButton(new QPushButton(this)),
-      _actionMenu(new QMenu(_actionButton))
+StopTasksDialog::StopTasksDialog(QWidget *parent) : QMessageBox(parent)
 {
     // Set up text.
     setInformativeText(tr("What do you want to do?"));
-    _actionButton->setText(tr("Choose action"));
 
     // Set up menu.
+    _actionButton = new QPushButton(this);
+    _actionMenu   = new QMenu(_actionButton);
+    _actionButton->setText(tr("Choose action"));
     _actionButton->setMenu(_actionMenu);
     addButton(_actionButton, QMessageBox::ActionRole);
 

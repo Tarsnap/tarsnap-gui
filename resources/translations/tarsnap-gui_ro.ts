@@ -2786,28 +2786,28 @@ unique data	%3		%4</source>
         <translation>Cum dorești să procedezi</translation>
     </message>
     <message>
-        <source>Interrupt backup and clear queue</source>
-        <translation>Întrerupe backup curent și elimină activitațile în așteptare</translation>
-    </message>
-    <message>
-        <source>Interrupt backup</source>
-        <translation>Întrerupe backup</translation>
-    </message>
-    <message>
-        <source>Stop running</source>
-        <translation>Oprește activitățile în desfășurare</translation>
-    </message>
-    <message>
-        <source>Cancel queued</source>
-        <translation>Anulează activitățile programate</translation>
-    </message>
-    <message>
-        <source>Stop all</source>
-        <translation>Oprește toate activitățile</translation>
-    </message>
-    <message>
         <source>Proceed in background</source>
         <translation>Procedează în fundal</translation>
+    </message>
+    <message>
+        <source>Wait for an archive checkpoint, then stop queued tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wait for an archive checkpoint, then run queued tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop running tasks, then run queued tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wait for running tasks, then stop queued tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop all tasks immediately</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

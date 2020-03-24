@@ -16,24 +16,27 @@ StopTasksDialog::StopTasksDialog(QWidget *parent) : QMessageBox(parent)
     addButton(_actionButton, QMessageBox::ActionRole);
 
     // Set up menu actions.
-    _interruptBackup =
-        _actionMenu->addAction(tr("Interrupt backup and clear queue"));
+    _interruptBackup = _actionMenu->addAction(
+        tr("Wait for an archive checkpoint, then stop queued tasks"));
     _interruptBackup->setCheckable(true);
     connect(_interruptBackup, &QAction::triggered, this,
             &StopTasksDialog::interruptBackupClicked);
-    _interruptBackupKeepQueue = _actionMenu->addAction(tr("Interrupt backup"));
+    _interruptBackupKeepQueue = _actionMenu->addAction(
+        tr("Wait for an archive checkpoint, then run queued tasks"));
     _interruptBackupKeepQueue->setCheckable(true);
     connect(_interruptBackupKeepQueue, &QAction::triggered, this,
             &StopTasksDialog::interruptBackupKeepQueueClicked);
-    _stopRunning = _actionMenu->addAction(tr("Stop running"));
+    _stopRunning =
+        _actionMenu->addAction(tr("Stop running tasks, then run queued tasks"));
     _stopRunning->setCheckable(true);
     connect(_stopRunning, &QAction::triggered, this,
             &StopTasksDialog::stopRunningClicked);
-    _stopQueued = _actionMenu->addAction(tr("Cancel queued"));
+    _stopQueued = _actionMenu->addAction(
+        tr("Wait for running tasks, then stop queued tasks"));
     _stopQueued->setCheckable(true);
     connect(_stopQueued, &QAction::triggered, this,
             &StopTasksDialog::stopQueuedClicked);
-    _stopAll = _actionMenu->addAction(tr("Stop all"));
+    _stopAll = _actionMenu->addAction(tr("Stop all tasks immediately"));
     _stopAll->setCheckable(true);
     connect(_stopAll, &QAction::triggered, this,
             &StopTasksDialog::stopAllClicked);

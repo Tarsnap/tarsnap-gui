@@ -225,6 +225,7 @@ FORMS +=						\
 	forms/setupwizard_final.ui			\
 	forms/setupwizard_intro.ui			\
 	forms/setupwizard_register.ui			\
+	forms/stoptasksdialog.ui			\
 	lib/forms/TPathComboBrowse.ui			\
 	lib/forms/TPathLineBrowse.ui			\
 	lib/forms/TWizard.ui

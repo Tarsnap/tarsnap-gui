@@ -8,13 +8,14 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 /* Forward declarations. */
-class QAction;
-class QMenu;
-class QPushButton;
+namespace Ui
+{
+class StopTasksDialog;
+}
 
 /*!
  * \ingroup widgets-specialized
- * \brief The StopTasksDialog is a QMessageBox which gives the
+ * \brief The StopTasksDialog is a QDialog which gives the
  * user the option to stop running or queued tasks.
  *
  * There are two sets of possible actions.  If we are about to quit,
@@ -27,7 +28,7 @@ class QPushButton;
  *   - stop running
  *   - clear queue
  */
-class StopTasksDialog : public QMessageBox
+class StopTasksDialog : public QDialog
 {
     Q_OBJECT
 
@@ -70,16 +71,7 @@ private slots:
     void proceedBackgroundClicked();
 
 private:
-    QPushButton *_actionButton;
-    QMenu *      _actionMenu;
-    QPushButton *_cancelButton;
-
-    QAction *_interruptBackup;
-    QAction *_interruptBackupKeepQueue;
-    QAction *_stopRunning;
-    QAction *_stopQueued;
-    QAction *_stopAll;
-    QAction *_proceedBackground;
+    Ui::StopTasksDialog *_ui;
 
     bool _aboutToQuit;
 

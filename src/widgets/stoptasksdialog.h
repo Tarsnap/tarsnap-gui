@@ -81,6 +81,8 @@ private:
     QAction *_proceedBackground;
 
     bool _aboutToQuit;
+
+    void updateTasks(bool backupTaskRunning, int runningTasks, int queuedTasks);
 };
 
 #endif // !STOPTASKSDIALOG_H

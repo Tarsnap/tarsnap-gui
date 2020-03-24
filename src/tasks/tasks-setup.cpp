@@ -12,9 +12,9 @@ WARNINGS_ENABLE
 #include "tasks-utils.h"
 #include "taskstatus.h"
 
-TarsnapTask *tarsnapVersionTask()
+CmdlineTask *tarsnapVersionTask()
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args;
 
     /* Specific arguments. */
@@ -35,10 +35,10 @@ const QString tarsnapVersionTaskParse(const QString &stdOut)
         return (QString(""));
 }
 
-TarsnapTask *registerMachineTask(const QString &password,
+CmdlineTask *registerMachineTask(const QString &password,
                                  const QString &machine)
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args;
 
     /*
@@ -60,9 +60,9 @@ TarsnapTask *registerMachineTask(const QString &password,
     return (task);
 }
 
-TarsnapTask *fsckCleanTask(bool prune)
+CmdlineTask *fsckCleanTask(bool prune)
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
 
     /* Specific arguments. */
@@ -77,9 +77,9 @@ TarsnapTask *fsckCleanTask(bool prune)
     return (task);
 }
 
-TarsnapTask *initializeCachedirTask()
+CmdlineTask *initializeCachedirTask()
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
 
     /* Specific arguments. */

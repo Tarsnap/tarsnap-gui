@@ -37,7 +37,7 @@ public:
 
 #ifdef QT_TESTLIB_LIB
     //! Start running a task.
-    void startTask(TarsnapTask *task);
+    void startTask(CmdlineTask *task);
     //! Don't actually run the next task.
     void fakeNextTask();
     //! Block until there's no tasks.
@@ -180,10 +180,10 @@ private slots:
                           const QString &stdErr);
 
     // general task management
-    void queueTask(TarsnapTask *task, bool exclusive = false);
+    void queueTask(CmdlineTask *task, bool exclusive = false);
     void dequeueTask();
 #ifndef QT_TESTLIB_LIB
-    void startTask(TarsnapTask *task);
+    void startTask(CmdlineTask *task);
 #endif
 
 private:
@@ -199,8 +199,8 @@ private:
 
     QMap<QUuid, BackupTaskDataPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>      _archiveMap;
-    QList<TarsnapTask *>           _runningTasks;
-    QQueue<TarsnapTask *>          _taskQueue; // mutually exclusive tasks
+    QList<CmdlineTask *>           _runningTasks;
+    QQueue<CmdlineTask *>          _taskQueue; // mutually exclusive tasks
     QThreadPool *                  _threadPool;
     QMap<QString, JobPtr>          _jobMap;
 

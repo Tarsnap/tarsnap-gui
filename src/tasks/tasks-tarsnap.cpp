@@ -12,9 +12,9 @@ WARNINGS_ENABLE
 #include "tasks-defs.h"
 #include "tasks-utils.h"
 
-TarsnapTask *listArchivesTask()
+CmdlineTask *listArchivesTask()
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
 
     /* Specific arguments. */
@@ -27,9 +27,9 @@ TarsnapTask *listArchivesTask()
     return (task);
 }
 
-TarsnapTask *printStatsTask(const QString &archiveName)
+CmdlineTask *printStatsTask(const QString &archiveName)
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
 
     /* Specific arguments. */
@@ -43,9 +43,9 @@ TarsnapTask *printStatsTask(const QString &archiveName)
     return (task);
 }
 
-TarsnapTask *archiveContentsTask(const QString &archiveName)
+CmdlineTask *archiveContentsTask(const QString &archiveName)
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
 
     /* Specific arguments. */
@@ -62,9 +62,9 @@ TarsnapTask *archiveContentsTask(const QString &archiveName)
     return (task);
 }
 
-TarsnapTask *deleteArchivesTask(const QStringList &archiveNames)
+CmdlineTask *deleteArchivesTask(const QStringList &archiveNames)
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
 
     /* Specific arguments. */
@@ -79,9 +79,9 @@ TarsnapTask *deleteArchivesTask(const QStringList &archiveNames)
     return (task);
 }
 
-TarsnapTask *overallStatsTask()
+CmdlineTask *overallStatsTask()
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
 
     /* Specific arguments. */
@@ -94,9 +94,9 @@ TarsnapTask *overallStatsTask()
     return (task);
 }
 
-TarsnapTask *nukeArchivesTask()
+CmdlineTask *nukeArchivesTask()
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
 
     /* Specific arguments. */
@@ -109,10 +109,10 @@ TarsnapTask *nukeArchivesTask()
     return (task);
 }
 
-TarsnapTask *restoreArchiveTask(const QString &       archiveName,
+CmdlineTask *restoreArchiveTask(const QString &       archiveName,
                                 ArchiveRestoreOptions options)
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
 
     /* Specific arguments. */
@@ -158,9 +158,9 @@ TarsnapTask *restoreArchiveTask(const QString &       archiveName,
     return (task);
 }
 
-TarsnapTask *backupArchiveTask(BackupTaskDataPtr backupTaskData)
+CmdlineTask *backupArchiveTask(BackupTaskDataPtr backupTaskData)
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
 
     /* Specific arguments. */

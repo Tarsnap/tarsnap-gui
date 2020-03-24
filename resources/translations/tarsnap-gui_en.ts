@@ -600,6 +600,36 @@ Add anyway?</source>
     </message>
 </context>
 <context>
+    <name>CmdlineTask</name>
+    <message>
+        <source>
+...
+-- %1 output lines truncated by Tarsnap GUI --
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Task %1 started:
+[%2 %3]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Task %1 finished with exit code %2:
+[%3 %4]
+%5
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Task %1 finished with error %2 (%3) occured (exit code %4):
+[%5 %6]
+%7
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConfirmationDialog</name>
     <message>
         <source>Not confirmed</source>
@@ -2859,36 +2889,6 @@ unique data	%3		%4</source>
     </message>
     <message>
         <source>Tarsnap username must be set.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TarsnapTask</name>
-    <message>
-        <source>
-...
--- %1 output lines truncated by Tarsnap GUI --
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Task %1 started:
-[%2 %3]
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Task %1 finished with exit code %2:
-[%3 %4]
-%5
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Task %1 finished with error %2 (%3) occured (exit code %4):
-[%5 %6]
-%7
-</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

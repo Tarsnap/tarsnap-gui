@@ -6,9 +6,9 @@ WARNINGS_ENABLE
 
 #include "tasks-utils.h"
 
-TarsnapTask *keyIdTask(const QString &key_filename)
+CmdlineTask *keyIdTask(const QString &key_filename)
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args;
 
     /* Specific arguments. */
@@ -20,9 +20,9 @@ TarsnapTask *keyIdTask(const QString &key_filename)
     return (task);
 }
 
-TarsnapTask *sleepSecondsTask(int seconds)
+CmdlineTask *sleepSecondsTask(int seconds)
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QStringList  args;
 
     /* Specific arguments. */

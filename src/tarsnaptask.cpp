@@ -15,7 +15,7 @@ WARNINGS_ENABLE
 #define LOG_MAX_LENGTH 3072
 #define LOG_MAX_SEARCH_NL 1024
 
-TarsnapTask::TarsnapTask()
+CmdlineTask::CmdlineTask()
     : QObject(),
       _uuid(QUuid::createUuid()),
       _process(nullptr),
@@ -27,11 +27,11 @@ TarsnapTask::TarsnapTask()
 #endif
 }
 
-TarsnapTask::~TarsnapTask()
+CmdlineTask::~CmdlineTask()
 {
 }
 
-void TarsnapTask::run()
+void CmdlineTask::run()
 {
     // Set up new _process
     _process = new QProcess();
@@ -106,7 +106,7 @@ cleanup:
     emit dequeue();
 }
 
-void TarsnapTask::stop()
+void CmdlineTask::stop()
 {
     // Bail if the TaskManager has recorded this as "started" but it
     // hasn't actually begun yet.  See taskmanager.cpp for explanation.
@@ -117,7 +117,7 @@ void TarsnapTask::stop()
         _process->terminate();
 }
 
-void TarsnapTask::sigquit()
+void CmdlineTask::sigquit()
 {
     // Bail if the TaskManager has recorded this as "started" but it
     // hasn't actually begun yet.  See taskmanager.cpp for explanation.
@@ -131,64 +131,64 @@ void TarsnapTask::sigquit()
     kill(pid, SIGQUIT);
 }
 
-void TarsnapTask::emitCanceled()
+void CmdlineTask::emitCanceled()
 {
     emit canceled(_data);
 }
 
-QString TarsnapTask::command() const
+QString CmdlineTask::command() const
 {
     return _command;
 }
 
-void TarsnapTask::setCommand(const QString &command)
+void CmdlineTask::setCommand(const QString &command)
 {
     _command = command;
 }
 
-QStringList TarsnapTask::arguments() const
+QStringList CmdlineTask::arguments() const
 {
     return _arguments;
 }
 
-void TarsnapTask::setArguments(const QStringList &arguments)
+void CmdlineTask::setArguments(const QStringList &arguments)
 {
     _arguments = arguments;
 }
 
-void TarsnapTask::setStdIn(const QString &standardIn)
+void CmdlineTask::setStdIn(const QString &standardIn)
 {
     _stdIn = QByteArray(standardIn.toUtf8());
 }
 
-void TarsnapTask::setStdOutFile(const QString &fileName)
+void CmdlineTask::setStdOutFile(const QString &fileName)
 {
     _stdOutFilename = fileName;
 }
 
-QVariant TarsnapTask::data() const
+QVariant CmdlineTask::data() const
 {
     return _data;
 }
 
-void TarsnapTask::setData(const QVariant &data)
+void CmdlineTask::setData(const QVariant &data)
 {
     _data = data;
 }
 
-void TarsnapTask::setTruncateLogOutput(bool truncateLogOutput)
+void CmdlineTask::setTruncateLogOutput(bool truncateLogOutput)
 {
     _truncateLogOutput = truncateLogOutput;
 }
 
-void TarsnapTask::readProcessOutput(QProcess *process)
+void CmdlineTask::readProcessOutput(QProcess *process)
 {
     if(_stdOutFilename.isEmpty())
         _stdOut.append(process->readAllStandardOutput().trimmed());
     _stdErr.append(process->readAllStandardError().trimmed());
 }
 
-QByteArray TarsnapTask::truncate_output(QByteArray stdOut)
+QByteArray CmdlineTask::truncate_output(QByteArray stdOut)
 {
     // Find a good newline to which to truncate.
     int from = LOG_MAX_LENGTH
@@ -203,7 +203,7 @@ QByteArray TarsnapTask::truncate_output(QByteArray stdOut)
     return stdOut;
 }
 
-void TarsnapTask::processFinished(QProcess *process)
+void CmdlineTask::processFinished(QProcess *process)
 {
     switch(process->exitStatus())
     {
@@ -234,7 +234,7 @@ void TarsnapTask::processFinished(QProcess *process)
     }
 }
 
-void TarsnapTask::processError(QProcess *process)
+void CmdlineTask::processError(QProcess *process)
 {
     LOG << tr("Task %1 finished with error %2 (%3) occured "
               "(exit code %4):\n[%5 %6]\n%7\n")
@@ -250,7 +250,7 @@ void TarsnapTask::processError(QProcess *process)
 }
 
 #ifdef QT_TESTLIB_LIB
-void TarsnapTask::fake()
+void CmdlineTask::fake()
 {
     _fake = true;
 }

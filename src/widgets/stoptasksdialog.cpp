@@ -54,10 +54,20 @@ StopTasksDialog::StopTasksDialog(QWidget *parent) : QMessageBox(parent)
             &StopTasksDialog::processResult);
 }
 
+StopTasksDialog::~StopTasksDialog()
+{
+}
+
+void StopTasksDialog::adjust_for_quit(bool quitting)
+{
+    (void)quitting;
+}
+
 void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
                               int queuedTasks, bool aboutToQuit)
 {
     _aboutToQuit = aboutToQuit;
+    adjust_for_quit(_aboutToQuit);
 
     // Sanity check.
     Q_ASSERT((runningTasks > 0) || (queuedTasks > 0));

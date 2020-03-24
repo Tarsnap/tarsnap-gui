@@ -2782,10 +2782,6 @@ unique data	%3		%4</source>
         <translation>Există %1 activități în curs de desfășurare și %2 programate pentru execuție.</translation>
     </message>
     <message>
-        <source>What do you want to do?</source>
-        <translation>Cum dorești să procedezi?</translation>
-    </message>
-    <message>
         <source>Choose action</source>
         <translation>Cum dorești să procedezi</translation>
     </message>

@@ -8,9 +8,6 @@ WARNINGS_ENABLE
 
 StopTasksDialog::StopTasksDialog(QWidget *parent) : QMessageBox(parent)
 {
-    // Set up text.
-    setInformativeText(tr("What do you want to do?"));
-
     // Set up menu.
     _actionButton = new QPushButton(this);
     _actionMenu   = new QMenu(_actionButton);

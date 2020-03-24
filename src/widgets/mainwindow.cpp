@@ -645,6 +645,8 @@ void MainWindow::updateSimulationIcon(int state)
 void MainWindow::updateNumTasks(bool backupRunning, int runningTasks,
                                 int queuedTasks)
 {
+    _stopTasksDialog.updateTasks(backupRunning, runningTasks, queuedTasks);
+
     _runningTasks = runningTasks;
     _queuedTasks  = queuedTasks;
 

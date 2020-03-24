@@ -2755,10 +2755,6 @@ unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>What do you want to do?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Choose action</source>
         <translation type="unfinished"></translation>
     </message>

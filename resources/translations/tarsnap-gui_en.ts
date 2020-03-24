@@ -2759,27 +2759,27 @@ unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Interrupt backup and clear queue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Interrupt backup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stop running</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel queued</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stop all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Proceed in background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wait for an archive checkpoint, then stop queued tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wait for an archive checkpoint, then run queued tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop running tasks, then run queued tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wait for running tasks, then stop queued tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop all tasks immediately</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

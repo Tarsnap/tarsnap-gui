@@ -63,6 +63,16 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     Q_ASSERT((runningTasks > 0) || (queuedTasks > 0));
     Q_ASSERT(!backupTaskRunning || (backupTaskRunning && (runningTasks > 0)));
 
+    // Update enabled buttons.
+    updateTasks(backupTaskRunning, runningTasks, queuedTasks);
+
+    // Launch dialog.
+    open();
+}
+
+void StopTasksDialog::updateTasks(bool backupTaskRunning, int runningTasks,
+                                  int queuedTasks)
+{
     // Overall setup.
     setText(tr("There are %1 running tasks and %2 queued.")
                 .arg(runningTasks)
@@ -80,9 +90,6 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
     // proceedBackground
     _proceedBackground->setVisible((runningTasks || queuedTasks)
                                    && _aboutToQuit);
-
-    // Launch dialog.
-    open();
 }
 
 void StopTasksDialog::interruptBackupClicked()

@@ -48,6 +48,10 @@ public:
     void display(bool backupTaskRunning, int runningTasks, int queuedTasks,
                  bool aboutToQuit);
 
+public slots:
+    //! Update the task numbers and the available actions.
+    void updateTasks(bool backupTaskRunning, int runningTasks, int queuedTasks);
+
 signals:
     //! Stop / interrupt / terminate / dequeue tasks.
     //! \param interrupt Kill the first task.  \warning MacOS X only.  (?)
@@ -76,7 +80,6 @@ private:
     bool _aboutToQuit;
 
     void adjust_for_quit(bool quitting);
-    void updateTasks(bool backupTaskRunning, int runningTasks, int queuedTasks);
 };
 
 #endif // !STOPTASKSDIALOG_H

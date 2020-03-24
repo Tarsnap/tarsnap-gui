@@ -2755,10 +2755,6 @@ unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose action</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Proceed in background</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2780,6 +2776,18 @@ unique data	%3		%4</source>
     </message>
     <message>
         <source>Stop all tasks immediately</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Severity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

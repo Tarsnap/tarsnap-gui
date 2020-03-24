@@ -2782,10 +2782,6 @@ unique data	%3		%4</source>
         <translation>Există %1 activități în curs de desfășurare și %2 programate pentru execuție.</translation>
     </message>
     <message>
-        <source>Choose action</source>
-        <translation>Cum dorești să procedezi</translation>
-    </message>
-    <message>
         <source>Proceed in background</source>
         <translation>Procedează în fundal</translation>
     </message>
@@ -2807,6 +2803,18 @@ unique data	%3		%4</source>
     </message>
     <message>
         <source>Stop all tasks immediately</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop tasks</source>
+        <translation type="unfinished">Oprește activitați</translation>
+    </message>
+    <message>
+        <source>Severity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

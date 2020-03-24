@@ -16,11 +16,11 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "backuptask.h"
+#include "cmdlinetask.h"
 #include "notification_info.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "tarsnaperror.h"
-#include "tarsnaptask.h"
 
 /*!
  * \ingroup background-tasks

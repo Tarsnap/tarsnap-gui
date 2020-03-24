@@ -1,4 +1,4 @@
-#include "tarsnaptask.h"
+#include "cmdlinetask.h"
 
 WARNINGS_DISABLE
 #include <QFileInfo>

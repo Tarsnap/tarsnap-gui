@@ -83,7 +83,7 @@ SOURCES +=						\
 	src/setupwizard/setupwizard_intro.cpp		\
 	src/setupwizard/setupwizard_register.cpp	\
 	src/tarsnapaccount.cpp				\
-	src/tarsnaptask.cpp				\
+	src/cmdlinetask.cpp				\
 	src/taskmanager.cpp				\
 	src/tasks/tasks-misc.cpp			\
 	src/tasks/tasks-setup.cpp			\
@@ -156,7 +156,7 @@ HEADERS +=						\
 	src/setupwizard/setupwizard_register.h		\
 	src/tarsnapaccount.h				\
 	src/tarsnaperror.h				\
-	src/tarsnaptask.h				\
+	src/cmdlinetask.h				\
 	src/taskmanager.h				\
 	src/tasks/tasks-defs.h				\
 	src/tasks/tasks-misc.h				\

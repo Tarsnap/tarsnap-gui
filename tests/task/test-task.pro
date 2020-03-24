@@ -6,7 +6,7 @@ VALGRIND = true
 HEADERS  +=						\
 	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
-	../../src/tarsnaptask.h				\
+	../../src/cmdlinetask.h				\
 	../../src/tasks/tasks-utils.h			\
 	../../src/utils.h				\
 	../qtest-platform.h
@@ -14,7 +14,7 @@ HEADERS  +=						\
 SOURCES += test-task.cpp				\
 	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
-	../../src/tarsnaptask.cpp			\
+	../../src/cmdlinetask.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/utils.cpp
 

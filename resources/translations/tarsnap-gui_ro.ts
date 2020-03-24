@@ -606,6 +606,45 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>CmdlineTask</name>
+    <message>
+        <source>
+...
+-- %1 output lines truncated by Tarsnap GUI --
+</source>
+        <translation>
+...
+-- %1 linii trunchiate de către Tarsnap GUI --
+</translation>
+    </message>
+    <message>
+        <source>Task %1 started:
+[%2 %3]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Task %1 finished with exit code %2:
+[%3 %4]
+%5
+</source>
+        <translation type="unfinished">Comandă %1 finalizată cu codul de ieșire %2 și rezultat:
+[%3 %4]
+%5
+ {1 ?} {2:?} {3 %4]?}</translation>
+    </message>
+    <message>
+        <source>Task %1 finished with error %2 (%3) occured (exit code %4):
+[%5 %6]
+%7
+</source>
+        <translation type="unfinished">Comandă %1 eșuată cu eroare %2 (%3) și cod de ieșire %4:
+[%5 %6]
+%7
+ {1 ?} {2 ?} {3)?} {4)?} {5 %6]?}</translation>
+    </message>
+</context>
+<context>
     <name>ConfirmationDialog</name>
     <message>
         <source>Not confirmed</source>
@@ -2887,45 +2926,6 @@ unique data	%3		%4</source>
     <message>
         <source>Tarsnap username must be set.</source>
         <translation type="unfinished">Numele de utilizator Tarsnap trebuie să fie completate.</translation>
-    </message>
-</context>
-<context>
-    <name>TarsnapTask</name>
-    <message>
-        <source>
-...
--- %1 output lines truncated by Tarsnap GUI --
-</source>
-        <translation>
-...
--- %1 linii trunchiate de către Tarsnap GUI --
-</translation>
-    </message>
-    <message>
-        <source>Task %1 started:
-[%2 %3]
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Task %1 finished with exit code %2:
-[%3 %4]
-%5
-</source>
-        <translation type="unfinished">Comandă %1 finalizată cu codul de ieșire %2 și rezultat:
-[%3 %4]
-%5
- {1 ?} {2:?} {3 %4]?}</translation>
-    </message>
-    <message>
-        <source>Task %1 finished with error %2 (%3) occured (exit code %4):
-[%5 %6]
-%7
-</source>
-        <translation type="unfinished">Comandă %1 eșuată cu eroare %2 (%3) și cod de ieșire %4:
-[%5 %6]
-%7
- {1 ?} {2 ?} {3)?} {4)?} {5 %6]?}</translation>
     </message>
 </context>
 <context>

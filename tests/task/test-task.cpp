@@ -41,7 +41,7 @@ void TestTask::cleanupTestCase()
 }
 
 #define RUN_SCRIPT(scriptname)                                                 \
-    TarsnapTask *task = new TarsnapTask();                                     \
+    CmdlineTask *task = new CmdlineTask();                                     \
                                                                                \
     QSignalSpy sig_started(task, SIGNAL(started(QVariant)));                   \
     QSignalSpy sig_fin(task,                                                   \
@@ -96,7 +96,7 @@ void TestTask::sleep_filenotfound()
 
 void TestTask::cmd_filenotfound()
 {
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QSignalSpy   sig_started(task, SIGNAL(started(QVariant)));
     QSignalSpy sig_fin(task, SIGNAL(finished(QVariant, int, QString, QString)));
     QSignalSpy sig_dequeue(task, SIGNAL(dequeue()));

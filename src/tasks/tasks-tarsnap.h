@@ -27,43 +27,43 @@ WARNINGS_ENABLE
 /**
  * \brief Create a task for: `tarsnap --list-archives -vv`
  */
-TarsnapTask *listArchivesTask();
+CmdlineTask *listArchivesTask();
 
 /**
  * \brief Create a task for: `tarsnap --print-stats -f ARCHIVENAME`
  */
-TarsnapTask *printStatsTask(const QString &archiveName);
+CmdlineTask *printStatsTask(const QString &archiveName);
 
 /**
  * \brief Create a task for: `tarsnap -tv -f ARCHIVENAME`
  */
-TarsnapTask *archiveContentsTask(const QString &archiveName);
+CmdlineTask *archiveContentsTask(const QString &archiveName);
 
 /**
  * \brief Create a task for: `tarsnap -d -f ARCHIVENAME`
  */
-TarsnapTask *deleteArchivesTask(const QStringList &archiveNames);
+CmdlineTask *deleteArchivesTask(const QStringList &archiveNames);
 
 /**
  * \brief Create a task for: `tarsnap --print-stats`
  */
-TarsnapTask *overallStatsTask();
+CmdlineTask *overallStatsTask();
 
 /**
  * \brief Create a task for: `tarsnap --nuke`
  */
-TarsnapTask *nukeArchivesTask();
+CmdlineTask *nukeArchivesTask();
 
 /**
  * \brief Create a task for: `tarsnap -x -f ARCHIVENAME`, with many options.
  */
-TarsnapTask *restoreArchiveTask(const QString &       archiveName,
+CmdlineTask *restoreArchiveTask(const QString &       archiveName,
                                 ArchiveRestoreOptions options);
 
 /**
  * \brief Create a task for: `tarsnap -c -f ARCHIVENAME FILELIST`, with
  * many options.
  */
-TarsnapTask *backupArchiveTask(BackupTaskDataPtr backupTaskData);
+CmdlineTask *backupArchiveTask(BackupTaskDataPtr backupTaskData);
 
 #endif /* !TASKS_TARSNAP_H */

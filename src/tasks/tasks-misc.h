@@ -23,11 +23,11 @@ WARNINGS_ENABLE
 /**
  * \brief Create a task for: `tarsnap-keymgmt --print-key-id KEYFILENAME`
  */
-TarsnapTask *keyIdTask(const QString &key_filename);
+CmdlineTask *keyIdTask(const QString &key_filename);
 
 /**
  * \brief Create a task for: `sleep SECONDS`
  */
-TarsnapTask *sleepSecondsTask(int seconds);
+CmdlineTask *sleepSecondsTask(int seconds);
 
 #endif /* !TASKS_MISC_H */

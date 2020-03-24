@@ -172,7 +172,7 @@ void TestTaskManager::sleep_cancel()
     QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
 
     // Set up a task.
-    TarsnapTask *task = new TarsnapTask();
+    CmdlineTask *task = new CmdlineTask();
     QSignalSpy   sig_started(task, SIGNAL(started(QVariant)));
     task->setCommand("/bin/sh");
     task->setArguments(QStringList(get_script("sleep-9-exit-0.sh")));

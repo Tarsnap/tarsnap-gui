@@ -3,7 +3,7 @@
 
 /*!
  * \ingroup background-tasks
- * \brief Errors which can occur from a running \c tarsnap as a TarsnapTask.
+ * \brief Errors which can occur from a running \c tarsnap as a CmdlineTask.
  */
 enum TarsnapError
 {

@@ -7,7 +7,7 @@ WARNINGS_ENABLE
 
 /*!
  * \ingroup background-tasks
- * \brief Status which can occur from running a TarsnapTask.
+ * \brief Status which can occur from running a CmdlineTask.
  */
 enum TaskStatus
 {

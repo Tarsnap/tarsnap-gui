@@ -22,17 +22,17 @@ WARNINGS_ENABLE
 
 /*!
  * \ingroup background-tasks
- * \brief The TarsnapTask is a QObject and QRunnable which executes a
+ * \brief The CmdlineTask is a QObject and QRunnable which executes a
  * command-line command.
  */
-class TarsnapTask : public QObject, public QRunnable
+class CmdlineTask : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
     //! Constructor.
-    explicit TarsnapTask();
-    ~TarsnapTask();
+    explicit CmdlineTask();
+    ~CmdlineTask();
 
 #ifdef QT_TESTLIB_LIB
     void fake();

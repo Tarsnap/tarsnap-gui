@@ -17,14 +17,14 @@ WARNINGS_ENABLE
  * - should not have any side effects.
  * - should read information from TSettings (if possible), instead
  *   of using parameters.
- * - functions returning TarsnapTask should be in the form twoWordsTask(),
+ * - functions returning CmdlineTask should be in the form twoWordsTask(),
  *   to distinguish them from oneTask variable names in TaskManager.
  */
 
 /**
  * \brief Create a task for: `tarsnap --version`
  */
-TarsnapTask *tarsnapVersionTask();
+CmdlineTask *tarsnapVersionTask();
 
 /**
  * \brief Extract the version number from the output of `tarsnap --version`.
@@ -36,17 +36,17 @@ const QString tarsnapVersionTaskParse(const QString &stdOut);
 /**
  * \brief Create a task for: `tarsnap-keygen`
  */
-TarsnapTask *registerMachineTask(const QString &password,
+CmdlineTask *registerMachineTask(const QString &password,
                                  const QString &machine);
 
 /**
  * \brief Create a task for: `tarsnap --fsck` or `tarsnap --fsck-prune`.
  */
-TarsnapTask *fsckCleanTask(bool prune);
+CmdlineTask *fsckCleanTask(bool prune);
 
 /**
  * \brief Create a task for: `tarsnap --initialize-cachedir`.
  */
-TarsnapTask *initializeCachedirTask();
+CmdlineTask *initializeCachedirTask();
 
 #endif /* !TASKS_SETUP_H */

@@ -23,7 +23,8 @@ FORMS +=							\
 	../../forms/logindialog.ui				\
 	../../forms/mainwindow.ui				\
 	../../forms/restoredialog.ui				\
-	../../forms/settingswidget.ui
+	../../forms/settingswidget.ui				\
+	../../forms/stoptasksdialog.ui
 
 RESOURCES +=						\
 	../../lib/resources/lib-resources.qrc		\

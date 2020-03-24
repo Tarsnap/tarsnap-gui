@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include "ui_jobstabwidget.h"
 #include "ui_jobwidget.h"
 #include "ui_mainwindow.h"
+#include "ui_stoptasksdialog.h"
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
@@ -180,7 +181,7 @@ void TestMainWindow::quit_tasks()
     // Quit the app
     mainwindow->closeWithTaskInfo(true, 1, 1);
     VISUAL_WAIT;
-    mainwindow->_stopTasksDialog._stopAll->trigger();
+    mainwindow->_stopTasksDialog._ui->stopAllButton->clicked();
     VISUAL_WAIT;
 
     // After quitting, we don't respond to more events

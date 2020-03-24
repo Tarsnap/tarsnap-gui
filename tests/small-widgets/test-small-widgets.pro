@@ -5,7 +5,8 @@ VALGRIND = true
 
 FORMS +=						\
 	../../forms/filepickerdialog.ui			\
-	../../forms/filepickerwidget.ui
+	../../forms/filepickerwidget.ui			\
+	../../forms/stoptasksdialog.ui
 
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\

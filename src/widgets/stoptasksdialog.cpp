@@ -1,53 +1,35 @@
 #include "stoptasksdialog.h"
 
 WARNINGS_DISABLE
-#include <QAction>
-#include <QMenu>
 #include <QPushButton>
+
+#include "ui_stoptasksdialog.h"
 WARNINGS_ENABLE
 
-StopTasksDialog::StopTasksDialog(QWidget *parent) : QMessageBox(parent)
+StopTasksDialog::StopTasksDialog(QWidget *parent)
+    : QDialog(parent), _ui(new Ui::StopTasksDialog)
 {
-    // Set up menu.
-    _actionButton = new QPushButton(this);
-    _actionMenu   = new QMenu(_actionButton);
-    _actionButton->setText(tr("Choose action"));
-    _actionButton->setMenu(_actionMenu);
-    addButton(_actionButton, QMessageBox::ActionRole);
-
-    // Set up menu actions.
-    _interruptBackup = _actionMenu->addAction(
-        tr("Wait for an archive checkpoint, then stop queued tasks"));
-    _interruptBackup->setCheckable(true);
-    connect(_interruptBackup, &QAction::triggered, this,
-            &StopTasksDialog::interruptBackupClicked);
-    _interruptBackupKeepQueue = _actionMenu->addAction(
-        tr("Wait for an archive checkpoint, then run queued tasks"));
-    _interruptBackupKeepQueue->setCheckable(true);
-    connect(_interruptBackupKeepQueue, &QAction::triggered, this,
-            &StopTasksDialog::interruptBackupKeepQueueClicked);
-    _stopRunning =
-        _actionMenu->addAction(tr("Stop running tasks, then run queued tasks"));
-    _stopRunning->setCheckable(true);
-    connect(_stopRunning, &QAction::triggered, this,
-            &StopTasksDialog::stopRunningClicked);
-    _stopQueued = _actionMenu->addAction(
-        tr("Wait for running tasks, then stop queued tasks"));
-    _stopQueued->setCheckable(true);
-    connect(_stopQueued, &QAction::triggered, this,
-            &StopTasksDialog::stopQueuedClicked);
-    _stopAll = _actionMenu->addAction(tr("Stop all tasks immediately"));
-    _stopAll->setCheckable(true);
-    connect(_stopAll, &QAction::triggered, this,
-            &StopTasksDialog::stopAllClicked);
-    _proceedBackground = _actionMenu->addAction(tr("Proceed in background"));
-    _proceedBackground->setCheckable(true);
-    connect(_proceedBackground, &QAction::triggered, this,
-            &StopTasksDialog::proceedBackgroundClicked);
+    // Ui initialization
+    _ui->setupUi(this);
 
     // Set up buttons.
-    _cancelButton = addButton(QMessageBox::Cancel);
-    setDefaultButton(_cancelButton);
+    connect(_ui->buttonBox, &QDialogButtonBox::rejected, this,
+            &QDialog::reject);
+    connect(_ui->interruptButton, &QPushButton::clicked, this,
+            &StopTasksDialog::interruptBackupClicked);
+    connect(_ui->interruptKeepQueueButton, &QPushButton::clicked, this,
+            &StopTasksDialog::interruptBackupKeepQueueClicked);
+    connect(_ui->stopRunningButton, &QPushButton::clicked, this,
+            &StopTasksDialog::stopRunningClicked);
+    connect(_ui->cancelQueuedButton, &QPushButton::clicked, this,
+            &StopTasksDialog::stopQueuedClicked);
+    connect(_ui->stopAllButton, &QPushButton::clicked, this,
+            &StopTasksDialog::stopAllClicked);
+    connect(_ui->proceedBackgroundButton, &QPushButton::clicked, this,
+            &StopTasksDialog::proceedBackgroundClicked);
+
+    // Make sure focus is on the Cancel button.
+    _ui->buttonBox->button(QDialogButtonBox::Cancel)->setFocus();
 
     // Set up processing the result.
     connect(this, &QMessageBox::finished, this,
@@ -56,11 +38,39 @@ StopTasksDialog::StopTasksDialog(QWidget *parent) : QMessageBox(parent)
 
 StopTasksDialog::~StopTasksDialog()
 {
+    delete _ui;
 }
 
 void StopTasksDialog::adjust_for_quit(bool quitting)
 {
-    (void)quitting;
+    _ui->interruptButton->setVisible(quitting);
+    _ui->proceedBackgroundButton->setVisible(quitting);
+
+    _ui->interruptKeepQueueButton->setVisible(!quitting);
+    _ui->stopRunningButton->setVisible(!quitting);
+    _ui->cancelQueuedButton->setVisible(!quitting);
+
+    // Alter the "severity" gradient.
+    if(quitting)
+    {
+        _ui->gradientLabel->setStyleSheet(
+            "background: qlineargradient(spread:pad,"
+            " x1: 0, y1: 0, x2: 0, y2: 1,"
+            " stop: 0 rgba(255, 0, 0, 255),"
+            " stop: 0.67 rgba(255, 255, 0, 255),"
+            " stop: 1 rgba(0, 255, 0, 255))");
+    }
+    else
+    {
+        _ui->gradientLabel->setStyleSheet(
+            "background: qlineargradient(spread:pad,"
+            " x1: 0, y1: 0, x2: 0, y2: 1,"
+            " stop: 0 rgba(255, 0, 0, 255),"
+            " stop: 1 rgba(255, 255, 0, 255))");
+    }
+
+    // Reset height
+    adjustSize();
 }
 
 void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
@@ -88,22 +98,23 @@ void StopTasksDialog::updateTasks(bool backupTaskRunning, int runningTasks,
         accept();
 
     // Overall setup.
-    setText(tr("There are %1 running tasks and %2 queued.")
-                .arg(runningTasks)
-                .arg(queuedTasks));
+    _ui->numTasksLabel->setText(tr("There are %1 running tasks and %2 queued.")
+                                    .arg(runningTasks)
+                                    .arg(queuedTasks));
 
     // interrupt
-    _interruptBackup->setVisible(backupTaskRunning && _aboutToQuit);
-    _interruptBackupKeepQueue->setVisible(backupTaskRunning && !_aboutToQuit);
+    _ui->interruptButton->setEnabled(backupTaskRunning && _aboutToQuit);
+    _ui->interruptKeepQueueButton->setEnabled(backupTaskRunning
+                                              && !_aboutToQuit);
     // stopRunning
-    _stopRunning->setVisible(runningTasks && !_aboutToQuit);
+    _ui->stopRunningButton->setEnabled(runningTasks && !_aboutToQuit);
     // stopQueued
-    _stopQueued->setVisible(queuedTasks && !_aboutToQuit);
+    _ui->cancelQueuedButton->setEnabled(queuedTasks && !_aboutToQuit);
     // stopAll
-    _stopAll->setVisible(runningTasks || queuedTasks);
+    _ui->stopAllButton->setEnabled(runningTasks || queuedTasks);
     // proceedBackground
-    _proceedBackground->setVisible((runningTasks || queuedTasks)
-                                   && _aboutToQuit);
+    _ui->proceedBackgroundButton->setEnabled((runningTasks || queuedTasks)
+                                             && _aboutToQuit);
 }
 
 void StopTasksDialog::interruptBackupClicked()

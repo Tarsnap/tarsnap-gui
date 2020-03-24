@@ -109,7 +109,7 @@ signals:
     //! Are there no running tasks?
     void idle(bool status);
     //! Give number of tasks.
-    void numTasks(int runningTasks, int queuedTasks);
+    void numTasks(bool backupRunning, int runningTasks, int queuedTasks);
     //! Result of tarsnap --version.
     //! \anchor tarsnapVersionFound
     void tarsnapVersionFound(TaskStatus status, const QString &versionString);

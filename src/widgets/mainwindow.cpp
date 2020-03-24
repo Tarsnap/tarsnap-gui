@@ -642,7 +642,8 @@ void MainWindow::updateSimulationIcon(int state)
     }
 }
 
-void MainWindow::updateNumTasks(int runningTasks, int queuedTasks)
+void MainWindow::updateNumTasks(bool backupRunning, int runningTasks,
+                                int queuedTasks)
 {
     _runningTasks = runningTasks;
     _queuedTasks  = queuedTasks;

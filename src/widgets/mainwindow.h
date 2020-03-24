@@ -81,7 +81,7 @@ public slots:
     //! Update the simulation icon.
     void updateSimulationIcon(int state);
     //! Update the number of tasks;
-    void updateNumTasks(int numRunning, int numQueued);
+    void updateNumTasks(bool backupRunning, int numRunning, int numQueued);
 
     //! Handle a clicked notification message.
     void handle_notification_clicked(enum message_type type, QString data);

@@ -996,7 +996,8 @@ void TaskManager::startTask(TarsnapTask *task)
 #endif
     _threadPool->start(task);
     emit idle(false);
-    emit numTasks(_runningTasks.count(), _taskQueue.count());
+    bool backupTaskRunning = isBackupTaskRunning();
+    emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
 }
 
 void TaskManager::dequeueTask()
@@ -1013,7 +1014,8 @@ void TaskManager::dequeueTask()
         else
             startTask(nullptr); // start another queued task
     }
-    emit numTasks(_runningTasks.count(), _taskQueue.count());
+    bool backupTaskRunning = isBackupTaskRunning();
+    emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
 }
 
 void TaskManager::parseError(const QString &tarsnapOutput)

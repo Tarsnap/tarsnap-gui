@@ -1238,20 +1238,24 @@ void TaskManager::loadJobArchives()
     job->setArchives(archives);
 }
 
-void TaskManager::getTaskInfo()
+bool TaskManager::isBackupTaskRunning()
 {
-    bool backupTaskRunning = false;
     if(!_runningTasks.isEmpty() && !_backupTaskMap.isEmpty())
     {
         for(TarsnapTask *task : _runningTasks)
         {
             if(task && _backupTaskMap.contains(task->data().toUuid()))
             {
-                backupTaskRunning = true;
-                break;
+                return true;
             }
         }
     }
+    return false;
+}
+
+void TaskManager::getTaskInfo()
+{
+    bool backupTaskRunning = isBackupTaskRunning();
     emit taskInfo(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
 }
 

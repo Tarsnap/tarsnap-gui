@@ -195,6 +195,7 @@ private:
     void    initTarsnapArgs(QStringList &args);
     bool    waitForOnline();
     void    warnNotOnline();
+    bool    isBackupTaskRunning();
 
     QMap<QUuid, BackupTaskDataPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>      _archiveMap;

@@ -7,7 +7,7 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "tarsnaptask.h"
+#include "cmdlinetask.h"
 #include "taskmanager.h"
 #include "utils.h"
 

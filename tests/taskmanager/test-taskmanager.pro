@@ -11,7 +11,7 @@ HEADERS  +=						\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
-	../../src/tarsnaptask.h				\
+	../../src/cmdlinetask.h				\
 	../../src/taskmanager.h				\
 	../../src/tasks/tasks-defs.h			\
 	../../src/tasks/tasks-misc.h			\
@@ -29,7 +29,7 @@ SOURCES += test-taskmanager.cpp				\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
-	../../src/tarsnaptask.cpp			\
+	../../src/cmdlinetask.cpp			\
 	../../src/taskmanager.cpp			\
 	../../src/tasks/tasks-misc.cpp			\
 	../../src/tasks/tasks-setup.cpp			\

@@ -46,7 +46,7 @@ SOURCES += test-app-setup.cpp				\
 	../../src/setupwizard/setupwizard_final.cpp	\
 	../../src/setupwizard/setupwizard_intro.cpp	\
 	../../src/setupwizard/setupwizard_register.cpp	\
-	../../src/tarsnaptask.cpp			\
+	../../src/cmdlinetask.cpp			\
 	../../src/taskmanager.cpp			\
 	../../src/tasks/tasks-misc.cpp			\
 	../../src/tasks/tasks-setup.cpp			\
@@ -87,7 +87,7 @@ HEADERS +=						\
 	../../src/setupwizard/setupwizard_intro.h	\
 	../../src/setupwizard/setupwizard_register.h	\
 	../../src/tarsnaperror.h			\
-	../../src/tarsnaptask.h				\
+	../../src/cmdlinetask.h				\
 	../../src/taskmanager.h				\
 	../../src/tasks/tasks-defs.h			\
 	../../src/tasks/tasks-misc.h			\

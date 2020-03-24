@@ -8,7 +8,7 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "tarsnaptask.h"
+#include "cmdlinetask.h"
 
 class TestTask : public QObject
 {

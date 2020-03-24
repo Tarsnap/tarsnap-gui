@@ -25,7 +25,7 @@ SOURCES +=						\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
 	../../src/scheduling.cpp			\
-	../../src/tarsnaptask.cpp			\
+	../../src/cmdlinetask.cpp			\
 	../../src/taskmanager.cpp			\
 	../../src/tasks/tasks-misc.cpp			\
 	../../src/tasks/tasks-setup.cpp			\
@@ -53,7 +53,7 @@ HEADERS +=						\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\
 	../../src/tarsnaperror.h			\
-	../../src/tarsnaptask.h				\
+	../../src/cmdlinetask.h				\
 	../../src/taskmanager.h				\
 	../../src/tasks/tasks-defs.h			\
 	../../src/tasks/tasks-misc.h			\

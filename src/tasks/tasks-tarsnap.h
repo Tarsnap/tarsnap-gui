@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 
 #include "backuptask.h"
-#include "tarsnaptask.h"
+#include "cmdlinetask.h"
 
 /**
  * \file tasks-tarsnap.h

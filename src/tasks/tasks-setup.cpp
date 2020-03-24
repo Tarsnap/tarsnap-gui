@@ -7,7 +7,7 @@ WARNINGS_ENABLE
 
 #include <TSettings.h>
 
-#include "tarsnaptask.h"
+#include "cmdlinetask.h"
 #include "tasks-defs.h"
 #include "tasks-utils.h"
 #include "taskstatus.h"

@@ -7,7 +7,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include "tarsnaptask.h"
+#include "cmdlinetask.h"
 
 /**
  * \file tasks-setup.h

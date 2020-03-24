@@ -39,6 +39,7 @@ class StopTasksDialog : public QMessageBox
 public:
     //! Constructor.
     explicit StopTasksDialog(QWidget *parent = nullptr);
+    ~StopTasksDialog() override;
 
     //! Prompt user to clarify whether to stop background tasks; if so,
     //! indicate that we can quit the app.  the app.  Also used when quitting
@@ -82,6 +83,7 @@ private:
 
     bool _aboutToQuit;
 
+    void adjust_for_quit(bool quitting);
     void updateTasks(bool backupTaskRunning, int runningTasks, int queuedTasks);
 };
 

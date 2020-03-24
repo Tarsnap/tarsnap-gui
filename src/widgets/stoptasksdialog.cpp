@@ -73,6 +73,10 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
 void StopTasksDialog::updateTasks(bool backupTaskRunning, int runningTasks,
                                   int queuedTasks)
 {
+    // Shut down the dialog (if necesssary).
+    if((runningTasks == 0) && (queuedTasks == 0))
+        accept();
+
     // Overall setup.
     setText(tr("There are %1 running tasks and %2 queued.")
                 .arg(runningTasks)

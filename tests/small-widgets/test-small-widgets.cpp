@@ -33,6 +33,7 @@ private slots:
     void confirmationDialog();
     void stoptasksdialog();
     void stoptasksdialog_showall();
+    void stoptasksdialog_update();
 };
 
 void TestSmallWidgets::initTestCase()
@@ -250,6 +251,53 @@ void TestSmallWidgets::stoptasksdialog_showall()
     sd->display(true, 1, 1, false);
     VISUAL_WAIT;
     sd->reject();
+
+    delete sd;
+}
+
+void TestSmallWidgets::stoptasksdialog_update()
+{
+    StopTasksDialog *sd = new StopTasksDialog();
+    QSignalSpy       sig_cancelAboutToQuit(sd, SIGNAL(cancelAboutToQuit()));
+    QSignalSpy       sig_quitOk(sd, SIGNAL(quitOk()));
+    QSignalSpy       sig_stop(sd, SIGNAL(stopTasks(bool, bool, bool)));
+    QList<QVariant>  stop_bools;
+
+    // Don't VISUAL_INIT this one, because it's done internally.
+
+    // Query all "quit" cases.
+    sd->display(true, 1, 1, true);
+    VISUAL_WAIT;
+
+    sd->updateTasks(false, 1, 1);
+    VISUAL_WAIT;
+
+    sd->updateTasks(false, 0, 1);
+    VISUAL_WAIT;
+
+    sd->updateTasks(false, 1, 0);
+    VISUAL_WAIT;
+
+    // This command automatically sends an accept() to the dialog.
+    sd->updateTasks(false, 0, 0);
+    VISUAL_WAIT;
+
+    // Query all "non-quit" cases.
+    sd->display(true, 1, 1, false);
+    VISUAL_WAIT;
+
+    sd->updateTasks(false, 1, 1);
+    VISUAL_WAIT;
+
+    sd->updateTasks(false, 0, 1);
+    VISUAL_WAIT;
+
+    sd->updateTasks(false, 1, 0);
+    VISUAL_WAIT;
+
+    // This command automatically sends an accept() to the dialog.
+    sd->updateTasks(false, 0, 0);
+    VISUAL_WAIT;
 
     delete sd;
 }

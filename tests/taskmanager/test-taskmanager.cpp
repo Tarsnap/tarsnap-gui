@@ -350,6 +350,9 @@ void TestTaskManager::registerMachine_fake()
     TaskManager *manager = new TaskManager();
     const char * logfilename;
 
+    // Sanity test: we shouldn't have this (extra) file in the directory.
+    Q_ASSERT(!QFile::exists("keyfile"));
+
     // Initialize log file.
     LOG.setWriteToFile(true);
 

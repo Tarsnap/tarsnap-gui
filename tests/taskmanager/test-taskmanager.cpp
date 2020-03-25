@@ -32,6 +32,7 @@ private slots:
     void sleep_task_cancel_running_series();
     void tarsnapVersion_fake();
     void registerMachine_fake();
+    void backup_fake();
 };
 
 void TestTaskManager::initTestCase()
@@ -401,6 +402,61 @@ void TestTaskManager::registerMachine_fake()
     manager->waitUntilIdle();
     QVERIFY(grep_file(logfilename, "tarsnap-keygen") == 0);
     QVERIFY(grep_file(logfilename, "--fsck-prune") == 1);
+
+    // Clean up.
+    LOG.setWriteToFile(false);
+    delete manager;
+}
+
+void TestTaskManager::backup_fake()
+{
+    TaskManager *manager = new TaskManager();
+    const char * logfilename;
+    QSignalSpy   sig_numTasks(manager, SIGNAL(numTasks(bool, int, int)));
+
+    QList<QVariant> numTasks;
+
+    // Sanity test: we shouldn't have this (extra) file in the directory.
+    Q_ASSERT(!QFile::exists("keyfile"));
+
+    // Initialize log file.
+    LOG.setWriteToFile(true);
+
+    // Set up some settings.
+    TSettings settings;
+    settings.setValue("tarsnap/user", "username");
+    settings.setValue("tarsnap/key", "keyfile");
+    settings.setValue("tarsnap/cache", TEST_DIR "/cachedir");
+
+    // Create backup task.
+    BackupTaskDataPtr btd(new BackupTaskData);
+    btd->setName("this_backup");
+    QList<QUrl> testdir_urls({QUrl("file://" TEST_DIR "/file1")});
+    btd->setUrls(testdir_urls);
+
+    // Fake creating an archive.
+    logfilename = TEST_DIR "/backup_fake_1.log";
+    LOG.setFilename(logfilename);
+    manager->fakeNextTask();
+    manager->backupNow(btd);
+
+    // Check that numTasks is correct.
+    QVERIFY(sig_numTasks.count() > 0);
+    numTasks = sig_numTasks.takeFirst();
+    QVERIFY(numTasks.at(0).toBool() == true);
+
+    // Wait.
+    manager->waitUntilIdle();
+
+    // Check that numTasks is correct (again).
+    QVERIFY(sig_numTasks.count() > 0);
+    numTasks = sig_numTasks.takeFirst();
+    QVERIFY(numTasks.at(0).toBool() == false);
+
+    // Check logfile.
+    QVERIFY(grep_file(logfilename, "tarsnap") == 1);
+    QVERIFY(grep_file(logfilename, "this_backup") == 1);
+    QVERIFY(grep_file(logfilename, "file1") == 1);
 
     // Clean up.
     LOG.setWriteToFile(false);

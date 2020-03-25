@@ -137,7 +137,7 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
     connect(backupTaskData.data(), &BackupTaskData::statusUpdate, this,
             &TaskManager::notifyBackupTaskUpdate);
     backupTaskData->setStatus(TaskStatus::Queued);
-    queueTask(backupTask, true);
+    queueTask(backupTask, true, true);
 }
 
 void TaskManager::getArchives()
@@ -951,13 +951,15 @@ void TaskManager::getKeyIdFinished(QVariant data, int exitCode,
     }
 }
 
-void TaskManager::queueTask(CmdlineTask *task, bool exclusive)
+void TaskManager::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
 {
     if(task == nullptr)
     {
         DEBUG << "NULL argument";
         return;
     }
+    if(isBackup)
+        _backupUuidList.append(task->uuid());
     if(exclusive && !_runningTasks.isEmpty())
         _taskQueue.enqueue(task);
     else
@@ -1005,6 +1007,7 @@ void TaskManager::dequeueTask()
     if(task == nullptr)
         return;
     _runningTasks.removeOne(task);
+    _backupUuidList.removeAll(task->uuid());
     task->deleteLater();
     if(_runningTasks.isEmpty())
     {
@@ -1202,11 +1205,11 @@ void TaskManager::loadJobArchives()
 
 bool TaskManager::isBackupTaskRunning()
 {
-    if(!_runningTasks.isEmpty() && !_backupTaskMap.isEmpty())
+    if(!_runningTasks.isEmpty() && !_backupUuidList.isEmpty())
     {
         for(CmdlineTask *task : _runningTasks)
         {
-            if(task && _backupTaskMap.contains(task->data().toUuid()))
+            if(task && _backupUuidList.contains(task->uuid()))
             {
                 return true;
             }

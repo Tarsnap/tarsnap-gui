@@ -36,8 +36,9 @@ public:
     ~TaskManager();
 
 #ifdef QT_TESTLIB_LIB
-    //! Start running a task.
-    void startTask(CmdlineTask *task);
+    //! Prepare a task, and start running it if there's no queue.
+    void queueTask(CmdlineTask *task, bool exclusive = false,
+                   bool isBackup = false);
     //! Don't actually run the next task.
     void fakeNextTask();
     //! Block until there's no tasks.
@@ -178,12 +179,12 @@ private slots:
                           const QString &stdErr);
 
     // general task management
+#ifndef QT_TESTLIB_LIB
     void queueTask(CmdlineTask *task, bool exclusive = false,
                    bool isBackup = false);
-    void dequeueTask();
-#ifndef QT_TESTLIB_LIB
-    void startTask(CmdlineTask *task);
 #endif
+    void dequeueTask();
+    void startTask(CmdlineTask *task);
 
 private:
     void parseError(const QString &tarsnapOutput);

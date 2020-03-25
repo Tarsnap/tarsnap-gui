@@ -180,7 +180,7 @@ void TestTaskManager::sleep_cancel()
     task->setData(QString("started-9"));
 
     // Start running it, wait a second.
-    manager->startTask(task);
+    manager->queueTask(task);
     WAIT_SIG(sig_started);
     QVERIFY(sig_started.count() == 1);
     QVERIFY(sig_started.takeFirst().at(0).value<QString>() == "started-9");

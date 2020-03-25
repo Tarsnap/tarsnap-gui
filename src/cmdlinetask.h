@@ -1,5 +1,5 @@
-#ifndef TARSNAPTASK_H
-#define TARSNAPTASK_H
+#ifndef CMDLINETASK_H
+#define CMDLINETASK_H
 
 #include "warnings-disable.h"
 
@@ -111,4 +111,4 @@ private:
 #endif
 };
 
-#endif // TARSNAPTASK_H
+#endif // !CMDLINETASK_H

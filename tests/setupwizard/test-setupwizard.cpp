@@ -142,7 +142,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
     // Pretend to register
     GET_BUTTON(NextButton)->click();
     QVERIFY(sig_register.count() == 1);
-    wizard->updateLoadingAnimation(false);
+    wizard->updateNumTasks(false, 1, 0);
     VISUAL_WAIT;
 
     // Fake a response

@@ -51,8 +51,14 @@ void SetupWizard::registerMachineResponse(TaskStatus status, QString reason)
     _registerPage->registerMachineResponse(status, reason);
 }
 
-void SetupWizard::updateLoadingAnimation(bool idle)
+void SetupWizard::updateNumTasks(bool backupRunning, int numRunning,
+                                 int numQueued)
 {
+    Q_UNUSED(backupRunning);
+    Q_UNUSED(numQueued);
+
+    bool idle = (numRunning == 0);
+
     TWizardPage *page = currentPage();
     if(page == _registerPage)
         _registerPage->updateLoadingAnimation(idle);

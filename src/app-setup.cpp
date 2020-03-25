@@ -107,8 +107,8 @@ bool AppSetup::prepEventLoop()
             &SetupWizard::registerMachineResponse);
 
     // Connect the backend -> frontend signal.
-    connect(_taskManager, &TaskManager::idle, _wizard,
-            &SetupWizard::updateLoadingAnimation);
+    connect(_taskManager, &TaskManager::numTasks, _wizard,
+            &SetupWizard::updateNumTasks);
 
     // Connect the frontend -> this signal.
     connect(_wizard, &SetupWizard::finished, this, &AppSetup::finished);

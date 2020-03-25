@@ -995,7 +995,6 @@ void TaskManager::startTask(CmdlineTask *task)
         task->fake();
 #endif
     _threadPool->start(task);
-    emit idle(false);
     bool backupTaskRunning = isBackupTaskRunning();
     emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
 }
@@ -1009,10 +1008,7 @@ void TaskManager::dequeueTask()
     task->deleteLater();
     if(_runningTasks.isEmpty())
     {
-        if(_taskQueue.isEmpty())
-            emit idle(true);
-        else
-            startTask(nullptr); // start another queued task
+        startTask(nullptr); // start another queued task
     }
     bool backupTaskRunning = isBackupTaskRunning();
     emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());

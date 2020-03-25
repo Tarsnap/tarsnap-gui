@@ -41,9 +41,8 @@ public slots:
     //!                \c TaskStatus::Failed.
     //! \param reason text which explains why the registration failed.
     void registerMachineResponse(TaskStatus status, QString reason);
-    //! The TaskManager is indicating that it is performing a background task.
-    //! \param idle no task is running.
-    void updateLoadingAnimation(bool idle);
+    //! Update the number of tasks.
+    void updateNumTasks(bool backupRunning, int numRunning, int numQueued);
 
     //! Quit the wizard, clear any config, allow re-running the setup.
     void reject() override;

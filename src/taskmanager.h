@@ -106,8 +106,6 @@ public slots:
 
 signals:
     // Tarsnap task notifications
-    //! Are there no running tasks?
-    void idle(bool status);
     //! Give number of tasks.
     void numTasks(bool backupRunning, int runningTasks, int queuedTasks);
     //! Result of tarsnap --version.

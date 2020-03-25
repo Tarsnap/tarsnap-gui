@@ -435,12 +435,6 @@ void MainWindow::setupMenuBar()
     mainTabChanged(_ui->mainTabWidget->currentIndex());
 }
 
-void MainWindow::updateLoadingAnimation(bool idle)
-{
-    // Pass the request onwards.
-    _ui->busyLabel->animate(!idle);
-}
-
 void MainWindow::mainTabChanged(int index)
 {
     Q_UNUSED(index)
@@ -646,6 +640,10 @@ void MainWindow::updateNumTasks(bool backupRunning, int runningTasks,
                                 int queuedTasks)
 {
     _stopTasksDialog.updateTasks(backupRunning, runningTasks, queuedTasks);
+
+    // Display whether we're active or not.
+    bool idle = (runningTasks == 0);
+    _ui->busyLabel->animate(!idle);
 
     _runningTasks = runningTasks;
     _queuedTasks  = queuedTasks;

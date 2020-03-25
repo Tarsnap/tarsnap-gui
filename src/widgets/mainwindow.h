@@ -54,8 +54,6 @@ public slots:
     //! \param message display this text
     //! \param detail display this text as a mouse-over tooltip.
     void updateStatusMessage(QString message, QString detail = "");
-    //! Indicate if the application is busy running Tarsnap chores or not.
-    void updateLoadingAnimation(bool idle);
     //! Update the global Tarsnap --print-stats values in the Settings tab.
     void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                              quint64 sizeUniqueTotal,

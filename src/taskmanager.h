@@ -178,7 +178,8 @@ private slots:
                           const QString &stdErr);
 
     // general task management
-    void queueTask(CmdlineTask *task, bool exclusive = false);
+    void queueTask(CmdlineTask *task, bool exclusive = false,
+                   bool isBackup = false);
     void dequeueTask();
 #ifndef QT_TESTLIB_LIB
     void startTask(CmdlineTask *task);
@@ -199,6 +200,9 @@ private:
     QQueue<CmdlineTask *>          _taskQueue; // mutually exclusive tasks
     QThreadPool *                  _threadPool;
     QMap<QString, JobPtr>          _jobMap;
+
+    // Keep track of which CmdlineTasks are backups.
+    QList<QUuid> _backupUuidList;
 
 #ifdef QT_TESTLIB_LIB
     bool _fakeNextTask;

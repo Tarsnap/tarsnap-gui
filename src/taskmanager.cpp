@@ -1132,42 +1132,6 @@ void TaskManager::parseArchiveStats(const QString &tarsnapOutput,
     archive->save();
 }
 
-QString TaskManager::makeTarsnapCommand(const QString &cmd)
-{
-    TSettings settings;
-    QString   _tarsnapDir = settings.value("tarsnap/path", "").toString();
-    if(_tarsnapDir.isEmpty())
-        return cmd;
-    else
-        return _tarsnapDir + QDir::separator() + cmd;
-}
-
-void TaskManager::initTarsnapArgs(QStringList &args)
-{
-    TSettings settings;
-    QString   tarsnapKeyFile = settings.value("tarsnap/key", "").toString();
-    if(!tarsnapKeyFile.isEmpty())
-        args << "--keyfile" << tarsnapKeyFile;
-    QString tarsnapCacheDir = settings.value("tarsnap/cache", "").toString();
-    if(!tarsnapCacheDir.isEmpty())
-        args << "--cachedir" << tarsnapCacheDir;
-    int download_rate_kbps = settings.value("app/limit_download", 0).toInt();
-    if(download_rate_kbps)
-    {
-        args.prepend("--maxbw-rate-down");
-        args.insert(1, QString::number(1024 * quint64(download_rate_kbps)));
-    }
-    int upload_rate_kbps = settings.value("app/limit_upload", 0).toInt();
-    if(upload_rate_kbps)
-    {
-        args.prepend("--maxbw-rate-up");
-        args.insert(1, QString::number(1024 * quint64(upload_rate_kbps)));
-    }
-    if(settings.value("tarsnap/no_default_config", DEFAULT_NO_DEFAULT_CONFIG)
-           .toBool())
-        args.prepend("--no-default-config");
-}
-
 void TaskManager::loadJobs()
 {
     _jobMap.clear();

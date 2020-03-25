@@ -191,11 +191,9 @@ private:
     void parseGlobalStats(const QString &tarsnapOutput);
     void parseArchiveStats(const QString &tarsnapOutput, bool newArchiveOutput,
                            ArchivePtr archive);
-    QString makeTarsnapCommand(const QString &cmd);
-    void    initTarsnapArgs(QStringList &args);
-    bool    waitForOnline();
-    void    warnNotOnline();
-    bool    isBackupTaskRunning();
+    bool waitForOnline();
+    void warnNotOnline();
+    bool isBackupTaskRunning();
 
     QMap<QUuid, BackupTaskDataPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>      _archiveMap;

@@ -49,6 +49,8 @@ public:
     //! Emits \ref canceled.
     //! \warning Does not actually cancel a running task!
     void emitCanceled();
+    //! Get the Uuid.
+    QUuid uuid() const;
 
     //! \name Getter/setter methods
     //! @{

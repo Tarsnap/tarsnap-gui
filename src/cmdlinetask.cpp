@@ -136,6 +136,11 @@ void CmdlineTask::emitCanceled()
     emit canceled(_data);
 }
 
+QUuid CmdlineTask::uuid() const
+{
+    return _uuid;
+}
+
 QString CmdlineTask::command() const
 {
     return _command;

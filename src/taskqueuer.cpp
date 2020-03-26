@@ -5,7 +5,6 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
-#include "debug.h"
 #include "tasks-tarsnap.h"
 
 TaskQueuer::TaskQueuer() : _threadPool(QThreadPool::globalInstance())
@@ -60,11 +59,8 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
 
 void TaskQueuer::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
 {
-    if(task == nullptr)
-    {
-        DEBUG << "NULL argument";
-        return;
-    }
+    Q_ASSERT(task != nullptr);
+
     if(isBackup)
         _backupUuidList.append(task->uuid());
     if(exclusive && !_runningTasks.isEmpty())

@@ -22,9 +22,15 @@ WARNINGS_ENABLE
 #include "persistentmodel/job.h"
 #include "tarsnaperror.h"
 
+/* Forward declaration. */
+class TaskQueuer;
+
 /*!
  * \ingroup background-tasks
  * \brief The TaskManager is a QObject which manages background tasks.
+ *
+ * The actual task queues are handled by \ref TaskQueuer, which is
+ * internal to this object.
  */
 class TaskManager : public QObject
 {
@@ -178,14 +184,6 @@ private slots:
     void getKeyIdFinished(QVariant data, int exitCode, const QString &stdOut,
                           const QString &stdErr);
 
-    // general task management
-#ifndef QT_TESTLIB_LIB
-    void queueTask(CmdlineTask *task, bool exclusive = false,
-                   bool isBackup = false);
-#endif
-    void dequeueTask();
-    void startTask(CmdlineTask *task);
-
 private:
     void parseError(const QString &tarsnapOutput);
     void parseGlobalStats(const QString &tarsnapOutput);
@@ -193,17 +191,14 @@ private:
                            ArchivePtr archive);
     bool waitForOnline();
     void warnNotOnline();
-    bool isBackupTaskRunning();
+
+    void setupTaskQueuer();
+
+    TaskQueuer *_tq;
 
     QMap<QUuid, BackupTaskDataPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>      _archiveMap;
-    QList<CmdlineTask *>           _runningTasks;
-    QQueue<CmdlineTask *>          _taskQueue; // mutually exclusive tasks
-    QThreadPool *                  _threadPool;
     QMap<QString, JobPtr>          _jobMap;
-
-    // Keep track of which CmdlineTasks are backups.
-    QList<QUuid> _backupUuidList;
 
 #ifdef QT_TESTLIB_LIB
     bool _fakeNextTask;

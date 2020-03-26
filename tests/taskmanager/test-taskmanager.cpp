@@ -9,6 +9,7 @@ WARNINGS_ENABLE
 
 #include "cmdlinetask.h"
 #include "taskmanager.h"
+#include "taskqueuer.h"
 #include "utils.h"
 
 #include <ConsoleLog.h>
@@ -22,6 +23,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
+    void taskqueuer();
     void get_version();
     void fail_registerMachine_command_not_found();
     void fail_registerMachine_empty_key();
@@ -61,6 +63,23 @@ void TestTaskManager::cleanupTestCase()
     QThreadPool::globalInstance()->waitForDone(5000);
     // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
     WAIT_FINAL;
+}
+
+void TestTaskManager::taskqueuer()
+{
+    TaskQueuer * tq = new TaskQueuer();
+    QSignalSpy   sig_taskinfo(tq, SIGNAL(taskInfo(bool, int, int)));
+    QVariantList response;
+
+    // Query the (empty) tasks list.
+    tq->getTaskInfo();
+    QVERIFY(sig_taskinfo.count() == 1);
+    response = sig_taskinfo.takeFirst();
+    QVERIFY(response.at(0).toBool() == false);
+    QVERIFY(response.at(1).toInt() == 0);
+    QVERIFY(response.at(2).toInt() == 0);
+
+    delete tq;
 }
 
 void TestTaskManager::get_version()

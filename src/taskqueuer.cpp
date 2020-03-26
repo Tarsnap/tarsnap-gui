@@ -25,7 +25,9 @@ TaskQueuer::~TaskQueuer()
 
 void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
 {
-    if(queued) // queued should be cleared first to avoid race
+    // Clear the queue first, to avoid starting a queued task
+    // after already clearing the running task(s).
+    if(queued)
     {
         while(!_taskQueue.isEmpty())
         {
@@ -38,6 +40,8 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
         }
         emit message("Cleared queued tasks.");
     }
+
+    // Deal with a running backup.
     if(interrupt)
     {
         // Sending a SIGQUIT will cause the tarsnap binary to
@@ -47,6 +51,8 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
             _runningTasks.first()->sigquit();
         emit message("Interrupting current backup.");
     }
+
+    // Stop running tasks.
     if(running)
     {
         for(CmdlineTask *task : _runningTasks)
@@ -60,10 +66,14 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
 
 void TaskQueuer::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
 {
+    // Sanity check.
     Q_ASSERT(task != nullptr);
 
+    // Add to list of backup tasks (if applicable).
     if(isBackup)
         _backupUuidList.append(task->uuid());
+
+    // Add to the queue and trigger starting a new task.
     if(exclusive && !_runningTasks.isEmpty())
         _taskQueue.enqueue(task);
     else
@@ -72,6 +82,7 @@ void TaskQueuer::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
 
 void TaskQueuer::startTask(CmdlineTask *task)
 {
+    // Ensure that we have a task, or bail.
     if(task == nullptr)
     {
         if(!_taskQueue.isEmpty())
@@ -79,7 +90,10 @@ void TaskQueuer::startTask(CmdlineTask *task)
         else
             return;
     }
+
+    // Set up the task ending.
     connect(task, &CmdlineTask::dequeue, this, &TaskQueuer::dequeueTask);
+    task->setAutoDelete(false);
 
     // Record this thread as "running", even though it hasn't actually
     // started yet.  QThreadPool::start() is non-blocking, and in fact
@@ -95,28 +109,37 @@ void TaskQueuer::startTask(CmdlineTask *task)
     // that decision later.
     _runningTasks.append(task);
 
-    task->setAutoDelete(false);
+    // Start the task.
 #ifdef QT_TESTLIB_LIB
     if(_fakeNextTask)
         task->fake();
 #endif
     _threadPool->start(task);
+
+    // Update the task numbers.
     bool backupTaskRunning = isBackupTaskRunning();
     emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
 }
 
 void TaskQueuer::dequeueTask()
 {
+    // Get the task.
     CmdlineTask *task = qobject_cast<CmdlineTask *>(sender());
+
+    // Sanity check.
     if(task == nullptr)
         return;
+
+    // Clean up task.
     _runningTasks.removeOne(task);
     _backupUuidList.removeAll(task->uuid());
     task->deleteLater();
+
+    // Start another task.
     if(_runningTasks.isEmpty())
-    {
-        startTask(nullptr); // start another queued task
-    }
+        startTask(nullptr);
+
+    // Update the task numbers.
     bool backupTaskRunning = isBackupTaskRunning();
     emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
 }

@@ -39,7 +39,6 @@ public:
     void waitUntilIdle();
 #endif
 
-public slots:
     //! Stop / interrupt / terminate / dequeue tasks.
     //! \param interrupt Kill the first task.  \warning MacOS X only.  (?)
     //! \param running Stop all running tasks.
@@ -64,9 +63,9 @@ signals:
 
 private slots:
     void dequeueTask();
-    void startTask(CmdlineTask *task);
 
 private:
+    void startTask(CmdlineTask *task);
     bool isBackupTaskRunning();
 
     QList<CmdlineTask *>  _runningTasks;

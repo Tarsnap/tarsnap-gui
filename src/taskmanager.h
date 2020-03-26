@@ -22,6 +22,9 @@ WARNINGS_ENABLE
 #include "persistentmodel/job.h"
 #include "tarsnaperror.h"
 
+/* Forward declaration. */
+class TaskQueuer;
+
 /*!
  * \ingroup background-tasks
  * \brief The TaskManager is a QObject which manages background tasks.
@@ -194,6 +197,10 @@ private:
     bool waitForOnline();
     void warnNotOnline();
     bool isBackupTaskRunning();
+
+    void setupTaskQueuer();
+
+    TaskQueuer *_tq;
 
     QMap<QUuid, BackupTaskDataPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>      _archiveMap;

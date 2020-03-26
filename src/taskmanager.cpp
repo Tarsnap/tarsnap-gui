@@ -10,6 +10,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "debug.h"
+#include "taskqueuer.h"
 #include "tasks-defs.h"
 #include "tasks-misc.h"
 #include "tasks-setup.h"
@@ -25,6 +26,7 @@ Q_DECLARE_METATYPE(CmdlineTask *)
 
 TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
 {
+    setupTaskQueuer();
 #ifdef QT_TESTLIB_LIB
     _fakeNextTask = false;
 #endif
@@ -32,10 +34,19 @@ TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
 
 TaskManager::~TaskManager()
 {
+    delete _tq;
     // Wait up to 1 second to finish any background tasks
     _threadPool->waitForDone(1000);
     // Wait up to 1 second to delete objects scheduled with ->deleteLater()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
+}
+
+void TaskManager::setupTaskQueuer()
+{
+    _tq = new TaskQueuer();
+    connect(_tq, &TaskQueuer::numTasks, this, &TaskManager::numTasks);
+    connect(_tq, &TaskQueuer::message, this, &TaskManager::message);
+    connect(_tq, &TaskQueuer::taskInfo, this, &TaskManager::taskInfo);
 }
 
 void TaskManager::tarsnapVersionFind()

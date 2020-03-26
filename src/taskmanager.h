@@ -184,11 +184,6 @@ private slots:
     void getKeyIdFinished(QVariant data, int exitCode, const QString &stdOut,
                           const QString &stdErr);
 
-#ifndef QT_TESTLIB_LIB
-    void queueTask(CmdlineTask *task, bool exclusive = false,
-                   bool isBackup = false);
-#endif
-
 private:
     void parseError(const QString &tarsnapOutput);
     void parseGlobalStats(const QString &tarsnapOutput);

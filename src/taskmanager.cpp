@@ -932,10 +932,12 @@ void TaskManager::getKeyIdFinished(QVariant data, int exitCode,
     }
 }
 
+#ifdef QT_TESTLIB_LIB
 void TaskManager::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
 {
     _tq->queueTask(task, exclusive, isBackup);
 }
+#endif
 
 void TaskManager::parseError(const QString &tarsnapOutput)
 {

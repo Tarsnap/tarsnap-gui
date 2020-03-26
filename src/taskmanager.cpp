@@ -937,57 +937,6 @@ void TaskManager::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
     _tq->queueTask(task, exclusive, isBackup);
 }
 
-void TaskManager::startTask(CmdlineTask *task)
-{
-    if(task == nullptr)
-    {
-        if(!_taskQueue.isEmpty())
-            task = _taskQueue.dequeue();
-        else
-            return;
-    }
-    connect(task, &CmdlineTask::dequeue, this, &TaskManager::dequeueTask);
-
-    // Record this thread as "running", even though it hasn't actually
-    // started yet.  QThreadPool::start() is non-blocking, and in fact
-    // explicitly states that a QRunnable can be added to an internal
-    // run queue if it's exceeded QThreadPoll::maxThreadCount().
-    //
-    // However, for the purpose of this TaskManager, the task should not
-    // be recorded in our _taskQueue (because we've just dequeued()'d it).
-    // The "strictly correct" solution would be to add a
-    // _waitingForStart queue, and move items out of that queue when the
-    // relevant CmdlineTask::started signal was emitted.  At the moment,
-    // I don't think that step is necessary, but I might need to revisit
-    // that decision later.
-    _runningTasks.append(task);
-
-    task->setAutoDelete(false);
-#ifdef QT_TESTLIB_LIB
-    if(_fakeNextTask)
-        task->fake();
-#endif
-    _threadPool->start(task);
-    bool backupTaskRunning = isBackupTaskRunning();
-    emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
-}
-
-void TaskManager::dequeueTask()
-{
-    CmdlineTask *task = qobject_cast<CmdlineTask *>(sender());
-    if(task == nullptr)
-        return;
-    _runningTasks.removeOne(task);
-    _backupUuidList.removeAll(task->uuid());
-    task->deleteLater();
-    if(_runningTasks.isEmpty())
-    {
-        startTask(nullptr); // start another queued task
-    }
-    bool backupTaskRunning = isBackupTaskRunning();
-    emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
-}
-
 void TaskManager::parseError(const QString &tarsnapOutput)
 {
     if(tarsnapOutput.contains("Error reading cache directory")
@@ -1172,21 +1121,6 @@ void TaskManager::loadJobArchives()
             archives << archive;
     }
     job->setArchives(archives);
-}
-
-bool TaskManager::isBackupTaskRunning()
-{
-    if(!_runningTasks.isEmpty() && !_backupUuidList.isEmpty())
-    {
-        for(CmdlineTask *task : _runningTasks)
-        {
-            if(task && _backupUuidList.contains(task->uuid()))
-            {
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 void TaskManager::getTaskInfo()

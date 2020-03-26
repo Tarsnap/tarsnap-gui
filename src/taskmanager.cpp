@@ -24,7 +24,7 @@ WARNINGS_ENABLE
 
 Q_DECLARE_METATYPE(CmdlineTask *)
 
-TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
+TaskManager::TaskManager()
 {
     setupTaskQueuer();
 #ifdef QT_TESTLIB_LIB
@@ -35,8 +35,6 @@ TaskManager::TaskManager() : _threadPool(QThreadPool::globalInstance())
 TaskManager::~TaskManager()
 {
     delete _tq;
-    // Wait up to 1 second to finish any background tasks
-    _threadPool->waitForDone(1000);
     // Wait up to 1 second to delete objects scheduled with ->deleteLater()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
 }

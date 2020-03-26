@@ -198,13 +198,7 @@ private:
 
     QMap<QUuid, BackupTaskDataPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>      _archiveMap;
-    QList<CmdlineTask *>           _runningTasks;
-    QQueue<CmdlineTask *>          _taskQueue; // mutually exclusive tasks
-    QThreadPool *                  _threadPool;
     QMap<QString, JobPtr>          _jobMap;
-
-    // Keep track of which CmdlineTasks are backups.
-    QList<QUuid> _backupUuidList;
 
 #ifdef QT_TESTLIB_LIB
     bool _fakeNextTask;

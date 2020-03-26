@@ -28,6 +28,9 @@ class TaskQueuer;
 /*!
  * \ingroup background-tasks
  * \brief The TaskManager is a QObject which manages background tasks.
+ *
+ * The actual task queues are handled by \ref TaskQueuer, which is
+ * internal to this object.
  */
 class TaskManager : public QObject
 {

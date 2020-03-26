@@ -54,7 +54,7 @@ void TaskManager::tarsnapVersionFind()
     CmdlineTask *versionTask = tarsnapVersionTask();
     connect(versionTask, &CmdlineTask::finished, this,
             &TaskManager::getTarsnapVersionFinished);
-    queueTask(versionTask);
+    _tq->queueTask(versionTask);
 }
 
 void TaskManager::registerMachineDo(const QString &password,
@@ -124,7 +124,7 @@ void TaskManager::registerMachineDo(const QString &password,
 
     connect(registerTask, &CmdlineTask::finished, this,
             &TaskManager::registerMachineFinished);
-    queueTask(registerTask);
+    _tq->queueTask(registerTask);
 }
 
 void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
@@ -148,7 +148,7 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
     connect(backupTaskData.data(), &BackupTaskData::statusUpdate, this,
             &TaskManager::notifyBackupTaskUpdate);
     backupTaskData->setStatus(TaskStatus::Queued);
-    queueTask(backupTask, true, true);
+    _tq->queueTask(backupTask, true, true);
 }
 
 void TaskManager::getArchives()
@@ -160,7 +160,7 @@ void TaskManager::getArchives()
     connect(listTask, &CmdlineTask::started, this, [this]() {
         emit message(tr("Updating archives list from remote..."));
     });
-    queueTask(listTask);
+    _tq->queueTask(listTask);
 }
 
 void TaskManager::loadArchives()
@@ -208,7 +208,7 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
         emit message(
             tr("Fetching stats for archive <i>%1</i>...").arg(archive->name()));
     });
-    queueTask(statsTask);
+    _tq->queueTask(statsTask);
 }
 
 void TaskManager::getArchiveContents(ArchivePtr archive)
@@ -228,7 +228,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
         emit message(tr("Fetching contents for archive <i>%1</i>...")
                          .arg(archive->name()));
     });
-    queueTask(contentsTask);
+    _tq->queueTask(contentsTask);
 }
 
 void TaskManager::deleteArchives(QList<ArchivePtr> archives)
@@ -258,7 +258,7 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
         QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
         notifyArchivesDeleted(d_archives, false);
     });
-    queueTask(deleteTask, true);
+    _tq->queueTask(deleteTask, true);
 }
 
 void TaskManager::getOverallStats()
@@ -266,7 +266,7 @@ void TaskManager::getOverallStats()
     CmdlineTask *statsTask = overallStatsTask();
     connect(statsTask, &CmdlineTask::finished, this,
             &TaskManager::overallStatsFinished);
-    queueTask(statsTask);
+    _tq->queueTask(statsTask);
 }
 
 void TaskManager::fsck(bool prune)
@@ -275,7 +275,7 @@ void TaskManager::fsck(bool prune)
     connect(fsckTask, &CmdlineTask::finished, this, &TaskManager::fsckFinished);
     connect(fsckTask, &CmdlineTask::started, this,
             [this]() { emit message(tr("Cache repair initiated.")); });
-    queueTask(fsckTask, true);
+    _tq->queueTask(fsckTask, true);
 }
 
 void TaskManager::nuke()
@@ -284,7 +284,7 @@ void TaskManager::nuke()
     connect(nukeTask, &CmdlineTask::finished, this, &TaskManager::nukeFinished);
     connect(nukeTask, &CmdlineTask::started, this,
             [this]() { emit message(tr("Archives nuke initiated...")); });
-    queueTask(nukeTask, true);
+    _tq->queueTask(nukeTask, true);
 }
 
 void TaskManager::restoreArchive(ArchivePtr            archive,
@@ -304,7 +304,7 @@ void TaskManager::restoreArchive(ArchivePtr            archive,
         emit message(
             tr("Restoring from archive <i>%1</i>...").arg(archive->name()));
     });
-    queueTask(restoreTask);
+    _tq->queueTask(restoreTask);
 }
 
 void TaskManager::getKeyId(const QString &key_filename)
@@ -319,7 +319,7 @@ void TaskManager::getKeyId(const QString &key_filename)
     keymgmtTask->setData(key_filename);
     connect(keymgmtTask, &CmdlineTask::finished, this,
             &TaskManager::getKeyIdFinished);
-    queueTask(keymgmtTask);
+    _tq->queueTask(keymgmtTask);
 }
 
 void TaskManager::findMatchingArchives(const QString &jobPrefix)
@@ -442,37 +442,7 @@ void TaskManager::runScheduledJobs()
 
 void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
 {
-    if(queued) // queued should be cleared first to avoid race
-    {
-        while(!_taskQueue.isEmpty())
-        {
-            CmdlineTask *task = _taskQueue.dequeue();
-            if(task)
-            {
-                task->emitCanceled();
-                task->deleteLater();
-            }
-        }
-        emit message("Cleared queued tasks.");
-    }
-    if(interrupt)
-    {
-        // Sending a SIGQUIT will cause the tarsnap binary to
-        // create a checkpoint.  Non-tarsnap binaries should be
-        // receive a CmdlineTask::stop() instead of a SIGQUIT.
-        if(!_runningTasks.isEmpty())
-            _runningTasks.first()->sigquit();
-        emit message("Interrupting current backup.");
-    }
-    if(running)
-    {
-        for(CmdlineTask *task : _runningTasks)
-        {
-            if(task)
-                task->stop();
-        }
-        emit message("Stopped running tasks.");
-    }
+    _tq->stopTasks(interrupt, running, queued);
 }
 
 void TaskManager::backupTaskFinished(QVariant data, int exitCode,
@@ -576,7 +546,7 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
         // Run the stored task.
         connect(nextTask, &CmdlineTask::finished, this,
                 &TaskManager::registerMachineFinished);
-        queueTask(nextTask);
+        _tq->queueTask(nextTask);
         // We're not finished yet, so we want to let the event loop continue.
         return;
     }
@@ -964,17 +934,7 @@ void TaskManager::getKeyIdFinished(QVariant data, int exitCode,
 
 void TaskManager::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
 {
-    if(task == nullptr)
-    {
-        DEBUG << "NULL argument";
-        return;
-    }
-    if(isBackup)
-        _backupUuidList.append(task->uuid());
-    if(exclusive && !_runningTasks.isEmpty())
-        _taskQueue.enqueue(task);
-    else
-        startTask(task);
+    _tq->queueTask(task, exclusive, isBackup);
 }
 
 void TaskManager::startTask(CmdlineTask *task)
@@ -1231,8 +1191,7 @@ bool TaskManager::isBackupTaskRunning()
 
 void TaskManager::getTaskInfo()
 {
-    bool backupTaskRunning = isBackupTaskRunning();
-    emit taskInfo(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
+    _tq->getTaskInfo();
 }
 
 void TaskManager::addJob(JobPtr job)
@@ -1269,13 +1228,12 @@ void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
 #ifdef QT_TESTLIB_LIB
 void TaskManager::fakeNextTask()
 {
-    _fakeNextTask = true;
+    _tq->fakeNextTask();
 }
 
 void TaskManager::waitUntilIdle()
 {
-    while(!(_taskQueue.isEmpty() && _runningTasks.isEmpty()))
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    _tq->waitUntilIdle();
 }
 #endif
 
@@ -1287,6 +1245,6 @@ void TaskManager::sleepSeconds(int seconds, bool exclusive)
             [this]() { emit message("Started sleep task."); });
     connect(sleepTask, &CmdlineTask::finished, this,
             [this]() { emit message("Finished sleep task."); });
-    queueTask(sleepTask, exclusive);
+    _tq->queueTask(sleepTask, exclusive);
 }
 #endif

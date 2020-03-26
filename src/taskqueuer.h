@@ -28,10 +28,11 @@ public:
     TaskQueuer();
     ~TaskQueuer();
 
-#ifdef QT_TESTLIB_LIB
     //! Prepare a task, and start running it if there's no queue.
     void queueTask(CmdlineTask *task, bool exclusive = false,
                    bool isBackup = false);
+
+#ifdef QT_TESTLIB_LIB
     //! Don't actually run the next task.
     void fakeNextTask();
     //! Block until there's no tasks.
@@ -62,10 +63,6 @@ signals:
     void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
 
 private slots:
-#ifndef QT_TESTLIB_LIB
-    void queueTask(CmdlineTask *task, bool exclusive = false,
-                   bool isBackup = false);
-#endif
     void dequeueTask();
     void startTask(CmdlineTask *task);
 

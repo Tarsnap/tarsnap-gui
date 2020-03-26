@@ -1,11 +1,12 @@
 #include "taskqueuer.h"
 
 WARNINGS_DISABLE
+#include <QCoreApplication>
 #include <QEventLoop>
 #include <QVariant>
 WARNINGS_ENABLE
 
-#include "tasks-tarsnap.h"
+#include "cmdlinetask.h"
 
 TaskQueuer::TaskQueuer() : _threadPool(QThreadPool::globalInstance())
 {

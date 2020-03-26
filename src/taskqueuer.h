@@ -10,11 +10,14 @@ WARNINGS_DISABLE
 #include <QUuid>
 WARNINGS_ENABLE
 
-#include "cmdlinetask.h"
+/* Forward declaration. */
+class CmdlineTask;
 
 /*!
  * \ingroup background-tasks
- * \brief The TaskQueuer is a QObject which manages background tasks.
+ * \brief The TaskQueuer is a QObject which manages the background task queues.
+ *
+ * It is used internally by \ref TaskManager.
  */
 class TaskQueuer : public QObject
 {

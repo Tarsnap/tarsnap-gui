@@ -88,7 +88,6 @@ void TestSetupWizard::do_nothing()
 
     // This test is intended to help debug memory leaks.
     VISUAL_INIT(wizard);
-    IF_NOT_VISUAL { wizard->open(); }
 
     clean_quit(wizard);
 }
@@ -104,7 +103,6 @@ void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
     Ui::RegisterPage *ui_register;
 
     VISUAL_INIT(wizard);
-    IF_NOT_VISUAL { wizard->open(); }
 
     // Wait for it to finish opening.
     QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
@@ -242,7 +240,6 @@ void TestSetupWizard::cli()
     Ui::CliPage *ui_cli;
 
     VISUAL_INIT(wizard);
-    IF_NOT_VISUAL { wizard->open(); }
 
     // Advance to CLI page and expand advanced options
     GET_BUTTON(NextButton)->click();
@@ -290,7 +287,6 @@ void TestSetupWizard::version_too_low()
     Ui::CliPage *ui_cli;
 
     VISUAL_INIT(wizard);
-    IF_NOT_VISUAL { wizard->open(); }
 
     // Advance to CLI page
     GET_BUTTON(NextButton)->click();

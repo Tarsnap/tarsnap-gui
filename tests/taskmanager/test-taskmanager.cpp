@@ -264,6 +264,10 @@ void TestTaskManager::sleep_task_cancel()
 
 void TestTaskManager::sleep_task_cancel_running_parallel()
 {
+    // Check that we can run parallel tasks.
+    if(QThreadPool::globalInstance()->maxThreadCount() == 1)
+        QSKIP("max 1 thread");
+
     // Set up the manager.
     TaskManager *manager = new TaskManager();
     QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));

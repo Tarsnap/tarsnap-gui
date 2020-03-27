@@ -85,10 +85,8 @@ void TaskQueuer::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
     tm->isBackup    = isBackup;
 
     // Add to the queue and trigger starting a new task.
-    if(exclusive && !_runningTasks.isEmpty())
-        _taskQueue.enqueue(tm);
-    else
-        startTask(tm);
+    _taskQueue.enqueue(tm);
+    startTasks();
 }
 
 void TaskQueuer::startTasks()
@@ -103,10 +101,10 @@ void TaskQueuer::startTasks()
     }
 }
 
-void TaskQueuer::startTask(TaskMeta *tm)
+void TaskQueuer::startTask()
 {
     // Bail if there's nothing to do.
-    if(_taskQueue.isEmpty() && (tm == nullptr))
+    if(_taskQueue.isEmpty())
         return;
 
     // Check for exclusive.
@@ -114,10 +112,7 @@ void TaskQueuer::startTask(TaskMeta *tm)
         return;
 
     // Get a new task.
-    if(tm == nullptr)
-    {
-        tm = _taskQueue.dequeue();
-    }
+    TaskMeta *tm = _taskQueue.dequeue();
 
     // Set up the task ending.
     CmdlineTask *task = tm->task;
@@ -171,9 +166,8 @@ void TaskQueuer::dequeueTask()
     }
     task->deleteLater();
 
-    // Start another task.
-    if(_runningTasks.isEmpty())
-        startTask();
+    // Start another task(s) if applicable.
+    startTasks();
 
     // Update the task numbers.
     bool backupTaskRunning = isBackupTaskRunning();

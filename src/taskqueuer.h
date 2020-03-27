@@ -73,9 +73,6 @@ private:
     QQueue<TaskMeta *> _taskQueue; // mutually exclusive tasks
     QThreadPool *      _threadPool;
 
-    // Keep track of which CmdlineTasks are backups.
-    QList<QUuid> _backupUuidList;
-
 #ifdef QT_TESTLIB_LIB
     bool _fakeNextTask;
 #endif

@@ -67,6 +67,7 @@ private slots:
 
 private:
     void startTask(TaskMeta *tm = nullptr);
+    void startTasks();
     bool isExclusiveTaskRunning();
     bool isBackupTaskRunning();
 

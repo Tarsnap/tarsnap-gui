@@ -93,13 +93,18 @@ void TaskQueuer::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
 
 void TaskQueuer::startTask(TaskMeta *tm)
 {
-    // Ensure that we have a task, or bail.
+    // Bail if there's nothing to do.
+    if(_taskQueue.isEmpty() && (tm == nullptr))
+        return;
+
+    // Check for exclusive.
+    if(isExclusiveTaskRunning())
+        return;
+
+    // Get a new task.
     if(tm == nullptr)
     {
-        if(!_taskQueue.isEmpty())
-            tm = _taskQueue.dequeue();
-        else
-            return;
+        tm = _taskQueue.dequeue();
     }
 
     // Set up the task ending.
@@ -156,7 +161,7 @@ void TaskQueuer::dequeueTask()
 
     // Start another task.
     if(_runningTasks.isEmpty())
-        startTask(nullptr);
+        startTask();
 
     // Update the task numbers.
     bool backupTaskRunning = isBackupTaskRunning();

@@ -66,7 +66,7 @@ private slots:
     void dequeueTask();
 
 private:
-    void startTask(TaskMeta *tm);
+    void startTask(TaskMeta *tm = nullptr);
     bool isExclusiveTaskRunning();
     bool isBackupTaskRunning();
 

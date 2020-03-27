@@ -66,13 +66,13 @@ private slots:
     void dequeueTask();
 
 private:
-    void startTask(TaskMeta *tm = nullptr);
+    void startTask();
     void startTasks();
     bool isExclusiveTaskRunning();
     bool isBackupTaskRunning();
 
     QList<TaskMeta *>  _runningTasks;
-    QQueue<TaskMeta *> _taskQueue; // mutually exclusive tasks
+    QQueue<TaskMeta *> _taskQueue;
     QThreadPool *      _threadPool;
 
 #ifdef QT_TESTLIB_LIB

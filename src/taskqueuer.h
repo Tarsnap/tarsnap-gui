@@ -67,6 +67,7 @@ private slots:
 
 private:
     void startTask(TaskMeta *tm);
+    bool isExclusiveTaskRunning();
     bool isBackupTaskRunning();
 
     QList<TaskMeta *>  _runningTasks;

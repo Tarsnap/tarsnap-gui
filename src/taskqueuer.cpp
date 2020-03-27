@@ -11,6 +11,7 @@ WARNINGS_ENABLE
 struct TaskMeta
 {
     CmdlineTask *task;
+    bool         isExclusive;
     bool         isBackup;
 };
 
@@ -78,9 +79,10 @@ void TaskQueuer::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
     Q_ASSERT(task != nullptr);
 
     // Create & initialize the TaskMeta object.
-    TaskMeta *tm = new TaskMeta;
-    tm->task     = task;
-    tm->isBackup = isBackup;
+    TaskMeta *tm    = new TaskMeta;
+    tm->task        = task;
+    tm->isExclusive = exclusive;
+    tm->isBackup    = isBackup;
 
     // Add to the queue and trigger starting a new task.
     if(exclusive && !_runningTasks.isEmpty())
@@ -159,6 +161,16 @@ void TaskQueuer::dequeueTask()
     // Update the task numbers.
     bool backupTaskRunning = isBackupTaskRunning();
     emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
+}
+
+bool TaskQueuer::isExclusiveTaskRunning()
+{
+    for(TaskMeta *tm : _runningTasks)
+    {
+        if(tm->isExclusive)
+            return true;
+    }
+    return false;
 }
 
 bool TaskQueuer::isBackupTaskRunning()

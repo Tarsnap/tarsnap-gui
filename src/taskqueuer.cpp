@@ -131,7 +131,14 @@ void TaskQueuer::dequeueTask()
         return;
 
     // Clean up task.
-    _runningTasks.removeOne(task);
+    for(CmdlineTask *t : _runningTasks)
+    {
+        if(t == task)
+        {
+            _runningTasks.removeOne(t);
+            break;
+        }
+    }
     _backupUuidList.removeAll(task->uuid());
     task->deleteLater();
 

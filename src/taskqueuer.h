@@ -10,8 +10,9 @@ WARNINGS_DISABLE
 #include <QUuid>
 WARNINGS_ENABLE
 
-/* Forward declaration. */
+/* Forward declarations. */
 class CmdlineTask;
+struct TaskMeta;
 
 /*!
  * \ingroup background-tasks
@@ -65,12 +66,12 @@ private slots:
     void dequeueTask();
 
 private:
-    void startTask(CmdlineTask *task);
+    void startTask(TaskMeta *tm);
     bool isBackupTaskRunning();
 
-    QList<CmdlineTask *>  _runningTasks;
-    QQueue<CmdlineTask *> _taskQueue; // mutually exclusive tasks
-    QThreadPool *         _threadPool;
+    QList<TaskMeta *>  _runningTasks;
+    QQueue<TaskMeta *> _taskQueue; // mutually exclusive tasks
+    QThreadPool *      _threadPool;
 
     // Keep track of which CmdlineTasks are backups.
     QList<QUuid> _backupUuidList;

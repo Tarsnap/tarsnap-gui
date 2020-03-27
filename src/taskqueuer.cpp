@@ -8,6 +8,11 @@ WARNINGS_ENABLE
 
 #include "cmdlinetask.h"
 
+struct TaskMeta
+{
+    CmdlineTask *task;
+};
+
 TaskQueuer::TaskQueuer() : _threadPool(QThreadPool::globalInstance())
 {
 #ifdef QT_TESTLIB_LIB
@@ -31,7 +36,8 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
     {
         while(!_taskQueue.isEmpty())
         {
-            CmdlineTask *task = _taskQueue.dequeue();
+            TaskMeta *   tm   = _taskQueue.dequeue();
+            CmdlineTask *task = tm->task;
             if(task)
             {
                 task->emitCanceled();
@@ -48,15 +54,16 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
         // create a checkpoint.  Non-tarsnap binaries should be
         // receive a CmdlineTask::stop() instead of a SIGQUIT.
         if(!_runningTasks.isEmpty())
-            _runningTasks.first()->sigquit();
+            _runningTasks.first()->task->sigquit();
         emit message("Interrupting current backup.");
     }
 
     // Stop running tasks.
     if(running)
     {
-        for(CmdlineTask *task : _runningTasks)
+        for(TaskMeta *tm : _runningTasks)
         {
+            CmdlineTask *task = tm->task;
             if(task)
                 task->stop();
         }
@@ -73,25 +80,30 @@ void TaskQueuer::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
     if(isBackup)
         _backupUuidList.append(task->uuid());
 
+    // Create & initialize the TaskMeta object.
+    TaskMeta *tm = new TaskMeta;
+    tm->task     = task;
+
     // Add to the queue and trigger starting a new task.
     if(exclusive && !_runningTasks.isEmpty())
-        _taskQueue.enqueue(task);
+        _taskQueue.enqueue(tm);
     else
-        startTask(task);
+        startTask(tm);
 }
 
-void TaskQueuer::startTask(CmdlineTask *task)
+void TaskQueuer::startTask(TaskMeta *tm)
 {
     // Ensure that we have a task, or bail.
-    if(task == nullptr)
+    if(tm == nullptr)
     {
         if(!_taskQueue.isEmpty())
-            task = _taskQueue.dequeue();
+            tm = _taskQueue.dequeue();
         else
             return;
     }
 
     // Set up the task ending.
+    CmdlineTask *task = tm->task;
     connect(task, &CmdlineTask::dequeue, this, &TaskQueuer::dequeueTask);
     task->setAutoDelete(false);
 
@@ -107,7 +119,7 @@ void TaskQueuer::startTask(CmdlineTask *task)
     // relevant CmdlineTask::started signal was emitted.  At the moment,
     // I don't think that step is necessary, but I might need to revisit
     // that decision later.
-    _runningTasks.append(task);
+    _runningTasks.append(tm);
 
     // Start the task.
 #ifdef QT_TESTLIB_LIB
@@ -131,11 +143,12 @@ void TaskQueuer::dequeueTask()
         return;
 
     // Clean up task.
-    for(CmdlineTask *t : _runningTasks)
+    for(TaskMeta *tm : _runningTasks)
     {
-        if(t == task)
+        if(tm->task == task)
         {
-            _runningTasks.removeOne(t);
+            _runningTasks.removeOne(tm);
+            delete tm;
             break;
         }
     }
@@ -155,8 +168,9 @@ bool TaskQueuer::isBackupTaskRunning()
 {
     if(!_runningTasks.isEmpty() && !_backupUuidList.isEmpty())
     {
-        for(CmdlineTask *task : _runningTasks)
+        for(TaskMeta *tm : _runningTasks)
         {
+            CmdlineTask *task = tm->task;
             if(task && _backupUuidList.contains(task->uuid()))
             {
                 return true;

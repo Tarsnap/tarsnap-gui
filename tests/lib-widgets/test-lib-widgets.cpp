@@ -122,7 +122,6 @@ void TestLibWidgets::busylabel()
     TBusyLabel *bw = new TBusyLabel();
 
     VISUAL_INIT(bw);
-    IF_NOT_VISUAL { bw->show(); }
 
     delete bw;
 }
@@ -132,7 +131,6 @@ void TestLibWidgets::busylabel_on_off()
     TBusyLabel *bw = new TBusyLabel();
 
     VISUAL_INIT(bw);
-    IF_NOT_VISUAL { bw->show(); }
 
     // Before starting
     VISUAL_WAIT;
@@ -156,7 +154,6 @@ void TestLibWidgets::pathlinebrowse()
     QSignalSpy       sig_changed(plb, SIGNAL(textChanged(QString)));
 
     VISUAL_INIT(plb);
-    IF_NOT_VISUAL { plb->show(); }
 
     plb->setLabel("label");
     QVERIFY(plb->label() == "label");
@@ -213,7 +210,6 @@ void TestLibWidgets::pathcombobrowse()
     QSignalSpy        sig_changed(pcb, SIGNAL(textChanged(QString)));
 
     VISUAL_INIT(pcb);
-    IF_NOT_VISUAL { pcb->show(); }
 
     pcb->setLabel("label");
     QVERIFY(pcb->label() == "label");
@@ -318,7 +314,6 @@ void TestLibWidgets::twizard()
 
     // Navigate through the pages.
     VISUAL_INIT(wizard);
-    IF_NOT_VISUAL { wizard->open(); }
 
     wizard->currentPage()->button(TWizardPage::NextButton)->click();
     VISUAL_WAIT;
@@ -336,7 +331,6 @@ void TestLibWidgets::textview()
     TTextView *tv = new TTextView();
 
     VISUAL_INIT(tv);
-    IF_NOT_VISUAL { tv->show(); }
 
     tv->appendLog(LogEntry{QDateTime::currentDateTime(), "one"});
     tv->appendLog(LogEntry{QDateTime::currentDateTime(), "two"});

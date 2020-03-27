@@ -33,7 +33,8 @@ WARNINGS_ENABLE
     {                                                                          \
         gui_obj->show();                                                       \
         VISUAL_WAIT;                                                           \
-    }
+    }                                                                          \
+    else { gui_obj->show(); }
 
 // Filter out unwanted messages arising from platform="offscreen"
 void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,

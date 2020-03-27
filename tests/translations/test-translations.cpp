@@ -50,7 +50,6 @@ void TestTranslations::pathcombobrowse()
     TPathComboBrowse *pcb = new TPathComboBrowse();
 
     VISUAL_INIT(pcb);
-    IF_NOT_VISUAL { pcb->show(); }
 
     // We can't (easily) access the label for the "Browse" button,
     // so this mainly a "does it crash?" test, although there will

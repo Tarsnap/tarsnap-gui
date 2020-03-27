@@ -32,6 +32,7 @@ private slots:
     void sleep_task_cancel();
     void sleep_task_cancel_running_parallel();
     void sleep_task_cancel_running_series();
+    void exclusive();
     void tarsnapVersion_fake();
     void registerMachine_fake();
     void backup_fake();
@@ -329,6 +330,82 @@ void TestTaskManager::sleep_task_cancel_running_series()
     msg = sig_message.takeFirst().at(0);
     QVERIFY(msg.toString() == "Finished sleep task.");
     QVERIFY(sig_message.count() == 0);
+
+    // Tasks are deleted by the task manager.
+    delete manager;
+}
+
+void TestTaskManager::exclusive()
+{
+    // Check that we can run parallel tasks.
+    if(QThreadPool::globalInstance()->maxThreadCount() == 1)
+        QSKIP("max 1 thread");
+
+    // Set up the manager.
+    TaskManager *   manager = new TaskManager();
+    QSignalSpy      sig_numTasks(manager, SIGNAL(numTasks(bool, int, int)));
+    QSignalSpy      sig_message(manager, SIGNAL(message(QString, QString)));
+    QList<QVariant> numTasks;
+    QVariant        msg;
+
+    // Reminder: each sleep task will create these messages:
+    // - "Started sleep task."
+    // - "Finished sleep task".
+    // and the manager will create:
+    // - "Stopped running tasks."
+
+    // Set up tasks:
+    // - A: 1 exclusive.  (Messages: start 1, stop 2)
+    manager->sleepSeconds(5, true);
+    // - B: 2 non-exclusive.  (start 2, stop 3)
+    manager->sleepSeconds(5, false);
+    manager->sleepSeconds(5, false);
+    // - C: 2 exclusive.  (start 1, stop 2)
+    manager->sleepSeconds(5, true);
+    // - D: 2 non-exclusive.  (start 2, stop 3)
+    manager->sleepSeconds(5, false);
+    manager->sleepSeconds(5, false);
+
+    // A: wait for a task to start, then check that we only have one.
+    // Remember that these messages counts are:
+    //     previous stop + current start
+    WAIT_UNTIL(sig_message.count() >= (0 + 1));
+    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.takeLast().at(1).toInt() == 1);
+    sig_message.clear();
+    sig_numTasks.clear();
+
+    // B: stop the currently-running task(s).  Messages: 2 end, 2 start.
+    manager->stopTasks(false, true, false);
+    WAIT_UNTIL(sig_message.count() >= (2 + 2));
+    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.takeLast().at(1).toInt() == 2);
+    sig_message.clear();
+    sig_numTasks.clear();
+
+    // C: Stop the currently-running task(s).  Messages: 3 end, 1 start.
+    manager->stopTasks(false, true, false);
+    WAIT_UNTIL(sig_message.count() >= (3 + 1));
+    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.takeLast().at(1).toInt() == 1);
+    sig_message.clear();
+    sig_numTasks.clear();
+
+    // D: Stop the currently-running task(s).  Messages: 2 end, 2 start.
+    manager->stopTasks(false, true, false);
+    WAIT_UNTIL(sig_message.count() >= (2 + 2));
+    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.takeLast().at(1).toInt() == 2);
+    sig_message.clear();
+    sig_numTasks.clear();
+
+    // post-D: Stop the currently-running task(s).  Messages: 3 end, 0 start.
+    manager->stopTasks(false, true, false);
+    WAIT_UNTIL(sig_message.count() >= (3 + 0));
+    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.takeLast().at(1).toInt() == 0);
+    sig_message.clear();
+    sig_numTasks.clear();
 
     // Tasks are deleted by the task manager.
     delete manager;

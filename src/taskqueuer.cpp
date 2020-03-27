@@ -91,6 +91,18 @@ void TaskQueuer::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
         startTask(tm);
 }
 
+void TaskQueuer::startTasks()
+{
+    while(!_taskQueue.isEmpty() && !isExclusiveTaskRunning())
+    {
+        // Bail if the next task requires exclusive running.
+        if(!_runningTasks.isEmpty() && _taskQueue.head()->isExclusive)
+            return;
+
+        startTask();
+    }
+}
+
 void TaskQueuer::startTask(TaskMeta *tm)
 {
     // Bail if there's nothing to do.

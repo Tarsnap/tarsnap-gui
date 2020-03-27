@@ -28,6 +28,7 @@ private slots:
     void pl_font();
     void pl_qapp_font();
     void pl_fontmetrics_height();
+    void pl_fontmetricsF_height();
     void pl_fontmetrics_lineSpacing();
     void pl_fontmetricsf_leading();
     void pl_label();
@@ -77,6 +78,13 @@ void TestQTestSimple::pl_fontmetrics_height()
     QFontMetrics *fm = new QFontMetrics(qApp->font());
     fm->height();
     fm->lineSpacing();
+    delete fm;
+}
+
+void TestQTestSimple::pl_fontmetricsF_height()
+{
+    QFontMetricsF *fm = new QFontMetricsF(qApp->font());
+    fm->height();
     delete fm;
 }
 

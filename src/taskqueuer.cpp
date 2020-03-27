@@ -11,6 +11,7 @@ WARNINGS_ENABLE
 struct TaskMeta
 {
     CmdlineTask *task;
+    bool         isBackup;
 };
 
 TaskQueuer::TaskQueuer() : _threadPool(QThreadPool::globalInstance())
@@ -76,13 +77,10 @@ void TaskQueuer::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
     // Sanity check.
     Q_ASSERT(task != nullptr);
 
-    // Add to list of backup tasks (if applicable).
-    if(isBackup)
-        _backupUuidList.append(task->uuid());
-
     // Create & initialize the TaskMeta object.
     TaskMeta *tm = new TaskMeta;
     tm->task     = task;
+    tm->isBackup = isBackup;
 
     // Add to the queue and trigger starting a new task.
     if(exclusive && !_runningTasks.isEmpty())
@@ -152,7 +150,6 @@ void TaskQueuer::dequeueTask()
             break;
         }
     }
-    _backupUuidList.removeAll(task->uuid());
     task->deleteLater();
 
     // Start another task.
@@ -166,16 +163,10 @@ void TaskQueuer::dequeueTask()
 
 bool TaskQueuer::isBackupTaskRunning()
 {
-    if(!_runningTasks.isEmpty() && !_backupUuidList.isEmpty())
+    for(TaskMeta *tm : _runningTasks)
     {
-        for(TaskMeta *tm : _runningTasks)
-        {
-            CmdlineTask *task = tm->task;
-            if(task && _backupUuidList.contains(task->uuid()))
-            {
-                return true;
-            }
-        }
+        if(tm->isBackup)
+            return true;
     }
     return false;
 }

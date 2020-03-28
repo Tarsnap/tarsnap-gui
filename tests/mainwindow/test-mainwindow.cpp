@@ -138,23 +138,22 @@ void TestMainWindow::quit_simple()
 
     VISUAL_INIT(mainwindow);
 
-    // If we try to close the window, we emit a getTaskInfo instead
+    // We should be visible.
+    QVERIFY(mainwindow->isVisible() == true);
+
+    // Try to close the window.
     QCloseEvent *close_event = new QCloseEvent();
     mainwindow->closeEvent(close_event);
     QVERIFY(sig_getTaskInfo.count() == 1);
     sig_getTaskInfo.clear();
 
-    // Fake getting a reply which says there's no tasks.
+    // Fake getting a reply which says there's no tasks; we should close.
     mainwindow->closeWithTaskInfo(false, 0, 0);
 
-    // After quitting, we don't respond to more events.
-    QCloseEvent *close_event_another = new QCloseEvent();
-    mainwindow->closeEvent(close_event_another);
-    QVERIFY(sig_getTaskInfo.count() == 0);
+    QVERIFY(mainwindow->isVisible() == false);
 
     delete mainwindow;
     delete close_event;
-    delete close_event_another;
 }
 
 void TestMainWindow::quit_tasks()
@@ -164,31 +163,37 @@ void TestMainWindow::quit_tasks()
 
     VISUAL_INIT(mainwindow);
 
-    // Fake getting a response to a closeEvent (not sent in this test) which
-    // says that there's running tasks, but cancel the quitting.
-    mainwindow->closeWithTaskInfo(true, 1, 1);
-    VISUAL_WAIT;
-    mainwindow->_stopTasksDialog.close();
-    VISUAL_WAIT;
+    // We should be visible.
+    QVERIFY(mainwindow->isVisible() == true);
 
-    // After cancelling the quit, we still respond to events
+    // Close event.
     QCloseEvent *close_event = new QCloseEvent();
     mainwindow->closeEvent(close_event);
     QVERIFY(sig_getTaskInfo.count() == 1);
     sig_getTaskInfo.clear();
     VISUAL_WAIT;
 
-    // Quit the app
+    // Fake getting a response from the TaskManager, cancel the
+    // quitting, and we should still be visible.
+    mainwindow->closeWithTaskInfo(true, 1, 1);
+    VISUAL_WAIT;
+    mainwindow->_stopTasksDialog.close();
+    VISUAL_WAIT;
+    QVERIFY(mainwindow->isVisible() == true);
+
+    // Another close event.
+    QCloseEvent *close_event_another = new QCloseEvent();
+    mainwindow->closeEvent(close_event_another);
+    QVERIFY(sig_getTaskInfo.count() == 1);
+    VISUAL_WAIT;
+
+    // Fake getting a response from the TaskManager, proceed with
+    // the quitting, and we should not be visible.
     mainwindow->closeWithTaskInfo(true, 1, 1);
     VISUAL_WAIT;
     mainwindow->_stopTasksDialog._ui->stopAllButton->clicked();
     VISUAL_WAIT;
-
-    // After quitting, we don't respond to more events
-    QCloseEvent *close_event_another = new QCloseEvent();
-    mainwindow->closeEvent(close_event_another);
-    QVERIFY(sig_getTaskInfo.count() == 0);
-    VISUAL_WAIT;
+    QVERIFY(mainwindow->isVisible() == false);
 
     delete mainwindow;
     delete close_event;

@@ -308,7 +308,8 @@ void MainWindow::closeWithTaskInfo(bool backupTaskRunning, int runningTasks,
     {
         if(_aboutToQuit)
         {
-            qApp->quit();
+            qApp->setQuitLockEnabled(true);
+            close();
             return;
         }
         else

@@ -51,15 +51,15 @@ public:
 
 signals:
     //! Give number of tasks.
+    //! \param backupRunning is a backup task currently running?
+    //! \param runningTasks the number of running tasks.
+    //! \param queuedTasks the number of queued tasks
     void numTasks(bool backupRunning, int runningTasks, int queuedTasks);
     //! A status message should be shown to the user.
     //! \param msg main text to display.
     //! \param detail display this text as a mouse-over tooltip.
     void message(const QString &msg, const QString &detail = "");
     //! Information about running tasks.
-    //! \param backupTaskRunning is a backup task currently running?
-    //! \param runningTasks the number of running tasks.
-    //! \param queuedTasks the number of queued tasks
     void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
 
 private slots:

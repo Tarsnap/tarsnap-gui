@@ -640,7 +640,8 @@ void MainWindow::updateSimulationIcon(int state)
 void MainWindow::updateNumTasks(bool backupRunning, int runningTasks,
                                 int queuedTasks)
 {
-    _stopTasksDialog.updateTasks(backupRunning, runningTasks, queuedTasks);
+    if(_stopTasksDialog.isVisible())
+        _stopTasksDialog.updateTasks(backupRunning, runningTasks, queuedTasks);
 
     // Display whether we're active or not.
     bool idle = (runningTasks == 0);

@@ -7,7 +7,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 StopTasksDialog::StopTasksDialog(QWidget *parent)
-    : QDialog(parent), _ui(new Ui::StopTasksDialog)
+    : QDialog(parent), _ui(new Ui::StopTasksDialog), _aboutToQuit(false)
 {
     // Ui initialization
     _ui->setupUi(this);

@@ -43,6 +43,8 @@ private slots:
     void reinit();
     //! Creates a MainWindow.
     void showMainWindow();
+    //! Quit the app after any remaining events have finished.
+    void quitAfterEventsFinish();
 
 private:
     MainWindow * _mainWindow;

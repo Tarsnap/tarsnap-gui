@@ -295,6 +295,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
     else
     {
         _aboutToQuit = true;
+        // Act on stored info.
+        if((_runningTasks == 0) && (_queuedTasks == 0))
+        {
+            event->accept();
+            return;
+        }
         // Find out if there's any running or queued tasks, so that we can
         // ask the user what to do (if necessary).
         emit getTaskInfo();

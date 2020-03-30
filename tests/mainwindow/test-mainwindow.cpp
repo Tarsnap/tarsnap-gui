@@ -142,8 +142,7 @@ void TestMainWindow::quit_simple()
     QVERIFY(mainwindow->isVisible() == true);
 
     // Try to close the window.
-    QCloseEvent *close_event = new QCloseEvent();
-    mainwindow->closeEvent(close_event);
+    mainwindow->close();
     QVERIFY(sig_getTaskInfo.count() == 1);
     sig_getTaskInfo.clear();
 
@@ -153,7 +152,6 @@ void TestMainWindow::quit_simple()
     QVERIFY(mainwindow->isVisible() == false);
 
     delete mainwindow;
-    delete close_event;
 }
 
 void TestMainWindow::quit_tasks()
@@ -166,9 +164,8 @@ void TestMainWindow::quit_tasks()
     // We should be visible.
     QVERIFY(mainwindow->isVisible() == true);
 
-    // Close event.
-    QCloseEvent *close_event = new QCloseEvent();
-    mainwindow->closeEvent(close_event);
+    // Try to close the window.
+    mainwindow->close();
     QVERIFY(sig_getTaskInfo.count() == 1);
     sig_getTaskInfo.clear();
     VISUAL_WAIT;
@@ -181,9 +178,8 @@ void TestMainWindow::quit_tasks()
     VISUAL_WAIT;
     QVERIFY(mainwindow->isVisible() == true);
 
-    // Another close event.
-    QCloseEvent *close_event_another = new QCloseEvent();
-    mainwindow->closeEvent(close_event_another);
+    // Try to close the window.
+    mainwindow->close();
     QVERIFY(sig_getTaskInfo.count() == 1);
     VISUAL_WAIT;
 
@@ -196,8 +192,6 @@ void TestMainWindow::quit_tasks()
     QVERIFY(mainwindow->isVisible() == false);
 
     delete mainwindow;
-    delete close_event;
-    delete close_event_another;
 }
 
 void TestMainWindow::tab_navigation()

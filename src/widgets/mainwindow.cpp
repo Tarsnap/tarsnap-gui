@@ -39,7 +39,10 @@ MainWindow::MainWindow(QWidget *parent)
       _archivesTabWidget(this),
       _jobsTabWidget(this),
       _settingsWidget(this),
-      _helpWidget(this)
+      _helpWidget(this),
+      _backupTaskRunning(false),
+      _runningTasks(0),
+      _queuedTasks(0)
 {
     connect(&LOG, &ConsoleLog::message, &_helpWidget,
             &HelpWidget::appendLogString);
@@ -643,6 +646,8 @@ void MainWindow::updateNumTasks(bool backupRunning, int runningTasks,
     // Display whether we're active or not.
     bool idle = (runningTasks == 0);
     _ui->busyLabel->animate(!idle);
+
+    _backupTaskRunning = backupRunning;
 
     _runningTasks = runningTasks;
     _queuedTasks  = queuedTasks;

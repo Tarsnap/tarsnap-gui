@@ -178,6 +178,7 @@ private:
     QMenuBar *      _menuBar;
     bool            _aboutToQuit;
     StopTasksDialog _stopTasksDialog;
+    bool            _backupTaskRunning;
     int             _runningTasks;
     int             _queuedTasks;
 

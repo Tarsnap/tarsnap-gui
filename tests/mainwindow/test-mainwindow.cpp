@@ -150,7 +150,6 @@ void TestMainWindow::quit_simple()
 void TestMainWindow::quit_tasks()
 {
     MainWindow *mainwindow = new MainWindow();
-    QSignalSpy  sig_getTaskInfo(mainwindow, SIGNAL(getTaskInfo()));
 
     VISUAL_INIT(mainwindow);
 
@@ -162,8 +161,6 @@ void TestMainWindow::quit_tasks()
 
     // Try to close the window.
     mainwindow->close();
-    QVERIFY(sig_getTaskInfo.count() == 1);
-    sig_getTaskInfo.clear();
     VISUAL_WAIT;
 
     // Fake getting a response from the TaskManager, cancel the
@@ -176,7 +173,6 @@ void TestMainWindow::quit_tasks()
 
     // Try to close the window.
     mainwindow->close();
-    QVERIFY(sig_getTaskInfo.count() == 1);
     VISUAL_WAIT;
 
     // Fake getting a response from the TaskManager, proceed with

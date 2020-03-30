@@ -301,9 +301,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
             event->accept();
             return;
         }
-        // Find out if there's any running or queued tasks, so that we can
-        // ask the user what to do (if necessary).
-        emit getTaskInfo();
+        // Ask the user what to do.
+        closeWithTaskInfo(_backupTaskRunning, _runningTasks, _queuedTasks);
         event->ignore();
     }
 }

@@ -8,11 +8,15 @@ WARNINGS_ENABLE
 
 #include "cmdlinetask.h"
 
+/*! Track info about tasks. */
 struct TaskMeta
 {
+    /*! Actual task. */
     CmdlineTask *task;
-    bool         isExclusive;
-    bool         isBackup;
+    /*! Does this task need to be the only one happening? */
+    bool isExclusive;
+    /*! This is a "create archive" task? */
+    bool isBackup;
 };
 
 TaskQueuer::TaskQueuer() : _threadPool(QThreadPool::globalInstance())

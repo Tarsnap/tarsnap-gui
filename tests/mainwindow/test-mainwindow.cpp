@@ -163,10 +163,7 @@ void TestMainWindow::quit_tasks()
     mainwindow->close();
     VISUAL_WAIT;
 
-    // Fake getting a response from the TaskManager, cancel the
-    // quitting, and we should still be visible.
-    mainwindow->closeWithTaskInfo(true, 1, 1);
-    VISUAL_WAIT;
+    // Cancel the quitting, and we should still be visible.
     mainwindow->_stopTasksDialog.close();
     VISUAL_WAIT;
     QVERIFY(mainwindow->isVisible() == true);
@@ -175,10 +172,7 @@ void TestMainWindow::quit_tasks()
     mainwindow->close();
     VISUAL_WAIT;
 
-    // Fake getting a response from the TaskManager, proceed with
-    // the quitting, and we should not be visible.
-    mainwindow->closeWithTaskInfo(true, 1, 1);
-    VISUAL_WAIT;
+    // Proceed with the quitting, and we should not be visible.
     mainwindow->_stopTasksDialog._ui->stopAllButton->clicked();
     VISUAL_WAIT;
     QVERIFY(mainwindow->isVisible() == false);

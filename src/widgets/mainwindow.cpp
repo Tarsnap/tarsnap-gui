@@ -198,10 +198,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::stopTasks);
     connect(&_stopTasksDialog, &StopTasksDialog::cancelAboutToQuit,
             [this] { _aboutToQuit = false; });
-    connect(&_stopTasksDialog, &StopTasksDialog::quitOk, [this] {
-        qApp->setQuitLockEnabled(true);
-        close();
-    });
+    connect(&_stopTasksDialog, &StopTasksDialog::quitOk, this,
+            &MainWindow::close);
 }
 
 MainWindow::~MainWindow()
@@ -308,7 +306,6 @@ void MainWindow::closeWithTaskInfo(bool backupTaskRunning, int runningTasks,
     {
         if(_aboutToQuit)
         {
-            qApp->setQuitLockEnabled(true);
             close();
             return;
         }

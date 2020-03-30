@@ -243,6 +243,9 @@ void AppGui::showMainWindow()
     connect(&_taskManager, &TaskManager::matchingArchives, _mainWindow,
             &MainWindow::matchingArchives, QUEUED);
 
+    connect(this, &AppGui::lastWindowClosed, this,
+            &AppGui::quitAfterEventsFinish, QUEUED);
+
     QMetaObject::invokeMethod(_mainWindow, "initializeMainWindow", QUEUED);
     QMetaObject::invokeMethod(&_taskManager, "loadArchives", QUEUED);
     QMetaObject::invokeMethod(&_taskManager, "loadJobs", QUEUED);
@@ -260,4 +263,10 @@ void AppGui::reinit()
     }
 
     QApplication::exit(EXIT_SUCCESS);
+}
+
+void AppGui::quitAfterEventsFinish()
+{
+    qApp->setQuitLockEnabled(true);
+    quit();
 }

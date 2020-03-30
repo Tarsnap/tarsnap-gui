@@ -119,9 +119,6 @@ signals:
     //! Begin tarsnap --version
     //! \anchor tarsnapVersionRequested
     void tarsnapVersionRequested(QString tarsnapPath);
-    //! Query whether there are any running tasks; will trigger a taskInfo
-    //! signal which is received by \ref closeWithTaskInfo.
-    void getTaskInfo();
     //! Clear all Journal entries.
     void clearJournal();
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>

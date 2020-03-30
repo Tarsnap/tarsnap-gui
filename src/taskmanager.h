@@ -74,9 +74,6 @@ public slots:
     //! Load the list of archives belonging to a specific Job (specified
     //! via Qt's `sender()` function call).
     void loadJobArchives();
-    //! Emit \ref taskInfo signal with information regarding running and queued
-    //! tasks.
-    void getTaskInfo();
     //! Add a job to the Jobs list.
     void addJob(JobPtr job);
 
@@ -141,8 +138,6 @@ signals:
     //! A message that should be shown as a desktop notification (if enabled).
     void displayNotification(const QString &message, enum message_type type,
                              const QString &data);
-    //! Information about running tasks.
-    void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
     //! The tarsnap CLI experienced an error.
     void error(TarsnapError error);
     //! The tarsnap key ID number.

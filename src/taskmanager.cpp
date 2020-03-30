@@ -44,7 +44,6 @@ void TaskManager::setupTaskQueuer()
     _tq = new TaskQueuer();
     connect(_tq, &TaskQueuer::numTasks, this, &TaskManager::numTasks);
     connect(_tq, &TaskQueuer::message, this, &TaskManager::message);
-    connect(_tq, &TaskQueuer::taskInfo, this, &TaskManager::taskInfo);
 }
 
 void TaskManager::tarsnapVersionFind()
@@ -1121,11 +1120,6 @@ void TaskManager::loadJobArchives()
             archives << archive;
     }
     job->setArchives(archives);
-}
-
-void TaskManager::getTaskInfo()
-{
-    _tq->getTaskInfo();
 }
 
 void TaskManager::addJob(JobPtr job)

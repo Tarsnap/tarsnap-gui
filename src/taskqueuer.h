@@ -45,9 +45,6 @@ public:
     //! \param running Stop all running tasks.
     //! \param queued Remove all tasks from the queue.
     void stopTasks(bool interrupt, bool running, bool queued);
-    //! Emit \ref taskInfo signal with information regarding running and queued
-    //! tasks.
-    void getTaskInfo();
 
 signals:
     //! Give number of tasks.
@@ -59,8 +56,6 @@ signals:
     //! \param msg main text to display.
     //! \param detail display this text as a mouse-over tooltip.
     void message(const QString &msg, const QString &detail = "");
-    //! Information about running tasks.
-    void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
 
 private slots:
     void dequeueTask();

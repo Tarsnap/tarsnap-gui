@@ -198,12 +198,6 @@ bool TaskQueuer::isBackupTaskRunning()
     return false;
 }
 
-void TaskQueuer::getTaskInfo()
-{
-    bool backupTaskRunning = isBackupTaskRunning();
-    emit taskInfo(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
-}
-
 #ifdef QT_TESTLIB_LIB
 void TaskQueuer::fakeNextTask()
 {

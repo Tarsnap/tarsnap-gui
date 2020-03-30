@@ -114,6 +114,9 @@ public slots:
 signals:
     // Tarsnap task notifications
     //! Give number of tasks.
+    //! \param backupRunning is a backup task currently running?
+    //! \param runningTasks the number of running tasks.
+    //! \param queuedTasks the number of queued tasks
     void numTasks(bool backupRunning, int runningTasks, int queuedTasks);
     //! Result of tarsnap --version.
     //! \anchor tarsnapVersionFound
@@ -139,9 +142,6 @@ signals:
     void displayNotification(const QString &message, enum message_type type,
                              const QString &data);
     //! Information about running tasks.
-    //! \param backupTaskRunning is a backup task currently running?
-    //! \param runningTasks the number of running tasks.
-    //! \param queuedTasks the number of queued tasks
     void taskInfo(bool backupTaskRunning, int runningTasks, int queuedTasks);
     //! The tarsnap CLI experienced an error.
     void error(TarsnapError error);

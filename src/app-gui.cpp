@@ -214,8 +214,6 @@ void AppGui::showMainWindow()
             &MainWindow::jobList, QUEUED);
     connect(_mainWindow, &MainWindow::deleteJob, &_taskManager,
             &TaskManager::deleteJob, QUEUED);
-    connect(_mainWindow, &MainWindow::getTaskInfo, &_taskManager,
-            &TaskManager::getTaskInfo, QUEUED);
     connect(&_taskManager, &TaskManager::taskInfo, _mainWindow,
             &MainWindow::closeWithTaskInfo, QUEUED);
     connect(_mainWindow, &MainWindow::jobAdded, &_taskManager,

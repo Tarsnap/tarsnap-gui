@@ -134,21 +134,14 @@ void TestMainWindow::about_window_menubar()
 void TestMainWindow::quit_simple()
 {
     MainWindow *mainwindow = new MainWindow();
-    QSignalSpy  sig_getTaskInfo(mainwindow, SIGNAL(getTaskInfo()));
 
     VISUAL_INIT(mainwindow);
 
     // We should be visible.
     QVERIFY(mainwindow->isVisible() == true);
 
-    // Try to close the window.
+    // Try to close the window; there's no tasks, so we should close.
     mainwindow->close();
-    QVERIFY(sig_getTaskInfo.count() == 1);
-    sig_getTaskInfo.clear();
-
-    // Fake getting a reply which says there's no tasks; we should close.
-    mainwindow->closeWithTaskInfo(false, 0, 0);
-
     QVERIFY(mainwindow->isVisible() == false);
 
     delete mainwindow;
@@ -163,6 +156,9 @@ void TestMainWindow::quit_tasks()
 
     // We should be visible.
     QVERIFY(mainwindow->isVisible() == true);
+
+    // Prep with number of tasks.
+    mainwindow->updateNumTasks(false, 1, 0);
 
     // Try to close the window.
     mainwindow->close();

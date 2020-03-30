@@ -68,17 +68,7 @@ void TestTaskManager::cleanupTestCase()
 
 void TestTaskManager::taskqueuer()
 {
-    TaskQueuer * tq = new TaskQueuer();
-    QSignalSpy   sig_taskinfo(tq, SIGNAL(taskInfo(bool, int, int)));
-    QVariantList response;
-
-    // Query the (empty) tasks list.
-    tq->getTaskInfo();
-    QVERIFY(sig_taskinfo.count() == 1);
-    response = sig_taskinfo.takeFirst();
-    QVERIFY(response.at(0).toBool() == false);
-    QVERIFY(response.at(1).toInt() == 0);
-    QVERIFY(response.at(2).toInt() == 0);
+    TaskQueuer *tq = new TaskQueuer();
 
     delete tq;
 }

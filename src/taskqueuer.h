@@ -7,7 +7,6 @@ WARNINGS_DISABLE
 #include <QObject>
 #include <QQueue>
 #include <QThreadPool>
-#include <QUuid>
 WARNINGS_ENABLE
 
 /* Forward declarations. */
@@ -33,18 +32,18 @@ public:
     void queueTask(CmdlineTask *task, bool exclusive = false,
                    bool isBackup = false);
 
+    //! Stop / interrupt / terminate / dequeue tasks.
+    //! \param interrupt Kill the first task.  \warning MacOS X only.  (?)
+    //! \param running Stop all running tasks.
+    //! \param queued Remove all tasks from the queue.
+    void stopTasks(bool interrupt, bool running, bool queued);
+
 #ifdef QT_TESTLIB_LIB
     //! Don't actually run the next task.
     void fakeNextTask();
     //! Block until there's no tasks.
     void waitUntilIdle();
 #endif
-
-    //! Stop / interrupt / terminate / dequeue tasks.
-    //! \param interrupt Kill the first task.  \warning MacOS X only.  (?)
-    //! \param running Stop all running tasks.
-    //! \param queued Remove all tasks from the queue.
-    void stopTasks(bool interrupt, bool running, bool queued);
 
 signals:
     //! Give number of tasks.

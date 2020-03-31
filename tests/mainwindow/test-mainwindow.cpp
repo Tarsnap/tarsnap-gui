@@ -34,6 +34,7 @@ private slots:
     void cleanupTestCase();
 
     void about_window_menubar();
+    void stoptasksdialog_nonquit();
     void quit_simple();
     void quit_tasks();
     void tab_navigation();
@@ -127,6 +128,34 @@ void TestMainWindow::about_window_menubar()
         QVERIFY(ui->aboutButton->isChecked() == false);
         VISUAL_WAIT;
     }
+
+    delete mainwindow;
+}
+
+void TestMainWindow::stoptasksdialog_nonquit()
+{
+    MainWindow *     mainwindow = new MainWindow();
+    StopTasksDialog *st         = &mainwindow->_stopTasksDialog;
+
+    VISUAL_INIT(mainwindow);
+
+    // Prep with number of tasks.
+    mainwindow->updateNumTasks(false, 1, 0);
+
+    // Check initial visibility.
+    QVERIFY(mainwindow->isVisible() == true);
+    QVERIFY(st->isVisible() == false);
+
+    // Trigger "stop tasks" dialog (without trying to quit).
+    mainwindow->_ui->actionStopTasks->trigger();
+    QVERIFY(st->isVisible() == true);
+    VISUAL_WAIT;
+
+    // No more tasks, so the StopTasksDialog should disappear.
+    mainwindow->updateNumTasks(false, 0, 0);
+    QVERIFY(mainwindow->isVisible() == true);
+    QVERIFY(st->isVisible() == false);
+    VISUAL_WAIT;
 
     delete mainwindow;
 }

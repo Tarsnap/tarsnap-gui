@@ -360,45 +360,51 @@ void TestTaskManager::exclusive()
     // Remember that these messages counts are:
     //     previous stop + current start
     WAIT_UNTIL(sig_message.count() >= (0 + 1));
-    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.count() == 6);
     numTasks = sig_numTasks.takeLast();
     QVERIFY(numTasks.at(1).toInt() == 1);
+    QVERIFY(numTasks.at(2).toInt() == 5);
     sig_message.clear();
     sig_numTasks.clear();
 
     // B: stop the currently-running task(s).  Messages: 2 end, 2 start.
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (2 + 2));
-    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.count() == 1);
     numTasks = sig_numTasks.takeLast();
     QVERIFY(numTasks.at(1).toInt() == 2);
+    QVERIFY(numTasks.at(2).toInt() == 3);
     sig_message.clear();
     sig_numTasks.clear();
 
     // C: Stop the currently-running task(s).  Messages: 3 end, 1 start.
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (3 + 1));
-    QVERIFY(sig_numTasks.count() > 0);
+    // Since two tasks are ending, we'll get two updateNumTasks.
+    QVERIFY(sig_numTasks.count() == 2);
     numTasks = sig_numTasks.takeLast();
     QVERIFY(numTasks.at(1).toInt() == 1);
+    QVERIFY(numTasks.at(2).toInt() == 2);
     sig_message.clear();
     sig_numTasks.clear();
 
     // D: Stop the currently-running task(s).  Messages: 2 end, 2 start.
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (2 + 2));
-    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.count() == 1);
     numTasks = sig_numTasks.takeLast();
     QVERIFY(numTasks.at(1).toInt() == 2);
+    QVERIFY(numTasks.at(2).toInt() == 0);
     sig_message.clear();
     sig_numTasks.clear();
 
     // post-D: Stop the currently-running task(s).  Messages: 3 end, 0 start.
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (3 + 0));
-    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.count() == 2);
     numTasks = sig_numTasks.takeLast();
     QVERIFY(numTasks.at(1).toInt() == 0);
+    QVERIFY(numTasks.at(2).toInt() == 0);
     sig_message.clear();
     sig_numTasks.clear();
 

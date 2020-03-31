@@ -97,12 +97,19 @@ void TaskQueuer::startTasks()
 {
     while(!_taskQueue.isEmpty() && !isExclusiveTaskRunning())
     {
-        // Bail if the next task requires exclusive running.
+        // Bail if the next task requires exclusive running, but
+        // still send the updated task numbers.
         if(!_runningTasks.isEmpty() && _taskQueue.head()->isExclusive)
+        {
+            updateTaskNumbers();
             return;
+        }
 
         startTask();
     }
+
+    // Send the updated task numbers.
+    updateTaskNumbers();
 }
 
 void TaskQueuer::startTask()
@@ -143,9 +150,6 @@ void TaskQueuer::startTask()
         task->fake();
 #endif
     _threadPool->start(task);
-
-    // Update the task numbers.
-    updateTaskNumbers();
 }
 
 void TaskQueuer::dequeueTask()
@@ -171,9 +175,6 @@ void TaskQueuer::dequeueTask()
 
     // Start another task(s) if applicable.
     startTasks();
-
-    // Update the task numbers.
-    updateTaskNumbers();
 }
 
 bool TaskQueuer::isExclusiveTaskRunning()

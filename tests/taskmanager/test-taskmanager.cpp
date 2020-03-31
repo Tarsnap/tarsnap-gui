@@ -361,7 +361,8 @@ void TestTaskManager::exclusive()
     //     previous stop + current start
     WAIT_UNTIL(sig_message.count() >= (0 + 1));
     QVERIFY(sig_numTasks.count() > 0);
-    QVERIFY(sig_numTasks.takeLast().at(1).toInt() == 1);
+    numTasks = sig_numTasks.takeLast();
+    QVERIFY(numTasks.at(1).toInt() == 1);
     sig_message.clear();
     sig_numTasks.clear();
 
@@ -369,7 +370,8 @@ void TestTaskManager::exclusive()
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (2 + 2));
     QVERIFY(sig_numTasks.count() > 0);
-    QVERIFY(sig_numTasks.takeLast().at(1).toInt() == 2);
+    numTasks = sig_numTasks.takeLast();
+    QVERIFY(numTasks.at(1).toInt() == 2);
     sig_message.clear();
     sig_numTasks.clear();
 
@@ -377,7 +379,8 @@ void TestTaskManager::exclusive()
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (3 + 1));
     QVERIFY(sig_numTasks.count() > 0);
-    QVERIFY(sig_numTasks.takeLast().at(1).toInt() == 1);
+    numTasks = sig_numTasks.takeLast();
+    QVERIFY(numTasks.at(1).toInt() == 1);
     sig_message.clear();
     sig_numTasks.clear();
 
@@ -385,7 +388,8 @@ void TestTaskManager::exclusive()
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (2 + 2));
     QVERIFY(sig_numTasks.count() > 0);
-    QVERIFY(sig_numTasks.takeLast().at(1).toInt() == 2);
+    numTasks = sig_numTasks.takeLast();
+    QVERIFY(numTasks.at(1).toInt() == 2);
     sig_message.clear();
     sig_numTasks.clear();
 
@@ -393,7 +397,8 @@ void TestTaskManager::exclusive()
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (3 + 0));
     QVERIFY(sig_numTasks.count() > 0);
-    QVERIFY(sig_numTasks.takeLast().at(1).toInt() == 0);
+    numTasks = sig_numTasks.takeLast();
+    QVERIFY(numTasks.at(1).toInt() == 0);
     sig_message.clear();
     sig_numTasks.clear();
 

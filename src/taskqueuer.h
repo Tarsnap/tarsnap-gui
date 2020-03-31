@@ -65,6 +65,7 @@ private:
     void startTasks();
     bool isExclusiveTaskRunning();
     bool isBackupTaskRunning();
+    void updateTaskNumbers();
 
     QList<TaskMeta *>  _runningTasks;
     QQueue<TaskMeta *> _taskQueue;

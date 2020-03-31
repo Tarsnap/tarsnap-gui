@@ -145,8 +145,7 @@ void TaskQueuer::startTask()
     _threadPool->start(task);
 
     // Update the task numbers.
-    bool backupTaskRunning = isBackupTaskRunning();
-    emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
+    updateTaskNumbers();
 }
 
 void TaskQueuer::dequeueTask()
@@ -174,8 +173,7 @@ void TaskQueuer::dequeueTask()
     startTasks();
 
     // Update the task numbers.
-    bool backupTaskRunning = isBackupTaskRunning();
-    emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
+    updateTaskNumbers();
 }
 
 bool TaskQueuer::isExclusiveTaskRunning()
@@ -196,6 +194,12 @@ bool TaskQueuer::isBackupTaskRunning()
             return true;
     }
     return false;
+}
+
+void TaskQueuer::updateTaskNumbers()
+{
+    bool backupTaskRunning = isBackupTaskRunning();
+    emit numTasks(backupTaskRunning, _runningTasks.count(), _taskQueue.count());
 }
 
 #ifdef QT_TESTLIB_LIB

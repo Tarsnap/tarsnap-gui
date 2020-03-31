@@ -310,29 +310,16 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::nonquitStopTasks()
 {
-    closeWithTaskInfo(_backupTaskRunning, _runningTasks, _queuedTasks);
-}
-
-void MainWindow::closeWithTaskInfo(bool backupTaskRunning, int runningTasks,
-                                   int queuedTasks)
-{
-    if(!runningTasks && !queuedTasks)
+    if((_runningTasks == 0) && (_queuedTasks == 0))
     {
-        if(_aboutToQuit)
-        {
-            close();
-            return;
-        }
-        else
-        {
-            QMessageBox::information(
-                this, tr("Stop Tasks"),
-                tr("There are no running or queued tasks."));
-            return;
-        }
+        QMessageBox::information(this, tr("Stop Tasks"),
+                                 tr("There are no running or queued tasks."));
     }
-
-    displayStopTasksDialog(backupTaskRunning, runningTasks, queuedTasks);
+    else
+    {
+        _stopTasksDialog.display(_backupTaskRunning, _runningTasks,
+                                 _queuedTasks, _aboutToQuit);
+    }
 }
 
 void MainWindow::changeEvent(QEvent *event)

@@ -86,7 +86,7 @@ QString Utils::humanBytes(quint64 bytes, int fieldWidth)
     QString pre = QString(IEC ? "KMGTPE" : "kMGTPE").at(exp - 1)
                   + QString(IEC ? "i" : "");
     return QString("%1 %2B")
-        .arg(bytes / pow(unit, exp), fieldWidth, 'f', 2)
+        .arg(static_cast<double>(bytes) / pow(unit, exp), fieldWidth, 'f', 2)
         .arg(pre);
 }
 

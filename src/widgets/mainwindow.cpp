@@ -288,24 +288,30 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    // Quit if there's no tasks.
+    if((_runningTasks == 0) && (_queuedTasks == 0))
+    {
+        event->accept();
+        return;
+    }
+
+    // Quit if we're already requested a quit; this occurs when
+    // the user selects "Proceed in background".
     if(_aboutToQuit)
     {
         event->accept();
+        return;
     }
-    else
-    {
-        _aboutToQuit = true;
-        // Act on stored info.
-        if((_runningTasks == 0) && (_queuedTasks == 0))
-        {
-            event->accept();
-            return;
-        }
-        // Ask the user what to do.
-        _stopTasksDialog.display(_backupTaskRunning, _runningTasks,
-                                 _queuedTasks, _aboutToQuit);
-        event->ignore();
-    }
+
+    // Unless cancelled, we want to quit the next time we have a close().
+    _aboutToQuit = true;
+
+    // Ask the user what to do.
+    _stopTasksDialog.display(_backupTaskRunning, _runningTasks, _queuedTasks,
+                             _aboutToQuit);
+
+    // Don't act on this particular close().
+    event->ignore();
 }
 
 void MainWindow::nonquitStopTasks()

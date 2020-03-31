@@ -531,7 +531,7 @@ void TestTaskManager::backup_fake()
     manager->backupNow(btd);
 
     // Check that numTasks is correct.
-    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.count() == 1);
     numTasks = sig_numTasks.takeFirst();
     QVERIFY(numTasks.at(0).toBool() == true);
 
@@ -539,7 +539,7 @@ void TestTaskManager::backup_fake()
     manager->waitUntilIdle();
 
     // Check that numTasks is correct (again).
-    QVERIFY(sig_numTasks.count() > 0);
+    QVERIFY(sig_numTasks.count() == 1);
     numTasks = sig_numTasks.takeFirst();
     QVERIFY(numTasks.at(0).toBool() == false);
 

@@ -302,7 +302,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
             return;
         }
         // Ask the user what to do.
-        closeWithTaskInfo(_backupTaskRunning, _runningTasks, _queuedTasks);
+        _stopTasksDialog.display(_backupTaskRunning, _runningTasks,
+                                 _queuedTasks, _aboutToQuit);
         event->ignore();
     }
 }

@@ -169,6 +169,8 @@ private slots:
     void displayJobDetails(JobPtr job);
     void createNewJob(QList<QUrl> urls, QString name);
 
+    void nonquitStopTasks();
+
 private:
     Ui::MainWindow *_ui;
     int             _minWidth;

@@ -97,6 +97,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->statusBarLabel, &ElidedClickableLabel::clicked,
             _ui->actionShowJournal, &QAction::toggle);
     addAction(_ui->actionStopTasks);
+    connect(_ui->actionStopTasks, &QAction::triggered, this,
+            &MainWindow::nonquitStopTasks);
     connect(_ui->busyLabel, &TBusyLabel::clicked, _ui->actionStopTasks,
             &QAction::trigger);
     // --
@@ -303,6 +305,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
         closeWithTaskInfo(_backupTaskRunning, _runningTasks, _queuedTasks);
         event->ignore();
     }
+}
+
+void MainWindow::nonquitStopTasks()
+{
+    closeWithTaskInfo(_backupTaskRunning, _runningTasks, _queuedTasks);
 }
 
 void MainWindow::closeWithTaskInfo(bool backupTaskRunning, int runningTasks,

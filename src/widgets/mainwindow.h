@@ -64,9 +64,6 @@ public slots:
     void tarsnapVersionResponse(TaskStatus status, QString versionString);
     //! Display (and raise) the MainWindow (if minimized or hidden).
     void notificationRaise();
-    //! We received information about tasks after receiving a closeEvent.
-    void closeWithTaskInfo(bool backupTaskRunning, int runningTasks,
-                           int queuedTasks);
     //! Display an explanation of a tarsnap CLI error.
     void tarsnapError(TarsnapError error);
     //! Append a new entry to the journal.

@@ -35,14 +35,14 @@ MainWindow::MainWindow(QWidget *parent)
       _menuBar(nullptr),
       _aboutToQuit(false),
       _stopTasksDialog(this),
+      _backupTaskRunning(false),
+      _runningTasks(0),
+      _queuedTasks(0),
       _backupTabWidget(this),
       _archivesTabWidget(this),
       _jobsTabWidget(this),
       _settingsWidget(this),
-      _helpWidget(this),
-      _backupTaskRunning(false),
-      _runningTasks(0),
-      _queuedTasks(0)
+      _helpWidget(this)
 {
     connect(&LOG, &ConsoleLog::message, &_helpWidget,
             &HelpWidget::appendLogString);

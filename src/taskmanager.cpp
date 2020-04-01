@@ -572,21 +572,33 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
         return;
     }
 
-    QMap<QString, ArchivePtr> _newArchiveMap;
+    QList<struct archive_list_data> metadatas;
     QStringList lines = stdOut.split('\n', QString::SkipEmptyParts);
     for(const QString &line : lines)
     {
         QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");
         if(-1 != archiveDetailsRX.indexIn(line))
         {
+            struct archive_list_data metadata;
             QStringList archiveDetails = archiveDetailsRX.capturedTexts();
             archiveDetails.removeFirst();
-            QDateTime timestamp =
+            metadata.archiveName = archiveDetails[0];
+            metadata.timestamp =
                 QDateTime::fromString(archiveDetails[1], Qt::ISODate);
-            ArchivePtr archive =
-                _archiveMap.value(archiveDetails[0], ArchivePtr(new Archive));
+            metadata.command = archiveDetails[2];
+            metadatas.append(metadata);
+        }
+    }
+
+    QMap<QString, ArchivePtr> _newArchiveMap;
+    for(const struct archive_list_data &metadata : metadatas)
+    {
+        if(true)
+        {
+            ArchivePtr archive = _archiveMap.value(metadata.archiveName,
+                                                   ArchivePtr(new Archive));
             if(!archive->objectKey().isEmpty()
-               && (archive->timestamp() != timestamp))
+               && (archive->timestamp() != metadata.timestamp))
             {
                 // There is a different archive with the same name on the remote
                 archive->purge();
@@ -596,9 +608,9 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
             if(archive->objectKey().isEmpty())
             {
                 // New archive
-                archive->setName(archiveDetails[0]);
-                archive->setTimestamp(timestamp);
-                archive->setCommand(archiveDetails[2]);
+                archive->setName(metadata.archiveName);
+                archive->setTimestamp(metadata.timestamp);
+                archive->setCommand(metadata.command);
                 // Automagically set Job ownership
                 for(const JobPtr &job : _jobMap)
                 {

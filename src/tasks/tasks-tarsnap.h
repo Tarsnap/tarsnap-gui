@@ -24,6 +24,19 @@ WARNINGS_ENABLE
  *   of using parameters.
  */
 
+/** Parsed result of `--list-archives -vv`. */
+struct archive_list_data
+{
+    /** Archive name. */
+    QString archiveName;
+    /** Archive creation date and time. */
+    QDateTime timestamp;
+    /** Command that was used to create the archive. */
+    QString command;
+    /** Was there any error parsing the stats? */
+    bool parse_error;
+};
+
 /** Parsed result of `--print-stats`. */
 struct tarsnap_stats
 {

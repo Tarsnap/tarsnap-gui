@@ -28,6 +28,30 @@ CmdlineTask *listArchivesTask()
     return (task);
 }
 
+QList<struct archive_list_data>
+listArchivesTaskParse(const QString &tarsnapOutput)
+{
+    QList<struct archive_list_data> metadatas;
+    QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
+    for(const QString &line : lines)
+    {
+        QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");
+        if(-1 != archiveDetailsRX.indexIn(line))
+        {
+            struct archive_list_data metadata;
+            QStringList archiveDetails = archiveDetailsRX.capturedTexts();
+            archiveDetails.removeFirst();
+            metadata.archiveName = archiveDetails[0];
+            metadata.timestamp =
+                QDateTime::fromString(archiveDetails[1], Qt::ISODate);
+            metadata.command = archiveDetails[2];
+            metadatas.append(metadata);
+        }
+    }
+
+    return metadatas;
+}
+
 CmdlineTask *printStatsTask(const QString &archiveName)
 {
     CmdlineTask *task = new CmdlineTask();

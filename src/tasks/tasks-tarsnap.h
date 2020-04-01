@@ -50,6 +50,13 @@ CmdlineTask *listArchivesTask();
 CmdlineTask *printStatsTask(const QString &archiveName);
 
 /**
+ * \brief Extract stats from `tarsnap --print-stats -f ARCHIVENAME`
+ */
+struct tarsnap_stats printStatsTaskParse(const QString &tarsnapOutput,
+                                         bool           newArchiveOutput,
+                                         const QString &archiveName);
+
+/**
  * \brief Create a task for: `tarsnap -tv -f ARCHIVENAME`
  */
 CmdlineTask *archiveContentsTask(const QString &archiveName);

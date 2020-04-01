@@ -58,6 +58,12 @@ struct tarsnap_stats
 CmdlineTask *listArchivesTask();
 
 /**
+ * \brief Extract info from `tarsnap --list-archives -vv`
+ */
+QList<struct archive_list_data>
+listArchivesTaskParse(const QString &tarsnapOutput);
+
+/**
  * \brief Create a task for: `tarsnap --print-stats -f ARCHIVENAME`
  */
 CmdlineTask *printStatsTask(const QString &archiveName);

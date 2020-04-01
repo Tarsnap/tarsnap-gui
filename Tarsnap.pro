@@ -66,6 +66,7 @@ SOURCES +=						\
 	src/app-gui.cpp					\
 	src/app-setup.cpp				\
 	src/backuptask.cpp				\
+	src/cmdlinetask.cpp				\
 	src/customfilesystemmodel.cpp			\
 	src/filetablemodel.cpp				\
 	src/init-shared.cpp				\
@@ -83,7 +84,6 @@ SOURCES +=						\
 	src/setupwizard/setupwizard_intro.cpp		\
 	src/setupwizard/setupwizard_register.cpp	\
 	src/tarsnapaccount.cpp				\
-	src/cmdlinetask.cpp				\
 	src/taskmanager.cpp				\
 	src/taskqueuer.cpp				\
 	src/tasks/tasks-misc.cpp			\
@@ -139,6 +139,7 @@ HEADERS +=						\
 	src/app-gui.h					\
 	src/app-setup.h					\
 	src/backuptask.h				\
+	src/cmdlinetask.h				\
 	src/customfilesystemmodel.h			\
 	src/debug.h					\
 	src/filetablemodel.h				\
@@ -157,7 +158,6 @@ HEADERS +=						\
 	src/setupwizard/setupwizard_register.h		\
 	src/tarsnapaccount.h				\
 	src/tarsnaperror.h				\
-	src/cmdlinetask.h				\
 	src/taskmanager.h				\
 	src/taskqueuer.h				\
 	src/tasks/tasks-defs.h				\

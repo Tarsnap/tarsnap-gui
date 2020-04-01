@@ -976,6 +976,9 @@ void TaskManager::parseGlobalStats(const QString &tarsnapOutput)
 void TaskManager::parseArchiveStats(const QString &tarsnapOutput,
                                     bool newArchiveOutput, ArchivePtr archive)
 {
+    struct tarsnap_stats stats;
+    stats.parse_error = true;
+
     QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
     if(lines.count() < 5)
     {
@@ -1002,17 +1005,17 @@ void TaskManager::parseArchiveStats(const QString &tarsnapOutput,
         {
             QStringList captured = sizeRX.capturedTexts();
             captured.removeFirst();
-            archive->setSizeTotal(captured[0].toULongLong());
-            archive->setSizeCompressed(captured[1].toULongLong());
-            matched = true;
+            stats.total      = captured[0].toULongLong();
+            stats.compressed = captured[1].toULongLong();
+            matched          = true;
         }
         if(-1 != uniqueSizeRX.indexIn(line))
         {
             QStringList captured = uniqueSizeRX.capturedTexts();
             captured.removeFirst();
-            archive->setSizeUniqueTotal(captured[0].toULongLong());
-            archive->setSizeUniqueCompressed(captured[1].toULongLong());
-            matched = true;
+            stats.unique_total      = captured[0].toULongLong();
+            stats.unique_compressed = captured[1].toULongLong();
+            matched                 = true;
         }
     }
     if(!matched)
@@ -1020,6 +1023,22 @@ void TaskManager::parseArchiveStats(const QString &tarsnapOutput,
         DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
     }
+
+    // We're ok
+    stats.parse_error = false;
+
+    // Bail if there's any error.
+    if(stats.parse_error)
+    {
+        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
+        return;
+    }
+
+    archive->setSizeTotal(stats.total);
+    archive->setSizeCompressed(stats.compressed);
+    archive->setSizeUniqueTotal(stats.unique_total);
+    archive->setSizeUniqueCompressed(stats.unique_compressed);
+
     archive->save();
 }
 

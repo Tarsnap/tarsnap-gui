@@ -593,37 +593,34 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
     QMap<QString, ArchivePtr> _newArchiveMap;
     for(const struct archive_list_data &metadata : metadatas)
     {
-        if(true)
+        ArchivePtr archive =
+            _archiveMap.value(metadata.archiveName, ArchivePtr(new Archive));
+        if(!archive->objectKey().isEmpty()
+           && (archive->timestamp() != metadata.timestamp))
         {
-            ArchivePtr archive = _archiveMap.value(metadata.archiveName,
-                                                   ArchivePtr(new Archive));
-            if(!archive->objectKey().isEmpty()
-               && (archive->timestamp() != metadata.timestamp))
-            {
-                // There is a different archive with the same name on the remote
-                archive->purge();
-                archive.clear();
-                archive = archive.create();
-            }
-            if(archive->objectKey().isEmpty())
-            {
-                // New archive
-                archive->setName(metadata.archiveName);
-                archive->setTimestamp(metadata.timestamp);
-                archive->setCommand(metadata.command);
-                // Automagically set Job ownership
-                for(const JobPtr &job : _jobMap)
-                {
-                    if(archive->name().startsWith(job->archivePrefix()))
-                        archive->setJobRef(job->objectKey());
-                }
-                archive->save();
-                emit addArchive(archive);
-                getArchiveStats(archive);
-            }
-            _newArchiveMap.insert(archive->name(), archive);
-            _archiveMap.remove(archive->name());
+            // There is a different archive with the same name on the remote
+            archive->purge();
+            archive.clear();
+            archive = archive.create();
         }
+        if(archive->objectKey().isEmpty())
+        {
+            // New archive
+            archive->setName(metadata.archiveName);
+            archive->setTimestamp(metadata.timestamp);
+            archive->setCommand(metadata.command);
+            // Automagically set Job ownership
+            for(const JobPtr &job : _jobMap)
+            {
+                if(archive->name().startsWith(job->archivePrefix()))
+                    archive->setJobRef(job->objectKey());
+            }
+            archive->save();
+            emit addArchive(archive);
+            getArchiveStats(archive);
+        }
+        _newArchiveMap.insert(archive->name(), archive);
+        _archiveMap.remove(archive->name());
     }
     // Purge archives left in old _archiveMap (not mirrored by the remote)
     for(const ArchivePtr &archive : _archiveMap)

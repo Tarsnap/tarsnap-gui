@@ -24,6 +24,21 @@ WARNINGS_ENABLE
  *   of using parameters.
  */
 
+/** Parsed result of `--print-stats`. */
+struct tarsnap_stats
+{
+    /** Total size */
+    quint64 total;
+    /** Compressed size */
+    quint64 compressed;
+    /** Total size (unique data) */
+    quint64 unique_total;
+    /** Compressed size (unique data) */
+    quint64 unique_compressed;
+    /** Was there any error parsing the stats? */
+    bool parse_error;
+};
+
 /**
  * \brief Create a task for: `tarsnap --list-archives -vv`
  */

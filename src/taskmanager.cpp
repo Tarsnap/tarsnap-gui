@@ -959,17 +959,15 @@ void TaskManager::parseError(const QString &tarsnapOutput)
 
 void TaskManager::parseGlobalStats(const QString &tarsnapOutput)
 {
+    struct tarsnap_stats stats;
+    stats.parse_error = true;
+
     QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
     if(lines.count() < 3)
     {
         DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
         return;
     }
-
-    quint64 sizeTotal            = 0;
-    quint64 sizeCompressed       = 0;
-    quint64 sizeUniqueTotal      = 0;
-    quint64 sizeUniqueCompressed = 0;
 
     QRegExp sizeRX("^All archives\\s+(\\d+)\\s+(\\d+)$");
     if(-1 == sizeRX.indexIn(lines[1]))
@@ -980,8 +978,8 @@ void TaskManager::parseGlobalStats(const QString &tarsnapOutput)
 
     QStringList captured = sizeRX.capturedTexts();
     captured.removeFirst();
-    sizeTotal      = captured[0].toULongLong();
-    sizeCompressed = captured[1].toULongLong();
+    stats.total      = captured[0].toULongLong();
+    stats.compressed = captured[1].toULongLong();
 
     QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
     if(-1 == uniqueSizeRX.indexIn(lines[2]))
@@ -992,11 +990,21 @@ void TaskManager::parseGlobalStats(const QString &tarsnapOutput)
 
     captured = uniqueSizeRX.capturedTexts();
     captured.removeFirst();
-    sizeUniqueTotal      = captured[0].toULongLong();
-    sizeUniqueCompressed = captured[1].toULongLong();
+    stats.unique_total      = captured[0].toULongLong();
+    stats.unique_compressed = captured[1].toULongLong();
 
-    emit overallStats(sizeTotal, sizeCompressed, sizeUniqueTotal,
-                      sizeUniqueCompressed,
+    // We're ok.
+    stats.parse_error = false;
+
+    // Bail if there's any error.
+    if(stats.parse_error)
+    {
+        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
+        return;
+    }
+
+    emit overallStats(stats.total, stats.compressed, stats.unique_total,
+                      stats.unique_compressed,
                       static_cast<quint64>(_archiveMap.count()));
 }
 

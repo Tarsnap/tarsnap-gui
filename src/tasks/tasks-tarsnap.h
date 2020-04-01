@@ -65,6 +65,11 @@ CmdlineTask *deleteArchivesTask(const QStringList &archiveNames);
 CmdlineTask *overallStatsTask();
 
 /**
+ * \brief Extract stats from `tarsnap --print-stats`
+ */
+struct tarsnap_stats overallStatsTaskParse(const QString &tarsnapOutput);
+
+/**
  * \brief Create a task for: `tarsnap --nuke`
  */
 CmdlineTask *nukeArchivesTask();

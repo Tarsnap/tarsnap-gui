@@ -1,6 +1,7 @@
 #include "tasks-tarsnap.h"
 
 WARNINGS_DISABLE
+#include <QRegExp>
 #include <QStringList>
 WARNINGS_ENABLE
 
@@ -92,6 +93,38 @@ CmdlineTask *overallStatsTask()
     task->setCommand(makeTarsnapCommand());
     task->setArguments(args);
     return (task);
+}
+
+struct tarsnap_stats overallStatsTaskParse(const QString &tarsnapOutput)
+{
+    struct tarsnap_stats stats;
+    stats.parse_error = true;
+
+    QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
+    if(lines.count() < 3)
+        return stats;
+
+    QRegExp sizeRX("^All archives\\s+(\\d+)\\s+(\\d+)$");
+    if(-1 == sizeRX.indexIn(lines[1]))
+        return stats;
+
+    QStringList captured = sizeRX.capturedTexts();
+    captured.removeFirst();
+    stats.total      = captured[0].toULongLong();
+    stats.compressed = captured[1].toULongLong();
+
+    QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
+    if(-1 == uniqueSizeRX.indexIn(lines[2]))
+        return stats;
+
+    captured = uniqueSizeRX.capturedTexts();
+    captured.removeFirst();
+    stats.unique_total      = captured[0].toULongLong();
+    stats.unique_compressed = captured[1].toULongLong();
+
+    // We're ok.
+    stats.parse_error = false;
+    return stats;
 }
 
 CmdlineTask *nukeArchivesTask()

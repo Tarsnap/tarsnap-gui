@@ -959,42 +959,7 @@ void TaskManager::parseError(const QString &tarsnapOutput)
 
 void TaskManager::parseGlobalStats(const QString &tarsnapOutput)
 {
-    struct tarsnap_stats stats;
-    stats.parse_error = true;
-
-    QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
-    if(lines.count() < 3)
-    {
-        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
-        return;
-    }
-
-    QRegExp sizeRX("^All archives\\s+(\\d+)\\s+(\\d+)$");
-    if(-1 == sizeRX.indexIn(lines[1]))
-    {
-        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
-        return;
-    }
-
-    QStringList captured = sizeRX.capturedTexts();
-    captured.removeFirst();
-    stats.total      = captured[0].toULongLong();
-    stats.compressed = captured[1].toULongLong();
-
-    QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
-    if(-1 == uniqueSizeRX.indexIn(lines[2]))
-    {
-        DEBUG << "Malformed output from tarsnap CLI:\n" << tarsnapOutput;
-        return;
-    }
-
-    captured = uniqueSizeRX.capturedTexts();
-    captured.removeFirst();
-    stats.unique_total      = captured[0].toULongLong();
-    stats.unique_compressed = captured[1].toULongLong();
-
-    // We're ok.
-    stats.parse_error = false;
+    struct tarsnap_stats stats = overallStatsTaskParse(tarsnapOutput);
 
     // Bail if there's any error.
     if(stats.parse_error)

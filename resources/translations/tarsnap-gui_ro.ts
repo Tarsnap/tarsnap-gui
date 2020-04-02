@@ -951,6 +951,17 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
+    <name>JobRunner</name>
+    <message>
+        <source>Scheduled jobs not executed (cannot reach server).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please check your internet connectivity and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>JobWidget</name>
     <message>
         <source>Form</source>
@@ -3063,14 +3074,6 @@ unique data	%3		%4</source>
     <message>
         <source>Error: Failed to get Tarsnap version.</source>
         <translation>Eroare la obținerea versiunii utilitarelor la linia de comandă Tarsnap.</translation>
-    </message>
-    <message>
-        <source>Scheduled jobs not executed (cannot reach server).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please check your internet connectivity and try again.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

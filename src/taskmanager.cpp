@@ -401,7 +401,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
         if(job->objectKey() == archive->jobRef())
             emit job->loadArchives();
     }
-    emit addArchive(archive);
+    emit archiveAdded(archive);
     parseGlobalStats(stdErr);
 }
 
@@ -506,7 +506,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
                     archive->setJobRef(job->objectKey());
             }
             archive->save();
-            emit addArchive(archive);
+            emit archiveAdded(archive);
             getArchiveStats(archive);
         }
         _newArchiveMap.insert(archive->name(), archive);

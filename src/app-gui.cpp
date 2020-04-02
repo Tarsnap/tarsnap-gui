@@ -186,7 +186,7 @@ void AppGui::showMainWindow()
             &TaskManager::getArchives, QUEUED);
     connect(&_taskManager, &TaskManager::archiveList, _mainWindow,
             &MainWindow::archiveList, QUEUED);
-    connect(&_taskManager, &TaskManager::addArchive, _mainWindow,
+    connect(&_taskManager, &TaskManager::archiveAdded, _mainWindow,
             &MainWindow::addArchive, QUEUED);
     connect(_mainWindow, &MainWindow::deleteArchives, &_taskManager,
             &TaskManager::deleteArchives, QUEUED);

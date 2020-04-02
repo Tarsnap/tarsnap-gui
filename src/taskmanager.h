@@ -124,7 +124,7 @@ signals:
     void archiveList(QList<ArchivePtr> archives);
     //! A new Archive was created by \ref backupNow or discovered via
     //! \ref getArchives.
-    void addArchive(ArchivePtr archive);
+    void archiveAdded(ArchivePtr archive);
     //! Result of tarsnap --print-stats.
     void overallStats(quint64 sizeTotal, quint64 sizeCompressed,
                       quint64 sizeUniqueTotal, quint64 sizeUniqueCompressed,

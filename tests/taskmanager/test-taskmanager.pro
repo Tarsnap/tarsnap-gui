@@ -6,6 +6,7 @@ VALGRIND = true
 HEADERS  +=						\
 	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
+	../../src/backenddata.h				\
 	../../src/backuptask.h				\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
@@ -26,6 +27,7 @@ HEADERS  +=						\
 SOURCES += test-taskmanager.cpp				\
 	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
+	../../src/backenddata.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\

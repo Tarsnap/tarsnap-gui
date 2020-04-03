@@ -15,6 +15,7 @@ SOURCES +=						\
 	../../libcperciva/util/getopt.c			\
 	../../libcperciva/util/warnp.c			\
 	../../src/app-cmdline.cpp			\
+	../../src/backenddata.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/cmdlinetask.cpp			\
 	../../src/filetablemodel.cpp			\
@@ -45,6 +46,7 @@ HEADERS +=						\
 	../../libcperciva/util/getopt.h			\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\
+	../../src/backenddata.h				\
 	../../src/backuptask.h				\
 	../../src/cmdlinetask.h				\
 	../../src/filetablemodel.h			\

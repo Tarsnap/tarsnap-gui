@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
+#include "backenddata.h"
 #include "debug.h"
 #include "jobrunner.h"
 #include "taskqueuer.h"
@@ -25,7 +26,7 @@ WARNINGS_ENABLE
 
 Q_DECLARE_METATYPE(CmdlineTask *)
 
-TaskManager::TaskManager() : QObject()
+TaskManager::TaskManager() : QObject(), _bd(new BackendData())
 {
     setupTaskQueuer();
 #ifdef QT_TESTLIB_LIB
@@ -35,6 +36,7 @@ TaskManager::TaskManager() : QObject()
 
 TaskManager::~TaskManager()
 {
+    delete _bd;
     delete _tq;
     // Wait up to 1 second to delete objects scheduled with ->deleteLater()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
@@ -163,31 +165,9 @@ void TaskManager::getArchives()
 
 void TaskManager::loadArchives()
 {
-    _archiveMap.clear();
-    PersistentStore &store = PersistentStore::instance();
-    if(!store.initialized())
-    {
-        DEBUG << "PersistentStore was not initialized properly.";
+    if(!_bd->loadArchives())
         return;
-    }
-    QSqlQuery query = store.createQuery();
-    if(!query.prepare(QLatin1String("select name from archives")))
-    {
-        DEBUG << query.lastError().text();
-        return;
-    }
-    if(store.runQuery(query) && query.next())
-    {
-        do
-        {
-            ArchivePtr archive(new Archive);
-            archive->setName(
-                query.value(query.record().indexOf("name")).toString());
-            archive->load();
-            _archiveMap[archive->name()] = archive;
-        } while(query.next());
-    }
-    QList<ArchivePtr> archives = _archiveMap.values();
+    QList<ArchivePtr> archives = _bd->archives().values();
     // Send update.
     emit archiveList(archives);
 }
@@ -324,13 +304,7 @@ void TaskManager::getKeyId(const QString &key_filename)
 
 void TaskManager::findMatchingArchives(const QString &jobPrefix)
 {
-    QList<ArchivePtr> matching;
-    for(const ArchivePtr &archive : _archiveMap)
-    {
-        if(archive->name().startsWith(jobPrefix + QChar('_'))
-           && archive->jobRef().isEmpty())
-            matching << archive;
-    }
+    QList<ArchivePtr> matching = _bd->findMatchingArchives(jobPrefix);
     // Send response.
     emit matchingArchives(matching);
 }
@@ -343,7 +317,7 @@ void TaskManager::runScheduledJobs()
     connect(&jr, &JobRunner::displayNotification, this,
             &TaskManager::displayNotification);
     connect(&jr, &JobRunner::backup, this, &TaskManager::backupNow);
-    jr.runScheduledJobs(_jobMap);
+    jr.runScheduledJobs(_bd->jobs());
 }
 
 void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
@@ -381,30 +355,10 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
         }
     }
 
-    ArchivePtr archive(new Archive);
-    archive->setName(backupTaskData->name());
-    if(truncated)
-    {
-        archive->setName(archive->name().append(".part"));
-        archive->setTruncated(true);
-    }
-    archive->setCommand(backupTaskData->command());
-    // Lose milliseconds precision by converting to Unix timestamp and back.
-    // So that a subsequent comparison in getArchiveListFinished won't fail.
-    archive->setTimestamp(
-        QDateTime::fromTime_t(backupTaskData->timestamp().toTime_t()));
-    archive->setJobRef(backupTaskData->jobRef());
-    archive->save();
-    backupTaskData->setArchive(archive);
-    backupTaskData->setStatus(TaskStatus::Completed);
-    _archiveMap.insert(archive->name(), archive);
-    for(const JobPtr &job : _jobMap)
-    {
-        if(job->objectKey() == archive->jobRef())
-            emit job->loadArchives();
-    }
+    ArchivePtr archive = _bd->newArchive(backupTaskData, truncated);
     parseArchiveStats(stdErr, true, archive);
     emit archiveAdded(archive);
+
     parseGlobalStats(stdErr);
 }
 
@@ -484,50 +438,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
     QList<struct archive_list_data> metadatas = listArchivesTaskParse(stdOut);
 
     // Create & fill next archive list
-    QList<ArchivePtr> newArchives;
-
-    QMap<QString, ArchivePtr> nextArchiveMap;
-    for(const struct archive_list_data &metadata : metadatas)
-    {
-        ArchivePtr archive =
-            _archiveMap.value(metadata.archiveName, ArchivePtr(new Archive));
-        if(!archive->objectKey().isEmpty()
-           && (archive->timestamp() != metadata.timestamp))
-        {
-            // There is a different archive with the same name on the remote
-            archive->purge();
-            archive.clear();
-            archive = archive.create();
-        }
-        if(archive->objectKey().isEmpty())
-        {
-            // New archive
-            archive->setName(metadata.archiveName);
-            archive->setTimestamp(metadata.timestamp);
-            archive->setCommand(metadata.command);
-            // Automagically set Job ownership
-            for(const JobPtr &job : _jobMap)
-            {
-                if(archive->name().startsWith(job->archivePrefix()))
-                    archive->setJobRef(job->objectKey());
-            }
-            archive->save();
-            newArchives.append(archive);
-        }
-        nextArchiveMap.insert(archive->name(), archive);
-        _archiveMap.remove(archive->name());
-    }
-    // Purge archives left in old _archiveMap (not mirrored by the remote)
-    for(const ArchivePtr &archive : _archiveMap)
-    {
-        archive->purge();
-    }
-    _archiveMap.clear();
-    _archiveMap = nextArchiveMap;
-    for(const JobPtr &job : _jobMap)
-    {
-        emit job->loadArchives();
-    }
+    QList<ArchivePtr> newArchives = _bd->setArchivesFromList(metadatas);
 
     // Notify about new archives.
     for(const ArchivePtr &archive : newArchives)
@@ -632,11 +543,7 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
 
     if(!archives.empty())
     {
-        for(const ArchivePtr &archive : archives)
-        {
-            _archiveMap.remove(archive->name());
-            archive->purge();
-        }
+        _bd->removeArchives(archives);
         notifyArchivesDeleted(archives, true);
     }
     // We are only interested in the output of the last archive deleted for
@@ -881,8 +788,7 @@ void TaskManager::parseGlobalStats(const QString &tarsnapOutput)
     }
 
     emit overallStats(stats.total, stats.compressed, stats.unique_total,
-                      stats.unique_compressed,
-                      static_cast<quint64>(_archiveMap.count()));
+                      stats.unique_compressed, _bd->numArchives());
 }
 
 void TaskManager::parseArchiveStats(const QString &tarsnapOutput,
@@ -908,48 +814,16 @@ void TaskManager::parseArchiveStats(const QString &tarsnapOutput,
 
 void TaskManager::loadJobs()
 {
-    _jobMap.clear();
-    PersistentStore &store = PersistentStore::instance();
-    if(!store.initialized())
-    {
-        DEBUG << "PersistentStore was not initialized properly.";
+    if(!_bd->loadJobs())
         return;
-    }
-    QSqlQuery query = store.createQuery();
-    if(!query.prepare(QLatin1String("select name from jobs")))
-    {
-        DEBUG << query.lastError().text();
-        return;
-    }
-    if(store.runQuery(query) && query.next())
-    {
-        do
-        {
-            JobPtr job(new Job);
-            job->setName(
-                query.value(query.record().indexOf("name")).toString());
-            connect(job.data(), &Job::loadArchives, this,
-                    &TaskManager::loadJobArchives);
-            job->load();
-            _jobMap[job->name()] = job;
-        } while(query.next());
-    }
-    emit jobList(_jobMap);
+    emit jobList(_bd->jobs());
 }
 
 void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
 {
     if(job)
     {
-        // Clear JobRef for assigned Archives.
-        for(const ArchivePtr &archive : job->archives())
-        {
-            archive->setJobRef("");
-            archive->save();
-        }
-
-        job->purge();
-        _jobMap.remove(job->name());
+        _bd->deleteJob(job);
 
         if(purgeArchives)
         {
@@ -966,23 +840,9 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
     }
 }
 
-void TaskManager::loadJobArchives()
-{
-    Job *             job = qobject_cast<Job *>(sender());
-    QList<ArchivePtr> archives;
-    for(const ArchivePtr &archive : _archiveMap)
-    {
-        if(archive->jobRef() == job->objectKey())
-            archives << archive;
-    }
-    job->setArchives(archives);
-}
-
 void TaskManager::addJob(JobPtr job)
 {
-    _jobMap[job->name()] = job;
-    connect(job.data(), &Job::loadArchives, this,
-            &TaskManager::loadJobArchives);
+    _bd->addJob(job);
     emit message(tr("Job <i>%1</i> added.").arg(job->name()));
 }
 

@@ -97,13 +97,9 @@ void TaskQueuer::startTasks()
 {
     while(!_taskQueue.isEmpty() && !isExclusiveTaskRunning())
     {
-        // Bail if the next task requires exclusive running, but
-        // still send the updated task numbers.
+        // Bail from loop if the next task requires exclusive running.
         if(!_runningTasks.isEmpty() && _taskQueue.head()->isExclusive)
-        {
-            updateTaskNumbers();
-            return;
-        }
+            break;
 
         startTask();
     }

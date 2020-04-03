@@ -12,6 +12,9 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 
+/* Forward declaration. */
+struct archive_list_data;
+
 /*!
  * \ingroup background-tasks
  * \brief The BackendData is a QObject which manages the \ref Job and
@@ -39,6 +42,30 @@ public:
 
     //! Get the number of archives.
     quint64 numArchives();
+
+    //! Add a job to the Jobs list.
+    void addJob(JobPtr job);
+    //! Delete a Job, and potentially all associated Archives.
+    void deleteJob(JobPtr job);
+
+    //! Remove the archives.
+    void removeArchives(QList<ArchivePtr> archives);
+    //! Replace the stored archives with the list.
+    QList<ArchivePtr>
+    setArchivesFromList(QList<struct archive_list_data> metadatas);
+
+    //! Create a new Archive based on the BackupTaskData.
+    //! \param backupTaskData metadata about the archiving command.
+    //! \param truncated was this archive interrupted (i.e.  `.part`).
+    ArchivePtr newArchive(BackupTaskDataPtr backupTaskData, bool truncated);
+    //! Search for all matching Archive objects which were created by a Job.
+    //! \param jobPrefix prefix of the Archive names to match.
+    QList<ArchivePtr> findMatchingArchives(const QString &jobPrefix);
+
+private slots:
+    //! Load the list of archives belonging to a specific Job (specified
+    //! via Qt's `sender()` function call).
+    void loadJobArchives();
 
 private:
     QMap<QString, ArchivePtr> _archiveMap;

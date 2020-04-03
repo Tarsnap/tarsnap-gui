@@ -177,10 +177,6 @@ private slots:
     void getKeyIdFinished(QVariant data, int exitCode, const QString &stdOut,
                           const QString &stdErr);
 
-    //! Load the list of archives belonging to a specific Job (specified
-    //! via Qt's `sender()` function call).
-    void loadJobArchives();
-
 private:
     void parseError(const QString &tarsnapOutput);
     void parseGlobalStats(const QString &tarsnapOutput);
@@ -197,8 +193,6 @@ private:
     BackendData *_bd;
 
     QMap<QUuid, BackupTaskDataPtr> _backupTaskMap;
-    QMap<QString, ArchivePtr>      _archiveMap;
-    QMap<QString, JobPtr>          _jobMap;
 
 #ifdef QT_TESTLIB_LIB
     bool _fakeNextTask;

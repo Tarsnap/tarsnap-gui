@@ -71,9 +71,6 @@ public slots:
     void loadJobs();
     //! Delete a Job, and potentially all associated Archives.
     void deleteJob(JobPtr job, bool purgeArchives);
-    //! Load the list of archives belonging to a specific Job (specified
-    //! via Qt's `sender()` function call).
-    void loadJobArchives();
     //! Add a job to the Jobs list.
     void addJob(JobPtr job);
 
@@ -178,6 +175,10 @@ private slots:
     void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
     void getKeyIdFinished(QVariant data, int exitCode, const QString &stdOut,
                           const QString &stdErr);
+
+    //! Load the list of archives belonging to a specific Job (specified
+    //! via Qt's `sender()` function call).
+    void loadJobArchives();
 
 private:
     void parseError(const QString &tarsnapOutput);

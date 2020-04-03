@@ -16,8 +16,10 @@ SOURCES +=						\
 	../../libcperciva/util/warnp.c			\
 	../../src/app-cmdline.cpp			\
 	../../src/backuptask.cpp			\
+	../../src/cmdlinetask.cpp			\
 	../../src/filetablemodel.cpp			\
 	../../src/init-shared.cpp			\
+	../../src/jobrunner.cpp				\
 	../../src/main.cpp				\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
@@ -25,7 +27,6 @@ SOURCES +=						\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
 	../../src/scheduling.cpp			\
-	../../src/cmdlinetask.cpp			\
 	../../src/taskmanager.cpp			\
 	../../src/taskqueuer.cpp			\
 	../../src/tasks/tasks-misc.cpp			\
@@ -45,8 +46,10 @@ HEADERS +=						\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\
 	../../src/backuptask.h				\
+	../../src/cmdlinetask.h				\
 	../../src/filetablemodel.h			\
 	../../src/init-shared.h				\
+	../../src/jobrunner.h				\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/journal.h		\
@@ -54,7 +57,6 @@ HEADERS +=						\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\
 	../../src/tarsnaperror.h			\
-	../../src/cmdlinetask.h				\
 	../../src/taskmanager.h				\
 	../../src/taskqueuer.h				\
 	../../src/tasks/tasks-defs.h			\

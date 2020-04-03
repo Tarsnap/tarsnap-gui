@@ -483,7 +483,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
 
     QList<struct archive_list_data> metadatas = listArchivesTaskParse(stdOut);
 
-    QMap<QString, ArchivePtr> _newArchiveMap;
+    QMap<QString, ArchivePtr> nextArchiveMap;
     for(const struct archive_list_data &metadata : metadatas)
     {
         ArchivePtr archive =
@@ -512,7 +512,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
             emit archiveAdded(archive);
             getArchiveStats(archive);
         }
-        _newArchiveMap.insert(archive->name(), archive);
+        nextArchiveMap.insert(archive->name(), archive);
         _archiveMap.remove(archive->name());
     }
     // Purge archives left in old _archiveMap (not mirrored by the remote)
@@ -521,7 +521,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
         archive->purge();
     }
     _archiveMap.clear();
-    _archiveMap = _newArchiveMap;
+    _archiveMap = nextArchiveMap;
     for(const JobPtr &job : _jobMap)
     {
         emit job->loadArchives();

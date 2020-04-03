@@ -25,7 +25,7 @@ WARNINGS_ENABLE
 
 Q_DECLARE_METATYPE(CmdlineTask *)
 
-TaskManager::TaskManager()
+TaskManager::TaskManager() : QObject()
 {
     setupTaskQueuer();
 #ifdef QT_TESTLIB_LIB
@@ -187,7 +187,9 @@ void TaskManager::loadArchives()
             _archiveMap[archive->name()] = archive;
         } while(query.next());
     }
-    emit archiveList(_archiveMap.values());
+    QList<ArchivePtr> archives = _archiveMap.values();
+    // Send update.
+    emit archiveList(archives);
 }
 
 void TaskManager::getArchiveStats(ArchivePtr archive)
@@ -329,6 +331,7 @@ void TaskManager::findMatchingArchives(const QString &jobPrefix)
            && archive->jobRef().isEmpty())
             matching << archive;
     }
+    // Send response.
     emit matchingArchives(matching);
 }
 

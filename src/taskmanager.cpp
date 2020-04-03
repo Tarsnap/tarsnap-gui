@@ -394,7 +394,6 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
     archive->setTimestamp(
         QDateTime::fromTime_t(backupTaskData->timestamp().toTime_t()));
     archive->setJobRef(backupTaskData->jobRef());
-    parseArchiveStats(stdErr, true, archive);
     archive->save();
     backupTaskData->setArchive(archive);
     backupTaskData->setStatus(TaskStatus::Completed);
@@ -404,6 +403,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
         if(job->objectKey() == archive->jobRef())
             emit job->loadArchives();
     }
+    parseArchiveStats(stdErr, true, archive);
     emit archiveAdded(archive);
     parseGlobalStats(stdErr);
 }

@@ -101,6 +101,10 @@ void TaskQueuer::startTasks()
         if(!_runningTasks.isEmpty() && _taskQueue.head()->isExclusive)
             break;
 
+        // Bail from loop if we've reached the maximum number of threads.
+        if(_runningTasks.count() >= _threadPool->maxThreadCount())
+            break;
+
         startTask();
     }
 

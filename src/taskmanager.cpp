@@ -483,6 +483,9 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
 
     QList<struct archive_list_data> metadatas = listArchivesTaskParse(stdOut);
 
+    // Create & fill next archive list
+    QList<ArchivePtr> newArchives;
+
     QMap<QString, ArchivePtr> nextArchiveMap;
     for(const struct archive_list_data &metadata : metadatas)
     {
@@ -509,8 +512,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
                     archive->setJobRef(job->objectKey());
             }
             archive->save();
-            emit archiveAdded(archive);
-            getArchiveStats(archive);
+            newArchives.append(archive);
         }
         nextArchiveMap.insert(archive->name(), archive);
         _archiveMap.remove(archive->name());
@@ -526,6 +528,14 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
     {
         emit job->loadArchives();
     }
+
+    // Notify about new archives.
+    for(const ArchivePtr &archive : newArchives)
+        emit archiveAdded(archive);
+
+    // Update stats.
+    for(const ArchivePtr &archive : newArchives)
+        getArchiveStats(archive);
     getOverallStats();
 }
 

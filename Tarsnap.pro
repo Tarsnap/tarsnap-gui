@@ -65,6 +65,7 @@ SOURCES +=						\
 	src/app-cmdline.cpp				\
 	src/app-gui.cpp					\
 	src/app-setup.cpp				\
+	src/backenddata.cpp				\
 	src/backuptask.cpp				\
 	src/cmdlinetask.cpp				\
 	src/customfilesystemmodel.cpp			\
@@ -139,6 +140,7 @@ HEADERS +=						\
 	src/app-cmdline.h				\
 	src/app-gui.h					\
 	src/app-setup.h					\
+	src/backenddata.h				\
 	src/backuptask.h				\
 	src/cmdlinetask.h				\
 	src/customfilesystemmodel.h			\

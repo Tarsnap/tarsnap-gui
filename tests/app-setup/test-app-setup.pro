@@ -32,6 +32,7 @@ SOURCES += test-app-setup.cpp				\
 	../../libcperciva/util/warnp.c			\
 	../../src/app-cmdline.cpp			\
 	../../src/app-setup.cpp				\
+	../../src/backenddata.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/filetablemodel.cpp			\
 	../../src/init-shared.cpp			\
@@ -74,6 +75,7 @@ HEADERS +=						\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\
 	../../src/app-setup.h				\
+	../../src/backenddata.h				\
 	../../src/backuptask.h				\
 	../../src/filetablemodel.h			\
 	../../src/init-shared.h				\

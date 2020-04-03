@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
+#include "backenddata.h"
 #include "debug.h"
 #include "jobrunner.h"
 #include "taskqueuer.h"
@@ -25,7 +26,7 @@ WARNINGS_ENABLE
 
 Q_DECLARE_METATYPE(CmdlineTask *)
 
-TaskManager::TaskManager() : QObject()
+TaskManager::TaskManager() : QObject(), _bd(new BackendData())
 {
     setupTaskQueuer();
 #ifdef QT_TESTLIB_LIB
@@ -35,6 +36,7 @@ TaskManager::TaskManager() : QObject()
 
 TaskManager::~TaskManager()
 {
+    delete _bd;
     delete _tq;
     // Wait up to 1 second to delete objects scheduled with ->deleteLater()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);

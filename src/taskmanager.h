@@ -22,7 +22,8 @@ WARNINGS_ENABLE
 #include "persistentmodel/job.h"
 #include "tarsnaperror.h"
 
-/* Forward declaration. */
+/* Forward declarations. */
+class BackendData;
 class TaskQueuer;
 
 /*!
@@ -189,8 +190,11 @@ private:
     void warnNotOnline();
 
     void setupTaskQueuer();
+    void setupBackendData();
 
     TaskQueuer *_tq;
+
+    BackendData *_bd;
 
     QMap<QUuid, BackupTaskDataPtr> _backupTaskMap;
     QMap<QString, ArchivePtr>      _archiveMap;

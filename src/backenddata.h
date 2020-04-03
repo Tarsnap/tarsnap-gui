@@ -25,6 +25,13 @@ public:
     //! Constructor.
     BackendData();
 
+    //! Load the \ref Archive objects from the \ref PersistentStore.
+    //! \warning Not implemented!
+    bool loadArchives();
+    //! Load the \ref Job objects from the \ref PersistentStore.
+    //! \warning Not implemented!
+    bool loadJobs();
+
     //! Get the collection of \ref Archive objects.
     QMap<QString, ArchivePtr> archives();
     //! Get the collection of \ref Job objects.

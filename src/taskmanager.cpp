@@ -165,6 +165,8 @@ void TaskManager::getArchives()
 
 void TaskManager::loadArchives()
 {
+    if(!_bd->loadArchives())
+        return;
     _archiveMap.clear();
     PersistentStore &store = PersistentStore::instance();
     if(!store.initialized())
@@ -910,6 +912,8 @@ void TaskManager::parseArchiveStats(const QString &tarsnapOutput,
 
 void TaskManager::loadJobs()
 {
+    if(!_bd->loadJobs())
+        return;
     _jobMap.clear();
     PersistentStore &store = PersistentStore::instance();
     if(!store.initialized())

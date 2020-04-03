@@ -18,3 +18,13 @@ quint64 BackendData::numArchives()
 {
     return static_cast<quint64>(_archiveMap.count());
 }
+
+bool BackendData::loadArchives()
+{
+    return true;
+}
+
+bool BackendData::loadJobs()
+{
+    return true;
+}

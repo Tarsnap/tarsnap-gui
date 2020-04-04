@@ -173,7 +173,8 @@ private slots:
                       const QString &stdErr);
     void restoreArchiveFinished(QVariant data, int exitCode,
                                 const QString &stdOut, const QString &stdErr);
-    void notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status);
+    void notifyBackupTaskUpdate(BackupTaskDataPtr backupTaskData,
+                                const TaskStatus &status);
     void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
     void getKeyIdFinished(QVariant data, int exitCode, const QString &stdOut,
                           const QString &stdErr);

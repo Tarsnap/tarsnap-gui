@@ -145,9 +145,7 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
             &TaskManager::backupTaskFinished);
     connect(backupTask, &CmdlineTask::started, this,
             &TaskManager::backupTaskStarted);
-    connect(backupTaskData.data(), &BackupTaskData::statusUpdate, this,
-            &TaskManager::notifyBackupTaskUpdate);
-    backupTaskData->setStatus(TaskStatus::Queued);
+    notifyBackupTaskUpdate(backupTaskData, TaskStatus::Queued);
     _tq->queueTask(backupTask, true, true);
 }
 
@@ -345,7 +343,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
                                Qt::CaseSensitive);
         if(lastIndex == -1)
         {
-            backupTaskData->setStatus(TaskStatus::Failed);
+            notifyBackupTaskUpdate(backupTaskData, TaskStatus::Failed);
             parseError(stdErr);
             return;
         }
@@ -356,7 +354,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
     }
 
     ArchivePtr archive = _bd->newArchive(backupTaskData, truncated);
-    backupTaskData->setStatus(TaskStatus::Completed);
+    notifyBackupTaskUpdate(backupTaskData, TaskStatus::Completed);
     parseArchiveStats(stdErr, true, archive);
     emit archiveAdded(archive);
 
@@ -366,7 +364,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
 void TaskManager::backupTaskStarted(QVariant data)
 {
     BackupTaskDataPtr backupTaskData = _backupTaskMap[data.toString()];
-    backupTaskData->setStatus(TaskStatus::Running);
+    notifyBackupTaskUpdate(backupTaskData, TaskStatus::Running);
 }
 
 void TaskManager::registerMachineFinished(QVariant data, int exitCode,
@@ -638,9 +636,9 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     }
 }
 
-void TaskManager::notifyBackupTaskUpdate(QUuid uuid, const TaskStatus &status)
+void TaskManager::notifyBackupTaskUpdate(BackupTaskDataPtr backupTaskData,
+                                         const TaskStatus &status)
 {
-    BackupTaskDataPtr backupTaskData = _backupTaskMap[uuid];
     if(!backupTaskData)
     {
         DEBUG << "Backup task update for invalid task";

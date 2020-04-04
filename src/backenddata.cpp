@@ -83,7 +83,6 @@ ArchivePtr BackendData::newArchive(BackupTaskDataPtr backupTaskData,
     // parseArchiveStats(stdErr, true, archive);
     archive->save();
     backupTaskData->setArchive(archive);
-    backupTaskData->setStatus(TaskStatus::Completed);
     _archiveMap.insert(archive->name(), archive);
     for(const JobPtr &job : _jobMap)
     {

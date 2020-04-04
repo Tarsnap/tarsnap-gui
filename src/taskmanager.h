@@ -21,6 +21,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "tarsnaperror.h"
+#include "taskstatus.h"
 
 /* Forward declarations. */
 class BackendData;

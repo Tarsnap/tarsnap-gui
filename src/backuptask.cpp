@@ -22,7 +22,6 @@ BackupTaskData::BackupTaskData()
       _optionSkipSystemFiles(DEFAULT_SKIP_SYSTEM_FILES),
       _optionDryRun(DEFAULT_DRY_RUN),
       _optionSkipNoDump(DEFAULT_SKIP_NODUMP),
-      _status(TaskStatus::Initialized),
       _exitCode(0)
 {
     TSettings settings;
@@ -236,17 +235,6 @@ bool BackupTaskData::optionSkipNoDump() const
 void BackupTaskData::setOptionSkipNoDump(bool optionSkipNoDump)
 {
     _optionSkipNoDump = optionSkipNoDump;
-}
-
-TaskStatus BackupTaskData::status() const
-{
-    return _status;
-}
-
-void BackupTaskData::setStatus(const TaskStatus &status)
-{
-    _status = status;
-    emit statusUpdate(_uuid, _status);
 }
 
 int BackupTaskData::exitCode() const

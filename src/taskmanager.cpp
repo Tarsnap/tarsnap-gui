@@ -135,12 +135,10 @@ void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
         return;
     }
 
-    _backupTaskMap[backupTaskData->uuid()] = backupTaskData;
-
     CmdlineTask *backupTask = backupArchiveTask(backupTaskData);
     backupTaskData->setCommand(backupTask->command() + " "
                                + backupTask->arguments().join(" "));
-    backupTask->setData(backupTaskData->uuid());
+    backupTask->setData(QVariant::fromValue(backupTaskData));
     connect(backupTask, &CmdlineTask::finished, this,
             &TaskManager::backupTaskFinished);
     connect(backupTask, &CmdlineTask::started, this,
@@ -327,7 +325,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
                                      const QString &stdOut,
                                      const QString &stdErr)
 {
-    BackupTaskDataPtr backupTaskData = _backupTaskMap[data.toUuid()];
+    BackupTaskDataPtr backupTaskData = qvariant_cast<BackupTaskDataPtr>(data);
     if(!backupTaskData)
     {
         DEBUG << "Task not found: " << data.toUuid();
@@ -363,7 +361,7 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
 
 void TaskManager::backupTaskStarted(QVariant data)
 {
-    BackupTaskDataPtr backupTaskData = _backupTaskMap[data.toString()];
+    BackupTaskDataPtr backupTaskData = qvariant_cast<BackupTaskDataPtr>(data);
     notifyBackupTaskUpdate(backupTaskData, TaskStatus::Running);
 }
 
@@ -659,7 +657,6 @@ void TaskManager::notifyBackupTaskUpdate(BackupTaskDataPtr backupTaskData,
         emit message(msg, backupTaskData->archive()->archiveStats());
         emit displayNotification(msg, NOTIFICATION_ARCHIVE_CREATED,
                                  backupTaskData->name());
-        _backupTaskMap.remove(backupTaskData->uuid());
         break;
     }
     case TaskStatus::Queued:
@@ -687,7 +684,6 @@ void TaskManager::notifyBackupTaskUpdate(BackupTaskDataPtr backupTaskData,
         emit message(msg, backupTaskData->output());
         emit displayNotification(msg, NOTIFICATION_ARCHIVE_FAILED,
                                  backupTaskData->name());
-        _backupTaskMap.remove(backupTaskData->uuid());
         break;
     }
     case TaskStatus::Paused:

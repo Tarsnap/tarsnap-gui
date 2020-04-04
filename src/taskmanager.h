@@ -194,8 +194,6 @@ private:
 
     BackendData *_bd;
 
-    QMap<QUuid, BackupTaskDataPtr> _backupTaskMap;
-
 #ifdef QT_TESTLIB_LIB
     bool _fakeNextTask;
 #endif

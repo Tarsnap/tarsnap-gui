@@ -53,7 +53,7 @@ void TestTask::cleanupTestCase()
     task->run();                                                               \
     QVERIFY(sig_started.count() == 1);                                         \
     QVERIFY(sig_dequeue.count() == 1);                                         \
-    delete task;
+    delete task
 
 void TestTask::sleep_ok()
 {

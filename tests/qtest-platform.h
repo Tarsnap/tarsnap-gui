@@ -29,12 +29,15 @@ WARNINGS_ENABLE
     } while(0)
 
 #define VISUAL_INIT(gui_obj)                                                   \
-    IF_VISUAL                                                                  \
+    do                                                                         \
     {                                                                          \
-        gui_obj->show();                                                       \
-        VISUAL_WAIT;                                                           \
-    }                                                                          \
-    else { gui_obj->show(); }
+        IF_VISUAL                                                              \
+        {                                                                      \
+            gui_obj->show();                                                   \
+            VISUAL_WAIT;                                                       \
+        }                                                                      \
+        else { gui_obj->show(); }                                              \
+    } while(0)
 
 // Filter out unwanted messages arising from platform="offscreen"
 void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,

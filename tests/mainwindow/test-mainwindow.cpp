@@ -347,4 +347,6 @@ void TestMainWindow::other_navigation()
 }
 
 QTEST_MAIN(TestMainWindow)
+WARNINGS_DISABLE
 #include "test-mainwindow.moc"
+WARNINGS_ENABLE

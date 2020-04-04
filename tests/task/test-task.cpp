@@ -111,4 +111,6 @@ void TestTask::cmd_filenotfound()
 }
 
 QTEST_MAIN(TestTask)
+WARNINGS_DISABLE
 #include "test-task.moc"
+WARNINGS_ENABLE

@@ -128,4 +128,6 @@ void TestHelpWidget::console_window()
 }
 
 QTEST_MAIN(TestHelpWidget)
+WARNINGS_DISABLE
 #include "test-helpwidget.moc"
+WARNINGS_ENABLE

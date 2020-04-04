@@ -306,4 +306,6 @@ void TestSetupWizard::version_too_low()
 }
 
 QTEST_MAIN(TestSetupWizard)
+WARNINGS_DISABLE
 #include "test-setupwizard.moc"
+WARNINGS_ENABLE

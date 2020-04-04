@@ -168,4 +168,6 @@ int main(int argc, char *argv[])
     return (0);
 }
 
+WARNINGS_DISABLE
 #include "test-app-cmdline.moc"
+WARNINGS_ENABLE

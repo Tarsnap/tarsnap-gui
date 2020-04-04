@@ -117,4 +117,6 @@ void TestArchivesTabWidget::displayArchive()
 }
 
 QTEST_MAIN(TestArchivesTabWidget)
+WARNINGS_DISABLE
 #include "test-archivestabwidget.moc"
+WARNINGS_ENABLE

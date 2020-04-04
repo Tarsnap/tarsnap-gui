@@ -67,4 +67,6 @@ void TestCore::settings_default_after_custom()
 }
 
 QTEST_MAIN(TestCore)
+WARNINGS_DISABLE
 #include "test-core.moc"
+WARNINGS_ENABLE

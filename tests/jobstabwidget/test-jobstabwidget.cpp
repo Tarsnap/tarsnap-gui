@@ -193,4 +193,6 @@ void TestJobsTabWidget::jobListWidget()
 }
 
 QTEST_MAIN(TestJobsTabWidget)
+WARNINGS_DISABLE
 #include "test-jobstabwidget.moc"
+WARNINGS_ENABLE

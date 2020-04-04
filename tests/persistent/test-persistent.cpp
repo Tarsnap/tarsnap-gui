@@ -216,4 +216,6 @@ void TestPersistent::journal_year_2106()
 }
 
 QTEST_MAIN(TestPersistent)
+WARNINGS_DISABLE
 #include "test-persistent.moc"
+WARNINGS_ENABLE

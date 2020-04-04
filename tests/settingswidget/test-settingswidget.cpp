@@ -176,4 +176,6 @@ void TestSettingsWidget::application()
 }
 
 QTEST_MAIN(TestSettingsWidget)
+WARNINGS_DISABLE
 #include "test-settingswidget.moc"
+WARNINGS_ENABLE

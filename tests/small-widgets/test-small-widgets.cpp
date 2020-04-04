@@ -303,4 +303,6 @@ void TestSmallWidgets::stoptasksdialog_update()
 }
 
 QTEST_MAIN(TestSmallWidgets)
+WARNINGS_DISABLE
 #include "test-small-widgets.moc"
+WARNINGS_ENABLE

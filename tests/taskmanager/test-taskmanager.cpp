@@ -565,4 +565,6 @@ void TestTaskManager::backup_fake()
 }
 
 QTEST_MAIN(TestTaskManager)
+WARNINGS_DISABLE
 #include "test-taskmanager.moc"
+WARNINGS_ENABLE

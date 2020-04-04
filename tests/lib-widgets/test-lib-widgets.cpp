@@ -342,4 +342,6 @@ void TestLibWidgets::textview()
 }
 
 QTEST_MAIN(TestLibWidgets)
+WARNINGS_DISABLE
 #include "test-lib-widgets.moc"
+WARNINGS_ENABLE

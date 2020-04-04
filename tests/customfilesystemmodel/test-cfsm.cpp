@@ -66,4 +66,6 @@ void TestCFSM::runScenario_data()
 }
 
 QTEST_MAIN(TestCFSM)
+WARNINGS_DISABLE
 #include "test-cfsm.moc"
+WARNINGS_ENABLE

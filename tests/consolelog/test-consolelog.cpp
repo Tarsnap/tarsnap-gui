@@ -52,4 +52,6 @@ void TestConsoleLog::saveMessage()
 }
 
 QTEST_MAIN(TestConsoleLog)
+WARNINGS_DISABLE
 #include "test-consolelog.moc"
+WARNINGS_ENABLE

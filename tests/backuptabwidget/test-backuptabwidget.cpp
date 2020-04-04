@@ -69,4 +69,6 @@ void TestBackupTabWidget::nameEdit()
 }
 
 QTEST_MAIN(TestBackupTabWidget)
+WARNINGS_DISABLE
 #include "test-backuptabwidget.moc"
+WARNINGS_ENABLE

@@ -65,4 +65,6 @@ void TestTranslations::pathcombobrowse()
 }
 
 QTEST_MAIN(TestTranslations)
+WARNINGS_DISABLE
 #include "test-translations.moc"
+WARNINGS_ENABLE

@@ -7,10 +7,12 @@ WARNINGS_DISABLE
 #include <QColor>
 #include <QObject>
 #include <QPlainTextEdit>
+#include <QString>
 #include <QTextCursor>
 WARNINGS_ENABLE
 
-#include "LogEntry.h"
+/* Forward declaration. */
+struct LogEntry;
 
 /*!
  * \ingroup lib-widgets

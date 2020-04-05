@@ -1,10 +1,15 @@
 #include "TPathLineBrowse.h"
 
 WARNINGS_DISABLE
+#include <QEvent>
 #include <QFileDialog>
+#include <QLineEdit>
+#include <QPushButton>
 
 #include "ui_TPathLineBrowse.h"
 WARNINGS_ENABLE
+
+#include "TOkLabel.h"
 
 TPathLineBrowse::TPathLineBrowse(QWidget *parent)
     : QWidget(parent), _ui(new Ui::TPathLineBrowse)

@@ -8,6 +8,10 @@ WARNINGS_DISABLE
 #include <QObject>
 WARNINGS_ENABLE
 
+/* Forward declarations. */
+class QMouseEvent;
+class QMovie;
+
 /*!
  * \ingroup lib-widgets
  * \brief The TBusyLabel is a QLabel which displays a spinning "waiting" icon,

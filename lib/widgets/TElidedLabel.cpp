@@ -1,6 +1,7 @@
 #include "TElidedLabel.h"
 
 WARNINGS_DISABLE
+#include <QFontMetrics>
 #include <QResizeEvent>
 WARNINGS_ENABLE
 

@@ -6,6 +6,8 @@
 WARNINGS_DISABLE
 #include <QLabel>
 #include <QObject>
+#include <QSize>
+#include <QString>
 WARNINGS_ENABLE
 
 /*!

@@ -10,14 +10,6 @@ PersistentObject::~PersistentObject()
 {
 }
 
-PersistentStore &PersistentObject::getStore()
-{
-    PersistentStore &store = PersistentStore::instance();
-    if(!store.initialized())
-        DEBUG << "PersistentStore was not initialized properly.";
-    return store;
-}
-
 QString PersistentObject::objectKey() const
 {
     return _objectKey;

@@ -32,9 +32,6 @@ public:
     //! once per initializeTranslator().
     static void destroy();
 
-    //! Access to the global pointer.  FIXME deprecated, keeping temporarily.
-    static Translator &instance();
-
     //! Translates the app.
     void translateApp(QCoreApplication *app, QString lang);
     //! The available languages.

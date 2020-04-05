@@ -30,12 +30,6 @@ Translator::Translator() : _qtTranslator(nullptr), _appTranslator(nullptr)
     _languageMap["Romanian"] = "ro";
 }
 
-Translator &Translator::instance()
-{
-    Q_ASSERT(global_translator != nullptr);
-    return (*global_translator);
-}
-
 Translator::~Translator()
 {
     remove_translators();

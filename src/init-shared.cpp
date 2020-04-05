@@ -228,8 +228,7 @@ static struct init_info init_shared_core()
 
     // Initialize the persistentstore.  Must be after setup wizard!
     PersistentStore::initializePersistentStore();
-    PersistentStore &store = PersistentStore::instance();
-    if(!store.init())
+    if(!global_store->init())
     {
         info.status = INIT_DB_FAILED;
         return (info);

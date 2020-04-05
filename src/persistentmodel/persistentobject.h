@@ -31,9 +31,6 @@ public:
     //! Returns whether an object with this key exists in the PersistentStore.
     virtual bool doesKeyExist(QString key) = 0;
 
-    //! Returns the PersistentStore singleton.
-    PersistentStore &getStore();
-
     //! Returns the object key.
     QString objectKey() const;
     //! Sets the object key.

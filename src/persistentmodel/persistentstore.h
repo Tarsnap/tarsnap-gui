@@ -31,13 +31,6 @@ public:
     //! called once per initializePersistentStore().
     static void destroy();
 
-    //! Access to the global pointer.  FIXME deprecated, keeping temporarily.
-    static PersistentStore &instance()
-    {
-        Q_ASSERT(global_store != nullptr);
-        return (*global_store);
-    }
-
     //! Returns the status of whether the database is initialized or not.
     bool initialized() { return _initialized; }
 

@@ -2,7 +2,11 @@
 
 WARNINGS_DISABLE
 #include <QApplication>
+#include <QBrush>
+#include <QTextBlockFormat>
 WARNINGS_ENABLE
+
+#include "LogEntry.h"
 
 TTextView::TTextView(QWidget *parent)
     : QPlainTextEdit(parent), _cursor(document())

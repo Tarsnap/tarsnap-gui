@@ -5,6 +5,7 @@
 
 WARNINGS_DISABLE
 #include <QObject>
+#include <QString>
 #include <QWidget>
 WARNINGS_ENABLE
 
@@ -13,6 +14,7 @@ namespace Ui
 {
 class TPathLineBrowse;
 }
+class QEvent;
 
 /*!
  * \ingroup lib-widgets

@@ -6,7 +6,12 @@
 WARNINGS_DISABLE
 #include <QLabel>
 #include <QObject>
+#include <QString>
 WARNINGS_ENABLE
+
+/* Forward declarations. */
+class QEvent;
+class QWidget;
 
 /*!
  * \ingroup lib-widgets

@@ -1,9 +1,11 @@
 #include "TPathComboBrowse.h"
 
+WARNINGS_DISABLE
 #include <QFileDialog>
 #include <QLineEdit>
 
 #include "ui_TPathComboBrowse.h"
+WARNINGS_ENABLE
 
 TPathComboBrowse::TPathComboBrowse(QWidget *parent)
     : QWidget(parent), _ui(new Ui::TPathComboBrowse)

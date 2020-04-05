@@ -1,7 +1,11 @@
 #ifndef TPATHCOMBOBROWSE_H
 #define TPATHCOMBOBROWSE_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QWidget>
+WARNINGS_ENABLE
 
 /* Forward declaration. */
 namespace Ui

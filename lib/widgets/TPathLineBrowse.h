@@ -1,7 +1,11 @@
 #ifndef TPATHLINEBROWSE_H
 #define TPATHLINEBROWSE_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
 #include <QWidget>
+WARNINGS_ENABLE
 
 /* Forward declaration. */
 namespace Ui

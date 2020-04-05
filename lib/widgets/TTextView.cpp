@@ -1,6 +1,8 @@
 #include "TTextView.h"
 
+WARNINGS_DISABLE
 #include <QApplication>
+WARNINGS_ENABLE
 
 TTextView::TTextView(QWidget *parent)
     : QPlainTextEdit(parent), _cursor(document())

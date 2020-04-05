@@ -1,8 +1,10 @@
 #include "TPathLineBrowse.h"
 
+WARNINGS_DISABLE
 #include <QFileDialog>
 
 #include "ui_TPathLineBrowse.h"
+WARNINGS_ENABLE
 
 TPathLineBrowse::TPathLineBrowse(QWidget *parent)
     : QWidget(parent), _ui(new Ui::TPathLineBrowse)

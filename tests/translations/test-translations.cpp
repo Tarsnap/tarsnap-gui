@@ -55,10 +55,10 @@ void TestTranslations::pathcombobrowse()
     // so this mainly a "does it crash?" test, although there will
     // also be cases where I want to run it manually.
 
-    Translator::instance().translateApp(qApp, "Romanian");
+    global_translator->translateApp(qApp, "Romanian");
     VISUAL_WAIT;
 
-    Translator::instance().translateApp(qApp, "English");
+    global_translator->translateApp(qApp, "English");
     VISUAL_WAIT;
 
     delete pcb;

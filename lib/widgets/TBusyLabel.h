@@ -5,6 +5,7 @@
 
 WARNINGS_DISABLE
 #include <QLabel>
+#include <QObject>
 WARNINGS_ENABLE
 
 /*!

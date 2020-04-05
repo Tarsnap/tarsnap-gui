@@ -5,6 +5,7 @@
 
 WARNINGS_DISABLE
 #include <QColor>
+#include <QObject>
 #include <QPlainTextEdit>
 #include <QTextCursor>
 WARNINGS_ENABLE

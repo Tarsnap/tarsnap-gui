@@ -4,6 +4,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QObject>
 #include <QWidget>
 WARNINGS_ENABLE
 

@@ -165,8 +165,7 @@ SettingsWidget::SettingsWidget(QWidget *parent)
                 if(!language.isEmpty())
                 {
                     this->commitSettings();
-                    Translator &translator = Translator::instance();
-                    translator.translateApp(qApp, language);
+                    global_translator->translateApp(qApp, language);
                 }
             });
 
@@ -305,9 +304,8 @@ void SettingsWidget::loadSettings()
     _ui->saveConsoleLogLineEdit->setText(LOG.getLogFile());
     LOG.setWriteToFile(settings.value("app/save_console_log", false).toBool());
 
-    Translator &translator = Translator::instance();
     _ui->languageComboBox->addItem(LANG_AUTO);
-    _ui->languageComboBox->addItems(translator.languageList());
+    _ui->languageComboBox->addItems(global_translator->languageList());
     _ui->languageComboBox->setCurrentText(
         settings.value("app/language", LANG_AUTO).toString());
 }

@@ -38,8 +38,7 @@ AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
     // Set up the translator.
     TSettings settings;
     Translator::initializeTranslator();
-    Translator &translator = Translator::instance();
-    translator.translateApp(
+    global_translator->translateApp(
         this, settings.value("app/language", LANG_AUTO).toString());
 }
 

@@ -4,10 +4,12 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QSettings>
 #include <QString>
 #include <QVariant>
 WARNINGS_ENABLE
+
+/* Forward declaration. */
+class QSettings;
 
 /*!
  * \ingroup misc

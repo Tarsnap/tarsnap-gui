@@ -2,8 +2,8 @@
 
 WARNINGS_DISABLE
 #include <QDebug>
-#include <QDir>
 #include <QFile>
+#include <QIODevice>
 WARNINGS_ENABLE
 
 ConsoleLog *global_log = nullptr;

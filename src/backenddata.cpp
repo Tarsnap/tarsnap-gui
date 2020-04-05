@@ -26,19 +26,18 @@ quint64 BackendData::numArchives()
 bool BackendData::loadArchives()
 {
     _archiveMap.clear();
-    PersistentStore &store = PersistentStore::instance();
-    if(!store.initialized())
+    if(!global_store->initialized())
     {
         DEBUG << "PersistentStore was not initialized properly.";
         return false;
     }
-    QSqlQuery query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("select name from archives")))
     {
         DEBUG << query.lastError().text();
         return false;
     }
-    if(store.runQuery(query) && query.next())
+    if(global_store->runQuery(query) && query.next())
     {
         do
         {
@@ -154,19 +153,18 @@ void BackendData::removeArchives(QList<ArchivePtr> archives)
 bool BackendData::loadJobs()
 {
     _jobMap.clear();
-    PersistentStore &store = PersistentStore::instance();
-    if(!store.initialized())
+    if(!global_store->initialized())
     {
         DEBUG << "PersistentStore was not initialized properly.";
         return false;
     }
-    QSqlQuery query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("select name from jobs")))
     {
         DEBUG << query.lastError().text();
         return false;
     }
-    if(store.runQuery(query) && query.next())
+    if(global_store->runQuery(query) && query.next())
     {
         do
         {

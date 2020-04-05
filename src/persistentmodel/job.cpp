@@ -295,8 +295,7 @@ void Job::save()
             " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     // Get database instance and create query object.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(queryString))
     {
         DEBUG << query.lastError().text();
@@ -323,7 +322,7 @@ void Job::save()
         query.addBindValue(_name);
 
     // Run query.
-    if(!store.runQuery(query))
+    if(!global_store->runQuery(query))
         DEBUG << "Failed to save Job entry.";
     setObjectKey(_name);
 }
@@ -337,8 +336,7 @@ void Job::load()
         return;
     }
     // Get database instance and prepare query.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("select * from jobs where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -347,7 +345,7 @@ void Job::load()
     // Fill in missing value in query string.
     query.addBindValue(_name);
     // Run query.
-    if(store.runQuery(query) && query.next())
+    if(global_store->runQuery(query) && query.next())
     {
         _urls = QUrl::fromStringList(query.value(query.record().indexOf("urls"))
                                          .toString()
@@ -400,8 +398,7 @@ void Job::purge()
         return;
     }
     // Get database instance and prepare query.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("delete from jobs where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -410,7 +407,7 @@ void Job::purge()
     // Fill in missing value in query string.
     query.addBindValue(_name);
     // Run query.
-    if(!store.runQuery(query))
+    if(!global_store->runQuery(query))
         DEBUG << "Failed to remove Job entry.";
     setObjectKey("");
     emit purged();
@@ -425,8 +422,7 @@ bool Job::doesKeyExist(QString key)
         return false;
     }
     // Get database instance and prepare query.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("select name from jobs where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -435,7 +431,7 @@ bool Job::doesKeyExist(QString key)
     // Fill in missing value in query string.
     query.addBindValue(key);
     // Run query.
-    if(store.runQuery(query))
+    if(global_store->runQuery(query))
     {
         if(query.next())
             return true;

@@ -37,15 +37,14 @@ void Journal::load()
 {
     _log.clear();
     // Get database instance and prepare query.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("select * from journal")))
     {
         DEBUG << query.lastError().text();
         return;
     }
     // Load stored log entries from the database.
-    if(store.runQuery(query))
+    if(global_store->runQuery(query))
     {
         while(query.next())
         {
@@ -69,15 +68,14 @@ void Journal::load()
 void Journal::purge()
 {
     // Get database instance and prepare query.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("delete from journal")))
     {
         DEBUG << query.lastError().text();
         return;
     }
     // Run "delete" query.
-    if(store.runQuery(query))
+    if(global_store->runQuery(query))
     {
         _log.clear();
         emit journal(_log);
@@ -98,8 +96,7 @@ void Journal::logMessage(QString message)
     emit logEntry(log);
 
     // Get database instance and prepare query.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("insert into journal(timestamp, log) "
                                     "values(?, ?)")))
     {
@@ -110,6 +107,6 @@ void Journal::logMessage(QString message)
     query.addBindValue(dateToEpoch(log.timestamp));
     query.addBindValue(log.message);
     // Run query.
-    if(!store.runQuery(query))
+    if(!global_store->runQuery(query))
         DEBUG << "Failed to add Journal entry.";
 }

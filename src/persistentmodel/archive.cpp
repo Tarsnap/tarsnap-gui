@@ -72,8 +72,7 @@ void Archive::save()
             " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     }
     // Get database instance and create query object.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(queryString))
     {
         DEBUG << query.lastError().text();
@@ -94,7 +93,7 @@ void Archive::save()
     if(exists)
         query.addBindValue(_name);
     // Run query.
-    if(!store.runQuery(query))
+    if(!global_store->runQuery(query))
         DEBUG << "Failed to save Archive entry.";
     setObjectKey(_name);
     emit changed();
@@ -109,8 +108,7 @@ void Archive::load()
         return;
     }
     // Get database instance and prepare query.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("select * from archives where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -119,7 +117,7 @@ void Archive::load()
     // Fill in missing value in query string.
     query.addBindValue(_name);
     // Run query and extract information.
-    if(store.runQuery(query) && query.next())
+    if(global_store->runQuery(query) && query.next())
     {
         _timestamp = QDateTime::fromTime_t(
             query.value(query.record().indexOf("timestamp")).toUInt());
@@ -162,8 +160,7 @@ void Archive::purge()
         return;
     }
     // Get database instance and prepare query.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("delete from archives where name = ?")))
     {
         DEBUG << query.lastError().text();
@@ -172,7 +169,7 @@ void Archive::purge()
     // Fill in missing value in query string.
     query.addBindValue(_name);
     // Run query.
-    if(!store.runQuery(query))
+    if(!global_store->runQuery(query))
         DEBUG << "Failed to remove Archive entry.";
     setObjectKey("");
     emit purged();
@@ -187,8 +184,7 @@ bool Archive::doesKeyExist(QString key)
         return false;
     }
     // Get database instance and prepare query.
-    PersistentStore &store = getStore();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
     if(!query.prepare(
            QLatin1String("select name from archives where name = ?")))
     {
@@ -198,7 +194,7 @@ bool Archive::doesKeyExist(QString key)
     // Fill in missing value in query string.
     query.addBindValue(key);
     // Run query.
-    if(store.runQuery(query))
+    if(global_store->runQuery(query))
     {
         if(query.next())
             return true;

@@ -132,8 +132,6 @@ bool AppGui::handle_step(const struct init_info info)
 
 bool AppGui::prepEventLoop()
 {
-    // Initialize the PersistentStore early
-    PersistentStore::instance();
     _journal = new Journal();
 
     // Queue loading the journal when we have an event loop.

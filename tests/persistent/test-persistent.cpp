@@ -56,15 +56,13 @@ void TestPersistent::cleanupTestCase()
 
 void TestPersistent::store_basic()
 {
-    PersistentStore &store = PersistentStore::instance();
-    int              ok    = store.init();
+    int ok = global_store->init();
     QVERIFY(ok);
 }
 
 void TestPersistent::store_write()
 {
-    PersistentStore &store = PersistentStore::instance();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
 
     if(!query.prepare("insert into journal(timestamp, log) values(?, ?)"))
         QFAIL("Failed to prepare query");
@@ -72,19 +70,18 @@ void TestPersistent::store_write()
     QDateTime ts = QDateTime::fromString(SAMPLE_DATE, SAMPLE_DATE_FORMAT);
     query.addBindValue(ts.toMSecsSinceEpoch());
     query.addBindValue(SAMPLE_MESSAGE);
-    if(!store.runQuery(query))
+    if(!global_store->runQuery(query))
         QFAIL("Failed to insert value into journal");
 }
 
 void TestPersistent::store_read()
 {
-    PersistentStore &store = PersistentStore::instance();
-    QSqlQuery        query = store.createQuery();
+    QSqlQuery query = global_store->createQuery();
 
     if(!query.prepare("select * from journal"))
         QFAIL("Failed to prepare query");
 
-    if(!store.runQuery(query))
+    if(!global_store->runQuery(query))
     {
         QFAIL("Failed to get values from journal");
     }
@@ -104,18 +101,16 @@ void TestPersistent::store_read()
 
 void TestPersistent::store_purge()
 {
-    PersistentStore &store = PersistentStore::instance();
-    QVERIFY(store.initialized() == true);
+    QVERIFY(global_store->initialized() == true);
 
-    store.purge();
-    QVERIFY(store.initialized() == false);
+    global_store->purge();
+    QVERIFY(global_store->initialized() == false);
 }
 
 void TestPersistent::journal_write()
 {
     // Initialize the store
-    PersistentStore &store = PersistentStore::instance();
-    int              ok    = store.init();
+    int ok = global_store->init();
     QVERIFY(ok);
 
     // Prep
@@ -178,8 +173,7 @@ void TestPersistent::journal_year_2106()
     // Write date & message
     {
         // Prep
-        PersistentStore &store = PersistentStore::instance();
-        QSqlQuery        query = store.createQuery();
+        QSqlQuery query = global_store->createQuery();
 
         // Prepare date and message
         if(!query.prepare("insert into journal(timestamp, log) values(?, ?)"))
@@ -190,7 +184,7 @@ void TestPersistent::journal_year_2106()
         query.addBindValue(SAMPLE_MESSAGE);
 
         // Write date and message
-        if(!store.runQuery(query))
+        if(!global_store->runQuery(query))
             QFAIL("Failed to insert value into journal");
     }
 

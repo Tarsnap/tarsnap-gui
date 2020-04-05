@@ -1,14 +1,16 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QCoreApplication>
 #include <QDateTime>
-#include <QGridLayout>
 #include <QLineEdit>
+#include <QList>
+#include <QObject>
 #include <QPixmap>
 #include <QPushButton>
-#include <QStackedWidget>
-#include <QVBoxLayout>
-#include <QtTest/QtTest>
+#include <QSignalSpy>
+#include <QString>
+#include <QTest>
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"

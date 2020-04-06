@@ -17,6 +17,7 @@ SOURCES += test-app-cmdline.cpp				\
 	../../src/app-cmdline.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/init-shared.cpp			\
+	../../src/parsearchivelistingtask.cpp		\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/journal.cpp		\
@@ -38,6 +39,7 @@ HEADERS +=						\
 	../../src/app-cmdline.h				\
 	../../src/backuptask.h				\
 	../../src/init-shared.h				\
+	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/journal.h		\

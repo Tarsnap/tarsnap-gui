@@ -75,6 +75,7 @@ SOURCES +=						\
 	src/jobrunner.cpp				\
 	src/main.cpp					\
 	src/notification.cpp				\
+	src/parsearchivelistingtask.cpp			\
 	src/persistentmodel/archive.cpp			\
 	src/persistentmodel/job.cpp			\
 	src/persistentmodel/journal.cpp			\
@@ -151,6 +152,7 @@ HEADERS +=						\
 	src/init-shared.h				\
 	src/jobrunner.h					\
 	src/notification.h				\
+	src/parsearchivelistingtask.h			\
 	src/persistentmodel/archive.h			\
 	src/persistentmodel/job.h			\
 	src/persistentmodel/journal.h			\

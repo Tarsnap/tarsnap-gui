@@ -4,19 +4,11 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QDateTime>
 #include <QMap>
 #include <QObject>
-#include <QQueue>
-#include <QSharedPointer>
-#include <QThread>
-#include <QThreadPool>
-#include <QUrl>
-#include <QUuid>
 WARNINGS_ENABLE
 
 #include "backuptask.h"
-#include "cmdlinetask.h"
 #include "notification_info.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
@@ -25,6 +17,7 @@ WARNINGS_ENABLE
 
 /* Forward declarations. */
 class BackendData;
+class CmdlineTask;
 class TaskQueuer;
 
 /*!

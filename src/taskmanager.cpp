@@ -10,6 +10,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "backenddata.h"
+#include "cmdlinetask.h"
 #include "debug.h"
 #include "jobrunner.h"
 #include "taskqueuer.h"

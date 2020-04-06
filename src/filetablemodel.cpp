@@ -90,7 +90,7 @@ void FileTableModel::setArchive(ArchivePtr archive)
     }
 }
 
-void FileTableModel::setFiles(QVector<File> files)
+void FileTableModel::setFiles(QVector<FileStat> files)
 {
     // This indicates that our internal data is changing.
     beginResetModel();

@@ -11,7 +11,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 //! Metadata about a file.
-struct File
+struct FileStat
 {
     //! Filename
     QString name;
@@ -50,7 +50,7 @@ public:
 
 signals:
     //! The list of files.
-    void result(QVector<File> files);
+    void result(QVector<FileStat> files);
 
 private:
     QString _listing;

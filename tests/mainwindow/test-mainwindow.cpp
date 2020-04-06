@@ -54,7 +54,7 @@ void TestMainWindow::initTestCase()
     IF_NOT_VISUAL { qInstallMessageHandler(offscreenMessageOutput); }
 
     // Initialization normally done in init_shared.cpp's init_no_app()
-    qRegisterMetaType<QVector<File>>("QVector<File>");
+    qRegisterMetaType<QVector<FileStat>>("QVector<FileStat>");
 
     // Deal with PersistentStore
     PersistentStore::initializePersistentStore();
@@ -321,7 +321,8 @@ void TestMainWindow::other_navigation()
     VISUAL_WAIT;
 
     // Switch back and forth between the job and archive.
-    QSignalSpy sig_fileList(actual_archive, SIGNAL(fileList(QVector<File>)));
+    QSignalSpy sig_fileList(actual_archive,
+                            SIGNAL(fileList(QVector<FileStat>)));
     mainwindow->displayInspectArchive(archive);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
     VISUAL_WAIT;

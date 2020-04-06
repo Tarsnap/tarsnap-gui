@@ -58,7 +58,7 @@ public:
     explicit Archive(QObject *parent = nullptr);
     ~Archive() override;
 
-    //! \name Getter/setter methods
+    //! Getter/setter methods
     //! @{
     QString   name() const;
     void      setName(const QString &value);

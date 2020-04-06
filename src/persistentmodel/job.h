@@ -52,7 +52,7 @@ public:
     //! Removes the filesystem watcher.
     void removeWatcher();
 
-    //! \name Getter/setter methods
+    //! Getter/setter methods
     //! @{
     QString name() const;
     void    setName(const QString &name);

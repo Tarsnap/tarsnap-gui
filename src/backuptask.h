@@ -31,7 +31,7 @@ public:
     //! Make the list of --exclude files and dirs.
     QStringList getExcludesList();
 
-    //! \name Getter/setter methods
+    //! Getter/setter methods
     //! @{
     QString name() const;
     void    setName(const QString &name);

@@ -12,21 +12,21 @@ WARNINGS_ENABLE
  * \brief Useful definitions for Tarsnap tasks.
  */
 
-/** @{ \name Tarsnap binaries */
+/** @{ Tarsnap binaries */
 #define CMD_TARSNAP "tarsnap"
 #define CMD_TARSNAPKEYGEN "tarsnap-keygen"
 #define CMD_TARSNAPKEYMGMT "tarsnap-keymgmt"
 #define TARSNAP_MIN_VERSION "1.0.39"
 /** @} */
 
-/** @{ \name Checking that we can access the Tarsnap server */
+/** @{ Checking that we can access the Tarsnap server */
 #define NETWORK_HOST "v1-0-0-server.tarsnap.com"
 #define NETWORK_PORT 9279
 #define NETWORK_UP_SLEEP 60
 #define NETWORK_UP_ATTEMPTS 3
 /** @} */
 
-/** @{ \name Default behaviour */
+/** @{ Default behaviour */
 #define DEFAULT_AGGRESSIVE_NETWORKING false
 #define DEFAULT_DOWNLOADS                                                      \
     QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)

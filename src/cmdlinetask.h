@@ -52,7 +52,7 @@ public:
     //! Get the Uuid.
     QUuid uuid() const;
 
-    //! \name Getter/setter methods
+    //! Getter/setter methods
     //! @{
     QString command() const;
     void    setCommand(const QString &command);

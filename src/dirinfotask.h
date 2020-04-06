@@ -30,9 +30,6 @@ signals:
 
 private:
     QDir _dir;
-
-    quint64 getDirSize(QDir dir);
-    quint64 getDirCount(QDir dir);
 };
 
-#endif /* !UTIL_H */
+#endif /* !DIRINFOTASK_H */

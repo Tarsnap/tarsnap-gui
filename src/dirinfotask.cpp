@@ -5,62 +5,57 @@ WARNINGS_DISABLE
 #include <QStandardPaths>
 WARNINGS_ENABLE
 
+/** Info about a directory (used recursively). */
+struct dirinfo
+{
+    /** Sum of file sizes. */
+    quint64 size;
+    /** Number of files. */
+    quint64 count;
+};
+
+/* Forward declaration. */
+struct dirinfo getDirInfo(const QDir dir);
+
 DirInfoTask::DirInfoTask(QDir dir) : _dir(dir)
 {
 }
 
 void DirInfoTask::run()
 {
-    quint64 size  = 0;
-    quint64 count = 0;
-
-    size  = getDirSize(_dir);
-    count = getDirCount(_dir);
-
-    emit result(size, count);
+    struct dirinfo dirinfo = getDirInfo(_dir);
+    emit           result(dirinfo.size, dirinfo.count);
 }
 
-quint64 DirInfoTask::getDirSize(QDir dir)
+struct dirinfo getDirInfo(QDir dir)
 {
-    quint64 size = 0;
+    struct dirinfo dirinfo = {0, 0};
     if(dir.exists())
     {
+        // We want to see all directories and files, no symlinks,
+        // and no . and .. directories.
         dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot
                       | QDir::Hidden | QDir::NoSymLinks);
 
+        // For each directory item...
         QFileInfoList list = dir.entryInfoList();
         for(int i = 0; i < list.size(); ++i)
         {
             QFileInfo fileInfo = list.at(i);
             if(fileInfo.isDir())
             {
-                size += getDirSize(QDir(fileInfo.absoluteFilePath()));
+                // ... if it's a dir, recursively get info about that dir.
+                struct dirinfo d = getDirInfo(fileInfo.absoluteFilePath());
+                dirinfo.size += d.size;
+                dirinfo.count += d.count;
             }
             else
-                size += static_cast<quint64>(fileInfo.size());
-        }
-    }
-    return size;
-}
-
-quint64 DirInfoTask::getDirCount(QDir dir)
-{
-    quint64 count = 0;
-    if(dir.exists())
-    {
-        dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot
-                      | QDir::Hidden | QDir::NoSymLinks);
-
-        QFileInfoList list = dir.entryInfoList();
-        for(int i = 0; i < list.size(); ++i)
-        {
-            QFileInfo fileInfo = list.at(i);
-            if(fileInfo.isDir())
             {
-                count += getDirCount(QDir(fileInfo.absoluteFilePath()));
+                // ... if it's a file, add its info to the total.
+                dirinfo.size += static_cast<quint64>(fileInfo.size());
+                dirinfo.count++;
             }
-            ++count;
         }
     }
-    return count;
+    return dirinfo;
 }

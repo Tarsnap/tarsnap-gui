@@ -8,6 +8,7 @@ WARNINGS_DISABLE
 #include "ui_backuplistwidgetitem.h"
 WARNINGS_ENABLE
 
+#include "dirinfotask.h"
 #include "utils.h"
 
 BackupListWidgetItem::BackupListWidgetItem(QUrl url)

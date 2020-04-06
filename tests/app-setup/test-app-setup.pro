@@ -34,8 +34,10 @@ SOURCES += test-app-setup.cpp				\
 	../../src/app-setup.cpp				\
 	../../src/backenddata.cpp			\
 	../../src/backuptask.cpp			\
+	../../src/cmdlinetask.cpp			\
 	../../src/filetablemodel.cpp			\
 	../../src/init-shared.cpp			\
+	../../src/jobrunner.cpp				\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/journal.cpp		\
@@ -47,8 +49,6 @@ SOURCES += test-app-setup.cpp				\
 	../../src/setupwizard/setupwizard_final.cpp	\
 	../../src/setupwizard/setupwizard_intro.cpp	\
 	../../src/setupwizard/setupwizard_register.cpp	\
-	../../src/cmdlinetask.cpp			\
-	../../src/jobrunner.cpp				\
 	../../src/taskmanager.cpp			\
 	../../src/taskqueuer.cpp			\
 	../../src/tasks/tasks-misc.cpp			\
@@ -77,8 +77,10 @@ HEADERS +=						\
 	../../src/app-setup.h				\
 	../../src/backenddata.h				\
 	../../src/backuptask.h				\
+	../../src/cmdlinetask.h				\
 	../../src/filetablemodel.h			\
 	../../src/init-shared.h				\
+	../../src/jobrunner.h				\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/journal.h		\
@@ -91,8 +93,6 @@ HEADERS +=						\
 	../../src/setupwizard/setupwizard_intro.h	\
 	../../src/setupwizard/setupwizard_register.h	\
 	../../src/tarsnaperror.h			\
-	../../src/cmdlinetask.h				\
-	../../src/jobrunner.h				\
 	../../src/taskmanager.h				\
 	../../src/taskqueuer.h				\
 	../../src/tasks/tasks-defs.h			\

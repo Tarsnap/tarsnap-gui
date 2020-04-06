@@ -71,6 +71,7 @@ SOURCES +=						\
 	src/customfilesystemmodel.cpp			\
 	src/filetablemodel.cpp				\
 	src/init-shared.cpp				\
+	src/jobrunner.cpp				\
 	src/main.cpp					\
 	src/notification.cpp				\
 	src/persistentmodel/archive.cpp			\
@@ -85,7 +86,6 @@ SOURCES +=						\
 	src/setupwizard/setupwizard_intro.cpp		\
 	src/setupwizard/setupwizard_register.cpp	\
 	src/tarsnapaccount.cpp				\
-	src/jobrunner.cpp				\
 	src/taskmanager.cpp				\
 	src/taskqueuer.cpp				\
 	src/tasks/tasks-misc.cpp			\
@@ -147,6 +147,7 @@ HEADERS +=						\
 	src/debug.h					\
 	src/filetablemodel.h				\
 	src/init-shared.h				\
+	src/jobrunner.h					\
 	src/notification.h				\
 	src/persistentmodel/archive.h			\
 	src/persistentmodel/job.h			\
@@ -161,7 +162,6 @@ HEADERS +=						\
 	src/setupwizard/setupwizard_register.h		\
 	src/tarsnapaccount.h				\
 	src/tarsnaperror.h				\
-	src/jobrunner.h					\
 	src/taskmanager.h				\
 	src/taskqueuer.h				\
 	src/tasks/tasks-defs.h				\

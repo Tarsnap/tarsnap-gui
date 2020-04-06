@@ -8,12 +8,12 @@ HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../src/backenddata.h				\
 	../../src/backuptask.h				\
+	../../src/cmdlinetask.h				\
+	../../src/jobrunner.h				\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
-	../../src/cmdlinetask.h				\
-	../../src/jobrunner.h				\
 	../../src/taskmanager.h				\
 	../../src/taskqueuer.h				\
 	../../src/tasks/tasks-defs.h			\
@@ -29,12 +29,12 @@ SOURCES += test-taskmanager.cpp				\
 	../../lib/core/TSettings.cpp			\
 	../../src/backenddata.cpp			\
 	../../src/backuptask.cpp			\
+	../../src/cmdlinetask.cpp			\
+	../../src/jobrunner.cpp				\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
-	../../src/cmdlinetask.cpp			\
-	../../src/jobrunner.cpp				\
 	../../src/taskmanager.cpp			\
 	../../src/taskqueuer.cpp			\
 	../../src/tasks/tasks-misc.cpp			\

@@ -1,6 +1,8 @@
 #ifndef TASKSTATUS_H
 #define TASKSTATUS_H
 
+#include "warnings-disable.h"
+
 WARNINGS_DISABLE
 #include <QMetaType>
 WARNINGS_ENABLE
@@ -22,4 +24,4 @@ enum TaskStatus
 
 Q_DECLARE_METATYPE(TaskStatus)
 
-#endif
+#endif /* !TASKSTATUS_H */

@@ -117,7 +117,7 @@ signals:
     //! This item was deleted.
     void purged();
     //! The file list has been updated.
-    void fileList(QVector<File> files);
+    void fileList(QVector<FileStat> files);
 
 private:
     QString    _name;

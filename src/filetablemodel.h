@@ -47,11 +47,11 @@ public:
 
 public slots:
     //! Sets the list of files to be stored in this object.
-    void setFiles(QVector<File> files);
+    void setFiles(QVector<FileStat> files);
 
 private:
-    QVector<File> _files;
-    ArchivePtr    _archive;
+    QVector<FileStat> _files;
+    ArchivePtr        _archive;
 
     enum TableColumns
     {

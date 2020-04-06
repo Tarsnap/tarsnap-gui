@@ -34,7 +34,7 @@ void TestArchivesTabWidget::initTestCase()
     IF_NOT_VISUAL { qInstallMessageHandler(offscreenMessageOutput); }
 
     // Initialization normally done in init_shared.cpp's init_no_app()
-    qRegisterMetaType<QVector<File>>("QVector<File>");
+    qRegisterMetaType<QVector<FileStat>>("QVector<FileStat>");
 }
 
 void TestArchivesTabWidget::cleanupTestCase()
@@ -106,7 +106,8 @@ void TestArchivesTabWidget::displayArchive()
     alw->addArchive(archive);
     VISUAL_WAIT;
 
-    QSignalSpy sig_fileList(actual_archive, SIGNAL(fileList(QVector<File>)));
+    QSignalSpy sig_fileList(actual_archive,
+                            SIGNAL(fileList(QVector<FileStat>)));
     archivestabwidget->displayInspectArchive(archive);
     VISUAL_WAIT;
 

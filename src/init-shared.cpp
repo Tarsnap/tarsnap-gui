@@ -45,7 +45,7 @@ static void init_no_app()
     qRegisterMetaType<TarsnapError>("TarsnapError");
     qRegisterMetaType<LogEntry>("LogEntry");
     qRegisterMetaType<QVector<LogEntry>>("QVector<LogEntry>");
-    qRegisterMetaType<QVector<File>>("QVector<File>");
+    qRegisterMetaType<QVector<FileStat>>("QVector<FileStat>");
     qRegisterMetaType<enum message_type>("enum message_type");
 }
 

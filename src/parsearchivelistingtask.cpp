@@ -6,7 +6,7 @@ WARNINGS_ENABLE
 
 void ParseArchiveListingTask::run()
 {
-    QVector<File> files;
+    QVector<FileStat> files;
     // This splits each line of "tarsnap -tv -f ..." into a QStringList.
     // (We don't actually run "tarsnap -tv", because that data is
     // already stored in the Archive _contents when we created it.)
@@ -16,7 +16,7 @@ void ParseArchiveListingTask::run()
     {
         if(-1 != fileRx.indexIn(line))
         {
-            File file;
+            FileStat file;
             file.mode     = fileRx.capturedTexts()[1];
             file.links    = fileRx.capturedTexts()[2].toULongLong();
             file.user     = fileRx.capturedTexts()[3];

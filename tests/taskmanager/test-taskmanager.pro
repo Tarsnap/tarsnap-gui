@@ -11,6 +11,7 @@ HEADERS  +=						\
 	../../src/cmdlinetask.h				\
 	../../src/dirinfotask.h				\
 	../../src/jobrunner.h				\
+	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
@@ -33,6 +34,7 @@ SOURCES += test-taskmanager.cpp				\
 	../../src/cmdlinetask.cpp			\
 	../../src/dirinfotask.cpp			\
 	../../src/jobrunner.cpp				\
+	../../src/parsearchivelistingtask.cpp		\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\

@@ -40,6 +40,7 @@ HEADERS  +=						\
 	../../src/customfilesystemmodel.h		\
 	../../src/dirinfotask.h				\
 	../../src/filetablemodel.h			\
+	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
@@ -85,6 +86,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/dirinfotask.cpp			\
 	../../src/filetablemodel.cpp			\
+	../../src/parsearchivelistingtask.cpp		\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\

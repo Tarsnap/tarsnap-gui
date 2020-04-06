@@ -11,6 +11,7 @@ WARNINGS_DISABLE
 #include <QStringList>
 WARNINGS_ENABLE
 
+#include "parsearchivelistingtask.h"
 #include "persistentobject.h"
 
 #define ARCHIVE_TIMESTAMP_FORMAT QLatin1String("_yyyy-MM-dd_HH-mm-ss")
@@ -43,52 +44,6 @@ class Archive;
 typedef QSharedPointer<Archive> ArchivePtr;
 
 Q_DECLARE_METATYPE(ArchivePtr)
-
-//! Metadata about a file.
-struct File
-{
-    //! Filename
-    QString name;
-    //! Date-time last modified
-    QString modified;
-    //! Filesize
-    quint64 size;
-    //! Owner's user name
-    QString user;
-    //! Owner's group name
-    QString group;
-    //! Permissions
-    QString mode;
-    //! Number of links
-    quint64 links;
-};
-
-/*!
- * \ingroup background-tasks
- * \brief The ParseArchiveListingTask extracts the list of files
- * from an archive.
- */
-class ParseArchiveListingTask : public QObject, public QRunnable
-{
-    Q_OBJECT
-
-public:
-    //! Constructor.
-    //! \param listing the output of <tt>tarsnap -tv</tt>.
-    explicit ParseArchiveListingTask(const QString &listing) : _listing(listing)
-    {
-    }
-    //! Run this task in the background; will emit the \ref result
-    //! signal when finished.
-    void run();
-
-signals:
-    //! The list of files.
-    void result(QVector<File> files);
-
-private:
-    QString _listing;
-};
 
 /*!
  * \ingroup persistent

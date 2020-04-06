@@ -22,6 +22,7 @@ SOURCES +=						\
 	../../src/init-shared.cpp			\
 	../../src/jobrunner.cpp				\
 	../../src/main.cpp				\
+	../../src/parsearchivelistingtask.cpp		\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/journal.cpp		\
@@ -52,6 +53,7 @@ HEADERS +=						\
 	../../src/filetablemodel.h			\
 	../../src/init-shared.h				\
 	../../src/jobrunner.h				\
+	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/journal.h		\

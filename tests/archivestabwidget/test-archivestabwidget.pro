@@ -15,6 +15,7 @@ HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../src/filetablemodel.h			\
+	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
@@ -33,6 +34,7 @@ SOURCES += test-archivestabwidget.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../src/filetablemodel.cpp			\
+	../../src/parsearchivelistingtask.cpp		\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\

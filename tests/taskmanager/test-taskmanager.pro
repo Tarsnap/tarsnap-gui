@@ -9,6 +9,7 @@ HEADERS  +=						\
 	../../src/backenddata.h				\
 	../../src/backuptask.h				\
 	../../src/cmdlinetask.h				\
+	../../src/dirinfotask.h				\
 	../../src/jobrunner.h				\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
@@ -30,6 +31,7 @@ SOURCES += test-taskmanager.cpp				\
 	../../src/backenddata.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/cmdlinetask.cpp			\
+	../../src/dirinfotask.cpp			\
 	../../src/jobrunner.cpp				\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\

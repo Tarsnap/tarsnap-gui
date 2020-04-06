@@ -13,6 +13,7 @@ HEADERS  +=						\
 	../../lib/widgets/TElidedLabel.h		\
 	../../src/backuptask.h				\
 	../../src/customfilesystemmodel.h		\
+	../../src/dirinfotask.h				\
 	../../src/tasks/tasks-utils.h			\
 	../../src/utils.h				\
 	../../src/widgets/backuplistwidget.h		\
@@ -28,6 +29,7 @@ SOURCES += test-backuptabwidget.cpp			\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../src/backuptask.cpp			\
 	../../src/customfilesystemmodel.cpp		\
+	../../src/dirinfotask.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/utils.cpp				\
 	../../src/widgets/backuplistwidget.cpp		\

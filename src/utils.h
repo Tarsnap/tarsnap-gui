@@ -54,32 +54,6 @@ struct DirMessage
 namespace Utils
 {
 
-/*!
- * \ingroup background-tasks
- * \brief The GetDirInfoTask reads the filesize and count of a directory
- * and its subdirectories.
- */
-class GetDirInfoTask : public QObject, public QRunnable
-{
-    Q_OBJECT
-
-public:
-    //! Constructor.
-    explicit GetDirInfoTask(QDir dir);
-    //! Execute the task.
-    void run();
-
-signals:
-    //! The directory's size and number of files.
-    void result(quint64 size, quint64 count);
-
-private:
-    QDir _dir;
-
-    quint64 getDirSize(QDir dir);
-    quint64 getDirCount(QDir dir);
-};
-
 // Convert an int64 size in bytes to a human readable string using either
 // SI(1000) or IEC(1024) units (default is SI) depending on the app setting
 QString humanBytes(quint64 bytes, int fieldWidth = 0);

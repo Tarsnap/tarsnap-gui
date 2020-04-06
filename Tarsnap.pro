@@ -69,6 +69,7 @@ SOURCES +=						\
 	src/backuptask.cpp				\
 	src/cmdlinetask.cpp				\
 	src/customfilesystemmodel.cpp			\
+	src/dirinfotask.cpp				\
 	src/filetablemodel.cpp				\
 	src/init-shared.cpp				\
 	src/jobrunner.cpp				\
@@ -145,6 +146,7 @@ HEADERS +=						\
 	src/cmdlinetask.h				\
 	src/customfilesystemmodel.h			\
 	src/debug.h					\
+	src/dirinfotask.h				\
 	src/filetablemodel.h				\
 	src/init-shared.h				\
 	src/jobrunner.h					\

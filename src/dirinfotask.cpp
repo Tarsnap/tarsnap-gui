@@ -5,13 +5,11 @@ WARNINGS_DISABLE
 #include <QStandardPaths>
 WARNINGS_ENABLE
 
-using namespace Utils;
-
-GetDirInfoTask::GetDirInfoTask(QDir dir) : _dir(dir)
+DirInfoTask::DirInfoTask(QDir dir) : _dir(dir)
 {
 }
 
-void GetDirInfoTask::run()
+void DirInfoTask::run()
 {
     quint64 size  = 0;
     quint64 count = 0;
@@ -22,7 +20,7 @@ void GetDirInfoTask::run()
     emit result(size, count);
 }
 
-quint64 GetDirInfoTask::getDirSize(QDir dir)
+quint64 DirInfoTask::getDirSize(QDir dir)
 {
     quint64 size = 0;
     if(dir.exists())
@@ -45,7 +43,7 @@ quint64 GetDirInfoTask::getDirSize(QDir dir)
     return size;
 }
 
-quint64 GetDirInfoTask::getDirCount(QDir dir)
+quint64 DirInfoTask::getDirCount(QDir dir)
 {
     quint64 count = 0;
     if(dir.exists())

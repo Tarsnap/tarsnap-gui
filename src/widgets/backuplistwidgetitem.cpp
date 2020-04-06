@@ -76,11 +76,11 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
             QPixmap icon(":/icons/folder.png");
             _ui->iconLabel->setPixmap(icon);
             // Load info about this directory in a separate thread.
-            QDir                   dir(file.absoluteFilePath());
-            QThreadPool *          threadPool = QThreadPool::globalInstance();
-            Utils::GetDirInfoTask *task       = new Utils::GetDirInfoTask(dir);
+            QDir         dir(file.absoluteFilePath());
+            QThreadPool *threadPool = QThreadPool::globalInstance();
+            DirInfoTask *task       = new DirInfoTask(dir);
             task->setAutoDelete(true);
-            connect(task, &Utils::GetDirInfoTask::result, this,
+            connect(task, &DirInfoTask::result, this,
                     &BackupListWidgetItem::updateDirDetail, QUEUED);
             threadPool->start(task);
         }

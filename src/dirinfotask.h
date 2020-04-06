@@ -9,21 +9,18 @@ WARNINGS_DISABLE
 #include <QRunnable>
 WARNINGS_ENABLE
 
-namespace Utils
-{
-
 /*!
  * \ingroup background-tasks
- * \brief The GetDirInfoTask reads the filesize and count of a directory
+ * \brief The DirInfoTask reads the filesize and count of a directory
  * and its subdirectories.
  */
-class GetDirInfoTask : public QObject, public QRunnable
+class DirInfoTask : public QObject, public QRunnable
 {
     Q_OBJECT
 
 public:
     //! Constructor.
-    explicit GetDirInfoTask(QDir dir);
+    explicit DirInfoTask(QDir dir);
     //! Execute the task.
     void run();
 
@@ -37,6 +34,5 @@ private:
     quint64 getDirSize(QDir dir);
     quint64 getDirCount(QDir dir);
 };
-} // namespace Utils
 
 #endif /* !UTIL_H */

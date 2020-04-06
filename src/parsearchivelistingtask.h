@@ -41,9 +41,7 @@ class ParseArchiveListingTask : public QObject, public QRunnable
 public:
     //! Constructor.
     //! \param listing the output of <tt>tarsnap -tv</tt>.
-    explicit ParseArchiveListingTask(const QString &listing) : _listing(listing)
-    {
-    }
+    explicit ParseArchiveListingTask(const QString &listing);
     //! Run this task in the background; will emit the \ref result
     //! signal when finished.
     void run();

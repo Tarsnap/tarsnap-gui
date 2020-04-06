@@ -4,6 +4,11 @@ WARNINGS_DISABLE
 #include <QThreadPool>
 WARNINGS_ENABLE
 
+ParseArchiveListingTask::ParseArchiveListingTask(const QString &listing)
+    : _listing(listing)
+{
+}
+
 void ParseArchiveListingTask::run()
 {
     QVector<FileStat> files;

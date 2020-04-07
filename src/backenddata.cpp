@@ -42,11 +42,11 @@ bool BackendData::loadArchives()
         DEBUG << "loadArchives query failed.";
         return false;
     }
+    const int index = query.record().indexOf("name");
     while(query.next())
     {
         ArchivePtr archive(new Archive);
-        archive->setName(
-            query.value(query.record().indexOf("name")).toString());
+        archive->setName(query.value(index).toString());
         archive->load();
         _archiveMap[archive->name()] = archive;
     }
@@ -171,10 +171,11 @@ bool BackendData::loadJobs()
         DEBUG << "loadJobs query failed.";
         return false;
     }
+    const int index = query.record().indexOf("name");
     while(query.next())
     {
         JobPtr job(new Job);
-        job->setName(query.value(query.record().indexOf("name")).toString());
+        job->setName(query.value(index).toString());
         connect(job.data(), &Job::loadArchives, this,
                 &BackendData::loadJobArchives);
         job->load();

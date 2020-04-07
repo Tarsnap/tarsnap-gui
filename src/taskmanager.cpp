@@ -357,6 +357,10 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
     // This needs the archive stats.
     notifyBackupTaskUpdate(backupTaskData, TaskStatus::Completed);
 
+    // Bail if it's a --dry-run.
+    if(backupTaskData->optionDryRun())
+        return;
+
     // Write the Archive data to the PersistentStore.
     archive->save();
 

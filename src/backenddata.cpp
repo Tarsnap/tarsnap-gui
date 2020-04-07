@@ -92,9 +92,11 @@ ArchivePtr BackendData::newArchive(BackupTaskDataPtr backupTaskData,
     archive->setTimestamp(
         QDateTime::fromTime_t(backupTaskData->timestamp().toTime_t()));
 
+    // Link it.
+    backupTaskData->setArchive(archive);
+
     // Save data and add to the map.
     archive->save();
-    backupTaskData->setArchive(archive);
     _archiveMap.insert(archive->name(), archive);
 
     // Ensure that the archive is attached to the job (if applicable).

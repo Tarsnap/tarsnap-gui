@@ -26,6 +26,8 @@ quint64 BackendData::numArchives()
 bool BackendData::loadArchives()
 {
     _archiveMap.clear();
+
+    // Get data from the store.
     if(!global_store->initialized())
     {
         DEBUG << "PersistentStore was not initialized properly.";
@@ -42,6 +44,8 @@ bool BackendData::loadArchives()
         DEBUG << "loadArchives query failed.";
         return false;
     }
+
+    // Process data from the store.
     const int index = query.record().indexOf("name");
     while(query.next())
     {
@@ -57,6 +61,8 @@ QList<ArchivePtr> BackendData::findMatchingArchives(const QString &jobPrefix)
 {
     const QString prefix = jobPrefix + QChar('_');
 
+    // Get all archives beginning with the relevant prefix who do
+    // not already belong to a job.
     QList<ArchivePtr> matching;
     for(const ArchivePtr &archive : _archiveMap)
     {
@@ -71,21 +77,27 @@ ArchivePtr BackendData::newArchive(BackupTaskDataPtr backupTaskData,
 {
     ArchivePtr archive(new Archive);
     archive->setName(backupTaskData->name());
+    archive->setCommand(backupTaskData->command());
+    archive->setJobRef(backupTaskData->jobRef());
+
+    // Was the archive creation interrupted?
     if(truncated)
     {
         archive->setName(archive->name().append(".part"));
         archive->setTruncated(true);
     }
-    archive->setCommand(backupTaskData->command());
+
     // Lose milliseconds precision by converting to Unix timestamp and back.
     // So that a subsequent comparison in getArchiveListFinished won't fail.
     archive->setTimestamp(
         QDateTime::fromTime_t(backupTaskData->timestamp().toTime_t()));
-    archive->setJobRef(backupTaskData->jobRef());
-    // parseArchiveStats(stdErr, true, archive);
+
+    // Save data and add to the map.
     archive->save();
     backupTaskData->setArchive(archive);
     _archiveMap.insert(archive->name(), archive);
+
+    // Ensure that the archive is attached to the job (if applicable).
     for(const JobPtr &job : _jobMap)
     {
         if(job->objectKey() == archive->jobRef())
@@ -156,6 +168,8 @@ void BackendData::removeArchives(QList<ArchivePtr> archives)
 bool BackendData::loadJobs()
 {
     _jobMap.clear();
+
+    // Get data from the store.
     if(!global_store->initialized())
     {
         DEBUG << "PersistentStore was not initialized properly.";
@@ -172,6 +186,8 @@ bool BackendData::loadJobs()
         DEBUG << "loadJobs query failed.";
         return false;
     }
+
+    // Process data from the store.
     const int index = query.record().indexOf("name");
     while(query.next())
     {

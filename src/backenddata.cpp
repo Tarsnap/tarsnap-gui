@@ -37,16 +37,18 @@ bool BackendData::loadArchives()
         DEBUG << query.lastError().text();
         return false;
     }
-    if(global_store->runQuery(query) && query.next())
+    if(!global_store->runQuery(query))
     {
-        do
-        {
-            ArchivePtr archive(new Archive);
-            archive->setName(
-                query.value(query.record().indexOf("name")).toString());
-            archive->load();
-            _archiveMap[archive->name()] = archive;
-        } while(query.next());
+        DEBUG << "loadArchives query failed.";
+        return false;
+    }
+    while(query.next())
+    {
+        ArchivePtr archive(new Archive);
+        archive->setName(
+            query.value(query.record().indexOf("name")).toString());
+        archive->load();
+        _archiveMap[archive->name()] = archive;
     }
     return true;
 }
@@ -164,18 +166,19 @@ bool BackendData::loadJobs()
         DEBUG << query.lastError().text();
         return false;
     }
-    if(global_store->runQuery(query) && query.next())
+    if(!global_store->runQuery(query))
     {
-        do
-        {
-            JobPtr job(new Job);
-            job->setName(
-                query.value(query.record().indexOf("name")).toString());
-            connect(job.data(), &Job::loadArchives, this,
-                    &BackendData::loadJobArchives);
-            job->load();
-            _jobMap[job->name()] = job;
-        } while(query.next());
+        DEBUG << "loadJobs query failed.";
+        return false;
+    }
+    while(query.next())
+    {
+        JobPtr job(new Job);
+        job->setName(query.value(query.record().indexOf("name")).toString());
+        connect(job.data(), &Job::loadArchives, this,
+                &BackendData::loadJobArchives);
+        job->load();
+        _jobMap[job->name()] = job;
     }
     return true;
 }

@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include <QtSql>
 WARNINGS_ENABLE
 
+/* Set up global PersistentStore. */
 class PersistentStore;
 extern PersistentStore *global_store;
 

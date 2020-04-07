@@ -12,6 +12,7 @@ WARNINGS_ENABLE
 
 #define LANG_AUTO "Auto"
 
+/* Set up global Translator. */
 class Translator;
 extern Translator *global_translator;
 

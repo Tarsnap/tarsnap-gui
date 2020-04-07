@@ -12,6 +12,7 @@ WARNINGS_DISABLE
 #include <QStringRef>
 WARNINGS_ENABLE
 
+/* Set up global ConsoleLog. */
 class ConsoleLog;
 extern ConsoleLog *global_log;
 #define LOG (*global_log)

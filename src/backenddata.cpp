@@ -95,6 +95,10 @@ ArchivePtr BackendData::newArchive(BackupTaskDataPtr backupTaskData,
     // Link it.
     backupTaskData->setArchive(archive);
 
+    // Bail if it's a --dry-run.
+    if(backupTaskData->optionDryRun())
+        return archive;
+
     // Save data and add to the map.
     archive->save();
     _archiveMap.insert(archive->name(), archive);

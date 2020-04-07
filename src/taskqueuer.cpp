@@ -60,7 +60,12 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
         // create a checkpoint.  Non-tarsnap binaries should be
         // receive a CmdlineTask::stop() instead of a SIGQUIT.
         if(!_runningTasks.isEmpty())
-            _runningTasks.first()->task->sigquit();
+        {
+            TaskMeta *tm = _runningTasks.first();
+            Q_ASSERT(tm->isBackup == true);
+            CmdlineTask *backupTask = tm->task;
+            backupTask->sigquit();
+        }
         emit message("Interrupting current backup.");
     }
 

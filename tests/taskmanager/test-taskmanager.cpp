@@ -36,6 +36,7 @@ private slots:
     void tarsnapVersion_fake();
     void registerMachine_fake();
     void backup_fake();
+    void backup_interrupt_fake();
 };
 
 void TestTaskManager::initTestCase()
@@ -558,6 +559,91 @@ void TestTaskManager::backup_fake()
     QVERIFY(grep_file(logfilename, "tarsnap") == 1);
     QVERIFY(grep_file(logfilename, "this_backup") == 1);
     QVERIFY(grep_file(logfilename, "file1") == 1);
+
+    // Clean up.
+    LOG.setWriteToFile(false);
+    delete manager;
+}
+
+void TestTaskManager::backup_interrupt_fake()
+{
+    TARSNAP_CLI_OR_SKIP;
+
+    TaskManager *manager = new TaskManager();
+    const char * logfilename;
+    QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
+    QSignalSpy   sig_numTasks(manager, SIGNAL(numTasks(bool, int, int)));
+    QVariant     msg;
+
+    QList<QVariant> numTasks;
+
+    // Sanity test: we shouldn't have this (extra) file in the directory.
+    Q_ASSERT(!QFile::exists("keyfile"));
+
+    // Initialize log file.
+    LOG.setWriteToFile(true);
+
+    // Set up --dry-run only.  Make sure that we don't have other
+    // settings, otherwise tarsnap might complain (e.g., invalid
+    // keyfile, cachedir without keyfile).
+    TSettings settings;
+    settings.setValue("tarsnap/key", "");
+    settings.setValue("tarsnap/cache", "");
+    settings.setValue("tarsnap/dry_run", "true");
+
+    // Create backup task.  Read from $HOME so that we have enough
+    // data that it'll still be going when we interrupt it.
+    BackupTaskDataPtr btd(new BackupTaskData);
+    btd->setName("this_backup");
+    QList<QUrl> testdir_urls({QUrl("file://" + QDir::homePath())});
+    btd->setUrls(testdir_urls);
+
+    // Set up the logfile and start the task.
+    logfilename = TEST_DIR "/backup_fake_interrupt_1.log";
+    LOG.setFilename(logfilename);
+    manager->backupNow(btd);
+
+    // Check that numTasks is correct.
+    QVERIFY(sig_numTasks.count() == 1);
+    numTasks = sig_numTasks.takeFirst();
+    QVERIFY(numTasks.at(0).toBool() == true);
+
+    // Wait for it to start.
+    WAIT_UNTIL(sig_message.count() >= 2);
+    msg = sig_message.takeFirst().at(0);
+    QVERIFY(msg.toString().contains("queued"));
+    msg = sig_message.takeFirst().at(0);
+    QVERIFY(msg.toString().contains("is running"));
+
+    // Wait another little bit.  This should be enough for the
+    // tarsnap client to start reading data, but not long enough
+    // for it to finish.
+    QTest::qWait(500);
+
+    // Bail if we finish early.
+    if(sig_numTasks.count() > 0)
+        QSKIP("Finished backup too soon");
+
+    // Interrupt the backup.
+    manager->stopTasks(true, false, false);
+
+    // Check that we interrupted it.
+    WAIT_UNTIL(sig_message.count() >= 1);
+    msg = sig_message.takeFirst().at(0);
+    QVERIFY(msg.toString() == "Interrupting current backup.");
+
+    // Check that we reported that the backup is completed.
+    WAIT_UNTIL(sig_message.count() >= 1);
+    msg = sig_message.takeFirst().at(0);
+    QVERIFY(msg.toString().contains("completed"));
+
+    // Check that numTasks is correct (after stopping).
+    WAIT_UNTIL(sig_numTasks.count() >= 1);
+    numTasks = sig_numTasks.takeFirst();
+    QVERIFY(numTasks.at(0).toBool() == false);
+
+    // Check the logfile.
+    QVERIFY(grep_file(logfilename, "quit signal received") == 1);
 
     // Clean up.
     LOG.setWriteToFile(false);

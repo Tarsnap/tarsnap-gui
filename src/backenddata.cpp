@@ -55,11 +55,12 @@ bool BackendData::loadArchives()
 
 QList<ArchivePtr> BackendData::findMatchingArchives(const QString &jobPrefix)
 {
+    const QString prefix = jobPrefix + QChar('_');
+
     QList<ArchivePtr> matching;
     for(const ArchivePtr &archive : _archiveMap)
     {
-        if(archive->name().startsWith(jobPrefix + QChar('_'))
-           && archive->jobRef().isEmpty())
+        if(archive->name().startsWith(prefix) && archive->jobRef().isEmpty())
             matching << archive;
     }
     return matching;

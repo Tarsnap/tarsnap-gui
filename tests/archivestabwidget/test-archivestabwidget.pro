@@ -14,6 +14,7 @@ RESOURCES += ../../resources/resources.qrc
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TElidedLabel.h		\
+	../../src/archivefilestat.h			\
 	../../src/filetablemodel.h			\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\

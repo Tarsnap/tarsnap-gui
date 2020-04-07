@@ -1,5 +1,7 @@
 #include "filetablemodel.h"
 
+#include "archivefilestat.h"
+
 FileTableModel::FileTableModel(QObject *parent) : QAbstractTableModel(parent)
 {
 }

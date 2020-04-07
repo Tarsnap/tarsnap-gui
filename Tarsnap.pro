@@ -142,6 +142,7 @@ HEADERS +=						\
 	src/app-cmdline.h				\
 	src/app-gui.h					\
 	src/app-setup.h					\
+	src/archivefilestat.h				\
 	src/backenddata.h				\
 	src/backuptask.h				\
 	src/cmdlinetask.h				\

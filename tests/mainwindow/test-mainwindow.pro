@@ -36,6 +36,7 @@ HEADERS  +=						\
 	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../lib/widgets/TTextView.h			\
+	../../src/archivefilestat.h			\
 	../../src/backuptask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/dirinfotask.h				\

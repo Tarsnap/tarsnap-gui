@@ -10,6 +10,7 @@ WARNINGS_DISABLE
 #include <QVector>
 WARNINGS_ENABLE
 
+#include "archivefilestat.h"
 #include "backuptask.h"
 #include "debug.h"
 #include "notification_info.h"

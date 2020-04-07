@@ -7,6 +7,7 @@ WARNINGS_DISABLE
 #include <QAbstractTableModel>
 WARNINGS_ENABLE
 
+#include "archivefilestat.h"
 #include "persistentmodel/archive.h"
 
 /*!

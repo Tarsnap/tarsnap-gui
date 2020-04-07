@@ -6,6 +6,7 @@ WARNINGS_DISABLE
 #include "ui_archivewidget.h"
 WARNINGS_ENABLE
 
+#include "archivefilestat.h"
 #include "restoredialog.h"
 #include "utils.h"
 

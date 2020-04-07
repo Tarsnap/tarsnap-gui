@@ -10,24 +10,7 @@ WARNINGS_DISABLE
 #include <QVector>
 WARNINGS_ENABLE
 
-//! Metadata about a file.
-struct FileStat
-{
-    //! Filename
-    QString name;
-    //! Date-time last modified
-    QString modified;
-    //! Filesize
-    quint64 size;
-    //! Owner's user name
-    QString user;
-    //! Owner's group name
-    QString group;
-    //! Permissions
-    QString mode;
-    //! Number of links
-    quint64 links;
-};
+#include "archivefilestat.h"
 
 /*!
  * \ingroup background-tasks

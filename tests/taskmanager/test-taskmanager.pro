@@ -6,6 +6,7 @@ VALGRIND = true
 HEADERS  +=						\
 	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
+	../../src/archivefilestat.h			\
 	../../src/backenddata.h				\
 	../../src/backuptask.h				\
 	../../src/cmdlinetask.h				\

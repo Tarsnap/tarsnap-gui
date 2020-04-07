@@ -11,7 +11,7 @@ WARNINGS_DISABLE
 #include <QStringList>
 WARNINGS_ENABLE
 
-#include "parsearchivelistingtask.h"
+#include "archivefilestat.h"
 #include "persistentobject.h"
 
 #define ARCHIVE_TIMESTAMP_FORMAT QLatin1String("_yyyy-MM-dd_HH-mm-ss")

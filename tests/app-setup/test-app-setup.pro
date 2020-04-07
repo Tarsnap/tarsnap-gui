@@ -32,6 +32,7 @@ SOURCES += test-app-setup.cpp				\
 	../../libcperciva/util/warnp.c			\
 	../../src/app-cmdline.cpp			\
 	../../src/app-setup.cpp				\
+	../../src/archivefilestat.h			\
 	../../src/backenddata.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/cmdlinetask.cpp			\

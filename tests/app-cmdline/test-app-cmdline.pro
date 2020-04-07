@@ -37,6 +37,7 @@ HEADERS +=						\
 	../../libcperciva/util/getopt.h			\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\
+	../../src/archivefilestat.h			\
 	../../src/backuptask.h				\
 	../../src/init-shared.h				\
 	../../src/parsearchivelistingtask.h		\

@@ -109,7 +109,7 @@ cleanup:
 void CmdlineTask::stop()
 {
     // Bail if the TaskManager has recorded this as "started" but it
-    // hasn't actually begun yet.  See taskmanager.cpp for explanation.
+    // hasn't actually begun yet.  See taskqueuer.cpp for the explanation.
     if(_process == nullptr)
         return;
 
@@ -120,7 +120,7 @@ void CmdlineTask::stop()
 void CmdlineTask::sigquit()
 {
     // Bail if the TaskManager has recorded this as "started" but it
-    // hasn't actually begun yet.  See taskmanager.cpp for explanation.
+    // hasn't actually begun yet.  See taskqueuer.cpp for the explanation.
     if(_process == nullptr)
         return;
 

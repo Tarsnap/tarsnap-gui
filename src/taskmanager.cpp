@@ -353,8 +353,10 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
     }
 
     ArchivePtr archive = _bd->newArchive(backupTaskData, truncated);
-    notifyBackupTaskUpdate(backupTaskData, TaskStatus::Completed);
     parseArchiveStats(stdErr, true, archive);
+    // This needs the archive stats.
+    notifyBackupTaskUpdate(backupTaskData, TaskStatus::Completed);
+
     emit archiveAdded(archive);
 
     parseGlobalStats(stdErr);

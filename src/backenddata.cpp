@@ -98,10 +98,13 @@ ArchivePtr BackendData::newArchive(BackupTaskDataPtr backupTaskData,
     _archiveMap.insert(archive->name(), archive);
 
     // Ensure that the archive is attached to the job (if applicable).
-    for(const JobPtr &job : _jobMap)
+    if(!archive->jobRef().isEmpty())
     {
-        if(job->objectKey() == archive->jobRef())
-            emit job->loadArchives();
+        for(const JobPtr &job : _jobMap)
+        {
+            if(job->objectKey() == archive->jobRef())
+                emit job->loadArchives();
+        }
     }
     return archive;
 }

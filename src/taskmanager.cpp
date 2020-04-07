@@ -357,6 +357,9 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
     // This needs the archive stats.
     notifyBackupTaskUpdate(backupTaskData, TaskStatus::Completed);
 
+    // Write the Archive data to the PersistentStore.
+    archive->save();
+
     emit archiveAdded(archive);
 
     parseGlobalStats(stdErr);
@@ -476,6 +479,9 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
     }
 
     parseArchiveStats(stdOut, false, archive);
+    // Write the Archive data to the PersistentStore.
+    archive->save();
+
     parseGlobalStats(stdOut);
 }
 
@@ -806,8 +812,6 @@ void TaskManager::parseArchiveStats(const QString &tarsnapOutput,
     archive->setSizeCompressed(stats.compressed);
     archive->setSizeUniqueTotal(stats.unique_total);
     archive->setSizeUniqueCompressed(stats.unique_compressed);
-
-    archive->save();
 }
 
 void TaskManager::loadJobs()

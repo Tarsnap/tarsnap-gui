@@ -10,6 +10,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "backenddata.h"
+#include "basetask.h"
 #include "cmdlinetask.h"
 #include "debug.h"
 #include "jobrunner.h"
@@ -754,7 +755,7 @@ void TaskManager::getKeyIdFinished(QVariant data, int exitCode,
 }
 
 #ifdef QT_TESTLIB_LIB
-void TaskManager::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
+void TaskManager::queueTask(BaseTask *task, bool exclusive, bool isBackup)
 {
     _tq->queueTask(task, exclusive, isBackup);
 }

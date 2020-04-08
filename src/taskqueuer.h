@@ -10,7 +10,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 /* Forward declarations. */
-class CmdlineTask;
+class BaseTask;
 struct TaskMeta;
 
 /*!
@@ -29,7 +29,7 @@ public:
     ~TaskQueuer();
 
     //! Prepare a task, and start running it if there's no queue.
-    void queueTask(CmdlineTask *task, bool exclusive = false,
+    void queueTask(BaseTask *task, bool exclusive = false,
                    bool isBackup = false);
 
     //! Stop / interrupt / terminate / dequeue tasks.

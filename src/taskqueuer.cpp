@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 struct TaskMeta
 {
     /*! Actual task. */
-    CmdlineTask *task;
+    BaseTask *task;
     /*! Does this task need to be the only one happening? */
     bool isExclusive;
     /*! This is a "create archive" task? */
@@ -42,8 +42,8 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
     {
         while(!_taskQueue.isEmpty())
         {
-            TaskMeta *   tm   = _taskQueue.dequeue();
-            CmdlineTask *task = tm->task;
+            TaskMeta *tm   = _taskQueue.dequeue();
+            BaseTask *task = tm->task;
             if(task)
             {
                 task->canceled();
@@ -58,12 +58,13 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
     {
         // Sending a SIGQUIT will cause the tarsnap binary to
         // create a checkpoint.  Non-tarsnap binaries should be
-        // receive a CmdlineTask::stop() instead of a SIGQUIT.
+        // receive a BaseTask::stop() instead of a SIGQUIT.
         if(!_runningTasks.isEmpty())
         {
             TaskMeta *tm = _runningTasks.first();
             Q_ASSERT(tm->isBackup == true);
-            CmdlineTask *backupTask = tm->task;
+            CmdlineTask *backupTask = qobject_cast<CmdlineTask *>(tm->task);
+            Q_ASSERT(backupTask != nullptr);
             backupTask->sigquit();
         }
         emit message("Interrupting current backup.");
@@ -74,7 +75,7 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
     {
         for(TaskMeta *tm : _runningTasks)
         {
-            CmdlineTask *task = tm->task;
+            BaseTask *task = tm->task;
             if(task)
                 task->stop();
         }
@@ -82,7 +83,7 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
     }
 }
 
-void TaskQueuer::queueTask(CmdlineTask *task, bool exclusive, bool isBackup)
+void TaskQueuer::queueTask(BaseTask *task, bool exclusive, bool isBackup)
 {
     // Sanity check.
     Q_ASSERT(task != nullptr);
@@ -131,8 +132,8 @@ void TaskQueuer::startTask()
     TaskMeta *tm = _taskQueue.dequeue();
 
     // Set up the task ending.
-    CmdlineTask *task = tm->task;
-    connect(task, &CmdlineTask::dequeue, this, &TaskQueuer::dequeueTask);
+    BaseTask *task = tm->task;
+    connect(task, &BaseTask::dequeue, this, &TaskQueuer::dequeueTask);
     task->setAutoDelete(false);
 
     // Record this thread as "running", even though it hasn't actually
@@ -144,7 +145,7 @@ void TaskQueuer::startTask()
     // be recorded in our _taskQueue (because we've just dequeued()'d it).
     // The "strictly correct" solution would be to add a
     // _waitingForStart queue, and move items out of that queue when the
-    // relevant CmdlineTask::started signal was emitted.  At the moment,
+    // relevant BaseTask::started signal was emitted.  At the moment,
     // I don't think that step is necessary, but I might need to revisit
     // that decision later.
     _runningTasks.append(tm);
@@ -160,7 +161,7 @@ void TaskQueuer::startTask()
 void TaskQueuer::dequeueTask()
 {
     // Get the task.
-    CmdlineTask *task = qobject_cast<CmdlineTask *>(sender());
+    BaseTask *task = qobject_cast<BaseTask *>(sender());
 
     // Sanity check.
     if(task == nullptr)

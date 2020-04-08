@@ -46,7 +46,7 @@ void TaskQueuer::stopTasks(bool interrupt, bool running, bool queued)
             CmdlineTask *task = tm->task;
             if(task)
             {
-                task->emitCanceled();
+                task->canceled();
                 task->deleteLater();
             }
         }

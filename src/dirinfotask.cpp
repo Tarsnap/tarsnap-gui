@@ -1,6 +1,7 @@
 #include "dirinfotask.h"
 
 WARNINGS_DISABLE
+#include <QAtomicInt>
 #include <QCoreApplication>
 #include <QStandardPaths>
 WARNINGS_ENABLE
@@ -15,7 +16,7 @@ struct dirinfo
 };
 
 /* Forward declaration. */
-struct dirinfo getDirInfo(const QDir dir);
+struct dirinfo getDirInfo(const QDir dir, QAtomicInt *stop_p);
 
 DirInfoTask::DirInfoTask(QDir dir) : _dir(dir)
 {
@@ -23,13 +24,23 @@ DirInfoTask::DirInfoTask(QDir dir) : _dir(dir)
 
 void DirInfoTask::run()
 {
-    struct dirinfo dirinfo = getDirInfo(_dir);
+    struct dirinfo dirinfo = getDirInfo(_dir, &_stopRequested);
     emit           result(dirinfo.size, dirinfo.count);
 }
 
-struct dirinfo getDirInfo(QDir dir)
+void DirInfoTask::stop()
+{
+    _stopRequested = 1;
+}
+
+struct dirinfo getDirInfo(QDir dir, QAtomicInt *stop_p)
 {
     struct dirinfo dirinfo = {0, 0};
+
+    // Bail if requested.
+    if(static_cast<int>(*stop_p) == 1)
+        return dirinfo;
+
     if(dir.exists())
     {
         // We want to see all directories and files, no symlinks,
@@ -45,7 +56,8 @@ struct dirinfo getDirInfo(QDir dir)
             if(fileInfo.isDir())
             {
                 // ... if it's a dir, recursively get info about that dir.
-                struct dirinfo d = getDirInfo(fileInfo.absoluteFilePath());
+                struct dirinfo d =
+                    getDirInfo(fileInfo.absoluteFilePath(), stop_p);
                 dirinfo.size += d.size;
                 dirinfo.count += d.count;
             }

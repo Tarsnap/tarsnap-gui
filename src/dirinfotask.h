@@ -4,6 +4,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QAtomicInt>
 #include <QDir>
 #include <QObject>
 #include <QRunnable>
@@ -24,12 +25,17 @@ public:
     //! Execute the task.
     void run();
 
+    //! We want to stop the task.
+    void stop();
+
 signals:
     //! The directory's size and number of files.
     void result(quint64 size, quint64 count);
 
 private:
     QDir _dir;
+
+    QAtomicInt _stopRequested;
 };
 
 #endif /* !DIRINFOTASK_H */

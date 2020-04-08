@@ -10,12 +10,14 @@ WARNINGS_DISABLE
 #include <QRunnable>
 WARNINGS_ENABLE
 
+#include "basetask.h"
+
 /*!
  * \ingroup background-tasks
  * \brief The DirInfoTask reads the filesize and count of a directory
  * and its subdirectories.
  */
-class DirInfoTask : public QObject, public QRunnable
+class DirInfoTask : public BaseTask
 {
     Q_OBJECT
 

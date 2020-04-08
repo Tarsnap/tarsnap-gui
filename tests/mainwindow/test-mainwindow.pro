@@ -38,6 +38,7 @@ HEADERS  +=						\
 	../../lib/widgets/TTextView.h			\
 	../../src/archivefilestat.h			\
 	../../src/backuptask.h				\
+	../../src/basetask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/dirinfotask.h				\
 	../../src/filetablemodel.h			\
@@ -84,6 +85,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../lib/widgets/TTextView.cpp			\
 	../../src/backuptask.cpp			\
+	../../src/basetask.cpp				\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/dirinfotask.cpp			\
 	../../src/filetablemodel.cpp			\

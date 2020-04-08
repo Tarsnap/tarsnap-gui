@@ -6,6 +6,8 @@ WARNINGS_DISABLE
 #include <QStandardPaths>
 WARNINGS_ENABLE
 
+#include "basetask.h"
+
 /** Info about a directory (used recursively). */
 struct dirinfo
 {
@@ -18,7 +20,7 @@ struct dirinfo
 /* Forward declaration. */
 struct dirinfo getDirInfo(const QDir dir, QAtomicInt *stop_p);
 
-DirInfoTask::DirInfoTask(QDir dir) : _dir(dir)
+DirInfoTask::DirInfoTask(QDir dir) : BaseTask(), _dir(dir)
 {
 }
 
@@ -26,6 +28,9 @@ void DirInfoTask::run()
 {
     struct dirinfo dirinfo = getDirInfo(_dir, &_stopRequested);
     emit           result(dirinfo.size, dirinfo.count);
+
+    // We're finished.
+    emit dequeue();
 }
 
 void DirInfoTask::stop()

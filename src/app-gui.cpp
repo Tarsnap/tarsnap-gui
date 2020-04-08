@@ -7,6 +7,7 @@ WARNINGS_ENABLE
 
 #include <assert.h>
 
+#include "basetask.h"
 #include "debug.h"
 #include "init-shared.h"
 #include "translator.h"
@@ -235,6 +236,9 @@ void AppGui::showMainWindow()
             &TaskManager::findMatchingArchives, QUEUED);
     connect(&_taskManager, &TaskManager::matchingArchives, _mainWindow,
             &MainWindow::matchingArchives, QUEUED);
+
+    connect(_mainWindow, &MainWindow::taskRequested, &_taskManager,
+            &TaskManager::queueGuiTask, QUEUED);
 
     connect(this, &AppGui::lastWindowClosed, this,
             &AppGui::quitAfterEventsFinish, QUEUED);

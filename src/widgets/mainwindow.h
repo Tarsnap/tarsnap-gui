@@ -28,6 +28,7 @@ namespace Ui
 {
 class MainWindow;
 }
+class BaseTask;
 
 /*!
  * \ingroup widgets-main
@@ -140,6 +141,9 @@ signals:
 
     //! Is the Backup tab ready to create an archive?
     void validBackupTab(bool valid);
+
+    //! We have a task to perform in the background.
+    void taskRequested(BaseTask *task);
 
 protected:
     //! Draw the Tarsnap logo in the top-right corner.

@@ -131,11 +131,6 @@ void CmdlineTask::sigquit()
     kill(pid, SIGQUIT);
 }
 
-void CmdlineTask::emitCanceled()
-{
-    emit canceled();
-}
-
 QUuid CmdlineTask::uuid() const
 {
     return _uuid;
@@ -251,7 +246,7 @@ void CmdlineTask::processError(QProcess *process)
                .arg(Utils::quoteCommandLine(_arguments))
                .arg(QString(_stdOut + _stdErr).trimmed());
     emit finished(_data, _exitCode, QString(_stdOut), QString(_stdErr));
-    emitCanceled();
+    emit canceled();
 }
 
 #ifdef QT_TESTLIB_LIB

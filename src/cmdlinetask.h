@@ -46,9 +46,6 @@ public:
     void stop();
     //! Send the QProcess a SIGQUIT.
     void sigquit();
-    //! Emits \ref canceled.
-    //! \warning Does not actually cancel a running task!
-    void emitCanceled();
     //! Get the Uuid.
     QUuid uuid() const;
 

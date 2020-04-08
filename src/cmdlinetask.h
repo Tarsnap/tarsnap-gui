@@ -75,7 +75,7 @@ signals:
     //! Finished, crashed, or could not start running the QProcess.
     void finished(QVariant data, int exitCode, QString stdOut, QString stdErr);
     //! The QProcess was canceled.
-    void canceled(QVariant data);
+    void canceled();
     //! The QProcess failed to start, or finished (either with success or
     //! failure.
     void dequeue();

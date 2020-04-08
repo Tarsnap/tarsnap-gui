@@ -133,7 +133,7 @@ void CmdlineTask::sigquit()
 
 void CmdlineTask::emitCanceled()
 {
-    emit canceled(_data);
+    emit canceled();
 }
 
 QUuid CmdlineTask::uuid() const

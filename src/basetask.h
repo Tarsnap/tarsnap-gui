@@ -6,6 +6,7 @@
 WARNINGS_DISABLE
 #include <QObject>
 #include <QRunnable>
+#include <QVariant>
 WARNINGS_ENABLE
 
 /*!
@@ -21,6 +22,29 @@ public:
     //! Constructor.
     explicit BaseTask();
     ~BaseTask();
+
+    //! Run the command previously given.  Blocks until completed (or failed).
+    virtual void run() = 0;
+    //! If the task is running, attempt to stop it.
+    virtual void stop() = 0;
+
+#ifdef QT_TESTLIB_LIB
+    void fake();
+#endif
+
+signals:
+    //! The task was canceled.
+    void canceled();
+    //! The task failed to start, or finished (with either success or failure).
+    void dequeue();
+
+protected:
+    //! Caller supplied data.
+    QVariant _data;
+
+#ifdef QT_TESTLIB_LIB
+    bool _fake;
+#endif
 };
 
 #endif // !BASETASK_H

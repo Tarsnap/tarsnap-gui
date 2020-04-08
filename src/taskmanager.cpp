@@ -226,15 +226,12 @@ void TaskManager::deleteArchives(QList<ArchivePtr> archives)
     deleteTask->setData(QVariant::fromValue(archives));
     connect(deleteTask, &CmdlineTask::finished, this,
             &TaskManager::deleteArchivesFinished);
-    connect(deleteTask, &CmdlineTask::canceled, this, [](QVariant data) {
-        QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
-        for(const ArchivePtr &archive : d_archives)
+    connect(deleteTask, &CmdlineTask::canceled, this, [archives]() {
+        for(const ArchivePtr &archive : archives)
             archive->setDeleteScheduled(false);
     });
-    connect(deleteTask, &CmdlineTask::started, this, [this](QVariant data) {
-        QList<ArchivePtr> d_archives = data.value<QList<ArchivePtr>>();
-        notifyArchivesDeleted(d_archives, false);
-    });
+    connect(deleteTask, &CmdlineTask::started, this,
+            [this, archives]() { notifyArchivesDeleted(archives, false); });
     _tq->queueTask(deleteTask, true);
 }
 

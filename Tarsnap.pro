@@ -67,6 +67,7 @@ SOURCES +=						\
 	src/app-setup.cpp				\
 	src/backenddata.cpp				\
 	src/backuptask.cpp				\
+	src/basetask.cpp				\
 	src/cmdlinetask.cpp				\
 	src/customfilesystemmodel.cpp			\
 	src/dirinfotask.cpp				\
@@ -145,6 +146,7 @@ HEADERS +=						\
 	src/archivefilestat.h				\
 	src/backenddata.h				\
 	src/backuptask.h				\
+	src/basetask.h					\
 	src/cmdlinetask.h				\
 	src/customfilesystemmodel.h			\
 	src/debug.h					\

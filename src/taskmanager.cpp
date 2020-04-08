@@ -761,6 +761,11 @@ void TaskManager::queueTask(BaseTask *task, bool exclusive, bool isBackup)
 }
 #endif
 
+void TaskManager::queueGuiTask(BaseTask *task)
+{
+    _tq->queueTask(task, false, false);
+}
+
 void TaskManager::parseError(const QString &tarsnapOutput)
 {
     if(tarsnapOutput.contains("Error reading cache directory")

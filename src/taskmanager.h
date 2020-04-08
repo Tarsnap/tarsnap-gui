@@ -100,6 +100,9 @@ public slots:
     //! \param jobPrefix prefix of the Archive names to match.
     void findMatchingArchives(const QString &jobPrefix);
 
+    //! Prepare a task, and start it when there's an available thread.
+    void queueGuiTask(BaseTask *task);
+
 signals:
     // Tarsnap task notifications
     //! Give number of tasks.

@@ -10,6 +10,8 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
+#include "basetask.h"
+
 /*
  * Normal exit codes are non-negative, but since we're just passing around
  * an int, we might as well use negative values for special meanings.
@@ -25,25 +27,21 @@ WARNINGS_ENABLE
  * \brief The CmdlineTask is a QObject and QRunnable which executes a
  * command-line command.
  */
-class CmdlineTask : public QObject, public QRunnable
+class CmdlineTask : public BaseTask
 {
     Q_OBJECT
 
 public:
     //! Constructor.
     explicit CmdlineTask();
-    ~CmdlineTask();
-
-#ifdef QT_TESTLIB_LIB
-    void fake();
-#endif
+    ~CmdlineTask() override;
 
     //! Run the command previously given.  Blocks until completed (or
     //! failed).
-    void run();
+    void run() override;
     //! If the QProcess is running, attempt to stop it with
     //! QProcess::terminate().
-    void stop();
+    void stop() override;
     //! Send the QProcess a SIGQUIT.
     void sigquit();
     //! Get the Uuid.
@@ -71,11 +69,6 @@ signals:
     void started(QVariant data);
     //! Finished, crashed, or could not start running the QProcess.
     void finished(QVariant data, int exitCode, QString stdOut, QString stdErr);
-    //! The QProcess was canceled.
-    void canceled();
-    //! The QProcess failed to start, or finished (either with success or
-    //! failure.
-    void dequeue();
 
 private slots:
     void readProcessOutput(QProcess *process);
@@ -85,7 +78,6 @@ private slots:
 private:
     // Housekeeping.
     QUuid     _uuid;
-    QVariant  _data; // caller supplied data
     QProcess *_process;
 
     // Standard POSIX input/output.
@@ -104,10 +96,6 @@ private:
 
     // Utility function.
     QByteArray truncate_output(QByteArray stdOut);
-
-#ifdef QT_TESTLIB_LIB
-    bool _fake;
-#endif
 };
 
 #endif // !CMDLINETASK_H

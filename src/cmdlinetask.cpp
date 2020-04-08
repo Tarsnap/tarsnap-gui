@@ -16,15 +16,12 @@ WARNINGS_ENABLE
 #define LOG_MAX_SEARCH_NL 1024
 
 CmdlineTask::CmdlineTask()
-    : QObject(),
+    : BaseTask(),
       _uuid(QUuid::createUuid()),
       _process(nullptr),
       _exitCode(EXIT_NO_MEANING),
       _truncateLogOutput(false)
 {
-#ifdef QT_TESTLIB_LIB
-    _fake = false;
-#endif
 }
 
 CmdlineTask::~CmdlineTask()
@@ -248,10 +245,3 @@ void CmdlineTask::processError(QProcess *process)
     emit finished(_data, _exitCode, QString(_stdOut), QString(_stdErr));
     emit canceled();
 }
-
-#ifdef QT_TESTLIB_LIB
-void CmdlineTask::fake()
-{
-    _fake = true;
-}
-#endif

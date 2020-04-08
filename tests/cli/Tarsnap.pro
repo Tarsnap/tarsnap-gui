@@ -17,6 +17,7 @@ SOURCES +=						\
 	../../src/app-cmdline.cpp			\
 	../../src/backenddata.cpp			\
 	../../src/backuptask.cpp			\
+	../../src/basetask.cpp				\
 	../../src/cmdlinetask.cpp			\
 	../../src/filetablemodel.cpp			\
 	../../src/init-shared.cpp			\
@@ -50,6 +51,7 @@ HEADERS +=						\
 	../../src/archivefilestat.h			\
 	../../src/backenddata.h				\
 	../../src/backuptask.h				\
+	../../src/basetask.h				\
 	../../src/cmdlinetask.h				\
 	../../src/filetablemodel.h			\
 	../../src/init-shared.h				\

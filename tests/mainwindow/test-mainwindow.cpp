@@ -21,6 +21,7 @@ WARNINGS_ENABLE
 
 #include "archivewidget.h"
 #include "persistentmodel/archive.h"
+#include "persistentmodel/persistentstore.h"
 
 #include <ConsoleLog.h>
 #include <TSettings.h>

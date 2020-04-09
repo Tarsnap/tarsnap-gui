@@ -1,10 +1,21 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QtTest/QtTest>
+#include <QCoreApplication>
+#include <QDateTime>
+#include <QObject>
+#include <QSignalSpy>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QString>
+#include <QTest>
+#include <QVariant>
+#include <QVector>
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
+
+#include "LogEntry.h"
 
 #include "persistentmodel/archive.h"
 #include "persistentmodel/journal.h"

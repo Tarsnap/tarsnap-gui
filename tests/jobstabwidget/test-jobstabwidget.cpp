@@ -13,6 +13,7 @@ WARNINGS_ENABLE
 
 #include "jobstabwidget.h"
 #include "jobwidget.h"
+#include "persistentmodel/persistentstore.h"
 
 class TestJobsTabWidget : public QObject
 {

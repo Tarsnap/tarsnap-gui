@@ -1,7 +1,13 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QtTest/QtTest>
+#include <QChar>
+#include <QCoreApplication>
+#include <QList>
+#include <QObject>
+#include <QPersistentModelIndex>
+#include <QString>
+#include <QTest>
 WARNINGS_ENABLE
 
 #include "run-scenario.h"

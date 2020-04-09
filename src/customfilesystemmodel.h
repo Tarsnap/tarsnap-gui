@@ -5,10 +5,15 @@
 
 WARNINGS_DISABLE
 #include <QFileSystemModel>
-#include <QObject>
-#include <QPersistentModelIndex>
+#include <QList>
 #include <QSet>
+#include <QString>
+#include <QVariant>
 WARNINGS_ENABLE
+
+/* Forward declarations. */
+class QModelIndex;
+class QPersistentModelIndex;
 
 #define SELECTION_CHANGED_ROLE Qt::UserRole + 100
 

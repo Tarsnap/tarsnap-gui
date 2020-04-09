@@ -1,12 +1,15 @@
 #include "run-scenario.h"
 
 WARNINGS_DISABLE
+#include <QChar>
 #include <QCoreApplication>
 #include <QDir>
-#include <QEventLoop>
+#include <QFile>
+#include <QIODevice>
 #include <QTextStream>
-#include <QTimer>
 WARNINGS_ENABLE
+
+#include <stdio.h>
 
 #include "../qtest-platform.h"
 

@@ -4,12 +4,15 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QModelIndex>
 #include <QObject>
 #include <QString>
-#include <QTextStream>
 WARNINGS_ENABLE
 
 #include "customfilesystemmodel.h"
+
+/* Forward declaration. */
+class QTextStream;
 
 class RunScenario : public QObject
 {

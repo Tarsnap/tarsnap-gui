@@ -1,5 +1,12 @@
 #include "customfilesystemmodel.h"
 
+WARNINGS_DISABLE
+#include <QModelIndex>
+#include <QObject>
+#include <QPersistentModelIndex>
+#include <QVector>
+WARNINGS_ENABLE
+
 CustomFileSystemModel::CustomFileSystemModel()
 {
 }

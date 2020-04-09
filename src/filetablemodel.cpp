@@ -7,6 +7,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "archivefilestat.h"
+#include "parsearchivelistingtask.h"
 
 FileTableModel::FileTableModel(QObject *parent)
     : QAbstractTableModel(parent), _parseTask(nullptr)
@@ -83,19 +84,21 @@ QVariant FileTableModel::headerData(int section, Qt::Orientation orientation,
 void FileTableModel::setArchive(ArchivePtr archive)
 {
     // Disable previous connection (if it exists).
-    if(_archive)
-        disconnect(_archive.data(), &Archive::fileList, this,
+    if(_parseTask)
+        disconnect(_parseTask, &ParseArchiveListingTask::result, this,
                    &FileTableModel::setFiles);
     reset();
     _archive = archive;
     if(_archive)
     {
-        // ->getFileList() runs as a background task, so we can't
-        // call it and block.  Instead, we essentially set up a
-        // callback (::setFiles).
-        connect(archive.data(), &Archive::fileList, this,
+        // Prepare a background thread to parse the Archive's saved contents.
+        QThreadPool *            threadPool = QThreadPool::globalInstance();
+        ParseArchiveListingTask *parseTask =
+            new ParseArchiveListingTask(archive->contents());
+        parseTask->setAutoDelete(true);
+        connect(parseTask, &ParseArchiveListingTask::result, this,
                 &FileTableModel::setFiles);
-        _archive->getFileList();
+        threadPool->start(parseTask);
     }
 }
 

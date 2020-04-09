@@ -5,7 +5,6 @@ WARNINGS_DISABLE
 #include <QObject>
 #include <QSqlQuery>
 #include <QString>
-#include <QThreadPool>
 WARNINGS_ENABLE
 
 #include "debug.h"
@@ -241,18 +240,6 @@ QString Archive::jobRef() const
 void Archive::setJobRef(const QString &jobRef)
 {
     _jobRef = jobRef;
-}
-
-void Archive::getFileList()
-{
-    // Prepare a background thread to parse the Archive's saved contents.
-    QThreadPool *            threadPool = QThreadPool::globalInstance();
-    ParseArchiveListingTask *parseTask =
-        new ParseArchiveListingTask(contents());
-    parseTask->setAutoDelete(true);
-    connect(parseTask, &ParseArchiveListingTask::result, this,
-            &Archive::fileList);
-    threadPool->start(parseTask);
 }
 
 bool Archive::hasPreservePaths()

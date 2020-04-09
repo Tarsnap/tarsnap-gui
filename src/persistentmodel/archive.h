@@ -11,7 +11,6 @@ WARNINGS_DISABLE
 #include <QStringList>
 WARNINGS_ENABLE
 
-#include "archivefilestat.h"
 #include "persistentobject.h"
 
 #define ARCHIVE_TIMESTAMP_FORMAT QLatin1String("_yyyy-MM-dd_HH-mm-ss")
@@ -84,9 +83,6 @@ public:
     void      setJobRef(const QString &jobRef);
     //! @}
 
-    //! Starts loading the file list.  When finished, it emits a \ref fileList
-    //! signal.
-    void getFileList();
     //! Returns whether the tarsnap command included "-P" (preserve pathnames).
     bool hasPreservePaths();
     //! Returns whether this Archive has been scheduled for deletion.
@@ -116,8 +112,6 @@ signals:
     void changed();
     //! This item was deleted.
     void purged();
-    //! The file list has been updated.
-    void fileList(QVector<FileStat> files);
 
 private:
     QString    _name;

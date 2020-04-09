@@ -3,7 +3,6 @@
 WARNINGS_DISABLE
 #include <QDesktopServices>
 #include <QFileInfo>
-#include <QThreadPool>
 
 #include "ui_backuplistwidgetitem.h"
 WARNINGS_ENABLE
@@ -75,12 +74,10 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
             _ui->iconLabel->setPixmap(icon);
             // Load info about this directory in a separate thread.
             QDir         dir(file.absoluteFilePath());
-            QThreadPool *threadPool = QThreadPool::globalInstance();
-            DirInfoTask *task       = new DirInfoTask(dir);
-            task->setAutoDelete(true);
+            DirInfoTask *task = new DirInfoTask(dir);
             connect(task, &DirInfoTask::result, this,
                     &BackupListWidgetItem::updateDirDetail, QUEUED);
-            threadPool->start(task);
+            emit taskRequested(task);
         }
         else if(file.isFile())
         {

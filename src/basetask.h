@@ -43,6 +43,7 @@ protected:
     QVariant _data;
 
 #ifdef QT_TESTLIB_LIB
+    //! Don't actually run the next task; for testing only.
     bool _fake;
 #endif
 };

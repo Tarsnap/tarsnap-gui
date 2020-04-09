@@ -24,8 +24,7 @@ WARNINGS_ENABLE
 
 /*!
  * \ingroup background-tasks
- * \brief The CmdlineTask is a QObject and QRunnable which executes a
- * command-line command.
+ * \brief The CmdlineTask is a BaseTask which executes a command-line command.
  */
 class CmdlineTask : public BaseTask
 {

@@ -1,8 +1,16 @@
 #include "journal.h"
 
 WARNINGS_DISABLE
+#include <QDateTime>
+#include <QLatin1String>
+#include <QRegExp>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QSqlRecord>
 #include <QtGlobal>
 WARNINGS_ENABLE
+
+#include "persistentmodel/persistentstore.h"
 
 #include "debug.h"
 

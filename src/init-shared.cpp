@@ -6,6 +6,8 @@ WARNINGS_DISABLE
 #include <QFile>
 #include <QList>
 #include <QMetaType>
+#include <QSettings>
+#include <QStandardPaths>
 #include <QUrl>
 #include <QVector>
 WARNINGS_ENABLE

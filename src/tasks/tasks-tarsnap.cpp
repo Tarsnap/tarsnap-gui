@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QRegExp>
 #include <QStringList>
+#include <QUrl>
 WARNINGS_ENABLE
 
 #include "TSettings.h"

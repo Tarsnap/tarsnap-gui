@@ -1,8 +1,10 @@
 #include "jobrunner.h"
 
 WARNINGS_DISABLE
+#include <QCoreApplication>
 #include <QDateTime>
 #include <QTcpSocket>
+#include <QThread>
 #include <QTimer>
 WARNINGS_ENABLE
 

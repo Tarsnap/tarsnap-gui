@@ -6,6 +6,7 @@
 WARNINGS_DISABLE
 #include <QMap>
 #include <QObject>
+#include <QVariant>
 WARNINGS_ENABLE
 
 #include "backuptask.h"

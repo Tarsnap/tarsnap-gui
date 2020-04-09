@@ -2,8 +2,11 @@
 
 WARNINGS_DISABLE
 #include <QDateTime>
+#include <QLatin1String>
 #include <QObject>
+#include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlRecord>
 #include <QString>
 WARNINGS_ENABLE
 
@@ -11,6 +14,7 @@ WARNINGS_ENABLE
 
 #include "archivefilestat.h"
 #include "parsearchivelistingtask.h"
+#include "persistentstore.h"
 
 Archive::Archive(QObject *parent)
     : QObject(parent),

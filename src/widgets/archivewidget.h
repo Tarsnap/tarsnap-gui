@@ -5,6 +5,7 @@
 
 WARNINGS_DISABLE
 #include <QMenu>
+#include <QSortFilterProxyModel>
 #include <QWidget>
 WARNINGS_ENABLE
 

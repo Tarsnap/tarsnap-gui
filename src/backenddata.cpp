@@ -1,7 +1,13 @@
 #include "backenddata.h"
 
+WARNINGS_DISABLE
+#include <QSqlError>
+#include <QSqlRecord>
+WARNINGS_ENABLE
+
 #include "debug.h"
 
+#include "persistentmodel/persistentstore.h"
 #include "tasks-tarsnap.h"
 
 BackendData::BackendData()

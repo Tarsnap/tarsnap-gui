@@ -5,6 +5,8 @@
 
 WARNINGS_DISABLE
 #include <QObject>
+#include <QUrl>
+#include <QUuid>
 WARNINGS_ENABLE
 
 #include <persistentmodel/archive.h>

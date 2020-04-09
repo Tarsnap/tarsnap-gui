@@ -1,6 +1,7 @@
 #include "taskmanager.h"
 
 WARNINGS_DISABLE
+#include <QCoreApplication>
 #include <QDir>
 #include <QEventLoop>
 #include <QFileInfo>

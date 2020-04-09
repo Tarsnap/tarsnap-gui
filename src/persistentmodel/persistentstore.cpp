@@ -1,8 +1,16 @@
 #include "persistentstore.h"
 
 WARNINGS_DISABLE
+#include <QDateTime>
+#include <QDir>
 #include <QFile>
+#include <QFileDevice>
 #include <QFileInfo>
+#include <QMutex>
+#include <QMutexLocker>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QStringList>
 
 static QMutex mutex;
 WARNINGS_ENABLE

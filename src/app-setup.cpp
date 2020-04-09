@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QFontDatabase>
 #include <QMessageBox>
+#include <QTimer>
 WARNINGS_ENABLE
 
 #include <assert.h>

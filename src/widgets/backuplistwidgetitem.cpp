@@ -109,6 +109,15 @@ void BackupListWidgetItem::updateDirDetail(quint64 size, quint64 count)
     emit requestUpdate();
 }
 
+void BackupListWidgetItem::cancelDirDetail()
+{
+    // The task has finished.
+    _dirInfoTask = nullptr;
+
+    _ui->detailLabel->setText("canceled");
+    _ui->detailLabel->setToolTip("Calculation canceled by user");
+}
+
 void BackupListWidgetItem::startDirInfoTask()
 {
     // Get the directory name, or bail.
@@ -127,6 +136,8 @@ void BackupListWidgetItem::startDirInfoTask()
     _dirInfoTaskUuid = _dirInfoTask->uuid();
     connect(_dirInfoTask, &DirInfoTask::result, this,
             &BackupListWidgetItem::updateDirDetail, QUEUED);
+    connect(_dirInfoTask, &DirInfoTask::canceled, this,
+            &BackupListWidgetItem::cancelDirDetail, QUEUED);
 
     // Send the task to the TaskManager.
     emit taskRequested(_dirInfoTask);

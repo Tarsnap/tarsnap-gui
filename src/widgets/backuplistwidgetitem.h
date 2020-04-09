@@ -67,6 +67,7 @@ protected:
 
 private slots:
     void updateDirDetail(quint64 size, quint64 count);
+    void cancelDirDetail();
 
 private:
     Ui::BackupListWidgetItem *_ui;

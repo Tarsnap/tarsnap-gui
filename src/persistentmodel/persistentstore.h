@@ -4,7 +4,6 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QMutex>
 #include <QObject>
 #include <QSqlQuery>
 #include <QtSql>

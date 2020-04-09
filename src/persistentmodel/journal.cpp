@@ -7,7 +7,6 @@ WARNINGS_DISABLE
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlRecord>
-#include <QtGlobal>
 WARNINGS_ENABLE
 
 #include "persistentmodel/persistentstore.h"

@@ -7,7 +7,6 @@ WARNINGS_DISABLE
 #include <QByteArray>
 #include <QDateTime>
 #include <QObject>
-#include <QRunnable>
 #include <QSharedPointer>
 #include <QString>
 #include <QStringList>

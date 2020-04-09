@@ -12,8 +12,6 @@ WARNINGS_ENABLE
 
 #include "debug.h"
 
-#include "archivefilestat.h"
-#include "parsearchivelistingtask.h"
 #include "persistentstore.h"
 
 Archive::Archive(QObject *parent)

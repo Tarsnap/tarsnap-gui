@@ -7,8 +7,6 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include "persistentstore.h"
-
 /*!
  * \ingroup persistent
  * \brief The PersistentObject is an abstract data type for information which

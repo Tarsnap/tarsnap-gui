@@ -8,7 +8,8 @@ WARNINGS_ENABLE
 
 #include "archivefilestat.h"
 
-FileTableModel::FileTableModel(QObject *parent) : QAbstractTableModel(parent)
+FileTableModel::FileTableModel(QObject *parent)
+    : QAbstractTableModel(parent), _parseTask(nullptr)
 {
 }
 

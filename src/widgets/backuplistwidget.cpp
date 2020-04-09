@@ -91,11 +91,12 @@ void BackupListWidget::addItemWithUrl(QUrl url)
             return;
     }
 
-    BackupListWidgetItem *item = new BackupListWidgetItem(url);
+    BackupListWidgetItem *item = new BackupListWidgetItem();
     connect(item, &BackupListWidgetItem::requestDelete, this,
             &BackupListWidget::removeItems);
     connect(item, &BackupListWidgetItem::requestUpdate, this,
             &BackupListWidget::recomputeListTotals);
+    item->setUrl(url);
     insertItem(count(), item);
     setItemWidget(item, item->widget());
     emit itemWithUrlAdded(url);

@@ -79,6 +79,9 @@ private:
     QUuid     _uuid;
     QProcess *_process;
 
+    //! Caller supplied data.
+    QVariant _data;
+
     // Standard POSIX input/output.
     QByteArray _stdOut;
     QByteArray _stdErr;

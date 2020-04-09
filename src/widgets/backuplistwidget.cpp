@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "backuplistwidgetitem.h"
+#include "basetask.h"
 #include "debug.h"
 #include "utils.h"
 
@@ -96,6 +97,8 @@ void BackupListWidget::addItemWithUrl(QUrl url)
             &BackupListWidget::removeItems);
     connect(item, &BackupListWidgetItem::requestUpdate, this,
             &BackupListWidget::recomputeListTotals);
+    connect(item, &BackupListWidgetItem::taskRequested, this,
+            &BackupListWidget::taskRequested);
     item->setUrl(url);
     insertItem(count(), item);
     setItemWidget(item, item->widget());

@@ -9,10 +9,12 @@ WARNINGS_DISABLE
 #include <QUrl>
 WARNINGS_ENABLE
 
+/* Forward declarations. */
 namespace Ui
 {
 class BackupListWidgetItem;
 }
+class BaseTask;
 
 /*!
  * \ingroup widgets-specialized
@@ -54,6 +56,8 @@ signals:
     void requestDelete();
     //! The count and size of this directory have been (re)calculated.
     void requestUpdate();
+    //! We have a task to perform in the background.
+    void taskRequested(BaseTask *task);
 
 protected:
     //! Processes requests to switch language.

@@ -12,10 +12,12 @@ WARNINGS_ENABLE
 #include "backuptask.h"
 #include "filepickerdialog.h"
 
+/* Forward declarations. */
 namespace Ui
 {
 class BackupTabWidget;
 }
+class BaseTask;
 
 /*!
  * \ingroup widgets-main
@@ -57,6 +59,9 @@ signals:
 
     //! We can make a new backup
     void backupTabValidStatus(bool valid);
+
+    //! We have a task to perform in the background.
+    void taskRequested(BaseTask *task);
 
 protected:
     //! Handles translation change of language.

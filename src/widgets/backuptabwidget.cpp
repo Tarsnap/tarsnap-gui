@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "backuplistwidgetitem.h"
+#include "basetask.h"
 #include "persistentmodel/archive.h"
 #include "utils.h"
 
@@ -67,6 +68,9 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
     // Allow the FilePickerDialog to use open()
     connect(&_filePickerDialog, &FilePickerDialog::finished, this,
             &BackupTabWidget::processFPD);
+
+    connect(_ui->backupListWidget, &BackupListWidget::taskRequested, this,
+            &BackupTabWidget::taskRequested);
 
     updateUi();
 }

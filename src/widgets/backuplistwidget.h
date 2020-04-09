@@ -8,6 +8,9 @@ WARNINGS_DISABLE
 #include <QUrl>
 WARNINGS_ENABLE
 
+/* Forward declaration. */
+class BaseTask;
+
 /*!
  * \ingroup widgets-specialized
  * \brief The BackupListWidget is a QListWidget which lists
@@ -47,6 +50,8 @@ signals:
     //! A single item was added.
     //! \param url the path of the file or directory.
     void itemWithUrlAdded(QUrl url);
+    //! We have a task to perform in the background.
+    void taskRequested(BaseTask *task);
 
 protected:
     //! Accepts a "drag-move" event if the dragged item contains urls.

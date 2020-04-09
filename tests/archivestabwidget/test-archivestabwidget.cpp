@@ -96,23 +96,33 @@ void TestArchivesTabWidget::displayArchive()
     Ui::ArchivesTabWidget *ui                = archivestabwidget->_ui;
     ArchiveListWidget *    alw               = ui->archiveListWidget;
 
+    FileTableModel *fm = &(ui->archiveDetailsWidget->_contentsModel);
+
     VISUAL_INIT(archivestabwidget);
     VISUAL_WAIT;
 
     Archive *  actual_archive = new Archive();
     ArchivePtr archive(actual_archive);
     archive->setName("archive1");
+    archive->setContents("-rw-r--r-- 0 user group 1234 Jan 1 2019 myfile");
 
     alw->addArchive(archive);
     VISUAL_WAIT;
 
-    QSignalSpy sig_fileList(actual_archive,
-                            SIGNAL(fileList(QVector<FileStat>)));
     archivestabwidget->displayInspectArchive(archive);
     VISUAL_WAIT;
 
     // Wait for archive parsing to finish
-    WAIT_SIG(sig_fileList);
+    WAIT_UNTIL(fm->rowCount() > 0);
+
+    // Check that we have 1 file, with 7 pieces of info.
+    QVERIFY(fm->rowCount() == 1);
+    QVERIFY(fm->columnCount() == 7);
+
+    // Check the filename
+    QModelIndex index    = fm->index(0, 0);
+    QString     filename = fm->data(index).toString();
+    QVERIFY(filename == "myfile");
 
     delete archivestabwidget;
 }

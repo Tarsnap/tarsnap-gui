@@ -25,6 +25,11 @@ class ArchiveWidget : public QWidget
 {
     Q_OBJECT
 
+#ifdef QT_TESTLIB_LIB
+    friend class TestArchivesTabWidget;
+    friend class TestMainWindow;
+#endif
+
 public:
     //! Constructor
     explicit ArchiveWidget(QWidget *parent = nullptr);

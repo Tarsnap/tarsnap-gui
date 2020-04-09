@@ -73,6 +73,8 @@ private:
     quint64                   _count;
     quint64                   _size;
 
+    void startDirInfoTask();
+
     void updateUi();
 };
 

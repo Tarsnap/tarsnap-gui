@@ -73,11 +73,7 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
             QPixmap icon(":/icons/folder.png");
             _ui->iconLabel->setPixmap(icon);
             // Load info about this directory in a separate thread.
-            QDir         dir(file.absoluteFilePath());
-            DirInfoTask *task = new DirInfoTask(dir);
-            connect(task, &DirInfoTask::result, this,
-                    &BackupListWidgetItem::updateDirDetail, QUEUED);
-            emit taskRequested(task);
+            startDirInfoTask();
         }
         else if(file.isFile())
         {
@@ -107,6 +103,28 @@ void BackupListWidgetItem::updateDirDetail(quint64 size, quint64 count)
     _ui->detailLabel->setText(QString::number(_count) + tr(" items, ")
                               + Utils::humanBytes(_size));
     emit requestUpdate();
+}
+
+void BackupListWidgetItem::startDirInfoTask()
+{
+    // Get the directory name, or bail.
+    QString fileUrl = _url.toLocalFile();
+    if(fileUrl.isEmpty())
+        return;
+    QFileInfo file(fileUrl);
+    if(!file.exists())
+        return;
+    if(!file.isDir())
+        return;
+
+    // Prepare the task.
+    QDir         dir(file.absoluteFilePath());
+    DirInfoTask *task = new DirInfoTask(dir);
+    connect(task, &DirInfoTask::result, this,
+            &BackupListWidgetItem::updateDirDetail, QUEUED);
+
+    // Send the task to the TaskManager.
+    emit taskRequested(task);
 }
 
 bool BackupListWidgetItem::eventFilter(QObject *obj, QEvent *event)

@@ -6,7 +6,6 @@
 WARNINGS_DISABLE
 #include <QObject>
 #include <QSqlQuery>
-#include <QtSql>
 WARNINGS_ENABLE
 
 /* Set up global PersistentStore. */

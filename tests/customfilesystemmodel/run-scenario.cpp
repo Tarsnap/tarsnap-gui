@@ -1,7 +1,7 @@
 #include "run-scenario.h"
 
 WARNINGS_DISABLE
-#include <QApplication>
+#include <QCoreApplication>
 #include <QDir>
 #include <QEventLoop>
 #include <QTextStream>
@@ -83,7 +83,7 @@ int RunScenario::processActions(QTextStream &in)
                     << endl
                     << line << endl;
             // Don't try to recover.
-            QApplication::exit(1);
+            QCoreApplication::exit(1);
         }
     }
     return (0);
@@ -119,7 +119,7 @@ int RunScenario::processResults(QTextStream &in)
                     << endl
                     << line << endl;
             // Don't try to recover.
-            QApplication::exit(1);
+            QCoreApplication::exit(1);
         }
     }
     return (0);
@@ -158,7 +158,7 @@ int RunScenario::runScenario(const int num)
         QTextStream console(stdout);
         console << "ERROR: could not read file: " << scenarioFilename << endl;
         // Don't try to recover.
-        QApplication::exit(1);
+        QCoreApplication::exit(1);
     }
     inputFile.close();
 

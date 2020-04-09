@@ -14,7 +14,8 @@ BackupListWidgetItem::BackupListWidgetItem()
     : _ui(new Ui::BackupListWidgetItem),
       _widget(new QWidget),
       _count(0),
-      _size(0)
+      _size(0),
+      _dirInfoTask(nullptr)
 {
     _ui->setupUi(_widget);
     // Send translation events to the widget.
@@ -98,6 +99,9 @@ void BackupListWidgetItem::browseUrl()
 
 void BackupListWidgetItem::updateDirDetail(quint64 size, quint64 count)
 {
+    // The task has finished.
+    _dirInfoTask = nullptr;
+
     _size  = size;
     _count = count;
     _ui->detailLabel->setText(QString::number(_count) + tr(" items, ")
@@ -118,13 +122,14 @@ void BackupListWidgetItem::startDirInfoTask()
         return;
 
     // Prepare the task.
-    QDir         dir(file.absoluteFilePath());
-    DirInfoTask *task = new DirInfoTask(dir);
-    connect(task, &DirInfoTask::result, this,
+    QDir dir(file.absoluteFilePath());
+    _dirInfoTask     = new DirInfoTask(dir);
+    _dirInfoTaskUuid = _dirInfoTask->uuid();
+    connect(_dirInfoTask, &DirInfoTask::result, this,
             &BackupListWidgetItem::updateDirDetail, QUEUED);
 
     // Send the task to the TaskManager.
-    emit taskRequested(task);
+    emit taskRequested(_dirInfoTask);
 }
 
 bool BackupListWidgetItem::eventFilter(QObject *obj, QEvent *event)

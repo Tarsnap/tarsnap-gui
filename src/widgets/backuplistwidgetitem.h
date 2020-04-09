@@ -7,6 +7,7 @@ WARNINGS_DISABLE
 #include <QListWidgetItem>
 #include <QObject>
 #include <QUrl>
+#include <QUuid>
 WARNINGS_ENABLE
 
 /* Forward declarations. */
@@ -15,6 +16,7 @@ namespace Ui
 class BackupListWidgetItem;
 }
 class BaseTask;
+class DirInfoTask;
 
 /*!
  * \ingroup widgets-specialized
@@ -74,6 +76,14 @@ private:
     quint64                   _size;
 
     void startDirInfoTask();
+
+    // This will be deleted by the TaskQueuer whenever it feels
+    // like it, so do not rely on it being non-null.  Instead, we
+    // use this pointer to indicate whether we think the task is
+    // ongoing or not.
+    DirInfoTask *_dirInfoTask;
+    // The ID of the _dirInfoTask.
+    QUuid _dirInfoTaskUuid;
 
     void updateUi();
 };

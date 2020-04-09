@@ -1,6 +1,10 @@
 #include "archive.h"
 
 WARNINGS_DISABLE
+#include <QDateTime>
+#include <QObject>
+#include <QSqlQuery>
+#include <QString>
 #include <QThreadPool>
 WARNINGS_ENABLE
 

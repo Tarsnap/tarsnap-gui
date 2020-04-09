@@ -5,6 +5,9 @@
 
 WARNINGS_DISABLE
 #include <QAbstractTableModel>
+#include <QObject>
+#include <QVariant>
+#include <QVector>
 WARNINGS_ENABLE
 
 #include "archivefilestat.h"

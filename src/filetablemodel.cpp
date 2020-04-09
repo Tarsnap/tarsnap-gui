@@ -1,5 +1,11 @@
 #include "filetablemodel.h"
 
+WARNINGS_DISABLE
+#include <QAbstractTableModel>
+#include <QVariant>
+#include <QVector>
+WARNINGS_ENABLE
+
 #include "archivefilestat.h"
 
 FileTableModel::FileTableModel(QObject *parent) : QAbstractTableModel(parent)

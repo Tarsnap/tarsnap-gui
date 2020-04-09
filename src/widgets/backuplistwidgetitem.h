@@ -30,6 +30,9 @@ public:
     explicit BackupListWidgetItem(QUrl url);
     ~BackupListWidgetItem();
 
+    //! Set the file or directory to include in this archive.
+    void setUrl(const QUrl &url);
+
     //! Returns a widget with a graphical representation of this
     //! file or directory.
     QWidget *widget();
@@ -68,7 +71,6 @@ private:
     quint64                   _count;
     quint64                   _size;
 
-    void setUrl(const QUrl &url);
     void updateUi();
 };
 

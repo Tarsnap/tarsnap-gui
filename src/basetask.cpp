@@ -2,9 +2,10 @@
 
 WARNINGS_DISABLE
 #include <QObject>
+#include <QUuid>
 WARNINGS_ENABLE
 
-BaseTask::BaseTask() : QObject()
+BaseTask::BaseTask() : QObject(), _uuid(QUuid::createUuid())
 {
 #ifdef QT_TESTLIB_LIB
     _fake = false;
@@ -13,6 +14,11 @@ BaseTask::BaseTask() : QObject()
 
 BaseTask::~BaseTask()
 {
+}
+
+QUuid BaseTask::uuid() const
+{
+    return _uuid;
 }
 
 #ifdef QT_TESTLIB_LIB

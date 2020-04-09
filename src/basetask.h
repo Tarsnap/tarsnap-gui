@@ -6,6 +6,7 @@
 WARNINGS_DISABLE
 #include <QObject>
 #include <QRunnable>
+#include <QUuid>
 #include <QVariant>
 WARNINGS_ENABLE
 
@@ -28,6 +29,9 @@ public:
     //! If the task is running, attempt to stop it.
     virtual void stop() = 0;
 
+    //! Get the Uuid.
+    QUuid uuid() const;
+
 #ifdef QT_TESTLIB_LIB
     void fake();
 #endif
@@ -39,6 +43,9 @@ signals:
     void dequeue();
 
 protected:
+    //! Unique ID.
+    QUuid _uuid;
+
 #ifdef QT_TESTLIB_LIB
     //! Don't actually run the next task; for testing only.
     bool _fake;

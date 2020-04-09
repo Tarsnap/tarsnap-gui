@@ -6,7 +6,6 @@
 WARNINGS_DISABLE
 #include <QProcess>
 #include <QRunnable>
-#include <QUuid>
 #include <QVariant>
 WARNINGS_ENABLE
 
@@ -43,8 +42,6 @@ public:
     void stop() override;
     //! Send the QProcess a SIGQUIT.
     void sigquit();
-    //! Get the Uuid.
-    QUuid uuid() const;
 
     //! Getter/setter methods
     //! @{
@@ -76,7 +73,6 @@ private slots:
 
 private:
     // Housekeeping.
-    QUuid     _uuid;
     QProcess *_process;
 
     //! Caller supplied data.

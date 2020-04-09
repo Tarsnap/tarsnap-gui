@@ -17,7 +17,6 @@ WARNINGS_ENABLE
 
 CmdlineTask::CmdlineTask()
     : BaseTask(),
-      _uuid(QUuid::createUuid()),
       _process(nullptr),
       _exitCode(EXIT_NO_MEANING),
       _truncateLogOutput(false)
@@ -126,11 +125,6 @@ void CmdlineTask::sigquit()
     // If this is sent to the Tarsnap client creating an archive, it will
     // truncate it and leave a '.part' partial archive.
     kill(pid, SIGQUIT);
-}
-
-QUuid CmdlineTask::uuid() const
-{
-    return _uuid;
 }
 
 QString CmdlineTask::command() const

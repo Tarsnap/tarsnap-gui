@@ -10,6 +10,10 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
+/* Forward declarations. */
+class QResizeEvent;
+class QWidget;
+
 /*!
  * \ingroup lib-widgets
  * \brief The TElidedLabel widget is a QLabel which automatically elides

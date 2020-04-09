@@ -6,8 +6,13 @@
 WARNINGS_DISABLE
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QObject>
+#include <QString>
 #include <QTimer>
 WARNINGS_ENABLE
+
+/* Forward declaration. */
+class QWidget;
 
 /*!
  * \ingroup widgets-general

@@ -4,11 +4,16 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QObject>
 #include <QString>
 #include <QVector>
 WARNINGS_ENABLE
 
 #include "TElidedLabel.h"
+
+/* Forward declarations. */
+class QResizeEvent;
+class QWidget;
 
 /*!
  * \ingroup widgets-general

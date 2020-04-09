@@ -1,5 +1,10 @@
 #include "confirmationdialog.h"
 
+WARNINGS_DISABLE
+#include <QDialog>
+#include <QWidget>
+WARNINGS_ENABLE
+
 ConfirmationDialog::ConfirmationDialog(QWidget *parent)
     : QObject(parent), _inputDialog(parent), _countdownBox(parent)
 {

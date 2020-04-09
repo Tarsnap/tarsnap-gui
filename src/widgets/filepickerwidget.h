@@ -5,15 +5,23 @@
 
 WARNINGS_DISABLE
 #include <QCompleter>
+#include <QList>
+#include <QObject>
+#include <QString>
 #include <QWidget>
 WARNINGS_ENABLE
 
 #include "customfilesystemmodel.h"
 
+/* Forward declarations. */
 namespace Ui
 {
 class FilePickerWidget;
 }
+class QEvent;
+class QKeyEvent;
+class QUrl;
+class QWidget;
 
 /*!
  * \ingroup widgets-specialized

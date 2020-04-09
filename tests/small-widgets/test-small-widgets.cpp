@@ -1,10 +1,18 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QAction>
-#include <QPixmap>
+#include <QCoreApplication>
+#include <QDialogButtonBox>
+#include <QList>
+#include <QObject>
 #include <QPushButton>
-#include <QtTest/QtTest>
+#include <QSignalSpy>
+#include <QString>
+#include <QTest>
+#include <QUrl>
+#include <QVariant>
+#include <QVector>
+#include <QWidget>
 
 #include "ui_stoptasksdialog.h"
 WARNINGS_ENABLE

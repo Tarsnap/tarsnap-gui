@@ -4,7 +4,8 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QMessageBox>
+#include <QDialog>
+#include <QObject>
 WARNINGS_ENABLE
 
 /* Forward declarations. */
@@ -12,6 +13,7 @@ namespace Ui
 {
 class StopTasksDialog;
 }
+class QWidget;
 
 /*!
  * \ingroup widgets-specialized

@@ -1,10 +1,15 @@
 #include "stoptasksdialog.h"
 
 WARNINGS_DISABLE
+#include <QDialogButtonBox>
+#include <QMessageBox>
 #include <QPushButton>
 
 #include "ui_stoptasksdialog.h"
 WARNINGS_ENABLE
+
+/* Forward declaration. */
+class QWidget;
 
 StopTasksDialog::StopTasksDialog(QWidget *parent)
     : QDialog(parent), _ui(new Ui::StopTasksDialog), _aboutToQuit(false)

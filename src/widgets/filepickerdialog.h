@@ -6,13 +6,16 @@
 WARNINGS_DISABLE
 #include <QDialog>
 #include <QList>
-#include <QUrl>
+#include <QObject>
 WARNINGS_ENABLE
 
+/* Forward declarations. */
 namespace Ui
 {
 class FilePickerDialog;
 }
+class QUrl;
+class QWidget;
 
 /*!
  * \ingroup widgets-specialized

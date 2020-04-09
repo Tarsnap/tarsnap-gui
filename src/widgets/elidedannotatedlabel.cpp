@@ -1,7 +1,9 @@
 #include "elidedannotatedlabel.h"
 
 WARNINGS_DISABLE
-#include <QMouseEvent>
+#include <QFontMetrics>
+#include <QLabel>
+#include <QResizeEvent>
 WARNINGS_ENABLE
 
 ElidedAnnotatedLabel::ElidedAnnotatedLabel(QWidget *parent)

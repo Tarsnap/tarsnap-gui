@@ -1,13 +1,23 @@
 #include "filepickerwidget.h"
 
 WARNINGS_DISABLE
+#include <QCheckBox>
+#include <QDir>
+#include <QEvent>
 #include <QKeyEvent>
+#include <QLineEdit>
 #include <QPersistentModelIndex>
+#include <QPushButton>
+#include <QStringList>
+#include <QUrl>
+#include <QVector>
 
 #include "ui_filepickerwidget.h"
 WARNINGS_ENABLE
 
-#include "debug.h"
+/* Forward declarations. */
+class QModelIndex;
+class QPersistentModelIndex;
 
 FilePickerWidget::FilePickerWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::FilePickerWidget)

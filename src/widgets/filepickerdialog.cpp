@@ -1,8 +1,15 @@
 #include "filepickerdialog.h"
 
 WARNINGS_DISABLE
+#include <QDir>
+#include <QPushButton>
+#include <QUrl>
+
 #include "ui_filepickerdialog.h"
 WARNINGS_ENABLE
+
+/* Forward declaration. */
+class QWidget;
 
 #include <TSettings.h>
 

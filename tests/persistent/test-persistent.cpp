@@ -6,6 +6,7 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "persistentmodel/archive.h"
 #include "persistentmodel/journal.h"
 #include "persistentmodel/persistentstore.h"
 
@@ -36,6 +37,9 @@ private slots:
     void journal_read();
     void journal_purge();
     void journal_year_2106();
+
+    void archive_write();
+    void archive_read();
 };
 
 void TestPersistent::initTestCase()
@@ -207,6 +211,47 @@ void TestPersistent::journal_year_2106()
         // Clean up
         delete journal;
     }
+}
+
+void TestPersistent::archive_write()
+{
+    // Initialize the store
+    int ok = global_store->initialized();
+    QVERIFY(ok);
+
+    // Prep
+    Archive *archive = new Archive();
+    archive->setName("archive1");
+
+    // Write a message
+    archive->save();
+
+    // Clean up
+    delete archive;
+}
+
+void TestPersistent::archive_read()
+{
+    // Initialize the store
+    int ok = global_store->initialized();
+    QVERIFY(ok);
+
+    // Make a query
+    QSqlQuery query = global_store->createQuery();
+    if(!query.prepare("select * from archives"))
+        QFAIL("Failed to prepare query");
+
+    // Get values
+    if(!global_store->runQuery(query))
+        QFAIL("Failed to get values from journal");
+    query.next();
+
+    // Check the first (only) archive name.
+    QString name = query.value(0).toString();
+    QVERIFY(name == "archive1");
+
+    // That should be all
+    QVERIFY(query.next() == false);
 }
 
 QTEST_MAIN(TestPersistent)

@@ -6,6 +6,7 @@
 WARNINGS_DISABLE
 #include <QMutex>
 #include <QObject>
+#include <QSqlQuery>
 #include <QtSql>
 WARNINGS_ENABLE
 

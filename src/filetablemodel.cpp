@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QAbstractTableModel>
+#include <QThreadPool>
 #include <QVariant>
 #include <QVector>
 WARNINGS_ENABLE

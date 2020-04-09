@@ -1,8 +1,16 @@
 #include "job.h"
 
+WARNINGS_DISABLE
+#include <QCoreApplication>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QSqlRecord>
+WARNINGS_ENABLE
+
 #include <TSettings.h>
 
 #include "debug.h"
+#include "persistentmodel/persistentstore.h"
 #include "tasks-defs.h"
 #include "utils.h"
 

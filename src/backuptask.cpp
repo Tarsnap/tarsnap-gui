@@ -1,7 +1,10 @@
 #include "backuptask.h"
 
 WARNINGS_DISABLE
+#include <QDir>
 #include <QFileInfo>
+#include <QStack>
+#include <QUrl>
 WARNINGS_ENABLE
 
 #include "tasks-defs.h"

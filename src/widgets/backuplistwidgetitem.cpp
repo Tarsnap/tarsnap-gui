@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 #include "dirinfotask.h"
 #include "utils.h"
 
-BackupListWidgetItem::BackupListWidgetItem(QUrl url)
+BackupListWidgetItem::BackupListWidgetItem()
     : _ui(new Ui::BackupListWidgetItem),
       _widget(new QWidget),
       _count(0),
@@ -34,8 +34,6 @@ BackupListWidgetItem::BackupListWidgetItem(QUrl url)
             &BackupListWidgetItem::requestDelete);
     connect(_ui->actionOpen, &QAction::triggered, this,
             &BackupListWidgetItem::browseUrl);
-    // Begin loading the url.
-    setUrl(url);
 }
 
 BackupListWidgetItem::~BackupListWidgetItem()

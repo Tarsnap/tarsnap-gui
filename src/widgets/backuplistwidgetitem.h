@@ -25,9 +25,7 @@ class BackupListWidgetItem : public QObject, public QListWidgetItem
 
 public:
     //! Constructor.
-    //! \param url The url of the file or directory to include in
-    //!             this archive.
-    explicit BackupListWidgetItem(QUrl url);
+    explicit BackupListWidgetItem();
     ~BackupListWidgetItem();
 
     //! Set the file or directory to include in this archive.

@@ -17,6 +17,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "backuplistwidgetitem.h"
+#include "basetask.h"
 #include "scheduling.h"
 #include "taskstatus.h"
 #include "translator.h"
@@ -110,6 +111,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::backupNow);
     connect(&_backupTabWidget, &BackupTabWidget::backupTabValidStatus, this,
             &MainWindow::backupTabValidStatus);
+    connect(&_backupTabWidget, &BackupTabWidget::taskRequested, this,
+            &MainWindow::taskRequested);
 
     // Handle the Backup-related actions
     connect(_ui->actionBrowseItems, &QAction::triggered, this,

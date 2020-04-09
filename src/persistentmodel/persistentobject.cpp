@@ -1,7 +1,5 @@
 #include "persistentobject.h"
 
-#include "debug.h"
-
 PersistentObject::PersistentObject()
 {
 }

@@ -27,7 +27,12 @@ DirInfoTask::DirInfoTask(QDir dir) : BaseTask(), _dir(dir)
 void DirInfoTask::run()
 {
     struct dirinfo dirinfo = getDirInfo(_dir, &_stopRequested);
-    emit           result(dirinfo.size, dirinfo.count);
+
+    // Send appropriate notification.
+    if(static_cast<int>(_stopRequested) == 1)
+        emit canceled();
+    else
+        emit result(dirinfo.size, dirinfo.count);
 
     // We're finished.
     emit dequeue();

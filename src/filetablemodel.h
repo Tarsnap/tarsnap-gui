@@ -13,6 +13,9 @@ WARNINGS_ENABLE
 #include "archivefilestat.h"
 #include "persistentmodel/archive.h"
 
+/* Forward declaration. */
+class ParseArchiveListingTask;
+
 /*!
  * \ingroup data
  * \brief The FileTableModel is a QAbstractTableModel which stores
@@ -69,6 +72,8 @@ private:
     };
 
     const int kTableColumnsCount = 7;
+
+    ParseArchiveListingTask *_parseTask;
 };
 
 #endif // FILETABLEMODEL_H

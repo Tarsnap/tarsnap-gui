@@ -3,7 +3,8 @@
 WARNINGS_DISABLE
 #include <QAbstractButton>
 #include <QMetaObject>
-#include <QtTest/QtTest>
+#include <QTest>
+#include <QTimer>
 
 #include "ui_setupwizard_cli.h"
 #include "ui_setupwizard_register.h"

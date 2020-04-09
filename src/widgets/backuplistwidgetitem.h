@@ -17,6 +17,7 @@ class BackupListWidgetItem;
 }
 class BaseTask;
 class DirInfoTask;
+class QMovie;
 
 /*!
  * \ingroup widgets-specialized
@@ -87,6 +88,8 @@ private:
     QUuid _dirInfoTaskUuid;
 
     void updateUi();
+
+    QMovie *_busyMovie;
 };
 
 #endif // BACKUPLISTITEM_H

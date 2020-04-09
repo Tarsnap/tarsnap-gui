@@ -3,12 +3,15 @@
 WARNINGS_DISABLE
 #include <QDesktopServices>
 #include <QFileInfo>
+#include <QMovie>
 
 #include "ui_backuplistwidgetitem.h"
 WARNINGS_ENABLE
 
 #include "dirinfotask.h"
 #include "utils.h"
+
+#define BUSY_MOVIE_FILENAME ":/lib/loading.gif"
 
 BackupListWidgetItem::BackupListWidgetItem()
     : _ui(new Ui::BackupListWidgetItem),
@@ -34,10 +37,16 @@ BackupListWidgetItem::BackupListWidgetItem()
             &BackupListWidgetItem::requestDelete);
     connect(_ui->actionOpen, &QAction::triggered, this,
             &BackupListWidgetItem::browseUrl);
+
+    // Set up the "busy" animation.
+    _busyMovie = new QMovie(BUSY_MOVIE_FILENAME);
 }
 
 BackupListWidgetItem::~BackupListWidgetItem()
 {
+    _busyMovie->stop();
+    _ui->detailLabel->setMovie(nullptr);
+    delete _busyMovie;
     delete _ui;
 }
 
@@ -101,6 +110,8 @@ void BackupListWidgetItem::updateDirDetail(quint64 size, quint64 count)
 {
     // The task has finished.
     _dirInfoTask = nullptr;
+    _busyMovie->stop();
+    _ui->detailLabel->setMovie(nullptr);
 
     _size  = size;
     _count = count;
@@ -138,6 +149,10 @@ void BackupListWidgetItem::startDirInfoTask()
             &BackupListWidgetItem::updateDirDetail, QUEUED);
     connect(_dirInfoTask, &DirInfoTask::canceled, this,
             &BackupListWidgetItem::cancelDirDetail, QUEUED);
+
+    // Display "waiting"
+    _ui->detailLabel->setMovie(_busyMovie);
+    _busyMovie->start();
 
     // Send the task to the TaskManager.
     emit taskRequested(_dirInfoTask);

@@ -14,6 +14,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 
 /* Forward declaration. */
+class BaseTask;
 class ParseArchiveListingTask;
 
 /*!
@@ -55,6 +56,10 @@ public:
 public slots:
     //! Sets the list of files to be stored in this object.
     void setFiles(QVector<FileStat> files);
+
+signals:
+    //! We have a task to perform in the background.
+    void taskRequested(BaseTask *task);
 
 private:
     QVector<FileStat> _files;

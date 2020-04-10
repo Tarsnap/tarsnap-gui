@@ -10,6 +10,8 @@ WARNINGS_ENABLE
 
 #include <TSettings.h>
 
+#include "basetask.h"
+
 ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::ArchivesTabWidget)
 {
@@ -43,6 +45,8 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
             &ArchivesTabWidget::restoreArchive);
     connect(_ui->archiveDetailsWidget, &ArchiveWidget::hidden,
             _ui->archiveListWidget, &ArchiveListWidget::noInspect);
+    connect(_ui->archiveDetailsWidget, &ArchiveWidget::taskRequested, this,
+            &ArchivesTabWidget::taskRequested);
 
     connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::deleteSelectedItems);

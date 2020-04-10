@@ -7,6 +7,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "archivefilestat.h"
+#include "basetask.h"
 #include "restoredialog.h"
 #include "utils.h"
 
@@ -38,6 +39,8 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
             &ArchiveWidget::restoreFiles);
     connect(_ui->hideButton, &QPushButton::clicked, this,
             &ArchiveWidget::close);
+    connect(&_contentsModel, &FileTableModel::taskRequested, this,
+            &ArchiveWidget::taskRequested);
     connect(_ui->archiveJobLabel, &ElidedClickableLabel::clicked,
             [this]() { emit jobClicked(_archive->jobRef()); });
     connect(&_contentsModel, &FileTableModel::modelReset, [this]() {

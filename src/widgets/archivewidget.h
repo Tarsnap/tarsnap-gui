@@ -12,10 +12,12 @@ WARNINGS_ENABLE
 #include "filetablemodel.h"
 #include "persistentmodel/archive.h"
 
+/* Forward declarations. */
 namespace Ui
 {
 class ArchiveWidget;
 }
+class BaseTask;
 
 /*!
  * \ingroup widgets-specialized
@@ -50,6 +52,8 @@ signals:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! We are no longer showing the details widget.
     void hidden();
+    //! We have a task to perform in the background.
+    void taskRequested(BaseTask *task);
 
 protected:
     //! This widget is closing; release memory.

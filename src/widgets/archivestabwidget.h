@@ -10,10 +10,12 @@ WARNINGS_DISABLE
 
 #include "persistentmodel/archive.h"
 
+/* Forward declarations. */
 namespace Ui
 {
 class ArchivesTabWidget;
 }
+class BaseTask;
 
 /*!
  * \ingroup widgets-main
@@ -63,6 +65,9 @@ signals:
     void loadArchiveStats(ArchivePtr archive);
     //! Begin tarsnap --tv -f \<name\>
     void loadArchiveContents(ArchivePtr archive);
+
+    //! We have a task to perform in the background.
+    void taskRequested(BaseTask *task);
 
 protected:
     //! Handles translation change of language.

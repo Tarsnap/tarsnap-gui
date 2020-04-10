@@ -153,6 +153,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
 
+    connect(&_archivesTabWidget, &ArchivesTabWidget::taskRequested, this,
+            &MainWindow::taskRequested);
+
     // Jobs pane
 
     // Send menubar actions to the Jobs tab

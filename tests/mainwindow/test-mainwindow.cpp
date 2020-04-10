@@ -327,9 +327,6 @@ void TestMainWindow::other_navigation()
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
     VISUAL_WAIT;
 
-    // Wait for archive parsing to finish
-    WAIT_UNTIL(archiveDetailsWidget->_contentsModel.rowCount() > 0);
-
     mainwindow->displayJobDetails(job);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
     VISUAL_WAIT;

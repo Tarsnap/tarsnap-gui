@@ -1,7 +1,16 @@
 #include "helpwidget.h"
 
 WARNINGS_DISABLE
+#include <QCoreApplication>
+#include <QDateTime>
 #include <QDesktopServices>
+#include <QEvent>
+#include <QFile>
+#include <QIODevice>
+#include <QKeySequence>
+#include <QPushButton>
+#include <QTextStream>
+#include <QUrl>
 #include <QWidget>
 
 #include "ui_aboutwidget.h"
@@ -12,6 +21,7 @@ WARNINGS_ENABLE
 #include "LogEntry.h"
 
 #include "debug.h"
+#include "popuppushbutton.h"
 
 HelpWidget::HelpWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::HelpWidget)

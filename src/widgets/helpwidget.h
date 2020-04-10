@@ -5,15 +5,18 @@
 
 WARNINGS_DISABLE
 #include <QDialog>
-#include <QPlainTextEdit>
+#include <QObject>
+#include <QString>
 #include <QWidget>
 WARNINGS_ENABLE
 
+/* Forward declaration(s). */
 namespace Ui
 {
 class HelpWidget;
 }
 class TTextView;
+class QEvent;
 
 /*!
  * \ingroup widgets-main

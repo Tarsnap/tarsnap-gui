@@ -4,11 +4,14 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QCoreApplication>
 #include <QMap>
 #include <QString>
-#include <QTranslator>
+#include <QStringList>
 WARNINGS_ENABLE
+
+/* Forward declaration(s). */
+class QCoreApplication;
+class QTranslator;
 
 #define LANG_AUTO "Auto"
 

@@ -1,15 +1,21 @@
 #include "tarsnapaccountdialog.h"
 
 WARNINGS_DISABLE
+#include <QAbstractItemView>
+#include <QDate>
+#include <QHBoxLayout>
 #include <QHeaderView>
+#include <QLineEdit>
+#include <QRegExp>
 #include <QTableWidget>
+#include <QTableWidgetItem>
+#include <QVariant>
 
 #include "ui_logindialog.h"
 WARNINGS_ENABLE
 
 #include "debug.h"
 #include "tarsnapaccount.h"
-#include "utils.h"
 
 #include <TSettings.h>
 

@@ -18,6 +18,7 @@ WARNINGS_ENABLE
 #include "jobstabwidget.h"
 #include "mainwindow.h"
 #include "stoptasksdialog.h"
+#include "translator.h"
 
 #include "archivewidget.h"
 #include "persistentmodel/archive.h"

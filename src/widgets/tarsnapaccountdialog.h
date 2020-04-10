@@ -4,16 +4,20 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QByteArray>
 #include <QDate>
 #include <QDialog>
 #include <QMessageBox>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 WARNINGS_ENABLE
 
+/* Forward declaration(s). */
 namespace Ui
 {
 class LoginDialog;
 }
-
 class TarsnapAccount;
 
 /*!

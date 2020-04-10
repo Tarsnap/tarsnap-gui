@@ -1,6 +1,10 @@
 #include "popuppushbutton.h"
 
-#include "debug.h"
+WARNINGS_DISABLE
+#include <QDialog>
+#include <QObject>
+#include <QPushButton>
+WARNINGS_ENABLE
 
 PopupPushButton::PopupPushButton(QWidget *parent)
     : QPushButton(parent), _popup(nullptr)

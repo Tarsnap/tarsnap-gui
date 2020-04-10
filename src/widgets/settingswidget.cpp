@@ -1,15 +1,13 @@
 #include "settingswidget.h"
 
 WARNINGS_DISABLE
-#include <QDateTime>
-#include <QDesktopServices>
-#include <QDir>
+#include <QCheckBox>
 #include <QFileDialog>
-#include <QInputDialog>
-#include <QMenu>
-#include <QPainter>
-#include <QSharedPointer>
-#include <QShortcut>
+#include <QFileInfo>
+#include <QKeySequence>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QVariant>
 #include <QWidget>
 
 #include "ui_settingswidget.h"
@@ -22,6 +20,7 @@ WARNINGS_ENABLE
 
 #include "schedulingwidgets.h"
 
+#include "TElidedLabel.h"
 #include <ConsoleLog.h>
 #include <TSettings.h>
 

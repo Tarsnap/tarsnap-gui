@@ -5,6 +5,7 @@
 WARNINGS_DISABLE
 #include <QAbstractButton>
 #include <QMessageBox>
+#include <QWidget>
 WARNINGS_ENABLE
 
 #include "scheduling.h"

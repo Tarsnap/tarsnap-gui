@@ -1,14 +1,19 @@
 #include "tarsnapaccount.h"
 
 WARNINGS_DISABLE
+#include <QDate>
+#include <QLatin1Char>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
+#include <QRegExp>
+#include <QSslError>
+#include <QUrl>
 #include <QUrlQuery>
+#include <QVariant>
 WARNINGS_ENABLE
 
 #include "debug.h"
-#include "utils.h"
 
 #include <TSettings.h>
 

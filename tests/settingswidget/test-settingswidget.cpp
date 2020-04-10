@@ -1,16 +1,22 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QtTest/QtTest>
+#include <QCoreApplication>
+#include <QObject>
+#include <QSignalSpy>
+#include <QString>
+#include <QTest>
+#include <QVariant>
 
 #include "ui_settingswidget.h"
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "confirmationdialog.h"
 #include "tarsnapaccount.h"
 #include "tarsnapaccountdialog.h"
-#include "utils.h"
+#include "translator.h"
 
 #include <ConsoleLog.h>
 #include <TSettings.h>

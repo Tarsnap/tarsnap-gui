@@ -1,10 +1,9 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QMetaObject>
-#include <QPixmap>
-#include <QPushButton>
-#include <QtTest/QtTest>
+#include <QCoreApplication>
+#include <QObject>
+#include <QTest>
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"

@@ -1,12 +1,19 @@
 #include "scheduling.h"
 
 WARNINGS_DISABLE
+#include <QByteArray>
 #include <QCoreApplication>
 #include <QDir>
+#include <QFile>
+#include <QIODevice>
+#include <QLatin1String>
 #include <QObject>
 #include <QProcess>
+#include <QProcessEnvironment>
+#include <QRegExp>
 #include <QSettings>
 #include <QString>
+#include <QStringList>
 WARNINGS_ENABLE
 
 #include "debug.h"

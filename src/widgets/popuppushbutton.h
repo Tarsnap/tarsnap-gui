@@ -4,9 +4,13 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QDialog>
+#include <QObject>
 #include <QPushButton>
 WARNINGS_ENABLE
+
+/* Forward declaration(s). */
+class QDialog;
+class QWidget;
 
 /*!
  * \ingroup widgets-general

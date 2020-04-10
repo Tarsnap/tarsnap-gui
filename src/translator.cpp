@@ -3,9 +3,9 @@
 WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QLibraryInfo>
+#include <QLocale>
+#include <QTranslator>
 WARNINGS_ENABLE
-
-#include "debug.h"
 
 Translator *global_translator = nullptr;
 

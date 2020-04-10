@@ -4,24 +4,23 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QInputDialog>
-#include <QMenuBar>
-#include <QMessageBox>
-#include <QTimer>
+#include <QDate>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 #include <QWidget>
 WARNINGS_ENABLE
 
 #include "confirmationdialog.h"
-#include "scheduling.h"
 #include "tarsnapaccountdialog.h"
 #include "taskstatus.h"
-#include "translator.h"
 
 /* Forward declaration(s). */
 namespace Ui
 {
 class SettingsWidget;
 }
+class QEvent;
 class SchedulingWidgets;
 
 /*!

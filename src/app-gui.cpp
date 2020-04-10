@@ -239,6 +239,8 @@ void AppGui::showMainWindow()
 
     connect(_mainWindow, &MainWindow::taskRequested, &_taskManager,
             &TaskManager::queueGuiTask, QUEUED);
+    connect(_mainWindow, &MainWindow::cancelTaskRequested, &_taskManager,
+            &TaskManager::cancelGuiTask, QUEUED);
 
     connect(this, &AppGui::lastWindowClosed, this,
             &AppGui::quitAfterEventsFinish, QUEUED);

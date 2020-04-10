@@ -12,13 +12,14 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "archivefilestat.h"
+#include "basetask.h"
 
 /*!
  * \ingroup background-tasks
  * \brief The ParseArchiveListingTask extracts the list of files
  * from an archive.
  */
-class ParseArchiveListingTask : public QObject, public QRunnable
+class ParseArchiveListingTask : public BaseTask
 {
     Q_OBJECT
 
@@ -28,10 +29,10 @@ public:
     explicit ParseArchiveListingTask(const QString &listing);
     //! Run this task in the background; will emit the \ref result
     //! signal when finished.
-    void run();
+    void run() override;
 
     //! We want to stop the task.
-    void stop();
+    void stop() override;
 
 signals:
     //! The list of files.

@@ -10,7 +10,7 @@ WARNINGS_ENABLE
 #include "archivefilestat.h"
 
 ParseArchiveListingTask::ParseArchiveListingTask(const QString &listing)
-    : _listing(listing)
+    : BaseTask(), _listing(listing)
 {
     // We don't actually run "tarsnap -tv", because that data is
     // already stored in the Archive _contents when we created it.
@@ -30,6 +30,7 @@ void ParseArchiveListingTask::run()
         // Bail if requested.
         if(static_cast<int>(_stopRequested) == 1)
         {
+            emit dequeue();
             return;
         }
 
@@ -48,6 +49,7 @@ void ParseArchiveListingTask::run()
         files.append(stat);
     }
     emit result(files);
+    emit dequeue();
 }
 
 void ParseArchiveListingTask::stop()

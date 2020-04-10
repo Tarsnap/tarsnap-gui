@@ -44,6 +44,10 @@ BackupListWidgetItem::BackupListWidgetItem()
 
 BackupListWidgetItem::~BackupListWidgetItem()
 {
+    // We don't need the task fo finish if we're deleting this item.
+    if(_dirInfoTask != nullptr)
+        emit cancelTaskRequested(_dirInfoTask, _dirInfoTaskUuid);
+
     _busyMovie->stop();
     _ui->detailLabel->setMovie(nullptr);
     delete _busyMovie;

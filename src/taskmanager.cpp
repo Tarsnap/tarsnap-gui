@@ -32,9 +32,6 @@ Q_DECLARE_METATYPE(CmdlineTask *)
 TaskManager::TaskManager() : QObject(), _bd(new BackendData())
 {
     setupTaskQueuer();
-#ifdef QT_TESTLIB_LIB
-    _fakeNextTask = false;
-#endif
 }
 
 TaskManager::~TaskManager()

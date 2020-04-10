@@ -196,10 +196,6 @@ private:
     TaskQueuer *_tq;
 
     BackendData *_bd;
-
-#ifdef QT_TESTLIB_LIB
-    bool _fakeNextTask;
-#endif
 };
 
 #endif // TASKMANAGER_H

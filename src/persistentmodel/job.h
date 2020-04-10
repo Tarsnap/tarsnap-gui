@@ -5,12 +5,18 @@
 
 WARNINGS_DISABLE
 #include <QFileSystemWatcher>
+#include <QList>
 #include <QObject>
-#include <QUrl>
+#include <QSharedPointer>
+#include <QString>
 WARNINGS_ENABLE
 
 #include "backuptask.h"
 #include "persistentmodel/archive.h"
+#include "persistentmodel/persistentobject.h"
+
+/* Forward declaration. */
+class QUrl;
 
 #define JOB_NAME_PREFIX QLatin1String("Job_")
 

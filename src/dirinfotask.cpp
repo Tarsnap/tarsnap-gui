@@ -2,8 +2,8 @@
 
 WARNINGS_DISABLE
 #include <QAtomicInt>
-#include <QCoreApplication>
-#include <QStandardPaths>
+#include <QFileInfo>
+#include <QFileInfoList>
 WARNINGS_ENABLE
 
 #include "basetask.h"

@@ -1,7 +1,8 @@
 #include "cmdlinetask.h"
 
 WARNINGS_DISABLE
-#include <QFileInfo>
+#include <QChar>
+#include <QProcess>
 #include <QStandardPaths>
 WARNINGS_ENABLE
 

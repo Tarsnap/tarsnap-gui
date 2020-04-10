@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QDebug>
+#include <QDir>
 #include <QFile>
 #include <QList>
 #include <QMetaType>

@@ -4,12 +4,17 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QProcess>
-#include <QRunnable>
+#include <QByteArray>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 #include <QVariant>
 WARNINGS_ENABLE
 
 #include "basetask.h"
+
+/* Forward declaration. */
+class QProcess;
 
 /*
  * Normal exit codes are non-negative, but since we're just passing around

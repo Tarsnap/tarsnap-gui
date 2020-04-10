@@ -4,7 +4,12 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QDateTime>
+#include <QList>
 #include <QObject>
+#include <QSharedPointer>
+#include <QString>
+#include <QStringList>
 #include <QUrl>
 #include <QUuid>
 WARNINGS_ENABLE

@@ -1,16 +1,15 @@
 #include "tasks-setup.h"
 
 WARNINGS_DISABLE
-#include <QFileInfo>
 #include <QRegExp>
+#include <QStringList>
+#include <QVariant>
 WARNINGS_ENABLE
 
 #include <TSettings.h>
 
 #include "cmdlinetask.h"
-#include "tasks-defs.h"
 #include "tasks-utils.h"
-#include "taskstatus.h"
 
 CmdlineTask *tarsnapVersionTask()
 {

@@ -3,10 +3,12 @@
 WARNINGS_DISABLE
 #include <QDir>
 #include <QFileInfo>
+#include <QRegExp>
 #include <QStack>
 #include <QUrl>
 WARNINGS_ENABLE
 
+#include "persistentmodel/archive.h"
 #include "tasks-defs.h"
 #include "utils.h"
 

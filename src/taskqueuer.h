@@ -4,13 +4,16 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QList>
 #include <QObject>
 #include <QQueue>
-#include <QThreadPool>
+#include <QString>
 WARNINGS_ENABLE
 
 /* Forward declarations. */
 class BaseTask;
+class QThreadPool;
+class QUuid;
 struct TaskMeta;
 
 /*!

@@ -1,7 +1,11 @@
 #include "backenddata.h"
 
 WARNINGS_DISABLE
+#include <QChar>
+#include <QDateTime>
+#include <QLatin1String>
 #include <QSqlError>
+#include <QSqlQuery>
 #include <QSqlRecord>
 WARNINGS_ENABLE
 

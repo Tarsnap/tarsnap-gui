@@ -4,11 +4,13 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QList>
 #include <QMap>
 #include <QObject>
 #include <QString>
 WARNINGS_ENABLE
 
+#include "backuptask.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 

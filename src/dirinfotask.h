@@ -7,7 +7,6 @@ WARNINGS_DISABLE
 #include <QAtomicInt>
 #include <QDir>
 #include <QObject>
-#include <QRunnable>
 WARNINGS_ENABLE
 
 #include "basetask.h"

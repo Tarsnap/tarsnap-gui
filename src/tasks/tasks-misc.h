@@ -7,7 +7,8 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include "cmdlinetask.h"
+/* Forward declaration. */
+class CmdlineTask;
 
 /**
  * \file tasks-misc.h

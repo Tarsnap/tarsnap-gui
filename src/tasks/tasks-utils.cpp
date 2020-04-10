@@ -5,6 +5,7 @@ WARNINGS_DISABLE
 #include <QRegExp>
 #include <QString>
 #include <QStringList>
+#include <QVariant>
 WARNINGS_ENABLE
 
 #include <TSettings.h>

@@ -3,6 +3,9 @@
 WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QDebug>
+#include <QDir>
+#include <QFileInfo>
+#include <QRegExp>
 #include <QStandardPaths>
 WARNINGS_ENABLE
 
@@ -11,7 +14,6 @@ WARNINGS_ENABLE
 #include <TSettings.h>
 
 #include "tasks-defs.h"
-#include "tasks-utils.h"
 
 using namespace Utils;
 

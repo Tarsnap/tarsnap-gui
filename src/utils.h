@@ -4,8 +4,8 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QDir>
-#include <QRunnable>
+#include <QFileInfoList>
+#include <QString>
 #include <QStringList>
 WARNINGS_ENABLE
 

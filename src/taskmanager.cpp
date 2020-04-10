@@ -1,12 +1,12 @@
 #include "taskmanager.h"
 
 WARNINGS_DISABLE
+#include <QChar>
 #include <QCoreApplication>
 #include <QDir>
 #include <QEventLoop>
 #include <QFileInfo>
-#include <QTcpSocket>
-#include <QTimer>
+#include <QStringList>
 #include <QVariant>
 WARNINGS_ENABLE
 

@@ -4,14 +4,16 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QDateTime>
+#include <QList>
 #include <QString>
 #include <QStringList>
 WARNINGS_ENABLE
 
-#include "persistentmodel/archive.h"
-
 #include "backuptask.h"
-#include "cmdlinetask.h"
+
+/* Forward declaration. */
+class CmdlineTask;
 
 /**
  * \file tasks-tarsnap.h

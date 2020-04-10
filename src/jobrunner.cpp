@@ -2,10 +2,11 @@
 
 WARNINGS_DISABLE
 #include <QCoreApplication>
-#include <QDateTime>
+#include <QDate>
 #include <QTcpSocket>
 #include <QThread>
 #include <QTimer>
+#include <QVariant>
 WARNINGS_ENABLE
 
 #include "TSettings.h"

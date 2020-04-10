@@ -7,7 +7,6 @@ WARNINGS_DISABLE
 #include <QObject>
 #include <QRunnable>
 #include <QUuid>
-#include <QVariant>
 WARNINGS_ENABLE
 
 /*!

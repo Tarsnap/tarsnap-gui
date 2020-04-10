@@ -1,6 +1,7 @@
 #include "jobstabwidget.h"
 
 WARNINGS_DISABLE
+#include <QDir>
 #include <QMenu>
 #include <QMessageBox>
 #include <QWidget>

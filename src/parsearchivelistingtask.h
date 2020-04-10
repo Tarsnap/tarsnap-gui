@@ -6,7 +6,6 @@
 WARNINGS_DISABLE
 #include <QAtomicInt>
 #include <QObject>
-#include <QRunnable>
 #include <QString>
 #include <QVector>
 WARNINGS_ENABLE

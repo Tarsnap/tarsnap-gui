@@ -4,8 +4,11 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QList>
 #include <QMap>
 #include <QObject>
+#include <QString>
+#include <QUuid>
 #include <QVariant>
 WARNINGS_ENABLE
 

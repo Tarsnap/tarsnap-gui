@@ -3,9 +3,11 @@
 WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QEventLoop>
-#include <QVariant>
+#include <QThreadPool>
+#include <QUuid>
 WARNINGS_ENABLE
 
+#include "basetask.h"
 #include "cmdlinetask.h"
 
 /*! Track info about tasks. */

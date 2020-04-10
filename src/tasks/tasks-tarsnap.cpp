@@ -1,9 +1,11 @@
 #include "tasks-tarsnap.h"
 
 WARNINGS_DISABLE
+#include <QChar>
 #include <QRegExp>
 #include <QStringList>
 #include <QUrl>
+#include <QVariant>
 WARNINGS_ENABLE
 
 #include "TSettings.h"
@@ -11,6 +13,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 
 #include "backuptask.h"
+#include "cmdlinetask.h"
 #include "tasks-defs.h"
 #include "tasks-utils.h"
 

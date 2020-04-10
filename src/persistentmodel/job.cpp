@@ -1,10 +1,15 @@
 #include "job.h"
 
 WARNINGS_DISABLE
-#include <QCoreApplication>
+#include <QDateTime>
+#include <QDir>
+#include <QFileInfo>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlRecord>
+#include <QStringList>
+#include <QUrl>
+#include <QVariant>
 WARNINGS_ENABLE
 
 #include <TSettings.h>

@@ -1,16 +1,30 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QByteArray>
+#include <QCoreApplication>
+#include <QDir>
+#include <QFile>
+#include <QIODevice>
+#include <QList>
+#include <QObject>
+#include <QSignalSpy>
+#include <QString>
+#include <QStringList>
+#include <QTest>
 #include <QThreadPool>
-#include <QtTest/QtTest>
+#include <QUrl>
+#include <QVariant>
+#include <QVariantList>
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "backuptask.h"
 #include "cmdlinetask.h"
 #include "taskmanager.h"
 #include "taskqueuer.h"
-#include "utils.h"
+#include "taskstatus.h"
 
 #include <ConsoleLog.h>
 #include <TSettings.h>

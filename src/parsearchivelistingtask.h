@@ -4,6 +4,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QAtomicInt>
 #include <QObject>
 #include <QRunnable>
 #include <QString>
@@ -29,12 +30,17 @@ public:
     //! signal when finished.
     void run();
 
+    //! We want to stop the task.
+    void stop();
+
 signals:
     //! The list of files.
     void result(QVector<FileStat> files);
 
 private:
     QString _listing;
+
+    QAtomicInt _stopRequested;
 };
 
 #endif /* !PARSEARCHIVELISTINGTASK_H */

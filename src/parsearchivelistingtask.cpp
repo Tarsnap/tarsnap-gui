@@ -1,6 +1,7 @@
 #include "parsearchivelistingtask.h"
 
 WARNINGS_DISABLE
+#include <QAtomicInt>
 #include <QRegExp>
 #include <QString>
 #include <QVector>
@@ -26,6 +27,12 @@ void ParseArchiveListingTask::run()
     // Check each line.
     for(const QString &line : _listing.split('\n', QString::SkipEmptyParts))
     {
+        // Bail if requested.
+        if(static_cast<int>(_stopRequested) == 1)
+        {
+            return;
+        }
+
         // Bail if it doesn't match the expected pattern.
         if(lineRx.indexIn(line) == -1)
             continue;
@@ -41,4 +48,9 @@ void ParseArchiveListingTask::run()
         files.append(stat);
     }
     emit result(files);
+}
+
+void ParseArchiveListingTask::stop()
+{
+    _stopRequested = 1;
 }

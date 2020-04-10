@@ -104,6 +104,9 @@ public slots:
     //! Prepare a task, and start it when there's an available thread.
     void queueGuiTask(BaseTask *task);
 
+    //! Request cancelling a GUI task.
+    void cancelGuiTask(BaseTask *task, const QUuid uuid);
+
 signals:
     // Tarsnap task notifications
     //! Give number of tasks.

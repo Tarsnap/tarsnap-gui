@@ -767,6 +767,11 @@ void TaskManager::queueGuiTask(BaseTask *task)
     _tq->queueTask(task, false, false);
 }
 
+void TaskManager::cancelGuiTask(BaseTask *task, const QUuid uuid)
+{
+    _tq->cancelTask(task, uuid);
+}
+
 void TaskManager::parseError(const QString &tarsnapOutput)
 {
     if(tarsnapOutput.contains("Error reading cache directory")

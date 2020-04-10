@@ -158,6 +158,32 @@ void TaskQueuer::startTask()
     _threadPool->start(task);
 }
 
+void TaskQueuer::cancelTask(BaseTask *task, const QUuid uuid)
+{
+    // Remove from the queue.
+    for(TaskMeta *tm : _taskQueue)
+    {
+        // We need to use the uuid to verify that the task pointer is still
+        // valid -- theoretically, we could have completed a task, deleted
+        // the pointer, then allocated a new task at the same address.
+        // However, it's statistically impossible for the new task to have
+        // the same uuid as the previous one.
+        if((tm->task == task) && (tm->task->uuid() == uuid))
+        {
+            _taskQueue.removeOne(tm);
+            tm->task->canceled();
+            tm->task->deleteLater();
+        }
+    }
+    // Stop if it's running
+    for(TaskMeta *tm : _runningTasks)
+    {
+        // Again, use the uuid to verify that it's the right pointer.
+        if((tm->task == task) && (tm->task->uuid() == uuid))
+            tm->task->stop();
+    }
+}
+
 void TaskQueuer::dequeueTask()
 {
     // Get the task.

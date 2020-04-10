@@ -38,6 +38,9 @@ public:
     //! \param queued Remove all tasks from the queue.
     void stopTasks(bool interrupt, bool running, bool queued);
 
+    //! Request cancelling a task.
+    void cancelTask(BaseTask *task, const QUuid uuid);
+
 #ifdef QT_TESTLIB_LIB
     //! Don't actually run the next task.
     void fakeNextTask();

@@ -151,6 +151,8 @@ void BackupListWidgetItem::startDirInfoTask()
             &BackupListWidgetItem::cancelDirDetail, QUEUED);
 
     // Display "waiting"
+    _ui->detailLabel->setText("");
+    _ui->detailLabel->setToolTip("");
     _ui->detailLabel->setMovie(_busyMovie);
     _busyMovie->start();
 

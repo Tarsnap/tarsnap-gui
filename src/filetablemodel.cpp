@@ -93,13 +93,11 @@ void FileTableModel::setArchive(ArchivePtr archive)
     if(_archive)
     {
         // Prepare a background thread to parse the Archive's saved contents.
-        QThreadPool *            threadPool = QThreadPool::globalInstance();
         ParseArchiveListingTask *parseTask =
             new ParseArchiveListingTask(archive->contents());
-        parseTask->setAutoDelete(true);
         connect(parseTask, &ParseArchiveListingTask::result, this,
                 &FileTableModel::setFiles);
-        threadPool->start(parseTask);
+        emit taskRequested(parseTask);
     }
 }
 

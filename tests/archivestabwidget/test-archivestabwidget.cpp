@@ -11,6 +11,7 @@ WARNINGS_ENABLE
 
 #include "archivelistwidget.h"
 #include "archivestabwidget.h"
+#include "basetask.h"
 
 #include "TSettings.h"
 
@@ -35,6 +36,7 @@ void TestArchivesTabWidget::initTestCase()
 
     // Initialization normally done in init_shared.cpp's init_no_app()
     qRegisterMetaType<QVector<FileStat>>("QVector<FileStat>");
+    qRegisterMetaType<BaseTask *>("BaseTask *");
 }
 
 void TestArchivesTabWidget::cleanupTestCase()
@@ -109,11 +111,19 @@ void TestArchivesTabWidget::displayArchive()
     alw->addArchive(archive);
     VISUAL_WAIT;
 
+    QSignalSpy sig_taskRequest(archivestabwidget,
+                               SIGNAL(taskRequested(BaseTask *)));
     archivestabwidget->displayInspectArchive(archive);
     VISUAL_WAIT;
 
-    // Wait for archive parsing to finish
-    WAIT_UNTIL(fm->rowCount() > 0);
+    // Wait for archive parsing signal.
+    WAIT_SIG(sig_taskRequest);
+
+    // Fake a reply.
+    FileStat parsed = {"myfile", "Jan 1 2019", 1234, "user", "group", "644", 0};
+    QVector<FileStat> files = {parsed};
+    fm->setFiles(files);
+    VISUAL_WAIT;
 
     // Check that we have 1 file, with 7 pieces of info.
     QVERIFY(fm->rowCount() == 1);

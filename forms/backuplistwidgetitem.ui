@@ -75,7 +75,7 @@ font-size: 12px;
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="detailLabel">
+    <widget class="ElidedClickableLabel" name="detailLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -241,6 +241,11 @@ padding-left: 2px;
   </action>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ElidedClickableLabel</class>
+   <extends>QLabel</extends>
+   <header>elidedclickablelabel.h</header>
+  </customwidget>
   <customwidget>
    <class>TElidedLabel</class>
    <extends>QLabel</extends>

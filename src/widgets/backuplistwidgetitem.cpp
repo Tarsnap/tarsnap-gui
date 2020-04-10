@@ -126,11 +126,22 @@ void BackupListWidgetItem::cancelDirDetail()
     _dirInfoTask = nullptr;
 
     _ui->detailLabel->setText("canceled");
-    _ui->detailLabel->setToolTip("Calculation canceled by user");
+    _ui->detailLabel->setToolTip(
+        "Calculation canceled by user; click to restart");
+    connect(_ui->detailLabel, &ElidedClickableLabel::clicked, this,
+            &BackupListWidgetItem::startDirInfoTask);
 }
 
 void BackupListWidgetItem::startDirInfoTask()
 {
+    // Cancel the clickable label.
+    disconnect(_ui->detailLabel, &ElidedClickableLabel::clicked, this,
+               &BackupListWidgetItem::startDirInfoTask);
+
+    // Bail if we're already working on this.
+    if(_dirInfoTask != nullptr)
+        return;
+
     // Get the directory name, or bail.
     QString fileUrl = _url.toLocalFile();
     if(fileUrl.isEmpty())

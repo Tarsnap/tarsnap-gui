@@ -5,7 +5,7 @@
 
 #include "taskstatus.h"
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 namespace Ui
 {
 class RegisterPage;

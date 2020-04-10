@@ -10,7 +10,7 @@ WARNINGS_DISABLE
 
 #include "persistentmodel/archive.h"
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 namespace Ui
 {
 class ArchivesTabWidget;

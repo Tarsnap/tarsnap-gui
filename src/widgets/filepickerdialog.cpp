@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include "ui_filepickerdialog.h"
 WARNINGS_ENABLE
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class QWidget;
 
 #include <TSettings.h>

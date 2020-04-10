@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 #include "backuptask.h"
 #include "filepickerdialog.h"
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 namespace Ui
 {
 class BackupTabWidget;

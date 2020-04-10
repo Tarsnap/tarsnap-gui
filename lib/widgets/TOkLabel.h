@@ -9,7 +9,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 class QEvent;
 class QWidget;
 

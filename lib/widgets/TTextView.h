@@ -11,7 +11,7 @@ WARNINGS_DISABLE
 #include <QTextCursor>
 WARNINGS_ENABLE
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 struct LogEntry;
 
 /*!

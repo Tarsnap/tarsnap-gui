@@ -13,7 +13,7 @@ WARNINGS_ENABLE
 
 #include "basetask.h"
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class QProcess;
 
 /*

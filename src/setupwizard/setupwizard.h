@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 
 #include "taskstatus.h"
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 class IntroPage;
 class CliPage;
 class RegisterPage;

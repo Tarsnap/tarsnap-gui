@@ -14,7 +14,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 struct archive_list_data;
 
 /*!

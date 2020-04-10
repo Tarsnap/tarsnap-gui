@@ -10,7 +10,7 @@ WARNINGS_DISABLE
 #include <QUuid>
 WARNINGS_ENABLE
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 namespace Ui
 {
 class BackupListWidgetItem;

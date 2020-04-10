@@ -15,7 +15,7 @@ WARNINGS_DISABLE
 #include "ui_filepickerwidget.h"
 WARNINGS_ENABLE
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 class QModelIndex;
 class QPersistentModelIndex;
 

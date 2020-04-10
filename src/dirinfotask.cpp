@@ -17,7 +17,7 @@ struct dirinfo
     quint64 count;
 };
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 struct dirinfo getDirInfo(const QDir dir, QAtomicInt *stop_p);
 
 DirInfoTask::DirInfoTask(QDir dir) : BaseTask(), _dir(dir)

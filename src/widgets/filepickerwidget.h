@@ -13,7 +13,7 @@ WARNINGS_ENABLE
 
 #include "customfilesystemmodel.h"
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 namespace Ui
 {
 class FilePickerWidget;

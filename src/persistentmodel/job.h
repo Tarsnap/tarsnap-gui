@@ -15,7 +15,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/persistentobject.h"
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class QUrl;
 
 #define JOB_NAME_PREFIX QLatin1String("Job_")

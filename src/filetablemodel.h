@@ -13,7 +13,7 @@ WARNINGS_ENABLE
 #include "archivefilestat.h"
 #include "persistentmodel/archive.h"
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class BaseTask;
 class ParseArchiveListingTask;
 

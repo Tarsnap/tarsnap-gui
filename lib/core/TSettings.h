@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class QSettings;
 
 /*!

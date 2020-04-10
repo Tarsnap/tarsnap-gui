@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 #include "filetablemodel.h"
 #include "persistentmodel/archive.h"
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 namespace Ui
 {
 class ArchiveWidget;

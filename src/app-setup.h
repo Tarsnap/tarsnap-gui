@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include <QObject>
 WARNINGS_ENABLE
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 class SetupWizard;
 class TaskManager;
 

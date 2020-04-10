@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 
 #include "TElidedLabel.h"
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 class QResizeEvent;
 class QWidget;
 

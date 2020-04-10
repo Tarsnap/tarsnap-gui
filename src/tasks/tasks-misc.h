@@ -7,7 +7,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class CmdlineTask;
 
 /**

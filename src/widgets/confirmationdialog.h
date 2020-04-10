@@ -11,7 +11,7 @@ WARNINGS_DISABLE
 #include <QTimer>
 WARNINGS_ENABLE
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class QWidget;
 
 /*!

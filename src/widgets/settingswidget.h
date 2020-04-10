@@ -17,7 +17,7 @@ WARNINGS_ENABLE
 #include "taskstatus.h"
 #include "translator.h"
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 namespace Ui
 {
 class SettingsWidget;

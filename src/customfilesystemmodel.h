@@ -11,7 +11,7 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 class QModelIndex;
 class QPersistentModelIndex;
 

@@ -3,7 +3,7 @@
 
 #include <TWizardPage.h>
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 namespace Ui
 {
 class FinalPage;

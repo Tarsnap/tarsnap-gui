@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 
 #include "customfilesystemmodel.h"
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class QTextStream;
 
 class RunScenario : public QObject

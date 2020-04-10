@@ -9,7 +9,7 @@ WARNINGS_DISABLE
 #include <QUrlQuery>
 WARNINGS_ENABLE
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class QNetworkAccessManager;
 
 /*!

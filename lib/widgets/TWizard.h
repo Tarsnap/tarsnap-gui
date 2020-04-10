@@ -10,7 +10,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 namespace Ui
 {
 // Using a UI form for this allows us to avoid a fair chunk of

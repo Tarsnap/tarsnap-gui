@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include "ui_stoptasksdialog.h"
 WARNINGS_ENABLE
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class QWidget;
 
 StopTasksDialog::StopTasksDialog(QWidget *parent)

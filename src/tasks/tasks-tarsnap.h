@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 
 #include "backuptask.h"
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class CmdlineTask;
 
 /**

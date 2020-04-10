@@ -19,7 +19,7 @@ WARNINGS_ENABLE
 #include "tarsnaperror.h"
 #include "taskstatus.h"
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 class BackendData;
 class BaseTask;
 class TaskQueuer;

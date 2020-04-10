@@ -9,7 +9,7 @@ WARNINGS_DISABLE
 #include <QUuid>
 WARNINGS_ENABLE
 
-/* Forward declaration. */
+/* Forward declaration(s). */
 class BaseTask;
 
 /*!

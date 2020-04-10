@@ -10,7 +10,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-/* Forward declarations. */
+/* Forward declaration(s). */
 class BaseTask;
 class QThreadPool;
 class QUuid;

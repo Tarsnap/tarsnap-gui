@@ -99,6 +99,8 @@ void BackupListWidget::addItemWithUrl(QUrl url)
             &BackupListWidget::recomputeListTotals);
     connect(item, &BackupListWidgetItem::taskRequested, this,
             &BackupListWidget::taskRequested);
+    connect(item, &BackupListWidgetItem::cancelTaskRequested, this,
+            &BackupListWidget::cancelTaskRequested);
     item->setUrl(url);
     insertItem(count(), item);
     setItemWidget(item, item->widget());

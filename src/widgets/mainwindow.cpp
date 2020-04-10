@@ -113,6 +113,8 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::backupTabValidStatus);
     connect(&_backupTabWidget, &BackupTabWidget::taskRequested, this,
             &MainWindow::taskRequested);
+    connect(&_backupTabWidget, &BackupTabWidget::cancelTaskRequested, this,
+            &MainWindow::cancelTaskRequested);
 
     // Handle the Backup-related actions
     connect(_ui->actionBrowseItems, &QAction::triggered, this,

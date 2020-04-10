@@ -71,6 +71,8 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
 
     connect(_ui->backupListWidget, &BackupListWidget::taskRequested, this,
             &BackupTabWidget::taskRequested);
+    connect(_ui->backupListWidget, &BackupListWidget::cancelTaskRequested, this,
+            &BackupTabWidget::cancelTaskRequested);
 
     updateUi();
 }

@@ -19,6 +19,7 @@ HEADERS  +=						\
 	../../lib/widgets/TElidedLabel.h		\
 	../../src/archivefilestat.h			\
 	../../src/backuptask.h				\
+	../../src/basetask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
@@ -43,6 +44,7 @@ SOURCES += test-jobstabwidget.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../src/backuptask.cpp			\
+	../../src/basetask.cpp				\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/parsearchivelistingtask.cpp		\
 	../../src/persistentmodel/archive.cpp		\

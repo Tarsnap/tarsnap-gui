@@ -16,6 +16,7 @@ SOURCES += test-app-cmdline.cpp				\
 	../../libcperciva/util/warnp.c			\
 	../../src/app-cmdline.cpp			\
 	../../src/backuptask.cpp			\
+	../../src/basetask.cpp				\
 	../../src/init-shared.cpp			\
 	../../src/parsearchivelistingtask.cpp		\
 	../../src/persistentmodel/archive.cpp		\
@@ -39,6 +40,7 @@ HEADERS +=						\
 	../../src/app-cmdline.h				\
 	../../src/archivefilestat.h			\
 	../../src/backuptask.h				\
+	../../src/basetask.h				\
 	../../src/init-shared.h				\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\

@@ -23,11 +23,12 @@ class DirInfoTask : public BaseTask
 public:
     //! Constructor.
     explicit DirInfoTask(QDir dir);
+
     //! Execute the task.
-    void run();
+    void run() override;
 
     //! We want to stop the task.
-    void stop();
+    void stop() override;
 
 signals:
     //! The directory's size and number of files.

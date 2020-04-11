@@ -30,6 +30,8 @@ CmdlineTask::~CmdlineTask()
 
 void CmdlineTask::run()
 {
+    Q_ASSERT(_process == nullptr);
+
     // Set up new _process
     _process = new QProcess();
     _process->setProgram(_command);

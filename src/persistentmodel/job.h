@@ -6,6 +6,7 @@
 WARNINGS_DISABLE
 #include <QFileSystemWatcher>
 #include <QList>
+#include <QMetaType>
 #include <QObject>
 #include <QSharedPointer>
 #include <QString>

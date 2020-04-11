@@ -37,10 +37,11 @@ void TarsnapAccount::getAccountInfo(bool    displayActivity,
 {
     TSettings settings;
     QUrlQuery post;
-    _user = settings.value("tarsnap/user", "").toString();
+
+    const QString user = settings.value("tarsnap/user", "").toString();
 
     // Set up activity query
-    post.addQueryItem("address", QUrl::toPercentEncoding(_user));
+    post.addQueryItem("address", QUrl::toPercentEncoding(user));
     post.addQueryItem("password", QUrl::toPercentEncoding(password));
     post.addQueryItem("action", "activity");
     post.addQueryItem("format", "csv");
@@ -56,13 +57,13 @@ void TarsnapAccount::getAccountInfo(bool    displayActivity,
                     emit gotTable(replyData, tr("Account activity"));
             });
 
-    _machineId = settings.value("tarsnap/key_id", 0).toULongLong();
-    if(_machineId)
+    const quint64 machineId = settings.value("tarsnap/key_id", 0).toULongLong();
+    if(machineId)
     {
         QString hexId("%1");
-        hexId = hexId.arg(_machineId, 16, 16, QLatin1Char('0'));
+        hexId = hexId.arg(machineId, 16, 16, QLatin1Char('0'));
         // Set up machine activity query
-        post.addQueryItem("address", QUrl::toPercentEncoding(_user));
+        post.addQueryItem("address", QUrl::toPercentEncoding(user));
         post.addQueryItem("password", QUrl::toPercentEncoding(password));
         post.addQueryItem("action", "subactivity");
         post.addQueryItem("mid", QUrl::toPercentEncoding(hexId));

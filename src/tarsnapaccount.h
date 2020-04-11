@@ -71,8 +71,6 @@ protected slots:
 
 private:
     QNetworkAccessManager *_nam;
-    QString                _user;
-    quint64                _machineId;
 };
 
 #endif // TARSNAPACCOUNT_H

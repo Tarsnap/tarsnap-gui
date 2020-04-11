@@ -30,7 +30,6 @@ SOURCES += test-app-setup.cpp				\
 	../../lib/widgets/TWizardPage.cpp		\
 	../../libcperciva/util/getopt.c			\
 	../../libcperciva/util/warnp.c			\
-	../../src/app-cmdline.cpp			\
 	../../src/app-setup.cpp				\
 	../../src/archivefilestat.h			\
 	../../src/backenddata.cpp			\
@@ -76,7 +75,6 @@ HEADERS +=						\
 	../../lib/widgets/TWizardPage.h			\
 	../../libcperciva/util/getopt.h			\
 	../../libcperciva/util/warnp.h			\
-	../../src/app-cmdline.h				\
 	../../src/app-setup.h				\
 	../../src/backenddata.h				\
 	../../src/backuptask.h				\

@@ -97,7 +97,8 @@ public slots:
     //! tarsnap --nuke
     void nuke();
     //! tarsnap -x -f \<name\>, with options.
-    void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
+    void restoreArchive(ArchivePtr                   archive,
+                        const ArchiveRestoreOptions &options);
     //! tarsnap-keymgmt --print-key-id \<key_filename\>
     void getKeyId(const QString &key_filename);
     //! Search for all matching Archive objects which were created by a Job.

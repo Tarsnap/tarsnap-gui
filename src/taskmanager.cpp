@@ -260,8 +260,8 @@ void TaskManager::nuke()
     _tq->queueTask(nukeTask, true);
 }
 
-void TaskManager::restoreArchive(ArchivePtr            archive,
-                                 ArchiveRestoreOptions options)
+void TaskManager::restoreArchive(ArchivePtr                   archive,
+                                 const ArchiveRestoreOptions &options)
 {
     if(archive.isNull())
     {

@@ -41,7 +41,7 @@ public slots:
     void recomputeListTotals();
     //! Clears any existing items, then adds the listed items.
     //! \param urls a list of the paths of the files or directories.
-    void setItemsWithUrls(QList<QUrl> urls);
+    void setItemsWithUrls(const QList<QUrl> &urls);
 
 signals:
     //! The total number and size of items.

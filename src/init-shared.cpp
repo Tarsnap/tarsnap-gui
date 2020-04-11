@@ -141,7 +141,7 @@ static QString check_migrateSettings()
 /**
  * Configures the app-wide Settings.  Cannot fail, but can report a message.
  */
-static struct init_info init_shared_settings(QString configDir)
+static struct init_info init_shared_settings(const QString &configDir)
 {
     struct init_info info = {INIT_OK, "", ""};
 
@@ -271,7 +271,7 @@ static struct init_info init_shared_core()
  * \return list a QList<struct init_info> with one element per
  * step of the initialization.
  */
-QList<struct init_info> init_shared(const QString configDir)
+QList<struct init_info> init_shared(const QString &configDir)
 {
     QList<struct init_info> steps;
     struct init_info        info;

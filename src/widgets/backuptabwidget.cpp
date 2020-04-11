@@ -31,7 +31,7 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
     connect(_ui->backupListInfoLabel, &ElidedClickableLabel::clicked,
             _ui->actionBrowseItems, &QAction::trigger);
     connect(_ui->backupNameLineEdit, &QLineEdit::textChanged,
-            [this](const QString text) {
+            [this](const QString &text) {
                 if(text.isEmpty())
                     _ui->appendTimestampCheckBox->setChecked(false);
                 validateBackupTab();

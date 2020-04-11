@@ -72,7 +72,7 @@ public:
 
     QStringList optionSkipSystemFiles() const;
     void setOptionSkipSystemFiles(const QStringList &optionSkipSystemFiles);
-    void setOptionSkipSystemFiles(const QString string);
+    void setOptionSkipSystemFiles(const QString &string);
 
     bool optionDryRun() const;
     void setOptionDryRun(bool optionDryRun);

@@ -162,7 +162,7 @@ void BackupTaskData::setOptionSkipSystemFiles(
     _optionSkipSystemFiles = optionSkipSystemFiles;
 }
 
-void BackupTaskData::setOptionSkipSystemFiles(const QString string)
+void BackupTaskData::setOptionSkipSystemFiles(const QString &string)
 {
     _optionSkipSystemFiles = string.split(':', QString::SkipEmptyParts);
 }

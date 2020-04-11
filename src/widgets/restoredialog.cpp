@@ -13,7 +13,7 @@ WARNINGS_ENABLE
 #include <TSettings.h>
 
 RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
-                             QStringList files)
+                             const QStringList &files)
     : QDialog(parent),
       _ui(new Ui::RestoreDialog),
       _archive(archive),

@@ -54,7 +54,7 @@ AppGui::~AppGui()
     Translator::destroy();
 }
 
-bool AppGui::handle_init(const QList<struct init_info> steps)
+bool AppGui::handle_init(const QList<struct init_info> &steps)
 {
     // Handle each step of the initialization
     for(const struct init_info &info : steps)
@@ -95,7 +95,7 @@ bool AppGui::handle_init(const QList<struct init_info> steps)
  * In order for Qt's translation tr() to work, this must be a class method
  * (rather than a static function).
  */
-bool AppGui::handle_step(const struct init_info info)
+bool AppGui::handle_step(const struct init_info &info)
 {
     switch(info.status)
     {

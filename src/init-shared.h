@@ -40,7 +40,7 @@ struct init_info
  * \return list a QList<struct init_info> with one element per
  * step of the initialization.
  */
-QList<struct init_info> init_shared(const QString configDir);
+QList<struct init_info> init_shared(const QString &configDir);
 
 /**
  * Do we need to run the setup wizard?

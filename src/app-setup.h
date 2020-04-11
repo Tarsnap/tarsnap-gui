@@ -26,7 +26,7 @@ public:
     ~AppSetup();
 
     //! Handle the initialization
-    bool handle_init(const QList<struct init_info> steps);
+    bool handle_init(const QList<struct init_info> &steps);
 
     //! Prepare to pass control to the QEventLoop.
     //! \return True if the calling function should call app.exec().
@@ -61,7 +61,7 @@ private:
     SetupWizard *_wizard;
     TaskManager *_taskManager;
 
-    bool handle_step(const struct init_info info);
+    bool handle_step(const struct init_info &info);
 };
 
 #endif // APP_SETUP_H

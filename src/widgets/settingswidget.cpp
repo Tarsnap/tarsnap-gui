@@ -160,7 +160,7 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     });
 
     connect(_ui->languageComboBox, &QComboBox::currentTextChanged,
-            [this](const QString language) {
+            [this](const QString &language) {
                 if(!language.isEmpty())
                 {
                     this->commitSettings();
@@ -415,7 +415,7 @@ bool SettingsWidget::validateMachineKeyPath()
     }
 }
 
-void SettingsWidget::saveKeyId(QString key, quint64 id)
+void SettingsWidget::saveKeyId(const QString &key, quint64 id)
 {
     if(key == _ui->accountMachineKeyLineEdit->text())
     {

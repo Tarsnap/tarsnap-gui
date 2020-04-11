@@ -94,8 +94,8 @@ void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
 #define HANDLE_IGNORING_XDG_HOME
 #endif
 
-QString get_script(QString scriptname);
-QString get_script(QString scriptname)
+QString get_script(const QString &scriptname);
+QString get_script(const QString &scriptname)
 {
     QDir dir = QDir(QCoreApplication::applicationDirPath());
 

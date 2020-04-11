@@ -116,7 +116,7 @@ void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
     setUpdatesEnabled(true);
 }
 
-void BackupListWidget::setItemsWithUrls(QList<QUrl> urls)
+void BackupListWidget::setItemsWithUrls(const QList<QUrl> &urls)
 {
     setUpdatesEnabled(false);
     clear();

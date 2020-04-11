@@ -26,7 +26,7 @@ public:
     ~AppCmdline();
 
     //! Handle the initialization
-    bool handle_init(const QList<struct init_info> steps);
+    bool handle_init(const QList<struct init_info> &steps);
 
     //! Prepare to pass control to the QEventLoop.
     //! \return True if the calling function should call app.exec().
@@ -36,7 +36,7 @@ private:
     QString _configDir;
     bool    _checkOption;
 
-    bool handle_step(const struct init_info info);
+    bool handle_step(const struct init_info &info);
 };
 
 #endif // APP_CMDLINE_H

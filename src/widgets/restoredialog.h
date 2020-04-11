@@ -30,7 +30,7 @@ public:
     //! \param files list of files to restore.  If empty, restore all files
     //!               in this archive.
     explicit RestoreDialog(QWidget *parent, ArchivePtr archive,
-                           QStringList files = QStringList());
+                           const QStringList &files = QStringList());
     ~RestoreDialog();
 
     //! Returns options from the dialog window.

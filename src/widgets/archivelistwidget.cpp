@@ -373,7 +373,7 @@ void ArchiveListWidget::handleItemActivated(QListWidgetItem *item)
         goingToInspectItem(archiveItem);
 }
 
-ArchivePtr ArchiveListWidget::findArchiveByName(QString archiveName)
+ArchivePtr ArchiveListWidget::findArchiveByName(const QString &archiveName)
 {
     for(int i = 0; i < count(); i++)
     {

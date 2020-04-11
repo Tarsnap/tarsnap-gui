@@ -37,7 +37,7 @@ public:
     static void destroy();
 
     //! The log filename.
-    void setFilename(QString filename);
+    void setFilename(const QString &filename);
 
     //! The log filename.
     QString getLogFile();
@@ -159,7 +159,7 @@ public:
 
 signals:
     //! Message sent to the ConsoleLog.
-    void message(const QString message);
+    void message(const QString &message);
 
 private:
     void saveLogMessage(QString msg);

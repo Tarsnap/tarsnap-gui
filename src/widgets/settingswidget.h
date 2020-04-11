@@ -59,7 +59,7 @@ public slots:
                              quint64 sizeUniqueCompressed,
                              quint64 archiveCount);
     //! Save the Tarsnap key ID.
-    void saveKeyId(QString key_filename, quint64 id);
+    void saveKeyId(const QString &key_filename, quint64 id);
 
     //! For the Application tab
     //! Update the Tarsnap version number, and store it in the settings.

@@ -87,9 +87,9 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
             &ArchiveListWidget::addArchive);
 
     connect(_ui->archiveDetailsWidget, &ArchiveWidget::jobClicked,
-            [this](QString jobRef) { emit jobClicked(jobRef); });
+            [this](const QString &jobRef) { emit jobClicked(jobRef); });
     connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails,
-            [this](QString jobRef) { emit displayJobDetails(jobRef); });
+            [this](const QString &jobRef) { emit displayJobDetails(jobRef); });
 
     updateUi();
 }

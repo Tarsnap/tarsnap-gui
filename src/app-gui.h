@@ -33,7 +33,7 @@ public:
     ~AppGui();
 
     //! Handle the initialization
-    bool handle_init(const QList<struct init_info> steps);
+    bool handle_init(const QList<struct init_info> &steps);
 
     //! Prepare to pass control to the QEventLoop.
     //! \return True if the calling function should call app.exec().
@@ -56,7 +56,7 @@ private:
     bool         _jobsOption;
     QString      _configDir;
 
-    bool handle_step(const struct init_info info);
+    bool handle_step(const struct init_info &info);
 };
 
 #endif // APP_GUI_H

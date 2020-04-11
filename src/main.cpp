@@ -47,7 +47,7 @@ done:
 }
 
 static int run_gui_main(int argc, char *argv[], struct optparse *opt,
-                        const QList<struct init_info> steps)
+                        const QList<struct init_info> &steps)
 {
     int ret;
 
@@ -83,7 +83,7 @@ done:
 }
 
 static int run_gui_setup(int argc, char *argv[],
-                         const QList<struct init_info> steps)
+                         const QList<struct init_info> &steps)
 {
     int ret;
 

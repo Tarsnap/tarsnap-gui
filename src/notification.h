@@ -29,7 +29,7 @@ public slots:
     //! Displays a string if the user has "Show desktop notifications" enabled,
     //! after removing HTML tags.
     void displayNotification(QString message, enum message_type type,
-                             QString data);
+                             const QString &data);
 
 signals:
     //! The user clicked on the notification message.

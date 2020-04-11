@@ -44,7 +44,7 @@ void ConsoleLog::saveLogMessage(QString msg)
     logFile.close();
 }
 
-void ConsoleLog::setFilename(QString filename)
+void ConsoleLog::setFilename(const QString &filename)
 {
     _filename = filename;
 }

@@ -31,7 +31,7 @@ public:
     void ensureCurrentItemVisible();
 
     //! Find the archive matching the given name.
-    ArchivePtr findArchiveByName(QString archiveName);
+    ArchivePtr findArchiveByName(const QString &archiveName);
 
 public slots:
     //! Clears the archive list, then sets it to the specified archives

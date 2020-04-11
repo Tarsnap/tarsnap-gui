@@ -2,9 +2,11 @@
 
 WARNINGS_DISABLE
 #include <QAbstractButton>
-#include <QMetaObject>
+#include <QCoreApplication>
+#include <QList>
+#include <QObject>
+#include <QString>
 #include <QTest>
-#include <QTimer>
 
 #include "ui_setupwizard_cli.h"
 #include "ui_setupwizard_register.h"
@@ -19,6 +21,7 @@ WARNINGS_ENABLE
 #include "setupwizard_register.h"
 #include "tasks-defs.h"
 #include "taskstatus.h"
+#include "utils.h"
 
 #include <TSettings.h>
 #include <TWizardPage.h>

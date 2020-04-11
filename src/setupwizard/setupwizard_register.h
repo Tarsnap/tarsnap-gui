@@ -1,6 +1,13 @@
 #ifndef SETUPWIZARD_REGISTER_H
 #define SETUPWIZARD_REGISTER_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
+#include <QObject>
+#include <QString>
+WARNINGS_ENABLE
+
 #include <TWizardPage.h>
 
 #include "taskstatus.h"
@@ -11,6 +18,7 @@ namespace Ui
 class RegisterPage;
 }
 class TPathComboBrowse;
+class QWidget;
 
 /**
  * \ingroup widgets-setup

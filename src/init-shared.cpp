@@ -2,14 +2,22 @@
 
 WARNINGS_DISABLE
 #include <QCoreApplication>
+#include <QDate>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QList>
+#include <QMap>
 #include <QMetaType>
+#include <QObject>
 #include <QSettings>
+#include <QSqlQuery>
 #include <QStandardPaths>
+#include <QString>
+#include <QStringList>
 #include <QUrl>
+#include <QVariant>
 #include <QVector>
 WARNINGS_ENABLE
 
@@ -26,6 +34,7 @@ WARNINGS_ENABLE
 #include "taskstatus.h"
 #include "utils.h"
 
+#include "LogEntry.h"
 #include <ConsoleLog.h>
 #include <TSettings.h>
 

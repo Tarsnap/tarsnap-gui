@@ -1,12 +1,12 @@
 #include "setupwizard.h"
 
 WARNINGS_DISABLE
+#include <QList>
 #include <QPixmap>
 #include <QString>
 WARNINGS_ENABLE
 
 #include <TSettings.h>
-#include <TWizardPage.h>
 
 #include "setupwizard_cli.h"
 #include "setupwizard_final.h"
@@ -14,6 +14,10 @@ WARNINGS_ENABLE
 #include "setupwizard_register.h"
 
 #include "taskstatus.h"
+
+/* Forward declarations(s). */
+class QWidget;
+class TWizardPage;
 
 SetupWizard::SetupWizard(QWidget *parent) : TWizard(parent)
 {

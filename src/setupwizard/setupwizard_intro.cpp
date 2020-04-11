@@ -6,6 +6,9 @@ WARNINGS_DISABLE
 #include "ui_setupwizard_intro.h"
 WARNINGS_ENABLE
 
+/* Forward declaration(s). */
+class QWidget;
+
 #include <TWizardPage.h>
 
 IntroPage::IntroPage(QWidget *parent)

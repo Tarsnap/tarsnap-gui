@@ -4,6 +4,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QObject>
 #include <QString>
 WARNINGS_ENABLE
 
@@ -16,6 +17,7 @@ class IntroPage;
 class CliPage;
 class RegisterPage;
 class FinalPage;
+class QWidget;
 
 /**
  * \ingroup widgets-setup

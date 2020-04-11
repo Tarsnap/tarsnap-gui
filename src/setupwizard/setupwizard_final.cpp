@@ -1,17 +1,19 @@
 #include "setupwizard_final.h"
 
-#include "warnings-disable.h"
-
 WARNINGS_DISABLE
 #include <QFileInfo>
 #include <QString>
 #include <QUrl>
+#include <QVariant>
 
 #include "ui_setupwizard_final.h"
 WARNINGS_ENABLE
 
 #include <TSettings.h>
 #include <TWizardPage.h>
+
+/* Forward declaration(s). */
+class QWidget;
 
 FinalPage::FinalPage(QWidget *parent)
     : TWizardPage(parent), _ui(new Ui::FinalPage)

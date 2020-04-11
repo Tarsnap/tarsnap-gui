@@ -1,8 +1,12 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QtTest/QtTest>
-
+#include <QCoreApplication>
+#include <QEventLoop>
+#include <QObject>
+#include <QSignalSpy>
+#include <QString>
+#include <QTest>
 #include <QSettings>
 
 #include "ui_setupwizard_cli.h"
@@ -10,8 +14,6 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
-
-#include "utils.h"
 
 #include <TSettings.h>
 #include <TWizardPage.h>
@@ -21,6 +23,7 @@ WARNINGS_ENABLE
 #include "setupwizard.h"
 #include "setupwizard_cli.h"
 #include "setupwizard_register.h"
+#include "taskstatus.h"
 
 #define GET_UI_PAGE(x, PAGETYPE)                                               \
     do                                                                         \

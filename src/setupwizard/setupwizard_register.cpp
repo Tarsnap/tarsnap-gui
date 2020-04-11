@@ -4,7 +4,11 @@
 
 WARNINGS_DISABLE
 #include <QDateTime>
-#include <QFileDialog>
+#include <QDir>
+#include <QFileInfo>
+#include <QLineEdit>
+#include <QTabWidget>
+#include <QVariant>
 
 // This is used for QHostInfo::localHostName().  It could be replaced with
 // QSysInfo::machineHostName() to remove the dependency on the Qt network
@@ -14,6 +18,7 @@ WARNINGS_DISABLE
 #include "ui_setupwizard_register.h"
 WARNINGS_ENABLE
 
+#include "TPathComboBrowse.h"
 #include <TSettings.h>
 #include <TWizardPage.h>
 

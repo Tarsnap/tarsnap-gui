@@ -1,10 +1,13 @@
 #include "setupwizard_cli.h"
 
 WARNINGS_DISABLE
-#include <QFileDialog>
+#include <QDir>
+#include <QFileInfo>
 #include <QMessageBox>
 #include <QObject>
+#include <QPushButton>
 #include <QStandardPaths>
+#include <QWidget>
 
 #include "ui_setupwizard_cli.h"
 WARNINGS_ENABLE

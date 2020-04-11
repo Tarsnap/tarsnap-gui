@@ -1,11 +1,14 @@
 #include "compare-settings.h"
 
+#include "warnings-disable.h"
+
 WARNINGS_DISABLE
+#include <QDebug>
 #include <QSettings>
 #include <QString>
+#include <QStringList>
+#include <QVariant>
 WARNINGS_ENABLE
-
-#include "debug.h"
 
 //! Compares all the keys in two QSettings files.
 bool compareSettings(QSettings *settings, QSettings *target)

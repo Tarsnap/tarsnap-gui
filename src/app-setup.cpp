@@ -1,21 +1,19 @@
 #include "app-setup.h"
 
 WARNINGS_DISABLE
-#include <QFontDatabase>
+#include <QDialog>
 #include <QMessageBox>
 #include <QTimer>
+#include <QVariant>
 WARNINGS_ENABLE
-
-#include <assert.h>
 
 #include "debug.h"
 #include "init-shared.h"
 #include "setupwizard/setupwizard.h"
 #include "taskmanager.h"
+#include "taskstatus.h"
 #include "translator.h"
-#include "utils.h"
 
-#include <ConsoleLog.h>
 #include <TSettings.h>
 
 AppSetup::AppSetup(int &argc, char **argv)

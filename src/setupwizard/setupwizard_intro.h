@@ -1,6 +1,12 @@
 #ifndef SETUPWIZARD_INTRO_H
 #define SETUPWIZARD_INTRO_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
+#include <QObject>
+WARNINGS_ENABLE
+
 #include <TWizardPage.h>
 
 /* Forward declaration(s). */
@@ -8,6 +14,7 @@ namespace Ui
 {
 class IntroPage;
 }
+class QWidget;
 
 /**
  * \ingroup widgets-setup

@@ -1,6 +1,13 @@
 #ifndef SETUPWIZARD_CLI_H
 #define SETUPWIZARD_CLI_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
+#include <QObject>
+#include <QString>
+WARNINGS_ENABLE
+
 #include <TWizardPage.h>
 
 #include "taskstatus.h"
@@ -10,6 +17,7 @@ namespace Ui
 {
 class CliPage;
 }
+class QWidget;
 class TPathLineBrowse;
 
 /**

@@ -49,6 +49,8 @@ listArchivesTaskParse(const QString &tarsnapOutput)
             metadata.timestamp =
                 QDateTime::fromString(archiveDetails[1], Qt::ISODate);
             metadata.command = archiveDetails[2];
+
+            metadata.parse_error = false;
             metadatas.append(metadata);
         }
     }

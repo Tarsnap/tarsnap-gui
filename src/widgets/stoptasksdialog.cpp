@@ -86,7 +86,7 @@ void StopTasksDialog::display(bool backupTaskRunning, int runningTasks,
 
     // Sanity check.
     Q_ASSERT((runningTasks > 0) || (queuedTasks > 0));
-    Q_ASSERT(!backupTaskRunning || (backupTaskRunning && (runningTasks > 0)));
+    Q_ASSERT(!backupTaskRunning || (runningTasks > 0));
 
     // Update enabled buttons.
     updateTasks(backupTaskRunning, runningTasks, queuedTasks);

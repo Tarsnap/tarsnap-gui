@@ -39,7 +39,8 @@ void TestCore::settings_default()
 
     // Check saved settings
     TSettings settings;
-    QVERIFY(settings.value("tarsnap/user", "") == QString("default_init"));
+    QString   user = settings.value("tarsnap/user", "").toString();
+    QVERIFY(user == "default_init");
 }
 
 void TestCore::settings_custom()
@@ -52,7 +53,8 @@ void TestCore::settings_custom()
 
     // Check saved settings
     TSettings settings;
-    QVERIFY(settings.value("tarsnap/user", "") == QString("custom_name"));
+    QString   user = settings.value("tarsnap/user", "").toString();
+    QVERIFY(user == "custom_name");
 }
 
 void TestCore::settings_default_after_custom()
@@ -66,7 +68,8 @@ void TestCore::settings_default_after_custom()
 
     // Check saved settings -- should be back to default
     TSettings settings;
-    QVERIFY(settings.value("tarsnap/user", "") == QString("default_init"));
+    QString   user = settings.value("tarsnap/user", "").toString();
+    QVERIFY(user == "default_init");
 }
 
 QTEST_MAIN(TestCore)

@@ -12,6 +12,7 @@ WARNINGS_DISABLE
 #include <QSqlError>
 #include <QStringList>
 #include <QVariant>
+#include <Qt>
 
 static QMutex mutex;
 WARNINGS_ENABLE

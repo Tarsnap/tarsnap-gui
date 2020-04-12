@@ -11,6 +11,7 @@ WARNINGS_ENABLE
 /* Forward declaration(s). */
 class QMouseEvent;
 class QMovie;
+class QWidget;
 
 /*!
  * \ingroup lib-widgets

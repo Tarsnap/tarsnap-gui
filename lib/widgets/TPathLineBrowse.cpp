@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QEvent>
 #include <QFileDialog>
+#include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
 

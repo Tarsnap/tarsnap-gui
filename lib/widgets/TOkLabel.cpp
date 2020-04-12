@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QEvent>
 #include <QWidget>
+#include <Qt>
 WARNINGS_ENABLE
 
 TOkLabel::TOkLabel(QWidget *parent) : QLabel(parent), _status(0)

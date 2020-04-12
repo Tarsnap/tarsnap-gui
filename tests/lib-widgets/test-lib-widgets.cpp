@@ -11,6 +11,8 @@ WARNINGS_DISABLE
 #include <QSignalSpy>
 #include <QString>
 #include <QTest>
+#include <QVariant>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"

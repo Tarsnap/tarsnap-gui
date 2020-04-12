@@ -1,12 +1,13 @@
 #include "utils.h"
 
 WARNINGS_DISABLE
+#include <QChar>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QRegExp>
 #include <QStandardPaths>
+#include <QVariant>
 WARNINGS_ENABLE
 
 #include <math.h>

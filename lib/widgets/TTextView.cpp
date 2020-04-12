@@ -3,7 +3,11 @@
 WARNINGS_DISABLE
 #include <QApplication>
 #include <QBrush>
+#include <QDateTime>
+#include <QPalette>
 #include <QTextBlockFormat>
+#include <QTextDocument>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "LogEntry.h"

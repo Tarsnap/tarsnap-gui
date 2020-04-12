@@ -4,6 +4,7 @@ WARNINGS_DISABLE
 #include <QFileInfo>
 #include <QMouseEvent>
 #include <QMovie>
+#include <Qt>
 WARNINGS_ENABLE
 
 #define MOVIE_FILENAME ":/lib/loading.gif"

@@ -4,10 +4,10 @@ WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QEventLoop>
 #include <QObject>
+#include <QSettings>
 #include <QSignalSpy>
 #include <QString>
 #include <QTest>
-#include <QSettings>
 
 #include "ui_setupwizard_cli.h"
 #include "ui_setupwizard_register.h"

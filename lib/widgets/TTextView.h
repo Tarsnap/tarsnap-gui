@@ -12,6 +12,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 /* Forward declaration(s). */
+class QWidget;
 struct LogEntry;
 
 /*!

@@ -5,6 +5,7 @@ WARNINGS_DISABLE
 #include <QObject>
 #include <QString>
 #include <QTest>
+#include <QVariant>
 WARNINGS_ENABLE
 
 #include <TSettings.h>

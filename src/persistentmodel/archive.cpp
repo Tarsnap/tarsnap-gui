@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include <QSqlRecord>
 #include <QString>
 #include <QVariant>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "debug.h"

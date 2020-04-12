@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include <QSet>
 #include <QString>
 #include <QVariant>
+#include <Qt>
 WARNINGS_ENABLE
 
 /* Forward declaration(s). */

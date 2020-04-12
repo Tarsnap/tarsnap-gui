@@ -4,6 +4,7 @@ WARNINGS_DISABLE
 #include <QChar>
 #include <QProcess>
 #include <QStandardPaths>
+#include <QUuid>
 WARNINGS_ENABLE
 
 #include "utils.h"

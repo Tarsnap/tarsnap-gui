@@ -8,6 +8,7 @@ WARNINGS_DISABLE
 #include <QObject>
 #include <QSize>
 #include <QString>
+#include <Qt>
 WARNINGS_ENABLE
 
 /* Forward declaration(s). */

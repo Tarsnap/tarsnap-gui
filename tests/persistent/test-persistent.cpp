@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QDateTime>
+#include <QList>
 #include <QObject>
 #include <QSignalSpy>
 #include <QSqlQuery>

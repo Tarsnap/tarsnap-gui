@@ -18,6 +18,7 @@ namespace Ui
 class TWizard;
 } // namespace Ui
 class QPixmap;
+class QWidget;
 class TWizardPage;
 
 /*!

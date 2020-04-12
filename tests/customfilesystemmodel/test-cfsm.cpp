@@ -1,6 +1,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QByteArray>
 #include <QChar>
 #include <QCoreApplication>
 #include <QList>
@@ -8,6 +9,9 @@ WARNINGS_DISABLE
 #include <QPersistentModelIndex>
 #include <QString>
 #include <QTest>
+#include <QTestData>
+#include <QVariant>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "run-scenario.h"

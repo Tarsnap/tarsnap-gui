@@ -7,6 +7,8 @@ WARNINGS_DISABLE
 #include <QFile>
 #include <QIODevice>
 #include <QTextStream>
+#include <QVariant>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include <stdio.h>

@@ -2,7 +2,9 @@
 
 WARNINGS_DISABLE
 #include <QDialog>
-#include <QPixmap>
+#include <QLabel>
+#include <QStackedWidget>
+#include <QWidget>
 
 #include "ui_TWizard.h"
 WARNINGS_ENABLE

@@ -8,10 +8,13 @@ WARNINGS_DISABLE
 #include <QFile>
 #include <QIODevice>
 #include <QKeySequence>
+#include <QLabel>
 #include <QPushButton>
+#include <QTextBrowser>
 #include <QTextStream>
 #include <QUrl>
 #include <QWidget>
+#include <Qt>
 
 #include "ui_aboutwidget.h"
 #include "ui_consolewidget.h"
@@ -19,6 +22,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "LogEntry.h"
+#include "TTextView.h"
 
 #include "debug.h"
 #include "popuppushbutton.h"

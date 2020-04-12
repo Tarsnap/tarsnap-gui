@@ -1,16 +1,22 @@
 #include "archivestabwidget.h"
 
 WARNINGS_DISABLE
+#include <QAction>
+#include <QComboBox>
+#include <QEvent>
 #include <QEventLoop>
+#include <QKeyEvent>
+#include <QKeySequence>
+#include <QMenu>
+#include <QPoint>
 #include <QWidget>
+#include <Qt>
 
 #include "ui_archivestabwidget.h"
 WARNINGS_ENABLE
 
-#include "ui_archivestabwidget.h"
-
-#include <TSettings.h>
-
+#include "archivelistwidget.h"
+#include "archivewidget.h"
 #include "basetask.h"
 
 ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)

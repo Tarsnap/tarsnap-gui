@@ -3,7 +3,9 @@
 WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QDialogButtonBox>
+#include <QInputDialog>
 #include <QList>
+#include <QMessageBox>
 #include <QObject>
 #include <QPushButton>
 #include <QSignalSpy>
@@ -13,6 +15,7 @@ WARNINGS_DISABLE
 #include <QVariant>
 #include <QVector>
 #include <QWidget>
+#include <Qt>
 
 #include "ui_stoptasksdialog.h"
 WARNINGS_ENABLE

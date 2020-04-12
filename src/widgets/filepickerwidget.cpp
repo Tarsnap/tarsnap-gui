@@ -9,8 +9,10 @@ WARNINGS_DISABLE
 #include <QPersistentModelIndex>
 #include <QPushButton>
 #include <QStringList>
+#include <QTreeView>
 #include <QUrl>
 #include <QVector>
+#include <Qt>
 
 #include "ui_filepickerwidget.h"
 WARNINGS_ENABLE

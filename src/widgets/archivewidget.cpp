@@ -1,13 +1,28 @@
 #include "archivewidget.h"
 
 WARNINGS_DISABLE
-#include <QCloseEvent>
+#include <QAction>
+#include <QComboBox>
+#include <QDateTime>
+#include <QEvent>
+#include <QKeyEvent>
+#include <QKeySequence>
+#include <QLabel>
+#include <QModelIndex>
+#include <QModelIndexList>
+#include <QPoint>
+#include <QStringList>
+#include <QTableView>
+#include <QVariant>
+#include <Qt>
 
 #include "ui_archivewidget.h"
 WARNINGS_ENABLE
 
-#include "archivefilestat.h"
+#include "TElidedLabel.h"
+
 #include "basetask.h"
+#include "elidedclickablelabel.h"
 #include "restoredialog.h"
 #include "utils.h"
 

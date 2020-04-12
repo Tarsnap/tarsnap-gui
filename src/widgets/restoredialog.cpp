@@ -1,9 +1,15 @@
 #include "restoredialog.h"
 
 WARNINGS_DISABLE
+#include <QChar>
+#include <QCheckBox>
+#include <QDir>
 #include <QFileDialog>
 #include <QFileInfo>
-#include <QMessageBox>
+#include <QLabel>
+#include <QLineEdit>
+#include <QVariant>
+#include <Qt>
 
 #include "ui_restoredialog.h"
 WARNINGS_ENABLE

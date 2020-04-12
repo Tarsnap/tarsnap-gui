@@ -2,7 +2,11 @@
 
 WARNINGS_DISABLE
 #include <QMouseEvent>
+#include <Qt>
 WARNINGS_ENABLE
+
+/* Forward declaration(s). */
+class QWidget;
 
 ElidedClickableLabel::ElidedClickableLabel(QWidget *parent)
     : TElidedLabel(parent)

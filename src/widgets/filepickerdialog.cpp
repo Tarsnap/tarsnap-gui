@@ -4,6 +4,7 @@ WARNINGS_DISABLE
 #include <QDir>
 #include <QPushButton>
 #include <QUrl>
+#include <QVariant>
 
 #include "ui_filepickerdialog.h"
 WARNINGS_ENABLE
@@ -12,6 +13,8 @@ WARNINGS_ENABLE
 class QWidget;
 
 #include <TSettings.h>
+
+#include "filepickerwidget.h"
 
 FilePickerDialog::FilePickerDialog(QWidget *parent)
     : QDialog(parent), _ui(new Ui::FilePickerDialog)

@@ -9,12 +9,14 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
-#include "taskmanager.h"
 
+/* Forward declaration(s). */
 namespace Ui
 {
 class ArchiveListWidgetItem;
 }
+class QEvent;
+class QWidget;
 
 /*!
  * \ingroup widgets-specialized

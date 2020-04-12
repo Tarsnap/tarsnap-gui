@@ -5,14 +5,19 @@
 
 WARNINGS_DISABLE
 #include <QDialog>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
 
+/* Forward declaration(s). */
 namespace Ui
 {
 class RestoreDialog;
 }
+class QWidget;
 
 /*!
  * \ingroup widgets-specialized

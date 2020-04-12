@@ -1,8 +1,11 @@
 #include "archivelistwidget.h"
 
 WARNINGS_DISABLE
+#include <QDateTime>
 #include <QKeyEvent>
+#include <QListWidgetItem>
 #include <QMessageBox>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "archivelistwidgetitem.h"

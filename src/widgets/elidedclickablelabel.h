@@ -1,7 +1,18 @@
 #ifndef ELIDEDCLICKABLELABEL_H
 #define ELIDEDCLICKABLELABEL_H
 
+#include "warnings-disable.h"
+
+WARNINGS_DISABLE
+#include <QObject>
+#include <QString>
+WARNINGS_ENABLE
+
 #include "TElidedLabel.h"
+
+/* Forward declaration(s). */
+class QMouseEvent;
+class QWidget;
 
 /*!
  * \ingroup widgets-general

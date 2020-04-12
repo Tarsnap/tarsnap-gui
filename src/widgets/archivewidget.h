@@ -5,7 +5,9 @@
 
 WARNINGS_DISABLE
 #include <QMenu>
+#include <QObject>
 #include <QSortFilterProxyModel>
+#include <QString>
 #include <QWidget>
 WARNINGS_ENABLE
 
@@ -18,6 +20,10 @@ namespace Ui
 class ArchiveWidget;
 }
 class BaseTask;
+class QCloseEvent;
+class QEvent;
+class QKeyEvent;
+class QPoint;
 
 /*!
  * \ingroup widgets-specialized

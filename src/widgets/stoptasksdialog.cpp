@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QDialogButtonBox>
+#include <QLabel>
 #include <QMessageBox>
 #include <QPushButton>
 

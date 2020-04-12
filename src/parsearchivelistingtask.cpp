@@ -4,6 +4,7 @@ WARNINGS_DISABLE
 #include <QAtomicInt>
 #include <QRegExp>
 #include <QString>
+#include <QStringList>
 #include <QVector>
 WARNINGS_ENABLE
 

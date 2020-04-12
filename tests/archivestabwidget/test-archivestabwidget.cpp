@@ -1,17 +1,30 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QCoreApplication>
+#include <QDateTime>
+#include <QMetaType>
+#include <QModelIndex>
+#include <QObject>
+#include <QSignalSpy>
+#include <QString>
+#include <QTest>
 #include <QThreadPool>
-#include <QtTest/QtTest>
+#include <QVariant>
+#include <QVector>
 
 #include "ui_archivestabwidget.h"
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "archivefilestat.h"
 #include "archivelistwidget.h"
 #include "archivestabwidget.h"
+#include "archivewidget.h"
 #include "basetask.h"
+#include "filetablemodel.h"
+#include "persistentmodel/archive.h"
 
 #include "TSettings.h"
 

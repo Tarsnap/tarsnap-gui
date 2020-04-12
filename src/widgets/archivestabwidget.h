@@ -4,9 +4,11 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QEvent>
-#include <QKeyEvent>
+#include <QList>
+#include <QObject>
+#include <QString>
 #include <QWidget>
+WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
 
@@ -16,6 +18,8 @@ namespace Ui
 class ArchivesTabWidget;
 }
 class BaseTask;
+class QEvent;
+class QPoint;
 
 /*!
  * \ingroup widgets-main

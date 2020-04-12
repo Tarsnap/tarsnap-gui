@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QCoreApplication>
+#include <QDialog>
 #include <QObject>
 #include <QTest>
 

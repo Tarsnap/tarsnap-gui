@@ -21,7 +21,6 @@ class FilePickerWidget;
 class QEvent;
 class QKeyEvent;
 class QUrl;
-class QWidget;
 
 /*!
  * \ingroup widgets-specialized

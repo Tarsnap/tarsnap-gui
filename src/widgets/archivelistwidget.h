@@ -6,12 +6,16 @@
 WARNINGS_DISABLE
 #include <QList>
 #include <QListWidget>
+#include <QObject>
+#include <QRegExp>
+#include <QString>
 WARNINGS_ENABLE
 
 #include "persistentmodel/archive.h"
-#include "persistentmodel/job.h"
 
+/* Forward declaration(s). */
 class ArchiveListWidgetItem;
+class QWidget;
 
 /*!
  * \ingroup widgets-specialized

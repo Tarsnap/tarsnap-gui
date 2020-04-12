@@ -1,9 +1,24 @@
 #include "archivelistwidgetitem.h"
 
 WARNINGS_DISABLE
+#include <QAction>
+#include <QDateTime>
+#include <QEvent>
+#include <QKeySequence>
+#include <QLatin1String>
+#include <QSize>
+#include <QToolButton>
+#include <QVector>
+#include <QWidget>
+#include <Qt>
+
 #include "ui_archivelistwidgetitem.h"
 WARNINGS_ENABLE
 
+#include "TElidedLabel.h"
+
+#include "elidedannotatedlabel.h"
+#include "persistentmodel/job.h"
 #include "utils.h"
 
 #define FIELD_WIDTH 6

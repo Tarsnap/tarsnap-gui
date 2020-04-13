@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QCheckBox>
+#include <QCoreApplication>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QKeySequence>
@@ -154,7 +155,7 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     connect(_ui->repairCacheButton, &QPushButton::clicked,
             [this]() { emit repairCache(true); });
     connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, [this]() {
-        QMessageBox::information(this, QApplication::applicationName(),
+        QMessageBox::information(this, QCoreApplication::applicationName(),
                                  tr("The new size notation will take global "
                                     "effect on application restart."));
     });

@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QAction>
 #include <QComboBox>
+#include <QCoreApplication>
 #include <QEvent>
 #include <QEventLoop>
 #include <QKeyEvent>
@@ -167,7 +168,7 @@ void ArchivesTabWidget::displayInspectArchive(ArchivePtr archive)
         // Allow the event loop to update the geometry of the scroll area.
         // I haven't found a way to fix this without dropping back to the
         // main event loop.  :(
-        QApplication::processEvents(QEventLoop::AllEvents, 10);
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
     }
 
     _ui->archiveListWidget->ensureCurrentItemVisible();

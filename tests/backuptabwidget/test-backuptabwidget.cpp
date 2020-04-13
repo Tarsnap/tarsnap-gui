@@ -1,7 +1,10 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QtTest/QtTest>
+#include <QCheckBox>
+#include <QCoreApplication>
+#include <QObject>
+#include <QTest>
 
 #include "ui_backuptabwidget.h"
 WARNINGS_ENABLE

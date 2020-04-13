@@ -19,6 +19,7 @@ WARNINGS_DISABLE
 #include <QUrl>
 #include <QVariant>
 #include <QVector>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "archivefilestat.h"
@@ -27,7 +28,7 @@ WARNINGS_ENABLE
 #include "notification_info.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-#include "persistentmodel/journal.h"
+//#include "persistentmodel/journal.h"
 #include "persistentmodel/persistentstore.h"
 #include "scheduling.h"
 #include "tarsnaperror.h"

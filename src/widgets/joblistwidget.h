@@ -5,10 +5,19 @@
 
 WARNINGS_DISABLE
 #include <QListWidget>
+#include <QMap>
+#include <QObject>
+#include <QRegExp>
+#include <QString>
 WARNINGS_ENABLE
 
-#include "joblistwidgetitem.h"
+#include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
+
+/* Forward declaration(s). */
+class JobListWidgetItem;
+class QKeyEvent;
+class QWidget;
 
 /*!
  * \ingroup widgets-specialized

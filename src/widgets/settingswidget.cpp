@@ -1,11 +1,18 @@
 #include "settingswidget.h"
 
 WARNINGS_DISABLE
+#include <QAction>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QCoreApplication>
+#include <QDate>
+#include <QEvent>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QKeySequence>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QSpinBox>
 #include <QVariant>

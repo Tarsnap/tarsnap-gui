@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QAbstractButton>
 #include <QCoreApplication>
+#include <QLineEdit>
 #include <QList>
 #include <QObject>
 #include <QString>
@@ -23,6 +24,7 @@ WARNINGS_ENABLE
 #include "taskstatus.h"
 #include "utils.h"
 
+#include "TPathLineBrowse.h"
 #include <TSettings.h>
 #include <TWizardPage.h>
 

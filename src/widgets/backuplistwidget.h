@@ -4,13 +4,17 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QList>
 #include <QListWidget>
-#include <QUrl>
+#include <QObject>
 #include <QUuid>
 WARNINGS_ENABLE
 
 /* Forward declaration(s). */
 class BaseTask;
+class QEvent;
+class QUrl;
+class QWidget;
 
 /*!
  * \ingroup widgets-specialized

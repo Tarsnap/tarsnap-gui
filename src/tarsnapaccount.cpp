@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QDate>
 #include <QLatin1Char>
+#include <QList>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
@@ -11,6 +12,7 @@ WARNINGS_DISABLE
 #include <QUrl>
 #include <QUrlQuery>
 #include <QVariant>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "debug.h"

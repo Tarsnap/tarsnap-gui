@@ -10,10 +10,13 @@ WARNINGS_ENABLE
 
 #include "persistentmodel/job.h"
 
+/* Forward declaration(s). */
 namespace Ui
 {
 class JobListWidgetItem;
 }
+class QEvent;
+class QWidget;
 
 /*!
  * \ingroup widgets-specialized

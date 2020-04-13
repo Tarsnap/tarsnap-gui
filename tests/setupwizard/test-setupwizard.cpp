@@ -7,7 +7,9 @@ WARNINGS_DISABLE
 #include <QSettings>
 #include <QSignalSpy>
 #include <QString>
+#include <QTabWidget>
 #include <QTest>
+#include <Qt>
 
 #include "ui_setupwizard_cli.h"
 #include "ui_setupwizard_register.h"
@@ -15,6 +17,9 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "TElidedLabel.h"
+#include "TPathComboBrowse.h"
+#include "TPathLineBrowse.h"
 #include <TSettings.h>
 #include <TWizardPage.h>
 

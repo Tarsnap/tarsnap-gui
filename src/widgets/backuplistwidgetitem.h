@@ -18,6 +18,8 @@ class BackupListWidgetItem;
 class BaseTask;
 class DirInfoTask;
 class QMovie;
+class QEvent;
+class QWidget;
 
 /*!
  * \ingroup widgets-specialized

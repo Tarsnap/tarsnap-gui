@@ -1,16 +1,29 @@
 #include "jobstabwidget.h"
 
 WARNINGS_DISABLE
+#include <QAction>
+#include <QComboBox>
 #include <QDir>
+#include <QEvent>
+#include <QFrame>
+#include <QKeyEvent>
+#include <QKeySequence>
+#include <QLabel>
 #include <QMenu>
 #include <QMessageBox>
+#include <QPoint>
+#include <QPushButton>
+#include <QUrl>
+#include <QVariant>
 #include <QWidget>
+#include <Qt>
 
 #include "ui_jobstabwidget.h"
 WARNINGS_ENABLE
 
+#include "joblistwidget.h"
+#include "jobwidget.h"
 #include "persistentmodel/job.h"
-#include "utils.h"
 
 #include <TSettings.h>
 

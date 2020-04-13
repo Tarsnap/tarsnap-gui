@@ -4,9 +4,12 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QMenuBar>
-#include <QMessageBox>
-#include <QTimer>
+#include <QList>
+#include <QMap>
+#include <QObject>
+#include <QString>
+#include <QUuid>
+#include <QVector>
 #include <QWidget>
 WARNINGS_ENABLE
 
@@ -16,19 +19,24 @@ WARNINGS_ENABLE
 #include "jobstabwidget.h"
 #include "settingswidget.h"
 
+#include "backuptask.h"
 #include "notification_info.h"
-#include "persistentmodel/journal.h"
-#include "scheduling.h"
+#include "persistentmodel/archive.h"
+#include "persistentmodel/job.h"
 #include "stoptasksdialog.h"
-#include "tarsnapaccount.h"
-#include "taskmanager.h"
+#include "tarsnaperror.h"
 #include "taskstatus.h"
 
+/* Forward declaration(s). */
 namespace Ui
 {
 class MainWindow;
 }
 class BaseTask;
+class QEvent;
+class QMenuBar;
+class QUrl;
+struct LogEntry;
 
 /*!
  * \ingroup widgets-main

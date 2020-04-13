@@ -5,11 +5,14 @@ WARNINGS_DISABLE
 #include <QDate>
 #include <QHBoxLayout>
 #include <QHeaderView>
+#include <QLabel>
 #include <QLineEdit>
+#include <QPushButton>
 #include <QRegExp>
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QVariant>
+#include <Qt>
 
 #include "ui_logindialog.h"
 WARNINGS_ENABLE
@@ -18,6 +21,9 @@ WARNINGS_ENABLE
 #include "tarsnapaccount.h"
 
 #include <TSettings.h>
+
+/* Forward declaration(s). */
+class QWidget;
 
 TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
     : QDialog(parent), _ui(new Ui::LoginDialog)

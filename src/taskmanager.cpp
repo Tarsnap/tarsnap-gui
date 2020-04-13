@@ -6,8 +6,10 @@ WARNINGS_DISABLE
 #include <QDir>
 #include <QEventLoop>
 #include <QFileInfo>
+#include <QLatin1String>
 #include <QStringList>
 #include <QVariant>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "backenddata.h"

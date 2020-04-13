@@ -1,28 +1,47 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QAction>
+#include <QCoreApplication>
+#include <QDialog>
+#include <QList>
+#include <QMenu>
+#include <QMenuBar>
+#include <QMetaType>
+#include <QObject>
+#include <QString>
+#include <QTabWidget>
+#include <QTest>
 #include <QThreadPool>
-#include <QtTest/QtTest>
+#include <QUrl>
+#include <QVector>
 
 #include "ui_archivestabwidget.h"
 #include "ui_helpwidget.h"
 #include "ui_jobstabwidget.h"
-#include "ui_jobwidget.h"
 #include "ui_mainwindow.h"
 #include "ui_stoptasksdialog.h"
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "archivestabwidget.h"
+#include "backuptabwidget.h"
 #include "helpwidget.h"
 #include "jobstabwidget.h"
 #include "mainwindow.h"
 #include "stoptasksdialog.h"
 #include "translator.h"
 
+#include "archivefilestat.h"
 #include "archivewidget.h"
+#include "filepickerdialog.h"
+#include "joblistwidget.h"
+#include "joblistwidgetitem.h"
 #include "persistentmodel/archive.h"
+#include "persistentmodel/job.h"
 #include "persistentmodel/persistentstore.h"
+#include "popuppushbutton.h"
 
 #include <ConsoleLog.h>
 #include <TSettings.h>

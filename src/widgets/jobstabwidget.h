@@ -4,18 +4,24 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QEvent>
-#include <QKeyEvent>
+#include <QList>
+#include <QMap>
+#include <QObject>
 #include <QWidget>
 WARNINGS_ENABLE
 
+#include "backuptask.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 
+/* Forward declaration(s). */
 namespace Ui
 {
 class JobsTabWidget;
 }
+class QEvent;
+class QPoint;
+class QUrl;
 
 /*!
  * \ingroup widgets-main

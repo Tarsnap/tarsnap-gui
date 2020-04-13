@@ -1,7 +1,13 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QtTest/QtTest>
+#include <QCoreApplication>
+#include <QList>
+#include <QObject>
+#include <QSignalSpy>
+#include <QString>
+#include <QTest>
+#include <QUrl>
 
 #include "ui_jobstabwidget.h"
 #include "ui_jobwidget.h"
@@ -11,8 +17,11 @@ WARNINGS_ENABLE
 
 #include <TSettings.h>
 
+#include "elidedclickablelabel.h"
+#include "joblistwidget.h"
 #include "jobstabwidget.h"
 #include "jobwidget.h"
+#include "persistentmodel/job.h"
 #include "persistentmodel/persistentstore.h"
 
 class TestJobsTabWidget : public QObject

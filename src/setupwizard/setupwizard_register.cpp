@@ -6,7 +6,9 @@ WARNINGS_DISABLE
 #include <QDateTime>
 #include <QDir>
 #include <QFileInfo>
+#include <QFileInfoList>
 #include <QLineEdit>
+#include <QPushButton>
 #include <QTabWidget>
 #include <QVariant>
 
@@ -18,6 +20,8 @@ WARNINGS_DISABLE
 #include "ui_setupwizard_register.h"
 WARNINGS_ENABLE
 
+#include "TBusyLabel.h"
+#include "TElidedLabel.h"
 #include "TPathComboBrowse.h"
 #include <TSettings.h>
 #include <TWizardPage.h>

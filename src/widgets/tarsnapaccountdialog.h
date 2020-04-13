@@ -18,6 +18,7 @@ namespace Ui
 {
 class LoginDialog;
 }
+class QWidget;
 class TarsnapAccount;
 
 /*!

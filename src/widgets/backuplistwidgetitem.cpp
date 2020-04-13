@@ -1,14 +1,26 @@
 #include "backuplistwidgetitem.h"
 
 WARNINGS_DISABLE
+#include <QAction>
 #include <QDesktopServices>
+#include <QDir>
+#include <QEvent>
 #include <QFileInfo>
+#include <QKeySequence>
+#include <QLabel>
 #include <QMovie>
+#include <QPixmap>
+#include <QSize>
+#include <QWidget>
 
 #include "ui_backuplistwidgetitem.h"
 WARNINGS_ENABLE
 
+#include "TElidedLabel.h"
+
+#include "basetask.h"
 #include "dirinfotask.h"
+#include "elidedclickablelabel.h"
 #include "utils.h"
 
 #define BUSY_MOVIE_FILENAME ":/lib/loading.gif"

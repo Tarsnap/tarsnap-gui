@@ -1,9 +1,20 @@
 #include "joblistwidgetitem.h"
 
 WARNINGS_DISABLE
+#include <QAction>
+#include <QDateTime>
+#include <QEvent>
+#include <QKeySequence>
+#include <QSize>
+#include <QWidget>
+#include <Qt>
+
 #include "ui_joblistwidgetitem.h"
 WARNINGS_ENABLE
 
+#include "TElidedLabel.h"
+
+#include "persistentmodel/archive.h"
 #include "utils.h"
 
 JobListWidgetItem::JobListWidgetItem(JobPtr job)

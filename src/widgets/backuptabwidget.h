@@ -4,11 +4,13 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QEvent>
+#include <QList>
+#include <QObject>
+#include <QString>
+#include <QUuid>
 #include <QWidget>
 WARNINGS_ENABLE
 
-#include "backuplistwidget.h"
 #include "backuptask.h"
 #include "filepickerdialog.h"
 
@@ -18,6 +20,8 @@ namespace Ui
 class BackupTabWidget;
 }
 class BaseTask;
+class QEvent;
+class QUrl;
 
 /*!
  * \ingroup widgets-main

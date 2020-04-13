@@ -4,16 +4,23 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QList>
+#include <QObject>
+#include <QString>
 #include <QTimer>
 #include <QWidget>
 WARNINGS_ENABLE
 
+#include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 
+/* Forward declaration(s). */
 namespace Ui
 {
 class JobWidget;
 }
+class QEvent;
+class QPoint;
 
 /*!
  * \ingroup widgets-specialized

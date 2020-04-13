@@ -1,15 +1,24 @@
 #include "backuptabwidget.h"
 
 WARNINGS_DISABLE
+#include <QCheckBox>
 #include <QDateTime>
+#include <QDialog>
+#include <QEvent>
 #include <QFileDialog>
+#include <QKeySequence>
+#include <QLabel>
+#include <QUrl>
 #include <QWidget>
+#include <Qt>
 
 #include "ui_backuptabwidget.h"
 WARNINGS_ENABLE
 
+#include "backuplistwidget.h"
 #include "backuplistwidgetitem.h"
 #include "basetask.h"
+#include "elidedclickablelabel.h"
 #include "persistentmodel/archive.h"
 #include "utils.h"
 

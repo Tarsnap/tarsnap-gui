@@ -1,13 +1,29 @@
 #include "jobwidget.h"
 
 WARNINGS_DISABLE
+#include <QAction>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QEvent>
+#include <QKeySequence>
+#include <QLabel>
 #include <QMenu>
 #include <QMessageBox>
+#include <QPoint>
+#include <QSpinBox>
+#include <QStringList>
+#include <QTabWidget>
+#include <QUrl>
+#include <QVariant>
+#include <Qt>
 
 #include "ui_jobwidget.h"
 WARNINGS_ENABLE
 
+#include "archivelistwidget.h"
 #include "debug.h"
+#include "elidedclickablelabel.h"
+#include "filepickerwidget.h"
 #include "restoredialog.h"
 #include "utils.h"
 

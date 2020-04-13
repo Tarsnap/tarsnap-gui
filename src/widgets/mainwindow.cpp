@@ -1,28 +1,39 @@
 #include "mainwindow.h"
 
 WARNINGS_DISABLE
-#include <QDateTime>
+#include <QAction>
+#include <QByteArray>
+#include <QCloseEvent>
 #include <QDesktopServices>
-#include <QDir>
-#include <QFileDialog>
-#include <QHostInfo>
-#include <QInputDialog>
+#include <QEvent>
+#include <QIcon>
+#include <QKeyEvent>
+#include <QKeySequence>
 #include <QMenu>
+#include <QMenuBar>
+#include <QMessageBox>
 #include <QPainter>
-#include <QPushButton>
+#include <QPixmap>
+#include <QRect>
 #include <QSharedPointer>
-#include <QShortcut>
+#include <QStyle>
+#include <QStyleOption>
+#include <QTabWidget>
+#include <QUrl>
+#include <QVariant>
+#include <Qt>
 
 #include "ui_mainwindow.h"
 WARNINGS_ENABLE
 
-#include "backuplistwidgetitem.h"
 #include "basetask.h"
-#include "scheduling.h"
+#include "elidedclickablelabel.h"
 #include "taskstatus.h"
-#include "translator.h"
 #include "utils.h"
 
+#include "LogEntry.h"
+#include "TBusyLabel.h"
+#include "TTextView.h"
 #include <ConsoleLog.h>
 #include <TSettings.h>
 

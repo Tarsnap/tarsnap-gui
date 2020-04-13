@@ -1,11 +1,16 @@
 #include "joblistwidget.h"
 
 WARNINGS_DISABLE
+#include <QAbstractItemView>
 #include <QKeyEvent>
+#include <QList>
+#include <QListWidgetItem>
 #include <QMessageBox>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "debug.h"
+#include "joblistwidgetitem.h"
 #include "restoredialog.h"
 
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)

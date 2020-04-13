@@ -1,16 +1,23 @@
 #include "backuplistwidget.h"
 
 WARNINGS_DISABLE
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
 #include <QDropEvent>
+#include <QEvent>
 #include <QFileInfo>
+#include <QKeyEvent>
 #include <QMessageBox>
 #include <QMimeData>
 #include <QStringList>
+#include <QUrl>
+#include <QVariant>
+#include <QWidget>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "backuplistwidgetitem.h"
 #include "basetask.h"
-#include "debug.h"
 #include "utils.h"
 
 #include <TSettings.h>

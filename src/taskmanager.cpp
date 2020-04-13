@@ -557,7 +557,7 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
     QStringList lines = stdErr.split('\n', QString::SkipEmptyParts);
     QStringList lastFive;
     int         count = lines.count();
-    for(int i = 0; i < std::min(5, count); ++i)
+    for(int i = 0; i < qMin(5, count); ++i)
         lastFive.prepend(lines.takeLast());
     parseGlobalStats(lastFive.join('\n'));
 }

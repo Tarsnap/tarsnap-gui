@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 
 #include "backuptask.h"
 #include "notification_info.h"
-#include "persistentmodel/job.h"
+#include "persistentmodel/jobptr.h"
 
 /*!
  * \ingroup background-tasks

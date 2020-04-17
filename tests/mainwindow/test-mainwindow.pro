@@ -46,6 +46,7 @@ HEADERS  +=						\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
+	../../src/persistentmodel/jobptr.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\

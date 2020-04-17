@@ -8,12 +8,12 @@ WARNINGS_DISABLE
 #include <QListWidget>
 #include <QObject>
 #include <QUuid>
+#include <QUrl>
 WARNINGS_ENABLE
 
 /* Forward declaration(s). */
 class BaseTask;
 class QEvent;
-class QUrl;
 class QWidget;
 
 /*!

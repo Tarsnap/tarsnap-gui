@@ -19,6 +19,7 @@ WARNINGS_ENABLE
 #include "archivelistwidget.h"
 #include "archivewidget.h"
 #include "basetask.h"
+#include "persistentmodel/archive.h"
 
 ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::ArchivesTabWidget)

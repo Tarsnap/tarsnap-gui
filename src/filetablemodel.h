@@ -13,7 +13,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "archivefilestat.h"
-#include "persistentmodel/archive.h"
+#include "persistentmodel/archiveptr.h"
 
 /* Forward declaration(s). */
 class BaseTask;

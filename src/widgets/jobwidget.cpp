@@ -25,6 +25,7 @@ WARNINGS_ENABLE
 #include "debug.h"
 #include "elidedclickablelabel.h"
 #include "filepickerwidget.h"
+#include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "restoredialog.h"
 #include "utils.h"

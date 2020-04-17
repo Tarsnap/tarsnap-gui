@@ -15,6 +15,7 @@ WARNINGS_ENABLE
 #include <TSettings.h>
 
 #include "debug.h"
+#include "persistentmodel/archive.h"
 #include "persistentmodel/persistentstore.h"
 #include "tasks-defs.h"
 #include "utils.h"

@@ -10,7 +10,7 @@ WARNINGS_DISABLE
 #include <QStringList>
 WARNINGS_ENABLE
 
-#include "persistentmodel/archive.h"
+#include "persistentmodel/archiveptr.h"
 
 /* Forward declaration(s). */
 namespace Ui

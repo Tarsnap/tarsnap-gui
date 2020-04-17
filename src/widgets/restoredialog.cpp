@@ -15,6 +15,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "archiverestoreoptions.h"
+#include "persistentmodel/archive.h"
 #include "tasks/tasks-defs.h"
 
 #include <TSettings.h>

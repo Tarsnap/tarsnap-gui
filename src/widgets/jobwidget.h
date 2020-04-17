@@ -12,7 +12,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "archiverestoreoptions.h"
-#include "persistentmodel/archive.h"
+#include "persistentmodel/archiveptr.h"
 #include "persistentmodel/jobptr.h"
 
 /* Forward declaration(s). */

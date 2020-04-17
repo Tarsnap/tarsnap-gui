@@ -12,6 +12,7 @@ WARNINGS_ENABLE
 
 #include "debug.h"
 
+#include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "persistentmodel/persistentstore.h"
 #include "tasks-tarsnap.h"

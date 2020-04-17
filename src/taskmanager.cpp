@@ -18,6 +18,7 @@ WARNINGS_ENABLE
 #include "cmdlinetask.h"
 #include "debug.h"
 #include "jobrunner.h"
+#include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "taskqueuer.h"
 #include "tasks-defs.h"

@@ -18,6 +18,7 @@ WARNINGS_ENABLE
 #include "TElidedLabel.h"
 
 #include "elidedannotatedlabel.h"
+#include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "utils.h"
 

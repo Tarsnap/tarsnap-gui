@@ -24,6 +24,7 @@ WARNINGS_ENABLE
 #include "archiverestoreoptions.h"
 #include "basetask.h"
 #include "elidedclickablelabel.h"
+#include "persistentmodel/archive.h"
 #include "restoredialog.h"
 #include "utils.h"
 

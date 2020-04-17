@@ -11,6 +11,7 @@ WARNINGS_ENABLE
 #include "archivelistwidgetitem.h"
 #include "archiverestoreoptions.h"
 #include "debug.h"
+#include "persistentmodel/archive.h"
 #include "restoredialog.h"
 
 #define DELETE_CONFIRMATION_THRESHOLD 10

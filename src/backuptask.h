@@ -14,7 +14,7 @@ WARNINGS_DISABLE
 #include <QUuid>
 WARNINGS_ENABLE
 
-#include <persistentmodel/archive.h>
+#include "persistentmodel/archiveptr.h"
 
 class BackupTaskData;
 

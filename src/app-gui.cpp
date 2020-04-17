@@ -10,6 +10,7 @@ WARNINGS_ENABLE
 #include "basetask.h"
 #include "debug.h"
 #include "init-shared.h"
+#include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "translator.h"
 #include "utils.h"

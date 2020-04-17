@@ -23,6 +23,7 @@ WARNINGS_ENABLE
 
 #include "joblistwidget.h"
 #include "jobwidget.h"
+#include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 
 #include <TSettings.h>

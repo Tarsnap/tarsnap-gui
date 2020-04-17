@@ -8,21 +8,18 @@ WARNINGS_DISABLE
 #include <QList>
 #include <QMetaType>
 #include <QObject>
-#include <QSharedPointer>
 #include <QString>
 WARNINGS_ENABLE
 
 #include "backuptask.h"
 #include "persistentmodel/archive.h"
+#include "persistentmodel/jobptr.h"
 #include "persistentmodel/persistentobject.h"
 
 /* Forward declaration(s). */
 class QUrl;
 
 #define JOB_NAME_PREFIX QLatin1String("Job_")
-
-class Job;
-typedef QSharedPointer<Job> JobPtr;
 
 Q_DECLARE_METATYPE(JobPtr)
 

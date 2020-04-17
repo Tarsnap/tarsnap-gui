@@ -10,6 +10,7 @@ HEADERS  +=						\
 	../../lib/core/LogEntry.h			\
 	../../lib/core/TSettings.h			\
 	../../src/persistentmodel/archive.h		\
+	../../src/persistentmodel/archiveptr.h		\
 	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h

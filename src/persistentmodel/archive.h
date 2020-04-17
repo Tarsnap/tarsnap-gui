@@ -8,17 +8,14 @@ WARNINGS_DISABLE
 #include <QDateTime>
 #include <QMetaType>
 #include <QObject>
-#include <QSharedPointer>
 #include <QString>
 #include <QStringList>
 WARNINGS_ENABLE
 
 #include "persistentobject.h"
+#include "persistentmodel/archiveptr.h"
 
 #define ARCHIVE_TIMESTAMP_FORMAT QLatin1String("_yyyy-MM-dd_HH-mm-ss")
-
-class Archive;
-typedef QSharedPointer<Archive> ArchivePtr;
 
 Q_DECLARE_METATYPE(ArchivePtr)
 

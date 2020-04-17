@@ -20,6 +20,7 @@ HEADERS  +=						\
 	../../src/filetablemodel.h			\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
+	../../src/persistentmodel/archiveptr.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/tasks/tasks-utils.h			\

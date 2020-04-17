@@ -2,10 +2,12 @@
 
 WARNINGS_DISABLE
 #include <QChar>
+#include <QList>
 #include <QRegExp>
 #include <QStringList>
 #include <QUrl>
 #include <QVariant>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "TSettings.h"

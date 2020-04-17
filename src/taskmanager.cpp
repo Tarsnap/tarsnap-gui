@@ -776,7 +776,7 @@ void TaskManager::parseError(const QString &tarsnapOutput)
     if(tarsnapOutput.contains("Error reading cache directory")
        || tarsnapOutput.contains("Sequence number mismatch: Run --fsck")
        || tarsnapOutput.contains(
-              "Directory is not consistent with archive: Run --fsck"))
+           "Directory is not consistent with archive: Run --fsck"))
     {
         emit error(TarsnapError::CacheError);
     }

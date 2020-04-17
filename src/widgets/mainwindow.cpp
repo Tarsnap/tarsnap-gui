@@ -28,6 +28,7 @@ WARNINGS_ENABLE
 
 #include "basetask.h"
 #include "elidedclickablelabel.h"
+#include "persistentmodel/job.h"
 #include "taskstatus.h"
 #include "utils.h"
 

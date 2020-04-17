@@ -15,6 +15,7 @@ WARNINGS_ENABLE
 #include "TElidedLabel.h"
 
 #include "persistentmodel/archive.h"
+#include "persistentmodel/job.h"
 #include "utils.h"
 
 JobListWidgetItem::JobListWidgetItem(JobPtr job)

@@ -12,6 +12,7 @@ WARNINGS_ENABLE
 #include "archiverestoreoptions.h"
 #include "debug.h"
 #include "joblistwidgetitem.h"
+#include "persistentmodel/job.h"
 #include "restoredialog.h"
 
 JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)

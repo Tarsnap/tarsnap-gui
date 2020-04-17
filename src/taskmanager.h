@@ -15,7 +15,7 @@ WARNINGS_ENABLE
 #include "backuptask.h"
 #include "notification_info.h"
 #include "persistentmodel/archive.h"
-#include "persistentmodel/job.h"
+#include "persistentmodel/jobptr.h"
 #include "tarsnaperror.h"
 #include "taskstatus.h"
 

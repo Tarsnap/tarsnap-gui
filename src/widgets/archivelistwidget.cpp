@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "archivelistwidgetitem.h"
+#include "archiverestoreoptions.h"
 #include "debug.h"
 #include "restoredialog.h"
 

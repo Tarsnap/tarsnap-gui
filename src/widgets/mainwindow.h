@@ -36,6 +36,7 @@ class BaseTask;
 class QEvent;
 class QMenuBar;
 class QUrl;
+struct ArchiveRestoreOptions;
 struct LogEntry;
 
 /*!

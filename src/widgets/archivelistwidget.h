@@ -11,6 +11,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
+#include "archiverestoreoptions.h"
 #include "persistentmodel/archive.h"
 
 /* Forward declaration(s). */

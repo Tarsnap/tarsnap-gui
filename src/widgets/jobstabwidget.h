@@ -10,6 +10,7 @@ WARNINGS_DISABLE
 #include <QWidget>
 WARNINGS_ENABLE
 
+#include "archiverestoreoptions.h"
 #include "backuptask.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"

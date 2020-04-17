@@ -15,6 +15,7 @@ HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../src/archivefilestat.h			\
+	../../src/archiverestoreoptions.h		\
 	../../src/basetask.h				\
 	../../src/filetablemodel.h			\
 	../../src/parsearchivelistingtask.h		\

@@ -18,6 +18,7 @@ namespace Ui
 class RestoreDialog;
 }
 class QWidget;
+struct ArchiveRestoreOptions;
 
 /*!
  * \ingroup widgets-specialized

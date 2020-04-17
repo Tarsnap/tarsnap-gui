@@ -21,6 +21,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "archivelistwidget.h"
+#include "archiverestoreoptions.h"
 #include "debug.h"
 #include "elidedclickablelabel.h"
 #include "filepickerwidget.h"

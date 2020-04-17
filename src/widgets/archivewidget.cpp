@@ -21,6 +21,7 @@ WARNINGS_ENABLE
 
 #include "TElidedLabel.h"
 
+#include "archiverestoreoptions.h"
 #include "basetask.h"
 #include "elidedclickablelabel.h"
 #include "restoredialog.h"

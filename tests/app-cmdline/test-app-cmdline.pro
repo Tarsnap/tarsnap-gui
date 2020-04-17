@@ -39,6 +39,7 @@ HEADERS +=						\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\
 	../../src/archivefilestat.h			\
+	../../src/archiverestoreoptions.h		\
 	../../src/backuptask.h				\
 	../../src/basetask.h				\
 	../../src/init-shared.h				\

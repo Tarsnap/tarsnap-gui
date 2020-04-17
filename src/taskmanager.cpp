@@ -12,6 +12,7 @@ WARNINGS_DISABLE
 #include <Qt>
 WARNINGS_ENABLE
 
+#include "archiverestoreoptions.h"
 #include "backenddata.h"
 #include "basetask.h"
 #include "cmdlinetask.h"

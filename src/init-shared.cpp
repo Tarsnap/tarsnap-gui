@@ -23,6 +23,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "archivefilestat.h"
+#include "archiverestoreoptions.h"
 #include "backuptask.h"
 #include "debug.h"
 #include "notification_info.h"

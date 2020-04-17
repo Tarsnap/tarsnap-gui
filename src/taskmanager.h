@@ -23,6 +23,7 @@ WARNINGS_ENABLE
 class BackendData;
 class BaseTask;
 class TaskQueuer;
+struct ArchiveRestoreOptions;
 
 /*!
  * \ingroup background-tasks

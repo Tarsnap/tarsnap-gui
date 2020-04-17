@@ -37,6 +37,7 @@ HEADERS  +=						\
 	../../lib/widgets/TElidedLabel.h		\
 	../../lib/widgets/TTextView.h			\
 	../../src/archivefilestat.h			\
+	../../src/archiverestoreoptions.h		\
 	../../src/backuptask.h				\
 	../../src/basetask.h				\
 	../../src/customfilesystemmodel.h		\

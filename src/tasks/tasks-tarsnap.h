@@ -14,6 +14,7 @@ WARNINGS_ENABLE
 
 /* Forward declaration(s). */
 class CmdlineTask;
+struct ArchiveRestoreOptions;
 
 /**
  * \file tasks-tarsnap.h

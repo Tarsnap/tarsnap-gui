@@ -11,6 +11,7 @@ WARNINGS_DISABLE
 #include <QWidget>
 WARNINGS_ENABLE
 
+#include "archiverestoreoptions.h"
 #include "filetablemodel.h"
 #include "persistentmodel/archive.h"
 

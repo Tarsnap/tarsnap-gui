@@ -5,6 +5,7 @@ UseTab: Never
 
 # Braces
 BraceWrapping:
+  AfterCaseLabel: true
   AfterClass: true
   AfterControlStatement: true
   AfterEnum: true

@@ -48,6 +48,9 @@ void TestJobsTabWidget::initTestCase()
     // Use a custom message handler to filter out unwanted messages
     IF_NOT_VISUAL { qInstallMessageHandler(offscreenMessageOutput); }
 
+    // Initialization normally done in init_shared.cpp's init_no_app()
+    qRegisterMetaType<JobPtr>("JobPtr");
+
     // Deal with PersistentStore
     PersistentStore::initializePersistentStore();
     int ok = global_store->init();

@@ -51,6 +51,7 @@ void TestJobsTabWidget::initTestCase()
 
     // Initialization normally done in init_shared.cpp's init_no_app()
     qRegisterMetaType<JobPtr>("JobPtr");
+    qRegisterMetaType<BackupTaskDataPtr>("BackupTaskDataPtr");
 
     // Deal with PersistentStore
     PersistentStore::initializePersistentStore();

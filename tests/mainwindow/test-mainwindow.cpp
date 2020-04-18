@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include <QMenuBar>
 #include <QMetaType>
 #include <QObject>
+#include <QSignalSpy>
 #include <QString>
 #include <QTabWidget>
 #include <QTest>
@@ -29,6 +30,7 @@ WARNINGS_ENABLE
 
 #include "archivestabwidget.h"
 #include "backuptabwidget.h"
+#include "basetask.h"
 #include "helpwidget.h"
 #include "jobstabwidget.h"
 #include "mainwindow.h"
@@ -77,6 +79,7 @@ void TestMainWindow::initTestCase()
 
     // Initialization normally done in init_shared.cpp's init_no_app()
     qRegisterMetaType<QVector<FileStat>>("QVector<FileStat>");
+    qRegisterMetaType<BaseTask *>("BaseTask *");
 
     // Deal with PersistentStore
     PersistentStore::initializePersistentStore();
@@ -273,6 +276,9 @@ void TestMainWindow::other_navigation()
     JobsTabWidget *    jobsTabWidget = &mainwindow->_jobsTabWidget;
     Ui::JobsTabWidget *jui           = jobsTabWidget->_ui;
 
+    QSignalSpy sig_taskRequest(mainwindow, SIGNAL(taskRequested(BaseTask *)));
+    BaseTask * task;
+
     BackupTabWidget *backupTabWidget = &mainwindow->_backupTabWidget;
 
     ArchiveWidget *archiveDetailsWidget =
@@ -348,6 +354,11 @@ void TestMainWindow::other_navigation()
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
     VISUAL_WAIT;
 
+    // Wait for archive parsing signal, and delete it.
+    WAIT_SIG(sig_taskRequest);
+    task = sig_taskRequest.takeFirst().at(0).value<BaseTask *>();
+    delete task;
+
     mainwindow->displayJobDetails(job);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
     VISUAL_WAIT;
@@ -356,6 +367,11 @@ void TestMainWindow::other_navigation()
     mainwindow->displayInspectArchive(archive);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
     VISUAL_WAIT;
+
+    // Wait for archive parsing signal, and delete it.
+    WAIT_SIG(sig_taskRequest);
+    task = sig_taskRequest.takeFirst().at(0).value<BaseTask *>();
+    delete task;
 
     archiveDetailsWidget->jobClicked("test-job");
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);

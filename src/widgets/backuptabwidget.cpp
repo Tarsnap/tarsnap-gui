@@ -17,6 +17,7 @@ WARNINGS_ENABLE
 
 #include "backuplistwidget.h"
 #include "backuplistwidgetitem.h"
+#include "backuptask.h"
 #include "basetask.h"
 #include "elidedclickablelabel.h"
 #include "persistentmodel/archive.h"

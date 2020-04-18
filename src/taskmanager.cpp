@@ -14,6 +14,7 @@ WARNINGS_ENABLE
 
 #include "archiverestoreoptions.h"
 #include "backenddata.h"
+#include "backuptask.h"
 #include "basetask.h"
 #include "cmdlinetask.h"
 #include "debug.h"

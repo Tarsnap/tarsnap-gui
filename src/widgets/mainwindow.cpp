@@ -26,6 +26,7 @@ WARNINGS_DISABLE
 #include "ui_mainwindow.h"
 WARNINGS_ENABLE
 
+#include "backuptask.h"
 #include "basetask.h"
 #include "elidedclickablelabel.h"
 #include "persistentmodel/archive.h"

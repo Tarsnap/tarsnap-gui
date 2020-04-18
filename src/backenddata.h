@@ -10,7 +10,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include "backuptask.h"
+#include "backuptaskdataptr.h"
 #include "persistentmodel/archiveptr.h"
 #include "persistentmodel/jobptr.h"
 

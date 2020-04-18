@@ -12,7 +12,7 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
-#include "backuptask.h"
+#include "backuptaskdataptr.h"
 #include "notification_info.h"
 #include "persistentmodel/archiveptr.h"
 #include "persistentmodel/jobptr.h"

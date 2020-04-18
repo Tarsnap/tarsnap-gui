@@ -7,6 +7,7 @@ WARNINGS_ENABLE
 
 #include <assert.h>
 
+#include "backuptask.h"
 #include "basetask.h"
 #include "debug.h"
 #include "init-shared.h"

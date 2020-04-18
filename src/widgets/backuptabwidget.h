@@ -7,11 +7,12 @@ WARNINGS_DISABLE
 #include <QList>
 #include <QObject>
 #include <QString>
+#include <QUrl>
 #include <QUuid>
 #include <QWidget>
 WARNINGS_ENABLE
 
-#include "backuptask.h"
+#include "backuptaskdataptr.h"
 #include "filepickerdialog.h"
 
 /* Forward declaration(s). */
@@ -21,7 +22,6 @@ class BackupTabWidget;
 }
 class BaseTask;
 class QEvent;
-class QUrl;
 
 /*!
  * \ingroup widgets-main

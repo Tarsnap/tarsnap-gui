@@ -9,7 +9,6 @@ WARNINGS_DISABLE
 #include <QMetaType>
 #include <QObject>
 #include <QString>
-#include <QStringList>
 WARNINGS_ENABLE
 
 #include "persistentmodel/archiveptr.h"

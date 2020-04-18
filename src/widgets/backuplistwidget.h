@@ -7,8 +7,8 @@ WARNINGS_DISABLE
 #include <QList>
 #include <QListWidget>
 #include <QObject>
-#include <QUuid>
 #include <QUrl>
+#include <QUuid>
 WARNINGS_ENABLE
 
 /* Forward declaration(s). */

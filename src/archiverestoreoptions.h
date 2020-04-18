@@ -5,6 +5,7 @@
 
 WARNINGS_DISABLE
 #include <QString>
+#include <QStringList>
 WARNINGS_ENABLE
 
 //! Options for restoring files

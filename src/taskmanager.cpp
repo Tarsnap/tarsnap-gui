@@ -7,6 +7,7 @@ WARNINGS_DISABLE
 #include <QEventLoop>
 #include <QFileInfo>
 #include <QLatin1String>
+#include <QMetaType>
 #include <QStringList>
 #include <QVariant>
 #include <Qt>

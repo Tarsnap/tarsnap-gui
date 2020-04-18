@@ -7,8 +7,8 @@ WARNINGS_DISABLE
 #include <QList>
 #include <QMap>
 #include <QObject>
-#include <QWidget>
 #include <QUrl>
+#include <QWidget>
 WARNINGS_ENABLE
 
 #include "archiverestoreoptions.h"

@@ -79,6 +79,7 @@ HEADERS +=						\
 	../../src/archiverestoreoptions.h		\
 	../../src/backenddata.h				\
 	../../src/backuptask.h				\
+	../../src/backuptaskdataptr.h			\
 	../../src/basetask.h				\
 	../../src/cmdlinetask.h				\
 	../../src/filetablemodel.h			\

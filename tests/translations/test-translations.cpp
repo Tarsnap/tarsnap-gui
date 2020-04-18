@@ -1,7 +1,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QCoreApplication>
+#include <QApplication>
 #include <QObject>
 #include <QTest>
 WARNINGS_ENABLE
@@ -26,7 +26,7 @@ private slots:
 
 void TestTranslations::initTestCase()
 {
-    QCoreApplication::setOrganizationName(TEST_NAME);
+    QApplication::setOrganizationName(TEST_NAME);
 
     // Use a custom message handler to filter out unwanted messages
     IF_NOT_VISUAL { qInstallMessageHandler(offscreenMessageOutput); }

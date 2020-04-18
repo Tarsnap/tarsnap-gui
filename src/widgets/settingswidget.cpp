@@ -38,7 +38,7 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::SettingsWidget),
       _nukeConfirmationDialog(this),
-      _tarsnapAccount(this),
+      _tarsnapAccountDialog(this),
       _schedulingWidgets(new SchedulingWidgets(this))
 {
 
@@ -66,18 +66,18 @@ SettingsWidget::SettingsWidget(QWidget *parent)
             &SettingsWidget::nukeConfirmed);
     connect(&_nukeConfirmationDialog, &ConfirmationDialog::cancelled, this,
             &SettingsWidget::nukeCancelled);
-    connect(&_tarsnapAccount, &TarsnapAccountDialog::accountCredit, this,
+    connect(&_tarsnapAccountDialog, &TarsnapAccountDialog::accountCredit, this,
             &SettingsWidget::updateAccountCredit);
-    connect(&_tarsnapAccount, &TarsnapAccountDialog::getKeyId, this,
+    connect(&_tarsnapAccountDialog, &TarsnapAccountDialog::getKeyId, this,
             &SettingsWidget::getKeyId);
     connect(_ui->updateAccountButton, &QPushButton::clicked,
             _ui->actionRefreshAccount, &QAction::trigger);
-    connect(&_tarsnapAccount, &TarsnapAccountDialog::lastMachineActivity, this,
-            &SettingsWidget::updateLastMachineActivity);
+    connect(&_tarsnapAccountDialog, &TarsnapAccountDialog::lastMachineActivity,
+            this, &SettingsWidget::updateLastMachineActivity);
     connect(_ui->accountActivityShowButton, &QPushButton::clicked,
-            [this]() { _tarsnapAccount.getAccountInfo(true, false); });
+            [this]() { _tarsnapAccountDialog.getAccountInfo(true, false); });
     connect(_ui->machineActivityShowButton, &QPushButton::clicked,
-            [this]() { _tarsnapAccount.getAccountInfo(false, true); });
+            [this]() { _tarsnapAccountDialog.getAccountInfo(false, true); });
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &SettingsWidget::getAccountInfo);
 
@@ -376,7 +376,7 @@ void SettingsWidget::changeEvent(QEvent *event)
 
 void SettingsWidget::getAccountInfo()
 {
-    _tarsnapAccount.getAccountInfo();
+    _tarsnapAccountDialog.getAccountInfo();
 }
 
 void SettingsWidget::overallStatsChanged(quint64 sizeTotal,

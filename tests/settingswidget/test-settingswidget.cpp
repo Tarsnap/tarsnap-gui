@@ -93,7 +93,8 @@ void TestSettingsWidget::account()
     QSignalSpy          sig_status(settingsWidget,
                           SIGNAL(newStatusMessage(QString, QString)));
 
-    TarsnapAccountDialog *tarsnapAccount = &settingsWidget->_tarsnapAccount;
+    TarsnapAccountDialog *tarsnapAccountDialog =
+        &settingsWidget->_tarsnapAccountDialog;
 
     VISUAL_INIT(settingsWidget);
 
@@ -108,7 +109,7 @@ void TestSettingsWidget::account()
     // Trigger an error message that we have to click away.
     ui->updateAccountButton->clicked();
     VISUAL_WAIT;
-    tarsnapAccount->_popup.close();
+    tarsnapAccountDialog->_popup.close();
     VISUAL_WAIT;
 
     // Set username, machine name, key.

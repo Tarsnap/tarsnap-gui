@@ -126,7 +126,7 @@ private:
     // For the Account tab
     ConfirmationDialog _nukeConfirmationDialog;
 
-    TarsnapAccountDialog _tarsnapAccount;
+    TarsnapAccountDialog _tarsnapAccountDialog;
 
     SchedulingWidgets *_schedulingWidgets;
 

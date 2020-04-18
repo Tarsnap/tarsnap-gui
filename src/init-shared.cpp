@@ -32,7 +32,7 @@ WARNINGS_ENABLE
 //#include "persistentmodel/journal.h"
 #include "persistentmodel/persistentstore.h"
 #include "scheduling.h"
-#include "tarsnaperror.h"
+#include "messages/tarsnaperror.h"
 #include "taskstatus.h"
 #include "utils.h"
 

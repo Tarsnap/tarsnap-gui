@@ -53,7 +53,7 @@ HEADERS +=						\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\
-	../../src/tarsnaperror.h			\
+	../../src/messages/tarsnaperror.h		\
 	../../src/tasks/tasks-utils.h			\
 	../../src/taskstatus.h				\
 	../../src/translator.h				\

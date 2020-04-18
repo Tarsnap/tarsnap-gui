@@ -16,7 +16,7 @@ WARNINGS_ENABLE
 #include "messages/notification_info.h"
 #include "messages/archiveptr.h"
 #include "messages/jobptr.h"
-#include "tarsnaperror.h"
+#include "messages/tarsnaperror.h"
 #include "taskstatus.h"
 
 /* Forward declaration(s). */

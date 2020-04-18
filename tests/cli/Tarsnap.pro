@@ -68,7 +68,7 @@ HEADERS +=						\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\
-	../../src/tarsnaperror.h			\
+	../../src/messages/tarsnaperror.h		\
 	../../src/taskmanager.h				\
 	../../src/taskqueuer.h				\
 	../../src/tasks/tasks-defs.h			\

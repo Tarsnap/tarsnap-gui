@@ -100,7 +100,7 @@ HEADERS +=						\
 	../../src/setupwizard/setupwizard_final.h	\
 	../../src/setupwizard/setupwizard_intro.h	\
 	../../src/setupwizard/setupwizard_register.h	\
-	../../src/tarsnaperror.h			\
+	../../src/messages/tarsnaperror.h		\
 	../../src/taskmanager.h				\
 	../../src/taskqueuer.h				\
 	../../src/tasks/tasks-defs.h			\

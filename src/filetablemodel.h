@@ -50,6 +50,8 @@ public:
                         int role = Qt::DisplayRole) const;
 
     //! Sets the archive from which this object should load the file list.
+    //! This spawns a \ref BaseTask, emitted via \ref taskRequested, which
+    //! must be deleted by external code.
     void setArchive(ArchivePtr archive);
 
     //! Clears the stored information about files.

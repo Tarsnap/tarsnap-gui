@@ -14,6 +14,7 @@ HEADERS  +=						\
 	../../src/cmdlinetask.h				\
 	../../src/dirinfotask.h				\
 	../../src/jobrunner.h				\
+	../../src/notification_info.h			\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/archiveptr.h		\

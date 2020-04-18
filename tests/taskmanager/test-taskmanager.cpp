@@ -20,6 +20,7 @@ WARNINGS_ENABLE
 #include "../qtest-platform.h"
 
 #include "backuptask.h"
+#include "backuptaskdataptr.h"
 #include "cmdlinetask.h"
 #include "taskmanager.h"
 #include "taskqueuer.h"

@@ -8,10 +8,11 @@ WARNINGS_DISABLE
 #include <QMap>
 #include <QObject>
 #include <QWidget>
+#include <QUrl>
 WARNINGS_ENABLE
 
 #include "archiverestoreoptions.h"
-#include "backuptask.h"
+#include "backuptaskdataptr.h"
 #include "persistentmodel/archiveptr.h"
 #include "persistentmodel/jobptr.h"
 
@@ -22,7 +23,6 @@ class JobsTabWidget;
 }
 class QEvent;
 class QPoint;
-class QUrl;
 
 /*!
  * \ingroup widgets-main

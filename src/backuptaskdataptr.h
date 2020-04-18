@@ -7,8 +7,8 @@ WARNINGS_DISABLE
 #include <QSharedPointer>
 WARNINGS_ENABLE
 
+/* Forward declaration(s). */
 class BackupTaskData;
-
 typedef QSharedPointer<BackupTaskData> BackupTaskDataPtr;
 
 #endif /* !BACKUPTASKDATAPTR_H */

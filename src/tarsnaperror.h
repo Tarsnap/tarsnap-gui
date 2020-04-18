@@ -1,5 +1,5 @@
-#ifndef ERROR_H
-#define ERROR_H
+#ifndef TARSNAPERROR_H
+#define TARSNAPERROR_H
 
 /*!
  * \ingroup background-tasks
@@ -12,4 +12,4 @@ enum TarsnapError
     NetworkError
 };
 
-#endif // ERROR_H
+#endif /* !TARSNAPERROR_H */

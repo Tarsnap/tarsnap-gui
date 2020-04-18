@@ -20,4 +20,4 @@ struct message_info
     QString data;
 };
 
-#endif // NOTIFICATION_INFO_H
+#endif /* !NOTIFICATION_INFO_H */

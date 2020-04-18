@@ -17,17 +17,17 @@ RESOURCES += ../../resources/resources.qrc
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TElidedLabel.h		\
-	../../src/messages/archivefilestat.h		\
-	../../src/messages/archiverestoreoptions.h	\
 	../../src/backuptask.h				\
-	../../src/messages/backuptaskdataptr.h		\
 	../../src/basetask.h				\
 	../../src/customfilesystemmodel.h		\
+	../../src/messages/archivefilestat.h		\
+	../../src/messages/archiveptr.h			\
+	../../src/messages/archiverestoreoptions.h	\
+	../../src/messages/backuptaskdataptr.h		\
+	../../src/messages/jobptr.h			\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
-	../../src/messages/archiveptr.h			\
 	../../src/persistentmodel/job.h			\
-	../../src/messages/jobptr.h			\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/tasks/tasks-utils.h			\

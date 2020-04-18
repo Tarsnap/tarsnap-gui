@@ -48,27 +48,28 @@ HEADERS +=						\
 	../../libcperciva/util/getopt.h			\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\
-	../../src/messages/archivefilestat.h		\
-	../../src/messages/archiverestoreoptions.h	\
 	../../src/backenddata.h				\
 	../../src/backuptask.h				\
-	../../src/messages/backuptaskdataptr.h		\
 	../../src/basetask.h				\
 	../../src/cmdlinetask.h				\
 	../../src/filetablemodel.h			\
 	../../src/init-shared.h				\
 	../../src/jobrunner.h				\
+	../../src/messages/archivefilestat.h		\
+	../../src/messages/archiveptr.h			\
+	../../src/messages/archiverestoreoptions.h	\
+	../../src/messages/backuptaskdataptr.h		\
+	../../src/messages/jobptr.h			\
 	../../src/messages/notification_info.h		\
+	../../src/messages/tarsnaperror.h		\
+	../../src/messages/taskstatus.h			\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
-	../../src/messages/archiveptr.h			\
 	../../src/persistentmodel/job.h			\
-	../../src/messages/jobptr.h			\
 	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\
-	../../src/messages/tarsnaperror.h		\
 	../../src/taskmanager.h				\
 	../../src/taskqueuer.h				\
 	../../src/tasks/tasks-defs.h			\
@@ -76,7 +77,6 @@ HEADERS +=						\
 	../../src/tasks/tasks-setup.h			\
 	../../src/tasks/tasks-tarsnap.h			\
 	../../src/tasks/tasks-utils.h			\
-	../../src/messages/taskstatus.h			\
 	../../src/translator.h				\
 	../../src/utils.h
 

@@ -9,8 +9,8 @@ RESOURCES += ../../resources/resources-lite.qrc
 HEADERS  +=						\
 	../../lib/core/LogEntry.h			\
 	../../lib/core/TSettings.h			\
-	../../src/persistentmodel/archive.h		\
 	../../src/messages/archiveptr.h			\
+	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h

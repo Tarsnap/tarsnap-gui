@@ -14,11 +14,9 @@ WARNINGS_DISABLE
 #include <QUuid>
 WARNINGS_ENABLE
 
+#include "backuptaskdataptr.h"
 #include "persistentmodel/archiveptr.h"
 
-class BackupTaskData;
-
-typedef QSharedPointer<BackupTaskData> BackupTaskDataPtr;
 Q_DECLARE_METATYPE(BackupTaskDataPtr)
 
 /*!

@@ -9,7 +9,7 @@ HEADERS  +=						\
 	../../src/archivefilestat.h			\
 	../../src/backenddata.h				\
 	../../src/backuptask.h				\
-	../../src/backuptaskdataptr.h			\
+	../../src/messages/backuptaskdataptr.h		\
 	../../src/basetask.h				\
 	../../src/cmdlinetask.h				\
 	../../src/dirinfotask.h				\

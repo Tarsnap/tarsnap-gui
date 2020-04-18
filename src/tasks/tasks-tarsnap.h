@@ -10,7 +10,7 @@ WARNINGS_DISABLE
 #include <QStringList>
 WARNINGS_ENABLE
 
-#include "backuptaskdataptr.h"
+#include "messages/backuptaskdataptr.h"
 
 /* Forward declaration(s). */
 class CmdlineTask;

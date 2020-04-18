@@ -41,7 +41,7 @@ HEADERS +=						\
 	../../src/archivefilestat.h			\
 	../../src/archiverestoreoptions.h		\
 	../../src/backuptask.h				\
-	../../src/backuptaskdataptr.h			\
+	../../src/messages/backuptaskdataptr.h		\
 	../../src/basetask.h				\
 	../../src/init-shared.h				\
 	../../src/parsearchivelistingtask.h		\

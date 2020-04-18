@@ -12,7 +12,7 @@ HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../src/backuptask.h				\
-	../../src/backuptaskdataptr.h			\
+	../../src/messages/backuptaskdataptr.h		\
 	../../src/basetask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/dirinfotask.h				\

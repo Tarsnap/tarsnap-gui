@@ -9,7 +9,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include "backuptaskdataptr.h"
+#include "messages/backuptaskdataptr.h"
 #include "messages/notification_info.h"
 #include "messages/jobptr.h"
 

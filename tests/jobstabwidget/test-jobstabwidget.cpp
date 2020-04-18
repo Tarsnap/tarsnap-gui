@@ -18,7 +18,7 @@ WARNINGS_ENABLE
 #include <TSettings.h>
 
 #include "backuptask.h"
-#include "backuptaskdataptr.h"
+#include "messages/backuptaskdataptr.h"
 #include "elidedclickablelabel.h"
 #include "joblistwidget.h"
 #include "jobstabwidget.h"

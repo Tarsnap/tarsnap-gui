@@ -12,7 +12,7 @@ WARNINGS_DISABLE
 #include <QWidget>
 WARNINGS_ENABLE
 
-#include "backuptaskdataptr.h"
+#include "messages/backuptaskdataptr.h"
 #include "filepickerdialog.h"
 
 /* Forward declaration(s). */

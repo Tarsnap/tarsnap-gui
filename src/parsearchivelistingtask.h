@@ -11,6 +11,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "messages/archivefilestat.h"
+
 #include "basetask.h"
 
 /*!

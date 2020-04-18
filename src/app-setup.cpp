@@ -7,11 +7,12 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
+#include "messages/taskstatus.h"
+
 #include "debug.h"
 #include "init-shared.h"
 #include "setupwizard/setupwizard.h"
 #include "taskmanager.h"
-#include "messages/taskstatus.h"
 #include "translator.h"
 
 #include <TSettings.h>

@@ -10,6 +10,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "messages/archiverestoreoptions.h"
+
 #include "debug.h"
 #include "joblistwidgetitem.h"
 #include "persistentmodel/job.h"

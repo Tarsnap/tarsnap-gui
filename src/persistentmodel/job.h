@@ -15,6 +15,7 @@ WARNINGS_ENABLE
 #include "messages/backuptaskdataptr.h"
 #include "messages/archiveptr.h"
 #include "messages/jobptr.h"
+
 #include "persistentmodel/persistentobject.h"
 
 /* Forward declaration(s). */

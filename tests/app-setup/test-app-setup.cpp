@@ -15,13 +15,14 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "messages/taskstatus.h"
+
 #include "app-setup.h"
 #include "init-shared.h"
 #include "setupwizard.h"
 #include "setupwizard_cli.h"
 #include "setupwizard_register.h"
 #include "tasks-defs.h"
-#include "messages/taskstatus.h"
 #include "utils.h"
 
 #include "TPathLineBrowse.h"

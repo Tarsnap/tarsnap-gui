@@ -23,17 +23,18 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "messages/archivefilestat.h"
+#include "messages/notification_info.h"
+#include "messages/tarsnaperror.h"
+#include "messages/taskstatus.h"
 #include "messages/archiverestoreoptions.h"
+
 #include "backuptask.h"
 #include "debug.h"
-#include "messages/notification_info.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 //#include "persistentmodel/journal.h"
 #include "persistentmodel/persistentstore.h"
 #include "scheduling.h"
-#include "messages/tarsnaperror.h"
-#include "messages/taskstatus.h"
 #include "utils.h"
 
 #include "LogEntry.h"

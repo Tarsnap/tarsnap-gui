@@ -25,6 +25,8 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "messages/archivefilestat.h"
+
 #include "archivestabwidget.h"
 #include "backuptabwidget.h"
 #include "helpwidget.h"
@@ -33,7 +35,6 @@ WARNINGS_ENABLE
 #include "stoptasksdialog.h"
 #include "translator.h"
 
-#include "messages/archivefilestat.h"
 #include "archivewidget.h"
 #include "filepickerdialog.h"
 #include "joblistwidget.h"

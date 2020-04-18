@@ -19,6 +19,7 @@ WARNINGS_ENABLE
 #include "../qtest-platform.h"
 
 #include "messages/archivefilestat.h"
+
 #include "archivelistwidget.h"
 #include "archivestabwidget.h"
 #include "archivewidget.h"

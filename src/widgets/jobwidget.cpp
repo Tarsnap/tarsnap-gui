@@ -20,8 +20,9 @@ WARNINGS_DISABLE
 #include "ui_jobwidget.h"
 WARNINGS_ENABLE
 
-#include "archivelistwidget.h"
 #include "messages/archiverestoreoptions.h"
+
+#include "archivelistwidget.h"
 #include "debug.h"
 #include "elidedclickablelabel.h"
 #include "filepickerwidget.h"

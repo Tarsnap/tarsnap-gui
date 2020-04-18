@@ -14,6 +14,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "messages/archiverestoreoptions.h"
+
 #include "backenddata.h"
 #include "backuptask.h"
 #include "basetask.h"

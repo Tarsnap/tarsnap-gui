@@ -23,9 +23,10 @@ WARNINGS_ENABLE
 #include "messages/notification_info.h"
 #include "messages/archiveptr.h"
 #include "messages/jobptr.h"
-#include "stoptasksdialog.h"
 #include "messages/tarsnaperror.h"
 #include "messages/taskstatus.h"
+
+#include "stoptasksdialog.h"
 
 /* Forward declaration(s). */
 namespace Ui

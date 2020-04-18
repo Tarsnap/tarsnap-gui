@@ -26,12 +26,13 @@ WARNINGS_DISABLE
 #include "ui_mainwindow.h"
 WARNINGS_ENABLE
 
+#include "messages/taskstatus.h"
+
 #include "backuptask.h"
 #include "basetask.h"
 #include "elidedclickablelabel.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-#include "messages/taskstatus.h"
 #include "utils.h"
 
 #include "LogEntry.h"

@@ -13,6 +13,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "messages/backuptaskdataptr.h"
+
 #include "filepickerdialog.h"
 
 /* Forward declaration(s). */

@@ -94,7 +94,7 @@ void TestSettingsWidget::account()
                           SIGNAL(newStatusMessage(QString, QString)));
 
     TarsnapAccountDialog *tarsnapAccountDialog =
-        &settingsWidget->_tarsnapAccountDialog;
+        settingsWidget->_tarsnapAccountDialog;
 
     VISUAL_INIT(settingsWidget);
 

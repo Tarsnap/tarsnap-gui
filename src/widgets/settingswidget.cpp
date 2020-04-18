@@ -27,6 +27,7 @@ WARNINGS_ENABLE
 #include "utils.h"
 
 #include "schedulingwidgets.h"
+#include "tarsnapaccountdialog.h"
 
 #include "TElidedLabel.h"
 #include <ConsoleLog.h>
@@ -38,7 +39,7 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::SettingsWidget),
       _nukeConfirmationDialog(this),
-      _tarsnapAccountDialog(this),
+      _tarsnapAccountDialog(new TarsnapAccountDialog(this)),
       _schedulingWidgets(new SchedulingWidgets(this))
 {
 
@@ -66,18 +67,18 @@ SettingsWidget::SettingsWidget(QWidget *parent)
             &SettingsWidget::nukeConfirmed);
     connect(&_nukeConfirmationDialog, &ConfirmationDialog::cancelled, this,
             &SettingsWidget::nukeCancelled);
-    connect(&_tarsnapAccountDialog, &TarsnapAccountDialog::accountCredit, this,
+    connect(_tarsnapAccountDialog, &TarsnapAccountDialog::accountCredit, this,
             &SettingsWidget::updateAccountCredit);
-    connect(&_tarsnapAccountDialog, &TarsnapAccountDialog::getKeyId, this,
+    connect(_tarsnapAccountDialog, &TarsnapAccountDialog::getKeyId, this,
             &SettingsWidget::getKeyId);
     connect(_ui->updateAccountButton, &QPushButton::clicked,
             _ui->actionRefreshAccount, &QAction::trigger);
-    connect(&_tarsnapAccountDialog, &TarsnapAccountDialog::lastMachineActivity,
+    connect(_tarsnapAccountDialog, &TarsnapAccountDialog::lastMachineActivity,
             this, &SettingsWidget::updateLastMachineActivity);
     connect(_ui->accountActivityShowButton, &QPushButton::clicked,
-            [this]() { _tarsnapAccountDialog.getAccountInfo(true, false); });
+            [this]() { _tarsnapAccountDialog->getAccountInfo(true, false); });
     connect(_ui->machineActivityShowButton, &QPushButton::clicked,
-            [this]() { _tarsnapAccountDialog.getAccountInfo(false, true); });
+            [this]() { _tarsnapAccountDialog->getAccountInfo(false, true); });
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &SettingsWidget::getAccountInfo);
 
@@ -181,6 +182,7 @@ SettingsWidget::SettingsWidget(QWidget *parent)
 
 SettingsWidget::~SettingsWidget()
 {
+    delete _tarsnapAccountDialog;
     delete _schedulingWidgets;
     delete _ui;
 }
@@ -376,7 +378,7 @@ void SettingsWidget::changeEvent(QEvent *event)
 
 void SettingsWidget::getAccountInfo()
 {
-    _tarsnapAccountDialog.getAccountInfo();
+    _tarsnapAccountDialog->getAccountInfo();
 }
 
 void SettingsWidget::overallStatsChanged(quint64 sizeTotal,

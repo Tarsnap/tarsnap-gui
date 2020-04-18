@@ -20,6 +20,7 @@ WARNINGS_ENABLE
 #include "settingswidget.h"
 
 #include "messages/archiveptr.h"
+#include "messages/archiverestoreoptions.h"
 #include "messages/backuptaskdataptr.h"
 #include "messages/jobptr.h"
 #include "messages/notification_info.h"
@@ -37,7 +38,6 @@ class BaseTask;
 class QEvent;
 class QMenuBar;
 class QUrl;
-struct ArchiveRestoreOptions;
 struct LogEntry;
 
 /*!

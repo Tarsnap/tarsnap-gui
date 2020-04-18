@@ -12,10 +12,10 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
-#include "messages/backuptaskdataptr.h"
-#include "messages/notification_info.h"
 #include "messages/archiveptr.h"
+#include "messages/backuptaskdataptr.h"
 #include "messages/jobptr.h"
+#include "messages/notification_info.h"
 #include "messages/tarsnaperror.h"
 #include "messages/taskstatus.h"
 

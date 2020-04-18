@@ -19,10 +19,10 @@ WARNINGS_ENABLE
 #include "jobstabwidget.h"
 #include "settingswidget.h"
 
-#include "messages/backuptaskdataptr.h"
-#include "messages/notification_info.h"
 #include "messages/archiveptr.h"
+#include "messages/backuptaskdataptr.h"
 #include "messages/jobptr.h"
+#include "messages/notification_info.h"
 #include "messages/tarsnaperror.h"
 #include "messages/taskstatus.h"
 

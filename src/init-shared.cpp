@@ -23,10 +23,10 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "messages/archivefilestat.h"
+#include "messages/archiverestoreoptions.h"
 #include "messages/notification_info.h"
 #include "messages/tarsnaperror.h"
 #include "messages/taskstatus.h"
-#include "messages/archiverestoreoptions.h"
 
 #include "backuptask.h"
 #include "debug.h"

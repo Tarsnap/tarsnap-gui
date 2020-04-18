@@ -10,8 +10,8 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "messages/backuptaskdataptr.h"
-#include "messages/notification_info.h"
 #include "messages/jobptr.h"
+#include "messages/notification_info.h"
 
 /*!
  * \ingroup background-tasks

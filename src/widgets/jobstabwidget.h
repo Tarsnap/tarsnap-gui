@@ -11,9 +11,9 @@ WARNINGS_DISABLE
 #include <QWidget>
 WARNINGS_ENABLE
 
+#include "messages/archiveptr.h"
 #include "messages/archiverestoreoptions.h"
 #include "messages/backuptaskdataptr.h"
-#include "messages/archiveptr.h"
 #include "messages/jobptr.h"
 
 /* Forward declaration(s). */

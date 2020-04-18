@@ -13,7 +13,7 @@ WARNINGS_ENABLE
 
 #include "archiverestoreoptions.h"
 #include "backuptaskdataptr.h"
-#include "persistentmodel/archiveptr.h"
+#include "messages/archiveptr.h"
 #include "messages/jobptr.h"
 
 /* Forward declaration(s). */

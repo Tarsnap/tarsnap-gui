@@ -13,7 +13,7 @@ WARNINGS_ENABLE
 
 #include "archiverestoreoptions.h"
 #include "filetablemodel.h"
-#include "persistentmodel/archiveptr.h"
+#include "messages/archiveptr.h"
 
 /* Forward declaration(s). */
 namespace Ui

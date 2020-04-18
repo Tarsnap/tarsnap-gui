@@ -46,7 +46,7 @@ HEADERS +=						\
 	../../src/init-shared.h				\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
-	../../src/persistentmodel/archiveptr.h		\
+	../../src/messages/archiveptr.h			\
 	../../src/persistentmodel/job.h			\
 	../../src/messages/jobptr.h			\
 	../../src/persistentmodel/journal.h		\

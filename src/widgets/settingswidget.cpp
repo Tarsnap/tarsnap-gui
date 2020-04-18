@@ -26,6 +26,7 @@ WARNINGS_ENABLE
 #include "translator.h"
 #include "utils.h"
 
+#include "confirmationdialog.h"
 #include "schedulingwidgets.h"
 #include "tarsnapaccountdialog.h"
 
@@ -38,7 +39,7 @@ WARNINGS_ENABLE
 SettingsWidget::SettingsWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::SettingsWidget),
-      _nukeConfirmationDialog(this),
+      _nukeConfirmationDialog(new ConfirmationDialog(this)),
       _tarsnapAccountDialog(new TarsnapAccountDialog(this)),
       _schedulingWidgets(new SchedulingWidgets(this))
 {
@@ -63,9 +64,9 @@ SettingsWidget::SettingsWidget(QWidget *parent)
             &SettingsWidget::accountMachineKeyBrowseButtonClicked);
     connect(_ui->nukeArchivesButton, &QPushButton::clicked, this,
             &SettingsWidget::nukeArchivesButtonClicked);
-    connect(&_nukeConfirmationDialog, &ConfirmationDialog::confirmed, this,
+    connect(_nukeConfirmationDialog, &ConfirmationDialog::confirmed, this,
             &SettingsWidget::nukeConfirmed);
-    connect(&_nukeConfirmationDialog, &ConfirmationDialog::cancelled, this,
+    connect(_nukeConfirmationDialog, &ConfirmationDialog::cancelled, this,
             &SettingsWidget::nukeCancelled);
     connect(_tarsnapAccountDialog, &TarsnapAccountDialog::accountCredit, this,
             &SettingsWidget::updateAccountCredit);
@@ -182,6 +183,7 @@ SettingsWidget::SettingsWidget(QWidget *parent)
 
 SettingsWidget::~SettingsWidget()
 {
+    delete _nukeConfirmationDialog;
     delete _tarsnapAccountDialog;
     delete _schedulingWidgets;
     delete _ui;
@@ -454,7 +456,7 @@ void SettingsWidget::nukeArchivesButtonClicked()
     newStatusMessage(tr("Nuke confirmation requested."), "");
 
     // Set up nuke confirmation
-    _nukeConfirmationDialog.start(
+    _nukeConfirmationDialog->start(
         tr("Nuke all archives?"),
         tr("This action will <b>delete all (%1) archives</b> stored for this "
            "key."

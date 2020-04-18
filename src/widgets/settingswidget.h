@@ -11,7 +11,6 @@ WARNINGS_DISABLE
 #include <QWidget>
 WARNINGS_ENABLE
 
-#include "confirmationdialog.h"
 #include "taskstatus.h"
 
 /* Forward declaration(s). */
@@ -19,9 +18,10 @@ namespace Ui
 {
 class SettingsWidget;
 }
+class ConfirmationDialog;
 class QEvent;
-class TarsnapAccountDialog;
 class SchedulingWidgets;
+class TarsnapAccountDialog;
 
 /*!
  * \ingroup widgets-main
@@ -124,7 +124,7 @@ private:
     void loadSettings();
 
     // For the Account tab
-    ConfirmationDialog _nukeConfirmationDialog;
+    ConfirmationDialog *_nukeConfirmationDialog;
 
     TarsnapAccountDialog *_tarsnapAccountDialog;
 

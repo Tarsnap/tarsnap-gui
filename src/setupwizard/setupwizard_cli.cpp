@@ -18,8 +18,9 @@ WARNINGS_ENABLE
 #include <TSettings.h>
 #include <TWizardPage.h>
 
+#include "messages/taskstatus.h"
+
 #include "tasks-defs.h"
-#include "taskstatus.h"
 #include "utils.h"
 
 CliPage::CliPage(QWidget *parent)

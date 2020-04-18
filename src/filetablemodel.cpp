@@ -6,7 +6,7 @@ WARNINGS_DISABLE
 #include <QVector>
 WARNINGS_ENABLE
 
-#include "archivefilestat.h"
+#include "messages/archivefilestat.h"
 #include "parsearchivelistingtask.h"
 #include "persistentmodel/archive.h"
 

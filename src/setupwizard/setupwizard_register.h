@@ -10,7 +10,7 @@ WARNINGS_ENABLE
 
 #include <TWizardPage.h>
 
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 
 /* Forward declaration(s). */
 namespace Ui

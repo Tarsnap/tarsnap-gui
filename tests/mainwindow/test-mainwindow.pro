@@ -36,20 +36,20 @@ HEADERS  +=						\
 	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../lib/widgets/TTextView.h			\
-	../../src/archivefilestat.h			\
-	../../src/archiverestoreoptions.h		\
 	../../src/backuptask.h				\
-	../../src/backuptaskdataptr.h			\
 	../../src/basetask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/dirinfotask.h				\
 	../../src/filetablemodel.h			\
-	../../src/notification_info.h			\
+	../../src/messages/archivefilestat.h		\
+	../../src/messages/archiveptr.h			\
+	../../src/messages/archiverestoreoptions.h	\
+	../../src/messages/backuptaskdataptr.h		\
+	../../src/messages/jobptr.h			\
+	../../src/messages/notification_info.h		\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
-	../../src/persistentmodel/archiveptr.h		\
 	../../src/persistentmodel/job.h			\
-	../../src/persistentmodel/jobptr.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\

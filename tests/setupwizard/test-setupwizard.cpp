@@ -23,12 +23,13 @@ WARNINGS_ENABLE
 #include <TSettings.h>
 #include <TWizardPage.h>
 
+#include "messages/taskstatus.h"
+
 #include "compare-settings.h"
 
 #include "setupwizard.h"
 #include "setupwizard_cli.h"
 #include "setupwizard_register.h"
-#include "taskstatus.h"
 
 #define GET_UI_PAGE(x, PAGETYPE)                                               \
     do                                                                         \

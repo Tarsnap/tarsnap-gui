@@ -8,8 +8,9 @@ WARNINGS_DISABLE
 #include <Qt>
 WARNINGS_ENABLE
 
+#include "messages/archiverestoreoptions.h"
+
 #include "archivelistwidgetitem.h"
-#include "archiverestoreoptions.h"
 #include "debug.h"
 #include "persistentmodel/archive.h"
 #include "restoredialog.h"

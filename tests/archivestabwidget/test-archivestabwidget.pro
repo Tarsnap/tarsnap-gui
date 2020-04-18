@@ -14,13 +14,13 @@ RESOURCES += ../../resources/resources.qrc
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TElidedLabel.h		\
-	../../src/archivefilestat.h			\
-	../../src/archiverestoreoptions.h		\
 	../../src/basetask.h				\
 	../../src/filetablemodel.h			\
+	../../src/messages/archivefilestat.h		\
+	../../src/messages/archiveptr.h			\
+	../../src/messages/archiverestoreoptions.h	\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
-	../../src/persistentmodel/archiveptr.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/tasks/tasks-utils.h			\

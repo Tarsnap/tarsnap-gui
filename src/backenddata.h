@@ -10,9 +10,9 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include "backuptaskdataptr.h"
-#include "persistentmodel/archiveptr.h"
-#include "persistentmodel/jobptr.h"
+#include "messages/archiveptr.h"
+#include "messages/backuptaskdataptr.h"
+#include "messages/jobptr.h"
 
 /* Forward declaration(s). */
 struct archive_list_data;

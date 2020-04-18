@@ -9,9 +9,9 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include "backuptaskdataptr.h"
-#include "notification_info.h"
-#include "persistentmodel/jobptr.h"
+#include "messages/backuptaskdataptr.h"
+#include "messages/jobptr.h"
+#include "messages/notification_info.h"
 
 /*!
  * \ingroup background-tasks

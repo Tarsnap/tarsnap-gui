@@ -13,7 +13,7 @@ WARNINGS_ENABLE
 #include "setupwizard_intro.h"
 #include "setupwizard_register.h"
 
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 
 /* Forward declarations(s). */
 class QWidget;

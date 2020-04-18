@@ -38,24 +38,24 @@ HEADERS +=						\
 	../../libcperciva/util/getopt.h			\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\
-	../../src/archivefilestat.h			\
-	../../src/archiverestoreoptions.h		\
 	../../src/backuptask.h				\
-	../../src/backuptaskdataptr.h			\
 	../../src/basetask.h				\
 	../../src/init-shared.h				\
+	../../src/messages/archivefilestat.h		\
+	../../src/messages/archiveptr.h			\
+	../../src/messages/archiverestoreoptions.h	\
+	../../src/messages/backuptaskdataptr.h		\
+	../../src/messages/jobptr.h			\
+	../../src/messages/tarsnaperror.h		\
+	../../src/messages/taskstatus.h			\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
-	../../src/persistentmodel/archiveptr.h		\
 	../../src/persistentmodel/job.h			\
-	../../src/persistentmodel/jobptr.h		\
 	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/scheduling.h				\
-	../../src/tarsnaperror.h			\
 	../../src/tasks/tasks-utils.h			\
-	../../src/taskstatus.h				\
 	../../src/translator.h				\
 	../../src/utils.h				\
 	../qtest-platform.h

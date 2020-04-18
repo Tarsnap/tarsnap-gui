@@ -17,14 +17,15 @@ WARNINGS_ENABLE
 
 #include <TSettings.h>
 
+#include "messages/backuptaskdataptr.h"
+#include "messages/jobptr.h"
+
 #include "backuptask.h"
-#include "backuptaskdataptr.h"
 #include "elidedclickablelabel.h"
 #include "joblistwidget.h"
 #include "jobstabwidget.h"
 #include "jobwidget.h"
 #include "persistentmodel/job.h"
-#include "persistentmodel/jobptr.h"
 #include "persistentmodel/persistentstore.h"
 
 class TestJobsTabWidget : public QObject

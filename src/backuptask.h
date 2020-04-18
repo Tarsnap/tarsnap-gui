@@ -15,8 +15,8 @@ WARNINGS_DISABLE
 #include <QUuid>
 WARNINGS_ENABLE
 
-#include "backuptaskdataptr.h"
-#include "persistentmodel/archiveptr.h"
+#include "messages/archiveptr.h"
+#include "messages/backuptaskdataptr.h"
 
 Q_DECLARE_METATYPE(BackupTaskDataPtr)
 

@@ -11,9 +11,10 @@ WARNINGS_DISABLE
 #include <QWidget>
 WARNINGS_ENABLE
 
-#include "archiverestoreoptions.h"
+#include "messages/archiveptr.h"
+#include "messages/archiverestoreoptions.h"
+
 #include "filetablemodel.h"
-#include "persistentmodel/archiveptr.h"
 
 /* Forward declaration(s). */
 namespace Ui

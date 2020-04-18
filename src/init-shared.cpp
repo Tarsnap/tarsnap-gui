@@ -22,18 +22,19 @@ WARNINGS_DISABLE
 #include <Qt>
 WARNINGS_ENABLE
 
-#include "archivefilestat.h"
-#include "archiverestoreoptions.h"
+#include "messages/archivefilestat.h"
+#include "messages/archiverestoreoptions.h"
+#include "messages/notification_info.h"
+#include "messages/tarsnaperror.h"
+#include "messages/taskstatus.h"
+
 #include "backuptask.h"
 #include "debug.h"
-#include "notification_info.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 //#include "persistentmodel/journal.h"
 #include "persistentmodel/persistentstore.h"
 #include "scheduling.h"
-#include "tarsnaperror.h"
-#include "taskstatus.h"
 #include "utils.h"
 
 #include "LogEntry.h"

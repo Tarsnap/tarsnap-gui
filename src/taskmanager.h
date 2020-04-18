@@ -12,12 +12,12 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
-#include "backuptaskdataptr.h"
-#include "notification_info.h"
-#include "persistentmodel/archiveptr.h"
-#include "persistentmodel/jobptr.h"
-#include "tarsnaperror.h"
-#include "taskstatus.h"
+#include "messages/archiveptr.h"
+#include "messages/backuptaskdataptr.h"
+#include "messages/jobptr.h"
+#include "messages/notification_info.h"
+#include "messages/tarsnaperror.h"
+#include "messages/taskstatus.h"
 
 /* Forward declaration(s). */
 class BackendData;

@@ -11,7 +11,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include "persistentmodel/archiveptr.h"
+#include "messages/archiveptr.h"
 #include "persistentobject.h"
 
 #define ARCHIVE_TIMESTAMP_FORMAT QLatin1String("_yyyy-MM-dd_HH-mm-ss")

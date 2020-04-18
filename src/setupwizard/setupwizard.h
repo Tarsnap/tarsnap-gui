@@ -10,7 +10,7 @@ WARNINGS_ENABLE
 
 #include "TWizard.h"
 
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 
 /* Forward declaration(s). */
 class IntroPage;

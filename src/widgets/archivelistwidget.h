@@ -11,8 +11,8 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include "archiverestoreoptions.h"
-#include "persistentmodel/archiveptr.h"
+#include "messages/archiveptr.h"
+#include "messages/archiverestoreoptions.h"
 
 /* Forward declaration(s). */
 class ArchiveListWidgetItem;

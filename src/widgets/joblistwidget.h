@@ -13,7 +13,7 @@ WARNINGS_ENABLE
 
 #include "archiverestoreoptions.h"
 #include "persistentmodel/archiveptr.h"
-#include "persistentmodel/jobptr.h"
+#include "messages/jobptr.h"
 
 /* Forward declaration(s). */
 class JobListWidgetItem;

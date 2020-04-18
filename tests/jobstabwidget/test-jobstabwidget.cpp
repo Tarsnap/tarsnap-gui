@@ -24,7 +24,7 @@ WARNINGS_ENABLE
 #include "jobstabwidget.h"
 #include "jobwidget.h"
 #include "persistentmodel/job.h"
-#include "persistentmodel/jobptr.h"
+#include "messages/jobptr.h"
 #include "persistentmodel/persistentstore.h"
 
 class TestJobsTabWidget : public QObject

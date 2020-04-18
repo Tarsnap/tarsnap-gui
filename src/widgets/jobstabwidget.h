@@ -14,7 +14,7 @@ WARNINGS_ENABLE
 #include "archiverestoreoptions.h"
 #include "backuptaskdataptr.h"
 #include "persistentmodel/archiveptr.h"
-#include "persistentmodel/jobptr.h"
+#include "messages/jobptr.h"
 
 /* Forward declaration(s). */
 namespace Ui

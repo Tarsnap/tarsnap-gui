@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include <QObject>
 WARNINGS_ENABLE
 
-#include "persistentmodel/jobptr.h"
+#include "messages/jobptr.h"
 
 /* Forward declaration(s). */
 namespace Ui

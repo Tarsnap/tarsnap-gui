@@ -90,7 +90,7 @@ HEADERS +=						\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/archiveptr.h		\
 	../../src/persistentmodel/job.h			\
-	../../src/persistentmodel/jobptr.h		\
+	../../src/messages/jobptr.h			\
 	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\

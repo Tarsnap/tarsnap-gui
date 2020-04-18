@@ -17,7 +17,7 @@ WARNINGS_ENABLE
 #include "messages/archiveptr.h"
 #include "messages/jobptr.h"
 #include "messages/tarsnaperror.h"
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 
 /* Forward declaration(s). */
 class BackendData;

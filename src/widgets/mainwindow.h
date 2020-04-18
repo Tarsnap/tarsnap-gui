@@ -25,7 +25,7 @@ WARNINGS_ENABLE
 #include "messages/jobptr.h"
 #include "stoptasksdialog.h"
 #include "messages/tarsnaperror.h"
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 
 /* Forward declaration(s). */
 namespace Ui

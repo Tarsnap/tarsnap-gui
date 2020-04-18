@@ -11,7 +11,7 @@ WARNINGS_DISABLE
 #include <QWidget>
 WARNINGS_ENABLE
 
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 
 /* Forward declaration(s). */
 namespace Ui

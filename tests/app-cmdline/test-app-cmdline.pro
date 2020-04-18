@@ -55,7 +55,7 @@ HEADERS +=						\
 	../../src/scheduling.h				\
 	../../src/messages/tarsnaperror.h		\
 	../../src/tasks/tasks-utils.h			\
-	../../src/taskstatus.h				\
+	../../src/messages/taskstatus.h			\
 	../../src/translator.h				\
 	../../src/utils.h				\
 	../qtest-platform.h

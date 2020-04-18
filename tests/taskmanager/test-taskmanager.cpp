@@ -25,7 +25,7 @@ WARNINGS_ENABLE
 #include "cmdlinetask.h"
 #include "taskmanager.h"
 #include "taskqueuer.h"
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 
 #include <ConsoleLog.h>
 #include <TSettings.h>

@@ -28,7 +28,7 @@ WARNINGS_ENABLE
 #include "setupwizard.h"
 #include "setupwizard_cli.h"
 #include "setupwizard_register.h"
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 
 #define GET_UI_PAGE(x, PAGETYPE)                                               \
     do                                                                         \

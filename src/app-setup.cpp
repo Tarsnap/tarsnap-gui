@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 #include "init-shared.h"
 #include "setupwizard/setupwizard.h"
 #include "taskmanager.h"
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 #include "translator.h"
 
 #include <TSettings.h>

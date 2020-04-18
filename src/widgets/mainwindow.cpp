@@ -31,7 +31,7 @@ WARNINGS_ENABLE
 #include "elidedclickablelabel.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 #include "utils.h"
 
 #include "LogEntry.h"

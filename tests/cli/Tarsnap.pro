@@ -76,7 +76,7 @@ HEADERS +=						\
 	../../src/tasks/tasks-setup.h			\
 	../../src/tasks/tasks-tarsnap.h			\
 	../../src/tasks/tasks-utils.h			\
-	../../src/taskstatus.h				\
+	../../src/messages/taskstatus.h			\
 	../../src/translator.h				\
 	../../src/utils.h
 

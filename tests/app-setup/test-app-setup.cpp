@@ -21,7 +21,7 @@ WARNINGS_ENABLE
 #include "setupwizard_cli.h"
 #include "setupwizard_register.h"
 #include "tasks-defs.h"
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 #include "utils.h"
 
 #include "TPathLineBrowse.h"

@@ -22,7 +22,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "tasks-defs.h"
-#include "taskstatus.h"
+#include "messages/taskstatus.h"
 #include "translator.h"
 #include "utils.h"
 

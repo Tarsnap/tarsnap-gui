@@ -17,7 +17,7 @@ RESOURCES += ../../resources/resources.qrc
 HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TElidedLabel.h		\
-	../../src/archivefilestat.h			\
+	../../src/messages/archivefilestat.h		\
 	../../src/messages/archiverestoreoptions.h	\
 	../../src/backuptask.h				\
 	../../src/messages/backuptaskdataptr.h		\

@@ -48,7 +48,7 @@ HEADERS +=						\
 	../../libcperciva/util/getopt.h			\
 	../../libcperciva/util/warnp.h			\
 	../../src/app-cmdline.h				\
-	../../src/archivefilestat.h			\
+	../../src/messages/archivefilestat.h		\
 	../../src/messages/archiverestoreoptions.h	\
 	../../src/backenddata.h				\
 	../../src/backuptask.h				\

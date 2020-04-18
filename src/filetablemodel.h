@@ -12,7 +12,7 @@ WARNINGS_DISABLE
 #include <Qt>
 WARNINGS_ENABLE
 
-#include "archivefilestat.h"
+#include "messages/archivefilestat.h"
 #include "messages/archiveptr.h"
 
 /* Forward declaration(s). */

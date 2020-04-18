@@ -31,7 +31,7 @@ SOURCES += test-app-setup.cpp				\
 	../../libcperciva/util/getopt.c			\
 	../../libcperciva/util/warnp.c			\
 	../../src/app-setup.cpp				\
-	../../src/archivefilestat.h			\
+	../../src/messages/archivefilestat.h		\
 	../../src/backenddata.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/basetask.cpp				\

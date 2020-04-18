@@ -36,7 +36,7 @@ HEADERS  +=						\
 	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../lib/widgets/TTextView.h			\
-	../../src/archivefilestat.h			\
+	../../src/messages/archivefilestat.h		\
 	../../src/messages/archiverestoreoptions.h	\
 	../../src/backuptask.h				\
 	../../src/messages/backuptaskdataptr.h		\

@@ -33,7 +33,7 @@ WARNINGS_ENABLE
 #include "stoptasksdialog.h"
 #include "translator.h"
 
-#include "archivefilestat.h"
+#include "messages/archivefilestat.h"
 #include "archivewidget.h"
 #include "filepickerdialog.h"
 #include "joblistwidget.h"

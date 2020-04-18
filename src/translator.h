@@ -37,7 +37,7 @@ public:
     static void destroy();
 
     //! Translates the app.
-    void translateApp(QCoreApplication *app, QString lang);
+    void translateApp(QCoreApplication *app, const QString &language);
     //! The available languages.
     QStringList languageList();
 

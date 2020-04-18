@@ -49,8 +49,10 @@ void Translator::remove_translators()
     _appTranslator = nullptr;
 }
 
-void Translator::translateApp(QCoreApplication *app, QString lang)
+void Translator::translateApp(QCoreApplication *app, const QString &language)
 {
+    QString lang(language);
+
     if(!app)
         return;
 

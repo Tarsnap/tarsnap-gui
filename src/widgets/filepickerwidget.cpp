@@ -19,7 +19,6 @@ WARNINGS_ENABLE
 
 /* Forward declaration(s). */
 class QModelIndex;
-class QPersistentModelIndex;
 
 FilePickerWidget::FilePickerWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::FilePickerWidget)

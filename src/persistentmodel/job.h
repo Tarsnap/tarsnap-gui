@@ -5,6 +5,7 @@
 
 WARNINGS_DISABLE
 #include <QFileSystemWatcher>
+#include <QLatin1String>
 #include <QList>
 #include <QMetaType>
 #include <QObject>

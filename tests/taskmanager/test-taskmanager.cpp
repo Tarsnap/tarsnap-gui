@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QByteArray>
+#include <QChar>
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>

@@ -132,6 +132,9 @@ void TestArchivesTabWidget::displayArchive()
     // Wait for archive parsing signal.
     WAIT_SIG(sig_taskRequest);
 
+    // Get the provided test
+    BaseTask *task = sig_taskRequest.takeFirst().at(0).value<BaseTask *>();
+
     // Fake a reply.
     FileStat parsed = {"myfile", "Jan 1 2019", 1234, "user", "group", "644", 0};
     QVector<FileStat> files = {parsed};
@@ -147,6 +150,8 @@ void TestArchivesTabWidget::displayArchive()
     QString     filename = fm->data(index).toString();
     QVERIFY(filename == "myfile");
 
+    // Clean up
+    delete task;
     delete archivestabwidget;
 }
 

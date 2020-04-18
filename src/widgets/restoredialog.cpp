@@ -14,7 +14,7 @@ WARNINGS_DISABLE
 #include "ui_restoredialog.h"
 WARNINGS_ENABLE
 
-#include "archiverestoreoptions.h"
+#include "messages/archiverestoreoptions.h"
 #include "persistentmodel/archive.h"
 #include "tasks/tasks-defs.h"
 

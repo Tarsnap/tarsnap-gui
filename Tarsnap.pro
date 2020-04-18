@@ -144,7 +144,7 @@ HEADERS +=						\
 	src/app-gui.h					\
 	src/app-setup.h					\
 	src/archivefilestat.h				\
-	src/archiverestoreoptions.h			\
+	src/messages/archiverestoreoptions.h		\
 	src/backenddata.h				\
 	src/backuptask.h				\
 	src/messages/backuptaskdataptr.h		\

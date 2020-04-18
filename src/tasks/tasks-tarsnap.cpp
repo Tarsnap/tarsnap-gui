@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
-#include "archiverestoreoptions.h"
+#include "messages/archiverestoreoptions.h"
 
 #include "backuptask.h"
 #include "cmdlinetask.h"

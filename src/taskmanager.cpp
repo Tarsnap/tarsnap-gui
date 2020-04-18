@@ -13,7 +13,7 @@ WARNINGS_DISABLE
 #include <Qt>
 WARNINGS_ENABLE
 
-#include "archiverestoreoptions.h"
+#include "messages/archiverestoreoptions.h"
 #include "backenddata.h"
 #include "backuptask.h"
 #include "basetask.h"

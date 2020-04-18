@@ -18,7 +18,7 @@ HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../src/archivefilestat.h			\
-	../../src/archiverestoreoptions.h		\
+	../../src/messages/archiverestoreoptions.h	\
 	../../src/backuptask.h				\
 	../../src/messages/backuptaskdataptr.h		\
 	../../src/basetask.h				\

@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include <QSystemTrayIcon>
 WARNINGS_ENABLE
 
-#include "notification_info.h"
+#include "messages/notification_info.h"
 
 /*!
  * \ingroup misc

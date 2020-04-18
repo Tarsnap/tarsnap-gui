@@ -13,7 +13,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "backuptaskdataptr.h"
-#include "notification_info.h"
+#include "messages/notification_info.h"
 #include "messages/archiveptr.h"
 #include "messages/jobptr.h"
 #include "tarsnaperror.h"

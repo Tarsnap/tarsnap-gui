@@ -26,7 +26,7 @@ WARNINGS_ENABLE
 #include "archiverestoreoptions.h"
 #include "backuptask.h"
 #include "debug.h"
-#include "notification_info.h"
+#include "messages/notification_info.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 //#include "persistentmodel/journal.h"

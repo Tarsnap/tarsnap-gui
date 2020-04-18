@@ -85,7 +85,7 @@ HEADERS +=						\
 	../../src/filetablemodel.h			\
 	../../src/init-shared.h				\
 	../../src/jobrunner.h				\
-	../../src/notification_info.h			\
+	../../src/messages/notification_info.h		\
 	../../src/parsearchivelistingtask.h		\
 	../../src/persistentmodel/archive.h		\
 	../../src/messages/archiveptr.h			\

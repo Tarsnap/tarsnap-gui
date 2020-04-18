@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 #include "TSettings.h"
 
 #include "debug.h"
-#include "notification_info.h"
+#include "messages/notification_info.h"
 #include "persistentmodel/job.h"
 #include "tasks-defs.h"
 

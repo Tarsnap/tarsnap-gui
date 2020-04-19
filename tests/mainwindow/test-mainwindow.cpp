@@ -273,7 +273,7 @@ void TestMainWindow::other_navigation()
 {
     MainWindow *       mainwindow    = new MainWindow();
     Ui::MainWindow *   ui            = mainwindow->_ui;
-    JobsTabWidget *    jobsTabWidget = &mainwindow->_jobsTabWidget;
+    JobsTabWidget *    jobsTabWidget = mainwindow->_jobsTabWidget;
     Ui::JobsTabWidget *jui           = jobsTabWidget->_ui;
 
     QSignalSpy sig_taskRequest(mainwindow, SIGNAL(taskRequested(BaseTask *)));

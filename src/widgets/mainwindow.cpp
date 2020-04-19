@@ -33,6 +33,7 @@ WARNINGS_ENABLE
 #include "backuptask.h"
 #include "basetask.h"
 #include "elidedclickablelabel.h"
+#include "jobstabwidget.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "stoptasksdialog.h"
@@ -59,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
       _stopTasksDialog(new StopTasksDialog(this)),
       _backupTabWidget(new BackupTabWidget(this)),
       _archivesTabWidget(new ArchivesTabWidget(this)),
-      _jobsTabWidget(this),
+      _jobsTabWidget(new JobsTabWidget(this)),
       _settingsWidget(this),
       _helpWidget(this)
 {
@@ -76,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     _ui->backupTabVerticalLayout->addWidget(_backupTabWidget);
     _ui->archivesVerticalLayout->addWidget(_archivesTabWidget);
-    _ui->jobsVerticalLayout->addWidget(&_jobsTabWidget);
+    _ui->jobsVerticalLayout->addWidget(_jobsTabWidget);
     _ui->settingsTabVerticalLayout->addWidget(&_settingsWidget);
     _ui->helpTabLayout->addWidget(&_helpWidget);
 
@@ -157,7 +158,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(_archivesTabWidget, &ArchivesTabWidget::deleteArchives, this,
             &MainWindow::deleteArchives);
-    connect(&_jobsTabWidget, &JobsTabWidget::restoreArchive, this,
+    connect(_jobsTabWidget, &JobsTabWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
     connect(_archivesTabWidget, &ArchivesTabWidget::jobClicked, this,
             &MainWindow::jobInspectByRef);
@@ -177,49 +178,49 @@ MainWindow::MainWindow(QWidget *parent)
     // Jobs pane
 
     // Send menubar actions to the Jobs tab
-    connect(_ui->actionAddJob, &QAction::triggered, &_jobsTabWidget,
+    connect(_ui->actionAddJob, &QAction::triggered, _jobsTabWidget,
             &JobsTabWidget::addJobClicked);
 
     // Pass messages through to the JobDetailsWidget
-    connect(this, &MainWindow::matchingArchives, &_jobsTabWidget,
+    connect(this, &MainWindow::matchingArchives, _jobsTabWidget,
             &JobsTabWidget::matchingArchives);
 
     // Pass messages from the JobDetailsWidget
-    connect(&_jobsTabWidget, &JobsTabWidget::jobAdded, this,
+    connect(_jobsTabWidget, &JobsTabWidget::jobAdded, this,
             &MainWindow::jobAdded);
     // The MainWindow::displayJobDetails connection MUST come after the
     // JobListWidget::jobAdded connection.  Otherwise, the JobListWidget won't
     // have the relevant Job in its list when displayJobDetails() tries to
     // select it.
-    connect(&_jobsTabWidget, &JobsTabWidget::jobAdded, this,
+    connect(_jobsTabWidget, &JobsTabWidget::jobAdded, this,
             &MainWindow::displayJobDetails);
-    connect(&_jobsTabWidget, &JobsTabWidget::displayInspectArchive, this,
+    connect(_jobsTabWidget, &JobsTabWidget::displayInspectArchive, this,
             &MainWindow::displayInspectArchive);
-    connect(&_jobsTabWidget, &JobsTabWidget::restoreArchive, this,
+    connect(_jobsTabWidget, &JobsTabWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
-    connect(&_jobsTabWidget, &JobsTabWidget::deleteArchives, this,
+    connect(_jobsTabWidget, &JobsTabWidget::deleteArchives, this,
             &MainWindow::deleteArchives);
-    connect(&_jobsTabWidget, &JobsTabWidget::findMatchingArchives, this,
+    connect(_jobsTabWidget, &JobsTabWidget::findMatchingArchives, this,
             &MainWindow::findMatchingArchives);
-    connect(&_jobsTabWidget, &JobsTabWidget::deleteJob, this,
+    connect(_jobsTabWidget, &JobsTabWidget::deleteJob, this,
             &MainWindow::deleteJob);
 
     // Connections to the JobListWidget
-    connect(this, &MainWindow::jobList, &_jobsTabWidget,
+    connect(this, &MainWindow::jobList, _jobsTabWidget,
             &JobsTabWidget::jobList);
 
     // Handle the Job-related actions
-    connect(_ui->actionJobBackup, &QAction::triggered, &_jobsTabWidget,
+    connect(_ui->actionJobBackup, &QAction::triggered, _jobsTabWidget,
             &JobsTabWidget::backupSelectedItems);
-    connect(_ui->actionJobDelete, &QAction::triggered, &_jobsTabWidget,
+    connect(_ui->actionJobDelete, &QAction::triggered, _jobsTabWidget,
             &JobsTabWidget::deleteSelectedItem);
-    connect(_ui->actionJobRestore, &QAction::triggered, &_jobsTabWidget,
+    connect(_ui->actionJobRestore, &QAction::triggered, _jobsTabWidget,
             &JobsTabWidget::restoreSelectedItem);
-    connect(_ui->actionJobInspect, &QAction::triggered, &_jobsTabWidget,
+    connect(_ui->actionJobInspect, &QAction::triggered, _jobsTabWidget,
             &JobsTabWidget::inspectSelectedItem);
 
     // Other
-    connect(&_jobsTabWidget, &JobsTabWidget::backupNow, this,
+    connect(_jobsTabWidget, &JobsTabWidget::backupNow, this,
             &MainWindow::backupNow);
 
     // Connections for _stopTasksDialog
@@ -237,6 +238,7 @@ MainWindow::~MainWindow()
     delete _stopTasksDialog;
     delete _backupTabWidget;
     delete _archivesTabWidget;
+    delete _jobsTabWidget;
     delete _ui;
 }
 
@@ -535,7 +537,7 @@ void MainWindow::displayJobDetails(JobPtr job)
 
     displayTab(_ui->jobsTab);
 
-    _jobsTabWidget.displayJobDetails(job);
+    _jobsTabWidget->displayJobDetails(job);
 }
 
 void MainWindow::updateStatusMessage(QString message, QString detail)
@@ -654,7 +656,7 @@ void MainWindow::updateUi()
 void MainWindow::createNewJob(QList<QUrl> urls, QString name)
 {
     displayTab(_ui->jobsTab);
-    _jobsTabWidget.createNewJob(urls, name);
+    _jobsTabWidget->createNewJob(urls, name);
 }
 
 void MainWindow::updateSimulationIcon(int state)
@@ -742,7 +744,7 @@ void MainWindow::displayTab(QWidget *widget)
 void MainWindow::jobInspectByRef(QString jobRef)
 {
     displayTab(_ui->jobsTab);
-    _jobsTabWidget.jobInspectByRef(jobRef);
+    _jobsTabWidget->jobInspectByRef(jobRef);
 }
 
 void MainWindow::handle_notification_clicked(enum message_type type,

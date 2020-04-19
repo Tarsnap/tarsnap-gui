@@ -8,6 +8,7 @@ WARNINGS_DISABLE
 #include <QMap>
 #include <QObject>
 #include <QString>
+#include <QUrl>
 #include <QUuid>
 #include <QVector>
 #include <QWidget>
@@ -37,7 +38,6 @@ class MainWindow;
 class BaseTask;
 class QEvent;
 class QMenuBar;
-class QUrl;
 struct LogEntry;
 
 /*!

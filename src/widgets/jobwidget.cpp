@@ -20,6 +20,8 @@ WARNINGS_DISABLE
 #include "ui_jobwidget.h"
 WARNINGS_ENABLE
 
+#include "TSettings.h"
+
 #include "messages/archiverestoreoptions.h"
 
 #include "archivelistwidget.h"
@@ -30,8 +32,6 @@ WARNINGS_ENABLE
 #include "persistentmodel/job.h"
 #include "restoredialog.h"
 #include "utils.h"
-
-#include "TSettings.h"
 
 JobWidget::JobWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::JobWidget), _saveEnabled(false)

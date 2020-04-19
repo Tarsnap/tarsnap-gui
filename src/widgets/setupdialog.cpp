@@ -15,12 +15,12 @@ WARNINGS_DISABLE
 #include "ui_setupdialog.h"
 WARNINGS_ENABLE
 
+#include "TPathLineBrowse.h"
+#include "TSettings.h"
+
 #include "debug.h"
 #include "tasks-defs.h"
 #include "utils.h"
-
-#include "TPathLineBrowse.h"
-#include "TSettings.h"
 
 SetupDialog::SetupDialog(QWidget *parent)
     : QDialog(parent), _ui(new Ui::SetupDialog)

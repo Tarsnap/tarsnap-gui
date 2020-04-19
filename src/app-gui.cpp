@@ -7,6 +7,9 @@ WARNINGS_ENABLE
 
 #include <assert.h>
 
+#include "ConsoleLog.h"
+#include "TSettings.h"
+
 #include "backuptask.h"
 #include "basetask.h"
 #include "debug.h"
@@ -19,9 +22,6 @@ WARNINGS_ENABLE
 #include "translator.h"
 #include "utils.h"
 #include "widgets/mainwindow.h"
-
-#include "ConsoleLog.h"
-#include "TSettings.h"
 
 AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
     : QApplication(argc, argv),

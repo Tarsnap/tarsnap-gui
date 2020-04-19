@@ -17,10 +17,10 @@ WARNINGS_DISABLE
 #include "ui_logindialog.h"
 WARNINGS_ENABLE
 
+#include "TSettings.h"
+
 #include "debug.h"
 #include "tarsnapaccount.h"
-
-#include "TSettings.h"
 
 /* Forward declaration(s). */
 class QWidget;

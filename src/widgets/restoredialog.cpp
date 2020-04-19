@@ -14,11 +14,12 @@ WARNINGS_DISABLE
 #include "ui_restoredialog.h"
 WARNINGS_ENABLE
 
+#include "TSettings.h"
+
 #include "messages/archiverestoreoptions.h"
+
 #include "persistentmodel/archive.h"
 #include "tasks/tasks-defs.h"
-
-#include "TSettings.h"
 
 RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
                              const QStringList &files)

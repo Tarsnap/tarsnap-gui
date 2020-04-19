@@ -7,6 +7,8 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
+#include "TSettings.h"
+
 #include "messages/taskstatus.h"
 
 #include "debug.h"
@@ -14,8 +16,6 @@ WARNINGS_ENABLE
 #include "setupwizard/setupwizard.h"
 #include "taskmanager.h"
 #include "translator.h"
-
-#include "TSettings.h"
 
 AppSetup::AppSetup(int &argc, char **argv)
     : QApplication(argc, argv), _wizard(nullptr), _taskManager(nullptr)

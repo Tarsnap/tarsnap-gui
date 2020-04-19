@@ -9,12 +9,12 @@ WARNINGS_DISABLE
 #include "ui_filepickerdialog.h"
 WARNINGS_ENABLE
 
-/* Forward declaration(s). */
-class QWidget;
-
 #include "TSettings.h"
 
 #include "filepickerwidget.h"
+
+/* Forward declaration(s). */
+class QWidget;
 
 FilePickerDialog::FilePickerDialog(QWidget *parent)
     : QDialog(parent), _ui(new Ui::FilePickerDialog)

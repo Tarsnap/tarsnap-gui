@@ -22,6 +22,10 @@ WARNINGS_DISABLE
 #include <Qt>
 WARNINGS_ENABLE
 
+#include "ConsoleLog.h"
+#include "LogEntry.h"
+#include "TSettings.h"
+
 #include "messages/archivefilestat.h"
 #include "messages/archiverestoreoptions.h"
 #include "messages/notification_info.h"
@@ -36,10 +40,6 @@ WARNINGS_ENABLE
 #include "persistentmodel/persistentstore.h"
 #include "scheduling.h"
 #include "utils.h"
-
-#include "ConsoleLog.h"
-#include "LogEntry.h"
-#include "TSettings.h"
 
 #define DEFAULT_LOG_FILE "tarsnap.log"
 

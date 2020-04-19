@@ -7,11 +7,11 @@ WARNINGS_DISABLE
 #include <QUuid>
 WARNINGS_ENABLE
 
-#include "utils.h"
-
 #include "ConsoleLog.h"
 
 #include <signal.h>
+
+#include "utils.h"
 
 #define DEFAULT_TIMEOUT_MS 5000
 #define LOG_MAX_LENGTH 3072

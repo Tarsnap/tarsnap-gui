@@ -26,6 +26,12 @@ WARNINGS_DISABLE
 #include "ui_mainwindow.h"
 WARNINGS_ENABLE
 
+#include "ConsoleLog.h"
+#include "LogEntry.h"
+#include "TBusyLabel.h"
+#include "TSettings.h"
+#include "TTextView.h"
+
 #include "messages/taskstatus.h"
 
 #include "archivestabwidget.h"
@@ -40,12 +46,6 @@ WARNINGS_ENABLE
 #include "settingswidget.h"
 #include "stoptasksdialog.h"
 #include "utils.h"
-
-#include "ConsoleLog.h"
-#include "LogEntry.h"
-#include "TBusyLabel.h"
-#include "TSettings.h"
-#include "TTextView.h"
 
 #define MAIN_LOGO_RIGHT_MARGIN 5
 #define MAIN_LOGO_FUDGE 3

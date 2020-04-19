@@ -21,19 +21,18 @@ WARNINGS_DISABLE
 #include "ui_settingswidget.h"
 WARNINGS_ENABLE
 
-#include "messages/taskstatus.h"
+#include "ConsoleLog.h"
+#include "TElidedLabel.h"
+#include "TSettings.h"
 
-#include "tasks-defs.h"
-#include "translator.h"
-#include "utils.h"
+#include "messages/taskstatus.h"
 
 #include "confirmationdialog.h"
 #include "schedulingwidgets.h"
 #include "tarsnapaccountdialog.h"
-
-#include "ConsoleLog.h"
-#include "TElidedLabel.h"
-#include "TSettings.h"
+#include "tasks-defs.h"
+#include "translator.h"
+#include "utils.h"
 
 #define NUKE_SECONDS_DELAY 8
 

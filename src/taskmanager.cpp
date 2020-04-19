@@ -13,6 +13,8 @@ WARNINGS_DISABLE
 #include <Qt>
 WARNINGS_ENABLE
 
+#include "TSettings.h"
+
 #include "messages/archiverestoreoptions.h"
 
 #include "backenddata.h"
@@ -30,8 +32,6 @@ WARNINGS_ENABLE
 #include "tasks-tarsnap.h"
 #include "tasks-utils.h"
 #include "utils.h"
-
-#include "TSettings.h"
 
 #define SUCCESS 0
 

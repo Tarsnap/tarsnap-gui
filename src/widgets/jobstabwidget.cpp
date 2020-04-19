@@ -21,12 +21,12 @@ WARNINGS_DISABLE
 #include "ui_jobstabwidget.h"
 WARNINGS_ENABLE
 
+#include "TSettings.h"
+
 #include "joblistwidget.h"
 #include "jobwidget.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-
-#include "TSettings.h"
 
 const char *const DEFAULT_JOBS[] = {"Desktop", "Documents", "Pictures",
                                     "Movies",  "Videos",    "Music",

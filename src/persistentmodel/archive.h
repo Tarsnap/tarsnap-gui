@@ -12,6 +12,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "messages/archiveptr.h"
+
 #include "persistentobject.h"
 
 #define ARCHIVE_TIMESTAMP_FORMAT QLatin1String("_yyyy-MM-dd_HH-mm-ss")

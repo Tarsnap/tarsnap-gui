@@ -27,6 +27,7 @@ WARNINGS_ENABLE
 #include "TWizardPage.h"
 
 #include "messages/taskstatus.h"
+
 #include "utils.h"
 
 RegisterPage::RegisterPage(QWidget *parent)

@@ -11,6 +11,7 @@ WARNINGS_ENABLE
 #include "TPathComboBrowse.h"
 #include "TSettings.h"
 
+#include "confirmationdialog.h"
 #include "translator.h"
 
 class TestTranslations : public QObject
@@ -22,6 +23,7 @@ private slots:
     void cleanupTestCase();
 
     void pathcombobrowse();
+    void confirmationdialog();
 };
 
 void TestTranslations::initTestCase()
@@ -61,6 +63,30 @@ void TestTranslations::pathcombobrowse()
     VISUAL_WAIT;
 
     delete pcb;
+}
+
+void TestTranslations::confirmationdialog()
+{
+    ConfirmationDialog *cd;
+
+    // English version
+    global_translator->translateApp(qApp, "English");
+    cd = new ConfirmationDialog();
+    cd->start("title", "text", "confirm", 1, "countdowntitle", "seconds %1",
+              "button");
+    QVERIFY(cd->_inputDialog.okButtonText() == "Not confirmed");
+    VISUAL_WAIT;
+    delete cd;
+
+    // Romanian version -- create a new object because ConfirmationDialog
+    // is documented as not supporting dynamic translations.
+    global_translator->translateApp(qApp, "Romanian");
+    cd = new ConfirmationDialog();
+    cd->start("title", "text", "confirm", 1, "countdowntitle", "seconds %1",
+              "button");
+    QVERIFY(cd->_inputDialog.okButtonText() == "Neconfirmat");
+    VISUAL_WAIT;
+    delete cd;
 }
 
 QTEST_MAIN(TestTranslations)

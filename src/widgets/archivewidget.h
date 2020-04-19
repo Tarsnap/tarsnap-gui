@@ -13,14 +13,13 @@ WARNINGS_ENABLE
 #include "messages/archiveptr.h"
 #include "messages/archiverestoreoptions.h"
 
-#include "filetablemodel.h"
-
 /* Forward declaration(s). */
 namespace Ui
 {
 class ArchiveWidget;
 }
 class BaseTask;
+class FileTableModel;
 class QCloseEvent;
 class QEvent;
 class QKeyEvent;
@@ -79,7 +78,7 @@ private slots:
 private:
     Ui::ArchiveWidget *    _ui;
     ArchivePtr             _archive;
-    FileTableModel         _contentsModel;
+    FileTableModel *       _contentsModel;
     QSortFilterProxyModel *_proxyModel;
     QMenu                  _fileMenu;
 

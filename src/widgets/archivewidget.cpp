@@ -26,6 +26,7 @@ WARNINGS_ENABLE
 
 #include "basetask.h"
 #include "elidedclickablelabel.h"
+#include "filetablemodel.h"
 #include "persistentmodel/archive.h"
 #include "restoredialog.h"
 #include "utils.h"
@@ -35,8 +36,8 @@ WARNINGS_ENABLE
 ArchiveWidget::ArchiveWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::ArchiveWidget),
-      _contentsModel(this),
-      _proxyModel(new QSortFilterProxyModel(&_contentsModel)),
+      _contentsModel(new FileTableModel(this)),
+      _proxyModel(new QSortFilterProxyModel(_contentsModel)),
       _fileMenu(this)
 {
     _ui->setupUi(this);
@@ -45,7 +46,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
 
     _proxyModel->setDynamicSortFilter(false);
     _proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    _proxyModel->setSourceModel(&_contentsModel);
+    _proxyModel->setSourceModel(_contentsModel);
     _ui->archiveContentsTableView->setModel(_proxyModel);
     _ui->archiveContentsTableView->setContextMenuPolicy(Qt::CustomContextMenu);
     _fileMenu.addAction(_ui->actionRestoreFiles);
@@ -58,14 +59,14 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
             &ArchiveWidget::restoreFiles);
     connect(_ui->hideButton, &QPushButton::clicked, this,
             &ArchiveWidget::close);
-    connect(&_contentsModel, &FileTableModel::taskRequested, this,
+    connect(_contentsModel, &FileTableModel::taskRequested, this,
             &ArchiveWidget::taskRequested);
     connect(_ui->archiveJobLabel, &ElidedClickableLabel::clicked,
             [this]() { emit jobClicked(_archive->jobRef()); });
-    connect(&_contentsModel, &FileTableModel::modelReset, [this]() {
+    connect(_contentsModel, &FileTableModel::modelReset, [this]() {
         _ui->archiveContentsTableView->resizeColumnsToContents();
         _ui->archiveContentsLabel->setText(
-            tr("Contents (%1)").arg(_contentsModel.rowCount()));
+            tr("Contents (%1)").arg(_contentsModel->rowCount()));
     });
     connect(_ui->filterComboBox, &QComboBox::editTextChanged, _proxyModel,
             &QSortFilterProxyModel::setFilterWildcard);
@@ -86,6 +87,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
 ArchiveWidget::~ArchiveWidget()
 {
     delete _proxyModel;
+    delete _contentsModel;
     delete _ui;
 }
 
@@ -110,7 +112,7 @@ void ArchiveWidget::setArchive(ArchivePtr archive)
     }
     else
     {
-        _contentsModel.reset(); // reduce memory usage
+        _contentsModel->reset(); // reduce memory usage
     }
 }
 
@@ -163,7 +165,7 @@ void ArchiveWidget::updateDetails()
         }
         else
             _ui->infoLabel->hide();
-        _contentsModel.setArchive(_archive);
+        _contentsModel->setArchive(_archive);
     }
 }
 

@@ -305,7 +305,7 @@ void TestMainWindow::other_navigation()
     // Switch back to Backup tab
     mainwindow->browseForBackupItems();
     VISUAL_WAIT;
-    backupTabWidget->_filePickerDialog.close();
+    backupTabWidget->_filePickerDialog->close();
     QTest::qWait(100);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTab);
     VISUAL_WAIT;

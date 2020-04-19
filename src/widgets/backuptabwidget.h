@@ -14,14 +14,13 @@ WARNINGS_ENABLE
 
 #include "messages/backuptaskdataptr.h"
 
-#include "filepickerdialog.h"
-
 /* Forward declaration(s). */
 namespace Ui
 {
 class BackupTabWidget;
 }
 class BaseTask;
+class FilePickerDialog;
 class QEvent;
 
 /*!
@@ -85,7 +84,7 @@ private slots:
 
 private:
     Ui::BackupTabWidget *_ui;
-    FilePickerDialog     _filePickerDialog;
+    FilePickerDialog *   _filePickerDialog;
 
     QString _lastTimestamp;
 

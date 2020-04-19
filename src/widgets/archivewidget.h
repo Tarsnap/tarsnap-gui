@@ -6,7 +6,6 @@
 WARNINGS_DISABLE
 #include <QMenu>
 #include <QObject>
-#include <QSortFilterProxyModel>
 #include <QString>
 #include <QWidget>
 WARNINGS_ENABLE
@@ -26,6 +25,7 @@ class QCloseEvent;
 class QEvent;
 class QKeyEvent;
 class QPoint;
+class QSortFilterProxyModel;
 
 /*!
  * \ingroup widgets-specialized
@@ -77,11 +77,11 @@ private slots:
     void updateDetails();
 
 private:
-    Ui::ArchiveWidget *   _ui;
-    ArchivePtr            _archive;
-    FileTableModel        _contentsModel;
-    QSortFilterProxyModel _proxyModel;
-    QMenu                 _fileMenu;
+    Ui::ArchiveWidget *    _ui;
+    ArchivePtr             _archive;
+    FileTableModel         _contentsModel;
+    QSortFilterProxyModel *_proxyModel;
+    QMenu                  _fileMenu;
 
     void updateUi();
 };

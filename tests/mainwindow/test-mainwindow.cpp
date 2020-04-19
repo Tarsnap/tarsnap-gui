@@ -279,7 +279,7 @@ void TestMainWindow::other_navigation()
     QSignalSpy sig_taskRequest(mainwindow, SIGNAL(taskRequested(BaseTask *)));
     BaseTask * task;
 
-    BackupTabWidget *backupTabWidget = &mainwindow->_backupTabWidget;
+    BackupTabWidget *backupTabWidget = mainwindow->_backupTabWidget;
 
     ArchiveWidget *archiveDetailsWidget =
         mainwindow->_archivesTabWidget._ui->archiveDetailsWidget;

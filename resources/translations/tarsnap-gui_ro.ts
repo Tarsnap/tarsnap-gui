@@ -648,7 +648,7 @@ Adaugă oricum?</translation>
     <name>ConfirmationDialog</name>
     <message>
         <source>Not confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Neconfirmat</translation>
     </message>
 </context>
 <context>

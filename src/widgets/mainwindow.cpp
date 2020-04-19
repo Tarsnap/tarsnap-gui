@@ -41,11 +41,11 @@ WARNINGS_ENABLE
 #include "stoptasksdialog.h"
 #include "utils.h"
 
+#include "ConsoleLog.h"
 #include "LogEntry.h"
 #include "TBusyLabel.h"
-#include "TTextView.h"
-#include "ConsoleLog.h"
 #include "TSettings.h"
+#include "TTextView.h"
 
 #define MAIN_LOGO_RIGHT_MARGIN 5
 #define MAIN_LOGO_FUDGE 3

@@ -13,8 +13,8 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "TElidedLabel.h"
-#include "TPathLineBrowse.h"
 #include "TOkLabel.h"
+#include "TPathLineBrowse.h"
 #include "TSettings.h"
 #include "TWizardPage.h"
 

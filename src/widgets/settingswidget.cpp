@@ -31,8 +31,8 @@ WARNINGS_ENABLE
 #include "schedulingwidgets.h"
 #include "tarsnapaccountdialog.h"
 
-#include "TElidedLabel.h"
 #include "ConsoleLog.h"
+#include "TElidedLabel.h"
 #include "TSettings.h"
 
 #define NUKE_SECONDS_DELAY 8

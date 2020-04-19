@@ -37,8 +37,8 @@ WARNINGS_ENABLE
 #include "scheduling.h"
 #include "utils.h"
 
-#include "LogEntry.h"
 #include "ConsoleLog.h"
+#include "LogEntry.h"
 #include "TSettings.h"
 
 #define DEFAULT_LOG_FILE "tarsnap.log"

@@ -121,7 +121,7 @@ static QAction *get_menubar_about(QMenuBar *menubar)
 void TestMainWindow::about_window_menubar()
 {
     MainWindow *    mainwindow = new MainWindow();
-    HelpWidget *    help       = &mainwindow->_helpWidget;
+    HelpWidget *    help       = mainwindow->_helpWidget;
     Ui::HelpWidget *ui         = help->_ui;
 
     VISUAL_INIT(mainwindow);

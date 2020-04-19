@@ -8,8 +8,6 @@ WARNINGS_DISABLE
 #include <QObject>
 WARNINGS_ENABLE
 
-#include "taskmanager.h"
-
 extern "C" {
 #include "optparse.h"
 }
@@ -18,6 +16,7 @@ extern "C" {
 class Journal;
 class MainWindow;
 class Notification;
+class TaskManager;
 
 /*!
  * \ingroup misc
@@ -52,7 +51,7 @@ private:
     MainWindow *  _mainWindow;
     Journal *     _journal;
     Notification *_notification;
-    TaskManager   _taskManager;
+    TaskManager * _taskManager;
     bool          _jobsOption;
     QString       _configDir;
 

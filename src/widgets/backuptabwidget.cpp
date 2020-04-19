@@ -20,6 +20,7 @@ WARNINGS_ENABLE
 #include "backuptask.h"
 #include "basetask.h"
 #include "elidedclickablelabel.h"
+#include "filepickerdialog.h"
 #include "persistentmodel/archive.h"
 #include "utils.h"
 
@@ -29,7 +30,9 @@ WARNINGS_ENABLE
 // investigate and I've spent way longer than I expected on this refactoring,
 // so I'm moving on.
 BackupTabWidget::BackupTabWidget(QWidget *parent)
-    : QWidget(parent), _ui(new Ui::BackupTabWidget), _filePickerDialog(parent)
+    : QWidget(parent),
+      _ui(new Ui::BackupTabWidget),
+      _filePickerDialog(new FilePickerDialog(parent))
 {
     // Ui initialization
     _ui->setupUi(this);
@@ -47,7 +50,7 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
                 validateBackupTab();
             });
     connect(_ui->backupListWidget, &BackupListWidget::itemWithUrlAdded,
-            &_filePickerDialog, &FilePickerDialog::selectUrl);
+            _filePickerDialog, &FilePickerDialog::selectUrl);
     connect(_ui->backupListWidget, &BackupListWidget::itemTotals, this,
             &BackupTabWidget::updateBackupItemTotals);
 
@@ -76,7 +79,7 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
             &BackupTabWidget::clearList);
 
     // Allow the FilePickerDialog to use open()
-    connect(&_filePickerDialog, &FilePickerDialog::finished, this,
+    connect(_filePickerDialog, &FilePickerDialog::finished, this,
             &BackupTabWidget::processFPD);
 
     connect(_ui->backupListWidget, &BackupListWidget::taskRequested, this,
@@ -89,6 +92,7 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
 
 BackupTabWidget::~BackupTabWidget()
 {
+    delete _filePickerDialog;
     delete _ui;
 }
 
@@ -193,15 +197,15 @@ void BackupTabWidget::backupButtonClicked()
 
 void BackupTabWidget::browseForBackupItems()
 {
-    _filePickerDialog.setSelectedUrls(_ui->backupListWidget->itemUrls());
-    _filePickerDialog.open();
+    _filePickerDialog->setSelectedUrls(_ui->backupListWidget->itemUrls());
+    _filePickerDialog->open();
 }
 
 void BackupTabWidget::processFPD(int res)
 {
     if(res == QDialog::Accepted)
         _ui->backupListWidget->setItemsWithUrls(
-            _filePickerDialog.getSelectedUrls());
+            _filePickerDialog->getSelectedUrls());
 }
 
 void BackupTabWidget::addFiles()

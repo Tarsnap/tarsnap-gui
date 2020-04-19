@@ -33,6 +33,7 @@ WARNINGS_ENABLE
 #include "elidedclickablelabel.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
+#include "stoptasksdialog.h"
 #include "utils.h"
 
 #include "LogEntry.h"
@@ -50,10 +51,10 @@ MainWindow::MainWindow(QWidget *parent)
       _minWidth(0),
       _menuBar(nullptr),
       _aboutToQuit(false),
-      _stopTasksDialog(this),
       _backupTaskRunning(false),
       _runningTasks(0),
       _queuedTasks(0),
+      _stopTasksDialog(new StopTasksDialog(this)),
       _backupTabWidget(this),
       _archivesTabWidget(this),
       _jobsTabWidget(this),
@@ -220,17 +221,18 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::backupNow);
 
     // Connections for _stopTasksDialog
-    connect(&_stopTasksDialog, &StopTasksDialog::stopTasks, this,
+    connect(_stopTasksDialog, &StopTasksDialog::stopTasks, this,
             &MainWindow::stopTasks);
-    connect(&_stopTasksDialog, &StopTasksDialog::cancelAboutToQuit,
+    connect(_stopTasksDialog, &StopTasksDialog::cancelAboutToQuit,
             [this] { _aboutToQuit = false; });
-    connect(&_stopTasksDialog, &StopTasksDialog::quitOk, this,
+    connect(_stopTasksDialog, &StopTasksDialog::quitOk, this,
             &MainWindow::close);
 }
 
 MainWindow::~MainWindow()
 {
     commitSettings();
+    delete _stopTasksDialog;
     delete _ui;
 }
 
@@ -330,8 +332,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
     _aboutToQuit = true;
 
     // Ask the user what to do.
-    _stopTasksDialog.display(_backupTaskRunning, _runningTasks, _queuedTasks,
-                             _aboutToQuit);
+    _stopTasksDialog->display(_backupTaskRunning, _runningTasks, _queuedTasks,
+                              _aboutToQuit);
 
     // Don't act on this particular close().
     event->ignore();
@@ -346,8 +348,8 @@ void MainWindow::nonquitStopTasks()
     }
     else
     {
-        _stopTasksDialog.display(_backupTaskRunning, _runningTasks,
-                                 _queuedTasks, _aboutToQuit);
+        _stopTasksDialog->display(_backupTaskRunning, _runningTasks,
+                                  _queuedTasks, _aboutToQuit);
     }
 }
 
@@ -568,8 +570,8 @@ void MainWindow::browseForBackupItems()
 void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
                                         int runningTasks, int queuedTasks)
 {
-    _stopTasksDialog.display(backupTaskRunning, runningTasks, queuedTasks,
-                             _aboutToQuit);
+    _stopTasksDialog->display(backupTaskRunning, runningTasks, queuedTasks,
+                              _aboutToQuit);
 }
 
 void MainWindow::tarsnapError(TarsnapError error)
@@ -667,8 +669,8 @@ void MainWindow::updateSimulationIcon(int state)
 void MainWindow::updateNumTasks(bool backupRunning, int runningTasks,
                                 int queuedTasks)
 {
-    if(_stopTasksDialog.isVisible())
-        _stopTasksDialog.updateTasks(backupRunning, runningTasks, queuedTasks);
+    if(_stopTasksDialog->isVisible())
+        _stopTasksDialog->updateTasks(backupRunning, runningTasks, queuedTasks);
 
     // Display whether we're active or not.
     bool idle = (runningTasks == 0);

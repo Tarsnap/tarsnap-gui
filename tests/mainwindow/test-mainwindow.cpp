@@ -159,7 +159,7 @@ void TestMainWindow::about_window_menubar()
 void TestMainWindow::stoptasksdialog_nonquit()
 {
     MainWindow *     mainwindow = new MainWindow();
-    StopTasksDialog *st         = &mainwindow->_stopTasksDialog;
+    StopTasksDialog *st         = mainwindow->_stopTasksDialog;
 
     VISUAL_INIT(mainwindow);
 
@@ -217,7 +217,7 @@ void TestMainWindow::quit_tasks()
     VISUAL_WAIT;
 
     // Cancel the quitting, and we should still be visible.
-    mainwindow->_stopTasksDialog.close();
+    mainwindow->_stopTasksDialog->close();
     VISUAL_WAIT;
     QVERIFY(mainwindow->isVisible() == true);
 
@@ -226,7 +226,7 @@ void TestMainWindow::quit_tasks()
     VISUAL_WAIT;
 
     // Proceed with the quitting, and we should not be visible.
-    mainwindow->_stopTasksDialog._ui->stopAllButton->clicked();
+    mainwindow->_stopTasksDialog->_ui->stopAllButton->clicked();
     VISUAL_WAIT;
     QVERIFY(mainwindow->isVisible() == false);
 

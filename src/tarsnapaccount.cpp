@@ -17,7 +17,7 @@ WARNINGS_ENABLE
 
 #include "debug.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 #define URL_MANAGE "https://www.tarsnap.com/manage.cgi"
 

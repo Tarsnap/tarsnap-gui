@@ -20,7 +20,7 @@ WARNINGS_ENABLE
 #include "basetask.h"
 #include "utils.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
 {

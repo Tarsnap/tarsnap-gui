@@ -9,8 +9,8 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
-#include <ConsoleLog.h>
-#include <TSettings.h>
+#include "ConsoleLog.h"
+#include "TSettings.h"
 
 class TestConsoleLog : public QObject
 {

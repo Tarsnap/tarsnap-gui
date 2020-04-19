@@ -6,7 +6,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 #include "setupwizard_cli.h"
 #include "setupwizard_final.h"

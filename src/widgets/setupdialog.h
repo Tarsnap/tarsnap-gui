@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include <QMovie>
 WARNINGS_ENABLE
 
-#include <messages/taskstatus.h>
+#include "messages/taskstatus.h"
 
 namespace Ui
 {

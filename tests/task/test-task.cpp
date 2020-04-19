@@ -10,7 +10,7 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
-#include <ConsoleLog.h>
+#include "ConsoleLog.h"
 
 #include "../qtest-platform.h"
 

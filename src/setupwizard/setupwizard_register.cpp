@@ -23,8 +23,8 @@ WARNINGS_ENABLE
 #include "TBusyLabel.h"
 #include "TElidedLabel.h"
 #include "TPathComboBrowse.h"
-#include <TSettings.h>
-#include <TWizardPage.h>
+#include "TSettings.h"
+#include "TWizardPage.h"
 
 #include "messages/taskstatus.h"
 #include "utils.h"

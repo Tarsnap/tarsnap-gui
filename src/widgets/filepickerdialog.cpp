@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 /* Forward declaration(s). */
 class QWidget;
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 #include "filepickerwidget.h"
 

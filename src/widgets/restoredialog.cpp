@@ -18,7 +18,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "tasks/tasks-defs.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
                              const QStringList &files)

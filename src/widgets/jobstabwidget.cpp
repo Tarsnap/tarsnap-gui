@@ -26,7 +26,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 const char *const DEFAULT_JOBS[] = {"Desktop", "Documents", "Pictures",
                                     "Movies",  "Videos",    "Music",

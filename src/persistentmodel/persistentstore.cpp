@@ -19,7 +19,7 @@ WARNINGS_ENABLE
 
 #include "debug.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 #define DEFAULT_DBNAME "tarsnap.db"
 

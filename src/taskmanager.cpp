@@ -31,7 +31,7 @@ WARNINGS_ENABLE
 #include "tasks-utils.h"
 #include "utils.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 #define SUCCESS 0
 

@@ -20,8 +20,8 @@ WARNINGS_ENABLE
 #include "TElidedLabel.h"
 #include "TPathComboBrowse.h"
 #include "TPathLineBrowse.h"
-#include <TSettings.h>
-#include <TWizardPage.h>
+#include "TSettings.h"
+#include "TWizardPage.h"
 
 #include "messages/taskstatus.h"
 

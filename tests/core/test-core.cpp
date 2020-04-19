@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include <QVariant>
 WARNINGS_ENABLE
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 class TestCore : public QObject
 {

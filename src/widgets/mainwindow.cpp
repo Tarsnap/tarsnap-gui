@@ -44,8 +44,8 @@ WARNINGS_ENABLE
 #include "LogEntry.h"
 #include "TBusyLabel.h"
 #include "TTextView.h"
-#include <ConsoleLog.h>
-#include <TSettings.h>
+#include "ConsoleLog.h"
+#include "TSettings.h"
 
 #define MAIN_LOGO_RIGHT_MARGIN 5
 #define MAIN_LOGO_FUDGE 3

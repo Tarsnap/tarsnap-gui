@@ -7,7 +7,7 @@ WARNINGS_DISABLE
 #include <QObject>
 WARNINGS_ENABLE
 
-#include <TWizardPage.h>
+#include "TWizardPage.h"
 
 /* Forward declaration(s). */
 namespace Ui

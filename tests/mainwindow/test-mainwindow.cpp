@@ -46,8 +46,8 @@ WARNINGS_ENABLE
 #include "persistentmodel/persistentstore.h"
 #include "popuppushbutton.h"
 
-#include <ConsoleLog.h>
-#include <TSettings.h>
+#include "ConsoleLog.h"
+#include "TSettings.h"
 
 class TestMainWindow : public QObject
 {

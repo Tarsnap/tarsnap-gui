@@ -31,7 +31,7 @@ WARNINGS_ENABLE
 #include "restoredialog.h"
 #include "utils.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 JobWidget::JobWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::JobWidget), _saveEnabled(false)

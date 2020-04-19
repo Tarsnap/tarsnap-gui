@@ -20,7 +20,7 @@ WARNINGS_ENABLE
 #include "debug.h"
 #include "tarsnapaccount.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 /* Forward declaration(s). */
 class QWidget;

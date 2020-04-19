@@ -19,8 +19,8 @@ WARNINGS_ENABLE
 #include "tasks-defs.h"
 #include "utils.h"
 
-#include <TPathLineBrowse.h>
-#include <TSettings.h>
+#include "TPathLineBrowse.h"
+#include "TSettings.h"
 
 SetupDialog::SetupDialog(QWidget *parent)
     : QDialog(parent), _ui(new Ui::SetupDialog)

@@ -10,8 +10,8 @@ WARNINGS_DISABLE
 #include "ui_setupwizard_final.h"
 WARNINGS_ENABLE
 
-#include <TSettings.h>
-#include <TWizardPage.h>
+#include "TSettings.h"
+#include "TWizardPage.h"
 
 /* Forward declaration(s). */
 class QWidget;

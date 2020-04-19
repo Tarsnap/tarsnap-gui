@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 
 #include <math.h>
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 #include "tasks-defs.h"
 

@@ -22,7 +22,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/journal.h"
 #include "persistentmodel/persistentstore.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 #define SAMPLE_DATE "2012-03-04"
 #define SAMPLE_DATE_2106 "2106-02-08"

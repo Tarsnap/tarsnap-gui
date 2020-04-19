@@ -15,7 +15,7 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 #include "messages/backuptaskdataptr.h"
 #include "messages/jobptr.h"

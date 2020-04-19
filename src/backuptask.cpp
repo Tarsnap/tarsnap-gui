@@ -15,7 +15,7 @@ WARNINGS_ENABLE
 #include "tasks-defs.h"
 #include "utils.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 const quint64 MB = 1048576UL;
 

@@ -4,7 +4,7 @@ WARNINGS_DISABLE
 #include <QCoreApplication>
 WARNINGS_ENABLE
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 Notification::Notification(QSystemTrayIcon *parent) : QSystemTrayIcon(parent)
 {

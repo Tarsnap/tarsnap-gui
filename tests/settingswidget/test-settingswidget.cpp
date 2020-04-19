@@ -23,8 +23,8 @@ WARNINGS_ENABLE
 #include "tarsnapaccountdialog.h"
 #include "translator.h"
 
-#include <ConsoleLog.h>
-#include <TSettings.h>
+#include "ConsoleLog.h"
+#include "TSettings.h"
 
 #include "settingswidget.h"
 

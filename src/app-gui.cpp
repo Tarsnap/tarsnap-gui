@@ -20,8 +20,8 @@ WARNINGS_ENABLE
 #include "utils.h"
 #include "widgets/mainwindow.h"
 
-#include <ConsoleLog.h>
-#include <TSettings.h>
+#include "ConsoleLog.h"
+#include "TSettings.h"
 
 AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
     : QApplication(argc, argv),

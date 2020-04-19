@@ -15,7 +15,7 @@ WARNINGS_ENABLE
 #include "taskmanager.h"
 #include "translator.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 AppSetup::AppSetup(int &argc, char **argv)
     : QApplication(argc, argv), _wizard(nullptr), _taskManager(nullptr)

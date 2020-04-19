@@ -1,4 +1,4 @@
-#include <TSettings.h>
+#include "TSettings.h"
 
 WARNINGS_DISABLE
 #include <QFileInfo>

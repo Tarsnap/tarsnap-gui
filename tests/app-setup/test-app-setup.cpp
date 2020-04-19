@@ -26,8 +26,8 @@ WARNINGS_ENABLE
 #include "utils.h"
 
 #include "TPathLineBrowse.h"
-#include <TSettings.h>
-#include <TWizardPage.h>
+#include "TSettings.h"
+#include "TWizardPage.h"
 
 extern "C" {
 #include "optparse.h"

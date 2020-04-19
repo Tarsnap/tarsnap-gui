@@ -9,7 +9,7 @@ WARNINGS_ENABLE
 /* Forward declaration(s). */
 class QWidget;
 
-#include <TWizardPage.h>
+#include "TWizardPage.h"
 
 IntroPage::IntroPage(QWidget *parent)
     : TWizardPage(parent), _ui(new Ui::IntroPage)

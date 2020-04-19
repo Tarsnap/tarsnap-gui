@@ -8,7 +8,7 @@ WARNINGS_DISABLE
 #include <QString>
 WARNINGS_ENABLE
 
-#include <TWizardPage.h>
+#include "TWizardPage.h"
 
 #include "messages/taskstatus.h"
 

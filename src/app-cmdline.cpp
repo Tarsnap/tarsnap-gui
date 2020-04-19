@@ -5,11 +5,11 @@
 #include "debug.h"
 #include "init-shared.h"
 
-#include <persistentmodel/persistentstore.h>
-#include <translator.h>
+#include "persistentmodel/persistentstore.h"
+#include "translator.h"
 
-#include <ConsoleLog.h>
-#include <TSettings.h>
+#include "ConsoleLog.h"
+#include "TSettings.h"
 
 AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)
     : QCoreApplication(argc, argv)

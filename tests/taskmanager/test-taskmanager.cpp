@@ -28,8 +28,8 @@ WARNINGS_ENABLE
 #include "taskmanager.h"
 #include "taskqueuer.h"
 
-#include <ConsoleLog.h>
-#include <TSettings.h>
+#include "ConsoleLog.h"
+#include "TSettings.h"
 
 class TestTaskManager : public QObject
 {

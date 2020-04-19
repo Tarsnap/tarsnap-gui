@@ -10,7 +10,7 @@ WARNINGS_ENABLE
 #include "app-cmdline.h"
 #include "init-shared.h"
 
-#include <TSettings.h>
+#include "TSettings.h"
 
 extern "C" {
 #include "optparse.h"

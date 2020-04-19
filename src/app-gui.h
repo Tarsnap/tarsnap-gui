@@ -8,7 +8,6 @@ WARNINGS_DISABLE
 #include <QObject>
 WARNINGS_ENABLE
 
-#include "notification.h"
 #include "taskmanager.h"
 
 extern "C" {
@@ -18,6 +17,7 @@ extern "C" {
 /* Forward declaration(s). */
 class Journal;
 class MainWindow;
+class Notification;
 
 /*!
  * \ingroup misc
@@ -49,12 +49,12 @@ private slots:
     void quitAfterEventsFinish();
 
 private:
-    MainWindow * _mainWindow;
-    Journal *    _journal;
-    Notification _notification;
-    TaskManager  _taskManager;
-    bool         _jobsOption;
-    QString      _configDir;
+    MainWindow *  _mainWindow;
+    Journal *     _journal;
+    Notification *_notification;
+    TaskManager   _taskManager;
+    bool          _jobsOption;
+    QString       _configDir;
 
     bool handle_step(const struct init_info &info);
 };

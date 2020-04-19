@@ -15,6 +15,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "persistentmodel/journal.h"
+#include "taskmanager.h"
 #include "translator.h"
 #include "utils.h"
 #include "widgets/mainwindow.h"
@@ -26,7 +27,8 @@ AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
     : QApplication(argc, argv),
       _mainWindow(nullptr),
       _journal(nullptr),
-      _notification(new Notification())
+      _notification(new Notification()),
+      _taskManager(new TaskManager())
 {
     // Sanity checks
     assert(opt != nullptr);
@@ -55,6 +57,7 @@ AppGui::~AppGui()
         delete _mainWindow;
     if(_journal)
         delete _journal;
+    delete _taskManager;
     delete _notification;
     Translator::destroy();
 }
@@ -143,10 +146,10 @@ bool AppGui::prepEventLoop()
     // Queue loading the journal when we have an event loop.
     QMetaObject::invokeMethod(_journal, "load", QUEUED);
 
-    connect(&_taskManager, &TaskManager::displayNotification, _notification,
+    connect(_taskManager, &TaskManager::displayNotification, _notification,
             &Notification::displayNotification, QUEUED);
-    connect(&_taskManager, &TaskManager::message, _journal,
-            &Journal::logMessage, QUEUED);
+    connect(_taskManager, &TaskManager::message, _journal, &Journal::logMessage,
+            QUEUED);
 
     if(_jobsOption)
     {
@@ -155,7 +158,7 @@ bool AppGui::prepEventLoop()
                 &AppGui::showMainWindow, QUEUED);
         connect(_notification, &Notification::messageClicked, this,
                 &AppGui::showMainWindow, QUEUED);
-        QMetaObject::invokeMethod(&_taskManager, "runScheduledJobs", QUEUED);
+        QMetaObject::invokeMethod(_taskManager, "runScheduledJobs", QUEUED);
     }
     else
     {
@@ -179,53 +182,53 @@ void AppGui::showMainWindow()
     _mainWindow = new MainWindow();
     Q_ASSERT(_mainWindow != nullptr);
 
-    connect(_mainWindow, &MainWindow::tarsnapVersionRequested, &_taskManager,
+    connect(_mainWindow, &MainWindow::tarsnapVersionRequested, _taskManager,
             &TaskManager::tarsnapVersionFind, QUEUED);
-    connect(&_taskManager, &TaskManager::tarsnapVersionFound, _mainWindow,
+    connect(_taskManager, &TaskManager::tarsnapVersionFound, _mainWindow,
             &MainWindow::tarsnapVersionResponse, QUEUED);
-    connect(_mainWindow, &MainWindow::backupNow, &_taskManager,
+    connect(_mainWindow, &MainWindow::backupNow, _taskManager,
             &TaskManager::backupNow, QUEUED);
-    connect(_mainWindow, &MainWindow::getArchives, &_taskManager,
+    connect(_mainWindow, &MainWindow::getArchives, _taskManager,
             &TaskManager::getArchives, QUEUED);
-    connect(&_taskManager, &TaskManager::archiveList, _mainWindow,
+    connect(_taskManager, &TaskManager::archiveList, _mainWindow,
             &MainWindow::archiveList, QUEUED);
-    connect(&_taskManager, &TaskManager::archiveAdded, _mainWindow,
+    connect(_taskManager, &TaskManager::archiveAdded, _mainWindow,
             &MainWindow::addArchive, QUEUED);
-    connect(_mainWindow, &MainWindow::deleteArchives, &_taskManager,
+    connect(_mainWindow, &MainWindow::deleteArchives, _taskManager,
             &TaskManager::deleteArchives, QUEUED);
-    connect(_mainWindow, &MainWindow::loadArchiveStats, &_taskManager,
+    connect(_mainWindow, &MainWindow::loadArchiveStats, _taskManager,
             &TaskManager::getArchiveStats, QUEUED);
-    connect(_mainWindow, &MainWindow::loadArchiveContents, &_taskManager,
+    connect(_mainWindow, &MainWindow::loadArchiveContents, _taskManager,
             &TaskManager::getArchiveContents, QUEUED);
-    connect(&_taskManager, &TaskManager::numTasks, _mainWindow,
+    connect(_taskManager, &TaskManager::numTasks, _mainWindow,
             &MainWindow::updateNumTasks, QUEUED);
-    connect(_mainWindow, &MainWindow::getOverallStats, &_taskManager,
+    connect(_mainWindow, &MainWindow::getOverallStats, _taskManager,
             &TaskManager::getOverallStats, QUEUED);
-    connect(&_taskManager, &TaskManager::overallStats, _mainWindow,
+    connect(_taskManager, &TaskManager::overallStats, _mainWindow,
             &MainWindow::overallStatsChanged, QUEUED);
-    connect(_mainWindow, &MainWindow::repairCache, &_taskManager,
+    connect(_mainWindow, &MainWindow::repairCache, _taskManager,
             &TaskManager::fsck, QUEUED);
-    connect(_mainWindow, &MainWindow::nukeArchives, &_taskManager,
+    connect(_mainWindow, &MainWindow::nukeArchives, _taskManager,
             &TaskManager::nuke, QUEUED);
-    connect(_mainWindow, &MainWindow::restoreArchive, &_taskManager,
+    connect(_mainWindow, &MainWindow::restoreArchive, _taskManager,
             &TaskManager::restoreArchive, QUEUED);
     connect(_mainWindow, &MainWindow::runSetupWizard, this, &AppGui::reinit,
             QUEUED);
-    connect(_mainWindow, &MainWindow::stopTasks, &_taskManager,
+    connect(_mainWindow, &MainWindow::stopTasks, _taskManager,
             &TaskManager::stopTasks, QUEUED);
-    connect(&_taskManager, &TaskManager::jobList, _mainWindow,
+    connect(_taskManager, &TaskManager::jobList, _mainWindow,
             &MainWindow::jobList, QUEUED);
-    connect(_mainWindow, &MainWindow::deleteJob, &_taskManager,
+    connect(_mainWindow, &MainWindow::deleteJob, _taskManager,
             &TaskManager::deleteJob, QUEUED);
-    connect(_mainWindow, &MainWindow::jobAdded, &_taskManager,
+    connect(_mainWindow, &MainWindow::jobAdded, _taskManager,
             &TaskManager::addJob, QUEUED);
-    connect(_mainWindow, &MainWindow::getKeyId, &_taskManager,
+    connect(_mainWindow, &MainWindow::getKeyId, _taskManager,
             &TaskManager::getKeyId, QUEUED);
-    connect(&_taskManager, &TaskManager::keyId, _mainWindow,
+    connect(_taskManager, &TaskManager::keyId, _mainWindow,
             &MainWindow::saveKeyId, QUEUED);
-    connect(&_taskManager, &TaskManager::message, _mainWindow,
+    connect(_taskManager, &TaskManager::message, _mainWindow,
             &MainWindow::updateStatusMessage, QUEUED);
-    connect(&_taskManager, &TaskManager::error, _mainWindow,
+    connect(_taskManager, &TaskManager::error, _mainWindow,
             &MainWindow::tarsnapError, QUEUED);
     connect(_notification, &Notification::activated, _mainWindow,
             &MainWindow::notificationRaise, QUEUED);
@@ -237,22 +240,22 @@ void AppGui::showMainWindow()
             &MainWindow::appendToJournalLog, QUEUED);
     connect(_mainWindow, &MainWindow::clearJournal, _journal, &Journal::purge,
             QUEUED);
-    connect(_mainWindow, &MainWindow::findMatchingArchives, &_taskManager,
+    connect(_mainWindow, &MainWindow::findMatchingArchives, _taskManager,
             &TaskManager::findMatchingArchives, QUEUED);
-    connect(&_taskManager, &TaskManager::matchingArchives, _mainWindow,
+    connect(_taskManager, &TaskManager::matchingArchives, _mainWindow,
             &MainWindow::matchingArchives, QUEUED);
 
-    connect(_mainWindow, &MainWindow::taskRequested, &_taskManager,
+    connect(_mainWindow, &MainWindow::taskRequested, _taskManager,
             &TaskManager::queueGuiTask, QUEUED);
-    connect(_mainWindow, &MainWindow::cancelTaskRequested, &_taskManager,
+    connect(_mainWindow, &MainWindow::cancelTaskRequested, _taskManager,
             &TaskManager::cancelGuiTask, QUEUED);
 
     connect(this, &AppGui::lastWindowClosed, this,
             &AppGui::quitAfterEventsFinish, QUEUED);
 
     QMetaObject::invokeMethod(_mainWindow, "initializeMainWindow", QUEUED);
-    QMetaObject::invokeMethod(&_taskManager, "loadArchives", QUEUED);
-    QMetaObject::invokeMethod(&_taskManager, "loadJobs", QUEUED);
+    QMetaObject::invokeMethod(_taskManager, "loadArchives", QUEUED);
+    QMetaObject::invokeMethod(_taskManager, "loadJobs", QUEUED);
     QMetaObject::invokeMethod(_journal, "getJournal", QUEUED);
 
     _mainWindow->show();

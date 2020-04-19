@@ -112,7 +112,7 @@ void TestArchivesTabWidget::displayArchive()
     Ui::ArchivesTabWidget *ui                = archivestabwidget->_ui;
     ArchiveListWidget *    alw               = ui->archiveListWidget;
 
-    FileTableModel *fm = &(ui->archiveDetailsWidget->_contentsModel);
+    FileTableModel *fm = ui->archiveDetailsWidget->_contentsModel;
 
     VISUAL_INIT(archivestabwidget);
     VISUAL_WAIT;

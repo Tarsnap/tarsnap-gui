@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QCheckBox>
+#include <QCompleter>
 #include <QDir>
 #include <QEvent>
 #include <QKeyEvent>
@@ -21,7 +22,7 @@ WARNINGS_ENABLE
 class QModelIndex;
 
 FilePickerWidget::FilePickerWidget(QWidget *parent)
-    : QWidget(parent), _ui(new Ui::FilePickerWidget)
+    : QWidget(parent), _ui(new Ui::FilePickerWidget), _completer(new QCompleter)
 {
     _ui->setupUi(this);
     _ui->optionsContainer->hide();
@@ -30,10 +31,10 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
     _model.setRootPath(QDir::rootPath());
 
     // Configure file url completions.
-    _completer.setModel(&_model);
-    _completer.setCompletionMode(QCompleter::InlineCompletion);
-    _completer.setCaseSensitivity(Qt::CaseSensitive);
-    _ui->filterLineEdit->setCompleter(&_completer);
+    _completer->setModel(&_model);
+    _completer->setCompletionMode(QCompleter::InlineCompletion);
+    _completer->setCaseSensitivity(Qt::CaseSensitive);
+    _ui->filterLineEdit->setCompleter(_completer);
     _ui->filterLineEdit->setFocus();
 
     // Configure visual display of the model.
@@ -65,7 +66,7 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
     connect(_ui->filterLineEdit, &QLineEdit::textEdited, this,
             &FilePickerWidget::updateFilter);
     connect(_ui->filterLineEdit, &QLineEdit::returnPressed, [this]() {
-        if(_completer.currentCompletion().isEmpty())
+        if(_completer->currentCompletion().isEmpty())
             _ui->treeView->setFocus();
     });
     // Connections for the settings
@@ -97,6 +98,7 @@ FilePickerWidget::FilePickerWidget(QWidget *parent)
 
 FilePickerWidget::~FilePickerWidget()
 {
+    delete _completer;
     delete _ui;
 }
 

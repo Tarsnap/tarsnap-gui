@@ -52,8 +52,6 @@ AppGui::~AppGui()
 {
     if(_mainWindow)
         delete _mainWindow;
-    _managerThread.quit();
-    _managerThread.wait();
     if(_journal)
         delete _journal;
     Translator::destroy();

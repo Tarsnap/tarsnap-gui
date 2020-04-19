@@ -6,7 +6,6 @@
 WARNINGS_DISABLE
 #include <QApplication>
 #include <QObject>
-#include <QThread>
 WARNINGS_ENABLE
 
 #include "notification.h"
@@ -54,7 +53,6 @@ private:
     Journal *    _journal;
     Notification _notification;
     TaskManager  _taskManager;
-    QThread      _managerThread;
     bool         _jobsOption;
     QString      _configDir;
 

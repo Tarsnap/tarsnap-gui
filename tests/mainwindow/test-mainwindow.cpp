@@ -282,7 +282,7 @@ void TestMainWindow::other_navigation()
     BackupTabWidget *backupTabWidget = mainwindow->_backupTabWidget;
 
     ArchiveWidget *archiveDetailsWidget =
-        mainwindow->_archivesTabWidget._ui->archiveDetailsWidget;
+        mainwindow->_archivesTabWidget->_ui->archiveDetailsWidget;
 
     VISUAL_INIT(mainwindow);
 

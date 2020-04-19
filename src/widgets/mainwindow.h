@@ -28,8 +28,6 @@ WARNINGS_ENABLE
 #include "messages/tarsnaperror.h"
 #include "messages/taskstatus.h"
 
-#include "stoptasksdialog.h"
-
 /* Forward declaration(s). */
 namespace Ui
 {
@@ -38,6 +36,7 @@ class MainWindow;
 class BaseTask;
 class QEvent;
 class QMenuBar;
+class StopTasksDialog;
 struct LogEntry;
 
 /*!
@@ -189,11 +188,11 @@ private:
     int             _minWidth;
     QMenuBar *      _menuBar;
     bool            _aboutToQuit;
-    StopTasksDialog _stopTasksDialog;
     bool            _backupTaskRunning;
     int             _runningTasks;
     int             _queuedTasks;
 
+    StopTasksDialog * _stopTasksDialog;
     BackupTabWidget   _backupTabWidget;
     ArchivesTabWidget _archivesTabWidget;
     JobsTabWidget     _jobsTabWidget;

@@ -28,6 +28,7 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
+#include "archivestabwidget.h"
 #include "backuptabwidget.h"
 #include "backuptask.h"
 #include "basetask.h"
@@ -57,7 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
       _queuedTasks(0),
       _stopTasksDialog(new StopTasksDialog(this)),
       _backupTabWidget(new BackupTabWidget(this)),
-      _archivesTabWidget(this),
+      _archivesTabWidget(new ArchivesTabWidget(this)),
       _jobsTabWidget(this),
       _settingsWidget(this),
       _helpWidget(this)
@@ -74,7 +75,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->journalLog->hide();
 
     _ui->backupTabVerticalLayout->addWidget(_backupTabWidget);
-    _ui->archivesVerticalLayout->addWidget(&_archivesTabWidget);
+    _ui->archivesVerticalLayout->addWidget(_archivesTabWidget);
     _ui->jobsVerticalLayout->addWidget(&_jobsTabWidget);
     _ui->settingsTabVerticalLayout->addWidget(&_settingsWidget);
     _ui->helpTabLayout->addWidget(&_helpWidget);
@@ -149,28 +150,28 @@ MainWindow::MainWindow(QWidget *parent)
     loadSettings();
 
     // Archives pane
-    connect(this, &MainWindow::archiveList, &_archivesTabWidget,
+    connect(this, &MainWindow::archiveList, _archivesTabWidget,
             &ArchivesTabWidget::archiveList);
-    connect(this, &MainWindow::addArchive, &_archivesTabWidget,
+    connect(this, &MainWindow::addArchive, _archivesTabWidget,
             &ArchivesTabWidget::addArchive);
 
-    connect(&_archivesTabWidget, &ArchivesTabWidget::deleteArchives, this,
+    connect(_archivesTabWidget, &ArchivesTabWidget::deleteArchives, this,
             &MainWindow::deleteArchives);
     connect(&_jobsTabWidget, &JobsTabWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
-    connect(&_archivesTabWidget, &ArchivesTabWidget::jobClicked, this,
+    connect(_archivesTabWidget, &ArchivesTabWidget::jobClicked, this,
             &MainWindow::jobInspectByRef);
-    connect(&_archivesTabWidget, &ArchivesTabWidget::displayJobDetails, this,
+    connect(_archivesTabWidget, &ArchivesTabWidget::displayJobDetails, this,
             &MainWindow::jobInspectByRef);
-    connect(&_archivesTabWidget, &ArchivesTabWidget::loadArchiveStats, this,
+    connect(_archivesTabWidget, &ArchivesTabWidget::loadArchiveStats, this,
             &MainWindow::loadArchiveStats);
-    connect(&_archivesTabWidget, &ArchivesTabWidget::loadArchiveContents, this,
+    connect(_archivesTabWidget, &ArchivesTabWidget::loadArchiveContents, this,
             &MainWindow::loadArchiveContents);
 
     connect(_ui->actionRefresh, &QAction::triggered, this,
             &MainWindow::getArchives);
 
-    connect(&_archivesTabWidget, &ArchivesTabWidget::taskRequested, this,
+    connect(_archivesTabWidget, &ArchivesTabWidget::taskRequested, this,
             &MainWindow::taskRequested);
 
     // Jobs pane
@@ -235,6 +236,7 @@ MainWindow::~MainWindow()
     commitSettings();
     delete _stopTasksDialog;
     delete _backupTabWidget;
+    delete _archivesTabWidget;
     delete _ui;
 }
 
@@ -523,7 +525,7 @@ void MainWindow::notificationRaise()
 void MainWindow::displayInspectArchive(ArchivePtr archive)
 {
     displayTab(_ui->archivesTab);
-    _archivesTabWidget.displayInspectArchive(archive);
+    _archivesTabWidget->displayInspectArchive(archive);
 }
 
 void MainWindow::displayJobDetails(JobPtr job)
@@ -759,7 +761,7 @@ void MainWindow::handle_notification_clicked(enum message_type type,
         break;
     case(NOTIFICATION_ARCHIVE_CREATED):
         displayTab(_ui->archivesTab);
-        _archivesTabWidget.displayInspectArchiveByRef(data);
+        _archivesTabWidget->displayInspectArchiveByRef(data);
         break;
     }
 }

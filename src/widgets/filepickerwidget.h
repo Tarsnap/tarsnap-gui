@@ -10,13 +10,12 @@ WARNINGS_DISABLE
 #include <QWidget>
 WARNINGS_ENABLE
 
-#include "customfilesystemmodel.h"
-
 /* Forward declaration(s). */
 namespace Ui
 {
 class FilePickerWidget;
 }
+class CustomFileSystemModel;
 class QCompleter;
 class QEvent;
 class QKeyEvent;
@@ -90,9 +89,9 @@ protected:
     void changeEvent(QEvent *event);
 
 private:
-    Ui::FilePickerWidget *_ui;
-    CustomFileSystemModel _model;
-    QCompleter *          _completer;
+    Ui::FilePickerWidget * _ui;
+    CustomFileSystemModel *_model;
+    QCompleter *           _completer;
 };
 
 #endif // FILEPICKERWIDGET_H

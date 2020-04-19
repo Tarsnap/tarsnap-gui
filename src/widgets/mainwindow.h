@@ -15,7 +15,6 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "helpwidget.h"
-#include "settingswidget.h"
 
 #include "messages/archiveptr.h"
 #include "messages/archiverestoreoptions.h"
@@ -36,6 +35,7 @@ class BaseTask;
 class JobsTabWidget;
 class QEvent;
 class QMenuBar;
+class SettingsWidget;
 class StopTasksDialog;
 struct LogEntry;
 
@@ -196,7 +196,7 @@ private:
     BackupTabWidget *  _backupTabWidget;
     ArchivesTabWidget *_archivesTabWidget;
     JobsTabWidget *    _jobsTabWidget;
-    SettingsWidget     _settingsWidget;
+    SettingsWidget *   _settingsWidget;
     HelpWidget         _helpWidget;
 
     //! Switch to displaying a specific tab.

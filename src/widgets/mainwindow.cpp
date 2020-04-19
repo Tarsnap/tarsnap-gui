@@ -36,6 +36,7 @@ WARNINGS_ENABLE
 #include "jobstabwidget.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
+#include "settingswidget.h"
 #include "stoptasksdialog.h"
 #include "utils.h"
 
@@ -61,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
       _backupTabWidget(new BackupTabWidget(this)),
       _archivesTabWidget(new ArchivesTabWidget(this)),
       _jobsTabWidget(new JobsTabWidget(this)),
-      _settingsWidget(this),
+      _settingsWidget(new SettingsWidget(this)),
       _helpWidget(this)
 {
     connect(&LOG, &ConsoleLog::message, &_helpWidget,
@@ -78,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->backupTabVerticalLayout->addWidget(_backupTabWidget);
     _ui->archivesVerticalLayout->addWidget(_archivesTabWidget);
     _ui->jobsVerticalLayout->addWidget(_jobsTabWidget);
-    _ui->settingsTabVerticalLayout->addWidget(&_settingsWidget);
+    _ui->settingsTabVerticalLayout->addWidget(_settingsWidget);
     _ui->helpTabLayout->addWidget(&_helpWidget);
 
     connectSettingsWidget();
@@ -94,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
     connect(_ui->actionRefreshAccount, &QAction::triggered,
-            [this]() { _settingsWidget.getAccountInfo(); });
+            [this]() { _settingsWidget->getAccountInfo(); });
     addAction(_ui->actionGoBackup);
     addAction(_ui->actionGoArchives);
     addAction(_ui->actionGoJobs);
@@ -239,6 +240,7 @@ MainWindow::~MainWindow()
     delete _backupTabWidget;
     delete _archivesTabWidget;
     delete _jobsTabWidget;
+    delete _settingsWidget;
     delete _ui;
 }
 
@@ -257,7 +259,7 @@ void MainWindow::loadSettings()
 
 void MainWindow::initializeMainWindow()
 {
-    _settingsWidget.initializeSettingsWidget();
+    _settingsWidget->initializeSettingsWidget();
 
     TSettings settings;
 
@@ -687,7 +689,7 @@ void MainWindow::updateNumTasks(bool backupRunning, int runningTasks,
     _runningTasks = runningTasks;
     _queuedTasks  = queuedTasks;
 
-    _settingsWidget.updateNumTasks(runningTasks, queuedTasks);
+    _settingsWidget->updateNumTasks(runningTasks, queuedTasks);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
@@ -696,42 +698,42 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                                      quint64 sizeUniqueCompressed,
                                      quint64 archiveCount)
 {
-    _settingsWidget.overallStatsChanged(sizeTotal, sizeCompressed,
-                                        sizeUniqueTotal, sizeUniqueCompressed,
-                                        archiveCount);
+    _settingsWidget->overallStatsChanged(sizeTotal, sizeCompressed,
+                                         sizeUniqueTotal, sizeUniqueCompressed,
+                                         archiveCount);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
 void MainWindow::saveKeyId(QString key, quint64 id)
 {
-    _settingsWidget.saveKeyId(key, id);
+    _settingsWidget->saveKeyId(key, id);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
 void MainWindow::tarsnapVersionResponse(TaskStatus status,
                                         QString    versionString)
 {
-    _settingsWidget.tarsnapVersionResponse(status, versionString);
+    _settingsWidget->tarsnapVersionResponse(status, versionString);
 }
 
 void MainWindow::connectSettingsWidget()
 {
     // Get info from SettingsWidget
-    connect(&_settingsWidget, &SettingsWidget::nukeArchives, this,
+    connect(_settingsWidget, &SettingsWidget::nukeArchives, this,
             &MainWindow::nukeArchives);
-    connect(&_settingsWidget, &SettingsWidget::newStatusMessage, this,
+    connect(_settingsWidget, &SettingsWidget::newStatusMessage, this,
             &MainWindow::updateStatusMessage);
-    connect(&_settingsWidget, &SettingsWidget::getKeyId, this,
+    connect(_settingsWidget, &SettingsWidget::getKeyId, this,
             &MainWindow::getKeyId);
-    connect(&_settingsWidget, &SettingsWidget::newSimulationStatus, this,
+    connect(_settingsWidget, &SettingsWidget::newSimulationStatus, this,
             &MainWindow::updateSimulationIcon);
-    connect(&_settingsWidget, &SettingsWidget::clearJournal, this,
+    connect(_settingsWidget, &SettingsWidget::clearJournal, this,
             &MainWindow::clearJournal);
-    connect(&_settingsWidget, &SettingsWidget::runSetupWizard, this,
+    connect(_settingsWidget, &SettingsWidget::runSetupWizard, this,
             &MainWindow::runSetupWizard);
-    connect(&_settingsWidget, &SettingsWidget::tarsnapVersionRequested, this,
+    connect(_settingsWidget, &SettingsWidget::tarsnapVersionRequested, this,
             &MainWindow::tarsnapVersionRequested);
-    connect(&_settingsWidget, &SettingsWidget::repairCache, this,
+    connect(_settingsWidget, &SettingsWidget::repairCache, this,
             &MainWindow::repairCache);
 }
 

@@ -19,6 +19,9 @@ class QWidget;
  * \brief The ConfirmationDialog is a QObject which requires the user to
  * type a confirmation message, then has an additional countdown timer (to
  * allow more cancellation opportunities) before the action is taken.
+ *
+ * This widget does not support dynamic translation, as it is a modal dialog
+ * so it does not allow the user to change the settings while visible.
  */
 class ConfirmationDialog : public QObject
 {

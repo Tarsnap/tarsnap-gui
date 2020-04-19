@@ -11,6 +11,7 @@ WARNINGS_DISABLE
 #include <QModelIndex>
 #include <QModelIndexList>
 #include <QPoint>
+#include <QSortFilterProxyModel>
 #include <QStringList>
 #include <QTableView>
 #include <QVariant>
@@ -35,17 +36,17 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::ArchiveWidget),
       _contentsModel(this),
-      _proxyModel(&_contentsModel),
+      _proxyModel(new QSortFilterProxyModel(&_contentsModel)),
       _fileMenu(this)
 {
     _ui->setupUi(this);
     _ui->filterComboBox->hide();
     updateUi();
 
-    _proxyModel.setDynamicSortFilter(false);
-    _proxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
-    _proxyModel.setSourceModel(&_contentsModel);
-    _ui->archiveContentsTableView->setModel(&_proxyModel);
+    _proxyModel->setDynamicSortFilter(false);
+    _proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    _proxyModel->setSourceModel(&_contentsModel);
+    _ui->archiveContentsTableView->setModel(_proxyModel);
     _ui->archiveContentsTableView->setContextMenuPolicy(Qt::CustomContextMenu);
     _fileMenu.addAction(_ui->actionRestoreFiles);
     connect(_ui->archiveContentsTableView,
@@ -66,7 +67,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
         _ui->archiveContentsLabel->setText(
             tr("Contents (%1)").arg(_contentsModel.rowCount()));
     });
-    connect(_ui->filterComboBox, &QComboBox::editTextChanged, &_proxyModel,
+    connect(_ui->filterComboBox, &QComboBox::editTextChanged, _proxyModel,
             &QSortFilterProxyModel::setFilterWildcard);
     connect(_ui->filterComboBox,
             static_cast<void (QComboBox::*)(int)>(
@@ -84,6 +85,7 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
 
 ArchiveWidget::~ArchiveWidget()
 {
+    delete _proxyModel;
     delete _ui;
 }
 

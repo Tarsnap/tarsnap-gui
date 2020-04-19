@@ -11,6 +11,7 @@ WARNINGS_ENABLE
 #include "basetask.h"
 #include "debug.h"
 #include "init-shared.h"
+#include "notification.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "persistentmodel/journal.h"
@@ -25,7 +26,7 @@ AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
     : QApplication(argc, argv),
       _mainWindow(nullptr),
       _journal(nullptr),
-      _notification()
+      _notification(new Notification())
 {
     // Sanity checks
     assert(opt != nullptr);
@@ -54,6 +55,7 @@ AppGui::~AppGui()
         delete _mainWindow;
     if(_journal)
         delete _journal;
+    delete _notification;
     Translator::destroy();
 }
 
@@ -141,7 +143,7 @@ bool AppGui::prepEventLoop()
     // Queue loading the journal when we have an event loop.
     QMetaObject::invokeMethod(_journal, "load", QUEUED);
 
-    connect(&_taskManager, &TaskManager::displayNotification, &_notification,
+    connect(&_taskManager, &TaskManager::displayNotification, _notification,
             &Notification::displayNotification, QUEUED);
     connect(&_taskManager, &TaskManager::message, _journal,
             &Journal::logMessage, QUEUED);
@@ -149,9 +151,9 @@ bool AppGui::prepEventLoop()
     if(_jobsOption)
     {
         setQuitLockEnabled(true);
-        connect(&_notification, &Notification::activated, this,
+        connect(_notification, &Notification::activated, this,
                 &AppGui::showMainWindow, QUEUED);
-        connect(&_notification, &Notification::messageClicked, this,
+        connect(_notification, &Notification::messageClicked, this,
                 &AppGui::showMainWindow, QUEUED);
         QMetaObject::invokeMethod(&_taskManager, "runScheduledJobs", QUEUED);
     }
@@ -169,9 +171,9 @@ void AppGui::showMainWindow()
         return;
 
     setQuitLockEnabled(false);
-    disconnect(&_notification, &Notification::activated, this,
+    disconnect(_notification, &Notification::activated, this,
                &AppGui::showMainWindow);
-    disconnect(&_notification, &Notification::messageClicked, this,
+    disconnect(_notification, &Notification::messageClicked, this,
                &AppGui::showMainWindow);
 
     _mainWindow = new MainWindow();
@@ -225,9 +227,9 @@ void AppGui::showMainWindow()
             &MainWindow::updateStatusMessage, QUEUED);
     connect(&_taskManager, &TaskManager::error, _mainWindow,
             &MainWindow::tarsnapError, QUEUED);
-    connect(&_notification, &Notification::activated, _mainWindow,
+    connect(_notification, &Notification::activated, _mainWindow,
             &MainWindow::notificationRaise, QUEUED);
-    connect(&_notification, &Notification::notification_clicked, _mainWindow,
+    connect(_notification, &Notification::notification_clicked, _mainWindow,
             &MainWindow::handle_notification_clicked, QUEUED);
     connect(_journal, &Journal::journal, _mainWindow, &MainWindow::setJournal,
             QUEUED);

@@ -33,6 +33,7 @@ WARNINGS_ENABLE
 #include "backuptask.h"
 #include "basetask.h"
 #include "elidedclickablelabel.h"
+#include "helpwidget.h"
 #include "jobstabwidget.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
@@ -63,9 +64,9 @@ MainWindow::MainWindow(QWidget *parent)
       _archivesTabWidget(new ArchivesTabWidget(this)),
       _jobsTabWidget(new JobsTabWidget(this)),
       _settingsWidget(new SettingsWidget(this)),
-      _helpWidget(this)
+      _helpWidget(new HelpWidget(this))
 {
-    connect(&LOG, &ConsoleLog::message, &_helpWidget,
+    connect(&LOG, &ConsoleLog::message, _helpWidget,
             &HelpWidget::appendLogString);
 
     // Ui initialization
@@ -80,7 +81,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->archivesVerticalLayout->addWidget(_archivesTabWidget);
     _ui->jobsVerticalLayout->addWidget(_jobsTabWidget);
     _ui->settingsTabVerticalLayout->addWidget(_settingsWidget);
-    _ui->helpTabLayout->addWidget(&_helpWidget);
+    _ui->helpTabLayout->addWidget(_helpWidget);
 
     connectSettingsWidget();
 
@@ -241,6 +242,7 @@ MainWindow::~MainWindow()
     delete _archivesTabWidget;
     delete _jobsTabWidget;
     delete _settingsWidget;
+    delete _helpWidget;
     delete _ui;
 }
 
@@ -393,7 +395,7 @@ void MainWindow::setupMenuBar()
 
     QAction *actionAbout = new QAction(this);
     actionAbout->setMenuRole(QAction::AboutRole);
-    connect(actionAbout, &QAction::triggered, &_helpWidget,
+    connect(actionAbout, &QAction::triggered, _helpWidget,
             &HelpWidget::aboutMenuClicked);
     QAction *actionSettings = new QAction(this);
     actionSettings->setMenuRole(QAction::PreferencesRole);

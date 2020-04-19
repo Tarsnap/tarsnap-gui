@@ -28,6 +28,7 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
+#include "backuptabwidget.h"
 #include "backuptask.h"
 #include "basetask.h"
 #include "elidedclickablelabel.h"
@@ -55,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
       _runningTasks(0),
       _queuedTasks(0),
       _stopTasksDialog(new StopTasksDialog(this)),
-      _backupTabWidget(this),
+      _backupTabWidget(new BackupTabWidget(this)),
       _archivesTabWidget(this),
       _jobsTabWidget(this),
       _settingsWidget(this),
@@ -72,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->mainContentSplitter->setCollapsible(0, false);
     _ui->journalLog->hide();
 
-    _ui->backupTabVerticalLayout->addWidget(&_backupTabWidget);
+    _ui->backupTabVerticalLayout->addWidget(_backupTabWidget);
     _ui->archivesVerticalLayout->addWidget(&_archivesTabWidget);
     _ui->jobsVerticalLayout->addWidget(&_jobsTabWidget);
     _ui->settingsTabVerticalLayout->addWidget(&_settingsWidget);
@@ -121,28 +122,28 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     // Backup pane
-    connect(&_backupTabWidget, &BackupTabWidget::morphBackupIntoJob, this,
+    connect(_backupTabWidget, &BackupTabWidget::morphBackupIntoJob, this,
             &MainWindow::createNewJob);
-    connect(&_backupTabWidget, &BackupTabWidget::backupNow, this,
+    connect(_backupTabWidget, &BackupTabWidget::backupNow, this,
             &MainWindow::backupNow);
-    connect(&_backupTabWidget, &BackupTabWidget::backupTabValidStatus, this,
+    connect(_backupTabWidget, &BackupTabWidget::backupTabValidStatus, this,
             &MainWindow::backupTabValidStatus);
-    connect(&_backupTabWidget, &BackupTabWidget::taskRequested, this,
+    connect(_backupTabWidget, &BackupTabWidget::taskRequested, this,
             &MainWindow::taskRequested);
-    connect(&_backupTabWidget, &BackupTabWidget::cancelTaskRequested, this,
+    connect(_backupTabWidget, &BackupTabWidget::cancelTaskRequested, this,
             &MainWindow::cancelTaskRequested);
 
     // Handle the Backup-related actions
     connect(_ui->actionBrowseItems, &QAction::triggered, this,
             &MainWindow::browseForBackupItems);
-    connect(_ui->actionAddFiles, &QAction::triggered, &_backupTabWidget,
+    connect(_ui->actionAddFiles, &QAction::triggered, _backupTabWidget,
             &BackupTabWidget::addFiles);
-    connect(_ui->actionAddDirectory, &QAction::triggered, &_backupTabWidget,
+    connect(_ui->actionAddDirectory, &QAction::triggered, _backupTabWidget,
             &BackupTabWidget::addDirectory);
-    connect(_ui->actionClearList, &QAction::triggered, &_backupTabWidget,
+    connect(_ui->actionClearList, &QAction::triggered, _backupTabWidget,
             &BackupTabWidget::clearList);
 
-    _backupTabWidget.validateBackupTab();
+    _backupTabWidget->validateBackupTab();
 
     // Settings pane
     loadSettings();
@@ -233,6 +234,7 @@ MainWindow::~MainWindow()
 {
     commitSettings();
     delete _stopTasksDialog;
+    delete _backupTabWidget;
     delete _ui;
 }
 
@@ -471,7 +473,7 @@ void MainWindow::mainTabChanged(int index)
     if(_ui->mainTabWidget->currentWidget() == _ui->backupTab)
     {
         _ui->actionBrowseItems->setEnabled(true);
-        _backupTabWidget.validateBackupTab();
+        _backupTabWidget->validateBackupTab();
     }
     else
     {
@@ -564,7 +566,7 @@ void MainWindow::browseForBackupItems()
 {
     displayTab(_ui->backupTab);
 
-    _backupTabWidget.browseForBackupItems();
+    _backupTabWidget->browseForBackupItems();
 }
 
 void MainWindow::displayStopTasksDialog(bool backupTaskRunning,

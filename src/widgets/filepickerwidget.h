@@ -4,7 +4,6 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QCompleter>
 #include <QList>
 #include <QObject>
 #include <QString>
@@ -18,6 +17,7 @@ namespace Ui
 {
 class FilePickerWidget;
 }
+class QCompleter;
 class QEvent;
 class QKeyEvent;
 class QUrl;
@@ -92,7 +92,7 @@ protected:
 private:
     Ui::FilePickerWidget *_ui;
     CustomFileSystemModel _model;
-    QCompleter            _completer;
+    QCompleter *          _completer;
 };
 
 #endif // FILEPICKERWIDGET_H

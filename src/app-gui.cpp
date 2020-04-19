@@ -13,8 +13,10 @@ WARNINGS_ENABLE
 #include "init-shared.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
+#include "persistentmodel/journal.h"
 #include "translator.h"
 #include "utils.h"
+#include "widgets/mainwindow.h"
 
 #include <ConsoleLog.h>
 #include <TSettings.h>

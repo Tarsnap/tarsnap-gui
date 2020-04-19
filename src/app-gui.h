@@ -10,13 +10,15 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "notification.h"
-#include "persistentmodel/journal.h"
 #include "taskmanager.h"
-#include "widgets/mainwindow.h"
 
 extern "C" {
 #include "optparse.h"
 }
+
+/* Forward declaration(s). */
+class Journal;
+class MainWindow;
 
 /*!
  * \ingroup misc

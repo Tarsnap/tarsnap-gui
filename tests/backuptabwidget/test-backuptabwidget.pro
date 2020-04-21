@@ -15,7 +15,13 @@ HEADERS  +=						\
 	../../src/basetask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/dirinfotask.h				\
+	../../src/persistentmodel/archive.h		\
+	../../src/persistentmodel/job.h			\
+	../../src/persistentmodel/persistentobject.h	\
+	../../src/persistentmodel/persistentstore.h	\
+	../../src/messages/archiveptr.h			\
 	../../src/messages/backuptaskdataptr.h		\
+	../../src/messages/jobptr.h			\
 	../../src/tasks/tasks-utils.h			\
 	../../src/utils.h				\
 	../../src/widgets/backuplistwidget.h		\
@@ -34,6 +40,10 @@ SOURCES += test-backuptabwidget.cpp			\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/dirinfotask.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
+	../../src/persistentmodel/archive.cpp		\
+	../../src/persistentmodel/job.cpp		\
+	../../src/persistentmodel/persistentobject.cpp	\
+	../../src/persistentmodel/persistentstore.cpp	\
 	../../src/utils.cpp				\
 	../../src/widgets/backuplistwidget.cpp		\
 	../../src/widgets/backuplistwidgetitem.cpp	\

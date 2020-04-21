@@ -14,6 +14,8 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
+#include "persistentmodel/archive.h"
+#include "persistentmodel/job.h"
 #include "tasks/tasks-defs.h"
 #include "utils.h"
 
@@ -283,4 +285,22 @@ QString BackupTaskData::command() const
 void BackupTaskData::setCommand(const QString &command)
 {
     _command = command;
+}
+
+BackupTaskDataPtr BackupTaskData::createBackupTaskFromJob(JobPtr job)
+{
+    BackupTaskDataPtr backup(new BackupTaskData);
+    backup->setName(
+        JOB_NAME_PREFIX + job->name()
+        + QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
+    backup->setJobRef(job->objectKey());
+    backup->setUrls(job->urls());
+    backup->setOptionPreservePaths(job->optionPreservePaths());
+    backup->setOptionTraverseMount(job->optionTraverseMount());
+    backup->setOptionFollowSymLinks(job->optionFollowSymLinks());
+    backup->setOptionSkipFilesSize(job->optionSkipFilesSize());
+    backup->setOptionSkipSystem(job->optionSkipFiles());
+    backup->setOptionSkipSystemFiles(job->optionSkipFilesPatterns());
+    backup->setOptionSkipNoDump(job->optionSkipNoDump());
+    return backup;
 }

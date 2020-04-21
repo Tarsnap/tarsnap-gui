@@ -267,24 +267,6 @@ void Job::setSettingHideSymlinks(bool settingHideSymlinks)
     _settingHideSymlinks = settingHideSymlinks;
 }
 
-BackupTaskDataPtr Job::createBackupTask()
-{
-    BackupTaskDataPtr backup(new BackupTaskData);
-    backup->setName(
-        JOB_NAME_PREFIX + name()
-        + QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
-    backup->setJobRef(objectKey());
-    backup->setUrls(urls());
-    backup->setOptionPreservePaths(optionPreservePaths());
-    backup->setOptionTraverseMount(optionTraverseMount());
-    backup->setOptionFollowSymLinks(optionFollowSymLinks());
-    backup->setOptionSkipFilesSize(optionSkipFilesSize());
-    backup->setOptionSkipSystem(optionSkipFiles());
-    backup->setOptionSkipSystemFiles(optionSkipFilesPatterns());
-    backup->setOptionSkipNoDump(optionSkipNoDump());
-    return backup;
-}
-
 void Job::save()
 {
     bool exists = doesKeyExist(_name);

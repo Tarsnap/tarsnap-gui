@@ -15,7 +15,7 @@ WARNINGS_ENABLE
 
 #include "debug.h"
 #include "persistentmodel/job.h"
-#include "tasks-defs.h"
+#include "tasks/tasks-defs.h"
 
 JobRunner::JobRunner()
 {

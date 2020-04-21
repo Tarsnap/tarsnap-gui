@@ -16,7 +16,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "persistentmodel/persistentstore.h"
-#include "tasks-tarsnap.h"
+#include "tasks/tasks-tarsnap.h"
 
 BackendData::BackendData()
 {

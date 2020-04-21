@@ -20,7 +20,7 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
-#include "tasks-defs.h"
+#include "tasks/tasks-defs.h"
 #include "utils.h"
 
 CliPage::CliPage(QWidget *parent)

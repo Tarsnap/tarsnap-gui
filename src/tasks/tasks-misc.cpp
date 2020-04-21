@@ -1,11 +1,11 @@
-#include "tasks-misc.h"
+#include "tasks/tasks-misc.h"
 
 WARNINGS_DISABLE
 #include <QStringList>
 WARNINGS_ENABLE
 
 #include "cmdlinetask.h"
-#include "tasks-utils.h"
+#include "tasks/tasks-utils.h"
 
 CmdlineTask *keyIdTask(const QString &key_filename)
 {

@@ -19,7 +19,7 @@ WARNINGS_ENABLE
 #include "TSettings.h"
 
 #include "debug.h"
-#include "tasks-defs.h"
+#include "tasks/tasks-defs.h"
 #include "utils.h"
 
 SetupDialog::SetupDialog(QWidget *parent)

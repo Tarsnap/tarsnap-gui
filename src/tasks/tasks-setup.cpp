@@ -1,4 +1,4 @@
-#include "tasks-setup.h"
+#include "tasks/tasks-setup.h"
 
 WARNINGS_DISABLE
 #include <QRegExp>
@@ -9,7 +9,7 @@ WARNINGS_ENABLE
 #include "TSettings.h"
 
 #include "cmdlinetask.h"
-#include "tasks-utils.h"
+#include "tasks/tasks-utils.h"
 
 CmdlineTask *tarsnapVersionTask()
 {

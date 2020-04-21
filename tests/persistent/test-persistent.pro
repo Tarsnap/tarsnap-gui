@@ -11,6 +11,7 @@ HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../src/messages/archiveptr.h			\
 	../../src/persistentmodel/archive.h		\
+	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h
@@ -18,6 +19,7 @@ HEADERS  +=						\
 SOURCES += test-persistent.cpp				\
 	../../lib/core/TSettings.cpp			\
 	../../src/persistentmodel/archive.cpp		\
+	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/journal.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp

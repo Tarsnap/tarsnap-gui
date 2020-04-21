@@ -19,6 +19,7 @@ WARNINGS_ENABLE
 #include "LogEntry.h"
 
 #include "persistentmodel/archive.h"
+#include "persistentmodel/job.h"
 #include "persistentmodel/journal.h"
 #include "persistentmodel/persistentstore.h"
 
@@ -52,6 +53,9 @@ private slots:
 
     void archive_write();
     void archive_read();
+
+    void job_write();
+    void job_read();
 };
 
 void TestPersistent::initTestCase()
@@ -261,6 +265,47 @@ void TestPersistent::archive_read()
     // Check the first (only) archive name.
     QString name = query.value(0).toString();
     QVERIFY(name == "archive1");
+
+    // That should be all
+    QVERIFY(query.next() == false);
+}
+
+void TestPersistent::job_write()
+{
+    // Initialize the store
+    int ok = global_store->initialized();
+    QVERIFY(ok);
+
+    // Prep
+    Job *job = new Job();
+    job->setName("job1");
+
+    // Write
+    job->save();
+
+    // Clean up
+    delete job;
+}
+
+void TestPersistent::job_read()
+{
+    // Initialize the store
+    int ok = global_store->initialized();
+    QVERIFY(ok);
+
+    // Make a query
+    QSqlQuery query = global_store->createQuery();
+    if(!query.prepare("select * from jobs"))
+        QFAIL("Failed to prepare query");
+
+    // Get values
+    if(!global_store->runQuery(query))
+        QFAIL("Failed to get values from jobs storage");
+    query.next();
+
+    // Check the first (only) archive name.
+    QString name = query.value(0).toString();
+    QVERIFY(name == "job1");
 
     // That should be all
     QVERIFY(query.next() == false);

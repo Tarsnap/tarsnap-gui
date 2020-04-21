@@ -1,4 +1,4 @@
-#include "journal.h"
+#include "persistentmodel/journal.h"
 
 WARNINGS_DISABLE
 #include <QDateTime>

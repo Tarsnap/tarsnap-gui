@@ -17,7 +17,7 @@ WARNINGS_ENABLE
  * \ingroup persistent
  * \brief The Journal stores the user's log messages.
  */
-class Journal : public QObject, public PersistentObject
+class Journal : public PersistentObject
 {
     Q_OBJECT
 

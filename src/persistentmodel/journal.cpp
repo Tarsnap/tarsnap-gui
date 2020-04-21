@@ -32,7 +32,7 @@ static QDateTime epochToDate(const qint64 secs)
 #endif
 }
 
-Journal::Journal(QObject *parent) : QObject(parent)
+Journal::Journal(QObject *parent) : PersistentObject(parent)
 {
 }
 

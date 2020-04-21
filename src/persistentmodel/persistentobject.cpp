@@ -1,6 +1,6 @@
 #include "persistentobject.h"
 
-PersistentObject::PersistentObject()
+PersistentObject::PersistentObject(QObject *parent) : QObject(parent)
 {
 }
 

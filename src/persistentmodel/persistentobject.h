@@ -4,6 +4,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QObject>
 #include <QString>
 WARNINGS_ENABLE
 
@@ -12,11 +13,13 @@ WARNINGS_ENABLE
  * \brief The PersistentObject is an abstract data type for information which
  * is stored in the PersistentStore.
  */
-class PersistentObject
+class PersistentObject : public QObject
 {
+    Q_OBJECT
+
 public:
     //! Constructor.
-    explicit PersistentObject();
+    explicit PersistentObject(QObject *parent = nullptr);
     virtual ~PersistentObject() = 0;
 
     //! Returns the object key.
@@ -24,6 +27,7 @@ public:
     //! Sets the object key.
     void setObjectKey(const QString &objectKey);
 
+public slots:
     //! Saves this object to the PersistentStore; creating or
     //! updating as appropriate.
     virtual void save() = 0;

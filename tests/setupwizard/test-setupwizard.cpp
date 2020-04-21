@@ -27,9 +27,9 @@ WARNINGS_ENABLE
 
 #include "compare-settings.h"
 
-#include "setupwizard.h"
-#include "setupwizard_cli.h"
-#include "setupwizard_register.h"
+#include "setupwizard/setupwizard.h"
+#include "setupwizard/setupwizard_cli.h"
+#include "setupwizard/setupwizard_register.h"
 
 #define GET_UI_PAGE(x, PAGETYPE)                                               \
     do                                                                         \

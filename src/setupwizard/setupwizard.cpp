@@ -1,4 +1,4 @@
-#include "setupwizard.h"
+#include "setupwizard/setupwizard.h"
 
 WARNINGS_DISABLE
 #include <QList>
@@ -10,10 +10,10 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
-#include "setupwizard_cli.h"
-#include "setupwizard_final.h"
-#include "setupwizard_intro.h"
-#include "setupwizard_register.h"
+#include "setupwizard/setupwizard_cli.h"
+#include "setupwizard/setupwizard_final.h"
+#include "setupwizard/setupwizard_intro.h"
+#include "setupwizard/setupwizard_register.h"
 
 /* Forward declarations(s). */
 class QWidget;

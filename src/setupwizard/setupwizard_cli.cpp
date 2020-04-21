@@ -1,4 +1,4 @@
-#include "setupwizard_cli.h"
+#include "setupwizard/setupwizard_cli.h"
 
 WARNINGS_DISABLE
 #include <QDir>

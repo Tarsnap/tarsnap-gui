@@ -1,4 +1,4 @@
-#include "setupwizard_intro.h"
+#include "setupwizard/setupwizard_intro.h"
 
 #include "warnings-disable.h"
 

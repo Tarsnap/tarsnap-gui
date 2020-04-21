@@ -28,22 +28,22 @@ WARNINGS_ENABLE
 
 #include "messages/archivefilestat.h"
 
+#include "basetask.h"
+#include "translator.h"
 #include "widgets/archivestabwidget.h"
 #include "widgets/backuptabwidget.h"
-#include "basetask.h"
 #include "widgets/helpwidget.h"
 #include "widgets/jobstabwidget.h"
 #include "widgets/mainwindow.h"
 #include "widgets/stoptasksdialog.h"
-#include "translator.h"
 
+#include "persistentmodel/archive.h"
+#include "persistentmodel/job.h"
+#include "persistentmodel/persistentstore.h"
 #include "widgets/archivewidget.h"
 #include "widgets/filepickerdialog.h"
 #include "widgets/joblistwidget.h"
 #include "widgets/joblistwidgetitem.h"
-#include "persistentmodel/archive.h"
-#include "persistentmodel/job.h"
-#include "persistentmodel/persistentstore.h"
 #include "widgets/popuppushbutton.h"
 
 #include "ConsoleLog.h"

@@ -1,4 +1,4 @@
-#include "job.h"
+#include "persistentmodel/job.h"
 
 WARNINGS_DISABLE
 #include <QDateTime>

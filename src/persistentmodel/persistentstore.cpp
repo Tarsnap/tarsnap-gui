@@ -1,4 +1,4 @@
-#include "persistentstore.h"
+#include "persistentmodel/persistentstore.h"
 
 WARNINGS_DISABLE
 #include <QDateTime>

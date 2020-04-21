@@ -1,4 +1,4 @@
-#include "archive.h"
+#include "persistentmodel/archive.h"
 
 WARNINGS_DISABLE
 #include <QDateTime>
@@ -14,7 +14,7 @@ WARNINGS_ENABLE
 
 #include "debug.h"
 
-#include "persistentstore.h"
+#include "persistentmodel/persistentstore.h"
 
 Archive::Archive(QObject *parent)
     : QObject(parent),

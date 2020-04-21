@@ -20,9 +20,9 @@ WARNINGS_ENABLE
 
 #include "messages/archivefilestat.h"
 
-#include "archivelistwidget.h"
-#include "archivestabwidget.h"
-#include "archivewidget.h"
+#include "widgets/archivelistwidget.h"
+#include "widgets/archivestabwidget.h"
+#include "widgets/archivewidget.h"
 #include "basetask.h"
 #include "filetablemodel.h"
 #include "persistentmodel/archive.h"

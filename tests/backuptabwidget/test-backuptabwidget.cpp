@@ -11,8 +11,8 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "backuplistwidget.h"
-#include "backuptabwidget.h"
+#include "widgets/backuplistwidget.h"
+#include "widgets/backuptabwidget.h"
 
 #include "TSettings.h"
 

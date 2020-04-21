@@ -18,15 +18,15 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "confirmationdialog.h"
+#include "widgets/confirmationdialog.h"
 #include "tarsnapaccount.h"
-#include "tarsnapaccountdialog.h"
+#include "widgets/tarsnapaccountdialog.h"
 #include "translator.h"
 
 #include "ConsoleLog.h"
 #include "TSettings.h"
 
-#include "settingswidget.h"
+#include "widgets/settingswidget.h"
 
 class TestSettingsWidget : public QObject
 {

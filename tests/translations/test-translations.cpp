@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 #include "TPathComboBrowse.h"
 #include "TSettings.h"
 
-#include "confirmationdialog.h"
+#include "widgets/confirmationdialog.h"
 #include "translator.h"
 
 class TestTranslations : public QObject

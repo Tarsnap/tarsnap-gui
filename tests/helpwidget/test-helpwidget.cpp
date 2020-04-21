@@ -11,8 +11,8 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "helpwidget.h"
-#include "popuppushbutton.h"
+#include "widgets/helpwidget.h"
+#include "widgets/popuppushbutton.h"
 
 #define LONG_TEXT                                                              \
     "This is a long piece of text which should prompt line wrapping when it"   \

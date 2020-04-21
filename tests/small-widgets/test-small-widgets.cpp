@@ -22,11 +22,11 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "confirmationdialog.h"
-#include "elidedannotatedlabel.h"
-#include "filepickerdialog.h"
-#include "filepickerwidget.h"
-#include "stoptasksdialog.h"
+#include "widgets/confirmationdialog.h"
+#include "widgets/elidedannotatedlabel.h"
+#include "widgets/filepickerdialog.h"
+#include "widgets/filepickerwidget.h"
+#include "widgets/stoptasksdialog.h"
 
 #include "TSettings.h"
 

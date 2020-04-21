@@ -21,10 +21,10 @@ WARNINGS_ENABLE
 #include "messages/jobptr.h"
 
 #include "backuptask.h"
-#include "elidedclickablelabel.h"
-#include "joblistwidget.h"
-#include "jobstabwidget.h"
-#include "jobwidget.h"
+#include "widgets/elidedclickablelabel.h"
+#include "widgets/joblistwidget.h"
+#include "widgets/jobstabwidget.h"
+#include "widgets/jobwidget.h"
 #include "persistentmodel/job.h"
 #include "persistentmodel/persistentstore.h"
 

@@ -23,6 +23,7 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
+#include "backuptask.h"
 #include "joblistwidget.h"
 #include "jobwidget.h"
 #include "persistentmodel/archive.h"
@@ -364,5 +365,5 @@ void JobsTabWidget::backupJob(JobPtr job)
                 return;
         }
     }
-    emit backupNow(job->createBackupTask());
+    emit backupNow(BackupTaskData::createBackupTaskFromJob(job));
 }

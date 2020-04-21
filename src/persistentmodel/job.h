@@ -13,7 +13,6 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "messages/archiveptr.h"
-#include "messages/backuptaskdataptr.h"
 #include "messages/jobptr.h"
 
 #include "persistentmodel/persistentobject.h"
@@ -102,9 +101,6 @@ public:
     bool settingHideSymlinks() const;
     void setSettingHideSymlinks(bool settingHideSymlinks);
     //! @}
-
-    //! Create a BackupTaskData which may be passed to TaskManager::backupNow().
-    BackupTaskDataPtr createBackupTask();
 
     // From PersistentObject
     //! Saves this object to the PersistentStore; creating or

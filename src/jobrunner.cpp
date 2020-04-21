@@ -13,6 +13,7 @@ WARNINGS_ENABLE
 
 #include "messages/notification_info.h"
 
+#include "backuptask.h"
 #include "debug.h"
 #include "persistentmodel/job.h"
 #include "tasks/tasks-defs.h"
@@ -119,7 +120,7 @@ void JobRunner::runScheduledJobs(QMap<QString, JobPtr> jobMap)
                 if(!waitForOnline())
                     return;
             }
-            emit backup(job->createBackupTask());
+            emit backup(BackupTaskData::createBackupTaskFromJob(job));
         }
     }
     if(nothingToDo)

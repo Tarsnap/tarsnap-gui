@@ -17,6 +17,7 @@ WARNINGS_ENABLE
 
 #include "messages/archiveptr.h"
 #include "messages/backuptaskdataptr.h"
+#include "messages/jobptr.h"
 
 Q_DECLARE_METATYPE(BackupTaskDataPtr)
 
@@ -36,6 +37,9 @@ public:
 
     //! Make the list of --exclude files and dirs.
     QStringList getExcludesList();
+
+    //! Create a BackupTaskData which may be passed to TaskManager::backupNow().
+    static BackupTaskDataPtr createBackupTaskFromJob(JobPtr job);
 
     //! Getter/setter methods
     //! @{

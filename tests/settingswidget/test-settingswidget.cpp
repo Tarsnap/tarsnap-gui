@@ -18,10 +18,10 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "widgets/confirmationdialog.h"
 #include "tarsnapaccount.h"
-#include "widgets/tarsnapaccountdialog.h"
 #include "translator.h"
+#include "widgets/confirmationdialog.h"
+#include "widgets/tarsnapaccountdialog.h"
 
 #include "ConsoleLog.h"
 #include "TSettings.h"

@@ -1,4 +1,4 @@
-#include "tasks-tarsnap.h"
+#include "tasks/tasks-tarsnap.h"
 
 WARNINGS_DISABLE
 #include <QChar>
@@ -16,8 +16,8 @@ WARNINGS_ENABLE
 
 #include "backuptask.h"
 #include "cmdlinetask.h"
-#include "tasks-defs.h"
-#include "tasks-utils.h"
+#include "tasks/tasks-defs.h"
+#include "tasks/tasks-utils.h"
 
 CmdlineTask *listArchivesTask()
 {

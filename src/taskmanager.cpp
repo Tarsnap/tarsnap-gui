@@ -26,11 +26,11 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "taskqueuer.h"
-#include "tasks-defs.h"
-#include "tasks-misc.h"
-#include "tasks-setup.h"
-#include "tasks-tarsnap.h"
-#include "tasks-utils.h"
+#include "tasks/tasks-defs.h"
+#include "tasks/tasks-misc.h"
+#include "tasks/tasks-setup.h"
+#include "tasks/tasks-tarsnap.h"
+#include "tasks/tasks-utils.h"
 #include "utils.h"
 
 #define SUCCESS 0

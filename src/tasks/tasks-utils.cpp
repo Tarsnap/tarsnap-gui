@@ -1,4 +1,4 @@
-#include "tasks-utils.h"
+#include "tasks/tasks-utils.h"
 
 WARNINGS_DISABLE
 #include <QDir>
@@ -10,7 +10,7 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
-#include "tasks-defs.h"
+#include "tasks/tasks-defs.h"
 
 QString makeTarsnapCommand(QString cmd)
 {

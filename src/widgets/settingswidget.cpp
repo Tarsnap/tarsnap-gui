@@ -30,7 +30,7 @@ WARNINGS_ENABLE
 #include "confirmationdialog.h"
 #include "schedulingwidgets.h"
 #include "tarsnapaccountdialog.h"
-#include "tasks-defs.h"
+#include "tasks/tasks-defs.h"
 #include "translator.h"
 #include "utils.h"
 

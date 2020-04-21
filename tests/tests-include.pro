@@ -10,10 +10,7 @@ INCLUDEPATH += .				\
 	../../lib/util/				\
 	../../lib/widgets/			\
 	../../libcperciva/util/			\
-	../../src/				\
-	../../src/setupwizard/			\
-	../../src/tasks/			\
-	../../src/widgets/
+	../../src/
 
 
 # Pick up extra flags from the environment

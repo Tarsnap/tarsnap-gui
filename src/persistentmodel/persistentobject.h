@@ -19,6 +19,11 @@ public:
     explicit PersistentObject();
     virtual ~PersistentObject() = 0;
 
+    //! Returns the object key.
+    QString objectKey() const;
+    //! Sets the object key.
+    void setObjectKey(const QString &objectKey);
+
     //! Saves this object to the PersistentStore; creating or
     //! updating as appropriate.
     virtual void save() = 0;
@@ -28,11 +33,6 @@ public:
     virtual void purge() = 0;
     //! Returns whether an object with this key exists in the PersistentStore.
     virtual bool doesKeyExist(QString key) = 0;
-
-    //! Returns the object key.
-    QString objectKey() const;
-    //! Sets the object key.
-    void setObjectKey(const QString &objectKey);
 
 private:
     QString _objectKey;

@@ -22,7 +22,7 @@ WARNINGS_ENABLE
 #include "utils.h"
 
 Job::Job(QObject *parent)
-    : QObject(parent),
+    : PersistentObject(parent),
       _optionScheduledEnabled(JobSchedule::Disabled),
       _optionPreservePaths(DEFAULT_PRESERVE_PATHNAMES),
       _optionTraverseMount(DEFAULT_TRAVERSE_MOUNT),

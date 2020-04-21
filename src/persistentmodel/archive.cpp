@@ -17,7 +17,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/persistentstore.h"
 
 Archive::Archive(QObject *parent)
-    : QObject(parent),
+    : PersistentObject(parent),
       _truncated(false),
       _truncatedInfo(""),
       _sizeTotal(0),

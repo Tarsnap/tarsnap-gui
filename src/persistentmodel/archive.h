@@ -23,7 +23,7 @@ Q_DECLARE_METATYPE(ArchivePtr)
  * \ingroup persistent
  * \brief The Archive stores metadata about a user's archive.
  */
-class Archive : public QObject, public PersistentObject
+class Archive : public PersistentObject
 {
     Q_OBJECT
 

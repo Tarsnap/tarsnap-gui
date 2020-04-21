@@ -36,7 +36,7 @@ typedef enum
  * \ingroup persistent
  * \brief The Job stores metadata about a user's scheduled job.
  */
-class Job : public QObject, public PersistentObject
+class Job : public PersistentObject
 {
     Q_OBJECT
 

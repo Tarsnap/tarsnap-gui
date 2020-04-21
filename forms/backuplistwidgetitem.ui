@@ -244,7 +244,7 @@ padding-left: 2px;
   <customwidget>
    <class>ElidedClickableLabel</class>
    <extends>QLabel</extends>
-   <header>elidedclickablelabel.h</header>
+   <header>widgets/elidedclickablelabel.h</header>
   </customwidget>
   <customwidget>
    <class>TElidedLabel</class>

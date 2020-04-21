@@ -154,7 +154,7 @@ border-top: 2px groove darkgrey;
   <customwidget>
    <class>PopupPushButton</class>
    <extends>QPushButton</extends>
-   <header>popuppushbutton.h</header>
+   <header>widgets/popuppushbutton.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

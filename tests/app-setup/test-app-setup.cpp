@@ -19,9 +19,9 @@ WARNINGS_ENABLE
 
 #include "app-setup.h"
 #include "init-shared.h"
-#include "setupwizard.h"
-#include "setupwizard_cli.h"
-#include "setupwizard_register.h"
+#include "setupwizard/setupwizard.h"
+#include "setupwizard/setupwizard_cli.h"
+#include "setupwizard/setupwizard_register.h"
 #include "tasks/tasks-defs.h"
 #include "utils.h"
 

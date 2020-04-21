@@ -1,4 +1,4 @@
-#include "setupwizard_final.h"
+#include "setupwizard/setupwizard_final.h"
 
 WARNINGS_DISABLE
 #include <QFileInfo>

@@ -99,7 +99,8 @@ signals:
     void archiveList(QList<ArchivePtr> archives);
     //! Passes the creation of a new Archive to the ArchiveListWidget.
     void addArchive(ArchivePtr archive);
-    //! Passes info from the ArchiveListWidget or JobDetailsWidget to the TaskManager.
+    //! Passes info from the ArchiveListWidget or JobDetailsWidget to the
+    //! TaskManager.
     void deleteArchives(QList<ArchivePtr> archives);
     //! Begin tarsnap --print-stats -f \<name\>
     void loadArchiveStats(ArchivePtr archive);

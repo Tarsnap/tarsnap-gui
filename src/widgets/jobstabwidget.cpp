@@ -63,8 +63,8 @@ JobsTabWidget::JobsTabWidget(QWidget *parent)
             &JobsTabWidget::hideJobDetails);
     connect(_ui->jobDetailsWidget, &JobDetailsWidget::jobAdded, this,
             &JobsTabWidget::displayJobDetails);
-    connect(_ui->jobDetailsWidget, &JobDetailsWidget::enableSave, _ui->addJobButton,
-            &QToolButton::setEnabled);
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::enableSave,
+            _ui->addJobButton, &QToolButton::setEnabled);
 
     // Connections from the JobDetailsWidget that get forwarded on
     connect(_ui->jobDetailsWidget, &JobDetailsWidget::jobAdded, this,
@@ -77,8 +77,8 @@ JobsTabWidget::JobsTabWidget(QWidget *parent)
             &JobsTabWidget::deleteArchives);
     connect(_ui->jobDetailsWidget, &JobDetailsWidget::backupJob, this,
             &JobsTabWidget::backupJob);
-    connect(_ui->jobDetailsWidget, &JobDetailsWidget::findMatchingArchives, this,
-            &JobsTabWidget::findMatchingArchives);
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::findMatchingArchives,
+            this, &JobsTabWidget::findMatchingArchives);
 
     // Connections to the JobDetailsWidget
     connect(this, &JobsTabWidget::matchingArchives, _ui->jobDetailsWidget,

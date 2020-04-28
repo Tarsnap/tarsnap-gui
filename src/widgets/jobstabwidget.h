@@ -65,7 +65,8 @@ signals:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! Show detailed information about an archive.
     void displayInspectArchive(ArchivePtr archive);
-    //! Passes info from the ArchiveListWidget or JobDetailsWidget to the TaskManager.
+    //! Passes info from the ArchiveListWidget or JobDetailsWidget to the
+    //! TaskManager.
     void deleteArchives(QList<ArchivePtr> archives);
     //! Create new archives for the selected job(s).
     void backupSelectedItems();

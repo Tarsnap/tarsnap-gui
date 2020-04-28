@@ -99,11 +99,11 @@ void TestJobsTabWidget::defaultJobs()
 
 void TestJobsTabWidget::createJob()
 {
-    JobsTabWidget *    jobstabwidget = new JobsTabWidget();
-    Ui::JobsTabWidget *ui            = jobstabwidget->_ui;
-    JobDetailsWidget *        jobWidget     = jobstabwidget->_ui->jobDetailsWidget;
-    Ui::JobDetailsWidget *    jobWidget_ui  = jobWidget->_ui;
-    QSignalSpy         sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
+    JobsTabWidget *       jobstabwidget = new JobsTabWidget();
+    Ui::JobsTabWidget *   ui            = jobstabwidget->_ui;
+    JobDetailsWidget *    jobWidget     = jobstabwidget->_ui->jobDetailsWidget;
+    Ui::JobDetailsWidget *jobWidget_ui  = jobWidget->_ui;
+    QSignalSpy            sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
 
     VISUAL_INIT(jobstabwidget);
 

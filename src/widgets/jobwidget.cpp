@@ -42,7 +42,8 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     updateUi();
 
     _fsEventUpdate.setSingleShot(true);
-    connect(&_fsEventUpdate, &QTimer::timeout, this, &JobDetailsWidget::verifyJob);
+    connect(&_fsEventUpdate, &QTimer::timeout, this,
+            &JobDetailsWidget::verifyJob);
     connect(_ui->infoLabel, &ElidedClickableLabel::clicked, this,
             &JobDetailsWidget::showJobPathsWarn);
     connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
@@ -76,7 +77,8 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
             &JobDetailsWidget::save);
     connect(_ui->skipFilesLineEdit, &QLineEdit::editingFinished, this,
             &JobDetailsWidget::save);
-    connect(_ui->hideButton, &QPushButton::clicked, this, &JobDetailsWidget::collapse);
+    connect(_ui->hideButton, &QPushButton::clicked, this,
+            &JobDetailsWidget::collapse);
     connect(_ui->restoreButton, &QPushButton::clicked, this,
             &JobDetailsWidget::restoreButtonClicked);
     connect(_ui->backupButton, &QPushButton::clicked, this,
@@ -123,8 +125,10 @@ void JobDetailsWidget::setJob(const JobPtr &job)
         _job->removeWatcher();
         disconnect(_job.data(), &Job::fsEvent, this,
                    &JobDetailsWidget::fsEventReceived);
-        disconnect(_job.data(), &Job::changed, this, &JobDetailsWidget::updateDetails);
-        disconnect(_job.data(), &Job::purged, this, &JobDetailsWidget::collapse);
+        disconnect(_job.data(), &Job::changed, this,
+                   &JobDetailsWidget::updateDetails);
+        disconnect(_job.data(), &Job::purged, this,
+                   &JobDetailsWidget::collapse);
     }
 
     _saveEnabled = false;
@@ -147,8 +151,10 @@ void JobDetailsWidget::setJob(const JobPtr &job)
         _ui->backupButton->show();
         _ui->jobNameLabel->show();
         _ui->jobNameLineEdit->hide();
-        connect(_job.data(), &Job::changed, this, &JobDetailsWidget::updateDetails);
-        connect(_job.data(), &Job::fsEvent, this, &JobDetailsWidget::fsEventReceived);
+        connect(_job.data(), &Job::changed, this,
+                &JobDetailsWidget::updateDetails);
+        connect(_job.data(), &Job::fsEvent, this,
+                &JobDetailsWidget::fsEventReceived);
         connect(_job.data(), &Job::purged, this, &JobDetailsWidget::collapse);
         job->installWatcher();
     }

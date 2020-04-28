@@ -107,7 +107,8 @@ void ArchiveDetailsWidget::setArchive(ArchivePtr archive)
     {
         connect(_archive.data(), &Archive::changed, this,
                 &ArchiveDetailsWidget::updateDetails);
-        connect(_archive.data(), &Archive::purged, this, &ArchiveDetailsWidget::close);
+        connect(_archive.data(), &Archive::purged, this,
+                &ArchiveDetailsWidget::close);
         updateDetails();
     }
     else

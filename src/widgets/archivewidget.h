@@ -76,11 +76,11 @@ private slots:
     void updateDetails();
 
 private:
-    Ui::ArchiveDetailsWidget *    _ui;
-    ArchivePtr             _archive;
-    FileTableModel *       _contentsModel;
-    QSortFilterProxyModel *_proxyModel;
-    QMenu                  _fileMenu;
+    Ui::ArchiveDetailsWidget *_ui;
+    ArchivePtr                _archive;
+    FileTableModel *          _contentsModel;
+    QSortFilterProxyModel *   _proxyModel;
+    QMenu                     _fileMenu;
 
     void updateUi();
 };

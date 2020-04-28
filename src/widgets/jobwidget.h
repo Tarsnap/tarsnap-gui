@@ -91,9 +91,9 @@ private slots:
 
 private:
     Ui::JobDetailsWidget *_ui;
-    JobPtr         _job;
-    bool           _saveEnabled;
-    QTimer         _fsEventUpdate;
+    JobPtr                _job;
+    bool                  _saveEnabled;
+    QTimer                _fsEventUpdate;
 
     void save();
     void updateUi();

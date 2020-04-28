@@ -74,6 +74,16 @@ void TestJobsTabWidget::cleanupTestCase()
 void TestJobsTabWidget::jobDetailsWidget()
 {
     JobDetailsWidget *jobDetailsWidget = new JobDetailsWidget();
+
+    // Add a Job to the widget.
+    JobPtr job(new Job());
+    job->setUrls(QList<QUrl>() << QUrl("file://" TEST_DIR));
+    job->setName("jobDetailsWidget1");
+    jobDetailsWidget->setJob(job);
+
+    // Save it.
+    jobDetailsWidget->saveNew();
+
     delete jobDetailsWidget;
 }
 

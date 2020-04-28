@@ -16,7 +16,7 @@ WARNINGS_ENABLE
 /* Forward declaration(s). */
 namespace Ui
 {
-class ArchiveWidget;
+class ArchiveDetailsWidget;
 }
 class BaseTask;
 class FileTableModel;
@@ -28,10 +28,10 @@ class QSortFilterProxyModel;
 
 /*!
  * \ingroup widgets-specialized
- * \brief The ArchiveWidget is a QWidget which displays detailed
+ * \brief The ArchiveDetailsWidget is a QWidget which displays detailed
  * information about a single Archive.
  */
-class ArchiveWidget : public QWidget
+class ArchiveDetailsWidget : public QWidget
 {
     Q_OBJECT
 
@@ -42,8 +42,8 @@ class ArchiveWidget : public QWidget
 
 public:
     //! Constructor
-    explicit ArchiveWidget(QWidget *parent = nullptr);
-    ~ArchiveWidget();
+    explicit ArchiveDetailsWidget(QWidget *parent = nullptr);
+    ~ArchiveDetailsWidget();
 
 public slots:
     //! Sets the Archive whose details this widget should display.
@@ -76,7 +76,7 @@ private slots:
     void updateDetails();
 
 private:
-    Ui::ArchiveWidget *    _ui;
+    Ui::ArchiveDetailsWidget *    _ui;
     ArchivePtr             _archive;
     FileTableModel *       _contentsModel;
     QSortFilterProxyModel *_proxyModel;

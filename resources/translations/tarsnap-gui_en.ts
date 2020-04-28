@@ -159,7 +159,7 @@ For your information, there&apos;s a purge action in Settings -&gt; Account page
     </message>
 </context>
 <context>
-    <name>ArchiveWidget</name>
+    <name>ArchiveDetailsWidget</name>
     <message>
         <source>Form</source>
         <translation type="unfinished"></translation>

@@ -212,7 +212,7 @@ selection-background-color: rgba(177,214,255,150);
           <number>20</number>
          </property>
         </widget>
-        <widget class="ArchiveWidget" name="archiveDetailsWidget" native="true">
+        <widget class="ArchiveDetailsWidget" name="archiveDetailsWidget" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -328,7 +328,7 @@ selection-background-color: rgba(177,214,255,150);
    <header>widgets/archivelistwidget.h</header>
   </customwidget>
   <customwidget>
-   <class>ArchiveWidget</class>
+   <class>ArchiveDetailsWidget</class>
    <extends>QWidget</extends>
    <header>widgets/archivewidget.h</header>
    <container>1</container>

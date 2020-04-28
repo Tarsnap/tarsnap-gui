@@ -39,7 +39,7 @@ public:
     //! Returns a pointer to the archive.
     ArchivePtr archive() const;
 
-    //! Set whether this item's details are being shown in the ArchiveWidget.
+    //! Set whether this item's details are being shown in the ArchiveDetailsWidget.
     void setShowingDetails(bool is_showing);
 
 signals:

@@ -50,11 +50,11 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
             &ArchivesTabWidget::deleteArchives);
     connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this,
             &ArchivesTabWidget::restoreArchive);
-    connect(_ui->archiveDetailsWidget, &ArchiveWidget::restoreArchive, this,
+    connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::restoreArchive, this,
             &ArchivesTabWidget::restoreArchive);
-    connect(_ui->archiveDetailsWidget, &ArchiveWidget::hidden,
+    connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::hidden,
             _ui->archiveListWidget, &ArchiveListWidget::noInspect);
-    connect(_ui->archiveDetailsWidget, &ArchiveWidget::taskRequested, this,
+    connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::taskRequested, this,
             &ArchivesTabWidget::taskRequested);
 
     connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
@@ -95,7 +95,7 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     connect(this, &ArchivesTabWidget::addArchive, _ui->archiveListWidget,
             &ArchiveListWidget::addArchive);
 
-    connect(_ui->archiveDetailsWidget, &ArchiveWidget::jobClicked,
+    connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::jobClicked,
             [this](const QString &jobRef) { emit jobClicked(jobRef); });
     connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails,
             [this](const QString &jobRef) { emit displayJobDetails(jobRef); });

@@ -206,53 +206,98 @@ void SettingsWidget::initializeSettingsWidget()
 
 void SettingsWidget::initSettingsSetValue()
 {
+    TSettings settings;
 
     /* Account tab */
     connect(_ui->accountUserLineEdit, &QLineEdit::textChanged, this,
-            &SettingsWidget::commitSettings);
+            [&settings](const QString &text) {
+                settings.setValue("tarsnap/user", text);
+            });
     connect(_ui->accountMachineKeyLineEdit, &QLineEdit::textChanged, this,
-            &SettingsWidget::commitSettings);
+            [&settings](const QString &text) {
+                settings.setValue("tarsnap/key", text);
+            });
 
     /* Backup tab */
     connect(_ui->aggressiveNetworkingCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("tarsnap/aggressive_networking", checked);
+            });
     connect(_ui->preservePathsCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("tarsnap/preserve_pathnames", checked);
+            });
     connect(_ui->traverseMountCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("tarsnap/traverse_mount", checked);
+            });
     connect(_ui->followSymLinksCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("tarsnap/follow_symlinks", checked);
+            });
     connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this,
-            &SettingsWidget::commitSettings);
+            [this, &settings]() {
+                settings.setValue("app/skip_files_size",
+                                  _ui->skipFilesSizeSpinBox->value());
+            });
     connect(_ui->skipSystemJunkCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("app/skip_system_enabled", checked);
+            });
     connect(_ui->skipSystemLineEdit, &QLineEdit::textChanged, this,
-            &SettingsWidget::commitSettings);
+            [&settings](const QString &text) {
+                settings.setValue("app/skip_system_files", text);
+            });
     connect(_ui->skipNoDumpCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("app/skip_nodump", checked);
+            });
     connect(_ui->simulationCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("tarsnap/dry_run", checked);
+            });
     connect(_ui->ignoreConfigCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("tarsnap/no_default_config", checked);
+            });
 
     connect(_ui->limitUploadSpinBox, &QSpinBox::editingFinished, this,
-            &SettingsWidget::commitSettings);
+            [this, &settings]() {
+                settings.setValue("app/limit_upload",
+                                  _ui->limitUploadSpinBox->value());
+            });
     connect(_ui->limitDownloadSpinBox, &QSpinBox::editingFinished, this,
-            &SettingsWidget::commitSettings);
+            [this, &settings]() {
+                settings.setValue("app/limit_download",
+                                  _ui->limitDownloadSpinBox->value());
+            });
 
     /* Application tab */
     connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this,
-            &SettingsWidget::commitSettings);
+            [&settings](const QString &text) {
+                settings.setValue("tarsnap/path", text);
+            });
     connect(_ui->tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
-            &SettingsWidget::commitSettings);
+            [&settings](const QString &text) {
+                settings.setValue("tarsnap/cache", text);
+            });
     connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("app/iec_prefixes", checked);
+            });
     connect(_ui->notificationsCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("app/notifications", checked);
+            });
     connect(_ui->downloadsDirLineEdit, &QLineEdit::textChanged, this,
-            &SettingsWidget::commitSettings);
+            [&settings](const QString &text) {
+                settings.setValue("app/downloads_dir", text);
+            });
     connect(_ui->saveConsoleLogCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
+            [&settings](bool checked) {
+                settings.setValue("app/save_console_log", checked);
+                LOG.setWriteToFile(checked);
+            });
 }
 
 void SettingsWidget::loadSettings()
@@ -335,45 +380,9 @@ void SettingsWidget::commitSettings()
 {
     TSettings settings;
 
-    /* Account tab */
-    settings.setValue("tarsnap/key", _ui->accountMachineKeyLineEdit->text());
-    settings.setValue("tarsnap/user", _ui->accountUserLineEdit->text());
-
-    /* Backup tab */
-    settings.setValue("tarsnap/aggressive_networking",
-                      _ui->aggressiveNetworkingCheckBox->isChecked());
-    settings.setValue("tarsnap/preserve_pathnames",
-                      _ui->preservePathsCheckBox->isChecked());
-    settings.setValue("tarsnap/traverse_mount",
-                      _ui->traverseMountCheckBox->isChecked());
-    settings.setValue("tarsnap/follow_symlinks",
-                      _ui->followSymLinksCheckBox->isChecked());
-    settings.setValue("tarsnap/no_default_config",
-                      _ui->ignoreConfigCheckBox->isChecked());
-    settings.setValue("tarsnap/dry_run", _ui->simulationCheckBox->isChecked());
-    settings.setValue("app/skip_files_size",
-                      _ui->skipFilesSizeSpinBox->value());
-    settings.setValue("app/skip_system_enabled",
-                      _ui->skipSystemJunkCheckBox->isChecked());
-    settings.setValue("app/skip_system_files", _ui->skipSystemLineEdit->text());
-    settings.setValue("app/skip_nodump", _ui->skipNoDumpCheckBox->isChecked());
-
-    settings.setValue("app/limit_upload", _ui->limitUploadSpinBox->value());
-    settings.setValue("app/limit_download", _ui->limitDownloadSpinBox->value());
-
     /* Application tab */
-    settings.setValue("tarsnap/path", _ui->tarsnapPathLineEdit->text());
-    settings.setValue("tarsnap/cache", _ui->tarsnapCacheLineEdit->text());
-    settings.setValue("app/iec_prefixes",
-                      _ui->iecPrefixesCheckBox->isChecked());
-    settings.setValue("app/downloads_dir", _ui->downloadsDirLineEdit->text());
     settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
-    settings.setValue("app/notifications",
-                      _ui->notificationsCheckBox->isChecked());
     settings.setValue("app/language", _ui->languageComboBox->currentText());
-    settings.setValue("app/save_console_log",
-                      _ui->saveConsoleLogCheckBox->isChecked());
-    LOG.setWriteToFile(settings.value("app/save_console_log", false).toBool());
 
     settings.sync();
 }

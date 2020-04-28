@@ -120,6 +120,7 @@ JobPtr JobDetailsWidget::job() const
 
 void JobDetailsWidget::setJob(const JobPtr &job)
 {
+    // Remove previous job (if applicable).
     if(_job)
     {
         _job->removeWatcher();
@@ -131,35 +132,51 @@ void JobDetailsWidget::setJob(const JobPtr &job)
                    &JobDetailsWidget::collapse);
     }
 
+    // Job is not ready for saving yet.
     _saveEnabled = false;
-    _job         = job;
+
+    // Store pointer.
+    _job = job;
 
     // Creating a new job?
     if(_job->objectKey().isEmpty())
     {
+        // Set up UI for a new Job.
         _ui->restoreButton->hide();
         _ui->backupButton->hide();
         _ui->infoLabel->hide();
         _ui->jobNameLabel->hide();
+
+        // Prep the job name, ready for approval or editing from the user.
         _ui->jobNameLineEdit->setText(_job->name());
         _ui->jobNameLineEdit->show();
         _ui->jobNameLineEdit->setFocus();
     }
     else
     {
+        // Set up UI for an existing Job.
         _ui->restoreButton->show();
         _ui->backupButton->show();
         _ui->jobNameLabel->show();
         _ui->jobNameLineEdit->hide();
+
+        // Connections to handle any change in Job-related files or dirs.
         connect(_job.data(), &Job::changed, this,
                 &JobDetailsWidget::updateDetails);
         connect(_job.data(), &Job::fsEvent, this,
                 &JobDetailsWidget::fsEventReceived);
         connect(_job.data(), &Job::purged, this, &JobDetailsWidget::collapse);
+
+        // Notify us if any change in Job-related files or dirs.
         job->installWatcher();
     }
+    // Show the filesystem tree in the widget.
     _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
+
+    // Display details about the Job.
     updateDetails();
+
+    // Job is ready for saving.
     _saveEnabled = true;
 }
 

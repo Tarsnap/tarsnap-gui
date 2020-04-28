@@ -33,8 +33,8 @@ WARNINGS_ENABLE
 #include "restoredialog.h"
 #include "utils.h"
 
-JobWidget::JobWidget(QWidget *parent)
-    : QWidget(parent), _ui(new Ui::JobWidget), _saveEnabled(false)
+JobDetailsWidget::JobDetailsWidget(QWidget *parent)
+    : QWidget(parent), _ui(new Ui::JobDetailsWidget), _saveEnabled(false)
 {
     _ui->setupUi(this);
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -42,9 +42,9 @@ JobWidget::JobWidget(QWidget *parent)
     updateUi();
 
     _fsEventUpdate.setSingleShot(true);
-    connect(&_fsEventUpdate, &QTimer::timeout, this, &JobWidget::verifyJob);
+    connect(&_fsEventUpdate, &QTimer::timeout, this, &JobDetailsWidget::verifyJob);
     connect(_ui->infoLabel, &ElidedClickableLabel::clicked, this,
-            &JobWidget::showJobPathsWarn);
+            &JobDetailsWidget::showJobPathsWarn);
     connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
             [this]() { emit enableSave(canSaveNew()); });
     connect(_ui->jobTreeWidget, &FilePickerWidget::selectionChanged, [this]() {
@@ -61,34 +61,34 @@ JobWidget::JobWidget(QWidget *parent)
     connect(_ui->scheduleComboBox,
             static_cast<void (QComboBox::*)(int)>(
                 &QComboBox::currentIndexChanged),
-            this, &JobWidget::save);
+            this, &JobDetailsWidget::save);
     connect(_ui->preservePathsCheckBox, &QCheckBox::toggled, this,
-            &JobWidget::save);
+            &JobDetailsWidget::save);
     connect(_ui->traverseMountCheckBox, &QCheckBox::toggled, this,
-            &JobWidget::save);
+            &JobDetailsWidget::save);
     connect(_ui->followSymLinksCheckBox, &QCheckBox::toggled, this,
-            &JobWidget::save);
+            &JobDetailsWidget::save);
     connect(_ui->skipNoDumpCheckBox, &QCheckBox::toggled, this,
-            &JobWidget::save);
+            &JobDetailsWidget::save);
     connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this,
-            &JobWidget::save);
+            &JobDetailsWidget::save);
     connect(_ui->skipFilesCheckBox, &QCheckBox::toggled, this,
-            &JobWidget::save);
+            &JobDetailsWidget::save);
     connect(_ui->skipFilesLineEdit, &QLineEdit::editingFinished, this,
-            &JobWidget::save);
-    connect(_ui->hideButton, &QPushButton::clicked, this, &JobWidget::collapse);
+            &JobDetailsWidget::save);
+    connect(_ui->hideButton, &QPushButton::clicked, this, &JobDetailsWidget::collapse);
     connect(_ui->restoreButton, &QPushButton::clicked, this,
-            &JobWidget::restoreButtonClicked);
+            &JobDetailsWidget::restoreButtonClicked);
     connect(_ui->backupButton, &QPushButton::clicked, this,
-            &JobWidget::backupButtonClicked);
+            &JobDetailsWidget::backupButtonClicked);
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
-            &JobWidget::inspectJobArchive);
+            &JobDetailsWidget::inspectJobArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive,
             _ui->archiveListWidget, &ArchiveListWidget::selectArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this,
-            &JobWidget::restoreJobArchive);
+            &JobDetailsWidget::restoreJobArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives, this,
-            &JobWidget::deleteJobArchives);
+            &JobDetailsWidget::deleteJobArchives);
     connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked, [this]() {
         TSettings settings;
         _ui->skipFilesLineEdit->setText(
@@ -97,7 +97,7 @@ JobWidget::JobWidget(QWidget *parent)
     });
     connect(_ui->archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,
-            &JobWidget::showArchiveListMenu);
+            &JobDetailsWidget::showArchiveListMenu);
     connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::deleteSelectedItems);
     connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
@@ -106,25 +106,25 @@ JobWidget::JobWidget(QWidget *parent)
             &ArchiveListWidget::inspectSelectedItem);
 }
 
-JobWidget::~JobWidget()
+JobDetailsWidget::~JobDetailsWidget()
 {
     delete _ui;
 }
 
-JobPtr JobWidget::job() const
+JobPtr JobDetailsWidget::job() const
 {
     return _job;
 }
 
-void JobWidget::setJob(const JobPtr &job)
+void JobDetailsWidget::setJob(const JobPtr &job)
 {
     if(_job)
     {
         _job->removeWatcher();
         disconnect(_job.data(), &Job::fsEvent, this,
-                   &JobWidget::fsEventReceived);
-        disconnect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
-        disconnect(_job.data(), &Job::purged, this, &JobWidget::collapse);
+                   &JobDetailsWidget::fsEventReceived);
+        disconnect(_job.data(), &Job::changed, this, &JobDetailsWidget::updateDetails);
+        disconnect(_job.data(), &Job::purged, this, &JobDetailsWidget::collapse);
     }
 
     _saveEnabled = false;
@@ -147,9 +147,9 @@ void JobWidget::setJob(const JobPtr &job)
         _ui->backupButton->show();
         _ui->jobNameLabel->show();
         _ui->jobNameLineEdit->hide();
-        connect(_job.data(), &Job::changed, this, &JobWidget::updateDetails);
-        connect(_job.data(), &Job::fsEvent, this, &JobWidget::fsEventReceived);
-        connect(_job.data(), &Job::purged, this, &JobWidget::collapse);
+        connect(_job.data(), &Job::changed, this, &JobDetailsWidget::updateDetails);
+        connect(_job.data(), &Job::fsEvent, this, &JobDetailsWidget::fsEventReceived);
+        connect(_job.data(), &Job::purged, this, &JobDetailsWidget::collapse);
         job->installWatcher();
     }
     _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
@@ -157,7 +157,7 @@ void JobWidget::setJob(const JobPtr &job)
     _saveEnabled = true;
 }
 
-void JobWidget::save()
+void JobDetailsWidget::save()
 {
     if(_saveEnabled && !_job->name().isEmpty())
     {
@@ -182,7 +182,7 @@ void JobWidget::save()
     }
 }
 
-void JobWidget::saveNew()
+void JobDetailsWidget::saveNew()
 {
     if(!canSaveNew())
         return;
@@ -210,7 +210,7 @@ void JobWidget::saveNew()
     emit jobAdded(_job);
 }
 
-void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
+void JobDetailsWidget::updateMatchingArchives(QList<ArchivePtr> archives)
 {
     if(!archives.isEmpty())
     {
@@ -237,7 +237,7 @@ void JobWidget::updateMatchingArchives(QList<ArchivePtr> archives)
         tr("Archives (%1)").arg(_job->archives().count()));
 }
 
-void JobWidget::changeEvent(QEvent *event)
+void JobDetailsWidget::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
     {
@@ -254,7 +254,7 @@ void JobWidget::changeEvent(QEvent *event)
     QWidget::changeEvent(event);
 }
 
-void JobWidget::updateDetails()
+void JobDetailsWidget::updateDetails()
 {
     if(!_job)
         return;
@@ -290,7 +290,7 @@ void JobWidget::updateDetails()
     canSaveNew();
 }
 
-void JobWidget::restoreButtonClicked()
+void JobDetailsWidget::restoreButtonClicked()
 {
     if(_job && !_job->archives().isEmpty())
     {
@@ -304,13 +304,13 @@ void JobWidget::restoreButtonClicked()
     }
 }
 
-void JobWidget::backupButtonClicked()
+void JobDetailsWidget::backupButtonClicked()
 {
     if(_job)
         emit backupJob(_job);
 }
 
-bool JobWidget::canSaveNew()
+bool JobDetailsWidget::canSaveNew()
 {
     QString name = _ui->jobNameLineEdit->text();
 
@@ -357,7 +357,7 @@ bool JobWidget::canSaveNew()
     return false;
 }
 
-void JobWidget::showArchiveListMenu(const QPoint &pos)
+void JobDetailsWidget::showArchiveListMenu(const QPoint &pos)
 {
     QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
     QMenu  archiveListMenu(_ui->archiveListWidget);
@@ -373,12 +373,12 @@ void JobWidget::showArchiveListMenu(const QPoint &pos)
     archiveListMenu.exec(globalPos);
 }
 
-void JobWidget::fsEventReceived()
+void JobDetailsWidget::fsEventReceived()
 {
     _fsEventUpdate.start(250); // coalesce update events with a 250ms time delay
 }
 
-void JobWidget::showJobPathsWarn()
+void JobDetailsWidget::showJobPathsWarn()
 {
     if(_job->urls().isEmpty())
         return;
@@ -396,7 +396,7 @@ void JobWidget::showJobPathsWarn()
     msg->show();
 }
 
-void JobWidget::verifyJob()
+void JobDetailsWidget::verifyJob()
 {
     if(_job->objectKey().isEmpty())
         return;
@@ -424,7 +424,7 @@ void JobWidget::verifyJob()
     }
 }
 
-void JobWidget::updateUi()
+void JobDetailsWidget::updateUi()
 {
     _ui->hideButton->setToolTip(_ui->hideButton->toolTip().arg(
         QKeySequence(Qt::Key_Escape).toString(QKeySequence::NativeText)));

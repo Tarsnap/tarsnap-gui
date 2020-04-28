@@ -18,17 +18,17 @@ WARNINGS_ENABLE
 /* Forward declaration(s). */
 namespace Ui
 {
-class JobWidget;
+class JobDetailsWidget;
 }
 class QEvent;
 class QPoint;
 
 /*!
  * \ingroup widgets-specialized
- * \brief The JobWidget is a QWidget which displays detailed
+ * \brief The JobDetailsWidget is a QWidget which displays detailed
  * information about a single Job.
  */
-class JobWidget : public QWidget
+class JobDetailsWidget : public QWidget
 {
     Q_OBJECT
 
@@ -39,8 +39,8 @@ class JobWidget : public QWidget
 
 public:
     //! Constructor.
-    explicit JobWidget(QWidget *parent = nullptr);
-    ~JobWidget();
+    explicit JobDetailsWidget(QWidget *parent = nullptr);
+    ~JobDetailsWidget();
 
     //! Returns the JobPtr associated with this widget.
     JobPtr job() const;
@@ -90,7 +90,7 @@ private slots:
     void verifyJob();
 
 private:
-    Ui::JobWidget *_ui;
+    Ui::JobDetailsWidget *_ui;
     JobPtr         _job;
     bool           _saveEnabled;
     QTimer         _fsEventUpdate;

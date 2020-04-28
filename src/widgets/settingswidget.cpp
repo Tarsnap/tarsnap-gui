@@ -51,13 +51,9 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     loadSettings();
     _ui->outOfDateNoticeLabel->hide();
 
-    /* Account tab */
+    initSettingsSetValue();
 
     // Settings
-    connect(_ui->accountUserLineEdit, &QLineEdit::editingFinished, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->accountMachineKeyLineEdit, &QLineEdit::editingFinished, this,
-            &SettingsWidget::commitSettings);
     connect(_ui->accountMachineKeyLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::validateMachineKeyPath);
     connect(_ui->accountMachineKeyBrowseButton, &QPushButton::clicked, this,
@@ -84,31 +80,6 @@ SettingsWidget::SettingsWidget(QWidget *parent)
             &SettingsWidget::getAccountInfo);
 
     /* Backup tab */
-    connect(_ui->aggressiveNetworkingCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->preservePathsCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->traverseMountCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->followSymLinksCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->skipSystemJunkCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->skipSystemLineEdit, &QLineEdit::editingFinished, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->skipNoDumpCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->simulationCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->ignoreConfigCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
-
-    connect(_ui->limitUploadSpinBox, &QSpinBox::editingFinished, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->limitDownloadSpinBox, &QSpinBox::editingFinished, this,
-            &SettingsWidget::commitSettings);
     connect(_ui->enableSchedulingButton, &QPushButton::clicked,
             _schedulingWidgets,
             &SchedulingWidgets::enableJobSchedulingButtonClicked);
@@ -122,24 +93,12 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     });
 
     /* Application tab */
-    connect(_ui->tarsnapPathLineEdit, &QLineEdit::editingFinished, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->tarsnapCacheLineEdit, &QLineEdit::editingFinished, this,
-            &SettingsWidget::commitSettings);
     connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::validateTarsnapPath);
     connect(_ui->tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::validateTarsnapCache);
     connect(_ui->appDataDirLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::validateAppDataDir);
-    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->notificationsCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->downloadsDirLineEdit, &QLineEdit::editingFinished, this,
-            &SettingsWidget::commitSettings);
-    connect(_ui->saveConsoleLogCheckBox, &QCheckBox::toggled, this,
-            &SettingsWidget::commitSettings);
 
     connect(_ui->tarsnapPathBrowseButton, &QPushButton::clicked, this,
             &SettingsWidget::tarsnapPathBrowseButtonClicked);
@@ -243,6 +202,57 @@ void SettingsWidget::initializeSettingsWidget()
                               tr("Application data dir is invalid. Go to "
                                  " Settings -> Application page to fix that."));
     }
+}
+
+void SettingsWidget::initSettingsSetValue()
+{
+
+    /* Account tab */
+    connect(_ui->accountUserLineEdit, &QLineEdit::editingFinished, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->accountMachineKeyLineEdit, &QLineEdit::editingFinished, this,
+            &SettingsWidget::commitSettings);
+
+    /* Backup tab */
+    connect(_ui->aggressiveNetworkingCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->preservePathsCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->traverseMountCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->followSymLinksCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->skipFilesSizeSpinBox, &QSpinBox::editingFinished, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->skipSystemJunkCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->skipSystemLineEdit, &QLineEdit::editingFinished, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->skipNoDumpCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->simulationCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->ignoreConfigCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+
+    connect(_ui->limitUploadSpinBox, &QSpinBox::editingFinished, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->limitDownloadSpinBox, &QSpinBox::editingFinished, this,
+            &SettingsWidget::commitSettings);
+
+    /* Application tab */
+    connect(_ui->tarsnapPathLineEdit, &QLineEdit::editingFinished, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->tarsnapCacheLineEdit, &QLineEdit::editingFinished, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->notificationsCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->downloadsDirLineEdit, &QLineEdit::editingFinished, this,
+            &SettingsWidget::commitSettings);
+    connect(_ui->saveConsoleLogCheckBox, &QCheckBox::toggled, this,
+            &SettingsWidget::commitSettings);
 }
 
 void SettingsWidget::loadSettings()

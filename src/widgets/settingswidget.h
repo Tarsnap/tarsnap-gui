@@ -123,6 +123,8 @@ private:
     void updateUi();
     void loadSettings();
 
+    void initSettingsSetValue();
+
     // For the Account tab
     ConfirmationDialog *_nukeConfirmationDialog;
 

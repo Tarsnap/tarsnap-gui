@@ -208,9 +208,9 @@ void SettingsWidget::initSettingsSetValue()
 {
 
     /* Account tab */
-    connect(_ui->accountUserLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui->accountUserLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::commitSettings);
-    connect(_ui->accountMachineKeyLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui->accountMachineKeyLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::commitSettings);
 
     /* Backup tab */
@@ -226,7 +226,7 @@ void SettingsWidget::initSettingsSetValue()
             &SettingsWidget::commitSettings);
     connect(_ui->skipSystemJunkCheckBox, &QCheckBox::toggled, this,
             &SettingsWidget::commitSettings);
-    connect(_ui->skipSystemLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui->skipSystemLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::commitSettings);
     connect(_ui->skipNoDumpCheckBox, &QCheckBox::toggled, this,
             &SettingsWidget::commitSettings);
@@ -241,15 +241,15 @@ void SettingsWidget::initSettingsSetValue()
             &SettingsWidget::commitSettings);
 
     /* Application tab */
-    connect(_ui->tarsnapPathLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui->tarsnapPathLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::commitSettings);
-    connect(_ui->tarsnapCacheLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui->tarsnapCacheLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::commitSettings);
     connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, this,
             &SettingsWidget::commitSettings);
     connect(_ui->notificationsCheckBox, &QCheckBox::toggled, this,
             &SettingsWidget::commitSettings);
-    connect(_ui->downloadsDirLineEdit, &QLineEdit::editingFinished, this,
+    connect(_ui->downloadsDirLineEdit, &QLineEdit::textChanged, this,
             &SettingsWidget::commitSettings);
     connect(_ui->saveConsoleLogCheckBox, &QCheckBox::toggled, this,
             &SettingsWidget::commitSettings);

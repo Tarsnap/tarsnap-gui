@@ -129,10 +129,11 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     });
 
     connect(_ui->languageComboBox, &QComboBox::currentTextChanged,
-            [this](const QString &language) {
+            [](const QString &language) {
                 if(!language.isEmpty())
                 {
-                    this->commitSettings();
+                    TSettings settings;
+                    settings.setValue("app/language", language);
                     global_translator->translateApp(qApp, language);
                 }
             });
@@ -381,7 +382,6 @@ void SettingsWidget::commitSettings()
     TSettings settings;
 
     /* Application tab */
-    settings.setValue("app/language", _ui->languageComboBox->currentText());
 
     settings.sync();
 }

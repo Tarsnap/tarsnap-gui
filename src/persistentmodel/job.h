@@ -127,21 +127,26 @@ signals:
     void fsEvent();
 
 private:
-    QString            _name;
-    QList<QUrl>        _urls;
-    QList<ArchivePtr>  _archives;
+    // Stored in the global_store.
+    QString     _name;
+    QList<QUrl> _urls;
+    int         _optionScheduledEnabled;
+    bool        _optionPreservePaths;
+    bool        _optionTraverseMount;
+    bool        _optionFollowSymLinks;
+    int         _optionSkipFilesSize;
+    bool        _optionSkipFiles;
+    QString     _optionSkipFilesPatterns;
+    bool        _optionSkipNoDump;
+    bool        _settingShowHidden;
+    bool        _settingShowSystem;
+    bool        _settingHideSymlinks;
+
+    // Calculated by a ParseArchiveListingTask.
+    QList<ArchivePtr> _archives;
+
+    // Used internally.
     QFileSystemWatcher _fsWatcher;
-    int                _optionScheduledEnabled;
-    bool               _optionPreservePaths;
-    bool               _optionTraverseMount;
-    bool               _optionFollowSymLinks;
-    int                _optionSkipFilesSize;
-    bool               _optionSkipFiles;
-    QString            _optionSkipFilesPatterns;
-    bool               _optionSkipNoDump;
-    bool               _settingShowHidden;
-    bool               _settingShowSystem;
-    bool               _settingHideSymlinks;
 };
 
 #endif // JOB_H

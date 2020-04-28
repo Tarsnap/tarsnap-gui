@@ -298,12 +298,15 @@ void Job::save()
         DEBUG << query.lastError().text();
         return;
     }
-    // Fill in missing value in query string.
-    query.addBindValue(_name);
+    // Convert urls to a string.
     QStringList query_urls;
     for(const QUrl &url : _urls)
         query_urls << url.toString(QUrl::FullyEncoded);
-    query.addBindValue(query_urls.join('\n'));
+    const QString url_str = query_urls.join('\n');
+
+    // Fill in missing values in query string.
+    query.addBindValue(_name);
+    query.addBindValue(url_str);
     query.addBindValue(_optionScheduledEnabled);
     query.addBindValue(_optionPreservePaths);
     query.addBindValue(_optionTraverseMount);

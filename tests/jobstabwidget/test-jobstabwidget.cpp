@@ -36,7 +36,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    // Test JobWidget in isolation
+    // Test JobDetailsWidget in isolation
     void jobWidget();
     // This one needs to be before other JobsTabWidget tests
     void defaultJobs();
@@ -73,7 +73,7 @@ void TestJobsTabWidget::cleanupTestCase()
 
 void TestJobsTabWidget::jobWidget()
 {
-    JobWidget *jobWidget = new JobWidget();
+    JobDetailsWidget *jobWidget = new JobDetailsWidget();
     delete jobWidget;
 }
 
@@ -99,11 +99,11 @@ void TestJobsTabWidget::defaultJobs()
 
 void TestJobsTabWidget::createJob()
 {
-    JobsTabWidget *    jobstabwidget = new JobsTabWidget();
-    Ui::JobsTabWidget *ui            = jobstabwidget->_ui;
-    JobWidget *        jobWidget     = jobstabwidget->_ui->jobDetailsWidget;
-    Ui::JobWidget *    jobWidget_ui  = jobWidget->_ui;
-    QSignalSpy         sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
+    JobsTabWidget *       jobstabwidget = new JobsTabWidget();
+    Ui::JobsTabWidget *   ui            = jobstabwidget->_ui;
+    JobDetailsWidget *    jobWidget     = jobstabwidget->_ui->jobDetailsWidget;
+    Ui::JobDetailsWidget *jobWidget_ui  = jobWidget->_ui;
+    QSignalSpy            sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
 
     VISUAL_INIT(jobstabwidget);
 

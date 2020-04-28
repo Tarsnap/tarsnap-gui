@@ -162,7 +162,7 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Nuke di
     </message>
 </context>
 <context>
-    <name>ArchiveWidget</name>
+    <name>ArchiveDetailsWidget</name>
     <message>
         <source>Form</source>
         <translation></translation>
@@ -962,7 +962,7 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
-    <name>JobWidget</name>
+    <name>JobDetailsWidget</name>
     <message>
         <source>Form</source>
         <translation></translation>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ArchiveWidget</class>
- <widget class="QWidget" name="ArchiveWidget">
+ <class>ArchiveDetailsWidget</class>
+ <widget class="QWidget" name="ArchiveDetailsWidget">
   <property name="geometry">
    <rect>
     <x>0</x>

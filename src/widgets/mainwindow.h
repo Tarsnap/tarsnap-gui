@@ -99,7 +99,8 @@ signals:
     void archiveList(QList<ArchivePtr> archives);
     //! Passes the creation of a new Archive to the ArchiveListWidget.
     void addArchive(ArchivePtr archive);
-    //! Passes info from the ArchiveListWidget or JobWidget to the TaskManager.
+    //! Passes info from the ArchiveListWidget or JobDetailsWidget to the
+    //! TaskManager.
     void deleteArchives(QList<ArchivePtr> archives);
     //! Begin tarsnap --print-stats -f \<name\>
     void loadArchiveStats(ArchivePtr archive);
@@ -137,9 +138,9 @@ signals:
     // Job tab
     //! Passes the list of all Job objects to the JobListWidget.
     void jobList(QMap<QString, JobPtr>);
-    //! Notifies about a deleted job from the JobWidget or JobListWidget.
+    //! Notifies about a deleted job from the JobDetailsWidget or JobListWidget.
     void deleteJob(JobPtr job, bool purgeArchives);
-    //! Passes info from the JobWidget to the TaskManager.
+    //! Passes info from the JobDetailsWidget to the TaskManager.
     void jobAdded(JobPtr job);
     //! Search for all matching Archive objects which were created by a Job.
     //! \param jobPrefix prefix of the Archive names to match.

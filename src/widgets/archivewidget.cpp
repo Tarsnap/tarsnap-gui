@@ -33,9 +33,9 @@ WARNINGS_ENABLE
 
 #define EMPTY_TAR_ARCHIVE_BYTES 2000
 
-ArchiveWidget::ArchiveWidget(QWidget *parent)
+ArchiveDetailsWidget::ArchiveDetailsWidget(QWidget *parent)
     : QWidget(parent),
-      _ui(new Ui::ArchiveWidget),
+      _ui(new Ui::ArchiveDetailsWidget),
       _contentsModel(new FileTableModel(this)),
       _proxyModel(new QSortFilterProxyModel(_contentsModel)),
       _fileMenu(this)
@@ -52,15 +52,15 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
     _fileMenu.addAction(_ui->actionRestoreFiles);
     connect(_ui->archiveContentsTableView,
             &QTableView::customContextMenuRequested, this,
-            &ArchiveWidget::showContextMenu);
+            &ArchiveDetailsWidget::showContextMenu);
     connect(_ui->actionRestoreFiles, &QAction::triggered, this,
-            &ArchiveWidget::restoreFiles);
+            &ArchiveDetailsWidget::restoreFiles);
     connect(_ui->archiveContentsTableView, &QTableView::activated, this,
-            &ArchiveWidget::restoreFiles);
+            &ArchiveDetailsWidget::restoreFiles);
     connect(_ui->hideButton, &QPushButton::clicked, this,
-            &ArchiveWidget::close);
+            &ArchiveDetailsWidget::close);
     connect(_contentsModel, &FileTableModel::taskRequested, this,
-            &ArchiveWidget::taskRequested);
+            &ArchiveDetailsWidget::taskRequested);
     connect(_ui->archiveJobLabel, &ElidedClickableLabel::clicked,
             [this]() { emit jobClicked(_archive->jobRef()); });
     connect(_contentsModel, &FileTableModel::modelReset, [this]() {
@@ -84,21 +84,21 @@ ArchiveWidget::ArchiveWidget(QWidget *parent)
             });
 }
 
-ArchiveWidget::~ArchiveWidget()
+ArchiveDetailsWidget::~ArchiveDetailsWidget()
 {
     delete _proxyModel;
     delete _contentsModel;
     delete _ui;
 }
 
-void ArchiveWidget::setArchive(ArchivePtr archive)
+void ArchiveDetailsWidget::setArchive(ArchivePtr archive)
 {
     if(_archive)
     {
         disconnect(_archive.data(), &Archive::changed, this,
-                   &ArchiveWidget::updateDetails);
+                   &ArchiveDetailsWidget::updateDetails);
         disconnect(_archive.data(), &Archive::purged, this,
-                   &ArchiveWidget::close);
+                   &ArchiveDetailsWidget::close);
     }
 
     _archive = archive;
@@ -106,8 +106,9 @@ void ArchiveWidget::setArchive(ArchivePtr archive)
     if(_archive)
     {
         connect(_archive.data(), &Archive::changed, this,
-                &ArchiveWidget::updateDetails);
-        connect(_archive.data(), &Archive::purged, this, &ArchiveWidget::close);
+                &ArchiveDetailsWidget::updateDetails);
+        connect(_archive.data(), &Archive::purged, this,
+                &ArchiveDetailsWidget::close);
         updateDetails();
     }
     else
@@ -116,7 +117,7 @@ void ArchiveWidget::setArchive(ArchivePtr archive)
     }
 }
 
-void ArchiveWidget::updateDetails()
+void ArchiveDetailsWidget::updateDetails()
 {
     if(_archive)
     {
@@ -169,14 +170,14 @@ void ArchiveWidget::updateDetails()
     }
 }
 
-void ArchiveWidget::closeEvent(QCloseEvent *event)
+void ArchiveDetailsWidget::closeEvent(QCloseEvent *event)
 {
     Q_UNUSED(event)
     setArchive(ArchivePtr()); // Release memory held by the contents widget
     emit hidden();
 }
 
-void ArchiveWidget::keyPressEvent(QKeyEvent *event)
+void ArchiveDetailsWidget::keyPressEvent(QKeyEvent *event)
 {
     if((event->key() == Qt::Key_Escape) && _ui->filterComboBox->isVisible())
     {
@@ -196,7 +197,7 @@ void ArchiveWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void ArchiveWidget::changeEvent(QEvent *event)
+void ArchiveDetailsWidget::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
     {
@@ -207,14 +208,14 @@ void ArchiveWidget::changeEvent(QEvent *event)
     QWidget::changeEvent(event);
 }
 
-void ArchiveWidget::showContextMenu(const QPoint &pos)
+void ArchiveDetailsWidget::showContextMenu(const QPoint &pos)
 {
     QPoint globalPos =
         _ui->archiveContentsTableView->viewport()->mapToGlobal(pos);
     _fileMenu.exec(globalPos);
 }
 
-void ArchiveWidget::restoreFiles()
+void ArchiveDetailsWidget::restoreFiles()
 {
     QModelIndexList indexes =
         _ui->archiveContentsTableView->selectionModel()->selectedRows();
@@ -233,7 +234,7 @@ void ArchiveWidget::restoreFiles()
     });
 }
 
-void ArchiveWidget::updateUi()
+void ArchiveDetailsWidget::updateUi()
 {
     _ui->hideButton->setToolTip(_ui->hideButton->toolTip().arg(
         QKeySequence(Qt::Key_Escape).toString(QKeySequence::NativeText)));

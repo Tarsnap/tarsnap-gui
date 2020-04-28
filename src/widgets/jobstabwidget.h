@@ -56,7 +56,7 @@ signals:
     void jobAdded(JobPtr job);
     //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);
-    //! Notifies about a deleted job from the JobWidget or JobListWidget.
+    //! Notifies about a deleted job from the JobDetailsWidget or JobListWidget.
     void deleteJob(JobPtr job, bool purgeArchives);
     //! Search for all matching Archive objects which were created by a Job.
     //! \param jobPrefix prefix of the Archive names to match.
@@ -65,7 +65,8 @@ signals:
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! Show detailed information about an archive.
     void displayInspectArchive(ArchivePtr archive);
-    //! Passes info from the ArchiveListWidget or JobWidget to the TaskManager.
+    //! Passes info from the ArchiveListWidget or JobDetailsWidget to the
+    //! TaskManager.
     void deleteArchives(QList<ArchivePtr> archives);
     //! Create new archives for the selected job(s).
     void backupSelectedItems();

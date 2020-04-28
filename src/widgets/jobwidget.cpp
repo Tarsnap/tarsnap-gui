@@ -37,13 +37,17 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::JobDetailsWidget), _saveEnabled(false)
 {
     _ui->setupUi(this);
+
+    // Basic UI
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->infoLabel->hide();
     updateUi();
 
+    // Set up the timer for filesystem events
     _fsEventUpdate.setSingleShot(true);
     connect(&_fsEventUpdate, &QTimer::timeout, this,
             &JobDetailsWidget::verifyJob);
+
     connect(_ui->infoLabel, &ElidedClickableLabel::clicked, this,
             &JobDetailsWidget::showJobPathsWarn);
     connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,

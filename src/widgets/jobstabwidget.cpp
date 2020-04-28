@@ -59,30 +59,30 @@ JobsTabWidget::JobsTabWidget(QWidget *parent)
             &JobsTabWidget::addJobClicked);
 
     // Connections from the JobDetailsWidget
-    connect(_ui->jobDetailsWidget, &JobWidget::collapse, this,
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::collapse, this,
             &JobsTabWidget::hideJobDetails);
-    connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, this,
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::jobAdded, this,
             &JobsTabWidget::displayJobDetails);
-    connect(_ui->jobDetailsWidget, &JobWidget::enableSave, _ui->addJobButton,
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::enableSave, _ui->addJobButton,
             &QToolButton::setEnabled);
 
     // Connections from the JobDetailsWidget that get forwarded on
-    connect(_ui->jobDetailsWidget, &JobWidget::jobAdded, this,
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::jobAdded, this,
             &JobsTabWidget::jobAdded);
-    connect(_ui->jobDetailsWidget, &JobWidget::inspectJobArchive, this,
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::inspectJobArchive, this,
             &JobsTabWidget::displayInspectArchive);
-    connect(_ui->jobDetailsWidget, &JobWidget::restoreJobArchive, this,
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::restoreJobArchive, this,
             &JobsTabWidget::restoreArchive);
-    connect(_ui->jobDetailsWidget, &JobWidget::deleteJobArchives, this,
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::deleteJobArchives, this,
             &JobsTabWidget::deleteArchives);
-    connect(_ui->jobDetailsWidget, &JobWidget::backupJob, this,
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::backupJob, this,
             &JobsTabWidget::backupJob);
-    connect(_ui->jobDetailsWidget, &JobWidget::findMatchingArchives, this,
+    connect(_ui->jobDetailsWidget, &JobDetailsWidget::findMatchingArchives, this,
             &JobsTabWidget::findMatchingArchives);
 
     // Connections to the JobDetailsWidget
     connect(this, &JobsTabWidget::matchingArchives, _ui->jobDetailsWidget,
-            &JobWidget::updateMatchingArchives);
+            &JobDetailsWidget::updateMatchingArchives);
 
     // Connections from the JobListWidget
     connect(_ui->jobListWidget, &JobListWidget::displayJobDetails, this,

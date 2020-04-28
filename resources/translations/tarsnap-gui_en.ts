@@ -947,7 +947,7 @@ Add anyway?</source>
     </message>
 </context>
 <context>
-    <name>JobWidget</name>
+    <name>JobDetailsWidget</name>
     <message>
         <source>Form</source>
         <translation type="unfinished"></translation>

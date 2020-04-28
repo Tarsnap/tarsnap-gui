@@ -96,7 +96,6 @@ protected:
 
 private slots:
     // For the Account tab
-    void commitSettings();
     void updateAccountCredit(qreal credit, QDate date);
     void updateLastMachineActivity(QStringList activityFields);
     bool validateMachineKeyPath();

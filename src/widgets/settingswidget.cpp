@@ -377,15 +377,6 @@ void SettingsWidget::loadSettings()
         settings.value("app/language", LANG_AUTO).toString());
 }
 
-void SettingsWidget::commitSettings()
-{
-    TSettings settings;
-
-    /* Application tab */
-
-    settings.sync();
-}
-
 void SettingsWidget::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
@@ -461,10 +452,7 @@ void SettingsWidget::accountMachineKeyBrowseButtonClicked()
         QFileDialog::getOpenFileName(this,
                                      tr("Browse for existing machine key"));
     if(!key.isEmpty())
-    {
         _ui->accountMachineKeyLineEdit->setText(key);
-        commitSettings();
-    }
 }
 
 void SettingsWidget::nukeArchivesButtonClicked()
@@ -629,10 +617,7 @@ void SettingsWidget::tarsnapPathBrowseButtonClicked()
         QFileDialog::getExistingDirectory(this, tr("Find Tarsnap client"),
                                           _ui->tarsnapPathLineEdit->text());
     if(!tarsnapPath.isEmpty())
-    {
         _ui->tarsnapPathLineEdit->setText(tarsnapPath);
-        commitSettings();
-    }
 }
 
 void SettingsWidget::tarsnapCacheBrowseButton()
@@ -641,10 +626,7 @@ void SettingsWidget::tarsnapCacheBrowseButton()
         QFileDialog::getExistingDirectory(this, tr("Tarsnap cache location"),
                                           _ui->tarsnapCacheLineEdit->text());
     if(!tarsnapCacheDir.isEmpty())
-    {
         _ui->tarsnapCacheLineEdit->setText(tarsnapCacheDir);
-        commitSettings();
-    }
 }
 
 void SettingsWidget::appDataButtonClicked()
@@ -654,10 +636,7 @@ void SettingsWidget::appDataButtonClicked()
                                           tr("App data directory location"),
                                           _ui->appDataDirLineEdit->text());
     if(!appDataDir.isEmpty())
-    {
         _ui->appDataDirLineEdit->setText(appDataDir);
-        commitSettings();
-    }
 }
 
 void SettingsWidget::runSetupWizardClicked()
@@ -687,10 +666,7 @@ void SettingsWidget::downloadsDirBrowseButtonClicked()
                                           tr("Browse for downloads directory"),
                                           DEFAULT_DOWNLOADS);
     if(!downDir.isEmpty())
-    {
         _ui->downloadsDirLineEdit->setText(downDir);
-        commitSettings();
-    }
 }
 
 void SettingsWidget::clearJournalClicked()

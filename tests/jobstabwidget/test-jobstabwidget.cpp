@@ -37,7 +37,7 @@ private slots:
     void cleanupTestCase();
 
     // Test JobDetailsWidget in isolation
-    void jobWidget();
+    void jobDetailsWidget();
     // This one needs to be before other JobsTabWidget tests
     void defaultJobs();
     void createJob();
@@ -71,10 +71,10 @@ void TestJobsTabWidget::cleanupTestCase()
     WAIT_FINAL;
 }
 
-void TestJobsTabWidget::jobWidget()
+void TestJobsTabWidget::jobDetailsWidget()
 {
-    JobDetailsWidget *jobWidget = new JobDetailsWidget();
-    delete jobWidget;
+    JobDetailsWidget *jobDetailsWidget = new JobDetailsWidget();
+    delete jobDetailsWidget;
 }
 
 void TestJobsTabWidget::defaultJobs()

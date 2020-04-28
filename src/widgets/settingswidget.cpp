@@ -381,7 +381,6 @@ void SettingsWidget::commitSettings()
     TSettings settings;
 
     /* Application tab */
-    settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
     settings.setValue("app/language", _ui->languageComboBox->currentText());
 
     settings.sync();
@@ -616,6 +615,9 @@ bool SettingsWidget::validateAppDataDir()
     }
     else
     {
+        TSettings settings;
+        settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
+
         _ui->appDataDirLineEdit->setStyleSheet("QLineEdit {color: black;}");
         return true;
     }

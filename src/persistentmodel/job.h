@@ -127,10 +127,9 @@ signals:
     void fsEvent();
 
 private:
+    // Stored in the global_store.
     QString            _name;
     QList<QUrl>        _urls;
-    QList<ArchivePtr>  _archives;
-    QFileSystemWatcher _fsWatcher;
     int                _optionScheduledEnabled;
     bool               _optionPreservePaths;
     bool               _optionTraverseMount;
@@ -142,6 +141,12 @@ private:
     bool               _settingShowHidden;
     bool               _settingShowSystem;
     bool               _settingHideSymlinks;
+
+    // Calculated by a ParseArchiveListingTask.
+    QList<ArchivePtr>  _archives;
+
+    // Used internally.
+    QFileSystemWatcher _fsWatcher;
 };
 
 #endif // JOB_H

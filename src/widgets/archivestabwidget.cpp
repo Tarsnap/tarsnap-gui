@@ -4,12 +4,12 @@ WARNINGS_DISABLE
 #include <QAction>
 #include <QComboBox>
 #include <QCoreApplication>
+#include <QCursor>
 #include <QEvent>
 #include <QEventLoop>
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QMenu>
-#include <QPoint>
 #include <QWidget>
 #include <Qt>
 
@@ -175,10 +175,9 @@ void ArchivesTabWidget::displayInspectArchive(ArchivePtr archive)
     _ui->archiveListWidget->ensureCurrentItemVisible();
 }
 
-void ArchivesTabWidget::showArchiveListMenu(const QPoint &pos)
+void ArchivesTabWidget::showArchiveListMenu()
 {
-    QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
-    QMenu  archiveListMenu(_ui->archiveListWidget);
+    QMenu archiveListMenu(_ui->archiveListWidget);
     if(!_ui->archiveListWidget->selectedItems().isEmpty())
     {
         if(_ui->archiveListWidget->selectedItems().count() == 1)
@@ -189,7 +188,7 @@ void ArchivesTabWidget::showArchiveListMenu(const QPoint &pos)
         archiveListMenu.addAction(_ui->actionDelete);
     }
     archiveListMenu.addAction(_ui->actionRefresh);
-    archiveListMenu.exec(globalPos);
+    archiveListMenu.exec(QCursor::pos());
 }
 
 void ArchivesTabWidget::updateUi()

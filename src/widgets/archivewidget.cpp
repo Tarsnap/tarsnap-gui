@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QAction>
 #include <QComboBox>
+#include <QCursor>
 #include <QDateTime>
 #include <QEvent>
 #include <QKeyEvent>
@@ -10,7 +11,6 @@ WARNINGS_DISABLE
 #include <QLabel>
 #include <QModelIndex>
 #include <QModelIndexList>
-#include <QPoint>
 #include <QSortFilterProxyModel>
 #include <QStringList>
 #include <QTableView>
@@ -208,11 +208,9 @@ void ArchiveDetailsWidget::changeEvent(QEvent *event)
     QWidget::changeEvent(event);
 }
 
-void ArchiveDetailsWidget::showContextMenu(const QPoint &pos)
+void ArchiveDetailsWidget::showContextMenu()
 {
-    QPoint globalPos =
-        _ui->archiveContentsTableView->viewport()->mapToGlobal(pos);
-    _fileMenu.exec(globalPos);
+    _fileMenu.exec(QCursor::pos());
 }
 
 void ArchiveDetailsWidget::restoreFiles()

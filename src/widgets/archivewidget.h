@@ -23,7 +23,6 @@ class FileTableModel;
 class QCloseEvent;
 class QEvent;
 class QKeyEvent;
-class QPoint;
 class QSortFilterProxyModel;
 
 /*!
@@ -71,7 +70,7 @@ protected:
     void changeEvent(QEvent *event);
 
 private slots:
-    void showContextMenu(const QPoint &pos);
+    void showContextMenu();
     void restoreFiles();
     void updateDetails();
 

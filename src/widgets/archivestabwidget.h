@@ -20,7 +20,6 @@ class ArchivesTabWidget;
 }
 class BaseTask;
 class QEvent;
-class QPoint;
 
 /*!
  * \ingroup widgets-main
@@ -82,7 +81,7 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 
 private slots:
-    void showArchiveListMenu(const QPoint &pos);
+    void showArchiveListMenu();
 
 private:
     Ui::ArchivesTabWidget *_ui;

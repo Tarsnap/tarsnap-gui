@@ -21,7 +21,6 @@ namespace Ui
 class JobDetailsWidget;
 }
 class QEvent;
-class QPoint;
 
 /*!
  * \ingroup widgets-specialized
@@ -84,7 +83,7 @@ private slots:
     void restoreButtonClicked();
     void backupButtonClicked();
     bool canSaveNew();
-    void showArchiveListMenu(const QPoint &pos);
+    void showArchiveListMenu();
     void fsEventReceived();
     void showJobPathsWarn();
     void verifyJob();

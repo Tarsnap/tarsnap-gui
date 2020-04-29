@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QAction>
 #include <QComboBox>
+#include <QCursor>
 #include <QDir>
 #include <QEvent>
 #include <QFrame>
@@ -11,7 +12,6 @@ WARNINGS_DISABLE
 #include <QLabel>
 #include <QMenu>
 #include <QMessageBox>
-#include <QPoint>
 #include <QPushButton>
 #include <QUrl>
 #include <QVariant>
@@ -316,10 +316,9 @@ void JobsTabWidget::displayJobDetails(JobPtr job)
     _ui->jobDetailsWidget->show();
 }
 
-void JobsTabWidget::showJobsListMenu(const QPoint &pos)
+void JobsTabWidget::showJobsListMenu()
 {
-    QPoint globalPos = _ui->jobListWidget->viewport()->mapToGlobal(pos);
-    QMenu  jobListMenu(_ui->jobListWidget);
+    QMenu jobListMenu(_ui->jobListWidget);
     if(!_ui->jobListWidget->selectedItems().isEmpty())
     {
         jobListMenu.addAction(_ui->actionJobBackup);
@@ -334,7 +333,7 @@ void JobsTabWidget::showJobsListMenu(const QPoint &pos)
     {
         jobListMenu.addAction(_ui->actionBackupAllJobs);
     }
-    jobListMenu.exec(globalPos);
+    jobListMenu.exec(QCursor::pos());
 }
 
 void JobsTabWidget::backupJob(JobPtr job)

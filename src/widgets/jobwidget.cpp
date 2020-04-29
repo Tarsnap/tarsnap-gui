@@ -4,12 +4,12 @@ WARNINGS_DISABLE
 #include <QAction>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QCursor>
 #include <QEvent>
 #include <QKeySequence>
 #include <QLabel>
 #include <QMenu>
 #include <QMessageBox>
-#include <QPoint>
 #include <QSpinBox>
 #include <QStringList>
 #include <QTabWidget>
@@ -431,7 +431,7 @@ bool JobDetailsWidget::canSaveNew()
     return false;
 }
 
-void JobDetailsWidget::showArchiveListMenu(const QPoint &pos)
+void JobDetailsWidget::showArchiveListMenu()
 {
     // Bail if not applicable.
     if(_ui->archiveListWidget->selectedItems().isEmpty())
@@ -447,8 +447,7 @@ void JobDetailsWidget::showArchiveListMenu(const QPoint &pos)
     archiveListMenu.addAction(_ui->actionDelete);
 
     // Show menu.
-    QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
-    archiveListMenu.exec(globalPos);
+    archiveListMenu.exec(QCursor::pos());
 }
 
 void JobDetailsWidget::fsEventReceived()

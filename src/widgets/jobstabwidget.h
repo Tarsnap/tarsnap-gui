@@ -22,7 +22,6 @@ namespace Ui
 class JobsTabWidget;
 }
 class QEvent;
-class QPoint;
 
 /*!
  * \ingroup widgets-main
@@ -92,7 +91,7 @@ protected:
 private slots:
     void addDefaultJobs();
     void hideJobDetails();
-    void showJobsListMenu(const QPoint &pos);
+    void showJobsListMenu();
     void backupJob(JobPtr job);
 
 private:

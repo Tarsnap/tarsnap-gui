@@ -395,8 +395,14 @@ bool JobDetailsWidget::canSaveNew()
     JobPtr newJob(new Job);
     newJob->setName(name);
 
-    // Does it have a unique name?
-    if(!newJob->doesKeyExist(newJob->name()))
+    // Bail if it doesn't have a unique name.
+    if(newJob->doesKeyExist(newJob->name()))
+    {
+        _ui->infoLabel->messageError(
+            tr("Job name must be unique amongst existing Jobs."));
+        return false;
+    }
+
     {
         // Start looking for matching archives.
         emit findMatchingArchives(newJob->archivePrefix());
@@ -410,11 +416,6 @@ bool JobDetailsWidget::canSaveNew()
         {
             _ui->infoLabel->messageError(tr("No backup paths selected."));
         }
-    }
-    else
-    {
-        _ui->infoLabel->messageError(
-            tr("Job name must be unique amongst existing Jobs."));
     }
     return false;
 }

@@ -194,7 +194,10 @@ void JobDetailsWidget::setJob(const JobPtr &job)
 
 void JobDetailsWidget::save()
 {
-    if(_saveEnabled && !_job->name().isEmpty())
+    // Bail if saving isn't appropriate.
+    if(!_saveEnabled || _job->name().isEmpty())
+        return;
+
     {
         // Set urls and reset FileSystemWatcher.
         _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
@@ -353,7 +356,10 @@ void JobDetailsWidget::updateDetails()
 
 void JobDetailsWidget::restoreButtonClicked()
 {
-    if(_job && !_job->archives().isEmpty())
+    // Bail if it's not relevant.
+    if(!_job || _job->archives().isEmpty())
+        return;
+
     {
         // Get Archive to restore.
         ArchivePtr archive = _job->archives().first();
@@ -383,7 +389,10 @@ bool JobDetailsWidget::canSaveNew()
     _ui->infoLabel->clear();
     _ui->infoLabel->hide();
 
-    if(_job->objectKey().isEmpty() && !name.isEmpty())
+    // Bail if this isn't applicable.
+    if(!_job->objectKey().isEmpty() || name.isEmpty())
+        return false;
+
     {
         // Check that we don't have any leading or trailing whitespace.
         if(name.simplified() != name)
@@ -431,9 +440,12 @@ bool JobDetailsWidget::canSaveNew()
 
 void JobDetailsWidget::showArchiveListMenu(const QPoint &pos)
 {
+    // Bail if not applicable.
+    if(_ui->archiveListWidget->selectedItems().isEmpty())
+        return;
+
     // Construct menu.
     QMenu archiveListMenu(_ui->archiveListWidget);
-    if(!_ui->archiveListWidget->selectedItems().isEmpty())
     {
         if(_ui->archiveListWidget->selectedItems().count() == 1)
         {

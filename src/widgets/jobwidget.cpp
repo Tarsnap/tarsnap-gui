@@ -489,7 +489,9 @@ void JobDetailsWidget::verifyJob()
     // Check urls and show a warning (if applicable).
     bool validUrls = _job->validateUrls();
     _ui->infoLabel->setVisible(!validUrls);
-    if(!validUrls)
+    if(validUrls)
+        _ui->infoLabel->clear();
+    else
     {
         if(_job->urls().isEmpty())
         {

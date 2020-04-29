@@ -38,14 +38,17 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
 {
     _ui->setupUi(this);
 
+    // Basic UI.
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->infoLabel->hide();
     updateUi();
 
+    // Set up the timer for filesystem events.
     _fsEventUpdate.setSingleShot(true);
     connect(&_fsEventUpdate, &QTimer::timeout, this,
             &JobDetailsWidget::verifyJob);
 
+    // UI connections (simple).
     connect(_ui->infoLabel, &ElidedClickableLabel::clicked, this,
             &JobDetailsWidget::showJobPathsWarn);
     connect(_ui->hideButton, &QPushButton::clicked, this,
@@ -55,6 +58,7 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     connect(_ui->backupButton, &QPushButton::clicked, this,
             &JobDetailsWidget::backupButtonClicked);
 
+    // UI connections (lambda).
     connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
             [this]() { emit enableSave(canSaveNew()); });
     connect(_ui->jobTreeWidget, &FilePickerWidget::selectionChanged, [this]() {
@@ -74,6 +78,7 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
                 .toString());
     });
 
+    // Save values to the Job.
     connect(_ui->scheduleComboBox,
             static_cast<void (QComboBox::*)(int)>(
                 &QComboBox::currentIndexChanged),
@@ -92,6 +97,8 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
             &JobDetailsWidget::save);
     connect(_ui->skipFilesLineEdit, &QLineEdit::editingFinished, this,
             &JobDetailsWidget::save);
+
+    // Connection from archiveListWidget.
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &JobDetailsWidget::inspectJobArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive,
@@ -103,6 +110,8 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     connect(_ui->archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,
             &JobDetailsWidget::showArchiveListMenu);
+
+    // Connections to archiveListWidget.
     connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::deleteSelectedItems);
     connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
@@ -123,6 +132,7 @@ JobPtr JobDetailsWidget::job() const
 
 void JobDetailsWidget::setJob(const JobPtr &job)
 {
+    // Remove previous job (if applicable).
     if(_job)
     {
         _job->removeWatcher();
@@ -134,35 +144,51 @@ void JobDetailsWidget::setJob(const JobPtr &job)
                    &JobDetailsWidget::collapse);
     }
 
+    // Job is not ready for saving yet.
     _saveEnabled = false;
-    _job         = job;
+
+    // Store pointer.
+    _job = job;
 
     // Creating a new job?
     if(_job->objectKey().isEmpty())
     {
+        // Set up UI for a new Job.
         _ui->restoreButton->hide();
         _ui->backupButton->hide();
         _ui->infoLabel->hide();
         _ui->jobNameLabel->hide();
+
+        // Prep the job name, ready for approval or editing from the user.
         _ui->jobNameLineEdit->setText(_job->name());
         _ui->jobNameLineEdit->show();
         _ui->jobNameLineEdit->setFocus();
     }
     else
     {
+        // Set up UI for an existing Job.
         _ui->restoreButton->show();
         _ui->backupButton->show();
         _ui->jobNameLabel->show();
         _ui->jobNameLineEdit->hide();
+
+        // Connections to handle any change in Job-related files or dirs.
         connect(_job.data(), &Job::changed, this,
                 &JobDetailsWidget::updateDetails);
         connect(_job.data(), &Job::fsEvent, this,
                 &JobDetailsWidget::fsEventReceived);
         connect(_job.data(), &Job::purged, this, &JobDetailsWidget::collapse);
+
+        // Notify us if any change in Job-related files or dirs.
         job->installWatcher();
     }
+    // Show the filesystem tree in the widget.
     _ui->tabWidget->setCurrentWidget(_ui->jobTreeTab);
+
+    // Display details about the Job.
     updateDetails();
+
+    // Job is ready for saving.
     _saveEnabled = true;
 }
 
@@ -170,10 +196,12 @@ void JobDetailsWidget::save()
 {
     if(_saveEnabled && !_job->name().isEmpty())
     {
-        DEBUG << "SAVE JOB";
+        // Set urls and reset FileSystemWatcher.
         _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
         _job->removeWatcher();
         _job->installWatcher();
+
+        // Set all other Job data (other than the name).
         _job->setOptionScheduledEnabled(
             static_cast<JobSchedule>(_ui->scheduleComboBox->currentIndex()));
         _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
@@ -186,7 +214,11 @@ void JobDetailsWidget::save()
         _job->setSettingShowHidden(_ui->jobTreeWidget->settingShowHidden());
         _job->setSettingShowSystem(_ui->jobTreeWidget->settingShowSystem());
         _job->setSettingHideSymlinks(_ui->jobTreeWidget->settingHideSymlinks());
+
+        // Save Job to global_store.
         _job->save();
+
+        // Check that the URLs are valid, otherwise show an error message.
         verifyJob();
     }
 }
@@ -196,8 +228,10 @@ void JobDetailsWidget::saveNew()
     if(!canSaveNew())
         return;
 
-    DEBUG << "SAVE NEW JOB";
+    // Set the job name.
     _job->setName(_ui->jobNameLineEdit->text());
+
+    // Assign matching archives to the Job (if the user agrees).
     if(!_job->archives().isEmpty())
     {
         QMessageBox::StandardButton confirm =
@@ -210,6 +244,8 @@ void JobDetailsWidget::saveNew()
         if(confirm == QMessageBox::No)
             _job->setArchives(empty);
     }
+
+    // Save and notify that we have a new Job.
     save();
     for(const ArchivePtr &archive : _job->archives())
     {
@@ -221,6 +257,7 @@ void JobDetailsWidget::saveNew()
 
 void JobDetailsWidget::updateMatchingArchives(QList<ArchivePtr> archives)
 {
+    // Do we need to prompt the user to check the Job's ArchiveList tab?
     if(!archives.isEmpty())
     {
         _ui->infoLabel->setStyleSheet("");
@@ -239,7 +276,11 @@ void JobDetailsWidget::updateMatchingArchives(QList<ArchivePtr> archives)
                                           _ui->archiveListTab),
                                       false);
     }
+
+    // Update the job's Archive list.
     _job->setArchives(archives);
+
+    // Show the Archives in the UI.
     _ui->archiveListWidget->setArchives(_job->archives());
     _ui->tabWidget->setTabText(
         _ui->tabWidget->indexOf(_ui->archiveListTab),
@@ -267,14 +308,17 @@ void JobDetailsWidget::updateDetails()
 {
     if(!_job)
         return;
-    DEBUG << "UPDATE JOB DETAILS";
+
+    // Job is not ready for saving yet.
     _saveEnabled = false;
 
+    // Show name and urls.
     _ui->jobNameLabel->setText(_job->name());
     _ui->jobTreeWidget->blockSignals(true);
     _ui->jobTreeWidget->setSelectedUrls(_job->urls());
     _ui->jobTreeWidget->blockSignals(false);
 
+    // Show other Job data.
     _ui->jobTreeWidget->setSettingShowHidden(_job->settingShowHidden());
     _ui->jobTreeWidget->setSettingShowSystem(_job->settingShowSystem());
     _ui->jobTreeWidget->setSettingHideSymlinks(_job->settingHideSymlinks());
@@ -288,6 +332,7 @@ void JobDetailsWidget::updateDetails()
     _ui->skipFilesCheckBox->setChecked(_job->optionSkipFiles());
     _ui->skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
 
+    // Show any associated Archives.
     _ui->archiveListWidget->setArchives(_job->archives());
     _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(_ui->archiveListTab),
                                   _job->archives().count());
@@ -295,7 +340,10 @@ void JobDetailsWidget::updateDetails()
         _ui->tabWidget->indexOf(_ui->archiveListTab),
         tr("Archives (%1)").arg(_job->archives().count()));
 
+    // Check that the URLs are valid, otherwise show an error message.
     verifyJob();
+
+    // Job is ready for saving.
     _saveEnabled = true;
 
     // Needed when morphing a job from the Backup tab to Jobs tab.  There's
@@ -307,7 +355,10 @@ void JobDetailsWidget::restoreButtonClicked()
 {
     if(_job && !_job->archives().isEmpty())
     {
-        ArchivePtr     archive       = _job->archives().first();
+        // Get Archive to restore.
+        ArchivePtr archive = _job->archives().first();
+
+        // Launch the RestoreDialog.
         RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
         restoreDialog->show();
         connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
@@ -327,12 +378,14 @@ bool JobDetailsWidget::canSaveNew()
 {
     QString name = _ui->jobNameLineEdit->text();
 
+    // Remove info label.
     _ui->infoLabel->setStyleSheet("");
     _ui->infoLabel->clear();
     _ui->infoLabel->hide();
+
     if(_job->objectKey().isEmpty() && !name.isEmpty())
     {
-        // Check that we don't have any leading or trailing whitespace
+        // Check that we don't have any leading or trailing whitespace.
         if(name.simplified() != name)
         {
             _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
@@ -342,11 +395,17 @@ bool JobDetailsWidget::canSaveNew()
             return false;
         }
 
+        // Create a new Job.
         JobPtr newJob(new Job);
         newJob->setName(name);
+
+        // Does it have a unique name?
         if(!newJob->doesKeyExist(newJob->name()))
         {
+            // Start looking for matching archives.
             emit findMatchingArchives(newJob->archivePrefix());
+
+            // Do we have any selected urls?
             if(!_ui->jobTreeWidget->getSelectedUrls().isEmpty())
             {
                 return true;
@@ -372,6 +431,7 @@ bool JobDetailsWidget::canSaveNew()
 
 void JobDetailsWidget::showArchiveListMenu(const QPoint &pos)
 {
+    // Construct menu.
     QMenu archiveListMenu(_ui->archiveListWidget);
     if(!_ui->archiveListWidget->selectedItems().isEmpty())
     {
@@ -382,19 +442,28 @@ void JobDetailsWidget::showArchiveListMenu(const QPoint &pos)
         }
         archiveListMenu.addAction(_ui->actionDelete);
     }
+
+    // Show menu.
     QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
     archiveListMenu.exec(globalPos);
 }
 
 void JobDetailsWidget::fsEventReceived()
 {
-    _fsEventUpdate.start(250); // coalesce update events with a 250ms time delay
+    // Start (or re-start) a 250ms timer.  If this isn't restarted before it
+    // triggers, it will signal verifyJob() to run.  If we have continuous
+    // filesystem events (within 250ms of each other), verifyJob() will not
+    // be called until they've finished.
+    _fsEventUpdate.start(250);
 }
 
 void JobDetailsWidget::showJobPathsWarn()
 {
+    // Bail if not applicable.
     if(_job->urls().isEmpty())
         return;
+
+    // Warn user about missing paths.
     QMessageBox *msg = new QMessageBox(this);
     msg->setAttribute(Qt::WA_DeleteOnClose, true);
     msg->setText(tr("Previously selected backup paths for this Job are not"
@@ -411,13 +480,16 @@ void JobDetailsWidget::showJobPathsWarn()
 
 void JobDetailsWidget::verifyJob()
 {
+    // Bail if not applicable.
     if(_job->objectKey().isEmpty())
         return;
 
+    // Show urls.
     _ui->jobTreeWidget->blockSignals(true);
     _ui->jobTreeWidget->setSelectedUrls(_job->urls());
     _ui->jobTreeWidget->blockSignals(false);
 
+    // Check urls and show a warning (if applicable).
     bool validUrls = _job->validateUrls();
     _ui->infoLabel->setVisible(!validUrls);
     if(!validUrls)

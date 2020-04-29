@@ -406,16 +406,15 @@ bool JobDetailsWidget::canSaveNew()
     // Start looking for matching archives.
     emit findMatchingArchives(newJob->archivePrefix());
 
-    // Do we have any selected urls?
-    if(!_ui->jobTreeWidget->getSelectedUrls().isEmpty())
-    {
-        return true;
-    }
-    else
+    // Bail if we don't have any selected urls.
+    if(_ui->jobTreeWidget->getSelectedUrls().isEmpty())
     {
         _ui->infoLabel->messageError(tr("No backup paths selected."));
+        return false;
     }
-    return false;
+
+    // We're ok.
+    return true;
 }
 
 void JobDetailsWidget::showArchiveListMenu()

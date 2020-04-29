@@ -37,6 +37,7 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::JobDetailsWidget), _saveEnabled(false)
 {
     _ui->setupUi(this);
+
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->infoLabel->hide();
     updateUi();
@@ -44,8 +45,16 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     _fsEventUpdate.setSingleShot(true);
     connect(&_fsEventUpdate, &QTimer::timeout, this,
             &JobDetailsWidget::verifyJob);
+
     connect(_ui->infoLabel, &ElidedClickableLabel::clicked, this,
             &JobDetailsWidget::showJobPathsWarn);
+    connect(_ui->hideButton, &QPushButton::clicked, this,
+            &JobDetailsWidget::collapse);
+    connect(_ui->restoreButton, &QPushButton::clicked, this,
+            &JobDetailsWidget::restoreButtonClicked);
+    connect(_ui->backupButton, &QPushButton::clicked, this,
+            &JobDetailsWidget::backupButtonClicked);
+
     connect(_ui->jobNameLineEdit, &QLineEdit::textChanged,
             [this]() { emit enableSave(canSaveNew()); });
     connect(_ui->jobTreeWidget, &FilePickerWidget::selectionChanged, [this]() {
@@ -57,6 +66,12 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     connect(_ui->jobTreeWidget, &FilePickerWidget::settingChanged, [this]() {
         if(!_job->objectKey().isEmpty())
             save();
+    });
+    connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked, [this]() {
+        TSettings settings;
+        _ui->skipFilesLineEdit->setText(
+            settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
+                .toString());
     });
 
     connect(_ui->scheduleComboBox,
@@ -77,12 +92,6 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
             &JobDetailsWidget::save);
     connect(_ui->skipFilesLineEdit, &QLineEdit::editingFinished, this,
             &JobDetailsWidget::save);
-    connect(_ui->hideButton, &QPushButton::clicked, this,
-            &JobDetailsWidget::collapse);
-    connect(_ui->restoreButton, &QPushButton::clicked, this,
-            &JobDetailsWidget::restoreButtonClicked);
-    connect(_ui->backupButton, &QPushButton::clicked, this,
-            &JobDetailsWidget::backupButtonClicked);
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &JobDetailsWidget::inspectJobArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive,
@@ -91,12 +100,6 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
             &JobDetailsWidget::restoreJobArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::deleteArchives, this,
             &JobDetailsWidget::deleteJobArchives);
-    connect(_ui->skipFilesDefaultsButton, &QPushButton::clicked, [this]() {
-        TSettings settings;
-        _ui->skipFilesLineEdit->setText(
-            settings.value("app/skip_system_files", DEFAULT_SKIP_SYSTEM_FILES)
-                .toString());
-    });
     connect(_ui->archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,
             &JobDetailsWidget::showArchiveListMenu);
@@ -266,14 +269,15 @@ void JobDetailsWidget::updateDetails()
         return;
     DEBUG << "UPDATE JOB DETAILS";
     _saveEnabled = false;
+
     _ui->jobNameLabel->setText(_job->name());
-    _ui->jobTreeWidget->setSettingShowHidden(_job->settingShowHidden());
-    _ui->jobTreeWidget->setSettingShowSystem(_job->settingShowSystem());
-    _ui->jobTreeWidget->setSettingHideSymlinks(_job->settingHideSymlinks());
     _ui->jobTreeWidget->blockSignals(true);
     _ui->jobTreeWidget->setSelectedUrls(_job->urls());
     _ui->jobTreeWidget->blockSignals(false);
-    _ui->archiveListWidget->setArchives(_job->archives());
+
+    _ui->jobTreeWidget->setSettingShowHidden(_job->settingShowHidden());
+    _ui->jobTreeWidget->setSettingShowSystem(_job->settingShowSystem());
+    _ui->jobTreeWidget->setSettingHideSymlinks(_job->settingHideSymlinks());
     _ui->scheduleComboBox->setCurrentIndex(
         static_cast<int>(_job->optionScheduledEnabled()));
     _ui->preservePathsCheckBox->setChecked(_job->optionPreservePaths());
@@ -283,11 +287,14 @@ void JobDetailsWidget::updateDetails()
     _ui->skipFilesSizeSpinBox->setValue(_job->optionSkipFilesSize());
     _ui->skipFilesCheckBox->setChecked(_job->optionSkipFiles());
     _ui->skipFilesLineEdit->setText(_job->optionSkipFilesPatterns());
+
+    _ui->archiveListWidget->setArchives(_job->archives());
     _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(_ui->archiveListTab),
                                   _job->archives().count());
     _ui->tabWidget->setTabText(
         _ui->tabWidget->indexOf(_ui->archiveListTab),
         tr("Archives (%1)").arg(_job->archives().count()));
+
     verifyJob();
     _saveEnabled = true;
 
@@ -365,8 +372,7 @@ bool JobDetailsWidget::canSaveNew()
 
 void JobDetailsWidget::showArchiveListMenu(const QPoint &pos)
 {
-    QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
-    QMenu  archiveListMenu(_ui->archiveListWidget);
+    QMenu archiveListMenu(_ui->archiveListWidget);
     if(!_ui->archiveListWidget->selectedItems().isEmpty())
     {
         if(_ui->archiveListWidget->selectedItems().count() == 1)
@@ -376,6 +382,7 @@ void JobDetailsWidget::showArchiveListMenu(const QPoint &pos)
         }
         archiveListMenu.addAction(_ui->actionDelete);
     }
+    QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);
     archiveListMenu.exec(globalPos);
 }
 

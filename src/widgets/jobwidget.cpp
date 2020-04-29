@@ -198,30 +198,30 @@ void JobDetailsWidget::save()
     if(!_saveEnabled || _job->name().isEmpty())
         return;
 
-        // Set urls and reset FileSystemWatcher.
-        _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
-        _job->removeWatcher();
-        _job->installWatcher();
+    // Set urls and reset FileSystemWatcher.
+    _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
+    _job->removeWatcher();
+    _job->installWatcher();
 
-        // Set all other Job data (other than the name).
-        _job->setOptionScheduledEnabled(
-            static_cast<JobSchedule>(_ui->scheduleComboBox->currentIndex()));
-        _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
-        _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
-        _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
-        _job->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
-        _job->setOptionSkipFilesSize(_ui->skipFilesSizeSpinBox->value());
-        _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
-        _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
-        _job->setSettingShowHidden(_ui->jobTreeWidget->settingShowHidden());
-        _job->setSettingShowSystem(_ui->jobTreeWidget->settingShowSystem());
-        _job->setSettingHideSymlinks(_ui->jobTreeWidget->settingHideSymlinks());
+    // Set all other Job data (other than the name).
+    _job->setOptionScheduledEnabled(
+        static_cast<JobSchedule>(_ui->scheduleComboBox->currentIndex()));
+    _job->setOptionPreservePaths(_ui->preservePathsCheckBox->isChecked());
+    _job->setOptionTraverseMount(_ui->traverseMountCheckBox->isChecked());
+    _job->setOptionFollowSymLinks(_ui->followSymLinksCheckBox->isChecked());
+    _job->setOptionSkipNoDump(_ui->skipNoDumpCheckBox->isChecked());
+    _job->setOptionSkipFilesSize(_ui->skipFilesSizeSpinBox->value());
+    _job->setOptionSkipFiles(_ui->skipFilesCheckBox->isChecked());
+    _job->setOptionSkipFilesPatterns(_ui->skipFilesLineEdit->text());
+    _job->setSettingShowHidden(_ui->jobTreeWidget->settingShowHidden());
+    _job->setSettingShowSystem(_ui->jobTreeWidget->settingShowSystem());
+    _job->setSettingHideSymlinks(_ui->jobTreeWidget->settingHideSymlinks());
 
-        // Save Job to global_store.
-        _job->save();
+    // Save Job to global_store.
+    _job->save();
 
-        // Check that the URLs are valid, otherwise show an error message.
-        verifyJob();
+    // Check that the URLs are valid, otherwise show an error message.
+    verifyJob();
 }
 
 void JobDetailsWidget::saveNew()
@@ -358,16 +358,16 @@ void JobDetailsWidget::restoreButtonClicked()
     if(!_job || _job->archives().isEmpty())
         return;
 
-        // Get Archive to restore.
-        ArchivePtr archive = _job->archives().first();
+    // Get Archive to restore.
+    ArchivePtr archive = _job->archives().first();
 
-        // Launch the RestoreDialog.
-        RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
-        restoreDialog->show();
-        connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
-            emit restoreJobArchive(restoreDialog->archive(),
-                                   restoreDialog->getOptions());
-        });
+    // Launch the RestoreDialog.
+    RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
+    restoreDialog->show();
+    connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
+        emit restoreJobArchive(restoreDialog->archive(),
+                               restoreDialog->getOptions());
+    });
 }
 
 void JobDetailsWidget::backupButtonClicked()
@@ -389,46 +389,45 @@ bool JobDetailsWidget::canSaveNew()
     if(!_job->objectKey().isEmpty() || name.isEmpty())
         return false;
 
-        // Check that we don't have any leading or trailing whitespace.
-        if(name.simplified() != name)
+    // Check that we don't have any leading or trailing whitespace.
+    if(name.simplified() != name)
+    {
+        _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
+        _ui->infoLabel->setText(
+            tr("Job name cannot contain a leading or trailing whitespace."));
+        _ui->infoLabel->show();
+        return false;
+    }
+
+    // Create a new Job.
+    JobPtr newJob(new Job);
+    newJob->setName(name);
+
+    // Does it have a unique name?
+    if(!newJob->doesKeyExist(newJob->name()))
+    {
+        // Start looking for matching archives.
+        emit findMatchingArchives(newJob->archivePrefix());
+
+        // Do we have any selected urls?
+        if(!_ui->jobTreeWidget->getSelectedUrls().isEmpty())
         {
-            _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
-            _ui->infoLabel->setText(tr(
-                "Job name cannot contain a leading or trailing whitespace."));
-            _ui->infoLabel->show();
-            return false;
-        }
-
-        // Create a new Job.
-        JobPtr newJob(new Job);
-        newJob->setName(name);
-
-        // Does it have a unique name?
-        if(!newJob->doesKeyExist(newJob->name()))
-        {
-            // Start looking for matching archives.
-            emit findMatchingArchives(newJob->archivePrefix());
-
-            // Do we have any selected urls?
-            if(!_ui->jobTreeWidget->getSelectedUrls().isEmpty())
-            {
-                return true;
-            }
-            else
-            {
-                _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
-                _ui->infoLabel->setText(tr("No backup paths selected."));
-                _ui->infoLabel->show();
-            }
+            return true;
         }
         else
         {
             _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
-            _ui->infoLabel->setText(
-                tr("Job name must be unique amongst existing"
-                   " Jobs."));
+            _ui->infoLabel->setText(tr("No backup paths selected."));
             _ui->infoLabel->show();
         }
+    }
+    else
+    {
+        _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
+        _ui->infoLabel->setText(tr("Job name must be unique amongst existing"
+                                   " Jobs."));
+        _ui->infoLabel->show();
+    }
     return false;
 }
 
@@ -440,12 +439,12 @@ void JobDetailsWidget::showArchiveListMenu(const QPoint &pos)
 
     // Construct menu.
     QMenu archiveListMenu(_ui->archiveListWidget);
-        if(_ui->archiveListWidget->selectedItems().count() == 1)
-        {
-            archiveListMenu.addAction(_ui->actionInspect);
-            archiveListMenu.addAction(_ui->actionRestore);
-        }
-        archiveListMenu.addAction(_ui->actionDelete);
+    if(_ui->archiveListWidget->selectedItems().count() == 1)
+    {
+        archiveListMenu.addAction(_ui->actionInspect);
+        archiveListMenu.addAction(_ui->actionRestore);
+    }
+    archiveListMenu.addAction(_ui->actionDelete);
 
     // Show menu.
     QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);

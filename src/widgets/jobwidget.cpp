@@ -239,23 +239,23 @@ void JobDetailsWidget::saveNew()
                                       .arg(_job->archives().count()),
                                   QMessageBox::Yes | QMessageBox::No,
                                   QMessageBox::No);
-        QList<ArchivePtr> empty;
         if(confirm == QMessageBox::Yes)
         {
+            for(const ArchivePtr &archive : _job->archives())
+            {
+                archive->setJobRef(_job->objectKey());
+                archive->save();
+            }
         }
         else
         {
+            QList<ArchivePtr> empty;
             _job->setArchives(empty);
         }
     }
 
     // Save and notify that we have a new Job.
     save();
-    for(const ArchivePtr &archive : _job->archives())
-    {
-        archive->setJobRef(_job->objectKey());
-        archive->save();
-    }
     emit jobAdded(_job);
 }
 

@@ -403,19 +403,17 @@ bool JobDetailsWidget::canSaveNew()
         return false;
     }
 
-    {
-        // Start looking for matching archives.
-        emit findMatchingArchives(newJob->archivePrefix());
+    // Start looking for matching archives.
+    emit findMatchingArchives(newJob->archivePrefix());
 
-        // Do we have any selected urls?
-        if(!_ui->jobTreeWidget->getSelectedUrls().isEmpty())
-        {
-            return true;
-        }
-        else
-        {
-            _ui->infoLabel->messageError(tr("No backup paths selected."));
-        }
+    // Do we have any selected urls?
+    if(!_ui->jobTreeWidget->getSelectedUrls().isEmpty())
+    {
+        return true;
+    }
+    else
+    {
+        _ui->infoLabel->messageError(tr("No backup paths selected."));
     }
     return false;
 }

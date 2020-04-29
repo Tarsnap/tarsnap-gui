@@ -27,6 +27,8 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     // Ui initialization
     _ui->setupUi(this);
 
+    _archiveListMenu = new QMenu(_ui->archiveListWidget);
+
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->archiveDetailsWidget->hide();
     _ui->archivesFilterFrame->hide();
@@ -177,18 +179,17 @@ void ArchivesTabWidget::displayInspectArchive(ArchivePtr archive)
 
 void ArchivesTabWidget::showArchiveListMenu()
 {
-    QMenu archiveListMenu(_ui->archiveListWidget);
     if(!_ui->archiveListWidget->selectedItems().isEmpty())
     {
         if(_ui->archiveListWidget->selectedItems().count() == 1)
         {
-            archiveListMenu.addAction(_ui->actionInspect);
-            archiveListMenu.addAction(_ui->actionRestore);
+            _archiveListMenu->addAction(_ui->actionInspect);
+            _archiveListMenu->addAction(_ui->actionRestore);
         }
-        archiveListMenu.addAction(_ui->actionDelete);
+        _archiveListMenu->addAction(_ui->actionDelete);
     }
-    archiveListMenu.addAction(_ui->actionRefresh);
-    archiveListMenu.exec(QCursor::pos());
+    _archiveListMenu->addAction(_ui->actionRefresh);
+    _archiveListMenu->popup(QCursor::pos());
 }
 
 void ArchivesTabWidget::updateUi()

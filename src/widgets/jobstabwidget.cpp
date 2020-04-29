@@ -38,6 +38,8 @@ JobsTabWidget::JobsTabWidget(QWidget *parent)
 {
     // Ui initialization
     _ui->setupUi(this);
+
+    _jobListMenu = new QMenu(_ui->jobListWidget);
     _ui->jobListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->jobDetailsWidget->hide();
     _ui->jobsFilterFrame->hide();
@@ -318,22 +320,21 @@ void JobsTabWidget::displayJobDetails(JobPtr job)
 
 void JobsTabWidget::showJobsListMenu()
 {
-    QMenu jobListMenu(_ui->jobListWidget);
     if(!_ui->jobListWidget->selectedItems().isEmpty())
     {
-        jobListMenu.addAction(_ui->actionJobBackup);
+        _jobListMenu->addAction(_ui->actionJobBackup);
         if(_ui->jobListWidget->selectedItems().count() == 1)
         {
-            jobListMenu.addAction(_ui->actionJobInspect);
-            jobListMenu.addAction(_ui->actionJobRestore);
-            jobListMenu.addAction(_ui->actionJobDelete);
+            _jobListMenu->addAction(_ui->actionJobInspect);
+            _jobListMenu->addAction(_ui->actionJobRestore);
+            _jobListMenu->addAction(_ui->actionJobDelete);
         }
     }
     else if(_ui->jobListWidget->count() != 0)
     {
-        jobListMenu.addAction(_ui->actionBackupAllJobs);
+        _jobListMenu->addAction(_ui->actionBackupAllJobs);
     }
-    jobListMenu.exec(QCursor::pos());
+    _jobListMenu->popup(QCursor::pos());
 }
 
 void JobsTabWidget::backupJob(JobPtr job)

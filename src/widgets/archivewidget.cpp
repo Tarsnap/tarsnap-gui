@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QLabel>
+#include <QMenu>
 #include <QModelIndex>
 #include <QModelIndexList>
 #include <QSortFilterProxyModel>
@@ -38,7 +39,7 @@ ArchiveDetailsWidget::ArchiveDetailsWidget(QWidget *parent)
       _ui(new Ui::ArchiveDetailsWidget),
       _contentsModel(new FileTableModel(this)),
       _proxyModel(new QSortFilterProxyModel(_contentsModel)),
-      _fileMenu(this)
+      _fileMenu(new QMenu(this))
 {
     _ui->setupUi(this);
     _ui->filterComboBox->hide();
@@ -49,7 +50,7 @@ ArchiveDetailsWidget::ArchiveDetailsWidget(QWidget *parent)
     _proxyModel->setSourceModel(_contentsModel);
     _ui->archiveContentsTableView->setModel(_proxyModel);
     _ui->archiveContentsTableView->setContextMenuPolicy(Qt::CustomContextMenu);
-    _fileMenu.addAction(_ui->actionRestoreFiles);
+    _fileMenu->addAction(_ui->actionRestoreFiles);
     connect(_ui->archiveContentsTableView,
             &QTableView::customContextMenuRequested, this,
             &ArchiveDetailsWidget::showContextMenu);
@@ -210,7 +211,7 @@ void ArchiveDetailsWidget::changeEvent(QEvent *event)
 
 void ArchiveDetailsWidget::showContextMenu()
 {
-    _fileMenu.exec(QCursor::pos());
+    _fileMenu->popup(QCursor::pos());
 }
 
 void ArchiveDetailsWidget::restoreFiles()

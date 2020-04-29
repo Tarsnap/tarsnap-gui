@@ -20,6 +20,7 @@ class ArchivesTabWidget;
 }
 class BaseTask;
 class QEvent;
+class QMenu;
 
 /*!
  * \ingroup widgets-main
@@ -85,6 +86,8 @@ private slots:
 
 private:
     Ui::ArchivesTabWidget *_ui;
+
+    QMenu *_archiveListMenu;
 
     void updateUi();
 };

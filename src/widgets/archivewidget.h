@@ -4,7 +4,6 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QMenu>
 #include <QObject>
 #include <QString>
 #include <QWidget>
@@ -23,6 +22,7 @@ class FileTableModel;
 class QCloseEvent;
 class QEvent;
 class QKeyEvent;
+class QMenu;
 class QSortFilterProxyModel;
 
 /*!
@@ -79,7 +79,7 @@ private:
     ArchivePtr                _archive;
     FileTableModel *          _contentsModel;
     QSortFilterProxyModel *   _proxyModel;
-    QMenu                     _fileMenu;
+    QMenu *                   _fileMenu;
 
     void updateUi();
 };

@@ -21,6 +21,7 @@ namespace Ui
 class JobDetailsWidget;
 }
 class QEvent;
+class QMenu;
 
 /*!
  * \ingroup widgets-specialized
@@ -93,6 +94,8 @@ private:
     JobPtr                _job;
     bool                  _saveEnabled;
     QTimer                _fsEventUpdate;
+
+    QMenu *_archiveListMenu;
 
     void save();
     void updateUi();

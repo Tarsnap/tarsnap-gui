@@ -22,6 +22,7 @@ namespace Ui
 class JobsTabWidget;
 }
 class QEvent;
+class QMenu;
 
 /*!
  * \ingroup widgets-main
@@ -96,6 +97,8 @@ private slots:
 
 private:
     Ui::JobsTabWidget *_ui;
+
+    QMenu *_jobListMenu;
 
     void updateUi();
     void loadSettings();

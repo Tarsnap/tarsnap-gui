@@ -41,6 +41,7 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     // Basic UI.
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     updateUi();
+    _archiveListMenu = new QMenu(_ui->archiveListWidget);
 
     // Set up the timer for filesystem events.
     _fsEventUpdate.setSingleShot(true);
@@ -429,16 +430,16 @@ void JobDetailsWidget::showArchiveListMenu()
         return;
 
     // Construct menu.
-    QMenu archiveListMenu(_ui->archiveListWidget);
+    _archiveListMenu->clear();
     if(_ui->archiveListWidget->selectedItems().count() == 1)
     {
-        archiveListMenu.addAction(_ui->actionInspect);
-        archiveListMenu.addAction(_ui->actionRestore);
+        _archiveListMenu->addAction(_ui->actionInspect);
+        _archiveListMenu->addAction(_ui->actionRestore);
     }
-    archiveListMenu.addAction(_ui->actionDelete);
+    _archiveListMenu->addAction(_ui->actionDelete);
 
     // Show menu.
-    archiveListMenu.exec(QCursor::pos());
+    _archiveListMenu->popup(QCursor::pos());
 }
 
 void JobDetailsWidget::fsEventReceived()

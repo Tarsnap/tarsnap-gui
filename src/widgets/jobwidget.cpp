@@ -261,11 +261,10 @@ void JobDetailsWidget::updateMatchingArchives(QList<ArchivePtr> archives)
     // Do we need to prompt the user to check the Job's ArchiveList tab?
     if(!archives.isEmpty())
     {
-        _ui->infoLabel->setStyleSheet("");
-        _ui->infoLabel->setText(tr("Found %1 unassigned archives matching this"
-                                   " Job description. Go to Archives tab below"
-                                   " to review.")
-                                    .arg(archives.count()));
+        _ui->infoLabel->messageNormal(
+            tr("Found %1 unassigned archives matching this Job description. Go "
+               "to Archives tab below to review.")
+                .arg(archives.count()));
         _ui->infoLabel->show();
         _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(
                                           _ui->archiveListTab),
@@ -381,7 +380,6 @@ bool JobDetailsWidget::canSaveNew()
     QString name = _ui->jobNameLineEdit->text();
 
     // Remove info label.
-    _ui->infoLabel->setStyleSheet("");
     _ui->infoLabel->clear();
     _ui->infoLabel->hide();
 
@@ -392,8 +390,7 @@ bool JobDetailsWidget::canSaveNew()
     // Check that we don't have any leading or trailing whitespace.
     if(name.simplified() != name)
     {
-        _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
-        _ui->infoLabel->setText(
+        _ui->infoLabel->messageError(
             tr("Job name cannot contain a leading or trailing whitespace."));
         _ui->infoLabel->show();
         return false;
@@ -416,16 +413,14 @@ bool JobDetailsWidget::canSaveNew()
         }
         else
         {
-            _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
-            _ui->infoLabel->setText(tr("No backup paths selected."));
+            _ui->infoLabel->messageError(tr("No backup paths selected."));
             _ui->infoLabel->show();
         }
     }
     else
     {
-        _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
-        _ui->infoLabel->setText(tr("Job name must be unique amongst existing"
-                                   " Jobs."));
+        _ui->infoLabel->messageError(
+            tr("Job name must be unique amongst existing Jobs."));
         _ui->infoLabel->show();
     }
     return false;
@@ -498,13 +493,13 @@ void JobDetailsWidget::verifyJob()
     {
         if(_job->urls().isEmpty())
         {
-            _ui->infoLabel->setStyleSheet("#infoLabel { color: darkred; }");
-            _ui->infoLabel->setText(tr("This Job has no backup paths selected. "
-                                       "Please make a selection."));
+            _ui->infoLabel->messageError(
+                tr("This Job has no backup paths selected. "
+                   "Please make a selection."));
         }
         else
         {
-            _ui->infoLabel->setText(
+            _ui->infoLabel->messageError(
                 tr("Previously selected backup paths are not"
                    " accessible. Click here for details."));
         }

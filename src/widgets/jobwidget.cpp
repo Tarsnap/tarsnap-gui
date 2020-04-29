@@ -198,7 +198,6 @@ void JobDetailsWidget::save()
     if(!_saveEnabled || _job->name().isEmpty())
         return;
 
-    {
         // Set urls and reset FileSystemWatcher.
         _job->setUrls(_ui->jobTreeWidget->getSelectedUrls());
         _job->removeWatcher();
@@ -223,7 +222,6 @@ void JobDetailsWidget::save()
 
         // Check that the URLs are valid, otherwise show an error message.
         verifyJob();
-    }
 }
 
 void JobDetailsWidget::saveNew()
@@ -360,7 +358,6 @@ void JobDetailsWidget::restoreButtonClicked()
     if(!_job || _job->archives().isEmpty())
         return;
 
-    {
         // Get Archive to restore.
         ArchivePtr archive = _job->archives().first();
 
@@ -371,7 +368,6 @@ void JobDetailsWidget::restoreButtonClicked()
             emit restoreJobArchive(restoreDialog->archive(),
                                    restoreDialog->getOptions());
         });
-    }
 }
 
 void JobDetailsWidget::backupButtonClicked()
@@ -393,7 +389,6 @@ bool JobDetailsWidget::canSaveNew()
     if(!_job->objectKey().isEmpty() || name.isEmpty())
         return false;
 
-    {
         // Check that we don't have any leading or trailing whitespace.
         if(name.simplified() != name)
         {
@@ -434,7 +429,6 @@ bool JobDetailsWidget::canSaveNew()
                    " Jobs."));
             _ui->infoLabel->show();
         }
-    }
     return false;
 }
 
@@ -446,14 +440,12 @@ void JobDetailsWidget::showArchiveListMenu(const QPoint &pos)
 
     // Construct menu.
     QMenu archiveListMenu(_ui->archiveListWidget);
-    {
         if(_ui->archiveListWidget->selectedItems().count() == 1)
         {
             archiveListMenu.addAction(_ui->actionInspect);
             archiveListMenu.addAction(_ui->actionRestore);
         }
         archiveListMenu.addAction(_ui->actionDelete);
-    }
 
     // Show menu.
     QPoint globalPos = _ui->archiveListWidget->viewport()->mapToGlobal(pos);

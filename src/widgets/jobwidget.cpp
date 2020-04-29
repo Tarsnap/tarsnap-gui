@@ -240,8 +240,13 @@ void JobDetailsWidget::saveNew()
                                   QMessageBox::Yes | QMessageBox::No,
                                   QMessageBox::No);
         QList<ArchivePtr> empty;
-        if(confirm == QMessageBox::No)
+        if(confirm == QMessageBox::Yes)
+        {
+        }
+        else
+        {
             _job->setArchives(empty);
+        }
     }
 
     // Save and notify that we have a new Job.

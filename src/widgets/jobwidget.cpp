@@ -40,7 +40,6 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
 
     // Basic UI.
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    _ui->infoLabel->hide();
     updateUi();
 
     // Set up the timer for filesystem events.
@@ -156,7 +155,6 @@ void JobDetailsWidget::setJob(const JobPtr &job)
         // Set up UI for a new Job.
         _ui->restoreButton->hide();
         _ui->backupButton->hide();
-        _ui->infoLabel->hide();
         _ui->jobNameLabel->hide();
 
         // Prep the job name, ready for approval or editing from the user.
@@ -265,7 +263,6 @@ void JobDetailsWidget::updateMatchingArchives(QList<ArchivePtr> archives)
             tr("Found %1 unassigned archives matching this Job description. Go "
                "to Archives tab below to review.")
                 .arg(archives.count()));
-        _ui->infoLabel->show();
         _ui->tabWidget->setTabEnabled(_ui->tabWidget->indexOf(
                                           _ui->archiveListTab),
                                       true);
@@ -379,9 +376,8 @@ bool JobDetailsWidget::canSaveNew()
 {
     QString name = _ui->jobNameLineEdit->text();
 
-    // Remove info label.
+    // Clear info label.
     _ui->infoLabel->clear();
-    _ui->infoLabel->hide();
 
     // Bail if this isn't applicable.
     if(!_job->objectKey().isEmpty() || name.isEmpty())
@@ -392,7 +388,6 @@ bool JobDetailsWidget::canSaveNew()
     {
         _ui->infoLabel->messageError(
             tr("Job name cannot contain a leading or trailing whitespace."));
-        _ui->infoLabel->show();
         return false;
     }
 
@@ -414,14 +409,12 @@ bool JobDetailsWidget::canSaveNew()
         else
         {
             _ui->infoLabel->messageError(tr("No backup paths selected."));
-            _ui->infoLabel->show();
         }
     }
     else
     {
         _ui->infoLabel->messageError(
             tr("Job name must be unique amongst existing Jobs."));
-        _ui->infoLabel->show();
     }
     return false;
 }
@@ -488,7 +481,6 @@ void JobDetailsWidget::verifyJob()
 
     // Check urls and show a warning (if applicable).
     bool validUrls = _job->validateUrls();
-    _ui->infoLabel->setVisible(!validUrls);
     if(validUrls)
         _ui->infoLabel->clear();
     else

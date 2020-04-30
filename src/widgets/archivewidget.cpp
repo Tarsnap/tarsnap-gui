@@ -137,66 +137,63 @@ void ArchiveDetailsWidget::updateDetails()
     if(!_archive)
         return;
 
+    // Show basic archive info.
+    _ui->archiveNameLabel->setText(_archive->name());
+    _ui->archiveDateLabel->setText(
+        _archive->timestamp().toString(Qt::DefaultLocaleLongDate));
+
+    // Show info about a linked Job (if applicable).
+    if(_archive->jobRef().isEmpty())
     {
-        // Show basic archive info.
-        _ui->archiveNameLabel->setText(_archive->name());
-        _ui->archiveDateLabel->setText(
-            _archive->timestamp().toString(Qt::DefaultLocaleLongDate));
-
-        // Show info about a linked Job (if applicable).
-        if(_archive->jobRef().isEmpty())
-        {
-            _ui->archiveJobLabel->hide();
-            _ui->archiveJobLabelField->hide();
-            _ui->archiveIconLabel->setStyleSheet(
-                "image: url(:/logos/tarsnap-icon-big.png)");
-        }
-        else
-        {
-            _ui->archiveJobLabel->show();
-            _ui->archiveJobLabelField->show();
-            _ui->archiveJobLabel->setText(_archive->jobRef());
-            _ui->archiveIconLabel->setStyleSheet(
-                "image: url(:/icons/hard-drive-big.png)");
-        }
-
-        // Show size info about the archive.
-        _ui->archiveSizeLabel->setText(
-            Utils::humanBytes(_archive->sizeTotal()));
-        _ui->archiveSizeLabel->setToolTip(_archive->archiveStats());
-        _ui->archiveUniqueDataLabel->setText(
-            Utils::humanBytes(_archive->sizeUniqueCompressed()));
-        _ui->archiveUniqueDataLabel->setToolTip(_archive->archiveStats());
-
-        // Show other info about the archive.
-        _ui->archiveCommandLineEdit->setText(_archive->command());
-        _ui->archiveCommandLineEdit->setToolTip(
-            _archive->command().prepend("<p>").append("</p>"));
-        _ui->archiveCommandLineEdit->setCursorPosition(0);
-
-        // Warn about partial archives.
-        if(_archive->truncated())
-        {
-            _ui->infoLabel->setText(tr("This archive is truncated,"
-                                       " data may be incomplete"));
-            _ui->infoLabel->setToolTip(_archive->truncatedInfo());
-            _ui->infoLabel->show();
-        }
-        else if(_archive->contents().isEmpty()
-                && (_archive->sizeTotal() < EMPTY_TAR_ARCHIVE_BYTES))
-        {
-            // Warn about a potentially empty archive.
-            _ui->infoLabel->setText(tr("This archive looks empty,"
-                                       " no file data may be contained"
-                                       " besides the TAR header"));
-            _ui->infoLabel->show();
-        }
-        else
-            _ui->infoLabel->hide();
-
-        // Show files in the archive.
-        _contentsModel->setArchive(_archive);
+        _ui->archiveJobLabel->hide();
+        _ui->archiveJobLabelField->hide();
+        _ui->archiveIconLabel->setStyleSheet(
+            "image: url(:/logos/tarsnap-icon-big.png)");
     }
+    else
+    {
+        _ui->archiveJobLabel->show();
+        _ui->archiveJobLabelField->show();
+        _ui->archiveJobLabel->setText(_archive->jobRef());
+        _ui->archiveIconLabel->setStyleSheet(
+            "image: url(:/icons/hard-drive-big.png)");
+    }
+
+    // Show size info about the archive.
+    _ui->archiveSizeLabel->setText(Utils::humanBytes(_archive->sizeTotal()));
+    _ui->archiveSizeLabel->setToolTip(_archive->archiveStats());
+    _ui->archiveUniqueDataLabel->setText(
+        Utils::humanBytes(_archive->sizeUniqueCompressed()));
+    _ui->archiveUniqueDataLabel->setToolTip(_archive->archiveStats());
+
+    // Show other info about the archive.
+    _ui->archiveCommandLineEdit->setText(_archive->command());
+    _ui->archiveCommandLineEdit->setToolTip(
+        _archive->command().prepend("<p>").append("</p>"));
+    _ui->archiveCommandLineEdit->setCursorPosition(0);
+
+    // Warn about partial archives.
+    if(_archive->truncated())
+    {
+        _ui->infoLabel->setText(tr("This archive is truncated,"
+                                   " data may be incomplete"));
+        _ui->infoLabel->setToolTip(_archive->truncatedInfo());
+        _ui->infoLabel->show();
+    }
+    else if(_archive->contents().isEmpty()
+            && (_archive->sizeTotal() < EMPTY_TAR_ARCHIVE_BYTES))
+    {
+        // Warn about a potentially empty archive.
+        _ui->infoLabel->setText(tr("This archive looks empty,"
+                                   " no file data may be contained"
+                                   " besides the TAR header"));
+        _ui->infoLabel->show();
+    }
+    else
+        _ui->infoLabel->hide();
+
+    // Show files in the archive.
+    _contentsModel->setArchive(_archive);
 }
 
 void ArchiveDetailsWidget::closeEvent(QCloseEvent *event)

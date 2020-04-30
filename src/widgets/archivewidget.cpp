@@ -133,7 +133,10 @@ void ArchiveDetailsWidget::setArchive(ArchivePtr archive)
 
 void ArchiveDetailsWidget::updateDetails()
 {
-    if(_archive)
+    // Bail (if applicable).
+    if(!_archive)
+        return;
+
     {
         // Show basic archive info.
         _ui->archiveNameLabel->setText(_archive->name());

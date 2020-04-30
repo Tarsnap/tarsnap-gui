@@ -42,15 +42,20 @@ ArchiveDetailsWidget::ArchiveDetailsWidget(QWidget *parent)
       _fileMenu(new QMenu(this))
 {
     _ui->setupUi(this);
-    _ui->filterComboBox->hide();
     updateUi();
 
+    // Set up filter UI.
+    _ui->filterComboBox->hide();
     _proxyModel->setDynamicSortFilter(false);
     _proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     _proxyModel->setSourceModel(_contentsModel);
     _ui->archiveContentsTableView->setModel(_proxyModel);
     _ui->archiveContentsTableView->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    // Set up other UI.
     _fileMenu->addAction(_ui->actionRestoreFiles);
+
+    // Connections for UI functionality.
     connect(_ui->archiveContentsTableView,
             &QTableView::customContextMenuRequested, this,
             &ArchiveDetailsWidget::showContextMenu);
@@ -64,11 +69,15 @@ ArchiveDetailsWidget::ArchiveDetailsWidget(QWidget *parent)
             &ArchiveDetailsWidget::taskRequested);
     connect(_ui->archiveJobLabel, &ElidedClickableLabel::clicked,
             [this]() { emit jobClicked(_archive->jobRef()); });
+
+    // Connection to reset the model.
     connect(_contentsModel, &FileTableModel::modelReset, [this]() {
         _ui->archiveContentsTableView->resizeColumnsToContents();
         _ui->archiveContentsLabel->setText(
             tr("Contents (%1)").arg(_contentsModel->rowCount()));
     });
+
+    // Connections for filtering
     connect(_ui->filterComboBox, &QComboBox::editTextChanged, _proxyModel,
             &QSortFilterProxyModel::setFilterWildcard);
     connect(_ui->filterComboBox,
@@ -94,6 +103,7 @@ ArchiveDetailsWidget::~ArchiveDetailsWidget()
 
 void ArchiveDetailsWidget::setArchive(ArchivePtr archive)
 {
+    // Remove previous connections (if applicable).
     if(_archive)
     {
         disconnect(_archive.data(), &Archive::changed, this,
@@ -102,8 +112,10 @@ void ArchiveDetailsWidget::setArchive(ArchivePtr archive)
                    &ArchiveDetailsWidget::close);
     }
 
+    // Store pointer.
     _archive = archive;
 
+    // Set up new connections and refresh the display.
     if(_archive)
     {
         connect(_archive.data(), &Archive::changed, this,
@@ -114,7 +126,8 @@ void ArchiveDetailsWidget::setArchive(ArchivePtr archive)
     }
     else
     {
-        _contentsModel->reset(); // reduce memory usage
+        // No need to store info about the previous Archive.
+        _contentsModel->reset();
     }
 }
 
@@ -122,9 +135,12 @@ void ArchiveDetailsWidget::updateDetails()
 {
     if(_archive)
     {
+        // Show basic archive info.
         _ui->archiveNameLabel->setText(_archive->name());
         _ui->archiveDateLabel->setText(
             _archive->timestamp().toString(Qt::DefaultLocaleLongDate));
+
+        // Show info about a linked Job (if applicable).
         if(_archive->jobRef().isEmpty())
         {
             _ui->archiveJobLabel->hide();
@@ -140,16 +156,22 @@ void ArchiveDetailsWidget::updateDetails()
             _ui->archiveIconLabel->setStyleSheet(
                 "image: url(:/icons/hard-drive-big.png)");
         }
+
+        // Show size info about the archive.
         _ui->archiveSizeLabel->setText(
             Utils::humanBytes(_archive->sizeTotal()));
         _ui->archiveSizeLabel->setToolTip(_archive->archiveStats());
         _ui->archiveUniqueDataLabel->setText(
             Utils::humanBytes(_archive->sizeUniqueCompressed()));
         _ui->archiveUniqueDataLabel->setToolTip(_archive->archiveStats());
+
+        // Show other info about the archive.
         _ui->archiveCommandLineEdit->setText(_archive->command());
         _ui->archiveCommandLineEdit->setToolTip(
             _archive->command().prepend("<p>").append("</p>"));
         _ui->archiveCommandLineEdit->setCursorPosition(0);
+
+        // Warn about partial archives.
         if(_archive->truncated())
         {
             _ui->infoLabel->setText(tr("This archive is truncated,"
@@ -160,6 +182,7 @@ void ArchiveDetailsWidget::updateDetails()
         else if(_archive->contents().isEmpty()
                 && (_archive->sizeTotal() < EMPTY_TAR_ARCHIVE_BYTES))
         {
+            // Warn about a potentially empty archive.
             _ui->infoLabel->setText(tr("This archive looks empty,"
                                        " no file data may be contained"
                                        " besides the TAR header"));
@@ -167,6 +190,8 @@ void ArchiveDetailsWidget::updateDetails()
         }
         else
             _ui->infoLabel->hide();
+
+        // Show files in the archive.
         _contentsModel->setArchive(_archive);
     }
 }
@@ -180,6 +205,7 @@ void ArchiveDetailsWidget::closeEvent(QCloseEvent *event)
 
 void ArchiveDetailsWidget::keyPressEvent(QKeyEvent *event)
 {
+    // Special handling for Escape with filtering.
     if((event->key() == Qt::Key_Escape) && _ui->filterComboBox->isVisible())
     {
         if(_ui->filterComboBox->currentText().isEmpty())
@@ -194,6 +220,7 @@ void ArchiveDetailsWidget::keyPressEvent(QKeyEvent *event)
     }
     else
     {
+        // Normal handling.
         QWidget::keyPressEvent(event);
     }
 }
@@ -216,14 +243,18 @@ void ArchiveDetailsWidget::showContextMenu()
 
 void ArchiveDetailsWidget::restoreFiles()
 {
+    // Get selected items, and bail if there's none.
     QModelIndexList indexes =
         _ui->archiveContentsTableView->selectionModel()->selectedRows();
     if(indexes.isEmpty())
         return;
+
+    // Convert items to filenames.
     QStringList files;
     for(const QModelIndex &index : indexes)
         files << index.data().toString();
 
+    // Launch RestoreDialog.
     RestoreDialog *restoreDialog = new RestoreDialog(this, _archive, files);
     restoreDialog->displayTarOption(false);
     restoreDialog->show();

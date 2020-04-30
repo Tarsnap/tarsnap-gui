@@ -110,7 +110,7 @@ public slots:
     void queueGuiTask(BaseTask *task);
 
     //! Request cancelling a GUI task.
-    void cancelGuiTask(BaseTask *task, const QUuid uuid);
+    void cancelGuiTask(BaseTask *task, const QUuid &uuid);
 
 signals:
     // Tarsnap task notifications

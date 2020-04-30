@@ -160,7 +160,7 @@ void TaskQueuer::startTask()
     _threadPool->start(task);
 }
 
-void TaskQueuer::cancelTask(BaseTask *task, const QUuid uuid)
+void TaskQueuer::cancelTask(BaseTask *task, const QUuid &uuid)
 {
     // Remove from the queue.
     for(TaskMeta *tm : _taskQueue)

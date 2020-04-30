@@ -772,7 +772,7 @@ void TaskManager::queueGuiTask(BaseTask *task)
     _tq->queueTask(task, false, false);
 }
 
-void TaskManager::cancelGuiTask(BaseTask *task, const QUuid uuid)
+void TaskManager::cancelGuiTask(BaseTask *task, const QUuid &uuid)
 {
     _tq->cancelTask(task, uuid);
 }

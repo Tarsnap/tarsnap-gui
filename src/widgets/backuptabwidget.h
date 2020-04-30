@@ -67,7 +67,7 @@ signals:
     //! We have a task to perform in the background.
     void taskRequested(BaseTask *task);
     //! We would like to cancel a task.
-    void cancelTaskRequested(BaseTask *task, const QUuid uuid);
+    void cancelTaskRequested(BaseTask *task, const QUuid &uuid);
 
 protected:
     //! Handles translation change of language.

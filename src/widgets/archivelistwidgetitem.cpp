@@ -140,17 +140,6 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
 
 void ArchiveListWidgetItem::updateStatus()
 {
-    // Prepare to display the date (in a separate field, shown for
-    // all Archives, not only the Job-related Archives).
-    QString detail(_archive->timestamp().toString(Qt::DefaultLocaleShortDate));
-
-    // Prepare to display the size.
-    if(_archive->sizeTotal() != 0)
-    {
-        QString size = Utils::humanBytes(_archive->sizeTotal(), FIELD_WIDTH);
-        detail.prepend(size + "  ");
-    }
-
     // Display a message about upcoming deletion (if applicable),
     // or else the date & size.
     if(_archive->deleteScheduled())
@@ -160,6 +149,20 @@ void ArchiveListWidgetItem::updateStatus()
     }
     else
     {
+        // Prepare to display the date (in a separate field, shown for
+        // all Archives, not only the Job-related Archives).
+        QString detail(
+            _archive->timestamp().toString(Qt::DefaultLocaleShortDate));
+
+        // Prepare to display the size.
+        if(_archive->sizeTotal() != 0)
+        {
+            QString size =
+                Utils::humanBytes(_archive->sizeTotal(), FIELD_WIDTH);
+            detail.prepend(size + "  ");
+        }
+
+        // Display date & size.
         _ui->detailLabel->setText(detail);
         _widget->setEnabled(true);
     }

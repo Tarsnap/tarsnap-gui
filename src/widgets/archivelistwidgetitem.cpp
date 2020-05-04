@@ -71,7 +71,7 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
     if(_archive)
     {
         disconnect(_archive.data(), &Archive::changed, this,
-                   &ArchiveListWidgetItem::update);
+                   &ArchiveListWidgetItem::updateStatus);
         disconnect(_archive.data(), &Archive::purged, this,
                    &ArchiveListWidgetItem::removeItem);
     }
@@ -82,7 +82,7 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
     // Connections for any modifications: being scheduled for deletion,
     // and being scheduled to be saved (i.e. the initial upload).
     connect(_archive.data(), &Archive::changed, this,
-            &ArchiveListWidgetItem::update, QUEUED);
+            &ArchiveListWidgetItem::updateStatus, QUEUED);
     connect(_archive.data(), &Archive::purged, this,
             &ArchiveListWidgetItem::removeItem, QUEUED);
 
@@ -130,6 +130,16 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
     _ui->nameLabel->setAnnotatedText(texts, annotations);
     _ui->nameLabel->setToolTip(_archive->name());
 
+    // Display a message about upcoming deletion (if applicable),
+    // or else the date & size.
+    updateStatus();
+
+    // Display the Archive stats as a tooltip.
+    _ui->detailLabel->setToolTip(_archive->archiveStats());
+}
+
+void ArchiveListWidgetItem::updateStatus()
+{
     // Prepare to display the date (in a separate field, shown for
     // all Archives, not only the Job-related Archives).
     QString detail(_archive->timestamp().toString(Qt::DefaultLocaleShortDate));
@@ -153,16 +163,6 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
         _ui->detailLabel->setText(detail);
         _widget->setEnabled(true);
     }
-
-    // Display the Archive stats as a tooltip.
-    _ui->detailLabel->setToolTip(_archive->archiveStats());
-}
-
-void ArchiveListWidgetItem::update()
-{
-    // Reload / re-display the Archive details.  (Probably due to
-    // being scheduled for deletion.)
-    setArchive(_archive);
 }
 
 bool ArchiveListWidgetItem::eventFilter(QObject *obj, QEvent *event)
@@ -171,7 +171,7 @@ bool ArchiveListWidgetItem::eventFilter(QObject *obj, QEvent *event)
     {
         _ui->retranslateUi(_widget);
         updateUi();
-        update();
+        updateStatus();
         return true;
     }
     return false;

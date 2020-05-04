@@ -60,7 +60,8 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
-    void update();
+    // Modify the display if the Archive is scheduled for deletion.
+    void updateStatus();
 
 private:
     Ui::ArchiveListWidgetItem *_ui;

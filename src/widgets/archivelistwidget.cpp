@@ -112,7 +112,6 @@ void ArchiveListWidget::deleteSelectedItems()
     if(selectedItems().isEmpty())
         return;
 
-    QList<ArchiveListWidgetItem *> selectedListItems;
     // Any archives pending deletion in the selection? if so deny action
     for(QListWidgetItem *item : selectedItems())
     {
@@ -120,8 +119,6 @@ void ArchiveListWidget::deleteSelectedItems()
             static_cast<ArchiveListWidgetItem *>(item);
         if(!archiveItem || archiveItem->archive()->deleteScheduled())
             return;
-        else
-            selectedListItems << archiveItem;
     }
 
     // Confirm deletion.
@@ -166,8 +163,10 @@ void ArchiveListWidget::deleteSelectedItems()
 
     // Schedule archives for deletion.
     QList<ArchivePtr> archivesToDelete;
-    for(ArchiveListWidgetItem *archiveItem : selectedListItems)
+    for(QListWidgetItem *item : selectedItems())
     {
+        ArchiveListWidgetItem *archiveItem =
+            static_cast<ArchiveListWidgetItem *>(item);
         archivesToDelete.append(archiveItem->archive());
     }
     if(!archivesToDelete.isEmpty())

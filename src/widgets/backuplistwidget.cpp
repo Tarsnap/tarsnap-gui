@@ -24,7 +24,40 @@ WARNINGS_ENABLE
 
 BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
 {
-    // Load previous backup list from Settings (if applicable).
+    loadBackupList();
+
+    // Connection to open the file or dir with QDeskopServices::openUrl().
+    connect(this, &QListWidget::itemActivated, [](QListWidgetItem *item) {
+        static_cast<BackupListWidgetItem *>(item)->browseUrl();
+    });
+}
+
+BackupListWidget::~BackupListWidget()
+{
+    saveBackupList();
+    clear();
+}
+
+void BackupListWidget::saveBackupList()
+{
+    // Convert QUrls to strings.
+    QStringList urls;
+    for(int i = 0; i < count(); ++i)
+    {
+        BackupListWidgetItem *backupItem =
+            static_cast<BackupListWidgetItem *>(item(i));
+        urls << backupItem->url().toString(QUrl::FullyEncoded);
+    }
+
+    // Save list.
+    TSettings settings;
+    settings.setValue("app/backup_list", urls);
+    settings.sync();
+}
+
+void BackupListWidget::loadBackupList()
+{
+    // Load previous backup list from Settings.
     TSettings   settings;
     QStringList urls =
         settings.value("app/backup_list", QStringList()).toStringList();
@@ -40,27 +73,6 @@ BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
             QMetaObject::invokeMethod(this, "addItemsWithUrls", QUEUED,
                                       Q_ARG(QList<QUrl>, urllist));
     }
-
-    // Connection to open the file or dir with QDeskopServices::openUrl().
-    connect(this, &QListWidget::itemActivated, [](QListWidgetItem *item) {
-        static_cast<BackupListWidgetItem *>(item)->browseUrl();
-    });
-}
-
-BackupListWidget::~BackupListWidget()
-{
-    // Save current backup list.
-    QStringList urls;
-    for(int i = 0; i < count(); ++i)
-    {
-        BackupListWidgetItem *backupItem =
-            static_cast<BackupListWidgetItem *>(item(i));
-        urls << backupItem->url().toString(QUrl::FullyEncoded);
-    }
-    TSettings settings;
-    settings.setValue("app/backup_list", urls);
-    settings.sync();
-    clear();
 }
 
 void BackupListWidget::addItemWithUrl(QUrl url)

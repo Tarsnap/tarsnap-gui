@@ -84,38 +84,38 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
     if(url.isEmpty())
         return;
 
-        QString fileUrl = _url.toLocalFile();
-        if(fileUrl.isEmpty())
-            return;
-        QFileInfo file(fileUrl);
-        if(!file.exists())
-            return;
-        // Display path in the widget.  pathLabel is an TElidedLabel, so
-        // the text might be cut short.  Therefore we display the path
-        // as a tooltip as well, which will always be displayed in full.
-        _ui->pathLabel->setText(fileUrl);
-        _ui->pathLabel->setToolTip(fileUrl);
+    QString fileUrl = _url.toLocalFile();
+    if(fileUrl.isEmpty())
+        return;
+    QFileInfo file(fileUrl);
+    if(!file.exists())
+        return;
+    // Display path in the widget.  pathLabel is an TElidedLabel, so
+    // the text might be cut short.  Therefore we display the path
+    // as a tooltip as well, which will always be displayed in full.
+    _ui->pathLabel->setText(fileUrl);
+    _ui->pathLabel->setToolTip(fileUrl);
 
-        if(file.isDir())
-        {
-            QPixmap icon(":/icons/folder.png");
-            _ui->iconLabel->setPixmap(icon);
-            // Load info about this directory in a separate thread.
-            startDirInfoTask();
-        }
-        else if(file.isFile())
-        {
-            QPixmap icon(":/icons/file.png");
-            _ui->iconLabel->setPixmap(icon);
-            _count = 1;
-            _size  = static_cast<quint64>(file.size());
-            _ui->detailLabel->setText(Utils::humanBytes(_size));
-        }
-        else
-        {
-            // Could be a device file, fifo, or whatever; thus ignore.
-            return;
-        }
+    if(file.isDir())
+    {
+        QPixmap icon(":/icons/folder.png");
+        _ui->iconLabel->setPixmap(icon);
+        // Load info about this directory in a separate thread.
+        startDirInfoTask();
+    }
+    else if(file.isFile())
+    {
+        QPixmap icon(":/icons/file.png");
+        _ui->iconLabel->setPixmap(icon);
+        _count = 1;
+        _size  = static_cast<quint64>(file.size());
+        _ui->detailLabel->setText(Utils::humanBytes(_size));
+    }
+    else
+    {
+        // Could be a device file, fifo, or whatever; thus ignore.
+        return;
+    }
 }
 
 void BackupListWidgetItem::browseUrl()

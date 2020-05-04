@@ -81,19 +81,19 @@ void ArchiveListWidget::deleteItem()
     if(!archiveItem)
         return;
 
-        ArchivePtr archive = archiveItem->archive();
+    ArchivePtr archive = archiveItem->archive();
 
-        QMessageBox::StandardButton confirm =
-            QMessageBox::question(this, tr("Confirm delete"),
-                                  tr("Are you sure you want to delete"
-                                     " archive %1 (this cannot be undone)?")
-                                      .arg(archive->name()));
-        if(confirm != QMessageBox::Yes)
-            return;
+    QMessageBox::StandardButton confirm =
+        QMessageBox::question(this, tr("Confirm delete"),
+                              tr("Are you sure you want to delete"
+                                 " archive %1 (this cannot be undone)?")
+                                  .arg(archive->name()));
+    if(confirm != QMessageBox::Yes)
+        return;
 
-            QList<ArchivePtr> archiveList;
-            archiveList.append(archive);
-            emit deleteArchives(archiveList);
+    QList<ArchivePtr> archiveList;
+    archiveList.append(archive);
+    emit deleteArchives(archiveList);
 }
 
 void ArchiveListWidget::deleteSelectedItems()
@@ -153,13 +153,13 @@ void ArchiveListWidget::deleteSelectedItems()
     if(confirm != QMessageBox::Yes)
         return;
 
-        QList<ArchivePtr> archivesToDelete;
-        for(ArchiveListWidgetItem *archiveItem : selectedListItems)
-        {
-            archivesToDelete.append(archiveItem->archive());
-        }
-        if(!archivesToDelete.isEmpty())
-            emit deleteArchives(archivesToDelete);
+    QList<ArchivePtr> archivesToDelete;
+    for(ArchiveListWidgetItem *archiveItem : selectedListItems)
+    {
+        archivesToDelete.append(archiveItem->archive());
+    }
+    if(!archivesToDelete.isEmpty())
+        emit deleteArchives(archivesToDelete);
 }
 
 void ArchiveListWidget::inspectSelectedItem()
@@ -168,10 +168,10 @@ void ArchiveListWidget::inspectSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
-        ArchiveListWidgetItem *archiveItem =
-            static_cast<ArchiveListWidgetItem *>(selectedItems().first());
-        if(archiveItem && !archiveItem->archive()->deleteScheduled())
-            goingToInspectItem(archiveItem);
+    ArchiveListWidgetItem *archiveItem =
+        static_cast<ArchiveListWidgetItem *>(selectedItems().first());
+    if(archiveItem && !archiveItem->archive()->deleteScheduled())
+        goingToInspectItem(archiveItem);
 }
 
 void ArchiveListWidget::restoreSelectedItem()
@@ -180,21 +180,20 @@ void ArchiveListWidget::restoreSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
-        ArchiveListWidgetItem *archiveItem =
-            static_cast<ArchiveListWidgetItem *>(selectedItems().first());
+    ArchiveListWidgetItem *archiveItem =
+        static_cast<ArchiveListWidgetItem *>(selectedItems().first());
 
-        // Bail (if applicable).
-        if(!archiveItem || archiveItem->archive()->deleteScheduled())
-            return;
+    // Bail (if applicable).
+    if(!archiveItem || archiveItem->archive()->deleteScheduled())
+        return;
 
-            RestoreDialog *restoreDialog =
-                new RestoreDialog(this, archiveItem->archive());
-            restoreDialog->show();
-            connect(restoreDialog, &RestoreDialog::accepted,
-                    [this, restoreDialog] {
-                        emit restoreArchive(restoreDialog->archive(),
-                                            restoreDialog->getOptions());
-                    });
+    RestoreDialog *restoreDialog =
+        new RestoreDialog(this, archiveItem->archive());
+    restoreDialog->show();
+    connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
+        emit restoreArchive(restoreDialog->archive(),
+                            restoreDialog->getOptions());
+    });
 }
 
 void ArchiveListWidget::setFilter(QString regex)
@@ -226,8 +225,8 @@ void ArchiveListWidget::removeItem()
     if(!archiveItem)
         return;
 
-        delete archiveItem; // Removes item from the list
-        emit countChanged(count(), visibleItemsCount());
+    delete archiveItem; // Removes item from the list
+    emit countChanged(count(), visibleItemsCount());
 }
 
 void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
@@ -281,13 +280,13 @@ void ArchiveListWidget::restoreItem()
     if(!archiveItem)
         return;
 
-        RestoreDialog *restoreDialog =
-            new RestoreDialog(this, archiveItem->archive());
-        restoreDialog->show();
-        connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
-            emit restoreArchive(restoreDialog->archive(),
-                                restoreDialog->getOptions());
-        });
+    RestoreDialog *restoreDialog =
+        new RestoreDialog(this, archiveItem->archive());
+    restoreDialog->show();
+    connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
+        emit restoreArchive(restoreDialog->archive(),
+                            restoreDialog->getOptions());
+    });
 }
 
 void ArchiveListWidget::goToJob()
@@ -346,8 +345,8 @@ void ArchiveListWidget::noInspect()
     if(_highlightedItem == nullptr)
         return;
 
-        _highlightedItem->setShowingDetails(false);
-        _highlightedItem = nullptr;
+    _highlightedItem->setShowingDetails(false);
+    _highlightedItem = nullptr;
 }
 
 void ArchiveListWidget::goingToInspectItem(ArchiveListWidgetItem *archiveItem)

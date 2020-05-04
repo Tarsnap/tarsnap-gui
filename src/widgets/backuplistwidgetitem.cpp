@@ -84,7 +84,6 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
     if(url.isEmpty())
         return;
 
-    {
         QString fileUrl = _url.toLocalFile();
         if(fileUrl.isEmpty())
             return;
@@ -117,7 +116,6 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
             // Could be a device file, fifo, or whatever; thus ignore.
             return;
         }
-    }
 }
 
 void BackupListWidgetItem::browseUrl()

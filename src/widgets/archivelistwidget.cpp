@@ -50,6 +50,7 @@ void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
 
 void ArchiveListWidget::addArchive(ArchivePtr archive)
 {
+    // Bail (if applicable).
     if(!archive)
     {
         DEBUG << "Null ArchivePtr passed.";
@@ -75,26 +76,29 @@ void ArchiveListWidget::deleteItem()
 {
     ArchiveListWidgetItem *archiveItem =
         qobject_cast<ArchiveListWidgetItem *>(sender());
-    if(archiveItem)
-    {
-        ArchivePtr archive = archiveItem->archive();
 
-        QMessageBox::StandardButton confirm =
-            QMessageBox::question(this, tr("Confirm delete"),
-                                  tr("Are you sure you want to delete"
-                                     " archive %1 (this cannot be undone)?")
-                                      .arg(archive->name()));
-        if(confirm == QMessageBox::Yes)
-        {
-            QList<ArchivePtr> archiveList;
-            archiveList.append(archive);
-            emit deleteArchives(archiveList);
-        }
-    }
+    // Bail (if applicable).
+    if(!archiveItem)
+        return;
+
+    ArchivePtr archive = archiveItem->archive();
+
+    QMessageBox::StandardButton confirm =
+        QMessageBox::question(this, tr("Confirm delete"),
+                              tr("Are you sure you want to delete"
+                                 " archive %1 (this cannot be undone)?")
+                                  .arg(archive->name()));
+    if(confirm != QMessageBox::Yes)
+        return;
+
+    QList<ArchivePtr> archiveList;
+    archiveList.append(archive);
+    emit deleteArchives(archiveList);
 }
 
 void ArchiveListWidget::deleteSelectedItems()
 {
+    // Bail (if applicable).
     if(selectedItems().isEmpty())
         return;
 
@@ -146,48 +150,50 @@ void ArchiveListWidget::deleteSelectedItems()
                                                 .arg(selectedItemsCount));
         }
     }
+    if(confirm != QMessageBox::Yes)
+        return;
 
-    if(confirm == QMessageBox::Yes)
+    QList<ArchivePtr> archivesToDelete;
+    for(ArchiveListWidgetItem *archiveItem : selectedListItems)
     {
-        QList<ArchivePtr> archivesToDelete;
-        for(ArchiveListWidgetItem *archiveItem : selectedListItems)
-        {
-            archivesToDelete.append(archiveItem->archive());
-        }
-        if(!archivesToDelete.isEmpty())
-            emit deleteArchives(archivesToDelete);
+        archivesToDelete.append(archiveItem->archive());
     }
+    if(!archivesToDelete.isEmpty())
+        emit deleteArchives(archivesToDelete);
 }
 
 void ArchiveListWidget::inspectSelectedItem()
 {
-    if(!selectedItems().isEmpty())
-    {
-        ArchiveListWidgetItem *archiveItem =
-            static_cast<ArchiveListWidgetItem *>(selectedItems().first());
-        if(archiveItem && !archiveItem->archive()->deleteScheduled())
-            goingToInspectItem(archiveItem);
-    }
+    // Bail (if applicable).
+    if(selectedItems().isEmpty())
+        return;
+
+    ArchiveListWidgetItem *archiveItem =
+        static_cast<ArchiveListWidgetItem *>(selectedItems().first());
+    if(archiveItem && !archiveItem->archive()->deleteScheduled())
+        goingToInspectItem(archiveItem);
 }
 
 void ArchiveListWidget::restoreSelectedItem()
 {
-    if(!selectedItems().isEmpty())
-    {
-        ArchiveListWidgetItem *archiveItem =
-            static_cast<ArchiveListWidgetItem *>(selectedItems().first());
-        if(archiveItem && !archiveItem->archive()->deleteScheduled())
-        {
-            RestoreDialog *restoreDialog =
-                new RestoreDialog(this, archiveItem->archive());
-            restoreDialog->show();
-            connect(restoreDialog, &RestoreDialog::accepted,
-                    [this, restoreDialog] {
-                        emit restoreArchive(restoreDialog->archive(),
-                                            restoreDialog->getOptions());
-                    });
-        }
-    }
+    // Bail (if applicable).
+    if(selectedItems().isEmpty())
+        return;
+
+    ArchiveListWidgetItem *archiveItem =
+        static_cast<ArchiveListWidgetItem *>(selectedItems().first());
+
+    // Bail (if applicable).
+    if(!archiveItem || archiveItem->archive()->deleteScheduled())
+        return;
+
+    RestoreDialog *restoreDialog =
+        new RestoreDialog(this, archiveItem->archive());
+    restoreDialog->show();
+    connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
+        emit restoreArchive(restoreDialog->archive(),
+                            restoreDialog->getOptions());
+    });
 }
 
 void ArchiveListWidget::setFilter(QString regex)
@@ -215,15 +221,17 @@ void ArchiveListWidget::removeItem()
 {
     ArchiveListWidgetItem *archiveItem =
         qobject_cast<ArchiveListWidgetItem *>(sender());
-    if(archiveItem)
-    {
-        delete archiveItem; // Removes item from the list
-        emit countChanged(count(), visibleItemsCount());
-    }
+    // Bail (if applicable).
+    if(!archiveItem)
+        return;
+
+    delete archiveItem; // Removes item from the list
+    emit countChanged(count(), visibleItemsCount());
 }
 
 void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
 {
+    // Bail (if applicable).
     if(!archive)
     {
         DEBUG << "Null ArchivePtr passed.";
@@ -268,16 +276,17 @@ void ArchiveListWidget::restoreItem()
 {
     ArchiveListWidgetItem *archiveItem =
         qobject_cast<ArchiveListWidgetItem *>(sender());
-    if(archiveItem)
-    {
-        RestoreDialog *restoreDialog =
-            new RestoreDialog(this, archiveItem->archive());
-        restoreDialog->show();
-        connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
-            emit restoreArchive(restoreDialog->archive(),
-                                restoreDialog->getOptions());
-        });
-    }
+    // Bail (if applicable).
+    if(!archiveItem)
+        return;
+
+    RestoreDialog *restoreDialog =
+        new RestoreDialog(this, archiveItem->archive());
+    restoreDialog->show();
+    connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
+        emit restoreArchive(restoreDialog->archive(),
+                            restoreDialog->getOptions());
+    });
 }
 
 void ArchiveListWidget::goToJob()
@@ -290,6 +299,7 @@ void ArchiveListWidget::goToJob()
 
 void ArchiveListWidget::selectArchive(ArchivePtr archive)
 {
+    // Bail (if applicable).
     if(!archive)
     {
         DEBUG << "Null ArchivePtr passed.";
@@ -331,11 +341,12 @@ void ArchiveListWidget::keyPressEvent(QKeyEvent *event)
 
 void ArchiveListWidget::noInspect()
 {
-    if(_highlightedItem != nullptr)
-    {
-        _highlightedItem->setShowingDetails(false);
-        _highlightedItem = nullptr;
-    }
+    // Bail (if applicable).
+    if(_highlightedItem == nullptr)
+        return;
+
+    _highlightedItem->setShowingDetails(false);
+    _highlightedItem = nullptr;
 }
 
 void ArchiveListWidget::goingToInspectItem(ArchiveListWidgetItem *archiveItem)

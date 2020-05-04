@@ -210,7 +210,7 @@ void ArchiveListWidget::restoreSelectedItem()
     restoreDialog->show();
 }
 
-void ArchiveListWidget::setFilter(QString regex)
+void ArchiveListWidget::setFilter(const QString &regex)
 {
     // Set up filter.
     setUpdatesEnabled(false);

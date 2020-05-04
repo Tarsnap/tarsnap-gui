@@ -51,7 +51,7 @@ public slots:
     //! Restore the first of the selected archives.
     void restoreSelectedItem();
     //! Filter the list of archives.
-    void setFilter(QString regex);
+    void setFilter(const QString &regex);
     //! There are no archive details being shown.
     void noInspect();
 
@@ -68,7 +68,7 @@ signals:
     //! using the user-selected options from the \ref RestoreDialog.
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! Notify that the job details should be displayed.
-    void displayJobDetails(QString jobRef);
+    void displayJobDetails(const QString &jobRef);
     //! Notify the total and visible (not hidden) items count on list change
     //! (item added, removed or hidden).
     void countChanged(int countTotal, int countVisible);

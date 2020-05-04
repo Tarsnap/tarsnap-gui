@@ -61,18 +61,20 @@ void BackupListWidget::loadBackupList()
     TSettings   settings;
     QStringList urls =
         settings.value("app/backup_list", QStringList()).toStringList();
-    if(!urls.isEmpty())
-    {
-        // Convert url strings to QUrls.
-        QList<QUrl> urllist;
-        for(const QString &url : urls)
-            urllist << QUrl::fromUserInput(url);
 
-        // Load the list in the background, via the event loop.
-        if(!urllist.isEmpty())
-            QMetaObject::invokeMethod(this, "addItemsWithUrls", QUEUED,
-                                      Q_ARG(QList<QUrl>, urllist));
-    }
+    // Bail if nothing to do.
+    if(urls.isEmpty())
+        return;
+
+    // Convert url strings to QUrls.
+    QList<QUrl> urllist;
+    for(const QString &url : urls)
+        urllist << QUrl::fromUserInput(url);
+
+    // Load the list in the background, via the event loop.
+    if(!urllist.isEmpty())
+        QMetaObject::invokeMethod(this, "addItemsWithUrls", QUEUED,
+                                  Q_ARG(QList<QUrl>, urllist));
 }
 
 void BackupListWidget::addItemWithUrl(QUrl url)

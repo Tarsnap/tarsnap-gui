@@ -67,6 +67,7 @@ void ArchiveListWidgetItem::setShowingDetails(bool is_showing)
 
 void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
 {
+    // Remove previous archive.
     if(_archive)
     {
         disconnect(_archive.data(), &Archive::changed, this,
@@ -75,16 +76,26 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
                    &ArchiveListWidgetItem::removeItem);
     }
 
+    // Set pointer.
     _archive = archive;
 
+    // Connections for any modifications: being scheduled for deletion,
+    // and being scheduled to be saved (i.e. the initial upload).
     connect(_archive.data(), &Archive::changed, this,
             &ArchiveListWidgetItem::update, QUEUED);
     connect(_archive.data(), &Archive::purged, this,
             &ArchiveListWidgetItem::removeItem, QUEUED);
 
+    // For non-Job Archives, the name is displayed in black.
+    // For Archives that were created due to a Job, the name is
+    // displayed in three parts, which are coloured grey_black_grey:
+    //     Job_JOBNAME_DATE
+    // For example,
+    //     Job_documents_2020-04-21_14-35-59
     QVector<QString> texts(3, "");
     QVector<QString> annotations(6, "");
 
+    // Display the Job_ prefix (if applicable).
     QString baseName = _archive->name();
     if(!_archive->jobRef().isEmpty()
        && _archive->name().startsWith(JOB_NAME_PREFIX))
@@ -94,6 +105,7 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
         annotations[1] = "</font>";
         baseName.remove(0, JOB_NAME_PREFIX.size());
     }
+    // Display the date suffix (if applicable).
     if(baseName.size() > ARCHIVE_TIMESTAMP_FORMAT.size())
     {
         QString truncated;
@@ -113,16 +125,24 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
             annotations[5] = "</font>";
         }
     }
+    // Display the archive "base" name (i.e. without "Job_" or the date).
     texts[1] = baseName;
     _ui->nameLabel->setAnnotatedText(texts, annotations);
     _ui->nameLabel->setToolTip(_archive->name());
+
+    // Prepare to display the date (in a separate field, shown for
+    // all Archives, not only the Job-related Archives).
     QString detail(_archive->timestamp().toString(Qt::DefaultLocaleShortDate));
+
+    // Prepare to display the size.
     if(_archive->sizeTotal() != 0)
     {
         QString size = Utils::humanBytes(_archive->sizeTotal(), FIELD_WIDTH);
         detail.prepend(size + "  ");
     }
 
+    // Display a message about upcoming deletion (if applicable),
+    // or else the date & size.
     if(_archive->deleteScheduled())
     {
         _ui->detailLabel->setText(tr("(scheduled for deletion)"));
@@ -134,11 +154,14 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
         _widget->setEnabled(true);
     }
 
+    // Display the Archive stats as a tooltip.
     _ui->detailLabel->setToolTip(_archive->archiveStats());
 }
 
 void ArchiveListWidgetItem::update()
 {
+    // Reload / re-display the Archive details.  (Probably due to
+    // being scheduled for deletion.)
     setArchive(_archive);
 }
 

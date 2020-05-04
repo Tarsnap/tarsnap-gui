@@ -28,15 +28,18 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     _ui->setupUi(this);
     updateUi();
 
+    // Basic UI setup.
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->archiveDetailsWidget->hide();
     _ui->archivesFilterFrame->hide();
 
+    // Context menu.
     _archiveListMenu = new QMenu(_ui->archiveListWidget);
     connect(_ui->archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,
             &ArchivesTabWidget::showArchiveListMenu);
 
+    // Context menu actions.
     _ui->archiveListWidget->addAction(_ui->actionRefresh);
     _ui->archiveListWidget->addAction(_ui->actionInspect);
     _ui->archiveListWidget->addAction(_ui->actionDelete);
@@ -48,6 +51,7 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::restoreSelectedItem);
 
+    // Connections from the ArchiveListWidget.
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &ArchivesTabWidget::displayInspectArchive);
     connect(_ui->archiveListWidget, &ArchiveListWidget::clearInspectArchive,
@@ -64,11 +68,13 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
                     tr("Archives (%1/%2)").arg(visible).arg(total));
             });
 
+    // Connections to the ArchiveListWidget.
     connect(this, &ArchivesTabWidget::archiveList, _ui->archiveListWidget,
             &ArchiveListWidget::setArchives);
     connect(this, &ArchivesTabWidget::addArchive, _ui->archiveListWidget,
             &ArchiveListWidget::addArchive);
 
+    // Connections from the ArchiveDetailsWidget.
     connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::restoreArchive,
             this, &ArchivesTabWidget::restoreArchive);
     connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::hidden,
@@ -78,6 +84,7 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::jobClicked,
             [this](const QString &jobRef) { emit jobClicked(jobRef); });
 
+    // Filtering.
     _ui->archiveListWidget->addAction(_ui->actionFilterArchives);
     _ui->archivesFilterButton->setDefaultAction(_ui->actionFilterArchives);
     connect(_ui->archivesFilter, &QComboBox::editTextChanged,
@@ -118,11 +125,13 @@ void ArchivesTabWidget::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Escape:
+        // Apply to the ArchiveDetailsWidget, if possible...
         if(_ui->archiveDetailsWidget->isVisible())
         {
             _ui->archiveDetailsWidget->close();
             return;
         }
+        // ... otherwise, apply the archive filter, if possible...
         if(_ui->archivesFilter->isVisible())
         {
             if(_ui->archivesFilter->currentText().isEmpty())
@@ -136,6 +145,7 @@ void ArchivesTabWidget::keyPressEvent(QKeyEvent *event)
             }
             return;
         }
+        // ... otherwise, use the default handling.
         break;
     default:
         QWidget::keyPressEvent(event);
@@ -149,14 +159,18 @@ void ArchivesTabWidget::hideInspectArchive()
 
 void ArchivesTabWidget::displayInspectArchive(ArchivePtr archive)
 {
+    // Get the size.
     if(archive->sizeTotal() == 0)
         emit loadArchiveStats(archive);
 
+    // Get the file list.
     if(archive->contents().count() == 0)
         emit loadArchiveContents(archive);
 
+    // Highlight the row in the ArchiveListWidget.
     _ui->archiveListWidget->selectArchive(archive);
 
+    // Display Archive details.
     _ui->archiveDetailsWidget->setArchive(archive);
     if(!_ui->archiveDetailsWidget->isVisible())
     {
@@ -167,6 +181,9 @@ void ArchivesTabWidget::displayInspectArchive(ArchivePtr archive)
         QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
     }
 
+    // Make sure we can see it in the Archive List.  Must be after showing
+    // the ArchiveDetailsWidget, otherwise the highlighted row might be
+    // "visible" underneath the newly-expanded ArchiveDetailsWidget.
     _ui->archiveListWidget->ensureCurrentItemVisible();
 }
 

@@ -74,94 +74,6 @@ date unice	%3		%4</translation>
     </message>
 </context>
 <context>
-    <name>ArchiveListWidget</name>
-    <message>
-        <source>Confirm delete</source>
-        <translation>Confirmare ștergere</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete archive %1 (this cannot be undone)?</source>
-        <translation>Ești sigur că dorești să ștergi Arhiva %1 (acțiunea este ireversibilă)?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete %1 selected archive(s) (this cannot be undone)?</source>
-        <translation>Ești sigur că dorești ștergerea a %1 Arhive selectate (acțiunea este ireversibila)?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete all of your archives?
-For your information, there&apos;s a purge action in Settings -&gt; Account page that achieves the same thing but more efficiently.</source>
-        <translation>Ești sigur că dorești să ștergi toate arhivele?
-Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Nuke din Setări -&gt; Cont.</translation>
-    </message>
-    <message>
-        <source>This will permanently delete the %1 selected archives. Proceed?</source>
-        <translation>Procedez cu ștergerea definitiva a %1 arhive selectate?</translation>
-    </message>
-</context>
-<context>
-    <name>ArchiveListWidgetItem</name>
-    <message>
-        <source>Form</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Display details for this Archive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Arată detalii Arhivă &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Restore this Archive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Restaurează această Arhivă &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>Delete this Archive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Șterge această Arhivă&lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Șterge</translation>
-    </message>
-    <message>
-        <source>Delete archive(s)</source>
-        <translation>Șterge arhive</translation>
-    </message>
-    <message>
-        <source>Ctrl+D</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Inspect</source>
-        <translation>Detalii</translation>
-    </message>
-    <message>
-        <source>Inspect archive</source>
-        <translation>Detalii Arhivă</translation>
-    </message>
-    <message>
-        <source>Ctrl+I</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Restore</source>
-        <translation>Restaurează</translation>
-    </message>
-    <message>
-        <source>Restore Archive</source>
-        <translation>Restaurează Arhivă</translation>
-    </message>
-    <message>
-        <source>Ctrl+S</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>(scheduled for deletion)</source>
-        <translation>(în curs de stergere)</translation>
-    </message>
-</context>
-<context>
     <name>ArchiveDetailsWidget</name>
     <message>
         <source>Form</source>
@@ -270,6 +182,94 @@ Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Nuke di
     <message>
         <source>This archive looks empty, no file data may be contained besides the TAR header</source>
         <translation>Această arhivă pare goală, pare să nu conțină decât antetul TAR</translation>
+    </message>
+</context>
+<context>
+    <name>ArchiveListWidget</name>
+    <message>
+        <source>Confirm delete</source>
+        <translation>Confirmare ștergere</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete archive %1 (this cannot be undone)?</source>
+        <translation>Ești sigur că dorești să ștergi Arhiva %1 (acțiunea este ireversibilă)?</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete %1 selected archive(s) (this cannot be undone)?</source>
+        <translation>Ești sigur că dorești ștergerea a %1 Arhive selectate (acțiunea este ireversibila)?</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete all of your archives?
+For your information, there&apos;s a purge action in Settings -&gt; Account page that achieves the same thing but more efficiently.</source>
+        <translation>Ești sigur că dorești să ștergi toate arhivele?
+Poți elimina toate Arhivele aferente acestei mașini folosind acțiunea Nuke din Setări -&gt; Cont.</translation>
+    </message>
+    <message>
+        <source>This will permanently delete the %1 selected archives. Proceed?</source>
+        <translation>Procedez cu ștergerea definitiva a %1 arhive selectate?</translation>
+    </message>
+</context>
+<context>
+    <name>ArchiveListWidgetItem</name>
+    <message>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Display details for this Archive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation>Arată detalii Arhivă &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Restore this Archive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation>Restaurează această Arhivă &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Delete this Archive &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation>Șterge această Arhivă&lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Șterge</translation>
+    </message>
+    <message>
+        <source>Delete archive(s)</source>
+        <translation>Șterge arhive</translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Inspect</source>
+        <translation>Detalii</translation>
+    </message>
+    <message>
+        <source>Inspect archive</source>
+        <translation>Detalii Arhivă</translation>
+    </message>
+    <message>
+        <source>Ctrl+I</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Restore</source>
+        <translation>Restaurează</translation>
+    </message>
+    <message>
+        <source>Restore Archive</source>
+        <translation>Restaurează Arhivă</translation>
+    </message>
+    <message>
+        <source>Ctrl+S</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>(scheduled for deletion)</source>
+        <translation>(în curs de stergere)</translation>
     </message>
 </context>
 <context>

@@ -147,9 +147,8 @@ void ArchivesTabWidget::keyPressEvent(QKeyEvent *event)
         }
         // ... otherwise, use the default handling.
         break;
-    default:
-        QWidget::keyPressEvent(event);
     }
+    QWidget::keyPressEvent(event);
 }
 
 void ArchivesTabWidget::hideInspectArchive()

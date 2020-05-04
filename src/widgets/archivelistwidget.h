@@ -7,7 +7,6 @@ WARNINGS_DISABLE
 #include <QList>
 #include <QListWidget>
 #include <QObject>
-#include <QRegExp>
 #include <QString>
 WARNINGS_ENABLE
 
@@ -90,7 +89,7 @@ private:
     int  visibleItemsCount();
     void insertArchive(ArchivePtr archive, int pos);
 
-    QRegExp _filter;
+    QRegExp *_filter;
 
     void goingToInspectItem(ArchiveListWidgetItem *archiveItem);
     ArchiveListWidgetItem *_highlightedItem;

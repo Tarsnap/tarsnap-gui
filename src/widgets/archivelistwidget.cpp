@@ -5,6 +5,7 @@ WARNINGS_DISABLE
 #include <QKeyEvent>
 #include <QListWidgetItem>
 #include <QMessageBox>
+#include <QRegExp>
 #include <Qt>
 WARNINGS_ENABLE
 
@@ -18,10 +19,10 @@ WARNINGS_ENABLE
 #define DELETE_CONFIRMATION_THRESHOLD 10
 
 ArchiveListWidget::ArchiveListWidget(QWidget *parent)
-    : QListWidget(parent), _highlightedItem(nullptr)
+    : QListWidget(parent), _filter(new QRegExp), _highlightedItem(nullptr)
 {
-    _filter.setCaseSensitivity(Qt::CaseInsensitive);
-    _filter.setPatternSyntax(QRegExp::Wildcard);
+    _filter->setCaseSensitivity(Qt::CaseInsensitive);
+    _filter->setPatternSyntax(QRegExp::Wildcard);
     connect(this, &QListWidget::itemActivated, this,
             &ArchiveListWidget::handleItemActivated);
 }
@@ -29,6 +30,7 @@ ArchiveListWidget::ArchiveListWidget(QWidget *parent)
 ArchiveListWidget::~ArchiveListWidget()
 {
     clear();
+    delete _filter;
 }
 
 static bool cmp_timestamp(const ArchivePtr &a, const ArchivePtr &b)
@@ -192,14 +194,14 @@ void ArchiveListWidget::setFilter(QString regex)
 {
     setUpdatesEnabled(false);
     clearSelection();
-    _filter.setPattern(regex);
+    _filter->setPattern(regex);
     for(int i = 0; i < count(); ++i)
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(item(i));
         if(archiveItem)
         {
-            if(archiveItem->archive()->name().contains(_filter))
+            if(archiveItem->archive()->name().contains(*_filter))
                 archiveItem->setHidden(false);
             else
                 archiveItem->setHidden(true);
@@ -241,7 +243,7 @@ void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
             &ArchiveListWidget::removeItem);
     insertItem(pos, item);
     setItemWidget(item, item->widget());
-    item->setHidden(!archive->name().contains(_filter));
+    item->setHidden(!archive->name().contains(*_filter));
     emit countChanged(count(), visibleItemsCount());
 }
 

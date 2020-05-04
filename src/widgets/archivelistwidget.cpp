@@ -50,6 +50,7 @@ void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
 
 void ArchiveListWidget::addArchive(ArchivePtr archive)
 {
+    // Bail (if applicable).
     if(!archive)
     {
         DEBUG << "Null ArchivePtr passed.";
@@ -75,7 +76,11 @@ void ArchiveListWidget::deleteItem()
 {
     ArchiveListWidgetItem *archiveItem =
         qobject_cast<ArchiveListWidgetItem *>(sender());
-    if(archiveItem)
+
+    // Bail (if applicable).
+    if(!archiveItem)
+        return;
+
     {
         ArchivePtr archive = archiveItem->archive();
 
@@ -84,7 +89,9 @@ void ArchiveListWidget::deleteItem()
                                   tr("Are you sure you want to delete"
                                      " archive %1 (this cannot be undone)?")
                                       .arg(archive->name()));
-        if(confirm == QMessageBox::Yes)
+        if(confirm != QMessageBox::Yes)
+            return;
+
         {
             QList<ArchivePtr> archiveList;
             archiveList.append(archive);
@@ -95,6 +102,7 @@ void ArchiveListWidget::deleteItem()
 
 void ArchiveListWidget::deleteSelectedItems()
 {
+    // Bail (if applicable).
     if(selectedItems().isEmpty())
         return;
 
@@ -146,8 +154,9 @@ void ArchiveListWidget::deleteSelectedItems()
                                                 .arg(selectedItemsCount));
         }
     }
+    if(confirm != QMessageBox::Yes)
+        return;
 
-    if(confirm == QMessageBox::Yes)
     {
         QList<ArchivePtr> archivesToDelete;
         for(ArchiveListWidgetItem *archiveItem : selectedListItems)
@@ -161,7 +170,10 @@ void ArchiveListWidget::deleteSelectedItems()
 
 void ArchiveListWidget::inspectSelectedItem()
 {
-    if(!selectedItems().isEmpty())
+    // Bail (if applicable).
+    if(selectedItems().isEmpty())
+        return;
+
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(selectedItems().first());
@@ -172,11 +184,18 @@ void ArchiveListWidget::inspectSelectedItem()
 
 void ArchiveListWidget::restoreSelectedItem()
 {
-    if(!selectedItems().isEmpty())
+    // Bail (if applicable).
+    if(selectedItems().isEmpty())
+        return;
+
     {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(selectedItems().first());
-        if(archiveItem && !archiveItem->archive()->deleteScheduled())
+
+        // Bail (if applicable).
+        if(!archiveItem || archiveItem->archive()->deleteScheduled())
+            return;
+
         {
             RestoreDialog *restoreDialog =
                 new RestoreDialog(this, archiveItem->archive());
@@ -215,7 +234,10 @@ void ArchiveListWidget::removeItem()
 {
     ArchiveListWidgetItem *archiveItem =
         qobject_cast<ArchiveListWidgetItem *>(sender());
-    if(archiveItem)
+    // Bail (if applicable).
+    if(!archiveItem)
+        return;
+
     {
         delete archiveItem; // Removes item from the list
         emit countChanged(count(), visibleItemsCount());
@@ -224,6 +246,7 @@ void ArchiveListWidget::removeItem()
 
 void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
 {
+    // Bail (if applicable).
     if(!archive)
     {
         DEBUG << "Null ArchivePtr passed.";
@@ -268,7 +291,10 @@ void ArchiveListWidget::restoreItem()
 {
     ArchiveListWidgetItem *archiveItem =
         qobject_cast<ArchiveListWidgetItem *>(sender());
-    if(archiveItem)
+    // Bail (if applicable).
+    if(!archiveItem)
+        return;
+
     {
         RestoreDialog *restoreDialog =
             new RestoreDialog(this, archiveItem->archive());
@@ -290,6 +316,7 @@ void ArchiveListWidget::goToJob()
 
 void ArchiveListWidget::selectArchive(ArchivePtr archive)
 {
+    // Bail (if applicable).
     if(!archive)
     {
         DEBUG << "Null ArchivePtr passed.";
@@ -331,7 +358,10 @@ void ArchiveListWidget::keyPressEvent(QKeyEvent *event)
 
 void ArchiveListWidget::noInspect()
 {
-    if(_highlightedItem != nullptr)
+    // Bail (if applicable).
+    if(_highlightedItem == nullptr)
+        return;
+
     {
         _highlightedItem->setShowingDetails(false);
         _highlightedItem = nullptr;

@@ -320,6 +320,8 @@ void JobsTabWidget::displayJobDetails(JobPtr job)
 
 void JobsTabWidget::showJobsListMenu()
 {
+    // Construct menu.
+    _jobListMenu->clear();
     if(!_ui->jobListWidget->selectedItems().isEmpty())
     {
         _jobListMenu->addAction(_ui->actionJobBackup);
@@ -334,6 +336,8 @@ void JobsTabWidget::showJobsListMenu()
     {
         _jobListMenu->addAction(_ui->actionBackupAllJobs);
     }
+
+    // Display menu.
     _jobListMenu->popup(QCursor::pos());
 }
 

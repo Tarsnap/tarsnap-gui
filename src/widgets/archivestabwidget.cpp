@@ -179,6 +179,8 @@ void ArchivesTabWidget::displayInspectArchive(ArchivePtr archive)
 
 void ArchivesTabWidget::showArchiveListMenu()
 {
+    // Construct menu.
+    _archiveListMenu->clear();
     if(!_ui->archiveListWidget->selectedItems().isEmpty())
     {
         if(_ui->archiveListWidget->selectedItems().count() == 1)
@@ -189,6 +191,8 @@ void ArchivesTabWidget::showArchiveListMenu()
         _archiveListMenu->addAction(_ui->actionDelete);
     }
     _archiveListMenu->addAction(_ui->actionRefresh);
+
+    // Display menu.
     _archiveListMenu->popup(QCursor::pos());
 }
 

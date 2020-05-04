@@ -216,7 +216,7 @@ void ArchivesTabWidget::updateUi()
             QKeySequence::NativeText)));
 }
 
-void ArchivesTabWidget::displayInspectArchiveByRef(QString archiveName)
+void ArchivesTabWidget::displayInspectArchiveByRef(const QString &archiveName)
 {
     ArchivePtr archive = _ui->archiveListWidget->findArchiveByName(archiveName);
     displayInspectArchive(archive);

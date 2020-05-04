@@ -41,7 +41,7 @@ public:
     ~ArchivesTabWidget();
 
     //! Expand the "inspect archive" widget.
-    void displayInspectArchiveByRef(QString archiveName);
+    void displayInspectArchiveByRef(const QString &archiveName);
 
 public slots:
     //! Expand the "inspect archive" widget.
@@ -62,10 +62,10 @@ signals:
     void addArchive(ArchivePtr archive);
 
     //! Notify that the job details should be displayed.
-    void displayJobDetails(QString jobRef);
+    void displayJobDetails(const QString &jobRef);
     //! The user clicked on the Job label.
     //! \param jobRef a string which identifies the Job.
-    void jobClicked(QString jobRef);
+    void jobClicked(const QString &jobRef);
 
     //! Begin tarsnap --print-stats -f \<name\>
     void loadArchiveStats(ArchivePtr archive);

@@ -24,18 +24,24 @@ WARNINGS_ENABLE
 
 BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
 {
+    // Load previous backup list from Settings (if applicable).
     TSettings   settings;
     QStringList urls =
         settings.value("app/backup_list", QStringList()).toStringList();
     if(!urls.isEmpty())
     {
+        // Convert url strings to QUrls.
         QList<QUrl> urllist;
         for(const QString &url : urls)
             urllist << QUrl::fromUserInput(url);
+
+        // Load the list in the background, via the event loop.
         if(!urllist.isEmpty())
             QMetaObject::invokeMethod(this, "addItemsWithUrls", QUEUED,
                                       Q_ARG(QList<QUrl>, urllist));
     }
+
+    // Connection to open the file or dir with QDeskopServices::openUrl().
     connect(this, &QListWidget::itemActivated, [](QListWidgetItem *item) {
         static_cast<BackupListWidgetItem *>(item)->browseUrl();
     });
@@ -43,6 +49,7 @@ BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)
 
 BackupListWidget::~BackupListWidget()
 {
+    // Save current backup list.
     QStringList urls;
     for(int i = 0; i < count(); ++i)
     {
@@ -58,9 +65,11 @@ BackupListWidget::~BackupListWidget()
 
 void BackupListWidget::addItemWithUrl(QUrl url)
 {
+    // Bail if nothing to do.
     if(url.isEmpty())
         return;
 
+    // Bail if the filename is empty, or the file doesn't exist.
     QString fileUrl = url.toLocalFile();
     if(fileUrl.isEmpty())
         return;
@@ -68,6 +77,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
     if(!file.exists())
         return;
 
+    // Find out if the new url matches any of the current urls.
     QList<QUrl> urls    = itemUrls();
     bool        matches = false;
     for(const QUrl &existingUrl : urls)
@@ -86,6 +96,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
         }
     }
 
+    // If any matches exist, ask user for confirmation.
     if(matches)
     {
         QMessageBox::StandardButton confirm =
@@ -99,6 +110,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
             return;
     }
 
+    // Create a new item for the url.
     BackupListWidgetItem *item = new BackupListWidgetItem();
     connect(item, &BackupListWidgetItem::requestDelete, this,
             &BackupListWidget::removeItems);
@@ -109,8 +121,12 @@ void BackupListWidget::addItemWithUrl(QUrl url)
     connect(item, &BackupListWidgetItem::cancelTaskRequested, this,
             &BackupListWidget::cancelTaskRequested);
     item->setUrl(url);
+
+    // Append it to the list.
     insertItem(count(), item);
     setItemWidget(item, item->widget());
+
+    // Notify that we've finished adding the url.
     emit itemWithUrlAdded(url);
 }
 

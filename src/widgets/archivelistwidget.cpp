@@ -81,7 +81,6 @@ void ArchiveListWidget::deleteItem()
     if(!archiveItem)
         return;
 
-    {
         ArchivePtr archive = archiveItem->archive();
 
         QMessageBox::StandardButton confirm =
@@ -92,12 +91,9 @@ void ArchiveListWidget::deleteItem()
         if(confirm != QMessageBox::Yes)
             return;
 
-        {
             QList<ArchivePtr> archiveList;
             archiveList.append(archive);
             emit deleteArchives(archiveList);
-        }
-    }
 }
 
 void ArchiveListWidget::deleteSelectedItems()
@@ -157,7 +153,6 @@ void ArchiveListWidget::deleteSelectedItems()
     if(confirm != QMessageBox::Yes)
         return;
 
-    {
         QList<ArchivePtr> archivesToDelete;
         for(ArchiveListWidgetItem *archiveItem : selectedListItems)
         {
@@ -165,7 +160,6 @@ void ArchiveListWidget::deleteSelectedItems()
         }
         if(!archivesToDelete.isEmpty())
             emit deleteArchives(archivesToDelete);
-    }
 }
 
 void ArchiveListWidget::inspectSelectedItem()
@@ -174,12 +168,10 @@ void ArchiveListWidget::inspectSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
-    {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(selectedItems().first());
         if(archiveItem && !archiveItem->archive()->deleteScheduled())
             goingToInspectItem(archiveItem);
-    }
 }
 
 void ArchiveListWidget::restoreSelectedItem()
@@ -188,7 +180,6 @@ void ArchiveListWidget::restoreSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
-    {
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(selectedItems().first());
 
@@ -196,7 +187,6 @@ void ArchiveListWidget::restoreSelectedItem()
         if(!archiveItem || archiveItem->archive()->deleteScheduled())
             return;
 
-        {
             RestoreDialog *restoreDialog =
                 new RestoreDialog(this, archiveItem->archive());
             restoreDialog->show();
@@ -205,8 +195,6 @@ void ArchiveListWidget::restoreSelectedItem()
                         emit restoreArchive(restoreDialog->archive(),
                                             restoreDialog->getOptions());
                     });
-        }
-    }
 }
 
 void ArchiveListWidget::setFilter(QString regex)
@@ -238,10 +226,8 @@ void ArchiveListWidget::removeItem()
     if(!archiveItem)
         return;
 
-    {
         delete archiveItem; // Removes item from the list
         emit countChanged(count(), visibleItemsCount());
-    }
 }
 
 void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
@@ -295,7 +281,6 @@ void ArchiveListWidget::restoreItem()
     if(!archiveItem)
         return;
 
-    {
         RestoreDialog *restoreDialog =
             new RestoreDialog(this, archiveItem->archive());
         restoreDialog->show();
@@ -303,7 +288,6 @@ void ArchiveListWidget::restoreItem()
             emit restoreArchive(restoreDialog->archive(),
                                 restoreDialog->getOptions());
         });
-    }
 }
 
 void ArchiveListWidget::goToJob()
@@ -362,10 +346,8 @@ void ArchiveListWidget::noInspect()
     if(_highlightedItem == nullptr)
         return;
 
-    {
         _highlightedItem->setShowingDetails(false);
         _highlightedItem = nullptr;
-    }
 }
 
 void ArchiveListWidget::goingToInspectItem(ArchiveListWidgetItem *archiveItem)

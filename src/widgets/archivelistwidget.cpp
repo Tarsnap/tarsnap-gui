@@ -21,8 +21,11 @@ WARNINGS_ENABLE
 ArchiveListWidget::ArchiveListWidget(QWidget *parent)
     : QListWidget(parent), _filter(new QRegExp), _highlightedItem(nullptr)
 {
+    // Set up filtering archive names.
     _filter->setCaseSensitivity(Qt::CaseInsensitive);
     _filter->setPatternSyntax(QRegExp::Wildcard);
+
+    // Connection for showing info about an Archive.
     connect(this, &QListWidget::itemActivated, this,
             &ArchiveListWidget::handleItemActivated);
 }
@@ -40,7 +43,10 @@ static bool cmp_timestamp(const ArchivePtr &a, const ArchivePtr &b)
 
 void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
 {
+    // Sort archive list.
     std::sort(archives.begin(), archives.end(), cmp_timestamp);
+
+    // Clear existing list and add archives (in sorted order).
     setUpdatesEnabled(false);
     clear();
     for(const ArchivePtr &archive : archives)
@@ -74,6 +80,7 @@ void ArchiveListWidget::addArchive(ArchivePtr archive)
 
 void ArchiveListWidget::deleteItem()
 {
+    // Get item requesting the deletion.
     ArchiveListWidgetItem *archiveItem =
         qobject_cast<ArchiveListWidgetItem *>(sender());
 
@@ -81,8 +88,10 @@ void ArchiveListWidget::deleteItem()
     if(!archiveItem)
         return;
 
+    // Get archive name.
     ArchivePtr archive = archiveItem->archive();
 
+    // Confirm deletion.
     QMessageBox::StandardButton confirm =
         QMessageBox::question(this, tr("Confirm delete"),
                               tr("Are you sure you want to delete"
@@ -91,6 +100,7 @@ void ArchiveListWidget::deleteItem()
     if(confirm != QMessageBox::Yes)
         return;
 
+    // Delete archive.
     QList<ArchivePtr> archiveList;
     archiveList.append(archive);
     emit deleteArchives(archiveList);
@@ -114,6 +124,7 @@ void ArchiveListWidget::deleteSelectedItems()
             selectedListItems << archiveItem;
     }
 
+    // Confirm deletion.
     int selectedItemsCount = selectedItems().count();
 
     QMessageBox::StandardButton confirm =
@@ -153,6 +164,7 @@ void ArchiveListWidget::deleteSelectedItems()
     if(confirm != QMessageBox::Yes)
         return;
 
+    // Schedule archives for deletion.
     QList<ArchivePtr> archivesToDelete;
     for(ArchiveListWidgetItem *archiveItem : selectedListItems)
     {
@@ -180,6 +192,7 @@ void ArchiveListWidget::restoreSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
+    // Get first selected item.
     ArchiveListWidgetItem *archiveItem =
         static_cast<ArchiveListWidgetItem *>(selectedItems().first());
 
@@ -187,6 +200,7 @@ void ArchiveListWidget::restoreSelectedItem()
     if(!archiveItem || archiveItem->archive()->deleteScheduled())
         return;
 
+    // Launch RestoreDialog.
     RestoreDialog *restoreDialog =
         new RestoreDialog(this, archiveItem->archive());
     connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
@@ -198,9 +212,12 @@ void ArchiveListWidget::restoreSelectedItem()
 
 void ArchiveListWidget::setFilter(QString regex)
 {
+    // Set up filter.
     setUpdatesEnabled(false);
     clearSelection();
     _filter->setPattern(regex);
+
+    // Check archives against filter.
     for(int i = 0; i < count(); ++i)
     {
         ArchiveListWidgetItem *archiveItem =
@@ -214,6 +231,8 @@ void ArchiveListWidget::setFilter(QString regex)
         }
     }
     setUpdatesEnabled(true);
+
+    // Notify about the number of visible items.
     emit countChanged(count(), visibleItemsCount());
 }
 
@@ -225,7 +244,10 @@ void ArchiveListWidget::removeItem()
     if(!archiveItem)
         return;
 
-    delete archiveItem; // Removes item from the list
+    // Remove item from the list.
+    delete archiveItem;
+
+    // Notify about the number of visible items.
     emit countChanged(count(), visibleItemsCount());
 }
 
@@ -238,6 +260,7 @@ void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
         return;
     }
 
+    // Create new item.
     ArchiveListWidgetItem *item = new ArchiveListWidgetItem(archive);
     connect(item, &ArchiveListWidgetItem::requestDelete, this,
             &ArchiveListWidget::deleteItem);
@@ -249,14 +272,21 @@ void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
             &ArchiveListWidget::goToJob);
     connect(item, &ArchiveListWidgetItem::removeItem, this,
             &ArchiveListWidget::removeItem);
+
+    // Add it to the list at the indicated position.
     insertItem(pos, item);
     setItemWidget(item, item->widget());
+
+    // Check it against the name filter.
     item->setHidden(!archive->name().contains(*_filter));
+
+    // Notify about the number of visible items.
     emit countChanged(count(), visibleItemsCount());
 }
 
 int ArchiveListWidget::visibleItemsCount()
 {
+    // Find the number of items which are not hidden.
     int count = 0;
     for(QListWidgetItem *item : findItems("*", Qt::MatchWildcard))
     {
@@ -280,6 +310,7 @@ void ArchiveListWidget::restoreItem()
     if(!archiveItem)
         return;
 
+    // Launch RestoreDialog.
     RestoreDialog *restoreDialog =
         new RestoreDialog(this, archiveItem->archive());
     connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
@@ -291,6 +322,7 @@ void ArchiveListWidget::restoreItem()
 
 void ArchiveListWidget::goToJob()
 {
+    // Notify that we want to display the Job.
     if(sender())
         emit displayJobDetails(qobject_cast<ArchiveListWidgetItem *>(sender())
                                    ->archive()
@@ -306,6 +338,7 @@ void ArchiveListWidget::selectArchive(ArchivePtr archive)
         return;
     }
 
+    // Find the archive in the list.
     for(int i = 0; i < count(); ++i)
     {
         ArchiveListWidgetItem *archiveItem =
@@ -313,8 +346,11 @@ void ArchiveListWidget::selectArchive(ArchivePtr archive)
         if(archiveItem
            && (archiveItem->archive()->objectKey() == archive->objectKey()))
         {
+            // Select the desired archive.
             clearSelection();
             setCurrentItem(archiveItem);
+
+            // Make sure the scroll are includes the archive.
             scrollToItem(currentItem(), QAbstractItemView::EnsureVisible);
             break;
         }
@@ -345,6 +381,7 @@ void ArchiveListWidget::noInspect()
     if(_highlightedItem == nullptr)
         return;
 
+    // Indicate to the item that we're not showing it any more.
     _highlightedItem->setShowingDetails(false);
     _highlightedItem = nullptr;
 }
@@ -394,6 +431,7 @@ void ArchiveListWidget::handleItemActivated(QListWidgetItem *item)
 
 ArchivePtr ArchiveListWidget::findArchiveByName(const QString &archiveName)
 {
+    // Find the archive name in the list.
     for(int i = 0; i < count(); i++)
     {
         ArchiveListWidgetItem *archiveItem =
@@ -402,6 +440,7 @@ ArchivePtr ArchiveListWidget::findArchiveByName(const QString &archiveName)
             return archiveItem->archive();
     }
 
+    // We couldn't find the name.
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
     return nullptr;
 #else

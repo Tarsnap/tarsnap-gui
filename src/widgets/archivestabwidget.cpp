@@ -44,6 +44,8 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     _ui->archiveListWidget->addAction(_ui->actionInspect);
     _ui->archiveListWidget->addAction(_ui->actionDelete);
     _ui->archiveListWidget->addAction(_ui->actionRestore);
+    connect(_ui->actionRefresh, &QAction::triggered, this,
+            &ArchivesTabWidget::getArchives);
     connect(_ui->actionInspect, &QAction::triggered, _ui->archiveListWidget,
             &ArchiveListWidget::inspectSelectedItem);
     connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,

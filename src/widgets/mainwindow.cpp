@@ -170,8 +170,7 @@ MainWindow::MainWindow(QWidget *parent)
             &MainWindow::loadArchiveStats);
     connect(_archivesTabWidget, &ArchivesTabWidget::loadArchiveContents, this,
             &MainWindow::loadArchiveContents);
-
-    connect(_ui->actionRefresh, &QAction::triggered, this,
+    connect(_archivesTabWidget, &ArchivesTabWidget::getArchives, this,
             &MainWindow::getArchives);
 
     connect(_archivesTabWidget, &ArchivesTabWidget::taskRequested, this,

@@ -50,6 +50,8 @@ public slots:
     void hideInspectArchive();
 
 signals:
+    //! Begin tarsnap --list-archives
+    void getArchives();
     //! Passes info from the ArchiveListWidget or JobDetailsWidget to the
     //! TaskManager.
     void deleteArchives(QList<ArchivePtr> archives);

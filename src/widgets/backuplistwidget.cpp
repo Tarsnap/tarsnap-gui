@@ -77,7 +77,7 @@ void BackupListWidget::loadBackupList()
                                   Q_ARG(QList<QUrl>, urllist));
 }
 
-void BackupListWidget::addItemWithUrl(QUrl url)
+void BackupListWidget::addItemWithUrl(const QUrl &url)
 {
     // Bail if nothing to do.
     if(url.isEmpty())
@@ -144,7 +144,7 @@ void BackupListWidget::addItemWithUrl(QUrl url)
     emit itemWithUrlAdded(url);
 }
 
-void BackupListWidget::addItemsWithUrls(QList<QUrl> urls)
+void BackupListWidget::addItemsWithUrls(const QList<QUrl> &urls)
 {
     setUpdatesEnabled(false);
     for(const QUrl &url : urls)

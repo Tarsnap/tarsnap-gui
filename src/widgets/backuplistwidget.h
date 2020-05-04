@@ -33,10 +33,10 @@ public:
 public slots:
     //! Add a single item to the backup list.
     //! \param url the path of the file or directory.
-    void addItemWithUrl(QUrl url);
+    void addItemWithUrl(const QUrl &url);
     //! Add multiple items to the backup list.
     //! \param urls a list of the paths of the files or directories.
-    void addItemsWithUrls(QList<QUrl> urls);
+    void addItemsWithUrls(const QList<QUrl> &urls);
     //! Returns a list of the paths of files or directories.
     QList<QUrl> itemUrls();
     //! Removes the currently-selected items.
@@ -54,7 +54,7 @@ signals:
     void itemTotals(quint64 count, quint64 size);
     //! A single item was added.
     //! \param url the path of the file or directory.
-    void itemWithUrlAdded(QUrl url);
+    void itemWithUrlAdded(const QUrl &url);
     //! We have a task to perform in the background.
     void taskRequested(BaseTask *task);
     //! We would like to cancel a task.

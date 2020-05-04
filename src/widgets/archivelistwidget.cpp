@@ -189,11 +189,11 @@ void ArchiveListWidget::restoreSelectedItem()
 
     RestoreDialog *restoreDialog =
         new RestoreDialog(this, archiveItem->archive());
-    restoreDialog->show();
     connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
         emit restoreArchive(restoreDialog->archive(),
                             restoreDialog->getOptions());
     });
+    restoreDialog->show();
 }
 
 void ArchiveListWidget::setFilter(QString regex)
@@ -282,11 +282,11 @@ void ArchiveListWidget::restoreItem()
 
     RestoreDialog *restoreDialog =
         new RestoreDialog(this, archiveItem->archive());
-    restoreDialog->show();
     connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
         emit restoreArchive(restoreDialog->archive(),
                             restoreDialog->getOptions());
     });
+    restoreDialog->show();
 }
 
 void ArchiveListWidget::goToJob()

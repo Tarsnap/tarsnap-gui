@@ -365,11 +365,11 @@ void JobDetailsWidget::restoreButtonClicked()
 
     // Launch the RestoreDialog.
     RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
-    restoreDialog->show();
     connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
         emit restoreJobArchive(restoreDialog->archive(),
                                restoreDialog->getOptions());
     });
+    restoreDialog->show();
 }
 
 void JobDetailsWidget::backupButtonClicked()

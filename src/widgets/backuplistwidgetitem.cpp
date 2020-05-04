@@ -80,7 +80,10 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
 {
     _url = url;
 
-    if(!_url.isEmpty())
+    // Bail (if applicable).
+    if(url.isEmpty())
+        return;
+
     {
         QString fileUrl = _url.toLocalFile();
         if(fileUrl.isEmpty())

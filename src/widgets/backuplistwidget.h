@@ -71,6 +71,10 @@ protected:
     void keyPressEvent(QKeyEvent *event);
     //! Handles translation change of language.
     void changeEvent(QEvent *event);
+
+private:
+    void saveBackupList();
+    void loadBackupList();
 };
 
 #endif // BACKUPLISTWIDGET_H

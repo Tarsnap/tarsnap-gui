@@ -837,131 +837,6 @@ Adaugă oricum?</translation>
     </message>
 </context>
 <context>
-    <name>JobListWidget</name>
-    <message>
-        <source>Confirm action</source>
-        <translation>Confirmare acțiune</translation>
-    </message>
-    <message>
-        <source>Initiate backup for the %1 selected job(s)?</source>
-        <translation>Inițiază backup pentru %1 Joburi selectate?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to delete job &quot;%1&quot; (this cannot be undone)?</source>
-        <translation>Ești sigur că dorești să ștergi Jobul %1 (acțiunea este ireversibilă)?</translation>
-    </message>
-    <message>
-        <source>Also delete %1 archives belonging to this job (this cannot be undone)?</source>
-        <translation>Dorești să ștergi și cele %1 arhive aparținând acestui Job (acțiunea este ireversibilă)?</translation>
-    </message>
-</context>
-<context>
-    <name>JobListWidgetItem</name>
-    <message>
-        <source>Form</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Last backup timestamp</source>
-        <translation>Data ultimului backup</translation>
-    </message>
-    <message>
-        <source>Display details for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Arată detalii Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Restore latest backup for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Restaurează din cea mai recentă Arhivă &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>Initiate a backup for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Inițiază backup pentru acest Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>Delete this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Șterge acest Job&lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
-        <source>Restore</source>
-        <translation>Restaurează</translation>
-    </message>
-    <message>
-        <source>Restore latest backup</source>
-        <translation>Restaurează din cel mai recent backup</translation>
-    </message>
-    <message>
-        <source>Ctrl+S</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Inspect</source>
-        <translation>Detalii</translation>
-    </message>
-    <message>
-        <source>Show job details</source>
-        <translation>Arată detalii Job</translation>
-    </message>
-    <message>
-        <source>Ctrl+I</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Backup</source>
-        <translation>Inițiază backup</translation>
-    </message>
-    <message>
-        <source>Execute backup for job(s)</source>
-        <translation>Execută backup</translation>
-    </message>
-    <message>
-        <source>Ctrl+B</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Șterge</translation>
-    </message>
-    <message>
-        <source>Delete jobs(s)</source>
-        <translation>Șterge Job(uri)</translation>
-    </message>
-    <message>
-        <source>Ctrl+D</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>No backups</source>
-        <translation>Niciun backup</translation>
-    </message>
-    <message>
-        <source>archive</source>
-        <translation>arhivă</translation>
-    </message>
-    <message>
-        <source>archives</source>
-        <translation>arhive</translation>
-    </message>
-    <message>
-        <source>%1 %2 totaling </source>
-        <translation>%1 %2 cu dimensiunea totală </translation>
-    </message>
-</context>
-<context>
-    <name>JobRunner</name>
-    <message>
-        <source>Scheduled jobs not executed (cannot reach server).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please check your internet connectivity and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>JobDetailsWidget</name>
     <message>
         <source>Form</source>
@@ -1173,6 +1048,131 @@ Adaugă oricum?</translation>
     </message>
     <message>
         <source>Job name cannot contain a leading or trailing whitespace.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>JobListWidget</name>
+    <message>
+        <source>Confirm action</source>
+        <translation>Confirmare acțiune</translation>
+    </message>
+    <message>
+        <source>Initiate backup for the %1 selected job(s)?</source>
+        <translation>Inițiază backup pentru %1 Joburi selectate?</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete job &quot;%1&quot; (this cannot be undone)?</source>
+        <translation>Ești sigur că dorești să ștergi Jobul %1 (acțiunea este ireversibilă)?</translation>
+    </message>
+    <message>
+        <source>Also delete %1 archives belonging to this job (this cannot be undone)?</source>
+        <translation>Dorești să ștergi și cele %1 arhive aparținând acestui Job (acțiunea este ireversibilă)?</translation>
+    </message>
+</context>
+<context>
+    <name>JobListWidgetItem</name>
+    <message>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Last backup timestamp</source>
+        <translation>Data ultimului backup</translation>
+    </message>
+    <message>
+        <source>Display details for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation>Arată detalii Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Restore latest backup for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation>Restaurează din cea mai recentă Arhivă &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Initiate a backup for this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation>Inițiază backup pentru acest Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Delete this Job &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation>Șterge acest Job&lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Restore</source>
+        <translation>Restaurează</translation>
+    </message>
+    <message>
+        <source>Restore latest backup</source>
+        <translation>Restaurează din cel mai recent backup</translation>
+    </message>
+    <message>
+        <source>Ctrl+S</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Inspect</source>
+        <translation>Detalii</translation>
+    </message>
+    <message>
+        <source>Show job details</source>
+        <translation>Arată detalii Job</translation>
+    </message>
+    <message>
+        <source>Ctrl+I</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Backup</source>
+        <translation>Inițiază backup</translation>
+    </message>
+    <message>
+        <source>Execute backup for job(s)</source>
+        <translation>Execută backup</translation>
+    </message>
+    <message>
+        <source>Ctrl+B</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Șterge</translation>
+    </message>
+    <message>
+        <source>Delete jobs(s)</source>
+        <translation>Șterge Job(uri)</translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>No backups</source>
+        <translation>Niciun backup</translation>
+    </message>
+    <message>
+        <source>archive</source>
+        <translation>arhivă</translation>
+    </message>
+    <message>
+        <source>archives</source>
+        <translation>arhive</translation>
+    </message>
+    <message>
+        <source>%1 %2 totaling </source>
+        <translation>%1 %2 cu dimensiunea totală </translation>
+    </message>
+</context>
+<context>
+    <name>JobRunner</name>
+    <message>
+        <source>Scheduled jobs not executed (cannot reach server).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please check your internet connectivity and try again.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

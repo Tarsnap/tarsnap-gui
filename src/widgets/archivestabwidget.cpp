@@ -26,13 +26,13 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
 {
     // Ui initialization
     _ui->setupUi(this);
-
-    _archiveListMenu = new QMenu(_ui->archiveListWidget);
+    updateUi();
 
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
     _ui->archiveDetailsWidget->hide();
     _ui->archivesFilterFrame->hide();
 
+    _archiveListMenu = new QMenu(_ui->archiveListWidget);
     connect(_ui->archiveListWidget,
             &ArchiveListWidget::customContextMenuRequested, this,
             &ArchivesTabWidget::showArchiveListMenu);
@@ -41,8 +41,12 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     _ui->archiveListWidget->addAction(_ui->actionInspect);
     _ui->archiveListWidget->addAction(_ui->actionDelete);
     _ui->archiveListWidget->addAction(_ui->actionRestore);
-    _ui->archiveListWidget->addAction(_ui->actionFilterArchives);
-    _ui->archivesFilterButton->setDefaultAction(_ui->actionFilterArchives);
+    connect(_ui->actionInspect, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::inspectSelectedItem);
+    connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::deleteSelectedItems);
+    connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
+            &ArchiveListWidget::restoreSelectedItem);
 
     connect(_ui->archiveListWidget, &ArchiveListWidget::inspectArchive, this,
             &ArchivesTabWidget::displayInspectArchive);
@@ -52,40 +56,8 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
             &ArchivesTabWidget::deleteArchives);
     connect(_ui->archiveListWidget, &ArchiveListWidget::restoreArchive, this,
             &ArchivesTabWidget::restoreArchive);
-    connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::restoreArchive,
-            this, &ArchivesTabWidget::restoreArchive);
-    connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::hidden,
-            _ui->archiveListWidget, &ArchiveListWidget::noInspect);
-    connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::taskRequested,
-            this, &ArchivesTabWidget::taskRequested);
-
-    connect(_ui->actionDelete, &QAction::triggered, _ui->archiveListWidget,
-            &ArchiveListWidget::deleteSelectedItems);
-    connect(_ui->actionRestore, &QAction::triggered, _ui->archiveListWidget,
-            &ArchiveListWidget::restoreSelectedItem);
-    connect(_ui->actionInspect, &QAction::triggered, _ui->archiveListWidget,
-            &ArchiveListWidget::inspectSelectedItem);
-
-    connect(_ui->archivesFilter, &QComboBox::editTextChanged,
-            _ui->archiveListWidget, &ArchiveListWidget::setFilter);
-
-    connect(_ui->actionFilterArchives, &QAction::triggered, [this]() {
-        _ui->archivesFilterFrame->setVisible(
-            !_ui->archivesFilterFrame->isVisible());
-        if(_ui->archivesFilter->isVisible())
-            _ui->archivesFilter->setFocus();
-        else
-            _ui->archivesFilter->clearEditText();
-    });
-
-    connect(_ui->archivesFilter, &QComboBox::editTextChanged,
-            _ui->archiveListWidget, &ArchiveListWidget::setFilter);
-
-    connect(_ui->archivesFilter,
-            static_cast<void (QComboBox::*)(int)>(
-                &QComboBox::currentIndexChanged),
-            [this]() { _ui->archiveListWidget->setFocus(); });
-
+    connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails,
+            [this](const QString &jobRef) { emit displayJobDetails(jobRef); });
     connect(_ui->archiveListWidget, &ArchiveListWidget::countChanged,
             [this](int total, int visible) {
                 _ui->archivesCountLabel->setText(
@@ -97,12 +69,33 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
     connect(this, &ArchivesTabWidget::addArchive, _ui->archiveListWidget,
             &ArchiveListWidget::addArchive);
 
+    connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::restoreArchive,
+            this, &ArchivesTabWidget::restoreArchive);
+    connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::hidden,
+            _ui->archiveListWidget, &ArchiveListWidget::noInspect);
+    connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::taskRequested,
+            this, &ArchivesTabWidget::taskRequested);
     connect(_ui->archiveDetailsWidget, &ArchiveDetailsWidget::jobClicked,
             [this](const QString &jobRef) { emit jobClicked(jobRef); });
-    connect(_ui->archiveListWidget, &ArchiveListWidget::displayJobDetails,
-            [this](const QString &jobRef) { emit displayJobDetails(jobRef); });
 
-    updateUi();
+    _ui->archiveListWidget->addAction(_ui->actionFilterArchives);
+    _ui->archivesFilterButton->setDefaultAction(_ui->actionFilterArchives);
+    connect(_ui->archivesFilter, &QComboBox::editTextChanged,
+            _ui->archiveListWidget, &ArchiveListWidget::setFilter);
+    connect(_ui->actionFilterArchives, &QAction::triggered, [this]() {
+        _ui->archivesFilterFrame->setVisible(
+            !_ui->archivesFilterFrame->isVisible());
+        if(_ui->archivesFilter->isVisible())
+            _ui->archivesFilter->setFocus();
+        else
+            _ui->archivesFilter->clearEditText();
+    });
+    connect(_ui->archivesFilter, &QComboBox::editTextChanged,
+            _ui->archiveListWidget, &ArchiveListWidget::setFilter);
+    connect(_ui->archivesFilter,
+            static_cast<void (QComboBox::*)(int)>(
+                &QComboBox::currentIndexChanged),
+            [this]() { _ui->archiveListWidget->setFocus(); });
 }
 
 ArchivesTabWidget::~ArchivesTabWidget()

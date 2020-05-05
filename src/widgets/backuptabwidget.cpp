@@ -218,9 +218,13 @@ void BackupTabWidget::browseForBackupItems()
 
 void BackupTabWidget::processFPD(int res)
 {
-    if(res == QDialog::Accepted)
-        _ui->backupListWidget->setItemsWithUrls(
-            _filePickerDialog->getSelectedUrls());
+    // Bail (if appropriate).
+    if(res != QDialog::Accepted)
+        return;
+
+    // Set the current items to those in the FilePickerDialog.
+    _ui->backupListWidget->setItemsWithUrls(
+        _filePickerDialog->getSelectedUrls());
 }
 
 void BackupTabWidget::addFiles()

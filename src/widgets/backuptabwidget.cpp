@@ -36,6 +36,7 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
 {
     // Ui initialization
     _ui->setupUi(this);
+    updateUi();
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     // Messages between widgets on this tab
@@ -82,12 +83,11 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
     connect(_filePickerDialog, &FilePickerDialog::finished, this,
             &BackupTabWidget::processFPD);
 
+    // Pass messages about tasks.
     connect(_ui->backupListWidget, &BackupListWidget::taskRequested, this,
             &BackupTabWidget::taskRequested);
     connect(_ui->backupListWidget, &BackupListWidget::cancelTaskRequested, this,
             &BackupTabWidget::cancelTaskRequested);
-
-    updateUi();
 }
 
 BackupTabWidget::~BackupTabWidget()
@@ -129,6 +129,7 @@ void BackupTabWidget::validateBackupTab()
     if(name.simplified() != name)
         valid = false;
 
+    // Act on the validity.
     _ui->actionBackupNow->setEnabled(valid);
     _ui->actionBackupMorphIntoJob->setEnabled(valid);
     emit backupTabValidStatus(valid);
@@ -138,17 +139,25 @@ void BackupTabWidget::appendTimestampCheckBoxToggled(bool checked)
 {
     if(checked)
     {
+        // Get backup name.
         QString text = _ui->backupNameLineEdit->text();
+
+        // Append current time to text.
         _lastTimestamp.clear();
         _lastTimestamp.append(
             QDateTime::currentDateTime().toString(ARCHIVE_TIMESTAMP_FORMAT));
         text.append(_lastTimestamp);
+
+        // Set backup name.
         _ui->backupNameLineEdit->setText(text);
         _ui->backupNameLineEdit->setCursorPosition(0);
     }
     else
     {
+        // Get backup name.
         QString text = _ui->backupNameLineEdit->text();
+
+        // Remove timestamp (if it matches the saved timestamp string).
         if(!_lastTimestamp.isEmpty() && text.endsWith(_lastTimestamp))
         {
             text.chop(_lastTimestamp.length());
@@ -182,16 +191,22 @@ void BackupTabWidget::backupMorphIntoJobClicked()
 
 void BackupTabWidget::backupButtonClicked()
 {
+    // Get a list of the URLs.
     QList<QUrl> urls;
     for(int i = 0; i < _ui->backupListWidget->count(); ++i)
         urls << static_cast<BackupListWidgetItem *>(
                     _ui->backupListWidget->item(i))
                     ->url();
 
+    // Make a new BackupTaskData with info from this tab.
     BackupTaskDataPtr backup(new BackupTaskData);
     backup->setName(_ui->backupNameLineEdit->text());
     backup->setUrls(urls);
+
+    // Start creating a new archive.
     emit backupNow(backup);
+
+    // Clear the timestamp checkbox.
     _ui->appendTimestampCheckBox->setChecked(false);
 }
 

@@ -59,7 +59,7 @@ signals:
     void backupNow(BackupTaskDataPtr backupTaskData);
 
     //! Create a new job with the given urls and name.
-    void morphBackupIntoJob(QList<QUrl> urls, QString name);
+    void morphBackupIntoJob(const QList<QUrl> &urls, const QString &name);
 
     //! We can make a new backup
     void backupTabValidStatus(bool valid);

@@ -38,7 +38,7 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::JobDetailsWidget),
       _saveEnabled(false),
-      _fsEventUpdate(new Timer(this))
+      _fsEventUpdate(new QTimer(this))
 {
     _ui->setupUi(this);
 
@@ -264,7 +264,7 @@ void JobDetailsWidget::saveNew()
     emit jobAdded(_job);
 }
 
-void JobDetailsWidget::updateMatchingArchives(QList<ArchivePtr> archives)
+void JobDetailsWidget::updateMatchingArchives(const QList<ArchivePtr> &archives)
 {
     // Do we need to prompt the user to check the Job's ArchiveList tab?
     if(!archives.isEmpty())

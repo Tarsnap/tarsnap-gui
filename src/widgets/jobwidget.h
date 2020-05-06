@@ -52,7 +52,7 @@ public slots:
     void saveNew();
     //! Update the list of potential matching archives.
     //! \param archives the archives which match this job name.
-    void updateMatchingArchives(QList<ArchivePtr> archives);
+    void updateMatchingArchives(const QList<ArchivePtr> &archives);
 
 signals:
     //! The widget should be hidden.
@@ -62,7 +62,7 @@ signals:
     //! An archive belonging to this job should be inspected.
     void inspectJobArchive(ArchivePtr archive);
     //! Some archives belonging to this job should be deleted.
-    void deleteJobArchives(QList<ArchivePtr> archives);
+    void deleteJobArchives(const QList<ArchivePtr> &archives);
     //! The specified archive should be restored, using the
     //! user-selected options from the \ref RestoreDialog.
     void restoreJobArchive(ArchivePtr archive, ArchiveRestoreOptions options);
@@ -73,7 +73,7 @@ signals:
     void enableSave(bool enable);
     //! Notify that we should look for archives matching this Job.
     //! \param jobPrefix prefix to match.
-    void findMatchingArchives(QString jobPrefix);
+    void findMatchingArchives(const QString &jobPrefix);
 
 protected:
     //! Handles translation change of language.

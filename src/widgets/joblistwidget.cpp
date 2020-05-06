@@ -53,11 +53,8 @@ void JobListWidget::backupSelectedItems()
     // Create a new archive for each selected Job.
     for(QListWidgetItem *item : selectedItems())
     {
-        if(item->isSelected())
-        {
-            JobPtr job = static_cast<JobListWidgetItem *>(item)->job();
-            emit   backupJob(job);
-        }
+        JobPtr job = static_cast<JobListWidgetItem *>(item)->job();
+        emit   backupJob(job);
     }
 }
 

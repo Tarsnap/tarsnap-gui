@@ -32,6 +32,9 @@ TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
     _ui->setupUi(this);
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
                    & ~Qt::WindowMaximizeButtonHint);
+    _popup->setParent(this->parentWidget());
+    _popup->setWindowModality(Qt::NonModal);
+
     connect(_ui->passwordLineEdit, &QLineEdit::textEdited, [this]() {
         _ui->loginButton->setEnabled(!_ui->passwordLineEdit->text().isEmpty());
     });
@@ -54,9 +57,6 @@ TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
             &TarsnapAccountDialog::lastMachineActivity);
     connect(_ta, &TarsnapAccount::getKeyId, this,
             &TarsnapAccountDialog::getKeyId);
-
-    _popup->setParent(this->parentWidget());
-    _popup->setWindowModality(Qt::NonModal);
 }
 
 TarsnapAccountDialog::~TarsnapAccountDialog()
@@ -73,7 +73,6 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
 
     TSettings settings;
     _user = settings.value("tarsnap/user", "").toString();
-    emit getKeyId(settings.value("tarsnap/key", "").toString());
     if(_user.isEmpty())
     {
         _popup->setWindowTitle(tr("Warning"));
@@ -82,6 +81,9 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
         _popup->open();
         return;
     }
+
+    emit getKeyId(settings.value("tarsnap/key", "").toString());
+
     _ui->textLabel->setText(tr("Type password for account %1:").arg(_user));
     _ui->loginButton->setEnabled(false);
     open();

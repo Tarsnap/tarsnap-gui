@@ -38,7 +38,8 @@ TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
 
     // Connection for basic UI.
     connect(_ui->passwordLineEdit, &QLineEdit::textEdited, [this]() {
-        _ui->loginButton->setEnabled(!_ui->passwordLineEdit->text().isEmpty());
+        const bool empty_password = _ui->passwordLineEdit->text().isEmpty();
+        _ui->loginButton->setEnabled(!empty_password);
     });
 
     // Create the TarsnapAccount backend.
@@ -176,15 +177,18 @@ void TarsnapAccountDialog::showWarningIfApplicable(const QByteArray &data)
             tr("Password for account %1 is incorrect; please try again.")
                 .arg(_user));
         _popup->open();
+        return;
     }
+
     // Check for an invalid username.
-    else if(data.contains("No user exists with the provided email "
-                          "address; please try again."))
+    if(data.contains("No user exists with the provided email "
+                     "address; please try again."))
     {
         _popup->setWindowTitle(tr("Invalid username"));
         _popup->setIcon(QMessageBox::Warning);
         _popup->setText(
             tr("Account %1 is invalid; please try again.").arg(_user));
         _popup->open();
+        return;
     }
 }

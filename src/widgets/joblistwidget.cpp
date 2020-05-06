@@ -20,8 +20,11 @@ WARNINGS_ENABLE
 JobListWidget::JobListWidget(QWidget *parent)
     : QListWidget(parent), _filter(new QRegExp)
 {
+    // Set up filtering job names.
     _filter->setCaseSensitivity(Qt::CaseInsensitive);
     _filter->setPatternSyntax(QRegExp::Wildcard);
+
+    // Connection for showing info about a Job.
     connect(this, &QListWidget::itemActivated, [this](QListWidgetItem *item) {
         emit displayJobDetails(static_cast<JobListWidgetItem *>(item)->job());
     });
@@ -39,6 +42,7 @@ void JobListWidget::backupSelectedItems()
     if(selectedItems().isEmpty())
         return;
 
+    // Confirm that the user wants to create new archive(s).
     QMessageBox::StandardButton confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Initiate backup for the %1 selected job(s)?")
@@ -46,6 +50,7 @@ void JobListWidget::backupSelectedItems()
     if(confirm != QMessageBox::Yes)
         return;
 
+    // Create a new archive for each selected Job.
     for(QListWidgetItem *item : selectedItems())
     {
         if(item->isSelected())
@@ -65,6 +70,7 @@ void JobListWidget::selectJob(JobPtr job)
         return;
     }
 
+    // Find the item representing the Job, and select it.
     for(int i = 0; i < count(); ++i)
     {
         JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
@@ -84,6 +90,7 @@ void JobListWidget::inspectJobByRef(const QString &jobRef)
     if(jobRef.isEmpty())
         return;
 
+    // Find the item representing the Job, and display its details.
     for(int i = 0; i < count(); ++i)
     {
         JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
@@ -94,6 +101,7 @@ void JobListWidget::inspectJobByRef(const QString &jobRef)
 
 void JobListWidget::backupAllJobs()
 {
+    // Start a new archive for all jobs.
     for(int i = 0; i < count(); ++i)
     {
         JobPtr job = static_cast<JobListWidgetItem *>(item(i))->job();
@@ -107,6 +115,7 @@ void JobListWidget::backupItem()
     if(!sender())
         return;
 
+    // Start a new archive for this job.
     JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
     if(job)
         emit backupJob(job);
@@ -118,6 +127,7 @@ void JobListWidget::inspectItem()
     if(!sender())
         return;
 
+    // Display details about the job.
     emit displayJobDetails(qobject_cast<JobListWidgetItem *>(sender())->job());
 }
 
@@ -127,13 +137,17 @@ void JobListWidget::restoreItem()
     if(!sender())
         return;
 
+    // Get the Job.
     JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
 
     // Bail (if applicable).
     if(job->archives().isEmpty())
         return;
 
-    ArchivePtr     archive       = job->archives().first();
+    // Get the latest archive belonging to the Job.
+    ArchivePtr archive = job->archives().first();
+
+    // Launch the RestoreDialog.
     RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
     connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
         emit restoreArchive(restoreDialog->archive(),
@@ -156,8 +170,10 @@ void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
         return;
     }
 
+    // Get the Job.
     JobPtr job = jobItem->job();
 
+    // Confirm that the user wants to delete the Job.
     QMessageBox::StandardButton confirm =
         QMessageBox::question(this, tr("Confirm action"),
                               tr("Are you sure you want to delete job \"%1\" "
@@ -166,6 +182,7 @@ void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
     if(confirm != QMessageBox::Yes)
         return;
 
+    // Confirm if the user wants to remove archives as well.
     bool purgeArchives = false;
     if(!job->archives().isEmpty())
     {
@@ -178,8 +195,12 @@ void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
         if(delArchives == QMessageBox::Yes)
             purgeArchives = true;
     }
+
+    // Begin deleting the job (and possibly archives as well).
     emit deleteJob(job, purgeArchives);
     delete jobItem;
+
+    // Notify about the number of visible items.
     emit countChanged(count(), visibleItemsCount());
 }
 
@@ -214,6 +235,7 @@ void JobListWidget::addJob(JobPtr job)
         return;
     }
 
+    // Create new item.
     JobListWidgetItem *item = new JobListWidgetItem(job);
     connect(item, &JobListWidgetItem::requestBackup, this,
             &JobListWidget::backupItem);
@@ -223,9 +245,15 @@ void JobListWidget::addJob(JobPtr job)
             &JobListWidget::restoreItem);
     connect(item, &JobListWidgetItem::requestDelete, this,
             &JobListWidget::deleteItem);
+
+    // Add it to the end of the list.
     insertItem(count(), item);
     setItemWidget(item, item->widget());
+
+    // Check it against the name filter.
     item->setHidden(!job->name().contains(*_filter));
+
+    // Notify about the number of visible items.
     emit countChanged(count(), visibleItemsCount());
 }
 
@@ -235,6 +263,7 @@ void JobListWidget::inspectSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
+    // Display details about the first of the selected items.
     emit displayJobDetails(
         static_cast<JobListWidgetItem *>(selectedItems().first())->job());
 }
@@ -245,6 +274,7 @@ void JobListWidget::restoreSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
+    // Get the first Job amongst the selected items.
     JobPtr job =
         static_cast<JobListWidgetItem *>(selectedItems().first())->job();
 
@@ -252,7 +282,10 @@ void JobListWidget::restoreSelectedItem()
     if(job->archives().isEmpty())
         return;
 
-    ArchivePtr     archive       = job->archives().first();
+    // Get the latest archive belonging to the Job.
+    ArchivePtr archive = job->archives().first();
+
+    // Launch the RestoreDialog.
     RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
     connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
         emit restoreArchive(restoreDialog->archive(),
@@ -267,14 +300,19 @@ void JobListWidget::deleteSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
+    // Delete the first of the selected items.
     execDeleteJob(static_cast<JobListWidgetItem *>(selectedItems().first()));
 }
 
 void JobListWidget::setFilter(const QString &regex)
 {
     setUpdatesEnabled(false);
+
+    // Set up filter.
     clearSelection();
     _filter->setPattern(regex);
+
+    // Check jobs against filter.
     for(int i = 0; i < count(); ++i)
     {
         JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
@@ -287,6 +325,8 @@ void JobListWidget::setFilter(const QString &regex)
         }
     }
     setUpdatesEnabled(true);
+
+    // Notify about the number of visible items.
     emit countChanged(count(), visibleItemsCount());
 }
 

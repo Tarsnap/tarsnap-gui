@@ -7,7 +7,6 @@ WARNINGS_DISABLE
 #include <QListWidget>
 #include <QMap>
 #include <QObject>
-#include <QRegExp>
 #include <QString>
 WARNINGS_ENABLE
 
@@ -89,7 +88,7 @@ private:
     int  visibleItemsCount();
     void execDeleteJob(JobListWidgetItem *jobItem);
 
-    QRegExp _filter;
+    QRegExp *_filter;
 };
 
 #endif // JOBLISTWIDGET_H

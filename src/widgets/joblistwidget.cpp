@@ -6,6 +6,7 @@ WARNINGS_DISABLE
 #include <QList>
 #include <QListWidgetItem>
 #include <QMessageBox>
+#include <QRegExp>
 #include <Qt>
 WARNINGS_ENABLE
 
@@ -16,10 +17,11 @@ WARNINGS_ENABLE
 #include "persistentmodel/job.h"
 #include "restoredialog.h"
 
-JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
+JobListWidget::JobListWidget(QWidget *parent)
+    : QListWidget(parent), _filter(new QRegExp)
 {
-    _filter.setCaseSensitivity(Qt::CaseInsensitive);
-    _filter.setPatternSyntax(QRegExp::Wildcard);
+    _filter->setCaseSensitivity(Qt::CaseInsensitive);
+    _filter->setPatternSyntax(QRegExp::Wildcard);
     connect(this, &QListWidget::itemActivated, [this](QListWidgetItem *item) {
         emit displayJobDetails(static_cast<JobListWidgetItem *>(item)->job());
     });
@@ -28,6 +30,7 @@ JobListWidget::JobListWidget(QWidget *parent) : QListWidget(parent)
 JobListWidget::~JobListWidget()
 {
     clear();
+    delete _filter;
 }
 
 void JobListWidget::backupSelectedItems()
@@ -215,7 +218,7 @@ void JobListWidget::addJob(JobPtr job)
             &JobListWidget::deleteItem);
     insertItem(count(), item);
     setItemWidget(item, item->widget());
-    item->setHidden(!job->name().contains(_filter));
+    item->setHidden(!job->name().contains(*_filter));
     emit countChanged(count(), visibleItemsCount());
 }
 
@@ -257,13 +260,13 @@ void JobListWidget::setFilter(QString regex)
 {
     setUpdatesEnabled(false);
     clearSelection();
-    _filter.setPattern(regex);
+    _filter->setPattern(regex);
     for(int i = 0; i < count(); ++i)
     {
         JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
         if(jobItem)
         {
-            if(jobItem->job()->name().contains(_filter))
+            if(jobItem->job()->name().contains(*_filter))
                 jobItem->setHidden(false);
             else
                 jobItem->setHidden(true);

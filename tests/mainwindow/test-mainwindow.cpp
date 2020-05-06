@@ -26,6 +26,8 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
+#include "TPopupPushButton.h"
+
 #include "messages/archivefilestat.h"
 
 #include "basetask.h"
@@ -44,7 +46,6 @@ WARNINGS_ENABLE
 #include "widgets/filepickerdialog.h"
 #include "widgets/joblistwidget.h"
 #include "widgets/joblistwidgetitem.h"
-#include "widgets/popuppushbutton.h"
 
 #include "ConsoleLog.h"
 #include "TSettings.h"

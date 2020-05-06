@@ -35,6 +35,7 @@ HEADERS  +=						\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
+	../../lib/widgets/TPopupPushButton.h		\
 	../../lib/widgets/TTextView.h			\
 	../../src/backuptask.h				\
 	../../src/basetask.h				\
@@ -75,7 +76,6 @@ HEADERS  +=						\
 	../../src/widgets/jobstabwidget.h		\
 	../../src/widgets/jobwidget.h			\
 	../../src/widgets/mainwindow.h			\
-	../../src/widgets/popuppushbutton.h		\
 	../../src/widgets/restoredialog.h		\
 	../../src/widgets/schedulingwidgets.h		\
 	../../src/widgets/settingswidget.h		\
@@ -88,6 +88,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../lib/core/TSettings.cpp			\
 	../../lib/widgets/TBusyLabel.cpp		\
 	../../lib/widgets/TElidedLabel.cpp		\
+	../../lib/widgets/TPopupPushButton.cpp		\
 	../../lib/widgets/TTextView.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/basetask.cpp				\
@@ -122,7 +123,6 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/widgets/jobstabwidget.cpp		\
 	../../src/widgets/jobwidget.cpp			\
 	../../src/widgets/mainwindow.cpp		\
-	../../src/widgets/popuppushbutton.cpp		\
 	../../src/widgets/restoredialog.cpp		\
 	../../src/widgets/schedulingwidgets.cpp		\
 	../../src/widgets/settingswidget.cpp		\

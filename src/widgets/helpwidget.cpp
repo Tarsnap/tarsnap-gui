@@ -22,10 +22,10 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "LogEntry.h"
+#include "TPopupPushButton.h"
 #include "TTextView.h"
 
 #include "debug.h"
-#include "popuppushbutton.h"
 
 HelpWidget::HelpWidget(QWidget *parent)
     : QWidget(parent), _ui(new Ui::HelpWidget)

@@ -1,4 +1,4 @@
-#include "popuppushbutton.h"
+#include "TPopupPushButton.h"
 
 WARNINGS_DISABLE
 #include <QDialog>

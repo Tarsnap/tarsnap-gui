@@ -46,17 +46,17 @@ public slots:
                         bool displayMachineActivity = false);
 
     //! Check the reply for anything to warn about.
-    void showWarningIfApplicable(QByteArray data);
+    void showWarningIfApplicable(const QByteArray &data);
     //! Format and display a comma-separated-value table in a QTableWidget.
-    void displayCSVTable(QString csv, QString title);
+    void displayCSVTable(const QString &csv, const QString &title);
 
 signals:
     //! The amount of money in the Tarsnap account, and the latest date.
-    void accountCredit(qreal credit, QDate date);
+    void accountCredit(qreal credit, const QDate &date);
     //! The latest machine activity.
-    void lastMachineActivity(QStringList activityFields);
+    void lastMachineActivity(const QStringList &activityFields);
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
-    void getKeyId(QString key);
+    void getKeyId(const QString &key);
 
 private slots:
     void processPasswordBox(int res);
@@ -72,4 +72,4 @@ private:
     bool _displayMachineActivity;
 };
 
-#endif // TARSNAPACCOUNT_H
+#endif /* !TARSNAPACCOUNTDIALOG_H */

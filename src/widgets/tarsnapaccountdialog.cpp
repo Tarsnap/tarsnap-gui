@@ -97,7 +97,8 @@ void TarsnapAccountDialog::processPasswordBox(int res)
     _ui->passwordLineEdit->clear();
 }
 
-void TarsnapAccountDialog::displayCSVTable(QString csv, QString title)
+void TarsnapAccountDialog::displayCSVTable(const QString &csv,
+                                           const QString &title)
 {
     DEBUG << csv;
     if(csv.isEmpty() || csv.startsWith("<!DOCTYPE html>"))
@@ -141,7 +142,7 @@ void TarsnapAccountDialog::displayCSVTable(QString csv, QString title)
     csvDialog->show();
 }
 
-void TarsnapAccountDialog::showWarningIfApplicable(QByteArray data)
+void TarsnapAccountDialog::showWarningIfApplicable(const QByteArray &data)
 {
     if(data.contains("Password is incorrect; please try again."))
     {

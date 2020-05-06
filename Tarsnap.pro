@@ -57,6 +57,7 @@ SOURCES +=						\
 	lib/widgets/TOkLabel.cpp			\
 	lib/widgets/TPathComboBrowse.cpp		\
 	lib/widgets/TPathLineBrowse.cpp			\
+	lib/widgets/TPopupPushButton.cpp		\
 	lib/widgets/TTextView.cpp			\
 	lib/widgets/TWizard.cpp				\
 	lib/widgets/TWizardPage.cpp			\
@@ -115,7 +116,6 @@ SOURCES +=						\
 	src/widgets/jobstabwidget.cpp			\
 	src/widgets/jobwidget.cpp			\
 	src/widgets/mainwindow.cpp			\
-	src/widgets/popuppushbutton.cpp			\
 	src/widgets/restoredialog.cpp			\
 	src/widgets/schedulingwidgets.cpp		\
 	src/widgets/settingswidget.cpp			\
@@ -135,6 +135,7 @@ HEADERS +=						\
 	lib/widgets/TOkLabel.h				\
 	lib/widgets/TPathComboBrowse.h			\
 	lib/widgets/TPathLineBrowse.h			\
+	lib/widgets/TPopupPushButton.h			\
 	lib/widgets/TTextView.h				\
 	lib/widgets/TWizard.h				\
 	lib/widgets/TWizardPage.h			\
@@ -202,7 +203,6 @@ HEADERS +=						\
 	src/widgets/jobstabwidget.h			\
 	src/widgets/jobwidget.h				\
 	src/widgets/mainwindow.h			\
-	src/widgets/popuppushbutton.h			\
 	src/widgets/restoredialog.h			\
 	src/widgets/schedulingwidgets.h			\
 	src/widgets/settingswidget.h			\

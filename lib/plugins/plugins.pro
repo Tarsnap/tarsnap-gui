@@ -10,6 +10,7 @@ HEADERS	=	plugins.h			\
 		../widgets/TOkLabel.h		\
 		../widgets/TPathComboBrowse.h	\
 		../widgets/TPathLineBrowse.h	\
+		../widgets/TPopupPushButton.h	\
 		../widgets/TTextView.h		\
 		../widgets/TWizardPage.h	\
 		TBusyLabelPlugin.h		\
@@ -17,6 +18,7 @@ HEADERS	=	plugins.h			\
 		TOkLabelPlugin.h		\
 		TPathComboBrowsePlugin.h	\
 		TPathLineBrowsePlugin.h		\
+		TPopupPushButtonPlugin.h	\
 		TTextViewPlugin.h		\
 		TWizardPagePlugin.h
 
@@ -26,6 +28,7 @@ SOURCES	=	plugins.cpp			\
 		../widgets/TOkLabel.cpp		\
 		../widgets/TPathComboBrowse.cpp	\
 		../widgets/TPathLineBrowse.cpp	\
+		../widgets/TPopupPushButton.cpp	\
 		../widgets/TTextView.cpp	\
 		../widgets/TWizardPage.cpp	\
 		TBusyLabelPlugin.cpp		\
@@ -33,6 +36,7 @@ SOURCES	=	plugins.cpp			\
 		TOkLabelPlugin.cpp		\
 		TPathComboBrowsePlugin.cpp	\
 		TPathLineBrowsePlugin.cpp	\
+		TPopupPushButtonPlugin.cpp	\
 		TTextViewPlugin.cpp		\
 		TWizardPagePlugin.cpp
 

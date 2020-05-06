@@ -7,7 +7,6 @@ WARNINGS_DISABLE
 #include <QList>
 #include <QObject>
 #include <QString>
-#include <QTimer>
 #include <QWidget>
 WARNINGS_ENABLE
 
@@ -22,6 +21,7 @@ class JobDetailsWidget;
 }
 class QEvent;
 class QMenu;
+class QTimer;
 
 /*!
  * \ingroup widgets-specialized
@@ -93,7 +93,7 @@ private:
     Ui::JobDetailsWidget *_ui;
     JobPtr                _job;
     bool                  _saveEnabled;
-    QTimer                _fsEventUpdate;
+    QTimer *              _fsEventUpdate;
 
     QMenu *_archiveListMenu;
 

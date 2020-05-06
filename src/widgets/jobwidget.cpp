@@ -13,6 +13,7 @@ WARNINGS_DISABLE
 #include <QSpinBox>
 #include <QStringList>
 #include <QTabWidget>
+#include <QTimer>
 #include <QUrl>
 #include <QVariant>
 #include <Qt>
@@ -34,7 +35,10 @@ WARNINGS_ENABLE
 #include "utils.h"
 
 JobDetailsWidget::JobDetailsWidget(QWidget *parent)
-    : QWidget(parent), _ui(new Ui::JobDetailsWidget), _saveEnabled(false)
+    : QWidget(parent),
+      _ui(new Ui::JobDetailsWidget),
+      _saveEnabled(false),
+      _fsEventUpdate(new Timer(this))
 {
     _ui->setupUi(this);
 
@@ -44,8 +48,8 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     _archiveListMenu = new QMenu(_ui->archiveListWidget);
 
     // Set up the timer for filesystem events.
-    _fsEventUpdate.setSingleShot(true);
-    connect(&_fsEventUpdate, &QTimer::timeout, this,
+    _fsEventUpdate->setSingleShot(true);
+    connect(_fsEventUpdate, &QTimer::timeout, this,
             &JobDetailsWidget::verifyJob);
 
     // UI connections (simple).
@@ -448,7 +452,7 @@ void JobDetailsWidget::fsEventReceived()
     // triggers, it will signal verifyJob() to run.  If we have continuous
     // filesystem events (within 250ms of each other), verifyJob() will not
     // be called until they've finished.
-    _fsEventUpdate.start(250);
+    _fsEventUpdate->start(250);
 }
 
 void JobDetailsWidget::showJobPathsWarn()

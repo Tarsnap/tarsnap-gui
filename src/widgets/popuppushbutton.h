@@ -14,7 +14,7 @@ class QWidget;
 
 /*!
  * \ingroup widgets-general
- * \brief The PopupPushButton widget is a QPushButton which shows a non-modal
+ * \brief The PopupPushButton is a QPushButton which shows a non-modal
  * QDialog in a pop-up window.
  */
 class PopupPushButton : public QPushButton

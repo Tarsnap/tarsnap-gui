@@ -6,29 +6,29 @@ WARNINGS_DISABLE
 #include <QPushButton>
 WARNINGS_ENABLE
 
-PopupPushButton::PopupPushButton(QWidget *parent)
+TPopupPushButton::TPopupPushButton(QWidget *parent)
     : QPushButton(parent), _popup(nullptr)
 {
-    connect(this, &QPushButton::toggled, this, &PopupPushButton::valueChanged);
+    connect(this, &QPushButton::toggled, this, &TPopupPushButton::valueChanged);
 }
 
-PopupPushButton::~PopupPushButton()
+TPopupPushButton::~TPopupPushButton()
 {
 }
 
-void PopupPushButton::setPopup(QDialog *popup)
+void TPopupPushButton::setPopup(QDialog *popup)
 {
     _popup = popup;
-    connect(_popup, &QDialog::finished, this, &PopupPushButton::popupClosed);
+    connect(_popup, &QDialog::finished, this, &TPopupPushButton::popupClosed);
 }
 
-void PopupPushButton::valueChanged(bool checked)
+void TPopupPushButton::valueChanged(bool checked)
 {
     if(_popup != nullptr)
         _popup->setVisible(checked);
 }
 
-void PopupPushButton::popupClosed(int result)
+void TPopupPushButton::popupClosed(int result)
 {
     Q_UNUSED(result)
     setChecked(false);

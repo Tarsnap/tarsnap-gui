@@ -97,7 +97,7 @@ border-top: 2px groove darkgrey;
           </spacer>
          </item>
          <item>
-          <widget class="PopupPushButton" name="aboutButton">
+          <widget class="TPopupPushButton" name="aboutButton">
            <property name="text">
             <string>About Tarsnap</string>
            </property>
@@ -120,7 +120,7 @@ border-top: 2px groove darkgrey;
           </spacer>
          </item>
          <item>
-          <widget class="PopupPushButton" name="consoleButton">
+          <widget class="TPopupPushButton" name="consoleButton">
            <property name="text">
             <string>Console Log</string>
            </property>
@@ -152,7 +152,7 @@ border-top: 2px groove darkgrey;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PopupPushButton</class>
+   <class>TPopupPushButton</class>
    <extends>QPushButton</extends>
    <header>widgets/popuppushbutton.h</header>
   </customwidget>

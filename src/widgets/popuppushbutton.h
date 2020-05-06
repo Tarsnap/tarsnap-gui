@@ -1,5 +1,5 @@
-#ifndef POPUPPUSHBUTTON_H
-#define POPUPPUSHBUTTON_H
+#ifndef TPOPUPPUSHBUTTON_H
+#define TPOPUPPUSHBUTTON_H
 
 #include "warnings-disable.h"
 
@@ -14,17 +14,17 @@ class QWidget;
 
 /*!
  * \ingroup widgets-general
- * \brief The PopupPushButton is a QPushButton which shows a non-modal
+ * \brief The TPopupPushButton is a QPushButton which shows a non-modal
  * QDialog in a pop-up window.
  */
-class PopupPushButton : public QPushButton
+class TPopupPushButton : public QPushButton
 {
     Q_OBJECT
 
 public:
     //! Constructor.
-    explicit PopupPushButton(QWidget *parent = nullptr);
-    ~PopupPushButton();
+    explicit TPopupPushButton(QWidget *parent = nullptr);
+    ~TPopupPushButton();
 
     //! Display popup if and only if this button is checked.
     void setPopup(QDialog *popup);
@@ -37,4 +37,4 @@ private:
     QDialog *_popup;
 };
 
-#endif // POPUPPUSHBUTTON_H
+#endif /* !TPOPUPPUSHBUTTON_H */

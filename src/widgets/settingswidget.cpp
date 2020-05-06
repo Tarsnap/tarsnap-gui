@@ -398,6 +398,12 @@ void SettingsWidget::overallStatsChanged(quint64 sizeTotal,
                                          quint64 sizeUniqueCompressed,
                                          quint64 archiveCount)
 {
+    // Calculate amount of data saved by Tarsnap.
+    quint64 storageSaved = sizeTotal >= sizeUniqueCompressed
+                               ? sizeTotal - sizeUniqueCompressed
+                               : 0;
+
+    // Set tooltip and labels.
     QString tooltip(tr("\t\tTotal size\tCompressed size\n"
                        "all archives\t%1\t\t%2\n"
                        "unique data\t%3\t\t%4")
@@ -405,17 +411,16 @@ void SettingsWidget::overallStatsChanged(quint64 sizeTotal,
                         .arg(sizeCompressed)
                         .arg(sizeUniqueTotal)
                         .arg(sizeUniqueCompressed));
-    _ui->accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal));
     _ui->accountTotalSizeLabel->setToolTip(tooltip);
-    _ui->accountActualSizeLabel->setText(
-        Utils::humanBytes(sizeUniqueCompressed));
     _ui->accountActualSizeLabel->setToolTip(tooltip);
-    quint64 storageSaved = sizeTotal >= sizeUniqueCompressed
-                               ? sizeTotal - sizeUniqueCompressed
-                               : 0;
-    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(storageSaved));
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
+
+    // Set values which depend on "app/iec_prefixes"
+    _ui->accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal));
+    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(storageSaved));
+    _ui->accountActualSizeLabel->setText(
+        Utils::humanBytes(sizeUniqueCompressed));
 }
 
 bool SettingsWidget::validateMachineKeyPath()

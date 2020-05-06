@@ -63,7 +63,8 @@ public slots:
 
     //! For the Application tab
     //! Update the Tarsnap version number, and store it in the settings.
-    void tarsnapVersionResponse(TaskStatus status, QString versionString);
+    void tarsnapVersionResponse(TaskStatus     status,
+                                const QString &versionString);
 
 signals:
     // For the Account tab
@@ -71,9 +72,9 @@ signals:
     //! ahead and nuke all archives.
     void nukeArchives();
     //! Display a message.
-    void newStatusMessage(QString message, QString detail);
+    void newStatusMessage(const QString &message, const QString &detail);
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
-    void getKeyId(QString key_filename);
+    void getKeyId(const QString &key_filename);
 
     // For the Backup tab
     //! Show the simulation status
@@ -88,7 +89,7 @@ signals:
     //! and run the setup wizard again.
     void runSetupWizard();
     //! Begin tarsnap --version
-    void tarsnapVersionRequested(QString tarsnapPath);
+    void tarsnapVersionRequested(const QString &tarsnapPath);
 
 protected:
     //! Handles translation change of language.
@@ -97,7 +98,7 @@ protected:
 private slots:
     // For the Account tab
     void updateAccountCredit(qreal credit, QDate date);
-    void updateLastMachineActivity(QStringList activityFields);
+    void updateLastMachineActivity(const QStringList &activityFields);
     bool validateMachineKeyPath();
     void accountMachineKeyBrowseButtonClicked();
     void nukeArchivesButtonClicked();

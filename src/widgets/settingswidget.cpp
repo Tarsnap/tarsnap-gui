@@ -495,7 +495,8 @@ void SettingsWidget::updateAccountCredit(qreal credit, QDate date)
     _ui->outOfDateNoticeLabel->hide();
 }
 
-void SettingsWidget::updateLastMachineActivity(QStringList activityFields)
+void SettingsWidget::updateLastMachineActivity(
+    const QStringList &activityFields)
 {
     if(activityFields.size() < 2)
         return;
@@ -523,8 +524,8 @@ void SettingsWidget::updateSimulationIcon(int state)
     emit newSimulationStatus(state);
 }
 
-void SettingsWidget::tarsnapVersionResponse(TaskStatus status,
-                                            QString    versionString)
+void SettingsWidget::tarsnapVersionResponse(TaskStatus     status,
+                                            const QString &versionString)
 {
     TSettings settings;
 

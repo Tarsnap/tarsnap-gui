@@ -438,12 +438,14 @@ bool SettingsWidget::validateMachineKeyPath()
 
 void SettingsWidget::saveKeyId(const QString &key, quint64 id)
 {
-    if(key == _ui->accountMachineKeyLineEdit->text())
-    {
-        TSettings settings;
-        settings.setValue("tarsnap/key_id", id);
-        settings.sync();
-    }
+    // Bail (if the key was changed after requesting the id).
+    if(key != _ui->accountMachineKeyLineEdit->text())
+        return;
+
+    // Save the key id.
+    TSettings settings;
+    settings.setValue("tarsnap/key_id", id);
+    settings.sync();
 }
 
 void SettingsWidget::accountMachineKeyBrowseButtonClicked()

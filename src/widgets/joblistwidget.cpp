@@ -84,13 +84,12 @@ void JobListWidget::inspectJobByRef(const QString &jobRef)
     if(jobRef.isEmpty())
         return;
 
-        for(int i = 0; i < count(); ++i)
-        {
-            JobListWidgetItem *jobItem =
-                static_cast<JobListWidgetItem *>(item(i));
-            if(jobItem && (jobItem->job()->objectKey() == jobRef))
-                emit displayJobDetails(jobItem->job());
-        }
+    for(int i = 0; i < count(); ++i)
+    {
+        JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
+        if(jobItem && (jobItem->job()->objectKey() == jobRef))
+            emit displayJobDetails(jobItem->job());
+    }
 }
 
 void JobListWidget::backupAllJobs()
@@ -108,9 +107,9 @@ void JobListWidget::backupItem()
     if(!sender())
         return;
 
-        JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
-        if(job)
-            emit backupJob(job);
+    JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
+    if(job)
+        emit backupJob(job);
 }
 
 void JobListWidget::inspectItem()
@@ -119,8 +118,7 @@ void JobListWidget::inspectItem()
     if(!sender())
         return;
 
-        emit displayJobDetails(
-            qobject_cast<JobListWidgetItem *>(sender())->job());
+    emit displayJobDetails(qobject_cast<JobListWidgetItem *>(sender())->job());
 }
 
 void JobListWidget::restoreItem()
@@ -129,20 +127,19 @@ void JobListWidget::restoreItem()
     if(!sender())
         return;
 
-        JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
+    JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
 
-        // Bail (if applicable).
-        if(job->archives().isEmpty())
-            return;
+    // Bail (if applicable).
+    if(job->archives().isEmpty())
+        return;
 
-            ArchivePtr     archive       = job->archives().first();
-            RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
-            connect(restoreDialog, &RestoreDialog::accepted,
-                    [this, restoreDialog] {
-                        emit restoreArchive(restoreDialog->archive(),
-                                            restoreDialog->getOptions());
-                    });
-            restoreDialog->show();
+    ArchivePtr     archive       = job->archives().first();
+    RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
+    connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
+        emit restoreArchive(restoreDialog->archive(),
+                            restoreDialog->getOptions());
+    });
+    restoreDialog->show();
 }
 
 void JobListWidget::deleteItem()
@@ -238,8 +235,8 @@ void JobListWidget::inspectSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
-        emit displayJobDetails(
-            static_cast<JobListWidgetItem *>(selectedItems().first())->job());
+    emit displayJobDetails(
+        static_cast<JobListWidgetItem *>(selectedItems().first())->job());
 }
 
 void JobListWidget::restoreSelectedItem()
@@ -248,21 +245,20 @@ void JobListWidget::restoreSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
-        JobPtr job =
-            static_cast<JobListWidgetItem *>(selectedItems().first())->job();
+    JobPtr job =
+        static_cast<JobListWidgetItem *>(selectedItems().first())->job();
 
-        // Bail (if applicable).
-        if(job->archives().isEmpty())
-            return;
+    // Bail (if applicable).
+    if(job->archives().isEmpty())
+        return;
 
-            ArchivePtr     archive       = job->archives().first();
-            RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
-            connect(restoreDialog, &RestoreDialog::accepted,
-                    [this, restoreDialog] {
-                        emit restoreArchive(restoreDialog->archive(),
-                                            restoreDialog->getOptions());
-                    });
-            restoreDialog->show();
+    ArchivePtr     archive       = job->archives().first();
+    RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
+    connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
+        emit restoreArchive(restoreDialog->archive(),
+                            restoreDialog->getOptions());
+    });
+    restoreDialog->show();
 }
 
 void JobListWidget::deleteSelectedItem()
@@ -271,8 +267,7 @@ void JobListWidget::deleteSelectedItem()
     if(selectedItems().isEmpty())
         return;
 
-        execDeleteJob(
-            static_cast<JobListWidgetItem *>(selectedItems().first()));
+    execDeleteJob(static_cast<JobListWidgetItem *>(selectedItems().first()));
 }
 
 void JobListWidget::setFilter(const QString &regex)

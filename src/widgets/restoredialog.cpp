@@ -31,11 +31,13 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
     _ui->setupUi(this);
     setAttribute(Qt::WA_DeleteOnClose, true);
 
+    // Set up download directory (default for "... to specified directory").
     TSettings settings;
     _downDir =
         settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString();
     _ui->baseDirLineEdit->setText(_downDir);
 
+    // Set up filename (default for "... uncompressed tar archive").
     QString fileName(_archive->name() + ".tar");
     // Replace chars that are problematic on common file systems but are allowed
     // in tarsnap archive names
@@ -46,17 +48,20 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
     archiveFile.makeAbsolute();
     _ui->archiveLineEdit->setText(archiveFile.absoluteFilePath());
 
+    // Hide widgets not needed by default.
     _ui->baseDirLineEdit->hide();
     _ui->changeDirButton->hide();
     _ui->archiveLineEdit->hide();
     _ui->changeArchiveButton->hide();
 
+    // Connections for basic UI operations.
     connect(_ui->cancelButton, &QPushButton::clicked, this, &QDialog::reject);
     connect(_ui->restoreButton, &QPushButton::clicked, [this]() {
         if(validate())
             accept();
     });
 
+    // Connections for the "restore archive to..." options.
     connect(_ui->optionRestoreRadio, &QRadioButton::toggled, this,
             &RestoreDialog::optionRestoreToggled);
     connect(_ui->optionBaseDirRadio, &QRadioButton::toggled, this,
@@ -64,6 +69,7 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
     connect(_ui->optionTarArchiveRadio, &QRadioButton::toggled, this,
             &RestoreDialog::optionTarArchiveToggled);
 
+    // Connections to modify the "restore archive to..." options.
     connect(_ui->baseDirLineEdit, &QLineEdit::textChanged, this,
             &RestoreDialog::validate);
     connect(_ui->changeDirButton, &QPushButton::clicked, this,
@@ -73,15 +79,21 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
     connect(_ui->changeArchiveButton, &QPushButton::clicked, this,
             &RestoreDialog::changeArchive);
 
+    // Connection for other options.
     connect(_ui->overwriteCheckBox, &QCheckBox::toggled, [this](bool checked) {
         _ui->keepNewerCheckBox->setChecked(checked);
         _ui->keepNewerCheckBox->setEnabled(checked);
     });
 
+    // Was the archive created with the `tarsnap -P` option?
     bool canRestore = _archive->hasPreservePaths();
     displayRestoreOption(canRestore);
+
+    // Set the default location to which to restore.
     _ui->optionRestoreRadio->setChecked(canRestore);
     _ui->optionBaseDirRadio->setChecked(!canRestore);
+
+    // If we have a specific list of files, display them.
     if(!_files.isEmpty())
     {
         _ui->filesListWidget->addItems(_files);
@@ -90,11 +102,13 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
     {
         if(_archive->contents().isEmpty())
         {
+            // If we have no files to display, hide the list.
             _ui->filesListWidget->hide();
             adjustSize();
         }
         else
         {
+            // Add all the files to the list.
             _ui->filesListWidget->addItems(
                 _archive->contents().split(QChar('\n')));
             _ui->filesListWidget->show();
@@ -110,6 +124,7 @@ RestoreDialog::~RestoreDialog()
 
 ArchiveRestoreOptions RestoreDialog::getOptions()
 {
+    // Set options based on the UI.
     ArchiveRestoreOptions options;
     options.optionRestore    = _ui->optionRestoreRadio->isChecked();
     options.optionRestoreDir = _ui->optionBaseDirRadio->isChecked();
@@ -118,10 +133,14 @@ ArchiveRestoreOptions RestoreDialog::getOptions()
     options.keepNewerFiles   = _ui->keepNewerCheckBox->isChecked();
     options.preservePerms    = _ui->preservePermCheckBox->isChecked();
     options.files            = _files;
+
+    // The meaning of 'path' depends on 'optionRestoreDir' and
+    // 'optionTarArchive'.
     if(options.optionRestoreDir)
         options.path = _ui->baseDirLineEdit->text();
     else if(options.optionTarArchive)
         options.path = _ui->archiveLineEdit->text();
+
     return options;
 }
 
@@ -197,6 +216,8 @@ void RestoreDialog::changeArchive()
 bool RestoreDialog::validate()
 {
     bool valid = true;
+
+    // Check that we have valid options, depending on which type of restore.
     if(_ui->optionBaseDirRadio->isChecked())
     {
         QFileInfo dir(_ui->baseDirLineEdit->text());

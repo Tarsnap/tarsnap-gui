@@ -25,9 +25,7 @@ void PopupPushButton::setPopup(QDialog *popup)
 void PopupPushButton::valueChanged(bool checked)
 {
     if(_popup != nullptr)
-    {
         _popup->setVisible(checked);
-    }
 }
 
 void PopupPushButton::popupClosed(int result)

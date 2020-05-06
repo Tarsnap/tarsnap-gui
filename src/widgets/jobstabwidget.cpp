@@ -312,10 +312,13 @@ void JobsTabWidget::createNewJob(const QList<QUrl> &urls, const QString &name)
 
 void JobsTabWidget::displayJobDetails(JobPtr job)
 {
-    _ui->jobListWidget->selectJob(job);
     hideJobDetails();
     _ui->jobDetailsWidget->setJob(job);
     _ui->jobDetailsWidget->show();
+
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
+
+    _ui->jobListWidget->selectJob(job);
 }
 
 void JobsTabWidget::showJobsListMenu()

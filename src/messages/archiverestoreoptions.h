@@ -26,7 +26,8 @@ struct ArchiveRestoreOptions
     bool keepNewerFiles = true;
     //! Preserve file permissions, owner, modes, flags, and ACLs.
     bool preservePerms = false;
-    //! Pathname of the output directory or tarball.
+    //! Pathname of the output directory or tarball.  Check
+    //! (optionRestoreDir, optionTarArchive) to see which this refers to.
     QString path;
     //! Specific file(s) to restore.
     QStringList files;

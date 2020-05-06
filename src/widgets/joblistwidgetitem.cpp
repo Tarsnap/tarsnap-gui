@@ -27,6 +27,7 @@ JobListWidgetItem::JobListWidgetItem(JobPtr job)
     // Set a sensible size.
     setSizeHint(QSize(_widget->minimumWidth(), _widget->minimumHeight()));
 
+    // Connections for buttons.
     connect(_ui->backupButton, &QToolButton::clicked, this,
             &JobListWidgetItem::requestBackup);
     connect(_ui->inspectButton, &QToolButton::clicked, this,
@@ -36,6 +37,7 @@ JobListWidgetItem::JobListWidgetItem(JobPtr job)
     connect(_ui->deleteButton, &QToolButton::clicked, this,
             &JobListWidgetItem::requestDelete);
 
+    // Display info about the Job.
     setJob(job);
 }
 
@@ -48,6 +50,7 @@ QWidget *JobListWidgetItem::widget()
 {
     return _widget;
 }
+
 JobPtr JobListWidgetItem::job() const
 {
     return _job;
@@ -55,16 +58,23 @@ JobPtr JobListWidgetItem::job() const
 
 void JobListWidgetItem::setJob(const JobPtr &job)
 {
+    // Disconnect previous Job.
     if(_job)
         disconnect(_job.data(), &Job::changed, this,
                    &JobListWidgetItem::update);
 
+    // Set pointer.
     _job = job;
 
+    // Connection for any modifications: the list of Archives
+    // belonging to this Job has been updated.
     connect(_job.data(), &Job::changed, this, &JobListWidgetItem::update,
             QUEUED);
 
+    // Display the Job name.
     _ui->nameLabel->setText(_job->name());
+
+    // Display the datetime of the most recent archive, or "No backups".
     if(_job->archives().isEmpty())
         _ui->lastBackupLabel->setText(tr("No backups"));
     else
@@ -74,6 +84,7 @@ void JobListWidgetItem::setJob(const JobPtr &job)
             timestamp.toString(Qt::DefaultLocaleShortDate));
     }
 
+    // Display the number and total size of Archives.
     int     count  = _job->archives().count();
     QString detail = tr("%1 %2 totaling ")
                          .arg(count)

@@ -35,6 +35,7 @@ JobListWidget::~JobListWidget()
 
 void JobListWidget::backupSelectedItems()
 {
+    // Bail (if applicable).
     if(selectedItems().isEmpty())
         return;
 
@@ -57,6 +58,7 @@ void JobListWidget::backupSelectedItems()
 
 void JobListWidget::selectJob(JobPtr job)
 {
+    // Bail (if applicable).
     if(!job)
     {
         DEBUG << "Null JobPtr passed.";
@@ -78,15 +80,15 @@ void JobListWidget::selectJob(JobPtr job)
 
 void JobListWidget::inspectJobByRef(const QString &jobRef)
 {
-    if(!jobRef.isEmpty())
+    // Bail (if applicable).
+    if(jobRef.isEmpty())
+        return;
+
+    for(int i = 0; i < count(); ++i)
     {
-        for(int i = 0; i < count(); ++i)
-        {
-            JobListWidgetItem *jobItem =
-                static_cast<JobListWidgetItem *>(item(i));
-            if(jobItem && (jobItem->job()->objectKey() == jobRef))
-                emit displayJobDetails(jobItem->job());
-        }
+        JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
+        if(jobItem && (jobItem->job()->objectKey() == jobRef))
+            emit displayJobDetails(jobItem->job());
     }
 }
 
@@ -101,40 +103,43 @@ void JobListWidget::backupAllJobs()
 
 void JobListWidget::backupItem()
 {
-    if(sender())
-    {
-        JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
-        if(job)
-            emit backupJob(job);
-    }
+    // Bail (if applicable).
+    if(!sender())
+        return;
+
+    JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
+    if(job)
+        emit backupJob(job);
 }
 
 void JobListWidget::inspectItem()
 {
-    if(sender())
-    {
-        emit displayJobDetails(
-            qobject_cast<JobListWidgetItem *>(sender())->job());
-    }
+    // Bail (if applicable).
+    if(!sender())
+        return;
+
+    emit displayJobDetails(qobject_cast<JobListWidgetItem *>(sender())->job());
 }
 
 void JobListWidget::restoreItem()
 {
-    if(sender())
-    {
-        JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
-        if(!job->archives().isEmpty())
-        {
-            ArchivePtr     archive       = job->archives().first();
-            RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
-            connect(restoreDialog, &RestoreDialog::accepted,
-                    [this, restoreDialog] {
-                        emit restoreArchive(restoreDialog->archive(),
-                                            restoreDialog->getOptions());
-                    });
-            restoreDialog->show();
-        }
-    }
+    // Bail (if applicable).
+    if(!sender())
+        return;
+
+    JobPtr job = qobject_cast<JobListWidgetItem *>(sender())->job();
+
+    // Bail (if applicable).
+    if(job->archives().isEmpty())
+        return;
+
+    ArchivePtr     archive       = job->archives().first();
+    RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
+    connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
+        emit restoreArchive(restoreDialog->archive(),
+                            restoreDialog->getOptions());
+    });
+    restoreDialog->show();
 }
 
 void JobListWidget::deleteItem()
@@ -144,6 +149,7 @@ void JobListWidget::deleteItem()
 
 void JobListWidget::execDeleteJob(JobListWidgetItem *jobItem)
 {
+    // Bail (if applicable).
     if(!jobItem)
     {
         DEBUG << "Null JobListWidgetItem passed.";
@@ -201,6 +207,7 @@ void JobListWidget::setJobs(const QMap<QString, JobPtr> &jobs)
 
 void JobListWidget::addJob(JobPtr job)
 {
+    // Bail (if applicable).
     if(!job)
     {
         DEBUG << "Null JobPtr passed.";
@@ -224,36 +231,43 @@ void JobListWidget::addJob(JobPtr job)
 
 void JobListWidget::inspectSelectedItem()
 {
-    if(!selectedItems().isEmpty())
-        emit displayJobDetails(
-            static_cast<JobListWidgetItem *>(selectedItems().first())->job());
+    // Bail (if applicable).
+    if(selectedItems().isEmpty())
+        return;
+
+    emit displayJobDetails(
+        static_cast<JobListWidgetItem *>(selectedItems().first())->job());
 }
 
 void JobListWidget::restoreSelectedItem()
 {
-    if(!selectedItems().isEmpty())
-    {
-        JobPtr job =
-            static_cast<JobListWidgetItem *>(selectedItems().first())->job();
-        if(!job->archives().isEmpty())
-        {
-            ArchivePtr     archive       = job->archives().first();
-            RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
-            connect(restoreDialog, &RestoreDialog::accepted,
-                    [this, restoreDialog] {
-                        emit restoreArchive(restoreDialog->archive(),
-                                            restoreDialog->getOptions());
-                    });
-            restoreDialog->show();
-        }
-    }
+    // Bail (if applicable).
+    if(selectedItems().isEmpty())
+        return;
+
+    JobPtr job =
+        static_cast<JobListWidgetItem *>(selectedItems().first())->job();
+
+    // Bail (if applicable).
+    if(job->archives().isEmpty())
+        return;
+
+    ArchivePtr     archive       = job->archives().first();
+    RestoreDialog *restoreDialog = new RestoreDialog(this, archive);
+    connect(restoreDialog, &RestoreDialog::accepted, [this, restoreDialog] {
+        emit restoreArchive(restoreDialog->archive(),
+                            restoreDialog->getOptions());
+    });
+    restoreDialog->show();
 }
 
 void JobListWidget::deleteSelectedItem()
 {
-    if(!selectedItems().isEmpty())
-        execDeleteJob(
-            static_cast<JobListWidgetItem *>(selectedItems().first()));
+    // Bail (if applicable).
+    if(selectedItems().isEmpty())
+        return;
+
+    execDeleteJob(static_cast<JobListWidgetItem *>(selectedItems().first()));
 }
 
 void JobListWidget::setFilter(const QString &regex)

@@ -140,6 +140,8 @@ ArchiveRestoreOptions RestoreDialog::getOptions()
         options.path = _ui->baseDirLineEdit->text();
     else if(options.optionTarArchive)
         options.path = _ui->archiveLineEdit->text();
+    else
+        options.path = ""; // (should not be necessary, but clarifies code)
 
     return options;
 }

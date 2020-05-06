@@ -299,7 +299,7 @@ void JobsTabWidget::hideJobDetails()
     }
 }
 
-void JobsTabWidget::createNewJob(QList<QUrl> urls, QString name)
+void JobsTabWidget::createNewJob(const QList<QUrl> &urls, const QString &name)
 {
     JobPtr job(new Job());
     job->setUrls(urls);

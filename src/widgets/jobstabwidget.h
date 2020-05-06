@@ -47,7 +47,7 @@ public slots:
     //! menu item.
     void addJobClicked();
     //! Create a new job from the Backup list.
-    void createNewJob(QList<QUrl> urls, QString name);
+    void createNewJob(const QList<QUrl> &urls, const QString &name);
     //! Show detailed information about a job.
     void displayJobDetails(JobPtr job);
 
@@ -55,12 +55,12 @@ signals:
     //! Passes info.
     void jobAdded(JobPtr job);
     //! Archives which match the previously-given search string.
-    void matchingArchives(QList<ArchivePtr> archives);
+    void matchingArchives(const QList<ArchivePtr> &archives);
     //! Notifies about a deleted job from the JobDetailsWidget or JobListWidget.
     void deleteJob(JobPtr job, bool purgeArchives);
     //! Search for all matching Archive objects which were created by a Job.
     //! \param jobPrefix prefix of the Archive names to match.
-    void findMatchingArchives(QString jobPrefix);
+    void findMatchingArchives(const QString &jobPrefix);
     //! Begin tarsnap -x -f \<name\>, with options.
     void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
     //! Show detailed information about an archive.
@@ -77,9 +77,9 @@ signals:
     //! Display detailed information about the first of the selected items.
     void inspectSelectedItem();
     //! Passes the list of all Job objects to the JobListWidget.
-    void jobList(QMap<QString, JobPtr>);
+    void jobList(const QMap<QString, JobPtr> &jobs);
     //! Display detailed information about a specific job.
-    void jobInspectByRef(QString jobRef);
+    void jobInspectByRef(const QString &jobRef);
     //! Begin tarsnap -c -f \<name\>
     void backupNow(BackupTaskDataPtr backupTaskData);
 

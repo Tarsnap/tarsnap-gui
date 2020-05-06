@@ -29,28 +29,32 @@ class QWidget;
 TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
     : QDialog(parent), _ui(new Ui::LoginDialog), _popup(new QMessageBox())
 {
+    // Basic UI.
     _ui->setupUi(this);
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
                    & ~Qt::WindowMaximizeButtonHint);
     _popup->setParent(this->parentWidget());
     _popup->setWindowModality(Qt::NonModal);
 
+    // Connection for basic UI.
     connect(_ui->passwordLineEdit, &QLineEdit::textEdited, [this]() {
         _ui->loginButton->setEnabled(!_ui->passwordLineEdit->text().isEmpty());
     });
 
+    // Create the TarsnapAccount backend.
     _ta = new TarsnapAccount();
 
-    // Act on password
+    // Act on password.
     connect(this, &TarsnapAccountDialog::finished, this,
             &TarsnapAccountDialog::processPasswordBox);
 
+    // Act on query response.
     connect(_ta, &TarsnapAccount::gotTable, this,
             &TarsnapAccountDialog::displayCSVTable);
     connect(_ta, &TarsnapAccount::possibleWarning, this,
             &TarsnapAccountDialog::showWarningIfApplicable);
 
-    // Pass signals onwards
+    // Pass signals onwards.
     connect(_ta, &TarsnapAccount::accountCredit, this,
             &TarsnapAccountDialog::accountCredit);
     connect(_ta, &TarsnapAccount::lastMachineActivity, this,
@@ -68,9 +72,11 @@ TarsnapAccountDialog::~TarsnapAccountDialog()
 void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
                                           bool displayMachineActivity)
 {
+    // What type of info do we want?
     _displayActivity        = displayActivity;
     _displayMachineActivity = displayMachineActivity;
 
+    // Get the username, or warn if there isn't one.
     TSettings settings;
     _user = settings.value("tarsnap/user", "").toString();
     if(_user.isEmpty())
@@ -82,8 +88,10 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
         return;
     }
 
+    // Send a message to get the key id and save it in "tarsnap/key_id".
     emit getKeyId(settings.value("tarsnap/key", "").toString());
 
+    // ... while that's happening, ask the user for the password.
     _ui->textLabel->setText(tr("Type password for account %1:").arg(_user));
     _ui->loginButton->setEnabled(false);
     open();
@@ -91,11 +99,18 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
 
 void TarsnapAccountDialog::processPasswordBox(int res)
 {
+    // Bail (if applicable).
     if(res == QDialog::Rejected)
         return;
 
+    // Use password to get account info.  This will only work if the key id
+    // has already been saved to "tarsnap/key_id" in TSettings.
     _ta->getAccountInfo(_displayActivity, _displayMachineActivity,
                         _ui->passwordLineEdit->text());
+
+    // Attempt to remove password from memory.  This is not as powerful as
+    // libcperciva's insecure_memzero(), but looking through the API docs and
+    // even the source code for QLineEdit hasn't suggested a better option.
     _ui->passwordLineEdit->clear();
 }
 
@@ -103,17 +118,21 @@ void TarsnapAccountDialog::displayCSVTable(const QString &csv,
                                            const QString &title)
 {
     DEBUG << csv;
+    // Bail (if applicable).
     if(csv.isEmpty() || csv.startsWith("<!DOCTYPE html>"))
         return;
 
+    // Split output into lines.
     QStringList lines = csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
     if(lines.count() <= 1)
         return;
 
+    // Extract column headers.
     QStringList columnHeaders =
         lines.first().split(',', QString::SkipEmptyParts);
     lines.removeFirst();
 
+    // Create new widget in which to display the table.
     QDialog *csvDialog = new QDialog(this);
     csvDialog->setWindowTitle(title);
     csvDialog->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -128,9 +147,9 @@ void TarsnapAccountDialog::displayCSVTable(const QString &csv,
     layout->setMargin(0);
     csvDialog->setLayout(layout);
 
+    // Add the data to the table inside the new widget.
     int row    = 0;
     int column = 0;
-
     for(const QString &line : lines)
     {
         for(const QString &entry : line.split(',', QString::KeepEmptyParts))
@@ -141,11 +160,14 @@ void TarsnapAccountDialog::displayCSVTable(const QString &csv,
         row++;
         column = 0;
     }
+
+    // Show the widget to the user.
     csvDialog->show();
 }
 
 void TarsnapAccountDialog::showWarningIfApplicable(const QByteArray &data)
 {
+    // Check for an incorrect password.
     if(data.contains("Password is incorrect; please try again."))
     {
         _popup->setWindowTitle(tr("Invalid password"));
@@ -155,6 +177,7 @@ void TarsnapAccountDialog::showWarningIfApplicable(const QByteArray &data)
                 .arg(_user));
         _popup->open();
     }
+    // Check for an invalid username.
     else if(data.contains("No user exists with the provided email "
                           "address; please try again."))
     {

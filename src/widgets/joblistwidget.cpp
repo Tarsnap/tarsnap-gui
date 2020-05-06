@@ -76,7 +76,7 @@ void JobListWidget::selectJob(JobPtr job)
     }
 }
 
-void JobListWidget::inspectJobByRef(QString jobRef)
+void JobListWidget::inspectJobByRef(const QString &jobRef)
 {
     if(!jobRef.isEmpty())
     {
@@ -188,7 +188,7 @@ int JobListWidget::visibleItemsCount()
     return count;
 }
 
-void JobListWidget::setJobs(QMap<QString, JobPtr> jobs)
+void JobListWidget::setJobs(const QMap<QString, JobPtr> &jobs)
 {
     setUpdatesEnabled(false);
     clear();
@@ -256,7 +256,7 @@ void JobListWidget::deleteSelectedItem()
             static_cast<JobListWidgetItem *>(selectedItems().first()));
 }
 
-void JobListWidget::setFilter(QString regex)
+void JobListWidget::setFilter(const QString &regex)
 {
     setUpdatesEnabled(false);
     clearSelection();

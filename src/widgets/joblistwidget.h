@@ -35,14 +35,14 @@ public:
 
 public slots:
     //! Clears the job list, then sets it to the specified jobs.
-    void setJobs(QMap<QString, JobPtr> jobs);
+    void setJobs(const QMap<QString, JobPtr> &jobs);
     //! Create new archives for the selected jobs.
     void backupSelectedItems();
     //! Sets the current selection in the list view.
     void selectJob(JobPtr job);
     //! Display detailed information about a specific job.
     //! \param jobRef the name of the job to inspect.
-    void inspectJobByRef(QString jobRef);
+    void inspectJobByRef(const QString &jobRef);
     //! Create new archives for all jobs.
     void backupAllJobs();
     //! Add a new job to the list.
@@ -54,7 +54,7 @@ public slots:
     //! Delete the selected job.
     void deleteSelectedItem();
     //! Filter the list of jobs.
-    void setFilter(QString regex);
+    void setFilter(const QString &regex);
 
 signals:
     //! Notify that the job details should be displayed.

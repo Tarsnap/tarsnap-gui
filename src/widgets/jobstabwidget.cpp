@@ -177,6 +177,7 @@ void JobsTabWidget::loadSettings()
 {
     TSettings settings;
 
+    // Display the "add default jobs?" prompt (or not).
     if(settings.value("app/default_jobs_dismissed", false).toBool())
     {
         _ui->defaultJobs->hide();
@@ -204,11 +205,13 @@ void JobsTabWidget::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {
     case Qt::Key_Escape:
+        // Close the JobDetailsWidget, or...
         if(_ui->jobDetailsWidget->isVisible())
         {
             hideJobDetails();
             return;
         }
+        // ... cancel the Jobs filter.
         if(_ui->jobsFilter->isVisible())
         {
             if(_ui->jobsFilter->currentText().isEmpty())
@@ -238,6 +241,7 @@ void JobsTabWidget::updateUi()
     _ui->jobsFilter->setToolTip(_ui->jobsFilter->toolTip().arg(
         _ui->actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
 
+    // Ensure that the text on the "Save / Add job" button matches its state.
     if(_ui->addJobButton->property("save").toBool())
         _ui->addJobButton->setText(tr("Save"));
     else
@@ -247,6 +251,8 @@ void JobsTabWidget::updateUi()
 void JobsTabWidget::addDefaultJobs()
 {
     TSettings settings;
+
+    // Add a job for every directory in DEFAULT_JOBS that exists.
     for(const QString &path : DEFAULT_JOBS)
     {
         QDir dir(QDir::home());
@@ -261,6 +267,8 @@ void JobsTabWidget::addDefaultJobs()
             _ui->jobDetailsWidget->jobAdded(job);
         }
     }
+
+    // We don't need to see the "add default jobs?" prompt again.
     settings.setValue("app/default_jobs_dismissed", true);
     _ui->defaultJobs->hide();
     _ui->addJobButton->show();
@@ -268,11 +276,14 @@ void JobsTabWidget::addDefaultJobs()
 
 void JobsTabWidget::addJobClicked()
 {
+    // Bail (if applicable).
     if(!_ui->addJobButton->isEnabled())
         return;
 
+    // Act differently depending on the button state.
     if(_ui->addJobButton->property("save").toBool())
     {
+        // Do stuff if the button says "Save".
         _ui->jobDetailsWidget->saveNew();
         _ui->addJobButton->setText(tr("Add job"));
         _ui->addJobButton->setProperty("save", false);
@@ -280,6 +291,7 @@ void JobsTabWidget::addJobClicked()
     }
     else
     {
+        // Do stuff if the button says "Add Job".
         JobPtr job(new Job());
         displayJobDetails(job);
         _ui->addJobButton->setEnabled(false);
@@ -290,7 +302,10 @@ void JobsTabWidget::addJobClicked()
 
 void JobsTabWidget::hideJobDetails()
 {
+    // Hide the details widget.
     _ui->jobDetailsWidget->hide();
+
+    // Change the text on the "Save / Add job" button.
     if(_ui->addJobButton->property("save").toBool())
     {
         _ui->addJobButton->setText(tr("Add job"));
@@ -301,10 +316,15 @@ void JobsTabWidget::hideJobDetails()
 
 void JobsTabWidget::createNewJob(const QList<QUrl> &urls, const QString &name)
 {
+    // Create a new Job.
     JobPtr job(new Job());
     job->setUrls(urls);
     job->setName(name);
+
+    // Disply details about the Job.
     displayJobDetails(job);
+
+    // Change the text on the "Save / Add job" button.
     _ui->addJobButton->setEnabled(true);
     _ui->addJobButton->setText(tr("Save"));
     _ui->addJobButton->setProperty("save", true);
@@ -312,12 +332,17 @@ void JobsTabWidget::createNewJob(const QList<QUrl> &urls, const QString &name)
 
 void JobsTabWidget::displayJobDetails(JobPtr job)
 {
+    // Display details about the Job.
     hideJobDetails();
     _ui->jobDetailsWidget->setJob(job);
     _ui->jobDetailsWidget->show();
 
+    // Make sure that the app has actually expanded the JobDetailsWidget and
+    // recalculated the space available for JobListWidget, before trying to
+    // select the job in the list.
     QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
 
+    // Select the job in the list.
     _ui->jobListWidget->selectJob(job);
 }
 
@@ -346,13 +371,16 @@ void JobsTabWidget::showJobsListMenu()
 
 void JobsTabWidget::backupJob(JobPtr job)
 {
+    // Bail (if applicable).
     if(!job)
         return;
 
+    // Check for valid URLs.
     if(!job->validateUrls())
     {
         if(job->urls().isEmpty())
         {
+            // Warn & bail if there's nothing selected.
             QMessageBox::warning(this, tr("Job error"),
                                  tr("Job %1 has no backup paths selected. "
                                     "Nothing to back up.")
@@ -361,6 +389,7 @@ void JobsTabWidget::backupJob(JobPtr job)
         }
         else
         {
+            // Warn & bail if any paths are no longer valid.
             QMessageBox::StandardButton confirm = QMessageBox::question(
                 this, tr("Job warning"),
                 tr("Some backup paths for Job %1 are not"

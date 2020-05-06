@@ -7,6 +7,7 @@ WARNINGS_DISABLE
 #include <QHeaderView>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QRegExp>
 #include <QTableWidget>
@@ -26,7 +27,7 @@ WARNINGS_ENABLE
 class QWidget;
 
 TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
-    : QDialog(parent), _ui(new Ui::LoginDialog)
+    : QDialog(parent), _ui(new Ui::LoginDialog), _popup(new QMessageBox())
 {
     _ui->setupUi(this);
     setWindowFlags((windowFlags() | Qt::CustomizeWindowHint)
@@ -54,8 +55,8 @@ TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
     connect(_ta, &TarsnapAccount::getKeyId, this,
             &TarsnapAccountDialog::getKeyId);
 
-    _popup.setParent(this->parentWidget());
-    _popup.setWindowModality(Qt::NonModal);
+    _popup->setParent(this->parentWidget());
+    _popup->setWindowModality(Qt::NonModal);
 }
 
 TarsnapAccountDialog::~TarsnapAccountDialog()
@@ -75,10 +76,10 @@ void TarsnapAccountDialog::getAccountInfo(bool displayActivity,
     emit getKeyId(settings.value("tarsnap/key", "").toString());
     if(_user.isEmpty())
     {
-        _popup.setWindowTitle(tr("Warning"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(tr("Tarsnap username must be set."));
-        _popup.open();
+        _popup->setWindowTitle(tr("Warning"));
+        _popup->setIcon(QMessageBox::Warning);
+        _popup->setText(tr("Tarsnap username must be set."));
+        _popup->open();
         return;
     }
     _ui->textLabel->setText(tr("Type password for account %1:").arg(_user));
@@ -144,20 +145,20 @@ void TarsnapAccountDialog::showWarningIfApplicable(QByteArray data)
 {
     if(data.contains("Password is incorrect; please try again."))
     {
-        _popup.setWindowTitle(tr("Invalid password"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(
+        _popup->setWindowTitle(tr("Invalid password"));
+        _popup->setIcon(QMessageBox::Warning);
+        _popup->setText(
             tr("Password for account %1 is incorrect; please try again.")
                 .arg(_user));
-        _popup.open();
+        _popup->open();
     }
     else if(data.contains("No user exists with the provided email "
                           "address; please try again."))
     {
-        _popup.setWindowTitle(tr("Invalid username"));
-        _popup.setIcon(QMessageBox::Warning);
-        _popup.setText(
+        _popup->setWindowTitle(tr("Invalid username"));
+        _popup->setIcon(QMessageBox::Warning);
+        _popup->setText(
             tr("Account %1 is invalid; please try again.").arg(_user));
-        _popup.open();
+        _popup->open();
     }
 }

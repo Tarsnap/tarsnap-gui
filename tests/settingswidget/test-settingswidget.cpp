@@ -109,7 +109,7 @@ void TestSettingsWidget::account()
     // Trigger an error message that we have to click away.
     ui->updateAccountButton->clicked();
     VISUAL_WAIT;
-    tarsnapAccountDialog->_popup.close();
+    tarsnapAccountDialog->_popup->close();
     VISUAL_WAIT;
 
     // Set username, machine name, key.

@@ -7,7 +7,6 @@ WARNINGS_DISABLE
 #include <QByteArray>
 #include <QDate>
 #include <QDialog>
-#include <QMessageBox>
 #include <QObject>
 #include <QString>
 #include <QStringList>
@@ -18,6 +17,7 @@ namespace Ui
 {
 class LoginDialog;
 }
+class QMessageBox;
 class QWidget;
 class TarsnapAccount;
 
@@ -64,7 +64,7 @@ private slots:
 private:
     Ui::LoginDialog *_ui;
     TarsnapAccount * _ta;
-    QMessageBox      _popup;
+    QMessageBox *    _popup;
     QString          _user;
     quint64          _machineId;
 

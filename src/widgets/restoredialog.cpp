@@ -28,15 +28,14 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
       _archive(archive),
       _files(files)
 {
-    setAttribute(Qt::WA_DeleteOnClose, true);
     _ui->setupUi(this);
+    setAttribute(Qt::WA_DeleteOnClose, true);
 
     TSettings settings;
     _downDir =
         settings.value("app/downloads_dir", DEFAULT_DOWNLOADS).toString();
     _ui->baseDirLineEdit->setText(_downDir);
-    _ui->baseDirLineEdit->hide();
-    _ui->changeDirButton->hide();
+
     QString fileName(_archive->name() + ".tar");
     // Replace chars that are problematic on common file systems but are allowed
     // in tarsnap archive names
@@ -46,6 +45,9 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
     QFileInfo archiveFile(QDir(_downDir), fileName);
     archiveFile.makeAbsolute();
     _ui->archiveLineEdit->setText(archiveFile.absoluteFilePath());
+
+    _ui->baseDirLineEdit->hide();
+    _ui->changeDirButton->hide();
     _ui->archiveLineEdit->hide();
     _ui->changeArchiveButton->hide();
 
@@ -54,24 +56,27 @@ RestoreDialog::RestoreDialog(QWidget *parent, ArchivePtr archive,
         if(validate())
             accept();
     });
-    connect(_ui->changeDirButton, &QPushButton::clicked, this,
-            &RestoreDialog::changeDir);
-    connect(_ui->changeArchiveButton, &QPushButton::clicked, this,
-            &RestoreDialog::changeArchive);
+
     connect(_ui->optionRestoreRadio, &QRadioButton::toggled, this,
             &RestoreDialog::optionRestoreToggled);
     connect(_ui->optionBaseDirRadio, &QRadioButton::toggled, this,
             &RestoreDialog::optionBaseDirToggled);
     connect(_ui->optionTarArchiveRadio, &QRadioButton::toggled, this,
             &RestoreDialog::optionTarArchiveToggled);
+
+    connect(_ui->baseDirLineEdit, &QLineEdit::textChanged, this,
+            &RestoreDialog::validate);
+    connect(_ui->changeDirButton, &QPushButton::clicked, this,
+            &RestoreDialog::changeDir);
+    connect(_ui->archiveLineEdit, &QLineEdit::textChanged, this,
+            &RestoreDialog::validate);
+    connect(_ui->changeArchiveButton, &QPushButton::clicked, this,
+            &RestoreDialog::changeArchive);
+
     connect(_ui->overwriteCheckBox, &QCheckBox::toggled, [this](bool checked) {
         _ui->keepNewerCheckBox->setChecked(checked);
         _ui->keepNewerCheckBox->setEnabled(checked);
     });
-    connect(_ui->baseDirLineEdit, &QLineEdit::textChanged, this,
-            &RestoreDialog::validate);
-    connect(_ui->archiveLineEdit, &QLineEdit::textChanged, this,
-            &RestoreDialog::validate);
 
     bool canRestore = _archive->hasPreservePaths();
     displayRestoreOption(canRestore);

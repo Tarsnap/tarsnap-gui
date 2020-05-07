@@ -26,12 +26,14 @@ WARNINGS_ENABLE
 #define NETWORK_UP_ATTEMPTS 3
 /** @} */
 
-/** @{ Default behaviour */
+/** @{ Default behaviour for creating Tarsnap archives */
 #define DEFAULT_AGGRESSIVE_NETWORKING false
-#define DEFAULT_DOWNLOADS                                                      \
-    QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
 #define DEFAULT_NO_DEFAULT_CONFIG true
 #define DEFAULT_PRESERVE_PATHNAMES true
 /** @} */
+
+/** @{ Default behaviour for the GUI */
+#define DEFAULT_DOWNLOADS                                                      \
+    QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
 
 #endif /* !TASKS_DEFS_H */

@@ -189,7 +189,7 @@ void TestSmallWidgets::confirmationDialog()
     VISUAL_WAIT;
     cd->_inputDialog->accept();
     VISUAL_WAIT;
-    cd->_countdownBox.reject();
+    cd->_countdownBox->reject();
     QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
     sig_cancel.clear();
 

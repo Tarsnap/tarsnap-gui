@@ -6,6 +6,7 @@ WARNINGS_DISABLE
 #include <QInputDialog>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
 #include <QObject>
 #include <QPushButton>
 #include <QSignalSpy>

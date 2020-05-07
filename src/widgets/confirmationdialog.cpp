@@ -3,13 +3,14 @@
 WARNINGS_DISABLE
 #include <QDialog>
 #include <QInputDialog>
+#include <QMessageBox>
 #include <QWidget>
 WARNINGS_ENABLE
 
 ConfirmationDialog::ConfirmationDialog(QWidget *parent)
     : QObject(parent),
       _inputDialog(new QInputDialog(parent)),
-      _countdownBox(parent)
+      _countdownBox(new QMessageBox(parent))
 {
     // Set up text confirmation dialog
     _inputDialog->setInputMode(QInputDialog::TextInput);
@@ -19,10 +20,10 @@ ConfirmationDialog::ConfirmationDialog(QWidget *parent)
             &ConfirmationDialog::finishedConfirmationBox);
 
     // Set up countdown box
-    _countdownBox.setIcon(QMessageBox::Critical);
-    _countdownBox.setStandardButtons(QMessageBox::Cancel);
+    _countdownBox->setIcon(QMessageBox::Critical);
+    _countdownBox->setStandardButtons(QMessageBox::Cancel);
     connect(&_timer, &QTimer::timeout, this, &ConfirmationDialog::timerFired);
-    connect(&_countdownBox, &QMessageBox::finished, this,
+    connect(_countdownBox, &QMessageBox::finished, this,
             &ConfirmationDialog::finishedCountdownBox);
 }
 
@@ -45,10 +46,10 @@ void ConfirmationDialog::finishedConfirmationBox(int result)
     }
 
     // Launch the countdown.
-    _countdownBox.setWindowTitle(_countdownTitle);
-    _countdownBox.setText(_countdownText.arg(_countdownSeconds));
+    _countdownBox->setWindowTitle(_countdownTitle);
+    _countdownBox->setText(_countdownText.arg(_countdownSeconds));
     _timer.start(1000);
-    _countdownBox.open();
+    _countdownBox->open();
 }
 
 void ConfirmationDialog::finishedCountdownBox(int result)
@@ -70,13 +71,13 @@ void ConfirmationDialog::timerFired()
     if(_countdownSeconds <= 1)
     {
         _timer.stop();
-        _countdownBox.accept();
+        _countdownBox->accept();
         emit confirmed();
     }
     else
     {
         --_countdownSeconds;
-        _countdownBox.setText(_countdownText.arg(_countdownSeconds));
+        _countdownBox->setText(_countdownText.arg(_countdownSeconds));
     }
 }
 

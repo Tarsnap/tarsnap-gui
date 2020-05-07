@@ -135,6 +135,13 @@ private:
     // For the Application tab
     int _runningTasks;
     int _queuedTasks;
+
+    // Values which depend on "app/iec_prefixes"
+    quint64 _sizeTotal;
+    quint64 _sizeUniqueCompressed;
+    quint64 _storageSaved;
+    // Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
 };
 
 #endif // SETTINGSWIDGET_H

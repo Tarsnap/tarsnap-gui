@@ -85,6 +85,11 @@ void JobListWidgetItem::setJob(const JobPtr &job)
     }
 
     // Display the number and total size of Archives.
+    updateIEC();
+}
+
+void JobListWidgetItem::updateIEC()
+{
     int     count  = _job->archives().count();
     QString detail = tr("%1 %2 totaling ")
                          .arg(count)

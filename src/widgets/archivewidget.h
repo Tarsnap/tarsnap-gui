@@ -44,6 +44,9 @@ public:
     explicit ArchiveDetailsWidget(QWidget *parent = nullptr);
     ~ArchiveDetailsWidget();
 
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
+
 public slots:
     //! Sets the Archive whose details this widget should display.
     void setArchive(ArchivePtr archive);

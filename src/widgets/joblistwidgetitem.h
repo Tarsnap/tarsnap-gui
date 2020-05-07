@@ -39,6 +39,9 @@ public:
     //! Returns a pointer to the job.
     JobPtr job() const;
 
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
+
 signals:
     //! The user requested to create a new archive from this job.
     void requestBackup();

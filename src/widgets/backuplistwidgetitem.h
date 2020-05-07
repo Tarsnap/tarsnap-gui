@@ -51,6 +51,9 @@ public:
     //! Returns the total size of this file or directory.
     quint64 size() const;
 
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
+
 public slots:
     //! Displays the file or directory using the default
     //! desktop application.
@@ -94,6 +97,8 @@ private:
     void updateUi();
 
     QMovie *_busyMovie;
+
+    QString _size_prefix;
 };
 
 #endif // BACKUPLISTITEM_H

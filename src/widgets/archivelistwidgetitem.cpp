@@ -168,6 +168,13 @@ void ArchiveListWidgetItem::updateStatus()
     }
 }
 
+void ArchiveListWidgetItem::updateIEC()
+{
+    // Since the size is only part of the detail label, it's easiest
+    // to run the whole updateStatus() again.
+    updateStatus();
+}
+
 bool ArchiveListWidgetItem::eventFilter(QObject *obj, QEvent *event)
 {
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))

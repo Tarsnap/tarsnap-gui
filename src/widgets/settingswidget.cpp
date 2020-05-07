@@ -41,7 +41,10 @@ SettingsWidget::SettingsWidget(QWidget *parent)
       _ui(new Ui::SettingsWidget),
       _nukeConfirmationDialog(new ConfirmationDialog(this)),
       _tarsnapAccountDialog(new TarsnapAccountDialog(this)),
-      _schedulingWidgets(new SchedulingWidgets(this))
+      _schedulingWidgets(new SchedulingWidgets(this)),
+      _sizeTotal(0),
+      _sizeUniqueCompressed(0),
+      _storageSaved(0)
 {
 
     // Ui initialization
@@ -417,10 +420,23 @@ void SettingsWidget::overallStatsChanged(quint64 sizeTotal,
     _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
 
     // Set values which depend on "app/iec_prefixes"
-    _ui->accountTotalSizeLabel->setText(Utils::humanBytes(sizeTotal));
-    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(storageSaved));
+    _sizeTotal            = sizeTotal;
+    _sizeUniqueCompressed = sizeUniqueCompressed;
+    _storageSaved         = storageSaved;
+    updateIEC();
+}
+
+void SettingsWidget::updateIEC()
+{
+    // Bail (if applicable).
+    if(_sizeTotal == 0)
+        return;
+
+    // Format and display sizes.
+    _ui->accountTotalSizeLabel->setText(Utils::humanBytes(_sizeTotal));
+    _ui->accountStorageSavedLabel->setText(Utils::humanBytes(_storageSaved));
     _ui->accountActualSizeLabel->setText(
-        Utils::humanBytes(sizeUniqueCompressed));
+        Utils::humanBytes(_sizeUniqueCompressed));
 }
 
 bool SettingsWidget::validateMachineKeyPath()

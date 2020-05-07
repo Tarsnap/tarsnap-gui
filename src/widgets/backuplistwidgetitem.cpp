@@ -109,13 +109,20 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
         _ui->iconLabel->setPixmap(icon);
         _count = 1;
         _size  = static_cast<quint64>(file.size());
-        _ui->detailLabel->setText(Utils::humanBytes(_size));
+
+        _size_prefix = "";
+        updateIEC();
     }
     else
     {
         // Could be a device file, fifo, or whatever; thus ignore.
         return;
     }
+}
+
+void BackupListWidgetItem::updateIEC()
+{
+    _ui->detailLabel->setText(_size_prefix + Utils::humanBytes(_size));
 }
 
 void BackupListWidgetItem::browseUrl()
@@ -132,8 +139,9 @@ void BackupListWidgetItem::updateDirDetail(quint64 size, quint64 count)
 
     _size  = size;
     _count = count;
-    _ui->detailLabel->setText(QString::number(_count) + tr(" items, ")
-                              + Utils::humanBytes(_size));
+
+    _size_prefix = QString::number(_count) + tr(" items, ");
+    updateIEC();
     emit requestUpdate();
 }
 

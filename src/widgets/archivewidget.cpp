@@ -161,11 +161,9 @@ void ArchiveDetailsWidget::updateDetails()
     }
 
     // Show size info about the archive.
-    _ui->archiveSizeLabel->setText(Utils::humanBytes(_archive->sizeTotal()));
     _ui->archiveSizeLabel->setToolTip(_archive->archiveStats());
-    _ui->archiveUniqueDataLabel->setText(
-        Utils::humanBytes(_archive->sizeUniqueCompressed()));
     _ui->archiveUniqueDataLabel->setToolTip(_archive->archiveStats());
+    updateIEC();
 
     // Show other info about the archive.
     _ui->archiveCommandLineEdit->setText(_archive->command());
@@ -195,6 +193,18 @@ void ArchiveDetailsWidget::updateDetails()
 
     // Show files in the archive.
     _contentsModel->setArchive(_archive);
+}
+
+void ArchiveDetailsWidget::updateIEC()
+{
+    // Bail (if applicable).
+    if(!_archive)
+        return;
+
+    // Format and display sizes.
+    _ui->archiveSizeLabel->setText(Utils::humanBytes(_archive->sizeTotal()));
+    _ui->archiveUniqueDataLabel->setText(
+        Utils::humanBytes(_archive->sizeUniqueCompressed()));
 }
 
 void ArchiveDetailsWidget::closeEvent(QCloseEvent *event)

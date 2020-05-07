@@ -53,6 +53,8 @@ public slots:
     void addDirectory();
     //! Remove items from the backup list.
     void clearList();
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
 
 signals:
     //! Begin tarsnap -c -f \<name\>
@@ -87,6 +89,9 @@ private:
     FilePickerDialog *   _filePickerDialog;
 
     QString _lastTimestamp;
+
+    quint64 _count;
+    quint64 _size;
 
     void updateUi();
 };

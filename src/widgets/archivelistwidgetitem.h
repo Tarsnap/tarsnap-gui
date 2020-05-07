@@ -43,6 +43,9 @@ public:
     //! ArchiveDetailsWidget.
     void setShowingDetails(bool is_showing);
 
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
+
 signals:
     //! The user requested to delete this archive.
     void requestDelete();

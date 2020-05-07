@@ -32,7 +32,9 @@ WARNINGS_ENABLE
 BackupTabWidget::BackupTabWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::BackupTabWidget),
-      _filePickerDialog(new FilePickerDialog(parent))
+      _filePickerDialog(new FilePickerDialog(parent)),
+      _count(0),
+      _size(0)
 {
     // Ui initialization
     _ui->setupUi(this);
@@ -168,19 +170,26 @@ void BackupTabWidget::appendTimestampCheckBoxToggled(bool checked)
 
 void BackupTabWidget::updateBackupItemTotals(quint64 count, quint64 size)
 {
-    if(count != 0)
+    _count = count;
+    _size  = size;
+    updateIEC();
+    validateBackupTab();
+}
+
+void BackupTabWidget::updateIEC()
+{
+    if(_count != 0)
     {
         _ui->backupDetailLabel->setText(
             tr("%1 %2 (%3)")
-                .arg(count)
-                .arg(count == 1 ? tr("item") : tr("items"))
-                .arg(Utils::humanBytes(size)));
+                .arg(_count)
+                .arg(_count == 1 ? tr("item") : tr("items"))
+                .arg(Utils::humanBytes(_size)));
     }
     else
     {
         _ui->backupDetailLabel->clear();
     }
-    validateBackupTab();
 }
 
 void BackupTabWidget::backupMorphIntoJobClicked()

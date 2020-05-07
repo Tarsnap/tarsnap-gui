@@ -37,6 +37,7 @@ WARNINGS_ENABLE
 ArchiveDetailsWidget::ArchiveDetailsWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::ArchiveDetailsWidget),
+      _archive(nullptr),
       _contentsModel(new FileTableModel(this)),
       _proxyModel(new QSortFilterProxyModel(_contentsModel)),
       _fileMenu(new QMenu(this))

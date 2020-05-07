@@ -2471,10 +2471,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The new size notation will take global effect on application restart.</source>
-        <translation type="unfinished">Opțiunea de afișare a dimensiunilor va avea efect global la următoarea repornire a aplicației.</translation>
-    </message>
-    <message>
         <source>Tarsnap error</source>
         <translation type="unfinished">Eroare Tarsnap</translation>
     </message>

@@ -15,7 +15,7 @@ bool compareSettings(QSettings *settings, QSettings *target)
 {
     // On OSX, QSettings returns a bunch of values for the system
     // itself (e.g., "com/apple/trackpad/enableSecondaryClick",
-    // NSNavRecentPlaces").  To avoid this, we only examine the
+    // "NSNavRecentPlaces").  To avoid this, we only examine the
     // groups that are present in the target config file.
     for(int g = 0; g < target->childGroups().length(); g++)
     {

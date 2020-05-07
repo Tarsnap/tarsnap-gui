@@ -6,12 +6,12 @@
 WARNINGS_DISABLE
 #include <QObject>
 #include <QString>
-#include <QTimer>
 WARNINGS_ENABLE
 
 /* Forward declaration(s). */
 class QInputDialog;
 class QMessageBox;
+class QTimer;
 class QWidget;
 
 /*!
@@ -72,7 +72,7 @@ private:
 
     // Countdown box
     QMessageBox *_countdownBox;
-    QTimer       _timer;
+    QTimer *     _timer;
     int          _countdownSeconds;
     QString      _countdownTitle;
     QString      _countdownText;

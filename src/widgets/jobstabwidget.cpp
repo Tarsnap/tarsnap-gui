@@ -403,3 +403,9 @@ void JobsTabWidget::backupJob(JobPtr job)
     }
     emit backupNow(BackupTaskData::createBackupTaskFromJob(job));
 }
+
+void JobsTabWidget::updateIEC()
+{
+    _ui->jobDetailsWidget->updateIEC();
+    _ui->jobListWidget->updateIEC();
+}

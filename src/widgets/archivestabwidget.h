@@ -48,6 +48,8 @@ public slots:
     void displayInspectArchive(ArchivePtr archive);
     //! Hide the "inspect archive" widget.
     void hideInspectArchive();
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
 
 signals:
     //! Begin tarsnap --list-archives

@@ -344,3 +344,12 @@ void JobListWidget::keyPressEvent(QKeyEvent *event)
         QListWidget::keyPressEvent(event);
     }
 }
+
+void JobListWidget::updateIEC()
+{
+    for(int i = 0; i < count(); ++i)
+    {
+        JobListWidgetItem *jobItem = static_cast<JobListWidgetItem *>(item(i));
+        jobItem->updateIEC();
+    }
+}

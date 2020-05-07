@@ -266,3 +266,13 @@ void BackupListWidget::changeEvent(QEvent *event)
         recomputeListTotals();
     QWidget::changeEvent(event);
 }
+
+void BackupListWidget::updateIEC()
+{
+    for(int i = 0; i < count(); ++i)
+    {
+        BackupListWidgetItem *backupItem =
+            static_cast<BackupListWidgetItem *>(item(i));
+        backupItem->updateIEC();
+    }
+}

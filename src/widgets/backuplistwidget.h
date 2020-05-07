@@ -30,6 +30,9 @@ public:
     explicit BackupListWidget(QWidget *parent = nullptr);
     ~BackupListWidget();
 
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
+
 public slots:
     //! Add a single item to the backup list.
     //! \param url the path of the file or directory.

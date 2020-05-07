@@ -513,3 +513,8 @@ void JobDetailsWidget::updateUi()
     _ui->hideButton->setToolTip(_ui->hideButton->toolTip().arg(
         QKeySequence(Qt::Key_Escape).toString(QKeySequence::NativeText)));
 }
+
+void JobDetailsWidget::updateIEC()
+{
+    _ui->archiveListWidget->updateIEC();
+}

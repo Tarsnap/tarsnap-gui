@@ -125,11 +125,6 @@ SettingsWidget::SettingsWidget(QWidget *parent)
     });
     connect(_ui->repairCacheButton, &QPushButton::clicked,
             [this]() { emit repairCache(true); });
-    connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled, [this]() {
-        QMessageBox::information(this, QCoreApplication::applicationName(),
-                                 tr("The new size notation will take global "
-                                    "effect on application restart."));
-    });
 
     connect(_ui->languageComboBox, &QComboBox::currentTextChanged,
             [](const QString &language) {
@@ -286,8 +281,10 @@ void SettingsWidget::initSettingsSetValue()
                 settings.setValue("tarsnap/cache", text);
             });
     connect(_ui->iecPrefixesCheckBox, &QCheckBox::toggled,
-            [&settings](bool checked) {
+            [this, &settings](bool checked) {
                 settings.setValue("app/iec_prefixes", checked);
+                updateIEC();
+                emit iecChanged();
             });
     connect(_ui->notificationsCheckBox, &QCheckBox::toggled,
             [&settings](bool checked) {

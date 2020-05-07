@@ -37,6 +37,9 @@ public:
     //! Find the archive matching the given name.
     ArchivePtr findArchiveByName(const QString &archiveName);
 
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
+
 public slots:
     //! Clears the archive list, then sets it to the specified archives
     void setArchives(QList<ArchivePtr> archives);

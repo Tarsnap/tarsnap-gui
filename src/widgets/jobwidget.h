@@ -47,6 +47,9 @@ public:
     //! Clears the current job, then sets a new job.
     void setJob(const JobPtr &job);
 
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
+
 public slots:
     //! Create (and save) a new job.
     void saveNew();

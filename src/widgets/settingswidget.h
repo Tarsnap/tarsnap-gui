@@ -90,6 +90,8 @@ signals:
     void runSetupWizard();
     //! Begin tarsnap --version
     void tarsnapVersionRequested(const QString &tarsnapPath);
+    //! The "app/iec_prefixes" has changed.
+    void iecChanged();
 
 protected:
     //! Handles translation change of language.

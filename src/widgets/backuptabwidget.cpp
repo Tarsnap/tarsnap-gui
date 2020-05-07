@@ -178,6 +178,9 @@ void BackupTabWidget::updateBackupItemTotals(quint64 count, quint64 size)
 
 void BackupTabWidget::updateIEC()
 {
+    // Pass message to list
+    _ui->backupListWidget->updateIEC();
+
     if(_count != 0)
     {
         _ui->backupDetailLabel->setText(

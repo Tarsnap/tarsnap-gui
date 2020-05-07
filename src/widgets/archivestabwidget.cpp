@@ -223,3 +223,9 @@ void ArchivesTabWidget::displayInspectArchiveByRef(const QString &archiveName)
     ArchivePtr archive = _ui->archiveListWidget->findArchiveByName(archiveName);
     displayInspectArchive(archive);
 }
+
+void ArchivesTabWidget::updateIEC()
+{
+    _ui->archiveDetailsWidget->updateIEC();
+    _ui->archiveListWidget->updateIEC();
+}

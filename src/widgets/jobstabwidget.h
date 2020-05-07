@@ -42,6 +42,9 @@ public:
     explicit JobsTabWidget(QWidget *parent = nullptr);
     ~JobsTabWidget();
 
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
+
 public slots:
     //! The user clicked on the "add job / save job" button, or selected the
     //! menu item.

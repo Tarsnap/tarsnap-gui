@@ -152,6 +152,13 @@ MainWindow::MainWindow(QWidget *parent)
     // Settings pane
     loadSettings();
 
+    connect(_settingsWidget, &SettingsWidget::iecChanged, _backupTabWidget,
+            &BackupTabWidget::updateIEC);
+    connect(_settingsWidget, &SettingsWidget::iecChanged, _archivesTabWidget,
+            &ArchivesTabWidget::updateIEC);
+    connect(_settingsWidget, &SettingsWidget::iecChanged, _jobsTabWidget,
+            &JobsTabWidget::updateIEC);
+
     // Archives pane
     connect(this, &MainWindow::archiveList, _archivesTabWidget,
             &ArchivesTabWidget::archiveList);

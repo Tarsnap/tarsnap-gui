@@ -33,6 +33,9 @@ public:
     explicit JobListWidget(QWidget *parent = nullptr);
     ~JobListWidget();
 
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
+
 public slots:
     //! Clears the job list, then sets it to the specified jobs.
     void setJobs(const QMap<QString, JobPtr> &jobs);

@@ -446,3 +446,14 @@ ArchivePtr ArchiveListWidget::findArchiveByName(const QString &archiveName)
     return ArchivePtr(nullptr);
 #endif
 }
+
+void ArchiveListWidget::updateIEC()
+{
+    // Update all items.
+    for(int i = 0; i < count(); i++)
+    {
+        ArchiveListWidgetItem *archiveItem =
+            static_cast<ArchiveListWidgetItem *>(item(i));
+        archiveItem->updateIEC();
+    }
+}

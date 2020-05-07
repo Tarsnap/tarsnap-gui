@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QApplication>
+#include <QInputDialog>
 #include <QObject>
 #include <QTest>
 WARNINGS_ENABLE
@@ -74,7 +75,7 @@ void TestTranslations::confirmationdialog()
     cd = new ConfirmationDialog();
     cd->start("title", "text", "confirm", 1, "countdowntitle", "seconds %1",
               "button");
-    QVERIFY(cd->_inputDialog.okButtonText() == "Not confirmed");
+    QVERIFY(cd->_inputDialog->okButtonText() == "Not confirmed");
     VISUAL_WAIT;
     delete cd;
 
@@ -84,7 +85,7 @@ void TestTranslations::confirmationdialog()
     cd = new ConfirmationDialog();
     cd->start("title", "text", "confirm", 1, "countdowntitle", "seconds %1",
               "button");
-    QVERIFY(cd->_inputDialog.okButtonText() == "Neconfirmat");
+    QVERIFY(cd->_inputDialog->okButtonText() == "Neconfirmat");
     VISUAL_WAIT;
     delete cd;
 }

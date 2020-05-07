@@ -144,7 +144,7 @@ void TestSmallWidgets::confirmationDialog()
     cd->start("text title", "type 'confirm'", "confirm", 1, "countdown title",
               "seconds left %1", "confirmed");
     VISUAL_WAIT;
-    cd->_inputDialog.close();
+    cd->_inputDialog->close();
     VISUAL_WAIT;
     QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
     sig_cancel.clear();
@@ -153,7 +153,7 @@ void TestSmallWidgets::confirmationDialog()
     cd->start("text title", "type 'confirm'", "confirm", 1, "countdown title",
               "seconds left %1", "confirmed");
     VISUAL_WAIT;
-    cd->_inputDialog.accept();
+    cd->_inputDialog->accept();
     VISUAL_WAIT;
     QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
     sig_cancel.clear();
@@ -162,9 +162,9 @@ void TestSmallWidgets::confirmationDialog()
     cd->start("text title", "type 'confirm'", "confirm", 1, "countdown title",
               "seconds left %1", "confirmed");
     VISUAL_WAIT;
-    cd->_inputDialog.setTextValue("some kind of text");
+    cd->_inputDialog->setTextValue("some kind of text");
     VISUAL_WAIT;
-    cd->_inputDialog.accept();
+    cd->_inputDialog->accept();
     VISUAL_WAIT;
     QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
     sig_cancel.clear();
@@ -172,11 +172,11 @@ void TestSmallWidgets::confirmationDialog()
     // Launch the window and accept it (with too-long text).
     cd->start("text title", "type 'confirm'", "confirm", 1, "countdown title",
               "seconds left %1", "confirmed");
-    QVERIFY(cd->_inputDialog.textValue() == "");
+    QVERIFY(cd->_inputDialog->textValue() == "");
     VISUAL_WAIT;
-    cd->_inputDialog.setTextValue("confirmnot");
+    cd->_inputDialog->setTextValue("confirmnot");
     VISUAL_WAIT;
-    cd->_inputDialog.accept();
+    cd->_inputDialog->accept();
     VISUAL_WAIT;
     QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
     sig_cancel.clear();
@@ -185,9 +185,9 @@ void TestSmallWidgets::confirmationDialog()
     cd->start("text title", "type 'confirm'", "confirm", 1, "countdown title",
               "seconds left %1", "confirmed");
     VISUAL_WAIT;
-    cd->_inputDialog.setTextValue("confirm");
+    cd->_inputDialog->setTextValue("confirm");
     VISUAL_WAIT;
-    cd->_inputDialog.accept();
+    cd->_inputDialog->accept();
     VISUAL_WAIT;
     cd->_countdownBox.reject();
     QVERIFY((sig_confirmed.count() == 0) && (sig_cancel.count() == 1));
@@ -196,11 +196,11 @@ void TestSmallWidgets::confirmationDialog()
     // Launch the window, enter 'confirm', then wait for the countdown.
     cd->start("text title", "type 'confirm'", "confirm", 1, "countdown title",
               "seconds left %1", "confirmed");
-    QVERIFY(cd->_inputDialog.textValue() == "");
+    QVERIFY(cd->_inputDialog->textValue() == "");
     VISUAL_WAIT;
-    cd->_inputDialog.setTextValue("confirm");
+    cd->_inputDialog->setTextValue("confirm");
     VISUAL_WAIT;
-    cd->_inputDialog.accept();
+    cd->_inputDialog->accept();
     VISUAL_WAIT;
     WAIT_SIG(sig_confirmed);
     QVERIFY((sig_confirmed.count() == 1) && (sig_cancel.count() == 0));

@@ -120,7 +120,7 @@ void TestSettingsWidget::account()
     // Nuke button, reject dialog.
     ui->nukeArchivesButton->clicked();
     VISUAL_WAIT;
-    settingsWidget->_nukeConfirmationDialog->_inputDialog.reject();
+    settingsWidget->_nukeConfirmationDialog->_inputDialog->reject();
     QTest::qWait(200);
     QVERIFY(sig_status.takeFirst().at(0).toString()
             == QString("Nuke confirmation requested."));

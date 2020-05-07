@@ -2,17 +2,20 @@
 
 WARNINGS_DISABLE
 #include <QDialog>
+#include <QInputDialog>
 #include <QWidget>
 WARNINGS_ENABLE
 
 ConfirmationDialog::ConfirmationDialog(QWidget *parent)
-    : QObject(parent), _inputDialog(parent), _countdownBox(parent)
+    : QObject(parent),
+      _inputDialog(new QInputDialog(parent)),
+      _countdownBox(parent)
 {
     // Set up text confirmation dialog
-    _inputDialog.setInputMode(QInputDialog::TextInput);
-    connect(&_inputDialog, &QInputDialog::textValueChanged, this,
+    _inputDialog->setInputMode(QInputDialog::TextInput);
+    connect(_inputDialog, &QInputDialog::textValueChanged, this,
             &ConfirmationDialog::validateConfirmationText);
-    connect(&_inputDialog, &QInputDialog::finished, this,
+    connect(_inputDialog, &QInputDialog::finished, this,
             &ConfirmationDialog::finishedConfirmationBox);
 
     // Set up countdown box
@@ -26,16 +29,16 @@ ConfirmationDialog::ConfirmationDialog(QWidget *parent)
 void ConfirmationDialog::validateConfirmationText(const QString &text)
 {
     if(text == _confirmationText)
-        _inputDialog.setOkButtonText(_confirmedButtonText);
+        _inputDialog->setOkButtonText(_confirmedButtonText);
     else
-        _inputDialog.setOkButtonText(tr("Not confirmed"));
+        _inputDialog->setOkButtonText(tr("Not confirmed"));
 }
 
 void ConfirmationDialog::finishedConfirmationBox(int result)
 {
     // Bail if it's a cancel or if the text doesn't match.
     if((result != QDialog::Accepted)
-       || (_confirmationText != _inputDialog.textValue()))
+       || (_confirmationText != _inputDialog->textValue()))
     {
         emit cancelled();
         return;
@@ -86,9 +89,9 @@ void ConfirmationDialog::start(const QString &startTitle,
                                const QString &countdownText,
                                const QString &confirmedButtonText)
 {
-    _inputDialog.setWindowTitle(startTitle);
-    _inputDialog.setLabelText(startText);
-    _inputDialog.setOkButtonText(tr("Not confirmed"));
+    _inputDialog->setWindowTitle(startTitle);
+    _inputDialog->setLabelText(startText);
+    _inputDialog->setOkButtonText(tr("Not confirmed"));
     _confirmationText    = confirmationText;
     _confirmedButtonText = confirmedButtonText;
     _countdownSeconds    = countdownSeconds;
@@ -96,8 +99,8 @@ void ConfirmationDialog::start(const QString &startTitle,
     _countdownText       = countdownText;
 
     // Clear any previous text.
-    _inputDialog.setTextValue("");
+    _inputDialog->setTextValue("");
 
     // Launch dialog.
-    _inputDialog.open();
+    _inputDialog->open();
 }

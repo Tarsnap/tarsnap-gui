@@ -4,7 +4,6 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QInputDialog>
 #include <QMessageBox>
 #include <QObject>
 #include <QString>
@@ -12,6 +11,7 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 /* Forward declaration(s). */
+class QInputDialog;
 class QWidget;
 
 /*!
@@ -66,9 +66,9 @@ private slots:
 
 private:
     // Confirmation text
-    QInputDialog _inputDialog;
-    QString      _confirmationText;
-    QString      _confirmedButtonText;
+    QInputDialog *_inputDialog;
+    QString       _confirmationText;
+    QString       _confirmedButtonText;
 
     // Countdown box
     QMessageBox _countdownBox;

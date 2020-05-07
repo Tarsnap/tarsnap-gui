@@ -36,7 +36,6 @@ WARNINGS_ENABLE
 #include "debug.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-//#include "persistentmodel/journal.h"
 #include "persistentmodel/persistentstore.h"
 #include "scheduling.h"
 #include "utils.h"

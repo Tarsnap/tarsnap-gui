@@ -7,7 +7,6 @@
 
 #include "debug.h"
 #include "init-shared.h"
-#include "persistentmodel/persistentstore.h"
 #include "translator.h"
 
 AppCmdline::AppCmdline(int &argc, char **argv, struct optparse *opt)

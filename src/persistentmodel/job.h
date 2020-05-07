@@ -4,7 +4,6 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QFileSystemWatcher>
 #include <QLatin1String>
 #include <QList>
 #include <QMetaType>
@@ -18,6 +17,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/persistentobject.h"
 
 /* Forward declaration(s). */
+class QFileSystemWatcher;
 class QUrl;
 
 #define JOB_NAME_PREFIX QLatin1String("Job_")
@@ -146,7 +146,7 @@ private:
     QList<ArchivePtr> _archives;
 
     // Used internally.
-    QFileSystemWatcher _fsWatcher;
+    QFileSystemWatcher *_fsWatcher;
 };
 
 #endif // JOB_H

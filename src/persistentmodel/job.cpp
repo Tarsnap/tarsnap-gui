@@ -4,6 +4,7 @@ WARNINGS_DISABLE
 #include <QDateTime>
 #include <QDir>
 #include <QFileInfo>
+#include <QFileSystemWatcher>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlRecord>
@@ -33,7 +34,8 @@ Job::Job(QObject *parent)
       _optionSkipNoDump(DEFAULT_SKIP_NODUMP),
       _settingShowHidden(false),
       _settingShowSystem(false),
-      _settingHideSymlinks(false)
+      _settingHideSymlinks(false),
+      _fsWatcher(new QFileSystemWatcher(this))
 {
     // Load values from settings.
     TSettings settings;
@@ -103,20 +105,20 @@ bool Job::validateUrls()
 
 void Job::installWatcher()
 {
-    connect(&_fsWatcher, &QFileSystemWatcher::directoryChanged, this,
+    connect(_fsWatcher, &QFileSystemWatcher::directoryChanged, this,
             &Job::fsEvent);
-    connect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this, &Job::fsEvent);
+    connect(_fsWatcher, &QFileSystemWatcher::fileChanged, this, &Job::fsEvent);
 
     for(const QUrl &url : _urls)
     {
         // Emit a signal if a file has changed.
         QFileInfo file(url.toLocalFile());
-        _fsWatcher.addPath(file.absoluteFilePath());
+        _fsWatcher->addPath(file.absoluteFilePath());
         // Emit a signal if a directory or any of its ancestors has changed.
         QDir dir(file.absoluteDir());
         while(dir != QDir::root())
         {
-            _fsWatcher.addPath(dir.absolutePath());
+            _fsWatcher->addPath(dir.absolutePath());
             dir.cdUp();
         }
     }
@@ -124,14 +126,14 @@ void Job::installWatcher()
 
 void Job::removeWatcher()
 {
-    disconnect(&_fsWatcher, &QFileSystemWatcher::directoryChanged, this,
+    disconnect(_fsWatcher, &QFileSystemWatcher::directoryChanged, this,
                &Job::fsEvent);
-    disconnect(&_fsWatcher, &QFileSystemWatcher::fileChanged, this,
+    disconnect(_fsWatcher, &QFileSystemWatcher::fileChanged, this,
                &Job::fsEvent);
 
-    QStringList watching = _fsWatcher.files() + _fsWatcher.directories();
+    QStringList watching = _fsWatcher->files() + _fsWatcher->directories();
     if(!watching.isEmpty())
-        _fsWatcher.removePaths(watching);
+        _fsWatcher->removePaths(watching);
 }
 
 QList<ArchivePtr> Job::archives() const

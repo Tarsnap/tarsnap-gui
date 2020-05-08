@@ -166,6 +166,7 @@ JobsTabWidget::JobsTabWidget(QWidget *parent)
 
     loadSettings();
     updateUi();
+    updateStatus();
 }
 
 JobsTabWidget::~JobsTabWidget()
@@ -196,6 +197,7 @@ void JobsTabWidget::changeEvent(QEvent *event)
     {
         _ui->retranslateUi(this);
         updateUi();
+        updateStatus();
     }
     QWidget::changeEvent(event);
 }
@@ -240,7 +242,10 @@ void JobsTabWidget::updateUi()
         _ui->actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
     _ui->jobsFilter->setToolTip(_ui->jobsFilter->toolTip().arg(
         _ui->actionFilterJobs->shortcut().toString(QKeySequence::NativeText)));
+}
 
+void JobsTabWidget::updateStatus()
+{
     // Ensure that the text on the "Save / Add job" button matches its state.
     if(_ui->addJobButton->property("save").toBool())
         _ui->addJobButton->setText(tr("Save"));

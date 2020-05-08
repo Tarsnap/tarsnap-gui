@@ -104,6 +104,7 @@ private:
     QMenu *_jobListMenu;
 
     void updateUi();
+    void updateStatus();
     void loadSettings();
 };
 

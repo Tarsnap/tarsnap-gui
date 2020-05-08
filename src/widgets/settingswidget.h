@@ -122,7 +122,7 @@ private slots:
 private:
     Ui::SettingsWidget *_ui;
 
-    void updateUi();
+    void updateKeyboardShortcutInfo();
     void loadSettings();
 
     void initSettingsSetValue();

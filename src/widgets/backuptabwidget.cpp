@@ -38,7 +38,7 @@ BackupTabWidget::BackupTabWidget(QWidget *parent)
 {
     // Ui initialization
     _ui->setupUi(this);
-    updateUi();
+    updateKeyboardShortcutInfo();
     _ui->backupListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     // Messages between widgets on this tab
@@ -103,12 +103,12 @@ void BackupTabWidget::changeEvent(QEvent *event)
     if(event->type() == QEvent::LanguageChange)
     {
         _ui->retranslateUi(this);
-        updateUi();
+        updateKeyboardShortcutInfo();
     }
     QWidget::changeEvent(event);
 }
 
-void BackupTabWidget::updateUi()
+void BackupTabWidget::updateKeyboardShortcutInfo()
 {
     _ui->backupListInfoLabel->setToolTip(
         _ui->backupListInfoLabel->toolTip().arg(

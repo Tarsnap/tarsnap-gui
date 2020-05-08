@@ -93,7 +93,7 @@ private:
     quint64 _count;
     quint64 _size;
 
-    void updateUi();
+    void updateKeyboardShortcutInfo();
 };
 
 #endif // BACKUPTABWIDGET_H

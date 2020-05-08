@@ -47,7 +47,7 @@ HelpWidget::HelpWidget(QWidget *parent)
     helpTabFile.close();
 
     // After reading the Help tab text
-    updateUi();
+    updateKeyboardShortcutInfo();
 
     // Initialize About window
     Ui::aboutWidget aboutUi;
@@ -91,12 +91,12 @@ void HelpWidget::changeEvent(QEvent *event)
     if(event->type() == QEvent::LanguageChange)
     {
         _ui->retranslateUi(this);
-        updateUi();
+        updateKeyboardShortcutInfo();
     }
     QWidget::changeEvent(event);
 }
 
-void HelpWidget::updateUi()
+void HelpWidget::updateKeyboardShortcutInfo()
 {
     // Keyboard shortcuts
     _ui->helpTabText->setHtml(

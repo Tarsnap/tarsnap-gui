@@ -54,7 +54,7 @@ private:
 
     TTextView *_consoleLog;
 
-    void updateUi();
+    void updateKeyboardShortcutInfo();
 };
 
 #endif // HELPWIDGET_H

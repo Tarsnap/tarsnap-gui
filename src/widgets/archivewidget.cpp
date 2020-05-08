@@ -43,7 +43,7 @@ ArchiveDetailsWidget::ArchiveDetailsWidget(QWidget *parent)
       _fileMenu(new QMenu(this))
 {
     _ui->setupUi(this);
-    updateUi();
+    updateKeyboardShortcutInfo();
 
     // Set up filter UI.
     _ui->filterComboBox->hide();
@@ -241,7 +241,7 @@ void ArchiveDetailsWidget::changeEvent(QEvent *event)
     if(event->type() == QEvent::LanguageChange)
     {
         _ui->retranslateUi(this);
-        updateUi();
+        updateKeyboardShortcutInfo();
         updateDetails();
     }
     QWidget::changeEvent(event);
@@ -275,7 +275,7 @@ void ArchiveDetailsWidget::restoreFiles()
     restoreDialog->show();
 }
 
-void ArchiveDetailsWidget::updateUi()
+void ArchiveDetailsWidget::updateKeyboardShortcutInfo()
 {
     _ui->hideButton->setToolTip(_ui->hideButton->toolTip().arg(
         QKeySequence(Qt::Key_Escape).toString(QKeySequence::NativeText)));

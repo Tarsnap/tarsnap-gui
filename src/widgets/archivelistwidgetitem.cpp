@@ -30,7 +30,7 @@ ArchiveListWidgetItem::ArchiveListWidgetItem(ArchivePtr archive)
     _ui->setupUi(_widget);
     // Send translation events to the widget.
     _widget->installEventFilter(this);
-    updateUi();
+    updateKeyboardShortcutInfo();
     // Set a sensible size.
     setSizeHint(QSize(_widget->minimumWidth(), _widget->minimumHeight()));
 
@@ -180,14 +180,14 @@ bool ArchiveListWidgetItem::eventFilter(QObject *obj, QEvent *event)
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
         _ui->retranslateUi(_widget);
-        updateUi();
+        updateKeyboardShortcutInfo();
         updateStatus();
         return true;
     }
     return false;
 }
 
-void ArchiveListWidgetItem::updateUi()
+void ArchiveListWidgetItem::updateKeyboardShortcutInfo()
 {
     // Display tooltips using platform-specific strings.
     _ui->inspectButton->setToolTip(_ui->inspectButton->toolTip().arg(

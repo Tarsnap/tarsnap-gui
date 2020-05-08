@@ -44,7 +44,7 @@ JobDetailsWidget::JobDetailsWidget(QWidget *parent)
 
     // Basic UI.
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
-    updateUi();
+    updateKeyboardShortcutInfo();
     _archiveListMenu = new QMenu(_ui->archiveListWidget);
 
     // Set up the timer for filesystem events.
@@ -299,7 +299,7 @@ void JobDetailsWidget::changeEvent(QEvent *event)
     if(event->type() == QEvent::LanguageChange)
     {
         _ui->retranslateUi(this);
-        updateUi();
+        updateKeyboardShortcutInfo();
         if(_job)
         {
             if(_job->objectKey().isEmpty())
@@ -508,7 +508,7 @@ void JobDetailsWidget::verifyJob()
     }
 }
 
-void JobDetailsWidget::updateUi()
+void JobDetailsWidget::updateKeyboardShortcutInfo()
 {
     _ui->hideButton->setToolTip(_ui->hideButton->toolTip().arg(
         QKeySequence(Qt::Key_Escape).toString(QKeySequence::NativeText)));

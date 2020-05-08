@@ -165,7 +165,7 @@ JobsTabWidget::JobsTabWidget(QWidget *parent)
     _ui->addJobButton->setMenu(addJobMenu);
 
     loadSettings();
-    updateUi();
+    updateKeyboardShortcutInfo();
     updateStatus();
 }
 
@@ -196,7 +196,7 @@ void JobsTabWidget::changeEvent(QEvent *event)
     if(event->type() == QEvent::LanguageChange)
     {
         _ui->retranslateUi(this);
-        updateUi();
+        updateKeyboardShortcutInfo();
         updateStatus();
     }
     QWidget::changeEvent(event);
@@ -233,7 +233,7 @@ void JobsTabWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void JobsTabWidget::updateUi()
+void JobsTabWidget::updateKeyboardShortcutInfo()
 {
     _ui->addJobButton->setToolTip(_ui->addJobButton->toolTip().arg(
         _ui->actionAddJob->shortcut().toString(QKeySequence::NativeText)));

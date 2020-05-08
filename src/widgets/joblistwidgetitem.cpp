@@ -23,7 +23,7 @@ JobListWidgetItem::JobListWidgetItem(JobPtr job)
 {
     _widget->installEventFilter(this);
     _ui->setupUi(_widget);
-    updateUi();
+    updateKeyboardShortcutInfo();
     // Set a sensible size.
     setSizeHint(QSize(_widget->minimumWidth(), _widget->minimumHeight()));
 
@@ -114,14 +114,14 @@ bool JobListWidgetItem::eventFilter(QObject *obj, QEvent *event)
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
         _ui->retranslateUi(_widget);
-        updateUi();
+        updateKeyboardShortcutInfo();
         update();
         return true;
     }
     return false;
 }
 
-void JobListWidgetItem::updateUi()
+void JobListWidgetItem::updateKeyboardShortcutInfo()
 {
     _ui->inspectButton->setToolTip(_ui->inspectButton->toolTip().arg(
         _ui->actionJobInspect->shortcut().toString(QKeySequence::NativeText)));

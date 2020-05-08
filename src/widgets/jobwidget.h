@@ -101,7 +101,7 @@ private:
     QMenu *_archiveListMenu;
 
     void save();
-    void updateUi();
+    void updateKeyboardShortcutInfo();
 };
 
 #endif // JOBWIDGET_H

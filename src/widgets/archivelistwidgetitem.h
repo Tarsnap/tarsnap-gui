@@ -72,7 +72,7 @@ private:
     ArchivePtr                 _archive;
 
     void setArchive(ArchivePtr archive);
-    void updateUi();
+    void updateKeyboardShortcutInfo();
 };
 
 #endif // ARCHIVELISTWIDGETITEM_H

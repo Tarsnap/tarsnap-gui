@@ -94,7 +94,7 @@ private:
     // The ID of the _dirInfoTask.
     QUuid _dirInfoTaskUuid;
 
-    void updateUi();
+    void updateKeyboardShortcutInfo();
 
     QMovie *_busyMovie;
 

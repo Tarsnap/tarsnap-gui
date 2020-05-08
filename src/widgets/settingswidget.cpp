@@ -136,7 +136,7 @@ SettingsWidget::SettingsWidget(QWidget *parent)
                 }
             });
 
-    updateUi();
+    updateKeyboardShortcutInfo();
 }
 
 SettingsWidget::~SettingsWidget()
@@ -382,7 +382,7 @@ void SettingsWidget::changeEvent(QEvent *event)
     if(event->type() == QEvent::LanguageChange)
     {
         _ui->retranslateUi(this);
-        updateUi();
+        updateKeyboardShortcutInfo();
     }
     QWidget::changeEvent(event);
 }
@@ -531,7 +531,7 @@ void SettingsWidget::updateLastMachineActivity(
                                  _ui->machineActivity->sizeHint().height());
 }
 
-void SettingsWidget::updateUi()
+void SettingsWidget::updateKeyboardShortcutInfo()
 {
     _ui->updateAccountButton->setToolTip(
         _ui->updateAccountButton->toolTip().arg(

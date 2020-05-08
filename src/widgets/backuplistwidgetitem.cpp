@@ -35,7 +35,7 @@ BackupListWidgetItem::BackupListWidgetItem()
     _ui->setupUi(_widget);
     // Send translation events to the widget.
     _widget->installEventFilter(this);
-    updateUi();
+    updateKeyboardShortcutInfo();
     // Set a sensible size.
     setSizeHint(QSize(_widget->minimumWidth(), _widget->minimumHeight()));
 
@@ -201,7 +201,7 @@ bool BackupListWidgetItem::eventFilter(QObject *obj, QEvent *event)
     if((obj == _widget) && (event->type() == QEvent::LanguageChange))
     {
         _ui->retranslateUi(_widget);
-        updateUi();
+        updateKeyboardShortcutInfo();
         return true;
     }
     return false;
@@ -217,7 +217,7 @@ quint64 BackupListWidgetItem::count() const
     return _count;
 }
 
-void BackupListWidgetItem::updateUi()
+void BackupListWidgetItem::updateKeyboardShortcutInfo()
 {
     // Display tooltip using a platform-specific string.
     _ui->actionRemove->setToolTip(_ui->actionRemove->toolTip().arg(

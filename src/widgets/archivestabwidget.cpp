@@ -26,7 +26,7 @@ ArchivesTabWidget::ArchivesTabWidget(QWidget *parent)
 {
     // Ui initialization
     _ui->setupUi(this);
-    updateUi();
+    updateKeyboardShortcutInfo();
 
     // Basic UI setup.
     _ui->archiveListWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -117,7 +117,7 @@ void ArchivesTabWidget::changeEvent(QEvent *event)
     if(event->type() == QEvent::LanguageChange)
     {
         _ui->retranslateUi(this);
-        updateUi();
+        updateKeyboardShortcutInfo();
     }
     QWidget::changeEvent(event);
 }
@@ -207,7 +207,7 @@ void ArchivesTabWidget::showArchiveListMenu()
     _archiveListMenu->popup(QCursor::pos());
 }
 
-void ArchivesTabWidget::updateUi()
+void ArchivesTabWidget::updateKeyboardShortcutInfo()
 {
     _ui->actionFilterArchives->setToolTip(
         _ui->actionFilterArchives->toolTip().arg(

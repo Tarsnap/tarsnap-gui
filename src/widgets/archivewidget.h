@@ -84,7 +84,7 @@ private:
     QSortFilterProxyModel *   _proxyModel;
     QMenu *                   _fileMenu;
 
-    void updateUi();
+    void updateKeyboardShortcutInfo();
 };
 
 #endif // ARCHIVEWIDGET_H

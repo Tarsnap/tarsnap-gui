@@ -103,7 +103,7 @@ private:
 
     QMenu *_jobListMenu;
 
-    void updateUi();
+    void updateKeyboardShortcutInfo();
     void updateStatus();
     void loadSettings();
 };

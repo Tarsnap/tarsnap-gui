@@ -93,7 +93,7 @@ private:
 
     QMenu *_archiveListMenu;
 
-    void updateUi();
+    void updateKeyboardShortcutInfo();
 };
 
 #endif // ARCHIVESTABWIDGET_H

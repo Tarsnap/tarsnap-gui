@@ -88,6 +88,7 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     updateUi();
+    setupMenuBar();
 
     // --
 
@@ -375,6 +376,7 @@ void MainWindow::changeEvent(QEvent *event)
     {
         _ui->retranslateUi(this);
         updateUi();
+        setupMenuBar();
 
         // Clear previous-language status message
         updateStatusMessage("", "");
@@ -650,10 +652,6 @@ void MainWindow::updateUi()
         _ui->actionShowJournal->shortcut().toString(QKeySequence::NativeText)));
     _ui->busyLabel->setToolTip(_ui->busyLabel->toolTip().arg(
         _ui->actionStopTasks->shortcut().toString(QKeySequence::NativeText)));
-
-    // --
-
-    setupMenuBar();
 }
 
 void MainWindow::createNewJob(QList<QUrl> urls, QString name)

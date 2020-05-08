@@ -583,13 +583,6 @@ void MainWindow::browseForBackupItems()
     _backupTabWidget->browseForBackupItems();
 }
 
-void MainWindow::displayStopTasksDialog(bool backupTaskRunning,
-                                        int runningTasks, int queuedTasks)
-{
-    _stopTasksDialog->display(backupTaskRunning, runningTasks, queuedTasks,
-                              _aboutToQuit);
-}
-
 void MainWindow::tarsnapError(TarsnapError error)
 {
     switch(error)

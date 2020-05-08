@@ -205,11 +205,6 @@ private:
     void updateUi();
     // Load saved application settings.
     void loadSettings();
-    // Prompt user to clarify whether to stop background tasks; if so, quits
-    // the app.  Also used when quitting the application while active or
-    // background tasks are queued.
-    void displayStopTasksDialog(bool backupTaskRunning, int runningTasks,
-                                int queuedTasks);
 
     void connectSettingsWidget();
 

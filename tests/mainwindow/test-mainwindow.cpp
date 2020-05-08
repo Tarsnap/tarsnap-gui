@@ -137,19 +137,19 @@ void TestMainWindow::about_window_menubar()
 
         // Becomes visible using the menu bar action
         menuAction->trigger();
-        QVERIFY(help->_aboutWindow.isVisible() == true);
+        QVERIFY(help->_aboutWindow->isVisible() == true);
         QVERIFY(ui->aboutButton->isChecked() == true);
         VISUAL_WAIT;
 
         // Stay visible even when clicking the menu bar action again
         menuAction->trigger();
-        QVERIFY(help->_aboutWindow.isVisible() == true);
+        QVERIFY(help->_aboutWindow->isVisible() == true);
         QVERIFY(ui->aboutButton->isChecked() == true);
         VISUAL_WAIT;
 
         // Becomes invisible by clicking the Help->About button
         ui->aboutButton->click();
-        QVERIFY(help->_aboutWindow.isVisible() == false);
+        QVERIFY(help->_aboutWindow->isVisible() == false);
         QVERIFY(ui->aboutButton->isChecked() == false);
         VISUAL_WAIT;
     }

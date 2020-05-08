@@ -46,31 +46,31 @@ void TestHelpWidget::about_window()
     VISUAL_INIT(helpWidget);
 
     // Starts off not visible and the button is not pushed down
-    QVERIFY(helpWidget->_aboutWindow.isVisible() == false);
+    QVERIFY(helpWidget->_aboutWindow->isVisible() == false);
     QVERIFY(ui->aboutButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
     ui->aboutButton->click();
-    QVERIFY(helpWidget->_aboutWindow.isVisible() == true);
+    QVERIFY(helpWidget->_aboutWindow->isVisible() == true);
     QVERIFY(ui->aboutButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by clicking the button again
     ui->aboutButton->click();
-    QVERIFY(helpWidget->_aboutWindow.isVisible() == false);
+    QVERIFY(helpWidget->_aboutWindow->isVisible() == false);
     QVERIFY(ui->aboutButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
     ui->aboutButton->click();
-    QVERIFY(helpWidget->_aboutWindow.isVisible() == true);
+    QVERIFY(helpWidget->_aboutWindow->isVisible() == true);
     QVERIFY(ui->aboutButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by closing the About window
-    helpWidget->_aboutWindow.close();
-    QVERIFY(helpWidget->_aboutWindow.isVisible() == false);
+    helpWidget->_aboutWindow->close();
+    QVERIFY(helpWidget->_aboutWindow->isVisible() == false);
     QVERIFY(ui->aboutButton->isChecked() == false);
     VISUAL_WAIT;
 
@@ -85,25 +85,25 @@ void TestHelpWidget::console_window()
     VISUAL_INIT(helpWidget);
 
     // Starts off not visible and the button is not pushed down
-    QVERIFY(helpWidget->_consoleWindow.isVisible() == false);
+    QVERIFY(helpWidget->_consoleWindow->isVisible() == false);
     QVERIFY(ui->consoleButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
     ui->consoleButton->click();
-    QVERIFY(helpWidget->_consoleWindow.isVisible() == true);
+    QVERIFY(helpWidget->_consoleWindow->isVisible() == true);
     QVERIFY(ui->consoleButton->isChecked() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by clicking the button again
     ui->consoleButton->click();
-    QVERIFY(helpWidget->_consoleWindow.isVisible() == false);
+    QVERIFY(helpWidget->_consoleWindow->isVisible() == false);
     QVERIFY(ui->consoleButton->isChecked() == false);
     VISUAL_WAIT;
 
     // Becomes visible
     ui->consoleButton->click();
-    QVERIFY(helpWidget->_consoleWindow.isVisible() == true);
+    QVERIFY(helpWidget->_consoleWindow->isVisible() == true);
     QVERIFY(ui->consoleButton->isChecked() == true);
     VISUAL_WAIT;
 
@@ -112,8 +112,8 @@ void TestHelpWidget::console_window()
     VISUAL_WAIT;
 
     // Becomes invisible by closing the Console window
-    helpWidget->_consoleWindow.close();
-    QVERIFY(helpWidget->_consoleWindow.isVisible() == false);
+    helpWidget->_consoleWindow->close();
+    QVERIFY(helpWidget->_consoleWindow->isVisible() == false);
     QVERIFY(ui->consoleButton->isChecked() == false);
     VISUAL_WAIT;
 
@@ -123,7 +123,7 @@ void TestHelpWidget::console_window()
 
     // Become visible again
     ui->consoleButton->click();
-    QVERIFY(helpWidget->_consoleWindow.isVisible() == true);
+    QVERIFY(helpWidget->_consoleWindow->isVisible() == true);
     QVERIFY(ui->consoleButton->isChecked() == true);
     VISUAL_WAIT;
 

@@ -4,6 +4,7 @@ WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QDateTime>
 #include <QDesktopServices>
+#include <QDialog>
 #include <QEvent>
 #include <QFile>
 #include <QIODevice>
@@ -28,7 +29,10 @@ WARNINGS_ENABLE
 #include "debug.h"
 
 HelpWidget::HelpWidget(QWidget *parent)
-    : QWidget(parent), _ui(new Ui::HelpWidget)
+    : QWidget(parent),
+      _ui(new Ui::HelpWidget),
+      _aboutWindow(new QDialog(this)),
+      _consoleWindow(new QDialog(this))
 {
     // Ui initialization
     _ui->setupUi(this);
@@ -47,23 +51,23 @@ HelpWidget::HelpWidget(QWidget *parent)
 
     // Initialize About window
     Ui::aboutWidget aboutUi;
-    aboutUi.setupUi(&_aboutWindow);
+    aboutUi.setupUi(_aboutWindow);
     aboutUi.versionLabel->setText(tr("GUI version ")
                                   + QCoreApplication::applicationVersion());
-    _aboutWindow.setWindowFlags(
-        (_aboutWindow.windowFlags() | Qt::CustomizeWindowHint)
+    _aboutWindow->setWindowFlags(
+        (_aboutWindow->windowFlags() | Qt::CustomizeWindowHint)
         & ~Qt::WindowMaximizeButtonHint);
     connect(aboutUi.checkUpdateButton, &QPushButton::clicked, []() {
         QDesktopServices::openUrl(
             QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
     });
-    _ui->aboutButton->setPopup(&_aboutWindow);
+    _ui->aboutButton->setPopup(_aboutWindow);
 
     // Initialize console log
     Ui::consoleWidget consoleUI;
-    consoleUI.setupUi(&_consoleWindow);
+    consoleUI.setupUi(_consoleWindow);
     _consoleLog = consoleUI.log;
-    _ui->consoleButton->setPopup(&_consoleWindow);
+    _ui->consoleButton->setPopup(_consoleWindow);
 }
 
 HelpWidget::~HelpWidget()

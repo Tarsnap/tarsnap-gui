@@ -298,118 +298,7 @@ font-size: 12px;
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="statusBarWidget" native="true">
-     <layout class="QHBoxLayout" name="statusBarHorizontalLayout">
-      <property name="leftMargin">
-       <number>12</number>
-      </property>
-      <property name="topMargin">
-       <number>3</number>
-      </property>
-      <property name="rightMargin">
-       <number>12</number>
-      </property>
-      <property name="bottomMargin">
-       <number>3</number>
-      </property>
-      <item>
-       <widget class="QToolButton" name="expandJournalButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">#expandJournalButton{
-border: none;
-}</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="ElidedClickableLabel" name="statusBarLabel">
-        <property name="toolTip">
-         <string>Status bar (displays the latest Journal message)</string>
-        </property>
-        <property name="text">
-         <string notr="true"/>
-        </property>
-        <property name="elide" stdset="0">
-         <string notr="true">Qt::ElideRight</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="simulationIcon">
-        <property name="minimumSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="toolTip">
-         <string>Simulation mode is ON. No new archives will be uploaded to the Tarsnap servers. Disable this in Settings for normal operation.</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">#simulationIcon{
-border: none;
-}</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="../resources/resources.qrc">
-          <normaloff>:/icons/bolt.png</normaloff>:/icons/bolt.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="TBusyLabel" name="busyLabel">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Tarsnap is busy running chores, click to change that &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
+    <widget class="StatusBarWidget" name="statusBarWidget" native="true"/>
    </item>
   </layout>
   <action name="actionRefresh">
@@ -779,19 +668,15 @@ border: none;
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>TBusyLabel</class>
-   <extends>QLabel</extends>
-   <header>TBusyLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>TTextView</class>
    <extends>QPlainTextEdit</extends>
    <header>TTextView.h</header>
   </customwidget>
   <customwidget>
-   <class>ElidedClickableLabel</class>
-   <extends>QLabel</extends>
-   <header>widgets/elidedclickablelabel.h</header>
+   <class>StatusBarWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/statusbarwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

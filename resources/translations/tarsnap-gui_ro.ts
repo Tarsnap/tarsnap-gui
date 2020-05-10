@@ -1409,18 +1409,6 @@ Adaugă oricum?</translation>
         <translation>Jurnal</translation>
     </message>
     <message>
-        <source>Status bar (displays the latest Journal message)</source>
-        <translation>Bara de stare (afișează ultimul mesaj Jurnal)</translation>
-    </message>
-    <message>
-        <source>Simulation mode is ON. No new archives will be uploaded to the Tarsnap servers. Disable this in Settings for normal operation.</source>
-        <translation>Modul simulare este activat. Arhivele noi nu vor fi încarcate pe serverele Tarsnap. Poți dezactiva această opțiune din panoul Setări Avansate.</translation>
-    </message>
-    <message>
-        <source>Tarsnap is busy running chores, click to change that &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation>Există activitați în curs de desfașurare, fă click pentru a modifica &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
-    </message>
-    <message>
         <source>Refresh</source>
         <translation>Actualizează</translation>
     </message>
@@ -2590,6 +2578,45 @@ unique data	%3		%4</source>
     <message>
         <source>Tarsnap setup</source>
         <translation type="unfinished">Configurare Tarsnap</translation>
+    </message>
+</context>
+<context>
+    <name>StatusBarWidget</name>
+    <message>
+        <source>Status bar (displays the latest Journal message)</source>
+        <translation type="unfinished">Bara de stare (afișează ultimul mesaj Jurnal)</translation>
+    </message>
+    <message>
+        <source>Simulation mode is ON. No new archives will be uploaded to the Tarsnap servers. Disable this in Settings for normal operation.</source>
+        <translation type="unfinished">Modul simulare este activat. Arhivele noi nu vor fi încarcate pe serverele Tarsnap. Poți dezactiva această opțiune din panoul Setări Avansate.</translation>
+    </message>
+    <message>
+        <source>Tarsnap is busy running chores, click to change that &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished">Există activitați în curs de desfașurare, fă click pentru a modifica &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Show Journal</source>
+        <translation type="unfinished">Arată Jurnal</translation>
+    </message>
+    <message>
+        <source>Show/hide Journal log &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished">Arată/ascunde Jurnal &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</translation>
+    </message>
+    <message>
+        <source>Ctrl+J</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop tasks</source>
+        <translation type="unfinished">Oprește activitați</translation>
+    </message>
+    <message>
+        <source>Stop, interrupt or clear queued tasks</source>
+        <translation type="unfinished">Oprește, întrerupe sau elimină activitațile programate</translation>
+    </message>
+    <message>
+        <source>Ctrl+K</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -552,7 +552,8 @@ void MainWindow::displayJobDetails(JobPtr job)
     _jobsTabWidget->displayJobDetails(job);
 }
 
-void MainWindow::updateStatusMessage(QString message, QString detail)
+void MainWindow::updateStatusMessage(const QString &message,
+                                     const QString &detail)
 {
     _ui->statusBarLabel->setText(message);
     if(!detail.isEmpty())
@@ -654,7 +655,7 @@ void MainWindow::updateUi()
         _ui->actionStopTasks->shortcut().toString(QKeySequence::NativeText)));
 }
 
-void MainWindow::createNewJob(QList<QUrl> urls, QString name)
+void MainWindow::createNewJob(const QList<QUrl> &urls, const QString &name)
 {
     displayTab(_ui->jobsTab);
     _jobsTabWidget->createNewJob(urls, name);
@@ -703,14 +704,14 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
-void MainWindow::saveKeyId(QString key, quint64 id)
+void MainWindow::saveKeyId(const QString &key, quint64 id)
 {
     _settingsWidget->saveKeyId(key, id);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
-void MainWindow::tarsnapVersionResponse(TaskStatus status,
-                                        QString    versionString)
+void MainWindow::tarsnapVersionResponse(TaskStatus     status,
+                                        const QString &versionString)
 {
     _settingsWidget->tarsnapVersionResponse(status, versionString);
 }
@@ -742,14 +743,14 @@ void MainWindow::displayTab(QWidget *widget)
         _ui->mainTabWidget->setCurrentWidget(widget);
 }
 
-void MainWindow::jobInspectByRef(QString jobRef)
+void MainWindow::jobInspectByRef(const QString &jobRef)
 {
     displayTab(_ui->jobsTab);
     _jobsTabWidget->jobInspectByRef(jobRef);
 }
 
 void MainWindow::handle_notification_clicked(enum message_type type,
-                                             QString           data)
+                                             const QString &   data)
 {
     notificationRaise();
     switch(type)

@@ -62,7 +62,8 @@ public slots:
     //! Set the statusbar message.
     //! \param message display this text
     //! \param detail display this text as a mouse-over tooltip.
-    void updateStatusMessage(QString message, QString detail = "");
+    void updateStatusMessage(const QString &message,
+                             const QString &detail = "");
     //! Update the global Tarsnap --print-stats values in the Settings tab.
     void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                              quint64 sizeUniqueTotal,
@@ -70,7 +71,8 @@ public slots:
                              quint64 archiveCount);
     //! Update the Tarsnap version number, and store it in the settings.
     //! \anchor tarsnapVersionResponse
-    void tarsnapVersionResponse(TaskStatus status, QString versionString);
+    void tarsnapVersionResponse(TaskStatus     status,
+                                const QString &versionString);
     //! Display (and raise) the MainWindow (if minimized or hidden).
     void notificationRaise();
     //! Display an explanation of a tarsnap CLI error.
@@ -80,7 +82,7 @@ public slots:
     //! Reset the current Journal using log.
     void setJournal(const QVector<LogEntry> &log);
     //! Save the Tarsnap key ID.
-    void saveKeyId(QString key_filename, quint64 id);
+    void saveKeyId(const QString &key_filename, quint64 id);
 
     //! Update the simulation icon.
     void updateSimulationIcon(int state);
@@ -88,7 +90,8 @@ public slots:
     void updateNumTasks(bool backupRunning, int numRunning, int numQueued);
 
     //! Handle a clicked notification message.
-    void handle_notification_clicked(enum message_type type, QString data);
+    void handle_notification_clicked(enum message_type type,
+                                     const QString &   data);
 
 signals:
     //! Begin tarsnap -c -f \<name\>
@@ -125,15 +128,15 @@ signals:
     void stopTasks(bool interrupt, bool running, bool queued);
     //! Begin tarsnap --version
     //! \anchor tarsnapVersionRequested
-    void tarsnapVersionRequested(QString tarsnapPath);
+    void tarsnapVersionRequested(const QString &tarsnapPath);
     //! Clear all Journal entries.
     void clearJournal();
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
-    void getKeyId(QString key_filename);
+    void getKeyId(const QString &key_filename);
 
     // Backup tab
     //! Create a new job with the given urls and name.
-    void morphBackupIntoJob(QList<QUrl> urls, QString name);
+    void morphBackupIntoJob(QList<QUrl> urls, const QString &name);
 
     // Job tab
     //! Passes the list of all Job objects to the JobListWidget.
@@ -144,7 +147,7 @@ signals:
     void jobAdded(JobPtr job);
     //! Search for all matching Archive objects which were created by a Job.
     //! \param jobPrefix prefix of the Archive names to match.
-    void findMatchingArchives(QString jobPrefix);
+    void findMatchingArchives(const QString &jobPrefix);
     //! Archives which match the previously-given search string.
     void matchingArchives(QList<ArchivePtr> archives);
 
@@ -179,7 +182,7 @@ private slots:
 
     // Jobs tab
     void displayJobDetails(JobPtr job);
-    void createNewJob(QList<QUrl> urls, QString name);
+    void createNewJob(const QList<QUrl> &urls, const QString &name);
 
     void nonquitStopTasks();
 
@@ -209,7 +212,7 @@ private:
     void connectSettingsWidget();
 
     // Display detailed information about a specific job.
-    void jobInspectByRef(QString jobRef);
+    void jobInspectByRef(const QString &jobRef);
 };
 
 #endif // MAINWINDOW_H

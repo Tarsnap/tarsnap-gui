@@ -541,6 +541,8 @@ void SettingsWidget::updateKeyboardShortcutInfo()
 
 void SettingsWidget::updateSimulationIcon(int state)
 {
+    if(state == Qt::Unchecked)
+        emit getArchives();
     emit newSimulationStatus(state);
 }
 

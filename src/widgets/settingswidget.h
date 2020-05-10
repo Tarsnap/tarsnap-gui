@@ -92,6 +92,8 @@ signals:
     void tarsnapVersionRequested(const QString &tarsnapPath);
     //! The "app/iec_prefixes" has changed.
     void iecChanged();
+    //! Begin tarsnap --list-archives
+    void getArchives();
 
 protected:
     //! Handles translation change of language.

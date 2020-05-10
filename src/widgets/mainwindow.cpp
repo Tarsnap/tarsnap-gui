@@ -159,6 +159,8 @@ MainWindow::MainWindow(QWidget *parent)
             &ArchivesTabWidget::updateIEC);
     connect(_settingsWidget, &SettingsWidget::iecChanged, _jobsTabWidget,
             &JobsTabWidget::updateIEC);
+    connect(_settingsWidget, &SettingsWidget::getArchives, this,
+            &MainWindow::getArchives);
 
     // Archives pane
     connect(this, &MainWindow::archiveList, _archivesTabWidget,
@@ -665,7 +667,6 @@ void MainWindow::updateSimulationIcon(int state)
 {
     if(state == Qt::Unchecked)
     {
-        emit getArchives();
         _ui->simulationIcon->hide();
     }
     else

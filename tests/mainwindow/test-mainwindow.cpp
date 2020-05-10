@@ -37,6 +37,7 @@ WARNINGS_ENABLE
 #include "widgets/helpwidget.h"
 #include "widgets/jobstabwidget.h"
 #include "widgets/mainwindow.h"
+#include "widgets/statusbarwidget.h"
 #include "widgets/stoptasksdialog.h"
 
 #include "persistentmodel/archive.h"
@@ -58,6 +59,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
+    void statusbarwidget();
     void about_window_menubar();
     void stoptasksdialog_nonquit();
     void quit_simple();
@@ -99,6 +101,15 @@ void TestMainWindow::cleanupTestCase()
     QThreadPool::globalInstance()->waitForDone(5000);
     // Wait up to 5 seconds to delete objects scheduled with ->deleteLater()
     WAIT_FINAL;
+}
+
+void TestMainWindow::statusbarwidget()
+{
+    StatusBarWidget *sbw = new StatusBarWidget();
+
+    VISUAL_INIT(sbw);
+
+    delete sbw;
 }
 
 static QAction *get_menubar_about(QMenuBar *menubar)

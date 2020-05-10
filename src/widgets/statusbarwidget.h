@@ -33,6 +33,24 @@ public:
     explicit StatusBarWidget(QWidget *parent = nullptr);
     ~StatusBarWidget();
 
+    //! Indicate whether the backend is busy or not.
+    void showBusy(bool busy);
+
+public slots:
+    //! Set the statusbar message.
+    //! \param message display this text
+    //! \param detail display this text as a mouse-over tooltip.
+    void updateStatusMessage(const QString &message, const QString &detail);
+
+    //! Update the simulation icon.
+    void updateSimulationIcon(int state);
+
+signals:
+    //! We want to stop some tasks.
+    void stopTasksRequested();
+    //! We want to toggle the journal log visibility.
+    void journalToggleRequested();
+
 protected:
     //! Handles translation change of language.
     void changeEvent(QEvent *event);

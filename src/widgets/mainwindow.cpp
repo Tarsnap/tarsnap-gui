@@ -114,16 +114,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->actionGoHelp, &QAction::triggered,
             [this]() { displayTab(_ui->helpTab); });
     addAction(_ui->actionShowJournal);
-    _ui->expandJournalButton->setDefaultAction(_ui->actionShowJournal);
     connect(_ui->actionShowJournal, &QAction::toggled, _ui->journalLog,
             &QWidget::setVisible);
-    connect(_ui->statusBarLabel, &ElidedClickableLabel::clicked,
-            _ui->actionShowJournal, &QAction::toggle);
     addAction(_ui->actionStopTasks);
     connect(_ui->actionStopTasks, &QAction::triggered, this,
             &MainWindow::nonquitStopTasks);
-    connect(_ui->busyLabel, &TBusyLabel::clicked, _ui->actionStopTasks,
-            &QAction::trigger);
     // --
 
     // Backup pane
@@ -241,6 +236,12 @@ MainWindow::MainWindow(QWidget *parent)
             [this] { _aboutToQuit = false; });
     connect(_stopTasksDialog, &StopTasksDialog::quitOk, this,
             &MainWindow::close);
+
+    // Connections for StatusBarWidget
+    connect(_ui->statusBarWidget, &StatusBarWidget::journalToggleRequested,
+            _ui->actionShowJournal, &QAction::toggle);
+    connect(_ui->statusBarWidget, &StatusBarWidget::stopTasksRequested,
+            _ui->actionStopTasks, &QAction::trigger);
 }
 
 MainWindow::~MainWindow()
@@ -258,9 +259,6 @@ MainWindow::~MainWindow()
 void MainWindow::loadSettings()
 {
     TSettings settings;
-
-    _ui->simulationIcon->setVisible(
-        settings.value("tarsnap/dry_run", DEFAULT_DRY_RUN).toBool());
 
     QByteArray geometry =
         settings.value("app/window_geometry", "").toByteArray();
@@ -379,9 +377,6 @@ void MainWindow::changeEvent(QEvent *event)
         _ui->retranslateUi(this);
         updateUi();
         setupMenuBar();
-
-        // Clear previous-language status message
-        updateStatusMessage("", "");
     }
     QWidget::changeEvent(event);
 }
@@ -557,9 +552,7 @@ void MainWindow::displayJobDetails(JobPtr job)
 void MainWindow::updateStatusMessage(const QString &message,
                                      const QString &detail)
 {
-    _ui->statusBarLabel->setText(message);
-    if(!detail.isEmpty())
-        _ui->statusBarLabel->setToolTip(detail);
+    _ui->statusBarWidget->updateStatusMessage(message, detail);
 }
 
 void MainWindow::commitSettings()
@@ -653,26 +646,12 @@ void MainWindow::updateUi()
 
     _ui->actionShowJournal->setToolTip(_ui->actionShowJournal->toolTip().arg(
         _ui->actionShowJournal->shortcut().toString(QKeySequence::NativeText)));
-    _ui->busyLabel->setToolTip(_ui->busyLabel->toolTip().arg(
-        _ui->actionStopTasks->shortcut().toString(QKeySequence::NativeText)));
 }
 
 void MainWindow::createNewJob(const QList<QUrl> &urls, const QString &name)
 {
     displayTab(_ui->jobsTab);
     _jobsTabWidget->createNewJob(urls, name);
-}
-
-void MainWindow::updateSimulationIcon(int state)
-{
-    if(state == Qt::Unchecked)
-    {
-        _ui->simulationIcon->hide();
-    }
-    else
-    {
-        _ui->simulationIcon->show();
-    }
 }
 
 void MainWindow::updateNumTasks(bool backupRunning, int runningTasks,
@@ -683,7 +662,7 @@ void MainWindow::updateNumTasks(bool backupRunning, int runningTasks,
 
     // Display whether we're active or not.
     bool idle = (runningTasks == 0);
-    _ui->busyLabel->animate(!idle);
+    _ui->statusBarWidget->showBusy(!idle);
 
     _backupTaskRunning = backupRunning;
 
@@ -722,12 +701,12 @@ void MainWindow::connectSettingsWidget()
     // Get info from SettingsWidget
     connect(_settingsWidget, &SettingsWidget::nukeArchives, this,
             &MainWindow::nukeArchives);
-    connect(_settingsWidget, &SettingsWidget::newStatusMessage, this,
-            &MainWindow::updateStatusMessage);
+    connect(_settingsWidget, &SettingsWidget::newStatusMessage,
+            _ui->statusBarWidget, &StatusBarWidget::updateStatusMessage);
     connect(_settingsWidget, &SettingsWidget::getKeyId, this,
             &MainWindow::getKeyId);
-    connect(_settingsWidget, &SettingsWidget::newSimulationStatus, this,
-            &MainWindow::updateSimulationIcon);
+    connect(_settingsWidget, &SettingsWidget::newSimulationStatus,
+            _ui->statusBarWidget, &StatusBarWidget::updateSimulationIcon);
     connect(_settingsWidget, &SettingsWidget::clearJournal, this,
             &MainWindow::clearJournal);
     connect(_settingsWidget, &SettingsWidget::runSetupWizard, this,

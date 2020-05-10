@@ -1394,18 +1394,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Status bar (displays the latest Journal message)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Simulation mode is ON. No new archives will be uploaded to the Tarsnap servers. Disable this in Settings for normal operation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarsnap is busy running chores, click to change that &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2558,6 +2546,45 @@ unique data	%3		%4</source>
     <name>SetupWizard</name>
     <message>
         <source>Tarsnap setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatusBarWidget</name>
+    <message>
+        <source>Status bar (displays the latest Journal message)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simulation mode is ON. No new archives will be uploaded to the Tarsnap servers. Disable this in Settings for normal operation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarsnap is busy running chores, click to change that &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Journal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/hide Journal log &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+J</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop, interrupt or clear queued tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+K</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

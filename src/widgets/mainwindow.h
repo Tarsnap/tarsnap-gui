@@ -84,8 +84,6 @@ public slots:
     //! Save the Tarsnap key ID.
     void saveKeyId(const QString &key_filename, quint64 id);
 
-    //! Update the simulation icon.
-    void updateSimulationIcon(int state);
     //! Update the number of tasks;
     void updateNumTasks(bool backupRunning, int numRunning, int numQueued);
 

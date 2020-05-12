@@ -392,14 +392,19 @@ void SettingsWidget::getAccountInfo()
     _tarsnapAccountDialog->getAccountInfo();
 }
 
+void SettingsWidget::setArchiveCount(quint64 archiveCount)
+{
+    // Store the count (for the Nuke dialog).
+    _archiveCountStr = QString::number(archiveCount);
+}
+
 void SettingsWidget::overallStatsChanged(quint64 sizeTotal,
                                          quint64 sizeCompressed,
                                          quint64 sizeUniqueTotal,
                                          quint64 sizeUniqueCompressed,
                                          quint64 archiveCount)
 {
-    // Store the count (for the Nuke dialog).
-    _archiveCountStr = QString::number(archiveCount);
+    Q_UNUSED(archiveCount);
 
     // Calculate amount of data saved by Tarsnap.
     quint64 storageSaved = sizeTotal >= sizeUniqueCompressed

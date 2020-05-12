@@ -100,6 +100,7 @@ void TestSettingsWidget::account()
     VISUAL_INIT(settingsWidget);
 
     // Send stats info.
+    settingsWidget->setArchiveCount(1);
     settingsWidget->overallStatsChanged(5, 4, 3, 2, 1);
     QCOMPARE(ui->accountArchivesCountLabel->text(), QString("1"));
     QCOMPARE(ui->accountTotalSizeLabel->text(), QString("5 B"));

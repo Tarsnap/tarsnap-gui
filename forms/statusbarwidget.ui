@@ -73,6 +73,20 @@ border: none;
     </widget>
    </item>
    <item>
+    <widget class="TPopupPushButton" name="statisticsButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/icons/spreadsheet.png</normaloff>:/icons/spreadsheet.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QToolButton" name="simulationIcon">
      <property name="minimumSize">
       <size>
@@ -156,6 +170,11 @@ border: none;
    <class>TBusyLabel</class>
    <extends>QLabel</extends>
    <header>TBusyLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TPopupPushButton</class>
+   <extends>QPushButton</extends>
+   <header>TPopupPushButton.h</header>
   </customwidget>
   <customwidget>
    <class>ElidedClickableLabel</class>

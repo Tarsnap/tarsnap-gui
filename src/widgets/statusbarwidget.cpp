@@ -16,9 +16,12 @@ WARNINGS_ENABLE
 
 #include "utils.h"
 #include "widgets/elidedclickablelabel.h"
+#include "widgets/statisticsdialog.h"
 
 StatusBarWidget::StatusBarWidget(QWidget *parent)
-    : QWidget(parent), _ui(new Ui::StatusBarWidget)
+    : QWidget(parent),
+      _ui(new Ui::StatusBarWidget),
+      _statsDialog(new StatisticsDialog(this))
 {
     // Ui initialization
     _ui->setupUi(this);
@@ -34,6 +37,9 @@ StatusBarWidget::StatusBarWidget(QWidget *parent)
     _ui->expandJournalButton->setDefaultAction(_ui->actionShowJournal);
     connect(_ui->actionShowJournal, &QAction::toggled, this,
             &StatusBarWidget::journalToggleRequested);
+
+    // Set up the StatisticsWidget
+    _ui->statisticsButton->setPopup(_statsDialog);
 }
 
 StatusBarWidget::~StatusBarWidget()

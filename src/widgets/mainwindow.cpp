@@ -685,9 +685,6 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                                               sizeUniqueTotal,
                                               sizeUniqueCompressed,
                                               archiveCount);
-    _settingsWidget->overallStatsChanged(sizeTotal, sizeCompressed,
-                                         sizeUniqueTotal, sizeUniqueCompressed,
-                                         archiveCount);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.

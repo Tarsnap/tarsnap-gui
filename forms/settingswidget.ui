@@ -89,98 +89,6 @@ border: 1px solid white;
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
             </property>
             <item row="0" column="0">
-             <widget class="QLabel" name="archiveCountLabel">
-              <property name="toolTip">
-               <string>Number of Archives stored for this Machine</string>
-              </property>
-              <property name="text">
-               <string>Archive count:</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="accountArchivesCountLabel">
-              <property name="text">
-               <string notr="true"/>
-              </property>
-              <property name="textInteractionFlags">
-               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="totalBackupLabel">
-              <property name="toolTip">
-               <string>Real size of all stored archives (before compression and deduplication)</string>
-              </property>
-              <property name="text">
-               <string>Total backup size:</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="accountTotalSizeLabel">
-              <property name="text">
-               <string notr="true"/>
-              </property>
-              <property name="textInteractionFlags">
-               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="actualUsageLabel">
-              <property name="toolTip">
-               <string>On the Tarsnap servers, this is what you're paying for</string>
-              </property>
-              <property name="text">
-               <string>Actual usage:</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="accountActualSizeLabel">
-              <property name="text">
-               <string notr="true"/>
-              </property>
-              <property name="textInteractionFlags">
-               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="bytesEconomyLabel">
-              <property name="toolTip">
-               <string>Bytes reduced by deduplication and compression</string>
-              </property>
-              <property name="text">
-               <string>Bytes economy:</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="accountStorageSavedLabel">
-              <property name="text">
-               <string notr="true"/>
-              </property>
-              <property name="textInteractionFlags">
-               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
              <widget class="QLabel" name="creditLabel">
               <property name="toolTip">
                <string>Credit left on Tarsnap</string>
@@ -193,7 +101,7 @@ border: 1px solid white;
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
+            <item row="0" column="1">
              <layout class="QHBoxLayout" name="creditHorizontalLayout">
               <item>
                <widget class="TElidedLabel" name="accountCreditLabel">
@@ -236,7 +144,7 @@ color: blue;
               </item>
              </layout>
             </item>
-            <item row="5" column="0">
+            <item row="1" column="0">
              <widget class="QLabel" name="machineActivityLabel">
               <property name="toolTip">
                <string>Last activity recorded by Tarsnap for this machine</string>
@@ -246,7 +154,7 @@ color: blue;
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
+            <item row="1" column="1">
              <layout class="QHBoxLayout" name="machineActivityHorizontalLayout">
               <item>
                <widget class="TElidedLabel" name="machineActivity">
@@ -289,7 +197,7 @@ color: blue;
               </item>
              </layout>
             </item>
-            <item row="6" column="0" colspan="2">
+            <item row="2" column="0" colspan="2">
              <widget class="TElidedLabel" name="outOfDateNoticeLabel">
               <property name="font">
                <font>

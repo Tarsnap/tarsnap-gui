@@ -101,12 +101,6 @@ void TestSettingsWidget::account()
 
     // Send stats info.
     settingsWidget->setArchiveCount(1);
-    settingsWidget->overallStatsChanged(5, 4, 3, 2, 1);
-    QCOMPARE(ui->accountArchivesCountLabel->text(), QString("1"));
-    QCOMPARE(ui->accountTotalSizeLabel->text(), QString("5 B"));
-    QCOMPARE(ui->accountActualSizeLabel->text(), QString("2 B"));
-    QCOMPARE(ui->accountStorageSavedLabel->text(), QString("3 B"));
-    VISUAL_WAIT;
 
     // Trigger an error message that we have to click away.
     ui->updateAccountButton->clicked();

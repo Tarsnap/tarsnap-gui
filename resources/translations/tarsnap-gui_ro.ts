@@ -2067,38 +2067,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
         <translation type="unfinished">Setări cont</translation>
     </message>
     <message>
-        <source>Number of Archives stored for this Machine</source>
-        <translation type="unfinished">Numărul de Arhive stocate pentru această mașină</translation>
-    </message>
-    <message>
-        <source>Archive count:</source>
-        <translation type="unfinished">Număr Arhive:</translation>
-    </message>
-    <message>
-        <source>Real size of all stored archives (before compression and deduplication)</source>
-        <translation type="unfinished">Mărimea actuală a tuturor arhivelor (înainte de compresie și deduplicare)</translation>
-    </message>
-    <message>
-        <source>Total backup size:</source>
-        <translation type="unfinished">Mărime totală backup:</translation>
-    </message>
-    <message>
-        <source>On the Tarsnap servers, this is what you&apos;re paying for</source>
-        <translation type="unfinished">Mărime date pe serverele Tarsnap, consum plătit</translation>
-    </message>
-    <message>
-        <source>Actual usage:</source>
-        <translation type="unfinished">Consum actual de date:</translation>
-    </message>
-    <message>
-        <source>Bytes reduced by deduplication and compression</source>
-        <translation type="unfinished">Octeți salvați în urma deduplicării și a compresiei</translation>
-    </message>
-    <message>
-        <source>Bytes economy:</source>
-        <translation type="unfinished">Economie în octeți:</translation>
-    </message>
-    <message>
         <source>Credit left on Tarsnap</source>
         <translation type="unfinished">Credit Tarsnap rămas</translation>
     </message>
@@ -2481,12 +2449,6 @@ Jobs that have scheduled backup turned on will be backed up according to the Dai
     <message>
         <source>click login button</source>
         <translation type="unfinished">Execută Autentificare pentru actualizare</translation>
-    </message>
-    <message>
-        <source>		Total size	Compressed size
-all archives	%1		%2
-unique data	%3		%4</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Browse for existing machine key</source>

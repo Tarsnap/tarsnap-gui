@@ -680,6 +680,7 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                                      quint64 sizeUniqueCompressed,
                                      quint64 archiveCount)
 {
+    _settingsWidget->setArchiveCount(archiveCount);
     _ui->statusBarWidget->overallStatsChanged(sizeTotal, sizeCompressed,
                                               sizeUniqueTotal,
                                               sizeUniqueCompressed,

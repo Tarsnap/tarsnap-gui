@@ -44,6 +44,9 @@ public:
     //! Make TarsnapAccount update the account info from the Tarsnap servers.
     void getAccountInfo();
 
+    //! Update the archive count.
+    void setArchiveCount(quint64 archiveCount);
+
     // For the Application tab
     //! Update the number of tasks;
     void updateNumTasks(int numRunning, int numQueued);

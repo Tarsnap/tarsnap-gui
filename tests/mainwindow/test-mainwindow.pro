@@ -24,6 +24,7 @@ FORMS +=							\
 	../../forms/mainwindow.ui				\
 	../../forms/restoredialog.ui				\
 	../../forms/settingswidget.ui				\
+	../../forms/statisticsdialog.ui				\
 	../../forms/statusbarwidget.ui				\
 	../../forms/stoptasksdialog.ui
 
@@ -80,6 +81,7 @@ HEADERS  +=						\
 	../../src/widgets/restoredialog.h		\
 	../../src/widgets/schedulingwidgets.h		\
 	../../src/widgets/settingswidget.h		\
+	../../src/widgets/statisticsdialog.h		\
 	../../src/widgets/statusbarwidget.h		\
 	../../src/widgets/stoptasksdialog.h		\
 	../../src/widgets/tarsnapaccountdialog.h	\
@@ -128,6 +130,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/widgets/restoredialog.cpp		\
 	../../src/widgets/schedulingwidgets.cpp		\
 	../../src/widgets/settingswidget.cpp		\
+	../../src/widgets/statisticsdialog.cpp		\
 	../../src/widgets/statusbarwidget.cpp		\
 	../../src/widgets/stoptasksdialog.cpp		\
 	../../src/widgets/tarsnapaccountdialog.cpp

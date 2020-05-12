@@ -372,6 +372,7 @@ void TestTaskManager::exclusive()
     // - D: 2 non-exclusive.  (start 2, stop 3)
     manager->sleepSeconds(5, false);
     manager->sleepSeconds(5, false);
+    // - E: 0 new tasks.
 
     // A: wait for a task to start, then check that we only have one.
     // Remember that these messages counts are:
@@ -387,6 +388,7 @@ void TestTaskManager::exclusive()
     // B: stop the currently-running task(s).  Messages: 2 end, 2 start.
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (2 + 2));
+    WAIT_UNTIL(sig_numTasks.count() >= 1);
     QVERIFY(sig_numTasks.count() == 1);
     numTasks = sig_numTasks.takeLast();
     QVERIFY(numTasks.at(1).toInt() == 2);
@@ -397,6 +399,7 @@ void TestTaskManager::exclusive()
     // C: Stop the currently-running task(s).  Messages: 3 end, 1 start.
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (3 + 1));
+    WAIT_UNTIL(sig_numTasks.count() >= 2);
     // Since two tasks are ending, we'll get two updateNumTasks.
     QVERIFY(sig_numTasks.count() == 2);
     numTasks = sig_numTasks.takeLast();
@@ -408,6 +411,7 @@ void TestTaskManager::exclusive()
     // D: Stop the currently-running task(s).  Messages: 2 end, 2 start.
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (2 + 2));
+    WAIT_UNTIL(sig_numTasks.count() >= 1);
     QVERIFY(sig_numTasks.count() == 1);
     numTasks = sig_numTasks.takeLast();
     QVERIFY(numTasks.at(1).toInt() == 2);
@@ -415,9 +419,10 @@ void TestTaskManager::exclusive()
     sig_message.clear();
     sig_numTasks.clear();
 
-    // post-D: Stop the currently-running task(s).  Messages: 3 end, 0 start.
+    // E: Stop the currently-running task(s).  Messages: 3 end, 0 start.
     manager->stopTasks(false, true, false);
     WAIT_UNTIL(sig_message.count() >= (3 + 0));
+    WAIT_UNTIL(sig_numTasks.count() >= 2);
     QVERIFY(sig_numTasks.count() == 2);
     numTasks = sig_numTasks.takeLast();
     QVERIFY(numTasks.at(1).toInt() == 0);

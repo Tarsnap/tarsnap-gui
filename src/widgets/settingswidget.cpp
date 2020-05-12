@@ -398,6 +398,9 @@ void SettingsWidget::overallStatsChanged(quint64 sizeTotal,
                                          quint64 sizeUniqueCompressed,
                                          quint64 archiveCount)
 {
+    // Store the count (for the Nuke dialog).
+    _archiveCountStr = QString::number(archiveCount);
+
     // Calculate amount of data saved by Tarsnap.
     quint64 storageSaved = sizeTotal >= sizeUniqueCompressed
                                ? sizeTotal - sizeUniqueCompressed
@@ -414,7 +417,7 @@ void SettingsWidget::overallStatsChanged(quint64 sizeTotal,
     _ui->accountTotalSizeLabel->setToolTip(tooltip);
     _ui->accountActualSizeLabel->setToolTip(tooltip);
     _ui->accountStorageSavedLabel->setToolTip(tooltip);
-    _ui->accountArchivesCountLabel->setText(QString::number(archiveCount));
+    _ui->accountArchivesCountLabel->setText(_archiveCountStr);
 
     // Set values which depend on "app/iec_prefixes"
     _sizeTotal            = sizeTotal;
@@ -489,7 +492,7 @@ void SettingsWidget::nukeArchivesButtonClicked()
            "<br /><br />To confirm, type '%2' and press OK."
            "<br /><br /><i>Warning: This action cannot be undone. "
            "All archives will be <b>lost forever</b></i>.")
-            .arg(_ui->accountArchivesCountLabel->text(), confirmationText),
+            .arg(_archiveCountStr, confirmationText),
         confirmationText, NUKE_SECONDS_DELAY,
         tr("Deleting all archives: press Cancel to abort"),
         tr("Purging all archives in %1 seconds..."), tr("Confirm nuke"));

@@ -136,6 +136,8 @@ private:
 
     SchedulingWidgets *_schedulingWidgets;
 
+    QString _archiveCountStr;
+
     // For the Application tab
     int _runningTasks;
     int _queuedTasks;

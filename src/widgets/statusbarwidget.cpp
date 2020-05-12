@@ -89,3 +89,21 @@ void StatusBarWidget::showBusy(bool busy)
     _ui->busyLabel->animate(busy);
     _ui->busyLabel->setEnabled(busy);
 }
+
+// We can't connect a slot to a slot (fair enough), so we pass this through.
+void StatusBarWidget::overallStatsChanged(quint64 sizeTotal,
+                                          quint64 sizeCompressed,
+                                          quint64 sizeUniqueTotal,
+                                          quint64 sizeUniqueCompressed,
+                                          quint64 archiveCount)
+{
+    _statsDialog->overallStatsChanged(sizeTotal, sizeCompressed,
+                                      sizeUniqueTotal, sizeUniqueCompressed,
+                                      archiveCount);
+}
+
+// We can't connect a slot to a slot (fair enough), so we pass this through.
+void StatusBarWidget::updateIEC()
+{
+    _statsDialog->updateIEC();
+}

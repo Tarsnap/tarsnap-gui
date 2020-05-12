@@ -33,6 +33,15 @@ public:
     explicit StatisticsDialog(QWidget *parent = nullptr);
     ~StatisticsDialog();
 
+    //! Update the global Tarsnap --print-stats values in the Settings tab.
+    void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
+                             quint64 sizeUniqueTotal,
+                             quint64 sizeUniqueCompressed,
+                             quint64 archiveCount);
+
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
+
 protected:
     //! Handles translation change of language.
     void changeEvent(QEvent *event);
@@ -41,6 +50,11 @@ private:
     Ui::StatisticsDialog *_ui;
 
     void updateUi();
+
+    // Values which depend on "app/iec_prefixes"
+    quint64 _sizeTotal;
+    quint64 _sizeUniqueCompressed;
+    quint64 _storageSaved;
 };
 
 #endif /* !STATISTICSDIALOG_H */

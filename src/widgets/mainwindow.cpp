@@ -154,6 +154,8 @@ MainWindow::MainWindow(QWidget *parent)
             &ArchivesTabWidget::updateIEC);
     connect(_settingsWidget, &SettingsWidget::iecChanged, _jobsTabWidget,
             &JobsTabWidget::updateIEC);
+    connect(_settingsWidget, &SettingsWidget::iecChanged, _ui->statusBarWidget,
+            &StatusBarWidget::updateIEC);
     connect(_settingsWidget, &SettingsWidget::getArchives, this,
             &MainWindow::getArchives);
 
@@ -678,6 +680,10 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                                      quint64 sizeUniqueCompressed,
                                      quint64 archiveCount)
 {
+    _ui->statusBarWidget->overallStatsChanged(sizeTotal, sizeCompressed,
+                                              sizeUniqueTotal,
+                                              sizeUniqueCompressed,
+                                              archiveCount);
     _settingsWidget->overallStatsChanged(sizeTotal, sizeCompressed,
                                          sizeUniqueTotal, sizeUniqueCompressed,
                                          archiveCount);

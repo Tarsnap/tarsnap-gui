@@ -10,7 +10,107 @@
     <height>126</height>
    </rect>
   </property>
-  <layout class="QFormLayout" name="statisticsLayout"/>
+  <layout class="QFormLayout" name="statisticsLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="archiveCountLabel">
+     <property name="toolTip">
+      <string>Number of Archives stored for this Machine</string>
+     </property>
+     <property name="text">
+      <string>Archive count:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="archivesCountStatLabel">
+     <property name="text">
+      <string notr="true"/>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="totalSizeLabel">
+     <property name="toolTip">
+      <string>Real size of all stored archives (before compression and deduplication)</string>
+     </property>
+     <property name="text">
+      <string>Total backup size:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLabel" name="totalSizeStatLabel">
+     <property name="text">
+      <string notr="true"/>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="actualUsageLabel">
+     <property name="toolTip">
+      <string>On the Tarsnap servers, this is what you're paying for</string>
+     </property>
+     <property name="text">
+      <string>Actual usage:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="actualUsageStatLabel">
+     <property name="text">
+      <string notr="true"/>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="bytesEconomyLabel">
+     <property name="toolTip">
+      <string>Bytes reduced by deduplication and compression</string>
+     </property>
+     <property name="text">
+      <string>Bytes economy:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLabel" name="bytesEconomyStatLabel">
+     <property name="text">
+      <string notr="true"/>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

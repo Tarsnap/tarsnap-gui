@@ -37,6 +37,12 @@ public:
     //! Indicate whether the backend is busy or not.
     void showBusy(bool busy);
 
+    //! Update the global Tarsnap --print-stats values in the Settings tab.
+    void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
+                             quint64 sizeUniqueTotal,
+                             quint64 sizeUniqueCompressed,
+                             quint64 archiveCount);
+
 public slots:
     //! Set the statusbar message.
     //! \param message display this text
@@ -45,6 +51,9 @@ public slots:
 
     //! Update the simulation icon.
     void updateSimulationIcon(int state);
+
+    //! Reload the IEC prefix preference and re-display number(s).
+    void updateIEC();
 
 signals:
     //! We want to stop some tasks.

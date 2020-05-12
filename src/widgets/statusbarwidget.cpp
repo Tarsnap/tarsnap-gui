@@ -81,4 +81,5 @@ void StatusBarWidget::updateSimulationIcon(int state)
 void StatusBarWidget::showBusy(bool busy)
 {
     _ui->busyLabel->animate(busy);
+    _ui->busyLabel->setEnabled(busy);
 }

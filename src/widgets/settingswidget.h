@@ -56,11 +56,6 @@ public slots:
     void initializeSettingsWidget();
 
     // For the Account tab
-    //! Update the global Tarsnap --print-stats values in the Settings tab.
-    void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
-                             quint64 sizeUniqueTotal,
-                             quint64 sizeUniqueCompressed,
-                             quint64 archiveCount);
     //! Save the Tarsnap key ID.
     void saveKeyId(const QString &key_filename, quint64 id);
 
@@ -144,13 +139,6 @@ private:
     // For the Application tab
     int _runningTasks;
     int _queuedTasks;
-
-    // Values which depend on "app/iec_prefixes"
-    quint64 _sizeTotal;
-    quint64 _sizeUniqueCompressed;
-    quint64 _storageSaved;
-    // Reload the IEC prefix preference and re-display number(s).
-    void updateIEC();
 };
 
 #endif // SETTINGSWIDGET_H

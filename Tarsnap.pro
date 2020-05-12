@@ -119,6 +119,7 @@ SOURCES +=						\
 	src/widgets/restoredialog.cpp			\
 	src/widgets/schedulingwidgets.cpp		\
 	src/widgets/settingswidget.cpp			\
+	src/widgets/statisticsdialog.cpp		\
 	src/widgets/statusbarwidget.cpp			\
 	src/widgets/stoptasksdialog.cpp			\
 	src/widgets/tarsnapaccountdialog.cpp
@@ -206,6 +207,7 @@ HEADERS +=						\
 	src/widgets/restoredialog.h			\
 	src/widgets/schedulingwidgets.h			\
 	src/widgets/settingswidget.h			\
+	src/widgets/statisticsdialog.h			\
 	src/widgets/statusbarwidget.h			\
 	src/widgets/stoptasksdialog.h			\
 	src/widgets/tarsnapaccountdialog.h
@@ -240,6 +242,7 @@ FORMS +=						\
 	forms/setupwizard_final.ui			\
 	forms/setupwizard_intro.ui			\
 	forms/setupwizard_register.ui			\
+	forms/statisticsdialog.ui			\
 	forms/statusbarwidget.ui			\
 	forms/stoptasksdialog.ui			\
 	lib/forms/TPathComboBrowse.ui			\

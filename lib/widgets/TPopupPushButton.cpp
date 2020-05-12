@@ -9,6 +9,7 @@ WARNINGS_ENABLE
 TPopupPushButton::TPopupPushButton(QWidget *parent)
     : QPushButton(parent), _popup(nullptr)
 {
+    setCheckable(true);
     connect(this, &QPushButton::toggled, this, &TPopupPushButton::valueChanged);
 }
 

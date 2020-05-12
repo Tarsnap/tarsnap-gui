@@ -15,6 +15,7 @@ namespace Ui
 class StatusBarWidget;
 }
 class QEvent;
+class StatisticsDialog;
 
 /*!
  * \ingroup widgets-main
@@ -57,6 +58,7 @@ protected:
 
 private:
     Ui::StatusBarWidget *_ui;
+    StatisticsDialog *   _statsDialog;
 
     void updateUi();
 };

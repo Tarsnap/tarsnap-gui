@@ -101,9 +101,6 @@ border-top: 2px groove darkgrey;
            <property name="text">
             <string>About Tarsnap</string>
            </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
           </widget>
          </item>
          <item>
@@ -123,9 +120,6 @@ border-top: 2px groove darkgrey;
           <widget class="TPopupPushButton" name="consoleButton">
            <property name="text">
             <string>Console Log</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
            </property>
           </widget>
          </item>

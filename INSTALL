@@ -106,6 +106,7 @@ tested on these distros so far:
 * Ubuntu 15.04 Vivid
 * Ubuntu 14.04.2 LTS Trusty
 * Linux Mint 17.1 Cinnamon
+* Linux Mint 19.3 Tricia
 * Debian 8 Jessie
 
 All of them seem to include the Qt5 SDK in the official main repos.

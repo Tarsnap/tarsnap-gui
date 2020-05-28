@@ -48,7 +48,7 @@ WARNINGS_ENABLE
 #include "utils.h"
 
 #define MAIN_LOGO_RIGHT_MARGIN 5
-#define MAIN_LOGO_FUDGE 3
+#define MAIN_LOGO_FUDGE 3 - 23
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),

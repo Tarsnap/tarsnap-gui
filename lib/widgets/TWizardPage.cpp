@@ -36,7 +36,7 @@ QString TWizardPage::title() const
     return _title;
 }
 
-void TWizardPage::setTitle(QString const &text)
+void TWizardPage::setTitle(const QString &text)
 {
     _title = text;
 }

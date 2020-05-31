@@ -38,7 +38,7 @@ public slots:
     //! \param displayMachineActivity show the activity for this machine.
     //! \param password the account password.
     void getAccountInfo(bool displayActivity, bool displayMachineActivity,
-                        QString password);
+                        const QString &password);
 
 signals:
     //! The amount of money in the Tarsnap account, and the latest date.
@@ -46,20 +46,20 @@ signals:
     //! The latest machine activity.
     void lastMachineActivity(QStringList activityFields);
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
-    void getKeyId(QString key);
+    void getKeyId(const QString &key);
 
     //! Received some information to display.
-    void gotTable(QString csv, QString title);
+    void gotTable(const QString &csv, const QString &title);
     //! Pass the reply to give a warning (if applicable).
     void possibleWarning(QByteArray reply);
 
 protected slots:
     //! Extract the credits from the CSV in the reply; will emit \ref
     //! accountCredit.
-    void parseCredit(QString csv);
+    void parseCredit(const QString &csv);
     //! Extract the machine activity from the CSV in the reply; will emit \ref
     //! lastMachineActivity.
-    void parseLastMachineActivity(QString csv);
+    void parseLastMachineActivity(const QString &csv);
     //! Send a network request and wait for a reply.
     QNetworkReply *tarsnapRequest(QUrlQuery post);
     //! Parse the network reply.

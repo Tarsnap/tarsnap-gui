@@ -159,7 +159,7 @@ void Archive::purge()
     emit purged();
 }
 
-bool Archive::doesKeyExist(QString key)
+bool Archive::doesKeyExist(const QString &key)
 {
     // Sanity check.
     if(key.isEmpty())

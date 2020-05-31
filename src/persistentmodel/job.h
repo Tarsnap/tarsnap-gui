@@ -113,7 +113,7 @@ public:
     //! \c _name must already be set.
     void purge() override;
     //! Returns whether an object with this key exists in the PersistentStore.
-    bool doesKeyExist(QString key) override;
+    bool doesKeyExist(const QString &key) override;
 
 signals:
     //! The list of archives belonging to this backup has changed.

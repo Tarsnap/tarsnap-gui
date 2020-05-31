@@ -28,12 +28,12 @@ public:
 public slots:
     //! Displays a string if the user has "Show desktop notifications" enabled,
     //! after removing HTML tags.
-    void displayNotification(QString message, enum message_type type,
+    void displayNotification(const QString &message, enum message_type type,
                              const QString &data);
 
 signals:
     //! The user clicked on the notification message.
-    void notification_clicked(enum message_type type, QString data);
+    void notification_clicked(enum message_type type, const QString &data);
 
 private slots:
     void handle_messageClicked();

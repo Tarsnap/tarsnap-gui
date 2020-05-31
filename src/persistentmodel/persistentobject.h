@@ -36,7 +36,7 @@ public slots:
     //! Deletes this object from the PersistentStore.
     virtual void purge() = 0;
     //! Returns whether an object with this key exists in the PersistentStore.
-    virtual bool doesKeyExist(QString key) = 0;
+    virtual bool doesKeyExist(const QString &key) = 0;
 
 private:
     QString _objectKey;

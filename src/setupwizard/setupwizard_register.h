@@ -55,7 +55,7 @@ public slots:
     //! \param status either \c TaskStatus::Completed or
     //!                \c TaskStatus::Failed.
     //! \param reason text which explains why the registration failed.
-    void registerMachineResponse(TaskStatus status, QString reason);
+    void registerMachineResponse(TaskStatus status, const QString &reason);
     //! The TaskManager is indicating that it is performing a background task.
     //! \param idle no task is running.
     void updateLoadingAnimation(bool idle);

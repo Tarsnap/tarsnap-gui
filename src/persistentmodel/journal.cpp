@@ -94,7 +94,7 @@ void Journal::purge()
     }
 }
 
-void Journal::logMessage(QString message)
+void Journal::logMessage(const QString &message)
 {
     // Create a LogEntry with the current timestamp, after
     // stripping HTML commands from the log message.

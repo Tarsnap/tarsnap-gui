@@ -44,13 +44,14 @@ SetupWizard::~SetupWizard()
 {
 }
 
-void SetupWizard::tarsnapVersionResponse(TaskStatus status,
-                                         QString    versionString)
+void SetupWizard::tarsnapVersionResponse(TaskStatus     status,
+                                         const QString &versionString)
 {
     _cliPage->tarsnapVersionResponse(status, versionString);
 }
 
-void SetupWizard::registerMachineResponse(TaskStatus status, QString reason)
+void SetupWizard::registerMachineResponse(TaskStatus     status,
+                                          const QString &reason)
 {
     _registerPage->registerMachineResponse(status, reason);
 }

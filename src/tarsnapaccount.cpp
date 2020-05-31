@@ -33,9 +33,9 @@ TarsnapAccount::~TarsnapAccount()
     delete _nam;
 }
 
-void TarsnapAccount::getAccountInfo(bool    displayActivity,
-                                    bool    displayMachineActivity,
-                                    QString password)
+void TarsnapAccount::getAccountInfo(bool           displayActivity,
+                                    bool           displayMachineActivity,
+                                    const QString &password)
 {
     TSettings settings;
     QUrlQuery post;
@@ -82,7 +82,7 @@ void TarsnapAccount::getAccountInfo(bool    displayActivity,
     }
 }
 
-void TarsnapAccount::parseCredit(QString csv)
+void TarsnapAccount::parseCredit(const QString &csv)
 {
     if(csv.isEmpty() || !csv.startsWith("RECTYPE"))
         return;
@@ -109,7 +109,7 @@ void TarsnapAccount::parseCredit(QString csv)
     }
 }
 
-void TarsnapAccount::parseLastMachineActivity(QString csv)
+void TarsnapAccount::parseLastMachineActivity(const QString &csv)
 {
     if(csv.isEmpty() || !csv.startsWith("DATE"))
         return;

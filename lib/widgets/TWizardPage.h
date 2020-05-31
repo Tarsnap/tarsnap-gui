@@ -47,7 +47,7 @@ public:
     //! Get the current page's title.
     QString title() const;
     //! Set the title.
-    void setTitle(QString const &text);
+    void setTitle(const QString &text);
 
     //! Navigation buttons.
     enum WizardButton

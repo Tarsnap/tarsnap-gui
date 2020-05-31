@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 
 #include "tasks/tasks-defs.h"
 
-QString makeTarsnapCommand(QString cmd)
+QString makeTarsnapCommand(const QString &cmd)
 {
     TSettings settings;
     QString   tarsnapDir = settings.value("tarsnap/path", "").toString();
@@ -61,7 +61,7 @@ QStringList makeTarsnapArgs()
  * The QVersionNumber class was introduced in Qt 5.6, which is later than
  * our target of Qt 5.2.1.
  */
-int versionCompare(QString found, QString fixed)
+int versionCompare(const QString &found, const QString &fixed)
 {
     int i;
 

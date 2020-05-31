@@ -24,7 +24,7 @@ WARNINGS_ENABLE
  *
  * \param cmd name of the binary (without directory).
  */
-QString makeTarsnapCommand(QString cmd = "tarsnap");
+QString makeTarsnapCommand(const QString &cmd = "tarsnap");
 
 /**
  * \brief Generate the usual arguments for a `tarsnap` command as specified
@@ -44,6 +44,6 @@ QStringList makeTarsnapArgs();
  * \param fixed A version string in the form "X.Y.Z"; will likely be a
  *              compile-time constant.
  */
-int versionCompare(QString found, QString fixed);
+int versionCompare(const QString &found, const QString &fixed);
 
 #endif /* !TASKS_UTILS_H */

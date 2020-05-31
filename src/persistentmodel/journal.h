@@ -31,7 +31,7 @@ public slots:
     void getJournal() { emit journal(_log); }
     //! Adds a new log message to the journal (and PersistentStore)
     //! after stripping HTML commands from the string.
-    void logMessage(QString message);
+    void logMessage(const QString &message);
 
     // From PersistentObject
     //! Does nothing.
@@ -41,7 +41,7 @@ public slots:
     //! Deletes this object from the PersistentStore.
     void purge() override;
     //! Returns whether an object with this key exists in the PersistentStore.
-    bool doesKeyExist(QString key) override
+    bool doesKeyExist(const QString &key) override
     {
         Q_UNUSED(key);
         return false;

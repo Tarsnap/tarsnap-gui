@@ -69,7 +69,8 @@ signals:
     //! Started running the QProcess.
     void started(QVariant data);
     //! Finished, crashed, or could not start running the QProcess.
-    void finished(QVariant data, int exitCode, QString stdOut, QString stdErr);
+    void finished(QVariant data, int exitCode, const QString &stdOut,
+                  const QString &stdErr);
 
 private slots:
     void readProcessOutput(QProcess *process);

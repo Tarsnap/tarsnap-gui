@@ -27,7 +27,7 @@ ConsoleLog::ConsoleLog() : _writeToFile(false)
 {
 }
 
-void ConsoleLog::saveLogMessage(QString msg)
+void ConsoleLog::saveLogMessage(const QString &msg)
 {
     if(!_writeToFile)
         return;

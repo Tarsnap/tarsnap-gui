@@ -37,12 +37,13 @@ public slots:
     //! The TaskManager has finished determining the version of the CLI app.
     //! \param status did the task complete?
     //! \param versionString the version number.
-    void tarsnapVersionResponse(TaskStatus status, QString versionString);
+    void tarsnapVersionResponse(TaskStatus     status,
+                                const QString &versionString);
     //! The TaskManager has finished attempting to register the machine.
     //! \param status either \c TaskStatus::Completed or
     //!                \c TaskStatus::Failed.
     //! \param reason text which explains why the registration failed.
-    void registerMachineResponse(TaskStatus status, QString reason);
+    void registerMachineResponse(TaskStatus status, const QString &reason);
     //! Update the number of tasks.
     void updateNumTasks(bool backupRunning, int numRunning, int numQueued);
 

@@ -178,7 +178,8 @@ bool CliPage::tarsnapPathChanged(const QString &text)
     return true;
 }
 
-void CliPage::tarsnapVersionResponse(TaskStatus status, QString versionString)
+void CliPage::tarsnapVersionResponse(TaskStatus     status,
+                                     const QString &versionString)
 {
     TSettings settings;
 

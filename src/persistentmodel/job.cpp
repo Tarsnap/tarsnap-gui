@@ -415,7 +415,7 @@ void Job::purge()
     emit purged();
 }
 
-bool Job::doesKeyExist(QString key)
+bool Job::doesKeyExist(const QString &key)
 {
     // Sanity check.
     if(key.isEmpty())

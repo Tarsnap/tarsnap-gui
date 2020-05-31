@@ -115,7 +115,8 @@ static struct DirMessage findBinary(const QString &cmd, QStringList searchPaths)
     return result;
 }
 
-struct DirMessage Utils::findTarsnapClientInPath(QString path, bool keygenToo)
+struct DirMessage Utils::findTarsnapClientInPath(const QString &path,
+                                                 bool           keygenToo)
 {
     struct DirMessage result;
 
@@ -146,7 +147,7 @@ struct DirMessage Utils::findTarsnapClientInPath(QString path, bool keygenToo)
     return result;
 }
 
-QFileInfoList Utils::findKeysInPath(QString path)
+QFileInfoList Utils::findKeysInPath(const QString &path)
 {
     QFileInfoList result;
     QDir          dir(path);

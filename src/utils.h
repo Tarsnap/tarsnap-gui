@@ -61,10 +61,11 @@ QString humanBytes(quint64 bytes, int fieldWidth = 0);
 // if path.isEmpty it will search in $PATH
 // if keygenToo it will search for tarsnap-keygen too
 // returns the directory where tarsnap resides if found, otherwise empty string
-struct DirMessage findTarsnapClientInPath(QString path, bool keygenToo = false);
+struct DirMessage findTarsnapClientInPath(const QString &path,
+                                          bool           keygenToo = false);
 
 // Search for valid tarsnap keys in the supplied path
-QFileInfoList findKeysInPath(QString path);
+QFileInfoList findKeysInPath(const QString &path);
 
 //! Return the reason why dirname is not valid, or empty string for success.
 const QString validate_writeable_dir(const QString &dirname);

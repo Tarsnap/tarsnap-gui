@@ -175,7 +175,8 @@ void RegisterPage::registerMachine()
     }
 }
 
-void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
+void RegisterPage::registerMachineResponse(TaskStatus     status,
+                                           const QString &reason)
 {
     TSettings settings;
 

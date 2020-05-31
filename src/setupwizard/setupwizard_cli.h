@@ -45,7 +45,8 @@ public slots:
     //! The TaskManager has finished determining the version of the CLI app.
     //! \param status did the task complete?
     //! \param versionString the version number.
-    void tarsnapVersionResponse(TaskStatus status, QString versionString);
+    void tarsnapVersionResponse(TaskStatus     status,
+                                const QString &versionString);
 
 signals:
     //! We need to determine the Tarsnap CLI version number.

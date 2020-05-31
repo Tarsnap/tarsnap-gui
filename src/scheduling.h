@@ -29,10 +29,11 @@ struct scheduleinfo
 struct scheduleinfo launchdEnable();
 struct scheduleinfo launchdDisable();
 struct scheduleinfo cronEnable();
-struct scheduleinfo cronEnable_p2(QString cronBlock, QString existingCrontab);
+struct scheduleinfo cronEnable_p2(const QString &cronBlock,
+                                  const QString &existingCrontab);
 struct scheduleinfo cronDisable();
-struct scheduleinfo cronDisable_p2(QString linesToRemove,
-                                   QString existingCrontab);
+struct scheduleinfo cronDisable_p2(const QString &linesToRemove,
+                                   const QString &existingCrontab);
 
 //! Check and update (if necessary) the path to the Tarsnap-GUI binary
 struct scheduleinfo correctedSchedulingPath();

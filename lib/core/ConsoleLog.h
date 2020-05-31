@@ -162,7 +162,7 @@ signals:
     void message(const QString &message);
 
 private:
-    void saveLogMessage(QString msg);
+    void saveLogMessage(const QString &msg);
 
     QString _filename;
     bool    _writeToFile;

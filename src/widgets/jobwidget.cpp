@@ -25,14 +25,14 @@ WARNINGS_ENABLE
 
 #include "messages/archiverestoreoptions.h"
 
-#include "archivelistwidget.h"
 #include "debug.h"
-#include "elidedclickablelabel.h"
-#include "filepickerwidget.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-#include "restoredialog.h"
 #include "utils.h"
+#include "widgets/archivelistwidget.h"
+#include "widgets/elidedclickablelabel.h"
+#include "widgets/filepickerwidget.h"
+#include "widgets/restoredialog.h"
 
 JobDetailsWidget::JobDetailsWidget(QWidget *parent)
     : QWidget(parent),

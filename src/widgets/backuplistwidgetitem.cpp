@@ -20,8 +20,8 @@ WARNINGS_ENABLE
 
 #include "basetask.h"
 #include "dirinfotask.h"
-#include "elidedclickablelabel.h"
 #include "utils.h"
+#include "widgets/elidedclickablelabel.h"
 
 #define BUSY_MOVIE_FILENAME ":/lib/loading.gif"
 

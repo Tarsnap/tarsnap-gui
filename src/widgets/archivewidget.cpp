@@ -26,11 +26,11 @@ WARNINGS_ENABLE
 #include "messages/archiverestoreoptions.h"
 
 #include "basetask.h"
-#include "elidedclickablelabel.h"
 #include "filetablemodel.h"
 #include "persistentmodel/archive.h"
-#include "restoredialog.h"
 #include "utils.h"
+#include "widgets/elidedclickablelabel.h"
+#include "widgets/restoredialog.h"
 
 #define EMPTY_TAR_ARCHIVE_BYTES 2000
 

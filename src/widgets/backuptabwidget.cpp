@@ -15,14 +15,14 @@ WARNINGS_DISABLE
 #include "ui_backuptabwidget.h"
 WARNINGS_ENABLE
 
-#include "backuplistwidget.h"
-#include "backuplistwidgetitem.h"
 #include "backuptask.h"
 #include "basetask.h"
-#include "elidedclickablelabel.h"
-#include "filepickerdialog.h"
 #include "persistentmodel/archive.h"
 #include "utils.h"
+#include "widgets/backuplistwidget.h"
+#include "widgets/backuplistwidgetitem.h"
+#include "widgets/elidedclickablelabel.h"
+#include "widgets/filepickerdialog.h"
 
 // HACK: using _filePickerDialog(this) produces a segfault on MacOS X in
 // QTabBarPrivate::updateMacBorderMetrics() with tests/mainwindow when using

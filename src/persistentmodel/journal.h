@@ -11,7 +11,7 @@ WARNINGS_ENABLE
 
 #include "LogEntry.h"
 
-#include "persistentobject.h"
+#include "persistentmodel/persistentobject.h"
 
 /*!
  * \ingroup persistent

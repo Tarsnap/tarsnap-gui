@@ -15,7 +15,7 @@ WARNINGS_ENABLE
 #include "debug.h"
 #include "joblistwidgetitem.h"
 #include "persistentmodel/job.h"
-#include "restoredialog.h"
+#include "widgets/restoredialog.h"
 
 JobListWidget::JobListWidget(QWidget *parent)
     : QListWidget(parent), _filter(new QRegExp)

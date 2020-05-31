@@ -11,10 +11,10 @@ WARNINGS_ENABLE
 
 #include "messages/archiverestoreoptions.h"
 
-#include "archivelistwidgetitem.h"
 #include "debug.h"
 #include "persistentmodel/archive.h"
-#include "restoredialog.h"
+#include "widgets/archivelistwidgetitem.h"
+#include "widgets/restoredialog.h"
 
 #define DELETE_CONFIRMATION_THRESHOLD 10
 

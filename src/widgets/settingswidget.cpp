@@ -27,12 +27,12 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
-#include "confirmationdialog.h"
-#include "schedulingwidgets.h"
-#include "tarsnapaccountdialog.h"
 #include "tasks/tasks-defs.h"
 #include "translator.h"
 #include "utils.h"
+#include "widgets/confirmationdialog.h"
+#include "widgets/schedulingwidgets.h"
+#include "widgets/tarsnapaccountdialog.h"
 
 #define NUKE_SECONDS_DELAY 8
 

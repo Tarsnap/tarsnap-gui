@@ -34,18 +34,18 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
-#include "archivestabwidget.h"
-#include "backuptabwidget.h"
 #include "backuptask.h"
 #include "basetask.h"
-#include "elidedclickablelabel.h"
-#include "helpwidget.h"
-#include "jobstabwidget.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-#include "settingswidget.h"
-#include "stoptasksdialog.h"
 #include "utils.h"
+#include "widgets/archivestabwidget.h"
+#include "widgets/backuptabwidget.h"
+#include "widgets/elidedclickablelabel.h"
+#include "widgets/helpwidget.h"
+#include "widgets/jobstabwidget.h"
+#include "widgets/settingswidget.h"
+#include "widgets/stoptasksdialog.h"
 
 #define MAIN_LOGO_RIGHT_MARGIN 5
 #define MAIN_LOGO_FUDGE 3 - 23

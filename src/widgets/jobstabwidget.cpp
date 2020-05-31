@@ -24,10 +24,10 @@ WARNINGS_ENABLE
 #include "TSettings.h"
 
 #include "backuptask.h"
-#include "joblistwidget.h"
-#include "jobwidget.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
+#include "widgets/joblistwidget.h"
+#include "widgets/jobwidget.h"
 
 const char *const DEFAULT_JOBS[] = {"Desktop", "Documents", "Pictures",
                                     "Movies",  "Videos",    "Music",

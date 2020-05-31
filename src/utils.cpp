@@ -137,11 +137,12 @@ struct DirMessage Utils::findTarsnapClientInPath(QString path, bool keygenToo)
             return result;
     }
 
-    // If we were searching $PATH, update the `path` argument.
+    // If we were searching $PATH, store the directory.
     if(path.isEmpty())
-        path = QFileInfo(result.dirname).absolutePath();
+        result.dirname = QFileInfo(result.dirname).absolutePath();
+    else
+        result.dirname = path;
 
-    result.dirname = path;
     return result;
 }
 

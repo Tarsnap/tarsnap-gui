@@ -269,10 +269,11 @@ struct scheduleinfo cronEnable()
     return info;
 }
 
-struct scheduleinfo cronEnable_p2(QString cronBlock, QString currentCrontab)
+struct scheduleinfo cronEnable_p2(QString cronBlock, QString existingCrontab)
 {
     struct scheduleinfo info = {SCHEDULE_OK, "", ""};
     struct cmdinfo      pinfo;
+    QString             currentCrontab(existingCrontab);
 
     currentCrontab.append(cronBlock.toLatin1());
     QByteArray newCrontab = currentCrontab.toLatin1();
@@ -357,10 +358,11 @@ struct scheduleinfo cronDisable()
 }
 
 struct scheduleinfo cronDisable_p2(QString linesToRemove,
-                                   QString currentCrontab)
+                                   QString existingCrontab)
 {
     struct scheduleinfo info = {SCHEDULE_OK, "", ""};
     struct cmdinfo      pinfo;
+    QString             currentCrontab(existingCrontab);
 
     currentCrontab.remove(linesToRemove);
     DEBUG << currentCrontab;

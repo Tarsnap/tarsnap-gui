@@ -185,7 +185,7 @@ void RegisterPage::registerMachineResponse(TaskStatus status, QString reason)
     {
         // This should never happen.
         status = TaskStatus::Failed;
-        reason = "No keyfile set";
+        reportError("No keyfile set");
     }
 
     switch(status)

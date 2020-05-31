@@ -21,7 +21,7 @@ void Notification::displayNotification(QString message, enum message_type type,
        && isSystemTrayAvailable())
     {
         // Strip HTML tags
-        QString messagePlainText = message.remove(QRegExp("<[^>]*>"));
+        QString messagePlainText = QString(message).remove(QRegExp("<[^>]*>"));
         // Display message
         show();
         showMessage(QCoreApplication::instance()->applicationName(),

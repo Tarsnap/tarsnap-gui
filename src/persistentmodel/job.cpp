@@ -154,7 +154,7 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
     for(const ArchivePtr &archive : _archives)
     {
         connect(archive.data(), &Archive::purged, this, &Job::loadArchives,
-                QUEUED);
+                Qt::QueuedConnection);
     }
     emit changed();
 }

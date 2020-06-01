@@ -144,21 +144,22 @@ bool AppGui::prepEventLoop()
     _journal = new Journal();
 
     // Queue loading the journal when we have an event loop.
-    QMetaObject::invokeMethod(_journal, "load", QUEUED);
+    QMetaObject::invokeMethod(_journal, "load", Qt::QueuedConnection);
 
     connect(_taskManager, &TaskManager::displayNotification, _notification,
-            &Notification::displayNotification, QUEUED);
+            &Notification::displayNotification, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::message, _journal, &Journal::logMessage,
-            QUEUED);
+            Qt::QueuedConnection);
 
     if(_jobsOption)
     {
         setQuitLockEnabled(true);
         connect(_notification, &Notification::activated, this,
-                &AppGui::showMainWindow, QUEUED);
+                &AppGui::showMainWindow, Qt::QueuedConnection);
         connect(_notification, &Notification::messageClicked, this,
-                &AppGui::showMainWindow, QUEUED);
-        QMetaObject::invokeMethod(_taskManager, "runScheduledJobs", QUEUED);
+                &AppGui::showMainWindow, Qt::QueuedConnection);
+        QMetaObject::invokeMethod(_taskManager, "runScheduledJobs",
+                                  Qt::QueuedConnection);
     }
     else
     {
@@ -183,80 +184,82 @@ void AppGui::showMainWindow()
     Q_ASSERT(_mainWindow != nullptr);
 
     connect(_mainWindow, &MainWindow::tarsnapVersionRequested, _taskManager,
-            &TaskManager::tarsnapVersionFind, QUEUED);
+            &TaskManager::tarsnapVersionFind, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::tarsnapVersionFound, _mainWindow,
-            &MainWindow::tarsnapVersionResponse, QUEUED);
+            &MainWindow::tarsnapVersionResponse, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::backupNow, _taskManager,
-            &TaskManager::backupNow, QUEUED);
+            &TaskManager::backupNow, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::getArchives, _taskManager,
-            &TaskManager::getArchives, QUEUED);
+            &TaskManager::getArchives, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::archiveList, _mainWindow,
-            &MainWindow::archiveList, QUEUED);
+            &MainWindow::archiveList, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::archiveAdded, _mainWindow,
-            &MainWindow::addArchive, QUEUED);
+            &MainWindow::addArchive, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::deleteArchives, _taskManager,
-            &TaskManager::deleteArchives, QUEUED);
+            &TaskManager::deleteArchives, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::loadArchiveStats, _taskManager,
-            &TaskManager::getArchiveStats, QUEUED);
+            &TaskManager::getArchiveStats, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::loadArchiveContents, _taskManager,
-            &TaskManager::getArchiveContents, QUEUED);
+            &TaskManager::getArchiveContents, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::numTasks, _mainWindow,
-            &MainWindow::updateNumTasks, QUEUED);
+            &MainWindow::updateNumTasks, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::getOverallStats, _taskManager,
-            &TaskManager::getOverallStats, QUEUED);
+            &TaskManager::getOverallStats, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::overallStats, _mainWindow,
-            &MainWindow::overallStatsChanged, QUEUED);
+            &MainWindow::overallStatsChanged, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::repairCache, _taskManager,
-            &TaskManager::fsck, QUEUED);
+            &TaskManager::fsck, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::nukeArchives, _taskManager,
-            &TaskManager::nuke, QUEUED);
+            &TaskManager::nuke, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::restoreArchive, _taskManager,
-            &TaskManager::restoreArchive, QUEUED);
+            &TaskManager::restoreArchive, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::runSetupWizard, this, &AppGui::reinit,
-            QUEUED);
+            Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::stopTasks, _taskManager,
-            &TaskManager::stopTasks, QUEUED);
+            &TaskManager::stopTasks, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::jobList, _mainWindow,
-            &MainWindow::jobList, QUEUED);
+            &MainWindow::jobList, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::deleteJob, _taskManager,
-            &TaskManager::deleteJob, QUEUED);
+            &TaskManager::deleteJob, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::jobAdded, _taskManager,
-            &TaskManager::addJob, QUEUED);
+            &TaskManager::addJob, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::getKeyId, _taskManager,
-            &TaskManager::getKeyId, QUEUED);
+            &TaskManager::getKeyId, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::keyId, _mainWindow,
-            &MainWindow::saveKeyId, QUEUED);
+            &MainWindow::saveKeyId, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::message, _mainWindow,
-            &MainWindow::updateStatusMessage, QUEUED);
+            &MainWindow::updateStatusMessage, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::error, _mainWindow,
-            &MainWindow::tarsnapError, QUEUED);
+            &MainWindow::tarsnapError, Qt::QueuedConnection);
     connect(_notification, &Notification::activated, _mainWindow,
-            &MainWindow::notificationRaise, QUEUED);
+            &MainWindow::notificationRaise, Qt::QueuedConnection);
     connect(_notification, &Notification::notification_clicked, _mainWindow,
-            &MainWindow::handle_notification_clicked, QUEUED);
+            &MainWindow::handle_notification_clicked, Qt::QueuedConnection);
     connect(_journal, &Journal::journal, _mainWindow, &MainWindow::setJournal,
-            QUEUED);
+            Qt::QueuedConnection);
     connect(_journal, &Journal::logEntry, _mainWindow,
-            &MainWindow::appendToJournalLog, QUEUED);
+            &MainWindow::appendToJournalLog, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::clearJournal, _journal, &Journal::purge,
-            QUEUED);
+            Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::findMatchingArchives, _taskManager,
-            &TaskManager::findMatchingArchives, QUEUED);
+            &TaskManager::findMatchingArchives, Qt::QueuedConnection);
     connect(_taskManager, &TaskManager::matchingArchives, _mainWindow,
-            &MainWindow::matchingArchives, QUEUED);
+            &MainWindow::matchingArchives, Qt::QueuedConnection);
 
     connect(_mainWindow, &MainWindow::taskRequested, _taskManager,
-            &TaskManager::queueGuiTask, QUEUED);
+            &TaskManager::queueGuiTask, Qt::QueuedConnection);
     connect(_mainWindow, &MainWindow::cancelTaskRequested, _taskManager,
-            &TaskManager::cancelGuiTask, QUEUED);
+            &TaskManager::cancelGuiTask, Qt::QueuedConnection);
 
     connect(this, &AppGui::lastWindowClosed, this,
-            &AppGui::quitAfterEventsFinish, QUEUED);
+            &AppGui::quitAfterEventsFinish, Qt::QueuedConnection);
 
-    QMetaObject::invokeMethod(_mainWindow, "initializeMainWindow", QUEUED);
-    QMetaObject::invokeMethod(_taskManager, "loadArchives", QUEUED);
-    QMetaObject::invokeMethod(_taskManager, "loadJobs", QUEUED);
-    QMetaObject::invokeMethod(_journal, "getJournal", QUEUED);
+    QMetaObject::invokeMethod(_mainWindow, "initializeMainWindow",
+                              Qt::QueuedConnection);
+    QMetaObject::invokeMethod(_taskManager, "loadArchives",
+                              Qt::QueuedConnection);
+    QMetaObject::invokeMethod(_taskManager, "loadJobs", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(_journal, "getJournal", Qt::QueuedConnection);
 
     _mainWindow->show();
 }

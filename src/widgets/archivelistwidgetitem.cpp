@@ -82,9 +82,9 @@ void ArchiveListWidgetItem::setArchive(ArchivePtr archive)
     // Connections for any modifications: being scheduled for deletion,
     // and being scheduled to be saved (i.e. the initial upload).
     connect(_archive.data(), &Archive::changed, this,
-            &ArchiveListWidgetItem::updateStatus, QUEUED);
+            &ArchiveListWidgetItem::updateStatus, Qt::QueuedConnection);
     connect(_archive.data(), &Archive::purged, this,
-            &ArchiveListWidgetItem::removeItem, QUEUED);
+            &ArchiveListWidgetItem::removeItem, Qt::QueuedConnection);
 
     // For non-Job Archives, the name is displayed in black.
     // For Archives that were created due to a Job, the name is

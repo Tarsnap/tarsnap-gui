@@ -73,7 +73,8 @@ void BackupListWidget::loadBackupList()
 
     // Load the list in the background, via the event loop.
     if(!urllist.isEmpty())
-        QMetaObject::invokeMethod(this, "addItemsWithUrls", QUEUED,
+        QMetaObject::invokeMethod(this, "addItemsWithUrls",
+                                  Qt::QueuedConnection,
                                   Q_ARG(QList<QUrl>, urllist));
 }
 

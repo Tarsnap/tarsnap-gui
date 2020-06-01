@@ -182,9 +182,9 @@ void BackupListWidgetItem::startDirInfoTask()
     _dirInfoTask     = new DirInfoTask(dir);
     _dirInfoTaskUuid = _dirInfoTask->uuid();
     connect(_dirInfoTask, &DirInfoTask::result, this,
-            &BackupListWidgetItem::updateDirDetail, QUEUED);
+            &BackupListWidgetItem::updateDirDetail, Qt::QueuedConnection);
     connect(_dirInfoTask, &DirInfoTask::canceled, this,
-            &BackupListWidgetItem::cancelDirDetail, QUEUED);
+            &BackupListWidgetItem::cancelDirDetail, Qt::QueuedConnection);
 
     // Display "waiting"
     _ui->detailLabel->setText("");

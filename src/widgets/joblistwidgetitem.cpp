@@ -69,7 +69,7 @@ void JobListWidgetItem::setJob(const JobPtr &job)
     // Connection for any modifications: the list of Archives
     // belonging to this Job has been updated.
     connect(_job.data(), &Job::changed, this, &JobListWidgetItem::update,
-            QUEUED);
+            Qt::QueuedConnection);
 
     // Display the Job name.
     _ui->nameLabel->setText(_job->name());

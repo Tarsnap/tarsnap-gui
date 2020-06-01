@@ -20,6 +20,7 @@ SOURCES +=						\
 	../../src/basetask.cpp				\
 	../../src/cmdlinetask.cpp			\
 	../../src/filetablemodel.cpp			\
+	../../src/humanbytes.cpp			\
 	../../src/init-shared.cpp			\
 	../../src/jobrunner.cpp				\
 	../../src/main.cpp				\
@@ -52,6 +53,7 @@ HEADERS +=						\
 	../../src/basetask.h				\
 	../../src/cmdlinetask.h				\
 	../../src/filetablemodel.h			\
+	../../src/humanbytes.h				\
 	../../src/init-shared.h				\
 	../../src/jobrunner.h				\
 	../../src/messages/archivefilestat.h		\

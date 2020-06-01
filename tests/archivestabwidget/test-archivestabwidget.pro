@@ -25,7 +25,6 @@ HEADERS  +=						\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
 	../../src/tasks/tasks-utils.h			\
-	../../src/utils.h				\
 	../../src/widgets/archivelistwidget.h		\
 	../../src/widgets/archivelistwidgetitem.h	\
 	../../src/widgets/archivestabwidget.h		\
@@ -46,7 +45,6 @@ SOURCES += test-archivestabwidget.cpp			\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
 	../../src/tasks/tasks-utils.cpp			\
-	../../src/utils.cpp				\
 	../../src/widgets/archivelistwidget.cpp		\
 	../../src/widgets/archivelistwidgetitem.cpp	\
 	../../src/widgets/archivestabwidget.cpp		\

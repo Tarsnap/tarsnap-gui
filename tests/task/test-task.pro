@@ -9,7 +9,6 @@ HEADERS  +=						\
 	../../src/basetask.h				\
 	../../src/cmdlinetask.h				\
 	../../src/tasks/tasks-utils.h			\
-	../../src/utils.h				\
 	../qtest-platform.h
 
 SOURCES += test-task.cpp				\
@@ -17,7 +16,6 @@ SOURCES += test-task.cpp				\
 	../../lib/core/TSettings.cpp			\
 	../../src/basetask.cpp				\
 	../../src/cmdlinetask.cpp			\
-	../../src/tasks/tasks-utils.cpp			\
-	../../src/utils.cpp
+	../../src/tasks/tasks-utils.cpp
 
 include(../tests-include.pro)

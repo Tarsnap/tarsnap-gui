@@ -31,7 +31,6 @@ HEADERS  +=						\
 	../../src/tasks/tasks-setup.h			\
 	../../src/tasks/tasks-tarsnap.h			\
 	../../src/tasks/tasks-utils.h			\
-	../../src/utils.h				\
 	../qtest-platform.h
 
 SOURCES += test-taskmanager.cpp				\
@@ -55,8 +54,7 @@ SOURCES += test-taskmanager.cpp				\
 	../../src/tasks/tasks-misc.cpp			\
 	../../src/tasks/tasks-setup.cpp			\
 	../../src/tasks/tasks-tarsnap.cpp		\
-	../../src/tasks/tasks-utils.cpp			\
-	../../src/utils.cpp
+	../../src/tasks/tasks-utils.cpp
 
 include(../tests-include.pro)
 

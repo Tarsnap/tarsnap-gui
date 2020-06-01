@@ -17,7 +17,6 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "tasks/tasks-defs.h"
-#include "utils.h"
 
 const quint64 MB = 1048576UL;
 

@@ -61,7 +61,6 @@ HEADERS  +=						\
 	../../src/tarsnapaccount.h			\
 	../../src/tasks/tasks-utils.h			\
 	../../src/translator.h				\
-	../../src/utils.h				\
 	../../src/widgets/archivelistwidget.h		\
 	../../src/widgets/archivelistwidgetitem.h	\
 	../../src/widgets/archivestabwidget.h		\
@@ -112,7 +111,6 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/tarsnapaccount.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/translator.cpp			\
-	../../src/utils.cpp				\
 	../../src/widgets/archivelistwidget.cpp		\
 	../../src/widgets/archivelistwidgetitem.cpp	\
 	../../src/widgets/archivestabwidget.cpp		\

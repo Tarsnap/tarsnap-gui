@@ -20,7 +20,6 @@ WARNINGS_ENABLE
 #include "persistentmodel/journal.h"
 #include "taskmanager.h"
 #include "translator.h"
-#include "utils.h"
 #include "widgets/mainwindow.h"
 
 AppGui::AppGui(int &argc, char **argv, struct optparse *opt)

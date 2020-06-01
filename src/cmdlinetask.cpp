@@ -12,8 +12,6 @@ WARNINGS_ENABLE
 
 #include <signal.h>
 
-#include "utils.h"
-
 #define DEFAULT_TIMEOUT_MS 5000
 #define LOG_MAX_LENGTH 3072
 #define LOG_MAX_SEARCH_NL 1024

@@ -9,7 +9,6 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "scheduling.h"
-#include "utils.h"
 
 SchedulingWidgets::SchedulingWidgets(QWidget *parent)
     : QObject(parent), _parent(parent)

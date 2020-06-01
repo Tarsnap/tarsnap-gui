@@ -19,7 +19,6 @@ WARNINGS_ENABLE
 #include "TSettings.h"
 
 #include "basetask.h"
-#include "utils.h"
 #include "widgets/backuplistwidgetitem.h"
 
 BackupListWidget::BackupListWidget(QWidget *parent) : QListWidget(parent)

@@ -27,7 +27,6 @@ SOURCES += test-app-cmdline.cpp				\
 	../../src/scheduling.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/translator.cpp			\
-	../../src/utils.cpp
 
 HEADERS +=						\
 	../../lib/core/ConsoleLog.h			\
@@ -57,7 +56,6 @@ HEADERS +=						\
 	../../src/scheduling.h				\
 	../../src/tasks/tasks-utils.h			\
 	../../src/translator.h				\
-	../../src/utils.h				\
 	../qtest-platform.h
 
 RESOURCES += ../../resources/resources-lite.qrc

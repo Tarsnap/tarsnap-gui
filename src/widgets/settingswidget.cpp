@@ -4,7 +4,6 @@ WARNINGS_DISABLE
 #include <QAction>
 #include <QCheckBox>
 #include <QComboBox>
-#include <QCoreApplication>
 #include <QDate>
 #include <QEvent>
 #include <QFileDialog>

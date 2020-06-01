@@ -2,8 +2,12 @@
 
 WARNINGS_DISABLE
 #include <QCoreApplication>
+#include <QList>
 #include <QObject>
 WARNINGS_ENABLE
+
+#include <stdlib.h>
+#include <string.h>
 
 #include "../qtest-platform.h"
 

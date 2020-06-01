@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QAtomicInt>
+#include <QList>
 #include <QRegExp>
 #include <QString>
 #include <QStringList>

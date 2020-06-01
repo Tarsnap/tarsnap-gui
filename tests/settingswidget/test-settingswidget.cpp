@@ -6,12 +6,14 @@ WARNINGS_DISABLE
 #include <QInputDialog>
 #include <QLabel>
 #include <QLineEdit>
+#include <QList>
 #include <QMessageBox>
 #include <QObject>
 #include <QPushButton>
 #include <QSignalSpy>
 #include <QString>
 #include <QTest>
+#include <QToolBox>
 #include <QVariant>
 
 #include "ui_settingswidget.h"

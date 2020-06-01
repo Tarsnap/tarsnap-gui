@@ -15,6 +15,7 @@ namespace Ui
 class HelpWidget;
 }
 class TTextView;
+class QDialog;
 class QEvent;
 
 /*!

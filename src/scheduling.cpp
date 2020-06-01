@@ -11,9 +11,13 @@ WARNINGS_DISABLE
 #include <QProcess>
 #include <QProcessEnvironment>
 #include <QRegExp>
-#include <QSettings>
 #include <QString>
 #include <QStringList>
+
+#if defined(Q_OS_OSX)
+#include <QSettings>
+#endif
+
 WARNINGS_ENABLE
 
 #include "debug.h"

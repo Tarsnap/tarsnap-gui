@@ -20,6 +20,10 @@ WARNINGS_DISABLE
 #include <QVariant>
 #include <QVector>
 #include <Qt>
+
+#ifndef QT_TESTLIB_LIB
+#include <QLatin1String>
+#endif
 WARNINGS_ENABLE
 
 #include "ConsoleLog.h"
@@ -27,7 +31,10 @@ WARNINGS_ENABLE
 #include "TSettings.h"
 
 #include "messages/archivefilestat.h"
+#include "messages/archiveptr.h"
 #include "messages/archiverestoreoptions.h"
+#include "messages/backuptaskdataptr.h"
+#include "messages/jobptr.h"
 #include "messages/notification_info.h"
 #include "messages/tarsnaperror.h"
 #include "messages/taskstatus.h"

@@ -1,6 +1,7 @@
 #include "humanbytes.h"
 
 WARNINGS_DISABLE
+#include <QChar>
 #include <QVariant>
 WARNINGS_ENABLE
 

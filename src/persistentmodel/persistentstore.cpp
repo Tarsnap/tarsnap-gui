@@ -10,6 +10,7 @@ WARNINGS_DISABLE
 #include <QMutexLocker>
 #include <QSqlDatabase>
 #include <QSqlError>
+#include <QString>
 #include <QStringList>
 #include <QVariant>
 #include <Qt>

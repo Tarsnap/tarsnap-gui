@@ -13,6 +13,7 @@ HEADERS  +=						\
 	../../lib/core/ConsoleLog.h			\
 	../../lib/core/TSettings.h			\
 	../../lib/widgets/TElidedLabel.h		\
+	../../src/dir-utils.h				\
 	../../src/scheduling.h				\
 	../../src/tarsnapaccount.h			\
 	../../src/tasks/tasks-utils.h			\
@@ -28,6 +29,7 @@ SOURCES += test-settingswidget.cpp			\
 	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
 	../../lib/widgets/TElidedLabel.cpp		\
+	../../src/dir-utils.cpp				\
 	../../src/scheduling.cpp			\
 	../../src/tarsnapaccount.cpp			\
 	../../src/tasks/tasks-utils.cpp			\

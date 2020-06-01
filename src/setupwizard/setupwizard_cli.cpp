@@ -20,6 +20,7 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
+#include "dir-utils.h"
 #include "tasks/tasks-defs.h"
 #include "utils.h"
 
@@ -55,7 +56,7 @@ void CliPage::initializePage()
     TWizardPage::initializePage();
 
     // CLI path.
-    struct DirMessage result      = Utils::findTarsnapClientInPath("", true);
+    struct DirMessage result      = findTarsnapClientInPath("", true);
     QString           tarsnapPath = result.dirname;
     _ui->cliPathLineBrowse->setText(tarsnapPath);
     if(tarsnapPath.isEmpty())
@@ -121,7 +122,7 @@ bool CliPage::tarsnapCacheChanged(const QString &text)
     settings.remove("tarsnap/cache");
 
     // Validate the directory and display any errors.
-    const QString errorMsg = Utils::validate_writeable_dir(text);
+    const QString errorMsg = validate_writeable_dir(text);
     if(!errorMsg.isEmpty())
         return reportError("", _ui->cachePathLineBrowse, errorMsg);
 
@@ -140,7 +141,7 @@ bool CliPage::appDataDirChanged(const QString &text)
     settings.remove("app/app_data");
 
     // Validate the directory and display any errors.
-    const QString errorMsg = Utils::validate_writeable_dir(text);
+    const QString errorMsg = validate_writeable_dir(text);
     if(!errorMsg.isEmpty())
         return reportError("", _ui->appdataPathLineBrowse, errorMsg);
 
@@ -160,7 +161,7 @@ bool CliPage::tarsnapPathChanged(const QString &text)
     settings.remove("tarsnap/version");
 
     // Look for the CLI binaries and display any errors.
-    struct DirMessage result     = Utils::findTarsnapClientInPath(text, true);
+    struct DirMessage result     = findTarsnapClientInPath(text, true);
     QString           tarsnapDir = result.dirname;
     if(tarsnapDir.isEmpty())
     {

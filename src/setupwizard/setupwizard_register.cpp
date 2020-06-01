@@ -28,7 +28,7 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
-#include "utils.h"
+#include "dir-utils.h"
 
 RegisterPage::RegisterPage(QWidget *parent)
     : TWizardPage(parent), _ui(new Ui::RegisterPage), _registering(No)
@@ -65,7 +65,7 @@ void RegisterPage::initializePage()
     // Find any existing keys.
     TSettings settings;
     QString   appDataDir = settings.value("app/app_data", "").toString();
-    for(const QFileInfo &file : Utils::findKeysInPath(appDataDir))
+    for(const QFileInfo &file : findKeysInPath(appDataDir))
         _ui->keyfilePathComboBrowse->addItem(file.canonicalFilePath());
 
     // Auto-select "use existing" if we have any.
@@ -226,7 +226,7 @@ bool RegisterPage::checkUseKeyfile()
 {
     const QString filename = _ui->keyfilePathComboBrowse->text();
 
-    const QString errorMsg = Utils::validate_readable_file(filename);
+    const QString errorMsg = validate_readable_file(filename);
     if(!errorMsg.isEmpty())
         return reportError("", _ui->keyfilePathComboBrowse, errorMsg);
 

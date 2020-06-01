@@ -10,6 +10,7 @@ HEADERS  +=						\
 	../../src/backuptask.h				\
 	../../src/basetask.h				\
 	../../src/cmdlinetask.h				\
+	../../src/dir-utils.h				\
 	../../src/dirinfotask.h				\
 	../../src/jobrunner.h				\
 	../../src/messages/archivefilestat.h		\
@@ -39,6 +40,7 @@ SOURCES += test-taskmanager.cpp				\
 	../../src/backuptask.cpp			\
 	../../src/basetask.cpp				\
 	../../src/cmdlinetask.cpp			\
+	../../src/dir-utils.cpp				\
 	../../src/dirinfotask.cpp			\
 	../../src/jobrunner.cpp				\
 	../../src/parsearchivelistingtask.cpp		\

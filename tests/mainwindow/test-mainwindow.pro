@@ -42,6 +42,7 @@ HEADERS  +=						\
 	../../src/backuptask.h				\
 	../../src/basetask.h				\
 	../../src/customfilesystemmodel.h		\
+	../../src/dir-utils.h				\
 	../../src/dirinfotask.h				\
 	../../src/filetablemodel.h			\
 	../../src/messages/archivefilestat.h		\
@@ -97,6 +98,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/backuptask.cpp			\
 	../../src/basetask.cpp				\
 	../../src/customfilesystemmodel.cpp		\
+	../../src/dir-utils.cpp				\
 	../../src/dirinfotask.cpp			\
 	../../src/filetablemodel.cpp			\
 	../../src/parsearchivelistingtask.cpp		\

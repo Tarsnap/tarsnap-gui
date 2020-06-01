@@ -27,6 +27,7 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
+#include "dir-utils.h"
 #include "tasks/tasks-defs.h"
 #include "translator.h"
 #include "utils.h"
@@ -539,7 +540,7 @@ void SettingsWidget::tarsnapVersionResponse(TaskStatus     status,
 bool SettingsWidget::validateTarsnapPath()
 {
     struct DirMessage result =
-        Utils::findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text());
+        findTarsnapClientInPath(_ui->tarsnapPathLineEdit->text());
     if(result.dirname.isEmpty())
     {
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
@@ -560,7 +561,7 @@ bool SettingsWidget::validateTarsnapPath()
 bool SettingsWidget::validateTarsnapCache()
 {
     const QString cacheDir = _ui->tarsnapCacheLineEdit->text();
-    const QString errorMsg = Utils::validate_writeable_dir(cacheDir);
+    const QString errorMsg = validate_writeable_dir(cacheDir);
     if(!errorMsg.isEmpty())
     {
         _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: red;}");
@@ -576,7 +577,7 @@ bool SettingsWidget::validateTarsnapCache()
 bool SettingsWidget::validateAppDataDir()
 {
     const QString cacheDir = _ui->appDataDirLineEdit->text();
-    const QString errorMsg = Utils::validate_writeable_dir(cacheDir);
+    const QString errorMsg = validate_writeable_dir(cacheDir);
     if(!errorMsg.isEmpty())
     {
         _ui->appDataDirLineEdit->setStyleSheet("QLineEdit {color: red;}");

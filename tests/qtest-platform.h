@@ -13,7 +13,7 @@ WARNINGS_DISABLE
 #endif
 WARNINGS_ENABLE
 
-#include "utils.h"
+#include "dir-utils.h"
 
 // Only relevant for running a gui test with platform=offscreen
 #ifdef QT_GUI_LIB
@@ -69,9 +69,8 @@ void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
     QString tarsnapPath;                                                       \
     do                                                                         \
     {                                                                          \
-        struct DirMessage result =                                             \
-            Utils::findTarsnapClientInPath(QString(""), true);                 \
-        tarsnapPath = result.dirname;                                          \
+        struct DirMessage result = findTarsnapClientInPath(QString(""), true); \
+        tarsnapPath              = result.dirname;                             \
         WARNINGS_DISABLE                                                       \
         if(tarsnapPath.isEmpty())                                              \
             QSKIP("No tarsnap binary found");                                  \

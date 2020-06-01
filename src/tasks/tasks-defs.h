@@ -35,5 +35,6 @@ WARNINGS_ENABLE
 /** @{ Default behaviour for the GUI */
 #define DEFAULT_DOWNLOADS                                                      \
     QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
+/** @} */
 
 #endif /* !TASKS_DEFS_H */

@@ -34,12 +34,6 @@ WARNINGS_ENABLE
 #define APPDATA QStandardPaths::DataLocation
 #endif
 
-#define CRON_LINE "*/30 * * * * /usr/bin/env %1 %2 %3 %4 --jobs"
-#define CRON_MARKER_BEGIN "#BEGIN Tarsnap GUI - DO NOT EDIT THIS BLOCK MANUALLY"
-#define CRON_MARKER_END "#END Tarsnap GUI - DO NOT EDIT THIS BLOCK MANUALLY"
-#define CRON_MARKER_HELP                                                       \
-    "# For help, see: https://github.com/Tarsnap/tarsnap-gui/wiki/Scheduling"
-
 namespace Utils
 {
 

@@ -38,7 +38,6 @@ WARNINGS_ENABLE
 #include "basetask.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-#include "utils.h"
 #include "widgets/archivestabwidget.h"
 #include "widgets/backuptabwidget.h"
 #include "widgets/elidedclickablelabel.h"

@@ -17,7 +17,6 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "debug.h"
-#include "utils.h"
 
 #if defined(Q_OS_OSX)
 #define UPDATED_LAUNCHD_PATH_LONG                                              \

@@ -20,7 +20,6 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/persistentstore.h"
 #include "tasks/tasks-defs.h"
-#include "utils.h"
 
 Job::Job(QObject *parent)
     : PersistentObject(parent),

@@ -18,7 +18,6 @@ HEADERS  +=						\
 	../../src/tarsnapaccount.h			\
 	../../src/tasks/tasks-utils.h			\
 	../../src/translator.h				\
-	../../src/utils.h				\
 	../../src/widgets/confirmationdialog.h		\
 	../../src/widgets/schedulingwidgets.h		\
 	../../src/widgets/settingswidget.h		\
@@ -34,7 +33,6 @@ SOURCES += test-settingswidget.cpp			\
 	../../src/tarsnapaccount.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/translator.cpp			\
-	../../src/utils.cpp				\
 	../../src/widgets/confirmationdialog.cpp	\
 	../../src/widgets/schedulingwidgets.cpp		\
 	../../src/widgets/settingswidget.cpp		\

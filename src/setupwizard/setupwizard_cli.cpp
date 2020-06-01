@@ -22,7 +22,6 @@ WARNINGS_ENABLE
 
 #include "dir-utils.h"
 #include "tasks/tasks-defs.h"
-#include "utils.h"
 
 CliPage::CliPage(QWidget *parent)
     : TWizardPage(parent), _ui(new Ui::CliPage), _problemOccurred(false)

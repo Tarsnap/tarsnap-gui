@@ -99,7 +99,6 @@ SOURCES +=						\
 	src/tasks/tasks-tarsnap.cpp			\
 	src/tasks/tasks-utils.cpp			\
 	src/translator.cpp				\
-	src/utils.cpp					\
 	src/widgets/archivelistwidget.cpp		\
 	src/widgets/archivelistwidgetitem.cpp		\
 	src/widgets/archivestabwidget.cpp		\
@@ -189,7 +188,6 @@ HEADERS +=						\
 	src/tasks/tasks-tarsnap.h			\
 	src/tasks/tasks-utils.h				\
 	src/translator.h				\
-	src/utils.h					\
 	src/widgets/archivelistwidget.h			\
 	src/widgets/archivelistwidgetitem.h		\
 	src/widgets/archivestabwidget.h			\

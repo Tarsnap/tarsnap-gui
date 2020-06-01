@@ -59,8 +59,7 @@ SOURCES += test-app-setup.cpp				\
 	../../src/tasks/tasks-setup.cpp			\
 	../../src/tasks/tasks-tarsnap.cpp		\
 	../../src/tasks/tasks-utils.cpp			\
-	../../src/translator.cpp			\
-	../../src/utils.cpp
+	../../src/translator.cpp
 
 HEADERS +=						\
 	../../lib/core/ConsoleLog.h			\
@@ -113,8 +112,7 @@ HEADERS +=						\
 	../../src/tasks/tasks-setup.h			\
 	../../src/tasks/tasks-tarsnap.h			\
 	../../src/tasks/tasks-utils.h			\
-	../../src/translator.h				\
-	../../src/utils.h
+	../../src/translator.h
 
 RESOURCES +=						\
 	../../lib/resources/lib-resources.qrc		\

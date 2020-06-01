@@ -30,7 +30,6 @@ HEADERS  +=						\
 	../../src/setupwizard/setupwizard_intro.h	\
 	../../src/setupwizard/setupwizard_register.h	\
 	../../src/tasks/tasks-utils.h			\
-	../../src/utils.h				\
 	../../tests/qtest-platform.h
 
 SOURCES += test-setupwizard.cpp				\
@@ -49,8 +48,7 @@ SOURCES += test-setupwizard.cpp				\
 	../../src/setupwizard/setupwizard_final.cpp	\
 	../../src/setupwizard/setupwizard_intro.cpp	\
 	../../src/setupwizard/setupwizard_register.cpp	\
-	../../src/tasks/tasks-utils.cpp			\
-	../../src/utils.cpp
+	../../src/tasks/tasks-utils.cpp
 
 RESOURCES +=						\
 	../../lib/resources/lib-resources.qrc		\

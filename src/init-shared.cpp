@@ -38,7 +38,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/job.h"
 #include "persistentmodel/persistentstore.h"
 #include "scheduling.h"
-#include "utils.h"
+#include "tasks/tasks-defs.h"
 
 #define DEFAULT_LOG_FILE "tarsnap.log"
 

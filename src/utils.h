@@ -9,12 +9,6 @@ WARNINGS_DISABLE
 #include <QStringList>
 WARNINGS_ENABLE
 
-#if(QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
-#define APPDATA QStandardPaths::AppLocalDataLocation
-#else
-#define APPDATA QStandardPaths::DataLocation
-#endif
-
 namespace Utils
 {
 

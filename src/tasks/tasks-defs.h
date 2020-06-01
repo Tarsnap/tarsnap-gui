@@ -54,6 +54,12 @@ WARNINGS_ENABLE
 /** @{ Default behaviour for the GUI */
 #define DEFAULT_DOWNLOADS                                                      \
     QStandardPaths::writableLocation(QStandardPaths::DownloadLocation)
+
+#if(QT_VERSION >= QT_VERSION_CHECK(5, 4, 0))
+#define APPDATA QStandardPaths::AppLocalDataLocation
+#else
+#define APPDATA QStandardPaths::DataLocation
+#endif
 /** @} */
 
 #endif /* !TASKS_DEFS_H */

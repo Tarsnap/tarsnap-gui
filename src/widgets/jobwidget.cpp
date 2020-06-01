@@ -28,7 +28,7 @@ WARNINGS_ENABLE
 #include "debug.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-#include "utils.h"
+#include "tasks/tasks-defs.h"
 #include "widgets/archivelistwidget.h"
 #include "widgets/elidedclickablelabel.h"
 #include "widgets/filepickerwidget.h"

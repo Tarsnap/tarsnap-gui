@@ -14,7 +14,7 @@ WARNINGS_ENABLE
 #include "TBusyLabel.h"
 #include "TSettings.h"
 
-#include "utils.h"
+#include "tasks/tasks-defs.h"
 #include "widgets/elidedclickablelabel.h"
 #include "widgets/statisticsdialog.h"
 

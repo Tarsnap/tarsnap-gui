@@ -18,12 +18,12 @@ WARNINGS_ENABLE
 #include "messages/taskstatus.h"
 
 #include "app-setup.h"
+#include "dir-utils.h"
 #include "init-shared.h"
 #include "setupwizard/setupwizard.h"
 #include "setupwizard/setupwizard_cli.h"
 #include "setupwizard/setupwizard_register.h"
 #include "tasks/tasks-defs.h"
-#include "utils.h"
 
 #include "TPathLineBrowse.h"
 #include "TSettings.h"
@@ -73,7 +73,7 @@ static void run_normal_setup(AppSetup *setup)
 
     // Check if we have tarsnap (without using QTest's QSKIP).
     struct DirMessage cliDirMessage =
-        Utils::findTarsnapClientInPath(QString(""), true);
+        findTarsnapClientInPath(QString(""), true);
     QString tarsnapPath = cliDirMessage.dirname;
 
     // Intro page

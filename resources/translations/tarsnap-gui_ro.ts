@@ -2029,14 +2029,6 @@ Aborting operation.</source>
         <translation type="unfinished">Programarea execuției automate</translation>
     </message>
     <message>
-        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.
-
-%1</source>
-        <translation type="unfinished">Dorești anularea înregistrării aplicației cu serviciul macOS Launchd? Această acțiune va dezactiva programarea execuțiilor automate pentru Joburi.
-
-%1</translation>
-    </message>
-    <message>
         <source>Tarsnap GUI will be removed from the current user&apos;s crontab.</source>
         <translation type="unfinished">Înregistrarea aplicației cu serviciul CRON pentru utilizatorul curent va fi anulată.</translation>
     </message>
@@ -2047,17 +2039,17 @@ Aborting operation.</source>
     <message>
         <source>Register Tarsnap GUI with the OS X Launchd service to run daily at 10am?
 
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule.
-
-%1</source>
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Register Tarsnap GUI with cron serivce?
-Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule.
-
-%1</source>
+Jobs that have scheduled backup turned on will be backed up according to the Daily, Weekly or Monthly schedule.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unregister Tarsnap GUI from the OS X Launchd service? This will disable automatic Job backup scheduling.</source>
+        <translation type="unfinished">Dorești anularea înregistrării aplicației cu serviciul macOS Launchd? Această acțiune va dezactiva programarea execuțiilor automate pentru Joburi.</translation>
     </message>
 </context>
 <context>

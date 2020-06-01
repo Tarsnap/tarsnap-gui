@@ -5,12 +5,13 @@
 
 WARNINGS_DISABLE
 #include <QCoreApplication>
+#include <QList>
 #include <QObject>
+#include <QString>
 WARNINGS_ENABLE
 
-extern "C" {
-#include "optparse.h"
-}
+/* Forward declaration(s). */
+struct optparse;
 
 /*!
  * \ingroup misc

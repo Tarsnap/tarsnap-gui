@@ -11,11 +11,13 @@ WARNINGS_DISABLE
 #include <QStringList>
 #include <QUrl>
 #include <QVariant>
+#include <Qt>
 WARNINGS_ENABLE
+
+#include <algorithm>
 
 #include "TSettings.h"
 
-#include "backuptask.h"
 #include "debug.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/persistentstore.h"

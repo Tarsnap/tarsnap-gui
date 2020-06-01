@@ -1,8 +1,15 @@
 #include "app-cmdline.h"
 
+WARNINGS_DISABLE
+#include <QVariant>
+WARNINGS_ENABLE
+
 #include <assert.h>
 
-#include "ConsoleLog.h"
+extern "C" {
+#include "optparse.h"
+}
+
 #include "TSettings.h"
 
 #include "debug.h"

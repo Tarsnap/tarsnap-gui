@@ -1,6 +1,7 @@
 #include "customfilesystemmodel.h"
 
 WARNINGS_DISABLE
+#include <QFlags>
 #include <QModelIndex>
 #include <QObject>
 #include <QPersistentModelIndex>

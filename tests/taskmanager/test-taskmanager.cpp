@@ -7,6 +7,7 @@ WARNINGS_DISABLE
 #include <QDir>
 #include <QFile>
 #include <QIODevice>
+#include <QList>
 #include <QObject>
 #include <QSignalSpy>
 #include <QString>

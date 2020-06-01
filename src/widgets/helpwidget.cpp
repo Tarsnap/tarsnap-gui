@@ -7,6 +7,7 @@ WARNINGS_DISABLE
 #include <QDialog>
 #include <QEvent>
 #include <QFile>
+#include <QFlags>
 #include <QIODevice>
 #include <QKeySequence>
 #include <QLabel>

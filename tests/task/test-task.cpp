@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QCoreApplication>
+#include <QList>
 #include <QObject>
 #include <QSignalSpy>
 #include <QString>

@@ -9,7 +9,9 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 }
 
-#include "TSettings.h"
+WARNINGS_DISABLE
+#include <QList>
+WARNINGS_ENABLE
 
 #include "app-cmdline.h"
 #ifdef QT_GUI_LIB

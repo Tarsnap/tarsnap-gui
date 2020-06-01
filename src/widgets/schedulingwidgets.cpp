@@ -26,8 +26,7 @@ void SchedulingWidgets::enableJobSchedulingButtonClicked()
                                  "\n\nJobs that have scheduled backup"
                                  " turned on will be backed up according"
                                  " to the Daily, Weekly or Monthly"
-                                 " schedule.\n\n%1")
-                                  .arg(CRON_MARKER_HELP));
+                                 " schedule."));
     if(confirm != QMessageBox::Yes)
         return;
 
@@ -46,8 +45,7 @@ void SchedulingWidgets::enableJobSchedulingButtonClicked()
                                  "\nJobs that have scheduled backup"
                                  " turned on will be backed up according"
                                  " to the Daily, Weekly or Monthly"
-                                 " schedule.\n\n%1")
-                                  .arg(CRON_MARKER_HELP));
+                                 " schedule."));
     if(confirm != QMessageBox::Yes)
         return;
 
@@ -105,9 +103,7 @@ void SchedulingWidgets::disableJobSchedulingButtonClicked()
         QMessageBox::question(_parent, tr("Job scheduling"),
                               tr("Unregister Tarsnap GUI from the OS X"
                                  " Launchd service? This will disable"
-                                 " automatic Job backup scheduling."
-                                 "\n\n%1")
-                                  .arg(CRON_MARKER_HELP));
+                                 " automatic Job backup scheduling."));
     if(confirm != QMessageBox::Yes)
         return;
 

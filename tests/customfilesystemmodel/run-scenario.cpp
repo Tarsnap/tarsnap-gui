@@ -16,9 +16,8 @@ WARNINGS_ENABLE
 #include "../qtest-platform.h"
 
 RunScenario::RunScenario()
+    : _rootDir(QDir::currentPath() + QDir::separator() + "dirs")
 {
-    _rootDir = QDir::currentPath() + QDir::separator() + "dirs";
-
     // Set up model.
     _model.setReadOnly(true);
     _model.setRootPath(_rootDir);
@@ -36,13 +35,13 @@ RunScenario::~RunScenario()
 // The format of these lines in the scenario file is:
 // X filename
 // where X is a single character, followed by a space.
-QString RunScenario::getRelname(const QString line)
+QString RunScenario::getRelname(const QString &line)
 {
     QString relname = line.right(line.size() - 2);
     return relname;
 }
 
-QModelIndex RunScenario::getIndex(const QString line)
+QModelIndex RunScenario::getIndex(const QString &line)
 {
     QString     relname  = getRelname(line);
     QString     filename = QDir(_rootDir).filePath(relname);
@@ -50,13 +49,13 @@ QModelIndex RunScenario::getIndex(const QString line)
     return index;
 }
 
-int RunScenario::getLineState(const QString line)
+int RunScenario::getLineState(const QString &line)
 {
     int state = line[0].digitValue();
     return state;
 }
 
-int RunScenario::getCheckedStateInt(const QString line)
+int RunScenario::getCheckedStateInt(const QString &line)
 {
     QString     relname  = line.right(line.size() - 2);
     QString     filename = QDir(_rootDir).filePath(relname);
@@ -170,7 +169,7 @@ int RunScenario::runScenario(const int num)
     return (result);
 }
 
-void RunScenario::printDir(const QString dirname, const int depth)
+void RunScenario::printDir(const QString &dirname, const int depth)
 {
     QTextStream console(stdout);
     QModelIndex index;

@@ -293,6 +293,7 @@ UNIT_TESTS =						\
 	tests/settingswidget				\
 	tests/backuptabwidget				\
 	tests/archivestabwidget				\
+	tests/helpwidget				\
 	tests/persistent				\
 	tests/setupwizard				\
 	tests/taskmanager				\

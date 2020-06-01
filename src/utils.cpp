@@ -32,26 +32,3 @@ QString Utils::humanBytes(quint64 bytes, int fieldWidth)
         .arg(static_cast<double>(bytes) / pow(unit, exp), fieldWidth, 'f', 2)
         .arg(pre);
 }
-
-QString Utils::quoteCommandLine(QStringList args)
-{
-    QStringList escaped;
-    QRegExp     rx("^[0-9a-z-A-Z/._-]*$");
-    QString     cmdLine;
-
-    for(int i = 0; i < args.size(); ++i)
-    {
-        QString arg = args.at(i);
-        if(rx.indexIn(arg) >= 0)
-        {
-            escaped.append(arg);
-        }
-        else
-        {
-            escaped.append(arg.prepend("\'").append("\'"));
-        }
-    }
-
-    cmdLine = escaped.join(' ');
-    return (cmdLine);
-}

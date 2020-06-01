@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QChar>
 #include <QProcess>
+#include <QRegExp>
 #include <QStandardPaths>
 #include <QUuid>
 WARNINGS_ENABLE
@@ -16,6 +17,29 @@ WARNINGS_ENABLE
 #define DEFAULT_TIMEOUT_MS 5000
 #define LOG_MAX_LENGTH 3072
 #define LOG_MAX_SEARCH_NL 1024
+
+static const QString quoteCommandLine(const QStringList &args)
+{
+    QStringList escaped;
+    QRegExp     rx("^[0-9a-z-A-Z/._-]*$");
+    QString     cmdLine;
+
+    for(int i = 0; i < args.size(); ++i)
+    {
+        QString arg = args.at(i);
+        if(rx.indexIn(arg) >= 0)
+        {
+            escaped.append(arg);
+        }
+        else
+        {
+            escaped.append(arg.prepend("\'").append("\'"));
+        }
+    }
+
+    cmdLine = escaped.join(' ');
+    return (cmdLine);
+}
 
 CmdlineTask::CmdlineTask()
     : BaseTask(),
@@ -43,7 +67,7 @@ void CmdlineTask::run()
     LOG << tr("Task %1 started:\n[%2 %3]\n")
                .arg(_uuid.toString())
                .arg(_process->program())
-               .arg(Utils::quoteCommandLine(_process->arguments()));
+               .arg(quoteCommandLine(_process->arguments()));
 
 #ifdef QT_TESTLIB_LIB
     // Bail if desired.  Make sure this happens before we check if the
@@ -216,7 +240,7 @@ void CmdlineTask::processFinished(QProcess *process)
                    .arg(_uuid.toString())
                    .arg(_exitCode)
                    .arg(_command)
-                   .arg(Utils::quoteCommandLine(_arguments))
+                   .arg(quoteCommandLine(_arguments))
                    .arg(QString(stdOut + _stdErr));
         break;
     }
@@ -238,7 +262,7 @@ void CmdlineTask::processError(QProcess *process)
                .arg(process->errorString())
                .arg(_exitCode)
                .arg(_command)
-               .arg(Utils::quoteCommandLine(_arguments))
+               .arg(quoteCommandLine(_arguments))
                .arg(QString(_stdOut + _stdErr).trimmed());
     emit finished(_data, _exitCode, QString(_stdOut), QString(_stdErr));
     emit canceled();

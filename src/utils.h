@@ -49,8 +49,6 @@ namespace Utils
 // SI(1000) or IEC(1024) units (default is SI) depending on the app setting
 QString humanBytes(quint64 bytes, int fieldWidth = 0);
 
-// Displays a "copy&paste-able" command line.
-QString quoteCommandLine(QStringList args);
 } // namespace Utils
 
 #endif // UTILS_H

@@ -42,36 +42,12 @@ WARNINGS_ENABLE
 #define CRON_MARKER_HELP                                                       \
     "# For help, see: https://github.com/Tarsnap/tarsnap-gui/wiki/Scheduling"
 
-//! A directory name or an error message.
-struct DirMessage
-{
-    //! Directory which contains the binary, or empty.
-    QString dirname;
-    //! Error message (if applicable).
-    QString errorMessage;
-};
-
 namespace Utils
 {
 
 // Convert an int64 size in bytes to a human readable string using either
 // SI(1000) or IEC(1024) units (default is SI) depending on the app setting
 QString humanBytes(quint64 bytes, int fieldWidth = 0);
-
-// if path.isEmpty it will search in $PATH
-// if keygenToo it will search for tarsnap-keygen too
-// returns the directory where tarsnap resides if found, otherwise empty string
-struct DirMessage findTarsnapClientInPath(const QString &path,
-                                          bool           keygenToo = false);
-
-// Search for valid tarsnap keys in the supplied path
-QFileInfoList findKeysInPath(const QString &path);
-
-//! Return the reason why dirname is not valid, or empty string for success.
-const QString validate_writeable_dir(const QString &dirname);
-
-//! Return the reason why filename is not valid, or empty string for success.
-const QString validate_readable_file(const QString &filename);
 
 // Displays a "copy&paste-able" command line.
 QString quoteCommandLine(QStringList args);

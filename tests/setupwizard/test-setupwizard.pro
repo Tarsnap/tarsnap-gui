@@ -23,6 +23,7 @@ HEADERS  +=						\
 	../../lib/widgets/TPathLineBrowse.h		\
 	../../lib/widgets/TWizard.h			\
 	../../lib/widgets/TWizardPage.h			\
+	../../src/dir-utils.h				\
 	../../src/setupwizard/setupwizard.h		\
 	../../src/setupwizard/setupwizard_cli.h		\
 	../../src/setupwizard/setupwizard_final.h	\
@@ -42,6 +43,7 @@ SOURCES += test-setupwizard.cpp				\
 	../../lib/widgets/TPathLineBrowse.cpp		\
 	../../lib/widgets/TWizard.cpp			\
 	../../lib/widgets/TWizardPage.cpp		\
+	../../src/dir-utils.cpp				\
 	../../src/setupwizard/setupwizard.cpp		\
 	../../src/setupwizard/setupwizard_cli.cpp	\
 	../../src/setupwizard/setupwizard_final.cpp	\

@@ -36,6 +36,7 @@ SOURCES += test-app-setup.cpp				\
 	../../src/backuptask.cpp			\
 	../../src/basetask.cpp				\
 	../../src/cmdlinetask.cpp			\
+	../../src/dir-utils.cpp				\
 	../../src/filetablemodel.cpp			\
 	../../src/init-shared.cpp			\
 	../../src/jobrunner.cpp				\
@@ -80,6 +81,7 @@ HEADERS +=						\
 	../../src/backuptask.h				\
 	../../src/basetask.h				\
 	../../src/cmdlinetask.h				\
+	../../src/dir-utils.h				\
 	../../src/filetablemodel.h			\
 	../../src/init-shared.h				\
 	../../src/jobrunner.h				\

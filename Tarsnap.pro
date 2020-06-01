@@ -71,6 +71,7 @@ SOURCES +=						\
 	src/basetask.cpp				\
 	src/cmdlinetask.cpp				\
 	src/customfilesystemmodel.cpp			\
+	src/dir-utils.cpp				\
 	src/dirinfotask.cpp				\
 	src/filetablemodel.cpp				\
 	src/init-shared.cpp				\
@@ -151,6 +152,7 @@ HEADERS +=						\
 	src/cmdlinetask.h				\
 	src/customfilesystemmodel.h			\
 	src/debug.h					\
+	src/dir-utils.h					\
 	src/dirinfotask.h				\
 	src/filetablemodel.h				\
 	src/init-shared.h				\

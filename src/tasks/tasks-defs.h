@@ -30,6 +30,25 @@ WARNINGS_ENABLE
 #define DEFAULT_AGGRESSIVE_NETWORKING false
 #define DEFAULT_NO_DEFAULT_CONFIG true
 #define DEFAULT_PRESERVE_PATHNAMES true
+#define DEFAULT_TRAVERSE_MOUNT true
+#define DEFAULT_FOLLOW_SYMLINKS false
+#define DEFAULT_DRY_RUN false
+
+/* Default behaviour for skipping files */
+#define DEFAULT_SKIP_NODUMP false
+#define DEFAULT_SKIP_FILES_SIZE 0
+#define DEFAULT_SKIP_SYSTEM_ENABLED false
+#if defined Q_OS_OSX
+#define DEFAULT_SKIP_SYSTEM_FILES                                              \
+    ".DS_Store:.localized:.fseventsd:.Spotlight-V100:._.Trashes:.Trashes"
+#elif defined Q_OS_WIN
+#define DEFAULT_SKIP_SYSTEM_FILES                                              \
+    "$RECYCLE.BIN:System Volume Information:Thumbs.db"
+#elif defined Q_OS_LINUX
+#define DEFAULT_SKIP_SYSTEM_FILES ".lost+found"
+#else
+#define DEFAULT_SKIP_SYSTEM_FILES ""
+#endif
 /** @} */
 
 /** @{ Default behaviour for the GUI */

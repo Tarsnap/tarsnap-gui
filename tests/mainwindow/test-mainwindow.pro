@@ -45,6 +45,7 @@ HEADERS  +=						\
 	../../src/dir-utils.h				\
 	../../src/dirinfotask.h				\
 	../../src/filetablemodel.h			\
+	../../src/humanbytes.h				\
 	../../src/messages/archivefilestat.h		\
 	../../src/messages/archiveptr.h			\
 	../../src/messages/archiverestoreoptions.h	\
@@ -101,6 +102,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/dir-utils.cpp				\
 	../../src/dirinfotask.cpp			\
 	../../src/filetablemodel.cpp			\
+	../../src/humanbytes.cpp			\
 	../../src/parsearchivelistingtask.cpp		\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\

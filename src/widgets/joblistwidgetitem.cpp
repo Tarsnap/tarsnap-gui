@@ -14,9 +14,9 @@ WARNINGS_ENABLE
 
 #include "TElidedLabel.h"
 
+#include "humanbytes.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-#include "utils.h"
 
 JobListWidgetItem::JobListWidgetItem(JobPtr job)
     : _ui(new Ui::JobListWidgetItem), _widget(new QWidget)
@@ -99,7 +99,7 @@ void JobListWidgetItem::updateIEC()
     {
         totalSize += archive->sizeTotal();
     }
-    detail.append(Utils::humanBytes(totalSize));
+    detail.append(humanBytes(totalSize));
 
     _ui->detailLabel->setText(detail);
 }

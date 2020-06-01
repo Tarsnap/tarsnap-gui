@@ -17,9 +17,9 @@ WARNINGS_ENABLE
 
 #include "TElidedLabel.h"
 
+#include "humanbytes.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
-#include "utils.h"
 #include "widgets/elidedannotatedlabel.h"
 
 #define FIELD_WIDTH 6
@@ -157,8 +157,7 @@ void ArchiveListWidgetItem::updateStatus()
         // Prepare to display the size.
         if(_archive->sizeTotal() != 0)
         {
-            QString size =
-                Utils::humanBytes(_archive->sizeTotal(), FIELD_WIDTH);
+            QString size = humanBytes(_archive->sizeTotal(), FIELD_WIDTH);
             detail.prepend(size + "  ");
         }
 

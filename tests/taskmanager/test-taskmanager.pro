@@ -12,6 +12,7 @@ HEADERS  +=						\
 	../../src/cmdlinetask.h				\
 	../../src/dir-utils.h				\
 	../../src/dirinfotask.h				\
+	../../src/humanbytes.h				\
 	../../src/jobrunner.h				\
 	../../src/messages/archivefilestat.h		\
 	../../src/messages/archiveptr.h			\
@@ -42,6 +43,7 @@ SOURCES += test-taskmanager.cpp				\
 	../../src/cmdlinetask.cpp			\
 	../../src/dir-utils.cpp				\
 	../../src/dirinfotask.cpp			\
+	../../src/humanbytes.cpp			\
 	../../src/jobrunner.cpp				\
 	../../src/parsearchivelistingtask.cpp		\
 	../../src/persistentmodel/archive.cpp		\

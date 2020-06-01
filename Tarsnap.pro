@@ -74,6 +74,7 @@ SOURCES +=						\
 	src/dir-utils.cpp				\
 	src/dirinfotask.cpp				\
 	src/filetablemodel.cpp				\
+	src/humanbytes.cpp				\
 	src/init-shared.cpp				\
 	src/jobrunner.cpp				\
 	src/main.cpp					\
@@ -155,6 +156,7 @@ HEADERS +=						\
 	src/dir-utils.h					\
 	src/dirinfotask.h				\
 	src/filetablemodel.h				\
+	src/humanbytes.h				\
 	src/init-shared.h				\
 	src/jobrunner.h					\
 	src/messages/archivefilestat.h			\

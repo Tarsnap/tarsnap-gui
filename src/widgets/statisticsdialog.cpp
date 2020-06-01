@@ -9,7 +9,7 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
-#include "utils.h"
+#include "humanbytes.h"
 
 StatisticsDialog::StatisticsDialog(QWidget *parent)
     : QDialog(parent),
@@ -84,8 +84,7 @@ void StatisticsDialog::updateIEC()
         return;
 
     // Format and display sizes.
-    _ui->totalSizeStatLabel->setText(Utils::humanBytes(_sizeTotal));
-    _ui->bytesEconomyStatLabel->setText(Utils::humanBytes(_storageSaved));
-    _ui->actualUsageStatLabel->setText(
-        Utils::humanBytes(_sizeUniqueCompressed));
+    _ui->totalSizeStatLabel->setText(humanBytes(_sizeTotal));
+    _ui->bytesEconomyStatLabel->setText(humanBytes(_storageSaved));
+    _ui->actualUsageStatLabel->setText(humanBytes(_sizeUniqueCompressed));
 }

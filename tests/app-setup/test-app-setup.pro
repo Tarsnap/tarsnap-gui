@@ -38,6 +38,7 @@ SOURCES += test-app-setup.cpp				\
 	../../src/cmdlinetask.cpp			\
 	../../src/dir-utils.cpp				\
 	../../src/filetablemodel.cpp			\
+	../../src/humanbytes.cpp			\
 	../../src/init-shared.cpp			\
 	../../src/jobrunner.cpp				\
 	../../src/parsearchivelistingtask.cpp		\
@@ -83,6 +84,7 @@ HEADERS +=						\
 	../../src/cmdlinetask.h				\
 	../../src/dir-utils.h				\
 	../../src/filetablemodel.h			\
+	../../src/humanbytes.h				\
 	../../src/init-shared.h				\
 	../../src/jobrunner.h				\
 	../../src/messages/archiveptr.h			\

@@ -22,6 +22,7 @@ WARNINGS_ENABLE
 #include "basetask.h"
 #include "cmdlinetask.h"
 #include "debug.h"
+#include "humanbytes.h"
 #include "jobrunner.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
@@ -31,7 +32,6 @@ WARNINGS_ENABLE
 #include "tasks/tasks-setup.h"
 #include "tasks/tasks-tarsnap.h"
 #include "tasks/tasks-utils.h"
-#include "utils.h"
 
 #define SUCCESS 0
 
@@ -669,7 +669,7 @@ void TaskManager::notifyBackupTaskUpdate(BackupTaskDataPtr backupTaskData,
         QString msg =
             tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
                 .arg(backupTaskData->name())
-                .arg(Utils::humanBytes(
+                .arg(humanBytes(
                     backupTaskData->archive()->sizeUniqueCompressed()));
         emit message(msg, backupTaskData->archive()->archiveStats());
         emit displayNotification(msg, NOTIFICATION_ARCHIVE_CREATED,

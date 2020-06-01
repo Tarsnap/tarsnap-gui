@@ -43,10 +43,6 @@ WARNINGS_ENABLE
 namespace Utils
 {
 
-// Convert an int64 size in bytes to a human readable string using either
-// SI(1000) or IEC(1024) units (default is SI) depending on the app setting
-QString humanBytes(quint64 bytes, int fieldWidth = 0);
-
 } // namespace Utils
 
 #endif // UTILS_H

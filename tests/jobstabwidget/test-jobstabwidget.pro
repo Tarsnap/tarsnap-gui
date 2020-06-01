@@ -20,6 +20,7 @@ HEADERS  +=						\
 	../../src/backuptask.h				\
 	../../src/basetask.h				\
 	../../src/customfilesystemmodel.h		\
+	../../src/humanbytes.h				\
 	../../src/messages/archivefilestat.h		\
 	../../src/messages/archiveptr.h			\
 	../../src/messages/archiverestoreoptions.h	\
@@ -50,6 +51,7 @@ SOURCES += test-jobstabwidget.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/basetask.cpp				\
 	../../src/customfilesystemmodel.cpp		\
+	../../src/humanbytes.cpp			\
 	../../src/parsearchivelistingtask.cpp		\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\

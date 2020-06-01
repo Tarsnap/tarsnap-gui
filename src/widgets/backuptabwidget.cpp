@@ -17,8 +17,8 @@ WARNINGS_ENABLE
 
 #include "backuptask.h"
 #include "basetask.h"
+#include "humanbytes.h"
 #include "persistentmodel/archive.h"
-#include "utils.h"
 #include "widgets/backuplistwidget.h"
 #include "widgets/backuplistwidgetitem.h"
 #include "widgets/elidedclickablelabel.h"
@@ -187,7 +187,7 @@ void BackupTabWidget::updateIEC()
             tr("%1 %2 (%3)")
                 .arg(_count)
                 .arg(_count == 1 ? tr("item") : tr("items"))
-                .arg(Utils::humanBytes(_size)));
+                .arg(humanBytes(_size)));
     }
     else
     {

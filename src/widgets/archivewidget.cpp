@@ -27,8 +27,8 @@ WARNINGS_ENABLE
 
 #include "basetask.h"
 #include "filetablemodel.h"
+#include "humanbytes.h"
 #include "persistentmodel/archive.h"
-#include "utils.h"
 #include "widgets/elidedclickablelabel.h"
 #include "widgets/restoredialog.h"
 
@@ -202,9 +202,9 @@ void ArchiveDetailsWidget::updateIEC()
         return;
 
     // Format and display sizes.
-    _ui->archiveSizeLabel->setText(Utils::humanBytes(_archive->sizeTotal()));
+    _ui->archiveSizeLabel->setText(humanBytes(_archive->sizeTotal()));
     _ui->archiveUniqueDataLabel->setText(
-        Utils::humanBytes(_archive->sizeUniqueCompressed()));
+        humanBytes(_archive->sizeUniqueCompressed()));
 }
 
 void ArchiveDetailsWidget::closeEvent(QCloseEvent *event)

@@ -15,6 +15,7 @@ HEADERS  +=						\
 	../../src/basetask.h				\
 	../../src/customfilesystemmodel.h		\
 	../../src/dirinfotask.h				\
+	../../src/humanbytes.h				\
 	../../src/persistentmodel/archive.h		\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
@@ -39,6 +40,7 @@ SOURCES += test-backuptabwidget.cpp			\
 	../../src/basetask.cpp				\
 	../../src/customfilesystemmodel.cpp		\
 	../../src/dirinfotask.cpp			\
+	../../src/humanbytes.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/persistentmodel/archive.cpp		\
 	../../src/persistentmodel/job.cpp		\

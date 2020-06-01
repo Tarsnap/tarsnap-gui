@@ -20,7 +20,7 @@ WARNINGS_ENABLE
 
 #include "basetask.h"
 #include "dirinfotask.h"
-#include "utils.h"
+#include "humanbytes.h"
 #include "widgets/elidedclickablelabel.h"
 
 #define BUSY_MOVIE_FILENAME ":/lib/loading.gif"
@@ -122,7 +122,7 @@ void BackupListWidgetItem::setUrl(const QUrl &url)
 
 void BackupListWidgetItem::updateIEC()
 {
-    _ui->detailLabel->setText(_size_prefix + Utils::humanBytes(_size));
+    _ui->detailLabel->setText(_size_prefix + humanBytes(_size));
 }
 
 void BackupListWidgetItem::browseUrl()

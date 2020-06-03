@@ -30,6 +30,7 @@ SOURCES +=						\
 	../../src/persistentmodel/journal.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
+	../../src/persistentmodel/upgrade-store.cpp	\
 	../../src/scheduling.cpp			\
 	../../src/taskmanager.cpp			\
 	../../src/taskqueuer.cpp			\
@@ -70,6 +71,7 @@ HEADERS +=						\
 	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
+	../../src/persistentmodel/upgrade-store.h	\
 	../../src/scheduling.h				\
 	../../src/taskmanager.h				\
 	../../src/taskqueuer.h				\

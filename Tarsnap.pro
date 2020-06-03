@@ -85,6 +85,7 @@ SOURCES +=						\
 	src/persistentmodel/journal.cpp			\
 	src/persistentmodel/persistentobject.cpp	\
 	src/persistentmodel/persistentstore.cpp		\
+	src/persistentmodel/upgrade-store.cpp		\
 	src/scheduling.cpp				\
 	src/setupwizard/setupwizard.cpp			\
 	src/setupwizard/setupwizard_cli.cpp		\
@@ -173,6 +174,7 @@ HEADERS +=						\
 	src/persistentmodel/journal.h			\
 	src/persistentmodel/persistentobject.h		\
 	src/persistentmodel/persistentstore.h		\
+	src/persistentmodel/upgrade-store.h		\
 	src/scheduling.h				\
 	src/setupwizard/setupwizard.h			\
 	src/setupwizard/setupwizard_cli.h		\

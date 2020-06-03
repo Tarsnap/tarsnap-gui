@@ -24,6 +24,7 @@ SOURCES += test-app-cmdline.cpp				\
 	../../src/persistentmodel/journal.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
+	../../src/persistentmodel/upgrade-store.cpp	\
 	../../src/scheduling.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
 	../../src/translator.cpp			\
@@ -53,6 +54,7 @@ HEADERS +=						\
 	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
+	../../src/persistentmodel/upgrade-store.h	\
 	../../src/scheduling.h				\
 	../../src/tasks/tasks-utils.h			\
 	../../src/translator.h				\

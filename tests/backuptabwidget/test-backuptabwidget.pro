@@ -20,6 +20,7 @@ HEADERS  +=						\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
+	../../src/persistentmodel/upgrade-store.h	\
 	../../src/messages/archiveptr.h			\
 	../../src/messages/backuptaskdataptr.h		\
 	../../src/messages/jobptr.h			\
@@ -45,6 +46,7 @@ SOURCES += test-backuptabwidget.cpp			\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
+	../../src/persistentmodel/upgrade-store.cpp	\
 	../../src/widgets/backuplistwidget.cpp		\
 	../../src/widgets/backuplistwidgetitem.cpp	\
 	../../src/widgets/backuptabwidget.cpp		\

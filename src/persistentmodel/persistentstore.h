@@ -51,16 +51,6 @@ public slots:
     //! Locks the database and runs a query.
     bool runQuery(QSqlQuery query);
 
-protected:
-    //!@{
-    //! Upgrade the database version.
-    bool upgradeVersion0();
-    bool upgradeVersion1();
-    bool upgradeVersion2();
-    bool upgradeVersion3();
-    bool upgradeVersion4();
-    //!@}
-
 private:
     static bool _initialized;
 };

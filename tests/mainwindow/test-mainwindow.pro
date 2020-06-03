@@ -57,6 +57,7 @@ HEADERS  +=						\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
+	../../src/persistentmodel/upgrade-store.h	\
 	../../src/scheduling.h				\
 	../../src/tarsnapaccount.h			\
 	../../src/tasks/tasks-utils.h			\
@@ -107,6 +108,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
+	../../src/persistentmodel/upgrade-store.cpp	\
 	../../src/scheduling.cpp			\
 	../../src/tarsnapaccount.cpp			\
 	../../src/tasks/tasks-utils.cpp			\

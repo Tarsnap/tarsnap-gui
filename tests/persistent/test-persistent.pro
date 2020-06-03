@@ -14,7 +14,8 @@ HEADERS  +=						\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/journal.h		\
 	../../src/persistentmodel/persistentobject.h	\
-	../../src/persistentmodel/persistentstore.h
+	../../src/persistentmodel/persistentstore.h	\
+	../../src/persistentmodel/upgrade-store.h
 
 SOURCES += test-persistent.cpp				\
 	../../lib/core/TSettings.cpp			\
@@ -22,7 +23,8 @@ SOURCES += test-persistent.cpp				\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/journal.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
-	../../src/persistentmodel/persistentstore.cpp
+	../../src/persistentmodel/persistentstore.cpp	\
+	../../src/persistentmodel/upgrade-store.cpp
 
 include(../tests-include.pro)
 

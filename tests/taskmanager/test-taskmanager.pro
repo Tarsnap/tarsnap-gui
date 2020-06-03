@@ -24,6 +24,7 @@ HEADERS  +=						\
 	../../src/persistentmodel/job.h			\
 	../../src/persistentmodel/persistentobject.h	\
 	../../src/persistentmodel/persistentstore.h	\
+	../../src/persistentmodel/upgrade-store.h	\
 	../../src/taskmanager.h				\
 	../../src/taskqueuer.h				\
 	../../src/tasks/tasks-defs.h			\
@@ -49,6 +50,7 @@ SOURCES += test-taskmanager.cpp				\
 	../../src/persistentmodel/job.cpp		\
 	../../src/persistentmodel/persistentobject.cpp	\
 	../../src/persistentmodel/persistentstore.cpp	\
+	../../src/persistentmodel/upgrade-store.cpp	\
 	../../src/taskmanager.cpp			\
 	../../src/taskqueuer.cpp			\
 	../../src/tasks/tasks-misc.cpp			\

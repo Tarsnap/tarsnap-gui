@@ -36,6 +36,7 @@ class ConfirmationDialog : public QObject
 public:
     //! Constructor.
     explicit ConfirmationDialog(QWidget *parent = nullptr);
+    ~ConfirmationDialog();
 
     //! Display a confirmation dialog which requires the user to type some
     //! text, and then must wait for a countdown timer.

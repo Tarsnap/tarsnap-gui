@@ -29,6 +29,13 @@ ConfirmationDialog::ConfirmationDialog(QWidget *parent)
             &ConfirmationDialog::finishedCountdownBox);
 }
 
+ConfirmationDialog::~ConfirmationDialog()
+{
+    delete _timer;
+    delete _countdownBox;
+    delete _inputDialog;
+}
+
 void ConfirmationDialog::validateConfirmationText(const QString &text)
 {
     if(text == _confirmationText)

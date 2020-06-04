@@ -66,6 +66,7 @@ TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
 
 TarsnapAccountDialog::~TarsnapAccountDialog()
 {
+    delete _popup;
     delete _ta;
     delete _ui;
 }

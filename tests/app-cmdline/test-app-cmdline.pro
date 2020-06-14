@@ -27,7 +27,7 @@ SOURCES += test-app-cmdline.cpp				\
 	../../src/persistentmodel/upgrade-store.cpp	\
 	../../src/scheduling.cpp			\
 	../../src/tasks/tasks-utils.cpp			\
-	../../src/translator.cpp			\
+	../../src/translator.cpp
 
 HEADERS +=						\
 	../../lib/core/ConsoleLog.h			\

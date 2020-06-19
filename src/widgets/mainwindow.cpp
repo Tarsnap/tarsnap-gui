@@ -47,7 +47,7 @@ WARNINGS_ENABLE
 #include "widgets/stoptasksdialog.h"
 
 #define MAIN_LOGO_RIGHT_MARGIN 5
-#define MAIN_LOGO_FUDGE 3 - 23
+#define MAIN_LOGO_FUDGE -10
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
@@ -291,7 +291,7 @@ void MainWindow::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
     if(_minWidth == 0)
-        _minWidth = minimumWidth();
+        _minWidth = _ui->mainTabWidget->tabBar()->width();
     // Find out how much room is left to display an icon, including a
     // "fudge factor" to accommodate margins.
     int remaining_width = frameGeometry().width() - _minWidth + MAIN_LOGO_FUDGE;

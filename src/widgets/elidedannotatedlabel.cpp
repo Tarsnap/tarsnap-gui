@@ -11,10 +11,6 @@ ElidedAnnotatedLabel::ElidedAnnotatedLabel(QWidget *parent)
 {
 }
 
-ElidedAnnotatedLabel::~ElidedAnnotatedLabel()
-{
-}
-
 void ElidedAnnotatedLabel::setAnnotatedText(const QVector<QString> &texts,
                                             const QVector<QString> &annotations)
 {

@@ -24,7 +24,6 @@ class TPopupPushButton : public QPushButton
 public:
     //! Constructor.
     explicit TPopupPushButton(QWidget *parent = nullptr);
-    ~TPopupPushButton();
 
     //! Display popup if and only if this button is checked.
     void setPopup(QDialog *popup);

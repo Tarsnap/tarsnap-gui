@@ -35,7 +35,6 @@ class CustomFileSystemModel : public QFileSystemModel
 public:
     //! Constructor.
     CustomFileSystemModel();
-    ~CustomFileSystemModel();
 
     //! Returns a list of fully checked items.
     QList<QPersistentModelIndex> checkedIndexes();

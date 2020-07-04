@@ -37,7 +37,6 @@ class CmdlineTask : public BaseTask
 public:
     //! Constructor.
     explicit CmdlineTask();
-    ~CmdlineTask() override;
 
     //! Run the command previously given.  Blocks until completed (or
     //! failed).

@@ -21,7 +21,6 @@ class BaseTask : public QObject, public QRunnable
 public:
     //! Constructor.
     explicit BaseTask();
-    ~BaseTask();
 
     //! Run the command previously given.  Blocks until completed (or failed).
     virtual void run() = 0;

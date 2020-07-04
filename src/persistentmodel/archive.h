@@ -30,7 +30,6 @@ class Archive : public PersistentObject
 public:
     //! Constructor.
     explicit Archive(QObject *parent = nullptr);
-    ~Archive() override;
 
     //! Getter/setter methods
     //! @{

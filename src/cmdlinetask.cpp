@@ -47,10 +47,6 @@ CmdlineTask::CmdlineTask()
 {
 }
 
-CmdlineTask::~CmdlineTask()
-{
-}
-
 void CmdlineTask::run()
 {
     Q_ASSERT(_process == nullptr);

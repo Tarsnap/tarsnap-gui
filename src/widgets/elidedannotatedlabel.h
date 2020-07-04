@@ -31,7 +31,6 @@ class ElidedAnnotatedLabel : public TElidedLabel
 public:
     //! Constructor.
     explicit ElidedAnnotatedLabel(QWidget *parent = nullptr);
-    ~ElidedAnnotatedLabel();
 
 public slots:
     //! Sets the text portions and HTML annotations for this widget to display

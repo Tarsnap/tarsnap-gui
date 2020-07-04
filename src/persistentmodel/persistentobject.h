@@ -20,7 +20,6 @@ class PersistentObject : public QObject
 public:
     //! Constructor.
     explicit PersistentObject(QObject *parent = nullptr);
-    virtual ~PersistentObject() = 0;
 
     //! Returns the object key.
     QString objectKey() const;

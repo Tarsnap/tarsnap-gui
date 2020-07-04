@@ -13,10 +13,6 @@ ElidedClickableLabel::ElidedClickableLabel(QWidget *parent)
 {
 }
 
-ElidedClickableLabel::~ElidedClickableLabel()
-{
-}
-
 void ElidedClickableLabel::mouseReleaseEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)

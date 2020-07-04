@@ -60,10 +60,6 @@ Job::Job(QObject *parent)
             .toString());
 }
 
-Job::~Job()
-{
-}
-
 QString Job::name() const
 {
     return _name;

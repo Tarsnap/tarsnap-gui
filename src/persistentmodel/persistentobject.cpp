@@ -4,10 +4,6 @@ PersistentObject::PersistentObject(QObject *parent) : QObject(parent)
 {
 }
 
-PersistentObject::~PersistentObject()
-{
-}
-
 QString PersistentObject::objectKey() const
 {
     return _objectKey;

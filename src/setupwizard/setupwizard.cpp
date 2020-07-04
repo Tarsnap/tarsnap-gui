@@ -40,10 +40,6 @@ SetupWizard::SetupWizard(QWidget *parent) : TWizard(parent)
             &SetupWizard::registerMachineRequested);
 }
 
-SetupWizard::~SetupWizard()
-{
-}
-
 void SetupWizard::tarsnapVersionResponse(TaskStatus     status,
                                          const QString &versionString)
 {

@@ -10,10 +10,6 @@ TElidedLabel::TElidedLabel(QWidget *parent)
 {
 }
 
-TElidedLabel::~TElidedLabel()
-{
-}
-
 Qt::TextElideMode TElidedLabel::elide() const
 {
     return _elide;

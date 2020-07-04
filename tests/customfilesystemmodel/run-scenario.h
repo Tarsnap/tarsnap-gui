@@ -20,7 +20,6 @@ class RunScenario : public QObject
 
 public:
     RunScenario();
-    ~RunScenario();
 
 public slots:
     // Run the specified scenario.  Return 0 on success.

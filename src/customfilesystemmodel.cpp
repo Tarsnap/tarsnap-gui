@@ -12,10 +12,6 @@ CustomFileSystemModel::CustomFileSystemModel()
 {
 }
 
-CustomFileSystemModel::~CustomFileSystemModel()
-{
-}
-
 QList<QPersistentModelIndex> CustomFileSystemModel::checkedIndexes()
 {
     return _checklist.toList();

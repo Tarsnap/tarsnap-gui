@@ -43,7 +43,6 @@ class Job : public PersistentObject
 public:
     //! Constructor.
     explicit Job(QObject *parent = nullptr);
-    ~Job() override;
 
     //! Returns JOB_NAME_PREFIX + job name.
     QString archivePrefix();

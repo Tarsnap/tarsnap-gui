@@ -28,10 +28,6 @@ Archive::Archive(QObject *parent)
 {
 }
 
-Archive::~Archive()
-{
-}
-
 void Archive::save()
 {
     bool    exists = doesKeyExist(_name);

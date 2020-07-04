@@ -26,7 +26,6 @@ class ElidedClickableLabel : public TElidedLabel
 public:
     //! Constructor.
     explicit ElidedClickableLabel(QWidget *parent = nullptr);
-    ~ElidedClickableLabel();
 
 signals:
     //! Emitted when this widget was clicked.

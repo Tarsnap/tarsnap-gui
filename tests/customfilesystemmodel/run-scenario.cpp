@@ -29,10 +29,6 @@ RunScenario::RunScenario()
     WAIT_UNTIL(!_model.needToReadSubdirs(_rootDir));
 }
 
-RunScenario::~RunScenario()
-{
-}
-
 // The format of these lines in the scenario file is:
 // X filename
 // where X is a single character, followed by a space.

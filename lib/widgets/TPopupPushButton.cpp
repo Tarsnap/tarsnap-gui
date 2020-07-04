@@ -13,10 +13,6 @@ TPopupPushButton::TPopupPushButton(QWidget *parent)
     connect(this, &QPushButton::toggled, this, &TPopupPushButton::valueChanged);
 }
 
-TPopupPushButton::~TPopupPushButton()
-{
-}
-
 void TPopupPushButton::setPopup(QDialog *popup)
 {
     _popup = popup;

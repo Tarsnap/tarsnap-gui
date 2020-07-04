@@ -33,7 +33,6 @@ class TElidedLabel : public QLabel
 public:
     //! Constructor.
     explicit TElidedLabel(QWidget *parent = nullptr);
-    ~TElidedLabel() override;
 
     //! Returns the elided mode.
     Qt::TextElideMode elide() const;

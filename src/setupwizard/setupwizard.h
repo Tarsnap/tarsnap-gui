@@ -31,7 +31,6 @@ class SetupWizard : public TWizard
 public:
     //! Constructor.
     SetupWizard(QWidget *parent = nullptr);
-    ~SetupWizard() override;
 
 public slots:
     //! The TaskManager has finished determining the version of the CLI app.

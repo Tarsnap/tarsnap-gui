@@ -12,10 +12,6 @@ BaseTask::BaseTask() : QObject(), _uuid(QUuid::createUuid())
 #endif
 }
 
-BaseTask::~BaseTask()
-{
-}
-
 QUuid BaseTask::uuid() const
 {
     return _uuid;

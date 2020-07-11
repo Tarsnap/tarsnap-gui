@@ -104,8 +104,7 @@ Built with the help of the following 3rd party components:</string>
     <widget class="QLabel" name="otherSoftwareLabel">
      <property name="text">
       <string>* Qt SDK from http://www.qt.io/download-open-source/ - LGPL; Multi license
-* Icons by &quot;Open Iconic www.useiconic.com/open&quot; - MIT License
-* Loading icon from &quot;http://ajaxload.info&quot; - WTFPL</string>
+* Icons by &quot;Open Iconic www.useiconic.com/open&quot; - MIT License</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

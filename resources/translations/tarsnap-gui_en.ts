@@ -2860,8 +2860,7 @@ Built with the help of the following 3rd party components:</source>
     </message>
     <message>
         <source>* Qt SDK from http://www.qt.io/download-open-source/ - LGPL; Multi license
-* Icons by &quot;Open Iconic www.useiconic.com/open&quot; - MIT License
-* Loading icon from &quot;http://ajaxload.info&quot; - WTFPL</source>
+* Icons by &quot;Open Iconic www.useiconic.com/open&quot; - MIT License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

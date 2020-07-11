@@ -9,6 +9,7 @@ WARNINGS_DISABLE
 #include <QMetaType>
 #include <QObject>
 #include <QString>
+#include <QUrl>
 WARNINGS_ENABLE
 
 #include "messages/archiveptr.h"
@@ -18,7 +19,6 @@ WARNINGS_ENABLE
 
 /* Forward declaration(s). */
 class QFileSystemWatcher;
-class QUrl;
 
 #define JOB_NAME_PREFIX QLatin1String("Job_")
 

@@ -425,7 +425,7 @@ text-align: center;
   <action name="actionBackupAllJobs">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/logos/tarsnap-icon.png</normaloff>:/logos/tarsnap-icon.png</iconset>
+     <normaloff>:/icons/cloud-upload-multi.png</normaloff>:/icons/cloud-upload-multi.png</iconset>
    </property>
    <property name="text">
     <string>Backup all Jobs</string>

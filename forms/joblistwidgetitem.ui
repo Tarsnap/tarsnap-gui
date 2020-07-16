@@ -147,7 +147,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/logos/tarsnap-icon.png</normaloff>:/logos/tarsnap-icon.png</iconset>
+       <normaloff>:/icons/cloud-upload.png</normaloff>:/icons/cloud-upload.png</iconset>
      </property>
     </widget>
    </item>
@@ -229,7 +229,7 @@ padding-left: 2px;
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+       <normaloff>:/icons/cloud-download.png</normaloff>:/icons/cloud-download.png</iconset>
      </property>
     </widget>
    </item>
@@ -278,7 +278,7 @@ padding-left: 2px;
   <action name="actionJobRestore">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+     <normaloff>:/icons/cloud-download.png</normaloff>:/icons/cloud-download.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>
@@ -308,7 +308,7 @@ padding-left: 2px;
   <action name="actionJobBackup">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/logos/tarsnap-icon.png</normaloff>:/logos/tarsnap-icon.png</iconset>
+     <normaloff>:/icons/cloud-upload.png</normaloff>:/icons/cloud-upload.png</iconset>
    </property>
    <property name="text">
     <string>Backup</string>

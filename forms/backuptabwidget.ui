@@ -301,7 +301,7 @@ text-align: center;
   <action name="actionBackupNow">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/logos/tarsnap-icon.png</normaloff>:/logos/tarsnap-icon.png</iconset>
+     <normaloff>:/icons/cloud-upload.png</normaloff>:/icons/cloud-upload.png</iconset>
    </property>
    <property name="text">
     <string>Backup</string>

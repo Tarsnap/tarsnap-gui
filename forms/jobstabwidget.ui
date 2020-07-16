@@ -440,7 +440,7 @@ text-align: center;
   <action name="actionJobRestore">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/icons/action-undo.png</normaloff>:/icons/action-undo.png</iconset>
+     <normaloff>:/icons/cloud-download.png</normaloff>:/icons/cloud-download.png</iconset>
    </property>
    <property name="text">
     <string>Restore</string>
@@ -470,7 +470,7 @@ text-align: center;
   <action name="actionJobBackup">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/logos/tarsnap-icon.png</normaloff>:/logos/tarsnap-icon.png</iconset>
+     <normaloff>:/icons/cloud-upload.png</normaloff>:/icons/cloud-upload.png</iconset>
    </property>
    <property name="text">
     <string>Backup</string>

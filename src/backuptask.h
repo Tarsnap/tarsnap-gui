@@ -33,7 +33,6 @@ class BackupTaskData : public QObject
 public:
     //! Constructor.
     BackupTaskData();
-    ~BackupTaskData() {}
 
     //! Make the list of --exclude files and dirs.
     QStringList getExcludesList();

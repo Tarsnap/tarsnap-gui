@@ -29,7 +29,7 @@ class FilePickerDialog : public QDialog
 public:
     //! Constructor.
     explicit FilePickerDialog(QWidget *parent = nullptr);
-    ~FilePickerDialog();
+    ~FilePickerDialog() override;
 
     //! Returns the selected URLs from the internal FilePickerWidget.
     QList<QUrl> getSelectedUrls();

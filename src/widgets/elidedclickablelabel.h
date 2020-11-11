@@ -33,7 +33,7 @@ signals:
 
 private:
     //! Used for detecting whether to emit \ref clicked.
-    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event) override;
 };
 
 #endif // ELIDEDCLICKABLELABEL_H

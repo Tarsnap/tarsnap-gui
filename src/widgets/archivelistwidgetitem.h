@@ -31,7 +31,7 @@ public:
     //! Constructor.
     //! \param archive pointer to the archive to display.
     explicit ArchiveListWidgetItem(ArchivePtr archive);
-    ~ArchiveListWidgetItem();
+    ~ArchiveListWidgetItem() override;
 
     //! Returns a widget with a graphical representation of this archive.
     QWidget *widget();
@@ -60,7 +60,7 @@ signals:
 
 protected:
     //! Processes requests to switch language.
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private slots:
     // Modify the display if the Archive is scheduled for deletion.

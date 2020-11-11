@@ -39,7 +39,7 @@ class TaskManager : public QObject
 public:
     //! Constructor.
     TaskManager();
-    ~TaskManager();
+    ~TaskManager() override;
 
 #ifdef QT_TESTLIB_LIB
     //! Prepare a task, and start running it if there's no queue.

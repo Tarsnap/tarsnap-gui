@@ -29,7 +29,7 @@ class ArchiveListWidget : public QListWidget
 public:
     //! Constructor.
     explicit ArchiveListWidget(QWidget *parent = nullptr);
-    ~ArchiveListWidget();
+    ~ArchiveListWidget() override;
 
     //! Make sure that we can see the current item in the list.
     void ensureCurrentItemVisible();
@@ -78,7 +78,7 @@ signals:
 
 protected:
     //! Handles the delete and escape keys; passes other events on.
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
 
 private slots:
     void deleteItem();

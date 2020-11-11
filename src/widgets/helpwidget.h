@@ -34,7 +34,7 @@ class HelpWidget : public QWidget
 public:
     //! Constructor.
     explicit HelpWidget(QWidget *parent = nullptr);
-    ~HelpWidget();
+    ~HelpWidget() override;
 
 public slots:
     //! The "about" app menu item was clicked.
@@ -45,7 +45,7 @@ public slots:
 
 protected:
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
 
 private:
     Ui::HelpWidget *_ui;

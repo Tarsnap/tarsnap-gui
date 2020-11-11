@@ -30,7 +30,7 @@ class TarsnapAccount : public QObject
 public:
     //! Constructor.
     explicit TarsnapAccount();
-    ~TarsnapAccount();
+    ~TarsnapAccount() override;
 
 public slots:
     //! Send a query to the Tarsnap service.

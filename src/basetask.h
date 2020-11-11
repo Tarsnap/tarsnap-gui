@@ -23,7 +23,7 @@ public:
     explicit BaseTask();
 
     //! Run the command previously given.  Blocks until completed (or failed).
-    virtual void run() = 0;
+    virtual void run() override = 0;
     //! If the task is running, attempt to stop it.
     virtual void stop() = 0;
 

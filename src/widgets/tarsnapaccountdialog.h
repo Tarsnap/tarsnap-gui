@@ -37,7 +37,7 @@ class TarsnapAccountDialog : public QDialog
 public:
     //! Constructor.
     explicit TarsnapAccountDialog(QWidget *parent = nullptr);
-    ~TarsnapAccountDialog();
+    ~TarsnapAccountDialog() override;
 
 public slots:
     //! Update the account info from the Tarsnap servers, optionally showing

@@ -32,7 +32,7 @@ class StatusBarWidget : public QWidget
 public:
     //! Constructor.
     explicit StatusBarWidget(QWidget *parent = nullptr);
-    ~StatusBarWidget();
+    ~StatusBarWidget() override;
 
     //! Indicate whether the backend is busy or not.
     void showBusy(bool busy);
@@ -63,7 +63,7 @@ signals:
 
 protected:
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
 
 private:
     Ui::StatusBarWidget *_ui;

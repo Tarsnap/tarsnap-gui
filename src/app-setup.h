@@ -24,7 +24,7 @@ class AppSetup : public QApplication
 public:
     //! Constructor.
     AppSetup(int &argc, char **argv);
-    ~AppSetup();
+    ~AppSetup() override;
 
     //! Handle the initialization
     bool handle_init(const QList<struct init_info> &steps);

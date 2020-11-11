@@ -38,7 +38,7 @@ class ArchivesTabWidget : public QWidget
 public:
     //! Constructor.
     explicit ArchivesTabWidget(QWidget *parent = nullptr);
-    ~ArchivesTabWidget();
+    ~ArchivesTabWidget() override;
 
     //! Expand the "inspect archive" widget.
     void displayInspectArchiveByRef(const QString &archiveName);
@@ -81,9 +81,9 @@ signals:
 
 protected:
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
     //! Handles the escape key; passes other events on.
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
 
 private slots:
     void showArchiveListMenu();

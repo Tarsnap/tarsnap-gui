@@ -37,7 +37,7 @@ class FilePickerWidget : public QWidget
 public:
     //! Constructor.
     explicit FilePickerWidget(QWidget *parent = nullptr);
-    ~FilePickerWidget();
+    ~FilePickerWidget() override;
 
     //! Resets the model, tree view, and the "last file browsed" setting.
     void reset();
@@ -84,9 +84,9 @@ signals:
 
 protected:
     //! Used for handling the ESC key.
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
     //! Used for handling the LanguageChange event
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
 
 private:
     Ui::FilePickerWidget * _ui;

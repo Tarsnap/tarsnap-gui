@@ -29,7 +29,7 @@ class TaskQueuer : public QObject
 public:
     //! Constructor.
     TaskQueuer();
-    ~TaskQueuer();
+    ~TaskQueuer() override;
 
     //! Prepare a task, and start running it if there's no queue.
     void queueTask(BaseTask *task, bool exclusive = false,

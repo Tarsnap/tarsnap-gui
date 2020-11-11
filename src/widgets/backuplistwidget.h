@@ -28,7 +28,7 @@ class BackupListWidget : public QListWidget
 public:
     //! Constructor.
     explicit BackupListWidget(QWidget *parent = nullptr);
-    ~BackupListWidget();
+    ~BackupListWidget() override;
 
     //! Reload the IEC prefix preference and re-display number(s).
     void updateIEC();
@@ -65,15 +65,15 @@ signals:
 
 protected:
     //! Accepts a "drag-move" event if the dragged item contains urls.
-    void dragMoveEvent(QDragMoveEvent *event);
+    void dragMoveEvent(QDragMoveEvent *event) override;
     //! Accepts a "drag-enter" event if the dragged item contains urls.
-    void dragEnterEvent(QDragEnterEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event) override;
     //! Adds the urls from the dragged item.
-    void dropEvent(QDropEvent *event);
+    void dropEvent(QDropEvent *event) override;
     //! Handles deleting items and clearing the selection.
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
 
 private:
     void saveBackupList();

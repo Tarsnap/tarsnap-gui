@@ -38,7 +38,7 @@ class SettingsWidget : public QWidget
 public:
     //! Constructor.
     explicit SettingsWidget(QWidget *parent = nullptr);
-    ~SettingsWidget();
+    ~SettingsWidget() override;
 
     // For the Account tab
     //! Make TarsnapAccount update the account info from the Tarsnap servers.
@@ -95,7 +95,7 @@ signals:
 
 protected:
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
 
 private slots:
     // For the Account tab

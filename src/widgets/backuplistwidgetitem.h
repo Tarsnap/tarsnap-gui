@@ -33,7 +33,7 @@ class BackupListWidgetItem : public QObject, public QListWidgetItem
 public:
     //! Constructor.
     explicit BackupListWidgetItem();
-    ~BackupListWidgetItem();
+    ~BackupListWidgetItem() override;
 
     //! Set the file or directory to include in this archive.
     void setUrl(const QUrl &url);
@@ -71,7 +71,7 @@ signals:
 
 protected:
     //! Processes requests to switch language.
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private slots:
     void updateDirDetail(quint64 size, quint64 count);

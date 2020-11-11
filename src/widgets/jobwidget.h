@@ -40,7 +40,7 @@ class JobDetailsWidget : public QWidget
 public:
     //! Constructor.
     explicit JobDetailsWidget(QWidget *parent = nullptr);
-    ~JobDetailsWidget();
+    ~JobDetailsWidget() override;
 
     //! Returns the JobPtr associated with this widget.
     JobPtr job() const;
@@ -80,7 +80,7 @@ signals:
 
 protected:
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
 
 private slots:
     void updateDetails();

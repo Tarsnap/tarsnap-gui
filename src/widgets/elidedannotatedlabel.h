@@ -43,7 +43,7 @@ public slots:
 
 protected:
     //! Recalculates the amount of elided text to display.
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 
 private:
     // Returns an elided version of the string (if necessary), or the full

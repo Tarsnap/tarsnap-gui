@@ -40,10 +40,10 @@ public:
     QList<QPersistentModelIndex> checkedIndexes();
 
     //! Returns metadata; used internally by the Qt layer.
-    Qt::ItemFlags flags(const QModelIndex &idx) const;
+    Qt::ItemFlags flags(const QModelIndex &idx) const override;
     //! Returns the Qt::CheckState or other data; used internally by the Qt
     //! layer.
-    QVariant data(const QModelIndex &idx, int role) const;
+    QVariant data(const QModelIndex &idx, int role) const override;
 
     //! Sets files or directories as being checked, partially checked, or
     //! unchecked.
@@ -53,7 +53,8 @@ public:
      *               Qt::PartiallyChecked, Qt::Checked}.
      * \param role Must be Qt::CheckStateRole.
      */
-    bool setData(const QModelIndex &idx, const QVariant &value, int role);
+    bool setData(const QModelIndex &idx, const QVariant &value,
+                 int role) override;
 
     //! Clears the list of fully and partially checked files and dirs.
     void reset();

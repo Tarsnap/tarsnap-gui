@@ -31,7 +31,7 @@ public:
     //! Constructor.
     //! \param job pointer to the job to display.
     explicit JobListWidgetItem(JobPtr job);
-    ~JobListWidgetItem();
+    ~JobListWidgetItem() override;
 
     //! Returns a widget with a graphical representation of this archive.
     QWidget *widget();
@@ -54,7 +54,7 @@ signals:
 
 protected:
     //! Processes requests to switch language.
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private slots:
     void update();

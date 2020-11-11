@@ -31,7 +31,7 @@ class JobListWidget : public QListWidget
 public:
     //! Constructor.
     explicit JobListWidget(QWidget *parent = nullptr);
-    ~JobListWidget();
+    ~JobListWidget() override;
 
     //! Reload the IEC prefix preference and re-display number(s).
     void updateIEC();
@@ -79,7 +79,7 @@ signals:
 
 protected:
     //! Handles the delete and escape keys; passes other events on.
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
 
 private slots:
     void backupItem();

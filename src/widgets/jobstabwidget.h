@@ -40,7 +40,7 @@ class JobsTabWidget : public QWidget
 public:
     //! Constructor.
     explicit JobsTabWidget(QWidget *parent = nullptr);
-    ~JobsTabWidget();
+    ~JobsTabWidget() override;
 
     //! Reload the IEC prefix preference and re-display number(s).
     void updateIEC();
@@ -88,9 +88,9 @@ signals:
 
 protected:
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
     //! Handles the escape key; passes other events on.
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
 
 private slots:
     void addDefaultJobs();

@@ -53,7 +53,7 @@ class MainWindow : public QWidget
 public:
     //! Constructor.
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
 
 public slots:
     //! Initialization routines: Check days elapsed since last credit update,
@@ -159,13 +159,13 @@ signals:
 
 protected:
     //! Draw the Tarsnap logo in the top-right corner.
-    void paintEvent(QPaintEvent *);
+    void paintEvent(QPaintEvent *) override;
     //! Handles the escape key; passes other events on.
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
     //! Start checking whether there are running tasks.
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
 
 private slots:
     void setupMenuBar();

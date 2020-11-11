@@ -37,7 +37,7 @@ public:
     //!               in this archive.
     explicit RestoreDialog(QWidget *parent, ArchivePtr archive,
                            const QStringList &files = QStringList());
-    ~RestoreDialog();
+    ~RestoreDialog() override;
 
     //! Returns options from the dialog window.
     ArchiveRestoreOptions getOptions();

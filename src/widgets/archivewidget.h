@@ -42,7 +42,7 @@ class ArchiveDetailsWidget : public QWidget
 public:
     //! Constructor
     explicit ArchiveDetailsWidget(QWidget *parent = nullptr);
-    ~ArchiveDetailsWidget();
+    ~ArchiveDetailsWidget() override;
 
     //! Reload the IEC prefix preference and re-display number(s).
     void updateIEC();
@@ -66,11 +66,11 @@ signals:
 
 protected:
     //! This widget is closing; release memory.
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
     //! Allow ESC to close the filename filter box.
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
 
 private slots:
     void showContextMenu();

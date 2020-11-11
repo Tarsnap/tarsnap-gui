@@ -33,21 +33,22 @@ public:
     explicit FileTableModel(QObject *parent);
 
     //! Returns the number of files in the table.
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     //! Returns the number of columns (const \c kTableColumnsCount).
-    int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
     //! Returns file information for an index.
     //! \param index which file (row), and what type of information (column).
     //! \param role should be \c Qt::DisplayRole.
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+    QVariant data(const QModelIndex &index,
+                  int                role = Qt::DisplayRole) const override;
 
     //! Returns the text for a header field.
     //! \param section which row or column number.
     //! \param orientation \c Qt::Vertical or \c Qt::Horizontal.
     //! \param role should be \c Qt::DisplayRole.
     QVariant headerData(int section, Qt::Orientation orientation,
-                        int role = Qt::DisplayRole) const;
+                        int role = Qt::DisplayRole) const override;
 
     //! Sets the archive from which this object should load the file list.
     //! This spawns a \ref BaseTask, emitted via \ref taskRequested, which

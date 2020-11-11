@@ -30,7 +30,7 @@ class AppGui : public QApplication
 public:
     //! Constructor.
     AppGui(int &argc, char **argv, struct optparse *opt);
-    ~AppGui();
+    ~AppGui() override;
 
     //! Handle the initialization
     bool handle_init(const QList<struct init_info> &steps);

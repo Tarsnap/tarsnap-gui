@@ -28,7 +28,7 @@ class IntroPage : public TWizardPage
 public:
     //! Constructor.
     IntroPage(QWidget *parent = nullptr);
-    ~IntroPage();
+    ~IntroPage() override;
 
 private:
     Ui::IntroPage *_ui;

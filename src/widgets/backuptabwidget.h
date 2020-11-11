@@ -39,7 +39,7 @@ class BackupTabWidget : public QWidget
 public:
     //! Constructor.
     explicit BackupTabWidget(QWidget *parent = nullptr);
-    ~BackupTabWidget();
+    ~BackupTabWidget() override;
 
     //! Does the Backup have a name?
     void validateBackupTab();
@@ -73,7 +73,7 @@ signals:
 
 protected:
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
 
 private slots:
     void appendTimestampCheckBoxToggled(bool checked);

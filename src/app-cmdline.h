@@ -24,7 +24,7 @@ class AppCmdline : public QCoreApplication
 public:
     //! Constructor.
     AppCmdline(int &argc, char **argv, struct optparse *opt);
-    ~AppCmdline();
+    ~AppCmdline() override;
 
     //! Handle the initialization
     bool handle_init(const QList<struct init_info> &steps);

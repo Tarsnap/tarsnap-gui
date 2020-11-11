@@ -31,7 +31,7 @@ class StatisticsDialog : public QDialog
 public:
     //! Constructor.
     explicit StatisticsDialog(QWidget *parent = nullptr);
-    ~StatisticsDialog();
+    ~StatisticsDialog() override;
 
     //! Update the global Tarsnap --print-stats values in the Settings tab.
     void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
@@ -44,7 +44,7 @@ public:
 
 protected:
     //! Handles translation change of language.
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent *event) override;
 
 private:
     Ui::StatisticsDialog *_ui;

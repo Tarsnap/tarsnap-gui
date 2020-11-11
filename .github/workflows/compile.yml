@@ -1,0 +1,25 @@
+name: Compile & test
+
+# Run whenever we push to any branch without a "/", other than [coverity-scan].
+on:
+  push:
+    branches:
+    - '*'
+    - '!coverity-scan'
+
+jobs:
+  Ubuntu:
+    name: Ubuntu
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Install software
+      run: sudo apt-get install --no-install-recommends
+           qtbase5-dev qttools5-dev-tools libqt5sql5-sqlite
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Run qmake
+      run: QT_SELECT=qt5 qmake
+    - name: Compile
+      run: make
+    - name: Test binaries
+      run: make test

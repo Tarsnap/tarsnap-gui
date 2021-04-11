@@ -14,7 +14,7 @@ CustomFileSystemModel::CustomFileSystemModel()
 
 QList<QPersistentModelIndex> CustomFileSystemModel::checkedIndexes()
 {
-    return _checklist.toList();
+    return _checklist.values();
 }
 
 Qt::ItemFlags CustomFileSystemModel::flags(const QModelIndex &idx) const

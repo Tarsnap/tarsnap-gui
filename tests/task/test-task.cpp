@@ -2,6 +2,7 @@
 
 WARNINGS_DISABLE
 #include <QCoreApplication>
+#include <QDebug>
 #include <QList>
 #include <QObject>
 #include <QSignalSpy>
@@ -26,6 +27,7 @@ private slots:
     void cleanupTestCase();
 
     void sleep_ok();
+    void sleep_monitor();
     void sleep_fail();
     void sleep_crash();
     void sleep_filenotfound();
@@ -47,8 +49,16 @@ void TestTask::cleanupTestCase()
     WAIT_FINAL;
 }
 
-#define RUN_SCRIPT(scriptname)                                                 \
+#define RUN_SCRIPT(scriptname, monitor)                                        \
     CmdlineTask *task = new CmdlineTask();                                     \
+    if(monitor)                                                                \
+    {                                                                          \
+        task->setMonitorOutput();                                              \
+        connect(task, &CmdlineTask::outputStdout,                              \
+                [](const QString &msg) { qDebug() << msg; });                  \
+        connect(task, &CmdlineTask::outputStderr,                              \
+                [](const QString &msg) { qDebug() << msg; });                  \
+    }                                                                          \
                                                                                \
     QSignalSpy sig_started(task, SIGNAL(started(QVariant)));                   \
     QSignalSpy sig_fin(task,                                                   \
@@ -64,7 +74,15 @@ void TestTask::cleanupTestCase()
 
 void TestTask::sleep_ok()
 {
-    RUN_SCRIPT("sleep-1-exit-0.sh");
+    RUN_SCRIPT("sleep-1-exit-0.sh", false);
+    // We got a "finished" signal, with exit code 0.
+    QVERIFY(sig_fin.count() == 1);
+    QVERIFY(sig_fin.takeFirst().at(1).toInt() == 0);
+}
+
+void TestTask::sleep_monitor()
+{
+    RUN_SCRIPT("sleep-1-3x-exit-0.sh", true);
     // We got a "finished" signal, with exit code 0.
     QVERIFY(sig_fin.count() == 1);
     QVERIFY(sig_fin.takeFirst().at(1).toInt() == 0);
@@ -72,7 +90,7 @@ void TestTask::sleep_ok()
 
 void TestTask::sleep_fail()
 {
-    RUN_SCRIPT("sleep-1-exit-1.sh");
+    RUN_SCRIPT("sleep-1-exit-1.sh", false);
     // We got a "finished" signal, with exit code 1.
     QVERIFY(sig_fin.count() == 1);
     QVERIFY(sig_fin.takeFirst().at(1).toInt() == 1);
@@ -80,7 +98,7 @@ void TestTask::sleep_fail()
 
 void TestTask::sleep_crash()
 {
-    RUN_SCRIPT("sleep-1-crash.sh");
+    RUN_SCRIPT("sleep-1-crash.sh", false);
     // Despite the crash, we should still get a "finished" signal.
     QVERIFY(sig_fin.count() == 1);
     QVERIFY(sig_fin.takeFirst().at(1).toInt() == EXIT_CRASHED);
@@ -89,7 +107,7 @@ void TestTask::sleep_crash()
 void TestTask::sleep_filenotfound()
 {
     // This script should not exist.
-    RUN_SCRIPT("sleep-1-filenotfound.sh");
+    RUN_SCRIPT("sleep-1-filenotfound.sh", false);
     // We got a "finished" signal, with sh exit code 127 ("command not found").
     QVERIFY(sig_fin.count() == 1);
 #if defined(Q_OS_FREEBSD)

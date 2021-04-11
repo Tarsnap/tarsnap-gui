@@ -43,12 +43,15 @@ CmdlineTask::CmdlineTask()
     : BaseTask(),
       _process(nullptr),
       _exitCode(EXIT_NO_MEANING),
-      _truncateLogOutput(false)
+      _truncateLogOutput(false),
+      _monitorOutput(false)
 {
 }
 
 void CmdlineTask::run()
 {
+    bool finishedStatus = false;
+
     Q_ASSERT(_process == nullptr);
 
     // Set up new _process
@@ -85,6 +88,15 @@ void CmdlineTask::run()
         goto cleanup;
     }
 
+    // Read from stdout and stderr
+    if(_monitorOutput)
+    {
+        connect(_process, &QProcess::readyReadStandardOutput, this,
+                &CmdlineTask::gotStdout);
+        connect(_process, &QProcess::readyReadStandardError, this,
+                &CmdlineTask::gotStderr);
+    }
+
     // Start the _process, and wait for confirmation of it starting.
     _process->start();
     if(_process->waitForStarted(DEFAULT_TIMEOUT_MS))
@@ -106,7 +118,17 @@ void CmdlineTask::run()
     }
 
     // Wait indefinitely for the process to finish
-    if(_process->waitForFinished(-1))
+    finishedStatus = _process->waitForFinished(-1);
+
+    // Cancel monitoring output
+    if(_monitorOutput)
+    {
+        disconnect(_process, &QProcess::readyReadStandardOutput, this, nullptr);
+        disconnect(_process, &QProcess::readyReadStandardError, this, nullptr);
+    }
+
+    // Deal with the "finished" status
+    if(finishedStatus)
     {
         readProcessOutput(_process);
         processFinished(_process);
@@ -133,6 +155,16 @@ void CmdlineTask::stop()
 
     if(_process->state() == QProcess::Running)
         _process->terminate();
+}
+
+void CmdlineTask::gotStdout()
+{
+    emit outputStdout(_process->readAllStandardOutput());
+}
+
+void CmdlineTask::gotStderr()
+{
+    emit outputStderr(_process->readAllStandardError());
 }
 
 void CmdlineTask::sigquit()
@@ -198,6 +230,11 @@ void CmdlineTask::setData(const QVariant &data)
 void CmdlineTask::setTruncateLogOutput(bool truncateLogOutput)
 {
     _truncateLogOutput = truncateLogOutput;
+}
+
+void CmdlineTask::setMonitorOutput()
+{
+    _monitorOutput = true;
 }
 
 void CmdlineTask::readProcessOutput(QProcess *process)

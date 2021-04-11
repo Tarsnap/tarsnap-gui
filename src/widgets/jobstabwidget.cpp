@@ -258,7 +258,7 @@ void JobsTabWidget::addDefaultJobs()
     TSettings settings;
 
     // Add a job for every directory in DEFAULT_JOBS that exists.
-    for(const QString &path : DEFAULT_JOBS)
+    for(const char * path : DEFAULT_JOBS)
     {
         QDir dir(QDir::home());
         if(dir.cd(path))

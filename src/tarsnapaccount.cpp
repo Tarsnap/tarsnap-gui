@@ -19,6 +19,8 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
+#include "compat.h"
+
 #define URL_MANAGE "https://www.tarsnap.com/manage.cgi"
 
 #define USER_AGENT "Tarsnap " APP_VERSION
@@ -90,7 +92,7 @@ void TarsnapAccount::parseCredit(const QString &csv)
                           QRegExp::RegExp2);
     QString lastBalance;
     for(const QString &line :
-        csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts))
+        csv.split(QRegExp("[\r\n]"), SKIP_EMPTY_PARTS))
     {
         if(0 == lastBalanceRx.indexIn(line))
             lastBalance = line;
@@ -98,7 +100,7 @@ void TarsnapAccount::parseCredit(const QString &csv)
 
     if(!lastBalance.isEmpty())
     {
-        QStringList fields = lastBalance.split(',', QString::SkipEmptyParts);
+        QStringList fields = lastBalance.split(',', SKIP_EMPTY_PARTS);
         if(fields.count() != 3)
         {
             DEBUG << "Invalid CSV.";
@@ -114,8 +116,8 @@ void TarsnapAccount::parseLastMachineActivity(const QString &csv)
     if(csv.isEmpty() || !csv.startsWith("DATE"))
         return;
     QString lastLine =
-        csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts).last();
-    emit lastMachineActivity(lastLine.split(',', QString::SkipEmptyParts));
+        csv.split(QRegExp("[\r\n]"), SKIP_EMPTY_PARTS).last();
+    emit lastMachineActivity(lastLine.split(',', SKIP_EMPTY_PARTS));
 }
 
 QNetworkReply *TarsnapAccount::tarsnapRequest(QUrlQuery post)

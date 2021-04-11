@@ -14,6 +14,7 @@ WARNINGS_ENABLE
 
 #include "messages/archiverestoreoptions.h"
 
+#include "compat.h"
 #include "backuptask.h"
 #include "cmdlinetask.h"
 #include "tasks/tasks-defs.h"
@@ -38,7 +39,7 @@ QList<struct archive_list_data>
 listArchivesTaskParse(const QString &tarsnapOutput)
 {
     QList<struct archive_list_data> metadatas;
-    QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
+    QStringList lines = tarsnapOutput.split('\n', SKIP_EMPTY_PARTS);
     for(const QString &line : lines)
     {
         QRegExp archiveDetailsRX("^(.+)\\t+(\\S+\\s+\\S+)\\t+(.+)$");
@@ -83,7 +84,7 @@ struct tarsnap_stats printStatsTaskParse(const QString &tarsnapOutput,
     struct tarsnap_stats stats;
     stats.parse_error = true;
 
-    QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
+    QStringList lines = tarsnapOutput.split('\n', SKIP_EMPTY_PARTS);
     if(lines.count() < 5)
         return stats;
 
@@ -184,7 +185,7 @@ struct tarsnap_stats overallStatsTaskParse(const QString &tarsnapOutput)
     struct tarsnap_stats stats;
     stats.parse_error = true;
 
-    QStringList lines = tarsnapOutput.split('\n', QString::SkipEmptyParts);
+    QStringList lines = tarsnapOutput.split('\n', SKIP_EMPTY_PARTS);
     if(lines.count() < 3)
         return stats;
 

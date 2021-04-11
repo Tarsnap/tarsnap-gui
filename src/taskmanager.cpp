@@ -17,6 +17,7 @@ WARNINGS_ENABLE
 
 #include "messages/archiverestoreoptions.h"
 
+#include "compat.h"
 #include "backenddata.h"
 #include "backuptask.h"
 #include "basetask.h"
@@ -562,7 +563,7 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
     }
     // We are only interested in the output of the last archive deleted for
     // parsing the final global stats
-    QStringList lines = stdErr.split('\n', QString::SkipEmptyParts);
+    QStringList lines = stdErr.split('\n', SKIP_EMPTY_PARTS);
     QStringList lastFive;
     int         count = lines.count();
     for(int i = 0; i < qMin(5, count); ++i)

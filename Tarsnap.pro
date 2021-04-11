@@ -150,6 +150,7 @@ HEADERS +=						\
 	src/backenddata.h				\
 	src/backuptask.h				\
 	src/basetask.h					\
+	src/compat.h					\
 	src/cmdlinetask.h				\
 	src/customfilesystemmodel.h			\
 	src/debug.h					\

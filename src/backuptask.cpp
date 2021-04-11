@@ -14,6 +14,7 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
+#include "compat.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "tasks/tasks-defs.h"
@@ -168,7 +169,7 @@ void BackupTaskData::setOptionSkipSystemFiles(
 
 void BackupTaskData::setOptionSkipSystemFiles(const QString &string)
 {
-    _optionSkipSystemFiles = string.split(':', QString::SkipEmptyParts);
+    _optionSkipSystemFiles = string.split(':', SKIP_EMPTY_PARTS);
 }
 
 QStringList BackupTaskData::getExcludesList()

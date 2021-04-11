@@ -43,6 +43,9 @@ public slots:
     //!                \c TaskStatus::Failed.
     //! \param reason text which explains why the registration failed.
     void registerMachineResponse(TaskStatus status, const QString &reason);
+    //! The TaskManager has a progress message from --fsck.
+    //! \param stdOut line(s) from stdout of tarsnap --fsck
+    void registerMachineProgress(const QString &stdOut);
     //! Update the number of tasks.
     void updateNumTasks(bool backupRunning, int numRunning, int numQueued);
 

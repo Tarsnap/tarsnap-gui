@@ -46,6 +46,11 @@ void SetupWizard::tarsnapVersionResponse(TaskStatus     status,
     _cliPage->tarsnapVersionResponse(status, versionString);
 }
 
+void SetupWizard::registerMachineProgress(const QString &stdOut)
+{
+    _registerPage->registerMachineProgress(stdOut);
+}
+
 void SetupWizard::registerMachineResponse(TaskStatus     status,
                                           const QString &reason)
 {

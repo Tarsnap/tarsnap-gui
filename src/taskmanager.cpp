@@ -98,6 +98,9 @@ void TaskManager::registerMachineDo(const QString &password,
     {
         // existing key, attempt to rebuild cache & verify archive integrity
         registerTask = fsckCleanTask(true);
+        registerTask->setMonitorOutput();
+        connect(registerTask, &CmdlineTask::outputStdout, this,
+                &TaskManager::registerMachineProgress);
     }
     else
     {

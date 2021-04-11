@@ -11,6 +11,8 @@ WARNINGS_ENABLE
 
 #include "messages/archivefilestat.h"
 
+#include "compat.h"
+
 ParseArchiveListingTask::ParseArchiveListingTask(const QString &listing)
     : BaseTask(), _listing(listing)
 {
@@ -27,7 +29,7 @@ void ParseArchiveListingTask::run()
                    "\\s+\\S+\\s+\\S+)\\s+(.+)$");
 
     // Check each line.
-    for(const QString &line : _listing.split('\n', QString::SkipEmptyParts))
+    for(const QString &line : _listing.split('\n', SKIP_EMPTY_PARTS))
     {
         // Bail if requested.
         if(static_cast<int>(_stopRequested) == 1)

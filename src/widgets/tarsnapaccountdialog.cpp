@@ -20,6 +20,7 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
+#include "compat.h"
 #include "debug.h"
 #include "tarsnapaccount.h"
 
@@ -125,13 +126,12 @@ void TarsnapAccountDialog::displayCSVTable(const QString &csv,
         return;
 
     // Split output into lines.
-    QStringList lines = csv.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+    QStringList lines = csv.split(QRegExp("[\r\n]"), SKIP_EMPTY_PARTS);
     if(lines.count() <= 1)
         return;
 
     // Extract column headers.
-    QStringList columnHeaders =
-        lines.first().split(',', QString::SkipEmptyParts);
+    QStringList columnHeaders = lines.first().split(',', SKIP_EMPTY_PARTS);
     lines.removeFirst();
 
     // Create new widget in which to display the table.
@@ -154,7 +154,7 @@ void TarsnapAccountDialog::displayCSVTable(const QString &csv,
     int column = 0;
     for(const QString &line : lines)
     {
-        for(const QString &entry : line.split(',', QString::KeepEmptyParts))
+        for(const QString &entry : line.split(',', KEEP_EMPTY_PARTS))
         {
             table->setItem(row, column, new QTableWidgetItem(entry));
             column++;

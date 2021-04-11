@@ -18,6 +18,7 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
+#include "compat.h"
 #include "debug.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/persistentstore.h"
@@ -348,7 +349,7 @@ void Job::load()
     {
         _urls = QUrl::fromStringList(query.value(query.record().indexOf("urls"))
                                          .toString()
-                                         .split('\n', QString::SkipEmptyParts));
+                                         .split('\n', SKIP_EMPTY_PARTS));
         _optionScheduledEnabled =
             query.value(query.record().indexOf("optionScheduledEnabled"))
                 .toInt();

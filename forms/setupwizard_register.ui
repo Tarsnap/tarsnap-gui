@@ -372,6 +372,9 @@
        </item>
       </layout>
      </item>
+     <item>
+      <widget class="QProgressBar" name="progressBar"/>
+     </item>
     </layout>
    </item>
    <item>

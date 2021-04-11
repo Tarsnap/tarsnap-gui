@@ -9,6 +9,8 @@ WARNINGS_DISABLE
 #include <QFileInfoList>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QRegularExpression>
+#include <QRegularExpressionMatch>
 #include <QTabWidget>
 #include <QVariant>
 
@@ -28,6 +30,7 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
+#include "compat.h"
 #include "dir-utils.h"
 
 RegisterPage::RegisterPage(QWidget *parent)
@@ -71,6 +74,9 @@ void RegisterPage::initializePage()
     // Auto-select "use existing" if we have any.
     if(_ui->keyfilePathComboBrowse->count() > 0)
         _ui->keyfileTabWidget->setCurrentIndex(UseKeyfileTab);
+
+    // Don't show the progress bar.
+    _ui->progressBar->hide();
 
     // Enable keyboard focus if we're ready to go.
     if(checkComplete())
@@ -167,12 +173,54 @@ void RegisterPage::registerMachine()
         if(!useExistingKeyfile)
             _ui->statusLabel->messageNormal("Generating keyfile...");
         else
+        {
             _ui->statusLabel->messageNormal("Verifying archive integrity...");
+            _ui->progressBar->setValue(0);
+            _ui->progressBar->show();
+        }
         // Request that the backend does the operation.
         emit registerMachineRequested(_ui->tarsnapPasswordLineEdit->text(),
                                       _ui->machineNameLineEdit->text(),
                                       useExistingKeyfile);
     }
+}
+
+void RegisterPage::registerMachineProgress(const QString &stdOut)
+{
+    int progress = 0;
+
+    for(QString &line :
+        stdOut.split(QRegularExpression("[\r\n]"), SKIP_EMPTY_PARTS))
+    {
+        // First 20% is for starting Phases 1, 2, 3, 4; last 10% is Phase 5.
+        if(line.startsWith("Phase 1"))
+            progress = 5;
+        else if(line.startsWith("Phase 2"))
+            progress = 10;
+        else if(line.startsWith("Phase 3"))
+            progress = 15;
+        else if(line.startsWith("Phase 4"))
+            progress = 20;
+        else if(line.startsWith("Phase 5"))
+            progress = 90;
+        else if(line.startsWith("  Archive"))
+        {
+            QRegularExpression      re("  Archive (\\d+)/(\\d+)...");
+            QRegularExpressionMatch match = re.match(line);
+
+            if(match.hasMatch())
+            {
+                int num   = match.captured(1).toInt();
+                int total = match.captured(2).toInt();
+                // Integer division is ok here, since 'progress' is an int,
+                // and in any case we don't need an exact value.
+                progress = (100 - 20 - 10) * num / total + 20;
+            }
+        }
+    }
+
+    if(progress > 0)
+        _ui->progressBar->setValue(progress);
 }
 
 void RegisterPage::registerMachineResponse(TaskStatus     status,
@@ -194,11 +242,13 @@ void RegisterPage::registerMachineResponse(TaskStatus     status,
     case TaskStatus::Completed:
         _registering = Done;
         _ui->statusLabel->clear();
+        _ui->progressBar->hide();
         updateLoadingAnimation(true);
         next();
         break;
     case TaskStatus::Failed:
         _registering = No;
+        _ui->progressBar->hide();
         reportError(reason);
         checkComplete();
         break;

@@ -122,6 +122,8 @@ signals:
     //! Result of tarsnap --version.
     //! \anchor tarsnapVersionFound
     void tarsnapVersionFound(TaskStatus status, const QString &versionString);
+    //! Intermediate progress of tarsnap --fsck.
+    void registerMachineProgress(const QString &stdOut);
     //! Result of tarsnap-keygen.
     void registerMachineDone(TaskStatus status, const QString &reason);
     //! A list of all Archive objects.

@@ -102,6 +102,8 @@ bool AppSetup::prepEventLoop()
             &SetupWizard::tarsnapVersionResponse);
     connect(_wizard, &SetupWizard::registerMachineRequested, _taskManager,
             &TaskManager::registerMachineDo);
+    connect(_taskManager, &TaskManager::registerMachineProgress, _wizard,
+            &SetupWizard::registerMachineProgress);
     connect(_taskManager, &TaskManager::registerMachineDone, _wizard,
             &SetupWizard::registerMachineResponse);
 

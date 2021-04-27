@@ -64,8 +64,11 @@ void StatusBarWidget::updateUi()
 {
     _ui->actionShowJournal->setToolTip(_ui->actionShowJournal->toolTip().arg(
         _ui->actionShowJournal->shortcut().toString(QKeySequence::NativeText)));
-    _ui->busyLabel->setToolTip(_ui->busyLabel->toolTip().arg(
-        _ui->actionStopTasks->shortcut().toString(QKeySequence::NativeText)));
+    // This label's tooltip will be empty if the GUI is not busy.
+    if(!_ui->busyLabel->toolTip().isEmpty())
+        _ui->busyLabel->setToolTip(_ui->busyLabel->toolTip().arg(
+            _ui->actionStopTasks->shortcut().toString(
+                QKeySequence::NativeText)));
 }
 
 void StatusBarWidget::updateStatusMessage(const QString &message,
@@ -88,6 +91,16 @@ void StatusBarWidget::showBusy(bool busy)
 {
     _ui->busyLabel->animate(busy);
     _ui->busyLabel->setEnabled(busy);
+    if(busy)
+    {
+        _ui->busyLabel->setToolTip(
+            QString(tr("Tarsnap is busy running chores, click to change that"
+                       " <span style=\"color:gray;font-size:small\">%1</span>"))
+                .arg(_ui->actionStopTasks->shortcut().toString(
+                    QKeySequence::NativeText)));
+    }
+    else
+        _ui->busyLabel->setToolTip("");
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.

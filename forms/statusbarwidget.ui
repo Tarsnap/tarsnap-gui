@@ -128,9 +128,6 @@ border: none;
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="toolTip">
-      <string>Tarsnap is busy running chores, click to change that &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-     </property>
     </widget>
    </item>
   </layout>

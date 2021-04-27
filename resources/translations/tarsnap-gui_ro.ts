@@ -2864,6 +2864,10 @@ unique data	%3		%4</source>
         <source>Error: Failed to get Tarsnap version.</source>
         <translation>Eroare la obținerea versiunii utilitarelor la linia de comandă Tarsnap.</translation>
     </message>
+    <message>
+        <source>Simulated backup &lt;i&gt;%1&lt;/i&gt; completed. (%2 new data would have been added to Tarsnap)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>aboutWidget</name>

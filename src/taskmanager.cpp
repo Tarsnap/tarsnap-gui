@@ -670,11 +670,19 @@ void TaskManager::notifyBackupTaskUpdate(BackupTaskDataPtr backupTaskData,
         break;
     case TaskStatus::Completed:
     {
-        QString msg =
-            tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)")
-                .arg(backupTaskData->name())
-                .arg(humanBytes(
-                    backupTaskData->archive()->sizeUniqueCompressed()));
+        QString msg;
+
+        // Was it a --dry-run, or a real archive?
+        if(backupTaskData->optionDryRun())
+            msg = tr("Simulated backup <i>%1</i> completed. (%2 new data would"
+                     " have been added to Tarsnap)");
+        else
+            msg = tr("Backup <i>%1</i> completed. (%2 new data on Tarsnap)");
+        // Fill in template
+        msg = msg.arg(backupTaskData->name())
+                  .arg(humanBytes(
+                      backupTaskData->archive()->sizeUniqueCompressed()));
+
         emit message(msg, backupTaskData->archive()->archiveStats());
         emit displayNotification(msg, NOTIFICATION_ARCHIVE_CREATED,
                                  backupTaskData->name());

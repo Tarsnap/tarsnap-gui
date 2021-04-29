@@ -5,6 +5,7 @@
 
 WARNINGS_DISABLE
 #include <QList>
+#include <QMainWindow>
 #include <QMap>
 #include <QObject>
 #include <QString>
@@ -40,9 +41,9 @@ struct LogEntry;
 
 /*!
  * \ingroup widgets-main
- * \brief The MainWindow is a QWidget which is the main application window.
+ * \brief The MainWindow is a QMainWindow which is the main application window.
  */
-class MainWindow : public QWidget
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 

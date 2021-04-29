@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
- <widget class="QWidget" name="MainWindow">
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -20,42 +20,43 @@
    <iconset resource="../resources/resources.qrc">
     <normaloff>:/logos/tarsnap-icon-big.png</normaloff>:/logos/tarsnap-icon-big.png</iconset>
   </property>
-  <layout class="QVBoxLayout" name="mainLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>3</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
-   <item>
-    <widget class="QSplitter" name="mainContentSplitter">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <widget class="QTabWidget" name="mainTabWidget">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>350</height>
-       </size>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="mainLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>3</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QSplitter" name="mainContentSplitter">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
       </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="acceptDrops">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#mainTabWidget &gt; QTabBar::tab {
+      <widget class="QTabWidget" name="mainTabWidget">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>350</height>
+        </size>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="acceptDrops">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#mainTabWidget &gt; QTabBar::tab {
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
 					stop: 0 rgba(85,164,216,225), stop: 0.8 rgba(85,164,216,225),
 					stop: 0.9 rgba(46,141,204,255), stop: 1.0 rgba(46,141,204,255));
@@ -98,124 +99,124 @@ border-radius: 2px;
 border-radius: 2px;
 }
 </string>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="backupTab">
-       <property name="acceptDrops">
-        <bool>false</bool>
        </property>
-       <attribute name="title">
-        <string>Backup</string>
-       </attribute>
-       <attribute name="toolTip">
-        <string>Switch to Backup tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="backupTabVerticalLayout">
-        <property name="spacing">
-         <number>0</number>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="backupTab">
+        <property name="acceptDrops">
+         <bool>false</bool>
         </property>
-        <property name="leftMargin">
-         <number>3</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>3</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="archivesTab">
-       <attribute name="title">
-        <string>Archives</string>
-       </attribute>
-       <attribute name="toolTip">
-        <string>Switch to Archives tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="archivesVerticalLayout">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <property name="leftMargin">
-         <number>3</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>3</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="jobsTab">
-       <attribute name="title">
-        <string>Jobs</string>
-       </attribute>
-       <attribute name="toolTip">
-        <string>Switch to Jobs tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="jobsVerticalLayout">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <property name="leftMargin">
-         <number>3</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>3</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="settingsTab">
-       <property name="styleSheet">
-        <string notr="true">#settingsTab
+        <attribute name="title">
+         <string>Backup</string>
+        </attribute>
+        <attribute name="toolTip">
+         <string>Switch to Backup tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="backupTabVerticalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>3</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>3</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="archivesTab">
+        <attribute name="title">
+         <string>Archives</string>
+        </attribute>
+        <attribute name="toolTip">
+         <string>Switch to Archives tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="archivesVerticalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>3</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>3</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="jobsTab">
+        <attribute name="title">
+         <string>Jobs</string>
+        </attribute>
+        <attribute name="toolTip">
+         <string>Switch to Jobs tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="jobsVerticalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>3</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>3</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="settingsTab">
+        <property name="styleSheet">
+         <string notr="true">#settingsTab
 {
 border-top: 2px groove darkgrey;
 margin-left: 9px;
 margin-right: 3px;
 }</string>
-       </property>
-       <attribute name="title">
-        <string>Settings</string>
-       </attribute>
-       <attribute name="toolTip">
-        <string>Switch to Settings tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="settingsTabVerticalLayout">
-        <property name="spacing">
-         <number>0</number>
         </property>
-        <property name="leftMargin">
-         <number>3</number>
-        </property>
-        <property name="topMargin">
-         <number>6</number>
-        </property>
-        <property name="rightMargin">
-         <number>3</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="helpTab">
-       <property name="styleSheet">
-        <string notr="true">#helpTab QGroupBox {
+        <attribute name="title">
+         <string>Settings</string>
+        </attribute>
+        <attribute name="toolTip">
+         <string>Switch to Settings tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="settingsTabVerticalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>3</number>
+         </property>
+         <property name="topMargin">
+          <number>6</number>
+         </property>
+         <property name="rightMargin">
+          <number>3</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="helpTab">
+        <property name="styleSheet">
+         <string notr="true">#helpTab QGroupBox {
 font-size: 14px;
 }
 #helpTab QGroupBox::title {
@@ -223,63 +224,64 @@ background: transparent;
 margin: 1px 0px 0px 6px;
 }&lt;/string&gt;
 </string>
-       </property>
-       <attribute name="title">
-        <string>Help</string>
-       </attribute>
-       <attribute name="toolTip">
-        <string>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="helpTabLayout">
-        <property name="spacing">
-         <number>3</number>
         </property>
-        <property name="leftMargin">
-         <number>3</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>3</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-       </layout>
+        <attribute name="title">
+         <string>Help</string>
+        </attribute>
+        <attribute name="toolTip">
+         <string>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="helpTabLayout">
+         <property name="spacing">
+          <number>3</number>
+         </property>
+         <property name="leftMargin">
+          <number>3</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>3</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+        </layout>
+       </widget>
       </widget>
-     </widget>
-     <widget class="TTextView" name="journalLog">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::ClickFocus</enum>
-      </property>
-      <property name="toolTip">
-       <string>Journal log</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#journalLog
+      <widget class="TTextView" name="journalLog">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Journal log</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#journalLog
 {
 background: transparent;
 font-family: Monospace, Monaco;
 font-size: 12px;
 }</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+      </widget>
      </widget>
-    </widget>
-   </item>
-   <item>
-    <widget class="StatusBarWidget" name="statusBarWidget" native="true"/>
-   </item>
-  </layout>
+    </item>
+    <item>
+     <widget class="StatusBarWidget" name="statusBarWidget" native="true"/>
+    </item>
+   </layout>
+  </widget>
   <action name="actionRefresh">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">

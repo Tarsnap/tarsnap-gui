@@ -50,7 +50,7 @@ WARNINGS_ENABLE
 #define MAIN_LOGO_FUDGE -10
 
 MainWindow::MainWindow(QWidget *parent)
-    : QWidget(parent),
+    : QMainWindow(parent),
       _ui(new Ui::MainWindow),
       _minWidth(0),
       _menuBar(nullptr),

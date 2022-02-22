@@ -227,7 +227,7 @@ CmdlineTask *nukeArchivesTask()
     return (task);
 }
 
-CmdlineTask *restoreArchiveTask(const QString &       archiveName,
+CmdlineTask *restoreArchiveTask(const QString        &archiveName,
                                 ArchiveRestoreOptions options)
 {
     CmdlineTask *task = new CmdlineTask();

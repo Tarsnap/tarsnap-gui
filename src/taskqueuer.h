@@ -74,7 +74,7 @@ private:
 
     QList<TaskMeta *>  _runningTasks;
     QQueue<TaskMeta *> _taskQueue;
-    QThreadPool *      _threadPool;
+    QThreadPool       *_threadPool;
 
 #ifdef QT_TESTLIB_LIB
     bool _fakeNextTask;

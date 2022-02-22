@@ -80,9 +80,9 @@ private slots:
 private:
     Ui::ArchiveDetailsWidget *_ui;
     ArchivePtr                _archive;
-    FileTableModel *          _contentsModel;
-    QSortFilterProxyModel *   _proxyModel;
-    QMenu *                   _fileMenu;
+    FileTableModel           *_contentsModel;
+    QSortFilterProxyModel    *_proxyModel;
+    QMenu                    *_fileMenu;
 
     void updateKeyboardShortcutInfo();
 };

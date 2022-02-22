@@ -49,7 +49,7 @@ void TestBackupTabWidget::backupListWidget()
 
 void TestBackupTabWidget::nameEdit()
 {
-    BackupTabWidget *    backuptabwidget = new BackupTabWidget();
+    BackupTabWidget     *backuptabwidget = new BackupTabWidget();
     Ui::BackupTabWidget *ui              = backuptabwidget->_ui;
 
     VISUAL_INIT(backuptabwidget);

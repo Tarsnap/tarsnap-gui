@@ -108,16 +108,16 @@ void TestArchivesTabWidget::archiveListWidget()
 
 void TestArchivesTabWidget::displayArchive()
 {
-    ArchivesTabWidget *    archivestabwidget = new ArchivesTabWidget();
+    ArchivesTabWidget     *archivestabwidget = new ArchivesTabWidget();
     Ui::ArchivesTabWidget *ui                = archivestabwidget->_ui;
-    ArchiveListWidget *    alw               = ui->archiveListWidget;
+    ArchiveListWidget     *alw               = ui->archiveListWidget;
 
     FileTableModel *fm = ui->archiveDetailsWidget->_contentsModel;
 
     VISUAL_INIT(archivestabwidget);
     VISUAL_WAIT;
 
-    Archive *  actual_archive = new Archive();
+    Archive   *actual_archive = new Archive();
     ArchivePtr archive(actual_archive);
     archive->setName("archive1");
     archive->setContents("-rw-r--r-- 0 user group 1234 Jan 1 2019 myfile");

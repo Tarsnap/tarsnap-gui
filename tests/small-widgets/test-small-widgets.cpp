@@ -120,7 +120,7 @@ void TestSmallWidgets::filepickerwidget()
 
 void TestSmallWidgets::filepickerdialog()
 {
-    QWidget *         widget = new QWidget();
+    QWidget          *widget = new QWidget();
     FilePickerDialog *fpd    = new FilePickerDialog(widget);
 
     QList<QUrl> myurls({QUrl("file:///tmp")});

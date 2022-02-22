@@ -70,7 +70,7 @@ void TestQTestComplex::pl_processEvents()
 void TestQTestComplex::pl_postEvent()
 {
     QObject *obj   = new QObject();
-    QEvent * event = new QEvent(QEvent::FocusIn);
+    QEvent  *event = new QEvent(QEvent::FocusIn);
 
     QCoreApplication::postEvent(obj, event, 0);
 
@@ -161,7 +161,7 @@ void TestQTestComplex::pl_checkbox_text()
 
 void TestQTestComplex::pl_treeview()
 {
-    QWidget *    widget = new QWidget();
+    QWidget     *widget = new QWidget();
     QVBoxLayout *layout = new QVBoxLayout();
 
     // Must set the layout before creating the QTreeView.

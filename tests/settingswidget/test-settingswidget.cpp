@@ -91,10 +91,10 @@ void TestSettingsWidget::tarsnapAccountDialog()
 
 void TestSettingsWidget::account()
 {
-    SettingsWidget *    settingsWidget = new SettingsWidget();
+    SettingsWidget     *settingsWidget = new SettingsWidget();
     Ui::SettingsWidget *ui             = settingsWidget->_ui;
     QSignalSpy          sig_status(settingsWidget,
-                          SIGNAL(newStatusMessage(QString, QString)));
+                                   SIGNAL(newStatusMessage(QString, QString)));
 
     TarsnapAccountDialog *tarsnapAccountDialog =
         settingsWidget->_tarsnapAccountDialog;
@@ -137,7 +137,7 @@ void TestSettingsWidget::account()
 
 void TestSettingsWidget::backup()
 {
-    SettingsWidget *    settingsWidget = new SettingsWidget();
+    SettingsWidget     *settingsWidget = new SettingsWidget();
     Ui::SettingsWidget *ui             = settingsWidget->_ui;
 
     VISUAL_INIT(settingsWidget);
@@ -164,7 +164,7 @@ void TestSettingsWidget::backup()
 
 void TestSettingsWidget::application()
 {
-    SettingsWidget *    settingsWidget = new SettingsWidget();
+    SettingsWidget     *settingsWidget = new SettingsWidget();
     Ui::SettingsWidget *ui             = settingsWidget->_ui;
 
     VISUAL_INIT(settingsWidget);

@@ -63,8 +63,8 @@ private slots:
 
 private:
     Ui::LoginDialog *_ui;
-    TarsnapAccount * _ta;
-    QMessageBox *    _popup;
+    TarsnapAccount  *_ta;
+    QMessageBox     *_popup;
     QString          _user;
     quint64          _machineId;
 

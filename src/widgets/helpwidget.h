@@ -50,8 +50,8 @@ protected:
 private:
     Ui::HelpWidget *_ui;
     QString         _helpTabHTML;
-    QDialog *       _aboutWindow;
-    QDialog *       _consoleWindow;
+    QDialog        *_aboutWindow;
+    QDialog        *_consoleWindow;
 
     TTextView *_consoleLog;
 

@@ -67,7 +67,7 @@ protected:
 
 private:
     Ui::StatusBarWidget *_ui;
-    StatisticsDialog *   _statsDialog;
+    StatisticsDialog    *_statsDialog;
 
     void updateUi();
 };

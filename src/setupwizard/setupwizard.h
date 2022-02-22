@@ -70,10 +70,10 @@ protected slots:
     void finishWizard() override;
 
 private:
-    IntroPage *   _introPage;
-    CliPage *     _cliPage;
+    IntroPage    *_introPage;
+    CliPage      *_cliPage;
     RegisterPage *_registerPage;
-    FinalPage *   _finalPage;
+    FinalPage    *_finalPage;
 };
 
 #endif /* !SETUPWIZARD_H */

@@ -239,7 +239,7 @@ void BackendData::deleteJob(JobPtr job)
 
 void BackendData::loadJobArchives()
 {
-    Job *             job = qobject_cast<Job *>(sender());
+    Job              *job = qobject_cast<Job *>(sender());
     QList<ArchivePtr> archives;
     for(const ArchivePtr &archive : _archiveMap)
     {

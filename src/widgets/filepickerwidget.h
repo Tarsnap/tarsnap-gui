@@ -89,9 +89,9 @@ protected:
     void changeEvent(QEvent *event) override;
 
 private:
-    Ui::FilePickerWidget * _ui;
+    Ui::FilePickerWidget  *_ui;
     CustomFileSystemModel *_model;
-    QCompleter *           _completer;
+    QCompleter            *_completer;
 };
 
 #endif // FILEPICKERWIDGET_H

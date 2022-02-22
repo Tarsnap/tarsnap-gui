@@ -102,7 +102,7 @@ public:
 
 private:
     static QSettings *_settings;
-    static QString *  _filename_next;
+    static QString   *_filename_next;
 };
 
 #endif

@@ -96,7 +96,7 @@ private:
     Ui::JobDetailsWidget *_ui;
     JobPtr                _job;
     bool                  _saveEnabled;
-    QTimer *              _fsEventUpdate;
+    QTimer               *_fsEventUpdate;
 
     QMenu *_archiveListMenu;
 

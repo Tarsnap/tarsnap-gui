@@ -469,7 +469,7 @@ void MainWindow::setupMenuBar()
     windowMenu->addAction(_ui->actionGoHelp);
     windowMenu->addAction(_ui->actionShowJournal);
 
-    QMenu *  helpMenu             = _menuBar->addMenu(tr("&Help"));
+    QMenu   *helpMenu             = _menuBar->addMenu(tr("&Help"));
     QAction *actionTarsnapWebsite = new QAction(tr("Tarsnap Website"), this);
     connect(actionTarsnapWebsite, &QAction::triggered, []() {
         QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
@@ -733,7 +733,7 @@ void MainWindow::jobInspectByRef(const QString &jobRef)
 }
 
 void MainWindow::handle_notification_clicked(enum message_type type,
-                                             const QString &   data)
+                                             const QString    &data)
 {
     notificationRaise();
     switch(type)

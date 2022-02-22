@@ -73,7 +73,7 @@ private:
 
     // Countdown box
     QMessageBox *_countdownBox;
-    QTimer *     _timer;
+    QTimer      *_timer;
     int          _countdownSeconds;
     QString      _countdownTitle;
     QString      _countdownText;

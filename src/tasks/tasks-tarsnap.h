@@ -106,7 +106,7 @@ CmdlineTask *nukeArchivesTask();
 /**
  * \brief Create a task for: `tarsnap -x -f ARCHIVENAME`, with many options.
  */
-CmdlineTask *restoreArchiveTask(const QString &       archiveName,
+CmdlineTask *restoreArchiveTask(const QString        &archiveName,
                                 ArchiveRestoreOptions options);
 
 /**

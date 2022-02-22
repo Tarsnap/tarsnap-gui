@@ -48,10 +48,10 @@ private slots:
     void quitAfterEventsFinish();
 
 private:
-    MainWindow *  _mainWindow;
-    Journal *     _journal;
+    MainWindow   *_mainWindow;
+    Journal      *_journal;
     Notification *_notification;
-    TaskManager * _taskManager;
+    TaskManager  *_taskManager;
     bool          _jobsOption;
     QString       _configDir;
 

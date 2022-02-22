@@ -61,7 +61,7 @@ private slots:
 
 private:
     Ui::JobListWidgetItem *_ui;
-    QWidget *              _widget;
+    QWidget               *_widget;
     JobPtr                 _job;
 
     void setJob(const JobPtr &job);

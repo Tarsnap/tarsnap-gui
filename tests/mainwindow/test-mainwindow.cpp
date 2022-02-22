@@ -132,8 +132,8 @@ static QAction *get_menubar_about(QMenuBar *menubar)
 
 void TestMainWindow::about_window_menubar()
 {
-    MainWindow *    mainwindow = new MainWindow();
-    HelpWidget *    help       = mainwindow->_helpWidget;
+    MainWindow     *mainwindow = new MainWindow();
+    HelpWidget     *help       = mainwindow->_helpWidget;
     Ui::HelpWidget *ui         = help->_ui;
 
     VISUAL_INIT(mainwindow);
@@ -170,7 +170,7 @@ void TestMainWindow::about_window_menubar()
 
 void TestMainWindow::stoptasksdialog_nonquit()
 {
-    MainWindow *     mainwindow = new MainWindow();
+    MainWindow      *mainwindow = new MainWindow();
     StopTasksDialog *st         = mainwindow->_stopTasksDialog;
 
     VISUAL_INIT(mainwindow);
@@ -247,7 +247,7 @@ void TestMainWindow::quit_tasks()
 
 void TestMainWindow::tab_navigation()
 {
-    MainWindow *    mainwindow = new MainWindow();
+    MainWindow     *mainwindow = new MainWindow();
     Ui::MainWindow *ui         = mainwindow->_ui;
 
     VISUAL_INIT(mainwindow);
@@ -283,13 +283,13 @@ void TestMainWindow::tab_navigation()
 
 void TestMainWindow::other_navigation()
 {
-    MainWindow *       mainwindow    = new MainWindow();
-    Ui::MainWindow *   ui            = mainwindow->_ui;
-    JobsTabWidget *    jobsTabWidget = mainwindow->_jobsTabWidget;
+    MainWindow        *mainwindow    = new MainWindow();
+    Ui::MainWindow    *ui            = mainwindow->_ui;
+    JobsTabWidget     *jobsTabWidget = mainwindow->_jobsTabWidget;
     Ui::JobsTabWidget *jui           = jobsTabWidget->_ui;
 
     QSignalSpy sig_taskRequest(mainwindow, SIGNAL(taskRequested(BaseTask *)));
-    BaseTask * task;
+    BaseTask  *task;
 
     BackupTabWidget *backupTabWidget = mainwindow->_backupTabWidget;
 
@@ -338,7 +338,7 @@ void TestMainWindow::other_navigation()
 
     // Add an Archive
     mainwindow->displayTab(ui->archivesTab);
-    Archive *  actual_archive = new Archive();
+    Archive   *actual_archive = new Archive();
     ArchivePtr archive(actual_archive);
     archive->setName("Job_test-job_archive1");
     archive->setContents("-rw-r--r-- 0 user group 1234 Jan 1 2019 myfile");

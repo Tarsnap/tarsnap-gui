@@ -13,9 +13,9 @@ Notification::Notification(QSystemTrayIcon *parent) : QSystemTrayIcon(parent)
             &Notification::handle_messageClicked);
 }
 
-void Notification::displayNotification(const QString &   message,
+void Notification::displayNotification(const QString    &message,
                                        enum message_type type,
-                                       const QString &   data)
+                                       const QString    &data)
 {
     TSettings settings;
     if(settings.value("app/notifications", true).toBool()

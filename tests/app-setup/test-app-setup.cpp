@@ -68,7 +68,7 @@ static void run_normal_setup(AppSetup *setup)
 {
     SetupWizard *wizard = setup->get_wizard();
 
-    Ui::CliPage *     ui_cli;
+    Ui::CliPage      *ui_cli;
     Ui::RegisterPage *ui_register;
 
     // Check if we have tarsnap (without using QTest's QSKIP).

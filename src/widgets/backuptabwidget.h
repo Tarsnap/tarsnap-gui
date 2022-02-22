@@ -86,7 +86,7 @@ private slots:
 
 private:
     Ui::BackupTabWidget *_ui;
-    FilePickerDialog *   _filePickerDialog;
+    FilePickerDialog    *_filePickerDialog;
 
     QString _lastTimestamp;
 

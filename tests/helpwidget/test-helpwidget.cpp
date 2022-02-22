@@ -40,7 +40,7 @@ void TestHelpWidget::initTestCase()
 
 void TestHelpWidget::about_window()
 {
-    HelpWidget *    helpWidget = new HelpWidget();
+    HelpWidget     *helpWidget = new HelpWidget();
     Ui::HelpWidget *ui         = helpWidget->_ui;
 
     VISUAL_INIT(helpWidget);
@@ -79,7 +79,7 @@ void TestHelpWidget::about_window()
 
 void TestHelpWidget::console_window()
 {
-    HelpWidget *    helpWidget = new HelpWidget();
+    HelpWidget     *helpWidget = new HelpWidget();
     Ui::HelpWidget *ui         = helpWidget->_ui;
 
     VISUAL_INIT(helpWidget);

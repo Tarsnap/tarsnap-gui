@@ -60,7 +60,7 @@ QVariant CustomFileSystemModel::dataInternal(const QModelIndex &idx) const
         return Qt::Unchecked;
 }
 
-void CustomFileSystemModel::setIndexCheckState(const QModelIndex &  idx,
+void CustomFileSystemModel::setIndexCheckState(const QModelIndex   &idx,
                                                const Qt::CheckState state)
 {
     if(dataInternal(idx) != state)
@@ -133,7 +133,7 @@ bool CustomFileSystemModel::setData(const QModelIndex &idx,
 }
 
 void CustomFileSystemModel::setDataInternal(const QModelIndex &idx,
-                                            const QVariant &   value)
+                                            const QVariant    &value)
 {
     if(value == Qt::Checked)
     {

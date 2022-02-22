@@ -89,7 +89,7 @@ void TestJobsTabWidget::jobDetailsWidget()
 
 void TestJobsTabWidget::defaultJobs()
 {
-    JobsTabWidget *    jobstabwidget = new JobsTabWidget();
+    JobsTabWidget     *jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget *ui            = jobstabwidget->_ui;
     QSignalSpy         sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
 
@@ -109,9 +109,9 @@ void TestJobsTabWidget::defaultJobs()
 
 void TestJobsTabWidget::createJob()
 {
-    JobsTabWidget *       jobstabwidget = new JobsTabWidget();
-    Ui::JobsTabWidget *   ui            = jobstabwidget->_ui;
-    JobDetailsWidget *    jobWidget     = jobstabwidget->_ui->jobDetailsWidget;
+    JobsTabWidget        *jobstabwidget = new JobsTabWidget();
+    Ui::JobsTabWidget    *ui            = jobstabwidget->_ui;
+    JobDetailsWidget     *jobWidget     = jobstabwidget->_ui->jobDetailsWidget;
     Ui::JobDetailsWidget *jobWidget_ui  = jobWidget->_ui;
     QSignalSpy            sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
 
@@ -155,11 +155,11 @@ void TestJobsTabWidget::createJob()
 
 void TestJobsTabWidget::displayJobDetails()
 {
-    JobsTabWidget *    jobstabwidget = new JobsTabWidget();
+    JobsTabWidget     *jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget *ui            = jobstabwidget->_ui;
     QSignalSpy         sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
     QSignalSpy         sig_backupNow(jobstabwidget,
-                             SIGNAL(backupNow(BackupTaskDataPtr)));
+                                     SIGNAL(backupNow(BackupTaskDataPtr)));
 
     VISUAL_INIT(jobstabwidget);
 
@@ -191,7 +191,7 @@ void TestJobsTabWidget::displayJobDetails()
 
 void TestJobsTabWidget::jobListWidget()
 {
-    JobsTabWidget *    jobstabwidget = new JobsTabWidget();
+    JobsTabWidget     *jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget *ui            = jobstabwidget->_ui;
     QSignalSpy         sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
     QSignalSpy sig_deleteJob(jobstabwidget, SIGNAL(deleteJob(JobPtr, bool)));

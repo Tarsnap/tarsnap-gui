@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 
 // Initialize static members
 QSettings *TSettings::_settings      = nullptr;
-QString *  TSettings::_filename_next = nullptr;
+QString   *TSettings::_filename_next = nullptr;
 
 void TSettings::setFilename(const QString &filename)
 {

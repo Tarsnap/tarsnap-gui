@@ -108,7 +108,7 @@ void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
                             SIGNAL(registerMachineRequested(QString, QString,
                                                             bool)));
 
-    Ui::CliPage *     ui_cli;
+    Ui::CliPage      *ui_cli;
     Ui::RegisterPage *ui_register;
 
     VISUAL_INIT(wizard);

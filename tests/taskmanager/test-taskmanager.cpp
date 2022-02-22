@@ -65,7 +65,7 @@ void TestTaskManager::initTestCase()
     // This is to "warm up" the command-line tasks.
     TaskManager *manager = new TaskManager();
     QSignalSpy   sig_ver(manager,
-                       SIGNAL(tarsnapVersionFound(TaskStatus, QString)));
+                         SIGNAL(tarsnapVersionFound(TaskStatus, QString)));
     manager->tarsnapVersionFind();
 
     // Wait for task to finish
@@ -97,7 +97,7 @@ void TestTaskManager::get_version()
 
     TaskManager *manager = new TaskManager();
     QSignalSpy   sig_ver(manager,
-                       SIGNAL(tarsnapVersionFound(TaskStatus, QString)));
+                         SIGNAL(tarsnapVersionFound(TaskStatus, QString)));
     QString      ver_str;
 
     // We start off with no version signal.
@@ -138,7 +138,7 @@ void TestTaskManager::fail_registerMachine_command_not_found()
 {
     TaskManager *manager = new TaskManager();
     QSignalSpy   sig_reg(manager,
-                       SIGNAL(registerMachineDone(TaskStatus, QString)));
+                         SIGNAL(registerMachineDone(TaskStatus, QString)));
     QVariantList response;
     TaskStatus   status;
     QString      reason;
@@ -169,7 +169,7 @@ void TestTaskManager::fail_registerMachine_empty_key()
 
     TaskManager *manager = new TaskManager();
     QSignalSpy   sig_reg(manager,
-                       SIGNAL(registerMachineDone(TaskStatus, QString)));
+                         SIGNAL(registerMachineDone(TaskStatus, QString)));
     QVariantList response;
     TaskStatus   status;
     QString      reason;
@@ -350,7 +350,7 @@ void TestTaskManager::exclusive()
         QSKIP("max 1 thread");
 
     // Set up the manager.
-    TaskManager *   manager = new TaskManager();
+    TaskManager    *manager = new TaskManager();
     QSignalSpy      sig_numTasks(manager, SIGNAL(numTasks(bool, int, int)));
     QSignalSpy      sig_message(manager, SIGNAL(message(QString, QString)));
     QList<QVariant> numTasks;
@@ -452,7 +452,7 @@ static int grep_file(const char *const filename, const char *const str)
 void TestTaskManager::tarsnapVersion_fake()
 {
     TaskManager *manager = new TaskManager();
-    const char * logfilename;
+    const char  *logfilename;
 
     // Initialize log file.
     LOG.setWriteToFile(true);
@@ -473,7 +473,7 @@ void TestTaskManager::tarsnapVersion_fake()
 void TestTaskManager::registerMachine_fake()
 {
     TaskManager *manager = new TaskManager();
-    const char * logfilename;
+    const char  *logfilename;
 
     // Sanity test: we shouldn't have this (extra) file in the directory.
     Q_ASSERT(!QFile::exists("keyfile"));
@@ -535,7 +535,7 @@ void TestTaskManager::registerMachine_fake()
 void TestTaskManager::backup_fake()
 {
     TaskManager *manager = new TaskManager();
-    const char * logfilename;
+    const char  *logfilename;
     QSignalSpy   sig_numTasks(manager, SIGNAL(numTasks(bool, int, int)));
 
     QList<QVariant> numTasks;
@@ -592,7 +592,7 @@ void TestTaskManager::backup_interrupt_fake()
     TARSNAP_CLI_OR_SKIP;
 
     TaskManager *manager = new TaskManager();
-    const char * logfilename;
+    const char  *logfilename;
     QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
     QSignalSpy   sig_numTasks(manager, SIGNAL(numTasks(bool, int, int)));
     QVariant     msg;

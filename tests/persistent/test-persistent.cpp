@@ -147,7 +147,7 @@ void TestPersistent::journal_write()
 void TestPersistent::journal_read()
 {
     // Prep
-    Journal *  journal = new Journal();
+    Journal   *journal = new Journal();
     QSignalSpy sig_journal(journal, SIGNAL(journal(QVector<LogEntry>)));
     journal->load();
 
@@ -169,7 +169,7 @@ void TestPersistent::journal_read()
 void TestPersistent::journal_purge()
 {
     // Prep
-    Journal *  journal = new Journal();
+    Journal   *journal = new Journal();
     QSignalSpy sig_journal(journal, SIGNAL(journal(QVector<LogEntry>)));
     journal->load();
 
@@ -211,7 +211,7 @@ void TestPersistent::journal_year_2106()
     // Read date
     {
         // Prep
-        Journal *  journal = new Journal();
+        Journal   *journal = new Journal();
         QSignalSpy sig_journal(journal, SIGNAL(journal(QVector<LogEntry>)));
         journal->load();
 

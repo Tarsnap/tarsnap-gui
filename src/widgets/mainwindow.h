@@ -90,7 +90,7 @@ public slots:
 
     //! Handle a clicked notification message.
     void handle_notification_clicked(enum message_type type,
-                                     const QString &   data);
+                                     const QString    &data);
 
 signals:
     //! Begin tarsnap -c -f \<name\>
@@ -188,18 +188,18 @@ private slots:
 private:
     Ui::MainWindow *_ui;
     int             _minWidth;
-    QMenuBar *      _menuBar;
+    QMenuBar       *_menuBar;
     bool            _aboutToQuit;
     bool            _backupTaskRunning;
     int             _runningTasks;
     int             _queuedTasks;
 
-    StopTasksDialog *  _stopTasksDialog;
-    BackupTabWidget *  _backupTabWidget;
+    StopTasksDialog   *_stopTasksDialog;
+    BackupTabWidget   *_backupTabWidget;
     ArchivesTabWidget *_archivesTabWidget;
-    JobsTabWidget *    _jobsTabWidget;
-    SettingsWidget *   _settingsWidget;
-    HelpWidget *       _helpWidget;
+    JobsTabWidget     *_jobsTabWidget;
+    SettingsWidget    *_settingsWidget;
+    HelpWidget        *_helpWidget;
 
     //! Switch to displaying a specific tab.
     void displayTab(QWidget *widget);

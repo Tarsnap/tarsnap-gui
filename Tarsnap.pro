@@ -321,7 +321,7 @@ osx {
 
 format.commands = find src/ tests/ lib/core/ lib/widgets/ lib/plugins	\
 			-name \"*.h\" -or -name \"*.cpp\" |		\
-			xargs clang-format90 -i
+			xargs clang-format13 -i
 update_translations.commands = lupdate -locations none -no-obsolete Tarsnap.pro
 QMAKE_EXTRA_TARGETS += format update_translations
 

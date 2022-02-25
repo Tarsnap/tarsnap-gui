@@ -72,10 +72,6 @@ signals:
     //! this signal (which was enabled by \ref setMonitorOutput) will not be
     //! included in \ref finished.
     void outputStdout(const QString &msg);
-    //! The process has printed to stderr.  Any messages provided by
-    //! this signal (which was enabled by \ref setMonitorOutput) will not be
-    //! included in \ref finished.
-    void outputStderr(const QString &msg);
     //! Finished, crashed, or could not start running the QProcess.
     void finished(QVariant data, int exitCode, const QString &stdOut,
                   const QString &stdErr);
@@ -85,7 +81,6 @@ private slots:
     void processFinished(QProcess *process);
     void processError(QProcess *process);
     void gotStdout();
-    void gotStderr();
 
 private:
     // Housekeeping.

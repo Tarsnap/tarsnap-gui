@@ -88,13 +88,11 @@ void CmdlineTask::run()
         goto cleanup;
     }
 
-    // Read from stdout and stderr
+    // Read from stdout
     if(_monitorOutput)
     {
         connect(_process, &QProcess::readyReadStandardOutput, this,
                 &CmdlineTask::gotStdout);
-        connect(_process, &QProcess::readyReadStandardError, this,
-                &CmdlineTask::gotStderr);
     }
 
     // Start the _process, and wait for confirmation of it starting.
@@ -124,7 +122,6 @@ void CmdlineTask::run()
     if(_monitorOutput)
     {
         disconnect(_process, &QProcess::readyReadStandardOutput, this, nullptr);
-        disconnect(_process, &QProcess::readyReadStandardError, this, nullptr);
     }
 
     // Deal with the "finished" status
@@ -159,12 +156,8 @@ void CmdlineTask::stop()
 
 void CmdlineTask::gotStdout()
 {
+    Q_ASSERT(_process != nullptr);
     emit outputStdout(_process->readAllStandardOutput());
-}
-
-void CmdlineTask::gotStderr()
-{
-    emit outputStderr(_process->readAllStandardError());
 }
 
 void CmdlineTask::sigquit()

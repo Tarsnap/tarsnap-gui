@@ -56,8 +56,6 @@ void TestTask::cleanupTestCase()
         task->setMonitorOutput();                                              \
         connect(task, &CmdlineTask::outputStdout,                              \
                 [](const QString &msg) { qDebug() << msg; });                  \
-        connect(task, &CmdlineTask::outputStderr,                              \
-                [](const QString &msg) { qDebug() << msg; });                  \
     }                                                                          \
                                                                                \
     QSignalSpy sig_started(task, SIGNAL(started(QVariant)));                   \

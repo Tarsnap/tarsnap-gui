@@ -476,7 +476,7 @@ void TestTaskManager::registerMachine_fake()
     const char  *logfilename;
 
     // Sanity test: we shouldn't have this (extra) file in the directory.
-    Q_ASSERT(!QFile::exists("keyfile"));
+    QVERIFY(!QFile::exists("keyfile"));
 
     // Initialize log file.
     LOG.setWriteToFile(true);
@@ -541,7 +541,7 @@ void TestTaskManager::backup_fake()
     QList<QVariant> numTasks;
 
     // Sanity test: we shouldn't have this (extra) file in the directory.
-    Q_ASSERT(!QFile::exists("keyfile"));
+    QVERIFY(!QFile::exists("keyfile"));
 
     // Initialize log file.
     LOG.setWriteToFile(true);
@@ -600,7 +600,7 @@ void TestTaskManager::backup_interrupt_fake()
     QList<QVariant> numTasks;
 
     // Sanity test: we shouldn't have this (extra) file in the directory.
-    Q_ASSERT(!QFile::exists("keyfile"));
+    QVERIFY(!QFile::exists("keyfile"));
 
     // Initialize log file.
     LOG.setWriteToFile(true);

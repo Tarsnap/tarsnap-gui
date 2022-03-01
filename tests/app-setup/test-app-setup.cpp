@@ -77,12 +77,12 @@ static void run_normal_setup(AppSetup *setup)
     QString tarsnapPath = cliDirMessage.dirname;
 
     // Intro page
-    Q_ASSERT(wizard->pageTitle() == "Setup wizard");
+    QCOMPARE(wizard->pageTitle(), QStringLiteral("Setup wizard"));
     VISUAL_WAIT;
     GET_BUTTON(NextButton)->click();
 
     // CLI page
-    Q_ASSERT(wizard->pageTitle() == "Command-line utilities");
+    QCOMPARE(wizard->pageTitle(), QStringLiteral("Command-line utilities"));
     GET_UI_PAGE(ui_cli, CliPage);
     VISUAL_WAIT;
 
@@ -101,7 +101,7 @@ static void run_normal_setup(AppSetup *setup)
     GET_BUTTON(NextButton)->click();
 
     // Register page
-    Q_ASSERT(wizard->pageTitle() == "Register with server");
+    QCOMPARE(wizard->pageTitle(), QStringLiteral("Register with server"));
     GET_UI_PAGE(ui_register, RegisterPage);
     setup->fakeNextTask();
     ui_register->tarsnapUserLineEdit->setText("email@example.org");
@@ -109,7 +109,7 @@ static void run_normal_setup(AppSetup *setup)
     VISUAL_WAIT;
 
     // Add an extra check here so that we can debug any "Next button" failure.
-    Q_ASSERT(GET_BUTTON(NextButton)->isEnabled() == true);
+    QCOMPARE(GET_BUTTON(NextButton)->isEnabled(), true);
     GET_BUTTON(NextButton)->click();
 
     // Wait for the "Register machine" process (with Qt::QueuedConnection) to
@@ -117,7 +117,7 @@ static void run_normal_setup(AppSetup *setup)
     setup->waitUntilIdle();
 
     // Final page
-    Q_ASSERT(wizard->pageTitle() == "Setup complete!");
+    QCOMPARE(wizard->pageTitle(), QStringLiteral("Setup complete!"));
     VISUAL_WAIT;
     GET_BUTTON(FinishButton)->click();
 
@@ -154,7 +154,7 @@ static void setup(int argc, char *argv[], void(runner)(AppSetup *setup),
             int ret = app.exec();
 
             // Check result.
-            Q_ASSERT(ret == expected_ret);
+            QCOMPARE(ret, expected_ret);
         }
     }
 

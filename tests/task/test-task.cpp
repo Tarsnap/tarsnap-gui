@@ -29,6 +29,7 @@ private slots:
     void sleep_ok();
     void sleep_monitor();
     void sleep_fail();
+    void sleep_fail_stderr();
     void sleep_crash();
     void sleep_filenotfound();
     void cmd_filenotfound();
@@ -92,6 +93,16 @@ void TestTask::sleep_fail()
     // We got a "finished" signal, with exit code 1.
     QVERIFY(sig_fin.count() == 1);
     QVERIFY(sig_fin.takeFirst().at(1).toInt() == 1);
+}
+
+void TestTask::sleep_fail_stderr()
+{
+    RUN_SCRIPT("sleep-1-exit-1-stderr.sh", false);
+    // We got a "finished" signal, with exit code 1, and text on stderr.
+    QVERIFY(sig_fin.count() == 1);
+    QList<QVariant> result = sig_fin.takeFirst();
+    QVERIFY(result.at(1).toInt() == 1);
+    QVERIFY(result.at(3).toString() == "text on stderr");
 }
 
 void TestTask::sleep_crash()

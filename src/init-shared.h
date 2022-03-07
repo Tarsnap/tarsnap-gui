@@ -50,6 +50,6 @@ bool init_shared_need_setup();
 /**
  * Free resources allocated in the init layer.
  */
-void init_shared_free(void);
+void init_shared_free();
 
 #endif

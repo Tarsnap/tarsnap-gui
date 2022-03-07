@@ -319,7 +319,7 @@ QList<struct init_info> init_shared(const QString &configDir)
     return (steps);
 }
 
-void init_shared_free(void)
+void init_shared_free()
 {
     // Destroy objects in reverse order from their creation.
     PersistentStore::destroy();

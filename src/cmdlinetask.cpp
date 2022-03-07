@@ -200,9 +200,9 @@ void CmdlineTask::setArguments(const QStringList &arguments)
     _arguments = arguments;
 }
 
-void CmdlineTask::setStdIn(const QString &standardIn)
+void CmdlineTask::setStdIn(const QString &stdIn)
 {
-    _stdIn = QByteArray(standardIn.toUtf8());
+    _stdIn = QByteArray(stdIn.toUtf8());
 }
 
 void CmdlineTask::setStdOutFile(const QString &fileName)

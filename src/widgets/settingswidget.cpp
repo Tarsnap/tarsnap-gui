@@ -659,8 +659,8 @@ void SettingsWidget::clearJournalClicked()
         emit clearJournal();
 }
 
-void SettingsWidget::updateNumTasks(int runningTasks, int queuedTasks)
+void SettingsWidget::updateNumTasks(int numRunning, int numQueued)
 {
-    _runningTasks = runningTasks;
-    _queuedTasks  = queuedTasks;
+    _runningTasks = numRunning;
+    _queuedTasks  = numQueued;
 }

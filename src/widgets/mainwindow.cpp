@@ -655,22 +655,22 @@ void MainWindow::createNewJob(const QList<QUrl> &urls, const QString &name)
     _jobsTabWidget->createNewJob(urls, name);
 }
 
-void MainWindow::updateNumTasks(bool backupRunning, int runningTasks,
-                                int queuedTasks)
+void MainWindow::updateNumTasks(bool backupRunning, int numRunning,
+                                int numQueued)
 {
     if(_stopTasksDialog->isVisible())
-        _stopTasksDialog->updateTasks(backupRunning, runningTasks, queuedTasks);
+        _stopTasksDialog->updateTasks(backupRunning, numRunning, numQueued);
 
     // Display whether we're active or not.
-    bool idle = (runningTasks == 0);
+    bool idle = (numRunning == 0);
     _ui->statusBarWidget->showBusy(!idle);
 
     _backupTaskRunning = backupRunning;
 
-    _runningTasks = runningTasks;
-    _queuedTasks  = queuedTasks;
+    _runningTasks = numRunning;
+    _queuedTasks  = numQueued;
 
-    _settingsWidget->updateNumTasks(runningTasks, queuedTasks);
+    _settingsWidget->updateNumTasks(numRunning, numQueued);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.

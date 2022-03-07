@@ -76,7 +76,7 @@ void TestPersistent::cleanupTestCase()
 
 void TestPersistent::store_basic()
 {
-    int ok = global_store->init();
+    bool ok = global_store->init();
     QVERIFY(ok);
 }
 
@@ -130,7 +130,7 @@ void TestPersistent::store_purge()
 void TestPersistent::journal_write()
 {
     // Initialize the store
-    int ok = global_store->init();
+    bool ok = global_store->init();
     QVERIFY(ok);
 
     // Prep
@@ -232,7 +232,7 @@ void TestPersistent::journal_year_2106()
 void TestPersistent::archive_write()
 {
     // Initialize the store
-    int ok = global_store->initialized();
+    bool ok = global_store->initialized();
     QVERIFY(ok);
 
     // Prep
@@ -249,7 +249,7 @@ void TestPersistent::archive_write()
 void TestPersistent::archive_read()
 {
     // Initialize the store
-    int ok = global_store->initialized();
+    bool ok = global_store->initialized();
     QVERIFY(ok);
 
     // Make a query
@@ -273,7 +273,7 @@ void TestPersistent::archive_read()
 void TestPersistent::job_write()
 {
     // Initialize the store
-    int ok = global_store->initialized();
+    bool ok = global_store->initialized();
     QVERIFY(ok);
 
     // Prep
@@ -290,7 +290,7 @@ void TestPersistent::job_write()
 void TestPersistent::job_read()
 {
     // Initialize the store
-    int ok = global_store->initialized();
+    bool ok = global_store->initialized();
     QVERIFY(ok);
 
     // Make a query

@@ -86,7 +86,7 @@ void TestMainWindow::initTestCase()
 
     // Deal with PersistentStore
     PersistentStore::initializePersistentStore();
-    int ok = global_store->init();
+    bool ok = global_store->init();
     QVERIFY(ok);
 }
 

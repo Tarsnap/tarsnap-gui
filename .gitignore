@@ -15,3 +15,5 @@ docs
 build/
 # test files
 valgrind-full.log
+# devel stuff
+devel-tools/

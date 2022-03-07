@@ -131,7 +131,7 @@ static void setup(int argc, char *argv[], void(runner)(AppSetup *setup),
 
     // Parse command-line arguments.
     if((opt = optparse_parse(argc, argv)) == nullptr)
-        QVERIFY(opt != nullptr);
+        QFAIL("optparse_parse");
 
     // This scope is how we do it in main.cpp.
     {

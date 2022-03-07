@@ -194,9 +194,6 @@ private:
     bool waitForOnline();
     void warnNotOnline();
 
-    void setupTaskQueuer();
-    void setupBackendData();
-
     TaskQueuer *_tq;
 
     BackendData *_bd;

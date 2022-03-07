@@ -38,9 +38,11 @@ WARNINGS_ENABLE
 
 Q_DECLARE_METATYPE(CmdlineTask *)
 
-TaskManager::TaskManager() : QObject(), _bd(new BackendData())
+TaskManager::TaskManager() : _tq(new TaskQueuer()), _bd(new BackendData())
 {
-    setupTaskQueuer();
+    // Set up TaskQueuer
+    connect(_tq, &TaskQueuer::numTasks, this, &TaskManager::numTasks);
+    connect(_tq, &TaskQueuer::message, this, &TaskManager::message);
 }
 
 TaskManager::~TaskManager()
@@ -49,13 +51,6 @@ TaskManager::~TaskManager()
     delete _tq;
     // Wait up to 1 second to delete objects scheduled with ->deleteLater()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
-}
-
-void TaskManager::setupTaskQueuer()
-{
-    _tq = new TaskQueuer();
-    connect(_tq, &TaskQueuer::numTasks, this, &TaskManager::numTasks);
-    connect(_tq, &TaskQueuer::message, this, &TaskManager::message);
 }
 
 void TaskManager::tarsnapVersionFind()

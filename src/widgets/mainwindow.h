@@ -160,7 +160,7 @@ signals:
 
 protected:
     //! Draw the Tarsnap logo in the top-right corner.
-    void paintEvent(QPaintEvent *) override;
+    void paintEvent(QPaintEvent *event) override;
     //! Handles the escape key; passes other events on.
     void keyPressEvent(QKeyEvent *event) override;
     //! Start checking whether there are running tasks.

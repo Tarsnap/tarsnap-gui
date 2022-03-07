@@ -284,8 +284,9 @@ void MainWindow::backupTabValidStatus(bool valid)
     _ui->actionBackupMorphIntoJob->setEnabled(valid);
 }
 
-void MainWindow::paintEvent(QPaintEvent *)
+void MainWindow::paintEvent(QPaintEvent *event)
 {
+    (void)event; /* UNUSED */
     QStyleOption opt;
     opt.init(this);
     QPainter p(this);

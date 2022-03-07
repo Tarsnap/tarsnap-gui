@@ -264,7 +264,7 @@ void BackupListWidget::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
         recomputeListTotals();
-    QWidget::changeEvent(event);
+    QFrame::changeEvent(event);
 }
 
 void BackupListWidget::updateIEC()

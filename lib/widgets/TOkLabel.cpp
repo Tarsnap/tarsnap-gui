@@ -17,7 +17,7 @@ void TOkLabel::changeEvent(QEvent *event)
     if(event->type() == QEvent::LanguageChange)
         setStatus(_status);
     else
-        QWidget::changeEvent(event);
+        QLabel::changeEvent(event);
 }
 
 int TOkLabel::status() const

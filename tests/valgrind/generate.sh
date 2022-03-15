@@ -23,7 +23,7 @@ XDGD="/tmp/tarsnap-gui-test/valgrind"
 DEBUG=0
 
 ### Find script directory.
-scriptdir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+scriptdir=$(CDPATH="" cd -- "$(dirname -- "$0")" && pwd -P)
 
 # Variables for valgrind use.
 valgrind_suppressions="${scriptdir}/valgrind.supp"
@@ -52,7 +52,7 @@ generate_supp() {
 		if [ -z "${func}" ]; then
 			printf "\t(no args)\n"
 		else
-			printf "\t${func}\n"
+			printf "\t%s\n" "${func}"
 		fi
 	fi
 
@@ -62,21 +62,23 @@ generate_supp() {
 	valgrind_cmd_this="${valgrind_cmd} --log-file=${valgrind_log_this}"
 
 	# Write name to the suppressions file.
-	printf "# ${testdir} ${func}\n" > "${valgrind_suppressions_this}"
+	printf "# %s %s\n" "${testdir}" "${func}"			\
+		> "${valgrind_suppressions_this}"
 
 	# Generate suppressions arising from the specific function.
-	env ${envvar} ${valgrind_cmd_this} ${run_cmd} ${func} > /dev/null
+	# shellcheck disable=SC2086
+	env ${envvar} ${valgrind_cmd_this} ${cmd} ${func} > /dev/null
 
 	# Strip out useless parts from the log file and remove it.
-	(grep -v "^==" ${valgrind_log_this}				\
+	(grep -v "^==" "${valgrind_log_this}"				\
 		| grep -v "^--"						\
 		>> "${valgrind_suppressions_this}" ) || true
 
 	# Strip out removing references to the main and constructors so that
 	# the suppressions can apply to other binaries.  Append to suppressions
 	# file.
-	${scriptdir}/supp-generalize.py ${valgrind_suppressions_this}	\
-		${valgrind_suppressions}
+	"${scriptdir}/supp-generalize.py"				\
+		"${valgrind_suppressions_this}" "${valgrind_suppressions}"
 
 	# Clean up
 	if [ ! "$DEBUG" -eq 1 ]; then
@@ -90,7 +92,7 @@ generate_supp_with_funcs() {
 	generate_supp "${run_cmd}" "pl_nothing"
 
 	# Make suppressions for each function.
-	${run_cmd} | while read func; do				\
+	${run_cmd} | while read -r func; do				\
 		if [ "z${func}" = "zpl_nothing" ]; then
 			continue
 		fi
@@ -109,7 +111,7 @@ generate_supp_for_qtest() {
 	# which was handled above).
 	${run_cmd} -functions					\
 	    | sed 's/()//g'					\
-	    | while read func; do				\
+	    | while read -r func; do				\
 		if [ "z${func}" = "zpl_nothing" ]; then
 			continue
 		fi
@@ -122,7 +124,7 @@ generate_supp_for_qtest() {
 
 generate_supp_from_dir() {
 	testdir=$1
-	cd ${testdir}
+	cd "${testdir}"
 
 	# Ensure it's built.
 	qmake
@@ -145,27 +147,27 @@ generate_supp_from_dir() {
 
 # Clear existing debug suppressions.
 if [ "$DEBUG" -eq 1 ]; then
-	rm -f ${valgrind_suppressions}.debug
+	rm -f "${valgrind_suppressions}.debug"
 fi
 
 # Create XDG dir (if necessary)
-mkdir -p ${XDGD}
+mkdir -p "${XDGD}"
 
 # If the suppressions already exist, indicate that this is a retest.
 # (This may be useful while investigating occasional memory leaks.)
-if [ -e ${valgrind_suppressions} ]; then
-	printf "### RETEST\n" >> ${valgrind_suppressions}
+if [ -e "${valgrind_suppressions}" ]; then
+	printf "### RETEST\n" >> "${valgrind_suppressions}"
 else
-	touch ${valgrind_suppressions}
+	touch "${valgrind_suppressions}"
 fi
 
 # Generate suppressions for each directory.
 for dirn in ${DIRS}; do
-	printf "${dirn}\n"
-	generate_supp_from_dir ${dirn}
+	printf "%s\n" "${dirn}"
+	generate_supp_from_dir "${dirn}"
 done
 
 # Print stats about each type of suppression.
 printf "\n"
-grep -n "^# " ${valgrind_suppressions}
-printf "$(wc -l ${valgrind_suppressions})\n"
+grep -n "^# " "${valgrind_suppressions}"
+printf "%s\n" "$(wc -l "${valgrind_suppressions}")"

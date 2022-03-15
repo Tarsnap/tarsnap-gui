@@ -17,7 +17,7 @@ VALGRINDS="${VALGRINDS} jobstabwidget mainwindow"
 check_dir() {
 	dirname=$1
 
-	cd $D
+	cd "$D"
 	make -j3 test_valgrind
 
 	# Extra check for "still reachable", which doesn't produce an error code
@@ -28,7 +28,7 @@ check_dir() {
 	set -e
 	if [ -n "${reachable_prob}" ]; then
 		reachable_short=$(echo "${reachable_prob}" | cut -d " " -f 2-)
-		printf "${dirname}:\t${reachable_short}\n"
+		printf "%s:\t%s\n" "${dirname}" "${reachable_short}"
 		exit 1
 	fi
 	cd ..
@@ -36,5 +36,5 @@ check_dir() {
 
 # Run tests
 for D in $VALGRINDS; do
-	check_dir $D
+	check_dir "$D"
 done

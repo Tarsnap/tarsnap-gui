@@ -6,9 +6,10 @@ set -e -o nounset
 # Yes, repeat the "console-plain-network" test to try to catch all the
 # occasional memleaks.  :(
 DIRS_C=""
-DIRS_C="${DIRS_C} minimal simple network"
-DIRS_C="${DIRS_C} qtest-minimal"
-DIRS_C="${DIRS_C} network"
+DIRS_C="${DIRS_C} console-plain-minimal console-plain-simple"
+DIRS_C="${DIRS_C} console-plain-network"
+DIRS_C="${DIRS_C} console-qtest-minimal"
+DIRS_C="${DIRS_C} console-plain-network"
 DIRS_G=""
 DIRS_G="${DIRS_G} qtest-gui-minimal qtest-gui-simple"
 DIRS_G="${DIRS_G} qtest-gui-lineedit"

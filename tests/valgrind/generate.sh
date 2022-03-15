@@ -3,19 +3,25 @@
 set -e -o nounset
 
 # Ordered list of directories to run.
-# Yes, repeat the "network" test to try to catch all the variable memleaks.  :(
-DIRS=""
-DIRS="${DIRS} minimal simple network"
-DIRS="${DIRS} qtest-minimal"
-DIRS="${DIRS} network"
-DIRS="${DIRS} qtest-gui-minimal qtest-gui-simple"
-DIRS="${DIRS} network"
-DIRS="${DIRS} qtest-gui-lineedit"
-DIRS="${DIRS} qtest-gui-network"
-DIRS="${DIRS} qtest-gui-complex"
-DIRS="${DIRS} qtest-gui-weird"
-DIRS="${DIRS} gui-simple"
-DIRS="${DIRS} gui-network"
+# Yes, repeat the "console-plain-network" test to try to catch all the
+# occasional memleaks.  :(
+DIRS_C=""
+DIRS_C="${DIRS_C} minimal simple network"
+DIRS_C="${DIRS_C} qtest-minimal"
+DIRS_C="${DIRS_C} network"
+DIRS_G=""
+DIRS_G="${DIRS_G} qtest-gui-minimal qtest-gui-simple"
+DIRS_G="${DIRS_G} qtest-gui-lineedit"
+DIRS_G="${DIRS_G} qtest-gui-network"
+DIRS_G="${DIRS_G} qtest-gui-complex"
+DIRS_G="${DIRS_G} qtest-gui-weird"
+DIRS_G="${DIRS_G} gui-simple"
+DIRS_G="${DIRS_G} gui-network"
+if [ "${VALGRIND_ONLY_CONSOLE:-0}" -gt "0" ] ; then
+	DIRS="${DIRS_C}"
+else
+	DIRS="${DIRS_C} ${DIRS_G}"
+fi
 
 # XDG directory
 XDGD="/tmp/tarsnap-gui-test/valgrind"

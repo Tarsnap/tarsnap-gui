@@ -3,16 +3,24 @@
 set -e
 
 # Command-line
-VALGRINDS=""
-VALGRINDS="app-cmdline core cli consolelog persistent task taskmanager"
+DIRS_C=""
+DIRS_C="${DIRS_C} core consolelog"
+DIRS_C="${DIRS_C} task taskmanager persistent"
+DIRS_C="${DIRS_C} app-cmdline cli"
 
 # Gui
-VALGRINDS="${VALGRINDS} lib-widgets"
-VALGRINDS="${VALGRINDS} customfilesystemmodel small-widgets setupwizard"
-VALGRINDS="${VALGRINDS} backuptabwidget settingswidget"
-VALGRINDS="${VALGRINDS} archivestabwidget app-setup"
-VALGRINDS="${VALGRINDS} translations helpwidget"
-VALGRINDS="${VALGRINDS} jobstabwidget mainwindow"
+DIRS_G="${DIRS_G} lib-widgets"
+DIRS_G="${DIRS_G} customfilesystemmodel small-widgets setupwizard"
+DIRS_G="${DIRS_G} backuptabwidget settingswidget"
+DIRS_G="${DIRS_G} archivestabwidget app-setup"
+DIRS_G="${DIRS_G} translations helpwidget"
+DIRS_G="${DIRS_G} jobstabwidget mainwindow"
+
+if [ "${VALGRIND_ONLY_CONSOLE:-0}" -gt "0" ] ; then
+	DIRS="${DIRS_C}"
+else
+	DIRS="${DIRS_C} ${DIRS_G}"
+fi
 
 check_dir() {
 	dirname=$1
@@ -35,6 +43,6 @@ check_dir() {
 }
 
 # Run tests
-for D in $VALGRINDS; do
+for D in $DIRS; do
 	check_dir "$D"
 done

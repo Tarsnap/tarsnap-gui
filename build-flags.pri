@@ -1,3 +1,19 @@
+# Treat Qt headers as system headers
+QMAKE_CXXFLAGS += -isystem $$shell_quote($$[QT_INSTALL_HEADERS])
+for(module, QT) {
+    equals(module, "testlib") {
+        QMAKE_CXXFLAGS += \
+            -isystem $$shell_quote($$[QT_INSTALL_HEADERS]/QtTest)
+    } else {
+        # Capitalize a first letter, result: -isystem .../include/QtCore
+        moduleList = $$split(module, )
+        QMAKE_CXXFLAGS += \
+            -isystem $$shell_quote($$[QT_INSTALL_HEADERS]/Qt$$upper(\
+                     $$take_first(moduleList))$$join(moduleList, ))
+    }
+}
+unset(moduleList)
+
 # Pick up extra flags from the environment
 QMAKE_CXXFLAGS += $$(CXXFLAGS)
 QMAKE_CFLAGS += $$(CFLAGS)

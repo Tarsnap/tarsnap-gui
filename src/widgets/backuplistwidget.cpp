@@ -181,8 +181,7 @@ void BackupListWidget::removeItems()
         // attempt to remove the sender
         BackupListWidgetItem *backupItem =
             qobject_cast<BackupListWidgetItem *>(sender());
-        if(backupItem)
-            delete backupItem;
+        delete backupItem;
     }
     else
     {

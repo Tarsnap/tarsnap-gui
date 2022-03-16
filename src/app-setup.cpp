@@ -29,10 +29,8 @@ AppSetup::AppSetup(int &argc, char **argv)
 
 AppSetup::~AppSetup()
 {
-    if(_wizard != nullptr)
-        delete _wizard;
-    if(_taskManager != nullptr)
-        delete _taskManager;
+    delete _wizard;
+    delete _taskManager;
     Translator::destroy();
 }
 

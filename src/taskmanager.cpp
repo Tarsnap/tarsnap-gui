@@ -403,8 +403,7 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
             err = stdErr;
 
         // Clean up second task (if applicable).
-        if(nextTask != nullptr)
-            delete nextTask;
+        delete nextTask;
 
         // We're done.
         emit registerMachineDone(TaskStatus::Failed, err);

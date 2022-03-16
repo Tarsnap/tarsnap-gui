@@ -52,10 +52,8 @@ AppGui::AppGui(int &argc, char **argv, struct optparse *opt)
 
 AppGui::~AppGui()
 {
-    if(_mainWindow)
-        delete _mainWindow;
-    if(_journal)
-        delete _journal;
+    delete _mainWindow;
+    delete _journal;
     delete _taskManager;
     delete _notification;
     Translator::destroy();

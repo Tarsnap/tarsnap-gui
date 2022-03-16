@@ -186,7 +186,7 @@ bool Archive::doesKeyExist(const QString &key)
     return false;
 }
 
-QString Archive::archiveStats()
+QString Archive::archiveStats() const
 {
     QString stats;
     if((_sizeTotal == 0) || (_sizeUniqueCompressed == 0))

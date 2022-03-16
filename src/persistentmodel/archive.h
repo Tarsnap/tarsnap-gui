@@ -79,7 +79,7 @@ public:
 
 public slots:
     //! Returns statistics about this archive.
-    QString archiveStats();
+    QString archiveStats() const;
 
 signals:
     //! This item was saved.

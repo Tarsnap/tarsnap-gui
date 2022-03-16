@@ -71,7 +71,7 @@ void Job::setName(const QString &name)
     _name = name;
 }
 
-QString Job::archivePrefix()
+QString Job::archivePrefix() const
 {
     return JOB_NAME_PREFIX + name();
 }

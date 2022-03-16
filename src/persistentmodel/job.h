@@ -45,7 +45,7 @@ public:
     explicit Job(QObject *parent = nullptr);
 
     //! Returns JOB_NAME_PREFIX + job name.
-    QString archivePrefix();
+    QString archivePrefix() const;
 
     //! Checks that each file listed in the Job exists.
     bool validateUrls();

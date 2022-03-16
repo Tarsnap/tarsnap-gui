@@ -70,7 +70,7 @@ SOURCES += test-jobstabwidget.cpp			\
 	../../src/widgets/jobwidget.cpp			\
 	../../src/widgets/restoredialog.cpp
 
-include(../tests-include.pro)
+include(../tests-include.pri)
 
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
 	cp confdir/* "$${TEST_HOME}/$${TARGET}"

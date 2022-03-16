@@ -56,4 +56,4 @@ SOURCES += test-archivestabwidget.cpp			\
 	../../src/widgets/restoredialog.cpp
 
 
-include(../tests-include.pro)
+include(../tests-include.pri)

@@ -27,7 +27,7 @@ RESOURCES +=						\
 	../../lib/resources/lib-resources.qrc		\
 	../../resources/resources.qrc
 
-include(../tests-include.pro)
+include(../tests-include.pri)
 
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
 	touch "$${TEST_HOME}/$${TARGET}/empty-file"

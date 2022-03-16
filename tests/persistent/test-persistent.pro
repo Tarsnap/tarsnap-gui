@@ -26,7 +26,7 @@ SOURCES += test-persistent.cpp				\
 	../../src/persistentmodel/persistentstore.cpp	\
 	../../src/persistentmodel/upgrade-store.cpp
 
-include(../tests-include.pro)
+include(../tests-include.pri)
 
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
 	cp -r confdir/* "$${TEST_HOME}/$${TARGET}"

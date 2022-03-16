@@ -12,7 +12,7 @@ SOURCES	+= test-cfsm.cpp				\
 	../../src/customfilesystemmodel.cpp		\
 	run-scenario.cpp
 
-include(../tests-include.pro)
+include(../tests-include.pri)
 
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
 	cp -r dirs/* "$${TEST_HOME}/$${TARGET}"

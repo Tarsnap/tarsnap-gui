@@ -55,4 +55,4 @@ SOURCES += test-backuptabwidget.cpp			\
 	../../src/widgets/filepickerwidget.cpp
 
 
-include(../tests-include.pro)
+include(../tests-include.pri)

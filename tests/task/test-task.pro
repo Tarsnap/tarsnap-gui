@@ -18,4 +18,4 @@ SOURCES += test-task.cpp				\
 	../../src/cmdlinetask.cpp			\
 	../../src/tasks/tasks-utils.cpp
 
-include(../tests-include.pro)
+include(../tests-include.pri)

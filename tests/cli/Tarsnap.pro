@@ -89,7 +89,7 @@ TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
 
 
 # Include shared settings, but then undo some of them
-include(../tests-include.pro)
+include(../tests-include.pri)
 QT -= testlib
 CONFIG -= debug
 UI_DIR      = ../../build/cli/

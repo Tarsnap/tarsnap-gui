@@ -38,7 +38,7 @@ SOURCES += test-settingswidget.cpp			\
 	../../src/widgets/settingswidget.cpp		\
 	../../src/widgets/tarsnapaccountdialog.cpp
 
-include(../tests-include.pro)
+include(../tests-include.pri)
 
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
 	cp confdir/* "$${TEST_HOME}/$${TARGET}"

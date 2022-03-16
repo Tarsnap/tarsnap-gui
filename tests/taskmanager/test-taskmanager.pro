@@ -58,7 +58,7 @@ SOURCES += test-taskmanager.cpp				\
 	../../src/tasks/tasks-tarsnap.cpp		\
 	../../src/tasks/tasks-utils.cpp
 
-include(../tests-include.pro)
+include(../tests-include.pri)
 
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
 	mkdir -p "$${TEST_HOME}/$${TARGET}/cachedir";			\

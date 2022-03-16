@@ -21,4 +21,4 @@ SOURCES += test-helpwidget.cpp				\
 	../../lib/widgets/TTextView.cpp			\
 	../../src/widgets/helpwidget.cpp
 
-include(../tests-include.pro)
+include(../tests-include.pri)

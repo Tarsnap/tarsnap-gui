@@ -32,4 +32,4 @@ SOURCES += test-lib-widgets.cpp				\
 	../../lib/widgets/TWizard.cpp			\
 	../../lib/widgets/TWizardPage.cpp
 
-include(../tests-include.pro)
+include(../tests-include.pri)

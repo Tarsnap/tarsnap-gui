@@ -65,7 +65,7 @@ RESOURCES += ../../resources/resources-lite.qrc
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts \
                resources/translations/tarsnap-gui_ro.ts
 
-include(../tests-include.pro)
+include(../tests-include.pri)
 
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
 	cp confdir/test-app-cmdline.conf "$${TEST_HOME}/$${TARGET}"

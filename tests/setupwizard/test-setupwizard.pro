@@ -54,4 +54,4 @@ RESOURCES +=						\
 	../../lib/resources/lib-resources.qrc		\
 	../../resources/resources.qrc
 
-include(../tests-include.pro)
+include(../tests-include.pri)

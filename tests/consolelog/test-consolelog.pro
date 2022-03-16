@@ -11,7 +11,7 @@ SOURCES += test-consolelog.cpp				\
 	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp
 
-include(../tests-include.pro)
+include(../tests-include.pri)
 
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
 	mkdir -p "$${TEST_HOME}/$${TARGET}/appdata";			\

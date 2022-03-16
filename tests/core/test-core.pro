@@ -9,7 +9,7 @@ HEADERS  +=						\
 SOURCES += test-core.cpp				\
 	../../lib/core/TSettings.cpp			\
 
-include(../tests-include.pro)
+include(../tests-include.pri)
 
 test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
 	cp confdir/*.conf "$${TEST_HOME}/$${TARGET}"

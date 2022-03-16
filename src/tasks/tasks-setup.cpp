@@ -25,7 +25,7 @@ CmdlineTask *tarsnapVersionTask()
     return (task);
 }
 
-const QString tarsnapVersionTaskParse(const QString &stdOut)
+QString tarsnapVersionTaskParse(const QString &stdOut)
 {
     QRegExp versionRx("^tarsnap (\\S+)\\s?$");
     if(-1 != versionRx.indexIn(stdOut))

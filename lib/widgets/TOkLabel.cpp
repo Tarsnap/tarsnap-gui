@@ -46,7 +46,7 @@ void TOkLabel::setStatus(int status)
     }
 }
 
-const QString TOkLabel::getRichText(int status)
+QString TOkLabel::getRichText(int status)
 {
     switch(status)
     {

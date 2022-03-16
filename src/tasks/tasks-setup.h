@@ -32,7 +32,7 @@ CmdlineTask *tarsnapVersionTask();
  *
  * \param stdOut standard output from `tarsnap --version`.
  */
-const QString tarsnapVersionTaskParse(const QString &stdOut);
+QString tarsnapVersionTaskParse(const QString &stdOut);
 
 /**
  * \brief Create a task for: `tarsnap-keygen`

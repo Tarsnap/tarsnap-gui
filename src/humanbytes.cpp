@@ -9,7 +9,7 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
-const QString humanBytes(quint64 bytes, int fieldWidth)
+QString humanBytes(quint64 bytes, int fieldWidth)
 {
     TSettings settings;
     bool      IEC  = settings.value("app/iec_prefixes", false).toBool();

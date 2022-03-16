@@ -47,7 +47,7 @@ public:
     void setStatus(int status);
 
     //! Get a rich text representation of a status.
-    static const QString getRichText(int status);
+    static QString getRichText(int status);
 
 protected:
     //! Handle translation change of language.

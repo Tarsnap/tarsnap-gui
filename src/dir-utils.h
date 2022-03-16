@@ -27,9 +27,9 @@ struct DirMessage findTarsnapClientInPath(const QString &path,
 QFileInfoList findKeysInPath(const QString &path);
 
 //! Return the reason why dirname is not valid, or empty string for success.
-const QString validate_writeable_dir(const QString &dirname);
+QString validate_writeable_dir(const QString &dirname);
 
 //! Return the reason why filename is not valid, or empty string for success.
-const QString validate_readable_file(const QString &filename);
+QString validate_readable_file(const QString &filename);
 
 #endif /* !DIR_UTILS_H */

@@ -12,7 +12,7 @@ WARNINGS_ENABLE
 
 #include "tasks/tasks-defs.h"
 
-const QString validate_writeable_dir(const QString &dirname)
+QString validate_writeable_dir(const QString &dirname)
 {
     if(dirname.isEmpty())
         return QCoreApplication::translate("dir-utils", "Path is empty.");
@@ -31,7 +31,7 @@ const QString validate_writeable_dir(const QString &dirname)
     return "";
 }
 
-const QString validate_readable_file(const QString &filename)
+QString validate_readable_file(const QString &filename)
 {
     if(filename.isEmpty())
         return QCoreApplication::translate("dir-utils", "Path is empty.");

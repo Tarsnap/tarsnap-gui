@@ -16,7 +16,7 @@ WARNINGS_ENABLE
 #define LOG_MAX_LENGTH 3072
 #define LOG_MAX_SEARCH_NL 1024
 
-static const QString quoteCommandLine(const QStringList &args)
+static QString quoteCommandLine(const QStringList &args)
 {
     QStringList escaped;
     QRegExp     rx("^[0-9a-z-A-Z/._-]*$");

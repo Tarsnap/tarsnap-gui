@@ -20,7 +20,7 @@ struct dirinfo
 };
 
 /* Forward declaration(s). */
-struct dirinfo getDirInfo(const QDir dir, QAtomicInt *stop_p);
+struct dirinfo getDirInfo(QDir dir, QAtomicInt *stop_p);
 
 DirInfoTask::DirInfoTask(QDir dir) : BaseTask(), _dir(dir)
 {

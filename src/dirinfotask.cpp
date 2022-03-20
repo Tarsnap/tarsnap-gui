@@ -22,7 +22,7 @@ struct dirinfo
 /* Forward declaration(s). */
 struct dirinfo getDirInfo(QDir dir, QAtomicInt *stop_p);
 
-DirInfoTask::DirInfoTask(QDir dir) : BaseTask(), _dir(dir)
+DirInfoTask::DirInfoTask(QDir dir) : _dir(dir)
 {
 }
 

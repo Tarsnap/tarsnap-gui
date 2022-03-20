@@ -5,7 +5,7 @@ WARNINGS_DISABLE
 #include <QUuid>
 WARNINGS_ENABLE
 
-BaseTask::BaseTask() : QObject(), _uuid(QUuid::createUuid())
+BaseTask::BaseTask() : _uuid(QUuid::createUuid())
 {
 #ifdef QT_TESTLIB_LIB
     _fake = false;

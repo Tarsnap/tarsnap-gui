@@ -40,8 +40,7 @@ static QString quoteCommandLine(const QStringList &args)
 }
 
 CmdlineTask::CmdlineTask()
-    : BaseTask(),
-      _process(nullptr),
+    : _process(nullptr),
       _exitCode(EXIT_NO_MEANING),
       _truncateLogOutput(false),
       _monitorOutput(false)

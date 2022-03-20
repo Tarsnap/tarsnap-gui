@@ -14,7 +14,7 @@ WARNINGS_ENABLE
 #include "compat.h"
 
 ParseArchiveListingTask::ParseArchiveListingTask(const QString &listing)
-    : BaseTask(), _listing(listing)
+    : _listing(listing)
 {
     // We don't actually run "tarsnap -tv", because that data is
     // already stored in the Archive _contents when we created it.

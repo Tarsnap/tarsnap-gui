@@ -40,7 +40,9 @@ SettingsWidget::SettingsWidget(QWidget *parent)
       _ui(new Ui::SettingsWidget),
       _nukeConfirmationDialog(new ConfirmationDialog(this)),
       _tarsnapAccountDialog(new TarsnapAccountDialog(this)),
-      _schedulingWidgets(new SchedulingWidgets(this))
+      _schedulingWidgets(new SchedulingWidgets(this)),
+      _runningTasks(0),
+      _queuedTasks(0)
 {
 
     // Ui initialization

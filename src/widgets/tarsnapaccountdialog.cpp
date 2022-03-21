@@ -28,7 +28,12 @@ WARNINGS_ENABLE
 class QWidget;
 
 TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
-    : QDialog(parent), _ui(new Ui::LoginDialog), _popup(new QMessageBox())
+    : QDialog(parent),
+      _ui(new Ui::LoginDialog),
+      _popup(new QMessageBox()),
+      _machineId(0),
+      _displayActivity(false),
+      _displayMachineActivity(false)
 {
     // Basic UI.
     _ui->setupUi(this);

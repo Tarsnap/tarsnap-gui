@@ -12,7 +12,8 @@ ConfirmationDialog::ConfirmationDialog(QWidget *parent)
     : QObject(parent),
       _inputDialog(new QInputDialog(parent)),
       _countdownBox(new QMessageBox(parent)),
-      _timer(new QTimer(this))
+      _timer(new QTimer(this)),
+      _countdownSeconds(1000)
 {
     // Set up text confirmation dialog
     _inputDialog->setInputMode(QInputDialog::TextInput);

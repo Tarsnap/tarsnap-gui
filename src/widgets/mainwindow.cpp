@@ -47,7 +47,7 @@ WARNINGS_ENABLE
 #include "widgets/stoptasksdialog.h"
 
 #define MAIN_LOGO_RIGHT_MARGIN 5
-#define MAIN_LOGO_FUDGE -10
+#define MAIN_LOGO_FUDGE (-10)
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),

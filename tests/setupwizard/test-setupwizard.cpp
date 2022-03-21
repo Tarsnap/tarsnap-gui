@@ -36,7 +36,7 @@ WARNINGS_ENABLE
     {                                                                          \
         const TWizardPage *page = wizard->currentPage();                       \
         QVERIFY(page->objectName() == #PAGETYPE);                              \
-        x = static_cast<const PAGETYPE *>(page)->get_ui();                     \
+        (x) = static_cast<const PAGETYPE *>(page)->get_ui();                   \
     } while(0)
 
 #define GET_BUTTON(x) wizard->currentPage()->button(TWizardPage::x)

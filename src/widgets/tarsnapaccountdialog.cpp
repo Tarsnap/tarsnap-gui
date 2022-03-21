@@ -30,6 +30,7 @@ class QWidget;
 TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
     : QDialog(parent),
       _ui(new Ui::LoginDialog),
+      _ta(new TarsnapAccount()),
       _popup(new QMessageBox()),
       _machineId(0),
       _displayActivity(false),
@@ -47,9 +48,6 @@ TarsnapAccountDialog::TarsnapAccountDialog(QWidget *parent)
         const bool empty_password = _ui->passwordLineEdit->text().isEmpty();
         _ui->loginButton->setEnabled(!empty_password);
     });
-
-    // Create the TarsnapAccount backend.
-    _ta = new TarsnapAccount();
 
     // Act on password.
     connect(this, &TarsnapAccountDialog::finished, this,

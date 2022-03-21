@@ -25,9 +25,8 @@ WARNINGS_ENABLE
 
 #define USER_AGENT "Tarsnap " APP_VERSION
 
-TarsnapAccount::TarsnapAccount()
+TarsnapAccount::TarsnapAccount() : _nam(new QNetworkAccessManager())
 {
-    _nam = new QNetworkAccessManager();
 }
 
 TarsnapAccount::~TarsnapAccount()

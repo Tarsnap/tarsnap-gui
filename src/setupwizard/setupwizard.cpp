@@ -19,17 +19,18 @@ WARNINGS_ENABLE
 class QWidget;
 class TWizardPage;
 
-SetupWizard::SetupWizard(QWidget *parent) : TWizard(parent)
+SetupWizard::SetupWizard(QWidget *parent)
+    : TWizard(parent),
+      _introPage(new IntroPage()),
+      _cliPage(new CliPage()),
+      _registerPage(new RegisterPage()),
+      _finalPage(new FinalPage())
 {
     // This would normally be in a .ui file, but that's the only piece
     // of UI config, so it seems overkill to add a file for just that.
     setLogo(QPixmap(":/logos/tarsnap-icon-h32.png"));
 
     // Actual pages
-    _introPage    = new IntroPage();
-    _cliPage      = new CliPage();
-    _registerPage = new RegisterPage();
-    _finalPage    = new FinalPage();
     addPages(QList<TWizardPage *>()
              << _introPage << _cliPage << _registerPage << _finalPage);
 

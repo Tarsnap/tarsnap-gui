@@ -64,7 +64,7 @@ struct dirinfo getDirInfo(QDir dir, QAtomicInt *stop_p)
         QFileInfoList list = dir.entryInfoList();
         for(int i = 0; i < list.size(); ++i)
         {
-            QFileInfo fileInfo = list.at(i);
+            const QFileInfo &fileInfo = list.at(i);
             if(fileInfo.isDir())
             {
                 // ... if it's a dir, recursively get info about that dir.

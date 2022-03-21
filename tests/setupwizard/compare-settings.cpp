@@ -36,7 +36,7 @@ bool compareSettings(QSettings *settings, QSettings *target)
         // Check each key's value
         for(int i = 0; i < settings_keys.length(); i++)
         {
-            QString key = settings_keys.at(i);
+            const QString &key = settings_keys.at(i);
 
             // Skip over keys that will be different
             if((group == "tarsnap") && (key == "machine"))

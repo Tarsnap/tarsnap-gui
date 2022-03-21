@@ -727,7 +727,7 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
         QString detail(archives[0]->name());
         for(int i = 1; i < archives.count(); ++i)
         {
-            ArchivePtr archive = archives.at(i);
+            const ArchivePtr &archive = archives.at(i);
             detail.append(QString::fromLatin1(", ") + archive->name());
         }
         emit message(tr("Deleting archive <i>%1</i> and %2 more archives... %3")

@@ -55,7 +55,7 @@ public:
     QString pageTitle() const;
 
     //! Add pages to the wizard.
-    void addPages(QList<TWizardPage *> pages);
+    void addPages(const QList<TWizardPage *> &pages);
 
 protected slots:
     //! Quit the wizard with a QDialog::Accept signal.  (Probably

@@ -227,8 +227,8 @@ CmdlineTask *nukeArchivesTask()
     return (task);
 }
 
-CmdlineTask *restoreArchiveTask(const QString        &archiveName,
-                                ArchiveRestoreOptions options)
+CmdlineTask *restoreArchiveTask(const QString               &archiveName,
+                                const ArchiveRestoreOptions &options)
 {
     CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();
@@ -276,7 +276,7 @@ CmdlineTask *restoreArchiveTask(const QString        &archiveName,
     return (task);
 }
 
-CmdlineTask *backupArchiveTask(BackupTaskDataPtr backupTaskData)
+CmdlineTask *backupArchiveTask(const BackupTaskDataPtr &backupTaskData)
 {
     CmdlineTask *task = new CmdlineTask();
     QStringList  args = makeTarsnapArgs();

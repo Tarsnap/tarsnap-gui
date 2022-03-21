@@ -287,7 +287,7 @@ void BackupTaskData::setCommand(const QString &command)
     _command = command;
 }
 
-BackupTaskDataPtr BackupTaskData::createBackupTaskFromJob(JobPtr job)
+BackupTaskDataPtr BackupTaskData::createBackupTaskFromJob(const JobPtr &job)
 {
     BackupTaskDataPtr backup(new BackupTaskData);
     backup->setName(

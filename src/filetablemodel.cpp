@@ -83,7 +83,7 @@ QVariant FileTableModel::headerData(int section, Qt::Orientation orientation,
     return QVariant();
 }
 
-void FileTableModel::setArchive(ArchivePtr archive)
+void FileTableModel::setArchive(const ArchivePtr &archive)
 {
     // Disable previous connection (if it exists).
     if(_parseTask)

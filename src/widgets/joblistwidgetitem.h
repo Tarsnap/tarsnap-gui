@@ -30,7 +30,7 @@ class JobListWidgetItem : public QObject, public QListWidgetItem
 public:
     //! Constructor.
     //! \param job pointer to the job to display.
-    explicit JobListWidgetItem(JobPtr job);
+    explicit JobListWidgetItem(const JobPtr &job);
     ~JobListWidgetItem() override;
 
     //! Returns a widget with a graphical representation of this archive.

@@ -105,7 +105,7 @@ private:
     QStringList _arguments;
 
     // Utility function.
-    QByteArray truncate_output(QByteArray stdOut);
+    QByteArray truncate_output(const QByteArray &stdOut);
 };
 
 #endif // !CMDLINETASK_H

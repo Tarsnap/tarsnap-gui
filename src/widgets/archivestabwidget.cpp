@@ -158,7 +158,7 @@ void ArchivesTabWidget::hideInspectArchive()
     _ui->archiveDetailsWidget->hide();
 }
 
-void ArchivesTabWidget::displayInspectArchive(ArchivePtr archive)
+void ArchivesTabWidget::displayInspectArchive(const ArchivePtr &archive)
 {
     // Get the size.
     if(archive->sizeTotal() == 0)

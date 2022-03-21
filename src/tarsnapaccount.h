@@ -61,13 +61,13 @@ protected slots:
     //! lastMachineActivity.
     void parseLastMachineActivity(const QString &csv);
     //! Send a network request and wait for a reply.
-    QNetworkReply *tarsnapRequest(QUrlQuery post);
+    QNetworkReply *tarsnapRequest(const QUrlQuery &post);
     //! Parse the network reply.
     QByteArray readReply(QNetworkReply *reply);
     //! Handle an error in the network reply.
     void networkError(QNetworkReply::NetworkError error);
     //! Handle an SSL error in the network reply.
-    void sslError(QList<QSslError> errors);
+    void sslError(const QList<QSslError> &errors);
 
 private:
     QNetworkAccessManager *_nam;

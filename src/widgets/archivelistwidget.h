@@ -44,9 +44,9 @@ public slots:
     //! Clears the archive list, then sets it to the specified archives
     void setArchives(QList<ArchivePtr> archives);
     //! Adds an archive to the list.
-    void addArchive(ArchivePtr archive);
+    void addArchive(const ArchivePtr &archive);
     //! Sets the current selection in the list view.
-    void selectArchive(ArchivePtr archive);
+    void selectArchive(const ArchivePtr &archive);
     //! Delete the selected archives.
     void deleteSelectedItems();
     //! Displays detailed information about the first of the selected items.
@@ -90,7 +90,7 @@ private slots:
 
 private:
     int  visibleItemsCount();
-    void insertArchive(ArchivePtr archive, int pos);
+    void insertArchive(const ArchivePtr &archive, int pos);
 
     QRegExp *_filter;
 

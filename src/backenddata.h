@@ -46,20 +46,21 @@ public:
     quint64 numArchives();
 
     //! Add a job to the Jobs list.
-    void addJob(JobPtr job);
+    void addJob(const JobPtr &job);
     //! Delete a Job, and potentially all associated Archives.
-    void deleteJob(JobPtr job);
+    void deleteJob(const JobPtr &job);
 
     //! Remove the archives.
-    void removeArchives(QList<ArchivePtr> archives);
+    void removeArchives(const QList<ArchivePtr> &archives);
     //! Replace the stored archives with the list.
     QList<ArchivePtr>
-    setArchivesFromList(QList<struct archive_list_data> metadatas);
+    setArchivesFromList(const QList<struct archive_list_data> &metadatas);
 
     //! Create a new Archive based on the BackupTaskData.
     //! \param backupTaskData metadata about the archiving command.
     //! \param truncated was this archive interrupted (i.e.  `.part`).
-    ArchivePtr newArchive(BackupTaskDataPtr backupTaskData, bool truncated);
+    ArchivePtr newArchive(const BackupTaskDataPtr &backupTaskData,
+                          bool                     truncated);
     //! Search for all matching Archive objects which were created by a Job.
     //! \param jobPrefix prefix of the Archive names to match.
     QList<ArchivePtr> findMatchingArchives(const QString &jobPrefix);

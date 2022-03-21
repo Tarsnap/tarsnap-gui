@@ -58,7 +58,7 @@ void JobListWidget::backupSelectedItems()
     }
 }
 
-void JobListWidget::selectJob(JobPtr job)
+void JobListWidget::selectJob(const JobPtr &job)
 {
     // Bail (if applicable).
     if(!job)
@@ -223,7 +223,7 @@ void JobListWidget::setJobs(const QMap<QString, JobPtr> &jobs)
     setUpdatesEnabled(true);
 }
 
-void JobListWidget::addJob(JobPtr job)
+void JobListWidget::addJob(const JobPtr &job)
 {
     // Bail (if applicable).
     if(!job)

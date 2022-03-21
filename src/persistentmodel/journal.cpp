@@ -14,7 +14,7 @@ WARNINGS_ENABLE
 
 #include "debug.h"
 
-static qint64 dateToEpoch(const QDateTime date)
+static qint64 dateToEpoch(const QDateTime &date)
 {
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
     return date.toSecsSinceEpoch();

@@ -70,9 +70,9 @@ public slots:
     //! Load Jobs from the PersistentStore.
     void loadJobs();
     //! Delete a Job, and potentially all associated Archives.
-    void deleteJob(JobPtr job, bool purgeArchives);
+    void deleteJob(const JobPtr &job, bool purgeArchives);
     //! Add a job to the Jobs list.
-    void addJob(JobPtr job);
+    void addJob(const JobPtr &job);
 
     // Tarsnap tasks
     //! tarsnap --version
@@ -82,15 +82,15 @@ public slots:
     void registerMachineDo(const QString &password, const QString &machine,
                            const bool useExistingKeyfile);
     //! tarsnap -c -f \<name\>
-    void backupNow(BackupTaskDataPtr backupTaskData);
+    void backupNow(const BackupTaskDataPtr &backupTaskData);
     //! tarsnap --list-archives -vv
     void getArchives();
     //! tarsnap --print-stats -f \<name\>
-    void getArchiveStats(ArchivePtr archive);
+    void getArchiveStats(const ArchivePtr &archive);
     //! tarsnap --tv -f \<name\>
-    void getArchiveContents(ArchivePtr archive);
+    void getArchiveContents(const ArchivePtr &archive);
     //! tarsnap -d -f \<name\>
-    void deleteArchives(QList<ArchivePtr> archives);
+    void deleteArchives(const QList<ArchivePtr> &archives);
     //! tarsnap --print-stats
     void getOverallStats();
     //! tarsnap --fsck or --fsck-prune
@@ -98,7 +98,7 @@ public slots:
     //! tarsnap --nuke
     void nuke();
     //! tarsnap -x -f \<name\>, with options.
-    void restoreArchive(ArchivePtr                   archive,
+    void restoreArchive(const ArchivePtr            &archive,
                         const ArchiveRestoreOptions &options);
     //! tarsnap-keymgmt --print-key-id \<key_filename\>
     void getKeyId(const QString &key_filename);
@@ -155,42 +155,42 @@ signals:
 
 private slots:
     // post Tarsnap task processing
-    void getTarsnapVersionFinished(QVariant data, int exitCode,
+    void getTarsnapVersionFinished(const QVariant &data, int exitCode,
                                    const QString &stdOut,
                                    const QString &stdErr);
-    void backupTaskFinished(QVariant data, int exitCode, const QString &stdOut,
-                            const QString &stdErr);
-    void backupTaskStarted(QVariant data);
-    void registerMachineFinished(QVariant data, int exitCode,
+    void backupTaskFinished(const QVariant &data, int exitCode,
+                            const QString &stdOut, const QString &stdErr);
+    void backupTaskStarted(const QVariant &data);
+    void registerMachineFinished(const QVariant &data, int exitCode,
                                  const QString &stdOut, const QString &stdErr);
-    void getArchiveListFinished(QVariant data, int exitCode,
+    void getArchiveListFinished(const QVariant &data, int exitCode,
                                 const QString &stdOut, const QString &stdErr);
-    void getArchiveStatsFinished(QVariant data, int exitCode,
+    void getArchiveStatsFinished(const QVariant &data, int exitCode,
                                  const QString &stdOut, const QString &stdErr);
-    void getArchiveContentsFinished(QVariant data, int exitCode,
+    void getArchiveContentsFinished(const QVariant &data, int exitCode,
                                     const QString &stdOut,
                                     const QString &stdErr);
-    void deleteArchivesFinished(QVariant data, int exitCode,
+    void deleteArchivesFinished(const QVariant &data, int exitCode,
                                 const QString &stdOut, const QString &stdErr);
-    void overallStatsFinished(QVariant data, int exitCode,
+    void overallStatsFinished(const QVariant &data, int exitCode,
                               const QString &stdOut, const QString &stdErr);
-    void fsckFinished(QVariant data, int exitCode, const QString &stdOut,
+    void fsckFinished(const QVariant &data, int exitCode, const QString &stdOut,
                       const QString &stdErr);
-    void nukeFinished(QVariant data, int exitCode, const QString &stdOut,
+    void nukeFinished(const QVariant &data, int exitCode, const QString &stdOut,
                       const QString &stdErr);
-    void restoreArchiveFinished(QVariant data, int exitCode,
+    void restoreArchiveFinished(const QVariant &data, int exitCode,
                                 const QString &stdOut, const QString &stdErr);
-    void notifyBackupTaskUpdate(BackupTaskDataPtr backupTaskData,
-                                const TaskStatus &status);
+    void notifyBackupTaskUpdate(const BackupTaskDataPtr &backupTaskData,
+                                const TaskStatus        &status);
     void notifyArchivesDeleted(QList<ArchivePtr> archives, bool done);
-    void getKeyIdFinished(QVariant data, int exitCode, const QString &stdOut,
-                          const QString &stdErr);
+    void getKeyIdFinished(const QVariant &data, int exitCode,
+                          const QString &stdOut, const QString &stdErr);
 
 private:
     void parseError(const QString &tarsnapOutput);
     void parseGlobalStats(const QString &tarsnapOutput);
     void parseArchiveStats(const QString &tarsnapOutput, bool newArchiveOutput,
-                           ArchivePtr archive);
+                           const ArchivePtr &archive);
     bool waitForOnline();
     void warnNotOnline();
 

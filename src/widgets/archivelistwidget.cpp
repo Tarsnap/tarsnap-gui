@@ -54,7 +54,7 @@ void ArchiveListWidget::setArchives(QList<ArchivePtr> archives)
     setUpdatesEnabled(true);
 }
 
-void ArchiveListWidget::addArchive(ArchivePtr archive)
+void ArchiveListWidget::addArchive(const ArchivePtr &archive)
 {
     // Bail (if applicable).
     if(!archive)
@@ -250,7 +250,7 @@ void ArchiveListWidget::removeItem()
     emit countChanged(count(), visibleItemsCount());
 }
 
-void ArchiveListWidget::insertArchive(ArchivePtr archive, int pos)
+void ArchiveListWidget::insertArchive(const ArchivePtr &archive, int pos)
 {
     // Bail (if applicable).
     if(!archive)
@@ -328,7 +328,7 @@ void ArchiveListWidget::goToJob()
                                    ->jobRef());
 }
 
-void ArchiveListWidget::selectArchive(ArchivePtr archive)
+void ArchiveListWidget::selectArchive(const ArchivePtr &archive)
 {
     // Bail (if applicable).
     if(!archive)

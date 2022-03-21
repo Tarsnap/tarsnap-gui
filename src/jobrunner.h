@@ -27,7 +27,7 @@ public:
 
     //! Checks if any scheduled jobs need to run now; if so, adds them to
     //! the queue.  If there are no scheduled jobs, quit the app immediately.
-    void runScheduledJobs(QMap<QString, JobPtr> jobMap);
+    void runScheduledJobs(const QMap<QString, JobPtr> &jobMap);
 
 signals:
     //! A status message should be shown to the user.

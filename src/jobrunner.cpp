@@ -57,7 +57,7 @@ void JobRunner::warnNotOnline()
     quitTimer->start(1000);
 }
 
-void JobRunner::runScheduledJobs(QMap<QString, JobPtr> jobMap)
+void JobRunner::runScheduledJobs(const QMap<QString, JobPtr> &jobMap)
 {
     TSettings settings;
     QDate     now(QDate::currentDate());

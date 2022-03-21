@@ -45,7 +45,7 @@ public:
 
 public slots:
     //! Expand the "inspect archive" widget.
-    void displayInspectArchive(ArchivePtr archive);
+    void displayInspectArchive(const ArchivePtr &archive);
     //! Hide the "inspect archive" widget.
     void hideInspectArchive();
     //! Reload the IEC prefix preference and re-display number(s).
@@ -58,12 +58,13 @@ signals:
     //! TaskManager.
     void deleteArchives(QList<ArchivePtr> archives);
     //! Begin tarsnap -x -f \<name\>, with options.
-    void restoreArchive(ArchivePtr archive, ArchiveRestoreOptions options);
+    void restoreArchive(const ArchivePtr     &archive,
+                        ArchiveRestoreOptions options);
 
     //! Passes the list of all Archive objects to the ArchiveListWidget.
     void archiveList(QList<ArchivePtr> archives);
     //! Passes the creation of a new Archive to the ArchiveListWidget.
-    void addArchive(ArchivePtr archive);
+    void addArchive(const ArchivePtr &archive);
 
     //! Notify that the job details should be displayed.
     void displayJobDetails(const QString &jobRef);
@@ -72,9 +73,9 @@ signals:
     void jobClicked(const QString &jobRef);
 
     //! Begin tarsnap --print-stats -f \<name\>
-    void loadArchiveStats(ArchivePtr archive);
+    void loadArchiveStats(const ArchivePtr &archive);
     //! Begin tarsnap --tv -f \<name\>
-    void loadArchiveContents(ArchivePtr archive);
+    void loadArchiveContents(const ArchivePtr &archive);
 
     //! We have a task to perform in the background.
     void taskRequested(BaseTask *task);

@@ -117,7 +117,7 @@ void TarsnapAccount::parseLastMachineActivity(const QString &csv)
     emit    lastMachineActivity(lastLine.split(',', SKIP_EMPTY_PARTS));
 }
 
-QNetworkReply *TarsnapAccount::tarsnapRequest(QUrlQuery post)
+QNetworkReply *TarsnapAccount::tarsnapRequest(const QUrlQuery &post)
 {
     QNetworkRequest request;
     request.setUrl(QUrl(URL_MANAGE));
@@ -146,7 +146,7 @@ void TarsnapAccount::networkError(QNetworkReply::NetworkError error)
     DEBUG << reply->errorString();
 }
 
-void TarsnapAccount::sslError(QList<QSslError> errors)
+void TarsnapAccount::sslError(const QList<QSslError> &errors)
 {
     for(const QSslError &error : errors)
     {

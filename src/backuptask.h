@@ -38,7 +38,7 @@ public:
     QStringList getExcludesList();
 
     //! Create a BackupTaskData which may be passed to TaskManager::backupNow().
-    static BackupTaskDataPtr createBackupTaskFromJob(JobPtr job);
+    static BackupTaskDataPtr createBackupTaskFromJob(const JobPtr &job);
 
     //! Getter/setter methods
     //! @{

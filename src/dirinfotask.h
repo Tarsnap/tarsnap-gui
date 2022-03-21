@@ -22,7 +22,7 @@ class DirInfoTask : public BaseTask
 
 public:
     //! Constructor.
-    explicit DirInfoTask(QDir dir);
+    explicit DirInfoTask(const QDir &dir);
 
     //! Execute the task.
     void run() override;

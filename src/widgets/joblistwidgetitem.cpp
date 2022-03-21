@@ -18,7 +18,7 @@ WARNINGS_ENABLE
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 
-JobListWidgetItem::JobListWidgetItem(JobPtr job)
+JobListWidgetItem::JobListWidgetItem(const JobPtr &job)
     : _ui(new Ui::JobListWidgetItem), _widget(new QWidget)
 {
     _widget->installEventFilter(this);

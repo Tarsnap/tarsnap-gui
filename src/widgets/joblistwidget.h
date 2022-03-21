@@ -42,14 +42,14 @@ public slots:
     //! Create new archives for the selected jobs.
     void backupSelectedItems();
     //! Sets the current selection in the list view.
-    void selectJob(JobPtr job);
+    void selectJob(const JobPtr &job);
     //! Display detailed information about a specific job.
     //! \param jobRef the name of the job to inspect.
     void inspectJobByRef(const QString &jobRef);
     //! Create new archives for all jobs.
     void backupAllJobs();
     //! Add a new job to the list.
-    void addJob(JobPtr job);
+    void addJob(const JobPtr &job);
     //! Display detailed information about the first of the selected items.
     void inspectSelectedItem();
     //! Restore the first of the selected jobs.

@@ -170,7 +170,7 @@ protected:
 
 private slots:
     void setupMenuBar();
-    void displayInspectArchive(ArchivePtr archive);
+    void displayInspectArchive(const ArchivePtr &archive);
     void commitSettings();
     void mainTabChanged(int index);
 
@@ -180,7 +180,7 @@ private slots:
     void browseForBackupItems();
 
     // Jobs tab
-    void displayJobDetails(JobPtr job);
+    void displayJobDetails(const JobPtr &job);
     void createNewJob(const QList<QUrl> &urls, const QString &name);
 
     void nonquitStopTasks();

@@ -73,7 +73,8 @@ static QString validate_executable(const QString &executable)
     return "";
 }
 
-static struct DirMessage findBinary(const QString &cmd, QStringList searchPaths)
+static struct DirMessage findBinary(const QString     &cmd,
+                                    const QStringList &searchPaths)
 {
     struct DirMessage result;
 

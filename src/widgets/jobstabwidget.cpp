@@ -335,7 +335,7 @@ void JobsTabWidget::createNewJob(const QList<QUrl> &urls, const QString &name)
     _ui->addJobButton->setProperty("save", true);
 }
 
-void JobsTabWidget::displayJobDetails(JobPtr job)
+void JobsTabWidget::displayJobDetails(const JobPtr &job)
 {
     // Display details about the Job.
     hideJobDetails();
@@ -374,7 +374,7 @@ void JobsTabWidget::showJobsListMenu()
     _jobListMenu->popup(QCursor::pos());
 }
 
-void JobsTabWidget::backupJob(JobPtr job)
+void JobsTabWidget::backupJob(const JobPtr &job)
 {
     // Bail (if applicable).
     if(!job)

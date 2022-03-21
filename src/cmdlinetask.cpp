@@ -236,7 +236,7 @@ void CmdlineTask::readProcessOutput(QProcess *process)
     _stdErr.append(process->readAllStandardError().trimmed());
 }
 
-QByteArray CmdlineTask::truncate_output(QByteArray stdOutArray)
+QByteArray CmdlineTask::truncate_output(const QByteArray &stdOutArray)
 {
     QString stdOut = QString(stdOutArray);
     // Find a good newline to which to truncate.

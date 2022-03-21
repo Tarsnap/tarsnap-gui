@@ -134,7 +134,7 @@ void TaskManager::registerMachineDo(const QString &password,
     _tq->queueTask(registerTask);
 }
 
-void TaskManager::backupNow(BackupTaskDataPtr backupTaskData)
+void TaskManager::backupNow(const BackupTaskDataPtr &backupTaskData)
 {
     if(backupTaskData == nullptr)
     {
@@ -175,7 +175,7 @@ void TaskManager::loadArchives()
     emit archiveList(archives);
 }
 
-void TaskManager::getArchiveStats(ArchivePtr archive)
+void TaskManager::getArchiveStats(const ArchivePtr &archive)
 {
     if(archive.isNull())
     {
@@ -194,7 +194,7 @@ void TaskManager::getArchiveStats(ArchivePtr archive)
     _tq->queueTask(statsTask);
 }
 
-void TaskManager::getArchiveContents(ArchivePtr archive)
+void TaskManager::getArchiveContents(const ArchivePtr &archive)
 {
     if(archive.isNull())
     {
@@ -214,7 +214,7 @@ void TaskManager::getArchiveContents(ArchivePtr archive)
     _tq->queueTask(contentsTask);
 }
 
-void TaskManager::deleteArchives(QList<ArchivePtr> archives)
+void TaskManager::deleteArchives(const QList<ArchivePtr> &archives)
 {
     if(archives.isEmpty())
     {
@@ -267,7 +267,7 @@ void TaskManager::nuke()
     _tq->queueTask(nukeTask, true);
 }
 
-void TaskManager::restoreArchive(ArchivePtr                   archive,
+void TaskManager::restoreArchive(const ArchivePtr            &archive,
                                  const ArchiveRestoreOptions &options)
 {
     if(archive.isNull())
@@ -325,7 +325,7 @@ void TaskManager::stopTasks(bool interrupt, bool running, bool queued)
     _tq->stopTasks(interrupt, running, queued);
 }
 
-void TaskManager::backupTaskFinished(QVariant data, int exitCode,
+void TaskManager::backupTaskFinished(const QVariant &data, int exitCode,
                                      const QString &stdOut,
                                      const QString &stdErr)
 {
@@ -372,13 +372,13 @@ void TaskManager::backupTaskFinished(QVariant data, int exitCode,
     parseGlobalStats(stdErr);
 }
 
-void TaskManager::backupTaskStarted(QVariant data)
+void TaskManager::backupTaskStarted(const QVariant &data)
 {
     BackupTaskDataPtr backupTaskData = qvariant_cast<BackupTaskDataPtr>(data);
     notifyBackupTaskUpdate(backupTaskData, TaskStatus::Running);
 }
 
-void TaskManager::registerMachineFinished(QVariant data, int exitCode,
+void TaskManager::registerMachineFinished(const QVariant &data, int exitCode,
                                           const QString &stdOut,
                                           const QString &stdErr)
 {
@@ -424,7 +424,7 @@ void TaskManager::registerMachineFinished(QVariant data, int exitCode,
     emit registerMachineDone(TaskStatus::Completed, stdOut);
 }
 
-void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
+void TaskManager::getArchiveListFinished(const QVariant &data, int exitCode,
                                          const QString &stdOut,
                                          const QString &stdErr)
 {
@@ -459,7 +459,7 @@ void TaskManager::getArchiveListFinished(QVariant data, int exitCode,
     getOverallStats();
 }
 
-void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
+void TaskManager::getArchiveStatsFinished(const QVariant &data, int exitCode,
                                           const QString &stdOut,
                                           const QString &stdErr)
 {
@@ -491,7 +491,7 @@ void TaskManager::getArchiveStatsFinished(QVariant data, int exitCode,
     parseGlobalStats(stdOut);
 }
 
-void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
+void TaskManager::getArchiveContentsFinished(const QVariant &data, int exitCode,
                                              const QString &stdOut,
                                              const QString &stdErr)
 {
@@ -534,7 +534,7 @@ void TaskManager::getArchiveContentsFinished(QVariant data, int exitCode,
     archive->save();
 }
 
-void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
+void TaskManager::deleteArchivesFinished(const QVariant &data, int exitCode,
                                          const QString &stdOut,
                                          const QString &stdErr)
 {
@@ -568,7 +568,7 @@ void TaskManager::deleteArchivesFinished(QVariant data, int exitCode,
     parseGlobalStats(lastFive.join('\n'));
 }
 
-void TaskManager::overallStatsFinished(QVariant data, int exitCode,
+void TaskManager::overallStatsFinished(const QVariant &data, int exitCode,
                                        const QString &stdOut,
                                        const QString &stdErr)
 {
@@ -587,7 +587,7 @@ void TaskManager::overallStatsFinished(QVariant data, int exitCode,
     parseGlobalStats(stdOut);
 }
 
-void TaskManager::fsckFinished(QVariant data, int exitCode,
+void TaskManager::fsckFinished(const QVariant &data, int exitCode,
                                const QString &stdOut, const QString &stdErr)
 {
     Q_UNUSED(data)
@@ -604,7 +604,7 @@ void TaskManager::fsckFinished(QVariant data, int exitCode,
     getArchives();
 }
 
-void TaskManager::nukeFinished(QVariant data, int exitCode,
+void TaskManager::nukeFinished(const QVariant &data, int exitCode,
                                const QString &stdOut, const QString &stdErr)
 {
     Q_UNUSED(data)
@@ -622,7 +622,7 @@ void TaskManager::nukeFinished(QVariant data, int exitCode,
     }
 }
 
-void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
+void TaskManager::restoreArchiveFinished(const QVariant &data, int exitCode,
                                          const QString &stdOut,
                                          const QString &stdErr)
 {
@@ -649,8 +649,8 @@ void TaskManager::restoreArchiveFinished(QVariant data, int exitCode,
     }
 }
 
-void TaskManager::notifyBackupTaskUpdate(BackupTaskDataPtr backupTaskData,
-                                         const TaskStatus &status)
+void TaskManager::notifyBackupTaskUpdate(
+    const BackupTaskDataPtr &backupTaskData, const TaskStatus &status)
 {
     if(!backupTaskData)
     {
@@ -744,7 +744,7 @@ void TaskManager::notifyArchivesDeleted(QList<ArchivePtr> archives, bool done)
     }
 }
 
-void TaskManager::getKeyIdFinished(QVariant data, int exitCode,
+void TaskManager::getKeyIdFinished(const QVariant &data, int exitCode,
                                    const QString &stdOut, const QString &stdErr)
 {
     QString key_filename = data.toString();
@@ -819,8 +819,9 @@ void TaskManager::parseGlobalStats(const QString &tarsnapOutput)
                       stats.unique_compressed, _bd->numArchives());
 }
 
-void TaskManager::parseArchiveStats(const QString &tarsnapOutput,
-                                    bool newArchiveOutput, ArchivePtr archive)
+void TaskManager::parseArchiveStats(const QString    &tarsnapOutput,
+                                    bool              newArchiveOutput,
+                                    const ArchivePtr &archive)
 {
     struct tarsnap_stats stats =
         printStatsTaskParse(tarsnapOutput, newArchiveOutput, archive->name());
@@ -845,7 +846,7 @@ void TaskManager::loadJobs()
     emit jobList(_bd->jobs());
 }
 
-void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
+void TaskManager::deleteJob(const JobPtr &job, bool purgeArchives)
 {
     if(job)
     {
@@ -866,13 +867,13 @@ void TaskManager::deleteJob(JobPtr job, bool purgeArchives)
     }
 }
 
-void TaskManager::addJob(JobPtr job)
+void TaskManager::addJob(const JobPtr &job)
 {
     _bd->addJob(job);
     emit message(tr("Job <i>%1</i> added.").arg(job->name()));
 }
 
-void TaskManager::getTarsnapVersionFinished(QVariant data, int exitCode,
+void TaskManager::getTarsnapVersionFinished(const QVariant &data, int exitCode,
                                             const QString &stdOut,
                                             const QString &stdErr)
 {

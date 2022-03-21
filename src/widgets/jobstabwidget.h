@@ -52,7 +52,7 @@ public slots:
     //! Create a new job from the Backup list.
     void createNewJob(const QList<QUrl> &urls, const QString &name);
     //! Show detailed information about a job.
-    void displayJobDetails(JobPtr job);
+    void displayJobDetails(const JobPtr &job);
 
 signals:
     //! Passes info.
@@ -96,7 +96,7 @@ private slots:
     void addDefaultJobs();
     void hideJobDetails();
     void showJobsListMenu();
-    void backupJob(JobPtr job);
+    void backupJob(const JobPtr &job);
 
 private:
     Ui::JobsTabWidget *_ui;

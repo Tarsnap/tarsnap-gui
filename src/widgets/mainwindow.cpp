@@ -535,13 +535,13 @@ void MainWindow::notificationRaise()
     showNormal();
 }
 
-void MainWindow::displayInspectArchive(ArchivePtr archive)
+void MainWindow::displayInspectArchive(const ArchivePtr &archive)
 {
     displayTab(_ui->archivesTab);
     _archivesTabWidget->displayInspectArchive(archive);
 }
 
-void MainWindow::displayJobDetails(JobPtr job)
+void MainWindow::displayJobDetails(const JobPtr &job)
 {
     if(!job)
         return;

@@ -86,8 +86,8 @@ QList<ArchivePtr> BackendData::findMatchingArchives(const QString &jobPrefix)
     return matching;
 }
 
-ArchivePtr BackendData::newArchive(BackupTaskDataPtr backupTaskData,
-                                   bool              truncated)
+ArchivePtr BackendData::newArchive(const BackupTaskDataPtr &backupTaskData,
+                                   bool                     truncated)
 {
     ArchivePtr archive(new Archive);
     archive->setName(backupTaskData->name());
@@ -129,8 +129,8 @@ ArchivePtr BackendData::newArchive(BackupTaskDataPtr backupTaskData,
     return archive;
 }
 
-QList<ArchivePtr>
-BackendData::setArchivesFromList(QList<struct archive_list_data> metadatas)
+QList<ArchivePtr> BackendData::setArchivesFromList(
+    const QList<struct archive_list_data> &metadatas)
 {
     QList<ArchivePtr> newArchives;
 
@@ -179,7 +179,7 @@ BackendData::setArchivesFromList(QList<struct archive_list_data> metadatas)
     return newArchives;
 }
 
-void BackendData::removeArchives(QList<ArchivePtr> archives)
+void BackendData::removeArchives(const QList<ArchivePtr> &archives)
 {
     for(const ArchivePtr &archive : archives)
     {
@@ -224,7 +224,7 @@ bool BackendData::loadJobs()
     return true;
 }
 
-void BackendData::deleteJob(JobPtr job)
+void BackendData::deleteJob(const JobPtr &job)
 {
     // Clear JobRef for assigned Archives.
     for(const ArchivePtr &archive : job->archives())
@@ -249,7 +249,7 @@ void BackendData::loadJobArchives()
     job->setArchives(archives);
 }
 
-void BackendData::addJob(JobPtr job)
+void BackendData::addJob(const JobPtr &job)
 {
     _jobMap[job->name()] = job;
     connect(job.data(), &Job::loadArchives, this,

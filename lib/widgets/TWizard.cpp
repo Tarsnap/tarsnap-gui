@@ -38,7 +38,7 @@ QString TWizard::pageTitle() const
     return _ui->titleLabel->text();
 }
 
-void TWizard::addPages(QList<TWizardPage *> pages)
+void TWizard::addPages(const QList<TWizardPage *> &pages)
 {
     for(TWizardPage *page : pages)
         addPage(page);

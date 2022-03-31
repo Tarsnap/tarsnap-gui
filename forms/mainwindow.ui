@@ -103,7 +103,7 @@ border-radius: 2px;
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="backupTabWidget">
+       <widget class="BackupTabWidget" name="backupTabWidget">
         <property name="acceptDrops">
          <bool>false</bool>
         </property>
@@ -113,75 +113,24 @@ border-radius: 2px;
         <attribute name="toolTip">
          <string>Switch to Backup tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
         </attribute>
-        <layout class="QVBoxLayout" name="backupTabVerticalLayout">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-        </layout>
        </widget>
-       <widget class="QWidget" name="archivesTabWidget">
+       <widget class="ArchivesTabWidget" name="archivesTabWidget">
         <attribute name="title">
          <string>Archives</string>
         </attribute>
         <attribute name="toolTip">
          <string>Switch to Archives tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
         </attribute>
-        <layout class="QVBoxLayout" name="archivesVerticalLayout">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-        </layout>
        </widget>
-       <widget class="QWidget" name="jobsTabWidget">
+       <widget class="JobsTabWidget" name="jobsTabWidget">
         <attribute name="title">
          <string>Jobs</string>
         </attribute>
         <attribute name="toolTip">
          <string>Switch to Jobs tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
         </attribute>
-        <layout class="QVBoxLayout" name="jobsVerticalLayout">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-        </layout>
        </widget>
-       <widget class="QWidget" name="settingsTabWidget">
+       <widget class="SettingsWidget" name="settingsTabWidget">
         <property name="styleSheet">
          <string notr="true">#settingsTab
 {
@@ -196,25 +145,8 @@ margin-right: 3px;
         <attribute name="toolTip">
          <string>Switch to Settings tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
         </attribute>
-        <layout class="QVBoxLayout" name="settingsTabVerticalLayout">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>6</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-        </layout>
        </widget>
-       <widget class="QWidget" name="helpTabWidget">
+       <widget class="HelpWidget" name="helpTabWidget">
         <property name="styleSheet">
          <string notr="true">#helpTab QGroupBox {
 font-size: 14px;
@@ -231,23 +163,6 @@ margin: 1px 0px 0px 6px;
         <attribute name="toolTip">
          <string>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
         </attribute>
-        <layout class="QVBoxLayout" name="helpTabLayout">
-         <property name="spacing">
-          <number>3</number>
-         </property>
-         <property name="leftMargin">
-          <number>3</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>3</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-        </layout>
        </widget>
       </widget>
       <widget class="TTextView" name="journalLog">
@@ -657,6 +572,36 @@ font-size: 12px;
    <class>StatusBarWidget</class>
    <extends>QWidget</extends>
    <header>widgets/statusbarwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BackupTabWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/backuptabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ArchivesTabWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/archivestabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SettingsWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/settingswidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>HelpWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/helpwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>JobsTabWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/jobstabwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

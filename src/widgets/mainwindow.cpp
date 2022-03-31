@@ -58,16 +58,8 @@ MainWindow::MainWindow(QWidget *parent)
       _backupTaskRunning(false),
       _runningTasks(0),
       _queuedTasks(0),
-      _stopTasksDialog(new StopTasksDialog(this)),
-      _backupTabWidget(new BackupTabWidget(this)),
-      _archivesTabWidget(new ArchivesTabWidget(this)),
-      _jobsTabWidget(new JobsTabWidget(this)),
-      _settingsWidget(new SettingsWidget(this)),
-      _helpWidget(new HelpWidget(this))
+      _stopTasksDialog(new StopTasksDialog(this))
 {
-    connect(&LOG, &ConsoleLog::message, _helpWidget,
-            &HelpWidget::appendLogString);
-
     // Ui initialization
     _ui->setupUi(this);
 
@@ -76,11 +68,11 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->mainContentSplitter->setCollapsible(0, false);
     _ui->journalLog->hide();
 
-    _ui->backupTabVerticalLayout->addWidget(_backupTabWidget);
-    _ui->archivesVerticalLayout->addWidget(_archivesTabWidget);
-    _ui->jobsVerticalLayout->addWidget(_jobsTabWidget);
-    _ui->settingsTabVerticalLayout->addWidget(_settingsWidget);
-    _ui->helpTabLayout->addWidget(_helpWidget);
+    _backupTabWidget   = _ui->backupTabWidget;
+    _archivesTabWidget = _ui->archivesTabWidget;
+    _jobsTabWidget     = _ui->jobsTabWidget;
+    _settingsWidget    = _ui->settingsTabWidget;
+    _helpWidget        = _ui->helpTabWidget;
 
     connectSettingsWidget();
 
@@ -88,6 +80,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     updateUi();
     setupMenuBar();
+
+    connect(&LOG, &ConsoleLog::message, _helpWidget,
+            &HelpWidget::appendLogString);
 
     // --
 
@@ -248,12 +243,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     commitSettings();
-    delete _stopTasksDialog;
-    delete _backupTabWidget;
-    delete _archivesTabWidget;
-    delete _jobsTabWidget;
-    delete _settingsWidget;
-    delete _helpWidget;
     delete _ui;
 }
 

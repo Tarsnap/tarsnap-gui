@@ -20,8 +20,8 @@
    <iconset resource="../resources/resources.qrc">
     <normaloff>:/logos/tarsnap-icon-big.png</normaloff>:/logos/tarsnap-icon-big.png</iconset>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="mainLayout">
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="centralWidgetLayout">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -103,7 +103,7 @@ border-radius: 2px;
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="backupTab">
+       <widget class="QWidget" name="backupTabWidget">
         <property name="acceptDrops">
          <bool>false</bool>
         </property>
@@ -131,7 +131,7 @@ border-radius: 2px;
          </property>
         </layout>
        </widget>
-       <widget class="QWidget" name="archivesTab">
+       <widget class="QWidget" name="archivesTabWidget">
         <attribute name="title">
          <string>Archives</string>
         </attribute>
@@ -156,7 +156,7 @@ border-radius: 2px;
          </property>
         </layout>
        </widget>
-       <widget class="QWidget" name="jobsTab">
+       <widget class="QWidget" name="jobsTabWidget">
         <attribute name="title">
          <string>Jobs</string>
         </attribute>
@@ -181,7 +181,7 @@ border-radius: 2px;
          </property>
         </layout>
        </widget>
-       <widget class="QWidget" name="settingsTab">
+       <widget class="QWidget" name="settingsTabWidget">
         <property name="styleSheet">
          <string notr="true">#settingsTab
 {
@@ -214,7 +214,7 @@ margin-right: 3px;
          </property>
         </layout>
        </widget>
-       <widget class="QWidget" name="helpTab">
+       <widget class="QWidget" name="helpTabWidget">
         <property name="styleSheet">
          <string notr="true">#helpTab QGroupBox {
 font-size: 14px;

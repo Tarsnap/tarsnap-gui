@@ -71,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Ui initialization
     _ui->setupUi(this);
 
-    displayTab(_ui->backupTab);
+    displayTab(_ui->backupTabWidget);
 
     _ui->mainContentSplitter->setCollapsible(0, false);
     _ui->journalLog->hide();
@@ -92,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     // Ui actions setup
-    _ui->settingsTab->addAction(_ui->actionRefreshAccount);
+    _ui->settingsTabWidget->addAction(_ui->actionRefreshAccount);
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
     connect(_ui->actionRefreshAccount, &QAction::triggered,
@@ -103,15 +103,15 @@ MainWindow::MainWindow(QWidget *parent)
     addAction(_ui->actionGoSettings);
     addAction(_ui->actionGoHelp);
     connect(_ui->actionGoBackup, &QAction::triggered,
-            [this]() { displayTab(_ui->backupTab); });
+            [this]() { displayTab(_ui->backupTabWidget); });
     connect(_ui->actionGoArchives, &QAction::triggered,
-            [this]() { displayTab(_ui->archivesTab); });
+            [this]() { displayTab(_ui->archivesTabWidget); });
     connect(_ui->actionGoJobs, &QAction::triggered,
-            [this]() { displayTab(_ui->jobsTab); });
+            [this]() { displayTab(_ui->jobsTabWidget); });
     connect(_ui->actionGoSettings, &QAction::triggered,
-            [this]() { displayTab(_ui->settingsTab); });
+            [this]() { displayTab(_ui->settingsTabWidget); });
     connect(_ui->actionGoHelp, &QAction::triggered,
-            [this]() { displayTab(_ui->helpTab); });
+            [this]() { displayTab(_ui->helpTabWidget); });
     addAction(_ui->actionShowJournal);
     connect(_ui->actionShowJournal, &QAction::toggled, _ui->journalLog,
             &QWidget::setVisible);
@@ -491,7 +491,7 @@ void MainWindow::setupMenuBar()
 void MainWindow::mainTabChanged(int index)
 {
     Q_UNUSED(index)
-    if(_ui->mainTabWidget->currentWidget() == _ui->backupTab)
+    if(_ui->mainTabWidget->currentWidget() == _ui->backupTabWidget)
     {
         _ui->actionBrowseItems->setEnabled(true);
         _backupTabWidget->validateBackupTab();
@@ -502,7 +502,7 @@ void MainWindow::mainTabChanged(int index)
         _ui->actionBackupNow->setEnabled(false);
         _ui->actionBackupMorphIntoJob->setEnabled(false);
     }
-    if(_ui->mainTabWidget->currentWidget() == _ui->archivesTab)
+    if(_ui->mainTabWidget->currentWidget() == _ui->archivesTabWidget)
     {
         _ui->actionInspect->setEnabled(true);
         _ui->actionRestore->setEnabled(true);
@@ -516,7 +516,7 @@ void MainWindow::mainTabChanged(int index)
         _ui->actionDelete->setEnabled(false);
         _ui->actionFilterArchives->setEnabled(false);
     }
-    if(_ui->mainTabWidget->currentWidget() == _ui->jobsTab)
+    if(_ui->mainTabWidget->currentWidget() == _ui->jobsTabWidget)
     {
         _ui->actionJobBackup->setEnabled(true);
         _ui->actionJobInspect->setEnabled(true);
@@ -543,7 +543,7 @@ void MainWindow::notificationRaise()
 
 void MainWindow::displayInspectArchive(const ArchivePtr &archive)
 {
-    displayTab(_ui->archivesTab);
+    displayTab(_ui->archivesTabWidget);
     _archivesTabWidget->displayInspectArchive(archive);
 }
 
@@ -552,7 +552,7 @@ void MainWindow::displayJobDetails(const JobPtr &job)
     if(!job)
         return;
 
-    displayTab(_ui->jobsTab);
+    displayTab(_ui->jobsTabWidget);
 
     _jobsTabWidget->displayJobDetails(job);
 }
@@ -584,7 +584,7 @@ void MainWindow::setJournal(const QVector<LogEntry> &log)
 
 void MainWindow::browseForBackupItems()
 {
-    displayTab(_ui->backupTab);
+    displayTab(_ui->backupTabWidget);
 
     _backupTabWidget->browseForBackupItems();
 }
@@ -658,7 +658,7 @@ void MainWindow::updateUi()
 
 void MainWindow::createNewJob(const QList<QUrl> &urls, const QString &name)
 {
-    displayTab(_ui->jobsTab);
+    displayTab(_ui->jobsTabWidget);
     _jobsTabWidget->createNewJob(urls, name);
 }
 
@@ -735,7 +735,7 @@ void MainWindow::displayTab(QWidget *widget)
 
 void MainWindow::jobInspectByRef(const QString &jobRef)
 {
-    displayTab(_ui->jobsTab);
+    displayTab(_ui->jobsTabWidget);
     _jobsTabWidget->jobInspectByRef(jobRef);
 }
 
@@ -751,10 +751,10 @@ void MainWindow::handle_notification_clicked(enum message_type type,
         // Don't navigate to any specific part of the GUI.
         break;
     case(NOTIFICATION_ARCHIVE_CREATING):
-        displayTab(_ui->archivesTab);
+        displayTab(_ui->archivesTabWidget);
         break;
     case(NOTIFICATION_ARCHIVE_CREATED):
-        displayTab(_ui->archivesTab);
+        displayTab(_ui->archivesTabWidget);
         _archivesTabWidget->displayInspectArchiveByRef(data);
         break;
     }

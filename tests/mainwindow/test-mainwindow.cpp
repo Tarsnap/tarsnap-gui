@@ -253,29 +253,29 @@ void TestMainWindow::tab_navigation()
     VISUAL_INIT(mainwindow);
 
     // Start in the Backup tab
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTabWidget);
 
     // Switch between tabs
     // Unfortunately we can't test the Ctrl+X keyboard shortcuts, because
     // QTest::keyClick() doesn't work with platform=offscreen.
-    mainwindow->displayTab(ui->archivesTab);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
+    mainwindow->displayTab(ui->archivesTabWidget);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTabWidget);
     VISUAL_WAIT;
 
-    mainwindow->displayTab(ui->jobsTab);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
+    mainwindow->displayTab(ui->jobsTabWidget);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTabWidget);
     VISUAL_WAIT;
 
-    mainwindow->displayTab(ui->settingsTab);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->settingsTab);
+    mainwindow->displayTab(ui->settingsTabWidget);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->settingsTabWidget);
     VISUAL_WAIT;
 
-    mainwindow->displayTab(ui->helpTab);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->helpTab);
+    mainwindow->displayTab(ui->helpTabWidget);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->helpTabWidget);
     VISUAL_WAIT;
 
-    mainwindow->displayTab(ui->backupTab);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTab);
+    mainwindow->displayTab(ui->backupTabWidget);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTabWidget);
     VISUAL_WAIT;
 
     delete mainwindow;
@@ -310,8 +310,8 @@ void TestMainWindow::other_navigation()
     QList<QUrl> testdir_urls({QUrl("file://" TEST_DIR)});
 
     // Switch to a different tab.
-    mainwindow->displayTab(ui->helpTab);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->helpTab);
+    mainwindow->displayTab(ui->helpTabWidget);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->helpTabWidget);
     VISUAL_WAIT;
 
     // Switch back to Backup tab
@@ -319,11 +319,11 @@ void TestMainWindow::other_navigation()
     VISUAL_WAIT;
     backupTabWidget->_filePickerDialog->close();
     QTest::qWait(100);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTabWidget);
     VISUAL_WAIT;
 
     // Add a Job
-    mainwindow->displayTab(ui->jobsTab);
+    mainwindow->displayTab(ui->jobsTabWidget);
     jobsTabWidget->createNewJob(testdir_urls, QString("test-job"));
     jobsTabWidget->addJobClicked();
 
@@ -337,7 +337,7 @@ void TestMainWindow::other_navigation()
     VISUAL_WAIT;
 
     // Add an Archive
-    mainwindow->displayTab(ui->archivesTab);
+    mainwindow->displayTab(ui->archivesTabWidget);
     Archive   *actual_archive = new Archive();
     ArchivePtr archive(actual_archive);
     archive->setName("Job_test-job_archive1");
@@ -350,11 +350,11 @@ void TestMainWindow::other_navigation()
     job->setArchives(QList<ArchivePtr>() << archive);
 
     // Create a second job, this time via morphBackupIntoJob
-    mainwindow->displayTab(ui->backupTab);
+    mainwindow->displayTab(ui->backupTabWidget);
     VISUAL_WAIT;
 
     backupTabWidget->morphBackupIntoJob(testdir_urls, "test-job2");
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTabWidget);
     VISUAL_WAIT;
 
     jobsTabWidget->addJobClicked();
@@ -363,7 +363,7 @@ void TestMainWindow::other_navigation()
 
     // Switch back and forth between the job and archive.
     mainwindow->displayInspectArchive(archive);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTabWidget);
     VISUAL_WAIT;
 
     // Wait for archive parsing signal, and delete it.
@@ -372,12 +372,12 @@ void TestMainWindow::other_navigation()
     delete task;
 
     mainwindow->displayJobDetails(job);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTabWidget);
     VISUAL_WAIT;
 
     // Click on the Job name in the archive tab.
     mainwindow->displayInspectArchive(archive);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTabWidget);
     VISUAL_WAIT;
 
     // Wait for archive parsing signal, and delete it.
@@ -386,7 +386,7 @@ void TestMainWindow::other_navigation()
     delete task;
 
     archiveDetailsWidget->jobClicked("test-job");
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTab);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTabWidget);
     VISUAL_WAIT;
 
     delete mainwindow;

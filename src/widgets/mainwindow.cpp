@@ -300,17 +300,23 @@ void MainWindow::paintEvent(QPaintEvent *event)
     // Compare with the width of the png files.
     QPixmap logoPixmap(":/logos/tarsnap-header-h29.png");
     QPixmap iconPixmap(":/logos/tarsnap-icon-h29.png");
+
+    // Pick which image (if any) to use
+    QPixmap *pixmap;
     if(remaining_width > logoPixmap.width())
-    {
-        QIcon icon(":/logos/tarsnap-header-h29.png");
-        icon.paint(&p, width() - logoPixmap.width() - MAIN_LOGO_RIGHT_MARGIN, 3,
-                   logoPixmap.width(), logoPixmap.height());
-    }
+        pixmap = &logoPixmap;
     else if(remaining_width > iconPixmap.width())
+        pixmap = &iconPixmap;
+    else
+        pixmap = nullptr;
+
+    // Draw image
+    if(pixmap != nullptr)
     {
-        QIcon icon(":/logos/tarsnap-icon-h29.png");
-        icon.paint(&p, width() - iconPixmap.width() - MAIN_LOGO_RIGHT_MARGIN, 3,
-                   iconPixmap.width(), iconPixmap.height());
+        QIcon icon(*pixmap);
+        int   x = width() - MAIN_LOGO_RIGHT_MARGIN - pixmap->width();
+        int   y = 3;
+        icon.paint(&p, x, y, pixmap->width(), pixmap->height());
     }
 }
 

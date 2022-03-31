@@ -133,7 +133,7 @@ static QAction *get_menubar_about(QMenuBar *menubar)
 void TestMainWindow::about_window_menubar()
 {
     MainWindow     *mainwindow = new MainWindow();
-    HelpWidget     *help       = mainwindow->_helpWidget;
+    HelpWidget     *help       = mainwindow->_ui->helpTabWidget;
     Ui::HelpWidget *ui         = help->_ui;
 
     VISUAL_INIT(mainwindow);
@@ -285,16 +285,16 @@ void TestMainWindow::other_navigation()
 {
     MainWindow        *mainwindow    = new MainWindow();
     Ui::MainWindow    *ui            = mainwindow->_ui;
-    JobsTabWidget     *jobsTabWidget = mainwindow->_jobsTabWidget;
+    JobsTabWidget     *jobsTabWidget = mainwindow->_ui->jobsTabWidget;
     Ui::JobsTabWidget *jui           = jobsTabWidget->_ui;
 
     QSignalSpy sig_taskRequest(mainwindow, SIGNAL(taskRequested(BaseTask *)));
     BaseTask  *task;
 
-    BackupTabWidget *backupTabWidget = mainwindow->_backupTabWidget;
+    BackupTabWidget *backupTabWidget = mainwindow->_ui->backupTabWidget;
 
     ArchiveDetailsWidget *archiveDetailsWidget =
-        mainwindow->_archivesTabWidget->_ui->archiveDetailsWidget;
+        mainwindow->_ui->archivesTabWidget->_ui->archiveDetailsWidget;
 
     VISUAL_INIT(mainwindow);
 

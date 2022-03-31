@@ -194,12 +194,7 @@ private:
     int             _runningTasks;
     int             _queuedTasks;
 
-    StopTasksDialog   *_stopTasksDialog;
-    BackupTabWidget   *_backupTabWidget;
-    ArchivesTabWidget *_archivesTabWidget;
-    JobsTabWidget     *_jobsTabWidget;
-    SettingsWidget    *_settingsWidget;
-    HelpWidget        *_helpWidget;
+    StopTasksDialog *_stopTasksDialog;
 
     //! Switch to displaying a specific tab.
     void displayTab(QWidget *widget);

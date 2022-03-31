@@ -68,12 +68,6 @@ MainWindow::MainWindow(QWidget *parent)
     _ui->mainContentSplitter->setCollapsible(0, false);
     _ui->journalLog->hide();
 
-    _backupTabWidget   = _ui->backupTabWidget;
-    _archivesTabWidget = _ui->archivesTabWidget;
-    _jobsTabWidget     = _ui->jobsTabWidget;
-    _settingsWidget    = _ui->settingsTabWidget;
-    _helpWidget        = _ui->helpTabWidget;
-
     connectSettingsWidget();
 
     // --
@@ -81,7 +75,7 @@ MainWindow::MainWindow(QWidget *parent)
     updateUi();
     setupMenuBar();
 
-    connect(&LOG, &ConsoleLog::message, _helpWidget,
+    connect(&LOG, &ConsoleLog::message, _ui->helpTabWidget,
             &HelpWidget::appendLogString);
 
     // --
@@ -91,7 +85,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
     connect(_ui->actionRefreshAccount, &QAction::triggered,
-            [this]() { _settingsWidget->getAccountInfo(); });
+            [this]() { _ui->settingsTabWidget->getAccountInfo(); });
     addAction(_ui->actionGoBackup);
     addAction(_ui->actionGoArchives);
     addAction(_ui->actionGoJobs);
@@ -116,113 +110,113 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     // Backup pane
-    connect(_backupTabWidget, &BackupTabWidget::morphBackupIntoJob, this,
+    connect(_ui->backupTabWidget, &BackupTabWidget::morphBackupIntoJob, this,
             &MainWindow::createNewJob);
-    connect(_backupTabWidget, &BackupTabWidget::backupNow, this,
+    connect(_ui->backupTabWidget, &BackupTabWidget::backupNow, this,
             &MainWindow::backupNow);
-    connect(_backupTabWidget, &BackupTabWidget::backupTabValidStatus, this,
+    connect(_ui->backupTabWidget, &BackupTabWidget::backupTabValidStatus, this,
             &MainWindow::backupTabValidStatus);
-    connect(_backupTabWidget, &BackupTabWidget::taskRequested, this,
+    connect(_ui->backupTabWidget, &BackupTabWidget::taskRequested, this,
             &MainWindow::taskRequested);
-    connect(_backupTabWidget, &BackupTabWidget::cancelTaskRequested, this,
+    connect(_ui->backupTabWidget, &BackupTabWidget::cancelTaskRequested, this,
             &MainWindow::cancelTaskRequested);
 
     // Handle the Backup-related actions
     connect(_ui->actionBrowseItems, &QAction::triggered, this,
             &MainWindow::browseForBackupItems);
-    connect(_ui->actionAddFiles, &QAction::triggered, _backupTabWidget,
+    connect(_ui->actionAddFiles, &QAction::triggered, _ui->backupTabWidget,
             &BackupTabWidget::addFiles);
-    connect(_ui->actionAddDirectory, &QAction::triggered, _backupTabWidget,
+    connect(_ui->actionAddDirectory, &QAction::triggered, _ui->backupTabWidget,
             &BackupTabWidget::addDirectory);
-    connect(_ui->actionClearList, &QAction::triggered, _backupTabWidget,
+    connect(_ui->actionClearList, &QAction::triggered, _ui->backupTabWidget,
             &BackupTabWidget::clearList);
 
-    _backupTabWidget->validateBackupTab();
+    _ui->backupTabWidget->validateBackupTab();
 
     // Settings pane
     loadSettings();
 
-    connect(_settingsWidget, &SettingsWidget::iecChanged, _backupTabWidget,
-            &BackupTabWidget::updateIEC);
-    connect(_settingsWidget, &SettingsWidget::iecChanged, _archivesTabWidget,
-            &ArchivesTabWidget::updateIEC);
-    connect(_settingsWidget, &SettingsWidget::iecChanged, _jobsTabWidget,
-            &JobsTabWidget::updateIEC);
-    connect(_settingsWidget, &SettingsWidget::iecChanged, _ui->statusBarWidget,
-            &StatusBarWidget::updateIEC);
-    connect(_settingsWidget, &SettingsWidget::getArchives, this,
+    connect(_ui->settingsTabWidget, &SettingsWidget::iecChanged,
+            _ui->backupTabWidget, &BackupTabWidget::updateIEC);
+    connect(_ui->settingsTabWidget, &SettingsWidget::iecChanged,
+            _ui->archivesTabWidget, &ArchivesTabWidget::updateIEC);
+    connect(_ui->settingsTabWidget, &SettingsWidget::iecChanged,
+            _ui->jobsTabWidget, &JobsTabWidget::updateIEC);
+    connect(_ui->settingsTabWidget, &SettingsWidget::iecChanged,
+            _ui->statusBarWidget, &StatusBarWidget::updateIEC);
+    connect(_ui->settingsTabWidget, &SettingsWidget::getArchives, this,
             &MainWindow::getArchives);
 
     // Archives pane
-    connect(this, &MainWindow::archiveList, _archivesTabWidget,
+    connect(this, &MainWindow::archiveList, _ui->archivesTabWidget,
             &ArchivesTabWidget::archiveList);
-    connect(this, &MainWindow::addArchive, _archivesTabWidget,
+    connect(this, &MainWindow::addArchive, _ui->archivesTabWidget,
             &ArchivesTabWidget::addArchive);
 
-    connect(_archivesTabWidget, &ArchivesTabWidget::deleteArchives, this,
+    connect(_ui->archivesTabWidget, &ArchivesTabWidget::deleteArchives, this,
             &MainWindow::deleteArchives);
-    connect(_jobsTabWidget, &JobsTabWidget::restoreArchive, this,
+    connect(_ui->jobsTabWidget, &JobsTabWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
-    connect(_archivesTabWidget, &ArchivesTabWidget::jobClicked, this,
+    connect(_ui->archivesTabWidget, &ArchivesTabWidget::jobClicked, this,
             &MainWindow::jobInspectByRef);
-    connect(_archivesTabWidget, &ArchivesTabWidget::displayJobDetails, this,
+    connect(_ui->archivesTabWidget, &ArchivesTabWidget::displayJobDetails, this,
             &MainWindow::jobInspectByRef);
-    connect(_archivesTabWidget, &ArchivesTabWidget::loadArchiveStats, this,
+    connect(_ui->archivesTabWidget, &ArchivesTabWidget::loadArchiveStats, this,
             &MainWindow::loadArchiveStats);
-    connect(_archivesTabWidget, &ArchivesTabWidget::loadArchiveContents, this,
-            &MainWindow::loadArchiveContents);
-    connect(_archivesTabWidget, &ArchivesTabWidget::getArchives, this,
+    connect(_ui->archivesTabWidget, &ArchivesTabWidget::loadArchiveContents,
+            this, &MainWindow::loadArchiveContents);
+    connect(_ui->archivesTabWidget, &ArchivesTabWidget::getArchives, this,
             &MainWindow::getArchives);
 
-    connect(_archivesTabWidget, &ArchivesTabWidget::taskRequested, this,
+    connect(_ui->archivesTabWidget, &ArchivesTabWidget::taskRequested, this,
             &MainWindow::taskRequested);
 
     // Jobs pane
 
     // Send menubar actions to the Jobs tab
-    connect(_ui->actionAddJob, &QAction::triggered, _jobsTabWidget,
+    connect(_ui->actionAddJob, &QAction::triggered, _ui->jobsTabWidget,
             &JobsTabWidget::addJobClicked);
 
     // Pass messages through to the JobDetailsWidget
-    connect(this, &MainWindow::matchingArchives, _jobsTabWidget,
+    connect(this, &MainWindow::matchingArchives, _ui->jobsTabWidget,
             &JobsTabWidget::matchingArchives);
 
     // Pass messages from the JobDetailsWidget
-    connect(_jobsTabWidget, &JobsTabWidget::jobAdded, this,
+    connect(_ui->jobsTabWidget, &JobsTabWidget::jobAdded, this,
             &MainWindow::jobAdded);
     // The MainWindow::displayJobDetails connection MUST come after the
     // JobListWidget::jobAdded connection.  Otherwise, the JobListWidget won't
     // have the relevant Job in its list when displayJobDetails() tries to
     // select it.
-    connect(_jobsTabWidget, &JobsTabWidget::jobAdded, this,
+    connect(_ui->jobsTabWidget, &JobsTabWidget::jobAdded, this,
             &MainWindow::displayJobDetails);
-    connect(_jobsTabWidget, &JobsTabWidget::displayInspectArchive, this,
+    connect(_ui->jobsTabWidget, &JobsTabWidget::displayInspectArchive, this,
             &MainWindow::displayInspectArchive);
-    connect(_jobsTabWidget, &JobsTabWidget::restoreArchive, this,
+    connect(_ui->jobsTabWidget, &JobsTabWidget::restoreArchive, this,
             &MainWindow::restoreArchive);
-    connect(_jobsTabWidget, &JobsTabWidget::deleteArchives, this,
+    connect(_ui->jobsTabWidget, &JobsTabWidget::deleteArchives, this,
             &MainWindow::deleteArchives);
-    connect(_jobsTabWidget, &JobsTabWidget::findMatchingArchives, this,
+    connect(_ui->jobsTabWidget, &JobsTabWidget::findMatchingArchives, this,
             &MainWindow::findMatchingArchives);
-    connect(_jobsTabWidget, &JobsTabWidget::deleteJob, this,
+    connect(_ui->jobsTabWidget, &JobsTabWidget::deleteJob, this,
             &MainWindow::deleteJob);
 
     // Connections to the JobListWidget
-    connect(this, &MainWindow::jobList, _jobsTabWidget,
+    connect(this, &MainWindow::jobList, _ui->jobsTabWidget,
             &JobsTabWidget::jobList);
 
     // Handle the Job-related actions
-    connect(_ui->actionJobBackup, &QAction::triggered, _jobsTabWidget,
+    connect(_ui->actionJobBackup, &QAction::triggered, _ui->jobsTabWidget,
             &JobsTabWidget::backupSelectedItems);
-    connect(_ui->actionJobDelete, &QAction::triggered, _jobsTabWidget,
+    connect(_ui->actionJobDelete, &QAction::triggered, _ui->jobsTabWidget,
             &JobsTabWidget::deleteSelectedItem);
-    connect(_ui->actionJobRestore, &QAction::triggered, _jobsTabWidget,
+    connect(_ui->actionJobRestore, &QAction::triggered, _ui->jobsTabWidget,
             &JobsTabWidget::restoreSelectedItem);
-    connect(_ui->actionJobInspect, &QAction::triggered, _jobsTabWidget,
+    connect(_ui->actionJobInspect, &QAction::triggered, _ui->jobsTabWidget,
             &JobsTabWidget::inspectSelectedItem);
 
     // Other
-    connect(_jobsTabWidget, &JobsTabWidget::backupNow, this,
+    connect(_ui->jobsTabWidget, &JobsTabWidget::backupNow, this,
             &MainWindow::backupNow);
 
     // Connections for _stopTasksDialog
@@ -258,7 +252,7 @@ void MainWindow::loadSettings()
 
 void MainWindow::initializeMainWindow()
 {
-    _settingsWidget->initializeSettingsWidget();
+    _ui->settingsTabWidget->initializeSettingsWidget();
 
     TSettings settings;
 
@@ -397,7 +391,7 @@ void MainWindow::setupMenuBar()
 
     QAction *actionAbout = new QAction(this);
     actionAbout->setMenuRole(QAction::AboutRole);
-    connect(actionAbout, &QAction::triggered, _helpWidget,
+    connect(actionAbout, &QAction::triggered, _ui->helpTabWidget,
             &HelpWidget::aboutMenuClicked);
     QAction *actionSettings = new QAction(this);
     actionSettings->setMenuRole(QAction::PreferencesRole);
@@ -483,7 +477,7 @@ void MainWindow::mainTabChanged(int index)
     if(_ui->mainTabWidget->currentWidget() == _ui->backupTabWidget)
     {
         _ui->actionBrowseItems->setEnabled(true);
-        _backupTabWidget->validateBackupTab();
+        _ui->backupTabWidget->validateBackupTab();
     }
     else
     {
@@ -533,7 +527,7 @@ void MainWindow::notificationRaise()
 void MainWindow::displayInspectArchive(const ArchivePtr &archive)
 {
     displayTab(_ui->archivesTabWidget);
-    _archivesTabWidget->displayInspectArchive(archive);
+    _ui->archivesTabWidget->displayInspectArchive(archive);
 }
 
 void MainWindow::displayJobDetails(const JobPtr &job)
@@ -543,7 +537,7 @@ void MainWindow::displayJobDetails(const JobPtr &job)
 
     displayTab(_ui->jobsTabWidget);
 
-    _jobsTabWidget->displayJobDetails(job);
+    _ui->jobsTabWidget->displayJobDetails(job);
 }
 
 void MainWindow::updateStatusMessage(const QString &message,
@@ -575,7 +569,7 @@ void MainWindow::browseForBackupItems()
 {
     displayTab(_ui->backupTabWidget);
 
-    _backupTabWidget->browseForBackupItems();
+    _ui->backupTabWidget->browseForBackupItems();
 }
 
 void MainWindow::tarsnapError(TarsnapError error)
@@ -648,7 +642,7 @@ void MainWindow::updateUi()
 void MainWindow::createNewJob(const QList<QUrl> &urls, const QString &name)
 {
     displayTab(_ui->jobsTabWidget);
-    _jobsTabWidget->createNewJob(urls, name);
+    _ui->jobsTabWidget->createNewJob(urls, name);
 }
 
 void MainWindow::updateNumTasks(bool backupRunning, int numRunning,
@@ -666,7 +660,7 @@ void MainWindow::updateNumTasks(bool backupRunning, int numRunning,
     _runningTasks = numRunning;
     _queuedTasks  = numQueued;
 
-    _settingsWidget->updateNumTasks(numRunning, numQueued);
+    _ui->settingsTabWidget->updateNumTasks(numRunning, numQueued);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
@@ -675,7 +669,7 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                                      quint64 sizeUniqueCompressed,
                                      quint64 archiveCount)
 {
-    _settingsWidget->setArchiveCount(archiveCount);
+    _ui->settingsTabWidget->setArchiveCount(archiveCount);
     _ui->statusBarWidget->overallStatsChanged(sizeTotal, sizeCompressed,
                                               sizeUniqueTotal,
                                               sizeUniqueCompressed,
@@ -685,34 +679,34 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
 // We can't connect a slot to a slot (fair enough), so we pass this through.
 void MainWindow::saveKeyId(const QString &key, quint64 id)
 {
-    _settingsWidget->saveKeyId(key, id);
+    _ui->settingsTabWidget->saveKeyId(key, id);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
 void MainWindow::tarsnapVersionResponse(TaskStatus     status,
                                         const QString &versionString)
 {
-    _settingsWidget->tarsnapVersionResponse(status, versionString);
+    _ui->settingsTabWidget->tarsnapVersionResponse(status, versionString);
 }
 
 void MainWindow::connectSettingsWidget()
 {
     // Get info from SettingsWidget
-    connect(_settingsWidget, &SettingsWidget::nukeArchives, this,
+    connect(_ui->settingsTabWidget, &SettingsWidget::nukeArchives, this,
             &MainWindow::nukeArchives);
-    connect(_settingsWidget, &SettingsWidget::newStatusMessage,
+    connect(_ui->settingsTabWidget, &SettingsWidget::newStatusMessage,
             _ui->statusBarWidget, &StatusBarWidget::updateStatusMessage);
-    connect(_settingsWidget, &SettingsWidget::getKeyId, this,
+    connect(_ui->settingsTabWidget, &SettingsWidget::getKeyId, this,
             &MainWindow::getKeyId);
-    connect(_settingsWidget, &SettingsWidget::newSimulationStatus,
+    connect(_ui->settingsTabWidget, &SettingsWidget::newSimulationStatus,
             _ui->statusBarWidget, &StatusBarWidget::updateSimulationIcon);
-    connect(_settingsWidget, &SettingsWidget::clearJournal, this,
+    connect(_ui->settingsTabWidget, &SettingsWidget::clearJournal, this,
             &MainWindow::clearJournal);
-    connect(_settingsWidget, &SettingsWidget::runSetupWizard, this,
+    connect(_ui->settingsTabWidget, &SettingsWidget::runSetupWizard, this,
             &MainWindow::runSetupWizard);
-    connect(_settingsWidget, &SettingsWidget::tarsnapVersionRequested, this,
-            &MainWindow::tarsnapVersionRequested);
-    connect(_settingsWidget, &SettingsWidget::repairCache, this,
+    connect(_ui->settingsTabWidget, &SettingsWidget::tarsnapVersionRequested,
+            this, &MainWindow::tarsnapVersionRequested);
+    connect(_ui->settingsTabWidget, &SettingsWidget::repairCache, this,
             &MainWindow::repairCache);
 }
 
@@ -725,7 +719,7 @@ void MainWindow::displayTab(QWidget *widget)
 void MainWindow::jobInspectByRef(const QString &jobRef)
 {
     displayTab(_ui->jobsTabWidget);
-    _jobsTabWidget->jobInspectByRef(jobRef);
+    _ui->jobsTabWidget->jobInspectByRef(jobRef);
 }
 
 void MainWindow::handle_notification_clicked(enum message_type type,
@@ -744,7 +738,7 @@ void MainWindow::handle_notification_clicked(enum message_type type,
         break;
     case(NOTIFICATION_ARCHIVE_CREATED):
         displayTab(_ui->archivesTabWidget);
-        _archivesTabWidget->displayInspectArchiveByRef(data);
+        _ui->archivesTabWidget->displayInspectArchiveByRef(data);
         break;
     }
 }

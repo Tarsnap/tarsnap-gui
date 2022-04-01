@@ -139,8 +139,7 @@ signals:
     void jobList(QMap<QString, JobPtr> jobs);
     //! A status message should be shown to the user.
     //! \param msg main text to display.
-    //! \param detail display this text as a mouse-over tooltip.
-    void message(const QString &msg, const QString &detail = "");
+    void message(const QString &msg);
     //! A message that should be shown as a desktop notification (if enabled).
     void displayNotification(const QString &message, enum message_type type,
                              const QString &data);

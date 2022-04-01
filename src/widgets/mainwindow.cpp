@@ -540,10 +540,9 @@ void MainWindow::displayJobDetails(const JobPtr &job)
     _ui->jobsTabWidget->displayJobDetails(job);
 }
 
-void MainWindow::updateStatusMessage(const QString &message,
-                                     const QString &detail)
+void MainWindow::updateStatusMessage(const QString &message)
 {
-    _ui->statusBarWidget->updateStatusMessage(message, detail);
+    _ui->statusBarWidget->updateStatusMessage(message);
 }
 
 void MainWindow::commitSettings()

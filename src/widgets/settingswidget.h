@@ -70,7 +70,7 @@ signals:
     //! ahead and nuke all archives.
     void nukeArchives();
     //! Display a message.
-    void newStatusMessage(const QString &message, const QString &detail);
+    void newStatusMessage(const QString &message);
     //! Begin tarsnap-keymgmt --print-key-id \<key_filename\>
     void getKeyId(const QString &key_filename);
 

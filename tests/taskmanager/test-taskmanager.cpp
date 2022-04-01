@@ -198,7 +198,7 @@ void TestTaskManager::sleep_cancel()
 {
     // Set up the manager.
     TaskManager *manager = new TaskManager();
-    QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
+    QSignalSpy   sig_message(manager, SIGNAL(message(QString)));
 
     // Set up a task.
     CmdlineTask *task = new CmdlineTask();
@@ -228,7 +228,7 @@ void TestTaskManager::sleep_task()
 {
     // Set up the manager.
     TaskManager *manager = new TaskManager();
-    QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
+    QSignalSpy   sig_message(manager, SIGNAL(message(QString)));
 
     // Set up a task and wait for it to start.
     manager->sleepSeconds(1, false);
@@ -248,7 +248,7 @@ void TestTaskManager::sleep_task_cancel()
 {
     // Set up the manager.
     TaskManager *manager = new TaskManager();
-    QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
+    QSignalSpy   sig_message(manager, SIGNAL(message(QString)));
 
     // Set up a task and wait for it to start.
     manager->sleepSeconds(1, false);
@@ -279,7 +279,7 @@ void TestTaskManager::sleep_task_cancel_running_parallel()
 
     // Set up the manager.
     TaskManager *manager = new TaskManager();
-    QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
+    QSignalSpy   sig_message(manager, SIGNAL(message(QString)));
     int          start_messages = 0;
     int          end_messages   = 0;
 
@@ -307,7 +307,7 @@ void TestTaskManager::sleep_task_cancel_running_series()
 {
     // Set up the manager.
     TaskManager *manager = new TaskManager();
-    QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
+    QSignalSpy   sig_message(manager, SIGNAL(message(QString)));
     QVariant     msg;
 
     // Set up two tasks running one after the other.
@@ -352,7 +352,7 @@ void TestTaskManager::exclusive()
     // Set up the manager.
     TaskManager    *manager = new TaskManager();
     QSignalSpy      sig_numTasks(manager, SIGNAL(numTasks(bool, int, int)));
-    QSignalSpy      sig_message(manager, SIGNAL(message(QString, QString)));
+    QSignalSpy      sig_message(manager, SIGNAL(message(QString)));
     QList<QVariant> numTasks;
     QVariant        msg;
 
@@ -593,7 +593,7 @@ void TestTaskManager::backup_interrupt_fake()
 
     TaskManager *manager = new TaskManager();
     const char  *logfilename;
-    QSignalSpy   sig_message(manager, SIGNAL(message(QString, QString)));
+    QSignalSpy   sig_message(manager, SIGNAL(message(QString)));
     QSignalSpy   sig_numTasks(manager, SIGNAL(numTasks(bool, int, int)));
     QVariant     msg;
 

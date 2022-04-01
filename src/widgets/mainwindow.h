@@ -62,9 +62,7 @@ public slots:
     void initializeMainWindow();
     //! Set the statusbar message.
     //! \param message display this text
-    //! \param detail display this text as a mouse-over tooltip.
-    void updateStatusMessage(const QString &message,
-                             const QString &detail = "");
+    void updateStatusMessage(const QString &message);
     //! Update the global Tarsnap --print-stats values in the Settings tab.
     void overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                              quint64 sizeUniqueTotal,

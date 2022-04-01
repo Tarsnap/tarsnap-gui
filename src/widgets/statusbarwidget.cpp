@@ -55,7 +55,7 @@ void StatusBarWidget::changeEvent(QEvent *event)
         updateUi();
 
         // Clear previous-language status message
-        updateStatusMessage("", "");
+        updateStatusMessage("");
     }
     QWidget::changeEvent(event);
 }
@@ -71,12 +71,9 @@ void StatusBarWidget::updateUi()
                 QKeySequence::NativeText)));
 }
 
-void StatusBarWidget::updateStatusMessage(const QString &message,
-                                          const QString &detail)
+void StatusBarWidget::updateStatusMessage(const QString &message)
 {
     _ui->statusBarLabel->setText(message);
-    if(!detail.isEmpty())
-        _ui->statusBarLabel->setToolTip(detail);
 }
 
 void StatusBarWidget::updateSimulationIcon(int state)

@@ -438,7 +438,7 @@ void SettingsWidget::nukeArchivesButtonClicked()
 {
     const QString confirmationText = tr("No Tomorrow");
 
-    newStatusMessage(tr("Nuke confirmation requested."), "");
+    newStatusMessage(tr("Nuke confirmation requested."));
 
     // Set up nuke confirmation
     _nukeConfirmationDialog->start(
@@ -461,7 +461,7 @@ void SettingsWidget::nukeConfirmed()
 
 void SettingsWidget::nukeCancelled()
 {
-    newStatusMessage(tr("Nuke cancelled."), "");
+    newStatusMessage(tr("Nuke cancelled."));
 }
 
 void SettingsWidget::updateAccountCredit(qreal credit, QDate date)

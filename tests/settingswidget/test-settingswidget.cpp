@@ -93,8 +93,7 @@ void TestSettingsWidget::account()
 {
     SettingsWidget     *settingsWidget = new SettingsWidget();
     Ui::SettingsWidget *ui             = settingsWidget->_ui;
-    QSignalSpy          sig_status(settingsWidget,
-                                   SIGNAL(newStatusMessage(QString, QString)));
+    QSignalSpy sig_status(settingsWidget, SIGNAL(newStatusMessage(QString)));
 
     TarsnapAccountDialog *tarsnapAccountDialog =
         settingsWidget->_tarsnapAccountDialog;

@@ -298,7 +298,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
     {
         QIcon icon(*pixmap);
         int   x = width() - MAIN_LOGO_RIGHT_MARGIN - pixmap->width();
-        int   y = 3;
+        int   y = _ui->mainContentSplitter->y() + _ui->centralWidget->y();
         icon.paint(&p, x, y, pixmap->width(), pixmap->height());
     }
 }
@@ -382,24 +382,16 @@ void MainWindow::setupMenuBar()
     }
 
     _menuBar = new QMenuBar(this);
-    if(!_menuBar->isNativeMenuBar())
-    {
-        delete _menuBar;
-        _menuBar = nullptr;
-        return;
-    }
+    setMenuBar(_menuBar);
 
-    QAction *actionAbout = new QAction(this);
+    QAction *actionAbout = new QAction(tr("About Tarsnap"), this);
     actionAbout->setMenuRole(QAction::AboutRole);
     connect(actionAbout, &QAction::triggered, _ui->helpTabWidget,
             &HelpWidget::aboutMenuClicked);
-    QAction *actionSettings = new QAction(this);
+    QAction *actionSettings = new QAction(tr("Settings"), this);
     actionSettings->setMenuRole(QAction::PreferencesRole);
     connect(actionSettings, &QAction::triggered, _ui->actionGoSettings,
             &QAction::trigger);
-    QMenu *appMenu = _menuBar->addMenu("");
-    appMenu->addAction(actionAbout);
-    appMenu->addAction(actionSettings);
     QMenu *backupMenu = _menuBar->addMenu(tr("&Backup"));
     backupMenu->addAction(_ui->actionBrowseItems);
     backupMenu->addAction(_ui->actionAddFiles);
@@ -427,6 +419,8 @@ void MainWindow::setupMenuBar()
     QMenu *settingsMenu = _menuBar->addMenu(tr("&Settings"));
     settingsMenu->addAction(_ui->actionRefreshAccount);
     settingsMenu->addAction(_ui->actionStopTasks);
+    settingsMenu->addSeparator();
+    settingsMenu->addAction(actionSettings);
     QMenu *windowMenu = _menuBar->addMenu(tr("&Window"));
 #ifdef Q_OS_OSX
     QAction *actionMinimize = new QAction(tr("Minimize"), this);
@@ -466,6 +460,8 @@ void MainWindow::setupMenuBar()
         QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
     });
     helpMenu->addAction(actionTarsnapWebsite);
+    helpMenu->addSeparator();
+    helpMenu->addAction(actionAbout);
 
     connect(_ui->mainTabWidget, &QTabWidget::currentChanged, this,
             &MainWindow::mainTabChanged);

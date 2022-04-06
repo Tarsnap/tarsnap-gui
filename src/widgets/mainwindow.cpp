@@ -298,7 +298,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
     {
         QIcon icon(*pixmap);
         int   x = width() - MAIN_LOGO_RIGHT_MARGIN - pixmap->width();
-        int   y = 3;
+        int   y = _ui->mainContentSplitter->y() + _ui->centralWidget->y();
         icon.paint(&p, x, y, pixmap->width(), pixmap->height());
     }
 }

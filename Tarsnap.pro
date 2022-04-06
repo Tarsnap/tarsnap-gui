@@ -1,17 +1,7 @@
+include(check-version.pri)
+
 # Check for at least Qt 5.2
-NOTSUPPORTED=0
-lessThan(QT_MAJOR_VERSION, 6) {
-    lessThan(QT_MAJOR_VERSION, 5) {
-        # Qt 4 or below
-        NOTSUPPORTED=1
-    } else {
-        lessThan(QT_MINOR_VERSION, 2) {
-            # Qt 5.0 or 5.1
-             NOTSUPPORTED=1
-        }
-    }
-}
-greaterThan(NOTSUPPORTED, 0) {
+if(!checkVersionAtLeast(5,2)) {
     error("Tarsnap-gui requires Qt 5.2 or higher; found $${QT_VERSION}.")
 }
 

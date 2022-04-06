@@ -382,12 +382,7 @@ void MainWindow::setupMenuBar()
     }
 
     _menuBar = new QMenuBar(this);
-    if(!_menuBar->isNativeMenuBar())
-    {
-        delete _menuBar;
-        _menuBar = nullptr;
-        return;
-    }
+    setMenuBar(_menuBar);
 
     QAction *actionAbout = new QAction(this);
     actionAbout->setMenuRole(QAction::AboutRole);

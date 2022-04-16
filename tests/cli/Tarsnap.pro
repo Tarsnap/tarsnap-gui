@@ -7,6 +7,9 @@ VALGRIND = true
 VERSION = test
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
+# Used in src/init-shared.cpp
+DEFINES += TEST_CLI
+
 SOURCES +=						\
 	../../lib/core/ConsoleLog.cpp			\
 	../../lib/core/TSettings.cpp			\
@@ -98,9 +101,8 @@ RCC_DIR     = ../../build/cli/
 OBJECTS_DIR = ../../build/cli/
 
 
-CONFDIR ="\"$${TEST_HOME}/Tarsnap Backup Inc./\""
-test_home_prep.commands += ; mkdir -p "$${CONFDIR}";		\
-	cp confdir/test-cli.conf "$${CONFDIR}/Tarsnap.conf"
+test_home_prep.commands += ; mkdir -p "$${TEST_HOME}/$${TARGET}";	\
+	cp -r confdir/* "$${TEST_HOME}/$${TARGET}"
 
 test.commands = $${TEST_ENV} ./${TARGET} --check
 

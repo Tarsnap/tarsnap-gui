@@ -79,6 +79,19 @@ static void init_no_explicit_app()
     QCoreApplication::setOrganizationDomain(QLatin1String("tarsnap.com"));
     QCoreApplication::setApplicationName(QLatin1String("Tarsnap"));
     QCoreApplication::setApplicationVersion(APP_VERSION);
+
+#if defined(TEST_CLI)
+    // Special handling for test-cli, which (deliberately) is not compiled
+    // with QT += testlib.
+    QCoreApplication::setApplicationName(QLatin1String("test-cli"));
+    QCoreApplication::setOrganizationName(QLatin1String("test-cli"));
+    // Workaround for test/cli on macOS.  The default config filename for
+    // QSettings varies based on platform; in macOS, it uses the Internet
+    // domain name (if it's not blank) instead of the organization name.
+#if defined(Q_OS_OSX)
+    QCoreApplication::setOrganizationDomain(QLatin1String(""));
+#endif
+#endif
 #endif
 
 #if defined(QT_DEBUG)

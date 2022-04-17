@@ -22,6 +22,10 @@ WARNINGS_DISABLE
 #include "ui_jobstabwidget.h"
 #include "ui_mainwindow.h"
 #include "ui_stoptasksdialog.h"
+
+#if defined(Q_OS_OSX)
+#include "ui_jobwidget.h"
+#endif
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
@@ -50,6 +54,10 @@ WARNINGS_ENABLE
 
 #include "ConsoleLog.h"
 #include "TSettings.h"
+
+#if defined(Q_OS_OSX)
+#include "customfilesystemmodel.h"
+#endif
 
 class TestMainWindow : public QObject
 {
@@ -303,7 +311,7 @@ void TestMainWindow::other_navigation()
     // slow to load on OSX (relative to the platform=offscreen test), so we
     // add an extra delay.
     jobsTabWidget->_ui->jobDetailsWidget->_ui->jobTreeWidget->_model
-        .setRootPath(TEST_DIR);
+        ->setRootPath(TEST_DIR);
     QTest::qWait(1000);
 #endif
 

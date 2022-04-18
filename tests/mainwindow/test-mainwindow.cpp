@@ -128,7 +128,7 @@ static QAction *get_menubar_about(QMenuBar *menubar)
         {
             for(QAction *subaction : action->menu()->actions())
             {
-                if(subaction->menuRole() == QAction::AboutRole)
+                if(subaction->text().startsWith("About"))
                 {
                     return subaction;
                 }

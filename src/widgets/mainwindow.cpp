@@ -385,11 +385,9 @@ void MainWindow::setupMenuBar()
     setMenuBar(_menuBar);
 
     QAction *actionAbout = new QAction(tr("About Tarsnap"), this);
-    actionAbout->setMenuRole(QAction::AboutRole);
     connect(actionAbout, &QAction::triggered, _ui->helpTabWidget,
             &HelpWidget::aboutMenuClicked);
     QAction *actionSettings = new QAction(tr("Settings"), this);
-    actionSettings->setMenuRole(QAction::PreferencesRole);
     connect(actionSettings, &QAction::triggered, _ui->actionGoSettings,
             &QAction::trigger);
     QMenu *backupMenu = _menuBar->addMenu(tr("&Backup"));

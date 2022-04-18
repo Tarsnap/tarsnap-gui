@@ -384,10 +384,10 @@ void MainWindow::setupMenuBar()
     _menuBar = new QMenuBar(this);
     setMenuBar(_menuBar);
 
-    QAction *actionAbout = new QAction(tr("About Tarsnap"), this);
+    QAction *actionAbout = _ui->actionAbout;
     connect(actionAbout, &QAction::triggered, _ui->helpTabWidget,
             &HelpWidget::aboutMenuClicked);
-    QAction *actionSettings = new QAction(tr("Settings"), this);
+    QAction *actionSettings = _ui->actionSettings;
     connect(actionSettings, &QAction::triggered, _ui->actionGoSettings,
             &QAction::trigger);
     QMenu *backupMenu = _menuBar->addMenu(tr("&Backup"));
@@ -421,14 +421,11 @@ void MainWindow::setupMenuBar()
     settingsMenu->addAction(actionSettings);
     QMenu *windowMenu = _menuBar->addMenu(tr("&Window"));
 
-    QAction *actionMinimize = new QAction(tr("Minimize"), this);
-    actionMinimize->setShortcut(QKeySequence("Ctrl+M"));
+    QAction *actionMinimize = _ui->actionMinimize;
     connect(actionMinimize, &QAction::triggered, this, &QWidget::showMinimized);
-    QAction *actionZoom = new QAction(tr("Zoom"), this);
+    QAction *actionZoom = _ui->actionZoom;
     connect(actionZoom, &QAction::triggered, this, &QWidget::showMaximized);
-    QAction *actionFullScreen = new QAction(tr("Enter Full Screen"), this);
-    actionFullScreen->setShortcut(QKeySequence("Ctrl+Meta+F"));
-    actionFullScreen->setCheckable(true);
+    QAction *actionFullScreen = _ui->actionFullScreen;
     connect(actionFullScreen, &QAction::triggered,
             [this, actionFullScreen](bool checked) {
                 if(checked)
@@ -461,7 +458,7 @@ void MainWindow::setupMenuBar()
     windowMenu->addAction(_ui->actionShowJournal);
 
     QMenu   *helpMenu             = _menuBar->addMenu(tr("&Help"));
-    QAction *actionTarsnapWebsite = new QAction(tr("Tarsnap Website"), this);
+    QAction *actionTarsnapWebsite = _ui->actionTarsnapWebsite;
     connect(actionTarsnapWebsite, &QAction::triggered, []() {
         QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
     });

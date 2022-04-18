@@ -560,6 +560,45 @@ font-size: 12px;
     <string>Browse for directory to add to the Backup list</string>
    </property>
   </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About Tarsnap</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionTarsnapWebsite">
+   <property name="text">
+    <string>Tarsnap Website</string>
+   </property>
+  </action>
+  <action name="actionMinimize">
+   <property name="text">
+    <string>Minimize</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionZoom">
+   <property name="text">
+    <string>Zoom</string>
+   </property>
+  </action>
+  <action name="actionFullScreen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enter Full Screen</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Ctrl+F</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

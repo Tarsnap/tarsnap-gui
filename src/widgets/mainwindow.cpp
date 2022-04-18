@@ -420,7 +420,7 @@ void MainWindow::setupMenuBar()
     settingsMenu->addSeparator();
     settingsMenu->addAction(actionSettings);
     QMenu *windowMenu = _menuBar->addMenu(tr("&Window"));
-#ifdef Q_OS_OSX
+
     QAction *actionMinimize = new QAction(tr("Minimize"), this);
     actionMinimize->setShortcut(QKeySequence("Ctrl+M"));
     connect(actionMinimize, &QAction::triggered, this, &QWidget::showMinimized);
@@ -444,6 +444,14 @@ void MainWindow::setupMenuBar()
     windowMenu->addAction(actionZoom);
     windowMenu->addAction(actionFullScreen);
     windowMenu->addSeparator();
+#ifdef Q_OS_OSX
+    // Leave these three actions enabled and visible.
+#else
+    for(QAction *action : {actionFullScreen, actionMinimize, actionZoom})
+    {
+        action->setEnabled(false);
+        action->setVisible(false);
+    }
 #endif
     windowMenu->addAction(_ui->actionGoBackup);
     windowMenu->addAction(_ui->actionGoArchives);

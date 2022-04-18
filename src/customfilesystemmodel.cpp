@@ -201,6 +201,7 @@ void CustomFileSystemModel::reset()
     _partialChecklist.clear();
 }
 
+#ifdef QT_TESTLIB_LIB
 bool CustomFileSystemModel::needToReadSubdirs(const QString &dirname)
 {
     bool        loadingMore = false;
@@ -240,3 +241,4 @@ bool CustomFileSystemModel::needToReadSubdirs(const QString &dirname)
     }
     return loadingMore;
 }
+#endif

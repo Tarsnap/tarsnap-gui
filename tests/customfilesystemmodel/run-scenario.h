@@ -31,11 +31,6 @@ private:
     // The root directory of the model.
     QString _rootDir;
 
-    // Recursively checks for any unread subdirectories.
-    // ASSUME: every directory must contain something.  See comment in .cpp
-    // file.
-    bool needToReadSubdirs(const QString &dirname);
-
     // Helper functions for processing the scenario text files.
     // "relname" is the "relative name", i.e. relative to the _rootDir.
     QString     getRelname(const QString &line);

@@ -59,8 +59,10 @@ public:
     //! Clears the list of fully and partially checked files and dirs.
     void reset();
 
+#ifdef QT_TESTLIB_LIB
     //! Has QFileSystemModel (separate thread) finished caching this directory?
     bool needToReadSubdirs(const QString &dirname);
+#endif
 
 private:
     QSet<QPersistentModelIndex> _checklist;

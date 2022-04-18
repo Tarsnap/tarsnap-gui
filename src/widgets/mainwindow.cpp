@@ -384,11 +384,9 @@ void MainWindow::setupMenuBar()
     _menuBar = new QMenuBar(this);
     setMenuBar(_menuBar);
 
-    QAction *actionAbout = _ui->actionAbout;
-    connect(actionAbout, &QAction::triggered, _ui->helpTabWidget,
+    connect(_ui->actionAbout, &QAction::triggered, _ui->helpTabWidget,
             &HelpWidget::aboutMenuClicked);
-    QAction *actionSettings = _ui->actionSettings;
-    connect(actionSettings, &QAction::triggered, _ui->actionGoSettings,
+    connect(_ui->actionSettings, &QAction::triggered, _ui->actionGoSettings,
             &QAction::trigger);
     QMenu *backupMenu = _menuBar->addMenu(tr("&Backup"));
     backupMenu->addAction(_ui->actionBrowseItems);
@@ -418,33 +416,32 @@ void MainWindow::setupMenuBar()
     settingsMenu->addAction(_ui->actionRefreshAccount);
     settingsMenu->addAction(_ui->actionStopTasks);
     settingsMenu->addSeparator();
-    settingsMenu->addAction(actionSettings);
+    settingsMenu->addAction(_ui->actionSettings);
     QMenu *windowMenu = _menuBar->addMenu(tr("&Window"));
 
-    QAction *actionMinimize = _ui->actionMinimize;
-    connect(actionMinimize, &QAction::triggered, this, &QWidget::showMinimized);
-    QAction *actionZoom = _ui->actionZoom;
-    connect(actionZoom, &QAction::triggered, this, &QWidget::showMaximized);
-    QAction *actionFullScreen = _ui->actionFullScreen;
-    connect(actionFullScreen, &QAction::triggered,
-            [this, actionFullScreen](bool checked) {
-                if(checked)
-                {
-                    actionFullScreen->setText(tr("Exit Full Screen"));
-                    this->showFullScreen();
-                }
-                else
-                    actionFullScreen->setText(tr("Enter Full Screen"));
-                this->showNormal();
-            });
-    windowMenu->addAction(actionMinimize);
-    windowMenu->addAction(actionZoom);
-    windowMenu->addAction(actionFullScreen);
+    connect(_ui->actionMinimize, &QAction::triggered, this,
+            &QWidget::showMinimized);
+    connect(_ui->actionZoom, &QAction::triggered, this,
+            &QWidget::showMaximized);
+    connect(_ui->actionFullScreen, &QAction::triggered, [this](bool checked) {
+        if(checked)
+        {
+            _ui->actionFullScreen->setText(tr("Exit Full Screen"));
+            this->showFullScreen();
+        }
+        else
+            _ui->actionFullScreen->setText(tr("Enter Full Screen"));
+        this->showNormal();
+    });
+    windowMenu->addAction(_ui->actionMinimize);
+    windowMenu->addAction(_ui->actionZoom);
+    windowMenu->addAction(_ui->actionFullScreen);
     windowMenu->addSeparator();
 #ifdef Q_OS_OSX
     // Leave these three actions enabled and visible.
 #else
-    for(QAction *action : {actionFullScreen, actionMinimize, actionZoom})
+    for(QAction *action :
+        {_ui->actionFullScreen, _ui->actionMinimize, _ui->actionZoom})
     {
         action->setEnabled(false);
         action->setVisible(false);
@@ -457,14 +454,13 @@ void MainWindow::setupMenuBar()
     windowMenu->addAction(_ui->actionGoHelp);
     windowMenu->addAction(_ui->actionShowJournal);
 
-    QMenu   *helpMenu             = _menuBar->addMenu(tr("&Help"));
-    QAction *actionTarsnapWebsite = _ui->actionTarsnapWebsite;
-    connect(actionTarsnapWebsite, &QAction::triggered, []() {
+    QMenu *helpMenu = _menuBar->addMenu(tr("&Help"));
+    connect(_ui->actionTarsnapWebsite, &QAction::triggered, []() {
         QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
     });
-    helpMenu->addAction(actionTarsnapWebsite);
+    helpMenu->addAction(_ui->actionTarsnapWebsite);
     helpMenu->addSeparator();
-    helpMenu->addAction(actionAbout);
+    helpMenu->addAction(_ui->actionAbout);
 
     connect(_ui->mainTabWidget, &QTabWidget::currentChanged, this,
             &MainWindow::mainTabChanged);

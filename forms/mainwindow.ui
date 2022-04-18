@@ -197,6 +197,90 @@ font-size: 12px;
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>500</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_Backup">
+    <property name="title">
+     <string>&amp;Backup</string>
+    </property>
+    <addaction name="actionBrowseItems"/>
+    <addaction name="actionAddFiles"/>
+    <addaction name="actionAddDirectory"/>
+    <addaction name="actionClearList"/>
+    <addaction name="separator"/>
+    <addaction name="actionBackupNow"/>
+    <addaction name="actionBackupMorphIntoJob"/>
+   </widget>
+   <widget class="QMenu" name="menu_Archives">
+    <property name="title">
+     <string>&amp;Archives</string>
+    </property>
+    <addaction name="actionInspect"/>
+    <addaction name="actionRestore"/>
+    <addaction name="actionDelete"/>
+    <addaction name="separator"/>
+    <addaction name="actionRefresh"/>
+    <addaction name="actionFilterArchives"/>
+   </widget>
+   <widget class="QMenu" name="menu_Jobs">
+    <property name="title">
+     <string>&amp;Jobs</string>
+    </property>
+    <addaction name="actionJobInspect"/>
+    <addaction name="actionJobRestore"/>
+    <addaction name="actionJobDelete"/>
+    <addaction name="separator"/>
+    <addaction name="actionJobBackup"/>
+    <addaction name="actionBackupAllJobs"/>
+    <addaction name="actionAddJob"/>
+    <addaction name="actionFilterJobs"/>
+   </widget>
+   <widget class="QMenu" name="menu_Settings">
+    <property name="title">
+     <string>&amp;Settings</string>
+    </property>
+    <addaction name="actionRefreshAccount"/>
+    <addaction name="actionStopTasks"/>
+    <addaction name="separator"/>
+    <addaction name="actionSettings"/>
+   </widget>
+   <widget class="QMenu" name="menu_Window">
+    <property name="title">
+     <string>&amp;Window</string>
+    </property>
+    <addaction name="actionMinimize"/>
+    <addaction name="actionZoom"/>
+    <addaction name="actionFullScreen"/>
+    <addaction name="separator"/>
+    <addaction name="actionGoBackup"/>
+    <addaction name="actionGoArchives"/>
+    <addaction name="actionGoJobs"/>
+    <addaction name="actionGoSettings"/>
+    <addaction name="actionGoHelp"/>
+    <addaction name="actionShowJournal"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionTarsnapWebsite"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menu_Backup"/>
+   <addaction name="menu_Archives"/>
+   <addaction name="menu_Jobs"/>
+   <addaction name="menu_Settings"/>
+   <addaction name="menu_Window"/>
+   <addaction name="menu_Help"/>
+  </widget>
   <action name="actionRefresh">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">

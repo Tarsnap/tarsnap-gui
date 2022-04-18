@@ -367,58 +367,16 @@ void MainWindow::changeEvent(QEvent *event)
     {
         _ui->retranslateUi(this);
         updateUi();
-        setupMenuBar();
     }
     QWidget::changeEvent(event);
 }
 
 void MainWindow::setupMenuBar()
 {
-    if(_menuBar != nullptr)
-    {
-        _menuBar->clear();
-        delete _menuBar;
-        _menuBar = nullptr;
-    }
-
-    _menuBar = new QMenuBar(this);
-    setMenuBar(_menuBar);
-
     connect(_ui->actionAbout, &QAction::triggered, _ui->helpTabWidget,
             &HelpWidget::aboutMenuClicked);
     connect(_ui->actionSettings, &QAction::triggered, _ui->actionGoSettings,
             &QAction::trigger);
-    QMenu *backupMenu = _menuBar->addMenu(tr("&Backup"));
-    backupMenu->addAction(_ui->actionBrowseItems);
-    backupMenu->addAction(_ui->actionAddFiles);
-    backupMenu->addAction(_ui->actionAddDirectory);
-    backupMenu->addAction(_ui->actionClearList);
-    backupMenu->addSeparator();
-    backupMenu->addAction(_ui->actionBackupNow);
-    backupMenu->addAction(_ui->actionBackupMorphIntoJob);
-    QMenu *archivesMenu = _menuBar->addMenu(tr("&Archives"));
-    archivesMenu->addAction(_ui->actionInspect);
-    archivesMenu->addAction(_ui->actionRestore);
-    archivesMenu->addAction(_ui->actionDelete);
-    archivesMenu->addSeparator();
-    archivesMenu->addAction(_ui->actionRefresh);
-    archivesMenu->addAction(_ui->actionFilterArchives);
-    QMenu *jobsMenu = _menuBar->addMenu(tr("&Jobs"));
-    jobsMenu->addAction(_ui->actionJobInspect);
-    jobsMenu->addAction(_ui->actionJobRestore);
-    jobsMenu->addAction(_ui->actionJobDelete);
-    jobsMenu->addSeparator();
-    jobsMenu->addAction(_ui->actionJobBackup);
-    jobsMenu->addAction(_ui->actionBackupAllJobs);
-    jobsMenu->addAction(_ui->actionAddJob);
-    jobsMenu->addAction(_ui->actionFilterJobs);
-    QMenu *settingsMenu = _menuBar->addMenu(tr("&Settings"));
-    settingsMenu->addAction(_ui->actionRefreshAccount);
-    settingsMenu->addAction(_ui->actionStopTasks);
-    settingsMenu->addSeparator();
-    settingsMenu->addAction(_ui->actionSettings);
-    QMenu *windowMenu = _menuBar->addMenu(tr("&Window"));
-
     connect(_ui->actionMinimize, &QAction::triggered, this,
             &QWidget::showMinimized);
     connect(_ui->actionZoom, &QAction::triggered, this,
@@ -433,10 +391,6 @@ void MainWindow::setupMenuBar()
             _ui->actionFullScreen->setText(tr("Enter Full Screen"));
         this->showNormal();
     });
-    windowMenu->addAction(_ui->actionMinimize);
-    windowMenu->addAction(_ui->actionZoom);
-    windowMenu->addAction(_ui->actionFullScreen);
-    windowMenu->addSeparator();
 #ifdef Q_OS_OSX
     // Leave these three actions enabled and visible.
 #else
@@ -447,20 +401,9 @@ void MainWindow::setupMenuBar()
         action->setVisible(false);
     }
 #endif
-    windowMenu->addAction(_ui->actionGoBackup);
-    windowMenu->addAction(_ui->actionGoArchives);
-    windowMenu->addAction(_ui->actionGoJobs);
-    windowMenu->addAction(_ui->actionGoSettings);
-    windowMenu->addAction(_ui->actionGoHelp);
-    windowMenu->addAction(_ui->actionShowJournal);
-
-    QMenu *helpMenu = _menuBar->addMenu(tr("&Help"));
     connect(_ui->actionTarsnapWebsite, &QAction::triggered, []() {
         QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
     });
-    helpMenu->addAction(_ui->actionTarsnapWebsite);
-    helpMenu->addSeparator();
-    helpMenu->addAction(_ui->actionAbout);
 
     connect(_ui->mainTabWidget, &QTabWidget::currentChanged, this,
             &MainWindow::mainTabChanged);

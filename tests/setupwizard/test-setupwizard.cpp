@@ -133,6 +133,15 @@ void TestSetupWizard::helper_almost_normal_install(SetupWizard *wizard)
     QVERIFY(ui_cli->validationLabel->text().contains("Tarsnap CLI version"));
     VISUAL_WAIT;
 
+    IF_MACOS_PRE_5_15
+    {
+        // Bail instead of moving to the RegisterPage.  We can't use QSKIP
+        // here because that would return from this function, but continue
+        // running the relevant test function (?).  Instead, that function
+        // will use IF_MACOS_PRE_5_15_SKIP.
+        return;
+    }
+
     // Proceed
     GET_BUTTON(NextButton)->click();
     VISUAL_WAIT;
@@ -177,6 +186,7 @@ void TestSetupWizard::normal_install()
 
     // Almost complete a normal install
     helper_almost_normal_install(wizard);
+    IF_MACOS_PRE_5_15_SKIP;
 
     // Finish the install
     GET_BUTTON(FinishButton)->click();
@@ -224,6 +234,7 @@ void TestSetupWizard::skip_install()
 
     // Almost complete a normal install
     helper_almost_normal_install(wizard);
+    IF_MACOS_PRE_5_15_SKIP;
 
     // Now go back to the beginning and skip the install
     GET_BUTTON(BackButton)->click();

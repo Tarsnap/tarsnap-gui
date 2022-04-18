@@ -98,6 +98,11 @@ static void run_normal_setup(AppSetup *setup)
         VISUAL_WAIT;
     }
     setup->waitUntilIdle();
+    IF_MACOS_PRE_5_15
+    {
+        qDebug() << "macOS with broken Qt --platform=offscreen; skipping";
+        wizard->close();
+    }
     GET_BUTTON(NextButton)->click();
 
     // Register page

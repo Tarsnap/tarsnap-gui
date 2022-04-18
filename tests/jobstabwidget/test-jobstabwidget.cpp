@@ -113,6 +113,7 @@ void TestJobsTabWidget::defaultJobs()
 
 void TestJobsTabWidget::createJob()
 {
+    IF_MACOS_PRE_5_15_SKIP;
     JobsTabWidget        *jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget    *ui            = jobstabwidget->_ui;
     JobDetailsWidget     *jobWidget     = jobstabwidget->_ui->jobDetailsWidget;
@@ -163,6 +164,7 @@ void TestJobsTabWidget::createJob()
 
 void TestJobsTabWidget::displayJobDetails()
 {
+    IF_MACOS_PRE_5_15_SKIP;
     JobsTabWidget     *jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget *ui            = jobstabwidget->_ui;
     QSignalSpy         sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
@@ -203,6 +205,7 @@ void TestJobsTabWidget::displayJobDetails()
 
 void TestJobsTabWidget::jobListWidget()
 {
+    IF_MACOS_PRE_5_15_SKIP;
     JobsTabWidget     *jobstabwidget = new JobsTabWidget();
     Ui::JobsTabWidget *ui            = jobstabwidget->_ui;
     QSignalSpy         sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));

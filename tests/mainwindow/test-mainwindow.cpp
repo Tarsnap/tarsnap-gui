@@ -140,6 +140,7 @@ static QAction *get_menubar_about(QMenuBar *menubar)
 
 void TestMainWindow::about_window_menubar()
 {
+    IF_MACOS_PRE_5_15_SKIP;
     MainWindow     *mainwindow = new MainWindow();
     HelpWidget     *help       = mainwindow->_ui->helpTabWidget;
     Ui::HelpWidget *ui         = help->_ui;
@@ -178,6 +179,7 @@ void TestMainWindow::about_window_menubar()
 
 void TestMainWindow::stoptasksdialog_nonquit()
 {
+    IF_MACOS_PRE_5_15_SKIP;
     MainWindow      *mainwindow = new MainWindow();
     StopTasksDialog *st         = mainwindow->_stopTasksDialog;
 
@@ -206,6 +208,7 @@ void TestMainWindow::stoptasksdialog_nonquit()
 
 void TestMainWindow::quit_simple()
 {
+    IF_MACOS_PRE_5_15_SKIP;
     MainWindow *mainwindow = new MainWindow();
 
     VISUAL_INIT(mainwindow);
@@ -222,6 +225,7 @@ void TestMainWindow::quit_simple()
 
 void TestMainWindow::quit_tasks()
 {
+    IF_MACOS_PRE_5_15_SKIP;
     MainWindow *mainwindow = new MainWindow();
 
     VISUAL_INIT(mainwindow);
@@ -255,6 +259,7 @@ void TestMainWindow::quit_tasks()
 
 void TestMainWindow::tab_navigation()
 {
+    IF_MACOS_PRE_5_15_SKIP;
     MainWindow     *mainwindow = new MainWindow();
     Ui::MainWindow *ui         = mainwindow->_ui;
 
@@ -291,6 +296,7 @@ void TestMainWindow::tab_navigation()
 
 void TestMainWindow::other_navigation()
 {
+    IF_MACOS_PRE_5_15_SKIP;
     MainWindow        *mainwindow    = new MainWindow();
     Ui::MainWindow    *ui            = mainwindow->_ui;
     JobsTabWidget     *jobsTabWidget = mainwindow->_ui->jobsTabWidget;

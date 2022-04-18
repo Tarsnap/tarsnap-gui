@@ -39,6 +39,19 @@ WARNINGS_ENABLE
         else { gui_obj->show(); }                                              \
     } while(0)
 
+// Workaround a bug in Qt < 5.15 on macOS
+#if defined(Q_OS_OSX) && (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+#define IF_MACOS_PRE_5_15 IF_NOT_VISUAL
+#define IF_MACOS_PRE_5_15_SKIP                                                 \
+    do                                                                         \
+    {                                                                          \
+        IF_NOT_VISUAL { QSKIP("macOS with broken Qt --platform=offscreen"); }  \
+    } while(0)
+#else
+#define IF_MACOS_PRE_5_15 if(0)
+#define IF_MACOS_PRE_5_15_SKIP /* NOTHING */
+#endif
+
 // Filter out unwanted messages arising from platform="offscreen"
 void offscreenMessageOutput(QtMsgType type, const QMessageLogContext &context,
                             const QString &msg);

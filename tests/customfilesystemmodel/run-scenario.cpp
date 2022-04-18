@@ -21,12 +21,7 @@ RunScenario::RunScenario()
 {
     // Set up model.
     _model.setReadOnly(true);
-    _model.setRootPath(_rootDir);
-
-    // In the GUI, we cannot select a file or directory until its parent
-    // directory has been loaded.  This is not a perfect imitation of that
-    // scenario, but it is better than nothing.
-    WAIT_UNTIL(!_model.needToReadSubdirs(_rootDir));
+    _model.setRootPathBlocking(_rootDir);
 }
 
 // The format of these lines in the scenario file is:

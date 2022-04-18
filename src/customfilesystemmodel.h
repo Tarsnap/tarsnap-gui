@@ -60,8 +60,8 @@ public:
     void reset();
 
 #ifdef QT_TESTLIB_LIB
-    //! Has QFileSystemModel (separate thread) finished caching this directory?
-    bool needToReadSubdirs(const QString &dirname);
+    //! Set the root path, and block until it has finished loading.
+    void setRootPathBlocking(const QString &dirname);
 #endif
 
 private:
@@ -85,6 +85,11 @@ private:
 
     // Recursively sets previously-checked descendents to be unchecked.
     void setUncheckedRecursive(const QModelIndex &idx);
+
+#ifdef QT_TESTLIB_LIB
+    //! Has QFileSystemModel (separate thread) finished caching this directory?
+    bool needToReadSubdirs(const QString &dirname);
+#endif
 };
 
 #endif // CUSTOMFILESYSTEMMODEL_H

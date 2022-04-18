@@ -1,6 +1,7 @@
 #include "customfilesystemmodel.h"
 
 WARNINGS_DISABLE
+#include <QCoreApplication>
 #include <QFlags>
 #include <QModelIndex>
 #include <QObject>
@@ -202,6 +203,13 @@ void CustomFileSystemModel::reset()
 }
 
 #ifdef QT_TESTLIB_LIB
+void CustomFileSystemModel::setRootPathBlocking(const QString &dirname)
+{
+    setRootPath(dirname);
+    while(!needToReadSubdirs(dirname))
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+}
+
 bool CustomFileSystemModel::needToReadSubdirs(const QString &dirname)
 {
     bool        loadingMore = false;

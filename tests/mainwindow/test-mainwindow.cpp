@@ -311,8 +311,7 @@ void TestMainWindow::other_navigation()
     // slow to load on OSX (relative to the platform=offscreen test), so we
     // add an extra delay.
     jobsTabWidget->_ui->jobDetailsWidget->_ui->jobTreeWidget->_model
-        ->setRootPath(TEST_DIR);
-    QTest::qWait(1000);
+        ->setRootPathBlocking(TEST_DIR);
 #endif
 
     QList<QUrl> testdir_urls({QUrl("file://" TEST_DIR)});

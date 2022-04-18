@@ -32,6 +32,7 @@ class FilePickerWidget : public QWidget
 
 #ifdef QT_TESTLIB_LIB
     friend class TestMainWindow;
+    friend class TestJobsTabWidget;
 #endif
 
 public:

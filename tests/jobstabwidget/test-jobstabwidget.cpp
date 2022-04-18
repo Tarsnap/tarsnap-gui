@@ -28,6 +28,10 @@ WARNINGS_ENABLE
 #include "widgets/jobstabwidget.h"
 #include "widgets/jobwidget.h"
 
+#if defined(Q_OS_OSX)
+#include "customfilesystemmodel.h"
+#endif
+
 class TestJobsTabWidget : public QObject
 {
     Q_OBJECT
@@ -116,6 +120,10 @@ void TestJobsTabWidget::createJob()
     QSignalSpy            sig_jobAdded(jobstabwidget, SIGNAL(jobAdded(JobPtr)));
 
     VISUAL_INIT(jobstabwidget);
+#if defined(Q_OS_OSX)
+    jobstabwidget->_ui->jobDetailsWidget->_ui->jobTreeWidget->_model
+        ->setRootPathBlocking(TEST_DIR);
+#endif
 
     // Start out without the button being enabled
     QVERIFY(ui->addJobButton->text() == QString("Add job"));
@@ -162,6 +170,10 @@ void TestJobsTabWidget::displayJobDetails()
                                      SIGNAL(backupNow(BackupTaskDataPtr)));
 
     VISUAL_INIT(jobstabwidget);
+#if defined(Q_OS_OSX)
+    jobstabwidget->_ui->jobDetailsWidget->_ui->jobTreeWidget->_model
+        ->setRootPathBlocking(TEST_DIR);
+#endif
 
     // Create a job
     jobstabwidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),
@@ -197,6 +209,10 @@ void TestJobsTabWidget::jobListWidget()
     QSignalSpy sig_deleteJob(jobstabwidget, SIGNAL(deleteJob(JobPtr, bool)));
 
     VISUAL_INIT(jobstabwidget);
+#if defined(Q_OS_OSX)
+    jobstabwidget->_ui->jobDetailsWidget->_ui->jobTreeWidget->_model
+        ->setRootPathBlocking(TEST_DIR);
+#endif
 
     // Create a job
     jobstabwidget->createNewJob(QList<QUrl>() << QUrl("file://" TEST_DIR),

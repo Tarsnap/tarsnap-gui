@@ -2,6 +2,39 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>AboutWidget</name>
+    <message>
+        <source>About Tarsnap GUI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GUI version </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Look for new version of Tarsnap GUI upstream</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>© 2014-2018 Tarsnap Backup Inc. All rights reserved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This software is released under the BSD 2-clause license.
+Built with the help of the following 3rd party components:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>* Qt SDK from http://www.qt.io/download-open-source/ - LGPL; Multi license
+* Icons by &quot;Open Iconic www.useiconic.com/open&quot; - MIT License</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AppCmdline</name>
     <message>
         <source>Cannot proceed without a config file.</source>
@@ -633,6 +666,13 @@ Add anyway?</source>
     <name>ConfirmationDialog</name>
     <message>
         <source>Not confirmed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsoleWidget</name>
+    <message>
+        <source>Tarsnap Console Log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2843,46 +2883,6 @@ unique data	%3		%4</source>
     </message>
     <message>
         <source>Restoring from archive &lt;i&gt;%1&lt;/i&gt; failed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>aboutWidget</name>
-    <message>
-        <source>GUI version </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Look for new version of Tarsnap GUI upstream</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Check for update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>© 2014-2018 Tarsnap Backup Inc. All rights reserved.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This software is released under the BSD 2-clause license.
-Built with the help of the following 3rd party components:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>* Qt SDK from http://www.qt.io/download-open-source/ - LGPL; Multi license
-* Icons by &quot;Open Iconic www.useiconic.com/open&quot; - MIT License</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>About Tarsnap GUI</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>consoleWidget</name>
-    <message>
-        <source>Tarsnap Console Log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

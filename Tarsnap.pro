@@ -208,7 +208,7 @@ FORMS +=						\
 	forms/archivewidget.ui				\
 	forms/backuplistwidgetitem.ui			\
 	forms/backuptabwidget.ui			\
-	forms/consolewidget.ui				\
+	forms/consolelogdialog.ui			\
 	forms/filepickerdialog.ui			\
 	forms/filepickerwidget.ui			\
 	forms/helpwidget.ui				\

@@ -670,7 +670,7 @@ Add anyway?</source>
     </message>
 </context>
 <context>
-    <name>ConsoleWidget</name>
+    <name>ConsoleLogDialog</name>
     <message>
         <source>Tarsnap Console Log</source>
         <translation type="unfinished"></translation>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ConsoleWidget</class>
- <widget class="QWidget" name="consoleWidget">
+ <class>ConsoleLogDialog</class>
+ <widget class="QWidget" name="consoleLogDialog">
   <property name="windowTitle">
    <string>Tarsnap Console Log</string>
   </property>

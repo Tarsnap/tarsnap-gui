@@ -5,7 +5,7 @@ VALGRIND = true
 
 FORMS +=						\
 	../../forms/aboutdialog.ui			\
-	../../forms/consolewidget.ui			\
+	../../forms/consolelogdialog.ui			\
 	../../forms/helpwidget.ui
 
 RESOURCES += ../../resources/resources.qrc

@@ -12,7 +12,7 @@ WARNINGS_DISABLE
 #include <QWidget>
 #include <Qt>
 
-#include "ui_consolewidget.h"
+#include "ui_consolelogdialog.h"
 #include "ui_helpwidget.h"
 WARNINGS_ENABLE
 
@@ -49,7 +49,7 @@ HelpWidget::HelpWidget(QWidget *parent)
     _ui->aboutButton->setPopup(_aboutWindow);
 
     // Initialize console log
-    Ui::ConsoleWidget consoleUI;
+    Ui::ConsoleLogDialog consoleUI;
     consoleUI.setupUi(_consoleWindow);
     _consoleLog = consoleUI.log;
     _ui->consoleButton->setPopup(_consoleWindow);

@@ -1722,6 +1722,18 @@ Adaugă oricum?</translation>
         <source>Tarsnap encountered network errors. Please check your network connection and verify that internet access is available and try again.</source>
         <translation>Eroare la conectarea în rețea. Vă rugam să verificați conectivitatea dumneavoastra și accesul la internet.</translation>
     </message>
+    <message>
+        <source>About Tarsnap</source>
+        <translation type="unfinished">Despre Tarsnap</translation>
+    </message>
+    <message>
+        <source>Ctrl+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Meta+Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2755,12 +2767,6 @@ unique data	%3		%4</source>
         <translation>Eroare la actualizarea listei de arhive.</translation>
     </message>
     <message>
-        <source>Tarsnap exited with code %1 and output:
-%2</source>
-        <translation>Comandă Tarsnap finalizată cu codul de ieșire %1 și rezultat:
-%2</translation>
-    </message>
-    <message>
         <source>Fetching stats for archive &lt;i&gt;%1&lt;/i&gt;... done.</source>
         <translation>Se descarcă statistici pentru arhiva &lt;i&gt;%1&lt;/i&gt;... finalizat.</translation>
     </message>
@@ -2785,10 +2791,6 @@ unique data	%3		%4</source>
         <translation>Directorul &quot;cache&quot; Tarsnap a fost reparat cu succes.</translation>
     </message>
     <message>
-        <source>Cache repair failed. Hover mouse for details.</source>
-        <translation>Eroare la repararea directorului &quot;cache&quot; Tarsnap.</translation>
-    </message>
-    <message>
         <source>Cache repair initiated.</source>
         <translation>Repararea directorului cache a fost inițiată.</translation>
     </message>
@@ -2805,16 +2807,8 @@ unique data	%3		%4</source>
         <translation>Toate arhivele au fost șterse cu succes.</translation>
     </message>
     <message>
-        <source>Archives nuke failed. Hover mouse for details.</source>
-        <translation>Eroare la ștergerea arhivelor.</translation>
-    </message>
-    <message>
         <source>Restoring from archive &lt;i&gt;%1&lt;/i&gt;... done.</source>
         <translation>Se restaurează din arhiva &lt;i&gt;%1&lt;/i&gt;... finalizat.</translation>
-    </message>
-    <message>
-        <source>Restoring from archive &lt;i&gt;%1&lt;/i&gt; failed. Hover mouse for details.</source>
-        <translation>Eroare la ștergerea arhivei &lt;i&gt;%1&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>Backup &lt;i&gt;%1&lt;/i&gt; completed. (%2 new data on Tarsnap)</source>
@@ -2867,6 +2861,18 @@ unique data	%3		%4</source>
     <message>
         <source>Simulated backup &lt;i&gt;%1&lt;/i&gt; completed. (%2 new data would have been added to Tarsnap)</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cache repair failed.</source>
+        <translation>Eroare la repararea directorului &quot;cache&quot; Tarsnap.</translation>
+    </message>
+    <message>
+        <source>Archives nuke failed.</source>
+        <translation>Eroare la ștergerea arhivelor.</translation>
+    </message>
+    <message>
+        <source>Restoring from archive &lt;i&gt;%1&lt;/i&gt; failed.</source>
+        <translation>Eroare la ștergerea arhivei &lt;i&gt;%1&lt;/i&gt;.</translation>
     </message>
 </context>
 <context>

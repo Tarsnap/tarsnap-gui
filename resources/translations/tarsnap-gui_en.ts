@@ -1706,6 +1706,18 @@ Add anyway?</source>
         <source>Tarsnap encountered network errors. Please check your network connection and verify that internet access is available and try again.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>About Tarsnap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Meta+Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2726,11 +2738,6 @@ unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tarsnap exited with code %1 and output:
-%2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fetching stats for archive &lt;i&gt;%1&lt;/i&gt;... done.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2755,10 +2762,6 @@ unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cache repair failed. Hover mouse for details.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cache repair initiated.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2775,15 +2778,7 @@ unique data	%3		%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Archives nuke failed. Hover mouse for details.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Restoring from archive &lt;i&gt;%1&lt;/i&gt;... done.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Restoring from archive &lt;i&gt;%1&lt;/i&gt; failed. Hover mouse for details.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2836,6 +2831,18 @@ unique data	%3		%4</source>
     </message>
     <message>
         <source>Simulated backup &lt;i&gt;%1&lt;/i&gt; completed. (%2 new data would have been added to Tarsnap)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cache repair failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archives nuke failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restoring from archive &lt;i&gt;%1&lt;/i&gt; failed.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

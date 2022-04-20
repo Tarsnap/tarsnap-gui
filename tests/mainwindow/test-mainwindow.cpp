@@ -36,6 +36,7 @@ WARNINGS_ENABLE
 
 #include "basetask.h"
 #include "translator.h"
+#include "widgets/aboutdialog.h"
 #include "widgets/archivestabwidget.h"
 #include "widgets/backuptabwidget.h"
 #include "widgets/helpwidget.h"

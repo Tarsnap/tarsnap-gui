@@ -13,6 +13,7 @@ WARNINGS_ENABLE
 
 #include "TPopupPushButton.h"
 
+#include "widgets/aboutdialog.h"
 #include "widgets/helpwidget.h"
 
 #define LONG_TEXT                                                              \

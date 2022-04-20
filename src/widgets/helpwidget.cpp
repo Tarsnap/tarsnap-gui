@@ -1,24 +1,17 @@
 #include "helpwidget.h"
 
 WARNINGS_DISABLE
-#include <QCoreApplication>
 #include <QDateTime>
-#include <QDesktopServices>
 #include <QDialog>
 #include <QEvent>
 #include <QFile>
-#include <QFlags>
 #include <QIODevice>
 #include <QKeySequence>
-#include <QLabel>
-#include <QPushButton>
 #include <QTextBrowser>
 #include <QTextStream>
-#include <QUrl>
 #include <QWidget>
 #include <Qt>
 
-#include "ui_aboutdialog.h"
 #include "ui_consolewidget.h"
 #include "ui_helpwidget.h"
 WARNINGS_ENABLE
@@ -27,12 +20,14 @@ WARNINGS_ENABLE
 #include "TPopupPushButton.h"
 #include "TTextView.h"
 
+#include "aboutdialog.h"
+
 #include "debug.h"
 
 HelpWidget::HelpWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::HelpWidget),
-      _aboutWindow(new QDialog(this)),
+      _aboutWindow(new AboutDialog(this)),
       _consoleWindow(new QDialog(this))
 {
     // Ui initialization
@@ -51,17 +46,6 @@ HelpWidget::HelpWidget(QWidget *parent)
     updateKeyboardShortcutInfo();
 
     // Initialize About window
-    Ui::AboutDialog aboutUi;
-    aboutUi.setupUi(_aboutWindow);
-    aboutUi.versionLabel->setText(tr("GUI version ")
-                                  + QCoreApplication::applicationVersion());
-    _aboutWindow->setWindowFlags(
-        (_aboutWindow->windowFlags() | Qt::CustomizeWindowHint)
-        & ~Qt::WindowMaximizeButtonHint);
-    connect(aboutUi.checkUpdateButton, &QPushButton::clicked, []() {
-        QDesktopServices::openUrl(
-            QUrl("https://github.com/Tarsnap/tarsnap-gui/releases"));
-    });
     _ui->aboutButton->setPopup(_aboutWindow);
 
     // Initialize console log

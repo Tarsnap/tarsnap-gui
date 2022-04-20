@@ -839,10 +839,6 @@ Adaugă oricum?</translation>
         <source>Console Log</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>GUI version </source>
-        <translation type="unfinished">Versiune aplicație </translation>
-    </message>
 </context>
 <context>
     <name>IntroPage</name>

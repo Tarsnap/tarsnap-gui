@@ -14,6 +14,7 @@ namespace Ui
 {
 class HelpWidget;
 }
+class AboutDialog;
 class TTextView;
 class QDialog;
 class QEvent;
@@ -50,7 +51,7 @@ protected:
 private:
     Ui::HelpWidget *_ui;
     QString         _helpTabHTML;
-    QDialog        *_aboutWindow;
+    AboutDialog    *_aboutWindow;
     QDialog        *_consoleWindow;
 
     TTextView *_consoleLog;

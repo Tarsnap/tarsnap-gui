@@ -18,7 +18,7 @@ WARNINGS_DISABLE
 #include <QWidget>
 #include <Qt>
 
-#include "ui_aboutwidget.h"
+#include "ui_aboutdialog.h"
 #include "ui_consolewidget.h"
 #include "ui_helpwidget.h"
 WARNINGS_ENABLE
@@ -51,7 +51,7 @@ HelpWidget::HelpWidget(QWidget *parent)
     updateKeyboardShortcutInfo();
 
     // Initialize About window
-    Ui::AboutWidget aboutUi;
+    Ui::AboutDialog aboutUi;
     aboutUi.setupUi(_aboutWindow);
     aboutUi.versionLabel->setText(tr("GUI version ")
                                   + QCoreApplication::applicationVersion());

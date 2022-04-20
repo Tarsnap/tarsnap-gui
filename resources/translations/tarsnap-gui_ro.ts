@@ -2,7 +2,7 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ro_RO">
 <context>
-    <name>AboutWidget</name>
+    <name>AboutDialog</name>
     <message>
         <source>About Tarsnap GUI</source>
         <translation type="unfinished"></translation>

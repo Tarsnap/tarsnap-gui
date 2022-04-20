@@ -7,7 +7,7 @@ VALGRIND = true
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 FORMS +=							\
-	../../forms/aboutwidget.ui				\
+	../../forms/aboutdialog.ui				\
 	../../forms/archivelistwidgetitem.ui			\
 	../../forms/archivestabwidget.ui			\
 	../../forms/archivewidget.ui				\

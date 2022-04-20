@@ -4,7 +4,7 @@ QT = core gui widgets
 VALGRIND = true
 
 FORMS +=						\
-	../../forms/aboutwidget.ui			\
+	../../forms/aboutdialog.ui			\
 	../../forms/consolewidget.ui			\
 	../../forms/helpwidget.ui
 

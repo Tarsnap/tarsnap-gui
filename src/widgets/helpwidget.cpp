@@ -51,7 +51,7 @@ HelpWidget::HelpWidget(QWidget *parent)
     updateKeyboardShortcutInfo();
 
     // Initialize About window
-    Ui::aboutWidget aboutUi;
+    Ui::AboutWidget aboutUi;
     aboutUi.setupUi(_aboutWindow);
     aboutUi.versionLabel->setText(tr("GUI version ")
                                   + QCoreApplication::applicationVersion());
@@ -65,7 +65,7 @@ HelpWidget::HelpWidget(QWidget *parent)
     _ui->aboutButton->setPopup(_aboutWindow);
 
     // Initialize console log
-    Ui::consoleWidget consoleUI;
+    Ui::ConsoleWidget consoleUI;
     consoleUI.setupUi(_consoleWindow);
     _consoleLog = consoleUI.log;
     _ui->consoleButton->setPopup(_consoleWindow);

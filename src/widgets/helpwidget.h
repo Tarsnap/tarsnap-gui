@@ -15,8 +15,7 @@ namespace Ui
 class HelpWidget;
 }
 class AboutDialog;
-class TTextView;
-class QDialog;
+class ConsoleLogDialog;
 class QEvent;
 
 /*!
@@ -51,10 +50,9 @@ protected:
 private:
     Ui::HelpWidget *_ui;
     QString         _helpTabHTML;
-    AboutDialog    *_aboutWindow;
-    QDialog        *_consoleWindow;
 
-    TTextView *_consoleLog;
+    AboutDialog      *_aboutWindow;
+    ConsoleLogDialog *_consoleWindow;
 
     void updateKeyboardShortcutInfo();
 };

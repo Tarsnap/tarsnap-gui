@@ -2,7 +2,6 @@
 
 WARNINGS_DISABLE
 #include <QCoreApplication>
-#include <QDialog>
 #include <QObject>
 #include <QTest>
 
@@ -14,6 +13,7 @@ WARNINGS_ENABLE
 #include "TPopupPushButton.h"
 
 #include "widgets/aboutdialog.h"
+#include "widgets/consolelogdialog.h"
 #include "widgets/helpwidget.h"
 
 #define LONG_TEXT                                                              \

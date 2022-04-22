@@ -84,6 +84,7 @@ SOURCES +=						\
 	src/widgets/backuplistwidgetitem.cpp		\
 	src/widgets/backuptabwidget.cpp			\
 	src/widgets/confirmationdialog.cpp		\
+	src/widgets/consolelogdialog.cpp		\
 	src/widgets/elidedannotatedlabel.cpp		\
 	src/widgets/elidedclickablelabel.cpp		\
 	src/widgets/filepickerdialog.cpp		\
@@ -176,6 +177,7 @@ HEADERS +=						\
 	src/widgets/backuplistwidgetitem.h		\
 	src/widgets/backuptabwidget.h			\
 	src/widgets/confirmationdialog.h		\
+	src/widgets/consolelogdialog.h			\
 	src/widgets/elidedannotatedlabel.h		\
 	src/widgets/elidedclickablelabel.h		\
 	src/widgets/filepickerdialog.h			\

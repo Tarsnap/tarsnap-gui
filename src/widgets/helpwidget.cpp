@@ -1,8 +1,6 @@
 #include "helpwidget.h"
 
 WARNINGS_DISABLE
-#include <QDateTime>
-#include <QDialog>
 #include <QEvent>
 #include <QFile>
 #include <QIODevice>
@@ -12,15 +10,13 @@ WARNINGS_DISABLE
 #include <QWidget>
 #include <Qt>
 
-#include "ui_consolelogdialog.h"
 #include "ui_helpwidget.h"
 WARNINGS_ENABLE
 
-#include "LogEntry.h"
 #include "TPopupPushButton.h"
-#include "TTextView.h"
 
 #include "aboutdialog.h"
+#include "consolelogdialog.h"
 
 #include "debug.h"
 
@@ -28,7 +24,7 @@ HelpWidget::HelpWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::HelpWidget),
       _aboutWindow(new AboutDialog(this)),
-      _consoleWindow(new QDialog(this))
+      _consoleWindow(new ConsoleLogDialog(this))
 {
     // Ui initialization
     _ui->setupUi(this);
@@ -49,9 +45,6 @@ HelpWidget::HelpWidget(QWidget *parent)
     _ui->aboutButton->setPopup(_aboutWindow);
 
     // Initialize console log
-    Ui::ConsoleLogDialog consoleUI;
-    consoleUI.setupUi(_consoleWindow);
-    _consoleLog = consoleUI.log;
     _ui->consoleButton->setPopup(_consoleWindow);
 }
 
@@ -62,7 +55,7 @@ HelpWidget::~HelpWidget()
 
 void HelpWidget::appendLogString(const QString &text)
 {
-    _consoleLog->appendLog(LogEntry{QDateTime::currentDateTime(), text});
+    _consoleWindow->appendLogString(text);
 }
 
 void HelpWidget::aboutMenuClicked()

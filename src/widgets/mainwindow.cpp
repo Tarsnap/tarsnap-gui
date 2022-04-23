@@ -36,6 +36,7 @@ WARNINGS_ENABLE
 
 #include "backuptask.h"
 #include "basetask.h"
+#include "consolelogdialog.h"
 #include "persistentmodel/archive.h"
 #include "persistentmodel/job.h"
 #include "widgets/archivestabwidget.h"
@@ -58,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
       _backupTaskRunning(false),
       _runningTasks(0),
       _queuedTasks(0),
+      _consoleWindow(new ConsoleLogDialog(this)),
       _stopTasksDialog(new StopTasksDialog(this))
 {
     // Ui initialization
@@ -75,8 +77,10 @@ MainWindow::MainWindow(QWidget *parent)
     updateUi();
     setupMenuBar();
 
-    connect(&LOG, &ConsoleLog::message, _ui->helpTabWidget,
-            &HelpWidget::appendLogString);
+    connect(&LOG, &ConsoleLog::message, _consoleWindow,
+            &ConsoleLogDialog::appendLogString);
+    connect(_ui->actionShowConsoleLog, &QAction::triggered, _consoleWindow,
+            &ConsoleLogDialog::show);
 
     // --
 

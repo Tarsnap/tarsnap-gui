@@ -104,26 +104,6 @@ border-top: 2px groove darkgrey;
           </widget>
          </item>
          <item>
-          <spacer name="helpButtonMidSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="TPopupPushButton" name="consoleButton">
-           <property name="text">
-            <string>Console Log</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <spacer name="helpButtonRightSpacer">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -153,7 +133,6 @@ border-top: 2px groove darkgrey;
  </customwidgets>
  <tabstops>
   <tabstop>aboutButton</tabstop>
-  <tabstop>consoleButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -272,6 +272,7 @@ font-size: 12px;
     </property>
     <addaction name="actionTarsnapWebsite"/>
     <addaction name="separator"/>
+    <addaction name="actionShowConsoleLog"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menu_Backup"/>
@@ -681,6 +682,11 @@ font-size: 12px;
    </property>
    <property name="shortcut">
     <string>Meta+Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionShowConsoleLog">
+   <property name="text">
+    <string>Show Console Log</string>
    </property>
   </action>
  </widget>

@@ -15,7 +15,6 @@ namespace Ui
 class HelpWidget;
 }
 class AboutDialog;
-class ConsoleLogDialog;
 class QEvent;
 
 /*!
@@ -40,9 +39,6 @@ public slots:
     //! The "about" app menu item was clicked.
     void aboutMenuClicked();
 
-    //! Append a log message.
-    void appendLogString(const QString &text);
-
 protected:
     //! Handles translation change of language.
     void changeEvent(QEvent *event) override;
@@ -51,8 +47,7 @@ private:
     Ui::HelpWidget *_ui;
     QString         _helpTabHTML;
 
-    AboutDialog      *_aboutWindow;
-    ConsoleLogDialog *_consoleWindow;
+    AboutDialog *_aboutWindow;
 
     void updateKeyboardShortcutInfo();
 };

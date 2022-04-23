@@ -16,15 +16,13 @@ WARNINGS_ENABLE
 #include "TPopupPushButton.h"
 
 #include "aboutdialog.h"
-#include "consolelogdialog.h"
 
 #include "debug.h"
 
 HelpWidget::HelpWidget(QWidget *parent)
     : QWidget(parent),
       _ui(new Ui::HelpWidget),
-      _aboutWindow(new AboutDialog(this)),
-      _consoleWindow(new ConsoleLogDialog(this))
+      _aboutWindow(new AboutDialog(this))
 {
     // Ui initialization
     _ui->setupUi(this);
@@ -43,19 +41,11 @@ HelpWidget::HelpWidget(QWidget *parent)
 
     // Initialize About window
     _ui->aboutButton->setPopup(_aboutWindow);
-
-    // Initialize console log
-    _ui->consoleButton->setPopup(_consoleWindow);
 }
 
 HelpWidget::~HelpWidget()
 {
     delete _ui;
-}
-
-void HelpWidget::appendLogString(const QString &text)
-{
-    _consoleWindow->appendLogString(text);
 }
 
 void HelpWidget::aboutMenuClicked()

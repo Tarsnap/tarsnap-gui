@@ -31,6 +31,7 @@ class MainWindow;
 class ArchivesTabWidget;
 class BackupTabWidget;
 class BaseTask;
+class ConsoleLogDialog;
 class JobsTabWidget;
 class HelpWidget;
 class QEvent;
@@ -191,6 +192,8 @@ private:
     bool            _backupTaskRunning;
     int             _runningTasks;
     int             _queuedTasks;
+
+    ConsoleLogDialog *_consoleWindow;
 
     StopTasksDialog *_stopTasksDialog;
 

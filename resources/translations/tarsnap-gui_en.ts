@@ -819,10 +819,6 @@ Add anyway?</source>
         <source>About Tarsnap</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Console Log</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>IntroPage</name>
@@ -1752,6 +1748,10 @@ Add anyway?</source>
     </message>
     <message>
         <source>Meta+Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Console Log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

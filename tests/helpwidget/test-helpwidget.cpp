@@ -27,6 +27,7 @@ class TestHelpWidget : public QObject
 private slots:
     void initTestCase();
 
+    void helpwidget();
     void about_window();
     void console_window();
 };
@@ -37,6 +38,15 @@ void TestHelpWidget::initTestCase()
 
     // Use a custom message handler to filter out unwanted messages
     IF_NOT_VISUAL { qInstallMessageHandler(offscreenMessageOutput); }
+}
+
+void TestHelpWidget::helpwidget()
+{
+    HelpWidget *helpWidget = new HelpWidget();
+
+    VISUAL_INIT(helpWidget);
+
+    delete helpWidget;
 }
 
 void TestHelpWidget::about_window()

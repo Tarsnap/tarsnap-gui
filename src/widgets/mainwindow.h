@@ -28,6 +28,7 @@ namespace Ui
 {
 class MainWindow;
 }
+class AboutDialog;
 class ArchivesTabWidget;
 class BackupTabWidget;
 class BaseTask;
@@ -193,6 +194,7 @@ private:
     int             _runningTasks;
     int             _queuedTasks;
 
+    AboutDialog      *_aboutWindow;
     ConsoleLogDialog *_consoleWindow;
 
     StopTasksDialog *_stopTasksDialog;

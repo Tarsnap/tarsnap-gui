@@ -34,6 +34,7 @@ WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
 
+#include "aboutdialog.h"
 #include "backuptask.h"
 #include "basetask.h"
 #include "consolelogdialog.h"
@@ -59,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
       _backupTaskRunning(false),
       _runningTasks(0),
       _queuedTasks(0),
+      _aboutWindow(new AboutDialog(this)),
       _consoleWindow(new ConsoleLogDialog(this)),
       _stopTasksDialog(new StopTasksDialog(this))
 {
@@ -377,8 +379,8 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::setupMenuBar()
 {
-    connect(_ui->actionAbout, &QAction::triggered, _ui->helpTabWidget,
-            &HelpWidget::aboutMenuClicked);
+    connect(_ui->actionAbout, &QAction::triggered, _aboutWindow,
+            &AboutDialog::show);
     connect(_ui->actionSettings, &QAction::triggered, _ui->actionGoSettings,
             &QAction::trigger);
     connect(_ui->actionMinimize, &QAction::triggered, this,

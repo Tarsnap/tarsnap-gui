@@ -815,10 +815,6 @@ Add anyway?</source>
         <source>Keyboard shortcuts list</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>About Tarsnap</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>IntroPage</name>

@@ -14,7 +14,6 @@ namespace Ui
 {
 class HelpWidget;
 }
-class AboutDialog;
 class QEvent;
 
 /*!
@@ -25,19 +24,10 @@ class HelpWidget : public QWidget
 {
     Q_OBJECT
 
-#ifdef QT_TESTLIB_LIB
-    friend class TestMainWindow;
-    friend class TestHelpWidget;
-#endif
-
 public:
     //! Constructor.
     explicit HelpWidget(QWidget *parent = nullptr);
     ~HelpWidget() override;
-
-public slots:
-    //! The "about" app menu item was clicked.
-    void aboutMenuClicked();
 
 protected:
     //! Handles translation change of language.
@@ -46,8 +36,6 @@ protected:
 private:
     Ui::HelpWidget *_ui;
     QString         _helpTabHTML;
-
-    AboutDialog *_aboutWindow;
 
     void updateKeyboardShortcutInfo();
 };

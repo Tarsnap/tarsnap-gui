@@ -4,13 +4,9 @@ WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QObject>
 #include <QTest>
-
-#include "ui_helpwidget.h"
 WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
-
-#include "TPopupPushButton.h"
 
 #include "widgets/aboutdialog.h"
 #include "widgets/consolelogdialog.h"
@@ -51,41 +47,30 @@ void TestHelpWidget::helpwidget()
 
 void TestHelpWidget::about_window()
 {
-    HelpWidget     *helpWidget = new HelpWidget();
-    Ui::HelpWidget *ui         = helpWidget->_ui;
+    AboutDialog *aboutWindow = new AboutDialog();
 
-    VISUAL_INIT(helpWidget);
+    VISUAL_INIT(aboutWindow);
 
-    // Starts off not visible and the button is not pushed down
-    QVERIFY(helpWidget->_aboutWindow->isVisible() == false);
-    QVERIFY(ui->aboutButton->isChecked() == false);
+    // Starts off visible
+    QVERIFY(aboutWindow->isVisible() == true);
+    VISUAL_WAIT;
+
+    // Becomes invisible
+    aboutWindow->hide();
+    QVERIFY(aboutWindow->isVisible() == false);
     VISUAL_WAIT;
 
     // Becomes visible
-    ui->aboutButton->click();
-    QVERIFY(helpWidget->_aboutWindow->isVisible() == true);
-    QVERIFY(ui->aboutButton->isChecked() == true);
-    VISUAL_WAIT;
-
-    // Becomes invisible by clicking the button again
-    ui->aboutButton->click();
-    QVERIFY(helpWidget->_aboutWindow->isVisible() == false);
-    QVERIFY(ui->aboutButton->isChecked() == false);
-    VISUAL_WAIT;
-
-    // Becomes visible
-    ui->aboutButton->click();
-    QVERIFY(helpWidget->_aboutWindow->isVisible() == true);
-    QVERIFY(ui->aboutButton->isChecked() == true);
+    aboutWindow->show();
+    QVERIFY(aboutWindow->isVisible() == true);
     VISUAL_WAIT;
 
     // Becomes invisible by closing the About window
-    helpWidget->_aboutWindow->close();
-    QVERIFY(helpWidget->_aboutWindow->isVisible() == false);
-    QVERIFY(ui->aboutButton->isChecked() == false);
+    aboutWindow->close();
+    QVERIFY(aboutWindow->isVisible() == false);
     VISUAL_WAIT;
 
-    delete helpWidget;
+    delete aboutWindow;
 }
 
 void TestHelpWidget::console_window()

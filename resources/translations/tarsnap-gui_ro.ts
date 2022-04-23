@@ -831,10 +831,6 @@ Adaugă oricum?</translation>
         <source>Keyboard shortcuts list</source>
         <translation type="unfinished">Listă comenzi tastatura</translation>
     </message>
-    <message>
-        <source>About Tarsnap</source>
-        <translation type="unfinished">Despre Tarsnap</translation>
-    </message>
 </context>
 <context>
     <name>IntroPage</name>

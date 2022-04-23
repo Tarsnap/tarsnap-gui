@@ -142,9 +142,7 @@ static QAction *get_menubar_about(QMenuBar *menubar)
 void TestMainWindow::about_window_menubar()
 {
     IF_MACOS_PRE_5_15_SKIP;
-    MainWindow     *mainwindow = new MainWindow();
-    HelpWidget     *help       = mainwindow->_ui->helpTabWidget;
-    Ui::HelpWidget *ui         = help->_ui;
+    MainWindow *mainwindow = new MainWindow();
 
     VISUAL_INIT(mainwindow);
 
@@ -158,20 +156,12 @@ void TestMainWindow::about_window_menubar()
 
         // Becomes visible using the menu bar action
         menuAction->trigger();
-        QVERIFY(help->_aboutWindow->isVisible() == true);
-        QVERIFY(ui->aboutButton->isChecked() == true);
+        QVERIFY(mainwindow->_aboutWindow->isVisible() == true);
         VISUAL_WAIT;
 
         // Stay visible even when clicking the menu bar action again
         menuAction->trigger();
-        QVERIFY(help->_aboutWindow->isVisible() == true);
-        QVERIFY(ui->aboutButton->isChecked() == true);
-        VISUAL_WAIT;
-
-        // Becomes invisible by clicking the Help->About button
-        ui->aboutButton->click();
-        QVERIFY(help->_aboutWindow->isVisible() == false);
-        QVERIFY(ui->aboutButton->isChecked() == false);
+        QVERIFY(mainwindow->_aboutWindow->isVisible() == true);
         VISUAL_WAIT;
     }
 

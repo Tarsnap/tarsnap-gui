@@ -13,16 +13,10 @@ WARNINGS_DISABLE
 #include "ui_helpwidget.h"
 WARNINGS_ENABLE
 
-#include "TPopupPushButton.h"
-
-#include "aboutdialog.h"
-
 #include "debug.h"
 
 HelpWidget::HelpWidget(QWidget *parent)
-    : QWidget(parent),
-      _ui(new Ui::HelpWidget),
-      _aboutWindow(new AboutDialog(this))
+    : QWidget(parent), _ui(new Ui::HelpWidget)
 {
     // Ui initialization
     _ui->setupUi(this);
@@ -38,20 +32,11 @@ HelpWidget::HelpWidget(QWidget *parent)
 
     // After reading the Help tab text
     updateKeyboardShortcutInfo();
-
-    // Initialize About window
-    _ui->aboutButton->setPopup(_aboutWindow);
 }
 
 HelpWidget::~HelpWidget()
 {
     delete _ui;
-}
-
-void HelpWidget::aboutMenuClicked()
-{
-    // This always displays the About window
-    _ui->aboutButton->setChecked(true);
 }
 
 void HelpWidget::changeEvent(QEvent *event)

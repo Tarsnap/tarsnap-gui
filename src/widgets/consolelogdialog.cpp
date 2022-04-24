@@ -15,6 +15,10 @@ ConsoleLogDialog::ConsoleLogDialog(QWidget *parent)
 {
     // Ui initialization
     _ui->setupUi(this);
+
+    // Connect the Ok button
+    connect(_ui->buttonBox, &QDialogButtonBox::accepted, this,
+            &QDialog::accept);
 }
 
 ConsoleLogDialog::~ConsoleLogDialog()

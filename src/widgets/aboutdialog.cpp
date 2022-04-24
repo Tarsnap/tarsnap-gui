@@ -4,6 +4,7 @@ WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QDesktopServices>
 #include <QDialog>
+#include <QDialogButtonBox>
 #include <QEvent>
 #include <QFlags>
 #include <QLabel>
@@ -20,6 +21,10 @@ AboutDialog::AboutDialog(QWidget *parent)
 {
     // Ui initialization
     _ui->setupUi(this);
+
+    // Connect the Ok button
+    connect(_ui->buttonBox, &QDialogButtonBox::accepted, this,
+            &QDialog::accept);
 
     // Initialize About window
     _ui->versionLabel->setText(tr("GUI version ")

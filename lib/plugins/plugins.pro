@@ -11,6 +11,7 @@ HEADERS	=	plugins.h			\
 		../widgets/TPathComboBrowse.h	\
 		../widgets/TPathLineBrowse.h	\
 		../widgets/TPopupPushButton.h	\
+		../widgets/TTabWidget.h		\
 		../widgets/TTextView.h		\
 		../widgets/TWizardPage.h	\
 		TBusyLabelPlugin.h		\
@@ -19,6 +20,7 @@ HEADERS	=	plugins.h			\
 		TPathComboBrowsePlugin.h	\
 		TPathLineBrowsePlugin.h		\
 		TPopupPushButtonPlugin.h	\
+		TTabWidgetPlugin.h		\
 		TTextViewPlugin.h		\
 		TWizardPagePlugin.h
 
@@ -29,6 +31,7 @@ SOURCES	=	plugins.cpp			\
 		../widgets/TPathComboBrowse.cpp	\
 		../widgets/TPathLineBrowse.cpp	\
 		../widgets/TPopupPushButton.cpp	\
+		../widgets/TTabWidget.cpp	\
 		../widgets/TTextView.cpp	\
 		../widgets/TWizardPage.cpp	\
 		TBusyLabelPlugin.cpp		\
@@ -37,6 +40,7 @@ SOURCES	=	plugins.cpp			\
 		TPathComboBrowsePlugin.cpp	\
 		TPathLineBrowsePlugin.cpp	\
 		TPopupPushButtonPlugin.cpp	\
+		TTabWidgetPlugin.cpp		\
 		TTextViewPlugin.cpp		\
 		TWizardPagePlugin.cpp
 

@@ -38,6 +38,7 @@ HEADERS  +=						\
 	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../lib/widgets/TPopupPushButton.h		\
+	../../lib/widgets/TTabWidget.h			\
 	../../lib/widgets/TTextView.h			\
 	../../src/backuptask.h				\
 	../../src/basetask.h				\
@@ -97,6 +98,7 @@ SOURCES += test-mainwindow.cpp				\
 	../../lib/widgets/TBusyLabel.cpp		\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../lib/widgets/TPopupPushButton.cpp		\
+	../../lib/widgets/TTabWidget.cpp		\
 	../../lib/widgets/TTextView.cpp			\
 	../../src/backuptask.cpp			\
 	../../src/basetask.cpp				\

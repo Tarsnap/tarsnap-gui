@@ -42,7 +42,7 @@
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QTabWidget" name="mainTabWidget">
+      <widget class="TTabWidget" name="mainTabWidget">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -102,6 +102,12 @@ border-radius: 2px;
        </property>
        <property name="currentIndex">
         <number>0</number>
+       </property>
+       <property name="largeLogoFilename">
+        <string notr="true">:/logos/tarsnap-header-h29.png</string>
+       </property>
+       <property name="smallLogoFilename">
+        <string notr="true">:/logos/tarsnap-icon-h29.png</string>
        </property>
        <widget class="BackupTabWidget" name="backupTabWidget">
         <property name="acceptDrops">
@@ -692,6 +698,12 @@ font-size: 12px;
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
+  <customwidget>
+   <class>TTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>TTabWidget.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>TTextView</class>
    <extends>QPlainTextEdit</extends>

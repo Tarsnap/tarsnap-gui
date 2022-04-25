@@ -159,8 +159,6 @@ signals:
     void cancelTaskRequested(BaseTask *task, const QUuid uuid);
 
 protected:
-    //! Draw the Tarsnap logo in the top-right corner.
-    void paintEvent(QPaintEvent *event) override;
     //! Handles the escape key; passes other events on.
     void keyPressEvent(QKeyEvent *event) override;
     //! Start checking whether there are running tasks.
@@ -187,7 +185,6 @@ private slots:
 
 private:
     Ui::MainWindow *_ui;
-    int             _minWidth;
     QMenuBar       *_menuBar;
     bool            _aboutToQuit;
     bool            _backupTaskRunning;

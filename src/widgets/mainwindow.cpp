@@ -48,13 +48,9 @@ WARNINGS_ENABLE
 #include "widgets/settingswidget.h"
 #include "widgets/stoptasksdialog.h"
 
-#define MAIN_LOGO_RIGHT_MARGIN 5
-#define MAIN_LOGO_FUDGE (-10)
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       _ui(new Ui::MainWindow),
-      _minWidth(0),
       _menuBar(nullptr),
       _aboutToQuit(false),
       _backupTaskRunning(false),
@@ -271,42 +267,6 @@ void MainWindow::backupTabValidStatus(bool valid)
 {
     _ui->actionBackupNow->setEnabled(valid);
     _ui->actionBackupMorphIntoJob->setEnabled(valid);
-}
-
-void MainWindow::paintEvent(QPaintEvent *event)
-{
-    (void)event; /* UNUSED */
-    QStyleOption opt;
-    opt.init(this);
-    QPainter p(this);
-    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-    if(_minWidth == 0)
-        _minWidth = _ui->mainTabWidget->tabBar()->width();
-    // Find out how much room is left to display an icon, including a
-    // "fudge factor" to accommodate margins.
-    int remaining_width = frameGeometry().width() - _minWidth + MAIN_LOGO_FUDGE;
-
-    // Compare with the width of the png files.
-    QPixmap logoPixmap(":/logos/tarsnap-header-h29.png");
-    QPixmap iconPixmap(":/logos/tarsnap-icon-h29.png");
-
-    // Pick which image (if any) to use
-    QPixmap *pixmap;
-    if(remaining_width > logoPixmap.width())
-        pixmap = &logoPixmap;
-    else if(remaining_width > iconPixmap.width())
-        pixmap = &iconPixmap;
-    else
-        pixmap = nullptr;
-
-    // Draw image
-    if(pixmap != nullptr)
-    {
-        QIcon icon(*pixmap);
-        int   x = width() - MAIN_LOGO_RIGHT_MARGIN - pixmap->width();
-        int   y = _ui->mainContentSplitter->y() + _ui->centralWidget->y();
-        icon.paint(&p, x, y, pixmap->width(), pixmap->height());
-    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)

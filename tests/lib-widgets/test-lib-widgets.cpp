@@ -24,6 +24,7 @@ WARNINGS_ENABLE
 #include "TOkLabel.h"
 #include "TPathComboBrowse.h"
 #include "TPathLineBrowse.h"
+#include "TTabWidget.h"
 #include "TTextView.h"
 #include "TWizard.h"
 #include "TWizardPage.h"
@@ -43,6 +44,7 @@ private slots:
     void busylabel_on_off();
     void pathlinebrowse();
     void pathcombobrowse();
+    void ttabwidget();
     void twizard();
     void textview();
 };
@@ -289,6 +291,17 @@ void TestLibWidgets::pathcombobrowse()
 
     delete le;
     delete pcb;
+}
+
+void TestLibWidgets::ttabwidget()
+{
+    TTabWidget *tabwidget = new TTabWidget();
+    tabwidget->setLargeLogoFilename(":/logos/tarsnap-header-h29.png");
+    tabwidget->setSmallLogoFilename(":/logos/tarsnap-icon-h29.png");
+
+    VISUAL_INIT(tabwidget);
+
+    delete tabwidget;
 }
 
 void TestLibWidgets::twizard()

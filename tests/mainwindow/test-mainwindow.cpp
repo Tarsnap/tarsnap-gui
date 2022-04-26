@@ -270,10 +270,6 @@ void TestMainWindow::tab_navigation()
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->jobsTabWidget);
     VISUAL_WAIT;
 
-    mainwindow->displayTab(ui->settingsTabWidget);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->settingsTabWidget);
-    VISUAL_WAIT;
-
     mainwindow->displayTab(ui->backupTabWidget);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTabWidget);
     VISUAL_WAIT;

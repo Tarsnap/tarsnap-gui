@@ -136,22 +136,6 @@ border-radius: 2px;
          <string>Switch to Jobs tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
         </attribute>
        </widget>
-       <widget class="SettingsWidget" name="settingsTabWidget">
-        <property name="styleSheet">
-         <string notr="true">#settingsTab
-{
-border-top: 2px groove darkgrey;
-margin-left: 9px;
-margin-right: 3px;
-}</string>
-        </property>
-        <attribute name="title">
-         <string>Settings</string>
-        </attribute>
-        <attribute name="toolTip">
-         <string>Switch to Settings tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-        </attribute>
-       </widget>
       </widget>
       <widget class="TTextView" name="journalLog">
        <property name="sizePolicy">
@@ -250,7 +234,6 @@ font-size: 12px;
     <addaction name="actionGoBackup"/>
     <addaction name="actionGoArchives"/>
     <addaction name="actionGoJobs"/>
-    <addaction name="actionGoSettings"/>
     <addaction name="actionShowJournal"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -354,17 +337,6 @@ font-size: 12px;
    </property>
    <property name="shortcut">
     <string>Ctrl+3</string>
-   </property>
-  </action>
-  <action name="actionGoSettings">
-   <property name="text">
-    <string>Go to Settings</string>
-   </property>
-   <property name="toolTip">
-    <string>Switch to Settings pane</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+4</string>
    </property>
   </action>
   <action name="actionAddJob">
@@ -720,12 +692,6 @@ font-size: 12px;
    <class>ArchivesTabWidget</class>
    <extends>QWidget</extends>
    <header>widgets/archivestabwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>SettingsWidget</class>
-   <extends>QWidget</extends>
-   <header>widgets/settingswidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

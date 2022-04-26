@@ -56,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
       _backupTaskRunning(false),
       _runningTasks(0),
       _queuedTasks(0),
+      _settingsWidget(new SettingsWidget()),
       _aboutWindow(new AboutDialog(this)),
       _consoleWindow(new ConsoleLogDialog(this)),
       _helpWidget(new HelpWidget()),
@@ -84,23 +85,20 @@ MainWindow::MainWindow(QWidget *parent)
     // --
 
     // Ui actions setup
-    _ui->settingsTabWidget->addAction(_ui->actionRefreshAccount);
+    _settingsWidget->addAction(_ui->actionRefreshAccount);
     connect(_ui->actionRefreshAccount, &QAction::triggered, this,
             &MainWindow::getOverallStats);
     connect(_ui->actionRefreshAccount, &QAction::triggered,
-            [this]() { _ui->settingsTabWidget->getAccountInfo(); });
+            [this]() { _settingsWidget->getAccountInfo(); });
     addAction(_ui->actionGoBackup);
     addAction(_ui->actionGoArchives);
     addAction(_ui->actionGoJobs);
-    addAction(_ui->actionGoSettings);
     connect(_ui->actionGoBackup, &QAction::triggered,
             [this]() { displayTab(_ui->backupTabWidget); });
     connect(_ui->actionGoArchives, &QAction::triggered,
             [this]() { displayTab(_ui->archivesTabWidget); });
     connect(_ui->actionGoJobs, &QAction::triggered,
             [this]() { displayTab(_ui->jobsTabWidget); });
-    connect(_ui->actionGoSettings, &QAction::triggered,
-            [this]() { displayTab(_ui->settingsTabWidget); });
     addAction(_ui->actionShowJournal);
     connect(_ui->actionShowJournal, &QAction::toggled, _ui->journalLog,
             &QWidget::setVisible);
@@ -136,15 +134,15 @@ MainWindow::MainWindow(QWidget *parent)
     // Settings pane
     loadSettings();
 
-    connect(_ui->settingsTabWidget, &SettingsWidget::iecChanged,
+    connect(_settingsWidget, &SettingsWidget::iecChanged,
             _ui->backupTabWidget, &BackupTabWidget::updateIEC);
-    connect(_ui->settingsTabWidget, &SettingsWidget::iecChanged,
+    connect(_settingsWidget, &SettingsWidget::iecChanged,
             _ui->archivesTabWidget, &ArchivesTabWidget::updateIEC);
-    connect(_ui->settingsTabWidget, &SettingsWidget::iecChanged,
+    connect(_settingsWidget, &SettingsWidget::iecChanged,
             _ui->jobsTabWidget, &JobsTabWidget::updateIEC);
-    connect(_ui->settingsTabWidget, &SettingsWidget::iecChanged,
+    connect(_settingsWidget, &SettingsWidget::iecChanged,
             _ui->statusBarWidget, &StatusBarWidget::updateIEC);
-    connect(_ui->settingsTabWidget, &SettingsWidget::getArchives, this,
+    connect(_settingsWidget, &SettingsWidget::getArchives, this,
             &MainWindow::getArchives);
 
     // Archives pane
@@ -237,6 +235,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     commitSettings();
+    delete _settingsWidget;
     delete _helpWidget;
     delete _ui;
 }
@@ -253,7 +252,7 @@ void MainWindow::loadSettings()
 
 void MainWindow::initializeMainWindow()
 {
-    _ui->settingsTabWidget->initializeSettingsWidget();
+    _settingsWidget->initializeSettingsWidget();
 
     TSettings settings;
 
@@ -341,8 +340,8 @@ void MainWindow::setupMenuBar()
     connect(_ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(_ui->actionAbout, &QAction::triggered, _aboutWindow,
             &AboutDialog::show);
-    connect(_ui->actionSettings, &QAction::triggered, _ui->actionGoSettings,
-            &QAction::trigger);
+    connect(_ui->actionSettings, &QAction::triggered, _settingsWidget,
+            &SettingsWidget::show);
     connect(_ui->actionMinimize, &QAction::triggered, this,
             &QWidget::showMinimized);
     connect(_ui->actionZoom, &QAction::triggered, this,
@@ -540,10 +539,6 @@ void MainWindow::updateUi()
         2,
         _ui->mainTabWidget->tabToolTip(2).arg(
             _ui->actionGoJobs->shortcut().toString(QKeySequence::NativeText)));
-    _ui->mainTabWidget->setTabToolTip(
-        3, _ui->mainTabWidget->tabToolTip(3).arg(
-               _ui->actionGoSettings->shortcut().toString(
-                   QKeySequence::NativeText)));
 
     _ui->actionBackupNow->setToolTip(_ui->actionBackupNow->toolTip().arg(
         _ui->actionBackupNow->shortcut().toString(QKeySequence::NativeText)));
@@ -573,7 +568,7 @@ void MainWindow::updateNumTasks(bool backupRunning, int numRunning,
     _runningTasks = numRunning;
     _queuedTasks  = numQueued;
 
-    _ui->settingsTabWidget->updateNumTasks(numRunning, numQueued);
+    _settingsWidget->updateNumTasks(numRunning, numQueued);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
@@ -582,7 +577,7 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
                                      quint64 sizeUniqueCompressed,
                                      quint64 archiveCount)
 {
-    _ui->settingsTabWidget->setArchiveCount(archiveCount);
+    _settingsWidget->setArchiveCount(archiveCount);
     _ui->statusBarWidget->overallStatsChanged(sizeTotal, sizeCompressed,
                                               sizeUniqueTotal,
                                               sizeUniqueCompressed,
@@ -592,34 +587,34 @@ void MainWindow::overallStatsChanged(quint64 sizeTotal, quint64 sizeCompressed,
 // We can't connect a slot to a slot (fair enough), so we pass this through.
 void MainWindow::saveKeyId(const QString &key, quint64 id)
 {
-    _ui->settingsTabWidget->saveKeyId(key, id);
+    _settingsWidget->saveKeyId(key, id);
 }
 
 // We can't connect a slot to a slot (fair enough), so we pass this through.
 void MainWindow::tarsnapVersionResponse(TaskStatus     status,
                                         const QString &versionString)
 {
-    _ui->settingsTabWidget->tarsnapVersionResponse(status, versionString);
+    _settingsWidget->tarsnapVersionResponse(status, versionString);
 }
 
 void MainWindow::connectSettingsWidget()
 {
     // Get info from SettingsWidget
-    connect(_ui->settingsTabWidget, &SettingsWidget::nukeArchives, this,
+    connect(_settingsWidget, &SettingsWidget::nukeArchives, this,
             &MainWindow::nukeArchives);
-    connect(_ui->settingsTabWidget, &SettingsWidget::newStatusMessage,
+    connect(_settingsWidget, &SettingsWidget::newStatusMessage,
             _ui->statusBarWidget, &StatusBarWidget::updateStatusMessage);
-    connect(_ui->settingsTabWidget, &SettingsWidget::getKeyId, this,
+    connect(_settingsWidget, &SettingsWidget::getKeyId, this,
             &MainWindow::getKeyId);
-    connect(_ui->settingsTabWidget, &SettingsWidget::newSimulationStatus,
+    connect(_settingsWidget, &SettingsWidget::newSimulationStatus,
             _ui->statusBarWidget, &StatusBarWidget::updateSimulationIcon);
-    connect(_ui->settingsTabWidget, &SettingsWidget::clearJournal, this,
+    connect(_settingsWidget, &SettingsWidget::clearJournal, this,
             &MainWindow::clearJournal);
-    connect(_ui->settingsTabWidget, &SettingsWidget::runSetupWizard, this,
+    connect(_settingsWidget, &SettingsWidget::runSetupWizard, this,
             &MainWindow::runSetupWizard);
-    connect(_ui->settingsTabWidget, &SettingsWidget::tarsnapVersionRequested,
+    connect(_settingsWidget, &SettingsWidget::tarsnapVersionRequested,
             this, &MainWindow::tarsnapVersionRequested);
-    connect(_ui->settingsTabWidget, &SettingsWidget::repairCache, this,
+    connect(_settingsWidget, &SettingsWidget::repairCache, this,
             &MainWindow::repairCache);
 }
 

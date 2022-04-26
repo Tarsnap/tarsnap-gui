@@ -191,6 +191,8 @@ private:
     int             _runningTasks;
     int             _queuedTasks;
 
+    SettingsWidget *_settingsWidget;
+
     AboutDialog      *_aboutWindow;
     ConsoleLogDialog *_consoleWindow;
     HelpWidget       *_helpWidget;

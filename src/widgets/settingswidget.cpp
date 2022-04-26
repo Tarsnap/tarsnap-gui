@@ -5,6 +5,7 @@ WARNINGS_DISABLE
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDate>
+#include <QDialog>
 #include <QEvent>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -36,7 +37,7 @@ WARNINGS_ENABLE
 #define NUKE_SECONDS_DELAY 8
 
 SettingsWidget::SettingsWidget(QWidget *parent)
-    : QWidget(parent),
+    : QDialog(parent),
       _ui(new Ui::SettingsWidget),
       _nukeConfirmationDialog(new ConfirmationDialog(this)),
       _tarsnapAccountDialog(new TarsnapAccountDialog(this)),
@@ -47,6 +48,10 @@ SettingsWidget::SettingsWidget(QWidget *parent)
 
     // Ui initialization
     _ui->setupUi(this);
+
+    // Connect the Ok button
+    connect(_ui->buttonBox, &QDialogButtonBox::accepted, this,
+            &QDialog::accept);
 
     // Settings
     loadSettings();

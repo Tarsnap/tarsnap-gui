@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>SettingsWidget</class>
- <widget class="QWidget" name="SettingsWidget">
+ <widget class="QDialog" name="SettingsWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,20 +11,17 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="settingsWidgetVerticalLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
    <property name="leftMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <item>
     <widget class="QToolBox" name="settingsToolbox">
@@ -54,8 +51,8 @@ border: 1px solid white;
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>456</width>
-        <height>341</height>
+        <width>449</width>
+        <height>233</height>
        </rect>
       </property>
       <attribute name="label">
@@ -355,8 +352,8 @@ color: blue;
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>577</width>
-        <height>373</height>
+        <width>534</width>
+        <height>363</height>
        </rect>
       </property>
       <attribute name="label">
@@ -677,8 +674,8 @@ color: blue;
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>455</width>
-        <height>356</height>
+        <width>435</width>
+        <height>325</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1034,6 +1031,13 @@ color: blue;
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Ok</set>
+     </property>
     </widget>
    </item>
   </layout>

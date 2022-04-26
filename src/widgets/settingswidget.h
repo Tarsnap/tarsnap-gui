@@ -5,6 +5,7 @@
 
 WARNINGS_DISABLE
 #include <QDate>
+#include <QDialog>
 #include <QObject>
 #include <QString>
 #include <QStringList>
@@ -25,9 +26,9 @@ class TarsnapAccountDialog;
 
 /*!
  * \ingroup widgets-main
- * \brief The SettingsWidget is a QWidget which is handles configuration.
+ * \brief The SettingsWidget is a QDialog which is handles configuration.
  */
-class SettingsWidget : public QWidget
+class SettingsWidget : public QDialog
 {
     Q_OBJECT
 

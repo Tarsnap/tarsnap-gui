@@ -274,10 +274,6 @@ void TestMainWindow::tab_navigation()
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->settingsTabWidget);
     VISUAL_WAIT;
 
-    mainwindow->displayTab(ui->helpTabWidget);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->helpTabWidget);
-    VISUAL_WAIT;
-
     mainwindow->displayTab(ui->backupTabWidget);
     QVERIFY(ui->mainTabWidget->currentWidget() == ui->backupTabWidget);
     VISUAL_WAIT;
@@ -314,8 +310,8 @@ void TestMainWindow::other_navigation()
     QList<QUrl> testdir_urls({QUrl("file://" TEST_DIR)});
 
     // Switch to a different tab.
-    mainwindow->displayTab(ui->helpTabWidget);
-    QVERIFY(ui->mainTabWidget->currentWidget() == ui->helpTabWidget);
+    mainwindow->displayTab(ui->archivesTabWidget);
+    QVERIFY(ui->mainTabWidget->currentWidget() == ui->archivesTabWidget);
     VISUAL_WAIT;
 
     // Switch back to Backup tab

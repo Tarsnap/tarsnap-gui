@@ -25,7 +25,7 @@ For help regarding Tarsnap GUI, please visit the <a href="https://github.com/Tar
 
 <h4>Global</h4>
 <table>
-<tr><td>%1[1-5]</td>
+<tr><td>%1[1-4]</td>
   <td>switch between Backup, Archives.. main tabs</td></tr>
 <tr><td>%1J</td>
 <td>toggle the Journal log</td></tr>

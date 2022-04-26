@@ -58,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
       _queuedTasks(0),
       _aboutWindow(new AboutDialog(this)),
       _consoleWindow(new ConsoleLogDialog(this)),
+      _helpWidget(new HelpWidget()),
       _stopTasksDialog(new StopTasksDialog(this))
 {
     // Ui initialization
@@ -92,7 +93,6 @@ MainWindow::MainWindow(QWidget *parent)
     addAction(_ui->actionGoArchives);
     addAction(_ui->actionGoJobs);
     addAction(_ui->actionGoSettings);
-    addAction(_ui->actionGoHelp);
     connect(_ui->actionGoBackup, &QAction::triggered,
             [this]() { displayTab(_ui->backupTabWidget); });
     connect(_ui->actionGoArchives, &QAction::triggered,
@@ -101,8 +101,6 @@ MainWindow::MainWindow(QWidget *parent)
             [this]() { displayTab(_ui->jobsTabWidget); });
     connect(_ui->actionGoSettings, &QAction::triggered,
             [this]() { displayTab(_ui->settingsTabWidget); });
-    connect(_ui->actionGoHelp, &QAction::triggered,
-            [this]() { displayTab(_ui->helpTabWidget); });
     addAction(_ui->actionShowJournal);
     connect(_ui->actionShowJournal, &QAction::toggled, _ui->journalLog,
             &QWidget::setVisible);
@@ -239,6 +237,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     commitSettings();
+    delete _helpWidget;
     delete _ui;
 }
 
@@ -364,6 +363,14 @@ void MainWindow::setupMenuBar()
 
     // Leave the three Windows actions enabled and visible.
 #else
+    // Set default shortcut for showing the help.
+    // This isn't enabled on macOS because on that platform, this shortcut
+    // automatically opens the "Help" menu.  This does seem slightly odd
+    // to me, but we shouldn't deviate from the typical platform behaviour
+    // unless we have a really good reason, and we don't.
+    _ui->actionHelp->setShortcut(QKeySequence::HelpContents);
+
+    // Disable the three Windows actions.
     for(QAction *action :
         {_ui->actionFullScreen, _ui->actionMinimize, _ui->actionZoom})
     {
@@ -374,6 +381,8 @@ void MainWindow::setupMenuBar()
     connect(_ui->actionTarsnapWebsite, &QAction::triggered, []() {
         QDesktopServices::openUrl(QUrl("https://www.tarsnap.com"));
     });
+    connect(_ui->actionHelp, &QAction::triggered, _helpWidget,
+            &HelpWidget::show);
 
     connect(_ui->mainTabWidget, &QTabWidget::currentChanged, this,
             &MainWindow::mainTabChanged);
@@ -535,10 +544,6 @@ void MainWindow::updateUi()
         3, _ui->mainTabWidget->tabToolTip(3).arg(
                _ui->actionGoSettings->shortcut().toString(
                    QKeySequence::NativeText)));
-    _ui->mainTabWidget->setTabToolTip(
-        4,
-        _ui->mainTabWidget->tabToolTip(4).arg(
-            _ui->actionGoHelp->shortcut().toString(QKeySequence::NativeText)));
 
     _ui->actionBackupNow->setToolTip(_ui->actionBackupNow->toolTip().arg(
         _ui->actionBackupNow->shortcut().toString(QKeySequence::NativeText)));

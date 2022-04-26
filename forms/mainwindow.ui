@@ -152,24 +152,6 @@ margin-right: 3px;
          <string>Switch to Settings tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
         </attribute>
        </widget>
-       <widget class="HelpWidget" name="helpTabWidget">
-        <property name="styleSheet">
-         <string notr="true">#helpTab QGroupBox {
-font-size: 14px;
-}
-#helpTab QGroupBox::title {
-background: transparent;
-margin: 1px 0px 0px 6px;
-}&lt;/string&gt;
-</string>
-        </property>
-        <attribute name="title">
-         <string>Help</string>
-        </attribute>
-        <attribute name="toolTip">
-         <string>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</string>
-        </attribute>
-       </widget>
       </widget>
       <widget class="TTextView" name="journalLog">
        <property name="sizePolicy">
@@ -269,13 +251,14 @@ font-size: 12px;
     <addaction name="actionGoArchives"/>
     <addaction name="actionGoJobs"/>
     <addaction name="actionGoSettings"/>
-    <addaction name="actionGoHelp"/>
     <addaction name="actionShowJournal"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
      <string>&amp;Help</string>
     </property>
+    <addaction name="actionHelp"/>
+    <addaction name="separator"/>
     <addaction name="actionTarsnapWebsite"/>
     <addaction name="separator"/>
     <addaction name="actionShowConsoleLog"/>
@@ -382,17 +365,6 @@ font-size: 12px;
    </property>
    <property name="shortcut">
     <string>Ctrl+4</string>
-   </property>
-  </action>
-  <action name="actionGoHelp">
-   <property name="text">
-    <string>Go to Help</string>
-   </property>
-   <property name="toolTip">
-    <string>Switch to Help pane</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+5</string>
    </property>
   </action>
   <action name="actionAddJob">
@@ -713,6 +685,11 @@ font-size: 12px;
     <string>Ctrl+Q</string>
    </property>
   </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Show Help</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -749,12 +726,6 @@ font-size: 12px;
    <class>SettingsWidget</class>
    <extends>QWidget</extends>
    <header>widgets/settingswidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>HelpWidget</class>
-   <extends>QWidget</extends>
-   <header>widgets/helpwidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

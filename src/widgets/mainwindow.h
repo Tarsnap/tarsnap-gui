@@ -193,6 +193,7 @@ private:
 
     AboutDialog      *_aboutWindow;
     ConsoleLogDialog *_consoleWindow;
+    HelpWidget       *_helpWidget;
 
     StopTasksDialog *_stopTasksDialog;
 

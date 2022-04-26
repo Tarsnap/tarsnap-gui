@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>HelpWidget</class>
- <widget class="QWidget" name="HelpWidget">
+ <widget class="QDialog" name="HelpWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,16 +12,16 @@
   </property>
   <layout class="QVBoxLayout" name="helpWidgetVerticalLayout">
    <property name="leftMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <item>
     <widget class="QTextBrowser" name="helpTabText">
@@ -53,6 +53,13 @@ border-top: 2px groove darkgrey;
      </property>
      <property name="openExternalLinks">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>

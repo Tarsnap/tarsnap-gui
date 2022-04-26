@@ -4,6 +4,7 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QDialog>
 #include <QObject>
 #include <QString>
 #include <QWidget>
@@ -18,9 +19,9 @@ class QEvent;
 
 /*!
  * \ingroup widgets-main
- * \brief The HelpWidget is a QWidget which shows some documentation.
+ * \brief The HelpWidget is a QDialog which shows some documentation.
  */
-class HelpWidget : public QWidget
+class HelpWidget : public QDialog
 {
     Q_OBJECT
 

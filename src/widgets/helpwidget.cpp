@@ -1,6 +1,7 @@
 #include "helpwidget.h"
 
 WARNINGS_DISABLE
+#include <QDialog>
 #include <QEvent>
 #include <QFile>
 #include <QIODevice>
@@ -16,10 +17,14 @@ WARNINGS_ENABLE
 #include "debug.h"
 
 HelpWidget::HelpWidget(QWidget *parent)
-    : QWidget(parent), _ui(new Ui::HelpWidget)
+    : QDialog(parent), _ui(new Ui::HelpWidget)
 {
     // Ui initialization
     _ui->setupUi(this);
+
+    // Connect the Ok button
+    connect(_ui->buttonBox, &QDialogButtonBox::accepted, this,
+            &QDialog::accept);
 
     // Initialize the Help tab text
     QFile helpTabFile(":/text/help-tab.xml");

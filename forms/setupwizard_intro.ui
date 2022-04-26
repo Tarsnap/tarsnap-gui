@@ -22,7 +22,7 @@
   <property name="title">
    <string>Setup wizard</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="introPageVerticalLayout">
    <property name="leftMargin">
     <number>0</number>
    </property>

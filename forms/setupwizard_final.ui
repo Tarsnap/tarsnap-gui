@@ -22,7 +22,7 @@
   <property name="title">
    <string>Setup complete!</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="finalPageVerticalLayout">
    <property name="leftMargin">
     <number>0</number>
    </property>

@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QDateTime>
 #include <QDialog>
+#include <QDialogButtonBox>
 
 #include "ui_consolelogdialog.h"
 WARNINGS_ENABLE
@@ -28,5 +29,6 @@ ConsoleLogDialog::~ConsoleLogDialog()
 
 void ConsoleLogDialog::appendLogString(const QString &text)
 {
-    _ui->log->appendLog(LogEntry{QDateTime::currentDateTime(), text});
+    _ui->consoleLogTextView->appendLog(
+        LogEntry{QDateTime::currentDateTime(), text});
 }

@@ -6,19 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>447</width>
-    <height>386</height>
+    <width>480</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>About Tarsnap GUI</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>6</number>
+  <layout class="QVBoxLayout" name="aboutDialogVerticalLayout">
+   <property name="leftMargin">
+    <number>3</number>
    </property>
-   <property name="sizeConstraint">
-    <enum>QLayout::SetFixedSize</enum>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
    </property>
    <item alignment="Qt::AlignHCenter">
     <widget class="QLabel" name="tarsnapLogo">
@@ -34,10 +40,8 @@
        <height>96</height>
       </size>
      </property>
-     <property name="styleSheet">
-      <string notr="true">#tarsnapLogo {
-image:url(:/logos/tarsnap-header.png);
-}</string>
+     <property name="pixmap">
+      <pixmap resource="../resources/resources.qrc">:/logos/tarsnap-header.png</pixmap>
      </property>
     </widget>
    </item>
@@ -126,6 +130,8 @@ Built with the help of the following 3rd party components:</string>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

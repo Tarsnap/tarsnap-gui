@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>574</height>
+    <height>579</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -666,6 +666,9 @@ font-size: 12px;
   <action name="actionSettings">
    <property name="text">
     <string>Settings</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+,</string>
    </property>
   </action>
   <action name="actionTarsnapWebsite">

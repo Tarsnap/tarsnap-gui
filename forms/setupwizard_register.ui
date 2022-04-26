@@ -19,7 +19,7 @@
   <property name="title">
    <string>Register with server</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="registerPageVerticalLayout">
    <property name="leftMargin">
     <number>0</number>
    </property>

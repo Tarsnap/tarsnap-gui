@@ -2,13 +2,18 @@
 <ui version="4.0">
  <class>ConsoleLogDialog</class>
  <widget class="QWidget" name="ConsoleLogDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>400</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Tarsnap Console Log</string>
   </property>
   <layout class="QVBoxLayout" name="consoleWindowLayout">
-   <property name="spacing">
-    <number>3</number>
-   </property>
    <property name="leftMargin">
     <number>3</number>
    </property>
@@ -22,14 +27,7 @@
     <number>3</number>
    </property>
    <item>
-    <widget class="TTextView" name="log">
-     <property name="minimumSize">
-      <size>
-       <width>400</width>
-       <height>400</height>
-      </size>
-     </property>
-    </widget>
+    <widget class="TTextView" name="consoleLogTextView"/>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">

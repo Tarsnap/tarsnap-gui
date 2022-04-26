@@ -295,6 +295,8 @@ void TestLibWidgets::pathcombobrowse()
 
 void TestLibWidgets::ttabwidget()
 {
+    IF_MACOS_PRE_5_15_SKIP;
+
     TTabWidget *tabwidget = new TTabWidget();
     tabwidget->setLargeLogoFilename(":/logos/tarsnap-header-h29.png");
     tabwidget->setSmallLogoFilename(":/logos/tarsnap-icon-h29.png");

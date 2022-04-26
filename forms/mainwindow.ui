@@ -281,6 +281,13 @@ font-size: 12px;
     <addaction name="actionShowConsoleLog"/>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionQuit"/>
+   </widget>
+   <addaction name="menu_File"/>
    <addaction name="menu_Backup"/>
    <addaction name="menu_Archives"/>
    <addaction name="menu_Jobs"/>
@@ -693,6 +700,14 @@ font-size: 12px;
   <action name="actionShowConsoleLog">
    <property name="text">
     <string>Show Console Log</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
  </widget>

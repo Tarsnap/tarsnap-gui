@@ -339,6 +339,7 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::setupMenuBar()
 {
+    connect(_ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(_ui->actionAbout, &QAction::triggered, _aboutWindow,
             &AboutDialog::show);
     connect(_ui->actionSettings, &QAction::triggered, _ui->actionGoSettings,
@@ -358,7 +359,10 @@ void MainWindow::setupMenuBar()
         this->showNormal();
     });
 #ifdef Q_OS_OSX
-    // Leave these three actions enabled and visible.
+    // Remove the file menu, because macOS will add an "app menu".
+    _ui->menu_File->menuAction()->setVisible(false);
+
+    // Leave the three Windows actions enabled and visible.
 #else
     for(QAction *action :
         {_ui->actionFullScreen, _ui->actionMinimize, _ui->actionZoom})

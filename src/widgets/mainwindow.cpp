@@ -134,14 +134,14 @@ MainWindow::MainWindow(QWidget *parent)
     // Settings pane
     loadSettings();
 
-    connect(_settingsWidget, &SettingsWidget::iecChanged,
-            _ui->backupTabWidget, &BackupTabWidget::updateIEC);
+    connect(_settingsWidget, &SettingsWidget::iecChanged, _ui->backupTabWidget,
+            &BackupTabWidget::updateIEC);
     connect(_settingsWidget, &SettingsWidget::iecChanged,
             _ui->archivesTabWidget, &ArchivesTabWidget::updateIEC);
-    connect(_settingsWidget, &SettingsWidget::iecChanged,
-            _ui->jobsTabWidget, &JobsTabWidget::updateIEC);
-    connect(_settingsWidget, &SettingsWidget::iecChanged,
-            _ui->statusBarWidget, &StatusBarWidget::updateIEC);
+    connect(_settingsWidget, &SettingsWidget::iecChanged, _ui->jobsTabWidget,
+            &JobsTabWidget::updateIEC);
+    connect(_settingsWidget, &SettingsWidget::iecChanged, _ui->statusBarWidget,
+            &StatusBarWidget::updateIEC);
     connect(_settingsWidget, &SettingsWidget::getArchives, this,
             &MainWindow::getArchives);
 
@@ -612,8 +612,8 @@ void MainWindow::connectSettingsWidget()
             &MainWindow::clearJournal);
     connect(_settingsWidget, &SettingsWidget::runSetupWizard, this,
             &MainWindow::runSetupWizard);
-    connect(_settingsWidget, &SettingsWidget::tarsnapVersionRequested,
-            this, &MainWindow::tarsnapVersionRequested);
+    connect(_settingsWidget, &SettingsWidget::tarsnapVersionRequested, this,
+            &MainWindow::tarsnapVersionRequested);
     connect(_settingsWidget, &SettingsWidget::repairCache, this,
             &MainWindow::repairCache);
 }

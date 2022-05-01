@@ -1406,18 +1406,6 @@ Add anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Switch to Settings tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Switch to Help tab &lt;span style=&quot;color:gray;font-size:small&quot;&gt;%1&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Journal log</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1483,30 +1471,6 @@ Add anyway?</source>
     </message>
     <message>
         <source>Ctrl+3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Go to Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Switch to Settings pane</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ctrl+4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Go to Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Switch to Help pane</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ctrl+5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1748,6 +1712,26 @@ Add anyway?</source>
     </message>
     <message>
         <source>Show Console Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+,</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+Q</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Help</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

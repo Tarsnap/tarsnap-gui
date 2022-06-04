@@ -58,7 +58,6 @@ bool AppSetup::handle_step(const struct init_info &info)
     switch(info.status)
     {
     case INIT_OK:
-        return true;
     case INIT_NEEDS_SETUP:
         return true;
     case INIT_DB_FAILED:

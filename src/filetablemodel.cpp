@@ -4,6 +4,7 @@ WARNINGS_DISABLE
 #include <QAbstractTableModel>
 #include <QVariant>
 #include <QVector>
+#include <Qt>
 WARNINGS_ENABLE
 
 #include "messages/archivefilestat.h"
@@ -78,6 +79,8 @@ QVariant FileTableModel::headerData(int section, Qt::Orientation orientation,
             return tr("MODE");
         case TableColumns::LINKS:
             return tr("LINKS");
+        default:
+            qFatal("Unrecognized TableColumn int");
         }
     }
     return QVariant();

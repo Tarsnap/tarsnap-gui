@@ -1,6 +1,7 @@
 #include "TOkLabel.h"
 
 WARNINGS_DISABLE
+#include <QDebug>
 #include <QEvent>
 #include <QWidget>
 #include <Qt>
@@ -43,6 +44,8 @@ void TOkLabel::setStatus(int status)
         setText(tr("❌"));
         setStyleSheet("color: darkred");
         break;
+    default:
+        qFatal("Unrecognized TOkLabel status value");
     }
 }
 
@@ -56,6 +59,7 @@ QString TOkLabel::getRichText(int status)
         return "<font color=\"green\">" + tr("✔") + "</font>";
     case Error:
         return "<font color=\"darkred\">" + tr("❌") + "</font>";
+    default:
+        qFatal("Unrecognized TOkLabel status value");
     }
-    return "";
 }

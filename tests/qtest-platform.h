@@ -28,6 +28,13 @@ WARNINGS_ENABLE
         IF_VISUAL { QTest::qWait(750); }                                       \
     } while(0)
 
+// This is only useful for development
+#define VISUAL_WAIT_HOUR                                                       \
+    do                                                                         \
+    {                                                                          \
+        IF_VISUAL { QTest::qWait(1000 * 60 * 60); }                            \
+    } while(0)
+
 #define VISUAL_INIT(gui_obj)                                                   \
     do                                                                         \
     {                                                                          \

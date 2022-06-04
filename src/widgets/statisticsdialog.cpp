@@ -20,7 +20,6 @@ StatisticsDialog::StatisticsDialog(QWidget *parent)
 {
     // Ui initialization
     _ui->setupUi(this);
-    updateUi();
 
     // "Ok" button.
     connect(_ui->buttonBox, &QDialogButtonBox::accepted, this,
@@ -37,13 +36,8 @@ void StatisticsDialog::changeEvent(QEvent *event)
     if(event->type() == QEvent::LanguageChange)
     {
         _ui->retranslateUi(this);
-        updateUi();
     }
     QWidget::changeEvent(event);
-}
-
-void StatisticsDialog::updateUi()
-{
 }
 
 void StatisticsDialog::overallStatsChanged(quint64 sizeTotal,

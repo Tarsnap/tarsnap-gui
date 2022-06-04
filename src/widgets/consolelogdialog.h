@@ -14,7 +14,6 @@ namespace Ui
 {
 class ConsoleLogDialog;
 }
-class TTextView;
 class QWidget;
 
 /*!
@@ -36,8 +35,6 @@ public slots:
 
 private:
     Ui::ConsoleLogDialog *_ui;
-
-    TTextView *_consoleLog;
 };
 
 #endif // CONSOLELOGDIALOG_H

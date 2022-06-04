@@ -49,8 +49,6 @@ protected:
 private:
     Ui::StatisticsDialog *_ui;
 
-    void updateUi();
-
     // Values which depend on "app/iec_prefixes"
     quint64 _sizeTotal;
     quint64 _sizeUniqueCompressed;

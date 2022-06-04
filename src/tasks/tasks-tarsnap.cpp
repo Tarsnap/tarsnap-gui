@@ -81,8 +81,7 @@ struct tarsnap_stats printStatsTaskParse(const QString &tarsnapOutput,
                                          bool           newArchiveOutput,
                                          const QString &archiveName)
 {
-    struct tarsnap_stats stats;
-    stats.parse_error = true;
+    struct tarsnap_stats stats = {0, 0, 0, 0, true};
 
     QStringList lines = tarsnapOutput.split('\n', SKIP_EMPTY_PARTS);
     if(lines.count() < 5)
@@ -182,8 +181,7 @@ CmdlineTask *overallStatsTask()
 
 struct tarsnap_stats overallStatsTaskParse(const QString &tarsnapOutput)
 {
-    struct tarsnap_stats stats;
-    stats.parse_error = true;
+    struct tarsnap_stats stats = {0, 0, 0, 0, true};
 
     QStringList lines = tarsnapOutput.split('\n', SKIP_EMPTY_PARTS);
     if(lines.count() < 3)

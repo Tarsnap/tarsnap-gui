@@ -8,6 +8,10 @@ WARNINGS_DISABLE
 #include <QFileInfo>
 #include <QLabel>
 #include <QLineEdit>
+#include <QListWidget>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSharedPointer>
 #include <QVariant>
 #include <Qt>
 

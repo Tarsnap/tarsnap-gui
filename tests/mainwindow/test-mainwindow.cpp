@@ -3,7 +3,6 @@
 WARNINGS_DISABLE
 #include <QAction>
 #include <QCoreApplication>
-#include <QDialog>
 #include <QList>
 #include <QMenu>
 #include <QMenuBar>
@@ -11,14 +10,12 @@ WARNINGS_DISABLE
 #include <QObject>
 #include <QSignalSpy>
 #include <QString>
-#include <QTabWidget>
 #include <QTest>
 #include <QThreadPool>
 #include <QUrl>
 #include <QVector>
 
 #include "ui_archivestabwidget.h"
-#include "ui_helpwidget.h"
 #include "ui_jobstabwidget.h"
 #include "ui_mainwindow.h"
 #include "ui_stoptasksdialog.h"
@@ -30,8 +27,6 @@ WARNINGS_ENABLE
 
 #include "../qtest-platform.h"
 
-#include "TPopupPushButton.h"
-
 #include "messages/archivefilestat.h"
 
 #include "basetask.h"
@@ -39,7 +34,6 @@ WARNINGS_ENABLE
 #include "widgets/aboutdialog.h"
 #include "widgets/archivestabwidget.h"
 #include "widgets/backuptabwidget.h"
-#include "widgets/helpwidget.h"
 #include "widgets/jobstabwidget.h"
 #include "widgets/mainwindow.h"
 #include "widgets/statusbarwidget.h"

@@ -9,12 +9,16 @@ WARNINGS_DISABLE
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QLabel>
+#include <QLineEdit>
 #include <QMenu>
 #include <QModelIndex>
 #include <QModelIndexList>
+#include <QPushButton>
+#include <QSharedPointer>
 #include <QSortFilterProxyModel>
 #include <QStringList>
 #include <QTableView>
+#include <QToolButton>
 #include <QVariant>
 #include <Qt>
 

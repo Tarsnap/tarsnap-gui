@@ -3,6 +3,7 @@
 WARNINGS_DISABLE
 #include <QCoreApplication>
 #include <QObject>
+#include <QString>
 #include <QTest>
 WARNINGS_ENABLE
 

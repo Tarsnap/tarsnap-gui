@@ -8,8 +8,11 @@ WARNINGS_DISABLE
 #include <QEvent>
 #include <QKeySequence>
 #include <QLabel>
+#include <QLineEdit>
 #include <QMenu>
 #include <QMessageBox>
+#include <QPushButton>
+#include <QSharedPointer>
 #include <QSpinBox>
 #include <QStringList>
 #include <QTabWidget>

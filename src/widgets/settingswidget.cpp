@@ -2,21 +2,27 @@
 
 WARNINGS_DISABLE
 #include <QAction>
+#include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDate>
 #include <QDialog>
+#include <QDialogButtonBox>
 #include <QEvent>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QFontMetrics>
 #include <QKeySequence>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QRect>
+#include <QSize>
 #include <QSpinBox>
 #include <QVariant>
 #include <QWidget>
+#include <Qt>
 
 #include "ui_settingswidget.h"
 WARNINGS_ENABLE

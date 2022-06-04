@@ -8,9 +8,12 @@ WARNINGS_DISABLE
 #include <QFileInfo>
 #include <QFileInfoList>
 #include <QLineEdit>
+#include <QList>
+#include <QProgressBar>
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
+#include <QStringList>
 #include <QTabWidget>
 #include <QVariant>
 

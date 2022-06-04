@@ -1,7 +1,6 @@
 #include "basetask.h"
 
 WARNINGS_DISABLE
-#include <QObject>
 #include <QUuid>
 WARNINGS_ENABLE
 

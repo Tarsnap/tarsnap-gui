@@ -1,7 +1,6 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
-#include <QAbstractButton>
 #include <QCoreApplication>
 #include <QDateTime>
 #include <QLineEdit>

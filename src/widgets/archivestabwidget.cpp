@@ -7,9 +7,12 @@ WARNINGS_DISABLE
 #include <QCursor>
 #include <QEvent>
 #include <QEventLoop>
+#include <QFrame>
 #include <QKeyEvent>
 #include <QKeySequence>
+#include <QLabel>
 #include <QMenu>
+#include <QToolButton>
 #include <QWidget>
 #include <Qt>
 

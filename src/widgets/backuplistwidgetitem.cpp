@@ -11,14 +11,15 @@ WARNINGS_DISABLE
 #include <QMovie>
 #include <QPixmap>
 #include <QSize>
+#include <QToolButton>
 #include <QWidget>
+#include <Qt>
 
 #include "ui_backuplistwidgetitem.h"
 WARNINGS_ENABLE
 
 #include "TElidedLabel.h"
 
-#include "basetask.h"
 #include "dirinfotask.h"
 #include "humanbytes.h"
 #include "widgets/elidedclickablelabel.h"

@@ -4,7 +4,6 @@ WARNINGS_DISABLE
 #include <QCheckBox>
 #include <QCoreApplication>
 #include <QInputDialog>
-#include <QLabel>
 #include <QLineEdit>
 #include <QList>
 #include <QMessageBox>

@@ -7,6 +7,7 @@ WARNINGS_DISABLE
 #include <QListWidgetItem>
 #include <QMessageBox>
 #include <QRegExp>
+#include <QSharedPointer>
 #include <Qt>
 WARNINGS_ENABLE
 

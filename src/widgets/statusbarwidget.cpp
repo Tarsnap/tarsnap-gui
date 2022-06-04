@@ -7,11 +7,13 @@ WARNINGS_DISABLE
 #include <QToolButton>
 #include <QVariant>
 #include <QWidget>
+#include <Qt>
 
 #include "ui_statusbarwidget.h"
 WARNINGS_ENABLE
 
 #include "TBusyLabel.h"
+#include "TPopupPushButton.h"
 #include "TSettings.h"
 
 #include "tasks/tasks-defs.h"

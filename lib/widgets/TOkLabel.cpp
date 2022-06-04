@@ -3,7 +3,6 @@
 WARNINGS_DISABLE
 #include <QDebug>
 #include <QEvent>
-#include <QWidget>
 #include <Qt>
 WARNINGS_ENABLE
 

@@ -9,7 +9,6 @@ WARNINGS_DISABLE
 #include <QObject>
 #include <QString>
 #include <QStringList>
-#include <QWidget>
 WARNINGS_ENABLE
 
 #include "messages/taskstatus.h"
@@ -21,6 +20,7 @@ class SettingsWidget;
 }
 class ConfirmationDialog;
 class QEvent;
+class QWidget;
 class SchedulingWidgets;
 class TarsnapAccountDialog;
 

@@ -6,21 +6,13 @@ WARNINGS_DISABLE
 #include <QCloseEvent>
 #include <QDesktopServices>
 #include <QEvent>
-#include <QIcon>
 #include <QKeyEvent>
 #include <QKeySequence>
-#include <QMenu>
-#include <QMenuBar>
 #include <QMessageBox>
-#include <QPainter>
-#include <QPixmap>
-#include <QRect>
-#include <QSharedPointer>
-#include <QStyle>
-#include <QStyleOption>
-#include <QTabWidget>
+#include <QSplitter>
 #include <QUrl>
 #include <QVariant>
+#include <QWidget>
 #include <Qt>
 
 #include "ui_mainwindow.h"
@@ -28,8 +20,8 @@ WARNINGS_ENABLE
 
 #include "ConsoleLog.h"
 #include "LogEntry.h"
-#include "TBusyLabel.h"
 #include "TSettings.h"
+#include "TTabWidget.h"
 #include "TTextView.h"
 
 #include "messages/taskstatus.h"
@@ -42,10 +34,10 @@ WARNINGS_ENABLE
 #include "persistentmodel/job.h"
 #include "widgets/archivestabwidget.h"
 #include "widgets/backuptabwidget.h"
-#include "widgets/elidedclickablelabel.h"
 #include "widgets/helpwidget.h"
 #include "widgets/jobstabwidget.h"
 #include "widgets/settingswidget.h"
+#include "widgets/statusbarwidget.h"
 #include "widgets/stoptasksdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -383,7 +375,7 @@ void MainWindow::setupMenuBar()
     connect(_ui->actionHelp, &QAction::triggered, _helpWidget,
             &HelpWidget::show);
 
-    connect(_ui->mainTabWidget, &QTabWidget::currentChanged, this,
+    connect(_ui->mainTabWidget, &TTabWidget::currentChanged, this,
             &MainWindow::mainTabChanged);
     mainTabChanged(_ui->mainTabWidget->currentIndex());
 }

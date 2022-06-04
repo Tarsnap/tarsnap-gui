@@ -2,12 +2,12 @@
 
 WARNINGS_DISABLE
 #include <QDialogButtonBox>
+#include <QEvent>
+#include <QLabel>
 #include <QWidget>
 
 #include "ui_statisticsdialog.h"
 WARNINGS_ENABLE
-
-#include "TSettings.h"
 
 #include "humanbytes.h"
 

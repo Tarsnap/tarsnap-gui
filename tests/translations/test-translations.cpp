@@ -4,6 +4,7 @@ WARNINGS_DISABLE
 #include <QApplication>
 #include <QInputDialog>
 #include <QObject>
+#include <QString>
 #include <QTest>
 WARNINGS_ENABLE
 

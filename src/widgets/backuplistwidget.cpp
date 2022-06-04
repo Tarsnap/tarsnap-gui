@@ -1,18 +1,20 @@
 #include "backuplistwidget.h"
 
 WARNINGS_DISABLE
+#include <QArgument>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
 #include <QEvent>
 #include <QFileInfo>
 #include <QKeyEvent>
+#include <QListWidgetItem>
 #include <QMessageBox>
+#include <QMetaObject>
 #include <QMimeData>
 #include <QStringList>
 #include <QUrl>
 #include <QVariant>
-#include <QWidget>
 #include <Qt>
 WARNINGS_ENABLE
 
@@ -263,7 +265,7 @@ void BackupListWidget::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
         recomputeListTotals();
-    QFrame::changeEvent(event);
+    QListWidget::changeEvent(event);
 }
 
 void BackupListWidget::updateIEC()

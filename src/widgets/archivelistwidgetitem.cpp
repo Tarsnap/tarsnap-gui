@@ -6,6 +6,7 @@ WARNINGS_DISABLE
 #include <QEvent>
 #include <QKeySequence>
 #include <QLatin1String>
+#include <QSharedPointer>
 #include <QSize>
 #include <QToolButton>
 #include <QVector>

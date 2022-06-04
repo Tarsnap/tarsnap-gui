@@ -3,7 +3,9 @@
 WARNINGS_DISABLE
 #include <QCheckBox>
 #include <QCoreApplication>
+#include <QLineEdit>
 #include <QObject>
+#include <QString>
 #include <QTest>
 
 #include "ui_backuptabwidget.h"

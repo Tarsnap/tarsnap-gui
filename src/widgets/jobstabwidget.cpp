@@ -3,9 +3,11 @@
 WARNINGS_DISABLE
 #include <QAction>
 #include <QComboBox>
+#include <QCoreApplication>
 #include <QCursor>
 #include <QDir>
 #include <QEvent>
+#include <QEventLoop>
 #include <QFrame>
 #include <QKeyEvent>
 #include <QKeySequence>
@@ -13,6 +15,8 @@ WARNINGS_DISABLE
 #include <QMenu>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QSharedPointer>
+#include <QToolButton>
 #include <QUrl>
 #include <QVariant>
 #include <QWidget>

@@ -2,7 +2,6 @@
 
 WARNINGS_DISABLE
 #include <QDir>
-#include <QList>
 #include <QRegExp>
 #include <QString>
 #include <QStringList>

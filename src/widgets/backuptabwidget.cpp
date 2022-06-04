@@ -1,6 +1,7 @@
 #include "backuptabwidget.h"
 
 WARNINGS_DISABLE
+#include <QAction>
 #include <QCheckBox>
 #include <QDateTime>
 #include <QDialog>
@@ -8,6 +9,9 @@ WARNINGS_DISABLE
 #include <QFileDialog>
 #include <QKeySequence>
 #include <QLabel>
+#include <QLineEdit>
+#include <QSharedPointer>
+#include <QToolButton>
 #include <QUrl>
 #include <QWidget>
 #include <Qt>

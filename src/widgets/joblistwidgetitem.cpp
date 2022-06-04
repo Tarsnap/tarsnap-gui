@@ -5,7 +5,9 @@ WARNINGS_DISABLE
 #include <QDateTime>
 #include <QEvent>
 #include <QKeySequence>
+#include <QSharedPointer>
 #include <QSize>
+#include <QToolButton>
 #include <QWidget>
 #include <Qt>
 
@@ -13,6 +15,8 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 #include "TElidedLabel.h"
+
+#include "messages/archiveptr.h"
 
 #include "humanbytes.h"
 #include "persistentmodel/archive.h"

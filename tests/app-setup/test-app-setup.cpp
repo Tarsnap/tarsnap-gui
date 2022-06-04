@@ -156,7 +156,7 @@ static void setup(int argc, char *argv[], void(runner)(AppSetup *setup),
         // Prepare and launch event loop.
         if(app.prepEventLoop())
         {
-            int ret = app.exec();
+            int ret = AppSetup::exec();
 
             // Check result.
             QCOMPARE(ret, expected_ret);

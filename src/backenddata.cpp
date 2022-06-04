@@ -145,7 +145,7 @@ QList<ArchivePtr> BackendData::setArchivesFromList(
             // There is a different archive with the same name on the remote
             archive->purge();
             archive.clear();
-            archive = archive.create();
+            archive = ArchivePtr::create();
         }
         if(archive->objectKey().isEmpty())
         {

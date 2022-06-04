@@ -39,7 +39,7 @@ static int run_cmdline(int argc, char *argv[], struct optparse *opt)
 
     // Should we launch the event loop?
     if(app.prepEventLoop())
-        ret = app.exec();
+        ret = AppCmdline::exec();
     else
         ret = EXIT_SUCCESS;
 
@@ -66,7 +66,7 @@ static int run_gui_main(int argc, char *argv[], struct optparse *opt,
 
     // Should we launch the event loop?
     if(app.prepEventLoop())
-        ret = app.exec();
+        ret = AppGui::exec();
     else
         ret = EXIT_SUCCESS;
 
@@ -102,7 +102,7 @@ static int run_gui_setup(int argc, char *argv[],
 
     // Should we launch the event loop?
     if(app.prepEventLoop())
-        ret = app.exec();
+        ret = AppSetup::exec();
     else
         ret = EXIT_FAILURE;
 

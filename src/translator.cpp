@@ -37,11 +37,10 @@ Translator::~Translator()
 
 void Translator::remove_translators()
 {
-    QCoreApplication *app = QCoreApplication::instance();
-    if(app)
+    if(QCoreApplication::instance())
     {
-        app->removeTranslator(_qtTranslator);
-        app->removeTranslator(_appTranslator);
+        QCoreApplication::removeTranslator(_qtTranslator);
+        QCoreApplication::removeTranslator(_appTranslator);
     }
     delete _qtTranslator;
     _qtTranslator = nullptr;
@@ -68,11 +67,11 @@ void Translator::translateApp(QCoreApplication *app, const QString &language)
     _qtTranslator = new QTranslator();
     _qtTranslator->load("qt_" + _languageMap[lang],
                         QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    app->installTranslator(_qtTranslator);
+    QCoreApplication::installTranslator(_qtTranslator);
 
     _appTranslator = new QTranslator();
     _appTranslator->load("tarsnap-gui_" + _languageMap[lang], ":/translations");
-    app->installTranslator(_appTranslator);
+    QCoreApplication::installTranslator(_appTranslator);
 }
 
 QStringList Translator::languageList()

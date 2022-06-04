@@ -26,8 +26,7 @@ void Notification::displayNotification(const QString    &message,
         QString messagePlainText = QString(message).remove(QRegExp("<[^>]*>"));
         // Display message
         show();
-        showMessage(QCoreApplication::instance()->applicationName(),
-                    messagePlainText);
+        showMessage(QCoreApplication::applicationName(), messagePlainText);
         // Store info for later handling
         _msg_type = type;
         _msg_data = data;

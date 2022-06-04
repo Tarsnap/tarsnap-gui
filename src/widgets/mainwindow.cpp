@@ -636,6 +636,8 @@ void MainWindow::handle_notification_clicked(enum message_type type,
     notificationRaise();
     switch(type)
     {
+    case(NOTIFICATION_NONE):
+        qFatal("Uninitialized notification type");
     case(NOTIFICATION_UNSPECIFIED):
     case(NOTIFICATION_NOT_ONLINE):
     case(NOTIFICATION_ARCHIVE_FAILED):

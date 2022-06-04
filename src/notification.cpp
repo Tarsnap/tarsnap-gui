@@ -6,7 +6,8 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
-Notification::Notification(QSystemTrayIcon *parent) : QSystemTrayIcon(parent)
+Notification::Notification(QSystemTrayIcon *parent)
+    : QSystemTrayIcon(parent), _msg_type(NOTIFICATION_NONE), _msg_data("")
 {
     setIcon(QIcon(":/logos/tarsnap-icon-big.png"));
     connect(this, &QSystemTrayIcon::messageClicked, this,

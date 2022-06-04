@@ -4,6 +4,7 @@
 //! Type of notification message.
 enum message_type
 {
+    NOTIFICATION_NONE,
     NOTIFICATION_UNSPECIFIED,
     NOTIFICATION_NOT_ONLINE,
     NOTIFICATION_ARCHIVE_CREATING,

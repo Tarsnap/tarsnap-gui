@@ -22,6 +22,9 @@ class TBusyLabel : public QLabel
 {
     Q_OBJECT
 
+    //! Animation status
+    Q_PROPERTY(bool waiting MEMBER _waiting WRITE animate DESIGNABLE true)
+
 public:
     //! Constructor.
     explicit TBusyLabel(QWidget *parent = nullptr);
@@ -42,6 +45,7 @@ protected:
 
 private:
     QMovie *_animation;
+    bool    _waiting;
 };
 
 #endif // !TBUSYLABEL_H

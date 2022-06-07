@@ -48,6 +48,9 @@ FORMS	=					\
 		../forms/TPathComboBrowse.ui	\
 		../forms/TPathLineBrowse.ui
 
+RESOURCES	+=				\
+		../resources/lib-resources.qrc
+
 target.path	= $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS	+= target
 

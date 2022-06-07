@@ -9,7 +9,7 @@ WARNINGS_ENABLE
 
 #define MOVIE_FILENAME ":/lib/loading.gif"
 
-TBusyLabel::TBusyLabel(QWidget *parent) : QLabel(parent)
+TBusyLabel::TBusyLabel(QWidget *parent) : QLabel(parent), _waiting(false)
 {
     Q_ASSERT(QFileInfo::exists(MOVIE_FILENAME));
 
@@ -29,6 +29,8 @@ TBusyLabel::~TBusyLabel()
 
 void TBusyLabel::animate(bool active)
 {
+    _waiting = active;
+
     if(active)
     {
         setMovie(_animation);

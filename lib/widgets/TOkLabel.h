@@ -27,7 +27,7 @@ class TOkLabel : public QLabel
 
     //! Status to display.  We use int to avoid dealing with QMetaType,
     //! but the only meaningful values are listed in \ref Status.
-    Q_PROPERTY(int status READ status WRITE setStatus DESIGNABLE true)
+    Q_PROPERTY(Status status READ status WRITE setStatus DESIGNABLE true)
 
 public:
     //! Constructor.
@@ -40,21 +40,22 @@ public:
         Ok    = 1,
         Error = 2
     };
+    Q_ENUM(Status)
 
     //! Get the status.
-    int status() const;
+    Status status() const;
     //! Set the status.
-    void setStatus(int status);
+    void setStatus(Status status);
 
     //! Get a rich text representation of a status.
-    static QString getRichText(int status);
+    static QString getRichText(Status status);
 
 protected:
     //! Handle translation change of language.
     void changeEvent(QEvent *event) override;
 
 private:
-    int _status;
+    Status _status;
 };
 
 #endif // TOKLABEL_H

@@ -1,12 +1,11 @@
 #include "TOkLabel.h"
 
 WARNINGS_DISABLE
-#include <QDebug>
 #include <QEvent>
 #include <Qt>
 WARNINGS_ENABLE
 
-TOkLabel::TOkLabel(QWidget *parent) : QLabel(parent), _status(0)
+TOkLabel::TOkLabel(QWidget *parent) : QLabel(parent), _status(Unset)
 {
     setAlignment(Qt::AlignCenter);
     setFixedSize(15, 15);
@@ -20,12 +19,12 @@ void TOkLabel::changeEvent(QEvent *event)
         QLabel::changeEvent(event);
 }
 
-int TOkLabel::status() const
+TOkLabel::Status TOkLabel::status() const
 {
     return _status;
 }
 
-void TOkLabel::setStatus(int status)
+void TOkLabel::setStatus(Status status)
 {
     _status = status;
 
@@ -43,22 +42,20 @@ void TOkLabel::setStatus(int status)
         setText(tr("❌"));
         setStyleSheet("color: darkred");
         break;
-    default:
-        qFatal("Unrecognized TOkLabel status value");
     }
 }
 
-QString TOkLabel::getRichText(int status)
+QString TOkLabel::getRichText(Status status)
 {
     switch(status)
     {
-    case Unset:
-        return "";
     case Ok:
         return "<font color=\"green\">" + tr("✔") + "</font>";
     case Error:
         return "<font color=\"darkred\">" + tr("❌") + "</font>";
-    default:
-        qFatal("Unrecognized TOkLabel status value");
+    case Unset:
+        /* FALLTHROUGH */
+        ;
     }
+    return "";
 }

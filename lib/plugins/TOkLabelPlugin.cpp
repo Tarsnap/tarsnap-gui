@@ -8,7 +8,7 @@ TOkLabelPlugin::TOkLabelPlugin(QObject *parent) : QObject(parent)
 
 QIcon TOkLabelPlugin::icon() const
 {
-    return QIcon();
+    return QIcon(":lib/TOkYesNo.png");
 }
 
 QString TOkLabelPlugin::group() const

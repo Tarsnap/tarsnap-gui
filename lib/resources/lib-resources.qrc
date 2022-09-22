@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/lib/">
         <file>loading.gif</file>
+        <file>TOkYesNo.png</file>
     </qresource>
 </RCC>

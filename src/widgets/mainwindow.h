@@ -167,9 +167,7 @@ protected:
     void changeEvent(QEvent *event) override;
 
 private slots:
-    void setupMenuBar();
     void displayInspectArchive(const ArchivePtr &archive);
-    void commitSettings();
     void mainTabChanged(int index);
 
     // Backup tab
@@ -198,6 +196,9 @@ private:
     HelpWidget       *_helpWidget;
 
     StopTasksDialog *_stopTasksDialog;
+
+    void setupMenuBar();
+    void commitSettings();
 
     //! Switch to displaying a specific tab.
     void displayTab(QWidget *widget);

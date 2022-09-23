@@ -64,7 +64,8 @@ void TTabWidget::resizeEvent(QResizeEvent *event)
 
 void TTabWidget::paintEvent(QPaintEvent *event)
 {
-    (void)event; /* UNUSED */
+    // Draw the normal elements of a QTabWidget.
+    QTabWidget::paintEvent(event);
 
     // Update width calculation if necessary.
     if(_needRecalculate)

@@ -26,7 +26,7 @@ FreeBSD
 
 Tarsnap GUI is part of the pkg/ports collection of FreeBSD. To install using
 pkg is as simple as:
-$ pkg install tarsnap tarsnap-gui 
+$ pkg install tarsnap tarsnap-gui
 
 ===================
 Source installation

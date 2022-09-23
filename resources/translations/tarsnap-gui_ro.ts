@@ -1829,20 +1829,20 @@ Aborting operation.</source>
 %1</translation>
     </message>
     <message>
-        <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do. 
-
-%1</source>
-        <translation type="unfinished">Serviciul execuție programată nu a fost activat. Operațiune anulată.
-
-%1</translation>
-    </message>
-    <message>
         <source>Tarsnap GUI will be added to the current user&apos;s crontab.</source>
         <translation type="unfinished">Aplicația va fi înregistrată folosind serviciul CRON pentru utilizatorul curent.</translation>
     </message>
     <message>
         <source>To ensure proper behavior please review the lines to be added by pressing Show Details before proceeding.</source>
         <translation type="unfinished">Ca măsură de siguranță vă rog să revizuiți modificările ce vor fi aduse fișierului crontab pentru utilizatorul curent.</translation>
+    </message>
+    <message>
+        <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do.
+
+%1</source>
+        <translation type="unfinished">Serviciul execuție programată nu a fost activat. Operațiune anulată.
+
+%1</translation>
     </message>
 </context>
 <context>

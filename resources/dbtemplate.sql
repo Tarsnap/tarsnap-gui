@@ -1,6 +1,6 @@
 -- Unfortunately, we can't easily import this into QSqlDatabase directly
--- due to the lack of support for executing multiple statements in a single 
--- query, thus you need to modify this file to update the db schema, then 
+-- due to the lack of support for executing multiple statements in a single
+-- query, thus you need to modify this file to update the db schema, then
 -- regenerate dbtemplate.db which is in turn used by the app.
 
 -- NB: UPDATE the version column below whenever you change this schema

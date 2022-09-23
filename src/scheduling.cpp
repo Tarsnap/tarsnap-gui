@@ -357,7 +357,7 @@ struct scheduleinfo cronDisable()
         info.status = SCHEDULE_ERROR;
         info.message =
             QObject::tr("Looks like Job scheduling hasn't been enabled"
-                        " yet. Nothing to do. \n\n%1")
+                        " yet. Nothing to do.\n\n%1")
                 .arg(CRON_MARKER_HELP);
         return info;
     }

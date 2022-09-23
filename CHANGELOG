@@ -126,7 +126,7 @@ operations which can produce enormous amounts of text. This significantly
 reduces memory usage and improves performance for those cases.
 * Ignore default tarsnap config files by default (--no-default-config).
 * Code wise, there's Doxygen comments now, many improvements, cleanups and
-refactorings resulting in a much improved code base. 
+refactorings resulting in a much improved code base.
 * Overall, the app is leaner, better looking and faster due to various
 refactorings and improvements.
 * Many bugs, UI issues and other inconsistencies have now been resolved.

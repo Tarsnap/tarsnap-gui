@@ -1801,17 +1801,17 @@ Aborting operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do. 
-
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tarsnap GUI will be added to the current user&apos;s crontab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>To ensure proper behavior please review the lines to be added by pressing Show Details before proceeding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Looks like Job scheduling hasn&apos;t been enabled yet. Nothing to do.
+
+%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -8,40 +8,40 @@ TWizardPagePlugin::TWizardPagePlugin(QObject *parent) : QObject(parent)
 
 QIcon TWizardPagePlugin::icon() const
 {
-    return QIcon();
+    return (QIcon());
 }
 
 QString TWizardPagePlugin::group() const
 {
-    return QStringLiteral("Containers");
+    return (QStringLiteral("Containers"));
 }
 
 QString TWizardPagePlugin::includeFile() const
 {
-    return QStringLiteral("TWizardPage.h");
+    return (QStringLiteral("TWizardPage.h"));
 }
 
 QString TWizardPagePlugin::name() const
 {
-    return QStringLiteral("TWizardPage");
+    return (QStringLiteral("TWizardPage"));
 }
 
 QString TWizardPagePlugin::toolTip() const
 {
-    return QString();
+    return (QString());
 }
 
 QString TWizardPagePlugin::whatsThis() const
 {
-    return QString();
+    return (QString());
 }
 
 QWidget *TWizardPagePlugin::createWidget(QWidget *parent)
 {
-    return new TWizardPage(parent);
+    return (new TWizardPage(parent));
 }
 
 bool TWizardPagePlugin::isContainer() const
 {
-    return true;
+    return (true);
 }

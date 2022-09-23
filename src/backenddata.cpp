@@ -24,17 +24,17 @@ BackendData::BackendData()
 
 QMap<QString, JobPtr> BackendData::jobs()
 {
-    return _jobMap;
+    return (_jobMap);
 }
 
 QMap<QString, ArchivePtr> BackendData::archives()
 {
-    return _archiveMap;
+    return (_archiveMap);
 }
 
 quint64 BackendData::numArchives()
 {
-    return static_cast<quint64>(_archiveMap.count());
+    return (static_cast<quint64>(_archiveMap.count()));
 }
 
 bool BackendData::loadArchives()
@@ -45,18 +45,18 @@ bool BackendData::loadArchives()
     if(!global_store->initialized())
     {
         DEBUG << "PersistentStore was not initialized properly.";
-        return false;
+        return (false);
     }
     QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("select name from archives")))
     {
         DEBUG << query.lastError().text();
-        return false;
+        return (false);
     }
     if(!global_store->runQuery(query))
     {
         DEBUG << "loadArchives query failed.";
-        return false;
+        return (false);
     }
 
     // Process data from the store.
@@ -68,7 +68,7 @@ bool BackendData::loadArchives()
         archive->load();
         _archiveMap[archive->name()] = archive;
     }
-    return true;
+    return (true);
 }
 
 QList<ArchivePtr> BackendData::findMatchingArchives(const QString &jobPrefix)
@@ -83,7 +83,7 @@ QList<ArchivePtr> BackendData::findMatchingArchives(const QString &jobPrefix)
         if(archive->name().startsWith(prefix) && archive->jobRef().isEmpty())
             matching << archive;
     }
-    return matching;
+    return (matching);
 }
 
 ArchivePtr BackendData::newArchive(const BackupTaskDataPtr &backupTaskData,
@@ -111,7 +111,7 @@ ArchivePtr BackendData::newArchive(const BackupTaskDataPtr &backupTaskData,
 
     // Bail if it's a --dry-run.
     if(backupTaskData->optionDryRun())
-        return archive;
+        return (archive);
 
     // Save data and add to the map.
     archive->save();
@@ -126,7 +126,7 @@ ArchivePtr BackendData::newArchive(const BackupTaskDataPtr &backupTaskData,
                 emit job->loadArchives();
         }
     }
-    return archive;
+    return (archive);
 }
 
 QList<ArchivePtr> BackendData::setArchivesFromList(
@@ -176,7 +176,7 @@ QList<ArchivePtr> BackendData::setArchivesFromList(
     {
         emit job->loadArchives();
     }
-    return newArchives;
+    return (newArchives);
 }
 
 void BackendData::removeArchives(const QList<ArchivePtr> &archives)
@@ -196,18 +196,18 @@ bool BackendData::loadJobs()
     if(!global_store->initialized())
     {
         DEBUG << "PersistentStore was not initialized properly.";
-        return false;
+        return (false);
     }
     QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("select name from jobs")))
     {
         DEBUG << query.lastError().text();
-        return false;
+        return (false);
     }
     if(!global_store->runQuery(query))
     {
         DEBUG << "loadJobs query failed.";
-        return false;
+        return (false);
     }
 
     // Process data from the store.
@@ -221,7 +221,7 @@ bool BackendData::loadJobs()
         job->load();
         _jobMap[job->name()] = job;
     }
-    return true;
+    return (true);
 }
 
 void BackendData::deleteJob(const JobPtr &job)

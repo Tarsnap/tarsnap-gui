@@ -20,13 +20,13 @@ FileTableModel::FileTableModel(QObject *parent)
 int FileTableModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
-    return _files.count();
+    return (_files.count());
 }
 
 int FileTableModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
-    return kTableColumnsCount;
+    return (kTableColumnsCount);
 }
 
 QVariant FileTableModel::data(const QModelIndex &index, int role) const
@@ -36,54 +36,54 @@ QVariant FileTableModel::data(const QModelIndex &index, int role) const
         switch(index.column())
         {
         case TableColumns::FILE:
-            return _files[index.row()].name;
+            return (_files[index.row()].name);
         case TableColumns::MODIFIED:
-            return _files[index.row()].modified;
+            return (_files[index.row()].modified);
         case TableColumns::SIZE:
-            return _files[index.row()].size;
+            return (_files[index.row()].size);
         case TableColumns::USER:
-            return _files[index.row()].user;
+            return (_files[index.row()].user);
         case TableColumns::GROUP:
-            return _files[index.row()].group;
+            return (_files[index.row()].group);
         case TableColumns::MODE:
-            return _files[index.row()].mode;
+            return (_files[index.row()].mode);
         case TableColumns::LINKS:
-            return _files[index.row()].links;
+            return (_files[index.row()].links);
         }
     }
-    return QVariant();
+    return (QVariant());
 }
 
 QVariant FileTableModel::headerData(int section, Qt::Orientation orientation,
                                     int role) const
 {
     if(role != Qt::DisplayRole)
-        return QVariant();
+        return (QVariant());
     if(orientation == Qt::Vertical)
-        return QString("%1").arg(section + 1);
+        return (QString("%1").arg(section + 1));
     if(orientation == Qt::Horizontal)
     {
         switch(section)
         {
         case TableColumns::FILE:
-            return tr("FILE");
+            return (tr("FILE"));
         case TableColumns::MODIFIED:
-            return tr("DATE MODIFIED");
+            return (tr("DATE MODIFIED"));
         case TableColumns::SIZE:
-            return tr("SIZE");
+            return (tr("SIZE"));
         case TableColumns::USER:
-            return tr("USER");
+            return (tr("USER"));
         case TableColumns::GROUP:
-            return tr("GROUP");
+            return (tr("GROUP"));
         case TableColumns::MODE:
-            return tr("MODE");
+            return (tr("MODE"));
         case TableColumns::LINKS:
-            return tr("LINKS");
+            return (tr("LINKS"));
         default:
             qFatal("Unrecognized TableColumn int");
         }
     }
-    return QVariant();
+    return (QVariant());
 }
 
 void FileTableModel::setArchive(const ArchivePtr &archive)

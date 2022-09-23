@@ -32,7 +32,7 @@ bool upgrade_store(QSqlDatabase db, const QString &appdata)
                      "to start from scratch by purging the existing DB "
                      "in "
                   << appdata;
-            return false;
+            return (false);
         }
     }
     int       version = -1;
@@ -46,7 +46,7 @@ bool upgrade_store(QSqlDatabase db, const QString &appdata)
     {
         DEBUG << "Failed to get current DB version: "
               << query.lastError().text();
-        return false;
+        return (false);
     }
     if((version == 0) && upgradeVersion1())
     {
@@ -69,7 +69,7 @@ bool upgrade_store(QSqlDatabase db, const QString &appdata)
         version = 4;
     }
     (void)version; /* not used beyond this point. */
-    return true;
+    return (true);
 }
 
 /*
@@ -92,7 +92,7 @@ static bool upgradeVersion0()
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 0." << db;
     }
-    return result;
+    return (result);
 }
 
 static bool upgradeVersion1()
@@ -114,7 +114,7 @@ static bool upgradeVersion1()
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 1." << db.databaseName();
     }
-    return result;
+    return (result);
 }
 
 static bool upgradeVersion2()
@@ -132,7 +132,7 @@ static bool upgradeVersion2()
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 2." << db.databaseName();
     }
-    return result;
+    return (result);
 }
 
 static bool upgradeVersion3()
@@ -151,7 +151,7 @@ static bool upgradeVersion3()
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 3." << db.databaseName();
     }
-    return result;
+    return (result);
 }
 
 static bool upgradeVersion4()
@@ -174,6 +174,6 @@ static bool upgradeVersion4()
         DEBUG << query.lastError().text();
         DEBUG << "Failed to upgrade DB to version 4." << db.databaseName();
     }
-    return result;
+    return (result);
 }
 /* clang-format on */

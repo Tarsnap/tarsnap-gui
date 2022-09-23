@@ -97,7 +97,7 @@ bool RegisterPage::reportError(const QString &text, TPathComboBrowse *pcb,
         pcb->setStatusError(pcb_text);
 
     // Generic handling of errors.
-    return false;
+    return (false);
 }
 
 void RegisterPage::next()
@@ -116,19 +116,19 @@ bool RegisterPage::checkComplete()
     if(_ui->keyfileTabWidget->currentIndex() == CreateKeyfileTab)
     {
         if(!checkCreateKeyfile())
-            return setProceedButton(false);
+            return (setProceedButton(false));
     }
     else
     {
         if(!checkUseKeyfile())
-            return setProceedButton(false);
+            return (setProceedButton(false));
     }
 
     // Disable the button if we're already registering.
     if(_registering == Yes)
-        return setProceedButton(false);
+        return (setProceedButton(false));
     else
-        return setProceedButton(true);
+        return (setProceedButton(true));
 }
 
 void RegisterPage::registerMachine()
@@ -264,15 +264,15 @@ void RegisterPage::registerMachineResponse(TaskStatus     status,
 bool RegisterPage::checkCreateKeyfile()
 {
     if(_ui->machineNameLineEdit->text().isEmpty())
-        return setProceedButton(false);
+        return (setProceedButton(false));
 
     if(_ui->tarsnapUserLineEdit->text().isEmpty())
-        return setProceedButton(false);
+        return (setProceedButton(false));
 
     if(_ui->tarsnapPasswordLineEdit->text().isEmpty())
-        return setProceedButton(false);
+        return (setProceedButton(false));
 
-    return true;
+    return (true);
 }
 
 bool RegisterPage::checkUseKeyfile()
@@ -281,11 +281,11 @@ bool RegisterPage::checkUseKeyfile()
 
     const QString errorMsg = validate_readable_file(filename);
     if(!errorMsg.isEmpty())
-        return reportError("", _ui->keyfilePathComboBrowse, errorMsg);
+        return (reportError("", _ui->keyfilePathComboBrowse, errorMsg));
 
     // File is ok.
     _ui->keyfilePathComboBrowse->setStatusOk("");
-    return true;
+    return (true);
 }
 
 void RegisterPage::updateLoadingAnimation(bool idle)

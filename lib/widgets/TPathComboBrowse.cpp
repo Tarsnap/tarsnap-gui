@@ -46,7 +46,7 @@ void TPathComboBrowse::changeEvent(QEvent *event)
 
 QString TPathComboBrowse::label() const
 {
-    return _ui->label->text();
+    return (_ui->label->text());
 }
 
 void TPathComboBrowse::setLabel(const QString &text)
@@ -56,7 +56,7 @@ void TPathComboBrowse::setLabel(const QString &text)
 
 QString TPathComboBrowse::placeholderText() const
 {
-    return _ui->comboBox->lineEdit()->placeholderText();
+    return (_ui->comboBox->lineEdit()->placeholderText());
 }
 
 void TPathComboBrowse::setPlaceholderText(const QString &text)
@@ -66,7 +66,7 @@ void TPathComboBrowse::setPlaceholderText(const QString &text)
 
 QString TPathComboBrowse::dialogTitle() const
 {
-    return _dialogTitle;
+    return (_dialogTitle);
 }
 
 void TPathComboBrowse::setDialogTitle(const QString &text)
@@ -76,7 +76,7 @@ void TPathComboBrowse::setDialogTitle(const QString &text)
 
 QString TPathComboBrowse::dialogFilter() const
 {
-    return _dialogFilter;
+    return (_dialogFilter);
 }
 
 void TPathComboBrowse::setDialogFilter(const QString &text)
@@ -86,7 +86,7 @@ void TPathComboBrowse::setDialogFilter(const QString &text)
 
 QString TPathComboBrowse::statusText() const
 {
-    return _ui->statusLabel->text();
+    return (_ui->statusLabel->text());
 }
 
 void TPathComboBrowse::setStatusOk(const QString &text)
@@ -107,7 +107,7 @@ void TPathComboBrowse::setStatusError(const QString &text)
 
 QString TPathComboBrowse::text() const
 {
-    return _ui->comboBox->currentText();
+    return (_ui->comboBox->currentText());
 }
 
 void TPathComboBrowse::setText(const QString &text)
@@ -140,7 +140,7 @@ void TPathComboBrowse::clear()
 
 int TPathComboBrowse::count() const
 {
-    return _ui->comboBox->count();
+    return (_ui->comboBox->count());
 }
 
 void TPathComboBrowse::addItem(const QString &text)

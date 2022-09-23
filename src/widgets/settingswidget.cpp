@@ -414,13 +414,13 @@ bool SettingsWidget::validateMachineKeyPath()
     {
         _ui->accountMachineKeyLineEdit->setStyleSheet(
             "QLineEdit {color: black;}");
-        return true;
+        return (true);
     }
     else
     {
         _ui->accountMachineKeyLineEdit->setStyleSheet(
             "QLineEdit {color: red;}");
-        return false;
+        return (false);
     }
 }
 
@@ -556,7 +556,7 @@ bool SettingsWidget::validateTarsnapPath()
     {
         _ui->tarsnapPathLineEdit->setStyleSheet("QLineEdit {color: red;}");
         _ui->tarsnapVersionLabel->clear();
-        return false;
+        return (false);
     }
     else
     {
@@ -565,7 +565,7 @@ bool SettingsWidget::validateTarsnapPath()
         // Wipe previous version number before asking for a new one.
         settings.setValue("tarsnap/version", "");
         emit tarsnapVersionRequested(_ui->tarsnapPathLineEdit->text());
-        return true;
+        return (true);
     }
 }
 
@@ -576,12 +576,12 @@ bool SettingsWidget::validateTarsnapCache()
     if(!errorMsg.isEmpty())
     {
         _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: red;}");
-        return false;
+        return (false);
     }
     else
     {
         _ui->tarsnapCacheLineEdit->setStyleSheet("QLineEdit {color: black;}");
-        return true;
+        return (true);
     }
 }
 
@@ -592,7 +592,7 @@ bool SettingsWidget::validateAppDataDir()
     if(!errorMsg.isEmpty())
     {
         _ui->appDataDirLineEdit->setStyleSheet("QLineEdit {color: red;}");
-        return false;
+        return (false);
     }
     else
     {
@@ -600,7 +600,7 @@ bool SettingsWidget::validateAppDataDir()
         settings.setValue("app/app_data", _ui->appDataDirLineEdit->text());
 
         _ui->appDataDirLineEdit->setStyleSheet("QLineEdit {color: black;}");
-        return true;
+        return (true);
     }
 }
 

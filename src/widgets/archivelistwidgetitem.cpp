@@ -53,12 +53,12 @@ ArchiveListWidgetItem::~ArchiveListWidgetItem()
 
 QWidget *ArchiveListWidgetItem::widget()
 {
-    return _widget;
+    return (_widget);
 }
 
 ArchivePtr ArchiveListWidgetItem::archive() const
 {
-    return _archive;
+    return (_archive);
 }
 
 void ArchiveListWidgetItem::setShowingDetails(bool is_showing)
@@ -182,9 +182,9 @@ bool ArchiveListWidgetItem::eventFilter(QObject *obj, QEvent *event)
         _ui->retranslateUi(_widget);
         updateKeyboardShortcutInfo();
         updateStatus();
-        return true;
+        return (true);
     }
-    return false;
+    return (false);
 }
 
 void ArchiveListWidgetItem::updateKeyboardShortcutInfo()

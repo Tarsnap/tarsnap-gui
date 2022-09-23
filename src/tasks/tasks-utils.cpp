@@ -17,9 +17,9 @@ QString makeTarsnapCommand(const QString &cmd)
     TSettings settings;
     QString   tarsnapDir = settings.value("tarsnap/path", "").toString();
     if(tarsnapDir.isEmpty())
-        return cmd;
+        return (cmd);
     else
-        return tarsnapDir + QDir::separator() + cmd;
+        return (tarsnapDir + QDir::separator() + cmd);
 }
 
 QStringList makeTarsnapArgs()

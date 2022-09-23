@@ -58,7 +58,7 @@ BackupTaskData::BackupTaskData()
 
 QString BackupTaskData::name() const
 {
-    return _name;
+    return (_name);
 }
 
 void BackupTaskData::setName(const QString &name)
@@ -68,7 +68,7 @@ void BackupTaskData::setName(const QString &name)
 
 QUuid BackupTaskData::uuid() const
 {
-    return _uuid;
+    return (_uuid);
 }
 
 void BackupTaskData::setUuid(const QUuid &uuid)
@@ -78,7 +78,7 @@ void BackupTaskData::setUuid(const QUuid &uuid)
 
 QDateTime BackupTaskData::timestamp() const
 {
-    return _timestamp;
+    return (_timestamp);
 }
 
 void BackupTaskData::setTimestamp(const QDateTime &timestamp)
@@ -88,7 +88,7 @@ void BackupTaskData::setTimestamp(const QDateTime &timestamp)
 
 QString BackupTaskData::jobRef() const
 {
-    return _jobRef;
+    return (_jobRef);
 }
 
 void BackupTaskData::setJobRef(const QString &jobRef)
@@ -98,7 +98,7 @@ void BackupTaskData::setJobRef(const QString &jobRef)
 
 QList<QUrl> BackupTaskData::urls() const
 {
-    return _urls;
+    return (_urls);
 }
 
 void BackupTaskData::setUrls(const QList<QUrl> &urls)
@@ -108,7 +108,7 @@ void BackupTaskData::setUrls(const QList<QUrl> &urls)
 
 bool BackupTaskData::optionPreservePaths() const
 {
-    return _optionPreservePaths;
+    return (_optionPreservePaths);
 }
 
 void BackupTaskData::setOptionPreservePaths(bool optionPreservePaths)
@@ -118,7 +118,7 @@ void BackupTaskData::setOptionPreservePaths(bool optionPreservePaths)
 
 quint64 BackupTaskData::optionSkipFilesSize() const
 {
-    return _optionSkipFilesSize;
+    return (_optionSkipFilesSize);
 }
 
 void BackupTaskData::setOptionSkipFilesSize(const int &optionSkipFilesSize)
@@ -128,7 +128,7 @@ void BackupTaskData::setOptionSkipFilesSize(const int &optionSkipFilesSize)
 
 bool BackupTaskData::optionFollowSymLinks() const
 {
-    return _optionFollowSymLinks;
+    return (_optionFollowSymLinks);
 }
 
 void BackupTaskData::setOptionFollowSymLinks(bool optionFollowSymLinks)
@@ -138,7 +138,7 @@ void BackupTaskData::setOptionFollowSymLinks(bool optionFollowSymLinks)
 
 bool BackupTaskData::optionTraverseMount() const
 {
-    return _optionTraverseMount;
+    return (_optionTraverseMount);
 }
 
 void BackupTaskData::setOptionTraverseMount(bool optionTraverseMount)
@@ -148,7 +148,7 @@ void BackupTaskData::setOptionTraverseMount(bool optionTraverseMount)
 
 bool BackupTaskData::optionSkipSystem() const
 {
-    return _optionSkipSystem;
+    return (_optionSkipSystem);
 }
 
 void BackupTaskData::setOptionSkipSystem(bool optionSkipSystem)
@@ -158,7 +158,7 @@ void BackupTaskData::setOptionSkipSystem(bool optionSkipSystem)
 
 QStringList BackupTaskData::optionSkipSystemFiles() const
 {
-    return _optionSkipSystemFiles;
+    return (_optionSkipSystemFiles);
 }
 
 void BackupTaskData::setOptionSkipSystemFiles(
@@ -224,12 +224,12 @@ QStringList BackupTaskData::getExcludesList()
         }
     }
 
-    return skipList;
+    return (skipList);
 }
 
 bool BackupTaskData::optionDryRun() const
 {
-    return _optionDryRun;
+    return (_optionDryRun);
 }
 
 void BackupTaskData::setOptionDryRun(bool optionDryRun)
@@ -239,7 +239,7 @@ void BackupTaskData::setOptionDryRun(bool optionDryRun)
 
 bool BackupTaskData::optionSkipNoDump() const
 {
-    return _optionSkipNoDump;
+    return (_optionSkipNoDump);
 }
 
 void BackupTaskData::setOptionSkipNoDump(bool optionSkipNoDump)
@@ -249,7 +249,7 @@ void BackupTaskData::setOptionSkipNoDump(bool optionSkipNoDump)
 
 int BackupTaskData::exitCode() const
 {
-    return _exitCode;
+    return (_exitCode);
 }
 
 void BackupTaskData::setExitCode(int exitCode)
@@ -259,7 +259,7 @@ void BackupTaskData::setExitCode(int exitCode)
 
 QString BackupTaskData::output() const
 {
-    return _output;
+    return (_output);
 }
 
 void BackupTaskData::setOutput(const QString &output)
@@ -269,7 +269,7 @@ void BackupTaskData::setOutput(const QString &output)
 
 ArchivePtr BackupTaskData::archive() const
 {
-    return _archive;
+    return (_archive);
 }
 
 void BackupTaskData::setArchive(const ArchivePtr &archive)
@@ -279,7 +279,7 @@ void BackupTaskData::setArchive(const ArchivePtr &archive)
 
 QString BackupTaskData::command() const
 {
-    return _command;
+    return (_command);
 }
 
 void BackupTaskData::setCommand(const QString &command)
@@ -302,5 +302,5 @@ BackupTaskDataPtr BackupTaskData::createBackupTaskFromJob(const JobPtr &job)
     backup->setOptionSkipSystem(job->optionSkipFiles());
     backup->setOptionSkipSystemFiles(job->optionSkipFilesPatterns());
     backup->setOptionSkipNoDump(job->optionSkipNoDump());
-    return backup;
+    return (backup);
 }

@@ -62,7 +62,7 @@ bool PersistentStore::init()
     if(appdata.isEmpty())
     {
         DEBUG << "Error creating the PersistentStore: app.appdata not set.";
-        return false;
+        return (false);
     }
     bool      create = false;
     QString   dbUrl(appdata + QDir::separator() + DEFAULT_DBNAME);
@@ -83,13 +83,13 @@ bool PersistentStore::init()
         DEBUG
             << "Error creating the PersistentStore: DB file is not accessible "
             << dbUrl;
-        return false;
+        return (false);
     } // Database file exists and is readable; attempt to open.
     else if(!db.open())
     {
         DEBUG << "Error opening the PersistentStore DB: "
               << db.lastError().text();
-        return false;
+        return (false);
     }
     else
     {
@@ -108,7 +108,7 @@ bool PersistentStore::init()
                 DEBUG << "Failed to rename current invalid PersistentStore DB. "
                          "Please manually clean up the DB directory "
                       << appdata;
-                return false;
+                return (false);
             }
             create = true;
         }
@@ -116,7 +116,7 @@ bool PersistentStore::init()
         {
             // Check the database version, and upgrade if necessary.
             if(!upgrade_store(db, appdata))
-                return false;
+                return (false);
         }
     }
 
@@ -135,7 +135,7 @@ bool PersistentStore::init()
         if(!dbTemplate.copy(dbUrl))
         {
             DEBUG << "Failed to create the PersistentStore DB.";
-            return false;
+            return (false);
         }
         // Work around the fact that QFile::copy from the resource system does
         // not set u+w on the resulted file
@@ -146,10 +146,10 @@ bool PersistentStore::init()
         {
             DEBUG << "Error opening the PersistentStore DB: "
                   << db.lastError().text();
-            return false;
+            return (false);
         }
     }
-    return _initialized = true;
+    return (_initialized = true);
 }
 
 void PersistentStore::deinit()
@@ -168,12 +168,12 @@ QSqlQuery PersistentStore::createQuery()
     if(_initialized)
     {
         QSqlDatabase db = QSqlDatabase::database("tarsnap");
-        return QSqlQuery(db);
+        return (QSqlQuery(db));
     }
     else
     {
         DEBUG << "PersistentStore not initialized.";
-        return QSqlQuery();
+        return (QSqlQuery());
     }
 }
 
@@ -216,5 +216,5 @@ bool PersistentStore::runQuery(QSqlQuery query)
         DEBUG << "DB not initialized.";
     }
 
-    return result;
+    return (result);
 }

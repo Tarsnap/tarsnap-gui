@@ -128,7 +128,7 @@ QNetworkReply *TarsnapAccount::tarsnapRequest(const QUrlQuery &post)
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
             SLOT(networkError(QNetworkReply::NetworkError)));
     connect(reply, &QNetworkReply::sslErrors, this, &TarsnapAccount::sslError);
-    return reply;
+    return (reply);
 }
 
 QByteArray TarsnapAccount::readReply(QNetworkReply *reply)
@@ -136,7 +136,7 @@ QByteArray TarsnapAccount::readReply(QNetworkReply *reply)
     QByteArray data = reply->readAll();
     reply->close();
     reply->deleteLater();
-    return data;
+    return (data);
 }
 
 void TarsnapAccount::networkError(QNetworkReply::NetworkError error)

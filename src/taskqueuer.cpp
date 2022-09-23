@@ -216,9 +216,9 @@ bool TaskQueuer::isExclusiveTaskRunning()
     for(TaskMeta *tm : _runningTasks)
     {
         if(tm->isExclusive)
-            return true;
+            return (true);
     }
-    return false;
+    return (false);
 }
 
 bool TaskQueuer::isBackupTaskRunning()
@@ -226,9 +226,9 @@ bool TaskQueuer::isBackupTaskRunning()
     for(TaskMeta *tm : _runningTasks)
     {
         if(tm->isBackup)
-            return true;
+            return (true);
     }
-    return false;
+    return (false);
 }
 
 void TaskQueuer::updateTaskNumbers()

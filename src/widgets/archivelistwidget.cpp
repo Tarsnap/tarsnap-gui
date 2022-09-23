@@ -296,7 +296,7 @@ int ArchiveListWidget::visibleItemsCount()
         if(item && !item->isHidden())
             count++;
     }
-    return count;
+    return (count);
 }
 
 void ArchiveListWidget::inspectItem()
@@ -440,14 +440,14 @@ ArchivePtr ArchiveListWidget::findArchiveByName(const QString &archiveName)
         ArchiveListWidgetItem *archiveItem =
             static_cast<ArchiveListWidgetItem *>(item(i));
         if(archiveName == archiveItem->archive()->name())
-            return archiveItem->archive();
+            return (archiveItem->archive());
     }
 
     // We couldn't find the name.
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
-    return nullptr;
+    return (nullptr);
 #else
-    return ArchivePtr(nullptr);
+    return (ArchivePtr(nullptr));
 #endif
 }
 

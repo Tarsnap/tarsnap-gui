@@ -134,7 +134,7 @@ JobDetailsWidget::~JobDetailsWidget()
 
 JobPtr JobDetailsWidget::job() const
 {
-    return _job;
+    return (_job);
 }
 
 void JobDetailsWidget::setJob(const JobPtr &job)
@@ -394,14 +394,14 @@ bool JobDetailsWidget::canSaveNew()
 
     // Bail if this isn't applicable.
     if(!_job->objectKey().isEmpty() || name.isEmpty())
-        return false;
+        return (false);
 
     // Check that we don't have any leading or trailing whitespace.
     if(name.simplified() != name)
     {
         _ui->infoLabel->messageError(
             tr("Job name cannot contain a leading or trailing whitespace."));
-        return false;
+        return (false);
     }
 
     // Create a new Job.
@@ -413,7 +413,7 @@ bool JobDetailsWidget::canSaveNew()
     {
         _ui->infoLabel->messageError(
             tr("Job name must be unique amongst existing Jobs."));
-        return false;
+        return (false);
     }
 
     // Start looking for matching archives.
@@ -423,11 +423,11 @@ bool JobDetailsWidget::canSaveNew()
     if(_ui->jobTreeWidget->getSelectedUrls().isEmpty())
     {
         _ui->infoLabel->messageError(tr("No backup paths selected."));
-        return false;
+        return (false);
     }
 
     // We're ok.
-    return true;
+    return (true);
 }
 
 void JobDetailsWidget::showArchiveListMenu()

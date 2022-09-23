@@ -63,7 +63,7 @@ Job::Job(QObject *parent)
 
 QString Job::name() const
 {
-    return _name;
+    return (_name);
 }
 
 void Job::setName(const QString &name)
@@ -73,12 +73,12 @@ void Job::setName(const QString &name)
 
 QString Job::archivePrefix() const
 {
-    return JOB_NAME_PREFIX + name();
+    return (JOB_NAME_PREFIX + name());
 }
 
 QList<QUrl> Job::urls() const
 {
-    return _urls;
+    return (_urls);
 }
 
 void Job::setUrls(const QList<QUrl> &urls)
@@ -90,15 +90,15 @@ bool Job::validateUrls()
 {
     // Check that _urls is not empty.
     if(_urls.isEmpty())
-        return false;
+        return (false);
     // Check that every file exists.
     for(const QUrl &url : _urls)
     {
         QFileInfo file(url.toLocalFile());
         if(!file.exists())
-            return false;
+            return (false);
     }
-    return true;
+    return (true);
 }
 
 void Job::installWatcher()
@@ -136,7 +136,7 @@ void Job::removeWatcher()
 
 QList<ArchivePtr> Job::archives() const
 {
-    return _archives;
+    return (_archives);
 }
 
 void Job::setArchives(const QList<ArchivePtr> &archives)
@@ -159,7 +159,7 @@ void Job::setArchives(const QList<ArchivePtr> &archives)
 
 JobSchedule Job::optionScheduledEnabled() const
 {
-    return static_cast<JobSchedule>(_optionScheduledEnabled);
+    return (static_cast<JobSchedule>(_optionScheduledEnabled));
 }
 
 void Job::setOptionScheduledEnabled(JobSchedule schedule)
@@ -169,7 +169,7 @@ void Job::setOptionScheduledEnabled(JobSchedule schedule)
 
 bool Job::optionPreservePaths() const
 {
-    return _optionPreservePaths;
+    return (_optionPreservePaths);
 }
 
 void Job::setOptionPreservePaths(bool optionPreservePaths)
@@ -179,7 +179,7 @@ void Job::setOptionPreservePaths(bool optionPreservePaths)
 
 bool Job::optionFollowSymLinks() const
 {
-    return _optionFollowSymLinks;
+    return (_optionFollowSymLinks);
 }
 
 void Job::setOptionFollowSymLinks(bool optionFollowSymLinks)
@@ -189,7 +189,7 @@ void Job::setOptionFollowSymLinks(bool optionFollowSymLinks)
 
 bool Job::optionTraverseMount() const
 {
-    return _optionTraverseMount;
+    return (_optionTraverseMount);
 }
 
 void Job::setOptionTraverseMount(bool optionTraverseMount)
@@ -199,7 +199,7 @@ void Job::setOptionTraverseMount(bool optionTraverseMount)
 
 int Job::optionSkipFilesSize() const
 {
-    return _optionSkipFilesSize;
+    return (_optionSkipFilesSize);
 }
 
 void Job::setOptionSkipFilesSize(const int &optionSkipFilesSize)
@@ -209,7 +209,7 @@ void Job::setOptionSkipFilesSize(const int &optionSkipFilesSize)
 
 bool Job::optionSkipFiles() const
 {
-    return _optionSkipFiles;
+    return (_optionSkipFiles);
 }
 
 void Job::setOptionSkipFiles(bool optionSkipFiles)
@@ -219,7 +219,7 @@ void Job::setOptionSkipFiles(bool optionSkipFiles)
 
 QString Job::optionSkipFilesPatterns() const
 {
-    return _optionSkipFilesPatterns;
+    return (_optionSkipFilesPatterns);
 }
 
 void Job::setOptionSkipFilesPatterns(const QString &optionSkipFilesPatterns)
@@ -229,7 +229,7 @@ void Job::setOptionSkipFilesPatterns(const QString &optionSkipFilesPatterns)
 
 bool Job::optionSkipNoDump() const
 {
-    return _optionSkipNoDump;
+    return (_optionSkipNoDump);
 }
 
 void Job::setOptionSkipNoDump(bool optionSkipNoDump)
@@ -239,7 +239,7 @@ void Job::setOptionSkipNoDump(bool optionSkipNoDump)
 
 bool Job::settingShowHidden() const
 {
-    return _settingShowHidden;
+    return (_settingShowHidden);
 }
 
 void Job::setSettingShowHidden(bool settingShowHidden)
@@ -249,7 +249,7 @@ void Job::setSettingShowHidden(bool settingShowHidden)
 
 bool Job::settingShowSystem() const
 {
-    return _settingShowSystem;
+    return (_settingShowSystem);
 }
 
 void Job::setSettingShowSystem(bool settingShowSystem)
@@ -259,7 +259,7 @@ void Job::setSettingShowSystem(bool settingShowSystem)
 
 bool Job::settingHideSymlinks() const
 {
-    return _settingHideSymlinks;
+    return (_settingHideSymlinks);
 }
 
 void Job::setSettingHideSymlinks(bool settingHideSymlinks)
@@ -419,14 +419,14 @@ bool Job::doesKeyExist(const QString &key)
     if(key.isEmpty())
     {
         DEBUG << "doesKeyExist method called with empty args";
-        return false;
+        return (false);
     }
     // Get database instance and prepare query.
     QSqlQuery query = global_store->createQuery();
     if(!query.prepare(QLatin1String("select name from jobs where name = ?")))
     {
         DEBUG << query.lastError().text();
-        return false;
+        return (false);
     }
     // Fill in missing value in query string.
     query.addBindValue(key);
@@ -434,11 +434,11 @@ bool Job::doesKeyExist(const QString &key)
     if(global_store->runQuery(query))
     {
         if(query.next())
-            return true;
+            return (true);
     }
     else
     {
         DEBUG << "Failed to run doesKeyExist query for a Job.";
     }
-    return false;
+    return (false);
 }

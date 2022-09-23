@@ -45,11 +45,11 @@ bool AppCmdline::handle_init(const QList<struct init_info> &steps)
     for(const struct init_info &info : steps)
     {
         if(!handle_step(info))
-            return false;
+            return (false);
     }
 
     // We don't have anything else to do
-    return true;
+    return (true);
 }
 
 /*
@@ -63,31 +63,31 @@ bool AppCmdline::handle_step(const struct init_info &info)
     switch(info.status)
     {
     case INIT_OK:
-        return true;
+        return (true);
     case INIT_NEEDS_SETUP:
         DEBUG << tr("Cannot proceed without a config file.");
-        return false;
+        return (false);
     case INIT_DB_FAILED:
         DEBUG << tr("Cannot initialize the database.");
-        return false;
+        return (false);
     case INIT_DRY_RUN:
     case INIT_SCHEDULE_ERROR:
     case INIT_SETTINGS_RENAMED:
         DEBUG << info.message;
         // Don't return an error, because these aren't critical errors
-        return true;
+        return (true);
     case INIT_SCHEDULE_OK:
         // info.message contains longer text intended for a GUI message box.
         DEBUG << info.extra;
-        return true;
+        return (true);
     }
 
     // Should not happen
     DEBUG << "AppCmdline: unexpected info.status:" << info.status;
-    return false;
+    return (false);
 }
 
 bool AppCmdline::prepEventLoop()
 {
-    return false;
+    return (false);
 }

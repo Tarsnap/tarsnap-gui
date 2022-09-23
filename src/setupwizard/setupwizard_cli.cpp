@@ -84,17 +84,17 @@ bool CliPage::checkComplete()
 
     // Do we have a valid version number?  (This is the last piece of config.)
     if(!settings.contains("tarsnap/version"))
-        return setProceedButton(false);
+        return (setProceedButton(false));
 
     // Do we have everything else?  (Double-check; almost certainly not needed.)
     if((!settings.contains("tarsnap/path"))
        || (!settings.contains("tarsnap/cache"))
        || (!settings.contains("app/app_data")))
-        return setProceedButton(false);
+        return (setProceedButton(false));
 
     // We're ok.
     _ui->validationLabel->messageNormal(_successMessage);
-    return setProceedButton(true);
+    return (setProceedButton(true));
 }
 
 bool CliPage::reportError(const QString &text, TPathLineBrowse *plb,
@@ -111,7 +111,7 @@ bool CliPage::reportError(const QString &text, TPathLineBrowse *plb,
     _ui->detailsButton->setChecked(true);
     setProceedButton(false);
     _problemOccurred = true;
-    return false;
+    return (false);
 }
 
 bool CliPage::tarsnapCacheChanged(const QString &text)
@@ -123,14 +123,14 @@ bool CliPage::tarsnapCacheChanged(const QString &text)
     // Validate the directory and display any errors.
     const QString errorMsg = validate_writeable_dir(text);
     if(!errorMsg.isEmpty())
-        return reportError("", _ui->cachePathLineBrowse, errorMsg);
+        return (reportError("", _ui->cachePathLineBrowse, errorMsg));
 
     // We're ok.
     const QString pathname = QFileInfo(text).canonicalFilePath();
     settings.setValue("tarsnap/cache", pathname);
     _ui->cachePathLineBrowse->setStatusOk("");
     checkComplete();
-    return true;
+    return (true);
 }
 
 bool CliPage::appDataDirChanged(const QString &text)
@@ -142,14 +142,14 @@ bool CliPage::appDataDirChanged(const QString &text)
     // Validate the directory and display any errors.
     const QString errorMsg = validate_writeable_dir(text);
     if(!errorMsg.isEmpty())
-        return reportError("", _ui->appdataPathLineBrowse, errorMsg);
+        return (reportError("", _ui->appdataPathLineBrowse, errorMsg));
 
     // We're ok.
     const QString pathname = QFileInfo(text).canonicalFilePath();
     settings.setValue("app/app_data", pathname);
     _ui->appdataPathLineBrowse->setStatusOk("");
     checkComplete();
-    return true;
+    return (true);
 }
 
 bool CliPage::tarsnapPathChanged(const QString &text)
@@ -165,17 +165,17 @@ bool CliPage::tarsnapPathChanged(const QString &text)
     if(tarsnapDir.isEmpty())
     {
         Q_ASSERT(result.errorMessage != "");
-        return reportError(
+        return (reportError(
             tr("Visit <a href=\"https://tarsnap.com\">tarsnap.com</a>"
                " to acquire the command-line utilities."),
-            _ui->cliPathLineBrowse, result.errorMessage);
+            _ui->cliPathLineBrowse, result.errorMessage));
     }
 
     // We're ok.
     settings.setValue("tarsnap/path", tarsnapDir);
     emit tarsnapVersionRequested();
     checkComplete();
-    return true;
+    return (true);
 }
 
 void CliPage::tarsnapVersionResponse(TaskStatus     status,
@@ -225,12 +225,12 @@ bool CliPage::ensureDirExists(const QString &dirname)
 {
     // Create directory (if needed).
     if(QDir().mkpath(dirname))
-        return true;
+        return (true);
     else
     {
         QMessageBox::critical(this, tr("Could not create directory"),
                               tr("Could not create directory") + ": "
                                   + dirname);
-        return false;
+        return (false);
     }
 }

@@ -51,7 +51,7 @@ void ConsoleLog::setFilename(const QString &filename)
 
 QString ConsoleLog::getLogFile()
 {
-    return _filename;
+    return (_filename);
 }
 
 void ConsoleLog::setWriteToFile(bool writeToFile)

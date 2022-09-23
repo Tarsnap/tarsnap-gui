@@ -147,7 +147,7 @@ ArchiveRestoreOptions RestoreDialog::getOptions()
     else
         options.path = ""; // (should not be necessary, but clarifies code)
 
-    return options;
+    return (options);
 }
 
 void RestoreDialog::displayRestoreOption(bool display)
@@ -257,10 +257,10 @@ bool RestoreDialog::validate()
             _ui->archiveLineEdit->setToolTip(tr("Set archive file name"));
         }
     }
-    return valid;
+    return (valid);
 }
 
 ArchivePtr RestoreDialog::archive() const
 {
-    return _archive;
+    return (_archive);
 }

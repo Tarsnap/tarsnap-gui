@@ -161,7 +161,7 @@ bool Archive::doesKeyExist(const QString &key)
     if(key.isEmpty())
     {
         DEBUG << "doesKeyExist method called with empty args";
-        return false;
+        return (false);
     }
     // Get database instance and prepare query.
     QSqlQuery query = global_store->createQuery();
@@ -169,7 +169,7 @@ bool Archive::doesKeyExist(const QString &key)
            QLatin1String("select name from archives where name = ?")))
     {
         DEBUG << query.lastError().text();
-        return false;
+        return (false);
     }
     // Fill in missing value in query string.
     query.addBindValue(key);
@@ -177,20 +177,20 @@ bool Archive::doesKeyExist(const QString &key)
     if(global_store->runQuery(query))
     {
         if(query.next())
-            return true;
+            return (true);
     }
     else
     {
         DEBUG << "Failed to run doesKeyExist query for an Archive.";
     }
-    return false;
+    return (false);
 }
 
 QString Archive::archiveStats() const
 {
     QString stats;
     if((_sizeTotal == 0) || (_sizeUniqueCompressed == 0))
-        return stats;
+        return (stats);
     stats.append(tr("\t\tTotal size\tCompressed size\n"
                     "this archive\t%1\t\t%2\n"
                     "unique data\t%3\t\t%4")
@@ -198,12 +198,12 @@ QString Archive::archiveStats() const
                      .arg(_sizeCompressed)
                      .arg(_sizeUniqueTotal)
                      .arg(_sizeUniqueCompressed));
-    return stats;
+    return (stats);
 }
 
 bool Archive::deleteScheduled() const
 {
-    return _deleteScheduled;
+    return (_deleteScheduled);
 }
 
 void Archive::setDeleteScheduled(bool deleteScheduled)
@@ -214,7 +214,7 @@ void Archive::setDeleteScheduled(bool deleteScheduled)
 
 bool Archive::truncated() const
 {
-    return _truncated;
+    return (_truncated);
 }
 
 void Archive::setTruncated(bool truncated)
@@ -224,7 +224,7 @@ void Archive::setTruncated(bool truncated)
 
 QString Archive::truncatedInfo() const
 {
-    return _truncatedInfo;
+    return (_truncatedInfo);
 }
 
 void Archive::setTruncatedInfo(const QString &truncatedInfo)
@@ -234,7 +234,7 @@ void Archive::setTruncatedInfo(const QString &truncatedInfo)
 
 QString Archive::jobRef() const
 {
-    return _jobRef;
+    return (_jobRef);
 }
 
 void Archive::setJobRef(const QString &jobRef)
@@ -244,15 +244,15 @@ void Archive::setJobRef(const QString &jobRef)
 
 bool Archive::hasPreservePaths()
 {
-    return _command.contains(" -P ", Qt::CaseSensitive);
+    return (_command.contains(" -P ", Qt::CaseSensitive));
 }
 
 QString Archive::contents() const
 {
     if(!_contents.isEmpty())
-        return qUncompress(_contents);
+        return (qUncompress(_contents));
     else
-        return QString();
+        return (QString());
 }
 
 void Archive::setContents(const QString &value)
@@ -262,7 +262,7 @@ void Archive::setContents(const QString &value)
 
 QString Archive::command() const
 {
-    return _command;
+    return (_command);
 }
 
 void Archive::setCommand(const QString &value)
@@ -272,7 +272,7 @@ void Archive::setCommand(const QString &value)
 
 quint64 Archive::sizeUniqueCompressed() const
 {
-    return _sizeUniqueCompressed;
+    return (_sizeUniqueCompressed);
 }
 
 void Archive::setSizeUniqueCompressed(const quint64 &value)
@@ -282,7 +282,7 @@ void Archive::setSizeUniqueCompressed(const quint64 &value)
 
 quint64 Archive::sizeUniqueTotal() const
 {
-    return _sizeUniqueTotal;
+    return (_sizeUniqueTotal);
 }
 
 void Archive::setSizeUniqueTotal(const quint64 &value)
@@ -292,7 +292,7 @@ void Archive::setSizeUniqueTotal(const quint64 &value)
 
 quint64 Archive::sizeCompressed() const
 {
-    return _sizeCompressed;
+    return (_sizeCompressed);
 }
 
 void Archive::setSizeCompressed(const quint64 &value)
@@ -302,7 +302,7 @@ void Archive::setSizeCompressed(const quint64 &value)
 
 quint64 Archive::sizeTotal() const
 {
-    return _sizeTotal;
+    return (_sizeTotal);
 }
 
 void Archive::setSizeTotal(const quint64 &value)
@@ -312,7 +312,7 @@ void Archive::setSizeTotal(const quint64 &value)
 
 QDateTime Archive::timestamp() const
 {
-    return _timestamp;
+    return (_timestamp);
 }
 
 void Archive::setTimestamp(const QDateTime &value)
@@ -322,7 +322,7 @@ void Archive::setTimestamp(const QDateTime &value)
 
 QString Archive::name() const
 {
-    return _name;
+    return (_name);
 }
 
 void Archive::setName(const QString &value)

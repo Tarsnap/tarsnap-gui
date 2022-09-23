@@ -25,7 +25,7 @@ TWizard::~TWizard()
 TWizardPage *TWizard::currentPage() const
 {
     QWidget *page = _ui->pageWidget->currentWidget();
-    return qobject_cast<TWizardPage *>(page);
+    return (qobject_cast<TWizardPage *>(page));
 }
 
 void TWizard::setLogo(const QPixmap &pixmap)
@@ -35,7 +35,7 @@ void TWizard::setLogo(const QPixmap &pixmap)
 
 QString TWizard::pageTitle() const
 {
-    return _ui->titleLabel->text();
+    return (_ui->titleLabel->text());
 }
 
 void TWizard::addPages(const QList<TWizardPage *> &pages)

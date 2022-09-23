@@ -9,40 +9,40 @@ TPopupPushButtonPlugin::TPopupPushButtonPlugin(QObject *parent)
 
 QIcon TPopupPushButtonPlugin::icon() const
 {
-    return QIcon();
+    return (QIcon());
 }
 
 QString TPopupPushButtonPlugin::group() const
 {
-    return QStringLiteral("Display Widgets");
+    return (QStringLiteral("Display Widgets"));
 }
 
 QString TPopupPushButtonPlugin::includeFile() const
 {
-    return QStringLiteral("TPopupPushButton.h");
+    return (QStringLiteral("TPopupPushButton.h"));
 }
 
 QString TPopupPushButtonPlugin::name() const
 {
-    return QStringLiteral("TPopupPushButton");
+    return (QStringLiteral("TPopupPushButton"));
 }
 
 QString TPopupPushButtonPlugin::toolTip() const
 {
-    return QString();
+    return (QString());
 }
 
 QString TPopupPushButtonPlugin::whatsThis() const
 {
-    return QString();
+    return (QString());
 }
 
 QWidget *TPopupPushButtonPlugin::createWidget(QWidget *parent)
 {
-    return new TPopupPushButton(parent);
+    return (new TPopupPushButton(parent));
 }
 
 bool TPopupPushButtonPlugin::isContainer() const
 {
-    return false;
+    return (false);
 }

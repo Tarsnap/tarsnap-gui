@@ -118,7 +118,7 @@ void FilePickerWidget::reset()
 
 QString FilePickerWidget::getCurrentPath()
 {
-    return _model->filePath(_ui->treeView->currentIndex());
+    return (_model->filePath(_ui->treeView->currentIndex()));
 }
 
 QList<QUrl> FilePickerWidget::getSelectedUrls()
@@ -128,7 +128,7 @@ QList<QUrl> FilePickerWidget::getSelectedUrls()
     QList<QPersistentModelIndex> indexList = _model->checkedIndexes();
     for(const QPersistentModelIndex &index : indexList)
         urls << QUrl::fromUserInput(_model->filePath(index));
-    return urls;
+    return (urls);
 }
 
 void FilePickerWidget::setSelectedUrls(const QList<QUrl> &urls)
@@ -149,7 +149,7 @@ void FilePickerWidget::selectUrl(const QUrl &url)
 
 bool FilePickerWidget::settingShowHidden()
 {
-    return _ui->showHiddenCheckBox->isChecked();
+    return (_ui->showHiddenCheckBox->isChecked());
 }
 
 void FilePickerWidget::setSettingShowHidden(bool showHidden)
@@ -159,7 +159,7 @@ void FilePickerWidget::setSettingShowHidden(bool showHidden)
 
 bool FilePickerWidget::settingShowSystem()
 {
-    return _ui->showSystemCheckBox->isChecked();
+    return (_ui->showSystemCheckBox->isChecked());
 }
 
 void FilePickerWidget::setSettingShowSystem(bool showSystem)
@@ -169,7 +169,7 @@ void FilePickerWidget::setSettingShowSystem(bool showSystem)
 
 bool FilePickerWidget::settingHideSymlinks()
 {
-    return _ui->hideLinksCheckBox->isChecked();
+    return (_ui->hideLinksCheckBox->isChecked());
 }
 
 void FilePickerWidget::setSettingHideSymlinks(bool hideSymlinks)

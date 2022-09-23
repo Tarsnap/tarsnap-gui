@@ -69,12 +69,12 @@ BackupListWidgetItem::~BackupListWidgetItem()
 
 QWidget *BackupListWidgetItem::widget()
 {
-    return _widget;
+    return (_widget);
 }
 
 QUrl BackupListWidgetItem::url() const
 {
-    return _url;
+    return (_url);
 }
 
 void BackupListWidgetItem::setUrl(const QUrl &url)
@@ -203,19 +203,19 @@ bool BackupListWidgetItem::eventFilter(QObject *obj, QEvent *event)
     {
         _ui->retranslateUi(_widget);
         updateKeyboardShortcutInfo();
-        return true;
+        return (true);
     }
-    return false;
+    return (false);
 }
 
 quint64 BackupListWidgetItem::size() const
 {
-    return _size;
+    return (_size);
 }
 
 quint64 BackupListWidgetItem::count() const
 {
-    return _count;
+    return (_count);
 }
 
 void BackupListWidgetItem::updateKeyboardShortcutInfo()

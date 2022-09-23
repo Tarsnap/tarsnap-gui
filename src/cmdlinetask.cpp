@@ -181,7 +181,7 @@ void CmdlineTask::sigquit()
 
 QString CmdlineTask::command() const
 {
-    return _command;
+    return (_command);
 }
 
 void CmdlineTask::setCommand(const QString &command)
@@ -191,7 +191,7 @@ void CmdlineTask::setCommand(const QString &command)
 
 QStringList CmdlineTask::arguments() const
 {
-    return _arguments;
+    return (_arguments);
 }
 
 void CmdlineTask::setArguments(const QStringList &arguments)
@@ -211,7 +211,7 @@ void CmdlineTask::setStdOutFile(const QString &fileName)
 
 QVariant CmdlineTask::data() const
 {
-    return _data;
+    return (_data);
 }
 
 void CmdlineTask::setData(const QVariant &data)
@@ -249,7 +249,7 @@ QByteArray CmdlineTask::truncate_output(const QByteArray &stdOutArray)
     int num_truncated = _stdOut.mid(stdOut.size()).count('\n');
     stdOut.append(tr("\n...\n-- %1 output lines truncated by Tarsnap GUI --\n")
                       .arg(num_truncated));
-    return stdOut.toUtf8();
+    return (stdOut.toUtf8());
 }
 
 void CmdlineTask::processFinished(QProcess *process)

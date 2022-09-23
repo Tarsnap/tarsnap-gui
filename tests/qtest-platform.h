@@ -125,7 +125,7 @@ QString get_script(const QString &scriptname)
     dir.cdUp();
 #endif
 
-    return dir.absolutePath() + "/" + scriptname;
+    return (dir.absolutePath() + "/" + scriptname);
 }
 
 #define WAIT_FINAL QCoreApplication::processEvents(QEventLoop::AllEvents, 5000)

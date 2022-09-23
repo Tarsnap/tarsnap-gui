@@ -58,7 +58,7 @@ listArchivesTaskParse(const QString &tarsnapOutput)
         }
     }
 
-    return metadatas;
+    return (metadatas);
 }
 
 CmdlineTask *printStatsTask(const QString &archiveName)
@@ -85,7 +85,7 @@ struct tarsnap_stats printStatsTaskParse(const QString &tarsnapOutput,
 
     QStringList lines = tarsnapOutput.split('\n', SKIP_EMPTY_PARTS);
     if(lines.count() < 5)
-        return stats;
+        return (stats);
 
     QRegExp sizeRX;
     QRegExp uniqueSizeRX;
@@ -121,11 +121,11 @@ struct tarsnap_stats printStatsTaskParse(const QString &tarsnapOutput,
         }
     }
     if(!matched)
-        return stats;
+        return (stats);
 
     // We're ok.
     stats.parse_error = false;
-    return stats;
+    return (stats);
 }
 
 CmdlineTask *archiveContentsTask(const QString &archiveName)
@@ -185,11 +185,11 @@ struct tarsnap_stats overallStatsTaskParse(const QString &tarsnapOutput)
 
     QStringList lines = tarsnapOutput.split('\n', SKIP_EMPTY_PARTS);
     if(lines.count() < 3)
-        return stats;
+        return (stats);
 
     QRegExp sizeRX("^All archives\\s+(\\d+)\\s+(\\d+)$");
     if(-1 == sizeRX.indexIn(lines[1]))
-        return stats;
+        return (stats);
 
     QStringList captured = sizeRX.capturedTexts();
     captured.removeFirst();
@@ -198,7 +198,7 @@ struct tarsnap_stats overallStatsTaskParse(const QString &tarsnapOutput)
 
     QRegExp uniqueSizeRX("^\\s+\\(unique data\\)\\s+(\\d+)\\s+(\\d+)$");
     if(-1 == uniqueSizeRX.indexIn(lines[2]))
-        return stats;
+        return (stats);
 
     captured = uniqueSizeRX.capturedTexts();
     captured.removeFirst();
@@ -207,7 +207,7 @@ struct tarsnap_stats overallStatsTaskParse(const QString &tarsnapOutput)
 
     // We're ok.
     stats.parse_error = false;
-    return stats;
+    return (stats);
 }
 
 CmdlineTask *nukeArchivesTask()

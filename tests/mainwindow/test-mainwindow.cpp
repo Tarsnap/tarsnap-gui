@@ -125,7 +125,7 @@ static QAction *get_menubar_about(QMenuBar *menubar)
             {
                 if(subaction->text().startsWith("About"))
                 {
-                    return subaction;
+                    return (subaction);
                 }
             }
         }

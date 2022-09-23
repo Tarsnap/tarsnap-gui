@@ -65,11 +65,11 @@ bool AppGui::handle_init(const QList<struct init_info> &steps)
     for(const struct init_info &info : steps)
     {
         if(!handle_step(info))
-            return false;
+            return (false);
 
         // There's no point trying to automatically process jobs with --dry-run.
         if((info.status == INIT_DRY_RUN) && _jobsOption)
-            return false;
+            return (false);
 
         // Special console output for "command-line-esque" --jobs option.  We
         // don't want it to be in AppCmdline, because we pop up a Notification
@@ -85,13 +85,13 @@ bool AppGui::handle_init(const QList<struct init_info> &steps)
             else if(info.status == INIT_SCHEDULE_ERROR)
             {
                 DEBUG << info.message;
-                return false;
+                return (false);
             }
         }
     }
 
     // We've finished initialization and can proceed to prepEventLoop().
-    return true;
+    return (true);
 }
 
 /*
@@ -105,35 +105,35 @@ bool AppGui::handle_step(const struct init_info &info)
     switch(info.status)
     {
     case INIT_OK:
-        return true;
+        return (true);
     case INIT_NEEDS_SETUP:
         QMessageBox::warning(nullptr, tr("Tarsnap warning"),
                              tr("Cannot complete setup."));
-        return false;
+        return (false);
     case INIT_DB_FAILED:
         QMessageBox::warning(nullptr, tr("Tarsnap warning"),
                              tr("Cannot initialize the database."));
-        return false;
+        return (false);
     case INIT_SETTINGS_RENAMED:
         QMessageBox::information(nullptr, tr("Tarsnap info"), info.message);
-        return true;
+        return (true);
     case INIT_DRY_RUN:
         QMessageBox::warning(nullptr, tr("Tarsnap warning"), info.message);
-        return true;
+        return (true);
     case INIT_SCHEDULE_OK:
         QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
                                  info.message);
-        return true;
+        return (true);
     case INIT_SCHEDULE_ERROR:
         QMessageBox::information(nullptr,
                                  tr("Failed to updated OS X launchd path"),
                                  info.message);
-        return true;
+        return (true);
     }
 
     // Should not happen
     DEBUG << "AppGui: unexpected info.status:" << info.status;
-    return false;
+    return (false);
 }
 
 bool AppGui::prepEventLoop()
@@ -163,7 +163,7 @@ bool AppGui::prepEventLoop()
         showMainWindow();
     }
 
-    return true;
+    return (true);
 }
 
 void AppGui::showMainWindow()

@@ -22,18 +22,18 @@ void TWizardPage::initializePage()
 
 bool TWizardPage::checkComplete()
 {
-    return setProceedButton(true);
+    return (setProceedButton(true));
 }
 
 bool TWizardPage::setProceedButton(bool enable)
 {
     _proceedButton->setEnabled(enable);
-    return enable;
+    return (enable);
 }
 
 QString TWizardPage::title() const
 {
-    return _title;
+    return (_title);
 }
 
 void TWizardPage::setTitle(const QString &text)
@@ -72,22 +72,22 @@ QAbstractButton *TWizardPage::button(const WizardButton which) const
     case SkipButton:
         GET_BUTTON("skipButton");
         Q_ASSERT(button != nullptr);
-        return button;
+        return (button);
     case BackButton:
         GET_BUTTON("backButton");
         Q_ASSERT(button != nullptr);
-        return button;
+        return (button);
     case NextButton:
         GET_BUTTON("nextButton");
         Q_ASSERT(button != nullptr);
-        return button;
+        return (button);
     case FinishButton:
         GET_BUTTON("finishButton");
         Q_ASSERT(button != nullptr);
-        return button;
+        return (button);
     }
     // Shouldn't reach here.
-    return nullptr;
+    return (nullptr);
 }
 
 void TWizardPage::focus_proceed_button()

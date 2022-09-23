@@ -15,46 +15,46 @@ WARNINGS_ENABLE
 QString validate_writeable_dir(const QString &dirname)
 {
     if(dirname.isEmpty())
-        return QCoreApplication::translate("dir-utils", "Path is empty.");
+        return (QCoreApplication::translate("dir-utils", "Path is empty."));
 
     QFileInfo candidate(dirname);
     if(!candidate.exists())
-        return QCoreApplication::translate("dir-utils", "Does not exist.");
+        return (QCoreApplication::translate("dir-utils", "Does not exist."));
 
     if(!candidate.isDir())
-        return QCoreApplication::translate("dir-utils", "Not a directory.");
+        return (QCoreApplication::translate("dir-utils", "Not a directory."));
 
     if(!candidate.isWritable())
-        return QCoreApplication::translate("dir-utils", "Not writable.");
+        return (QCoreApplication::translate("dir-utils", "Not writable."));
 
     // We're ok.
-    return "";
+    return ("");
 }
 
 QString validate_readable_file(const QString &filename)
 {
     if(filename.isEmpty())
-        return QCoreApplication::translate("dir-utils", "Path is empty.");
+        return (QCoreApplication::translate("dir-utils", "Path is empty."));
 
     QFileInfo candidate(filename);
     if(!candidate.exists())
-        return QCoreApplication::translate("dir-utils", "Does not exist.");
+        return (QCoreApplication::translate("dir-utils", "Does not exist."));
 
     if(!candidate.isFile())
-        return QCoreApplication::translate("dir-utils", "Not a file.");
+        return (QCoreApplication::translate("dir-utils", "Not a file."));
 
     if(!candidate.isReadable())
-        return QCoreApplication::translate("dir-utils", "Not readable.");
+        return (QCoreApplication::translate("dir-utils", "Not readable."));
 
     // We're ok.
-    return "";
+    return ("");
 }
 
 static QString validate_executable(const QString &executable)
 {
     if(executable.isEmpty())
-        return QCoreApplication::translate("dir-utils",
-                                           "Executable not found.");
+        return (
+            QCoreApplication::translate("dir-utils", "Executable not found."));
 
     // I don't think that the following checks are neded, as it appears that
     // QStandardPaths::findExecutable() won't return a non-executable file
@@ -64,13 +64,13 @@ static QString validate_executable(const QString &executable)
 
     QFileInfo info(executable);
     if(!info.isReadable())
-        return QCoreApplication::translate("dir-utils", "Not readable.");
+        return (QCoreApplication::translate("dir-utils", "Not readable."));
 
     if(!info.isExecutable())
-        return QCoreApplication::translate("dir-utils", "Not executable.");
+        return (QCoreApplication::translate("dir-utils", "Not executable."));
 
     // We're ok.
-    return "";
+    return ("");
 }
 
 static struct DirMessage findBinary(const QString     &cmd,
@@ -90,10 +90,10 @@ static struct DirMessage findBinary(const QString     &cmd,
 #endif
     result.errorMessage = validate_executable(executable);
     if(!result.errorMessage.isEmpty())
-        return result;
+        return (result);
 
     result.dirname = executable;
-    return result;
+    return (result);
 }
 
 struct DirMessage findTarsnapClientInPath(const QString &path, bool keygenToo)
@@ -108,14 +108,14 @@ struct DirMessage findTarsnapClientInPath(const QString &path, bool keygenToo)
     // Look for main tarsnap binary.
     result = findBinary(CMD_TARSNAP, searchPaths);
     if(result.dirname.isEmpty())
-        return result;
+        return (result);
 
     // Look for tarsnap-keygen.
     if(keygenToo)
     {
         result = findBinary(CMD_TARSNAPKEYGEN, searchPaths);
         if(result.dirname.isEmpty())
-            return result;
+            return (result);
     }
 
     // If we were searching $PATH, store the directory.
@@ -124,7 +124,7 @@ struct DirMessage findTarsnapClientInPath(const QString &path, bool keygenToo)
     else
         result.dirname = path;
 
-    return result;
+    return (result);
 }
 
 QFileInfoList findKeysInPath(const QString &path)
@@ -132,9 +132,9 @@ QFileInfoList findKeysInPath(const QString &path)
     QFileInfoList result;
     QDir          dir(path);
     if(!dir.exists())
-        return result;
+        return (result);
     dir.setFilter(QDir::Files | QDir::Readable);
     dir.setSorting(QDir::Time);
     dir.setNameFilters(QStringList("*.key"));
-    return dir.entryInfoList();
+    return (dir.entryInfoList());
 }

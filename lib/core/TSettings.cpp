@@ -66,7 +66,7 @@ TSettings::TSettings()
 
 QSettings *TSettings::getQSettings()
 {
-    return _settings;
+    return (_settings);
 }
 
 bool TSettings::contains(const QString &key)

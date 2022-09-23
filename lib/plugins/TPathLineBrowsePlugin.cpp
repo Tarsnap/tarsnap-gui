@@ -8,40 +8,40 @@ TPathLineBrowsePlugin::TPathLineBrowsePlugin(QObject *parent) : QObject(parent)
 
 QIcon TPathLineBrowsePlugin::icon() const
 {
-    return QIcon();
+    return (QIcon());
 }
 
 QString TPathLineBrowsePlugin::group() const
 {
-    return QStringLiteral("Input Widgets");
+    return (QStringLiteral("Input Widgets"));
 }
 
 QString TPathLineBrowsePlugin::includeFile() const
 {
-    return QStringLiteral("TPathLineBrowse.h");
+    return (QStringLiteral("TPathLineBrowse.h"));
 }
 
 QString TPathLineBrowsePlugin::name() const
 {
-    return QStringLiteral("TPathLineBrowse");
+    return (QStringLiteral("TPathLineBrowse"));
 }
 
 QString TPathLineBrowsePlugin::toolTip() const
 {
-    return QString();
+    return (QString());
 }
 
 QString TPathLineBrowsePlugin::whatsThis() const
 {
-    return QString();
+    return (QString());
 }
 
 QWidget *TPathLineBrowsePlugin::createWidget(QWidget *parent)
 {
-    return new TPathLineBrowse(parent);
+    return (new TPathLineBrowse(parent));
 }
 
 bool TPathLineBrowsePlugin::isContainer() const
 {
-    return false;
+    return (false);
 }

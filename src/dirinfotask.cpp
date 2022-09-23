@@ -51,7 +51,7 @@ struct dirinfo getDirInfo(QDir dir, QAtomicInt *stop_p)
 
     // Bail if requested.
     if(static_cast<int>(*stop_p) == 1)
-        return dirinfo;
+        return (dirinfo);
 
     if(dir.exists())
     {
@@ -81,5 +81,5 @@ struct dirinfo getDirInfo(QDir dir, QAtomicInt *stop_p)
             }
         }
     }
-    return dirinfo;
+    return (dirinfo);
 }

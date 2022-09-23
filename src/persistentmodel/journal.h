@@ -44,7 +44,7 @@ public slots:
     bool doesKeyExist(const QString &key) override
     {
         Q_UNUSED(key);
-        return false;
+        return (false);
     }
 
 signals:

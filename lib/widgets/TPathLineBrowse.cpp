@@ -45,7 +45,7 @@ void TPathLineBrowse::changeEvent(QEvent *event)
 
 QString TPathLineBrowse::label() const
 {
-    return _ui->label->text();
+    return (_ui->label->text());
 }
 
 void TPathLineBrowse::setLabel(const QString &text)
@@ -55,7 +55,7 @@ void TPathLineBrowse::setLabel(const QString &text)
 
 QString TPathLineBrowse::placeholderText() const
 {
-    return _ui->lineEdit->placeholderText();
+    return (_ui->lineEdit->placeholderText());
 }
 
 void TPathLineBrowse::setPlaceholderText(const QString &text)
@@ -65,7 +65,7 @@ void TPathLineBrowse::setPlaceholderText(const QString &text)
 
 QString TPathLineBrowse::dialogTitle() const
 {
-    return _dialogTitle;
+    return (_dialogTitle);
 }
 
 void TPathLineBrowse::setDialogTitle(const QString &text)
@@ -75,7 +75,7 @@ void TPathLineBrowse::setDialogTitle(const QString &text)
 
 QString TPathLineBrowse::text() const
 {
-    return _ui->lineEdit->text();
+    return (_ui->lineEdit->text());
 }
 
 void TPathLineBrowse::setText(const QString &text)
@@ -95,7 +95,7 @@ void TPathLineBrowse::clear()
 
 QString TPathLineBrowse::statusText() const
 {
-    return _ui->statusLabel->text();
+    return (_ui->statusLabel->text());
 }
 
 void TPathLineBrowse::setStatusOk(const QString &text)

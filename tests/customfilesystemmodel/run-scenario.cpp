@@ -30,7 +30,7 @@ RunScenario::RunScenario()
 QString RunScenario::getRelname(const QString &line)
 {
     QString relname = line.right(line.size() - 2);
-    return relname;
+    return (relname);
 }
 
 QModelIndex RunScenario::getIndex(const QString &line)
@@ -38,13 +38,13 @@ QModelIndex RunScenario::getIndex(const QString &line)
     QString     relname  = getRelname(line);
     QString     filename = QDir(_rootDir).filePath(relname);
     QModelIndex index    = _model.index(filename);
-    return index;
+    return (index);
 }
 
 int RunScenario::getLineState(const QString &line)
 {
     int state = line[0].digitValue();
-    return state;
+    return (state);
 }
 
 int RunScenario::getCheckedStateInt(const QString &line)
@@ -53,7 +53,7 @@ int RunScenario::getCheckedStateInt(const QString &line)
     QString     filename = QDir(_rootDir).filePath(relname);
     QModelIndex index    = _model.index(filename);
     int         state    = _model.data(index, Qt::CheckStateRole).toInt();
-    return state;
+    return (state);
 }
 
 int RunScenario::processActions(QTextStream &in)

@@ -40,11 +40,11 @@ bool AppSetup::handle_init(const QList<struct init_info> &steps)
     for(const struct init_info &info : steps)
     {
         if(!handle_step(info))
-            return false;
+            return (false);
     }
 
     // We've finished initialization and can proceed to prepMainLoop().
-    return true;
+    return (true);
 }
 
 /*
@@ -59,31 +59,31 @@ bool AppSetup::handle_step(const struct init_info &info)
     {
     case INIT_OK:
     case INIT_NEEDS_SETUP:
-        return true;
+        return (true);
     case INIT_DB_FAILED:
         QMessageBox::warning(nullptr, tr("Tarsnap warning"),
                              tr("Cannot initialize the database."));
-        return false;
+        return (false);
     case INIT_SETTINGS_RENAMED:
         QMessageBox::information(nullptr, tr("Tarsnap info"), info.message);
-        return true;
+        return (true);
     case INIT_DRY_RUN:
         QMessageBox::warning(nullptr, tr("Tarsnap warning"), info.message);
         break;
     case INIT_SCHEDULE_OK:
         QMessageBox::information(nullptr, tr("Updated OS X launchd path"),
                                  info.message);
-        return true;
+        return (true);
     case INIT_SCHEDULE_ERROR:
         QMessageBox::information(nullptr,
                                  tr("Failed to updated OS X launchd path"),
                                  info.message);
-        return true;
+        return (true);
     }
 
     // Should not happen
     DEBUG << "AppSetup: unexpected info.status:" << info.status;
-    return false;
+    return (false);
 }
 
 bool AppSetup::prepEventLoop()
@@ -119,7 +119,7 @@ bool AppSetup::prepEventLoop()
 #endif
 
     // Ready for the event loop.
-    return true;
+    return (true);
 }
 
 void AppSetup::finished(int result)

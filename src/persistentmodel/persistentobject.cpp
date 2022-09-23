@@ -6,7 +6,7 @@ PersistentObject::PersistentObject(QObject *parent) : QObject(parent)
 
 QString PersistentObject::objectKey() const
 {
-    return _objectKey;
+    return (_objectKey);
 }
 
 void PersistentObject::setObjectKey(const QString &objectKey)

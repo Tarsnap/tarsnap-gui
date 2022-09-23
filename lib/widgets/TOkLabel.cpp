@@ -21,7 +21,7 @@ void TOkLabel::changeEvent(QEvent *event)
 
 TOkLabel::Status TOkLabel::status() const
 {
-    return _status;
+    return (_status);
 }
 
 void TOkLabel::setStatus(Status status)
@@ -50,12 +50,12 @@ QString TOkLabel::getRichText(Status status)
     switch(status)
     {
     case Ok:
-        return "<font color=\"green\">" + tr("✔") + "</font>";
+        return ("<font color=\"green\">" + tr("✔") + "</font>");
     case Error:
-        return "<font color=\"darkred\">" + tr("❌") + "</font>";
+        return ("<font color=\"darkred\">" + tr("❌") + "</font>");
     case Unset:
         /* FALLTHROUGH */
         ;
     }
-    return "";
+    return ("");
 }

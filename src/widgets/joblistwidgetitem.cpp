@@ -52,12 +52,12 @@ JobListWidgetItem::~JobListWidgetItem()
 
 QWidget *JobListWidgetItem::widget()
 {
-    return _widget;
+    return (_widget);
 }
 
 JobPtr JobListWidgetItem::job() const
 {
-    return _job;
+    return (_job);
 }
 
 void JobListWidgetItem::setJob(const JobPtr &job)
@@ -120,9 +120,9 @@ bool JobListWidgetItem::eventFilter(QObject *obj, QEvent *event)
         _ui->retranslateUi(_widget);
         updateKeyboardShortcutInfo();
         update();
-        return true;
+        return (true);
     }
-    return false;
+    return (false);
 }
 
 void JobListWidgetItem::updateKeyboardShortcutInfo()

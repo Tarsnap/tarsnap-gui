@@ -13,7 +13,7 @@ BaseTask::BaseTask() : _uuid(QUuid::createUuid())
 
 QUuid BaseTask::uuid() const
 {
-    return _uuid;
+    return (_uuid);
 }
 
 #ifdef QT_TESTLIB_LIB

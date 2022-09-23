@@ -30,7 +30,7 @@ bool compareSettings(QSettings *settings, QSettings *target)
         {
             qDebug() << "compareSettings: number of keys does not match!"
                      << settings_keys.length() << target->allKeys().length();
-            return false;
+            return (false);
         }
 
         // Check each key's value
@@ -57,12 +57,12 @@ bool compareSettings(QSettings *settings, QSettings *target)
             {
                 qDebug() << "compareSettings: values do not match!" << key
                          << settings->value(key) << target->value(key);
-                return false;
+                return (false);
             }
         }
         settings->endGroup();
         target->endGroup();
     }
 
-    return true;
+    return (true);
 }

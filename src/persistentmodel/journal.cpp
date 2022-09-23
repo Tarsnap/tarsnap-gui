@@ -17,18 +17,18 @@ WARNINGS_ENABLE
 static qint64 dateToEpoch(const QDateTime &date)
 {
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
-    return date.toSecsSinceEpoch();
+    return (date.toSecsSinceEpoch());
 #else
-    return date.toMSecsSinceEpoch() / 1000;
+    return (date.toMSecsSinceEpoch() / 1000);
 #endif
 }
 
 static QDateTime epochToDate(const qint64 secs)
 {
 #if(QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
-    return QDateTime::fromSecsSinceEpoch(secs);
+    return (QDateTime::fromSecsSinceEpoch(secs));
 #else
-    return QDateTime::fromMSecsSinceEpoch(secs * 1000);
+    return (QDateTime::fromMSecsSinceEpoch(secs * 1000));
 #endif
 }
 

@@ -148,7 +148,7 @@ struct scheduleinfo launchdEnable()
         info.message = QObject::tr("Looks like scheduling is already enabled."
                                    " Nothing to do.\n\n%1")
                            .arg(CRON_MARKER_HELP);
-        return info;
+        return (info);
     }
     if(!launchdPlistFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -156,7 +156,7 @@ struct scheduleinfo launchdEnable()
         info.message =
             QObject::tr("Failed to write service file %1. Aborting operation.")
                 .arg(launchdPlistFile.fileName());
-        return info;
+        return (info);
     }
     launchdPlistFile.write(
         launchdPlist.readAll()
@@ -170,15 +170,15 @@ struct scheduleinfo launchdEnable()
     {
         info.status  = SCHEDULE_ERROR;
         info.message = QObject::tr("Failed to load launchd service file.");
-        return info;
+        return (info);
     }
     else if(ret == 2)
     {
         info.status  = SCHEDULE_ERROR;
         info.message = QObject::tr("Failed to start launchd service file.");
-        return info;
+        return (info);
     }
-    return info;
+    return (info);
 }
 
 struct scheduleinfo launchdDisable()
@@ -193,7 +193,7 @@ struct scheduleinfo launchdDisable()
         info.message =
             QObject::tr("Launchd service file not found:\n%1\n Nothing to do.")
                 .arg(launchdPlistFile.fileName());
-        return info;
+        return (info);
     }
 
     int ret = launchdUnload();
@@ -201,7 +201,7 @@ struct scheduleinfo launchdDisable()
     {
         info.status  = SCHEDULE_ERROR;
         info.message = QObject::tr("Failed to unload launchd service.");
-        return info;
+        return (info);
     }
 
     if(!launchdPlistFile.remove())
@@ -210,9 +210,9 @@ struct scheduleinfo launchdDisable()
         info.message =
             QObject::tr("Cannot remove service file:\n%1\nAborting operation.")
                 .arg(launchdPlistFile.fileName());
-        return info;
+        return (info);
     }
-    return info;
+    return (info);
 }
 
 struct scheduleinfo cronEnable()
@@ -233,7 +233,7 @@ struct scheduleinfo cronEnable()
             info.status = SCHEDULE_ERROR;
             info.message =
                 QObject::tr("Failed to list current crontab: %1").arg(error);
-            return info;
+            return (info);
         }
     }
     QString currentCrontab(pinfo.stdout_msg);
@@ -250,7 +250,7 @@ struct scheduleinfo cronEnable()
                         " current user's crontab. Nothing to do."
                         "\n%1")
                 .arg(CRON_MARKER_HELP);
-        return info;
+        return (info);
     }
 
     QString             cronLine(CRON_LINE);
@@ -275,7 +275,7 @@ struct scheduleinfo cronEnable()
     info.message = cronBlock;
     info.extra   = currentCrontab;
 
-    return info;
+    return (info);
 }
 
 struct scheduleinfo cronEnable_p2(const QString &cronBlock,
@@ -294,9 +294,9 @@ struct scheduleinfo cronEnable_p2(const QString &cronBlock,
         info.status  = SCHEDULE_ERROR;
         info.message = QObject::tr("Failed to update crontab: %1")
                            .arg(QString(pinfo.stderr_msg));
-        return info;
+        return (info);
     }
-    return info;
+    return (info);
 }
 
 struct scheduleinfo cronDisable()
@@ -319,14 +319,14 @@ struct scheduleinfo cronDisable()
                 QObject::tr("There's no crontab for the current user."
                             " Nothing to do.\n\n%1")
                     .arg(CRON_MARKER_HELP);
-            return info;
+            return (info);
         }
         else
         {
             info.status = SCHEDULE_ERROR;
             info.message =
                 QObject::tr("Failed to list current crontab: %1").arg(error);
-            return info;
+            return (info);
         }
     }
     QString currentCrontab(pinfo.stdout_msg);
@@ -337,7 +337,7 @@ struct scheduleinfo cronDisable()
             QObject::tr("Looks like the crontab for the current user is"
                         " empty. Nothing to do.\n\n%1")
                 .arg(CRON_MARKER_HELP);
-        return info;
+        return (info);
     }
 
     QRegExp rx(QString("\n?%1.+%2\n?")
@@ -359,12 +359,12 @@ struct scheduleinfo cronDisable()
             QObject::tr("Looks like Job scheduling hasn't been enabled"
                         " yet. Nothing to do.\n\n%1")
                 .arg(CRON_MARKER_HELP);
-        return info;
+        return (info);
     }
     info.status  = SCHEDULE_NEED_INFO;
     info.message = linesToRemove;
     info.extra   = currentCrontab;
-    return info;
+    return (info);
 }
 
 struct scheduleinfo cronDisable_p2(const QString &linesToRemove,
@@ -384,9 +384,9 @@ struct scheduleinfo cronDisable_p2(const QString &linesToRemove,
         info.status  = SCHEDULE_ERROR;
         info.message = QObject::tr("Failed to update crontab: %1")
                            .arg(QString(pinfo.stderr_msg));
-        return info;
+        return (info);
     }
-    return info;
+    return (info);
 }
 
 struct scheduleinfo correctedSchedulingPath()

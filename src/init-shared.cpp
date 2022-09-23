@@ -142,7 +142,7 @@ static QString migrateSettings(QSettings *settingsOld, QSettings *settingsNew)
     // Close the Settings to prevent it from re-writing the file.
     delete settingsOld;
     fileOld.rename(renamed);
-    return renamed;
+    return (renamed);
 }
 
 static QString check_migrateSettings()
@@ -163,10 +163,10 @@ static QString check_migrateSettings()
        || !QFileInfo::exists(settingsOld->fileName()))
     {
         delete settingsOld;
-        return "";
+        return ("");
     }
 
-    return migrateSettings(settingsOld, settingsNew);
+    return (migrateSettings(settingsOld, settingsNew));
 }
 
 /**
@@ -206,7 +206,7 @@ static struct init_info init_shared_settings(const QString &configDir)
                 .arg(settings.getQSettings()->fileName(), renamedOldSettings);
     }
 
-    return info;
+    return (info);
 }
 
 static QString getDefaultLogFilename()
@@ -216,10 +216,10 @@ static QString getDefaultLogFilename()
     if(appdata.isEmpty())
     {
         DEBUG << "Error saving Console Log message: app/app_data dir not set.";
-        return "";
+        return ("");
     }
 
-    return appdata + QDir::separator() + DEFAULT_LOG_FILE;
+    return (appdata + QDir::separator() + DEFAULT_LOG_FILE);
 }
 
 bool init_shared_need_setup()
@@ -294,7 +294,7 @@ static struct init_info init_shared_core()
         info.extra   = correctedPath.extra;
     }
 
-    return info;
+    return (info);
 }
 
 /**

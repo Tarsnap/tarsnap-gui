@@ -172,7 +172,7 @@ QList<QUrl> BackupListWidget::itemUrls()
             static_cast<BackupListWidgetItem *>(item(i));
         urls << backupItem->url().toString(QUrl::FullyEncoded);
     }
-    return urls;
+    return (urls);
 }
 
 void BackupListWidget::removeItems()

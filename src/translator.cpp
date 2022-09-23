@@ -76,5 +76,5 @@ void Translator::translateApp(QCoreApplication *app, const QString &language)
 
 QStringList Translator::languageList()
 {
-    return _languageMap.keys();
+    return (_languageMap.keys());
 }

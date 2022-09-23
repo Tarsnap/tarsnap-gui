@@ -46,7 +46,7 @@ FilePickerDialog::~FilePickerDialog()
 
 QList<QUrl> FilePickerDialog::getSelectedUrls()
 {
-    return _ui->filePickerWidget->getSelectedUrls();
+    return (_ui->filePickerWidget->getSelectedUrls());
 }
 
 void FilePickerDialog::setSelectedUrls(const QList<QUrl> &urls)

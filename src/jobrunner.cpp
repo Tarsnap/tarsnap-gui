@@ -33,14 +33,14 @@ bool JobRunner::waitForOnline()
         if(sock.waitForConnected(500))
         {
             sock.disconnectFromHost();
-            return true;
+            return (true);
         }
         // Wait a bit, then try again
         if(i < NETWORK_UP_ATTEMPTS - 1)
             QThread::sleep(NETWORK_UP_SLEEP);
     }
     warnNotOnline();
-    return false;
+    return (false);
 }
 
 void JobRunner::warnNotOnline()

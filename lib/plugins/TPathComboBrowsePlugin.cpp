@@ -9,40 +9,40 @@ TPathComboBrowsePlugin::TPathComboBrowsePlugin(QObject *parent)
 
 QIcon TPathComboBrowsePlugin::icon() const
 {
-    return QIcon();
+    return (QIcon());
 }
 
 QString TPathComboBrowsePlugin::group() const
 {
-    return QStringLiteral("Input Widgets");
+    return (QStringLiteral("Input Widgets"));
 }
 
 QString TPathComboBrowsePlugin::includeFile() const
 {
-    return QStringLiteral("TPathComboBrowse.h");
+    return (QStringLiteral("TPathComboBrowse.h"));
 }
 
 QString TPathComboBrowsePlugin::name() const
 {
-    return QStringLiteral("TPathComboBrowse");
+    return (QStringLiteral("TPathComboBrowse"));
 }
 
 QString TPathComboBrowsePlugin::toolTip() const
 {
-    return QString();
+    return (QString());
 }
 
 QString TPathComboBrowsePlugin::whatsThis() const
 {
-    return QString();
+    return (QString());
 }
 
 QWidget *TPathComboBrowsePlugin::createWidget(QWidget *parent)
 {
-    return new TPathComboBrowse(parent);
+    return (new TPathComboBrowse(parent));
 }
 
 bool TPathComboBrowsePlugin::isContainer() const
 {
-    return false;
+    return (false);
 }

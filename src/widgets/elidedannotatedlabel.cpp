@@ -90,5 +90,5 @@ QString ElidedAnnotatedLabel::elideText()
         elided += _annotations[2 * p + 1];
     }
 
-    return elided;
+    return (elided);
 }

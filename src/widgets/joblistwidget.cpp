@@ -210,7 +210,7 @@ int JobListWidget::visibleItemsCount()
         if(item && !item->isHidden())
             count++;
     }
-    return count;
+    return (count);
 }
 
 void JobListWidget::setJobs(const QMap<QString, JobPtr> &jobs)

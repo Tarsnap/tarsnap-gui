@@ -12,7 +12,7 @@ TElidedLabel::TElidedLabel(QWidget *parent)
 
 Qt::TextElideMode TElidedLabel::elide() const
 {
-    return _elide;
+    return (_elide);
 }
 
 void TElidedLabel::setElide(const Qt::TextElideMode &elide)
@@ -23,13 +23,13 @@ void TElidedLabel::setElide(const Qt::TextElideMode &elide)
 
 QString TElidedLabel::text() const
 {
-    return _fullText;
+    return (_fullText);
 }
 
 QSize TElidedLabel::sizeHint() const
 {
     QFontMetrics metrics(this->font());
-    return metrics.size(Qt::TextSingleLine, _fullText);
+    return (metrics.size(Qt::TextSingleLine, _fullText));
 }
 
 void TElidedLabel::setText(const QString &text)
@@ -55,7 +55,7 @@ void TElidedLabel::resizeEvent(QResizeEvent *event)
 QString TElidedLabel::elideText(const QString &text) const
 {
     QFontMetrics metrics(this->font());
-    return metrics.elidedText(text, _elide, this->width());
+    return (metrics.elidedText(text, _elide, this->width()));
 }
 
 void TElidedLabel::messageNormal(const QString &text)

@@ -10,7 +10,7 @@ on:
 jobs:
   Ubuntu:
     name: Ubuntu
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
     - name: Update software list
       run:  sudo apt-get update

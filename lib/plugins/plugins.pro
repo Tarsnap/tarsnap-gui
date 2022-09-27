@@ -46,7 +46,8 @@ SOURCES	=	plugins.cpp			\
 
 FORMS	=					\
 		../forms/TPathComboBrowse.ui	\
-		../forms/TPathLineBrowse.ui
+		../forms/TPathLineBrowse.ui	\
+		../forms/TTabWidget.ui
 
 RESOURCES	+=				\
 		../resources/lib-resources.qrc

@@ -233,6 +233,7 @@ FORMS +=						\
 	forms/stoptasksdialog.ui			\
 	lib/forms/TPathComboBrowse.ui			\
 	lib/forms/TPathLineBrowse.ui			\
+	lib/forms/TTabWidget.ui				\
 	lib/forms/TWizard.ui
 
 RESOURCES +=						\

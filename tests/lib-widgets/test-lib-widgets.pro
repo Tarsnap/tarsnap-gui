@@ -6,6 +6,7 @@ VALGRIND = true
 FORMS +=						\
 	../../lib/forms/TPathComboBrowse.ui		\
 	../../lib/forms/TPathLineBrowse.ui		\
+	../../lib/forms/TTabWidget.ui			\
 	../../lib/forms/TWizard.ui
 
 RESOURCES += ../../lib/resources/lib-resources.qrc	\

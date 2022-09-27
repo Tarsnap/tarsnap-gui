@@ -10,6 +10,10 @@ WARNINGS_DISABLE
 WARNINGS_ENABLE
 
 /* Forward declaration(s). */
+namespace Ui
+{
+class TTabWidget;
+}
 class QPaintEvent;
 class QPixmap;
 class QResizeEvent;
@@ -52,6 +56,8 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
+    Ui::TTabWidget *_ui;
+
     bool _needRecalculate;
     int  _image_x;
 

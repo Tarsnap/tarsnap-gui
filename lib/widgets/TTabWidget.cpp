@@ -5,6 +5,8 @@ WARNINGS_DISABLE
 #include <QPixmap>
 #include <QTabBar>
 #include <QTabWidget>
+
+#include "ui_TTabWidget.h"
 WARNINGS_ENABLE
 
 class QPaintEvent;
@@ -14,18 +16,21 @@ class QResizeEvent;
 
 TTabWidget::TTabWidget(QWidget *parent)
     : QTabWidget(parent),
+      _ui(new Ui::TTabWidget),
       _needRecalculate(true),
       _image_x(0),
       _largeLogo(nullptr),
       _smallLogo(nullptr),
       _image(nullptr)
 {
+    _ui->setupUi(this);
 }
 
 TTabWidget::~TTabWidget()
 {
     delete _largeLogo;
     delete _smallLogo;
+    delete _ui;
 }
 
 void TTabWidget::setLargeLogoFilename(const QString &largeLogoFilename)

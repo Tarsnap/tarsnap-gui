@@ -26,7 +26,8 @@ FORMS +=							\
 	../../forms/settingswidget.ui				\
 	../../forms/statisticsdialog.ui				\
 	../../forms/statusbarwidget.ui				\
-	../../forms/stoptasksdialog.ui
+	../../forms/stoptasksdialog.ui				\
+	../../lib/forms/TTabWidget.ui
 
 RESOURCES +=						\
 	../../lib/resources/lib-resources.qrc		\

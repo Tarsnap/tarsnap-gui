@@ -2,13 +2,11 @@
 <ui version="4.0">
  <class>TTabWidget</class>
  <widget class="QTabWidget" name="TTabWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>400</width>
-    <height>300</height>
-   </rect>
+  <property name="minimumSize">
+   <size>
+    <width>40</width>
+    <height>20</height>
+   </size>
   </property>
  </widget>
  <resources/>

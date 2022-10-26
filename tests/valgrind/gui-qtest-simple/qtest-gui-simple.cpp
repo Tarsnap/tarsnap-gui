@@ -23,6 +23,7 @@ class TestQTestSimple : public QObject
 private slots:
     void pl_nothing();
     void pl_accessible_active();
+    void pl_setMSecsSinceEpoch();
     void pl_widget();
     void pl_accessible_setRootObject();
     void pl_widget_setAccessibleName();
@@ -48,6 +49,12 @@ void TestQTestSimple::pl_accessible_active()
 {
     volatile bool access = QAccessible::isActive();
     (void)access; /* UNUSED */
+}
+
+void TestQTestSimple::pl_setMSecsSinceEpoch()
+{
+    QDateTime clock;
+    clock.setMSecsSinceEpoch(1);
 }
 
 void TestQTestSimple::pl_widget()

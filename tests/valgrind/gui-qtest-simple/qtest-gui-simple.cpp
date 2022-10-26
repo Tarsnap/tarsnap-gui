@@ -25,6 +25,7 @@ private slots:
     void pl_accessible_active();
     void pl_widget();
     void pl_accessible_setRootObject();
+    void pl_widget_setAccessibleName();
     void pl_font();
     void pl_qapp_font();
     void pl_fontmetrics_height();
@@ -59,6 +60,13 @@ void TestQTestSimple::pl_accessible_setRootObject()
 {
     QWidget *widget = new QWidget();
     QAccessible::setRootObject(widget);
+    delete widget;
+}
+
+void TestQTestSimple::pl_widget_setAccessibleName()
+{
+    QWidget *widget = new QWidget();
+    widget->setAccessibleName("mywidget");
     delete widget;
 }
 

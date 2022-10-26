@@ -8,10 +8,12 @@ WARNINGS_DISABLE
 #include <QObject>
 #include <QPixmap>
 #include <QPushButton>
+#include <QRect>
 #include <QSignalSpy>
 #include <QString>
 #include <QTest>
 #include <QVariant>
+#include <QWidget>
 #include <Qt>
 WARNINGS_ENABLE
 
@@ -43,9 +45,14 @@ private slots:
     void busylabel_on_off();
     void pathlinebrowse();
     void pathcombobrowse();
-    void ttabwidget();
+    void ttabwidget_basic();
+    void ttabwidget_colours();
+    void ttabwidget_logo();
     void twizard();
     void textview();
+
+private:
+    void helper_tabwidget(TTabWidget *tabwidget);
 };
 
 void TestLibWidgets::initTestCase()
@@ -292,15 +299,103 @@ void TestLibWidgets::pathcombobrowse()
     delete pcb;
 }
 
-void TestLibWidgets::ttabwidget()
+void TestLibWidgets::helper_tabwidget(TTabWidget *tabwidget)
+{
+    QRect g;
+    tabwidget->addTab(new QWidget(), "one-q");
+    VISUAL_WAIT;
+    tabwidget->addTab(new QWidget(), "TWO-p");
+    VISUAL_WAIT;
+
+    // Make it narrow
+    g = tabwidget->geometry();
+    tabwidget->setGeometry(g.x(), g.y(), 200, g.height());
+    VISUAL_WAIT;
+
+    // Increase the width of tabs
+    tabwidget->setStyleSheet(tabwidget->styleSheet()
+                             + "QTabBar::tab { min-width: 80px; }");
+    VISUAL_WAIT;
+
+    // Select a different tab
+    tabwidget->setCurrentIndex(1);
+    VISUAL_WAIT;
+
+    // Make it wider
+    g = tabwidget->geometry();
+    tabwidget->setGeometry(g.x(), g.y(), 360, g.height());
+    VISUAL_WAIT;
+
+    // Select a different tab
+    tabwidget->setCurrentIndex(0);
+    VISUAL_WAIT;
+
+    // Remove the two tabs
+    tabwidget->removeTab(0);
+    VISUAL_WAIT;
+    tabwidget->removeTab(0);
+    VISUAL_WAIT;
+}
+
+void TestLibWidgets::ttabwidget_basic()
 {
     IF_MACOS_PRE_5_15_SKIP;
 
     TTabWidget *tabwidget = new TTabWidget();
+    VISUAL_INIT(tabwidget);
+
+    helper_tabwidget(tabwidget);
+    VISUAL_WAIT;
+
+    delete tabwidget;
+}
+
+void TestLibWidgets::ttabwidget_colours()
+{
+    IF_MACOS_PRE_5_15_SKIP;
+
+    TTabWidget *tabwidget = new TTabWidget();
+    VISUAL_INIT(tabwidget);
+
+    // Notes for the effect of each setting are in order.  This is based
+    // on reading the Qt stylesheet reference, the Qt stylesheet examples for
+    // QTabWidget, and experimenting.
+    tabwidget->setStyleSheet(
+        // Overall widget.  This will also apply a dark pink colour to the
+        // unused space of the QTabBar (to the right of the tabs).
+        "QTabWidget { background-color: pink; }"
+        // The frame around the QTabWidget pages (only a small border).
+        // Setting this will add a black border between the active tab and
+        // the pane (?).
+        "QTabWidget::pane { background-color: green; }"
+        // Default colour for tabs area.  Setting this will make all tabs
+        // appear to have the same height, rather than the selected tab
+        // appearing to be higher than the unselected tabs (?).
+        "QTabBar::tab { background-color: yellow; }"
+        // The selected tab.
+        "QTabBar::tab::selected { background-color: lightblue; }");
+
+    helper_tabwidget(tabwidget);
+
+    delete tabwidget;
+}
+
+void TestLibWidgets::ttabwidget_logo()
+{
+    IF_MACOS_PRE_5_15_SKIP;
+
+    TTabWidget *tabwidget = new TTabWidget();
+
+    // Set up the logos and show it.
     tabwidget->setLargeLogoFilename(":/logos/tarsnap-header-h29.png");
     tabwidget->setSmallLogoFilename(":/logos/tarsnap-icon-h29.png");
-
     VISUAL_INIT(tabwidget);
+
+    // Increase the height
+    tabwidget->setStyleSheet("QTabBar::tab { height: 32px; }");
+    VISUAL_WAIT;
+
+    helper_tabwidget(tabwidget);
 
     delete tabwidget;
 }

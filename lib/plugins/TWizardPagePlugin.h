@@ -20,9 +20,6 @@ public:
     QString  whatsThis() const override;
     QWidget *createWidget(QWidget *parent) override;
     bool     isContainer() const override;
-
-private:
-    bool initialized = false;
 };
 
 #endif /* !TWIZARDPAGEPLUGIN_H */

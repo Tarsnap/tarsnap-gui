@@ -2,7 +2,8 @@
 
 #include "TTabWidget.h"
 
-TTabWidgetPlugin::TTabWidgetPlugin(QObject *parent) : QObject(parent)
+TTabWidgetPlugin::TTabWidgetPlugin(QObject *parent)
+    : QObject(parent), _initialized(false)
 {
 }
 

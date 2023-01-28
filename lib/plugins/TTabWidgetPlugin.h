@@ -26,7 +26,7 @@ public:
     bool     isContainer() const override;
 
 private:
-    bool initialized = false;
+    bool _initialized;
 };
 
 #endif /* !TTABWIGETPLUGIN_H */

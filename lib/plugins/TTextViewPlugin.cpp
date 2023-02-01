@@ -1,5 +1,11 @@
 #include "TTextViewPlugin.h"
 
+WARNINGS_DISABLE
+#include <QStringLiteral>
+WARNINGS_ENABLE
+
+class QWidget;
+
 #include "TTextView.h"
 
 TTextViewPlugin::TTextViewPlugin(QObject *parent) : QObject(parent)

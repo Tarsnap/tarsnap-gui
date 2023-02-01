@@ -1,5 +1,11 @@
 #include "TPathLineBrowsePlugin.h"
 
+WARNINGS_DISABLE
+#include <QStringLiteral>
+WARNINGS_ENABLE
+
+class QWidget;
+
 #include "TPathLineBrowse.h"
 
 TPathLineBrowsePlugin::TPathLineBrowsePlugin(QObject *parent) : QObject(parent)

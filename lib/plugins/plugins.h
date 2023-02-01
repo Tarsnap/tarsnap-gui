@@ -4,9 +4,10 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QDesignerCustomWidgetCollectionInterface>
 #include <QList>
 #include <QObject>
-#include <QtUiPlugin/QDesignerCustomWidgetCollectionInterface>
+#include <QtPlugin>
 WARNINGS_ENABLE
 
 class TarsnapPlugins : public QObject,

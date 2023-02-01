@@ -1,5 +1,11 @@
 #include "TElidedLabelPlugin.h"
 
+WARNINGS_DISABLE
+#include <QStringLiteral>
+WARNINGS_ENABLE
+
+class QWidget;
+
 #include "TElidedLabel.h"
 
 TElidedLabelPlugin::TElidedLabelPlugin(QObject *parent) : QObject(parent)

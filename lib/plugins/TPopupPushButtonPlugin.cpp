@@ -1,5 +1,11 @@
 #include "TPopupPushButtonPlugin.h"
 
+WARNINGS_DISABLE
+#include <QStringLiteral>
+WARNINGS_ENABLE
+
+class QWidget;
+
 #include "TPopupPushButton.h"
 
 TPopupPushButtonPlugin::TPopupPushButtonPlugin(QObject *parent)

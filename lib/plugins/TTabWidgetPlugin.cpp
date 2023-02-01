@@ -1,5 +1,11 @@
 #include "TTabWidgetPlugin.h"
 
+WARNINGS_DISABLE
+#include <QStringLiteral>
+WARNINGS_ENABLE
+
+class QWidget;
+
 #include "TTabWidget.h"
 
 TTabWidgetPlugin::TTabWidgetPlugin(QObject *parent)

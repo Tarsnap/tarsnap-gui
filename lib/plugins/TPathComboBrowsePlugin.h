@@ -4,9 +4,14 @@
 #include "warnings-disable.h"
 
 WARNINGS_DISABLE
+#include <QDesignerCustomWidgetInterface>
+#include <QIcon>
 #include <QObject>
-#include <QtUiPlugin/QDesignerCustomWidgetInterface>
+#include <QString>
 WARNINGS_ENABLE
+
+/* Forward declaration(s). */
+class QWidget;
 
 class TPathComboBrowsePlugin : public QObject,
                                public QDesignerCustomWidgetInterface

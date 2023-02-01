@@ -1,5 +1,11 @@
 #include "TBusyLabelPlugin.h"
 
+WARNINGS_DISABLE
+#include <QStringLiteral>
+WARNINGS_ENABLE
+
+class QWidget;
+
 #include "TBusyLabel.h"
 
 TBusyLabelPlugin::TBusyLabelPlugin(QObject *parent) : QObject(parent)

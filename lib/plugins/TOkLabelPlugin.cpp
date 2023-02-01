@@ -1,5 +1,11 @@
 #include "TOkLabelPlugin.h"
 
+WARNINGS_DISABLE
+#include <QStringLiteral>
+WARNINGS_ENABLE
+
+class QWidget;
+
 #include "TOkLabel.h"
 
 TOkLabelPlugin::TOkLabelPlugin(QObject *parent) : QObject(parent)

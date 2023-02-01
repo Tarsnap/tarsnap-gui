@@ -1,5 +1,11 @@
 #include "TPathComboBrowsePlugin.h"
 
+WARNINGS_DISABLE
+#include <QStringLiteral>
+WARNINGS_ENABLE
+
+class QWidget;
+
 #include "TPathComboBrowse.h"
 
 TPathComboBrowsePlugin::TPathComboBrowsePlugin(QObject *parent)

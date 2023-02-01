@@ -1,5 +1,11 @@
 #include "TWizardPagePlugin.h"
 
+WARNINGS_DISABLE
+#include <QStringLiteral>
+WARNINGS_ENABLE
+
+class QWidget;
+
 #include "TWizardPage.h"
 
 TWizardPagePlugin::TWizardPagePlugin(QObject *parent) : QObject(parent)

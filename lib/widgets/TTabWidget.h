@@ -62,8 +62,7 @@ protected:
 private:
     Ui::TTabWidget *_ui;
 
-    bool _needRecalculate;
-    int  _image_x;
+    int _image_x;
 
     // These are only here so that we can set them in the designer
     QString _largeLogoFilename;

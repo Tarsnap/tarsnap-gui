@@ -54,6 +54,10 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
     //! Draw one of the logos in the top-right corner.
     void paintEvent(QPaintEvent *event) override;
+    //! We have a new tab.
+    void tabInserted(int index) override;
+    //! We removed a tab.
+    void tabRemoved(int index) override;
 
 private:
     Ui::TTabWidget *_ui;

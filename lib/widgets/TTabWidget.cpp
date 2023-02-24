@@ -35,9 +35,6 @@ TTabWidget::~TTabWidget()
 
 void TTabWidget::setLargeLogoFilename(const QString &largeLogoFilename)
 {
-    // Check that we haven't used this before.
-    Q_ASSERT(_largeLogo == nullptr);
-
     // Save filename and load logo.
     _largeLogoFilename = largeLogoFilename;
     _largeLogo         = new QPixmap(_largeLogoFilename);
@@ -46,9 +43,6 @@ void TTabWidget::setLargeLogoFilename(const QString &largeLogoFilename)
 
 void TTabWidget::setSmallLogoFilename(const QString &smallLogoFilename)
 {
-    // Check that we haven't used this before.
-    Q_ASSERT(_smallLogo == nullptr);
-
     // Save filename and load logo.
     _smallLogoFilename = smallLogoFilename;
     _smallLogo         = new QPixmap(_smallLogoFilename);
@@ -58,12 +52,19 @@ void TTabWidget::setSmallLogoFilename(const QString &smallLogoFilename)
 void TTabWidget::resizeEvent(QResizeEvent *event)
 {
     QTabWidget::resizeEvent(event);
-
     // We need to recalculate the widths.
-    //
-    // If this was a perfectly reusable class, we would also recalculate after
-    // every ::tabInserted() and ::tabRemoved().  However, this is sufficient
-    // for Tarsnap-GUI.
+    _needRecalculate = true;
+}
+
+void TTabWidget::tabInserted(int index)
+{
+    Q_UNUSED(index);
+    _needRecalculate = true;
+}
+
+void TTabWidget::tabRemoved(int index)
+{
+    Q_UNUSED(index);
     _needRecalculate = true;
 }
 
@@ -88,14 +89,14 @@ void TTabWidget::paintEvent(QPaintEvent *event)
 void TTabWidget::recalculateWidth()
 {
     // We don't need to call this again (unless something else changes).
-    _needRecalculate = true;
+    _needRecalculate = false;
 
     // Bail if we're missing either logo.
     if((!_largeLogo) || (!_smallLogo))
         return;
 
     // How much width is available?
-    int remainingWidth = width() - tabBar()->width() - RIGHT_PADDING;
+    const int remainingWidth = width() - tabBar()->width() - RIGHT_PADDING;
 
     // Pick which image (if any) to use.
     if(remainingWidth > _largeLogo->width())

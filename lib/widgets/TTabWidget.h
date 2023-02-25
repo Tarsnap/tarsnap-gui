@@ -14,7 +14,7 @@ namespace Ui
 {
 class TTabWidget;
 }
-class QPaintEvent;
+class QLabel;
 class QPixmap;
 class QResizeEvent;
 class QWidget;
@@ -52,8 +52,6 @@ public:
 protected:
     //! We need to recalculate the available width.
     void resizeEvent(QResizeEvent *event) override;
-    //! Draw one of the logos in the top-right corner.
-    void paintEvent(QPaintEvent *event) override;
     //! We have a new tab.
     void tabInserted(int index) override;
     //! We removed a tab.
@@ -62,15 +60,13 @@ protected:
 private:
     Ui::TTabWidget *_ui;
 
-    int _image_x;
-
     // These are only here so that we can set them in the designer
     QString _largeLogoFilename;
     QString _smallLogoFilename;
 
     QPixmap *_largeLogo;
     QPixmap *_smallLogo;
-    QPixmap *_image; // Always a pointer to an existing object (or nullptr).
+    QLabel  *_cornerLabel;
 
     void recalculateWidth();
 };

@@ -1,7 +1,7 @@
 #include "TTabWidget.h"
 
 WARNINGS_DISABLE
-#include <QPainter>
+#include <QLabel>
 #include <QPixmap>
 #include <QTabBar>
 #include <QTabWidget>
@@ -9,7 +9,6 @@ WARNINGS_DISABLE
 #include "ui_TTabWidget.h"
 WARNINGS_ENABLE
 
-class QPaintEvent;
 class QResizeEvent;
 
 #define RIGHT_PADDING 3
@@ -17,12 +16,12 @@ class QResizeEvent;
 TTabWidget::TTabWidget(QWidget *parent)
     : QTabWidget(parent),
       _ui(new Ui::TTabWidget),
-      _image_x(0),
       _largeLogo(nullptr),
       _smallLogo(nullptr),
-      _image(nullptr)
+      _cornerLabel(new QLabel)
 {
     _ui->setupUi(this);
+    setCornerWidget(_cornerLabel);
 }
 
 TTabWidget::~TTabWidget()
@@ -66,20 +65,6 @@ void TTabWidget::tabRemoved(int index)
     recalculateWidth();
 }
 
-void TTabWidget::paintEvent(QPaintEvent *event)
-{
-    // Draw the normal elements of a QTabWidget.
-    QTabWidget::paintEvent(event);
-
-    // Bail if it's too narrow to draw either logo.
-    if(_image == nullptr)
-        return;
-
-    // Draw the selected logo.
-    QPainter p(this);
-    p.drawPixmap(_image_x, 0, *_image);
-}
-
 void TTabWidget::recalculateWidth()
 {
     // Bail if we're missing either logo.
@@ -91,16 +76,10 @@ void TTabWidget::recalculateWidth()
 
     // Pick which image (if any) to use.
     if(remainingWidth > _largeLogo->width())
-        _image = _largeLogo;
+        _cornerLabel->setPixmap(*_largeLogo);
     else if(remainingWidth > _smallLogo->width())
-        _image = _smallLogo;
+        _cornerLabel->setPixmap(*_smallLogo);
     else
-    {
-        _image = nullptr;
-        // It doesn't matter what _image_x is in this case.
-        return;
-    }
-
-    // How far along (width-wise) should we draw the logo?
-    _image_x = width() - RIGHT_PADDING - _image->width();
+        _cornerLabel->clear();
+    _cornerLabel->setContentsMargins(0, 0, RIGHT_PADDING, 0);
 }

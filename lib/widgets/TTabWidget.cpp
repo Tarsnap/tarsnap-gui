@@ -1,6 +1,7 @@
 #include "TTabWidget.h"
 
 WARNINGS_DISABLE
+#include <QDebug>
 #include <QLabel>
 #include <QPixmap>
 #include <QTabBar>
@@ -70,6 +71,21 @@ void TTabWidget::recalculateWidth()
     // Bail if we're missing either logo.
     if((!_largeLogo) || (!_smallLogo))
         return;
+
+    // Sanity check: both logos should be the same height.
+    if(_largeLogo->height() != _smallLogo->height())
+    {
+        qDebug() << "TTabWidget: logos must be the same height";
+        return;
+    }
+
+    // Sanity check: the logo height shouldn't be larger than the tabBar.
+    if((tabBar()->height() > 0) && (_largeLogo->height() > tabBar()->height()))
+    {
+        qDebug() << "TTabWidget: logos are higher than the tabBar:"
+                 << _largeLogo->height() << tabBar()->height();
+        return;
+    }
 
     // How much width is available?
     const int remainingWidth = width() - tabBar()->width() - RIGHT_PADDING;

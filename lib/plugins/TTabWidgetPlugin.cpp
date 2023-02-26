@@ -8,8 +8,19 @@ class QWidget;
 
 #include "TTabWidget.h"
 
-TTabWidgetPlugin::TTabWidgetPlugin(QObject *parent)
-    : QObject(parent), _initialized(false)
+const static char *TTabWidget_Xml = R"""(
+<ui language="c++">
+ <widget class="TTabWidget" name="ttabWidget">
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TTabWidget</class>
+   <extends>QTabWidget</extends>
+  </customwidget>
+ </customwidgets>
+</ui>)""";
+
+TTabWidgetPlugin::TTabWidgetPlugin(QObject *parent) : QObject(parent)
 {
 }
 
@@ -50,5 +61,10 @@ QWidget *TTabWidgetPlugin::createWidget(QWidget *parent)
 
 bool TTabWidgetPlugin::isContainer() const
 {
-    return (false);
+    return (true);
+}
+
+QString TTabWidgetPlugin::domXml() const
+{
+    return (TTabWidget_Xml);
 }

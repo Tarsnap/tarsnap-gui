@@ -29,9 +29,9 @@ public:
     QString  whatsThis() const override;
     QWidget *createWidget(QWidget *parent) override;
     bool     isContainer() const override;
+    QString  domXml() const override;
 
 private:
-    bool _initialized;
 };
 
 #endif /* !TTABWIGETPLUGIN_H */

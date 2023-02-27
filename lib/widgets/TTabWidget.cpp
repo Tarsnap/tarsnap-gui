@@ -17,8 +17,8 @@ class QResizeEvent;
 TTabWidget::TTabWidget(QWidget *parent)
     : QTabWidget(parent),
       _ui(new Ui::TTabWidget),
-      _largeLogo(nullptr),
-      _smallLogo(nullptr),
+      _largeLogo(new QPixmap),
+      _smallLogo(new QPixmap),
       _cornerLabel(new QLabel)
 {
     _ui->setupUi(this);
@@ -36,7 +36,7 @@ void TTabWidget::setLargeLogoFilename(const QString &largeLogoFilename)
 {
     // Save filename and load logo.
     _largeLogoFilename = largeLogoFilename;
-    _largeLogo         = new QPixmap(_largeLogoFilename);
+    _largeLogo->load(_largeLogoFilename);
     recalculateWidth();
 }
 
@@ -44,7 +44,7 @@ void TTabWidget::setSmallLogoFilename(const QString &smallLogoFilename)
 {
     // Save filename and load logo.
     _smallLogoFilename = smallLogoFilename;
-    _smallLogo         = new QPixmap(_smallLogoFilename);
+    _smallLogo->load(_smallLogoFilename);
     recalculateWidth();
 }
 
@@ -69,7 +69,7 @@ void TTabWidget::tabRemoved(int index)
 void TTabWidget::recalculateWidth()
 {
     // Bail if we're missing either logo.
-    if((!_largeLogo) || (!_smallLogo))
+    if((_largeLogo->height() == 0) || (_smallLogo->height() == 0))
         return;
 
     // Sanity check: both logos should be the same height.

@@ -16,6 +16,10 @@ const static char *TTabWidget_Xml = R"""(
   <customwidget>
    <class>TTabWidget</class>
    <extends>QTabWidget</extends>
+   <propertyspecifications>
+    <stringpropertyspecification name="largeLogoFilename" notr="true" type="url" />
+    <stringpropertyspecification name="smallLogoFilename" notr="true" type="url" />
+   </propertyspecifications>
   </customwidget>
  </customwidgets>
 </ui>)""";

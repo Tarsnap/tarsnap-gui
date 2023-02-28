@@ -387,8 +387,8 @@ void TestLibWidgets::ttabwidget_logo()
     TTabWidget *tabwidget = new TTabWidget();
 
     // Set up the logos and show it.
-    tabwidget->setLargeLogoFilename(":/logos/tarsnap-header-h29.png");
-    tabwidget->setSmallLogoFilename(":/logos/tarsnap-icon-h29.png");
+    tabwidget->setLargeLogoUrl(QUrl("qrc:/logos/tarsnap-header-h29.png"));
+    tabwidget->setSmallLogoUrl(QUrl("qrc:/logos/tarsnap-icon-h29.png"));
     VISUAL_INIT(tabwidget);
 
     // Increase the height

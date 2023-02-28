@@ -6,6 +6,7 @@ WARNINGS_DISABLE
 #include <QPixmap>
 #include <QTabBar>
 #include <QTabWidget>
+#include <QUrl>
 
 #include "ui_TTabWidget.h"
 WARNINGS_ENABLE
@@ -13,6 +14,18 @@ WARNINGS_ENABLE
 class QResizeEvent;
 
 #define RIGHT_PADDING 3
+
+// I expected to find a function like this in Qt (maybe a static function in
+// QResource?), but if it exists then I failed to find it.  For anybody
+// looking at this code without the full context:
+// - the Qt designer gives us a url pointing to the Qt Resource
+// - I want to load that in a QPixmap
+// - QPixmap only accepts a filename, not a QUrl.
+static QString qurl_resource_to_string(const QUrl &url)
+{
+    Q_ASSERT(url.toString().startsWith("qrc"));
+    return (url.toString().remove(0, 3));
+}
 
 TTabWidget::TTabWidget(QWidget *parent)
     : QTabWidget(parent),
@@ -32,19 +45,19 @@ TTabWidget::~TTabWidget()
     delete _ui;
 }
 
-void TTabWidget::setLargeLogoFilename(const QString &largeLogoFilename)
+void TTabWidget::setLargeLogoUrl(const QUrl &largeLogoUrl)
 {
     // Save filename and load logo.
-    _largeLogoFilename = largeLogoFilename;
-    _largeLogo->load(_largeLogoFilename);
+    _largeLogoUrl = largeLogoUrl;
+    _largeLogo->load(qurl_resource_to_string(_largeLogoUrl));
     recalculateWidth();
 }
 
-void TTabWidget::setSmallLogoFilename(const QString &smallLogoFilename)
+void TTabWidget::setSmallLogoUrl(const QUrl &smallLogoUrl)
 {
     // Save filename and load logo.
-    _smallLogoFilename = smallLogoFilename;
-    _smallLogo->load(_smallLogoFilename);
+    _smallLogoUrl = smallLogoUrl;
+    _smallLogo->load(qurl_resource_to_string(_smallLogoUrl));
     recalculateWidth();
 }
 
@@ -75,7 +88,8 @@ void TTabWidget::recalculateWidth()
     // Sanity check: both logos should be the same height.
     if(_largeLogo->height() != _smallLogo->height())
     {
-        qDebug() << "TTabWidget: logos must be the same height";
+        qDebug() << "TTabWidget: logos must be the same height:"
+                 << _largeLogo->height() << _smallLogo->height();
         return;
     }
 

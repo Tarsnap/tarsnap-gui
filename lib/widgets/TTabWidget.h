@@ -5,8 +5,8 @@
 
 WARNINGS_DISABLE
 #include <QObject>
-#include <QString>
 #include <QTabWidget>
+#include <QUrl>
 WARNINGS_ENABLE
 
 /* Forward declaration(s). */
@@ -33,21 +33,21 @@ class TTabWidget : public QTabWidget
     Q_OBJECT
 
     //! Filename of the large icon.  Can only be set once.
-    Q_PROPERTY(QString largeLogoFilename MEMBER _largeLogoFilename WRITE
-                   setLargeLogoFilename DESIGNABLE true)
+    Q_PROPERTY(QUrl largeLogoUrl MEMBER _largeLogoUrl WRITE setLargeLogoUrl
+                   DESIGNABLE true)
     //! Filename of the small icon.  Can only be set once.
-    Q_PROPERTY(QString smallLogoFilename MEMBER _smallLogoFilename WRITE
-                   setSmallLogoFilename DESIGNABLE true)
+    Q_PROPERTY(QUrl smallLogoUrl MEMBER _smallLogoUrl WRITE setSmallLogoUrl
+                   DESIGNABLE true)
 
 public:
     //! Constructor.
     explicit TTabWidget(QWidget *parent = nullptr);
     ~TTabWidget() override;
 
-    //! Set the filename of the large icon.
-    void setLargeLogoFilename(const QString &largeLogoFilename);
-    //! Set the filename of the small icon.
-    void setSmallLogoFilename(const QString &smallLogoFilename);
+    //! Set the url of the large icon.
+    void setLargeLogoUrl(const QUrl &largeLogoUrl);
+    //! Set the url of the small icon.
+    void setSmallLogoUrl(const QUrl &smallLogoUrl);
 
 protected:
     //! We need to recalculate the available width.
@@ -61,8 +61,8 @@ private:
     Ui::TTabWidget *_ui;
 
     // These are only here so that we can set them in the designer
-    QString _largeLogoFilename;
-    QString _smallLogoFilename;
+    QUrl _largeLogoUrl;
+    QUrl _smallLogoUrl;
 
     QPixmap *_largeLogo;
     QPixmap *_smallLogo;

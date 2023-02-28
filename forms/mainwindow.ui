@@ -103,11 +103,21 @@ border-radius: 2px;
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <property name="largeLogoFilename">
-        <string notr="true">:/logos/tarsnap-header-h29.png</string>
+       <property name="largeLogoUrl">
+        <url>
+         <string>qrc:/logos/tarsnap-header-h29.png</string>
+        </url>
        </property>
-       <property name="smallLogoFilename">
-        <string notr="true">:/logos/tarsnap-icon-h29.png</string>
+       <property name="smallLogoUrl">
+        <url>
+         <string>qrc:/logos/tarsnap-icon-h29.png</string>
+        </url>
+       </property>
+       <property name="largeLogoFilename" stdset="0">
+        <string/>
+       </property>
+       <property name="smallLogoFilename" stdset="0">
+        <string/>
        </property>
        <widget class="BackupTabWidget" name="backupTabWidget">
         <property name="acceptDrops">

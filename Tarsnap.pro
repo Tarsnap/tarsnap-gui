@@ -298,7 +298,15 @@ osx {
 
     # Add VERSION to the app bundle.  (I wish that qmake did this!)
     INFO_PLIST_PATH = $$shell_quote($${OUT_PWD}/$${TARGET}.app/Contents/Info.plist)
-    QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleGetInfoString $${VERSION}\" $${INFO_PLIST_PATH} ;
+    # Add (empty) version strings to the Info.plist.  This will print a warning
+    # if the keys already exist; but it's only a warning, not an error!
+    QMAKE_POST_LINK += /usr/libexec/PlistBuddy \
+        -c \"Merge util/version-blank.plist.in\" $${INFO_PLIST_PATH} ;
+    # Replace those version strings with the real ones.
+    QMAKE_POST_LINK += /usr/libexec/PlistBuddy \
+        -c \"Set :CFBundleVersionString string $${VERSION}\" \
+        -c \"Set :CFBundleShortVersionString string $${VERSION}\" \
+        $${INFO_PLIST_PATH} ;
 }
 
 format.commands = find src/ tests/ lib/core/ lib/widgets/ lib/plugins	\

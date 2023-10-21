@@ -83,8 +83,9 @@ static struct DirMessage findBinary(const QString     &cmd,
     executable = QStandardPaths::findExecutable(cmd, searchPaths);
 #if defined(Q_OS_OSX)
     // If we haven't found the command in the default PATH, look
-    // in /usr/local/bin because that's where brew puts it.
-    QStringList brew_bin = {"/usr/local/bin"};
+    // in /usr/local/bin and /opt/homebrew/bin because that's where
+    // brew puts it.
+    QStringList brew_bin = {"/usr/local/bin", "/opt/homebrew/bin"};
     if(executable.isEmpty() && searchPaths.isEmpty())
         executable = QStandardPaths::findExecutable(CMD_TARSNAP, brew_bin);
 #endif

@@ -7,9 +7,11 @@
  *
  * clang's -Weverything was added in 3.9.  However, Apple invented
  * a whole new set of version numbers for clang, so it's hard to
- * figure out which features are supported on OSX.
+ * figure out which features are supported on OSX.  That said, if
+ * clang claims to be version 10 or higher, accept it even if it's
+ * on macOS.  (There was no particular reason behind picking 10.)
  */
-#if defined(__clang__) && !defined(__APPLE__) && (                             \
+#if defined(__clang__) && (!defined(__APPLE__) || (__clang_major__ > 10)) && ( \
     (__clang_major__ >= 4) ||                                                  \
     ((__clang_major__ == 3) && (__clang_major__ >= 9)))
 

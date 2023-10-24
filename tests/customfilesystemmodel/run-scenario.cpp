@@ -14,6 +14,8 @@ WARNINGS_ENABLE
 
 #include <stdio.h>
 
+#include "compat.h"
+
 #include "../qtest-platform.h"
 
 RunScenario::RunScenario()
@@ -76,8 +78,7 @@ int RunScenario::processActions(QTextStream &in)
         {
             QTextStream console(stdout);
             console << "ERROR: Scenario file is broken; parsing died on line:"
-                    << endl
-                    << line << endl;
+                    << QT_ENDL << line << QT_ENDL;
             // Don't try to recover.
             QCoreApplication::exit(1);
         }
@@ -112,8 +113,7 @@ int RunScenario::processResults(QTextStream &in)
         {
             QTextStream console(stdout);
             console << "ERROR: Scenario file is broken; parsing died on line:"
-                    << endl
-                    << line << endl;
+                    << QT_ENDL << line << QT_ENDL;
             // Don't try to recover.
             QCoreApplication::exit(1);
         }
@@ -138,21 +138,22 @@ int RunScenario::runScenario(const int num)
         {
             // Test failed!
             QTextStream console(stdout);
-            console << "--" << endl
-                    << "Test failed: " << scenarioFilename << endl;
+            console << "--" << QT_ENDL << "Test failed: " << scenarioFilename
+                    << QT_ENDL;
             if(result == 1)
             {
                 console << "Model internal state does not match "
-                        << "desired state.  Model data:" << endl;
+                        << "desired state.  Model data:" << QT_ENDL;
                 printModel();
             }
-            console << "--" << endl << endl;
+            console << "--" << QT_ENDL << QT_ENDL;
         }
     }
     else
     {
         QTextStream console(stdout);
-        console << "ERROR: could not read file: " << scenarioFilename << endl;
+        console << "ERROR: could not read file: " << scenarioFilename
+                << QT_ENDL;
         // Don't try to recover.
         QCoreApplication::exit(1);
     }
@@ -175,7 +176,7 @@ void RunScenario::printDir(const QString &dirname, const int depth)
         // Add indents to show the directory structure.
         for(int j = 0; j < depth; j++)
             console << "\t";
-        console << _model.fileName(index) << endl;
+        console << _model.fileName(index) << QT_ENDL;
         // Recursively print the subdirectory.
         if(_model.isDir(index))
         {

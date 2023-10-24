@@ -50,6 +50,9 @@ public:
     //! Checks that each file listed in the Job exists.
     bool validateUrls();
 
+    //! Get a list of any invalid paths in the Job.
+    QList<QUrl> invalidUrls() const;
+
     //! Installs a watcher to notify us if any files or
     //! directories in this Job are changed.
     void installWatcher();

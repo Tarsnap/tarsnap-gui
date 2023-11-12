@@ -86,18 +86,28 @@ void Job::setUrls(const QList<QUrl> &urls)
     _urls = urls;
 }
 
+QList<QUrl> Job::invalidUrls() const
+{
+    QList<QUrl> invalidList;
+
+    // Check that every file exists.
+    for(const QUrl &url : _urls)
+    {
+        QFileInfo file(url.toLocalFile());
+        if(!file.exists())
+            invalidList.append(url);
+    }
+    return (invalidList);
+}
+
 bool Job::validateUrls()
 {
     // Check that _urls is not empty.
     if(_urls.isEmpty())
         return (false);
     // Check that every file exists.
-    for(const QUrl &url : _urls)
-    {
-        QFileInfo file(url.toLocalFile());
-        if(!file.exists())
-            return (false);
-    }
+    if(!invalidUrls().isEmpty())
+        return (false);
     return (true);
 }
 

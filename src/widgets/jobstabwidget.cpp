@@ -398,14 +398,18 @@ void JobsTabWidget::backupJob(const JobPtr &job)
         }
         else
         {
+            // Construct a string with the missing paths.
+            QString missing;
+            for(const QUrl &url : job->invalidUrls())
+                missing += url.path() + "\n";
             // Warn & bail if any paths are no longer valid.
             QMessageBox::StandardButton confirm = QMessageBox::question(
                 this, tr("Job warning"),
-                tr("Some backup paths for Job %1 are not"
-                   " accessible anymore and thus backup may"
-                   " be incomplete."
-                   " Proceed with backup?")
-                    .arg(job->name()));
+                tr("Job %1 contains paths that are not accessible:\n"
+                   "%2\n"
+                   "The backup will be incomplete.  Proceed with backup?")
+                    .arg(job->name())
+                    .arg(missing));
             if(confirm != QMessageBox::Yes)
                 return;
         }

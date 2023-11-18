@@ -349,9 +349,6 @@ void MainWindow::setupMenuBar()
         this->showNormal();
     });
 #ifdef Q_OS_OSX
-    // Remove the file menu, because macOS will add an "app menu".
-    _ui->menu_File->menuAction()->setVisible(false);
-
     // Leave the three Windows actions enabled and visible.
 #else
     // Set default shortcut for showing the help.

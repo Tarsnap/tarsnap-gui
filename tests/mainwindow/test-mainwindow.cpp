@@ -66,6 +66,7 @@ private slots:
     void about_window_menubar();
     void stoptasksdialog_nonquit();
     void quit_simple();
+    void quit_keyboard();
     void quit_tasks();
     void tab_navigation();
     void other_navigation();
@@ -203,6 +204,26 @@ void TestMainWindow::quit_simple()
 
     // Try to close the window; there's no tasks, so we should close.
     mainwindow->close();
+    QVERIFY(mainwindow->isVisible() == false);
+
+    delete mainwindow;
+}
+
+void TestMainWindow::quit_keyboard()
+{
+    IF_MACOS_PRE_5_15_SKIP;
+    IF_NOT_VISUAL { QSKIP("can't check keyboard with --platform=offscreen"); }
+
+    MainWindow *mainwindow = new MainWindow();
+
+    VISUAL_INIT(mainwindow);
+
+    // We should be visible.
+    QVERIFY(mainwindow->isVisible() == true);
+    VISUAL_WAIT;
+
+    // Try to close the window with a keyboard shortcut
+    QTest::keyClick(mainwindow, Qt::Key_Q, Qt::ControlModifier);
     QVERIFY(mainwindow->isVisible() == false);
 
     delete mainwindow;

@@ -82,32 +82,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="asideLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="font">
-        <font>
-         <italic>true</italic>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLabel {
-	margin-left: 0.125em;
-	border-width: 0 0 0 0.1em;
-	border-style: solid;
-	border-color: &quot;#999&quot;;
-	padding-left: 0.25em;
-}</string>
-       </property>
+      <widget class="TAsideLabel" name="tasidelabel">
        <property name="text">
         <string>You can also skip this wizard and set up everything inside the application.</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -154,6 +131,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>TAsideLabel</class>
+   <extends>QLabel</extends>
+   <header>TAsideLabel.h</header>
+  </customwidget>
   <customwidget>
    <class>TWizardPage</class>
    <extends>QWidget</extends>

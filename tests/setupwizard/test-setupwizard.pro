@@ -16,6 +16,7 @@ FORMS +=						\
 HEADERS  +=						\
 	compare-settings.h				\
 	../../lib/core/TSettings.h			\
+	../../lib/widgets/TAsideLabel.h			\
 	../../lib/widgets/TBusyLabel.h			\
 	../../lib/widgets/TElidedLabel.h		\
 	../../lib/widgets/TOkLabel.h			\
@@ -35,6 +36,7 @@ HEADERS  +=						\
 SOURCES += test-setupwizard.cpp				\
 	compare-settings.cpp				\
 	../../lib/core/TSettings.cpp			\
+	../../lib/widgets/TAsideLabel.cpp		\
 	../../lib/widgets/TBusyLabel.cpp		\
 	../../lib/widgets/TElidedLabel.cpp		\
 	../../lib/widgets/TOkLabel.cpp			\

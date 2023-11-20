@@ -5,6 +5,7 @@ QT		+= widgets uiplugin
 
 HEADERS	=	plugins.h			\
 		../core/warnings-disable.h	\
+		../widgets/TAsideLabel.h	\
 		../widgets/TBusyLabel.h		\
 		../widgets/TElidedLabel.h	\
 		../widgets/TOkLabel.h		\
@@ -14,6 +15,7 @@ HEADERS	=	plugins.h			\
 		../widgets/TTabWidget.h		\
 		../widgets/TTextView.h		\
 		../widgets/TWizardPage.h	\
+		TAsideLabelPlugin.h		\
 		TBusyLabelPlugin.h		\
 		TElidedLabelPlugin.h		\
 		TOkLabelPlugin.h		\
@@ -25,6 +27,7 @@ HEADERS	=	plugins.h			\
 		TWizardPagePlugin.h
 
 SOURCES	=	plugins.cpp			\
+		../widgets/TAsideLabel.cpp	\
 		../widgets/TBusyLabel.cpp	\
 		../widgets/TElidedLabel.cpp	\
 		../widgets/TOkLabel.cpp		\
@@ -34,6 +37,7 @@ SOURCES	=	plugins.cpp			\
 		../widgets/TTabWidget.cpp	\
 		../widgets/TTextView.cpp	\
 		../widgets/TWizardPage.cpp	\
+		TAsideLabelPlugin.cpp		\
 		TBusyLabelPlugin.cpp		\
 		TElidedLabelPlugin.cpp		\
 		TOkLabelPlugin.cpp		\

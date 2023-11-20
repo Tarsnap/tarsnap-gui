@@ -1,5 +1,6 @@
 #include "plugins.h"
 
+#include "TAsideLabelPlugin.h"
 #include "TBusyLabelPlugin.h"
 #include "TElidedLabelPlugin.h"
 #include "TOkLabelPlugin.h"
@@ -12,6 +13,7 @@
 
 TarsnapPlugins::TarsnapPlugins(QObject *parent) : QObject(parent)
 {
+    widgets.append(new TAsideLabelPlugin(this));
     widgets.append(new TBusyLabelPlugin(this));
     widgets.append(new TElidedLabelPlugin(this));
     widgets.append(new TOkLabelPlugin(this));

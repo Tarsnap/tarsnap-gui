@@ -57,32 +57,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="registerPageInfoLabelAside">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>17</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <italic>true</italic>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QLabel {
-	margin-left: 0.125em;
-	border-width: 0 0 0 0.1em;
-	border-style: solid;
-	border-color: &quot;#999&quot;;
-	padding-left: 0.25em;
-}</string>
-       </property>
+      <widget class="TAsideLabel" name="tasidelabel">
        <property name="text">
         <string>Don't have an account? Register on &lt;a href=&quot;http://tarsnap.com&quot;&gt;tarsnap.com&lt;/a&gt;.</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
        </property>
        <property name="openExternalLinks">
         <bool>true</bool>
@@ -418,6 +395,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>TAsideLabel</class>
+   <extends>QLabel</extends>
+   <header>TAsideLabel.h</header>
+  </customwidget>
   <customwidget>
    <class>TBusyLabel</class>
    <extends>QLabel</extends>

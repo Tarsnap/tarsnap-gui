@@ -27,6 +27,7 @@ SOURCES +=						\
 	lib/core/TSettings.cpp				\
 	lib/util/optparse.c				\
 	lib/util/optparse_helper.c			\
+	lib/widgets/TAsideLabel.cpp			\
 	lib/widgets/TBusyLabel.cpp			\
 	lib/widgets/TElidedLabel.cpp			\
 	lib/widgets/TOkLabel.cpp			\
@@ -111,6 +112,7 @@ HEADERS +=						\
 	lib/core/warnings-disable.h			\
 	lib/util/optparse.h				\
 	lib/util/optparse_helper.h			\
+	lib/widgets/TAsideLabel.h			\
 	lib/widgets/TBusyLabel.h			\
 	lib/widgets/TElidedLabel.h			\
 	lib/widgets/TOkLabel.h				\

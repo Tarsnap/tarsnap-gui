@@ -20,6 +20,7 @@ WARNINGS_ENABLE
 #include "../qtest-platform.h"
 
 #include "LogEntry.h"
+#include "TAsideLabel.h"
 #include "TBusyLabel.h"
 #include "TElidedLabel.h"
 #include "TOkLabel.h"
@@ -43,6 +44,7 @@ private slots:
     void okLabel();
     void busylabel();
     void busylabel_on_off();
+    void tasidelabel();
     void pathlinebrowse();
     void pathcombobrowse();
     void ttabwidget_basic();
@@ -159,6 +161,19 @@ void TestLibWidgets::busylabel_on_off()
     VISUAL_WAIT;
 
     delete bw;
+}
+
+void TestLibWidgets::tasidelabel()
+{
+    TAsideLabel *lab = new TAsideLabel();
+    lab->setMinimumWidth(200);
+
+    VISUAL_INIT(lab);
+
+    lab->setText("message");
+    VISUAL_WAIT;
+
+    delete lab;
 }
 
 void TestLibWidgets::pathlinebrowse()

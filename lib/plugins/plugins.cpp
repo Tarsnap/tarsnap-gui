@@ -7,6 +7,7 @@
 #include "TPathComboBrowsePlugin.h"
 #include "TPathLineBrowsePlugin.h"
 #include "TPopupPushButtonPlugin.h"
+#include "TProgressWidgetPlugin.h"
 #include "TTabWidgetPlugin.h"
 #include "TTextViewPlugin.h"
 #include "TWizardPagePlugin.h"
@@ -20,6 +21,7 @@ TarsnapPlugins::TarsnapPlugins(QObject *parent) : QObject(parent)
     widgets.append(new TPathComboBrowsePlugin(this));
     widgets.append(new TPathLineBrowsePlugin(this));
     widgets.append(new TPopupPushButtonPlugin(this));
+    widgets.append(new TProgressWidgetPlugin(this));
     widgets.append(new TTabWidgetPlugin(this));
     widgets.append(new TTextViewPlugin(this));
     widgets.append(new TWizardPagePlugin(this));

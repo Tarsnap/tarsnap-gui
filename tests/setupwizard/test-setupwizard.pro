@@ -11,6 +11,7 @@ FORMS +=						\
 	../../forms/setupwizard_register.ui		\
 	../../lib/forms/TPathComboBrowse.ui		\
 	../../lib/forms/TPathLineBrowse.ui		\
+	../../lib/forms/TProgressWidget.ui		\
 	../../lib/forms/TWizard.ui
 
 HEADERS  +=						\
@@ -22,6 +23,7 @@ HEADERS  +=						\
 	../../lib/widgets/TOkLabel.h			\
 	../../lib/widgets/TPathComboBrowse.h		\
 	../../lib/widgets/TPathLineBrowse.h		\
+	../../lib/widgets/TProgressWidget.h		\
 	../../lib/widgets/TWizard.h			\
 	../../lib/widgets/TWizardPage.h			\
 	../../src/dir-utils.h				\
@@ -42,6 +44,7 @@ SOURCES += test-setupwizard.cpp				\
 	../../lib/widgets/TOkLabel.cpp			\
 	../../lib/widgets/TPathComboBrowse.cpp		\
 	../../lib/widgets/TPathLineBrowse.cpp		\
+	../../lib/widgets/TProgressWidget.cpp		\
 	../../lib/widgets/TWizard.cpp			\
 	../../lib/widgets/TWizardPage.cpp		\
 	../../src/dir-utils.cpp				\

@@ -34,6 +34,7 @@ SOURCES +=						\
 	lib/widgets/TPathComboBrowse.cpp		\
 	lib/widgets/TPathLineBrowse.cpp			\
 	lib/widgets/TPopupPushButton.cpp		\
+	lib/widgets/TProgressWidget.cpp			\
 	lib/widgets/TTabWidget.cpp			\
 	lib/widgets/TTextView.cpp			\
 	lib/widgets/TWizard.cpp				\
@@ -119,6 +120,7 @@ HEADERS +=						\
 	lib/widgets/TPathComboBrowse.h			\
 	lib/widgets/TPathLineBrowse.h			\
 	lib/widgets/TPopupPushButton.h			\
+	lib/widgets/TProgressWidget.h			\
 	lib/widgets/TTabWidget.h			\
 	lib/widgets/TTextView.h				\
 	lib/widgets/TWizard.h				\
@@ -235,6 +237,7 @@ FORMS +=						\
 	forms/stoptasksdialog.ui			\
 	lib/forms/TPathComboBrowse.ui			\
 	lib/forms/TPathLineBrowse.ui			\
+	lib/forms/TProgressWidget.ui			\
 	lib/forms/TTabWidget.ui				\
 	lib/forms/TWizard.ui
 

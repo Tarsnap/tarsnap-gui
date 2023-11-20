@@ -26,6 +26,7 @@ WARNINGS_ENABLE
 #include "TOkLabel.h"
 #include "TPathComboBrowse.h"
 #include "TPathLineBrowse.h"
+#include "TProgressWidget.h"
 #include "TTabWidget.h"
 #include "TTextView.h"
 #include "TWizard.h"
@@ -47,6 +48,7 @@ private slots:
     void tasidelabel();
     void pathlinebrowse();
     void pathcombobrowse();
+    void tprogresswidget();
     void ttabwidget_basic();
     void ttabwidget_colours();
     void ttabwidget_logo();
@@ -312,6 +314,35 @@ void TestLibWidgets::pathcombobrowse()
 
     delete le;
     delete pcb;
+}
+
+void TestLibWidgets::tprogresswidget()
+{
+    TProgressWidget *wid = new TProgressWidget();
+
+    VISUAL_INIT(wid);
+
+    wid->messageNormal("starting");
+    wid->setBusy(true);
+    VISUAL_WAIT;
+
+    wid->messageNormal("did some");
+    wid->setValue(10);
+    VISUAL_WAIT;
+
+    wid->messageError("oh no, problem?");
+    wid->setValue(70);
+    VISUAL_WAIT;
+
+    wid->messageNormal("finished");
+    wid->setValue(100);
+    wid->setBusy(false);
+    VISUAL_WAIT;
+
+    wid->clear();
+    VISUAL_WAIT;
+
+    delete wid;
 }
 
 void TestLibWidgets::helper_tabwidget(TTabWidget *tabwidget)

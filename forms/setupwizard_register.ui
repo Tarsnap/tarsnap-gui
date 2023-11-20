@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>410</width>
-    <height>282</height>
+    <height>305</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>410</width>
-    <height>282</height>
+    <height>305</height>
    </size>
   </property>
   <property name="title">
@@ -293,64 +293,7 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <spacer name="leftStatusSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>16</width>
-           <height>16</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="TElidedLabel" name="statusLabel">
-         <property name="font">
-          <font>
-           <italic>true</italic>
-          </font>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-         <property name="openExternalLinks">
-          <bool>true</bool>
-         </property>
-         <property name="textInteractionFlags">
-          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-         </property>
-         <property name="text">
-          <string>status</string>
-         </property>
-         <property name="elide">
-          <enum>Qt::ElideRight</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="TBusyLabel" name="busyLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QProgressBar" name="progressBar"/>
+      <widget class="TProgressWidget" name="progressWidget"/>
      </item>
     </layout>
    </item>
@@ -401,19 +344,14 @@
    <header>TAsideLabel.h</header>
   </customwidget>
   <customwidget>
-   <class>TBusyLabel</class>
-   <extends>QLabel</extends>
-   <header>TBusyLabel.h</header>
-  </customwidget>
-  <customwidget>
-   <class>TElidedLabel</class>
-   <extends>QLabel</extends>
-   <header>TElidedLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>TPathComboBrowse</class>
    <extends>QWidget</extends>
    <header>TPathComboBrowse.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TProgressWidget</class>
+   <extends>QWidget</extends>
+   <header>TProgressWidget.h</header>
   </customwidget>
   <customwidget>
    <class>TWizardPage</class>

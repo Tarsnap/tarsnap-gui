@@ -9,7 +9,6 @@ WARNINGS_DISABLE
 #include <QFileInfoList>
 #include <QLineEdit>
 #include <QList>
-#include <QProgressBar>
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
@@ -25,9 +24,8 @@ WARNINGS_DISABLE
 #include "ui_setupwizard_register.h"
 WARNINGS_ENABLE
 
-#include "TBusyLabel.h"
-#include "TElidedLabel.h"
 #include "TPathComboBrowse.h"
+#include "TProgressWidget.h"
 #include "TSettings.h"
 #include "TWizardPage.h"
 
@@ -79,7 +77,7 @@ void RegisterPage::initializePage()
         _ui->keyfileTabWidget->setCurrentIndex(UseKeyfileTab);
 
     // Don't show the progress bar.
-    _ui->progressBar->hide();
+    _ui->progressWidget->hide();
 
     // Enable keyboard focus if we're ready to go.
     if(checkComplete())
@@ -90,7 +88,7 @@ bool RegisterPage::reportError(const QString &text, TPathComboBrowse *pcb,
                                const QString &pcb_text)
 {
     // General display.
-    _ui->statusLabel->messageError(text);
+    _ui->progressWidget->messageError(text);
 
     // Handle widget-specific display.
     if(pcb != nullptr)
@@ -110,7 +108,7 @@ void RegisterPage::next()
 
 bool RegisterPage::checkComplete()
 {
-    _ui->statusLabel->clear();
+    _ui->progressWidget->clear();
 
     // Check mandatory fields (depending on which tab we're on).
     if(_ui->keyfileTabWidget->currentIndex() == CreateKeyfileTab)
@@ -174,12 +172,13 @@ void RegisterPage::registerMachine()
         _registering = Yes;
         // Display message after checkComplete() clears the label.
         if(!useExistingKeyfile)
-            _ui->statusLabel->messageNormal("Generating keyfile...");
+            _ui->progressWidget->messageNormal("Generating keyfile...");
         else
         {
-            _ui->statusLabel->messageNormal("Verifying archive integrity...");
-            _ui->progressBar->setValue(0);
-            _ui->progressBar->show();
+            _ui->progressWidget->messageNormal(
+                "Verifying archive integrity...");
+            _ui->progressWidget->setValue(0);
+            _ui->progressWidget->show();
         }
         // Request that the backend does the operation.
         emit registerMachineRequested(_ui->tarsnapPasswordLineEdit->text(),
@@ -223,7 +222,7 @@ void RegisterPage::registerMachineProgress(const QString &stdOut)
     }
 
     if(progress > 0)
-        _ui->progressBar->setValue(progress);
+        _ui->progressWidget->setValue(progress);
 }
 
 void RegisterPage::registerMachineResponse(TaskStatus     status,
@@ -244,14 +243,13 @@ void RegisterPage::registerMachineResponse(TaskStatus     status,
     {
     case TaskStatus::Completed:
         _registering = Done;
-        _ui->statusLabel->clear();
-        _ui->progressBar->hide();
-        updateLoadingAnimation(true);
+        _ui->progressWidget->clear();
+        _ui->progressWidget->hide();
         next();
         break;
     case TaskStatus::Failed:
         _registering = No;
-        _ui->progressBar->hide();
+        _ui->progressWidget->hide();
         reportError(reason);
         checkComplete();
         break;
@@ -290,5 +288,5 @@ bool RegisterPage::checkUseKeyfile()
 
 void RegisterPage::updateLoadingAnimation(bool idle)
 {
-    _ui->busyLabel->animate(!idle);
+    _ui->progressWidget->setBusy(!idle);
 }

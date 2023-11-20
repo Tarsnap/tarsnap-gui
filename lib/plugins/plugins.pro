@@ -12,6 +12,7 @@ HEADERS	=	plugins.h			\
 		../widgets/TPathComboBrowse.h	\
 		../widgets/TPathLineBrowse.h	\
 		../widgets/TPopupPushButton.h	\
+		../widgets/TProgressWidget.h	\
 		../widgets/TTabWidget.h		\
 		../widgets/TTextView.h		\
 		../widgets/TWizardPage.h	\
@@ -22,6 +23,7 @@ HEADERS	=	plugins.h			\
 		TPathComboBrowsePlugin.h	\
 		TPathLineBrowsePlugin.h		\
 		TPopupPushButtonPlugin.h	\
+		TProgressWidgetPlugin.h		\
 		TTabWidgetPlugin.h		\
 		TTextViewPlugin.h		\
 		TWizardPagePlugin.h
@@ -34,6 +36,7 @@ SOURCES	=	plugins.cpp			\
 		../widgets/TPathComboBrowse.cpp	\
 		../widgets/TPathLineBrowse.cpp	\
 		../widgets/TPopupPushButton.cpp	\
+		../widgets/TProgressWidget.cpp	\
 		../widgets/TTabWidget.cpp	\
 		../widgets/TTextView.cpp	\
 		../widgets/TWizardPage.cpp	\
@@ -44,6 +47,7 @@ SOURCES	=	plugins.cpp			\
 		TPathComboBrowsePlugin.cpp	\
 		TPathLineBrowsePlugin.cpp	\
 		TPopupPushButtonPlugin.cpp	\
+		TProgressWidgetPlugin.cpp	\
 		TTabWidgetPlugin.cpp		\
 		TTextViewPlugin.cpp		\
 		TWizardPagePlugin.cpp
@@ -51,6 +55,7 @@ SOURCES	=	plugins.cpp			\
 FORMS	=					\
 		../forms/TPathComboBrowse.ui	\
 		../forms/TPathLineBrowse.ui	\
+		../forms/TProgressWidget.ui	\
 		../forms/TTabWidget.ui
 
 RESOURCES	+=				\

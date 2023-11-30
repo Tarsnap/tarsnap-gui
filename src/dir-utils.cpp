@@ -50,7 +50,7 @@ QString validate_readable_file(const QString &filename)
     return ("");
 }
 
-static QString validate_executable(const QString &executable)
+QString validate_executable(const QString &executable)
 {
     if(executable.isEmpty())
         return (

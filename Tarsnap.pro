@@ -386,4 +386,7 @@ test_clean.commands =	for D in $${UNIT_TESTS} $${OPTIONAL_BUILD_ONLY_TESTS}; do	
 			done
 clean.depends += test_clean
 
-QMAKE_EXTRA_TARGETS += test test_clean clean test_home_prep optional_buildtest
+test-mocked.commands = ./${TARGET} -a tests-mocked/appdata
+test-mocked.depends = $${TARGET}
+
+QMAKE_EXTRA_TARGETS += test test_clean test-mocked clean test_home_prep optional_buildtest

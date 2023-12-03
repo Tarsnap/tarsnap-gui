@@ -10,6 +10,8 @@ WARNINGS_ENABLE
 
 #include "ConsoleLog.h"
 
+#include "dir-utils.h"
+
 #include <signal.h>
 
 #define DEFAULT_TIMEOUT_MS 5000
@@ -80,7 +82,9 @@ void CmdlineTask::run()
 
     // Make sure that the command exists and is executable, because QProcess
     // doesn't clean up its memory if it fails due to "command not found".
-    if(QStandardPaths::findExecutable(_command).isEmpty())
+    // We can't use QStandardPaths::findExecutable(), because that can't
+    // handle relative paths.
+    if(!validate_executable(_command).isEmpty())
     {
         LOG << QString("Command '%1' not found\n").arg(_command);
         emit finished(_data, EXIT_CMD_NOT_FOUND, "", "");

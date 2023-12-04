@@ -23,6 +23,10 @@ struct DirMessage
 struct DirMessage findTarsnapClientInPath(const QString &path,
                                           bool           keygenToo = false);
 
+// Return the reason why filename is not executable, or empty string for
+// success.
+QString validate_executable(const QString &executable);
+
 // Search for valid tarsnap keys in the supplied path
 QFileInfoList findKeysInPath(const QString &path);
 

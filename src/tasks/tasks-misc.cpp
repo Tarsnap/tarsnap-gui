@@ -27,8 +27,8 @@ CmdlineTask *sleepSecondsTask(int seconds)
     QStringList  args;
 
     /* Specific arguments. */
-    task->setCommand("sleep");
-    args << QString::number(seconds);
+    task->setCommand("/bin/sh");
+    args << "sleep" << QString::number(seconds);
 
     /* Generic setup. */
     task->setArguments(args);

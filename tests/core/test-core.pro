@@ -3,11 +3,11 @@ QT = core
 
 VALGRIND = true
 
-HEADERS  +=						\
+HEADERS  +=								\
 	../../lib/core/TSettings.h
 
-SOURCES += test-core.cpp				\
-	../../lib/core/TSettings.cpp			\
+SOURCES += test-core.cpp						\
+	../../lib/core/TSettings.cpp					\
 
 include(../tests-include.pri)
 

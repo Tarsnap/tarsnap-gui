@@ -6,12 +6,12 @@ if(checkVersionAtLeast(5,8)) {
     QMAKE_CXXFLAGS += -isystem $$shell_quote($$[QT_INSTALL_HEADERS])
     for(module, QT) {
         equals(module, "testlib") {
-            QMAKE_CXXFLAGS += \
+            QMAKE_CXXFLAGS += 						\
                 -isystem $$shell_quote($$[QT_INSTALL_HEADERS]/QtTest)
         } else {
             # Capitalize a first letter, result: -isystem .../include/QtCore
             moduleList = $$split(module, )
-            QMAKE_CXXFLAGS += \
+            QMAKE_CXXFLAGS += 						\
                 -isystem $$shell_quote($$[QT_INSTALL_HEADERS]/Qt$$upper(\
                          $$take_first(moduleList))$$join(moduleList, ))
         }

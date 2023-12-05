@@ -338,22 +338,22 @@ for(D, buildtests) {
 	system($$cmd)|error("Failed to qmake in: $$D")
 }
 
-test.commands =		@echo "Compiling tests...";			\
-			for D in $${UNIT_TESTS} $${BUILD_ONLY_TESTS}; do \
-				(cd \$\${D} && \${MAKE} -s);		\
-				err=\$\$?;				\
-				if \[ \$\${err} -gt "0" \]; then	\
-					exit \$\${err};			\
-				fi;					\
-			done;						\
-			echo "Running tests...";			\
-			for D in $${UNIT_TESTS}; do			\
-				(cd \$\${D} && \${MAKE} test -s);	\
-				err=\$\$?;				\
-				if \[ \$\${err} -gt "0" \]; then	\
-					exit \$\${err};			\
-				fi;					\
-			done
+test.commands =	@echo "Compiling tests...";			\
+	for D in $${UNIT_TESTS} $${BUILD_ONLY_TESTS}; do \
+		(cd \$\${D} && \${MAKE} -s);		\
+		err=\$\$?;				\
+		if \[ \$\${err} -gt "0" \]; then	\
+			exit \$\${err};			\
+		fi;					\
+	done;						\
+	echo "Running tests...";			\
+	for D in $${UNIT_TESTS}; do			\
+		(cd \$\${D} && \${MAKE} test -s);	\
+		err=\$\$?;				\
+		if \[ \$\${err} -gt "0" \]; then	\
+			exit \$\${err};			\
+		fi;					\
+	done
 test.depends = test_home_prep
 
 # Prep the optional tests
@@ -371,19 +371,20 @@ for(D, optional_buildtests) {
 }
 
 optional_buildtest.commands =	@echo "Compiling optional tests...";	\
-			for D in $${OPTIONAL_BUILD_ONLY_TESTS}; do	\
-				(cd \$\${D} && \${MAKE} -s);		\
-				err=\$\$?;				\
-				if \[ \$\${err} -gt "0" \]; then	\
-					exit \$\${err};			\
-				fi;					\
-			done;						\
+	for D in $${OPTIONAL_BUILD_ONLY_TESTS}; do	\
+		(cd \$\${D} && \${MAKE} -s);		\
+		err=\$\$?;				\
+		if \[ \$\${err} -gt "0" \]; then	\
+			exit \$\${err};			\
+		fi;					\
+	done;						\
 
 # Yes, this also does distclean
-test_clean.commands =	for D in $${UNIT_TESTS} $${OPTIONAL_BUILD_ONLY_TESTS}; do	\
-				(cd \$\${D} && \${QMAKE} &&		\
-				    \${MAKE} distclean);		\
-			done
+test_clean.commands =					\
+	for D in $${UNIT_TESTS} $${OPTIONAL_BUILD_ONLY_TESTS}; do	\
+		(cd \$\${D} && \${QMAKE} &&		\
+		    \${MAKE} distclean);		\
+	done
 clean.depends += test_clean
 
 QMAKE_EXTRA_TARGETS += test test_clean clean test_home_prep optional_buildtest

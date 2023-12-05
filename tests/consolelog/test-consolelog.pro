@@ -3,12 +3,12 @@ QT = core
 
 VALGRIND = true
 
-HEADERS  +=						\
-	../../lib/core/ConsoleLog.h			\
+HEADERS  +=								\
+	../../lib/core/ConsoleLog.h					\
 	../../lib/core/TSettings.h
 
-SOURCES += test-consolelog.cpp				\
-	../../lib/core/ConsoleLog.cpp			\
+SOURCES += test-consolelog.cpp						\
+	../../lib/core/ConsoleLog.cpp					\
 	../../lib/core/TSettings.cpp
 
 include(../tests-include.pri)

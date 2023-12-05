@@ -3,62 +3,62 @@ CONFIG		+= plugin
 TEMPLATE	= lib
 QT		+= widgets uiplugin
 
-HEADERS	=	plugins.h			\
-		../core/warnings-disable.h	\
-		../widgets/TAsideLabel.h	\
-		../widgets/TBusyLabel.h		\
-		../widgets/TElidedLabel.h	\
-		../widgets/TOkLabel.h		\
-		../widgets/TPathComboBrowse.h	\
-		../widgets/TPathLineBrowse.h	\
-		../widgets/TPopupPushButton.h	\
-		../widgets/TProgressWidget.h	\
-		../widgets/TTabWidget.h		\
-		../widgets/TTextView.h		\
-		../widgets/TWizardPage.h	\
-		TAsideLabelPlugin.h		\
-		TBusyLabelPlugin.h		\
-		TElidedLabelPlugin.h		\
-		TOkLabelPlugin.h		\
-		TPathComboBrowsePlugin.h	\
-		TPathLineBrowsePlugin.h		\
-		TPopupPushButtonPlugin.h	\
-		TProgressWidgetPlugin.h		\
-		TTabWidgetPlugin.h		\
-		TTextViewPlugin.h		\
+HEADERS	=	plugins.h						\
+		../core/warnings-disable.h				\
+		../widgets/TAsideLabel.h				\
+		../widgets/TBusyLabel.h					\
+		../widgets/TElidedLabel.h				\
+		../widgets/TOkLabel.h					\
+		../widgets/TPathComboBrowse.h				\
+		../widgets/TPathLineBrowse.h				\
+		../widgets/TPopupPushButton.h				\
+		../widgets/TProgressWidget.h				\
+		../widgets/TTabWidget.h					\
+		../widgets/TTextView.h					\
+		../widgets/TWizardPage.h				\
+		TAsideLabelPlugin.h					\
+		TBusyLabelPlugin.h					\
+		TElidedLabelPlugin.h					\
+		TOkLabelPlugin.h					\
+		TPathComboBrowsePlugin.h				\
+		TPathLineBrowsePlugin.h					\
+		TPopupPushButtonPlugin.h				\
+		TProgressWidgetPlugin.h					\
+		TTabWidgetPlugin.h					\
+		TTextViewPlugin.h					\
 		TWizardPagePlugin.h
 
-SOURCES	=	plugins.cpp			\
-		../widgets/TAsideLabel.cpp	\
-		../widgets/TBusyLabel.cpp	\
-		../widgets/TElidedLabel.cpp	\
-		../widgets/TOkLabel.cpp		\
-		../widgets/TPathComboBrowse.cpp	\
-		../widgets/TPathLineBrowse.cpp	\
-		../widgets/TPopupPushButton.cpp	\
-		../widgets/TProgressWidget.cpp	\
-		../widgets/TTabWidget.cpp	\
-		../widgets/TTextView.cpp	\
-		../widgets/TWizardPage.cpp	\
-		TAsideLabelPlugin.cpp		\
-		TBusyLabelPlugin.cpp		\
-		TElidedLabelPlugin.cpp		\
-		TOkLabelPlugin.cpp		\
-		TPathComboBrowsePlugin.cpp	\
-		TPathLineBrowsePlugin.cpp	\
-		TPopupPushButtonPlugin.cpp	\
-		TProgressWidgetPlugin.cpp	\
-		TTabWidgetPlugin.cpp		\
-		TTextViewPlugin.cpp		\
+SOURCES	=	plugins.cpp						\
+		../widgets/TAsideLabel.cpp				\
+		../widgets/TBusyLabel.cpp				\
+		../widgets/TElidedLabel.cpp				\
+		../widgets/TOkLabel.cpp					\
+		../widgets/TPathComboBrowse.cpp				\
+		../widgets/TPathLineBrowse.cpp				\
+		../widgets/TPopupPushButton.cpp				\
+		../widgets/TProgressWidget.cpp				\
+		../widgets/TTabWidget.cpp				\
+		../widgets/TTextView.cpp				\
+		../widgets/TWizardPage.cpp				\
+		TAsideLabelPlugin.cpp					\
+		TBusyLabelPlugin.cpp					\
+		TElidedLabelPlugin.cpp					\
+		TOkLabelPlugin.cpp					\
+		TPathComboBrowsePlugin.cpp				\
+		TPathLineBrowsePlugin.cpp				\
+		TPopupPushButtonPlugin.cpp				\
+		TProgressWidgetPlugin.cpp				\
+		TTabWidgetPlugin.cpp					\
+		TTextViewPlugin.cpp					\
 		TWizardPagePlugin.cpp
 
-FORMS	=					\
-		../forms/TPathComboBrowse.ui	\
-		../forms/TPathLineBrowse.ui	\
-		../forms/TProgressWidget.ui	\
+FORMS	=								\
+		../forms/TPathComboBrowse.ui				\
+		../forms/TPathLineBrowse.ui				\
+		../forms/TProgressWidget.ui				\
 		../forms/TTabWidget.ui
 
-RESOURCES	+=				\
+RESOURCES	+=							\
 		../resources/lib-resources.qrc
 
 target.path	= $$[QT_INSTALL_PLUGINS]/designer

@@ -5,11 +5,11 @@ CONFIG += c++11 debug
 
 TEMPLATE = app
 
-INCLUDEPATH += .				\
-	../../lib/core/				\
-	../../lib/util/				\
-	../../lib/widgets/			\
-	../../libcperciva/util/			\
+INCLUDEPATH += .							\
+	../../lib/core/							\
+	../../lib/util/							\
+	../../lib/widgets/						\
+	../../libcperciva/util/						\
 	../../src/
 
 
@@ -32,9 +32,9 @@ DEFINES += "TEST_NAME=\\\"$${TARGET}\\\""
 test_home_prep.commands = rm -rf "$${TEST_HOME}/$${TARGET}"
 # XDG_*_HOME uses a custom "home" directory to store data, thereby not messing
 # up user-wide files.
-TEST_ENV =	XDG_CONFIG_HOME=$${TEST_HOME}		\
-		XDG_CACHE_HOME=$${TEST_HOME}		\
-		XDG_DATA_HOME=$${TEST_HOME}		\
+TEST_ENV =	XDG_CONFIG_HOME=$${TEST_HOME}				\
+		XDG_CACHE_HOME=$${TEST_HOME}				\
+		XDG_DATA_HOME=$${TEST_HOME}				\
 		XDG_RUNTIME_DIR=$${TEST_HOME}
 
 contains(QT, gui) || contains(QT, widgets) {

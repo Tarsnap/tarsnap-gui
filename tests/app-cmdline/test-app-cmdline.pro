@@ -62,7 +62,7 @@ HEADERS +=								\
 
 RESOURCES += ../../resources/resources-lite.qrc
 
-TRANSLATIONS = resources/translations/tarsnap-gui_en.ts 		\
+TRANSLATIONS = resources/translations/tarsnap-gui_en.ts			\
                resources/translations/tarsnap-gui_ro.ts
 
 include(../tests-include.pri)

@@ -123,9 +123,9 @@ HEADERS +=								\
 
 RESOURCES +=								\
 	../../lib/resources/lib-resources.qrc				\
- 	../../resources/resources.qrc
+	../../resources/resources.qrc
 
-TRANSLATIONS = resources/translations/tarsnap-gui_en.ts 		\
+TRANSLATIONS = resources/translations/tarsnap-gui_en.ts			\
                resources/translations/tarsnap-gui_ro.ts
 
 include(../tests-include.pri)

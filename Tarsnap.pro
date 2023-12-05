@@ -254,7 +254,7 @@ DISTFILES +=								\
 DISTFILES += .clang-format
 
 # Handle translations
-TRANSLATIONS = resources/translations/tarsnap-gui_en.ts 		\
+TRANSLATIONS = resources/translations/tarsnap-gui_en.ts			\
                resources/translations/tarsnap-gui_ro.ts
 
 qtPrepareTool(LRELEASE, lrelease)
@@ -305,12 +305,12 @@ osx {
     INFO_PLIST_PATH = $$shell_quote($${OUT_PWD}/$${TARGET}.app/Contents/Info.plist)
     # Add (empty) version strings to the Info.plist.  This will print a warning
     # if the keys already exist; but it's only a warning, not an error!
-    QMAKE_POST_LINK += /usr/libexec/PlistBuddy 				\
+    QMAKE_POST_LINK += /usr/libexec/PlistBuddy				\
         -c \"Merge util/version-blank.plist.in\" $${INFO_PLIST_PATH} ;
     # Replace those version strings with the real ones.
-    QMAKE_POST_LINK += /usr/libexec/PlistBuddy 				\
-        -c \"Set :CFBundleVersionString string $${VERSION}\" 		\
-        -c \"Set :CFBundleShortVersionString string $${VERSION}\" 	\
+    QMAKE_POST_LINK += /usr/libexec/PlistBuddy				\
+        -c \"Set :CFBundleVersionString string $${VERSION}\"		\
+        -c \"Set :CFBundleShortVersionString string $${VERSION}\"	\
         $${INFO_PLIST_PATH} ;
 }
 
@@ -339,7 +339,7 @@ for(D, buildtests) {
 }
 
 test.commands =	@echo "Compiling tests...";				\
-	for D in $${UNIT_TESTS} $${BUILD_ONLY_TESTS}; do 		\
+	for D in $${UNIT_TESTS} $${BUILD_ONLY_TESTS}; do		\
 		(cd \$\${D} && \${MAKE} -s);				\
 		err=\$\$?;						\
 		if \[ \$\${err} -gt "0" \]; then			\

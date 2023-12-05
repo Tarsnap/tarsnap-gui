@@ -15,4 +15,3 @@ each file contains:
   unchecked, `1` partially checked, or `2` checked?
 
 For now, the number of tests must be defined in `scenario-num.h`.
-

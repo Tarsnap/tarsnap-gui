@@ -5,20 +5,20 @@ TOPDIR = ../..
 VALGRIND = true
 
 HEADERS  +=								\
-	../../lib/core/ConsoleLog.h					\
-	../../lib/core/TSettings.h					\
-	../../src/basetask.h						\
-	../../src/cmdlinetask.h						\
-	../../src/dir-utils.h						\
-	../../src/tasks/tasks-utils.h					\
+	$$TOPDIR/lib/core/ConsoleLog.h					\
+	$$TOPDIR/lib/core/TSettings.h					\
+	$$TOPDIR/src/basetask.h						\
+	$$TOPDIR/src/cmdlinetask.h					\
+	$$TOPDIR/src/dir-utils.h					\
+	$$TOPDIR/src/tasks/tasks-utils.h				\
 	../qtest-platform.h
 
 SOURCES += test-task.cpp						\
-	../../lib/core/ConsoleLog.cpp					\
-	../../lib/core/TSettings.cpp					\
-	../../src/basetask.cpp						\
-	../../src/cmdlinetask.cpp					\
-	../../src/dir-utils.cpp						\
-	../../src/tasks/tasks-utils.cpp
+	$$TOPDIR/lib/core/ConsoleLog.cpp				\
+	$$TOPDIR/lib/core/TSettings.cpp					\
+	$$TOPDIR/src/basetask.cpp					\
+	$$TOPDIR/src/cmdlinetask.cpp					\
+	$$TOPDIR/src/dir-utils.cpp					\
+	$$TOPDIR/src/tasks/tasks-utils.cpp
 
 include(../tests-include.pri)

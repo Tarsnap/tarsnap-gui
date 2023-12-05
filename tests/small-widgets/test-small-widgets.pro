@@ -5,30 +5,30 @@ TOPDIR = ../..
 VALGRIND = true
 
 FORMS +=								\
-	../../forms/filepickerdialog.ui					\
-	../../forms/filepickerwidget.ui					\
-	../../forms/stoptasksdialog.ui
+	$$TOPDIR/forms/filepickerdialog.ui				\
+	$$TOPDIR/forms/filepickerwidget.ui				\
+	$$TOPDIR/forms/stoptasksdialog.ui
 
 HEADERS  +=								\
-	../../lib/core/TSettings.h					\
-	../../lib/widgets/TElidedLabel.h				\
-	../../src/customfilesystemmodel.h				\
-	../../src/widgets/confirmationdialog.h				\
-	../../src/widgets/elidedannotatedlabel.h			\
-	../../src/widgets/filepickerdialog.h				\
-	../../src/widgets/filepickerwidget.h				\
-	../../src/widgets/stoptasksdialog.h				\
-	../../tests/qtest-platform.h
+	$$TOPDIR/lib/core/TSettings.h					\
+	$$TOPDIR/lib/widgets/TElidedLabel.h				\
+	$$TOPDIR/src/customfilesystemmodel.h				\
+	$$TOPDIR/src/widgets/confirmationdialog.h			\
+	$$TOPDIR/src/widgets/elidedannotatedlabel.h			\
+	$$TOPDIR/src/widgets/filepickerdialog.h				\
+	$$TOPDIR/src/widgets/filepickerwidget.h				\
+	$$TOPDIR/src/widgets/stoptasksdialog.h				\
+	$$TOPDIR/tests/qtest-platform.h
 
 SOURCES += test-small-widgets.cpp					\
-	../../lib/core/TSettings.cpp					\
-	../../lib/widgets/TElidedLabel.cpp				\
-	../../src/customfilesystemmodel.cpp				\
-	../../src/widgets/confirmationdialog.cpp			\
-	../../src/widgets/elidedannotatedlabel.cpp			\
-	../../src/widgets/filepickerdialog.cpp				\
-	../../src/widgets/filepickerwidget.cpp				\
-	../../src/widgets/stoptasksdialog.cpp
+	$$TOPDIR/lib/core/TSettings.cpp					\
+	$$TOPDIR/lib/widgets/TElidedLabel.cpp				\
+	$$TOPDIR/src/customfilesystemmodel.cpp				\
+	$$TOPDIR/src/widgets/confirmationdialog.cpp			\
+	$$TOPDIR/src/widgets/elidedannotatedlabel.cpp			\
+	$$TOPDIR/src/widgets/filepickerdialog.cpp			\
+	$$TOPDIR/src/widgets/filepickerwidget.cpp			\
+	$$TOPDIR/src/widgets/stoptasksdialog.cpp
 
 include(../tests-include.pri)
 

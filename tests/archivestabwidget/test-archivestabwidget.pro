@@ -5,56 +5,56 @@ TOPDIR = ../..
 VALGRIND = true
 
 FORMS +=								\
-	../../forms/archivelistwidgetitem.ui				\
-	../../forms/archivestabwidget.ui				\
-	../../forms/archivewidget.ui					\
-	../../forms/restoredialog.ui
+	$$TOPDIR/forms/archivelistwidgetitem.ui				\
+	$$TOPDIR/forms/archivestabwidget.ui				\
+	$$TOPDIR/forms/archivewidget.ui					\
+	$$TOPDIR/forms/restoredialog.ui
 
-RESOURCES += ../../resources/resources.qrc
+RESOURCES += $$TOPDIR/resources/resources.qrc
 
 HEADERS  +=								\
-	../../lib/core/TSettings.h					\
-	../../lib/widgets/TElidedLabel.h				\
-	../../src/basetask.h						\
-	../../src/filetablemodel.h					\
-	../../src/humanbytes.h						\
-	../../src/messages/archivefilestat.h				\
-	../../src/messages/archiveptr.h					\
-	../../src/messages/archiverestoreoptions.h			\
-	../../src/parsearchivelistingtask.h				\
-	../../src/persistentmodel/archive.h				\
-	../../src/persistentmodel/persistentobject.h			\
-	../../src/persistentmodel/persistentstore.h			\
-	../../src/persistentmodel/upgrade-store.h			\
-	../../src/tasks/tasks-utils.h					\
-	../../src/widgets/archivelistwidget.h				\
-	../../src/widgets/archivelistwidgetitem.h			\
-	../../src/widgets/archivestabwidget.h				\
-	../../src/widgets/archivewidget.h				\
-	../../src/widgets/elidedannotatedlabel.h			\
-	../../src/widgets/elidedclickablelabel.h			\
-	../../src/widgets/restoredialog.h				\
+	$$TOPDIR/lib/core/TSettings.h					\
+	$$TOPDIR/lib/widgets/TElidedLabel.h				\
+	$$TOPDIR/src/basetask.h						\
+	$$TOPDIR/src/filetablemodel.h					\
+	$$TOPDIR/src/humanbytes.h					\
+	$$TOPDIR/src/messages/archivefilestat.h				\
+	$$TOPDIR/src/messages/archiveptr.h				\
+	$$TOPDIR/src/messages/archiverestoreoptions.h			\
+	$$TOPDIR/src/parsearchivelistingtask.h				\
+	$$TOPDIR/src/persistentmodel/archive.h				\
+	$$TOPDIR/src/persistentmodel/persistentobject.h			\
+	$$TOPDIR/src/persistentmodel/persistentstore.h			\
+	$$TOPDIR/src/persistentmodel/upgrade-store.h			\
+	$$TOPDIR/src/tasks/tasks-utils.h				\
+	$$TOPDIR/src/widgets/archivelistwidget.h			\
+	$$TOPDIR/src/widgets/archivelistwidgetitem.h			\
+	$$TOPDIR/src/widgets/archivestabwidget.h			\
+	$$TOPDIR/src/widgets/archivewidget.h				\
+	$$TOPDIR/src/widgets/elidedannotatedlabel.h			\
+	$$TOPDIR/src/widgets/elidedclickablelabel.h			\
+	$$TOPDIR/src/widgets/restoredialog.h				\
 	../qtest-platform.h
 
 SOURCES += test-archivestabwidget.cpp					\
-	../../lib/core/TSettings.cpp					\
-	../../lib/widgets/TElidedLabel.cpp				\
-	../../src/basetask.cpp						\
-	../../src/filetablemodel.cpp					\
-	../../src/humanbytes.cpp					\
-	../../src/parsearchivelistingtask.cpp				\
-	../../src/persistentmodel/archive.cpp				\
-	../../src/persistentmodel/persistentobject.cpp			\
-	../../src/persistentmodel/persistentstore.cpp			\
-	../../src/persistentmodel/upgrade-store.cpp			\
-	../../src/tasks/tasks-utils.cpp					\
-	../../src/widgets/archivelistwidget.cpp				\
-	../../src/widgets/archivelistwidgetitem.cpp			\
-	../../src/widgets/archivestabwidget.cpp				\
-	../../src/widgets/archivewidget.cpp				\
-	../../src/widgets/elidedannotatedlabel.cpp			\
-	../../src/widgets/elidedclickablelabel.cpp			\
-	../../src/widgets/restoredialog.cpp
+	$$TOPDIR/lib/core/TSettings.cpp					\
+	$$TOPDIR/lib/widgets/TElidedLabel.cpp				\
+	$$TOPDIR/src/basetask.cpp					\
+	$$TOPDIR/src/filetablemodel.cpp					\
+	$$TOPDIR/src/humanbytes.cpp					\
+	$$TOPDIR/src/parsearchivelistingtask.cpp			\
+	$$TOPDIR/src/persistentmodel/archive.cpp			\
+	$$TOPDIR/src/persistentmodel/persistentobject.cpp		\
+	$$TOPDIR/src/persistentmodel/persistentstore.cpp		\
+	$$TOPDIR/src/persistentmodel/upgrade-store.cpp			\
+	$$TOPDIR/src/tasks/tasks-utils.cpp				\
+	$$TOPDIR/src/widgets/archivelistwidget.cpp			\
+	$$TOPDIR/src/widgets/archivelistwidgetitem.cpp			\
+	$$TOPDIR/src/widgets/archivestabwidget.cpp			\
+	$$TOPDIR/src/widgets/archivewidget.cpp				\
+	$$TOPDIR/src/widgets/elidedannotatedlabel.cpp			\
+	$$TOPDIR/src/widgets/elidedclickablelabel.cpp			\
+	$$TOPDIR/src/widgets/restoredialog.cpp
 
 
 include(../tests-include.pri)

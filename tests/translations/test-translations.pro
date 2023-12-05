@@ -5,28 +5,28 @@ TOPDIR = ../..
 VALGRIND = true
 
 FORMS +=								\
-	../../lib/forms/TPathComboBrowse.ui
+	$$TOPDIR/lib/forms/TPathComboBrowse.ui
 
 HEADERS  +=								\
-	../../lib/core/TSettings.h					\
-	../../lib/widgets/TElidedLabel.h				\
-	../../lib/widgets/TOkLabel.h					\
-	../../lib/widgets/TPathComboBrowse.h				\
-	../../src/translator.cpp					\
-	../../src/widgets/confirmationdialog.h				\
-	../../tests/qtest-platform.h
+	$$TOPDIR/lib/core/TSettings.h					\
+	$$TOPDIR/lib/widgets/TElidedLabel.h				\
+	$$TOPDIR/lib/widgets/TOkLabel.h					\
+	$$TOPDIR/lib/widgets/TPathComboBrowse.h				\
+	$$TOPDIR/src/translator.cpp					\
+	$$TOPDIR/src/widgets/confirmationdialog.h			\
+	$$TOPDIR/tests/qtest-platform.h
 
 SOURCES += test-translations.cpp					\
-	../../lib/core/TSettings.cpp					\
-	../../lib/widgets/TElidedLabel.cpp				\
-	../../lib/widgets/TOkLabel.cpp					\
-	../../lib/widgets/TPathComboBrowse.cpp				\
-	../../src/translator.cpp					\
-	../../src/widgets/confirmationdialog.cpp
+	$$TOPDIR/lib/core/TSettings.cpp					\
+	$$TOPDIR/lib/widgets/TElidedLabel.cpp				\
+	$$TOPDIR/lib/widgets/TOkLabel.cpp				\
+	$$TOPDIR/lib/widgets/TPathComboBrowse.cpp			\
+	$$TOPDIR/src/translator.cpp					\
+	$$TOPDIR/src/widgets/confirmationdialog.cpp
 
 RESOURCES +=								\
-	../../lib/resources/lib-resources.qrc				\
-	../../resources/resources.qrc
+	$$TOPDIR/lib/resources/lib-resources.qrc			\
+	$$TOPDIR/resources/resources.qrc
 
 include(../tests-include.pri)
 

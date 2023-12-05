@@ -5,25 +5,25 @@ TOPDIR = ../..
 VALGRIND = true
 
 FORMS +=								\
-	../../forms/aboutdialog.ui					\
-	../../forms/consolelogdialog.ui					\
-	../../forms/helpwidget.ui
+	$$TOPDIR/forms/aboutdialog.ui					\
+	$$TOPDIR/forms/consolelogdialog.ui				\
+	$$TOPDIR/forms/helpwidget.ui
 
-RESOURCES += ../../resources/resources.qrc
+RESOURCES += $$TOPDIR/resources/resources.qrc
 
 HEADERS  +=								\
-	../../lib/widgets/TPopupPushButton.h				\
-	../../lib/widgets/TTextView.h					\
-	../../src/widgets/aboutdialog.h					\
-	../../src/widgets/consolelogdialog.h				\
-	../../src/widgets/helpwidget.h					\
-	../../tests/qtest-platform.h
+	$$TOPDIR/lib/widgets/TPopupPushButton.h				\
+	$$TOPDIR/lib/widgets/TTextView.h				\
+	$$TOPDIR/src/widgets/aboutdialog.h				\
+	$$TOPDIR/src/widgets/consolelogdialog.h				\
+	$$TOPDIR/src/widgets/helpwidget.h				\
+	$$TOPDIR/tests/qtest-platform.h
 
 SOURCES += test-helpwidget.cpp						\
-	../../lib/widgets/TPopupPushButton.cpp				\
-	../../lib/widgets/TTextView.cpp					\
-	../../src/widgets/aboutdialog.cpp				\
-	../../src/widgets/consolelogdialog.cpp				\
-	../../src/widgets/helpwidget.cpp
+	$$TOPDIR/lib/widgets/TPopupPushButton.cpp			\
+	$$TOPDIR/lib/widgets/TTextView.cpp				\
+	$$TOPDIR/src/widgets/aboutdialog.cpp				\
+	$$TOPDIR/src/widgets/consolelogdialog.cpp			\
+	$$TOPDIR/src/widgets/helpwidget.cpp
 
 include(../tests-include.pri)

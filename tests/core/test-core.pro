@@ -5,10 +5,10 @@ TOPDIR = ../..
 VALGRIND = true
 
 HEADERS  +=								\
-	../../lib/core/TSettings.h
+	$$TOPDIR/lib/core/TSettings.h
 
 SOURCES += test-core.cpp						\
-	../../lib/core/TSettings.cpp					\
+	$$TOPDIR/lib/core/TSettings.cpp					\
 
 include(../tests-include.pri)
 

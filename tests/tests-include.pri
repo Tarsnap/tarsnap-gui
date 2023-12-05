@@ -5,23 +5,29 @@ CONFIG += c++11 debug
 
 TEMPLATE = app
 
+# Sanity check.
+if(!defined(TOPDIR, var)) {
+	error("The .pro file must define \$TOPDIR")
+}
+
 INCLUDEPATH += .							\
-	../../lib/core/							\
-	../../lib/util/							\
-	../../lib/widgets/						\
-	../../libcperciva/util/						\
-	../../src/
+	$$TOPDIR/lib/core/						\
+	$$TOPDIR/lib/util/						\
+	$$TOPDIR/lib/widgets/						\
+	$$TOPDIR/libcperciva/util/					\
+	$$TOPDIR/src/
 
 
+# This path is relative to this file, not the current working directory.
 include(../build-flags.pri)
 
 
 ### Shared build-dir
 
-UI_DIR      = ../../build/tests/
-MOC_DIR     = ../../build/tests/
-RCC_DIR     = ../../build/tests/
-OBJECTS_DIR = ../../build/tests/
+UI_DIR      = $$TOPDIR/build/tests/
+MOC_DIR     = $$TOPDIR/build/tests/
+RCC_DIR     = $$TOPDIR/build/tests/
+OBJECTS_DIR = $$TOPDIR/build/tests/
 
 
 ### Stuff for tests

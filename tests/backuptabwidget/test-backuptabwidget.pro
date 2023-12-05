@@ -1,5 +1,6 @@
 TARGET = test-backuptabwidget
 QT = core gui widgets sql
+TOPDIR = ../..
 
 VALGRIND = true
 

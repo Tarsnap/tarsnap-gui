@@ -1,5 +1,6 @@
 TARGET = test-cfsm
 QT = core widgets
+TOPDIR = ../..
 
 VALGRIND = true
 

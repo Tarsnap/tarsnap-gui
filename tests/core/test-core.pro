@@ -1,5 +1,6 @@
 TARGET = test-core
 QT = core
+TOPDIR = ../..
 
 VALGRIND = true
 

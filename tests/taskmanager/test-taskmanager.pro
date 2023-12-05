@@ -1,5 +1,6 @@
 TARGET = test-taskmanager
 QT = core sql network
+TOPDIR = ../..
 
 VALGRIND = true
 

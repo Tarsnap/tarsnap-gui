@@ -1,5 +1,6 @@
 TARGET = test-lib-widgets
 QT = core gui widgets
+TOPDIR = ../..
 
 VALGRIND = true
 

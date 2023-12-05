@@ -1,5 +1,6 @@
 TARGET = test-small-widgets
 QT = core gui widgets
+TOPDIR = ../..
 
 VALGRIND = true
 

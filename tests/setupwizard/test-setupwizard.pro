@@ -1,5 +1,6 @@
 TARGET = test-setupwizard
 QT = core gui widgets network
+TOPDIR = ../..
 
 VALGRIND = true
 

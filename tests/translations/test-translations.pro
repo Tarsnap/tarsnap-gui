@@ -1,5 +1,6 @@
 TARGET = test-translations
 QT = core gui widgets
+TOPDIR = ../..
 
 VALGRIND = true
 

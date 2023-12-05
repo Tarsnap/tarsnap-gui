@@ -1,5 +1,6 @@
 TARGET = test-mainwindow
 QT = core gui widgets network sql
+TOPDIR = ../..
 
 VALGRIND = true
 

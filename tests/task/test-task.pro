@@ -1,5 +1,6 @@
 TARGET = test-task
 QT = core
+TOPDIR = ../..
 
 VALGRIND = true
 

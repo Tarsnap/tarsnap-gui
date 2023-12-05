@@ -1,5 +1,6 @@
 TARGET = test-app-cmdline
 QT = core network sql
+TOPDIR = ../..
 
 VALGRIND = true
 

@@ -5,27 +5,27 @@ TOPDIR = ../..
 VALGRIND = true
 
 # Needed for the database template
-RESOURCES += ../../resources/resources-lite.qrc
+RESOURCES += $$TOPDIR/resources/resources-lite.qrc
 
 HEADERS  +=								\
-	../../lib/core/LogEntry.h					\
-	../../lib/core/TSettings.h					\
-	../../src/messages/archiveptr.h					\
-	../../src/persistentmodel/archive.h				\
-	../../src/persistentmodel/job.h					\
-	../../src/persistentmodel/journal.h				\
-	../../src/persistentmodel/persistentobject.h			\
-	../../src/persistentmodel/persistentstore.h			\
-	../../src/persistentmodel/upgrade-store.h
+	$$TOPDIR/lib/core/LogEntry.h					\
+	$$TOPDIR/lib/core/TSettings.h					\
+	$$TOPDIR/src/messages/archiveptr.h				\
+	$$TOPDIR/src/persistentmodel/archive.h				\
+	$$TOPDIR/src/persistentmodel/job.h				\
+	$$TOPDIR/src/persistentmodel/journal.h				\
+	$$TOPDIR/src/persistentmodel/persistentobject.h			\
+	$$TOPDIR/src/persistentmodel/persistentstore.h			\
+	$$TOPDIR/src/persistentmodel/upgrade-store.h
 
 SOURCES += test-persistent.cpp						\
-	../../lib/core/TSettings.cpp					\
-	../../src/persistentmodel/archive.cpp				\
-	../../src/persistentmodel/job.cpp				\
-	../../src/persistentmodel/journal.cpp				\
-	../../src/persistentmodel/persistentobject.cpp			\
-	../../src/persistentmodel/persistentstore.cpp			\
-	../../src/persistentmodel/upgrade-store.cpp
+	$$TOPDIR/lib/core/TSettings.cpp					\
+	$$TOPDIR/src/persistentmodel/archive.cpp			\
+	$$TOPDIR/src/persistentmodel/job.cpp				\
+	$$TOPDIR/src/persistentmodel/journal.cpp			\
+	$$TOPDIR/src/persistentmodel/persistentobject.cpp		\
+	$$TOPDIR/src/persistentmodel/persistentstore.cpp		\
+	$$TOPDIR/src/persistentmodel/upgrade-store.cpp
 
 include(../tests-include.pri)
 

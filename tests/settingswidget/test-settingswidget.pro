@@ -7,37 +7,37 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 VALGRIND = true
 
-FORMS += ../../forms/settingswidget.ui					\
-	../../forms/logindialog.ui
+FORMS += $$TOPDIR/forms/settingswidget.ui				\
+	$$TOPDIR/forms/logindialog.ui
 
 HEADERS  +=								\
-	../../lib/core/ConsoleLog.h					\
-	../../lib/core/TSettings.h					\
-	../../lib/widgets/TElidedLabel.h				\
-	../../src/dir-utils.h						\
-	../../src/scheduling.h						\
-	../../src/tarsnapaccount.h					\
-	../../src/tasks/tasks-utils.h					\
-	../../src/translator.h						\
-	../../src/widgets/confirmationdialog.h				\
-	../../src/widgets/schedulingwidgets.h				\
-	../../src/widgets/settingswidget.h				\
-	../../src/widgets/tarsnapaccountdialog.h			\
-	../../tests/qtest-platform.h
+	$$TOPDIR/lib/core/ConsoleLog.h					\
+	$$TOPDIR/lib/core/TSettings.h					\
+	$$TOPDIR/lib/widgets/TElidedLabel.h				\
+	$$TOPDIR/src/dir-utils.h					\
+	$$TOPDIR/src/scheduling.h					\
+	$$TOPDIR/src/tarsnapaccount.h					\
+	$$TOPDIR/src/tasks/tasks-utils.h				\
+	$$TOPDIR/src/translator.h					\
+	$$TOPDIR/src/widgets/confirmationdialog.h			\
+	$$TOPDIR/src/widgets/schedulingwidgets.h			\
+	$$TOPDIR/src/widgets/settingswidget.h				\
+	$$TOPDIR/src/widgets/tarsnapaccountdialog.h			\
+	$$TOPDIR/tests/qtest-platform.h
 
 SOURCES += test-settingswidget.cpp					\
-	../../lib/core/ConsoleLog.cpp					\
-	../../lib/core/TSettings.cpp					\
-	../../lib/widgets/TElidedLabel.cpp				\
-	../../src/dir-utils.cpp						\
-	../../src/scheduling.cpp					\
-	../../src/tarsnapaccount.cpp					\
-	../../src/tasks/tasks-utils.cpp					\
-	../../src/translator.cpp					\
-	../../src/widgets/confirmationdialog.cpp			\
-	../../src/widgets/schedulingwidgets.cpp				\
-	../../src/widgets/settingswidget.cpp				\
-	../../src/widgets/tarsnapaccountdialog.cpp
+	$$TOPDIR/lib/core/ConsoleLog.cpp				\
+	$$TOPDIR/lib/core/TSettings.cpp					\
+	$$TOPDIR/lib/widgets/TElidedLabel.cpp				\
+	$$TOPDIR/src/dir-utils.cpp					\
+	$$TOPDIR/src/scheduling.cpp					\
+	$$TOPDIR/src/tarsnapaccount.cpp					\
+	$$TOPDIR/src/tasks/tasks-utils.cpp				\
+	$$TOPDIR/src/translator.cpp					\
+	$$TOPDIR/src/widgets/confirmationdialog.cpp			\
+	$$TOPDIR/src/widgets/schedulingwidgets.cpp			\
+	$$TOPDIR/src/widgets/settingswidget.cpp				\
+	$$TOPDIR/src/widgets/tarsnapaccountdialog.cpp
 
 include(../tests-include.pri)
 

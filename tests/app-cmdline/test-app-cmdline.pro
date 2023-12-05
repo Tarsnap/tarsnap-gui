@@ -9,59 +9,59 @@ VERSION = test
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 SOURCES += test-app-cmdline.cpp						\
-	../../lib/core/ConsoleLog.cpp					\
-	../../lib/core/TSettings.cpp					\
-	../../lib/util/optparse.c					\
-	../../lib/util/optparse_helper.c				\
-	../../libcperciva/util/getopt.c					\
-	../../libcperciva/util/warnp.c					\
-	../../src/app-cmdline.cpp					\
-	../../src/backuptask.cpp					\
-	../../src/basetask.cpp						\
-	../../src/init-shared.cpp					\
-	../../src/parsearchivelistingtask.cpp				\
-	../../src/persistentmodel/archive.cpp				\
-	../../src/persistentmodel/job.cpp				\
-	../../src/persistentmodel/journal.cpp				\
-	../../src/persistentmodel/persistentobject.cpp			\
-	../../src/persistentmodel/persistentstore.cpp			\
-	../../src/persistentmodel/upgrade-store.cpp			\
-	../../src/scheduling.cpp					\
-	../../src/tasks/tasks-utils.cpp					\
-	../../src/translator.cpp
+	$$TOPDIR/lib/core/ConsoleLog.cpp				\
+	$$TOPDIR/lib/core/TSettings.cpp					\
+	$$TOPDIR/lib/util/optparse.c					\
+	$$TOPDIR/lib/util/optparse_helper.c				\
+	$$TOPDIR/libcperciva/util/getopt.c				\
+	$$TOPDIR/libcperciva/util/warnp.c				\
+	$$TOPDIR/src/app-cmdline.cpp					\
+	$$TOPDIR/src/backuptask.cpp					\
+	$$TOPDIR/src/basetask.cpp					\
+	$$TOPDIR/src/init-shared.cpp					\
+	$$TOPDIR/src/parsearchivelistingtask.cpp			\
+	$$TOPDIR/src/persistentmodel/archive.cpp			\
+	$$TOPDIR/src/persistentmodel/job.cpp				\
+	$$TOPDIR/src/persistentmodel/journal.cpp			\
+	$$TOPDIR/src/persistentmodel/persistentobject.cpp		\
+	$$TOPDIR/src/persistentmodel/persistentstore.cpp		\
+	$$TOPDIR/src/persistentmodel/upgrade-store.cpp			\
+	$$TOPDIR/src/scheduling.cpp					\
+	$$TOPDIR/src/tasks/tasks-utils.cpp				\
+	$$TOPDIR/src/translator.cpp
 
 HEADERS +=								\
-	../../lib/core/ConsoleLog.h					\
-	../../lib/core/LogEntry.h					\
-	../../lib/core/TSettings.h					\
-	../../lib/util/optparse.h					\
-	../../lib/util/optparse_helper.h				\
-	../../libcperciva/util/getopt.h					\
-	../../libcperciva/util/warnp.h					\
-	../../src/app-cmdline.h						\
-	../../src/backuptask.h						\
-	../../src/basetask.h						\
-	../../src/init-shared.h						\
-	../../src/messages/archivefilestat.h				\
-	../../src/messages/archiveptr.h					\
-	../../src/messages/archiverestoreoptions.h			\
-	../../src/messages/backuptaskdataptr.h				\
-	../../src/messages/jobptr.h					\
-	../../src/messages/tarsnaperror.h				\
-	../../src/messages/taskstatus.h					\
-	../../src/parsearchivelistingtask.h				\
-	../../src/persistentmodel/archive.h				\
-	../../src/persistentmodel/job.h					\
-	../../src/persistentmodel/journal.h				\
-	../../src/persistentmodel/persistentobject.h			\
-	../../src/persistentmodel/persistentstore.h			\
-	../../src/persistentmodel/upgrade-store.h			\
-	../../src/scheduling.h						\
-	../../src/tasks/tasks-utils.h					\
-	../../src/translator.h						\
+	$$TOPDIR/lib/core/ConsoleLog.h					\
+	$$TOPDIR/lib/core/LogEntry.h					\
+	$$TOPDIR/lib/core/TSettings.h					\
+	$$TOPDIR/lib/util/optparse.h					\
+	$$TOPDIR/lib/util/optparse_helper.h				\
+	$$TOPDIR/libcperciva/util/getopt.h				\
+	$$TOPDIR/libcperciva/util/warnp.h				\
+	$$TOPDIR/src/app-cmdline.h					\
+	$$TOPDIR/src/backuptask.h					\
+	$$TOPDIR/src/basetask.h						\
+	$$TOPDIR/src/init-shared.h					\
+	$$TOPDIR/src/messages/archivefilestat.h				\
+	$$TOPDIR/src/messages/archiveptr.h				\
+	$$TOPDIR/src/messages/archiverestoreoptions.h			\
+	$$TOPDIR/src/messages/backuptaskdataptr.h			\
+	$$TOPDIR/src/messages/jobptr.h					\
+	$$TOPDIR/src/messages/tarsnaperror.h				\
+	$$TOPDIR/src/messages/taskstatus.h				\
+	$$TOPDIR/src/parsearchivelistingtask.h				\
+	$$TOPDIR/src/persistentmodel/archive.h				\
+	$$TOPDIR/src/persistentmodel/job.h				\
+	$$TOPDIR/src/persistentmodel/journal.h				\
+	$$TOPDIR/src/persistentmodel/persistentobject.h			\
+	$$TOPDIR/src/persistentmodel/persistentstore.h			\
+	$$TOPDIR/src/persistentmodel/upgrade-store.h			\
+	$$TOPDIR/src/scheduling.h					\
+	$$TOPDIR/src/tasks/tasks-utils.h				\
+	$$TOPDIR/src/translator.h					\
 	../qtest-platform.h
 
-RESOURCES += ../../resources/resources-lite.qrc
+RESOURCES += $$TOPDIR/resources/resources-lite.qrc
 
 TRANSLATIONS = resources/translations/tarsnap-gui_en.ts			\
                resources/translations/tarsnap-gui_ro.ts

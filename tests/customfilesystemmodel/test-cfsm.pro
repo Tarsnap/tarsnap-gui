@@ -5,12 +5,12 @@ TOPDIR = ../..
 VALGRIND = true
 
 HEADERS	+=								\
-	../../src/customfilesystemmodel.h				\
+	$$TOPDIR/src/customfilesystemmodel.h				\
 	scenario-num.h							\
 	run-scenario.h
 
 SOURCES	+= test-cfsm.cpp						\
-	../../src/customfilesystemmodel.cpp				\
+	$$TOPDIR/src/customfilesystemmodel.cpp				\
 	run-scenario.cpp
 
 include(../tests-include.pri)

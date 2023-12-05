@@ -5,41 +5,41 @@ TOPDIR = ../..
 VALGRIND = true
 
 FORMS +=								\
-	../../lib/forms/TPathComboBrowse.ui				\
-	../../lib/forms/TPathLineBrowse.ui				\
-	../../lib/forms/TProgressWidget.ui				\
-	../../lib/forms/TTabWidget.ui					\
-	../../lib/forms/TWizard.ui
+	$$TOPDIR/lib/forms/TPathComboBrowse.ui				\
+	$$TOPDIR/lib/forms/TPathLineBrowse.ui				\
+	$$TOPDIR/lib/forms/TProgressWidget.ui				\
+	$$TOPDIR/lib/forms/TTabWidget.ui				\
+	$$TOPDIR/lib/forms/TWizard.ui
 
-RESOURCES += ../../lib/resources/lib-resources.qrc			\
-	../../resources/resources.qrc
+RESOURCES += $$TOPDIR/lib/resources/lib-resources.qrc			\
+	$$TOPDIR/resources/resources.qrc
 
 HEADERS  +=								\
-	../../lib/widgets/TAsideLabel.h					\
-	../../lib/widgets/TBusyLabel.h					\
-	../../lib/widgets/TElidedLabel.h				\
-	../../lib/widgets/TOkLabel.h					\
-	../../lib/widgets/TPathComboBrowse.h				\
-	../../lib/widgets/TPathLineBrowse.h				\
-	../../lib/widgets/TProgressWidget.h				\
-	../../lib/widgets/TTabWidget.h					\
-	../../lib/widgets/TTextView.h					\
-	../../lib/widgets/TWizard.h					\
-	../../lib/widgets/TWizardPage.h					\
-	../../tests/qtest-platform.h
+	$$TOPDIR/lib/widgets/TAsideLabel.h				\
+	$$TOPDIR/lib/widgets/TBusyLabel.h				\
+	$$TOPDIR/lib/widgets/TElidedLabel.h				\
+	$$TOPDIR/lib/widgets/TOkLabel.h					\
+	$$TOPDIR/lib/widgets/TPathComboBrowse.h				\
+	$$TOPDIR/lib/widgets/TPathLineBrowse.h				\
+	$$TOPDIR/lib/widgets/TProgressWidget.h				\
+	$$TOPDIR/lib/widgets/TTabWidget.h				\
+	$$TOPDIR/lib/widgets/TTextView.h				\
+	$$TOPDIR/lib/widgets/TWizard.h					\
+	$$TOPDIR/lib/widgets/TWizardPage.h				\
+	$$TOPDIR/tests/qtest-platform.h
 
 SOURCES += test-lib-widgets.cpp						\
-	../../lib/core/TSettings.cpp					\
-	../../lib/widgets/TAsideLabel.cpp				\
-	../../lib/widgets/TBusyLabel.cpp				\
-	../../lib/widgets/TElidedLabel.cpp				\
-	../../lib/widgets/TOkLabel.cpp					\
-	../../lib/widgets/TPathComboBrowse.cpp				\
-	../../lib/widgets/TPathLineBrowse.cpp				\
-	../../lib/widgets/TProgressWidget.cpp				\
-	../../lib/widgets/TTabWidget.cpp				\
-	../../lib/widgets/TTextView.cpp					\
-	../../lib/widgets/TWizard.cpp					\
-	../../lib/widgets/TWizardPage.cpp
+	$$TOPDIR/lib/core/TSettings.cpp					\
+	$$TOPDIR/lib/widgets/TAsideLabel.cpp				\
+	$$TOPDIR/lib/widgets/TBusyLabel.cpp				\
+	$$TOPDIR/lib/widgets/TElidedLabel.cpp				\
+	$$TOPDIR/lib/widgets/TOkLabel.cpp				\
+	$$TOPDIR/lib/widgets/TPathComboBrowse.cpp			\
+	$$TOPDIR/lib/widgets/TPathLineBrowse.cpp			\
+	$$TOPDIR/lib/widgets/TProgressWidget.cpp			\
+	$$TOPDIR/lib/widgets/TTabWidget.cpp				\
+	$$TOPDIR/lib/widgets/TTextView.cpp				\
+	$$TOPDIR/lib/widgets/TWizard.cpp				\
+	$$TOPDIR/lib/widgets/TWizardPage.cpp
 
 include(../tests-include.pri)

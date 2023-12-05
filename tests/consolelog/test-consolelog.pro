@@ -5,12 +5,12 @@ TOPDIR = ../..
 VALGRIND = true
 
 HEADERS  +=								\
-	../../lib/core/ConsoleLog.h					\
-	../../lib/core/TSettings.h
+	$$TOPDIR/lib/core/ConsoleLog.h					\
+	$$TOPDIR/lib/core/TSettings.h
 
 SOURCES += test-consolelog.cpp						\
-	../../lib/core/ConsoleLog.cpp					\
-	../../lib/core/TSettings.cpp
+	$$TOPDIR/lib/core/ConsoleLog.cpp				\
+	$$TOPDIR/lib/core/TSettings.cpp
 
 include(../tests-include.pri)
 

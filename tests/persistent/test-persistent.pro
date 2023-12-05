@@ -1,5 +1,6 @@
 TARGET = test-persistent
 QT = core sql
+TOPDIR = ../..
 
 VALGRIND = true
 

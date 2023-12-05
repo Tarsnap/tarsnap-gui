@@ -1,5 +1,6 @@
 TARGET = test-settingswidget
 QT = core gui widgets network
+TOPDIR = ../..
 
 # For TarsnapAccount
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"

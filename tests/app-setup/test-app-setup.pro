@@ -1,5 +1,6 @@
 TARGET = test-app-setup
 QT = core gui widgets network sql
+TOPDIR = ../..
 
 VALGRIND = true
 

@@ -1,5 +1,6 @@
 TARGET = test-jobstabwidget
 QT = core gui widgets sql network
+TOPDIR = ../..
 
 VALGRIND = true
 

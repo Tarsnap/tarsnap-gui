@@ -1,5 +1,6 @@
 TARGET = test-cli
 QT = core network sql
+TOPDIR = ../..
 
 VALGRIND = true
 

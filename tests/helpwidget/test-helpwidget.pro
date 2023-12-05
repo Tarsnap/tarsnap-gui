@@ -1,5 +1,6 @@
 TARGET = test-helpwidget
 QT = core gui widgets
+TOPDIR = ../..
 
 VALGRIND = true
 

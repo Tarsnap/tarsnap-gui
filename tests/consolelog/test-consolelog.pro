@@ -1,5 +1,6 @@
 TARGET = test-consolelog
 QT = core
+TOPDIR = ../..
 
 VALGRIND = true
 

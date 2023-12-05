@@ -1,5 +1,6 @@
 TARGET = test-archivestabwidget
 QT = core gui widgets sql
+TOPDIR = ../..
 
 VALGRIND = true
 

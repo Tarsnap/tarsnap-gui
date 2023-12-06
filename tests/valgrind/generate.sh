@@ -158,7 +158,7 @@ if [ "$DEBUG" -eq 1 ]; then
 fi
 
 # Create XDG dir (if necessary)
-mkdir -p "${XDGD}"
+mkdir -m 0700 -p "${XDGD}"
 
 # If the suppressions already exist, indicate that this is a retest.
 # (This may be useful while investigating occasional memory leaks.)

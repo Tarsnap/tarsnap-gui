@@ -35,7 +35,8 @@ OBJECTS_DIR = $$TOPDIR/build/tests/
 TEST_HOME = /tmp/tarsnap-gui-test
 DEFINES += "TEST_DIR=\\\"$${TEST_HOME}/$${TARGET}\\\""
 DEFINES += "TEST_NAME=\\\"$${TARGET}\\\""
-test_home_prep.commands = rm -rf "$${TEST_HOME}/$${TARGET}"
+test_home_prep.commands = rm -rf "$${TEST_HOME}/$${TARGET}";		\
+	mkdir -m 0700 -p "$${TEST_HOME}"
 # XDG_*_HOME uses a custom "home" directory to store data, thereby not messing
 # up user-wide files.
 TEST_ENV =	XDG_CONFIG_HOME=$${TEST_HOME}				\

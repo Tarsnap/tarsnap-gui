@@ -4,7 +4,7 @@ set -e
 
 # Command-line
 DIRS_C=""
-DIRS_C="${DIRS_C} lib-core consolelog"
+DIRS_C="${DIRS_C} lib-core"
 DIRS_C="${DIRS_C} task taskmanager persistent"
 DIRS_C="${DIRS_C} app-cmdline cli"
 

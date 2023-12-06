@@ -290,7 +290,6 @@ UNIT_TESTS =								\
 	tests/customfilesystemmodel					\
 	tests/small-widgets						\
 	tests/lib-widgets						\
-	tests/consolelog						\
 	tests/task							\
 	tests/lib-core
 

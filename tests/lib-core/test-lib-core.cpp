@@ -10,7 +10,7 @@ WARNINGS_ENABLE
 
 #include "TSettings.h"
 
-class TestCore : public QObject
+class TestLibCore : public QObject
 {
     Q_OBJECT
 
@@ -23,17 +23,17 @@ private slots:
     void settings_default_after_custom();
 };
 
-void TestCore::initTestCase()
+void TestLibCore::initTestCase()
 {
     QCoreApplication::setOrganizationName(TEST_NAME);
 }
 
-void TestCore::cleanupTestCase()
+void TestLibCore::cleanupTestCase()
 {
     TSettings::destroy();
 }
 
-void TestCore::settings_default()
+void TestLibCore::settings_default()
 {
     // Nuke any previous settings
     TSettings::destroy();
@@ -44,7 +44,7 @@ void TestCore::settings_default()
     QVERIFY(user == "default_init");
 }
 
-void TestCore::settings_custom()
+void TestLibCore::settings_custom()
 {
     // Nuke any previous settings
     TSettings::destroy();
@@ -58,7 +58,7 @@ void TestCore::settings_custom()
     QVERIFY(user == "custom_name");
 }
 
-void TestCore::settings_default_after_custom()
+void TestLibCore::settings_default_after_custom()
 {
     // Nuke any previous settings
     TSettings::destroy();
@@ -73,7 +73,7 @@ void TestCore::settings_default_after_custom()
     QVERIFY(user == "default_init");
 }
 
-QTEST_MAIN(TestCore)
+QTEST_MAIN(TestLibCore)
 WARNINGS_DISABLE
-#include "test-core.moc"
+#include "test-lib-core.moc"
 WARNINGS_ENABLE

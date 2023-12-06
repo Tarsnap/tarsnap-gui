@@ -292,7 +292,7 @@ UNIT_TESTS =								\
 	tests/lib-widgets						\
 	tests/consolelog						\
 	tests/task							\
-	tests/core
+	tests/lib-core
 
 OPTIONAL_BUILD_ONLY_TESTS = tests/cli
 

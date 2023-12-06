@@ -377,7 +377,7 @@ optional_buildtest.commands =	@echo "Compiling optional tests...";	\
 		if \[ \$\${err} -gt "0" \]; then			\
 			exit \$\${err};					\
 		fi;							\
-	done;								\
+	done
 
 # Yes, this also does distclean
 test_clean.commands =							\

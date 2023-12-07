@@ -5,6 +5,7 @@ WARNINGS_DISABLE
 #include <QChar>
 #include <QCoreApplication>
 #include <QDir>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QIODevice>
 #include <QList>
@@ -226,6 +227,9 @@ void TestTaskManager::sleep_cancel()
 
 void TestTaskManager::sleep_task()
 {
+    QElapsedTimer timer;
+    qint64        elapsed;
+
     // Set up the manager.
     TaskManager *manager = new TaskManager();
     QSignalSpy   sig_message(manager, SIGNAL(message(QString)));
@@ -233,12 +237,17 @@ void TestTaskManager::sleep_task()
     // Set up a task and wait for it to start.
     manager->sleepSeconds(1, false);
     WAIT_SIG(sig_message);
+    timer.start();
     QVERIFY(sig_message.takeFirst().at(0).toString() == "Started sleep task.");
     sig_message.clear();
 
     // Wait for it to finish.
     WAIT_SIG(sig_message);
+    elapsed = timer.elapsed();
     QVERIFY(sig_message.takeFirst().at(0).toString() == "Finished sleep task.");
+
+    // Check that it's been at least 900ms since the timer started.
+    QVERIFY(elapsed > 900);
 
     // task is deleted by the task manager
     delete manager;

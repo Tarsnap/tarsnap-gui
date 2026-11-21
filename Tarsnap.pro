@@ -308,7 +308,7 @@ osx {
         -c \"Merge util/version-blank.plist.in\" $${INFO_PLIST_PATH} ;
     # Replace those version strings with the real ones.
     QMAKE_POST_LINK += /usr/libexec/PlistBuddy				\
-        -c \"Set :CFBundleVersionString string $${VERSION}\"		\
+        -c \"Set :CFBundleVersion string $${VERSION}\"		\
         -c \"Set :CFBundleShortVersionString string $${VERSION}\"	\
         $${INFO_PLIST_PATH} ;
 }
